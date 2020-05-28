@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base/base.html' %}
+
+
+
+{% block content %}
+    <h2>Dostępne światy:</h2>
+    <ul>
+        {% for world in object_list %}
+            <li>{{ world.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

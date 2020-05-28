@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base/base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="my-5">
+    <form class="form-inline" method='POST'>{% csrf_token %}
+        {{ form1|crispy }}
+        <button class="btn btn-success mb-2 ml-3" name='form-1' type="submit">Dodaj plemię</button>
+    </form>
+</div>
+<div class="my-5">
+    <form class="form-inline" method='POST'>{% csrf_token %}
+        {{ form2|crispy }}
+        <button class="btn btn-success mb-2 ml-3" name='form-2' type="submit">Dodaj plemię</button>
+    </form>
+</div>
+<a aria-pressed="false" class="btn btn-success" href="{% url 'base:planer' %}"
+   role="button">Zakończ</a>
+
+{% endblock %}

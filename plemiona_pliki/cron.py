@@ -2,7 +2,7 @@ from urllib.parse import unquote_plus, unquote
 
 import requests
 
-from data.models import Village, Tribe, Player, World
+from base.models import Village, Tribe, Player, World
 
 
 def cron_schedule_data_update():

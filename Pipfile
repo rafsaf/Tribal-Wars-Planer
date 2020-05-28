@@ -7,6 +7,11 @@ verify_ssl = true
 
 [packages]
 django = "*"
+django-crispy-forms = "*"
+requests = "*"
+django-bootstrap-datepicker-plus = "*"
+django-bootstrap4 = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.6"

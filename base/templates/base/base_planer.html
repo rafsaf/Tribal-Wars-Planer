@@ -1,10 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+<p><a class="btn btn-primary btn-lg my-5" href="{% url 'base:planer_create' %}" role="button">Stwórz rozpiskę</a></p>
+
+
+
+<p><a class="btn btn-success my-2" href="" role="button">Pokaż ukryte</a>
+</p>
+
+
+
+<table class="table table-striped">
+    <thead>
+    <tr class="bg-primary">
+
+        <th scope="col">Nazwa Rozpiski</th>
+        <th scope="col">Data Akcji</th>
+        <th scope="col">Data utworzenia</th>
+        <th scope="col">Świat</th>
+        <th scope="col">Atakujący</th>
+        <th scope="col">Obrońca</th>
+        <th scope="col">
+            Widoczność
+        </th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for instance in object_list %}
+
+    <tr>
+        <td>
+            <a class="btn btn-secondary mb-2" href="#"
+               role="button">{{instance.nazwa}}</a>
+
+        </td>
+        <td>
+            {{instance.data_akcji}}
+        </td>
+        <td>
+            {{instance.created}}
+        </td>
+        <td>
+            {{instance.swiat}}
+        </td>
+        <td>
+            {{instance.moje_plemie_skrot}}
+        </td>
+        <td>
+            {{instance.przeciwne_plemie_skrot}}
+        </td>
+        <td>
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-secondary mb-2" type="submit">
+                    Ukryj
+                </button>
+            </form>
+        </td>
+        <td>
+            <form action="{% url 'base:planer_delete' instance.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary mb-2">Usuń</button>
+            </form>
+        </td>
+
+
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
