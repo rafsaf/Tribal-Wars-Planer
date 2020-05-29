@@ -110,3 +110,6 @@ def database_update(request):
         return redirect('base:base')
     return redirect('base:base')
 
+
+
+
