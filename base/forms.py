@@ -8,7 +8,7 @@ class New_Outline_Form(forms.Form):
     data_akcji = forms.DateField(widget=DatePickerInput(format='%Y-%m-%d'), label='Data Akcji')
     swiat = forms.ChoiceField(choices=[], label='Świat')
 
-class Wojsko_Outlines_Form(forms.ModelForm):
+class Wojsko_Outline_Form(forms.ModelForm):
     class Meta:
         model = models.New_Outline
         fields = ['zbiorka_wojsko']
@@ -17,7 +17,7 @@ class Wojsko_Outlines_Form(forms.ModelForm):
         }
 
 
-class Obrona_Outlines_Form(forms.ModelForm):
+class Obrona_Outline_Form(forms.ModelForm):
     class Meta:
         model = models.New_Outline
         fields = ['zbiorka_obrona']

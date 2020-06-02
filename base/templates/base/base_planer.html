@@ -3,87 +3,90 @@
 {% block content %}
 
 
-<p><a class="btn btn-primary btn-lg my-5" href="{% url 'base:planer_create' %}" role="button">Stwórz rozpiskę</a></p>
+<p><a class="btn btn-primary btn-lg my-5" href="{% url 'base:planer_create' %}"
+        role="button">Stwórz rozpiskę</a></p>
 
 
 {% if show_all == True %}
-<p><a class="btn btn-success my-2" href="{% url 'base:planer' %}" role="button">Nie pokazuj ukrytych</a></p>
+<p><a class="btn btn-success my-2" href="{% url 'base:planer' %}" role="button">Nie
+        pokazuj ukrytych</a></p>
 {% else %}
-<p><a class="btn btn-success my-2" href="{% url 'base:planer_all' %}" role="button">Pokaż ukryte</a></p>
+<p><a class="btn btn-success my-2" href="{% url 'base:planer_all' %}"
+        role="button">Pokaż ukryte</a></p>
 {% endif %}
 
 
 
 <table class="table table-striped">
     <thead>
-    <tr class="bg-primary">
+        <tr class="bg-primary">
 
-        <th scope="col">Nazwa Rozpiski</th>
-        <th scope="col">Data Akcji</th>
-        <th scope="col">Data utworzenia</th>
-        <th scope="col">Świat</th>
-        <th scope="col">Atakujący</th>
-        <th scope="col">Obrońca</th>
-        <th scope="col">
-            Ukryj
-        </th>
-        <th scope="col">Usuń</th>
-        <th scope="col">Edytuj</th>
-    </tr>
+            <th scope="col">Nazwa Rozpiski</th>
+            <th scope="col">Data Akcji</th>
+            <th scope="col">Data utworzenia</th>
+            <th scope="col">Świat</th>
+            <th scope="col">Atakujący</th>
+            <th scope="col">Obrońca</th>
+            <th scope="col">
+                Ukryj
+            </th>
+            <th scope="col">Usuń</th>
+
+        </tr>
     </thead>
     <tbody>
 
-    {% for instance in object_list %}
+        {% for instance in object_list %}
 
-    <tr>
-        <td>
-            <a class="btn btn-secondary mb-2" href="#"
-               role="button">{{instance.nazwa}}</a>
+        <tr>
+            <td>
+                <a class="btn btn-secondary my-2" href="{% url 'base:planer_detail' instance.id %}"
+                    role="button">{{instance.nazwa}}</a>
 
-        </td>
-        <td>
-            {{instance.data_akcji}}
-        </td>
-        <td>
-            {{instance.created}}
-        </td>
-        <td>
-            {{instance.swiat}}
-        </td>
-        <td>
-            {{instance.moje_plemie_skrot}}
-        </td>
-        <td>
-            {{instance.przeciwne_plemie_skrot}}
-        </td>
-        <td>
+            </td>
+            <td>
+                {{instance.data_akcji}}
+            </td>
+            <td>
+                {{instance.created}}
+            </td>
+            <td>
+                {{instance.swiat}}
+            </td>
+            <td>
+                {{instance.moje_plemie_skrot}}
+            </td>
+            <td>
+                {{instance.przeciwne_plemie_skrot}}
+            </td>
+            <td>
 
                 {% if instance.status == 'active' %}
-            <form action="{% url 'base:planer_status' instance.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary mb-2">Ukryj</button>
-            </form>
+                <form action="{% url 'base:planer_status' instance.id %}"
+                    method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary mb-2">Ukryj</button>
+                </form>
                 {% else %}
-              <form action="{% url 'base:planer_status' instance.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary mb-2">Pokaż</button>
-            </form>
+                <form action="{% url 'base:planer_status' instance.id %}"
+                    method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary mb-2">Pokaż</button>
+                </form>
                 {% endif %}
 
-        </td>
-        <td>
-            <form action="{% url 'base:planer_delete' instance.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary mb-2">Usuń</button>
-            </form>
-        </td>
-        <td>
-            <p><a class="btn btn-secondary mb-2" href="{% url 'base:planer_create_select' instance.id %}" role="button">Edytuj</a></p>
+            </td>
+            <td>
+                <form action="{% url 'base:planer_delete' instance.id %}"
+                    method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary mb-2">Usuń</button>
+                </form>
+            </td>
 
-        </td>
 
-        {% endfor %}
-    </tbody>
-</table>
+            {% endfor %}
+        </tbody>
+    </table>
 
-{% endblock %}
+    {% endblock %}
