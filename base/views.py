@@ -9,16 +9,47 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from plemiona_pliki.cron import cron_schedule_data_update
+from django.http import Http404
+from django.views.decorators.http import require_POST
+from django.utils.decorators import method_decorator
 
 class OutlineList(LoginRequiredMixin, ListView):
     template_name = 'base/base_planer.html'
 
     def get_queryset(self):
+        return User.objects.get(username=self.request.user.username).new_outline_set.all().filter(status='active')
+
+class OutlineListShowAll(LoginRequiredMixin, ListView):
+    template_name = 'base/base_planer.html'
+
+    def get_queryset(self):
         return User.objects.get(username=self.request.user.username).new_outline_set.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['show_all'] = True
+        return context
+
+@login_required
+@require_POST
+def inactive_outline(request, id):
+
+    outline = get_object_or_404(models.New_Outline, id=id, owner=request.user)
+    if outline.status == 'active':
+        outline.status = 'inactive'
+        outline.save()
+        return redirect('base:planer')
+    else:
+        outline.status = 'active'
+        outline.save()
+        return redirect('base:planer_all')
+
+
+
 class OutlineDelete(LoginRequiredMixin, DeleteView):
-    model = models.New_Outline
-    template_name = 'base/new_outline/new_outline_create.html'
+
+    def get_queryset(self):
+        return User.objects.get(username=self.request.user.username).new_outline_set.all()
 
     def get_success_url(self):
         return reverse('base:planer')
@@ -38,17 +69,18 @@ def base_documentation(request):
 
 @login_required
 def new_outline_create_select(request, id):
+
     instance = get_object_or_404(models.New_Outline, pk=id, owner=request.user)
 
     form1 = forms.Moje_plemie_skrot_Form(request.POST or None)
     form1.fields['plemie'].choices = [
-        ("{}".format(i.tag), "{}".format(i.tag)) for i in models.Tribe.objects.all().filter(world=instance.swiat)
+        ("{}".format(i.tag), "{}".format(i.tag)) for i in models.Tribe.objects.all().filter(world=instance.swiat).exclude(tag__in=instance.moje_plemie_skrot.split(', ')).exclude(tag__in=instance.przeciwne_plemie_skrot.split(', '))
     ]
 
 
     form2 = forms.Przeciwne_plemie_skrot_Form(request.POST or None)
     form2.fields['plemie'].choices = [
-        ("{}".format(i.tag), "{}".format(i.tag)) for i in models.Tribe.objects.all().filter(world=instance.swiat)
+        ("{}".format(i.tag), "{}".format(i.tag)) for i in models.Tribe.objects.all().filter(world=instance.swiat).exclude(tag__in=instance.przeciwne_plemie_skrot.split(', ')).exclude(tag__in=instance.moje_plemie_skrot.split(', '))
     ]
 
 
@@ -59,7 +91,7 @@ def new_outline_create_select(request, id):
             if instance.moje_plemie_skrot == '':
                 instance.moje_plemie_skrot = plemie
             else:
-                instance.moje_plemie_skrot += str(',' + plemie)
+                instance.moje_plemie_skrot += str(', ' + plemie)
             instance.save()
             return redirect('base:planer_create_select', id)
     if 'form-2' in request.POST:
@@ -68,7 +100,7 @@ def new_outline_create_select(request, id):
             if instance.przeciwne_plemie_skrot == '':
                 instance.przeciwne_plemie_skrot = plemie
             else:
-                instance.przeciwne_plemie_skrot += str(',' + plemie)
+                instance.przeciwne_plemie_skrot += str(', ' + plemie)
             instance.save()
             return redirect('base:planer_create_select', id)
 
@@ -80,22 +112,24 @@ def new_outline_create_select(request, id):
 
 @login_required
 def new_outline_create(request):
-    form1 = forms.New_Outlines_Form(request.POST or None)
-
+    form1 = forms.New_Outline_Form(request.POST or None)
+    form1.fields['swiat'].choices = [("{}".format(i.world), "{}".format(i.world)) for i in models.World.objects.all()]
 
     if form1.is_valid():
         user_ = get_object_or_404(User, username=request.user.username)
-        instance = form1.save(commit=False)
+
 
         new_instance = models.New_Outline(
             owner=user_,
-            data_akcji=instance.data_akcji,
-            nazwa=instance.nazwa,
-            swiat=instance.swiat,
+            data_akcji=request.POST['data_akcji'],
+            nazwa=request.POST['nazwa'],
+            swiat=request.POST['swiat'],
         )
 
         new_instance.save()
-        return redirect('base:planer_create_select', new_instance.id)
+
+
+        return render(request, 'base/new_outline/new_outline_create.html', {'created': True, 'id': new_instance.id})
 
     context = {"form1": form1}
 
@@ -103,12 +137,13 @@ def new_outline_create(request):
 
 
 
-@login_required
 def database_update(request):
     if request.user.is_superuser:
         cron_schedule_data_update()
         return redirect('base:base')
-    return redirect('base:base')
+    else:
+        return Http404()
+
 
 
 

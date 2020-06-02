@@ -25,7 +25,7 @@ def cron_schedule_data_update():
              requests.get(f"https://pl{instance.world}.plemiona.pl/map/ally.txt").text.split('\n')]
         tribe_list = [
             Tribe(tribe_id=i[0], name=unquote(unquote_plus(i[1])), tag=unquote(unquote_plus(i[2])), members=i[3],
-                  villages=i[4], points=i[5], all_points=i[6], rank=i[7], world=instance.world) for i in x if i != ['']
+                  villages=i[4], points=i[5], all_points=i[6], rank=i[7], world=instance.world) for i in x if i != [''] and ', ' not in unquote(unquote_plus(i[2]))
         ]
         Tribe.objects.bulk_create(tribe_list)
     """Player Model update"""

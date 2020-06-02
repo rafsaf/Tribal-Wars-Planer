@@ -6,9 +6,11 @@
 <p><a class="btn btn-primary btn-lg my-5" href="{% url 'base:planer_create' %}" role="button">Stwórz rozpiskę</a></p>
 
 
-
-<p><a class="btn btn-success my-2" href="" role="button">Pokaż ukryte</a>
-</p>
+{% if show_all == True %}
+<p><a class="btn btn-success my-2" href="{% url 'base:planer' %}" role="button">Nie pokazuj ukrytych</a></p>
+{% else %}
+<p><a class="btn btn-success my-2" href="{% url 'base:planer_all' %}" role="button">Pokaż ukryte</a></p>
+{% endif %}
 
 
 
@@ -23,9 +25,10 @@
         <th scope="col">Atakujący</th>
         <th scope="col">Obrońca</th>
         <th scope="col">
-            Widoczność
+            Ukryj
         </th>
         <th scope="col">Usuń</th>
+        <th scope="col">Edytuj</th>
     </tr>
     </thead>
     <tbody>
@@ -54,12 +57,19 @@
             {{instance.przeciwne_plemie_skrot}}
         </td>
         <td>
-            <form action="#" method="POST">
+
+                {% if instance.status == 'active' %}
+            <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                 {% csrf_token %}
-                <button class="btn btn-secondary mb-2" type="submit">
-                    Ukryj
-                </button>
+                <button type="submit" class="btn btn-secondary mb-2">Ukryj</button>
             </form>
+                {% else %}
+              <form action="{% url 'base:planer_status' instance.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary mb-2">Pokaż</button>
+            </form>
+                {% endif %}
+
         </td>
         <td>
             <form action="{% url 'base:planer_delete' instance.id %}" method="POST">
@@ -67,7 +77,10 @@
                 <button type="submit" class="btn btn-secondary mb-2">Usuń</button>
             </form>
         </td>
+        <td>
+            <p><a class="btn btn-secondary mb-2" href="{% url 'base:planer_create_select' instance.id %}" role="button">Edytuj</a></p>
 
+        </td>
 
         {% endfor %}
     </tbody>

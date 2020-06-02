@@ -26,6 +26,11 @@ class Tribe(models.Model):
     rank = models.IntegerField()
     world = models.IntegerField()
 
+    def save(self, *args, **kwargs):
+        if ', ' in self.tag:
+            raise ValueError("Unallowed ', ' in Tribe's tag - id:{}, name:{}, please remove it".format(self.tribe_id, self.name))
+        super().save(*args, **kwargs)
+
 
 class Player(models.Model):
     player_id = models.IntegerField()
@@ -61,14 +66,14 @@ class New_Outline(models.Model):
     """
     ONLY Chosen in form
     """
-    data_akcji = models.DateField()
+    data_akcji = models.DateField(null=True, blank=True)
     nazwa = models.TextField()
     swiat = models.TextField(null=True, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=8, default='active')
-    moje_plemie_skrot = models.CharField(max_length=100, default='', null=True)
-    przeciwne_plemie_skrot = models.CharField(max_length=100, default='', null=True)
+    moje_plemie_skrot = models.CharField(max_length=100, default='', null=True, blank=True)
+    przeciwne_plemie_skrot = models.CharField(max_length=100, default='', null=True, blank=True)
 
     zbiorka_wojsko = models.TextField(null=True, default="", help_text=mark_safe(
         "Wymagana dokładna forma ze skryptu Wojska, zajrzyj do <a href='/dokumentacja'>dokumentacji</a>"))

@@ -1,9 +1,21 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
+
+
+{% if created == True %}
+<h3 class="my-3">Pomyślnie utworzono.</h3>
+<p>Możesz <strong>jednokrotnie</strong> dodać własne oraz przeciwne plemiona:</p>
+<form action="{% url 'base:planer_create_select' id %}" method="POST">
+    {% csrf_token %}
+    <button class="btn btn-primary mb-2" type="submit">Przejdź dalej</button>
+</form>
+<a aria-pressed="false" class="btn btn-success" href="{% url 'base:planer' %}"
+   role="button">Zakończ</a>
+{% else %}
+
 {% load crispy_forms_tags %}
 {{ form1.media }}
-
 <div class="row">
     <div class="col-6">
         <form method='POST'>{% csrf_token %}
@@ -14,6 +26,7 @@
         </form>
     </div>
 </div>
-
+{% endif %}
 
 {% endblock %}
+

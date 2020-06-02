@@ -25,7 +25,7 @@ SECRET_KEY = '4+f*13imrfgdvxe5xqt_0__6d18gxbb2e(9%3jqh@!_#2$dwn)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'django_plemiona.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
