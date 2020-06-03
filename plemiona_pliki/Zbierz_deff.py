@@ -6,18 +6,17 @@ from django.utils import timezone
 def parse_to_Wioska(village):
     return Wioska('{}|{}'.format(village.x, village.y))
 
+
 def get_map(list_of_Villages_objects, r):
     result_map = Map()
     set_x = set()
-    result_map.set_r_and_center(300, (500, 500))
+    result_map.set_as_square(300, (500, 500))
     for i in list_of_Villages_objects:
         map = Map()
-        map.set_r_and_center_circle(r, (i.x, i.y))
+        map.set_as_circle(r, (i.x, i.y))
         set_x.update(map.map)
 
-    
     result_map.sub(set_x)
-
 
 
     return result_map
@@ -34,6 +33,7 @@ def zaplecze_lista_wiosek(enemy_villages, friendly_villages, r):
             result_villages.append(parse_to_Wioska(i))
     print(result_villages[1])
     return result_villages
+
 
 def zbierz_deff(enemy_villages, friendly_villages, r, text_obrona):
 
@@ -61,26 +61,28 @@ def zbierz_deff(enemy_villages, friendly_villages, r, text_obrona):
 
             continue
 
-
         owner = wioska.get_player(150)
 
         if owner not in context_all:
             if i[2] == '?':
                 continue
             if int(i[2]) + int(i[3]) + 4 * int(i[7]) > 0:
-                context_all[owner] = int(i[2])+int(i[3])+4*int(i[7])
-                context_details[owner] = '\r\r'+owner+'\r'+wioska.kordy+" Piki - "+i[2]+", Miecze - "+i[3]+", CK - "+i[7]
+                context_all[owner] = int(i[2]) + int(i[3]) + 4 * int(i[7])
+                context_details[
+                    owner] = '\r\r' + owner + '\r' + wioska.kordy + " Piki - " + i[
+                        2] + ", Miecze - " + i[3] + ", CK - " + i[7]
         else:
-            if int(i[2])+int(i[3])+4*int(i[7]) > 0:
-                context_all[owner] += int(i[2])+int(i[3])+4*int(i[7])
-                context_details[owner] += '\r'+wioska.kordy+" Piki - "+i[2]+", Miecze - "+i[3]+", CK - "+i[7]
+            if int(i[2]) + int(i[3]) + 4 * int(i[7]) > 0:
+                context_all[owner] += int(i[2]) + int(i[3]) + 4 * int(i[7])
+                context_details[owner] += '\r' + wioska.kordy + " Piki - " + i[
+                    2] + ", Miecze - " + i[3] + ", CK - " + i[7]
 
     output = ""
     for i in context_details:
 
-        context_details[i] += "\rŁącznie - "+str(context_all[i])+ " - miejsc w zagrodzie, CK liczone jako x4"
+        context_details[i] += "\rŁącznie - " + str(
+            context_all[i]) + " - miejsc w zagrodzie, CK liczone jako x4"
 
         output += context_details[i]
-
 
     return output
