@@ -1,18 +1,27 @@
 from django.db import models
 from django.utils.html import mark_safe
 from django.contrib.auth.models import User
-"""DATA MODELS"""
+# DATA MODELS
 
 
 class World(models.Model):
+    # Kiedys dodac test czy istnieja pliki txt w api gry o numerze
     title = models.TextField(verbose_name='Tytuł')
     world = models.IntegerField(verbose_name='Numer świata')
-
+    speed_world = models.FloatField(null=True, blank=True, default=1)
+    speed_units = models.FloatField(null=True, blank=True, default=1)
+    
     def __str__(self):
         return str(self.title)
+    def save(self, *args, **kwargs):
+       if self.title != 'Świat {}'.format(self.world):
+           raise Exception("Invalid World title: {}".format(self.title))
+       super(World, self).save(*args, **kwargs) # Call the real save() method
 
     class Meta:
         ordering = ('-world', )
+
+
 
 
 class Tribe(models.Model):

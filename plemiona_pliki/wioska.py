@@ -1,12 +1,38 @@
-from math import sqrt
-from plemiona_pliki.db_pool import db_pool
-import plemiona_pliki.swiat_i_jednostki as swiat_i_jednostki
-from math import sqrt, floor, ceil
 
-jednostki = swiat_i_jednostki.Jednostki()
+
+from math import sqrt, ceil
+from base import models
+
+
+class Units():
+    """ Helps geting proper speed of units """
+    def __init__(self):
+        self.slownik_jedn_predkosc = {
+            "pikinier": 18,
+            "miecznik": 22,
+            "topornik": 18,
+            "łucznik": 18,
+            "zwiadowca": 9,
+            "lekki kawalerzysta": 10,
+            "łucznik na koniu": 10,
+            'ciężki kawalerzysta': 11,
+            "taran": 30,
+            "szlachcic": 35,
+            "katapulta": 30
+        }
+
+    def speed(self, jednostka: str):
+        """ return speed of unit jednostka """
+        try:
+            return self.slownik_jedn_predkosc[jednostka]
+        except Exception:
+            raise ValueError("Nie istnieje jednostka: {}".format(jednostka))
+
+
 
 class Wioska():
-    def __init__(self, kord_poprawny_lub_ze_spacjami:str):
+    """ Class used to represent village in game """
+    def __init__(self, kord_poprawny_lub_ze_spacjami: str):
         self.kordy = kord_poprawny_lub_ze_spacjami.strip()
         if len(self.kordy) != 7:
             raise ValueError("złe kordy")
@@ -14,61 +40,86 @@ class Wioska():
         self.y = int(self.kordy[4:7])
 
     def distance(self, other):
-        return sqrt((self.x - other.x)**2+(self.y-other.y)**2)
+        """ Distance between two villages """
+        return sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
 
-    def time_distance(self, other, jednostka:str, swiat:int):
-        if not jednostka in jednostki.slownik_jedn_predkosc:
-            raise ValueError("Zła jednostka")
-        sw = swiat_i_jednostki.Swiat(swiat)
-        return round(self.distance(other) / sw.predkosc_swiata /
-              sw.predkosc_jednostek * jednostki.slownik_jedn_predkosc[jednostka] * 60)
+    def time_distance(self, other, jednostka: str, swiat: int):
+        """ return distance in hours between two villages """
+        unit_speed = Units().speed(jednostka)
+        world = self.get_world(swiat)
 
-    def get_player(self,swiat):
-        conn = db_pool.getconn()
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM data_player JOIN data_village as v USING(player_id) WHERE v.x = %s AND v.y = %s "
-                    "AND v.world = %s", [self.x, self.y, swiat])
-        x = cur.fetchall()
-        cur.close()
-        db_pool.putconn(conn)
-        if x == []:
-            raise ValueError("Nie istnieje w bazie właściciel wioski {}".format(self.kordy))
-        if type(x) == list:
-            return str(x[-1][2])
-        else:
-            raise ValueError("Błąd wioska {}".format(self.kordy))
+        return round(
+            self.distance(other) / world.speed_world / world.speed_units *
+            unit_speed * 60)
+
+    def get_world(self, swiat):
+        """ get world instance from database """
+        try:
+             world = models.World.objects.get(world=swiat)
+        except Exception:
+            raise Exception('Nie istnieje w bazie świat {}'.format(swiat))
+        return world
+
+
+    def get_village(self, swiat):
+        """ get village instance from database """
+        try:
+            village = models.Village.objects.get(world=swiat, x=self.x, y=self.y)
+        except Exception:
+            raise Exception('Nie istnieje w bazie wioska {}'.format(self.kordy))
+        return village
+
+    def get_player(self, swiat):
+        """ get player instance from database """
+        try:
+            player = models.Player.objects.get(player_id= self.get_village(swiat).player_id)
+        except Exception:
+            raise Exception(
+                "Nie istnieje w bazie właściciel wioski {}".format(self.kordy))
+
+        return player.name
+
     def get_id_wioski(self, swiat):
         conn = db_pool.getconn()
         cur = conn.cursor()
-        cur.execute("SELECT * FROM data_village where x = %s AND y = %s AND world = %s", [self.x, self.y, swiat])
+        cur.execute(
+            "SELECT * FROM data_village where x = %s AND y = %s AND world = %s",
+            [self.x, self.y, swiat])
         x = cur.fetchall()
         cur.close()
         db_pool.putconn(conn)
         if x == []:
-            raise ValueError("Wioska {} nie istnieje w bazie".format(self.kordy))
+            raise ValueError("Wioska {} nie istnieje w bazie".format(
+                self.kordy))
         else:
             return int(x[0][1])
+
     def get_punkty_wioski(self, swiat):
         conn = db_pool.getconn()
         cur = conn.cursor()
-        cur.execute("SELECT * FROM data_village where x = %s AND y = %s AND world = %s", [self.x, self.y, swiat])
+        cur.execute(
+            "SELECT * FROM data_village where x = %s AND y = %s AND world = %s",
+            [self.x, self.y, swiat])
         x = cur.fetchall()
         cur.close()
         db_pool.putconn(conn)
         if x == []:
-            raise ValueError("Wioska {} nie istnieje w bazie".format(self.kordy))
+            raise ValueError("Wioska {} nie istnieje w bazie".format(
+                self.kordy))
         else:
             return int(x[0][6])
 
     def get_player_points(self, swiat):
         conn = db_pool.getconn()
         cur = conn.cursor()
-        cur.execute("SELECT * FROM data_player where name = %s and world = %s",[self.get_player(swiat), swiat])
+        cur.execute("SELECT * FROM data_player where name = %s and world = %s",
+                    [self.get_player(swiat), swiat])
         x = cur.fetchall()
         cur.close()
         db_pool.putconn(conn)
         if x == []:
-            raise ValueError("Wioska {} nie istnieje w bazie".format(self.kordy))
+            raise ValueError("Wioska {} nie istnieje w bazie".format(
+                self.kordy))
         else:
             return int(x[0][5])
 
@@ -77,9 +128,6 @@ class Wioska():
         map.set_r_and_center(r, center)
         return map
 
-
-
-
     def __str__(self):
         return str(self.kordy)
 
@@ -87,13 +135,8 @@ class Wioska():
         return self.kordy == other.kordy
 
 
-
-
-
-
-
 class Wiele_wiosek():
-    def __init__(self, wiele_kordow_po_spacji:str):
+    def __init__(self, wiele_kordow_po_spacji: str):
         wiele_kordow_po_spacji = wiele_kordow_po_spacji.strip()
 
         lista_wiosek = wiele_kordow_po_spacji.split()
@@ -108,23 +151,19 @@ class Map():
     def set_r_and_center(self, r, center):
         map = []
         for i in range(-r, r + 1):
-            for j in range(-r, r+1):
-                map.append((center[0]+i,center[1]+j))
+            for j in range(-r, r + 1):
+                map.append((center[0] + i, center[1] + j))
         self.map = set(map)
 
     def set_r_and_center_circle(self, r, center):
         t = []
         for x in range(-r, r):
-            y_max = ceil(sqrt(r ** 2 - x**2))
-            for y in range(- y_max, y_max):
-                t.append((x+center[0],y+center[1]))
+            y_max = ceil(sqrt(r**2 - x**2))
+            for y in range(-y_max, y_max):
+                t.append((x + center[0], y + center[1]))
         self.map = set(t)
 
     def sub(self, set_map: set):
         self.map = self.map - set_map
-
-
-
-
 
 
