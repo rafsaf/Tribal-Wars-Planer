@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.html import mark_safe
 from django.contrib.auth.models import User
-# Create your models here.
 """DATA MODELS"""
 
 
@@ -54,7 +53,7 @@ class Village(models.Model):
     points = models.IntegerField(null=True)
 
 
-"""PLANER MODELS"""
+# PLANER MODELS
 
 
 class New_Outline(models.Model):
@@ -132,9 +131,28 @@ class New_Outline(models.Model):
                     else:
                         new += "\r\n" + i + "?,"
                 else:
-                    raise ValueError("Błąd w lini: {}".format(i))
+                    raise ValueError("Wojska- Błąd w lini: \n{}".format(i))
                 self.zbiorka_wojsko = new
-                
+        if self.zbiorka_obrona == '':
+            pass
+        else:
+            new = ""
+            for i in self.zbiorka_obrona.split("\r\n"):
 
-        super(New_Outline, self).save(*args,
-                                      **kwargs)  # Call the real save() method
+                if i == "":
+                    continue
+
+                elif len(i.split(",")) == 14:
+                    if new == "":
+                        new = i
+                    else:
+                        new += "\r\n" + i
+
+                else:
+                    raise ValueError("Obrona- Błąd w lini: \n{}".format(i))
+                self.zbiorka_obrona = new
+
+        super(New_Outline, self).save(*args, **kwargs)  # Call the real save() method
+
+
+

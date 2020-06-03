@@ -2,21 +2,6 @@
 
 {% block content %}
 
-
-<p><a class="btn btn-primary btn-lg my-5" href="{% url 'base:planer_create' %}"
-        role="button">Stwórz rozpiskę</a></p>
-
-
-{% if show_all == True %}
-<p><a class="btn btn-success my-2" href="{% url 'base:planer' %}" role="button">Nie
-        pokazuj ukrytych</a></p>
-{% else %}
-<p><a class="btn btn-success my-2" href="{% url 'base:planer_all' %}"
-        role="button">Pokaż ukryte</a></p>
-{% endif %}
-
-
-
 <table class="table table-striped">
     <thead>
         <tr class="bg-primary">
@@ -62,14 +47,12 @@
             <td>
 
                 {% if instance.status == 'active' %}
-                <form action="{% url 'base:planer_status' instance.id %}"
-                    method="POST">
+                <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary mb-2">Ukryj</button>
                 </form>
                 {% else %}
-                <form action="{% url 'base:planer_status' instance.id %}"
-                    method="POST">
+                <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary mb-2">Pokaż</button>
                 </form>
@@ -77,8 +60,7 @@
 
             </td>
             <td>
-                <form action="{% url 'base:planer_delete' instance.id %}"
-                    method="POST">
+                <form action="{% url 'base:planer_delete' instance.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary mb-2">Usuń</button>
                 </form>
@@ -86,7 +68,14 @@
 
 
             {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-    {% endblock %}
+{% if show_all == True %}
+<p><a class="btn btn-success my-3" href="{% url 'base:planer' %}" role="button">Nie
+        pokazuj ukrytych</a></p>
+{% else %}
+<p><a class="btn btn-success my-3" href="{% url 'base:planer_all' %}" role="button">Pokaż ukryte</a></p>
+{% endif %}
+
+{% endblock %}

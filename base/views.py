@@ -244,27 +244,39 @@ def outline_detail_1(request, _id):
     """details outline /planner/id"""
 
     instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
-    
     form1 = forms.Wojsko_Outline_Form(request.POST or None)
     form2 = forms.Obrona_Outline_Form(request.POST or None)
 
     if 'form-1' in request.POST:
         if form1.is_valid():
             instance.zbiorka_wojsko = request.POST.get('zbiorka_wojsko')
+
+
+
+
             try:
                 instance.save()
-            except ValueError as e:
-                raise Http404(str(e))
+            except ValueError as error:
+                request.session['error'] = str(error)
+
             return redirect('base:planer_detail', _id)
+
     if 'form-2' in request.POST:
         if form2.is_valid():
             instance.zbiorka_obrona = request.POST.get('zbiorka_obrona')
-            instance.save()
+
+
+            try:
+                instance.save()
+            except ValueError as error:
+                request.session['error'] = str(error)
             return redirect('base:planer_detail', _id)
     context = {'instance': instance, 'form1': form1, 'form2': form2}
+
+    error_wojsko = request.session.get('error')
+    if not error_wojsko is None:
+        context['error'] = error_wojsko
+        del request.session['error']
+
     
     return render(request, 'base/new_outline/new_outline.html', context)
-
-
-
-
