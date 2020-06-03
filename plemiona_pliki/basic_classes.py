@@ -72,7 +72,7 @@ class Wioska():
         return village
 
     def get_player(self, swiat):
-        """ get player instance from database """
+        """ get player instance from database, NOT nickname """
         try:
             player: models.Player = models.Player.objects.get(
                 player_id=self.get_village(swiat).player_id)
@@ -80,13 +80,13 @@ class Wioska():
             raise Exception(
                 "Nie istnieje w bazie właściciel wioski {}".format(self.kordy))
 
-        return player.name
+        return player
 
     def get_id_wioski(self, swiat):
         """ get village id from database """
         return self.get_village(swiat).village_id
 
-    def get_punkty_wioski(self, swiat):
+    def get_village_points(self, swiat):
         """ get points of village from database """
         return self.get_village(swiat).points
 
@@ -125,9 +125,9 @@ class Map():
     def set_as_circle(self, radius, center):
         """ return circle with r and center """
         circle_map = []
-        for x_coord in range(-radius, radius):
+        for x_coord in range(-radius, radius + 1):
             y_max = ceil(sqrt(radius**2 - x_coord**2))
-            for y_coord in range(-y_max, y_max):
+            for y_coord in range(-y_max, y_max + 1):
                 circle_map.append((x_coord + center[0], y_coord + center[1]))
         self.map = set(circle_map)
 
