@@ -65,21 +65,21 @@ class Map_Test(TestCase):
     def test_set_as_square(self):
         
         self.map1.set_as_square(1, (3, 0))
-        self.assertEqual({(2, 1), (3, 1), (4, 1), (2, 0), (3, 0), 
-        (4, 0), (2, -1), (3, -1), (4, -1),}, self.map1.map)
+        self.assertEqual(set([(2, 1), (3, 1), (4, 1), (2, 0), (3, 0), 
+        (4, 0), (2, -1), (3, -1), (4, -1),]), set(self.map1.map))
     
     def test_set_as_circle1(self):
         self.map1.set_as_circle(1, (0, 0))
 
-        self.assertEqual({(-1, 0), (0, 0), (1, 0), (0, 1), (0, -1)}, self.map1.map)
+        self.assertEqual(set([(-1, 0), (0, 0), (1, 0), (0, 1), (0, -1)]), set(self.map1.map))
 
     def test_set_as_circle2(self):
         self.map1.set_as_circle(2, (2, 1))
 
-        self.assertEqual({
+        self.assertEqual(set([
             (0, 1), (1, 0), (1, 1), (1, 2), (2, -1), (2, 0), (2, 1), (2, 2),
             (2, 3), (3, 0), (3, 1), (3, 2), (4, 1),
             # becouse of ceil()
             (1, 3), (1, -1), (3, 3), (3, -1),
 
-        }, self.map1.map)
+        ]), set(self.map1.map))

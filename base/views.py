@@ -101,14 +101,7 @@ class WorldList(ListView):
 
 
 def base_view(request):
-    """[summary]
-
-    Arguments:
-        request {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
-    """
+    """ base view """
     return render(request, 'base/base.html')
 
 

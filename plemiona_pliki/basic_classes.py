@@ -110,9 +110,13 @@ class Wiele_wiosek():
 
 
 class Map():
-    """ class to represent coordinate system as dictionary of tuples (x,y) """
+    """ class to represent coordinate system as list of tuples [(x,y), ...] """
     def __init__(self):
-        self.map = set()
+        self.map = []
+
+    def add_vertex(self, x_coord, y_coord):
+        """ add new to map """
+        self.map.append((x_coord, y_coord))
 
     def set_as_square(self, radius, center):
         """ returns square 2r x 2r with center """
@@ -120,7 +124,7 @@ class Map():
         for i in range(-radius, radius + 1):
             for j in range(-radius, radius + 1):
                 map_.append((center[0] + i, center[1] + j))
-        self.map = set(map_)
+        self.map = map_
 
     def set_as_circle(self, radius, center):
         """ return circle with r and center """
@@ -129,8 +133,10 @@ class Map():
             y_max = ceil(sqrt(radius**2 - x_coord**2))
             for y_coord in range(-y_max, y_max + 1):
                 circle_map.append((x_coord + center[0], y_coord + center[1]))
-        self.map = set(circle_map)
+        self.map = circle_map
 
-    def sub(self, set_map: set):
-        """ subs two maps WARNING! very slow, dont use if not necessery """
-        self.map = self.map - set_map
+    def __sub__(self, other):
+        """ subs two maps WARNING! may be very slow, dont use if not necessery """
+        return set(self.map) - set(other.map)
+
+

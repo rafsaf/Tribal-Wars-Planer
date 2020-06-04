@@ -6,6 +6,7 @@ from base.models import Village, Tribe, Player, World
 
 
 def cron_schedule_data_update():
+    """ Update Tribe, Village, Player instances to database """
 
     worlds = World.objects.all()
     # Village Model Update
