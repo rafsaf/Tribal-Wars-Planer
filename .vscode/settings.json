@@ -1,4 +1,4 @@
 {
     "python.pythonPath": "/home/rafsaf/.local/share/virtualenvs/django_plemiona-7JiyGmYT/bin/python",
-    "python.formatting.provider": "yapf"
+    "python.formatting.provider": "black"
 }

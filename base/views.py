@@ -235,8 +235,10 @@ def database_update(request):
 @login_required
 def outline_detail_1(request, _id):
     """details outline /planner/id"""
+    
 
     instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
+    print([instance.zbiorka_obrona])
     form1 = forms.Wojsko_Outline_Form(request.POST or None)
     form2 = forms.Obrona_Outline_Form(request.POST or None)
 

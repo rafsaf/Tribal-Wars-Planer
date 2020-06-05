@@ -5,26 +5,47 @@ from django.contrib.auth.models import User
 
 
 class World(models.Model):
+    """
+    class representing village in game
+     \n Member variables:
+     \n title -str
+     \n world- int
+     \n speed_world -float
+     \n speed_units -float
+    """
     # Kiedys dodac test czy istnieja pliki txt w api gry o numerze
     title = models.TextField(verbose_name='Tytuł')
     world = models.IntegerField(verbose_name='Numer świata')
     speed_world = models.FloatField(null=True, blank=True, default=1)
     speed_units = models.FloatField(null=True, blank=True, default=1)
-    
+
     def __str__(self):
         return str(self.title)
+
     def save(self, *args, **kwargs):
-       if self.title != 'Świat {}'.format(self.world):
-           raise Exception("Invalid World title: {}".format(self.title))
-       super(World, self).save(*args, **kwargs) # Call the real save() method
+        if self.title != 'Świat {}'.format(self.world):
+            raise Exception("Invalid World title: {}".format(self.title))
+        super(World, self).save(*args, **kwargs)  # Call the real save() method
 
     class Meta:
         ordering = ('-world', )
 
 
 
-
 class Tribe(models.Model):
+    """
+    class representing tribe in game
+     \n Member variables:
+     \n tribe_id -int
+     \n name -str
+     \n tag -str
+     \n members -int
+     \n villages -int
+     \n points -int
+     \n all_points -int
+     \n rank -int
+     \n world -int
+    """
     tribe_id = models.IntegerField()
     name = models.TextField()
     tag = models.TextField()
@@ -44,6 +65,17 @@ class Tribe(models.Model):
 
 
 class Player(models.Model):
+    """
+    class representing player in game
+     \n Member variables:
+     \n player_id -int
+     \n name -str
+     \n tribe_id -int
+     \n villages -int
+     \n points -int
+     \n rank -int
+     \n world -int
+    """
     player_id = models.IntegerField()
     name = models.TextField()
     tribe_id = models.IntegerField()
@@ -54,6 +86,16 @@ class Player(models.Model):
 
 
 class Village(models.Model):
+    """
+    class representing village in game
+     \n Member variables:
+     \n village_id -int
+     \n x -int
+     \n y -int
+     \n player_id -int
+     \n world -int
+     \n points -int
+    """
     village_id = models.IntegerField()
     x = models.IntegerField()
     y = models.IntegerField()
@@ -66,21 +108,30 @@ class Village(models.Model):
 
 
 class New_Outline(models.Model):
-    worlds = World.objects.all()
-
+    """
+     \n owner USER instance
+     \n data_akcji - date_field
+     \n nazwa -str
+     \n swiat -str NULL, BLANK
+     \n created -date_time AUTO_NOW_ADD
+     \n status -str: DEFAULT 'active'
+     \n moje_plemie_skrot -str: pl1, pl2, pl3, ... NULL BLANK DEFAULT ""
+     \n przeciwne_plemie_skrot -str: pl1, pl2, pl3, ... NULL BLANK DEFAULT ""
+     \n zbiorka_wojsko -str NULL BLANK DEFAULT ""
+     \n zbiorka_obrona -str NULL BLANK DEFAULT ""
+    """
     STATUS_CHOICES = [
         ('active', 'Active'),
         ('inactive', 'Inactive'),
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    """
-    ONLY Chosen in form
-    """
+    
+    # ONLY Chosen in form
     data_akcji = models.DateField(null=True, blank=True)
     nazwa = models.TextField()
     swiat = models.TextField(null=True, blank=True)
-
+    #
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES,
                               max_length=8,
@@ -141,7 +192,7 @@ class New_Outline(models.Model):
                         new += "\r\n" + i + "?,"
                 else:
                     raise ValueError("Wojska- Błąd w lini: \n{}".format(i))
-                self.zbiorka_wojsko = new
+            self.zbiorka_wojsko = new
         if self.zbiorka_obrona == '':
             pass
         else:
@@ -151,7 +202,7 @@ class New_Outline(models.Model):
                 if i == "":
                     continue
 
-                elif len(i.split(",")) == 14:
+                if len(i.split(",")) == 14:
                     if new == "":
                         new = i
                     else:
@@ -159,9 +210,6 @@ class New_Outline(models.Model):
 
                 else:
                     raise ValueError("Obrona- Błąd w lini: \n{}".format(i))
-                self.zbiorka_obrona = new
-
-        super(New_Outline, self).save(*args, **kwargs)  # Call the real save() method
-
-
+            self.zbiorka_obrona = new
+        super().save(*args, **kwargs)  # Call the real save() method
 
