@@ -15,7 +15,7 @@ from django.http import Http404
 from django.views.decorators.http import require_POST
 
 from markdownx.utils import markdownify
-from plemiona_pliki.cron import cron_schedule_data_update
+from plemiona_pliki.database_update import cron_schedule_data_update
 from plemiona_pliki.get_deff import get_deff
 from . import models, forms
 

@@ -12,64 +12,7 @@ swiat = Swiat(150)
 swiat.predkosc()
 
 
-# rodzaj ataku np. offoszlachta deffoszlachta, off, fejk.
-class Rodzaj_ataku():
-    def __init__(self):
-        self.off = "CAŁY OFF PRĘDKOŚĆ TARANA KATAPULTY KUŹNIA"
-        self.offoszlachta = "OFFOSZLACHTA"
-        self.fejk_taran = "FEJK Z PRĘDKOŚCIĄ TARANA"
-        self.fejk_gruby = "FEJK GRUBY Z 30 TOPORNIKAMI"
-        self.deffoszlachta = "DEFF Z GRUBYM - DEFFOSZLACHTA"
-        self.rodzaj = None
-        self.predkosc = None
-        self.jednostka = None
 
-    def set_off(self):
-        self.rodzaj = self.off
-        self.predkosc = jednostka.predkosc_taran()
-        self.jednostka = "taran"
-
-    def set_offoszlachta(self):
-        self.rodzaj = self.offoszlachta
-        self.predkosc = jednostka.predkosc_szlachcic()
-        self.jednostka = "szlachcic"
-
-    def set_fejk_taran(self):
-        self.rodzaj = self.fejk_taran
-        self.predkosc = jednostka.predkosc_taran()
-        self.jednostka = "taran"
-
-    def set_fejk_gruby(self):
-        self.rodzaj = self.fejk_gruby
-        self.predkosc = jednostka.predkosc_szlachcic()
-        self.jednostka = "szlachcic"
-
-    def set_deffoszlachta(self):
-        self.rodzaj = self.deffoszlachta
-        self.predkosc = jednostka.predkosc_szlachcic()
-        self.jednostka = "szlachcic"
-
-
-class Czas_wejscia():
-    def __init__(self, data_wejscia: datetime.datetime, maksymalna_data_wejscia: datetime.datetime,
-                 rodzaj_ataku: Rodzaj_ataku):
-        self.data_wejscia = data_wejscia.replace(tzinfo=None)
-        self.maksymalna_data_wejscia = maksymalna_data_wejscia.replace(tzinfo=None)
-        self.predkosc_jednostki = rodzaj_ataku.predkosc
-        self.jednostka = rodzaj_ataku.jednostka
-
-        self.czas_wejscia()
-
-    def czas_wejscia(self):
-        if self.data_wejscia != self.maksymalna_data_wejscia:
-            diffrence = self.maksymalna_data_wejscia - self.data_wejscia
-            diffrence = diffrence.total_seconds()
-            delta = datetime.timedelta(seconds=random.randint(0, diffrence))
-            self.data_wejscia = self.data_wejscia + delta
-
-    def czas_wyjscia_ataku(self, moja_wioska: Wioska, cel_wioska: Wioska):
-        odleglosc_sekundy = moja_wioska.time_distance(cel_wioska, self.jednostka, swiat.number)
-        return self.data_wejscia - datetime.timedelta(seconds=odleglosc_sekundy)
 
 
 def dodaj_do_bazy_celi(nazwa_gracza: str, x_wioski: int, y_wioski: int, id_wioski: int, x_celu: int, y_celu: int,
@@ -186,18 +129,9 @@ def uzupelnij_planner_baza_celi():
             kordy = " ".join([str(i[0])+"|"+str(i[1]) for i in cur.fetchall()])
             raise ValueError("powtorzony off {} razy w wiosce plemiennej o id {}".format(i[0],i[1]), " kordy celi: {}".format(kordy))
 
-
-
-
     cur.close()
     db_pool.putconn(conn)
     #KONIEC
-
-
-
-
-
-
 
 
 def get_output_results(text):

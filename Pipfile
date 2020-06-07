@@ -12,6 +12,8 @@ django-crispy-forms = "*"
 requests = "*"
 django-bootstrap-datepicker-plus = "*"
 django-bootstrap4 = "*"
+markdownx = "*"
+django-markdownx = "*"
 
 [requires]
 python_version = "3.6"
