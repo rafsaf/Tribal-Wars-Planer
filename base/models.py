@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.html import mark_safe
 from django.contrib.auth.models import User
+from markdownx.models import MarkdownxField
+
 # DATA MODELS
 
 
@@ -166,50 +168,20 @@ class New_Outline(models.Model):
     def __str__(self):
         return 'ID:' + str(self.id) + ", Nazwa: " + str(self.nazwa)
 
-    def save(self, *args, **kwargs):
-        """
-        We need to check zbiorka_wojsko and obrona_wojsko before we can allow user to save it
-        \ r \ n spliting!
-        """
-        if self.zbiorka_wojsko == '':
-            pass
-        else:
-            new = ""
-            for i in self.zbiorka_wojsko.split("\r\n"):
 
-                if i == "":
-                    continue
+class Results(models.Model):
+    """ One to one with outline, presents results """
+    outline = models.OneToOneField(New_Outline, on_delete=models.CASCADE, primary_key = True)
+    results_get_deff = models.TextField(default="")
 
-                if len(i.split(",")) == 17:
-                    if new == "":
-                        new = i
-                    else:
-                        new += "\r\n" + i
-                elif len(i.split(",")) == 16:
-                    if new == "":
-                        new = i + "?,"
-                    else:
-                        new += "\r\n" + i + "?,"
-                else:
-                    raise ValueError("Wojska- Błąd w lini: \n{}".format(i))
-            self.zbiorka_wojsko = new
-        if self.zbiorka_obrona == '':
-            pass
-        else:
-            new = ""
-            for i in self.zbiorka_obrona.split("\r\n"):
+    def __str__(self):
+        return self.outline.nazwa + " results"
 
-                if i == "":
-                    continue
 
-                if len(i.split(",")) == 14:
-                    if new == "":
-                        new = i
-                    else:
-                        new += "\r\n" + i
+class Documentation(models.Model):
+    title = models.CharField(max_length=10)
+    main_page = MarkdownxField()
 
-                else:
-                    raise ValueError("Obrona- Błąd w lini: \n{}".format(i))
-            self.zbiorka_obrona = new
-        super().save(*args, **kwargs)  # Call the real save() method
+    def __str__(self):
+        return self.title
 

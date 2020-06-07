@@ -1,8 +1,14 @@
 {% extends "base/base.html" %}
 
 {% block sidebar %}
-<a class="btn btn-secondary col-auto" href="{% url 'base:planer_detail' instance.id %}"
+
+<a class=" list-group-item list-group-item-action
+bg-secondary" href="{% url 'base:planer_detail' instance.id %}"
 role="button">{{instance.nazwa}}</a>
+<a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
+bg-light">Wyniki</a>
+<a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
+bg-light">Zbierz deff</a>
 {%endblock%}
 
 {% block content %}
@@ -10,24 +16,9 @@ role="button">{{instance.nazwa}}</a>
 
 
 <div>
-    <h3>Aby przejść dalej należy uzupełnić formularze z wynikami skryptów.</h5>
+    <h5>Aby przejść dalej należy uzupełnić formularze z wynikami skryptów:</h5>
 </div>
-<div class="btn-group">
 
-    <button type="button" class="col-auto btn btn-success my-2"
-        data-toggle="modal"
-        data-target=".bd-zbiorka-wojsko-lg">
-        Podgląd Wojska
-    </button>
-
-
-    <button type="button" class="col-auto btn btn-success my-2 ml-1"
-        data-toggle="modal"
-        data-target=".bd-zbiorka-obrona-lg">
-        Podgląd Obrona
-    </button>
-
-</div>
 
 
 <div class="modal fade bd-zbiorka-wojsko-lg" tabindex="-1" role="dialog"
@@ -78,7 +69,7 @@ role="button">{{instance.nazwa}}</a>
 </div>
 
 {% load crispy_forms_tags %}
-<div class="row my-2">
+<div class="row my-3">
     <div class="col-6">
         <form method='POST'>{% csrf_token %}
 
@@ -91,8 +82,8 @@ role="button">{{instance.nazwa}}</a>
         </form>
 
     </div>
-</div>
-<div class="row my-2">
+
+
     <div class="col-6">
         <form method='POST'>{% csrf_token %}
 
@@ -102,6 +93,23 @@ role="button">{{instance.nazwa}}</a>
                 type="submit">Potwierdź</button>
         </form>
     </div>
+</div>
+
+<div class="btn-group mt-2">
+
+    <button type="button" class="col-auto btn btn-success my-2"
+        data-toggle="modal"
+        data-target=".bd-zbiorka-wojsko-lg">
+        Podgląd Wojska
+    </button>
+
+
+    <button type="button" class="col-auto btn btn-success my-2 ml-1"
+        data-toggle="modal"
+        data-target=".bd-zbiorka-obrona-lg">
+        Podgląd Obrona
+    </button>
+
 </div>
 
 {% if error != None %}
@@ -125,5 +133,8 @@ role="button">{{instance.nazwa}}</a>
     $('.bd-example-modal-lg').modal('show')
 </script>
 {% endif %}
+<br/>
+<br/>
+<br/>
 
 {% endblock %}

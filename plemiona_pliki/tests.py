@@ -1,11 +1,11 @@
 
-""" Tests for basic_classes file """
+""" Tests for plemiona_pliki folder """
 import datetime
 from math import sqrt
 from django.test import TestCase
 from django.contrib.auth.models import User
 from base import models
-from . import basic_classes as basic, get_deff_text as deff
+from . import basic_classes as basic, get_deff as deff
 
 
 
@@ -98,10 +98,9 @@ class Get_deff_function_Test(TestCase):
         zbiorka_obrona=TEXT)
 
         self.ally_village1 = models.Village(0,1,500,500,2,150,1)
-        #legal
-        self.ally_village2 = models.Village(1,2,499,500,1,150,1)
         self.ally_village3 = models.Village(2,3,498,503,2,150,1)
         #legal below
+        self.ally_village2 = models.Village(1,2,499,500,1,150,1)
         self.ally_village4 = models.Village(3,4,500,502,2,150,1)
         self.ally_village5 = models.Village(6,7,498,502,2,150,1)
         self.ally_village6 = models.Village(7,8,500,499,2,150,1)
@@ -142,4 +141,15 @@ class Get_deff_function_Test(TestCase):
         result = deff.get_deff(new_Outline=self.outline, radius=3)
         self.assertEqual(result, '''\r\nplayer1\r\n499|500 Piki - 1000, Miecze - 1000, CK - 1000\r\nŁącznie - 6000 - miejsc w zagrodzie, CK liczone jako x4\r\n\r\nplayer2\r\n500|502 Piki - 1000, Miecze - 1000, CK - 1000\r\n498|502 Piki - 1000, Miecze - 1000, CK - 1000\r\n500|499 Piki - 1000, Miecze - 1000, CK - 1000\r\nŁącznie - 18000 - miejsc w zagrodzie, CK liczone jako x4\r\n''')
 
+    def test_get_legal_coords_is_map_correct1(self):
+        list_enemy = [self.ally_village1]
+        list_ally = [self.ally_village2, self.ally_village3, self.ally_village4,
+        self.ally_village5, self.ally_village6,
+        ]
+        self.assertEqual(deff.get_legal_coords(list_ally,list_enemy,4), set())
 
+    def test_get_legal_coords_is_map_correct2(self):
+        list_ally = [self.enemy_village2]
+        list_enemy = [self.ally_village2, self.ally_village6]
+        self.assertEqual(deff.get_legal_coords(list_ally,list_enemy,4), {(500,506)})
+    #napisać dla innych funckji kiedyś

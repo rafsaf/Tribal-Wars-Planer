@@ -14,20 +14,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.views.decorators.http import require_POST
 
+from markdownx.utils import markdownify
 from plemiona_pliki.cron import cron_schedule_data_update
+from plemiona_pliki.get_deff import get_deff
 from . import models, forms
 
 
+
 class OutlineList(LoginRequiredMixin, ListView):
-    """[summary]
-
-    Arguments:
-        LoginRequiredMixin {[type]} -- [description]
-        ListView {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
-    """
+    """ login required view /planer """
     template_name = 'base/base_planer.html'
 
     def get_queryset(self):
@@ -37,7 +32,7 @@ class OutlineList(LoginRequiredMixin, ListView):
 
 
 class OutlineListShowAll(LoginRequiredMixin, ListView):
-    """ planer page """
+    """ login required view which shows hidden instances /planer/show_all """
     template_name = 'base/base_planer.html'
 
 
@@ -54,15 +49,7 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
 @login_required
 @require_POST
 def inactive_outline(request, _id):
-    """[summary]
-
-    Arguments:
-        request {[type]} -- [description]
-        id1 {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
-    """
+    """ class based view makeing outline with id=id inavtive/active, post and login required """
 
     outline = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
     if outline.status == 'active':
@@ -76,12 +63,7 @@ def inactive_outline(request, _id):
 
 
 class OutlineDelete(LoginRequiredMixin, DeleteView):
-    """[summary]
-
-    Arguments:
-        LoginRequiredMixin {[type]} -- [description]
-        DeleteView {[type]} -- [description]
-    """
+    """ class based view to delete outline login required"""
     def get_queryset(self):
         return User.objects.get(
             username=self.request.user.username).new_outline_set.all()
@@ -91,11 +73,7 @@ class OutlineDelete(LoginRequiredMixin, DeleteView):
 
 
 class WorldList(ListView):
-    """[summary]
-
-    Arguments:
-        ListView {[type]} -- [description]
-    """
+    """ class based view to show all worlds """
     model = models.World
     template_name = 'base/world/world.html'
 
@@ -106,35 +84,24 @@ def base_view(request):
 
 
 def base_documentation(request):
-    """[summary]
-
-    Arguments:
-        request {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
-    """
-    return render(request, 'base/documentation.html')
+    """ base documentation view"""
+    doc = models.Documentation.objects.get(title="Doc").main_page
+    doc = markdownify(doc)
+    print(doc)
+    context = {"doc": doc}
+    return render(request, 'base/documentation.html', context)
 
 
 @login_required
 def new_outline_create_select(request, _id):
-    """[summary]
-
-    Arguments:
-        request {[type]} -- [description]
-        id1 {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
-    """
+    """ select user's ally and enemy tribe after creating outline, login required """
 
     instance = get_object_or_404(models.New_Outline,
                                  pk=_id,
                                  owner=request.user)
 
     form1 = forms.Moje_plemie_skrot_Form(request.POST or None)
-    form1.fields['plemie'].choices = [
+    form1.fields['plemie1'].choices = [("banned","--------")]+[
         ("{}".format(i.tag), "{}".format(i.tag))
         for i in models.Tribe.objects.all().filter(
             world=instance.swiat).exclude(
@@ -143,7 +110,7 @@ def new_outline_create_select(request, _id):
     ]
 
     form2 = forms.Przeciwne_plemie_skrot_Form(request.POST or None)
-    form2.fields['plemie'].choices = [
+    form2.fields['plemie2'].choices = [("banned","--------")]+[
         ("{}".format(i.tag), "{}".format(i.tag))
         for i in models.Tribe.objects.all().filter(
             world=instance.swiat).exclude(
@@ -154,7 +121,7 @@ def new_outline_create_select(request, _id):
     if 'form-1' in request.POST:
 
         if form1.is_valid():
-            plemie = request.POST.get('plemie')
+            plemie = request.POST.get('plemie1')
             if instance.moje_plemie_skrot == '':
                 instance.moje_plemie_skrot = plemie
             else:
@@ -163,7 +130,7 @@ def new_outline_create_select(request, _id):
             return redirect('base:planer_create_select', _id)
     if 'form-2' in request.POST:
         if form2.is_valid():
-            plemie = request.POST.get('plemie')
+            plemie = request.POST.get('plemie2')
             if instance.przeciwne_plemie_skrot == '':
                 instance.przeciwne_plemie_skrot = plemie
             else:
@@ -181,14 +148,7 @@ def new_outline_create_select(request, _id):
 
 @login_required
 def new_outline_create(request):
-    """[summary]
-
-    Arguments:
-        request {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
-    """
+    """ creates new user's outline login required """
     form1 = forms.New_Outline_Form(request.POST or None)
     form1.fields['swiat'].choices = [("{}".format(i.world),
                                       "{}".format(i.world))
@@ -205,7 +165,8 @@ def new_outline_create(request):
         )
 
         new_instance.save()
-
+        results = models.Results(outline=new_instance)
+        results.save()
         return render(request, 'base/new_outline/new_outline_create.html', {
             'created': True,
             'id': new_instance.id
@@ -217,14 +178,8 @@ def new_outline_create(request):
 
 
 def database_update(request):
-    """[summary]
-
-    Arguments:
-        request {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
-    """
+    # ZMIENIC
+    """ to update database manually, superuser required """
     if request.user.is_superuser:
         cron_schedule_data_update()
         return redirect('base:base')
@@ -234,44 +189,72 @@ def database_update(request):
 
 @login_required
 def outline_detail_1(request, _id):
-    """details outline /planner/id"""
+    """details user's outline , login required"""
     
 
     instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
-    print([instance.zbiorka_obrona])
+
     form1 = forms.Wojsko_Outline_Form(request.POST or None)
     form2 = forms.Obrona_Outline_Form(request.POST or None)
 
     if 'form-1' in request.POST:
         if form1.is_valid():
             instance.zbiorka_wojsko = request.POST.get('zbiorka_wojsko')
-
-
-
-
-            try:
-                instance.save()
-            except ValueError as error:
-                request.session['error'] = str(error)
+            instance.save()
 
             return redirect('base:planer_detail', _id)
 
     if 'form-2' in request.POST:
         if form2.is_valid():
             instance.zbiorka_obrona = request.POST.get('zbiorka_obrona')
-
-
-            try:
-                instance.save()
-            except ValueError as error:
-                request.session['error'] = str(error)
+            instance.save()
+            
             return redirect('base:planer_detail', _id)
     context = {'instance': instance, 'form1': form1, 'form2': form2}
 
-    error_wojsko = request.session.get('error')
-    if not error_wojsko is None:
-        context['error'] = error_wojsko
+    error = request.session.get('error')
+    if not error is None:
+        context['error'] = error
         del request.session['error']
-
-    
     return render(request, 'base/new_outline/new_outline.html', context)
+
+@login_required
+def outline_detail_2_deff(request, _id):
+    """ details user outline, get deff page """
+    instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
+    results = get_object_or_404(models.Results, pk=instance)
+
+    # only correct zbiorka_obrona allowed
+    if instance.zbiorka_obrona == "":
+        request.session['error'] = "Zbiórka Obrona pusta !"
+        return redirect('base:planer_detail', _id)
+
+    form = forms.Get_Deff_Form(request.POST or None, world=instance.swiat)
+    print([form.errors])
+    if 'form' in request.POST:
+        if form.is_valid():
+            radius = request.POST.get('radius')
+            excluded = request.POST.get('excluded')
+
+            results.results_get_deff = get_deff(instance,int(radius),excluded)
+            results.save()
+
+            return redirect('base:planer_detail_get_deff', _id)
+
+            
+    
+
+    context = {'instance': instance, 'form':form}
+
+    return render(request, 'base/new_outline/new_outline_get_deff.html', context)
+
+
+
+def outline_detail_results(request, _id):
+    """ view for results """
+
+    instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
+    context = {'instance': instance}
+
+    return render(request, 'base/new_outline/new_outline_results.html', context)
+

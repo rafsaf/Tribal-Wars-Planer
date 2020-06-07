@@ -35,9 +35,16 @@ class Units():
 class Wioska():
     """ class used to represent village in game """
     def __init__(self, kord_poprawny_lub_ze_spacjami: str):
-        self.kordy = kord_poprawny_lub_ze_spacjami.strip()
+        try:
+            self.kordy = kord_poprawny_lub_ze_spacjami.strip()
+        except Exception:
+            raise ValueError("Nieprawidłowe kordy: {}".format(kord_poprawny_lub_ze_spacjami))
         if len(self.kordy) != 7:
-            raise ValueError("złe kordy")
+            raise ValueError("Nieprawidłowe kordy: {}".format(kord_poprawny_lub_ze_spacjami))
+
+        if not self.kordy[0:3].isnumeric() and self.kordy[4:7].isnumeric() and self.kordy[3]=="|":
+            raise ValueError("Nieprawidłowe kordy: {}".format(kord_poprawny_lub_ze_spacjami))
+
         self.x = int(self.kordy[0:3])
         self.y = int(self.kordy[4:7])
 
@@ -75,7 +82,7 @@ class Wioska():
         """ get player instance from database, NOT nickname """
         try:
             player: models.Player = models.Player.objects.get(
-                player_id=self.get_village(swiat).player_id)
+                player_id=self.get_village(swiat).player_id, world=swiat)
         except Exception:
             raise Exception(
                 "Nie istnieje w bazie właściciel wioski {}".format(self.kordy))
@@ -102,7 +109,7 @@ class Wioska():
 
 
 class Wiele_wiosek():
-    """ Very important class based on Wioska class, implemented
+    """ class based on Wioska class, implemented
         that way long ago, leaved as it is. """
     def __init__(self, wiele_kordow_po_spacji: str):
         wiele_kordow_po_spacji = wiele_kordow_po_spacji.strip().split()
