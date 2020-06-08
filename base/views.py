@@ -87,7 +87,7 @@ def base_documentation(request):
     """ base documentation view"""
     doc = models.Documentation.objects.get(title="Doc").main_page
     doc = markdownify(doc)
-    print(doc)
+    
     context = {"doc": doc}
     return render(request, 'base/documentation.html', context)
 
