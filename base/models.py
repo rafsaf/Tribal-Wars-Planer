@@ -121,6 +121,8 @@ class New_Outline(models.Model):
      \n przeciwne_plemie_skrot -str: pl1, pl2, pl3, ... NULL BLANK DEFAULT ""
      \n zbiorka_wojsko -str NULL BLANK DEFAULT ""
      \n zbiorka_obrona -str NULL BLANK DEFAULT ""
+     \n initial_period_outline_players -str NULL BLANK DEFAULT ""
+     \n initial_period_outline_targets -str NULL BLANK DEFAULT ""
     """
     STATUS_CHOICES = [
         ('active', 'Active'),
@@ -140,11 +142,11 @@ class New_Outline(models.Model):
                               default='active')
     moje_plemie_skrot = models.CharField(max_length=100,
                                          default='',
-                                         null=True,
+                                         
                                          blank=True)
     przeciwne_plemie_skrot = models.CharField(max_length=100,
                                               default='',
-                                              null=True,
+                                              
                                               blank=True)
 
     zbiorka_wojsko = models.TextField(
@@ -152,15 +154,26 @@ class New_Outline(models.Model):
         blank=True,
         default="",
         help_text=mark_safe(
-            "Wymagana dokładna forma ze skryptu Wojska, zajrzyj do <a href='/dokumentacja'>dokumentacji</a>"
+            "Wymagana dokładna forma ze skryptu Wojska, zajrzyj do <a href='/documentation#Skrypt-zbiorka-wojska'>dokumentacji</a>"
         ))
     zbiorka_obrona = models.TextField(
         null=True,
         blank=True,
         default="",
         help_text=mark_safe(
-            "Wymagana dokładna forma ze skryptu Obrona, zajrzyj do <a href='/dokumentacja'>dokumentacji</a>"
+            "Wymagana dokładna forma ze skryptu Obrona, zajrzyj do <a href='/documentation#Skrypt-zbiorka-obrona'>dokumentacji</a>"
         ))
+    
+    initial_period_outline_players = models.TextField(
+        
+        blank=True,
+        default="")
+
+    initial_period_outline_targets = models.TextField(
+        
+        blank=True,
+        default="")
+
 
     class Meta:
         ordering = ('-created', )
@@ -171,8 +184,9 @@ class New_Outline(models.Model):
 
 class Results(models.Model):
     """ One to one with outline, presents results """
-    outline = models.OneToOneField(New_Outline, on_delete=models.CASCADE, primary_key = True)
+    outline = models.OneToOneField(New_Outline, on_delete=models.CASCADE, primary_key=True)
     results_get_deff = models.TextField(default="")
+
 
     def __str__(self):
         return self.outline.nazwa + " results"

@@ -230,7 +230,6 @@ def outline_detail_2_deff(request, _id):
         return redirect('base:planer_detail', _id)
 
     form = forms.Get_Deff_Form(request.POST or None, world=instance.swiat)
-    print([form.errors])
     if 'form' in request.POST:
         if form.is_valid():
             radius = request.POST.get('radius')
@@ -258,3 +257,74 @@ def outline_detail_results(request, _id):
 
     return render(request, 'base/new_outline/new_outline_results.html', context)
 
+@login_required
+def outline_detail_initial_period_outline(request, _id):
+    """ view with form for initial period outline """
+
+    instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
+
+    # User have to fill data or get redirected to outline_detail view
+    if instance.zbiorka_obrona == "":
+        request.session['error'] = "Zbiórka Obrona pusta !"
+        return redirect('base:planer_detail', _id)
+    
+    if instance.zbiorka_wojsko == "":
+        request.session['error'] = "Zbiórka Wojsko pusta !"
+        return redirect('base:planer_detail', _id)
+    
+
+    context = {"instance":instance}
+    return render(request, 'base/new_outline/new_outline_initial_period2.html', context)
+
+@login_required
+def outline_detail_initial_period_form(request, _id):
+    """ view with table with created outline, returned after valid filled form earlier """
+
+    instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
+
+    # User have to fill data or get redirected to outline_detail view
+    if instance.zbiorka_obrona == "":
+        request.session['error'] = "Zbiórka Obrona pusta !"
+        return redirect('base:planer_detail', _id)
+    
+    if instance.zbiorka_wojsko == "":
+        request.session['error'] = "Zbiórka Wojsko pusta !"
+        return redirect('base:planer_detail', _id)
+    form1 = forms.Initial_Period_Outline_Player_Form(request.POST or None, world=instance.swiat)
+    form2 = forms.Initial_Period_Outline_Player_Choose_Form(request.POST or None)
+
+
+    form2.fields['player'].choices = [("banned", "--------")]+[
+        ("{}".format(i.name), "{}".format(i.name))
+        for i in models.Player.objects.all().exclude(name__in=instance.initial_period_outline_players.split('\r\n')).filter(
+            world=instance.swiat).filter(tribe_id__in=[tribe.tribe_id for tribe in models.Tribe.objects.all().filter(tag__in=instance.moje_plemie_skrot.split(', '))])
+    ]
+
+    form1.fields['players'].initial = instance.initial_period_outline_players
+    form1.fields['target'].initial = instance.initial_period_outline_targets
+
+    if "form1" in request.POST:
+        if form1.is_valid():
+            player = request.POST.get("players")
+            target = request.POST.get("target")
+            instance.initial_period_outline_players = player
+            instance.initial_period_outline_targets = target
+            instance.save()
+            return redirect("base:planer_initial", _id)
+
+    if "form2" in request.POST:
+        if form2.is_valid():
+            player = request.POST.get("player")
+            #banned means "-------"
+            if player == "banned":
+                pass
+            elif instance.initial_period_outline_players == "":
+                instance.initial_period_outline_players = player
+            else:
+                instance.initial_period_outline_players += "\r\n{}".format(player)
+            instance.save()
+            return redirect("base:planer_initial_form", _id)
+
+
+    context = {"instance": instance, "form1":form1, "form2":form2}
+    return render(request, 'base/new_outline/new_outline_initial_period1.html', context)

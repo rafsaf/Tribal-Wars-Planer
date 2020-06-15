@@ -149,3 +149,5 @@ LOGOUT_REDIRECT_URL = 'base:base'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'

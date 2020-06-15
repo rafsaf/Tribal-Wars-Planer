@@ -43,7 +43,7 @@ class Wojsko_Outline_Form(forms.ModelForm):
                         if index == 0:
                             try:
                                 wioska = basic.Wioska(element)
-                            except ValueError as error:
+                            except ValueError:
                                 self.add_error(
                                     "zbiorka_wojsko",
                                     "Błąd w lini {}: {}".format(i+1, text_line),
@@ -106,7 +106,7 @@ class Obrona_Outline_Form(forms.ModelForm):
                         if index == 0:
                             try:
                                 wioska = basic.Wioska(element)
-                            except ValueError as error:
+                            except ValueError:
                                 self.add_error(
                                     "zbiorka_obrona",
                                     "Błąd w lini {}: {}".format(i + 1, text_line),
@@ -244,4 +244,54 @@ class Get_Deff_Form(forms.Form):
         except ValueError as error:
             self.add_error("excluded", str(error))
             return
+        return village_list
+
+class Initial_Period_Outline_Player_Choose_Form(forms.Form):
+    player = forms.ChoiceField(choices=[], label="Dodaj gracza", required=False)
+
+    def clean_player(self):
+        player = self.cleaned_data['player']
+        if player == "banned":
+            player = ""
+        return player
+
+class Initial_Period_Outline_Player_Form(forms.Form):
+    players = forms.CharField(max_length=1500, widget=forms.Textarea, label="Gracze, którzy przejmują", required=False)
+    target = forms.CharField(max_length=15000, widget=forms.Textarea, label="Cele", help_text="Kordy po spacji lub enterze", required=False)
+    
+    def __init__(self, *args, **kwargs):
+        self.world = kwargs.pop("world")
+        super(Initial_Period_Outline_Player_Form, self).__init__(*args, **kwargs)
+    def clean_players(self):
+        players = self.cleaned_data['players']
+        for name in players.split('\r\n'):
+            try:
+                players = models.Player.objects.get(name=name, world=self.world)
+            except MultipleObjectsReturned as error:
+                self.add_error(
+                    "players",
+                    name
+                    + ": "
+                    + str(error)
+                    + ", contact with admin"
+                    + ", for now remove player and proceed",
+                )
+                return
+            except Exception:
+                self.add_error("players", "Nie istnieje gracz {}".format(name))
+                return
+        return players
+    def clean_target(self):
+        try:
+            village_list = basic.Wiele_wiosek(self.cleaned_data["target"])
+        except ValueError as error:
+            self.add_error("target", str(error))
+            return
+        for village in self.cleaned_data["target"].split():
+            try:
+                print(village[4:7])
+                v = models.Village.objects.get(x=village[0:3], y=village[4:7], world=self.world)
+            except Exception:
+                self.add_error("target", "W bazie świata {} nie istnieje wioska {}".format(self.world,village))
+                return
         return village_list

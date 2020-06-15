@@ -9,6 +9,8 @@ role="button">{{instance.nazwa}}</a>
 bg-light">Wyniki</a>
 <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
 bg-light">Zbierz deff</a>
+<a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
+bg-light">Rozpiska - etap 1 wioski</a>
 {%endblock%}
 
 {% block content %}
