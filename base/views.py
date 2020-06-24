@@ -272,6 +272,9 @@ def outline_detail_initial_period_outline(request, _id):
         request.session['error'] = "Zbiórka Wojsko pusta !"
         return redirect('base:planer_detail', _id)
     
+    if "form1" in request.POST:
+        request.session["pass-to-form"] = "True"
+        return redirect("base:planer_initial_form", _id)
 
     context = {"instance":instance}
     return render(request, 'base/new_outline/new_outline_initial_period2.html', context)
@@ -281,7 +284,6 @@ def outline_detail_initial_period_form(request, _id):
     """ view with table with created outline, returned after valid filled form earlier """
 
     instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
-
     # User have to fill data or get redirected to outline_detail view
     if instance.zbiorka_obrona == "":
         request.session['error'] = "Zbiórka Obrona pusta !"
@@ -290,9 +292,18 @@ def outline_detail_initial_period_form(request, _id):
     if instance.zbiorka_wojsko == "":
         request.session['error'] = "Zbiórka Wojsko pusta !"
         return redirect('base:planer_detail', _id)
+    try:
+        var = request.session["pass-to-form"]
+        allowed_form = True
+    except KeyError:
+        allowed_form = False
+
+    # always go to the next view after form confirmation OR if user want to
+    if instance.initial_period_outline_players != "" and allowed_form == False and instance.initial_period_outline_targets != "":
+        return redirect("base:planer_initial", _id)
+
     form1 = forms.Initial_Period_Outline_Player_Form(request.POST or None, world=instance.swiat)
     form2 = forms.Initial_Period_Outline_Player_Choose_Form(request.POST or None)
-
 
     form2.fields['player'].choices = [("banned", "--------")]+[
         ("{}".format(i.name), "{}".format(i.name))
@@ -310,6 +321,10 @@ def outline_detail_initial_period_form(request, _id):
             instance.initial_period_outline_players = player
             instance.initial_period_outline_targets = target
             instance.save()
+            try:
+                del request.session["pass-to-form"]
+            except KeyError:
+                pass
             return redirect("base:planer_initial", _id)
 
     if "form2" in request.POST:
