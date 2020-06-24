@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap_datepicker_plus',
     'markdownx',
+    'django_registration',
 
     #from django
     'django.contrib.admin',
