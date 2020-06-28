@@ -14,24 +14,36 @@ class World(models.Model):
      \n world- int
      \n speed_world -float
      \n speed_units -float
+     \n paladin - active/inactive
+     \n archer - active/inactive
+     \n militia - active/inactive
     """
+
+    STATUS_CHOICES = [
+        ("active", "Active"),
+        ("inactive", "Inactive"),
+    ]
     # Kiedys dodac test czy istnieja pliki txt w api gry o numerze
-    title = models.TextField(verbose_name='Tytuł')
-    world = models.IntegerField(verbose_name='Numer świata')
+    title = models.TextField(verbose_name="Tytuł")
+    world = models.IntegerField(verbose_name="Numer świata")
     speed_world = models.FloatField(null=True, blank=True, default=1)
     speed_units = models.FloatField(null=True, blank=True, default=1)
+
+    # Some units are not aviable on worlds!!!
+    paladin = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
+    archer = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
+    militia = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
 
     def __str__(self):
         return str(self.title)
 
     def save(self, *args, **kwargs):
-        if self.title != 'Świat {}'.format(self.world):
+        if self.title != "Świat {}".format(self.world):
             raise Exception("Invalid World title: {}".format(self.title))
         super(World, self).save(*args, **kwargs)  # Call the real save() method
 
     class Meta:
-        ordering = ('-world', )
-
+        ordering = ("-world",)
 
 
 class Tribe(models.Model):
@@ -48,6 +60,7 @@ class Tribe(models.Model):
      \n rank -int
      \n world -int
     """
+
     tribe_id = models.IntegerField()
     name = models.TextField()
     tag = models.TextField()
@@ -58,11 +71,16 @@ class Tribe(models.Model):
     rank = models.IntegerField()
     world = models.IntegerField()
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
-        if ', ' in self.tag:
+        if ", " in self.tag:
             raise ValueError(
-                "Unallowed ', ' in Tribe's tag - id:{}, name:{}, please remove it"
-                .format(self.tribe_id, self.name))
+                "Unallowed ', ' in Tribe's tag - id:{}, name:{}, please remove it".format(
+                    self.tribe_id, self.name
+                )
+            )
         super().save(*args, **kwargs)
 
 
@@ -78,6 +96,7 @@ class Player(models.Model):
      \n rank -int
      \n world -int
     """
+
     player_id = models.IntegerField()
     name = models.TextField()
     tribe_id = models.IntegerField()
@@ -85,6 +104,9 @@ class Player(models.Model):
     points = models.IntegerField()
     rank = models.IntegerField()
     world = models.IntegerField()
+
+    def __str__(self):
+        return self.name
 
 
 class Village(models.Model):
@@ -98,12 +120,16 @@ class Village(models.Model):
      \n world -int
      \n points -int
     """
+
     village_id = models.IntegerField()
     x = models.IntegerField()
     y = models.IntegerField()
     player_id = models.IntegerField()
     world = models.IntegerField()
     points = models.IntegerField(null=True)
+
+    def __str__(self):
+        return str(self.village_id)
 
 
 # PLANER MODELS
@@ -124,30 +150,23 @@ class New_Outline(models.Model):
      \n initial_period_outline_players -str NULL BLANK DEFAULT ""
      \n initial_period_outline_targets -str NULL BLANK DEFAULT ""
     """
+
     STATUS_CHOICES = [
-        ('active', 'Active'),
-        ('inactive', 'Inactive'),
+        ("active", "Active"),
+        ("inactive", "Inactive"),
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+
     # ONLY Chosen in form
     data_akcji = models.DateField(null=True, blank=True)
     nazwa = models.TextField()
     swiat = models.TextField(null=True, blank=True)
     #
     created = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(choices=STATUS_CHOICES,
-                              max_length=8,
-                              default='active')
-    moje_plemie_skrot = models.CharField(max_length=100,
-                                         default='',
-                                         
-                                         blank=True)
-    przeciwne_plemie_skrot = models.CharField(max_length=100,
-                                              default='',
-                                              
-                                              blank=True)
+    status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
+    moje_plemie_skrot = models.CharField(max_length=100, default="", blank=True)
+    przeciwne_plemie_skrot = models.CharField(max_length=100, default="", blank=True)
 
     zbiorka_wojsko = models.TextField(
         null=True,
@@ -155,38 +174,35 @@ class New_Outline(models.Model):
         default="",
         help_text=mark_safe(
             "Wymagana dokładna forma ze skryptu Wojska, zajrzyj do <a href='/documentation#Skrypt-zbiorka-wojska'>dokumentacji</a>"
-        ))
+        ),
+    )
     zbiorka_obrona = models.TextField(
         null=True,
         blank=True,
         default="",
         help_text=mark_safe(
             "Wymagana dokładna forma ze skryptu Obrona, zajrzyj do <a href='/documentation#Skrypt-zbiorka-obrona'>dokumentacji</a>"
-        ))
-    
-    initial_period_outline_players = models.TextField(
-        
-        blank=True,
-        default="")
+        ),
+    )
 
-    initial_period_outline_targets = models.TextField(
-        
-        blank=True,
-        default="")
+    initial_period_outline_players = models.TextField(blank=True, default="")
 
+    initial_period_outline_targets = models.TextField(blank=True, default="")
 
     class Meta:
-        ordering = ('-created', )
+        ordering = ("-created",)
 
     def __str__(self):
-        return 'ID:' + str(self.id) + ", Nazwa: " + str(self.nazwa)
+        return "ID:" + str(self.id) + ", Nazwa: " + str(self.nazwa)
 
 
 class Results(models.Model):
     """ One to one with outline, presents results """
-    outline = models.OneToOneField(New_Outline, on_delete=models.CASCADE, primary_key=True)
-    results_get_deff = models.TextField(default="")
 
+    outline = models.OneToOneField(
+        New_Outline, on_delete=models.CASCADE, primary_key=True
+    )
+    results_get_deff = models.TextField(default="")
 
     def __str__(self):
         return self.outline.nazwa + " results"

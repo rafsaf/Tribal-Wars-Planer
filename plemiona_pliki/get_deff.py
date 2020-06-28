@@ -4,21 +4,24 @@
 """
 
 from base import models
-from .basic_classes import Wioska, Map, Wiele_wiosek
+from .basic_classes import Wioska, Map, Wiele_wiosek, Defence, Parent_Army_Defence_World_Evidence
 
 
 def get_deff(
     new_Outline: models.New_Outline,
-    radius,
-    excluded_villages="",
-    ally_name_list=[],
-    enemy_name_list=[],
-):
+    radius:int,
+    ally_name_list=None,
+    enemy_name_list=None,
+    excluded_villages=""):
     """
     Args is instance of New_Outline, WARNING! be sure to use CORRECT
     data in instance, returns text with deff results.
     """
-
+    if ally_name_list is None:
+        ally_name_list = []
+    if enemy_name_list is None:
+        enemy_name_list = []
+    
     # napisać funkcję która sprawdza dokładnie poprawność przed pojsciem dalej
     # lub wcześniej w forms.py to zrobić
     my_tribe = new_Outline.moje_plemie_skrot.split(", ")
@@ -130,44 +133,44 @@ def deff_text(ally_villages, enemy_villages, radius, text_obrona, world):
             index += 1
             continue
         index += 1
-        i = i.split(",")
-        wioska = Wioska(i[0])
+        #classes from basic_classes.py !
+        parent_world_evidence = Parent_Army_Defence_World_Evidence(world_number=world)
+        #
+        deff_instance = Defence(text_army=i, parent_army_object=parent_world_evidence)
+        #
+        wioska = deff_instance.get_village()
         if wioska not in lista_wiosek:
             continue
-
         owner = wioska.get_player(world).name
-
         if owner not in context_all:
+            # sprawdzic czy "?" w deff_instance ???
+            if deff_instance.get_deff_units() > 0:
 
-            if i[2] == "?":
-                continue
-            if int(i[2]) + int(i[3]) + 4 * int(i[7]) > 0:
-
-                context_all[owner] = int(i[2]) + int(i[3]) + 4 * int(i[7])
+                context_all[owner] = deff_instance.get_deff_units()
                 context_details[owner] = (
                     "\r\n"
                     + owner
                     + "\r\n"
                     + wioska.kordy
                     + " Piki - "
-                    + i[2]
+                    + str(deff_instance.get_pikinier())
                     + ", Miecze - "
-                    + i[3]
+                    + str(deff_instance.get_miecznik())
                     + ", CK - "
-                    + i[7]
+                    + str(deff_instance.get_ck())
                 )
         else:
-            if int(i[2]) + int(i[3]) + 4 * int(i[7]) > 0:
-                context_all[owner] += int(i[2]) + int(i[3]) + 4 * int(i[7])
+            if deff_instance.get_deff_units() > 0:
+                context_all[owner] += deff_instance.get_deff_units()
                 context_details[owner] += (
                     "\r\n"
                     + wioska.kordy
                     + " Piki - "
-                    + i[2]
+                    + str(deff_instance.get_pikinier())
                     + ", Miecze - "
-                    + i[3]
+                    + str(deff_instance.get_miecznik())
                     + ", CK - "
-                    + i[7]
+                    + str(deff_instance.get_ck())
                 )
 
     output = ""

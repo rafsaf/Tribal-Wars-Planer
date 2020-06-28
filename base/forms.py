@@ -15,6 +15,7 @@ class New_Outline_Form(forms.Form):
     swiat = forms.ChoiceField(choices=[], label="Świat")
 
 
+# Dodac kiedys kwarg world-klasa Wolrd, by sprawdzić dokładnie czy wojsko i obrona poprawne
 class Wojsko_Outline_Form(forms.ModelForm):
     class Meta:
         model = models.New_Outline
@@ -33,9 +34,9 @@ class Wojsko_Outline_Form(forms.ModelForm):
                 if text_line == "":
                     continue
                 line = text_line.split(",")
-                if len(line) not in {16, 17}:
+                if len(line) not in {12, 13, 14, 15, 16, 17}:
                     self.add_error(
-                        "zbiorka_wojsko", "Błąd w lini {}: {}".format(i+1, text_line)
+                        "zbiorka_wojsko", "Błąd w lini {}: {}".format(i + 1, text_line)
                     )
                     return
                 else:
@@ -46,38 +47,33 @@ class Wojsko_Outline_Form(forms.ModelForm):
                             except ValueError:
                                 self.add_error(
                                     "zbiorka_wojsko",
-                                    "Błąd w lini {}: {}".format(i+1, text_line),
+                                    "Błąd w lini {}: {}".format(i + 1, text_line),
                                 )
                                 return
                         elif index != len(line) - 1:
                             if not element.isnumeric():
                                 self.add_error(
                                     "zbiorka_wojsko",
-                                    "Błąd w lini {}: {}".format(i+1, text_line),
+                                    "Błąd w lini {}: {}".format(i + 1, text_line),
                                 )
                                 return
                         else:
                             if not element == "":
                                 self.add_error(
                                     "zbiorka_wojsko",
-                                    "Błąd w lini {}: {}".format(i+1, text_line),
+                                    "Błąd w lini {}: {}".format(i + 1, text_line),
                                 )
                                 return
 
-                if len(line) == 17:
-                    if new == "":
-                        new = text_line
-                    else:
-                        new += "\r\n" + text_line
+                if new == "":
+                    new = text_line
                 else:
-                    if new == "":
-                        new = text_line + "?,"
-                    else:
-                        new += "\r\n" + text_line + "?,"
+                    new += "\r\n" + text_line
             return new
         return text
 
 
+# Dodac kiedys kwarg world-klasa Wolrd, by sprawdzić dokładnie czy wojsko i obrona poprawne
 class Obrona_Outline_Form(forms.ModelForm):
     class Meta:
         model = models.New_Outline
@@ -96,7 +92,7 @@ class Obrona_Outline_Form(forms.ModelForm):
                 if text_line == "":
                     continue
                 line = text_line.split(",")
-                if len(line) != 14:
+                if len(line) not in {12, 13, 14, 15, 16, 17}:
                     self.add_error(
                         "zbiorka_obrona", "Błąd w lini {}: {}".format(i + 1, text_line)
                     )
@@ -118,7 +114,7 @@ class Obrona_Outline_Form(forms.ModelForm):
                                     "zbiorka_obrona",
                                     "Błąd w lini {}: {}".format(i + 1, text_line),
                                 )
-                                return                           
+                                return
                         elif index != len(line) - 1:
                             if not element.isnumeric():
                                 self.add_error(
@@ -147,19 +143,20 @@ class Moje_plemie_skrot_Form(forms.Form):
     plemie1 = forms.ChoiceField(choices=[], label="Moje plemię", required=False)
 
     def clean_plemie1(self):
-        plemie = self.cleaned_data['plemie1']
+        plemie = self.cleaned_data["plemie1"]
         if plemie == "banned":
-            self.add_error('plemie1', "Wybierz plemię z listy")
+            self.add_error("plemie1", "Wybierz plemię z listy")
             return
         return plemie
+
 
 class Przeciwne_plemie_skrot_Form(forms.Form):
     plemie2 = forms.ChoiceField(choices=[], label="Przeciwne plemię", required=False)
 
     def clean_plemie2(self):
-        plemie = self.cleaned_data['plemie2']
+        plemie = self.cleaned_data["plemie2"]
         if plemie == "banned":
-            self.add_error('plemie2', "Wybierz plemię z listy")
+            self.add_error("plemie2", "Wybierz plemię z listy")
             return
         return plemie
 
@@ -246,25 +243,39 @@ class Get_Deff_Form(forms.Form):
             return
         return village_list
 
+
 class Initial_Period_Outline_Player_Choose_Form(forms.Form):
     player = forms.ChoiceField(choices=[], label="Dodaj gracza", required=False)
 
     def clean_player(self):
-        player = self.cleaned_data['player']
+        player = self.cleaned_data["player"]
         if player == "banned":
             player = ""
         return player
 
+
 class Initial_Period_Outline_Player_Form(forms.Form):
-    players = forms.CharField(max_length=1500, widget=forms.Textarea, label="Gracze, którzy przejmują", required=False)
-    target = forms.CharField(max_length=15000, widget=forms.Textarea, label="Cele", help_text="Kordy po spacji lub enterze", required=False)
-    
+    players = forms.CharField(
+        max_length=1500,
+        widget=forms.Textarea,
+        label="Gracze, którzy przejmują",
+        required=False,
+    )
+    target = forms.CharField(
+        max_length=15000,
+        widget=forms.Textarea,
+        label="Cele",
+        help_text="Kordy po spacji lub enterze",
+        required=False,
+    )
+
     def __init__(self, *args, **kwargs):
         self.world = kwargs.pop("world")
         super(Initial_Period_Outline_Player_Form, self).__init__(*args, **kwargs)
+
     def clean_players(self):
-        players = self.cleaned_data['players']
-        for name in players.split('\r\n'):
+        players = self.cleaned_data["players"]
+        for name in players.split("\r\n"):
             try:
                 players = models.Player.objects.get(name=name, world=self.world)
             except MultipleObjectsReturned as error:
@@ -281,6 +292,7 @@ class Initial_Period_Outline_Player_Form(forms.Form):
                 self.add_error("players", "Nie istnieje gracz {}".format(name))
                 return
         return players
+
     def clean_target(self):
         try:
             village_list = basic.Wiele_wiosek(self.cleaned_data["target"])
@@ -290,8 +302,15 @@ class Initial_Period_Outline_Player_Form(forms.Form):
         for village in self.cleaned_data["target"].split():
             try:
                 print(village[4:7])
-                v = models.Village.objects.get(x=village[0:3], y=village[4:7], world=self.world)
+                v = models.Village.objects.get(
+                    x=village[0:3], y=village[4:7], world=self.world
+                )
             except Exception:
-                self.add_error("target", "W bazie świata {} nie istnieje wioska {}".format(self.world,village))
+                self.add_error(
+                    "target",
+                    "W bazie świata {} nie istnieje wioska {}".format(
+                        self.world, village
+                    ),
+                )
                 return
         return village_list

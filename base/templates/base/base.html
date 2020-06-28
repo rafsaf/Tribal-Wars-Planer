@@ -16,7 +16,7 @@
     {% load bootstrap4 %}
 
     {% bootstrap_javascript jquery='full' %}
-
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
     <link rel="stylesheet" href="{% static 'base.css' %}">
 </head>
 
@@ -100,7 +100,7 @@
             <div class="container-fluid mt-4">
 
                 {% block content %}
-                <img src="{% static 'images/car.jpg' %}" class="img-fluid" alt="Responsive image">
+                
                 
                 {% endblock %}
             </div>
