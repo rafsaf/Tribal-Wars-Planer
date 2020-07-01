@@ -15,6 +15,7 @@ from django.views.decorators.http import require_POST
 from markdownx.utils import markdownify
 from plemiona_pliki.database_update import cron_schedule_data_update
 from plemiona_pliki.get_deff import get_deff
+import plemiona_pliki.outline_initial as initial
 from . import models, forms
 
 
@@ -275,7 +276,15 @@ def outline_detail_initial_period_outline(request, _id):
         request.session["pass-to-form"] = "True"
         return redirect("base:planer_initial_form", _id)
 
-    context = {"instance": instance}
+    graph = initial.make_initial_outline(instance)
+    graph.get_result_outline()
+    targets = graph.target_vertex
+    result = []
+    for coords in targets:
+        var = [initial.Some(query=obj, world=instance.swiat) for obj in models.Initial_Outline.objects.all().filter(target=str(coords))]
+        result.append(var)
+
+    context = {"instance": instance, "result":result}
     return render(request, "base/new_outline/new_outline_initial_period2.html", context)
 
 

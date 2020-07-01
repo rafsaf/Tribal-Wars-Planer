@@ -215,3 +215,9 @@ class Documentation(models.Model):
     def __str__(self):
         return self.title
 
+class Initial_Outline(models.Model):
+    outline = models.ForeignKey(New_Outline, on_delete=models.CASCADE)
+    target = models.TextField(default="")
+    village1 = models.TextField(default="")
+    village2 = models.TextField(default="")
+    params = models.TextField(default="")

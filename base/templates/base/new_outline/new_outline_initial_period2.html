@@ -8,4 +8,57 @@
     <button name="form1" type="submit" class="btn btn-danger">Powrót</button>
 </form>
 
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Cel</th>
+        <th colspan="4" scope="col">Rozpiska</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for list in result %}
+    <tr>
+
+        {% for some in list %}
+        {% if forloop.first%}
+        <td>{{some.target_village}}</td>
+        {% endif %}
+        <td>
+            <button id="popoverData" data-html="true" 
+            data-content=
+            "{% if some.village1 == ''%}
+            {{some.village2}} <br /> <br />{{some.params}}
+            {% else %}
+            {{some.village1}} <br />{{some.params}}
+            {% endif %}"
+            rel="popover" data-placement="bottom" data-original-title="{{some.owner}}" data-trigger="hover" class="btn btn-primary popoverData">
+                {% if some.village1 == ''%}
+                {{some.village2}}
+                {% else %}
+                {{some.village1}}
+                {% endif %}
+            </button>
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+
+
+<!-- Sidebar 
+    <a id="popoverData" class="btn" href="#" data-html="true" data-content="Popoverzsszzzs <br /> with data-trigger" rel="popover" data-placement="bottom" data-original-title="Title" data-trigger="hover">Popover with data-trigger</a>
+
+    <a id="popoverOption" class="btn" href="#" data-content="Popup with option trigger" rel="popover" data-placement="bottom" data-original-title="Title">Popup with option trigger</a>
+-->
+    
+</div>
+
+
+
+<script>
+    $('.popoverData').popover();
+    $('.popoverOption').popover({ trigger: "hover" });
+</script>
 {% endblock %}
