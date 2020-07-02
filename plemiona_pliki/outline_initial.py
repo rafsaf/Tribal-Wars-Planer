@@ -69,7 +69,7 @@ class Vertex:
         return self.id
 
     def get_village(self):
-        return basic.Wioska(str(self.id[0]) + "|" + str(self.id[1]))
+        return basic.Wioska.from_coords(*self.id)
 
     def add_neighbor(self, nbr, weight=(1, 1, 0)):
         self.connected_to[nbr] = weight

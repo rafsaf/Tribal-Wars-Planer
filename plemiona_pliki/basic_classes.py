@@ -65,6 +65,11 @@ class Wioska:
 
         self.x = int(self.kordy[0:3])
         self.y = int(self.kordy[4:7])
+    
+    @classmethod
+    def from_coords(cls, x_coord:int, y_coord:int):
+        return cls(str(x_coord)+"|"+str(y_coord))
+
 
     def distance(self, other):
         """ distance between two villages """
