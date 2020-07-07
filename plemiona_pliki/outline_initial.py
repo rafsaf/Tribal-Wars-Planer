@@ -1,194 +1,247 @@
-from ast import literal_eval as make_tuple
-
+import pickle
 from . import basic_classes as basic
 from base import models
+from .timing import timing
 
 
-class Graph:
-    def __init__(self, outline):
-        self.outline = outline
-        self.vert_list = {}
-        self.target_vertex = []
-        self.used_vertex = []
-
-    def add_to_used_vertex(self, key):
-        self.used_vertex.append(key)
-
-    def add_vertex(self, key):
-        new_vertex = Vertex(key[0], key[1])
-        self.vert_list[key] = new_vertex
-
-    def get_vertex(self, key):
-        vertex: Vertex = self.vert_list[key]
-        return vertex
-
-    def add_edge(self, f, t, weight=(1, 1, 0)):
-        if f not in self.vert_list:
-            self.add_vertex(f)
-            self.target_vertex.append(f)
-        if t not in self.vert_list:
-            self.add_vertex(t)
-        self.vert_list[f].add_neighbor(self.vert_list[t], weight)
-    
-    def get_best_four_village(self, key):
-        target = self.get_vertex(key)
-        sorted_list = target.sort_connected_to(self.used_vertex)[:4]
-        for vertex in sorted_list:
-            self.used_vertex.append(vertex[0])
-        return sorted_list
-    
-    def get_rest_of_four_villages(self, key, sorted_list):
-        result = []
-        vertex = self.get_vertex(key)
-        for i in vertex.connected_to:
-            if not i.id in [i[0] for i in sorted_list]:
-                result.append((i.id, vertex.connected_to[i]))
-        return result
-
-    def get_result_outline(self):
-        for target in self.target_vertex:
-            sorted_list = self.get_best_four_village(target)
-
-            for i in sorted_list:
-                obj = models.Initial_Outline(outline=self.outline, target=str(target), village1=str(i[0]), params=str(i[1]))
-                obj.save()
-            for i in self.get_rest_of_four_villages(target, sorted_list):
-                obj = models.Initial_Outline(outline=self.outline, target=str(target[0])+"|"+str(target[1]), village2=str(i[0]), params=(str(i[1])))
-                obj.save()
-
-    def __iter__(self):
-        return iter(self.vert_list.values())
-
-
-class Vertex:
-    def __init__(self, key_x: int, key_y: int):
-        self.id = (key_x, key_y)
-        self.connected_to = {}
-
-    def get_id(self):
-        return self.id
-
-    def get_village(self):
-        return basic.Wioska.from_coords(*self.id)
-
-    def add_neighbor(self, nbr, weight=(1, 1, 0)):
-        self.connected_to[nbr] = weight
-
-    def sort_connected_to(self, used_vertex):
-        sorted_list = sorted(
-            self.connected_to.items(),
-            key=lambda tuple_dist_units: tuple_dist_units[1][1],
-            reverse=True,
-        )
-        return [(vertex.id,tup) for (vertex, tup) in sorted_list if (tup[2] > 0 and vertex.id not in used_vertex)]
-
-    def get_neighbors(self):
-        return self.__str__() + str(
-            [(str(i), self.connected_to[i]) for i in self.connected_to]
-        )
-
-    def __str__(self):
-        return str(self.id)
-
-class Some:
-    def __init__(self, query, world):
-        self.target_village = make_tuple(query.target)
-        try:
-            self.village1 = make_tuple(query.village1) 
-        except Exception:
-            self.village1 = ""
-            pass
-
-        try:
-            self.village2 = make_tuple(query.village2)
-        except Exception:
-            self.village2 = ""
-            pass
-
-        self.owner = None
-        try:
-            self.params = make_tuple(query.params)
-        except Exception:
-            self.params = ""
-            pass
-        self.world = world
-        self.set_attrs()
-    def set_target_village(self):
-        self.target_village = str(basic.Wioska(str(self.target_village[0])+"|"+str(self.target_village[1])))
-    def get_village(self, coords):
-        return basic.Wioska(str(coords[0])+"|"+str(coords[1]))
-
-    def set_owner(self):
-        self.owner = self.get_village(self.village1).get_player(self.world).name
-    
-    def set_village(self):
-        if self.village1 == None:
-            self.village2 = str(self.get_village(self.village2))
-        else:
-            self.village1 = str(self.get_village(self.village1))
-    def set_params(self):
-        if not self.params == "":
-            self.params = f"Odległość: <br />{round(self.params[0],1)}<br /> Wojsko: <br />{self.params[1]}"
-    def set_attrs(self):
-        self.set_owner()
-        self.set_params()
-        self.set_village()
-        self.set_target_village()
-    def get_results(self):
-        return [self.target_village, self.village1, self.village2, self.owner]
-
-"""
-g = Graph()
-g.add_edge((500, 400), (500, 401), (2, 4000, 0))
-g.add_edge((500, 400), (500, 402), (3, 5020, 1))
-g.add_edge((500, 400), (500, 392), (5, 5000, 1))
-g.add_edge((500, 400), (500, 397), (2, 10000, 1))
-g.add_edge((500, 400), (500, 395), (7, 1500, 1))
-g.add_edge((500, 400), (500, 398), (3, 1500, 1))
-g.add_edge((501, 400), (500, 398), (7, 1500, 1))
-print(g.get_result_outline())
-"""
-
-def make_initial_outline(outline: models.New_Outline):
-    models.Initial_Outline.objects.all().filter(outline=outline).delete()
-    text_wojsko = outline.zbiorka_wojsko.split("\r\n")
-
-    priority_players = outline.initial_period_outline_players.split("\r\n")
-    targets = basic.Wiele_wiosek(
-        outline.initial_period_outline_targets
-    ).lista_z_wioskami
-    parent_army_world_evidence = basic.Parent_Army_Defence_World_Evidence(
-        int(outline.swiat)
-    )
-
-    outsiders = []  # villages out of range-12 of any target
-    graph = Graph(outline)
-
-    for line in text_wojsko:
-
-        line_army = basic.Army(
-            text_army=line, parent_army_object=parent_army_world_evidence
-        )
-        actual_village = line_army.get_village()
-
-        # fill graph
-        outsider = True  # check if out of range of any target
-        for target in targets:
-            if target.distance(actual_village) <= 12:
-                outsider = False
-                graph.add_edge(
-                    (target.x, target.y),
-                    (actual_village.x, actual_village.y),
-                    (
-                        target.distance(actual_village),
-                        line_army.get_off_units(),
-                        line_army.get_szlachcic(),
-                    ),
-                )
-        if outsider is True:
-            outsiders.append(line_army)
-        # add to db
+@timing
+def make_outline(outline: models.New_Outline):
+    graph = Graph_Initial_Outline(outline=outline)
+    graph.outline_make_first_time()
     return graph
 
+def get_outline(outline: models.New_Outline):
+    graph = Graph_Initial_Outline(outline=outline)
+    graph.get_existing_outline()
+    return graph
 
+class Graph_Initial_Outline:
+    def __init__(self, outline: models.New_Outline):
+        self.outline = outline
+        self.context_with_target_vertices = []
+        self.context_with_village_vertices = []
+        self.banned = set()
+        self.data = {}
+
+
+    def get_targets_from_outline(self):
+        list_with_targets = self.outline.initial_period_outline_targets
+        list_with_targets = basic.Wiele_wiosek(list_with_targets).lista_z_wioskami
+        return list_with_targets
+
+    # @timing
+    def add_target_vertices_to_graph(self):
+        for wioska in self.get_targets_from_outline():
+            self.context_with_target_vertices.append(
+                Vertex_Represent_Target_Village(
+                    wioska.kordy,
+                    self.outline.swiat,
+                    float(self.outline.max_distance_initial_outline),
+                )
+            )
+    def get_target_vertex(self, coord):
+        for target in self.context_with_target_vertices:
+            if target.wioska.kordy == coord:
+                return target
+    # @timing
+    def add_vertices_army_to_graph(self):
+        parent_army = basic.Parent_Army_Defence_World_Evidence(self.outline.swiat)
+        for i in self.outline.zbiorka_wojsko.split("\r\n"):
+            instance = Vertex_Army(
+                    i,
+                    parent_army,
+                    self.outline.swiat,
+                    float(self.outline.max_distance_initial_outline),)
+            self.data[instance.get_village().kordy]=instance
+
+            self.context_with_village_vertices.append(instance)
+            
+
+    @timing
+    def add_weight_to_vertices(self):
+        for vertex in self.context_with_village_vertices:
+            for target in self.context_with_target_vertices:
+                weight = vertex.add_connected_vertex_target(target.wioska.kordy)
+                target.add_connected_vertex_army(weight)
+
+    # @timing
+    def sort_weight_targets(self):
+        for target in self.context_with_target_vertices:
+            target.connected_to_vertex_army = sorted(
+                target.connected_to_vertex_army, reverse=True
+            )
+    def outline_make_first_time(self):
+        self.make()
+        obj_list = []
+        for target in self.context_with_target_vertices:
+            new_banned = target.get_four_best_vertices(self.banned)
+            for i in new_banned:
+                self.banned.add(i)
+
+            obj_list.append(target.get_target_vertex(self.outline))
+        models.Target_Vertex.objects.all().filter(outline=self.outline).delete()
+        models.Target_Vertex.objects.bulk_create(obj_list)
+
+    def get_existing_outline(self):
+        self.make()
+        for target in self.context_with_target_vertices:
+
+            obj = models.Target_Vertex.objects.get(outline=self.outline, target=target.wioska.kordy)
+            dict_target = obj.__dict__
+            del dict_target["_state"]
+            del dict_target["target"]
+            del dict_target["id"]
+            del dict_target["outline_id"]
+            #moze przestawiac?
+            for start in dict_target.values():
+                if start is not None:
+                    target.result_lst.append(Weight(start, target.wioska.kordy, self.outline.swiat,self.data[start], self.outline.max_distance_initial_outline))
+                    
+
+    @timing
+    def make(self):
+        self.add_target_vertices_to_graph()
+        self.add_vertices_army_to_graph()
+        self.add_weight_to_vertices()
+        self.sort_weight_targets()
+
+
+class Weight:
+    def __init__(
+        self,
+        start: str,
+        target: str,
+        world: int,
+        army: basic.Army,
+        max_distance: float,
+        dictionary={},
+    ):
+        self.dictionary = dictionary
+        self.start = basic.Wioska(start)
+        self.target = basic.Wioska(target)
+        self.world = world
+        self.army = army
+        self.max_distance = max_distance
+        self.distance = self.distance_()
+        self.off = self.off_()
+        self.info = self.print_info()
+        self.player = self.set_player()
+
+    def print_info(self):
+        return (
+            "Kordy: "+str(self.start.kordy)
+            + "<br />"
+            + "Wojsko: "+str(self.off)
+            + "<br />"
+            + "Odległość: "+str(round(self.distance, 1))
+        )
+
+    def set_player(self):
+        try:
+            return self.dictionary[self.start.kordy]
+        except KeyError:
+            player = self.start.get_player(self.world).name
+            self.dictionary[self.start.kordy] = player
+            return player
+
+    def distance_(self):
+        return self.start.distance(self.target)
+
+    def off_(self):
+        return self.army.get_off_units()
+
+    def __lt__(self, other):
+        dist1 = self.distance_()
+        dist2 = other.distance_()
+        if dist1 > self.max_distance and dist2 < self.max_distance:
+            return False
+
+        elif dist1 > self.max_distance and dist2 > self.max_distance:
+            return self.off_() < other.off_()
+
+        elif dist1 < self.max_distance and dist2 > self.max_distance:
+            return True
+
+        elif dist1 < self.max_distance and dist2 < self.max_distance:
+            return self.off_() < other.off_()
+
+        else:
+            raise ValueError
+
+    def __eq__(self, other):
+        return self.distance == other.distance and self.off == other.off
+
+
+class Vertex_Army(basic.Army):
+    def __init__(self, text_army, parent_army_object, world: int, max_distance: float):
+        super().__init__(text_army=text_army, parent_army_object=parent_army_object)
+        self.connected_to_target_vertex = []
+        self.world = world
+        self.max_distance = max_distance
+
+    def add_connected_vertex_target(self, target: str):
+        if self.get_village().distance(basic.Wioska(target)) <= self.max_distance:
+            weight = Weight(
+                self.coords_string, target, self.world, self, self.max_distance
+            )
+            self.connected_to_target_vertex.append(weight)
+            return weight
+        return None
+
+
+class Vertex_Represent_Target_Village:
+    def __init__(self, wioska: str, world: int, max_distance: float):
+        self.wioska = basic.Wioska(wioska)
+        self.slug = f"{self.wioska.x}-{self.wioska.y}"
+        self.world = world
+        self.connected_to_vertex_army: list = []
+        self.max_distance = max_distance
+        self.info = self.get_info()
+        self.attacks = {}
+        self.result_lst = []
+
+    def add_connected_vertex_army(self, weight):
+        if weight is not None:
+            self.connected_to_vertex_army.append(weight)
+
+    def get_four_best_vertices(self, banned_dict: dict):
+        result = {}
+        result_lst = []
+        for weight in self.connected_to_vertex_army:
+            length = len(result)
+            if length == 4:
+                break
+            if weight.army.have_szlachcic() and weight.distance <= self.max_distance and weight.start.kordy not in banned_dict:
+                result["attack{}".format(length+1)] = weight.start.kordy
+                result_lst.append(weight)
+        if len(result) < 4:
+            return []
+        else:
+            self.attacks = result
+            self.result_lst = result_lst
+
+        return result.values()
+
+    def get_target_vertex(self, outline):
+        model_info = {}
+
+        model_info["target"] = self.wioska.kordy
+        model_info["outline"] = outline
+        for i in self.attacks:
+            model_info[i] = self.attacks[i]
+        
+        return models.Target_Vertex(
+            **model_info
+        )
+
+    def get_info(self):
+        return str(self.wioska.get_player(self.world))+"<br />"+ str(self.wioska.kordy)
+
+
+class Vertex_Army_Employed_Village(Vertex_Army):
+    pass
+
+
+class Vertex_Army_Not_Used_Village(Vertex_Army):
+    pass
 

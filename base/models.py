@@ -189,6 +189,9 @@ class New_Outline(models.Model):
 
     initial_period_outline_targets = models.TextField(blank=True, default="")
 
+    max_distance_initial_outline = models.IntegerField(blank=True, default=10)
+
+    
     class Meta:
         ordering = ("-created",)
 
@@ -215,9 +218,23 @@ class Documentation(models.Model):
     def __str__(self):
         return self.title
 
-class Initial_Outline(models.Model):
+class Target_Vertex(models.Model):
     outline = models.ForeignKey(New_Outline, on_delete=models.CASCADE)
-    target = models.TextField(default="")
-    village1 = models.TextField(default="")
-    village2 = models.TextField(default="")
-    params = models.TextField(default="")
+    target = models.CharField(max_length=7, null=True)
+    attack1 = models.CharField(max_length=7, null=True)
+    attack2 = models.CharField(max_length=7, null=True)
+    attack3 = models.CharField(max_length=7, null=True)
+    attack4 = models.CharField(max_length=7, null=True)
+    attack5 = models.CharField(max_length=7, null=True)
+    attack6 = models.CharField(max_length=7, null=True)
+    attack7 = models.CharField(max_length=7, null=True)
+    attack8 = models.CharField(max_length=7, null=True)
+    attack9 = models.CharField(max_length=7, null=True)
+    attack10 = models.CharField(max_length=7, null=True)
+
+    def set_next(self, coords):
+        for i in [a for a in dir(self) if not a.startswith('__') and a.startswith("attack")]:
+            dict_ = self.__dict__
+            if dict_[i] == None:
+                dict_[i]=coords
+                return

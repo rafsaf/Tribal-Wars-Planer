@@ -261,6 +261,11 @@ class Initial_Period_Outline_Player_Form(forms.Form):
         label="Gracze, którzy przejmują",
         required=False,
     )
+    max_distance = forms.IntegerField(
+        label="Max odległość od startu do celu - ilość kratek, domyślnie 10",
+        required=False,
+        widget=forms.NumberInput,
+    )
     target = forms.CharField(
         max_length=15000,
         widget=forms.Textarea,
@@ -275,6 +280,8 @@ class Initial_Period_Outline_Player_Form(forms.Form):
 
     def clean_players(self):
         players = self.cleaned_data["players"]
+        if players == "":
+            return players
         for name in players.split("\r\n"):
             try:
                 players = models.Player.objects.get(name=name, world=self.world)

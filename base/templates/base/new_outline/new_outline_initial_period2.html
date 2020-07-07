@@ -1,50 +1,43 @@
 {% extends "base/new_outline/new_outline.html" %}
 
-
+{% load static %}}
 {% block content %}
 
 <form method="POST">
-    {% csrf_token %}
-    <button name="form1" type="submit" class="btn btn-danger">Powrót</button>
+  {% csrf_token %}
+  <button name="form1" type="submit" class="btn btn-danger">Powrót</button>
 </form>
 
 <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">Cel</th>
-        <th colspan="4" scope="col">Rozpiska</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for list in result %}
+  <thead>
+    <tr>`
+      <th scope="col">Cel</th>
+      <th colspan="8" scope="col">Rozpiska</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for target in graph.context_with_target_vertices %}
     <tr>
+      <td>
+        {% autoescape off %}
+        <a href="{% url 'base:planer_initial_detail' instance.id target.slug %}">{{target.info}}</a>   
+        {% endautoescape %}</td>
+      {% for weight in target.result_lst %}
+      <td>
+        <button id="popoverData" data-html="true" data-content="{{weight.info}}" rel="popover" data-placement="bottom"
+          data-original-title="{{weight.player}}" data-trigger="hover" class="btn btn-primary popoverData">
 
-        {% for some in list %}
-        {% if forloop.first%}
-        <td>{{some.target_village}}</td>
-        {% endif %}
-        <td>
-            <button id="popoverData" data-html="true" 
-            data-content=
-            "{% if some.village1 == ''%}
-            {{some.village2}} <br /> <br />{{some.params}}
-            {% else %}
-            {{some.village1}} <br />{{some.params}}
-            {% endif %}"
-            rel="popover" data-placement="bottom" data-original-title="{{some.owner}}" data-trigger="hover" class="btn btn-primary popoverData">
-                {% if some.village1 == ''%}
-                {{some.village2}}
-                {% else %}
-                {{some.village1}}
-                {% endif %}
-            </button>
-        </td>
-        {% endfor %}
+          {{weight.start.kordy}}<br />
+          <img src='{% static "images/ax.png" %}' alt="ii">
+          {{weight.off}}
+        </button>
+      </td>
+      {% endfor %}
     </tr>
     {% endfor %}
 
-    </tbody>
-  </table>
+  </tbody>
+</table>
 
 
 <!-- 
@@ -52,13 +45,13 @@
 
     <a id="popoverOption" class="btn" href="#" data-content="Popup with option trigger" rel="popover" data-placement="bottom" data-original-title="Title">Popup with option trigger</a>
 -->
-    
+
 </div>
 
 
 
 <script>
-    $('.popoverData').popover();
-    $('.popoverOption').popover({ trigger: "hover" });
+  $('.popoverData').popover();
+  $('.popoverOption').popover({ trigger: "hover" });
 </script>
 {% endblock %}

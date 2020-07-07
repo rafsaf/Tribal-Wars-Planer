@@ -1,0 +1,58 @@
+{% extends "base/new_outline/new_outline.html" %}
+
+{% load static %}}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-3">
+      <p>
+        {% autoescape off %}
+        <a href="{% url 'base:planer_initial_detail' instance.id target.slug %}">{{target.info}}</a>   
+        {% endautoescape %}</p>
+      {% for weight in target.result_lst %}
+      <p>
+        <form method="POST">
+            {% csrf_token %}
+        <button name="{{weight.start.kordy}}" id="popoverData" data-html="true" data-content="{{weight.info}}" rel="popover" data-placement="bottom"
+          data-original-title="{{weight.player}}" data-trigger="hover" class="btn btn-primary popoverData">
+
+          {{weight.start.kordy}}
+          <img src='{% static "images/ax.png" %}' alt="ii">
+          {{weight.off}}
+        </button>
+        </form>
+      </p>
+      {% endfor %}
+      </div>
+      <div class="col-9">
+          {% for weight in nonused %}
+          <form method="POST">
+              {% csrf_token %}
+            <button id="popoverData" name={{weight.start.kordy}} data-html="true" data-content="{{weight.info}}" rel="popover" data-placement="bottom"
+              data-original-title="{{weight.player}}" data-trigger="hover" class="btn btn-primary popoverData">
+    
+              {{weight.start.kordy}}
+              <img src='{% static "images/ax.png" %}' alt="ii">
+              {{weight.off}}
+            </button>
+        </form>
+          
+          {% endfor %}
+
+
+      </div>
+
+
+    </div>
+
+
+
+
+      <script>
+        $('.popoverData').popover();
+        $('.popoverOption').popover({ trigger: "hover" });
+      </script>
+
+
+{% endblock %}

@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.views.decorators.http import require_POST
+from django.forms.models import model_to_dict
 
 from markdownx.utils import markdownify
 from plemiona_pliki.database_update import cron_schedule_data_update
@@ -276,15 +277,9 @@ def outline_detail_initial_period_outline(request, _id):
         request.session["pass-to-form"] = "True"
         return redirect("base:planer_initial_form", _id)
 
-    graph = initial.make_initial_outline(instance)
-    graph.get_result_outline()
-    targets = graph.target_vertex
-    result = []
-    for coords in targets:
-        var = [initial.Some(query=obj, world=instance.swiat) for obj in models.Initial_Outline.objects.all().filter(target=str(coords))]
-        result.append(var)
+    graph = initial.get_outline(instance)
 
-    context = {"instance": instance, "result":result}
+    context = {"instance": instance, "graph": graph}
     return render(request, "base/new_outline/new_outline_initial_period2.html", context)
 
 
@@ -309,11 +304,11 @@ def outline_detail_initial_period_form(request, _id):
 
     # always go to the next view after form confirmation OR if user want to
     if (
-        instance.initial_period_outline_players != ""
-        and allowed_form == False
+        allowed_form == False
         and instance.initial_period_outline_targets != ""
     ):
         return redirect("base:planer_initial", _id)
+        
 
     form1 = forms.Initial_Period_Outline_Player_Form(
         request.POST or None, world=instance.swiat
@@ -342,9 +337,13 @@ def outline_detail_initial_period_form(request, _id):
         if form1.is_valid():
             player = request.POST.get("players")
             target = request.POST.get("target")
+            max_distance = request.POST.get("max_distance")
             instance.initial_period_outline_players = player
             instance.initial_period_outline_targets = target
+            instance.max_distance_initial_outline = max_distance
             instance.save()
+            #make outline
+            graph = initial.make_outline(instance)
             try:
                 del request.session["pass-to-form"]
             except KeyError:
@@ -367,3 +366,43 @@ def outline_detail_initial_period_form(request, _id):
     context = {"instance": instance, "form1": form1, "form2": form2}
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
+@login_required
+def outline_detail_initial_period_outline_detail(request, _id, coord):
+    """ view with form for initial period outline detail """
+    coord = coord[0:3]+"|"+str(coord[4:7])
+
+    instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
+    target_model = get_object_or_404(models.Target_Vertex, outline=instance, target=coord)
+
+    # User have to fill data or get redirected to outline_detail view
+    if instance.zbiorka_obrona == "":
+        request.session["error"] = "Zbiórka Obrona pusta !"
+        return redirect("base:planer_detail", _id)
+
+    if instance.zbiorka_wojsko == "":
+        request.session["error"] = "Zbiórka Wojsko pusta !"
+        return redirect("base:planer_detail", _id)
+
+    graph = initial.get_outline(instance)
+    target = graph.get_target_vertex(target_model.target)
+    nonused_vertices = [i for i in target.connected_to_vertex_army if i not in target.result_lst]
+
+    dict_ = model_to_dict(target_model)
+
+    #usuwanie niby dziala
+    for i, val in dict_.items():
+        if val in request.POST:
+            dict_[i] = None
+            dict_["outline"] = instance
+            target_model = models.Target_Vertex(**dict_)
+            target_model.save()
+            return redirect("base:planer_initial_detail", _id, coord)
+    #dodawanie
+    for i in nonused_vertices:
+        if i.start.kordy in request.POST:
+            target_model.set_next(i.start.kordy)
+            target_model.save()
+            return redirect("base:planer_initial_detail", _id, coord)
+
+    context = {"instance": instance, "target": target, "nonused": nonused_vertices}
+    return render(request, "base/new_outline/new_outline_initial_period3.html", context)

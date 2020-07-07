@@ -4,7 +4,7 @@ import random
 import datetime
 from math import sqrt, ceil
 from base import models
-
+from .timing import timing
 
 class Unit:
     """ helps geting proper speed of units """
@@ -70,6 +70,9 @@ class Wioska:
     def from_coords(cls, x_coord:int, y_coord:int):
         return cls(str(x_coord)+"|"+str(y_coord))
 
+    @classmethod
+    def from_Village_class(cls, village):
+        return cls.from_coords(village.x, village.y)
 
     def distance(self, other):
         """ distance between two villages """
@@ -87,7 +90,7 @@ class Wioska:
             * 60
         )
 
-    def get_world(self, swiat):
+    def get_world(self, swiat:int):
         """ get world instance from database """
         try:
             world: models.World = models.World.objects.get(world=swiat)
@@ -95,7 +98,7 @@ class Wioska:
             raise Exception("Nie istnieje w bazie świat {}".format(swiat))
         return world
 
-    def get_village(self, swiat):
+    def get_village(self, swiat:int):
         """ get village instance from database """
         try:
             village: models.Village = models.Village.objects.get(
@@ -104,8 +107,8 @@ class Wioska:
         except Exception:
             raise Exception("Nie istnieje w bazie wioska {}".format(self.kordy))
         return village
-
-    def get_player(self, swiat):
+    @timing
+    def get_player(self, swiat:int):
         """ get player instance from database, NOT nickname """
         try:
             player: models.Player = models.Player.objects.get(
@@ -118,7 +121,7 @@ class Wioska:
 
         return player
 
-    def get_id_wioski(self, swiat):
+    def get_id_wioski(self, swiat:int):
         """ get village id from database """
         return self.get_village(swiat).village_id
 
@@ -356,6 +359,12 @@ class Army:
         # no archers no paladin no archers
         if ev == [0, 0, 0] and len(self.text_army) not in {12, 13}:
             raise ValueError("Nieprawidłowe dane dla wybranego świata")
+
+    
+    @property
+    def coords_string(self):
+        """ return kordy of village """
+        return self.get_village().kordy
 
     def get_village(self):
         """ return Wioska instance of text[0] """
