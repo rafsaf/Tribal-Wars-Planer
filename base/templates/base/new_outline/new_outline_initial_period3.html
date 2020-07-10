@@ -1,58 +1,68 @@
 {% extends "base/new_outline/new_outline.html" %}
 
 {% load static %}}
+<link rel="stylesheet" href="{% static 'base.css' %}">
 {% block content %}
+<div class="sticky">xddd</div>
 
-
-<div class="row">
-    <div class="col-3">
+<div>
+  <div class="row">
+    <div class="card col-3 sticky">
       <p>
         {% autoescape off %}
-        <a href="{% url 'base:planer_initial_detail' instance.id target.slug %}">{{target.info}}</a>   
+        <a href="{% url 'base:planer_initial_detail' instance.id target.slug %}">{{target.info}}</a>
         {% endautoescape %}</p>
       {% for weight in target.result_lst %}
       <p>
-        <form method="POST">
-            {% csrf_token %}
-        <button name="{{weight.start.kordy}}" id="popoverData" data-html="true" data-content="{{weight.info}}" rel="popover" data-placement="bottom"
-          data-original-title="{{weight.player}}" data-trigger="hover" class="btn btn-primary popoverData">
+      <form method="POST">
+        {% csrf_token %}
+        <button name="{{weight.start.kordy}}" id="popoverData" data-html="true" data-content="{{weight.info}}"
+          rel="popover" data-placement="bottom" data-original-title="{{weight.player}}" data-trigger="hover"
+          class="btn btn-primary popoverData">
 
           {{weight.start.kordy}}
           <img src='{% static "images/ax.png" %}' alt="ii">
           {{weight.off}}
         </button>
-        </form>
+      </form>
       </p>
-      {% endfor %}
-      </div>
-      <div class="col-9">
-          {% for weight in nonused %}
-          <form method="POST">
-              {% csrf_token %}
-            <button id="popoverData" name={{weight.start.kordy}} data-html="true" data-content="{{weight.info}}" rel="popover" data-placement="bottom"
-              data-original-title="{{weight.player}}" data-trigger="hover" class="btn btn-primary popoverData">
+    {% endfor %}
+    </div>
     
+    <div class="col-9">
+      <div class="row">
+      {% for weight in nonused %}
+
+      <div class="card col-4">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <form method="POST">
+            {% csrf_token %}
+            <button id="popoverData" name={{weight.start.kordy}} data-html="true" data-content="{{weight.info}}"
+              rel="popover" data-placement="bottom" data-original-title="{{weight.player}}" data-trigger="hover"
+              class="btn btn-primary popoverData">
+
               {{weight.start.kordy}}
               <img src='{% static "images/ax.png" %}' alt="ii">
               {{weight.off}}
             </button>
-        </form>
-          
-          {% endfor %}
-
-
+          </form>
+        </div>
       </div>
 
-
+      {% endfor %}
     </div>
+  </div>
+</div>
 
 
-
-
-      <script>
-        $('.popoverData').popover();
-        $('.popoverOption').popover({ trigger: "hover" });
-      </script>
+<script>
+  $('.popoverData').popover();
+  $('.popoverOption').popover({ trigger: "hover" });
+</script>
 
 
 {% endblock %}

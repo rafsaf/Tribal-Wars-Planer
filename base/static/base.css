@@ -1,7 +1,8 @@
 
-body {
-  overflow-x: hidden;
-}
+
+ #wrapper {
+    overflow-x: hidden;
+ }
 
 #sidebar-wrapper {
   min-height: 100vh;
@@ -43,7 +44,11 @@ body {
     margin-left: -15rem;
   }
 }
-.BtModals:hover {
-  position:relative;
-  z-index: 8000;
+
+
+
+@media (max-width: 768px){
+  .mt-li {
+    margin-top:0.25rem!important;
+  }
 }

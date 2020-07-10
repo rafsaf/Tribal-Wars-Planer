@@ -50,12 +50,11 @@
                     border-bottom">
                 {% if user.is_authenticated %}
                 <button class="btn btn-primary" id="menu-toggle">Menu</button>
-                <button id="navbar-toggle" class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 {% endif %}
+                <button id="navbar-toggler" class="navbar-toggler">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -86,17 +85,22 @@
                         </li>
 
                         {% else %}
+                        
                         <li class="nav-item">
-                            <a class="btn btn-primary" href="{% url 'accounts:login' %}">Logowanie</a>
+                            <a class="btn btn-primary mt-li" href="{% url 'accounts:login' %}">Logowanie</a>
                         </li>
-                        <li class="nav-item ml-1">
-                            <a class="btn btn-primary" href="{% url 'accounts:registration' %}">Rejestracja</a>
+                        
+                        
+                        <li class="nav-item">
+                            <a class="btn btn-primary mt-li" href="{% url 'accounts:registration' %}">Rejestracja</a>
                         </li>
+                        
                         {% endif %}
 
                     </ul>
                 </div>
             </nav>
+        
             <div class="container-fluid mt-4">
 
                 {% block content %}
@@ -121,7 +125,14 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+        $("#navbar-toggler").click(function (e) {
+            e.preventDefault();
+            $("#navbarSupportedContent").toggleClass("show");
+        });
         $.fn.selectpicker.Constructor.DEFAULTS.dropupAuto = false;
+
+
+
 
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
