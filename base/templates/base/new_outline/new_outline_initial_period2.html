@@ -2,36 +2,129 @@
 
 {% load static %}}
 {% block content %}
+<div class="row">
 
-<form method="POST">
-  {% csrf_token %}
-  <button name="form1" type="submit" class="btn btn-danger">Powrót</button>
-</form>
+  <figure class="col-3">
+  <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
+  </figure>
+  <div class="col-6">
+    <div class="row justify-content-center mt-4">
+    <h3>
+      <span class="badge badge-pill badge-info">
+        {{instance.nazwa}}
+      </span>
+      </h3>
+    </div>
+      <div class="row justify-content-center">
+    <h3>
+      <span class="badge badge-pill badge-info">
+        {{instance.data_akcji}}
+      </span>
+      </h3>
+    </div>
+    
+
+      
+    <div class="row justify-content-center">
+    <form method="POST">
+      {% csrf_token %}
+      <button name="form1" type="submit" class="btn btn-default">
+        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-left" fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M7.854 11.354a.5.5 0 0 0 0-.708L5.207 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z"/>
+          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0 0 1h9A.5.5 0 0 0 15 8z"/>
+          <path fill-rule="evenodd" d="M2.5 14.5A1.5 1.5 0 0 1 1 13V3a1.5 1.5 0 0 1 1.5-1.5h8A1.5 1.5 0 0 1 12 3v1.5a.5.5 0 0 1-1 0V3a.5.5 0 0 0-.5-.5h-8A.5.5 0 0 0 2 3v10a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V13a1.5 1.5 0 0 1-1.5 1.5h-8z"/>
+        </svg>
+      </button>
+      
+    </form>
+    <h3 class="mt-1">
+      <span class="badge badge-secondary">Powrót</span>
+    </h3>
+    </div>
+  </div>
+  <figure class="col-3">
+    <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
+    </figure>
+  </div>
+
 
 <table class="table table-bordered">
   <thead>
     <tr>`
       <th scope="col">Cel</th>
-      <th colspan="8" scope="col">Rozpiska</th>
+      <th colspan="12" scope="colgroup">Rozpiska</th>
     </tr>
   </thead>
   <tbody>
     {% for target in graph.context_with_target_vertices %}
     <tr>
-      <td>
-        {% autoescape off %}
-        <a href="{% url 'base:planer_initial_detail' instance.id target.slug %}">{{target.info}}</a>   
-        {% endautoescape %}</td>
-      {% for weight in target.result_lst %}
-      <td>
-        <button id="popoverData" data-html="true" data-content="{{weight.info}}" rel="popover" data-placement="bottom"
-          data-original-title="{{weight.player}}" data-trigger="hover" class="btn btn-primary popoverData">
+      <th>
 
-          {{weight.start.kordy}}<br />
-          <img src='{% static "images/ax.png" %}' alt="ii">
-          {{weight.off}}
-        </button>
-      </td>
+
+        <div class="row">
+            <div class="ml-1">
+            <h5>
+            <span class="badge badge-pill badge-info">
+              {{target.player}}
+            </span>
+            </h5>
+
+            <h5>
+              <span class="badge badge badge-secondary">
+                {{target.wioska.kordy}}
+              </span>
+            </h5>
+            </div>
+
+            <a href="{% url 'base:planer_initial_detail' instance.id target.slug %}" class="btn btn-default">
+              <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right"
+                fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M8.146 11.354a.5.5 0 0 1 0-.708L10.793 8 8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z" />
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 1 8z" />
+                <path fill-rule="evenodd"
+                  d="M13.5 14.5A1.5 1.5 0 0 0 15 13V3a1.5 1.5 0 0 0-1.5-1.5h-8A1.5 1.5 0 0 0 4 3v1.5a.5.5 0 0 0 1 0V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-8A.5.5 0 0 1 5 13v-1.5a.5.5 0 0 0-1 0V13a1.5 1.5 0 0 0 1.5 1.5h8z" />
+              </svg>
+            </a>
+            <h5 class="ml-1 mt-3">
+              <span class="badge badge badge-secondary" style="background-color: rgba(133, 221, 32, 0.938);">
+                Dalej
+              </span>
+            </h5>
+          </div>
+          
+
+      </th>
+      {% for weight in target.result_lst %}
+      <th>
+        <div class="row justify-content-center popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4>
+          <h5>
+          <img src='{% static 'images/snob.png' %}' alt='ax'>
+        
+          
+          {{weight.snob}}
+          </h5>" rel="popover" data-placement="top" data-trigger="hover">
+
+          <h5>
+            <span class="badge badge badge-secondary">
+              {{weight.start.kordy}}
+            </span>
+          </h5>
+
+
+        </div>
+        <table class="table table-sm">
+          <tr>
+            <th>
+              <img src='{% static "images/ax.png" %}' alt="ax">
+            </th>
+            <th>{{weight.off}}
+            </th>
+
+          </tr>
+        </table>
+
+      </th>
       {% endfor %}
     </tr>
     {% endfor %}

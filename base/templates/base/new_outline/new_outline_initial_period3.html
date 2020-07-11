@@ -3,66 +3,229 @@
 {% load static %}}
 <link rel="stylesheet" href="{% static 'base.css' %}">
 {% block content %}
-<div class="sticky">xddd</div>
 
-<div>
-  <div class="row">
-    <div class="card col-3 sticky">
-      <p>
-        {% autoescape off %}
-        <a href="{% url 'base:planer_initial_detail' instance.id target.slug %}">{{target.info}}</a>
-        {% endautoescape %}</p>
-      {% for weight in target.result_lst %}
-      <p>
-      <form method="POST">
-        {% csrf_token %}
-        <button name="{{weight.start.kordy}}" id="popoverData" data-html="true" data-content="{{weight.info}}"
-          rel="popover" data-placement="bottom" data-original-title="{{weight.player}}" data-trigger="hover"
-          class="btn btn-primary popoverData">
 
-          {{weight.start.kordy}}
-          <img src='{% static "images/ax.png" %}' alt="ii">
-          {{weight.off}}
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
         </button>
-      </form>
-      </p>
-    {% endfor %}
-    </div>
-    
-    <div class="col-9">
-      <div class="row">
-      {% for weight in nonused %}
-
-      <div class="card col-4">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <form method="POST">
-            {% csrf_token %}
-            <button id="popoverData" name={{weight.start.kordy}} data-html="true" data-content="{{weight.info}}"
-              rel="popover" data-placement="bottom" data-original-title="{{weight.player}}" data-trigger="hover"
-              class="btn btn-primary popoverData">
-
-              {{weight.start.kordy}}
-              <img src='{% static "images/ax.png" %}' alt="ii">
-              {{weight.off}}
-            </button>
-          </form>
-        </div>
       </div>
-
-      {% endfor %}
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
   </div>
 </div>
+<div class="row">
+<!-- Obraz <a href="https://pixabay.com/pl/users/Jo-B-246441/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Jo-B</a> z <a href="https://pixabay.com/pl/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Pixabay</a>-->
+<figure class="col-4">
+<img src='{% static "images/knight-small-rev.png" %}' alt="knight" class="img-fluid">
+</figure>
+<div class="col-4">
+  <div class="row justify-content-center">
+  <h1 class="h1-responsive mt-5">
+  <span class="badge badge-pill badge-info">{{target.player}}</span>
+</h1>
+</div>  
+<div class="row justify-content-center">
+<h1 class="h1-responsive">
+  <span class="badge badge-secondary">{{target.wioska.kordy}}</span>
+</h1>
+</div>
+</div>
+<figure class="col-4">
+  <img src='{% static "images/knight-small.png" %}' alt="knight" class="img-fluid">
+  </figure>
+</div>
+<div>
+  <div class="row">
+    <div class="card col-6 col-lg-5 col-xl-3 dt">
+    
+      <div>
+        <ul class="list-group list-group-flush">
+      {% for weight in target.result_lst %}
+      <li class="list-group-item">
+        <div class="row justify-content-center">
+          <h5 class="mr-1">
+            <span class="badge badge badge-secondary">
+              {{weight.start.kordy}}
+            </span>
+            </h5>
+        <h5>
+          <span class="badge badge badge-info">
+            {{weight.player}}
+          </span>
+        </h5>
+
+        </div>
+        <table>
+          <tr>
+            <th>
+              <img src='{% static "images/ax.png" %}' alt="ax">
+            </th>
+            <th>{{weight.off}}
+            </th>
+            <th>
+            </th>
+            <th>
+              <img src='{% static "images/snob.png" %}' alt="ax">
+            </th>
+            <th>
+              {{weight.snob}}
+            </th>
+        
+        </table>
+        
+        <div class="row">
+        <form method="POST">
+          {% csrf_token %}
+        <button name="{{weight.start.kordy}}" class="btn btn-default">
+        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z"/>
+        </svg>
+      </button>
+    </form>
+
+        <form method="POST">
+          {% csrf_token %}
+        <button name="{{weight.start.kordy}}" class="btn btn-default">
+        <svg name="{{weight.start.kordy}}" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-up-circle-fill" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-10.646.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z"/>
+        </svg>
+      </button>
+    </form>
+    <style>
 
 
-<script>
-  $('.popoverData').popover();
-  $('.popoverOption').popover({ trigger: "hover" });
-</script>
 
 
-{% endblock %}
+
+
+      .xd{
+        color: rgba(133, 221, 32, 0.938);
+      }
+
+
+
+
+
+
+
+    </style>
+        <form method="POST">
+          {% csrf_token %}
+        <button name="{{weight.start.kordy}}" class="btn btn-default">
+          <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z"/>
+          </svg>
+
+        </button>
+      </form>
+      <form method="POST">
+        {% csrf_token %}
+      <button name="{{weight.start.kordy}}" class="btn btn-default" type="button" data-toggle="modal" data-target="#exampleModal">
+        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z"/>
+          <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+        </svg>
+      </button>
+    </form>
+
+
+
+
+      </div>
+    </li>
+      {% endfor %}
+      </ul>
+      </div>
+    </div>
+
+    <div class="col-6 col-lg-7 col-xl-9">
+      <div class="row">
+        {% for weight in nonused %}
+        <div class="card col-12 col-lg-6 col-xl-4">
+        <h3 class="card-title">
+          <div class=" row justify-content-center">
+          <span class="badge badge-pill badge-info mt-1">
+            {{weight.player}}</span>
+          </div>
+        </h3>
+
+          <div class="card-body">
+            <h4 class="card-subtitle ">
+              <span class="badge badge-secondary">
+                {{weight.start.kordy}}
+              </span>
+            </h4>
+
+              <p class="card-text">
+              <table>
+                <tr>
+                  <th>
+                    <img src='{% static "images/ax.png" %}' alt="ax">
+                  </th>
+                  <th>{{weight.off}}
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <img src='{% static "images/snob.png" %}' alt="ax">
+                  </th>
+                  <th>
+                    {{weight.snob}}
+                  </th>
+                </tr>
+              </table>
+        
+              </p>
+              <div class="row">
+              <form method="POST">
+                {% csrf_token %}
+                <button name="{{weight.start.kordy}}" class="btn btn-default">
+                  <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-down-square" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 0 1 .708 0L8 10.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"/>
+                    <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5z"/>
+                  </svg>
+                </button>
+              </form>
+              <form method="POST">
+                {% csrf_token %}
+                <button name="{{weight.start.kordy}}" class="btn btn-default">
+                  <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-up-square" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path fill-rule="evenodd" d="M4.646 8.354a.5.5 0 0 0 .708 0L8 5.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 0 .708z"/>
+                    <path fill-rule="evenodd" d="M8 11.5a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-1 0v5a.5.5 0 0 0 .5.5z"/>
+                  </svg>
+                </button>
+              </form>
+              </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    $('.popoverData').popover();
+    $('.popoverOption').popover({ trigger: "hover" });
+  </script>
+
+
+  {% endblock %}

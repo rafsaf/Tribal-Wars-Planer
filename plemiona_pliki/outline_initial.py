@@ -126,6 +126,7 @@ class Weight:
         self.off = self.off_()
         self.info = self.print_info()
         self.player = self.set_player()
+        self.snob = self.army.get_szlachcic()
 
     def print_info(self):
         return (
@@ -199,6 +200,7 @@ class Vertex_Represent_Target_Village:
         self.info = self.get_info()
         self.attacks = {}
         self.result_lst = []
+        self.player = str(self.get_player())
 
     def add_connected_vertex_army(self, weight):
         if weight is not None:
@@ -222,6 +224,9 @@ class Vertex_Represent_Target_Village:
 
         return result.values()
 
+    def get_player(self):
+        return self.wioska.get_player(self.world)
+
     def get_target_vertex(self, outline):
         model_info = {}
 
@@ -235,7 +240,7 @@ class Vertex_Represent_Target_Village:
         )
 
     def get_info(self):
-        return str(self.wioska.get_player(self.world))+"<br />"+ str(self.wioska.kordy)
+        return str(self.get_player())+"<br />"+ str(self.wioska.kordy)
 
 
 class Vertex_Army_Employed_Village(Vertex_Army):

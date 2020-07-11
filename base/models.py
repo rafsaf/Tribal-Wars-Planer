@@ -191,7 +191,6 @@ class New_Outline(models.Model):
 
     max_distance_initial_outline = models.IntegerField(blank=True, default=10)
 
-    
     class Meta:
         ordering = ("-created",)
 
@@ -218,6 +217,7 @@ class Documentation(models.Model):
     def __str__(self):
         return self.title
 
+
 class Target_Vertex(models.Model):
     outline = models.ForeignKey(New_Outline, on_delete=models.CASCADE)
     target = models.CharField(max_length=7, null=True)
@@ -233,8 +233,10 @@ class Target_Vertex(models.Model):
     attack10 = models.CharField(max_length=7, null=True)
 
     def set_next(self, coords):
-        for i in [a for a in dir(self) if not a.startswith('__') and a.startswith("attack")]:
+        for i in [
+            a for a in dir(self) if not a.startswith("__") and a.startswith("attack")
+        ]:
             dict_ = self.__dict__
             if dict_[i] == None:
-                dict_[i]=coords
+                dict_[i] = coords
                 return
