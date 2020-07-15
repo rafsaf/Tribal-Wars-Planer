@@ -50,10 +50,11 @@
   </figure>
 </div>
 <div>
+  <div class="container-fluid" style="max-height: 100vh !important; overflow:hidden;">
   <div class="row">
-    <div class="card col-6 col-lg-5 col-xl-3 dt">
+    <div class="card col-6 col-lg-5 col-xl-4 d-flex flex-column">
     
-      <div>
+      <div style="overflow-y: scroll; height:calc(100vh) !important;">
         <ul class="list-group list-group-flush">
       {% for weight in target.result_lst %}
       <li class="list-group-item">
@@ -106,24 +107,6 @@
         </svg>
       </button>
     </form>
-    <style>
-
-
-
-
-
-
-      .xd{
-        color: rgba(133, 221, 32, 0.938);
-      }
-
-
-
-
-
-
-
-    </style>
         <form method="POST">
           {% csrf_token %}
         <button name="{{weight.start.kordy}}" class="btn btn-default">
@@ -153,7 +136,8 @@
       </div>
     </div>
 
-    <div class="col-6 col-lg-7 col-xl-9">
+    <div class="col-6 col-lg-7 col-xl-8 d-flex flex-column">
+      <div style="overflow-y: scroll; height:calc(100vh) !important;">
       <div class="row">
         {% for weight in nonused %}
         <div class="card col-12 col-lg-6 col-xl-4">
@@ -219,6 +203,8 @@
         {% endfor %}
       </div>
     </div>
+  </div>
+  </div>
   </div>
 
 

@@ -56,8 +56,9 @@
 
 .dt {
   flex:1;
-  height: max-content;
+  height: min-content;
   position:sticky;
+  width: auto;
   position: -webkit-sticky;
   top:0;
   bottom: 0;
