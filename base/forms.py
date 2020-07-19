@@ -1,4 +1,4 @@
-from bootstrap_datepicker_plus import DatePickerInput
+
 from django import forms
 from django.core.exceptions import MultipleObjectsReturned
 from plemiona_pliki import basic_classes as basic
@@ -9,9 +9,7 @@ class New_Outline_Form(forms.Form):
     nazwa = forms.CharField(
         max_length=20, label="Nazwa Rozpiski", widget=forms.Textarea
     )
-    data_akcji = forms.DateField(
-        widget=DatePickerInput(format="%Y-%m-%d"), label="Data Akcji"
-    )
+    data_akcji = forms.DateField()
     swiat = forms.ChoiceField(choices=[], label="Świat")
 
 
@@ -308,7 +306,6 @@ class Initial_Period_Outline_Player_Form(forms.Form):
             return
         for village in self.cleaned_data["target"].split():
             try:
-                print(village[4:7])
                 v = models.Village.objects.get(
                     x=village[0:3], y=village[4:7], world=self.world
                 )
@@ -321,3 +318,11 @@ class Initial_Period_Outline_Player_Form(forms.Form):
                 )
                 return
         return village_list
+
+class Weight_form(forms.Form):
+    start = forms.CharField(max_length=7, widget=forms.HiddenInput)
+    distance = forms.FloatField(widget=forms.HiddenInput)
+    order = forms.IntegerField(widget=forms.HiddenInput)
+    off = forms.IntegerField(widget=forms.HiddenInput)
+    snob = forms.IntegerField(widget=forms.HiddenInput)
+    player = forms.CharField(max_length=20, widget=forms.HiddenInput)

@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.views.decorators.http import require_POST
 from django.forms.models import model_to_dict
+from django.core.paginator import Paginator
 
 from markdownx.utils import markdownify
 from plemiona_pliki.database_update import cron_schedule_data_update
@@ -277,9 +278,8 @@ def outline_detail_initial_period_outline(request, _id):
         request.session["pass-to-form"] = "True"
         return redirect("base:planer_initial_form", _id)
 
-    graph = initial.get_outline(instance)
-
-    context = {"instance": instance, "graph": graph}
+    query = [models.Weight.objects.all().filter(target=target) for target in models.Target_Vertex.objects.all().filter(outline=instance)]
+    context = {"instance": instance, "query": query}
     return render(request, "base/new_outline/new_outline_initial_period2.html", context)
 
 
@@ -303,12 +303,8 @@ def outline_detail_initial_period_form(request, _id):
         allowed_form = False
 
     # always go to the next view after form confirmation OR if user want to
-    if (
-        allowed_form == False
-        and instance.initial_period_outline_targets != ""
-    ):
+    if allowed_form == False and instance.initial_period_outline_targets != "":
         return redirect("base:planer_initial", _id)
-        
 
     form1 = forms.Initial_Period_Outline_Player_Form(
         request.POST or None, world=instance.swiat
@@ -342,7 +338,7 @@ def outline_detail_initial_period_form(request, _id):
             instance.initial_period_outline_targets = target
             instance.max_distance_initial_outline = max_distance
             instance.save()
-            #make outline
+            # make outline
             graph = initial.make_outline(instance)
             try:
                 del request.session["pass-to-form"]
@@ -366,13 +362,16 @@ def outline_detail_initial_period_form(request, _id):
     context = {"instance": instance, "form1": form1, "form2": form2}
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
+
 @login_required
 def outline_detail_initial_period_outline_detail(request, _id, coord):
     """ view with form for initial period outline detail """
-    coord = coord[0:3]+"|"+str(coord[4:7])
+    coordinates = coord[0:3] + "|" + str(coord[3:6])
 
     instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
-    target_model = get_object_or_404(models.Target_Vertex, outline=instance, target=coord)
+    target_model = get_object_or_404(
+        models.Target_Vertex, outline=instance, target=coordinates
+    )
 
     # User have to fill data or get redirected to outline_detail view
     if instance.zbiorka_obrona == "":
@@ -383,26 +382,112 @@ def outline_detail_initial_period_outline_detail(request, _id, coord):
         request.session["error"] = "Zbiórka Wojsko pusta !"
         return redirect("base:planer_detail", _id)
 
-    graph = initial.get_outline(instance)
-    target = graph.get_target_vertex(target_model.target)
-    nonused_vertices = [i for i in target.connected_to_vertex_army if i not in target.result_lst]
+    graph = initial.get_branch_graph(instance, target_model)
+    target: initial.Vertex_Represent_Target_Village = graph.get_target_vertex(
+        target_model.target
+    )
 
-    dict_ = model_to_dict(target_model)
+    nonused_vertices = [
+        i for i in target.connected_to_vertex_army if i not in target.result_lst
+    ]
 
-    #usuwanie niby dziala
-    for i, val in dict_.items():
-        if val in request.POST:
-            dict_[i] = None
-            dict_["outline"] = instance
-            target_model = models.Target_Vertex(**dict_)
-            target_model.save()
-            return redirect("base:planer_initial_detail", _id, coord)
-    #dodawanie
+    # sort
+    sort = request.GET.get("sort")
+    if sort is None or sort == "distance":
+        sort = "distance"
+        sorting = "distance"
+        rev = False
+    elif sort == "distance-r":
+        sorting = "distance"
+        rev = True
+    else:
+        sorting = sort
+        rev = True
+
+    nonused_vertices.sort(key=lambda weight: getattr(weight, sorting), reverse=rev)
+    # paginator
+    paginator = Paginator(nonused_vertices, 12)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    result_lst = models.Weight.objects.all().filter(target=target_model)
+    # url
+    url = (
+        reverse("base:planer_initial_detail", args=[_id, coord])
+        + f"?page={page_obj.number}&sort={sort}#table"
+    )
+    # form modal - update / duplicate
+    form = forms.Weight_form(request.POST or None)
+
+    if "save" in request.POST:
+        if form.is_valid():
+            start = request.POST.get("start")
+            off = request.POST.get("off")
+            snob = request.POST.get("snob")
+
+            obj = models.Weight.objects.get(target=target_model, start=start)
+            obj.off = off
+            obj.snob = snob
+            obj.save()
+            return redirect(url)
+
+    if "add-new" in request.POST:
+        if form.is_valid():
+            start = request.POST.get("start")
+            off = request.POST.get("off")
+            snob = request.POST.get("snob")
+            distance = request.POST.get("distance")
+            snob = request.POST.get("snob")
+
+            obj = models.Weight.objects.get(target=target_model, start=start)
+            obj.off = off
+            obj.snob = snob
+            obj.save()
+            return redirect(url)
+
+    # raczej zmienic caly ten syf nizej
+    for weight in result_lst:
+        # usuwanie
+        if f"{weight.start}-delete" in request.POST:
+            target.delete_element(weight.start)
+            target.renew(target_model)
+
+            return redirect(url)
+
+        # up
+        if f"{weight.start}-up" in request.POST:
+            target.swap_up(weight.start)
+            target.renew(target_model)
+
+            return redirect(url)
+        # down
+        if f"{weight.start}-down" in request.POST:
+            target.swap_down(weight.start)
+            target.renew(target_model)
+
+            return redirect(url)
+
     for i in nonused_vertices:
-        if i.start.kordy in request.POST:
-            target_model.set_next(i.start.kordy)
-            target_model.save()
-            return redirect("base:planer_initial_detail", _id, coord)
+        # add first
+        if f"{i.start.kordy}-add-first" in request.POST:
+            target.add_first(i.start.kordy)
+            target.renew(target_model)
 
-    context = {"instance": instance, "target": target, "nonused": nonused_vertices}
+            return redirect(url)
+        # add last
+        if f"{i.start.kordy}-add-last" in request.POST:
+            target.add_last(i.start.kordy)
+            target.renew(target_model)
+
+            return redirect(url)
+
+    context = {
+        "instance": instance,
+        "target": target,
+        "nonused": nonused_vertices,
+        "result_lst": result_lst,
+        "form": form,
+        "page_obj": page_obj,
+        "sort": sort,
+    }
     return render(request, "base/new_outline/new_outline_initial_period3.html", context)

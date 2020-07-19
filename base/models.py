@@ -220,23 +220,21 @@ class Documentation(models.Model):
 
 class Target_Vertex(models.Model):
     outline = models.ForeignKey(New_Outline, on_delete=models.CASCADE)
-    target = models.CharField(max_length=7, null=True)
-    attack1 = models.CharField(max_length=7, null=True)
-    attack2 = models.CharField(max_length=7, null=True)
-    attack3 = models.CharField(max_length=7, null=True)
-    attack4 = models.CharField(max_length=7, null=True)
-    attack5 = models.CharField(max_length=7, null=True)
-    attack6 = models.CharField(max_length=7, null=True)
-    attack7 = models.CharField(max_length=7, null=True)
-    attack8 = models.CharField(max_length=7, null=True)
-    attack9 = models.CharField(max_length=7, null=True)
-    attack10 = models.CharField(max_length=7, null=True)
+    target = models.CharField(max_length=7)
+    player = models.CharField(max_length=30)
+    slug = models.CharField(max_length=10)
+    def __str__(self):
+        return self.target
 
-    def set_next(self, coords):
-        for i in [
-            a for a in dir(self) if not a.startswith("__") and a.startswith("attack")
-        ]:
-            dict_ = self.__dict__
-            if dict_[i] == None:
-                dict_[i] = coords
-                return
+class Weight(models.Model):
+    target = models.ForeignKey(Target_Vertex, on_delete=models.CASCADE)
+    start = models.CharField(max_length=7)
+    off = models.IntegerField()
+    distance = models.FloatField()
+    snob = models.IntegerField()
+    order = models.IntegerField()
+    player = models.CharField(max_length=20)
+    def __str__(self):
+        return self.start
+
+

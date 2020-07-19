@@ -107,7 +107,7 @@ class Wioska:
         except Exception:
             raise Exception("Nie istnieje w bazie wioska {}".format(self.kordy))
         return village
-    @timing
+    
     def get_player(self, swiat:int):
         """ get player instance from database, NOT nickname """
         try:
