@@ -6,6 +6,8 @@ from . import models
 
 
 admin.site.register(models.Tribe)
+admin.site.register(models.Target_Vertex)
+admin.site.register(models.Weight)
 admin.site.register(models.Player)
 admin.site.register(models.Results)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
