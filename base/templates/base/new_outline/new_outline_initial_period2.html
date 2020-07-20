@@ -54,8 +54,6 @@
   <tbody>
     {% for lst in query %}
     <tr>
-      {% for weight in lst %}
-      {% if forloop.first %}
       <th>
 
 
@@ -63,7 +61,7 @@
             <div class="ml-1">
             <h5>
             <span class="badge badge-pill badge-info">
-              {{weight.target.player}}
+              {{lst.0.player}}
             </span>
             </h5>
             </div>
@@ -71,17 +69,17 @@
             <div class="col-5 ml-1">
             <h5>
               <span class="badge badge badge-secondary">
-                {{weight.target.target}}
+                {{lst.0.target}}
               </span>
             </h5>
             </div>
             <div class="col-4">
-            <a href="{% url 'base:planer_initial_detail' instance.id weight.target.slug %}">
-              <h5 class="ml-1">
+            <a href="{% url 'base:planer_initial_detail' instance.id lst.0.slug %}">
+              <h4 class="ml-1">
                 <span class="badge badge badge-secondary" style="background-color: rgba(133, 221, 32, 0.938);">
-                  Dalej
+                  Edytuj
                 </span>
-              </h5>
+              </h4>
             </a>
             </div>
             </div>
@@ -89,7 +87,7 @@
           
 
       </th>
-      {% endif %}
+      {% for weight in lst.1 %}
       <th>
         <div class="row justify-content-center popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4>
           <h5>
@@ -136,7 +134,9 @@
 
 
 <script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
   $('.popoverData').popover();
   $('.popoverOption').popover({ trigger: "hover" });
+  });
 </script>
 {% endblock %}

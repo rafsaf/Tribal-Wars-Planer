@@ -16,35 +16,44 @@
         </button>
       </div>
       <div class="modal-body">
+          <div class="row">
 
+          <div class="col-8">
           {% load crispy_forms_tags %}
           <form method='POST'>
             {% csrf_token %}
             {{form|crispy}}
+            <button name="save" type="submit" class="btn btn-info">Zmień i zapisz</button>
+          </form>
+        </div>
+          <div class="col-4">
+          <form method='POST'>
+            {% csrf_token %}
             <div class="btn-group-vertical d-flex" role="group" aria-label="Vertical button group">
-              <button type="button" class="btn btn-outline-info">Button</button>
-              <button type="button" class="btn btn-outline-info">Button</button>
-              <button type="button" class="btn btn-outline-info">Button</button>
-              <button type="button" class="btn btn-outline-info">Button</button>
+              <button id="button1" name="duplicate" type="submit" class="btn btn-outline-info">Rozdziel na pół</button>
+              <!--
+                <button class="btn btn-outline-info dropdown-toggle disabled" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item disabled" type="button">Action</button>
+                  <button class="dropdown-item disabled" type="button">Another action</button>
+                  <button class="dropdown-item disabled" type="button">Something else here</button>
+                </div>
+              
 
               <button type="button" class="btn btn-outline-primary mt-4">Button</button>
               <button type="button" class="btn btn-outline-primary">Button</button>
               <button type="button" class="btn btn-outline-primary">Button</button>
-
+              -->
             </div>
-
-
-
-
-
           </form>
+          </div>
+          </div>
 
 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
+
     </div>
   </div>
 </div>
@@ -127,7 +136,7 @@
               <div class="row">
                 <form method="POST">
                   {% csrf_token %}
-                  <button name="{{weight.start}}-down" class="btn btn-default">
+                  <button name="{{weight.start}}-down-{{weight.order}}" class="btn btn-default">
                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill"
                       fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd"
@@ -138,7 +147,7 @@
 
                 <form method="POST">
                   {% csrf_token %}
-                  <button name="{{weight.start}}-up" class="btn btn-default">
+                  <button name="{{weight.start}}-up-{{weight.order}}" class="btn btn-default">
                     <svg name="{{weight.start}}" width="2em" height="2em" viewBox="0 0 16 16"
                       class="bi bi-arrow-up-circle-fill" fill="rgba(133, 221, 32, 0.938)"
                       xmlns="http://www.w3.org/2000/svg">
@@ -149,7 +158,7 @@
                 </form>
                 <form method="POST">
                   {% csrf_token %}
-                  <button name="{{weight.start}}-delete" class="btn btn-default">
+                  <button name="{{weight.start}}-delete-{{weight.order}}" class="btn btn-default">
                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="#6c757d"
                       xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd"
@@ -265,19 +274,19 @@
           <div class="row">
             {% for weight in page_obj %}
             <div class="card col-12 col-lg-6 col-xl-4">
-              <h3 class="card-title">
+              <h4 class="card-title">
                 <div class=" row justify-content-center">
                   <span class="badge badge-pill badge-info mt-1">
                     {{weight.player}}</span>
                 </div>
-              </h3>
+              </h4>
 
               <div class="card-body">
-                <h4 class="card-subtitle ">
+                <h5 class="card-subtitle ">
                   <span class="badge badge-secondary">
                     {{weight.start.kordy}}
                   </span>
-                </h4>
+                </h5>
 
                 <p class="card-text">
                 <table>
@@ -315,7 +324,7 @@
                   <form method="POST">
                     {% csrf_token %}
                     <button name="{{weight.start.kordy}}-add-last" class="btn btn-default">
-                      <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-down-square"
+                      <svg width="2.6em" height="2.6em" viewBox="0 0 16 16" class="bi bi-arrow-down-square"
                         fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                           d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
@@ -328,7 +337,7 @@
                   <form method="POST">
                     {% csrf_token %}
                     <button name="{{weight.start.kordy}}-add-first" class="btn btn-default">
-                      <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-up-square"
+                      <svg width="2.6em" height="2.6em" viewBox="0 0 16 16" class="bi bi-arrow-up-square"
                         fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                           d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
@@ -353,32 +362,33 @@
 
 
   <script>
-    $('#form-modal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      var start = button.data('start')
-      var off = button.data('off')
-      var snob = button.data('snob')
-      var player = button.data('player')
-      var distance = button.data('distance')
-      var order = button.data('order')
-       
-      // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
-      modal.find('.modal-title').text(start)
-
-      modal.find('#id_start').val(start)
-      modal.find('#id_off').val(off)
-      modal.find('#id_snob').val(snob)
-      modal.find('#id_player').val(player)
-      modal.find('#id_distance').val(distance)
-      modal.find('#id_order').val(order)
-    })
-
-    $('.popoverData').popover();
-    $('.popoverOption').popover({ trigger: "hover" });
-    $()
+    document.addEventListener("DOMContentLoaded", function(event) { 
+      $('#form-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var start = button.data('start')
+        var off = button.data('off')
+        var snob = button.data('snob')
+        var player = button.data('player')
+        var distance = button.data('distance')
+        var order = button.data('order')
+         
+        // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text(start)
+        modal.find('#button1').attr("name", start+'-duplicate-'+order)
+        modal.find('#id_start').val(start)
+        modal.find('#id_off').val(off)
+        modal.find('#id_snob').val(snob)
+        modal.find('#id_player').val(player)
+        modal.find('#id_distance').val(distance)
+        modal.find('#id_order').val(order)
+      })
+  
+      $('.popoverData').popover();
+      $('.popoverOption').popover({ trigger: "hover" });
+    });
   </script>
 
 

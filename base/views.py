@@ -266,9 +266,9 @@ def outline_detail_initial_period_outline(request, _id):
     instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
 
     # User have to fill data or get redirected to outline_detail view
-    if instance.zbiorka_obrona == "":
-        request.session["error"] = "Zbiórka Obrona pusta !"
-        return redirect("base:planer_detail", _id)
+    #if instance.zbiorka_obrona == "":
+    #    request.session["error"] = "Zbiórka Obrona pusta !"
+    #    return redirect("base:planer_detail", _id)
 
     if instance.zbiorka_wojsko == "":
         request.session["error"] = "Zbiórka Wojsko pusta !"
@@ -278,7 +278,10 @@ def outline_detail_initial_period_outline(request, _id):
         request.session["pass-to-form"] = "True"
         return redirect("base:planer_initial_form", _id)
 
-    query = [models.Weight.objects.all().filter(target=target) for target in models.Target_Vertex.objects.all().filter(outline=instance)]
+    target_query = models.Target_Vertex.objects.all().filter(outline=instance)
+    query = [models.Weight.objects.all().filter(target=target) for target in target_query]
+
+    query = zip(target_query, query)
     context = {"instance": instance, "query": query}
     return render(request, "base/new_outline/new_outline_initial_period2.html", context)
 
@@ -289,9 +292,9 @@ def outline_detail_initial_period_form(request, _id):
 
     instance = get_object_or_404(models.New_Outline, id=_id, owner=request.user)
     # User have to fill data or get redirected to outline_detail view
-    if instance.zbiorka_obrona == "":
-        request.session["error"] = "Zbiórka Obrona pusta !"
-        return redirect("base:planer_detail", _id)
+    #if instance.zbiorka_obrona == "":
+    #    request.session["error"] = "Zbiórka Obrona pusta !"
+    #    return redirect("base:planer_detail", _id)
 
     if instance.zbiorka_wojsko == "":
         request.session["error"] = "Zbiórka Wojsko pusta !"
@@ -309,22 +312,22 @@ def outline_detail_initial_period_form(request, _id):
     form1 = forms.Initial_Period_Outline_Player_Form(
         request.POST or None, world=instance.swiat
     )
-    form2 = forms.Initial_Period_Outline_Player_Choose_Form(request.POST or None)
+    #form2 = forms.Initial_Period_Outline_Player_Choose_Form(request.POST or None)
 
-    form2.fields["player"].choices = [("banned", "--------")] + [
-        ("{}".format(i.name), "{}".format(i.name))
-        for i in models.Player.objects.all()
-        .exclude(name__in=instance.initial_period_outline_players.split("\r\n"))
-        .filter(world=instance.swiat)
-        .filter(
-            tribe_id__in=[
-                tribe.tribe_id
-                for tribe in models.Tribe.objects.all().filter(
-                    tag__in=instance.moje_plemie_skrot.split(", ")
-                )
-            ]
-        )
-    ]
+    #form2.fields["player"].choices = [("banned", "--------")] + [
+    #    ("{}".format(i.name), "{}".format(i.name))
+    #    for i in models.Player.objects.all()
+    #    .exclude(name__in=instance.initial_period_outline_players.split("\r\n"))
+    #    .filter(world=instance.swiat)
+    #    .filter(
+    #        tribe_id__in=[
+    #            tribe.tribe_id
+    #            for tribe in models.Tribe.objects.all().filter(
+    #                tag__in=instance.moje_plemie_skrot.split(", ")
+    #            )
+    #        ]
+    #    )
+    #]
 
     form1.fields["players"].initial = instance.initial_period_outline_players
     form1.fields["target"].initial = instance.initial_period_outline_targets
@@ -346,20 +349,20 @@ def outline_detail_initial_period_form(request, _id):
                 pass
             return redirect("base:planer_initial", _id)
 
-    if "form2" in request.POST:
-        if form2.is_valid():
-            player = request.POST.get("player")
-            # banned means "-------"
-            if player == "banned":
-                pass
-            elif instance.initial_period_outline_players == "":
-                instance.initial_period_outline_players = player
-            else:
-                instance.initial_period_outline_players += "\r\n{}".format(player)
-            instance.save()
-            return redirect("base:planer_initial_form", _id)
+    #if "form2" in request.POST:
+    #    if form2.is_valid():
+    #        player = request.POST.get("player")
+    #        # banned means "-------"
+    #        if player == "banned":
+    #            pass
+    #        elif instance.initial_period_outline_players == "":
+    #            instance.initial_period_outline_players = player
+    #        else:
+    #            instance.initial_period_outline_players += "\r\n{}".format(player)
+    #        instance.save()
+    #        return redirect("base:planer_initial_form", _id)
 
-    context = {"instance": instance, "form1": form1, "form2": form2}
+    context = {"instance": instance, "form1": form1}
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
 
@@ -374,9 +377,9 @@ def outline_detail_initial_period_outline_detail(request, _id, coord):
     )
 
     # User have to fill data or get redirected to outline_detail view
-    if instance.zbiorka_obrona == "":
-        request.session["error"] = "Zbiórka Obrona pusta !"
-        return redirect("base:planer_detail", _id)
+    #if instance.zbiorka_obrona == "":
+    #    request.session["error"] = "Zbiórka Obrona pusta !"
+    #    return redirect("base:planer_detail", _id)
 
     if instance.zbiorka_wojsko == "":
         request.session["error"] = "Zbiórka Wojsko pusta !"
@@ -418,68 +421,77 @@ def outline_detail_initial_period_outline_detail(request, _id, coord):
     )
     # form modal - update / duplicate
     form = forms.Weight_form(request.POST or None)
+    if request.method == "POST":
+        if "save" in request.POST:
+            if form.is_valid():
+                start = request.POST.get("start")
+                off = request.POST.get("off")
+                snob = request.POST.get("snob")
+                order = request.POST.get("order")
 
-    if "save" in request.POST:
-        if form.is_valid():
-            start = request.POST.get("start")
-            off = request.POST.get("off")
-            snob = request.POST.get("snob")
+                weight = models.Weight.objects.get(target=target_model, start=start, order=order)
 
-            obj = models.Weight.objects.get(target=target_model, start=start)
-            obj.off = off
-            obj.snob = snob
-            obj.save()
-            return redirect(url)
 
-    if "add-new" in request.POST:
-        if form.is_valid():
-            start = request.POST.get("start")
-            off = request.POST.get("off")
-            snob = request.POST.get("snob")
-            distance = request.POST.get("distance")
-            snob = request.POST.get("snob")
 
-            obj = models.Weight.objects.get(target=target_model, start=start)
-            obj.off = off
-            obj.snob = snob
-            obj.save()
-            return redirect(url)
+                state = weight.state
 
-    # raczej zmienic caly ten syf nizej
-    for weight in result_lst:
-        # usuwanie
-        if f"{weight.start}-delete" in request.POST:
-            target.delete_element(weight.start)
-            target.renew(target_model)
+                other_off = state.off_state - weight.off
+                other_snob = state.snob_state - weight.snob
 
-            return redirect(url)
+                state.off_state = int(off) + other_off
+                state.snob_state = int(snob) + other_snob
+                state.save()
 
-        # up
-        if f"{weight.start}-up" in request.POST:
-            target.swap_up(weight.start)
-            target.renew(target_model)
+                weight.off = off
+                weight.snob = snob
+                weight.save()
+                return redirect(url)
 
-            return redirect(url)
-        # down
-        if f"{weight.start}-down" in request.POST:
-            target.swap_down(weight.start)
-            target.renew(target_model)
+        
 
-            return redirect(url)
 
-    for i in nonused_vertices:
-        # add first
-        if f"{i.start.kordy}-add-first" in request.POST:
-            target.add_first(i.start.kordy)
-            target.renew(target_model)
+        # raczej zmienic caly ten syf nizej
+        for weight in result_lst:
+            #duplikowanie
+            if f"{weight.start}-duplicate-{weight.order}" in request.POST:
+                target.duplicate(order=weight.order)
+                target.renew(target_model)
 
-            return redirect(url)
-        # add last
-        if f"{i.start.kordy}-add-last" in request.POST:
-            target.add_last(i.start.kordy)
-            target.renew(target_model)
+                return redirect(url)
 
-            return redirect(url)
+            # usuwanie
+            if f"{weight.start}-delete-{weight.order}" in request.POST:
+                target.delete_element(coord=weight.start, target_model=target_model, order=weight.order)
+                target.renew(target_model)
+
+                return redirect(url)
+
+            # up
+            if f"{weight.start}-up-{weight.order}" in request.POST:
+                target.swap_up(weight.order)
+                target.renew(target_model)
+
+                return redirect(url)
+            # down
+            if f"{weight.start}-down-{weight.order}" in request.POST:
+                target.swap_down(weight.order)
+                target.renew(target_model)
+
+                return redirect(url)
+
+        for i in nonused_vertices:
+            # add first
+            if f"{i.start.kordy}-add-first" in request.POST:
+                target.add_first(coord=i.start.kordy, target_model=target_model)
+                target.renew(target_model)
+
+                return redirect(url)
+            # add last
+            if f"{i.start.kordy}-add-last" in request.POST:
+                target.add_last(coord=i.start.kordy, target_model=target_model)
+                target.renew(target_model)
+
+                return redirect(url)
 
     context = {
         "instance": instance,

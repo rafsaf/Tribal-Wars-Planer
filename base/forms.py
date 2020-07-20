@@ -255,14 +255,16 @@ class Initial_Period_Outline_Player_Choose_Form(forms.Form):
 class Initial_Period_Outline_Player_Form(forms.Form):
     players = forms.CharField(
         max_length=1500,
-        widget=forms.Textarea,
+        #hidden instead of text field change later
+        widget=forms.HiddenInput,
         label="Gracze, którzy przejmują",
         required=False,
     )
     max_distance = forms.IntegerField(
-        label="Max odległość od startu do celu - ilość kratek, domyślnie 10",
+        label="Max odległość od startu do celu - ilość kratek, domyślnie 50",
         required=False,
         widget=forms.NumberInput,
+        initial=50,
     )
     target = forms.CharField(
         max_length=15000,
@@ -323,6 +325,6 @@ class Weight_form(forms.Form):
     start = forms.CharField(max_length=7, widget=forms.HiddenInput)
     distance = forms.FloatField(widget=forms.HiddenInput)
     order = forms.IntegerField(widget=forms.HiddenInput)
-    off = forms.IntegerField(widget=forms.HiddenInput)
-    snob = forms.IntegerField(widget=forms.HiddenInput)
+    off = forms.IntegerField(widget=forms.NumberInput)
+    snob = forms.IntegerField(widget=forms.NumberInput)
     player = forms.CharField(max_length=20, widget=forms.HiddenInput)

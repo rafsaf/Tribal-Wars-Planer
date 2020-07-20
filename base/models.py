@@ -226,8 +226,22 @@ class Target_Vertex(models.Model):
     def __str__(self):
         return self.target
 
+class Weight_Maximum(models.Model):
+    outline = models.ForeignKey(New_Outline, on_delete=models.CASCADE)
+    start = models.CharField(max_length=7)
+    player = models.CharField(max_length=30)
+    off_max = models.IntegerField()
+    snob_max = models.IntegerField()
+    off_state = models.IntegerField(default=0)
+    snob_state = models.IntegerField(default=0)
+
+
+    def __str__(self):
+        return self.start
+
 class Weight(models.Model):
     target = models.ForeignKey(Target_Vertex, on_delete=models.CASCADE)
+    state = models.ForeignKey(Weight_Maximum, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
     off = models.IntegerField()
     distance = models.FloatField()

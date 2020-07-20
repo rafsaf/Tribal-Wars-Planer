@@ -8,9 +8,16 @@ role="button">{{instance.nazwa}}</a>
 <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
 bg-light">Wyniki</a>
 <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
-bg-light">Zbierz deff</a>
+bg-light">Zbiórka Deffa</a>
+
 <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
-bg-light">Rozpiska - etap 1 wioski</a>
+bg-light">
+Planer Akcji
+    
+
+<div style="font-size:2.3vh !important;" class="badge badge-info">BETA</div>
+
+</a>
 {%endblock%}
 
 {% block content %}
@@ -132,7 +139,9 @@ bg-light">Rozpiska - etap 1 wioski</a>
 
 
 <script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
     $('.bd-example-modal-lg').modal('show')
+    });
 </script>
 {% endif %}
 <br/>

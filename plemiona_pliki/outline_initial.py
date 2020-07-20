@@ -2,17 +2,12 @@ import pickle
 from . import basic_classes as basic
 from base import models
 from .timing import timing
+from math import floor
 
 
 def make_outline(outline: models.New_Outline):
     graph = Graph_Initial_Outline(outline=outline)
     graph.outline_make_first_time()
-    return graph
-
-
-def get_outline(outline: models.New_Outline):
-    graph = Graph_Initial_Outline(outline=outline)
-    graph.get_existing_outline()
     return graph
 
 
@@ -89,10 +84,14 @@ class Graph_Initial_Outline:
     def add_weight_to_single_target_vertex_without_banned(self, target_model):
         """ after get_branch_graph method only """
         target_vertex = self.get_target_vertex(target_model.target)
-        for vertex in self.context_with_village_vertices:
-            if vertex.get_village().kordy not in self.banned:
-                weight = vertex.add_connected_vertex_target(target_vertex.wioska.kordy)
-                target_vertex.add_connected_vertex_army(weight)
+        for weight_model_max in models.Weight_Maximum.objects.all().filter(outline=self.outline).exclude(start__in=self.banned):
+            target_vertex.add_connected_vertex_army(Weight.from_model_weight_maximum(
+                start=weight_model_max.start,
+                target=target_model.target,
+                snob=weight_model_max.snob_max - weight_model_max.snob_state,
+                off=weight_model_max.off_max - weight_model_max.off_state,
+                player=weight_model_max.player,
+            ))
 
     def sort_weight_targets(self):
         for target in self.context_with_target_vertices:
@@ -101,7 +100,19 @@ class Graph_Initial_Outline:
             )
 
     def outline_make_first_time(self):
-        self.make()
+        self.add_target_vertices_to_graph()
+        self.add_vertices_army_to_graph()
+        self.add_weight_to_vertices()
+        self.sort_weight_targets()
+        # dodaje do db maximum
+        models.Weight_Maximum.objects.all().delete() 
+        models.Weight_Maximum.objects.bulk_create(
+            [
+                village.return_db_instance(self.outline)
+                for village in self.context_with_village_vertices
+            ]
+        )
+
         obj_list = []
         for target in self.context_with_target_vertices:
             new_banned = target.get_four_best_vertices(self.banned)
@@ -114,53 +125,38 @@ class Graph_Initial_Outline:
         # target vertices
         models.Target_Vertex.objects.bulk_create(obj_list)
 
-        obj_list = models.Target_Vertex.objects.all().filter(outline=self.outline).order_by('target')
-        target_list = sorted(self.context_with_target_vertices, key=lambda value: value.wioska.kordy)
+        obj_list = (
+            models.Target_Vertex.objects.all()
+            .filter(outline=self.outline)
+            .order_by("target")
+        )
+        target_list = sorted(
+            self.context_with_target_vertices, key=lambda value: value.wioska.kordy
+        )
 
         for target_vertex, target_model in zip(target_list, obj_list):
-            #iter, weight
+            # iter, weight
             result_lst = enumerate(target_vertex.result_lst)
 
             models.Weight.objects.bulk_create(
-                [ 
-                    i[1].return_db_instance(target=target_model, order=i[0]) for i in result_lst
+                [
+                    i[1].return_db_instance(outline=target_model.outline, target=target_model, order=i[0])
+                    for i in result_lst
                 ]
             )
-
-    def get_existing_outline(self):
-        """ 
-        fast getting graph from database Target_Vertex, used in new_outline_initial_period2.html
-        """
-
-        for target in models.Target_Vertex.objects.all().filter(outline=self.outline):
-            target_vertex = self.add_single_target_vertex_to_graph(target.target)
-
-            for weight_model in (
-                    models.Weight.objects.all().filter(target=target).order_by("order")
-                ):
-
-                target_vertex.result_lst.append(
-                    Weight.from_model_weight(
-                        start=weight_model.start,
-                        target=weight_model.target.target,
-                        snob=weight_model.snob,
-                        distance=weight_model.distance,
-                        off=weight_model.off,
-                        player=weight_model.player
-                    )
-                )
+            for weight in models.Weight.objects.all().filter(target=target_model):
+                weight.state.off_state = weight.off
+                weight.state.snob_state = weight.snob
+                weight.state.save()
 
     def get_branch_graph(self, target_model):
-        self.add_vertices_army_to_graph()
 
         for target in models.Target_Vertex.objects.all().filter(outline=self.outline):
-            if not target == target_model:
-                for weight_model in models.Weight.objects.all().filter(target=target):
+            for weight_model in models.Weight.objects.all().filter(target=target):
+                if weight_model.state.off_state == weight_model.state.off_max and weight_model.state.snob_state == weight_model.state.snob_max:
                     self.banned.add(weight_model.start)
 
-        target_vertex = self.add_single_target_vertex_to_graph(
-                    target_model.target
-                )
+        target_vertex = self.add_single_target_vertex_to_graph(target_model.target)
         for weight_model in models.Weight.objects.all().filter(target=target_model):
             target_vertex.result_lst.append(
                 Weight.from_model_weight(
@@ -174,11 +170,6 @@ class Graph_Initial_Outline:
             )
         self.add_weight_to_single_target_vertex_without_banned(target_model)
 
-    def make(self):
-        self.add_target_vertices_to_graph()
-        self.add_vertices_army_to_graph()
-        self.add_weight_to_vertices()
-        self.sort_weight_targets()
 
 
 class Weight:
@@ -206,14 +197,26 @@ class Weight:
 
     @classmethod
     def from_model_weight(
-            cls, start: str, target: str, snob: int, distance: float, off: int, player: str,
-        ):
-        obj = cls(start=start, target=target,)
-        obj.off = off
-        obj.snob = snob
-        obj.distance_rounded = distance
-        obj.player = player
-        return obj
+        cls, start: str, target: str, snob: int, distance: float, off: int, player: str,
+    ):
+        weight = cls(start=start, target=target)
+        weight.off = off
+        weight.snob = snob
+        weight.distance_rounded = distance
+        weight.player = player
+        return weight
+
+    @classmethod
+    def from_model_weight_maximum(
+        cls, start: str, target: str, snob: int, off: int, player: str,
+    ):
+        weight = cls(start=start, target=target)
+        weight.off = off
+        weight.snob = snob
+        weight.distance = weight.distance_()
+        weight.distance_rounded = round(weight.distance,1)
+        weight.player = player
+        return weight
 
     def set_player(self):
         try:
@@ -250,24 +253,36 @@ class Weight:
     def __eq__(self, other):
         return self.distance_rounded == other.distance_rounded and self.off == other.off
 
-    def return_db_instance(self, target: models.Target_Vertex, order: int):
+    def return_db_instance(self, outline, target: models.Target_Vertex, order: int):
+        weight_max = models.Weight_Maximum.objects.get(outline=target.outline, start=self.start.kordy)
         return models.Weight(
             target=target,
+            state=weight_max,
             start=self.start.kordy,
             off=self.off,
             distance=self.distance_rounded,
             snob=self.snob,
             order=order,
-            player=self.player
+            player=self.player,
         )
 
 
 class Vertex_Army(basic.Army):
-    def __init__(self, text_army, parent_army_object, world: int, max_distance: float):
+    def __init__(self, text_army, parent_army_object, world: int, max_distance: float, dictionary={}):
         super().__init__(text_army=text_army, parent_army_object=parent_army_object)
         self.connected_to_target_vertex = []
         self.world = world
         self.max_distance = max_distance
+        self.dictionary = dictionary
+        self.player = self.set_player()
+        
+    def set_player(self):
+        try:
+            return self.dictionary[self.coords_string]
+        except KeyError:
+            player = self.get_village().get_player(self.world).name
+            self.dictionary[self.coords_string] = player
+            return player
 
     def add_connected_vertex_target(self, target: str):
         if self.get_village().distance(basic.Wioska(target)) <= self.max_distance:
@@ -281,6 +296,15 @@ class Vertex_Army(basic.Army):
             self.connected_to_target_vertex.append(weight)
             return weight
         return None
+
+    def return_db_instance(self, outline):
+        return models.Weight_Maximum(
+            player=self.player,
+            outline=outline,
+            start=self.coords_string,
+            off_max=self.get_off_units(),
+            snob_max=self.get_szlachcic(),
+        )
 
 
 class Vertex_Represent_Target_Village:
@@ -298,76 +322,123 @@ class Vertex_Represent_Target_Village:
             self.connected_to_vertex_army.append(weight)
 
     def get_four_best_vertices(self, banned_dict: dict):
-        result = {}
-        result_lst = []
-        for weight in self.connected_to_vertex_army:
-            length = len(result)
-            if length == 4:
-                break
-            if (
-                weight.army.have_szlachcic()
-                and weight.distance <= self.max_distance
-                and weight.start.kordy not in banned_dict
-            ):
-                result["attack{}".format(length + 1)] = weight.start.kordy
-                result_lst.append(weight)
-        if len(result_lst) < 4:
-            return []
-
-        self.result_lst = result_lst
-        return result.values()
+        return []
+        #result = {}
+        #result_lst = []
+        #for weight in self.connected_to_vertex_army:
+        #    length = len(result)
+        #    if length == 4:
+        #        break
+        #    if (
+        #        weight.army.have_szlachcic()
+        #        and weight.distance <= self.max_distance
+        #        and weight.start.kordy not in banned_dict
+        #    ):
+        #        result["attack{}".format(length + 1)] = weight.start.kordy
+        #        result_lst.append(weight)
+        #if len(result_lst) < 4:
+        #    return []
+        #
+        #self.result_lst = result_lst
+        #return result.values()
 
     def get_player(self):
         return self.wioska.get_player(self.world)
 
     def return_db_instance(self, outline: models.New_Outline):
-        return models.Target_Vertex(outline=outline, target=self.wioska.kordy, player=self.player, slug=self.slug)
+        return models.Target_Vertex(
+            outline=outline,
+            target=self.wioska.kordy,
+            player=self.player,
+            slug=self.slug,
+        )
 
     def renew(self, target_model):
 
         result_lst = enumerate(self.result_lst)
         models.Weight.objects.all().filter(target=target_model).delete()
         models.Weight.objects.bulk_create(
-            [ 
-                i[1].return_db_instance(target=target_model, order=i[0]) for i in result_lst
+            [
+                i[1].return_db_instance(outline=target_model.outline, target=target_model, order=i[0])
+                for i in result_lst
             ]
         )
 
-    def delete_element(self, coord):
-        for i, weight in enumerate(self.result_lst):
-            if weight.start.kordy == coord:
-                del self.result_lst[i]
-                return
+    def delete_element(self, target_model, coord, order):
+        weight = self.result_lst[order]
+        del self.result_lst[order]
+        state = models.Weight_Maximum.objects.get(outline=target_model.outline, start=coord)
+        state.off_state -= weight.off
+        state.snob_state -= weight.snob
+        state.save()
+        return
 
-    def swap_up(self, coord):
-        for i, weight in enumerate(self.result_lst):
-            if weight.start.kordy == coord:
-                if not i == 0:
-                    start = self.result_lst[i]
-                    end = self.result_lst[i - 1]
-                    self.result_lst[i] = end
-                    self.result_lst[i - 1] = start
-                    return
+    def swap_up(self, order):
+        i = order
+        if not i == 0:
+            start = self.result_lst[i]
+            end = self.result_lst[i - 1]
+            self.result_lst[i] = end
+            self.result_lst[i - 1] = start
+            return
 
-    def swap_down(self, coord):
-        for i, weight in enumerate(self.result_lst):
-            if weight.start.kordy == coord:
-                if not i == len(self.result_lst) - 1:
-                    start = self.result_lst[i]
-                    end = self.result_lst[i + 1]
-                    self.result_lst[i] = end
-                    self.result_lst[i + 1] = start
-                    return
+    def swap_down(self, order):
+        i = order
+        if not i == len(self.result_lst) - 1:
+            start = self.result_lst[i]
+            end = self.result_lst[i + 1]
+            self.result_lst[i] = end
+            self.result_lst[i + 1] = start
+            return
+        return
 
-    def add_last(self, coord):
+    def add_last(self, target_model, coord):
         for weight in self.connected_to_vertex_army:
             if weight.start.kordy == coord:
                 self.result_lst.append(weight)
+                state = models.Weight_Maximum.objects.get(outline=target_model.outline, start=coord)
+
+                state.off_state += weight.off
+                state.snob_state += weight.snob
+                state.save()
                 return
 
-    def add_first(self, coord):
+    def add_first(self, target_model, coord):
         for weight in self.connected_to_vertex_army:
             if weight.start.kordy == coord:
                 self.result_lst.insert(0, weight)
+                state = models.Weight_Maximum.objects.get(outline=target_model.outline, start=coord)
+                state.off_state += weight.off
+                state.snob_state += weight.snob
+                state.save()
                 return
+
+    def duplicate(self, order, fraction=1/2):
+        weight = self.result_lst[order]
+        index = order
+        new_off = floor(weight.off * fraction)
+        if weight.snob > 1:
+            new_snob = 1
+            old_snob = weight.snob - new_snob
+        else:
+            new_snob = 0
+            old_snob = weight.snob - new_snob
+        old_off = weight.off - new_off
+
+        weight.off = old_off
+        weight.snob = old_snob
+
+        new_weight = Weight.from_model_weight(
+            start=weight.start.kordy,
+            target=weight.target.kordy,
+            snob=new_snob,
+            distance=weight.distance_rounded,
+            off=new_off,
+            player=weight.player,
+        )
+        self.result_lst.insert(index+1, new_weight)
+
+
+        return
+
 
