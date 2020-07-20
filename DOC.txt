@@ -17,7 +17,7 @@
 // ==UserScript==
 // @name     Zbiórka przegląd Obrona.
 // @version  3
-// @match    *://*.plemiona.pl/game.php*screen=ally*&mode=members_defense
+// @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=ally&ast;&mode=members_defense
 // ==/UserScript==
 // By Rafsaf
 
@@ -168,7 +168,7 @@ create_button();
 // ==UserScript==
 // @name     Zbiórka przegląd Wojska.
 // @version  3
-// @match    *://*.plemiona.pl/game.php*screen=ally*&mode=members_troops
+// @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=ally&ast;&mode=members_troops
 // ==/UserScript==
 // By Rafsaf
 

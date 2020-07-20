@@ -103,7 +103,7 @@ class Graph_Initial_Outline:
         self.add_target_vertices_to_graph()
         self.add_vertices_army_to_graph()
         self.add_weight_to_vertices()
-        self.sort_weight_targets()
+
         # dodaje do db maximum
         models.Weight_Maximum.objects.all().delete() 
         models.Weight_Maximum.objects.bulk_create(
