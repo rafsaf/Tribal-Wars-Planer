@@ -4,7 +4,7 @@ from math import sqrt
 from django.test import TestCase
 from django.contrib.auth.models import User
 from base import models
-from . import basic_classes as basic, get_deff as deff
+from . import basic_classes as basic, get_deff as deff, outline_initial as initial
 
 
 class Wioska_test(TestCase):
@@ -522,4 +522,5 @@ class Get_deff_function_Test(TestCase):
     # napisać dla innych funckji kiedyś
 
 
-from . import outline_initial
+#graph = initial.Graph_Initial_Outline(models.New_Outline.objects.get(pk=2))
+#graph.get_players()

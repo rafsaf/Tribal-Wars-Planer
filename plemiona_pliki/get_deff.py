@@ -4,15 +4,22 @@
 """
 
 from base import models
-from .basic_classes import Wioska, Map, Wiele_wiosek, Defence, Parent_Army_Defence_World_Evidence
+from .basic_classes import (
+    Wioska,
+    Map,
+    Wiele_wiosek,
+    Defence,
+    Parent_Army_Defence_World_Evidence,
+)
 
 
 def get_deff(
     new_Outline: models.New_Outline,
-    radius:int,
+    radius: int,
     ally_name_list=None,
     enemy_name_list=None,
-    excluded_villages=""):
+    excluded_villages="",
+):
     """
     Args is instance of New_Outline, WARNING! be sure to use CORRECT
     data in instance, returns text with deff results.
@@ -21,10 +28,18 @@ def get_deff(
         ally_name_list = []
     if enemy_name_list is None:
         enemy_name_list = []
-    
+
+    if new_Outline.zbiorka_obrona == "":
+        return ""
     # napisać funkcję która sprawdza dokładnie poprawność przed pojsciem dalej
     # lub wcześniej w forms.py to zrobić
     my_tribe = new_Outline.moje_plemie_skrot.split(", ")
+    my_tribe_id = [
+        tribe.tribe_id
+        for tribe in models.Tribe.objects.all().filter(
+            world=new_Outline.swiat, tag__in=my_tribe
+        )
+    ]
 
     enemy_tribe = new_Outline.przeciwne_plemie_skrot.split(", ")
 
@@ -33,13 +48,7 @@ def get_deff(
         player_id__in=[
             player.player_id
             for player in models.Player.objects.all().filter(
-                tribe_id__in=[
-                    tribe.tribe_id
-                    for tribe in models.Tribe.objects.all().filter(
-                        world=new_Outline.swiat, tag__in=my_tribe
-                    )
-                ],
-                world=new_Outline.swiat,
+                tribe_id__in=my_tribe_id, world=new_Outline.swiat,
             )
         ]
         + [
@@ -79,6 +88,19 @@ def get_deff(
             )
         ],
     )
+    # to get context coord : owner
+    player_dictionary = {}
+    village_dictionary = {}
+
+    players = models.Player.objects.all().filter(
+        tribe_id__in=my_tribe_id, world=new_Outline.swiat
+    )
+
+    for player_model in players:
+        player_dictionary[player_model.player_id] = player_model.name
+
+    for v in my_tribe_villages:
+        village_dictionary[str(v.x) + "|" + str(v.y)] = player_dictionary[v.player_id]
 
     return deff_text(
         my_tribe_villages,
@@ -86,6 +108,7 @@ def get_deff(
         radius,
         new_Outline.zbiorka_obrona,
         int(new_Outline.swiat),
+        village_dictionary,
     )
 
 
@@ -116,11 +139,14 @@ def get_list_of_villages(ally_villages, enemy_villages, radius):
     return result_villages
 
 
-def deff_text(ally_villages, enemy_villages, radius, text_obrona, world):
+def deff_text(
+    ally_villages, enemy_villages, radius, text_obrona, world, village_dictionary
+):
     """
     uses get_list_of_villages to get legal villages in legal area,
     from text_obrona get numbers of units finaly returns text with results
     """
+
     lista_wiosek = get_list_of_villages(ally_villages, enemy_villages, radius)
 
     context_all: dict = {}
@@ -133,7 +159,7 @@ def deff_text(ally_villages, enemy_villages, radius, text_obrona, world):
             index += 1
             continue
         index += 1
-        #classes from basic_classes.py !
+        # classes from basic_classes.py !
         parent_world_evidence = Parent_Army_Defence_World_Evidence(world_number=world)
         #
         deff_instance = Defence(text_army=i, parent_army_object=parent_world_evidence)
@@ -141,7 +167,7 @@ def deff_text(ally_villages, enemy_villages, radius, text_obrona, world):
         wioska = deff_instance.get_village()
         if wioska not in lista_wiosek:
             continue
-        owner = wioska.get_player(world).name
+        owner = village_dictionary[wioska.kordy]
         if owner not in context_all:
             # sprawdzic czy "?" w deff_instance ???
             if deff_instance.get_deff_units() > 0:
