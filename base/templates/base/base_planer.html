@@ -26,23 +26,23 @@
         <tr>
             <td>
                 <a class="btn btn-secondary my-2" href="{% url 'base:planer_detail' instance.id %}"
-                    role="button">{{instance.nazwa}}</a>
+                    role="button">{{instance.name}}</a>
 
             </td>
             <td>
-                {{instance.data_akcji}}
+                {{instance.date}}
             </td>
             <td>
                 {{instance.created}}
             </td>
             <td>
-                {{instance.swiat}}
+                {{instance.world}}
             </td>
             <td>
-                {{instance.moje_plemie_skrot}}
+                {{instance.ally_tribe_tag}}
             </td>
             <td>
-                {{instance.przeciwne_plemie_skrot}}
+                {{instance.enemy_tribe_tag}}
             </td>
             <td>
 

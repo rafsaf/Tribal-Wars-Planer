@@ -1,25 +1,25 @@
 """ File with outline making and getting stuff """
 from math import floor
 from base import models
-from . import basic_classes as basic
-from .timing import timing
+from . import basic
+from .basic import timing
 
-import itertools
-def make_outline(outline: models.New_Outline):
+
+def make_outline(outline: models.Outline):
     """ For a given outline builds graph with outline instance, save a lot of objects in database while working """
     graph = Graph_Initial_Outline(outline=outline)
     graph.outline_make_first_time()
     return graph
 
-def get_branch_graph(outline: models.New_Outline, target_model: models.Target_Vertex):
-    """ To get existing graph outline from database for specific Target_Vertex """
+def get_branch_graph(outline: models.Outline, target_model: models.TargetVertex):
+    """ To get existing graph outline from database for specific TargetVertex """
     graph = Graph_Initial_Outline(outline=outline)
     graph.get_branch_graph(target_model=target_model)
     return graph
 
 
 class Graph_Initial_Outline:
-    def __init__(self, outline: models.New_Outline):
+    def __init__(self, outline: models.Outline):
         self.outline = outline
         self.context_with_target_vertices = []
         self.context_with_village_vertices = []
@@ -32,11 +32,11 @@ class Graph_Initial_Outline:
 
     def get_player_dictionary(self):
         # average < 200ms
-        my_tribe = self.outline.moje_plemie_skrot.split(", ")
+        my_tribe = self.outline.ally_tribe_tag.split(", ")
         my_tribe_id = [
             tribe.tribe_id
             for tribe in models.Tribe.objects.all().filter(
-                world=self.outline.swiat, tag__in=my_tribe
+                world=self.outline.world, tag__in=my_tribe
             )
         ]
 
@@ -47,17 +47,17 @@ class Graph_Initial_Outline:
         village_dictionary = {}
         for player in players:
             player_dictionary[player.player_id] = player.name
-        villages = models.Village.objects.all().filter(player_id__in=player_dictionary)
+        villages = models.VillageModel.objects.all().filter(player_id__in=player_dictionary)
         for v in villages:
-            village_dictionary[str(v.x) + "|" + str(v.y)] = player_dictionary[
+            village_dictionary[str(v.x_coord) + "|" + str(v.y_coord)] = player_dictionary[
                 v.player_id
             ]
         return village_dictionary
 
     def get_targets_from_outline(self) -> list:
         """ getting target coords from outline, return list with strings-coords """
-        list_with_targets = self.outline.initial_period_outline_targets
-        list_with_targets = basic.Wiele_wiosek(list_with_targets).lista_z_wioskami
+        list_with_targets = self.outline.initial_outline_targets
+        list_with_targets = basic.many_villages(list_with_targets).village_list
         return list_with_targets
 
     @timing
@@ -66,15 +66,15 @@ class Graph_Initial_Outline:
         for wioska in self.get_targets_from_outline():
             self.context_with_target_vertices.append(
                 Vertex_Represent_Target_Village(
-                    wioska.kordy,
-                    self.outline.swiat,
-                    float(self.outline.max_distance_initial_outline),
+                    wioska.coord,
+                    self.outline.world,
+                    float(self.outline.initial_outline_max_distance),
                 )
             )
 
     def add_single_target_vertex_to_graph(self, coord):
         instance = Vertex_Represent_Target_Village(
-            coord, self.outline.swiat, float(self.outline.max_distance_initial_outline)
+            coord, self.outline.world, float(self.outline.initial_outline_max_distance)
         )
         self.context_with_target_vertices.append(instance)
         return instance
@@ -82,24 +82,24 @@ class Graph_Initial_Outline:
     def get_target_vertex(self, coord):
         """ Return target from graph(add_target_vertices method first) """
         for target in self.context_with_target_vertices:
-            if target.wioska.kordy == coord:
+            if target.wioska.coord == coord:
                 return target
 
     @timing
     def add_vertices_army_to_graph(self, dictionary):
         """ Adds all villages to graph"""
-        parent_army = basic.Parent_Army_Defence_World_Evidence(self.outline.swiat)
-        for i in self.outline.zbiorka_wojsko.split("\r\n"):
+        parent_army = basic.world_evidence(self.outline.world)
+        for i in self.outline.off_troops.split("\r\n"):
             instance = Vertex_Army(
                 i,
                 parent_army,
-                self.outline.swiat,
-                float(self.outline.max_distance_initial_outline),
+                self.outline.world,
+                float(self.outline.initial_outline_max_distance),
                 dictionary=dictionary,
             )
             # self.data
             # filled with key:coord - value:Vertex_Army
-            self.data[instance.get_village().kordy] = instance
+            self.data[instance.coord] = instance
 
             self.context_with_village_vertices.append(instance)
 
@@ -107,14 +107,14 @@ class Graph_Initial_Outline:
     def add_weight_to_vertices(self):
         for vertex in self.context_with_village_vertices:
             for target in self.context_with_target_vertices:
-                weight = vertex.add_connected_vertex_target(target.wioska.kordy)
+                weight = vertex.add_connected_vertex_target(target.wioska.coord)
                 target.add_connected_vertex_army(weight)
 
     def add_weight_to_single_target_vertex_without_banned(self, target_model):
         """ after get_branch_graph method only """
         target_vertex = self.get_target_vertex(target_model.target)
         for weight_model_max in (
-            models.Weight_Maximum.objects.all()
+            models.WeightMaximum.objects.all()
             .filter(outline=self.outline)
             .exclude(start__in=self.banned)
         ):
@@ -122,7 +122,7 @@ class Graph_Initial_Outline:
                 Weight.from_model_weight_maximum(
                     start=weight_model_max.start,
                     target=target_model.target,
-                    snob=weight_model_max.snob_max - weight_model_max.snob_state,
+                    nobleman=weight_model_max.snob_max - weight_model_max.snob_state,
                     off=weight_model_max.off_max - weight_model_max.off_state,
                     player=weight_model_max.player,
                 )
@@ -144,8 +144,8 @@ class Graph_Initial_Outline:
         self.add_weight_to_vertices()
 
         # dodaje do db maximum
-        models.Weight_Maximum.objects.all().delete()
-        models.Weight_Maximum.objects.bulk_create(
+        models.WeightMaximum.objects.all().delete()
+        models.WeightMaximum.objects.bulk_create(
             [
                 village.return_db_instance(self.outline)
                 for village in self.context_with_village_vertices
@@ -160,24 +160,24 @@ class Graph_Initial_Outline:
 
             obj_list.append(target.return_db_instance(self.outline))
 
-        models.Target_Vertex.objects.all().filter(outline=self.outline).delete()
+        models.TargetVertex.objects.all().filter(outline=self.outline).delete()
         # target vertices
-        models.Target_Vertex.objects.bulk_create(obj_list)
+        models.TargetVertex.objects.bulk_create(obj_list)
 
         obj_list = (
-            models.Target_Vertex.objects.all()
+            models.TargetVertex.objects.all()
             .filter(outline=self.outline)
             .order_by("target")
         )
         target_list = sorted(
-            self.context_with_target_vertices, key=lambda value: value.wioska.kordy
+            self.context_with_target_vertices, key=lambda value: value.wioska.coord
         )
 
         for target_vertex, target_model in zip(target_list, obj_list):
             # iter, weight
             result_lst = enumerate(target_vertex.result_lst)
 
-            models.Weight.objects.bulk_create(
+            models.WeightModel.objects.bulk_create(
                 [
                     i[1].return_db_instance(
                         outline=target_model.outline, target=target_model, order=i[0]
@@ -185,15 +185,15 @@ class Graph_Initial_Outline:
                     for i in result_lst
                 ]
             )
-            for weight in models.Weight.objects.all().filter(target=target_model):
+            for weight in models.WeightModel.objects.all().filter(target=target_model):
                 weight.state.off_state = weight.off
-                weight.state.snob_state = weight.snob
+                weight.state.snob_state = weight.nobleman
                 weight.state.save()
 
     def get_branch_graph(self, target_model):
 
-        for target in models.Target_Vertex.objects.all().filter(outline=self.outline):
-            for weight_model in models.Weight.objects.all().filter(target=target):
+        for target in models.TargetVertex.objects.all().filter(outline=self.outline):
+            for weight_model in models.WeightModel.objects.all().filter(target=target):
                 if (
                     weight_model.state.off_state == weight_model.state.off_max
                     and weight_model.state.snob_state == weight_model.state.snob_max
@@ -201,12 +201,12 @@ class Graph_Initial_Outline:
                     self.banned.add(weight_model.start)
 
         target_vertex = self.add_single_target_vertex_to_graph(target_model.target)
-        for weight_model in models.Weight.objects.all().filter(target=target_model):
+        for weight_model in models.WeightModel.objects.all().filter(target=target_model):
             target_vertex.result_lst.append(
                 Weight.from_model_weight(
                     start=weight_model.start,
                     target=weight_model.target.target,
-                    snob=weight_model.snob,
+                    nobleman=weight_model.nobleman,
                     distance=weight_model.distance,
                     off=weight_model.off,
                     player=weight_model.player,
@@ -225,8 +225,8 @@ class Weight:
         dictionary=None,
         army: basic.Army = None,
     ):
-        self.start = basic.Wioska(start)
-        self.target = basic.Wioska(target)
+        self.start = basic.Village(start)
+        self.target = basic.Village(target)
         if world is not None and max_distance is not None and army is not None:
             self.dictionary = dictionary
             self.world = world
@@ -236,39 +236,39 @@ class Weight:
             self.distance_rounded = round(self.distance, 1)
             self.off = self.off_()
             self.player = self.set_player()
-            self.snob = self.army.get_szlachcic()
+            self.nobleman = self.army.get_szlachcic()
 
     @classmethod
     def from_model_weight(
-        cls, start: str, target: str, snob: int, distance: float, off: int, player: str,
+        cls, start: str, target: str, nobleman: int, distance: float, off: int, player: str,
     ):
         weight = cls(start=start, target=target)
         weight.off = off
-        weight.snob = snob
+        weight.nobleman = nobleman
         weight.distance_rounded = distance
         weight.player = player
         return weight
 
     @classmethod
     def from_model_weight_maximum(
-        cls, start: str, target: str, snob: int, off: int, player: str,
+        cls, start: str, target: str, nobleman: int, off: int, player: str,
     ):
         weight = cls(start=start, target=target)
         weight.off = off
-        weight.snob = snob
+        weight.nobleman = nobleman
         weight.distance = weight.distance_()
         weight.distance_rounded = round(weight.distance, 1)
         weight.player = player
         return weight
 
     def set_player(self):
-        return self.dictionary[self.start.kordy]
+        return self.dictionary[self.start.coord]
 
     def distance_(self):
         return self.start.distance(self.target)
 
     def off_(self):
-        return self.army.get_off_units()
+        return self.army.off
 
     def __lt__(self, other):
         dist1 = self.distance_rounded
@@ -291,17 +291,17 @@ class Weight:
     def __eq__(self, other):
         return self.distance_rounded == other.distance_rounded and self.off == other.off
 
-    def return_db_instance(self, outline, target: models.Target_Vertex, order: int):
-        weight_max = models.Weight_Maximum.objects.get(
-            outline=target.outline, start=self.start.kordy
+    def return_db_instance(self, outline, target: models.TargetVertex, order: int):
+        weight_max = models.WeightMaximum.objects.get(
+            outline=target.outline, start=self.start.coord
         )
-        return models.Weight(
+        return models.WeightModel(
             target=target,
             state=weight_max,
-            start=self.start.kordy,
+            start=self.start.coord,
             off=self.off,
             distance=self.distance_rounded,
-            snob=self.snob,
+            nobleman=self.nobleman,
             order=order,
             player=self.player,
         )
@@ -311,12 +311,12 @@ class Vertex_Army(basic.Army):
     def __init__(
         self,
         text_army,
-        parent_army_object,
+        evidence,
         world: int,
         max_distance: float,
         dictionary=None,
     ):
-        super().__init__(text_army=text_army, parent_army_object=parent_army_object)
+        super().__init__(text_army=text_army, evidence=evidence)
         self.connected_to_target_vertex = []
         self.world = world
         self.max_distance = max_distance
@@ -324,12 +324,12 @@ class Vertex_Army(basic.Army):
         self.player = self.set_player()
 
     def set_player(self):
-        return self.dictionary[self.coords_string]
+        return self.dictionary[self.coord]
 
     def add_connected_vertex_target(self, target: str):
-        if self.get_village().distance(basic.Wioska(target)) <= self.max_distance:
+        if self.village.distance(basic.Village(target)) <= self.max_distance:
             weight = Weight(
-                start=self.coords_string,
+                start=self.coord,
                 target=target,
                 world=self.world,
                 max_distance=self.max_distance,
@@ -341,19 +341,19 @@ class Vertex_Army(basic.Army):
         return None
 
     def return_db_instance(self, outline):
-        return models.Weight_Maximum(
+        return models.WeightMaximum(
             player=self.player,
             outline=outline,
-            start=self.coords_string,
-            off_max=self.get_off_units(),
-            snob_max=self.get_szlachcic(),
+            start=self.coord,
+            off_max=self.off,
+            snob_max=self.nobleman,
         )
 
 
 class Vertex_Represent_Target_Village:
     def __init__(self, wioska: str, world: int, max_distance: float):
-        self.wioska = basic.Wioska(wioska)
-        self.slug = f"{self.wioska.x}{self.wioska.y}"
+        self.wioska = basic.Village(wioska)
+        self.slug = f"{self.wioska.x_coord}{self.wioska.y_coord}"
         self.world = world
         self.connected_to_vertex_army: list = []
         self.max_distance = max_distance
@@ -375,9 +375,9 @@ class Vertex_Represent_Target_Village:
         #    if (
         #        weight.army.have_szlachcic()
         #        and weight.distance <= self.max_distance
-        #        and weight.start.kordy not in banned_dict
+        #        and weight.start.coord not in banned_dict
         #    ):
-        #        result["attack{}".format(length + 1)] = weight.start.kordy
+        #        result["attack{}".format(length + 1)] = weight.start.coord
         #        result_lst.append(weight)
         # if len(result_lst) < 4:
         #    return []
@@ -386,12 +386,12 @@ class Vertex_Represent_Target_Village:
         # return result.values()
 
     def get_player(self):
-        return self.wioska.get_player(self.world)
+        return "none"
 
-    def return_db_instance(self, outline: models.New_Outline):
-        return models.Target_Vertex(
+    def return_db_instance(self, outline: models.Outline):
+        return models.TargetVertex(
             outline=outline,
-            target=self.wioska.kordy,
+            target=self.wioska.coord,
             player=self.player,
             slug=self.slug,
         )
@@ -399,8 +399,8 @@ class Vertex_Represent_Target_Village:
     def renew(self, target_model):
 
         result_lst = enumerate(self.result_lst)
-        models.Weight.objects.all().filter(target=target_model).delete()
-        models.Weight.objects.bulk_create(
+        models.WeightModel.objects.all().filter(target=target_model).delete()
+        models.WeightModel.objects.bulk_create(
             [
                 i[1].return_db_instance(
                     outline=target_model.outline, target=target_model, order=i[0]
@@ -412,11 +412,11 @@ class Vertex_Represent_Target_Village:
     def delete_element(self, target_model, coord, order):
         weight = self.result_lst[order]
         del self.result_lst[order]
-        state = models.Weight_Maximum.objects.get(
+        state = models.WeightMaximum.objects.get(
             outline=target_model.outline, start=coord
         )
         state.off_state -= weight.off
-        state.snob_state -= weight.snob
+        state.snob_state -= weight.nobleman
         state.save()
         return
 
@@ -441,26 +441,26 @@ class Vertex_Represent_Target_Village:
 
     def add_last(self, target_model, coord):
         for weight in self.connected_to_vertex_army:
-            if weight.start.kordy == coord:
+            if weight.start.coord == coord:
                 self.result_lst.append(weight)
-                state = models.Weight_Maximum.objects.get(
+                state = models.WeightMaximum.objects.get(
                     outline=target_model.outline, start=coord
                 )
 
                 state.off_state += weight.off
-                state.snob_state += weight.snob
+                state.snob_state += weight.nobleman
                 state.save()
                 return
 
     def add_first(self, target_model, coord):
         for weight in self.connected_to_vertex_army:
-            if weight.start.kordy == coord:
+            if weight.start.coord == coord:
                 self.result_lst.insert(0, weight)
-                state = models.Weight_Maximum.objects.get(
+                state = models.WeightMaximum.objects.get(
                     outline=target_model.outline, start=coord
                 )
                 state.off_state += weight.off
-                state.snob_state += weight.snob
+                state.snob_state += weight.nobleman
                 state.save()
                 return
 
@@ -468,21 +468,21 @@ class Vertex_Represent_Target_Village:
         weight = self.result_lst[order]
         index = order
         new_off = floor(weight.off * fraction)
-        if weight.snob > 1:
+        if weight.nobleman > 1:
             new_snob = 1
-            old_snob = weight.snob - new_snob
+            old_snob = weight.nobleman - new_snob
         else:
             new_snob = 0
-            old_snob = weight.snob - new_snob
+            old_snob = weight.nobleman - new_snob
         old_off = weight.off - new_off
 
         weight.off = old_off
-        weight.snob = old_snob
+        weight.nobleman = old_snob
 
         new_weight = Weight.from_model_weight(
-            start=weight.start.kordy,
-            target=weight.target.kordy,
-            snob=new_snob,
+            start=weight.start.coord,
+            target=weight.target.coord,
+            nobleman=new_snob,
             distance=weight.distance_rounded,
             off=new_off,
             player=weight.player,

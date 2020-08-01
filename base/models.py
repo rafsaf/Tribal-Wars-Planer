@@ -1,35 +1,21 @@
+""" Database models """
+
 from django.db import models
-from django.utils.html import mark_safe
 from django.contrib.auth.models import User
 from markdownx.models import MarkdownxField
 
-# DATA MODELS
-
 
 class World(models.Model):
-    """
-    class representing village in game
-     \n Member variables:
-     \n title -str
-     \n world- int
-     \n speed_world -float
-     \n speed_units -float
-     \n paladin - active/inactive
-     \n archer - active/inactive
-     \n militia - active/inactive
-    """
+    """ World in the game """
 
     STATUS_CHOICES = [
         ("active", "Active"),
         ("inactive", "Inactive"),
     ]
-    # Kiedys dodac test czy istnieja pliki txt w api gry o numerze
     title = models.TextField(verbose_name="Tytuł")
     world = models.IntegerField(verbose_name="Numer świata")
     speed_world = models.FloatField(null=True, blank=True, default=1)
     speed_units = models.FloatField(null=True, blank=True, default=1)
-
-    # Some units are not aviable on worlds!!!
     paladin = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     archer = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     militia = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
@@ -37,119 +23,68 @@ class World(models.Model):
     def __str__(self):
         return str(self.title)
 
+    # pylint: disable=W:279
     def save(self, *args, **kwargs):
         if self.title != "Świat {}".format(self.world):
             raise Exception("Invalid World title: {}".format(self.title))
-        super(World, self).save(*args, **kwargs)  # Call the real save() method
+        super(World, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ("-world",)
 
 
-class Tribe(models.Model):
-    """
-    class representing tribe in game
-     \n Member variables:
-     \n tribe_id -int
-     \n name -str
-     \n tag -str
-     \n members -int
-     \n villages -int
-     \n points -int
-     \n all_points -int
-     \n rank -int
-     \n world -int
-    """
+class TribeHasUnallowedPatternInTag(Exception):
+    """ Tribe Exception """
 
+
+class Tribe(models.Model):
+    """ Tribe in game """
+    id = models.CharField(primary_key=True, max_length=11)
     tribe_id = models.IntegerField()
-    name = models.TextField()
     tag = models.TextField()
-    members = models.IntegerField()
-    villages = models.IntegerField()
-    points = models.IntegerField()
-    all_points = models.IntegerField()
-    rank = models.IntegerField()
     world = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.tag
 
+    # pylint: disable=W:279
     def save(self, *args, **kwargs):
         if ", " in self.tag:
-            raise ValueError(
-                "Unallowed ', ' in Tribe's tag - id:{}, name:{}, please remove it".format(
-                    self.tribe_id, self.name
-                )
+            raise TribeHasUnallowedPatternInTag(
+                f"Unallowed ', ' in Tribe's tag - id:{self.tribe_id}, name:{self.tag}"
+                f"please remove it"
             )
         super().save(*args, **kwargs)
 
 
 class Player(models.Model):
-    """
-    class representing player in game
-     \n Member variables:
-     \n player_id -int
-     \n name -str
-     \n tribe_id -int
-     \n villages -int
-     \n points -int
-     \n rank -int
-     \n world -int
-    """
-
+    """ Player in the game """
+    id = models.CharField(primary_key=True, max_length=30)
     player_id = models.IntegerField()
     name = models.TextField()
     tribe_id = models.IntegerField()
-    villages = models.IntegerField()
-    points = models.IntegerField()
-    rank = models.IntegerField()
     world = models.IntegerField()
 
     def __str__(self):
         return self.name
 
 
-class Village(models.Model):
-    """
-    class representing village in game
-     \n Member variables:
-     \n village_id -int
-     \n x -int
-     \n y -int
-     \n player_id -int
-     \n world -int
-     \n points -int
-    """
-
+class VillageModel(models.Model):
+    """ Village in the game """
+    id = models.CharField(primary_key=True, max_length=9)
     village_id = models.IntegerField()
-    x = models.IntegerField()
-    y = models.IntegerField()
+    x_coord = models.IntegerField()
+    y_coord = models.IntegerField()
     player_id = models.IntegerField()
     world = models.IntegerField()
-    points = models.IntegerField(null=True)
+
 
     def __str__(self):
         return str(self.village_id)
 
 
-# PLANER MODELS
-
-
-class New_Outline(models.Model):
-    """
-     \n owner USER instance
-     \n data_akcji - date_field
-     \n nazwa -str
-     \n swiat -str NULL, BLANK
-     \n created -date_time AUTO_NOW_ADD
-     \n status -str: DEFAULT 'active'
-     \n moje_plemie_skrot -str: pl1, pl2, pl3, ... NULL BLANK DEFAULT ""
-     \n przeciwne_plemie_skrot -str: pl1, pl2, pl3, ... NULL BLANK DEFAULT ""
-     \n zbiorka_wojsko -str NULL BLANK DEFAULT ""
-     \n zbiorka_obrona -str NULL BLANK DEFAULT ""
-     \n initial_period_outline_players -str NULL BLANK DEFAULT ""
-     \n initial_period_outline_targets -str NULL BLANK DEFAULT ""
-    """
+class Outline(models.Model):
+    """ Outline with all informations about it"""
 
     STATUS_CHOICES = [
         ("active", "Active"),
@@ -157,60 +92,46 @@ class New_Outline(models.Model):
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    # ONLY Chosen in form
-    data_akcji = models.DateField(null=True, blank=True)
-    nazwa = models.TextField()
-    swiat = models.TextField(null=True, blank=True)
-    #
+    date = models.DateField(null=True, blank=True)
+    name = models.TextField()
+    world = models.IntegerField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
-    moje_plemie_skrot = models.CharField(max_length=100, default="", blank=True)
-    przeciwne_plemie_skrot = models.CharField(max_length=100, default="", blank=True)
-
-    zbiorka_wojsko = models.TextField(
-        null=True,
+    editable = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
+    ally_tribe_tag = models.CharField(max_length=100, default="", blank=True)
+    enemy_tribe_tag = models.CharField(max_length=100, default="", blank=True)
+    initial_outline_players = models.TextField(blank=True, default="")
+    initial_outline_targets = models.TextField(blank=True, default="")
+    initial_outline_max_distance = models.IntegerField(blank=True, default=10)
+    off_troops = models.TextField(
         blank=True,
         default="",
-        help_text=mark_safe(
-            "Wymagana dokładna forma ze skryptu Wojska, zajrzyj do <a href='/documentation#Skrypt-zbiorka-wojska'>dokumentacji</a>"
-        ),
     )
-    zbiorka_obrona = models.TextField(
-        null=True,
+    deff_troops = models.TextField(
         blank=True,
         default="",
-        help_text=mark_safe(
-            "Wymagana dokładna forma ze skryptu Obrona, zajrzyj do <a href='/documentation#Skrypt-zbiorka-obrona'>dokumentacji</a>"
-        ),
     )
-
-    initial_period_outline_players = models.TextField(blank=True, default="")
-
-    initial_period_outline_targets = models.TextField(blank=True, default="")
-
-    max_distance_initial_outline = models.IntegerField(blank=True, default=10)
 
     class Meta:
         ordering = ("-created",)
 
     def __str__(self):
-        return "ID:" + str(self.id) + ", Nazwa: " + str(self.nazwa)
+        return "ID:" + str(self.id) + ", Nazwa: " + str(self.name)
 
 
-class Results(models.Model):
-    """ One to one with outline, presents results """
+class Result(models.Model):
+    """ Presents Outline and Deff results """
 
-    outline = models.OneToOneField(
-        New_Outline, on_delete=models.CASCADE, primary_key=True
-    )
+    outline = models.OneToOneField(Outline, on_delete=models.CASCADE, primary_key=True)
     results_get_deff = models.TextField(default="")
 
     def __str__(self):
-        return self.outline.nazwa + " results"
+        return self.outline.name + " results"
 
 
 class Documentation(models.Model):
+    """ Docs page """
+
     title = models.CharField(max_length=10)
     main_page = MarkdownxField()
 
@@ -218,16 +139,22 @@ class Documentation(models.Model):
         return self.title
 
 
-class Target_Vertex(models.Model):
-    outline = models.ForeignKey(New_Outline, on_delete=models.CASCADE)
+class TargetVertex(models.Model):
+    """ Target Village """
+
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     target = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
     slug = models.CharField(max_length=10)
+
     def __str__(self):
         return self.target
 
-class Weight_Maximum(models.Model):
-    outline = models.ForeignKey(New_Outline, on_delete=models.CASCADE)
+
+class WeightMaximum(models.Model):
+    """ Control state smaller than maximum """
+
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
     off_max = models.IntegerField()
@@ -235,20 +162,21 @@ class Weight_Maximum(models.Model):
     off_state = models.IntegerField(default=0)
     snob_state = models.IntegerField(default=0)
 
-
     def __str__(self):
         return self.start
 
-class Weight(models.Model):
-    target = models.ForeignKey(Target_Vertex, on_delete=models.CASCADE)
-    state = models.ForeignKey(Weight_Maximum, on_delete=models.CASCADE)
+
+class WeightModel(models.Model):
+    """ Command between start and target """
+
+    target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE)
+    state = models.ForeignKey(WeightMaximum, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
     off = models.IntegerField()
     distance = models.FloatField()
-    snob = models.IntegerField()
+    nobleman = models.IntegerField()
     order = models.IntegerField()
     player = models.CharField(max_length=20)
+
     def __str__(self):
         return self.start
-
-

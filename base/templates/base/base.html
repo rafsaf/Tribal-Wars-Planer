@@ -23,7 +23,7 @@
 
 
 <body>
-
+    <script type="text/javascript" src="{% static 'base.js' %}"></script>
 
     <div class="d-flex" id="wrapper">
         {% if user.is_authenticated %}
@@ -105,6 +105,7 @@
             <div class="container-fluid mt-4">
 
                 {% block content %}
+                
                 <img style="position: absolute;" class="img-fluid"  src="{% static 'images/battle.jpg' %}" alt="main">
 
                 <div class="row">
@@ -167,6 +168,7 @@
 
                     </div>
                     </div>
+
                 {% endblock %}
             </div>
 
@@ -194,7 +196,7 @@
             $("#wrapper").toggleClass("toggled");
         });
         $(document).ready(function() {
-            $('#id_data_akcji').addClass('data-picker')
+            $('#id_date').addClass('data-picker')
             $('.data-picker').datepicker({
                 format: "yyyy-mm-dd"
             });
@@ -202,13 +204,12 @@
 
         $('.carousel').carousel({
             interval: 2500
-          })
-
+          });
 
 
 
     </script>
-
+    
 </body>
 
 </html>

@@ -1,13 +1,7 @@
 {% extends "base/new_outline/new_outline.html" %}
 
 {% block content %}
-{% for field in form %}
-    <div class="fieldWrapper">
-        {% if field.errors %}
-        <div class="alert alert-danger">{{ field.errors }}</div> 
-        {% endif %}
-    </div>
-{% endfor %}
+
 {% load crispy_forms_tags %}
 <div class="row my-2">
     <div class="col-6">
@@ -20,6 +14,54 @@
                 type="submit">Potwierdź</button>
 
         </form>
+    </div>
+    <div class="col-6">
+        <div class="container-fluid md-pre h-100">
+        <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">Opis</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">Oznaczenia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">Przykłady</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="card">
+                    <div class="card-body">
+                        
+                      <h5 class="card-title">Zbieraj deff z zaplecza</h5>
+                      <li class="card-text">Program służy do zbierania deffa z plemiennych wiosek położonych w odległości większej niż Promień od frontu. </li>
+                      <li class="card-text mt-2">Odległość jest liczona w kratkach.</li>
+                      <li class="card-text mt-2">Domyślna wielkość 30 odpowiada około 17h drogi szlachcicem, z przyczyn optymalizacyjnych maksymalny możliwy promień to 60. </li>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mt-2">Upewnij się, że...</h5>
+                        <li class="card-text mt-2"> Uwzględniłeś/aś wszystkie własne i wrogie plemiona. </li>
+                        <li class="card-text mt-2"> Wybrany promień jest adekwatny do potrzeb. </li>          
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mt-2">Pamiętaj, że...</h5>
+                        <li class="card-text mt-2"> Pozostałe opcje są opcjonalne. </li>
+                        <li class="card-text mt-2"> Więcej szczegółów znajdziesz w zakładce Oznaczenia i Przykłady.</li>
+                    </div>
+                </div>
+
+
+                      
+
+            </div>
+            <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+            <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+          </div>
+    </div>
     </div>
 </div>
 <br />

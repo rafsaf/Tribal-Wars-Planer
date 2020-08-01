@@ -2,30 +2,31 @@ from urllib.parse import unquote_plus, unquote
 
 import requests
 
-from base.models import Village, Tribe, Player, World
+from base.models import VillageModel, Tribe, Player, World
 
 
 def cron_schedule_data_update():
-    """ Update Tribe, Village, Player instances to database """
+    """ Update Tribe, VillageModel, Player instances to database """
 
     worlds = World.objects.all()
-    # Village Model Update
+    # VillageModel Model Update
     for instance in worlds:
-        Village.objects.all().filter(world=instance.world).delete()
+        VillageModel.objects.all().filter(world=instance.world).delete()
         x = [
             i.split(',') for i in requests.get(
                 f"https://pl{instance.world}.plemiona.pl/map/village.txt").
             text.split('\n')
         ]
         village_list = [
-            Village(village_id=unquote(unquote_plus(i[0])),
-                    x=i[2],
-                    y=i[3],
+            VillageModel(
+                    id=f'{i[2]}{i[3]}{instance.world}',
+                    village_id=i[0],
+                    x_coord=i[2],
+                    y_coord=i[3],
                     player_id=i[4],
-                    points=i[5],
                     world=instance.world) for i in x if i != ['']
         ]
-        Village.objects.bulk_create(village_list)
+        VillageModel.objects.bulk_create(village_list)
     # Tribe Model Update
     for instance in worlds:
         Tribe.objects.all().filter(world=instance.world).delete()
@@ -35,14 +36,9 @@ def cron_schedule_data_update():
             split('\n')
         ]
         tribe_list = [
-            Tribe(tribe_id=i[0],
-                  name=unquote(unquote_plus(i[1])),
+            Tribe(id=f'{unquote(unquote_plus(i[2]))}::{instance.world}',
+                  tribe_id=i[0],
                   tag=unquote(unquote_plus(i[2])),
-                  members=i[3],
-                  villages=i[4],
-                  points=i[5],
-                  all_points=i[6],
-                  rank=i[7],
                   world=instance.world) for i in x
             if i != [''] and ', ' not in unquote(unquote_plus(i[2]))
         ]
@@ -56,12 +52,10 @@ def cron_schedule_data_update():
             split('\n')
         ]
         player_list = [
-            Player(player_id=i[0],
+            Player(id=f'{unquote(unquote_plus(i[1]))}:{instance.world}',
+                   player_id=i[0],
                    name=unquote(unquote_plus(i[1])),
                    tribe_id=i[2],
-                   villages=i[3],
-                   points=i[4],
-                   rank=i[5],
                    world=instance.world) for i in x if i != ['']
         ]
         Player.objects.bulk_create(player_list)

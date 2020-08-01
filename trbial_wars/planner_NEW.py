@@ -1,15 +1,15 @@
-from plemiona_pliki.swiat_i_jednostki import Swiat, Jednostki
-from plemiona_pliki.db_pool import db_pool
-from plemiona_pliki.wioska import Wiele_wiosek, Wioska
+from tribal_wars.swiat_i_jednostki import Swiat, Jednostki
+from tribal_wars.db_pool import db_pool
+from tribal_wars.wioska import many_villages, Village
 import datetime
 import random
-from plemiona_pliki.cele_masowo import ranodmize_cele_masowe, check_data
+from tribal_wars.cele_masowo import ranodmize_cele_masowe, check_data
 #
 # Dążymy do uzupełnienia tabeli planner_baza_celi informacjami z planner_cele_recznie
 #
 jednostka = Jednostki()
-swiat = Swiat(150)
-swiat.predkosc()
+world = Swiat(150)
+world.predkosc()
 
 
 
@@ -47,13 +47,13 @@ def uzupelnij_planner_baza_celi():
 
 
     for cel in wszystkie_cele:
-        wioska_cel = Wioska(cel[1])
-        wioski_jeden_gruby:list = Wiele_wiosek(cel[8]).lista_z_wioskami
+        wioska_cel = Village(cel[1])
+        wioski_jeden_gruby:list = many_villages(cel[8]).village_list
 
-        wioski_taran_fejk:list = Wiele_wiosek(cel[6]).lista_z_wioskami
-        wioski_taran_off:list = Wiele_wiosek(cel[7]).lista_z_wioskami
-        wioski_jeden_gruby_fejk:list = Wiele_wiosek(cel[9]).lista_z_wioskami
-        wioski_deffoszlachta:list = Wiele_wiosek(cel[10]).lista_z_wioskami
+        wioski_taran_fejk:list = many_villages(cel[6]).village_list
+        wioski_taran_off:list = many_villages(cel[7]).village_list
+        wioski_jeden_gruby_fejk:list = many_villages(cel[9]).village_list
+        wioski_deffoszlachta:list = many_villages(cel[10]).village_list
         for wioska in wioski_jeden_gruby:
             if wioska.x != None:
 
@@ -64,8 +64,8 @@ def uzupelnij_planner_baza_celi():
                 rozkaz.set_offoszlachta()
                 czas = Czas_wejscia(cel[4], cel[5], rozkaz)
                 for i in range(number):
-                    dodaj_do_bazy_celi(wioska.get_player(swiat.number), wioska.x, wioska.y, wioska.get_id_wioski(swiat.number),
-                                   wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(swiat.number),
+                    dodaj_do_bazy_celi(wioska.get_player(world.number), wioska.x, wioska.y, wioska.get_id_wioski(world.number),
+                                   wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(world.number),
                                    czas.czas_wyjscia_ataku(wioska, wioska_cel), czas.data_wejscia, rozkaz.rodzaj)
                 if number > 1:
                     for i in range(len(wioski_jeden_gruby)):
@@ -77,16 +77,16 @@ def uzupelnij_planner_baza_celi():
             rozkaz.set_off()
             czas = Czas_wejscia(cel[2], cel[3], rozkaz)
 
-            dodaj_do_bazy_celi(wioska.get_player(swiat.number),wioska.x, wioska.y,wioska.get_id_wioski(swiat.number),
-                               wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(swiat.number),
+            dodaj_do_bazy_celi(wioska.get_player(world.number),wioska.x, wioska.y,wioska.get_id_wioski(world.number),
+                               wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(world.number),
                                czas.czas_wyjscia_ataku(wioska, wioska_cel), czas.data_wejscia, rozkaz.rodzaj)
         for wioska in wioski_taran_fejk:
             rozkaz = Rodzaj_ataku()
             rozkaz.set_fejk_taran()
             czas = Czas_wejscia(cel[2], cel[3], rozkaz)
 
-            dodaj_do_bazy_celi(wioska.get_player(swiat.number),wioska.x, wioska.y,wioska.get_id_wioski(swiat.number),
-                               wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(swiat.number),
+            dodaj_do_bazy_celi(wioska.get_player(world.number),wioska.x, wioska.y,wioska.get_id_wioski(world.number),
+                               wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(world.number),
                                czas.czas_wyjscia_ataku(wioska, wioska_cel), czas.data_wejscia, rozkaz.rodzaj)
         for wioska in wioski_jeden_gruby_fejk:
             if wioska.x != None:
@@ -98,8 +98,8 @@ def uzupelnij_planner_baza_celi():
                 rozkaz.set_fejk_gruby()
                 czas = Czas_wejscia(cel[4], cel[5], rozkaz)
                 for i in range(number):
-                    dodaj_do_bazy_celi(wioska.get_player(swiat.number), wioska.x, wioska.y, wioska.get_id_wioski(swiat.number),
-                                   wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(swiat.number),
+                    dodaj_do_bazy_celi(wioska.get_player(world.number), wioska.x, wioska.y, wioska.get_id_wioski(world.number),
+                                   wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(world.number),
                                    czas.czas_wyjscia_ataku(wioska, wioska_cel), czas.data_wejscia, rozkaz.rodzaj)
                 if number > 1:
                     for i in range(len(wioski_jeden_gruby_fejk)):
@@ -113,8 +113,8 @@ def uzupelnij_planner_baza_celi():
             rozkaz.set_deffoszlachta()
             czas = Czas_wejscia(cel[4], cel[5], rozkaz)
 
-            dodaj_do_bazy_celi(wioska.get_player(swiat.number),wioska.x, wioska.y,wioska.get_id_wioski(swiat.number),
-                               wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(swiat.number),
+            dodaj_do_bazy_celi(wioska.get_player(world.number),wioska.x, wioska.y,wioska.get_id_wioski(world.number),
+                               wioska_cel.x, wioska_cel.y, wioska_cel.get_id_wioski(world.number),
                                czas.czas_wyjscia_ataku(wioska, wioska_cel), czas.data_wejscia, rozkaz.rodzaj)
     conn.commit()
     rodzaj1 = Rodzaj_ataku()

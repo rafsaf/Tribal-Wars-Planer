@@ -74,7 +74,7 @@
     </div>
     <div class="row justify-content-center">
       <h1 class="h1-responsive">
-        <span class="badge badge-secondary">{{target.wioska.kordy}}</span>
+        <span class="badge badge-secondary">{{target.wioska.coord}}</span>
       </h1>
     </div>
   </div>
@@ -114,10 +114,10 @@
                   <th>
                   </th>
                   <th>
-                    <img src='{% static "images/snob.png" %}' alt="ax">
+                    <img src='{% static "images/nobleman.png" %}' alt="ax">
                   </th>
                   <th>
-                    {{weight.snob}}
+                    {{weight.nobleman}}
                   </th>
                   <th>
                     <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +170,7 @@
                 <form method="POST">
                   {% csrf_token %}
                   <button class="btn btn-default" type="button" data-toggle="modal"
-                    data-target="#form-modal" data-order="{{weight.order}}" data-start="{{weight.start}}" data-distance="{{weight.distance}}" data-off="{{weight.off}}" data-snob="{{weight.snob}}" data-player="{{weight.player}}">
+                    data-target="#form-modal" data-order="{{weight.order}}" data-start="{{weight.start}}" data-distance="{{weight.distance}}" data-off="{{weight.off}}" data-nobleman="{{weight.nobleman}}" data-player="{{weight.player}}">
                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8"
                       xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -223,10 +223,10 @@
                   <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=off#table">Według ilości wojska</a>                  
                   {% endif %}
 
-                  {% if sort == 'snob' %}
-                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=snob#table">Według ilości szlachciców</a>
+                  {% if sort == 'nobleman' %}
+                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=nobleman#table">Według ilości szlachciców</a>
                   {% else %}
-                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=snob#table">Według ilości szlachciców</a>                  
+                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=nobleman#table">Według ilości szlachciców</a>                  
                   {% endif %}
                 </div>
               </div>
@@ -284,7 +284,7 @@
               <div class="card-body">
                 <h5 class="card-subtitle ">
                   <span class="badge badge-secondary">
-                    {{weight.start.kordy}}
+                    {{weight.start.coord}}
                   </span>
                 </h5>
 
@@ -299,10 +299,10 @@
                   </tr>
                   <tr>
                     <th>
-                      <img src='{% static "images/snob.png" %}' alt="ax">
+                      <img src='{% static "images/nobleman.png" %}' alt="ax">
                     </th>
                     <th>
-                      {{weight.snob}}
+                      {{weight.nobleman}}
                     </th>
                   </tr>
                   <tr>
@@ -323,7 +323,7 @@
                 <div class="row">
                   <form method="POST">
                     {% csrf_token %}
-                    <button name="{{weight.start.kordy}}-add-last" class="btn btn-default">
+                    <button name="{{weight.start.coord}}-add-last" class="btn btn-default">
                       <svg width="2.6em" height="2.6em" viewBox="0 0 16 16" class="bi bi-arrow-down-square"
                         fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -336,7 +336,7 @@
                   </form>
                   <form method="POST">
                     {% csrf_token %}
-                    <button name="{{weight.start.kordy}}-add-first" class="btn btn-default">
+                    <button name="{{weight.start.coord}}-add-first" class="btn btn-default">
                       <svg width="2.6em" height="2.6em" viewBox="0 0 16 16" class="bi bi-arrow-up-square"
                         fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -367,7 +367,7 @@
         var button = $(event.relatedTarget) // Button that triggered the modal
         var start = button.data('start')
         var off = button.data('off')
-        var snob = button.data('snob')
+        var nobleman = button.data('nobleman')
         var player = button.data('player')
         var distance = button.data('distance')
         var order = button.data('order')
@@ -380,7 +380,7 @@
         modal.find('#button1').attr("name", start+'-duplicate-'+order)
         modal.find('#id_start').val(start)
         modal.find('#id_off').val(off)
-        modal.find('#id_snob').val(snob)
+        modal.find('#id_snob').val(nobleman)
         modal.find('#id_player').val(player)
         modal.find('#id_distance').val(distance)
         modal.find('#id_order').val(order)

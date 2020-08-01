@@ -1,10 +1,10 @@
-{% extends "base/base.html" %}
 
+{% extends "base/base.html" %}
+{% load static %}
 {% block sidebar %}
 
 <a class=" list-group-item list-group-item-action
-bg-secondary" href="{% url 'base:planer_detail' instance.id %}"
-role="button">{{instance.nazwa}}</a>
+bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
 <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
 bg-light">Wyniki</a>
 <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
@@ -12,16 +12,15 @@ bg-light">Zbiórka Deffa</a>
 
 <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
 bg-light">
-Planer Akcji
-    
+    Planer Akcji
 
-<div style="font-size:2.3vh !important;" class="badge badge-info">BETA</div>
+
+    <div style="font-size:2.3vh !important;" class="badge badge-info">BETA</div>
 
 </a>
 {%endblock%}
 
 {% block content %}
-
 
 
 <div>
@@ -30,23 +29,20 @@ Planer Akcji
 
 
 
-<div class="modal fade bd-zbiorka-wojsko-lg" tabindex="-1" role="dialog"
-    aria-labelledby="myLargeModalLabel"
+<div class="modal fade bd-zbiorka-wojsko-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Zbiórka Wojsko</h5>
-                <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group" contenteditable="true">
-                    <textarea class="form-control" id="zbiorka-wojsko"
-                        rows="7"
-                        cols="5">{{instance.zbiorka_wojsko}}</textarea>
+                    <textarea class="form-control" id="zbiorka-wojsko" rows="7"
+                        cols="5">{{instance.off_troops}}</textarea>
                 </div>
             </div>
         </div>
@@ -54,67 +50,176 @@ Planer Akcji
 </div>
 
 
-<div class="modal fade bd-zbiorka-obrona-lg" tabindex="-1" role="dialog"
-    aria-labelledby="myLargeModalLabel"
+<div class="modal fade bd-zbiorka-obrona-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Zbiórka Obrona</h5>
-                <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group" contenteditable="true">
-                    <textarea class="form-control" id="zbiorka-obrona"
-                        rows="7"
-                        cols="5">{{instance.zbiorka_obrona}}</textarea>
+                    <textarea class="form-control" id="zbiorka-obrona" rows="7"
+                        cols="5">{{instance.deff_troops}}</textarea>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-{% load crispy_forms_tags %}
+<script src="{% static 'codemirror.js' %}"></script>
+<link rel="stylesheet" href="{% static 'codemirror.css' %}">
+
 <div class="row my-3">
+    
     <div class="col-6">
         <form method='POST'>{% csrf_token %}
 
+            <div>
+            {{ form1.off_troops.label_tag }}
+            {{ form1.off_troops }}
+            {% if form1.off_troops.errors %}
+            {% for error in form1.off_troops.errors %} 
             
-            {{ form1|crispy }}
+            {% if forloop.first %}
+            <script> document.addEventListener("DOMContentLoaded", function (event) {
+                $('.cm-s-off-troops-codemirror').addClass('CodeMirror-Invalid');
+                codemirror = $('.cm-s-off-troops-codemirror');
+                var codeMirrorEditor = codemirror[0].CodeMirror;
+                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
+                codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
+            });
+            </script>
+            {% else %}
+            <script> document.addEventListener("DOMContentLoaded", function (event) {
+                codemirror = $('.cm-s-off-troops-codemirror');
+                var codeMirrorEditor = codemirror[0].CodeMirror;
+                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
+            });
+             </script>
+            {% endif %}
+
+            {% endfor %}
+            <div class="error-text">
+                <p>Nieprawidłowe dane w {{form1.off_troops.errors|length}} liniach.
+                    <a href="{% url 'base:documentation' %}#bledy"> Dlaczego pojawił się błąd?</a>
+                </p>
+                <p>*Po ponownym kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*</p>
+            </div> 
+
+              {% endif %}
+            {% if form1.off_troops.errors|length == 0 %}
+              {% for error in form1.errors %} 
+              <div class="error-text mb-3">
+                Tekst nie może być pusty!
+                </div> 
+                <script> document.addEventListener("DOMContentLoaded", function (event) {
+                    $('.cm-s-off-troops-codemirror').addClass('CodeMirror-Invalid');
+                });
+            </script>
+              {% endfor %}
+              {% endif %}
+
+              <div class="help-text">
+                Wymagana dokładna forma ze skryptu Wojska, zajrzyj do <a href="{% url 'base:documentation' %}#Skrypt-zbiorka-wojska">dokumentacji</a>
+              </div>
+
+              </div>
+
+
+            <button class="btn btn-primary mt-3" name="form-1" type="submit">Potwierdź</button>
+
+        </form>
+
+    </div>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("id_off_troops"), {
+            theme: 'off-troops-codemirror',
+            lineNumbers: true,
+          });
+    </script>
+
+    <div class="col-6">
+        <form method='POST'>{% csrf_token %}
+
+            <div>
+            {{ form2.deff_troops.label_tag }}
+            {{ form2.deff_troops }}
+            {% if form2.deff_troops.errors %}
+            {% for error in form2.deff_troops.errors %} 
             
-            <button class="btn btn-primary" name="form-1"
-                type="submit">Potwierdź</button>
+            {% if forloop.first %}
+            <script> document.addEventListener("DOMContentLoaded", function (event) {
+                $('.cm-s-deff-troops-codemirror').addClass('CodeMirror-Invalid');
+                codemirror = $('.cm-s-deff-troops-codemirror');
+                var codeMirrorEditor = codemirror[0].CodeMirror;
+                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
+                codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
+            });
+            </script>
+            {% else %}
+            <script> document.addEventListener("DOMContentLoaded", function (event) {
+                codemirror = $('.cm-s-deff-troops-codemirror');
+                var codeMirrorEditor = codemirror[0].CodeMirror;
+                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
+            });
+             </script>
+            {% endif %}
+
+            {% endfor %}
+            <div class="error-text mb-3">
+            <p>
+                Nieprawidłowe dane w {{form2.deff_troops.errors|length}} liniach.
+                <a href="{% url 'base:documentation' %}#bledy"> Dlaczego pojawił się błąd?</a>
+            </p>
+            <p>*Po ponownym kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*</p>
+            </div> 
+
+              {% endif %}
+            {% if form2.deff_troops.errors|length == 0 %}
+              {% for error in form2.errors %} 
+              <div class="error-text mb-3">
+                Tekst nie może być pusty!
+                </div> 
+                <script> document.addEventListener("DOMContentLoaded", function (event) {
+                    $('.cm-s-deff-troops-codemirror').addClass('CodeMirror-Invalid');
+                });
+            </script>
+              {% endfor %}
+              {% endif %}
+
+              <div class="help-text">
+                Wymagana dokładna forma ze skryptu Obrona, zajrzyj do <a href="{% url 'base:documentation' %}#Skrypt-zbiorka-obrona">dokumentacji</a>
+              </div>
+
+              </div>
+
+
+            <button class="btn btn-primary mt-3" name="form-2" type="submit">Potwierdź</button>
 
         </form>
 
     </div>
 
-
-    <div class="col-6">
-        <form method='POST'>{% csrf_token %}
-
-
-            {{ form2|crispy }}
-            <button class="btn btn-primary mb-2 ml-3" name="form-2"
-                type="submit">Potwierdź</button>
-        </form>
-    </div>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("id_deff_troops"), {
+            theme: 'deff-troops-codemirror',
+            lineNumbers: true,
+          });
+    </script>
 </div>
 
 <div class="btn-group mt-2">
 
-    <button type="button" class="col-auto btn btn-success my-2"
-        data-toggle="modal"
-        data-target=".bd-zbiorka-wojsko-lg">
+    <button type="button" class="col-auto btn btn-success my-2" data-toggle="modal" data-target=".bd-zbiorka-wojsko-lg">
         Podgląd Wojska
     </button>
 
 
-    <button type="button" class="col-auto btn btn-success my-2 ml-1"
-        data-toggle="modal"
+    <button type="button" class="col-auto btn btn-success my-2 ml-1" data-toggle="modal"
         data-target=".bd-zbiorka-obrona-lg">
         Podgląd Obrona
     </button>
@@ -123,29 +228,31 @@ Planer Akcji
 
 {% if error != None %}
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content text-white bg-danger">
-        <div class="modal-header">
-            <h5  class="modal-title">{{error}}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-      </div>
+        <div class="modal-content text-white bg-danger">
+            <div class="modal-header">
+                <h5 class="modal-title">{{error}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) { 
-    $('.bd-example-modal-lg').modal('show')
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.bd-example-modal-lg').modal('show');
+        
+
     });
+
 </script>
+
 {% endif %}
-<br/>
-<br/>
-<br/>
 
 {% endblock %}

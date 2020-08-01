@@ -6,10 +6,10 @@ from . import models
 
 
 admin.site.register(models.Tribe)
-admin.site.register(models.Target_Vertex)
-admin.site.register(models.Weight)
+admin.site.register(models.TargetVertex)
+admin.site.register(models.WeightModel)
 admin.site.register(models.Player)
-admin.site.register(models.Results)
+admin.site.register(models.Result)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
 
@@ -34,26 +34,26 @@ class AdminWorld(admin.ModelAdmin):
     ]
 
 
-@admin.register(models.Village)
+@admin.register(models.VillageModel)
 class AdminVillage(admin.ModelAdmin):
     list_display = [
         "village_id",
-        "x",
-        "y",
+        "x_coord",
+        "y_coord",
         "world",
     ]
 
 
-@admin.register(models.New_Outline)
+@admin.register(models.Outline)
 class AdminNewOutline(admin.ModelAdmin):
     list_display = [
-        "nazwa",
-        "data_akcji",
-        "swiat",
+        "name",
+        "date",
+        "world",
         "status",
         "owner",
-        "moje_plemie_skrot",
-        "przeciwne_plemie_skrot",
+        "ally_tribe_tag",
+        "enemy_tribe_tag",
     ]
     list_editable = [
         "status",

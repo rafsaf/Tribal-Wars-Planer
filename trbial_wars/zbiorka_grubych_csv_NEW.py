@@ -1,4 +1,4 @@
-from plemiona_pliki.wioska import Wioska
+from tribal_wars.wioska import Village
 
 
 def zbiorka_grubych_z_obrony(tekst):
@@ -18,9 +18,9 @@ def zbiorka_grubych_z_obrony(tekst):
 
         i = i.split(",")
 
-        wioska = Wioska(i[0])
+        wioska = Village(i[0])
         number = int(i[10])
-        result[wioska.kordy] = number
+        result[wioska.coord] = number
     return result
 
 

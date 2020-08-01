@@ -1,5 +1,5 @@
-from plemiona_pliki.db_pool import db_pool
-from plemiona_pliki.wioska import Wiele_wiosek
+from tribal_wars.db_pool import db_pool
+from tribal_wars.wioska import many_villages
 import random
 
 
@@ -17,15 +17,15 @@ def check_data():
 
     gruby, off, gruby_fejk, taran_fejk = [], [], [], []
     for cel in wszystkie_cele:
-        gruby += [i for i in Wiele_wiosek(cel[8]).lista_z_wioskami]
-        off += [i for i in Wiele_wiosek(cel[7]).lista_z_wioskami]
-        gruby_fejk += [i for i in Wiele_wiosek(cel[9]).lista_z_wioskami]
+        gruby += [i for i in many_villages(cel[8]).village_list]
+        off += [i for i in many_villages(cel[7]).village_list]
+        gruby_fejk += [i for i in many_villages(cel[9]).village_list]
 
     while off != []:
         i = off.pop()
 
         if i in off:
-            raise ValueError("Powtórzone offy: {}".format(i.kordy))
+            raise ValueError("Powtórzone offy: {}".format(i.coord))
     conn.commit()
     cur.close()
     db_pool.putconn(conn)
@@ -39,23 +39,23 @@ def ranodmize_cele_masowe():
     cur.execute("SELECT * FROM planner_cele_masowo;")
     wszystkie_cele = cur.fetchall()
     for cel in wszystkie_cele:
-        wioski_cele = Wiele_wiosek(cel[1]).lista_z_wioskami
+        wioski_cele = many_villages(cel[1]).village_list
 
 
 
-        wioski_jeden_gruby:list = [i.kordy for i  in Wiele_wiosek(cel[8]).lista_z_wioskami]
+        wioski_jeden_gruby:list = [i.coord for i  in many_villages(cel[8]).village_list]
 
 
 
-        wioski_taran_fejk:list = [i.kordy for i in Wiele_wiosek(cel[6]).lista_z_wioskami]
+        wioski_taran_fejk:list = [i.coord for i in many_villages(cel[6]).village_list]
         random.shuffle(wioski_taran_fejk)
 
 
-        wioski_taran_off:list = [i.kordy for i in Wiele_wiosek(cel[7]).lista_z_wioskami]
+        wioski_taran_off:list = [i.coord for i in many_villages(cel[7]).village_list]
 
 
 
-        wioski_jeden_gruby_fejk:list = [i.kordy for i in Wiele_wiosek(cel[9]).lista_z_wioskami]
+        wioski_jeden_gruby_fejk:list = [i.coord for i in many_villages(cel[9]).village_list]
 
 
         dlugosc1:int = len(wioski_taran_fejk) // len(wioski_cele)
@@ -68,7 +68,7 @@ def ranodmize_cele_masowe():
                         "koncowa_data_wejscia_taranow, "
                         "data_wejscia_grubych, koncowa_data_wejscia_grubych, kordy_taran_fejk, kordy_taran_off, "
                         "kordy_jeden_gruby, kordy_jeden_gruby_fejk, kordy_deffoszlachta) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
-                        [wioski_cele[i].kordy, cel[2], cel[3], cel[4], cel[5],
+                        [wioski_cele[i].coord, cel[2], cel[3], cel[4], cel[5],
                          " ".join(wioski_taran_fejk[i*dlugosc1: (i+1)*dlugosc1]),
                          " ".join(wioski_taran_off[i*dlugosc2: (i+1)*dlugosc2]),
                          " ".join(wioski_jeden_gruby[i*dlugosc3: (i+1)*dlugosc3]),
