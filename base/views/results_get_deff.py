@@ -19,13 +19,22 @@ def outline_detail_2_deff(request, _id):
     form = forms.GetDeffForm(request.POST or None, world=instance.world)
     if "form" in request.POST:
         if form.is_valid():
-            result.results_get_deff = get_deff(
+            try:
+                result.results_get_deff = get_deff(
                 outline=instance,
                 radius=int(request.POST.get("radius")),
                 ally_name_list=request.POST.get("ally_players"),
                 enemy_name_list=request.POST.get("enemy_players"),
                 excluded_villages=request.POST.get("excluded"),
             )
+            except KeyError:
+                request.session[
+                    "error"
+                ] = "Wygląda na to, że Twoja Zbiórka Obrona nie jest już aktualna! Aby skorzystać z Zbiórki Deffa: skopiuj dane z podglądu i popraw błędy lub wklej aktualne dane o obronie. \n"
+                return redirect("base:planer_detail", _id)
+
+
+
             result.save()
 
             return redirect("base:planer_detail_get_deff", _id)

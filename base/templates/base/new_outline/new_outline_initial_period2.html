@@ -1,132 +1,225 @@
-{% extends "base/new_outline/new_outline.html" %}
+{% extends "base/base.html" %}
 
 {% load static %}}
-{% block content %}
-<div class="row">
+{% block showsidebar %}
+<div class="d-flex toggled" id="wrapper">
+  {% if user.is_authenticated %}
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">Panel użytkownika </div>
+    <div class="list-group list-group-flush">
 
-  <figure class="col-3">
-  <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
-  </figure>
-  <div class="col-6">
-    <div class="row justify-content-center mt-4">
-    <h3>
-      <span class="badge badge-pill badge-info">
-        {{instance.name}}
-      </span>
-      </h3>
-    </div>
-      <div class="row justify-content-center">
-    <h3>
-      <span class="badge badge-pill badge-info">
-        {{instance.date}}
-      </span>
-      </h3>
-    </div>
-    
+      <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action
+                  bg-light">Moje rozpiski</a>
+      <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action
+                  bg-light">Stwórz nową rozpiskę</a>
+      {% block sidebar %}
 
-      
-    <div class="row justify-content-center">
-    <form method="POST">
-      {% csrf_token %}
-      <button name="form1" type="submit" class="btn btn-default">
-        <h3 class="mt-1">
-          <span class="badge badge-secondary">Powrót</span>
-        </h3>
-      </button>
-      
-    </form>
+      <a class=" list-group-item list-group-item-action
+                  bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+      <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
+                  bg-light">Wyniki</a>
+      <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
+                  bg-light">Zbiórka Deffa</a>
 
+      <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
+                  bg-light">
+        Planer Akcji
+
+
+        <div style="font-size:2.3vh !important;" class="badge badge-info">BETA</div>
+
+      </a>
+      {%endblock%}
     </div>
   </div>
-  <figure class="col-3">
-    <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
+  {% endif %}
+
+  <!-- /#sidebar-wrapper -->
+  {% endblock %}
+  {% block content %}
+  <div class="row">
+
+    <figure class="col-2">
+      <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
+    </figure>
+    <div class="col-8">
+      <div class="d-flex flex-column justify-content-center h-100">
+        <div class="d-flex flex-row justify-content-center">
+          <h2>
+            <span class="badge badge-pill badge-info">
+              {{instance.name}}
+            </span>
+          </h2>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+          <h2>
+            <span class="badge badge-pill badge-info">
+              {{instance.date}}
+            </span>
+          </h2>
+        </div>
+
+        <div class="row justify-content-center">
+          <form method="POST">
+            {% csrf_token %}
+            <button name="form1" type="submit" class="btn btn-secondary btn-lg">
+              <b>Powrót</b>
+            </button>
+
+          </form>
+        </div>
+        <div class="row justify-content-center">
+          <form method="POST">
+            {% csrf_token %}
+            <button name="form1" type="submit" class="btn btn-secondary btn-lg">
+              <b>Powrót</b>
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <figure class="col-2">
+      <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
     </figure>
   </div>
+  <nav aria-label="pagination" id="pagination" class="mt-1">
+    <ul class="pagination">
+      {% if query.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ query.previous_page_number }}">Poprzednia</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link">Poprzednia</a>
+      </li>
+      {% endif %}
+      <li class="page-item disabled">
+        <a class="page-link">{{ query.number }} z {{ query.paginator.num_pages }}</a>
+      </li>
+      {% if query.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ query.next_page_number }}">Następna</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link">Następna</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
 
-  
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Cel</th>
-      <th colspan="50" scope="colgroup">Rozpiska</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for lst in query %}
-    <tr>
-      <th>
+  <div class="conatiner-fluid" style="width: min-content;">
+    <table class="table table-sm table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Cel</th>
+          <th colspan="50" scope="colgroup">Rozpiska</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for target, lst in query %}
+        <tr>
+
+          <th>
 
 
-        <div>
-            <div class="ml-1">
-            <h5>
-            <span class="badge badge-pill badge-info">
-              {{lst.0.player}}
-            </span>
-            </h5>
-            </div>
-            <div class="row">
-            <div class="col-5 ml-1">
-            <h5>
-              <span class="badge badge badge-secondary">
-                {{lst.0.target}}
-              </span>
-            </h5>
-            </div>
-            <div class="col-4">
-            <a href="{% url 'base:planer_initial_detail' instance.id lst.0.slug %}">
-              <h4 class="ml-1">
-                <span class="badge badge badge-secondary" style="background-color: rgba(133, 221, 32, 0.938);">
-                  Edytuj
+
+            <div class="d-flex justify-content-center">
+              <h5>
+                <span class="badge badge-pill badge-info">
+                  {{target.player}}
                 </span>
-              </h4>
-            </a>
+              </h5>
             </div>
+            <div class="d-flex justify-content-center">
+
+              <h5>
+                <span class="badge badge badge-secondary">
+                  {{target.target}}
+                </span>
+              </h5>
+
             </div>
-          </div>
-          
-
-      </th>
-      {% for weight in lst.1 %}
-      <th>
-        <div class="row justify-content-center popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4>
-          <h5>
-          <img src='{% static 'images/nobleman.png' %}' alt='ax'>
-          {{weight.nobleman}}
-          </h5>" rel="popover" data-placement="top" data-trigger="hover">
-
-          <h5>
-            <span class="badge badge badge-secondary">
-              {{weight.start}}
-            </span>
-          </h5>
+            <div class="d-flex justify-content-center">
+              <h5>
+                <a href="{{target.get_absolute_url}}" class="btn btn-sm btn-outline-info">
+                  Edytuj
+                </a>
+              </h5>
+            </div>
 
 
-        </div>
-        <table class="table table-sm">
-          <tr>
-            <th>
-              <img src='{% static "images/ax.png" %}' alt="ax">
-            </th>
-            <th>{{weight.off}}
-            </th>
 
-          </tr>
-        </table>
+          </th>
 
-      </th>
-      {% endfor %}
-    </tr>
-    {% endfor %}
+
+          {% for weight in lst %}
+          <th>
+            <div class="popoverData" data-html="true"
+              data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
+              rel="popover" data-placement="top" data-trigger="hover">
+
+              <table class="table table-sm">
+                <tr>
+                  <th>
+                    <img src='{% static "images/ax.png" %}' alt="ax">
+                  </th>
+                  <th style="font-size: small;">
+                    {{weight.off}}
+                  </th>
+
+                </tr>
+                <tr>
+                  <th>
+                    <img src='{% static "images/nobleman.png" %}' alt="ax">
+                  </th>
+                  <th style="font-size: small;">
+                    {{weight.nobleman}}
+                  </th>
+
+                </tr>
+                <tr>
+                  <th>
+                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
+                      <path fill-rule="evenodd"
+                        d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
+                      <path d="M7 10h2v6H7v-6z" />
+                    </svg>
+                  </th>
+                  <th style="font-size: small;">
+                    {{weight.distance}}
+                  </th>
+
+                </tr>
+
+
+              </table>
+
+
+
+
+
+          </th>
+          {% endfor %}
+  </div>
+
+  </tr>
+  {% endfor %}
 
   </tbody>
-</table>
-
+  </table>
+</div>
 
 <!-- 
     <a id="popoverData" class="btn" href="#" data-html="true" data-content="Popoverzsszzzs <br /> with data-trigger" rel="popover" data-placement="bottom" data-original-title="Title" data-trigger="hover">Popover with data-trigger</a>
 
-    <a id="popoverOption" class="btn" href="#" data-content="Popup with option trigger" rel="popover" data-placement="bottom" data-original-title="Title">Popup with option trigger</a>
+
 -->
 
 </div>
@@ -134,9 +227,10 @@
 
 
 <script>
-  document.addEventListener("DOMContentLoaded", function(event) { 
-  $('.popoverData').popover();
-  $('.popoverOption').popover({ trigger: "hover" });
+  document.addEventListener("DOMContentLoaded", function (event) {
+
+    $('.popoverData').popover();
+    $('.popoverOption').popover({ trigger: "hover" });
   });
 </script>
 {% endblock %}

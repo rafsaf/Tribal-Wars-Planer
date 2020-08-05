@@ -3,32 +3,71 @@
 
 
 {% block content %}
-{% load crispy_forms_tags %}
+{% load static %}
+<script src="{% static 'codemirror.js' %}"></script>
+<link rel="stylesheet" href="{% static 'codemirror.css' %}">
 <div class="row my-2">
     <div class="col-6">
         <form method='POST'>{% csrf_token %}
 
+            <div>
+            {{ form1.target.label_tag }}
+            {{ form1.target }}
+            {% if form1.target.errors %}
+            {% for error in form1.target.errors %} 
             
-            {{form1|crispy}}
-            
-            <button class="btn btn-primary" id="button1" name="form1"
-                type="submit">Potwierdź</button>
+            {% if forloop.first %}
+            <script> document.addEventListener("DOMContentLoaded", function (event) {
+                $('.CodeMirror').addClass('CodeMirror-Invalid');
+                codemirror = $('.CodeMirror');
+                var codeMirrorEditor = codemirror[0].CodeMirror;
+                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
+                codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
+            });
+            </script>
+            {% else %}
+            <script> document.addEventListener("DOMContentLoaded", function (event) {
+                codemirror = $('.CodeMirror');
+                var codeMirrorEditor = codemirror[0].CodeMirror;
+                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
+            });
+             </script>
+            {% endif %}
+
+            {% endfor %}
+            <div class="error-text">
+                <p>Nieprawidłowe dane w {{form1.target.errors|length}} liniach.
+                    <a href="{% url 'base:documentation' %}#bledy"> Dlaczego pojawił się błąd?</a>
+                </p>
+                <p>*Po ponownym kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*</p>
+            </div> 
+
+              {% endif %}
+            {% if form1.target.errors|length == 0 %}
+              {% for error in form1.errors %} 
+              <div class="error-text mb-3">
+                Tekst nie może być pusty!
+                </div> 
+                <script> document.addEventListener("DOMContentLoaded", function (event) {
+                    $('.CodeMirror').addClass('CodeMirror-Invalid');
+                });
+            </script>
+              {% endfor %}
+              {% endif %}
+              </div>
+
+
+            <button class="btn btn-primary mt-3" name="form1" type="submit">Potwierdź</button>
 
         </form>
-    </div>
-    <!--
-    <div class="col-4">
-        <form method='POST'>{% csrf_token %}
 
-            
-            {{form2|crispy}}
-            
-            <button class="btn btn-success" id="button2" name="form2"
-                type="submit">Dodaj</button>
-
-        </form>
     </div>
-    -->
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {
+            lineNumbers: true,
+          });
+    </script>
+
 </div>
 
 {% endblock %}

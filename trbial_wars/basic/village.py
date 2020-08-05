@@ -3,6 +3,15 @@
 from math import sqrt, ceil
 from base import models
 
+def dist(coord1, coord2):
+    x_coord1 = int(coord1[0:3])
+    y_coord1 = int(coord1[4:7])
+    x_coord2 = int(coord2[0:3])
+    y_coord2 = int(coord2[4:7])
+    return sqrt(
+        (x_coord1- x_coord2) ** 2 + (y_coord1 - y_coord2) ** 2
+    )
+
 class Unit:
     """ Unit in the game with its speed """
 
@@ -47,6 +56,9 @@ class Village:
         self.y_coord = y_coord
         if validate:
             self.coord_validation()
+        else:
+            self.x_coord = int(coord[0:3])
+            self.y_coord = int(coord[4:7])
 
     def coord_validation(self):
         """ Validate coord """

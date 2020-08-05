@@ -2,6 +2,8 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+from django.contrib.postgres.fields import ArrayField
 from markdownx.models import MarkdownxField
 
 
@@ -76,7 +78,7 @@ class VillageModel(models.Model):
     x_coord = models.IntegerField()
     y_coord = models.IntegerField()
     player_id = models.IntegerField()
-    world = models.IntegerField()
+    world = models.IntegerField(db_index=True)
 
 
     def __str__(self):
@@ -98,11 +100,10 @@ class Outline(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     editable = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
-    ally_tribe_tag = models.CharField(max_length=100, default="", blank=True)
-    enemy_tribe_tag = models.CharField(max_length=100, default="", blank=True)
+    ally_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
+    enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     initial_outline_players = models.TextField(blank=True, default="")
     initial_outline_targets = models.TextField(blank=True, default="")
-    initial_outline_max_distance = models.IntegerField(blank=True, default=10)
     off_troops = models.TextField(
         blank=True,
         default="",
@@ -145,10 +146,12 @@ class TargetVertex(models.Model):
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     target = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
-    slug = models.CharField(max_length=10)
 
     def __str__(self):
         return self.target
+
+    def get_absolute_url(self):
+        return reverse('base:planer_initial_detail', args=[self.outline_id, self.id])
 
 
 class WeightMaximum(models.Model):
@@ -158,9 +161,11 @@ class WeightMaximum(models.Model):
     start = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
     off_max = models.IntegerField()
-    snob_max = models.IntegerField()
     off_state = models.IntegerField(default=0)
-    snob_state = models.IntegerField(default=0)
+    off_left = models.IntegerField()
+    nobleman_max = models.IntegerField()
+    nobleman_state = models.IntegerField(default=0)
+    nobleman_left = models.IntegerField()
 
     def __str__(self):
         return self.start
@@ -176,7 +181,7 @@ class WeightModel(models.Model):
     distance = models.FloatField()
     nobleman = models.IntegerField()
     order = models.IntegerField()
-    player = models.CharField(max_length=20)
+    player = models.CharField(max_length=40)
 
     def __str__(self):
         return self.start

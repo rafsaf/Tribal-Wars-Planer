@@ -59,26 +59,33 @@
 </div>
 
 
-
-
 <div class="row">
   <!-- Obraz <a href="https://pixabay.com/pl/users/Jo-B-246441/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Jo-B</a> z <a href="https://pixabay.com/pl/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Pixabay</a>-->
-  <figure class="col-4">
+  <figure class="col-2">
     <img src='{% static "images/knight-small-rev.png" %}' alt="knight" class="img-fluid">
   </figure>
-  <div class="col-4">
-    <div class="row justify-content-center">
-      <h1 class="h1-responsive mt-5">
-        <span class="badge badge-pill badge-info">{{target.player}}</span>
-      </h1>
-    </div>
-    <div class="row justify-content-center">
-      <h1 class="h1-responsive">
-        <span class="badge badge-secondary">{{target.wioska.coord}}</span>
-      </h1>
+  <div class="col-8">
+<div class="d-flex flex-column justify-content-end h-100 ">
+  <div class="d-flex justify-content-center">
+    <div>
+      <h2>
+        <span class="badge badge-pill badge-info">{{target.player}}xx</span>
+        </h2>
     </div>
   </div>
-  <figure class="col-4">
+  <div class="d-flex justify-content-center mb-5">
+    <div>
+      <h2>
+      <span class="badge badge-secondary">{{target.target}}</span>
+      </h2>
+    </div>
+  </div>
+
+
+</div>
+
+  </div>
+  <figure class="col-2">
     <img src='{% static "images/knight-small.png" %}' alt="knight" class="img-fluid">
   </figure>
 </div>
@@ -133,10 +140,10 @@
 
               </table>
 
-              <div class="row">
-                <form method="POST">
+              <div class="row" >
+                <form method="POST" action="{% url 'base:planer_move_down' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
                   {% csrf_token %}
-                  <button name="{{weight.start}}-down-{{weight.order}}" class="btn btn-default">
+                  <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill"
                       fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd"
@@ -145,9 +152,9 @@
                   </button>
                 </form>
 
-                <form method="POST">
+                <form method="POST" action="{% url 'base:planer_move_up' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
                   {% csrf_token %}
-                  <button name="{{weight.start}}-up-{{weight.order}}" class="btn btn-default">
+                  <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                     <svg name="{{weight.start}}" width="2em" height="2em" viewBox="0 0 16 16"
                       class="bi bi-arrow-up-circle-fill" fill="rgba(133, 221, 32, 0.938)"
                       xmlns="http://www.w3.org/2000/svg">
@@ -156,9 +163,9 @@
                     </svg>
                   </button>
                 </form>
-                <form method="POST">
+                <form method="POST" action="{% url 'base:planer_initial_delete' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
                   {% csrf_token %}
-                  <button name="{{weight.start}}-delete-{{weight.order}}" class="btn btn-default">
+                  <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="#6c757d"
                       xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd"
@@ -204,43 +211,43 @@
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% if sort == 'distance' %}
-                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=distance#table">Według odległości rosnąco</a>
+                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=distance">Według odległości rosnąco</a>
                   
                   {% else %}
-                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=distance#table">Według odległości rosnąco</a>
+                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=distance">Według odległości rosnąco</a>
                   {% endif %}
 
-                  {% if sort == 'distance-r' %}
-                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=distance-r#table">Według odległości malejąco</a>
+                  {% if sort == '-distance' %}
+                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-distance-r">Według odległości malejąco</a>
                   
                   {% else %}
-                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=distance-r#table">Według odległości malejąco</a>
+                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-distance">Według odległości malejąco</a>
                   {% endif %}
 
-                  {% if sort == 'off' %}
-                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=off#table">Według ilości wojska</a>
+                  {% if sort == '-off_left' %}
+                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-off_left">Według ilości wojska</a>
                   {% else %}
-                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=off#table">Według ilości wojska</a>                  
+                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-off_left">Według ilości wojska</a>                  
                   {% endif %}
 
-                  {% if sort == 'nobleman' %}
-                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=nobleman#table">Według ilości szlachciców</a>
+                  {% if sort == '-nobleman_left' %}
+                  <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-nobleman_left">Według ilości szlachciców</a>
                   {% else %}
-                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=nobleman#table">Według ilości szlachciców</a>                  
+                  <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-nobleman_left">Według ilości szlachciców</a>                  
                   {% endif %}
                 </div>
               </div>
             </li>
             {% if page_obj.has_previous %}
             <li class="page-item">
-              <a class="page-link" href="?page=1&sort={{sort}}#table">1</a>
+              <a class="page-link" href="?page=1&sort={{sort}}">1</a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}#table">Poprzednia</a>
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}">Poprzednia</a>
             </li>
             {% else %}
             <li class="page-item disabled">
-              <a class="page-link" href="?page=1&sort={{sort}}#table">1</a>
+              <a class="page-link" href="?page=1&sort={{sort}}">1</a>
             </li>
             <li class="page-item disabled">
               <a class="page-link">Poprzednia</a>
@@ -251,16 +258,16 @@
             </li>
             {% if page_obj.has_next %}
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{sort}}#table">Następna</a>
+              <a class="page-link" id="submit" href="?page={{ page_obj.next_page_number }}&sort={{sort}}">Następna</a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}#table">{{page_obj.paginator.num_pages}}</a>
+              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a>
               {% else %}
               <li class="page-item disabled">
                 <a class="page-link">Następna</a>
               </li>
               <li class="page-item disabled">
-                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}#table">{{page_obj.paginator.num_pages}}</a>
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a>
               {% endif %}
             </li>
 
@@ -274,17 +281,17 @@
           <div class="row">
             {% for weight in page_obj %}
             <div class="card col-12 col-lg-6 col-xl-4">
-              <h4 class="card-title">
+              <h5 class="card-title">
                 <div class=" row justify-content-center">
                   <span class="badge badge-pill badge-info mt-1">
                     {{weight.player}}</span>
                 </div>
-              </h4>
+              </h5>
 
               <div class="card-body">
                 <h5 class="card-subtitle ">
                   <span class="badge badge-secondary">
-                    {{weight.start.coord}}
+                    {{weight.start}}
                   </span>
                 </h5>
 
@@ -294,7 +301,7 @@
                     <th>
                       <img src='{% static "images/ax.png" %}' alt="ax">
                     </th>
-                    <th>{{weight.off}}
+                    <th>{{weight.off_left}}
                     </th>
                   </tr>
                   <tr>
@@ -302,7 +309,7 @@
                       <img src='{% static "images/nobleman.png" %}' alt="ax">
                     </th>
                     <th>
-                      {{weight.nobleman}}
+                      {{weight.nobleman_left}}
                     </th>
                   </tr>
                   <tr>
@@ -314,16 +321,16 @@
                       </svg>
                     </th>
                     <th>
-                      {{weight.distance_rounded}}
+                      {{weight.distance}}
                     </th>
                   </tr>
                 </table>
 
                 </p>
                 <div class="row">
-                  <form method="POST">
+                  <form method="POST" action="{% url 'base:planer_add_last' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
                     {% csrf_token %}
-                    <button name="{{weight.start.coord}}-add-last" class="btn btn-default">
+                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                       <svg width="2.6em" height="2.6em" viewBox="0 0 16 16" class="bi bi-arrow-down-square"
                         fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -334,9 +341,9 @@
                       </svg>
                     </button>
                   </form>
-                  <form method="POST">
+                  <form method="POST" action="{% url 'base:planer_add_first' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
                     {% csrf_token %}
-                    <button name="{{weight.start.coord}}-add-first" class="btn btn-default">
+                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                       <svg width="2.6em" height="2.6em" viewBox="0 0 16 16" class="bi bi-arrow-up-square"
                         fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -360,9 +367,22 @@
     </div>
   </div>
 
+  <script>
+    $(window).on("load", function() {
+      // weave your magic here.
 
+      if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
+          $(window).scrollTop(localStorage.getItem("my_app_name_here-quote-scroll"));
+      };
+  
+      $(window).on("scroll", function() {
+          localStorage.setItem("my_app_name_here-quote-scroll", $(window).scrollTop());
+      });
+    });
+    </script>
   <script>
     document.addEventListener("DOMContentLoaded", function(event) { 
+
       $('#form-modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var start = button.data('start')

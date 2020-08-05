@@ -40,8 +40,8 @@ def new_outline_create_select(request, _id):
     """ select user's ally and enemy tribe after creating outline, login required """
     instance = get_object_or_404(models.Outline, pk=_id, owner=request.user, editable='active')
 
-    ally_tribe = instance.ally_tribe_tag.split(", ")
-    enemy_tribe = instance.enemy_tribe_tag.split(", ")
+    ally_tribe = instance.ally_tribe_tag
+    enemy_tribe = instance.enemy_tribe_tag
 
     banned_tribe_id = [f'{tag}::{instance.world}' for tag in ally_tribe + enemy_tribe]
 
@@ -59,10 +59,7 @@ def new_outline_create_select(request, _id):
 
             if form1.is_valid():
                 plemie = request.POST.get("plemie1")
-                if instance.ally_tribe_tag == "":
-                    instance.ally_tribe_tag = plemie
-                else:
-                    instance.ally_tribe_tag += str(", " + plemie)
+                instance.ally_tribe_tag.append(plemie)
                 instance.save()
                 return redirect("base:planer_create_select", _id)
         elif "form-2" in request.POST:
@@ -73,10 +70,7 @@ def new_outline_create_select(request, _id):
 
             if form2.is_valid():
                 plemie = request.POST.get("plemie2")
-                if instance.enemy_tribe_tag == "":
-                    instance.enemy_tribe_tag = plemie
-                else:
-                    instance.enemy_tribe_tag += str(", " + plemie)
+                instance.enemy_tribe_tag.append(plemie)
                 instance.save()
                 return redirect("base:planer_create_select", _id)
     else:

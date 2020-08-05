@@ -26,9 +26,9 @@ def get_deff(
     if outline.deff_troops == "":
         return ""
 
-    my_tribe = outline.ally_tribe_tag.split(", ")
-    ally_tribe_pk = [ f"{tag}::{outline.world}" for tag in my_tribe]
-    enemy_tribe = outline.enemy_tribe_tag.split(", ")
+    my_tribe = outline.ally_tribe_tag
+    ally_tribe_pk = [f"{tag}::{outline.world}" for tag in my_tribe]
+    enemy_tribe = outline.enemy_tribe_tag
 
     my_tribe_id = [
         tribe.tribe_id
@@ -157,13 +157,16 @@ def deff_text(
             continue
         
         deff_instance = basic.Defence(text_army=line, evidence=world_evidence)
+        try:
+            owner = village_dictionary[deff_instance.coord]
+        except KeyError:
+            raise KeyError()
         if deff_instance.coord not in lista_wiosek:
             continue
         deff = deff_instance.deff
         if deff <= 0:
             continue
-        
-        owner = village_dictionary[deff_instance.coord]
+
         if owner not in context_all:
             context_all[owner] = deff
             context_details[owner] = f"\r\n{owner}\r\n{deff_instance.coord} - {deff}"

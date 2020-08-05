@@ -9,7 +9,7 @@ class OutlineForm(forms.Form):
     """ New Outline Form """
 
     name = forms.CharField(max_length=20, label="Nazwa Rozpiski", widget=forms.Textarea)
-    date = forms.DateField(label='Data Akcji')
+    date = forms.DateField(label="Data Akcji")
     world = forms.ChoiceField(choices=[], label="Świat")
 
 
@@ -185,6 +185,13 @@ class GetDeffForm(forms.Form):
         return villages
 
 
+class InitialFormTime(forms.Form):
+    nob_enter = forms.TimeField(label="Minimalny czas wejścia grubych")
+    nob_end = forms.TimeField(label="Maksymalny czas wejścia grubych")
+    off_enter = forms.TimeField(label="Minimalny czas wejścia offów")
+    off_end = forms.TimeField(label="Maksymalny czas wejścia offów")
+
+
 class InitialOutlineForm(forms.Form):
     """ New Initial Outline """
 
@@ -195,12 +202,6 @@ class InitialOutlineForm(forms.Form):
         help_text="Kordy po enterze",
         required=False,
     )
-    max_distance = forms.IntegerField(
-        label="Max odległość od startu do celu - ilość kratek, domyślnie 50",
-        required=False,
-        widget=forms.NumberInput,
-        initial=50,
-    )
 
     def __init__(self, *args, **kwargs):
         self.world = kwargs.pop("world")
@@ -208,11 +209,26 @@ class InitialOutlineForm(forms.Form):
 
     def clean_target(self):
         """ User's input Villages """
-        try:
-            village_list = basic.many_villages(self.cleaned_data["target"])
-        except basic.VillageError as error:
-            self.add_error("target", str(error))
+        basic_villages = []
+        for i, info in enumerate(self.cleaned_data["target"].rstrip().split("\r\n")):
+            info = info.split(":")
+            if len(info) != 3:
+                self.add_error("target", i)
+                continue
+            try:
+                coord = info[0]
+                village = basic.Village(coord)
+            except basic.VillageError:
+                self.add_error("target", i)
+                continue
+            if not info[1].isnumeric() or not info[2].isnumeric():
+                self.add_error("target", i)
+                continue
+            basic_villages.append(village.coord)
+        if len(self.errors) > 0:
             return None
+
+        village_list = basic.many_villages(" ".join(basic_villages))
         villages_id = [f"{i.x_coord}{i.y_coord}{self.world}" for i in village_list]
         village_models = models.VillageModel.objects.filter(id__in=villages_id)
         if len(village_list) != village_models.count():
@@ -220,13 +236,11 @@ class InitialOutlineForm(forms.Form):
                 f"{village_model.x_coord}|{village_model.y_coord}"
                 for village_model in village_models
             ]
-            for village in village_list:
+            for i, village in enumerate(village_list):
                 if village.coord not in village_set:
-                    self.add_error(
-                        "target", f"{village.coord}: Taka wioska nie istnieje"
-                    )
+                    self.add_error("target", i)
                     return None
-        return village_list
+        return self.cleaned_data["target"]
 
 
 class WeightForm(forms.Form):
