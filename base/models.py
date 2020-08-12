@@ -1,10 +1,12 @@
 """ Database models """
+import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
 from markdownx.models import MarkdownxField
+
 
 
 class World(models.Model):
@@ -99,6 +101,7 @@ class Outline(models.Model):
     world = models.IntegerField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
+    written = models.CharField(choices=STATUS_CHOICES, max_length=8, default="inactive")
     editable = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     ally_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
@@ -125,6 +128,7 @@ class Result(models.Model):
 
     outline = models.OneToOneField(Outline, on_delete=models.CASCADE, primary_key=True)
     results_get_deff = models.TextField(default="")
+    results_outline = models.TextField(default="")
 
     def __str__(self):
         return self.outline.name + " results"
@@ -140,18 +144,7 @@ class Documentation(models.Model):
         return self.title
 
 
-class TargetVertex(models.Model):
-    """ Target Village """
 
-    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
-    target = models.CharField(max_length=7)
-    player = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.target
-
-    def get_absolute_url(self):
-        return reverse('base:planer_initial_detail', args=[self.outline_id, self.id])
 
 
 class WeightMaximum(models.Model):
@@ -169,6 +162,46 @@ class WeightMaximum(models.Model):
 
     def __str__(self):
         return self.start
+
+
+
+
+class OutlineTime(models.Model):
+    """ Handle Time for Target """
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
+
+class PeriodModel(models.Model):
+    """ Handle one period of time in outline specification """
+    STATUS = [
+        ('Wszystkie', 'Wszystkie'),
+        ('Losowo', 'Losowo'),
+        ('Dokładnie', 'Dokładnie'),
+    ]
+    UNITS = [
+        ('Szlachcic', 'Szlachcic'),
+        ('Taran', 'Taran'),
+    ]
+    outline_time = models.ForeignKey(OutlineTime, on_delete=models.CASCADE)
+    status = models.CharField(max_length=15, choices=STATUS)
+    unit = models.CharField(max_length=15, choices=UNITS)
+    from_number = models.IntegerField(null=True, default=None, blank=True)
+    to_number = models.IntegerField(null=True, default=None, blank=True)
+    from_time = models.TimeField(default=datetime.time(hour=7))
+    to_time = models.TimeField(default=datetime.time(hour=7))
+
+
+class TargetVertex(models.Model):
+    """ Target Village """
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
+    outline_time = models.ForeignKey(OutlineTime, on_delete=models.SET_NULL, null=True, default=None)
+    target = models.CharField(max_length=7)
+    player = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.target
+
+    def get_absolute_url(self):
+        return reverse('base:planer_initial_detail', args=[self.outline_id, self.id])
 
 
 class WeightModel(models.Model):

@@ -1,5 +1,5 @@
 """ App forms """
-
+from django.forms import BaseFormSet
 from django import forms
 from trbial_wars import basic
 from . import models
@@ -245,10 +245,132 @@ class InitialOutlineForm(forms.Form):
 
 class WeightForm(forms.Form):
     """ Change weight model """
+    weight_id = forms.IntegerField(widget=forms.HiddenInput)
+    off = forms.IntegerField(widget=forms.NumberInput, min_value=0)
+    nobleman = forms.IntegerField(widget=forms.NumberInput, label='Szlachcic', min_value=0)
 
-    start = forms.CharField(max_length=7, widget=forms.HiddenInput)
-    distance = forms.FloatField(widget=forms.HiddenInput)
-    order = forms.IntegerField(widget=forms.HiddenInput)
-    off = forms.IntegerField(widget=forms.NumberInput)
-    nobleman = forms.IntegerField(widget=forms.NumberInput)
-    player = forms.CharField(max_length=20, widget=forms.HiddenInput)
+
+class PeriodForm(forms.ModelForm):
+    """ One Period for OutlineTime """
+    from_number = forms.IntegerField(min_value=0, label='Od', required=False)
+    to_number = forms.IntegerField(min_value=0, label='Do', required=False)
+    class Meta:
+        model = models.PeriodModel
+        exclude = ['outline_time', 'from_number', 'to_number']
+        labels = {
+            'status': 'Tryb',
+            'from_number': 'Od',
+            'to_number': 'Do',
+            'unit': 'Jednostka',
+            'from_time': 'Min. czas',
+            'to_time': 'Max. czas',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(PeriodForm, self).__init__(*args, **kwargs)
+        self.fields['status'].widget.attrs['class'] = 'form-control'
+        self.fields['unit'].widget.attrs['class'] = 'form-control'
+        self.fields['from_time'].widget.attrs['class'] = 'time-timepicker form-control'
+        self.fields['to_time'].widget.attrs['class'] = 'time-timepicker form-control'
+        self.fields['from_number'].widget.attrs['class'] = 'form-control'
+        self.fields['to_number'].widget.attrs['class'] = 'form-control'
+
+    def clean(self):
+        status = self.cleaned_data.get('status')
+        time1 = self.cleaned_data.get('from_time')
+        time2 = self.cleaned_data.get('to_time')
+        number1 = self.cleaned_data.get('from_number')
+        number2 = self.cleaned_data.get('to_number')
+        if time2 < time1:
+            self.add_error('from_time', 'time2<time1')
+        if status in {'Losowo', None}:
+            if number1 is None:
+                self.add_error('from_number', 'None')
+            if number2 is None:
+                self.add_error('to_number', 'None')
+            try:
+                greater_is_smaller = bool(number2 < number1)
+            except TypeError:
+                pass
+            else:
+                if greater_is_smaller:
+                    self.add_error('from_number', 'time2<time1')
+        if status == 'Wszystkie':
+            if number1 is not None:
+                self.add_error('from_number', 'not None')
+            if number2 is not None:
+                self.add_error('to_number', 'not None')
+        if status == 'Dokładnie':
+            if number1 is not None:
+                self.add_error('from_number', 'not None')
+            if number2 is None:
+                self.add_error('to_number', 'not None')
+
+class BasePeriodFormSet(BaseFormSet):
+    def clean(self):
+        if any(self.errors):
+            return
+
+        from_time_nob = []
+        from_time_ram = []
+        to_time_nob = []
+        to_time_ram = []
+        all_nobleman = False
+        all_ram = False
+
+        for form in self.forms:
+            status = form.cleaned_data.get('status')
+            unit = form.cleaned_data.get('unit')
+            time1 = form.cleaned_data.get('from_time')
+            time2 = form.cleaned_data.get('to_time')
+            number1 = form.cleaned_data.get('from_number')
+            number2 = form.cleaned_data.get('to_number')
+            if not any([status, unit, time1, time2, number1, number2]):
+                continue
+            if unit == 'Szlachcic':
+                if status == 'Wszystkie':
+                    if not all_nobleman:
+                        all_nobleman = True
+                    else:
+                        raise forms.ValidationError('Tryb Wszystkie może być użyty tylko raz dla każdej jednostki.')
+                from_time_nob.append((time1, status))
+                to_time_nob.append((time2, status))
+            elif unit == 'Taran':
+                if status == 'Wszystkie':
+                    if not all_ram:
+                        all_ram = True
+                    else:
+                        raise forms.ValidationError('Tryb Wszystkie może być użyty tylko raz dla każdej jednostki.')                      
+                from_time_ram.append((time1, status))
+                to_time_ram.append((time2, status))
+            else:
+                raise forms.ValidationError('???!')
+
+        if not all_nobleman or not all_ram:
+            raise forms.ValidationError('Tryb Wszystkie musi zostać użyty co najmniej raz dla szlachty oraz dla offów.')
+
+        from_time_nob.sort(key=lambda tup: tup[0])
+        to_time_nob.sort(key=lambda tup: tup[0])
+        from_time_ram.sort(key=lambda tup: tup[0])
+        to_time_ram.sort(key=lambda tup: tup[0])
+        
+        if not from_time_nob[-1][1] == 'Wszystkie':
+            raise forms.ValidationError('Przedział czasowy trybu Wszystkie MUSI być zawsze ostatni dla offów oraz dla szlachciców.')
+        if not from_time_ram[-1][1] == 'Wszystkie':
+            raise forms.ValidationError('Przedział czasowy trybu Wszystkie MUSI być zawsze ostatni dla offów oraz dla szlachciców.')
+
+        nob_last = from_time_nob[-1][0]
+        for n_from in to_time_nob:
+            if nob_last < n_from[0] and n_from[1] != 'Wszystkie':
+                raise forms.ValidationError('Tryb Wszystkie nie może pokrywać się z innymi przedziałami czasowymi.')
+
+        ram_last = from_time_ram[-1][0]
+        for r_from in to_time_ram:
+            if ram_last < r_from[0] and r_from[1] != 'Wszystkie':
+                raise forms.ValidationError('Tryb Wszystkie nie może pokrywać się z innymi przedziałami czasowymi.')
+
+class ChooseOutlineTimeForm(forms.Form):
+    choice = forms.ChoiceField(required=True, choices=[])
+    def __init__(self, *args, **kwargs):
+        super(ChooseOutlineTimeForm, self).__init__(*args, **kwargs)
+        self.fields['choice'].widget.attrs['class'] = 'form-control'

@@ -38,8 +38,9 @@
   <!-- /#sidebar-wrapper -->
   {% endblock %}
   {% block content %}
-  <div class="row">
 
+  {% if mode == 'menu'%}
+  <div class="row">
     <figure class="col-2">
       <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
     </figure>
@@ -70,26 +71,18 @@
 
           </form>
         </div>
-        <div class="row justify-content-center">
-          <form method="POST">
-            {% csrf_token %}
-            <button name="form1" type="submit" class="btn btn-secondary btn-lg">
-              <b>Powrót</b>
-            </button>
 
-          </form>
-        </div>
       </div>
     </div>
     <figure class="col-2">
       <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
     </figure>
   </div>
-  <nav aria-label="pagination" id="pagination" class="mt-1">
+  <nav aria-label="pagination" id="pagination" class="mt-3">
     <ul class="pagination">
       {% if query.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ query.previous_page_number }}">Poprzednia</a>
+        <a class="page-link" href="?page={{ query.previous_page_number }}&mode={{ mode }}">Poprzednia</a>
       </li>
       {% else %}
       <li class="page-item disabled">
@@ -101,13 +94,53 @@
       </li>
       {% if query.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ query.next_page_number }}">Następna</a>
+        <a class="page-link" href="?page={{ query.next_page_number }}&mode={{ mode }}">Następna</a>
       </li>
       {% else %}
       <li class="page-item disabled">
         <a class="page-link">Następna</a>
       </li>
       {% endif %}
+      <li class="page-item ml-1">
+        {% if mode == 'menu' %}
+        <a href="?page={{ query.number }}&mode=menu" class="page-link paint"><svg width="1.2em" height="1.2em"
+            viewBox="0 0 16 16" class="bi bi-menu-button-wide-fill" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M14 7H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM2 6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H2z" />
+            <path fill-rule="evenodd"
+              d="M15 11H1v-1h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm9.927.427l.396.396a.25.25 0 0 0 .354 0l.396-.396A.25.25 0 0 0 13.396 2h-.792a.25.25 0 0 0-.177.427z" />
+          </svg></a>
+        {% else %}
+        <a href="?page={{ query.number }}&mode=menu" class="page-link"><svg width="1.2em" height="1.2em"
+            viewBox="0 0 16 16" class="bi bi-menu-button-wide-fill" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M14 7H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM2 6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H2z" />
+            <path fill-rule="evenodd"
+              d="M15 11H1v-1h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm9.927.427l.396.396a.25.25 0 0 0 .354 0l.396-.396A.25.25 0 0 0 13.396 2h-.792a.25.25 0 0 0-.177.427z" />
+          </svg></a>
+        {% endif %}
+
+      </li>
+      <li class="page-item">
+        {% if mode == 'time' %}
+        <a href="?page={{ query.number }}&mode=time" class="page-link paint"><svg width="1.2em" height="1.2em"
+            viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
+            <path fill-rule="evenodd"
+              d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+          </svg></a>
+        {% else %}
+        <a href="?page={{ query.number }}&mode=time" class="page-link"><svg width="1.2em" height="1.2em"
+            viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
+            <path fill-rule="evenodd"
+              d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+          </svg></a>
+        {% endif %}
+      </li>
+
     </ul>
   </nav>
 
@@ -146,7 +179,7 @@
             </div>
             <div class="d-flex justify-content-center">
               <h5>
-                <a href="{{target.get_absolute_url}}" class="btn btn-sm btn-outline-info">
+                <a target="_blank" href="{{target.get_absolute_url}}" class="btn btn-sm btn-outline-info">
                   Edytuj
                 </a>
               </h5>
@@ -155,7 +188,6 @@
 
 
           </th>
-
 
           {% for weight in lst %}
           <th>
@@ -207,30 +239,703 @@
 
           </th>
           {% endfor %}
+
+
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
   </div>
 
-  </tr>
-  {% endfor %}
 
-  </tbody>
-  </table>
-</div>
-
-<!-- 
-    <a id="popoverData" class="btn" href="#" data-html="true" data-content="Popoverzsszzzs <br /> with data-trigger" rel="popover" data-placement="bottom" data-original-title="Title" data-trigger="hover">Popover with data-trigger</a>
-
-
--->
-
-</div>
+  {% else %}
 
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", function (event) {
+  <div class="container-fluid md-pre">
+    <form action="{% url 'base:planer_output' instance.id %}" method="POST">
+    <div class="row justify-content-center mb-3">
+      
+        {% csrf_token %}
+      <button class="btn btn-info btn-block">Zakończ i utwórz rozpiskę</button>
+ 
+    </div>
+  </form>
+    <div class="row">
+      <div class="col-7">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"
+          integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA=="
+          crossorigin="anonymous"></script>
+        <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css"
+          integrity="sha512-/Ae8qSd9X8ajHk6Zty0m8yfnKJPlelk42HTJjOHDWs1Tjr41RfsSkceZ/8yyJGLkxALGMIYd5L2oGemy/x1PLg=="
+          crossorigin="anonymous" />
+        <script src="https://use.fontawesome.com/0cd1dfa084.js"></script>
 
-    $('.popoverData').popover();
-    $('.popoverOption').popover({ trigger: "hover" });
-  });
-</script>
-{% endblock %}
+        <form method="post">
+          {% csrf_token %}
+          {{ formset.management_form }}
+          <div class="form-row mb-2">
+            <div class="col-md-2"><label>Tryb</label></div>
+            <div class="col-md-2"><label>Jednostka</label></div>
+            <div class="col-md-2"><label>Od</label></div>
+            <div class="col-md-2"><label>Do</label></div>
+            <div class="col-md-2"><label>Min. czas</label></div>
+            <div class="col-md-2"><label>Max. czas</label></div>
+          </div>
+          {% for forms in formset %}
+
+          <div class="form-row mb-2">
+
+
+            <div class="col-md-2">
+
+              {% if forms.status.errors %}
+              <div class="border-invalid">
+                {% else %}
+                <div>
+                  {% endif %}
+                  {{forms.status}}
+                </div>
+              </div>
+              <div class="col-md-2">
+
+                {% if forms.unit.errors %}
+                <div class="border-invalid">
+                  {% else %}
+                  <div>
+                    {% endif %}
+                    {{forms.unit}}
+                  </div>
+                </div>
+                <div class="col-md-2">
+
+                  {% if forms.from_number.errors %}
+                  <div class="border-invalid">
+                    {% else %}
+                    <div>
+                      {% endif %}
+                      {{forms.from_number}}
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+
+                    {% if forms.to_number.errors %}
+                    <div class="border-invalid">
+                      {% else %}
+                      <div>
+                        {% endif %}
+                        {{forms.to_number}}
+                      </div>
+                    </div>
+                    <div class="col-md-2 bootstrap-timepicker timepicker">
+
+                      {% if forms.from_time.errors %}
+                      <div class="border-invalid">
+                        {% else %}
+                        <div>
+                          {% endif %}
+                          {{forms.from_time}}
+                        </div>
+
+
+                      </div>
+                      <div class="col-md-2 bootstrap-timepicker timepicker">
+
+                        {% if forms.to_time.errors %}
+                        <div class="border-invalid">
+                          {% else %}
+                          <div>
+                            {% endif %}
+                            {{forms.to_time}}
+                          </div>
+
+
+                        </div>
+
+
+
+                      </div>
+                      {% endfor %}
+                      {% if formset.non_form_errors %}
+                      <div class="md-error mb-2">
+                        {% for error in formset.non_form_errors %}
+                        {{error}}
+                        {% endfor %}
+                      </div>
+                      {% endif %}
+                      <button class="btn btn-primary mb-5" name='formset' type="submit">Utwórz</button>
+
+        </form>
+        <script>
+          document.addEventListener("DOMContentLoaded", function (event) {
+            val = $('#id_form-0-status').val();
+            if (val === 'Wszystkie') {
+              $('#id_form-0-from_number').val('');
+              $('#id_form-0-from_number').prop("disabled", true);
+
+              $('#id_form-0-to_number').val('');
+              $('#id_form-0-to_number').prop("disabled", true);
+
+            } else if (val === 'Dokładnie') {
+              $('#id_form-0-from_number').val('');
+              $('#id_form-0-from_number').prop("disabled", true);
+
+              $('#id_form-0-to_number').prop("disabled", false);
+
+            };
+
+            val = $('#id_form-1-status').val();
+            if (val === 'Wszystkie') {
+              $('#id_form-1-from_number').val('');
+              $('#id_form-1-from_number').prop("disabled", true);
+
+              $('#id_form-1-to_number').val('');
+              $('#id_form-1-to_number').prop("disabled", true);
+
+            } else if (val === 'Dokładnie') {
+              $('#id_form-1-from_number').val('');
+              $('#id_form-1-from_number').prop("disabled", true);
+
+              $('#id_form-1-to_number').prop("disabled", false);
+
+            };
+
+            val = $('#id_form-2-status').val();
+            if (val === 'Wszystkie') {
+              $('#id_form-2-from_number').val('');
+              $('#id_form-2-from_number').prop("disabled", true);
+
+              $('#id_form-2-to_number').val('');
+              $('#id_form-2-to_number').prop("disabled", true);
+
+            } else if (val === 'Dokładnie') {
+              $('#id_form-2-from_number').val('');
+              $('#id_form-2-from_number').prop("disabled", true);
+
+              $('#id_form-2-to_number').prop("disabled", false);
+
+            };
+
+            val = $('#id_form-3-status').val();
+            if (val === 'Wszystkie') {
+              $('#id_form-3-from_number').val('');
+              $('#id_form-3-from_number').prop("disabled", true);
+
+              $('#id_form-3-to_number').val('');
+              $('#id_form-3-to_number').prop("disabled", true);
+
+            } else if (val === 'Dokładnie') {
+              $('#id_form-3-from_number').val('');
+              $('#id_form-3-from_number').prop("disabled", true);
+
+              $('#id_form-3-to_number').prop("disabled", false);
+
+            };
+
+            val = $('#id_form-4-status').val();
+            if (val === 'Wszystkie') {
+              $('#id_form-4-from_number').val('');
+              $('#id_form-4-from_number').prop("disabled", true);
+
+              $('#id_form-4-to_number').val('');
+              $('#id_form-4-to_number').prop("disabled", true);
+
+            } else if (val === 'Dokładnie') {
+              $('#id_form-4-from_number').val('');
+              $('#id_form-4-from_number').prop("disabled", true);
+
+              $('#id_form-4-to_number').prop("disabled", false);
+
+            };
+
+            val = $('#id_form-5-status').val();
+            if (val === 'Wszystkie') {
+              $('#id_form-5-from_number').val('');
+              $('#id_form-5-from_number').prop("disabled", true);
+
+              $('#id_form-5-to_number').val('');
+              $('#id_form-5-to_number').prop("disabled", true);
+
+            } else if (val === 'Dokładnie') {
+              $('#id_form-5-from_number').val('');
+              $('#id_form-5-from_number').prop("disabled", true);
+
+              $('#id_form-5-to_number').prop("disabled", false);
+
+            };
+          });
+
+          document.addEventListener("DOMContentLoaded", function (event) {
+            $('.time-timepicker').each(function () {
+              $(this).timepicker({
+                minuteStep: 1,
+                secondStep: 1,
+                showSeconds: true,
+                showMeridian: false,
+                defaultTime: false,
+                icons: {
+                  up: 'fa fa-angle-up',
+                  down: 'fa fa-angle-down'
+                }
+              })
+            });
+
+            $('#id_form-0-status').change(function () {
+              val = $('#id_form-0-status').val();
+              if (val === 'Wszystkie') {
+                $('#id_form-0-from_number').val('');
+                $('#id_form-0-from_number').prop("disabled", true);
+
+                $('#id_form-0-to_number').val('');
+                $('#id_form-0-to_number').prop("disabled", true);
+
+              } else if (val === 'Dokładnie') {
+                $('#id_form-0-from_number').val('');
+                $('#id_form-0-from_number').prop("disabled", true);
+
+                $('#id_form-0-to_number').prop("disabled", false);
+
+              } else {
+                $('#id_form-0-from_number').prop("disabled", false);
+
+                $('#id_form-0-to_number').prop("disabled", false);
+
+              };
+            });
+            $('#id_form-1-status').change(function () {
+              val = $('#id_form-1-status').val();
+              if (val === 'Wszystkie') {
+                $('#id_form-1-from_number').val('');
+                $('#id_form-1-from_number').prop("disabled", true);
+
+                $('#id_form-1-to_number').val('');
+                $('#id_form-1-to_number').prop("disabled", true);
+
+              } else if (val === 'Dokładnie') {
+                $('#id_form-1-from_number').val('');
+                $('#id_form-1-from_number').prop("disabled", true);
+
+                $('#id_form-1-to_number').prop("disabled", false);
+
+              } else {
+                $('#id_form-1-from_number').prop("disabled", false);
+
+                $('#id_form-1-to_number').prop("disabled", false);
+
+              };
+            });
+            $('#id_form-2-status').change(function () {
+              val = $('#id_form-2-status').val();
+              if (val === 'Wszystkie') {
+                $('#id_form-2-from_number').val('');
+                $('#id_form-2-from_number').prop("disabled", true);
+
+                $('#id_form-2-to_number').val('');
+                $('#id_form-2-to_number').prop("disabled", true);
+
+              } else if (val === 'Dokładnie') {
+                $('#id_form-2-from_number').val('');
+                $('#id_form-2-from_number').prop("disabled", true);
+
+                $('#id_form-2-to_number').prop("disabled", false);
+
+              } else {
+                $('#id_form-2-from_number').prop("disabled", false);
+
+                $('#id_form-2-to_number').prop("disabled", false);
+
+              };
+            });
+            $('#id_form-3-status').change(function () {
+              val = $('#id_form-3-status').val();
+              if (val === 'Wszystkie') {
+                $('#id_form-3-from_number').val('');
+                $('#id_form-3-from_number').prop("disabled", true);
+
+                $('#id_form-3-to_number').val('');
+                $('#id_form-3-to_number').prop("disabled", true);
+
+              } else if (val === 'Dokładnie') {
+                $('#id_form-3-from_number').val('');
+                $('#id_form-3-from_number').prop("disabled", true);
+
+                $('#id_form-3-to_number').prop("disabled", false);
+
+              } else {
+                $('#id_form-3-from_number').prop("disabled", false);
+
+                $('#id_form-3-to_number').prop("disabled", false);
+
+              };
+            });
+            $('#id_form-4-status').change(function () {
+              val = $('#id_form-4-status').val();
+              if (val === 'Wszystkie') {
+                $('#id_form-4-from_number').val('');
+                $('#id_form-4-from_number').prop("disabled", true);
+
+                $('#id_form-4-to_number').val('');
+                $('#id_form-4-to_number').prop("disabled", true);
+
+              } else if (val === 'Dokładnie') {
+                $('#id_form-4-from_number').val('');
+                $('#id_form-4-from_number').prop("disabled", true);
+
+                $('#id_form-4-to_number').prop("disabled", false);
+
+              } else {
+                $('#id_form-4-from_number').prop("disabled", false);
+
+                $('#id_form-4-to_number').prop("disabled", false);
+
+              };
+            });
+            $('#id_form-5-status').change(function () {
+              val = $('#id_form-5-status').val();
+              if (val === 'Wszystkie') {
+                $('#id_form-5-from_number').val('');
+                $('#id_form-5-from_number').prop("disabled", true);
+
+                $('#id_form-5-to_number').val('');
+                $('#id_form-5-to_number').prop("disabled", true);
+
+              } else if (val === 'Dokładnie') {
+                $('#id_form-5-from_number').val('');
+                $('#id_form-5-from_number').prop("disabled", true);
+
+                $('#id_form-5-to_number').prop("disabled", false);
+
+              } else {
+                $('#id_form-5-from_number').prop("disabled", false);
+
+                $('#id_form-5-to_number').prop("disabled", false);
+
+              };
+            });
+
+
+
+
+
+          });
+        </script>
+
+      </div>
+
+
+      <div class="col-5">
+
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+          {% for time in outline_time %}
+          <li class="nav-item">
+            {% if forloop.first %}
+            <a class="nav-link active" id="pills-{{forloop.counter}}" data-toggle="pill" href="#{{forloop.counter}}"
+              role="tab" aria-controls="pills-{{forloop.counter}}" aria-selected="true">{{forloop.counter}}</a>
+            {% else %}
+            <a class="nav-link" id="pills-{{forloop.counter}}" data-toggle="pill" href="#{{forloop.counter}}" role="tab"
+              aria-controls="pills-{{forloop.counter}}" aria-selected="false">{{forloop.counter}}</a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+          {% for time, periodmodel in outline_time.items %}
+          {% if forloop.counter == 1 %}
+          <div class="tab-pane fade show active" id="{{forloop.counter}}" role="tabpanel"
+            aria-labelledby="pills-{{forloop.counter}}">
+            {% else %}
+            <div class="tab-pane fade show" id="{{forloop.counter}}" role="tabpanel"
+              aria-labelledby="pills-{{forloop.counter}}">
+              {% endif %}
+              <table class="table table-sm ">
+                <thead>
+                  <tr>
+                    <th scope="col">Tryb</th>
+                    <th scope="col">Jednostka</th>
+                    <th scope="col">Od</th>
+                    <th scope="col">Do</th>
+                    <th scope="col">Min. czas</th>
+                    <th scope="col">Max. czas</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  {% for period in periodmodel %}
+                  <tr>
+                    <th>{{period.status}}</th>
+                    <th>{{period.unit}}</th>
+                    <th>{%if period.from_number != None %}{{period.from_number}}{% endif %}</th>
+                    <th>{%if period.to_number != None %}{{period.to_number}}{% endif %}</th>
+                    <th>{{period.from_time}}</th>
+                    <th>{{period.to_time}}</th>
+                  </tr>
+                  {% endfor %}
+
+
+                </tbody>
+              </table>
+              <form method="post"
+                action="{% url 'base:planer_delete_time' time.pk %}?page={{ query.number}}&mode={{mode}}">
+                {% csrf_token %}
+                <button class="btn btn-outline-danger">Usuń</button>
+              </form>
+            </div>
+            {% endfor %}
+          </div>
+
+
+
+
+
+
+        </div>
+
+
+
+        
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+    <nav aria-label="pagination" id="pagination" class="mt-3">
+      <ul class="pagination">
+        {% if query.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ query.previous_page_number }}&mode={{ mode }}">Poprzednia</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">Poprzednia</a>
+        </li>
+        {% endif %}
+        <li class="page-item disabled">
+          <a class="page-link">{{ query.number }} z {{ query.paginator.num_pages }}</a>
+        </li>
+        {% if query.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ query.next_page_number }}&mode={{ mode }}">Następna</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">Następna</a>
+        </li>
+        {% endif %}
+        <li class="page-item ml-1">
+          {% if mode == 'menu' %}
+          <a href="?page={{ query.number }}&mode=menu" class="page-link paint"><svg width="1.2em" height="1.2em"
+              viewBox="0 0 16 16" class="bi bi-menu-button-wide-fill" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M14 7H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM2 6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H2z" />
+              <path fill-rule="evenodd"
+                d="M15 11H1v-1h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm9.927.427l.396.396a.25.25 0 0 0 .354 0l.396-.396A.25.25 0 0 0 13.396 2h-.792a.25.25 0 0 0-.177.427z" />
+            </svg></a>
+          {% else %}
+          <a href="?page={{ query.number }}&mode=menu" class="page-link"><svg width="1.2em" height="1.2em"
+              viewBox="0 0 16 16" class="bi bi-menu-button-wide-fill" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M14 7H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM2 6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H2z" />
+              <path fill-rule="evenodd"
+                d="M15 11H1v-1h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm9.927.427l.396.396a.25.25 0 0 0 .354 0l.396-.396A.25.25 0 0 0 13.396 2h-.792a.25.25 0 0 0-.177.427z" />
+            </svg></a>
+          {% endif %}
+
+        </li>
+        <li class="page-item">
+          {% if mode == 'time' %}
+          <a href="?page={{ query.number }}&mode=time" class="page-link paint"><svg width="1.2em" height="1.2em"
+              viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
+              <path fill-rule="evenodd"
+                d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+            </svg></a>
+          {% else %}
+          <a href="?page={{ query.number }}&mode=time" class="page-link"><svg width="1.2em" height="1.2em"
+              viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
+              <path fill-rule="evenodd"
+                d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+            </svg></a>
+          {% endif %}
+        </li>
+
+      </ul>
+    </nav>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ choice_formset.management_form }}
+      <div class="row">
+        <div class="col-4">
+          <button type="submit" name="choice-formset" class="btn btn-outline-info btn-block">Zatwierdź wybrane
+            czasy</button>
+        </div>
+      </div>
+
+      <div class="conatiner-fluid" style=" height: calc(80vh) !important; overflow-y:scroll !important;">
+        <table class="table table-sm table-bordered" style="width:min-content">
+          <thead>
+            <tr>
+              <th scope="col">Wybrany Czas</th>
+              <th scope="col">Cel</th>
+              <th scope="col">Wybierz czas</th>
+              <th colspan="50" scope="colgroup">Rozpiska</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for target, form in query2 %}
+            <tr>
+
+
+
+
+
+              <th>
+
+                <h4>
+                  <span class="badge badge-primary">{{target.0.value}}</span>
+                </h4>
+
+
+              </th>
+              <th>
+
+
+
+                <div class="d-flex justify-content-center">
+                  <h5>
+                    <span class="badge badge-pill badge-info">
+                      {{target.0.player}}
+                    </span>
+                  </h5>
+                </div>
+                <div class="d-flex justify-content-center">
+
+                  <h5>
+                    <span class="badge badge badge-secondary">
+                      {{target.0.target}}
+                    </span>
+                  </h5>
+
+                </div>
+
+
+
+              </th>
+
+
+              <th>
+                {{form.choice}}
+              </th>
+
+              {% for weight in target.1 %}
+              <th>
+                <div class="popoverData" data-html="true"
+                  data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
+                  rel="popover" data-placement="top" data-trigger="hover">
+
+                  <table class="table table-sm">
+                    <tr>
+                      <th>
+                        <img src='{% static "images/ax.png" %}' alt="ax">
+                      </th>
+                      <th style="font-size: small;">
+                        {{weight.off}}
+                      </th>
+
+                    </tr>
+                    <tr>
+                      <th>
+                        <img src='{% static "images/nobleman.png" %}' alt="ax">
+                      </th>
+                      <th style="font-size: small;">
+                        {{weight.nobleman}}
+                      </th>
+
+                    </tr>
+                    <tr>
+                      <th>
+                        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
+                          <path fill-rule="evenodd"
+                            d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
+                          <path d="M7 10h2v6H7v-6z" />
+                        </svg>
+                      </th>
+                      <th style="font-size: small;">
+                        {{weight.distance}}
+                      </th>
+
+                    </tr>
+
+
+                  </table>
+
+
+
+
+
+              </th>
+
+              {% endfor %}
+            </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </form>
+
+  </div>
+  {% if error != None %}
+
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content text-white bg-danger">
+              <div class="modal-header">
+                  <h5 class="modal-title">{{error}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+  
+  <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+          $('.bd-example-modal-lg').modal('show');
+          
+  
+      });
+  
+  </script>
+  
+  {% endif %}
+
+
+{% endif %}
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+      $('.popoverData').popover();
+    });
+  </script>
+
+  {% endblock %}

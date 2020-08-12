@@ -51,7 +51,7 @@ def new_outline_create_select(request, _id):
     ]
 
     if request.method == 'POST':
-        if "form-1" in request.POST:
+        if "plemie1" in request.POST:
             form1 = forms.MyTribeTagForm(request.POST)
             form1.fields["plemie1"].choices = choices
             form2 = forms.EnemyTribeTagForm()
@@ -62,7 +62,7 @@ def new_outline_create_select(request, _id):
                 instance.ally_tribe_tag.append(plemie)
                 instance.save()
                 return redirect("base:planer_create_select", _id)
-        elif "form-2" in request.POST:
+        elif "plemie2" in request.POST:
             form1 = forms.MyTribeTagForm()
             form1.fields["plemie1"].choices = choices
             form2 = forms.EnemyTribeTagForm(request.POST)
@@ -94,7 +94,7 @@ def outline_delete_ally_tags(request, _id):
     """ Delete ally tribe tags from outline """
     if request.method == 'POST':
         instance = get_object_or_404(models.Outline, pk=_id, owner=request.user)
-        instance.ally_tribe_tag = ""
+        instance.ally_tribe_tag = list()
         instance.save()
         return redirect("base:planer_create_select", _id)
     else:
@@ -105,7 +105,7 @@ def outline_delete_enemy_tags(request, _id):
     """ Delete enemy tribe tags from outline """
     if request.method == 'POST':
         instance = get_object_or_404(models.Outline, pk=_id, owner=request.user)
-        instance.enemy_tribe_tag = ""
+        instance.enemy_tribe_tag = list()
         instance.save()
         return redirect("base:planer_create_select", _id)
     else:

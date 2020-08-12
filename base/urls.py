@@ -14,10 +14,13 @@ urlpatterns = [
     path("planer/<int:_id>", views.outline_detail_1, name="planer_detail"),
     path("planer/<int:_id>/planer-form", views.initial_form, name="planer_initial_form",),
     path("planer/<int:_id>/planer-menu", views.initial_planer, name="planer_initial",),
+    path("planer/<int:id1>/create_output", views.create_final_outline, name="planer_output",),
+    path("planer/planer-menu/<int:pk>", views.InitialDeleteTime.as_view(), name="planer_delete_time",),
     path("planer/<int:id1>/planer-target/<int:id2>", views.initial_target, name="planer_initial_detail",),
     path("planer/<int:id1>/<int:id2>/<int:id3>/add1", views.initial_add_first, name="planer_add_first",),
     path("planer/<int:id1>/<int:id2>/<int:id3>/add2", views.initial_add_last, name="planer_add_last",),
     path("planer/<int:id1>/<int:id2>/<int:id4>/up", views.initial_move_up, name="planer_move_up",),
+    path("planer/<int:id1>/<int:id2>/<int:id4>/<int:n>", views.initial_divide, name="planer_divide",),
     path("planer/<int:id1>/<int:id2>/<int:id4>/down", views.initial_move_down, name="planer_move_down",),
     path("planer/<int:id1>/<int:id2>/<int:id4>/delete", views.initial_weight_delete, name="planer_initial_delete",),
 

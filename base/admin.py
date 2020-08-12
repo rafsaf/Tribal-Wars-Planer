@@ -4,13 +4,14 @@ from . import models
 
 # Register your models here.
 
-
 admin.site.register(models.Tribe)
 admin.site.register(models.TargetVertex)
 admin.site.register(models.WeightModel)
 admin.site.register(models.Player)
 admin.site.register(models.Result)
 admin.site.register(models.WeightMaximum)
+admin.site.register(models.OutlineTime)
+admin.site.register(models.PeriodModel)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
 

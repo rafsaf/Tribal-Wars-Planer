@@ -10,13 +10,13 @@
             <div>
                 <form method='POST'>{% csrf_token %}
                     {{ form1|crispy }}
-                    <button class="btn btn-primary" name='form-1' type="submit">Dodaj plemię</button>
+                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-primary" type="submit">Dodaj własne plemię</button>
                 </form>
             </div>
             <div class="mt-2">
                 <form method='POST'>{% csrf_token %}
                     {{ form2|crispy }}
-                    <button class="btn btn-primary mb-2" name='form-2' type="submit">Dodaj plemię</button>
+                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-primary mb-2" type="submit">Dodaj wrogie plemię</button>
                 </form>
             </div>
 
@@ -104,9 +104,7 @@
         <div class="modal-body">
           W celu uniknięcia późniejszych konfliktów można ustawić własne i przeciwne plemiona 
           <div class="md-error">JEDYNIE RAZ!</div>
-          <br>
-          W przypadku błędu konieczne będzie stworzenie nowej rozpiski.
-          Wobec powyższego:
+          <br>W przypadku błędu konieczne będzie stworzenie nowej rozpiski.
           <li>Upewnij się, że ustawiłeś wszystkie własne plemiona.</li>
           <li>Upewnij się, że ustawiłeś wszystkie atakowane plemiona.</li>
         </div>

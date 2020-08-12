@@ -1,6 +1,6 @@
 
 from . import basic
-from .basic.timer import t
+from .basic.timer import ti
 from base.models import VillageModel, Tribe, Player, World
 from time import time
 from urllib.parse import unquote, unquote_plus
@@ -162,9 +162,9 @@ def cron_schedule_data_update():
         #Tribe.objects.bulk_create(tribe_list)
         context = {}
         create_list = list()
-        update_list = list()
+        tribe_ids = []
         
-        for tribe in Tribe.objects.filter(world=instance.world).iterator():
+        for tribe in Tribe.objects.filter(world=instance.world):
             context[tribe.tribe_id] = tribe
         
         for line in [i.split(',') for i in requests.get(f"https://pl{instance.world}.plemiona.pl/map/ally.txt").text.split('\n')]:
@@ -173,6 +173,7 @@ def cron_schedule_data_update():
             tribe_id = int(line[0])
             if tribe_id not in context:
                 tag = unquote(unquote_plus(line[2]))
+
                 tribe = Tribe(
                     id=f'{tag}::{instance.world}',
                     tribe_id=line[0],
@@ -182,16 +183,21 @@ def cron_schedule_data_update():
             else:
                 tribe = context[tribe_id]
                 tag = unquote(unquote_plus(line[2]))
+                
                 if tribe.tag != tag:
-                    tribe.tag = tag
-                    tribe.id = f'{tag}::{instance.world}'
+                    new_tribe = Tribe(id=f'{tag}::{instance.world}', tribe_id=tribe.tribe_id, tag=tag, world=instance.world)
+                    create_list.append(new_tribe)
+                    tribe_ids.append(tribe.id)
+                    
                 del context[tribe_id]
-        Tribe.objects.bulk_create(create_list)
-        Tribe.objects.bulk_update(update_list, ['tribe_id'])
-        
         if len(context) != 0:
-            tribe_ids = [tribe.id for tribe in context.values()]
-            Tribe.objects.filter(pk__in=tribe_ids).delete()
+            for tribe in context:
+                tribe_ids.append(tribe.id)
+        Tribe.objects.filter(id__in=tribe_ids).delete()
+            
+        Tribe.objects.bulk_create(create_list)
+        
+
         
     # Player Model Update
         #q3 = Player.objects.all().filter(world=instance.world)

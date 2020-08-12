@@ -90,8 +90,12 @@
   background: #FBC2C4 !important;
   color: #8a1f11 !important;
 }
+.border-invalid{border: 2px solid #dc3545 !important;}
+
+
+
 .CodeMirror-Invalid {border: 1px solid #dc3545 !important;}
-.CodeMirror { border: 1px solid #ddd; }
+.CodeMirror { border: 1px solid #ddd !important; }
 .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 .banner { background: #ffc; padding: 6px; border-bottom: 2px solid silver;  }
 .banner div { margin: 0 auto; max-width: 600px; text-align: center; }
@@ -101,4 +105,20 @@
 @media (max-width:1200px){legend{font-size:calc(1.275rem + .3vw)}.h1,h1{font-size:calc(1.375rem + 1.5vw)}.h2,h2{font-size:calc(1.325rem + .9vw)}.h3,h3{font-size:calc(1.3rem + .6vw)}.h4,h4{font-size:calc(1.275rem + .3vw)}.display-1{font-size:calc(1.725rem + 5.7vw)}.display-2{font-size:calc(1.675rem + 5.1vw)}.display-3{font-size:calc(1.575rem + 3.9vw)}.display-4{font-size:calc(1.475rem + 2.7vw)}.close{font-size:calc(1.275rem + .3vw)}}
 
 
+.fading {
+  background-color: white;
+}
+.fading :hover {
+  background: rgb(226, 250, 244);
+}
+.paint {
+  background: rgb(226, 250, 244) !important;
+}
+.btn-outline-info:hover {
+  color: rgba(132, 241, 81, 0.986) !important;
+  ;
+}
+.dropdown-menu:hover {
+  background: white !important;
+}
 

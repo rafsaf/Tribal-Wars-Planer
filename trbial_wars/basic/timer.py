@@ -2,30 +2,18 @@
 from time import time
 from functools import wraps
 from django.db import connection, reset_queries
-import itertools
 
-COUNT = itertools.count()
-class memoize(dict):
-    def __init__(self, func):
-        self.func = func
-
-    def __call__(self, *args):
-        return self[args]
-
-    def __missing__(self, key):
-        result = self[key] = self.func(*key)
-        return result
-@memoize
-def timer_(i: int):
-    return time()
-
-def t():
-    i = next(COUNT)
-    return timer_(i)
-#
+def ti(lst=[], result=False, clear=False):
+    if result:
+        return lst
+    if clear:
+        lst.clear()
+        return lst
+    lst.append(time())
+    return None
 
 def timing(function):
-    """ Time for given function """
+    """ Time for a given function """
     @wraps(function)
     def wrap(*args, **kwargs):
         reset_queries()
@@ -42,20 +30,20 @@ def timing(function):
         else:
             new_kwargs = kwargs
         end_queries = len(connection.queries)
-        time3 = round(time2 - time1, 3)
+        time3 = round(time2 - time1, 5)
         print(f'\r\n Func: {function.__name__}')
         print(f'  Args:[{new_args}]')
         print(f'  Kwargs:[{new_kwargs}]')
         print(f'  Took: {time3} sec')
         print(f'  Number of Queries: {end_queries - start_queries}')
-        l1 = len(timer_)
-        if l1 > 0:
-            print("  Line by line time: ")
-            for i in range(1, l1):
-                print(f'   t{i} - t{i-1}: ', round(timer_[(i,)] - timer_[(i-1,)],6), ' sec')
-            print('')
-            timer_.clear()
+        print("  Line by line time: ")
+        for i, actual in enumerate(ti(result=True)):
+            try:
+                print('   ', i, ' Period: ', round(actual - previous, 5))
+            except UnboundLocalError:
+                pass
+            previous = actual
+        ti(clear=True)
         return result
 
     return wrap
-

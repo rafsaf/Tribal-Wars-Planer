@@ -1,4 +1,5 @@
 {% load static %}
+
 <!doctype html>
 <html lang="pl-PL">
 
@@ -18,12 +19,12 @@
     
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
     <link rel="stylesheet" href="{% static 'base.css' %}">
-
+    <script type="text/javascript" src="{% static 'base.js' %}"></script>
 </head>
 
 
 <body>
-    <script type="text/javascript" src="{% static 'base.js' %}"></script>
+    
     {% block showsidebar %}
     <div class="d-flex" id="wrapper">
         {% if user.is_authenticated %}
@@ -191,25 +192,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-        $(document).ready(function() {
-            $('#id_date').addClass('data-picker')
-            $('.data-picker').datepicker({
-                format: "yyyy-mm-dd"
-            });
-        });
-
-        $('.carousel').carousel({
-            interval: 2500
-          });
-
-
-
-    </script>
+    <script>menu_toggle();</script>
     
 </body>
 

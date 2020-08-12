@@ -3,7 +3,7 @@
 from base import models
 from .timer import timing
 
-@timing
+
 def coord_to_player(outline: models.Outline):
     """ Dictionary coord : player name for tribes in outline """
     village_dictionary = {}

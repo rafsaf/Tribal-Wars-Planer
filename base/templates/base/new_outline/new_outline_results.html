@@ -10,6 +10,13 @@
     Wyniki Zbiórka Deff
 </button>
 </div>
+<div>
+    <button type="button" class="col-auto btn btn-success my-2"
+    data-toggle="modal"
+    data-target=".bd-outline-lg">
+    Wyniki Rozpiski Akcji
+</button>
+</div>
 
 
 
@@ -40,6 +47,30 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade bd-outline-lg" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel2"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Wyniki Rozpiska</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" contenteditable="true">
+                    <textarea class="form-control" id="zbiorka-wojsko"
+                        rows="7"
+                        cols="5">{{instance.result.results_outline}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <br/>
 <br/>
 <br/>

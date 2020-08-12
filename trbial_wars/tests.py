@@ -307,8 +307,8 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             date=datetime.date.today(),
             name="name",
             world="150",
-            ally_tribe_tag="pl1, pl2",
-            enemy_tribe_tag="pl3, pl4",
+            ally_tribe_tag=['pl1',' pl2'],
+            enemy_tribe_tag=['pl3',' pl4'],
         )
         self.ally_village1 = models.VillageModel(id='500500150',village_id=1,x_coord=500,y_coord=500,player_id=2,world=150)
         self.ally_village2 = models.VillageModel(id='499500150',village_id=2,x_coord=499,y_coord=500,player_id=1,world=150)
@@ -522,8 +522,8 @@ class GetDeffFunctionTest(TestCase):
             date=datetime.date.today(),
             name="name",
             world="150",
-            ally_tribe_tag="pl1, pl2",
-            enemy_tribe_tag="pl3, pl4",
+            ally_tribe_tag=['pl1',' pl2'],
+            enemy_tribe_tag=['pl3',' pl4'],
             deff_troops=TEXT,
         )
 
