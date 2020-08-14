@@ -1,0 +1,25 @@
+ {% extends 'base/base.html' %} {% block content %} {% load i18n %} {% load crispy_forms_tags %}
+
+
+<div class="container-fluid">
+    <div class="row" style="height: 85vh;">
+        <div class="col-3">
+
+        </div>
+
+        <div class="col-6 align-self-center">
+
+            <form method='POST'>{% csrf_token %} {{ form|crispy }}
+
+                <button class="btn btn-ocean mt-3" type="submit">{% trans 'Create an account' %}</button>
+
+            </form>
+
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

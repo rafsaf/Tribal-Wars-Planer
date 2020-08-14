@@ -1,18 +1,11 @@
-{% extends 'base/base.html' %}
-{% load static %}
-{% block content %}
-
-
-{% autoescape off %}
-{{doc}}
-{% endautoescape %}
+{% extends 'base/base.html' %} {% load i18n %} {% load static %} {% block content %} {% autoescape off %} {{doc}} {% endautoescape %}
 
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 
 <script>
-  function updateClipboard(id) {
-    var newClip = document.getElementById(id).textContent
-    navigator.clipboard.writeText(newClip);
-  }
+    function updateClipboard(id) {
+        var newClip = document.getElementById(id).textContent
+        navigator.clipboard.writeText(newClip);
+    }
 </script>
 {% endblock %}

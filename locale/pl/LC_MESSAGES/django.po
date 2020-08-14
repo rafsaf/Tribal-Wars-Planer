@@ -1,0 +1,621 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-14 15:02+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: base/forms.py:13 base/templates/base/base_planer.html:7
+msgid "Outline Name"
+msgstr "Nazwa Rozpiski"
+
+#: base/forms.py:15 base/templates/base/base_planer.html:8
+msgid "Date"
+msgstr "Data"
+
+#: base/forms.py:16 base/templates/base/base_planer.html:10
+msgid "World"
+msgstr "Świat"
+
+#: base/forms.py:25 base/templates/base/new_outline/new_outline.html:30
+msgid "Off collection"
+msgstr ""
+
+#: base/forms.py:35 base/forms.py:64
+msgid "Text cannot be empty!"
+msgstr ""
+
+#: base/forms.py:54 base/templates/base/new_outline/new_outline.html:8
+#: base/templates/base/new_outline/new_outline.html:49
+msgid "Deff collection"
+msgstr ""
+
+#: base/forms.py:83
+msgid "Ally tribe"
+msgstr ""
+
+#: base/forms.py:90 base/forms.py:106
+msgid "Select tribe from list"
+msgstr ""
+
+#: base/forms.py:99
+msgid "Enemy tribe"
+msgstr ""
+
+#: base/forms.py:117
+msgid "Radius"
+msgstr ""
+
+#: base/forms.py:124
+msgid "Other ally players"
+msgstr ""
+
+#: base/forms.py:125 base/forms.py:132
+msgid "Exact nicknames separated by a space or an entry."
+msgstr ""
+
+#: base/forms.py:131
+msgid "Other enemy players"
+msgstr ""
+
+#: base/forms.py:138
+msgid "Excluded enemy villages"
+msgstr ""
+
+#: base/forms.py:140
+msgid "Exact coords separated by a space or an entry."
+msgstr ""
+
+#: base/forms.py:162 base/forms.py:183
+msgid "There is no player: "
+msgstr ""
+
+#: base/forms.py:200
+msgid "Minimum entry time for nobles"
+msgstr ""
+
+#: base/forms.py:201
+msgid "Maximum entry time for nobles"
+msgstr ""
+
+#: base/forms.py:202
+msgid "Minimum entry time for off"
+msgstr ""
+
+#: base/forms.py:203
+msgid "Maximum entry time for off"
+msgstr ""
+
+#: base/forms.py:212
+msgid "Targets"
+msgstr ""
+
+#: base/forms.py:214
+msgid "Exact lines [ coords:off:noble ] separated by an entry."
+msgstr ""
+
+#: base/forms.py:264
+msgid "Off"
+msgstr ""
+
+#: base/forms.py:267 base/models.py:182
+msgid "Noble"
+msgstr "Szlachcic"
+
+#: base/forms.py:275 base/forms.py:286
+#: base/templates/base/new_outline/new_outline_initial_period2.html:300
+#: base/templates/base/new_outline/new_outline_initial_period2.html:660
+msgid "From"
+msgstr ""
+
+#: base/forms.py:278 base/forms.py:287
+#: base/templates/base/new_outline/new_outline_initial_period2.html:301
+#: base/templates/base/new_outline/new_outline_initial_period2.html:661
+msgid "To"
+msgstr ""
+
+#: base/forms.py:285
+#: base/templates/base/new_outline/new_outline_initial_period2.html:298
+#: base/templates/base/new_outline/new_outline_initial_period2.html:658
+msgid "Mode"
+msgstr ""
+
+#: base/forms.py:288
+#: base/templates/base/new_outline/new_outline_initial_period2.html:299
+#: base/templates/base/new_outline/new_outline_initial_period2.html:659
+msgid "Unit"
+msgstr ""
+
+#: base/forms.py:289
+#: base/templates/base/new_outline/new_outline_initial_period2.html:302
+#: base/templates/base/new_outline/new_outline_initial_period2.html:662
+msgid "Min. time"
+msgstr ""
+
+#: base/forms.py:290
+#: base/templates/base/new_outline/new_outline_initial_period2.html:303
+#: base/templates/base/new_outline/new_outline_initial_period2.html:663
+msgid "Max. time"
+msgstr ""
+
+#: base/forms.py:361 base/forms.py:371
+msgid "Mode All can be used only once per unit"
+msgstr ""
+
+#: base/forms.py:378
+msgid "Mode All must be used at least once for noble and for off."
+msgstr ""
+
+#: base/forms.py:388 base/forms.py:392
+msgid "The All mode time frame MUST always be last for off and for noble."
+msgstr ""
+
+#: base/forms.py:399 base/forms.py:406
+msgid "The All mode cannot overlap with other time periods"
+msgstr ""
+
+#: base/models.py:177
+msgid "All"
+msgstr "Wszystkie"
+
+#: base/models.py:178
+msgid "Random"
+msgstr "Losowo"
+
+#: base/models.py:179
+msgid "Exact"
+msgstr "Dokładnie"
+
+#: base/models.py:183
+msgid "Ram"
+msgstr "Taran"
+
+#: base/templates/base/base.html:15
+msgid "Tribal Wars Planer"
+msgstr "Plemiona Planer"
+
+#: base/templates/base/base.html:30
+msgid "User Panel"
+msgstr "Panel Użytkownika"
+
+#: base/templates/base/base.html:34
+msgid "My outlines"
+msgstr "Moje rozpiski"
+
+#: base/templates/base/base.html:36
+msgid "Create new outline"
+msgstr "Stwórz nową rozpiskę"
+
+#: base/templates/base/base.html:62
+msgid "Home"
+msgstr "Strona Główna"
+
+#: base/templates/base/base.html:65
+#: base/templates/base/new_outline/new_outline.html:12
+msgid "Planer"
+msgstr "Planer"
+
+#: base/templates/base/base.html:68
+msgid "Documentation"
+msgstr "Dokumentacja"
+
+#: base/templates/base/base.html:72
+msgid "Admin Site"
+msgstr "Administracja"
+
+#: base/templates/base/base.html:75
+msgid "Database Update"
+msgstr "Aktualizacja"
+
+#: base/templates/base/base.html:81
+msgid "LOG OUT"
+msgstr "WYLOGUJ"
+
+#: base/templates/base/base.html:84
+msgid "LOGIN"
+msgstr "ZALOGUJ"
+
+#: base/templates/base/base.html:86
+msgid "CREATE AN ACCOUNT"
+msgstr "UWTÓRZ KONTO"
+
+#: base/templates/base/base.html:120
+msgid "Create fast,"
+msgstr "Twórz szybkie,"
+
+#: base/templates/base/base.html:120
+msgid "Simple Tribal Wars outlines."
+msgstr "Proste rozpiski akcji plemiennych."
+
+#: base/templates/base/base.html:134
+msgid "CREATE NEW OUTLINES"
+msgstr "TWÓRZ NOWE ROZPISKI"
+
+#: base/templates/base/base.html:141
+msgid "WRITE YOUR OWN OUTLINES"
+msgstr "ROZPISUJ WŁASNE AKCJE"
+
+#: base/templates/base/base.html:147
+msgid "WORK OUT THE DETAILS"
+msgstr "DOPRACUJ SZCZEGÓŁY"
+
+#: base/templates/base/base.html:153
+msgid "COLLECT TRIBE'S DEFF UNITS"
+msgstr "ZBIERAJ WOJSKO PLEMIENNE"
+
+#: base/templates/base/base_planer.html:9
+#, fuzzy
+#| msgid "Create fast,"
+msgid "Created"
+msgstr "Twórz szybkie,"
+
+#: base/templates/base/base_planer.html:11
+#: base/templates/base/new_outline/new_outline_create_select.html:49
+msgid "Enemy"
+msgstr ""
+
+#: base/templates/base/base_planer.html:12
+#: base/templates/base/new_outline/new_outline_create_select.html:23
+msgid "Ally"
+msgstr ""
+
+#: base/templates/base/base_planer.html:14
+#: base/templates/base/base_planer.html:49
+msgid "Hide"
+msgstr ""
+
+#: base/templates/base/base_planer.html:16
+#: base/templates/base/base_planer.html:62
+#: base/templates/base/new_outline/new_outline_initial_period2.html:685
+msgid "Delete"
+msgstr ""
+
+#: base/templates/base/base_planer.html:54
+msgid "Show"
+msgstr ""
+
+#: base/templates/base/base_planer.html:72
+msgid "Don't show hidden"
+msgstr ""
+
+#: base/templates/base/base_planer.html:74
+msgid "Show hidden"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:6
+#: base/templates/base/new_outline/new_outline_results.html:2
+msgid "Results"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:15
+msgid "BETA"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:21
+msgid "To continue, please fill in forms with scripts results"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:92
+#: base/templates/base/new_outline/new_outline.html:153
+#: base/templates/base/new_outline/new_outline_initial_period1.html:29
+msgid "Incorrect data in"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:92
+#: base/templates/base/new_outline/new_outline.html:153
+#: base/templates/base/new_outline/new_outline_initial_period1.html:29
+msgid "lines."
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:93
+#: base/templates/base/new_outline/new_outline.html:154
+#: base/templates/base/new_outline/new_outline_initial_period1.html:30
+msgid "Why an error appeared?"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:95
+#: base/templates/base/new_outline/new_outline.html:156
+#: base/templates/base/new_outline/new_outline_initial_period1.html:32
+msgid "*After clicking submit you will be transferred to first error*"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:100
+#: base/templates/base/new_outline/new_outline.html:161
+#: base/templates/base/new_outline/new_outline_initial_period1.html:37
+msgid "The text cannot be empty"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:110
+#: base/templates/base/new_outline/new_outline.html:171
+msgid "Exact form from off collect script required, see "
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:110
+#: base/templates/base/new_outline/new_outline.html:171
+msgid "docs"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:116
+#: base/templates/base/new_outline/new_outline.html:177
+#: base/templates/base/new_outline/new_outline_create.html:6
+#: base/templates/base/new_outline/new_outline_get_deff.html:6
+#: base/templates/base/new_outline/new_outline_initial_period1.html:48
+msgid "Submit"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:194
+msgid "Off collection preview"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:199
+msgid "Deff collection preview"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:7
+msgid "Add an ally tribe"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:12
+msgid "Add an enemy tribe"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:36
+#: base/templates/base/new_outline/new_outline_create_select.html:62
+msgid "Delete all"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:82
+msgid "Save and create"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:90
+#: base/templates/base/new_outline/new_outline_initial_period2.html:69
+msgid "Warning"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:96
+msgid ""
+" To avoid future conflicts you can set up ally and enemy tribes\n"
+"                <div class=\"md-error\">ONLY ONCE!</div>\n"
+"                <br>In the event of the error, you will be forced to create "
+"new outline.\n"
+"                <li>Make sure you set up all Allies.</li>\n"
+"                <li>Make sure you set up all Enemies.</li>\n"
+"                "
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:105
+#: base/templates/base/new_outline/new_outline_initial_period2.html:81
+#: base/templates/base/new_outline/new_outline_initial_period3.html:26
+msgid "Close"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:108
+#: base/templates/base/new_outline/new_outline_initial_period2.html:85
+msgid "Continue"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:14
+msgid "Info"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:17
+msgid "Marks"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:20
+msgid "Examples"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:25
+msgid ""
+"\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"\n"
+"                            <h5 class=\"card-title\">Collect deff from "
+"remote villages</h5>\n"
+"                            <li class=\"card-text\">The program is used for "
+"collecting deff units from villages in distance greater than radius from "
+"enemy tribes. </li>\n"
+"                            <li class=\"card-text mt-2\">Distance is "
+"calculated in squares.</li>\n"
+"                            <li class=\"card-text mt-2\">The default value "
+"of 30 corresponds to approximately 17 hours of a noble's path, for "
+"optimization reasons the maximum possible radius is 60. </li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"                            <h5 class=\"card-title mt-2\">Make sure, that..."
+"</h5>\n"
+"                            <li class=\"card-text mt-2\"> You have included "
+"all your own and enemies tribes. </li>\n"
+"                            <li class=\"card-text mt-2\"> The selected "
+"radius is adequate to the needs. </li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"                            <h5 class=\"card-title mt-2\">Remember, that...</"
+"h5>\n"
+"                            <li class=\"card-text mt-2\">\n"
+"                                The other options are optional. </li>\n"
+"                            <li class=\"card-text mt-2\">\n"
+"                                More details can be found in the Marks and "
+"Examples tab.</li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    "
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:61
+msgid "Go back"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:75
+msgid ""
+" Current progress will be\n"
+"                                    <div class=\"md-error\">LOST!</div>\n"
+"                                    <br>You will return to the previous "
+"form. "
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:114
+#: base/templates/base/new_outline/new_outline_initial_period2.html:118
+#: base/templates/base/new_outline/new_outline_initial_period2.html:715
+#: base/templates/base/new_outline/new_outline_initial_period2.html:719
+#: base/templates/base/new_outline/new_outline_initial_period3.html:214
+#: base/templates/base/new_outline/new_outline_initial_period3.html:221
+msgid "Previous"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:122
+#: base/templates/base/new_outline/new_outline_initial_period2.html:723
+#: base/templates/base/new_outline/new_outline_initial_period3.html:225
+msgid "of"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:126
+#: base/templates/base/new_outline/new_outline_initial_period2.html:130
+#: base/templates/base/new_outline/new_outline_initial_period2.html:727
+#: base/templates/base/new_outline/new_outline_initial_period2.html:731
+#: base/templates/base/new_outline/new_outline_initial_period3.html:229
+#: base/templates/base/new_outline/new_outline_initial_period3.html:234
+msgid "Next"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:176
+#: base/templates/base/new_outline/new_outline_initial_period2.html:787
+msgid "Target"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:177
+#: base/templates/base/new_outline/new_outline_initial_period2.html:789
+#, fuzzy
+#| msgid "My outlines"
+msgid "Outline"
+msgstr "Moje rozpiski"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:208
+msgid "Edit"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:284
+msgid "Confirm an outline and Exit"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:377
+#, fuzzy
+#| msgid "Create fast,"
+msgid "Create"
+msgstr "Twórz szybkie,"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:777
+msgid "Confirm selected"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:786
+msgid "Selected"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:788
+msgid "Select Time"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:10
+msgid ""
+"\n"
+"            <div class=\"container-fluid popoverData mt-3 mb-3\" data-html="
+"\"true\" data-content=\"\n"
+"      <h2>Uwaga!</h2>\n"
+"      <p class='md-error'>Potencjalnie niebezpieczny formularz!</p>\n"
+"      <p>W przypadku podania ilości\n"
+"        <span class='md-error'> większych</span> \n"
+"        niż aktualnie wypełnione, dane zostaną zmienione w bazie dla całej "
+"rozpiski! Nawet jeśli atak zostanie usunięty, zmiany pozostaną.</p>\n"
+"      <p>Ustawienie wartości\n"
+"        <span class='md-correct'> mniejszych</span> \n"
+"        niż aktualne jest bezpieczne, wojska wracają do puli po prawej.</p>"
+"\" rel=\"popover\" data-placement=\"right\" data-trigger=\"hover\">\n"
+"                "
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:25
+msgid "Change and save"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:127
+msgid "Divide"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:131
+msgid "Divide into 2"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:135
+msgid "Divide into 3"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:139
+msgid "Divide into 4"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:194
+msgid "Sort"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:198
+#: base/templates/base/new_outline/new_outline_initial_period3.html:199
+msgid "Ascending by distance"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:200
+#: base/templates/base/new_outline/new_outline_initial_period3.html:201
+msgid "Descending by distance"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:202
+#: base/templates/base/new_outline/new_outline_initial_period3.html:203
+msgid "Descending by number of units"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:204
+#: base/templates/base/new_outline/new_outline_initial_period3.html:205
+msgid "Descending by number of noble"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_results.html:5
+#: base/templates/base/new_outline/new_outline_results.html:25
+msgid "Deff collection results"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_results.html:10
+#: base/templates/base/new_outline/new_outline_results.html:43
+#, fuzzy
+#| msgid "Planer"
+msgid "Planer results"
+msgstr "Planer"
+
+#: templates/django_registration/registration_form.html:14
+#, fuzzy
+#| msgid "Create new outline"
+msgid "Create an account"
+msgstr "Stwórz nową rozpiskę"
+
+#: templates/registration/login.html:20
+msgid "Login"
+msgstr ""

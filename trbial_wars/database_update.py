@@ -191,7 +191,7 @@ def cron_schedule_data_update():
                     
                 del context[tribe_id]
         if len(context) != 0:
-            for tribe in context:
+            for tribe in context.values():
                 tribe_ids.append(tribe.id)
         Tribe.objects.filter(id__in=tribe_ids).delete()
             

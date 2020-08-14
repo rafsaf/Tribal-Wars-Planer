@@ -1,366 +1,339 @@
-{% extends "base/new_outline/new_outline_initial_period2.html" %}
-
-
-{% load static %}}
-
-{% block content %}
+{% extends "base/new_outline/new_outline_initial_period2.html" %} {% load static %} {% load i18n %} {% block content %}
 <style>
 
 </style>
 
 <!-- Modal -->
-<div id="form-modal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
-  aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="container-fluid popoverData mt-3 mb-3" data-html="true" data-content="<h2>Uwaga!</h2>
+<div id="form-modal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            {% blocktrans %}
+            <div class="container-fluid popoverData mt-3 mb-3" data-html="true" data-content="
+      <h2>Uwaga!</h2>
       <p class='md-error'>Potencjalnie niebezpieczny formularz!</p>
       <p>W przypadku podania ilości
         <span class='md-error'> większych</span> 
         niż aktualnie wypełnione, dane zostaną zmienione w bazie dla całej rozpiski! Nawet jeśli atak zostanie usunięty, zmiany pozostaną.</p>
       <p>Ustawienie wartości
         <span class='md-correct'> mniejszych</span> 
-        niż aktualne jest bezpieczne, wojska wracają do puli po prawej.</p>" rel="popover" data-placement="right"
-        data-trigger="hover">
-        {% load crispy_forms_tags %}
-        <div class="btn-group">
-          <form method='POST'>
-            {% csrf_token %}
-            {{form|crispy}}
+        niż aktualne jest bezpieczne, wojska wracają do puli po prawej.</p>" rel="popover" data-placement="right" data-trigger="hover">
+                {% endblocktrans %} {% load crispy_forms_tags %}
+                <div class="btn-group">
+                    <form method='POST'>
+                        {% csrf_token %} {{form|crispy}}
 
-            <button name="form" type="submit" class="btn btn-info">Zmień i zapisz</button>
-            <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal">Zamknij</button>
-          </form>
+                        <button name="form" type="submit" class="btn btn-info">{% trans 'Change and save' %}</button>
+                        <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal">{% trans 'Close' %}</button>
+                    </form>
 
+                </div>
+
+            </div>
         </div>
 
-      </div>
     </div>
-
-  </div>
 </div>
 
 <div class="container-fluid" id="table" style="max-height: 100vh !important; overflow:hidden;">
-  <div class="row">
-    <div class="d-flex card col-6 col-lg-5 col-xl-4 d-flex flex-column">
+    <div class="row">
+        <div class="d-flex card col-6 col-lg-5 col-xl-4 d-flex flex-column">
 
-      <div style="overflow-y: scroll; height:calc(100vh) !important;" id="leftscroll">
-        <ul class="list-group list-group-flush">
-          {% for weight in result_lst %}
+            <div style="overflow-y: scroll; height:calc(100vh) !important;" id="leftscroll">
+                <ul class="list-group list-group-flush">
+                    {% for weight in result_lst %} {% if paint == weight.id %}
+                    <div>
+                        <li class="list-group-item paint">
+                            {% else %}
+                            <div class="fading">
+                                <li class="list-group-item">
+                                    {% endif %}
 
-          {% if paint == weight.id %}
-          <div>
-            <li class="list-group-item paint">
-              {% else %}
-              <div class="fading">
-            <li class="list-group-item">
-              {% endif %}
+                                    <div class="row justify-content-center w-100">
+                                        <table>
+                                            <tr>
 
-              <div class="row justify-content-center w-100">
-                <table>
-                  <tr>
+                                                <th>
+                                                    <img src='{% static "images/ax.png" %}' alt="ax">
+                                                </th>
 
-                    <th>
-                      <img src='{% static "images/ax.png" %}' alt="ax">
-                    </th>
-
-                    <th>
-                      <div class='ml-1'>{{weight.off}}</div>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                      <div class='ml-1'>
-                        <img src='{% static "images/nobleman.png" %}' alt="ax">
-                      </div>
-                    </th>
-                    <th>
-                      <div class='ml-1'>{{weight.nobleman}}</th>
-              </div>
-              <th>
-                <div class="ml-1">
-                  <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
+                                                <th>
+                                                    <div class='ml-1'>{{weight.off}}</div>
+                                                </th>
+                                                <th>
+                                                </th>
+                                                <th>
+                                                    <div class='ml-1'>
+                                                        <img src='{% static "images/nobleman.png" %}' alt="ax">
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class='ml-1'>{{weight.nobleman}}</th>
+                                                </div>
+                                                <th>
+                                                    <div class="ml-1">
+                                                        <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
                     <path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
                     <path d="M7 10h2v6H7v-6z" />
                   </svg>
-                </div>
-              </th>
-              <th>{{weight.distance}}</th>
-              <th>
-                <div class="ml-1 popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"rel="popover" data-placement="top" data-trigger="hover">
-                  <svg width="1.35em" height="1.35em" viewBox="0 0 16 16" class="bi bi-question-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    </div>
+                                                </th>
+                                                <th>{{weight.distance}}</th>
+                                                <th>
+                                                    <div class="ml-1 popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
+                                                        rel="popover" data-placement="top" data-trigger="hover">
+                                                        <svg width="1.35em" height="1.35em" viewBox="0 0 16 16" class="bi bi-question-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                     <path d="M5.25 6.033h1.32c0-.781.458-1.384 1.36-1.384.685 0 1.313.343 1.313 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.007.463h1.307v-.355c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.326 0-2.786.647-2.754 2.533zm1.562 5.516c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
                   </svg>
-                </div>
-              </th>
-              </tr>
+                                                    </div>
+                                                </th>
+                                            </tr>
 
-              </table>
-          </div>
-          <div class="row justify-content-center">
-            <form method="POST" action="{% url 'base:planer_move_down' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">{% csrf_token %}
-              <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                        </table>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <form method="POST" action="{% url 'base:planer_move_down' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">{% csrf_token %}
+                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                 <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" />
                 </svg>
               </button>
-            </form>
+                                        </form>
 
-            <form method="POST"
-              action="{% url 'base:planer_move_up' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
-              {% csrf_token %}
-              <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                        <form method="POST" action="{% url 'base:planer_move_up' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                            {% csrf_token %}
+                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                 <svg name="{{weight.start}}" width="1.8em" height="1.8em" viewBox="0 0 16 16"class="bi bi-arrow-up-circle-fill" fill="rgba(133, 221, 32, 0.938)"xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-10.646.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z" />
                 </svg>
               </button>
-            </form>
-            <form method="POST" action="{% url 'base:planer_initial_delete' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">{% csrf_token %}
-              <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                        </form>
+                                        <form method="POST" action="{% url 'base:planer_initial_delete' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">{% csrf_token %}
+                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                 <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" />
                 </svg>
 
               </button>
-            </form>
-            <button id="modalbutton" class="btn btn-default" type="button" data-toggle="modal" data-target="#form-modal" data-start="{{weight.start}}" data-off="{{weight.off}}" data-nobleman="{{weight.nobleman}}"data-id="{{weight.id}}">
+                                        </form>
+                                        <button id="modalbutton" class="btn btn-default" type="button" data-toggle="modal" data-target="#form-modal" data-start="{{weight.start}}" data-off="{{weight.off}}" data-nobleman="{{weight.nobleman}}" data-id="{{weight.id}}">
               <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z" />
                 <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
               </svg>
             </button>
-            <div class="btn-group">
-              <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Podziel</button>
-              <div class="dropdown-menu">
-                <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 2 %}?page={{ page_obj.number }}&sort={{ sort }}">
-                  {% csrf_token %}
-                  <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">Podziel na 2</button>
-                </form>
-                <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 3 %}?page={{ page_obj.number }}&sort={{ sort }}">
-                  {% csrf_token %}
-                  <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">Podziel na 3</button>
-                </form>
-                <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 4 %}?page={{ page_obj.number }}&sort={{ sort }}">
-                  {% csrf_token %}
-                  <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">Podziel na 4</button>
-                </form>
-              </div>
+                                        <div class="btn-group">
+                                            <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Divide' %}</button>
+                                            <div class="dropdown-menu">
+                                                <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 2 %}?page={{ page_obj.number }}&sort={{ sort }}">
+                                                    {% csrf_token %}
+                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 2' %}</button>
+                                                </form>
+                                                <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 3 %}?page={{ page_obj.number }}&sort={{ sort }}">
+                                                    {% csrf_token %}
+                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 3' %}</button>
+                                                </form>
+                                                <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 4 %}?page={{ page_obj.number }}&sort={{ sort }}">
+                                                    {% csrf_token %}
+                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 4' %}</button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                </li>
+                            </div>
+
+                            {% endfor %}
+                </ul>
+                </div>
             </div>
 
+            <div class="col-6 col-lg-7 col-xl-8 d-flex flex-column">
+                <div class="row">
+                    <!-- Obraz <a href="https://pixabay.com/pl/users/Jo-B-246441/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Jo-B</a> z <a href="https://pixabay.com/pl/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Pixabay</a>-->
+                    <figure class="col-2">
+                        <img src='{% static "images/knight-small-rev.png" %}' height="18vh" alt="knight" class="img-fluid">
+                    </figure>
+                    <div class="col-8">
+                        <div class="d-flex flex-column justify-content-end h-100 ">
+                            <div class="d-flex justify-content-center">
+                                <div>
+                                    <h2>
+                                        <span class="badge badge-pill badge-info">{{target.player}}</span>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mb-5">
+                                <div>
+                                    <h2>
+                                        <span class="badge badge-secondary">{{target.target}}</span>
+                                    </h2>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <figure class="col-2">
+                        <img src='{% static "images/knight-small.png" %}' alt="knight" class="img-fluid">
+                    </figure>
+                </div>
+                <div>
+
+                    <nav aria-label="pagination" id="pagination">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <div class="dropdown">
+                                    <button class="btn btn-info dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        {% if sort == 'distance' %}
+                                        <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=distance">{% trans 'Ascending by distance' %}</a> {% else %}
+                                        <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=distance">{% trans 'Ascending by distance' %}</a> {% endif %} {% if sort == '-distance' %}
+                                        <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-distance-r">{% trans 'Descending by distance' %}</a> {% else %}
+                                        <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-distance">{% trans 'Descending by distance' %}</a> {% endif %} {% if sort == '-off_left' %}
+                                        <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-off_left">{% trans 'Descending by number of units' %}</a> {% else %}
+                                        <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-off_left">{% trans 'Descending by number of units' %}</a> {% endif %} {% if sort == '-nobleman_left' %}
+                                        <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-nobleman_left">{% trans 'Descending by number of noble' %}</a> {% else %}
+                                        <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-nobleman_left">{% trans 'Descending by number of noble' %}</a> {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1&sort={{sort}}">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}">{% trans 'Previous' %}</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="?page=1&sort={{sort}}">1</a>
+                            </li>
+                            <li class="page-item disabled">
+                                <a class="page-link">{% trans 'Previous' %}</a>
+                            </li>
+                            {% endif %}
+                            <li class="page-item disabled">
+                                <a class="page-link">{{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}</a>
+                            </li>
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" id="submit" href="?page={{ page_obj.next_page_number }}&sort={{sort}}">{% trans 'Next' %}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a> {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">{% trans 'Next' %}</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a> {% endif %}
+                                </li>
+
+
+                        </ul>
+                    </nav>
 
 
 
+                    <div style="overflow-y: scroll; height:calc(71vh) !important;">
+                        <div class="row">
+                            {% for weight in page_obj %}
 
-          </div>
-          </li>
-      </div>
+                            <div class="card col-12 col-lg-6 col-xl-3">
+                                <div class="card-body">
+                                    <div class="d-flex row justify-content-center">
+                                        <h5>
+                                            <span class="badge badge-pill badge-info">{{weight.player}}</span>
+                                        </h5>
+                                    </div>
+                                    <div class="d-flex row justify-content-center">
+                                        <h5>
+                                            <span class="badge badge-secondary">{{weight.start}}</span>
+                                        </h5>
+                                    </div>
+                                    <div class="row">
 
-      {% endfor %}
-      </ul>
-    </div>
-  </div>
-
-  <div class="col-6 col-lg-7 col-xl-8 d-flex flex-column">
-    <div class="row">
-      <!-- Obraz <a href="https://pixabay.com/pl/users/Jo-B-246441/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Jo-B</a> z <a href="https://pixabay.com/pl/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Pixabay</a>-->
-      <figure class="col-2">
-        <img src='{% static "images/knight-small-rev.png" %}' height="18vh" alt="knight" class="img-fluid">
-      </figure>
-      <div class="col-8">
-        <div class="d-flex flex-column justify-content-end h-100 ">
-          <div class="d-flex justify-content-center">
-            <div>
-              <h2>
-                <span class="badge badge-pill badge-info">{{target.player}}xx</span>
-              </h2>
-            </div>
-          </div>
-          <div class="d-flex justify-content-center mb-5">
-            <div>
-              <h2>
-                <span class="badge badge-secondary">{{target.target}}</span>
-              </h2>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-      <figure class="col-2">
-        <img src='{% static "images/knight-small.png" %}' alt="knight" class="img-fluid">
-      </figure>
-    </div>
-    <div>
-
-      <nav aria-label="pagination" id="pagination">
-        <ul class="pagination">
-          <li class="page-item">
-            <div class="dropdown">
-              <button class="btn btn-info dropdown-toggle mr-1" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sortuj</button>
-
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% if sort == 'distance' %}
-                <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=distance">Według odległości rosnąco</a>
-
-                {% else %}
-                <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=distance">Według odległości rosnąco</a>
-                {% endif %}
-
-                {% if sort == '-distance' %}
-                <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-distance-r">Według odległości malejąco</a>
-
-                {% else %}
-                <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-distance">Według odległości malejąco</a>
-                {% endif %}
-
-                {% if sort == '-off_left' %}
-                <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-off_left">Według ilości wojska</a>
-                {% else %}
-                <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-off_left">Według ilości wojska</a>
-                {% endif %}
-
-                {% if sort == '-nobleman_left' %}
-                <a class="dropdown-item active" href="?page={{ page_obj.number }}&sort=-nobleman_left">Według ilości szlachciców</a>
-                {% else %}
-                <a class="dropdown-item" href="?page={{ page_obj.number }}&sort=-nobleman_left">Według ilości szlachciców</a>
-                {% endif %}
-              </div>
-            </div>
-          </li>
-          {% if page_obj.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?page=1&sort={{sort}}">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}">Poprzednia</a>
-          </li>
-          {% else %}
-          <li class="page-item disabled">
-            <a class="page-link" href="?page=1&sort={{sort}}">1</a>
-          </li>
-          <li class="page-item disabled">
-            <a class="page-link">Poprzednia</a>
-          </li>
-          {% endif %}
-          <li class="page-item disabled">
-            <a class="page-link">{{ page_obj.number }} z {{ page_obj.paginator.num_pages }}</a>
-          </li>
-          {% if page_obj.has_next %}
-          <li class="page-item">
-            <a class="page-link" id="submit" href="?page={{ page_obj.next_page_number }}&sort={{sort}}">Następna</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link"
-              href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a>
-            {% else %}
-          <li class="page-item disabled">
-            <a class="page-link">Następna</a>
-          </li>
-          <li class="page-item disabled">
-            <a class="page-link"
-              href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a>
-            {% endif %}
-          </li>
-
-
-        </ul>
-      </nav>
-
-
-
-      <div style="overflow-y: scroll; height:calc(71vh) !important;">
-        <div class="row">
-          {% for weight in page_obj %}
-         
-          <div class="card col-12 col-lg-6 col-xl-3">
-            <div class="card-body">
-              <div class="d-flex row justify-content-center">
-                <h5>
-                  <span class="badge badge-pill badge-info">{{weight.player}}</span>
-                </h5>
-              </div>
-              <div class="d-flex row justify-content-center">
-                <h5>
-                  <span class="badge badge-secondary">{{weight.start}}</span>
-                </h5>
-              </div>
-              <div class="row">
-
-                <div class="col-5">
-                  <form method="POST" action="{% url 'base:planer_add_first' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
-                    {% csrf_token %}
-                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                        <div class="col-5">
+                                            <form method="POST" action="{% url 'base:planer_add_first' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                                {% csrf_token %}
+                                                <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                       <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-arrow-up-square" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                         <path fill-rule="evenodd" d="M4.646 8.354a.5.5 0 0 0 .708 0L8 5.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 0 .708z" />
                         <path fill-rule="evenodd" d="M8 11.5a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-1 0v5a.5.5 0 0 0 .5.5z" />
                       </svg>
                     </button>
-                  </form>
+                                            </form>
 
 
-                  <form method="POST" action="{% url 'base:planer_add_last' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
-                    {% csrf_token %}
-                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                            <form method="POST" action="{% url 'base:planer_add_last' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                                {% csrf_token %}
+                                                <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                       <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-arrow-down-square" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                         <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 0 1 .708 0L8 10.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z" /><path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5z" />
                       </svg>
                     </button>
-                  </form>
+                                            </form>
 
-                </div>
-
-
+                                        </div>
 
 
 
-                <div class="col-7">
-                  <div class="row justify-content-center">
-                  <table>
-                    <tr>
-                      <th>
-                        <img src='{% static "images/ax.png" %}' alt="ax">
-                      </th>
-                      <th>{{weight.off_left}}</th>
-                    </tr>
-                    <tr>
-                      <th>
-                        <img src='{% static "images/nobleman.png" %}' alt="ax">
-                      </th>
-                      <th>{{weight.nobleman_left}}</th>
-                    </tr>
-                    <tr>
-                      <th>
-                        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
+
+
+                                        <div class="col-7">
+                                            <div class="row justify-content-center">
+                                                <table>
+                                                    <tr>
+                                                        <th>
+                                                            <img src='{% static "images/ax.png" %}' alt="ax">
+                                                        </th>
+                                                        <th>{{weight.off_left}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            <img src='{% static "images/nobleman.png" %}' alt="ax">
+                                                        </th>
+                                                        <th>{{weight.nobleman_left}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
                           <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
                           <path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" />
                         </svg>
-                      </th>
-                      <th>{{weight.distance}}</th>
-                    </tr>
-                  </table>
-                </div>
-                </div>
+                                                        </th>
+                                                        <th>{{weight.distance}}</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
 
-              </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-          </div>
-          
-          {% endfor %}
         </div>
-      </div>
 
+        <script>
+            scroll_content_outline();
+            modal();
+        </script>
 
-    </div>
-  </div>
-</div>
-
-<script>scroll_content_outline();modal();</script>
-
-{% endblock %}
+        {% endblock %}

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from trbial_wars.get_deff import get_deff
 from base import models, forms
-
+from django.utils.translation import gettext
 
 @login_required
 def outline_detail_2_deff(request, _id):
@@ -13,7 +13,7 @@ def outline_detail_2_deff(request, _id):
 
     # only correct deff_troops allowed
     if instance.deff_troops == "":
-        request.session["error"] = "Zbiórka Obrona pusta !"
+        request.session["error"] = gettext('Deff collection empty!')
         return redirect("base:planer_detail", _id)
 
     form = forms.GetDeffForm(request.POST or None, world=instance.world)
@@ -30,7 +30,9 @@ def outline_detail_2_deff(request, _id):
             except KeyError:
                 request.session[
                     "error"
-                ] = "Wygląda na to, że Twoja Zbiórka Obrona nie jest już aktualna! Aby skorzystać z Zbiórki Deffa: skopiuj dane z podglądu i popraw błędy lub wklej aktualne dane o obronie. \n"
+                ] = gettext(
+                    "It looks like your Deff collection is no longer actual! To use the planner: copy the data from the preview and correct errors or paste the current military data \n"
+                )
                 return redirect("base:planer_detail", _id)
 
 

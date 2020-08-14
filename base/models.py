@@ -1,6 +1,7 @@
 """ Database models """
 import datetime
 
+from django.utils.translation import gettext_lazy
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -173,13 +174,13 @@ class OutlineTime(models.Model):
 class PeriodModel(models.Model):
     """ Handle one period of time in outline specification """
     STATUS = [
-        ('Wszystkie', 'Wszystkie'),
-        ('Losowo', 'Losowo'),
-        ('Dokładnie', 'Dokładnie'),
+        ('all', gettext_lazy('All')),
+        ('random', gettext_lazy('Random')),
+        ('exact', gettext_lazy('Exact')),
     ]
     UNITS = [
-        ('Szlachcic', 'Szlachcic'),
-        ('Taran', 'Taran'),
+        ('noble', gettext_lazy('Noble')),
+        ('ram', gettext_lazy('Ram')),
     ]
     outline_time = models.ForeignKey(OutlineTime, on_delete=models.CASCADE)
     status = models.CharField(max_length=15, choices=STATUS)

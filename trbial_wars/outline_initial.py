@@ -178,10 +178,10 @@ class FromPeriods:
         self.world = world
         self.periods = periods
         self.nob_periods = deque(
-            [period for period in periods if period.unit == "Szlachcic"]
+            [period for period in periods if period.unit == "noble"]
         )
         self.ram_periods = deque(
-            [period for period in periods if period.unit == "Taran"]
+            [period for period in periods if period.unit == "ram"]
         )
         self.nob_period = None
         self.ram_period = None
@@ -236,7 +236,7 @@ class FromPeriods:
 
         village1 = basic.Village(weight.start)
         village2 = basic.Village(weight.target.target)
-        if period.unit == "Szlachcic":
+        if period.unit == "noble":
             unit = "nobleman"
         else:
             unit = "ram"
@@ -307,9 +307,9 @@ def make_final_outline(outline: models.Outline):
         from_period = FromPeriods(periods=periods_list, world=world_model, date=outline.date)
         for weight in lst:
             if weight.nobleman > 0:
-                unit = 'Szlachcic'
+                unit = 'noble'
             else:
-                unit = 'Taran'
+                unit = 'ram'
             
             weight = from_period.next(weight=weight)
             link = f'https://pl{outline.world}.plemiona.pl/game.php?village={village_id[weight.start]}&screen=place&target={village_id[weight.target.target]}'

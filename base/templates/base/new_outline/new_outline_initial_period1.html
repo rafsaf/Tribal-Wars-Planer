@@ -1,9 +1,4 @@
-{% extends "base/new_outline/new_outline.html" %}
-
-
-
-{% block content %}
-{% load static %}
+{% extends "base/new_outline/new_outline.html" %} {% block content %} {% load static %} {% load i18n %}
 <script src="{% static 'codemirror.js' %}"></script>
 <link rel="stylesheet" href="{% static 'codemirror.css' %}">
 <div class="row my-2">
@@ -11,53 +6,46 @@
         <form method='POST'>{% csrf_token %}
 
             <div>
-            {{ form1.target.label_tag }}
-            {{ form1.target }}
-            {% if form1.target.errors %}
-            {% for error in form1.target.errors %} 
-            
-            {% if forloop.first %}
-            <script> document.addEventListener("DOMContentLoaded", function (event) {
-                $('.CodeMirror').addClass('CodeMirror-Invalid');
-                codemirror = $('.CodeMirror');
-                var codeMirrorEditor = codemirror[0].CodeMirror;
-                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
-            });
-            </script>
-            {% else %}
-            <script> document.addEventListener("DOMContentLoaded", function (event) {
-                codemirror = $('.CodeMirror');
-                var codeMirrorEditor = codemirror[0].CodeMirror;
-                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-            });
-             </script>
-            {% endif %}
+                {{ form1.target.label_tag }} {{ form1.target }} {% if form1.target.errors %} {% for error in form1.target.errors %} {% if forloop.first %}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function(event) {
+                        $('.CodeMirror').addClass('CodeMirror-Invalid');
+                        codemirror = $('.CodeMirror');
+                        var codeMirrorEditor = codemirror[0].CodeMirror;
+                        codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
+                        codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
+                    });
+                </script>
+                {% else %}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function(event) {
+                        codemirror = $('.CodeMirror');
+                        var codeMirrorEditor = codemirror[0].CodeMirror;
+                        codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
+                    });
+                </script>
+                {% endif %} {% endfor %}
+                <div class="error-text">
+                    <p>{% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}
+                        <a href="{% url 'base:documentation' %}#bledy"> {% trans 'Why an error appeared?' %}</a>
+                    </p>
+                    <p>{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                </div>
 
-            {% endfor %}
-            <div class="error-text">
-                <p>Nieprawidłowe dane w {{form1.target.errors|length}} liniach.
-                    <a href="{% url 'base:documentation' %}#bledy"> Dlaczego pojawił się błąd?</a>
-                </p>
-                <p>*Po ponownym kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*</p>
-            </div> 
-
-              {% endif %}
-            {% if form1.target.errors|length == 0 %}
-              {% for error in form1.errors %} 
-              <div class="error-text mb-3">
-                Tekst nie może być pusty!
-                </div> 
-                <script> document.addEventListener("DOMContentLoaded", function (event) {
-                    $('.CodeMirror').addClass('CodeMirror-Invalid');
-                });
-            </script>
-              {% endfor %}
-              {% endif %}
-              </div>
+                {% endif %} {% if form1.target.errors|length == 0 %} {% for error in form1.errors %}
+                <div class="error-text mb-3">
+                    {% trans 'The text cannot be empty' %}
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function(event) {
+                        $('.CodeMirror').addClass('CodeMirror-Invalid');
+                    });
+                </script>
+                {% endfor %} {% endif %}
+            </div>
 
 
-            <button class="btn btn-primary mt-3" name="form1" type="submit">Potwierdź</button>
+            <button class="btn btn-primary mt-3" name="form1" type="submit">{% trans 'Submit' %}</button>
 
         </form>
 
@@ -65,7 +53,7 @@
     <script>
         var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {
             lineNumbers: true,
-          });
+        });
     </script>
 
 </div>

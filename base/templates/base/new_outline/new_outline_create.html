@@ -1,20 +1,12 @@
-{% extends 'base/base.html' %}
-
-{% block content %}
-
-{% load crispy_forms_tags %}
+{% extends 'base/base.html' %} {% load i18n %} {% block content %} {% load crispy_forms_tags %}
 
 <div class="row">
     <div class="col-6">
-        <form method='POST' autocomplete="off">{% csrf_token %}
-
-
-            {{ form1|crispy }}
-            <button class="btn btn-primary mb-2" type="submit">Potwierdź</button>
+        <form method='POST' autocomplete="off">{% csrf_token %} {{ form1|crispy }}
+            <button class="btn btn-primary mb-2" type="submit">{% trans 'Submit' %}</button>
         </form>
     </div>
 </div>
 
 
 {% endblock %}
-

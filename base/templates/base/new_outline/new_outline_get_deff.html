@@ -1,70 +1,65 @@
-{% extends "base/new_outline/new_outline.html" %}
-
-{% block content %}
-
-{% load crispy_forms_tags %}
+{% extends "base/new_outline/new_outline.html" %} {% load i18n %} {% block content %} {% load crispy_forms_tags %}
 <div class="row my-2">
     <div class="col-6">
-        <form method='POST'>{% csrf_token %}
+        <form method='POST'>{% csrf_token %} {{ form|crispy }}
 
-            
-            {{ form|crispy }}
-            
-            <button class="btn btn-primary" id="button1" name="form"
-                type="submit">Potwierdź</button>
+            <button class="btn btn-primary" id="button1" name="form" type="submit">{% trans 'Submit' %}</button>
 
         </form>
     </div>
     <div class="col-6">
         <div class="container-fluid md-pre h-100">
-        <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">Opis</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">Oznaczenia</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">Przykłady</a>
-            </li>
-          </ul>
-          <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div class="card">
-                    <div class="card-body">
-                        
-                      <h5 class="card-title">Zbieraj deff z zaplecza</h5>
-                      <li class="card-text">Program służy do zbierania deffa z plemiennych wiosek położonych w odległości większej niż Promień od frontu. </li>
-                      <li class="card-text mt-2">Odległość jest liczona w kratkach.</li>
-                      <li class="card-text mt-2">Domyślna wielkość 30 odpowiada około 17h drogi szlachcicem, z przyczyn optymalizacyjnych maksymalny możliwy promień to 60. </li>
+            <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Marks' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
+                    {% blocktrans %}
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h5 class="card-title">Collect deff from remote villages</h5>
+                            <li class="card-text">The program is used for collecting deff units from villages in distance greater than radius from enemy tribes. </li>
+                            <li class="card-text mt-2">Distance is calculated in squares.</li>
+                            <li class="card-text mt-2">The default value of 30 corresponds to approximately 17 hours of a noble's path, for optimization reasons the maximum possible radius is 60. </li>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title mt-2">Upewnij się, że...</h5>
-                        <li class="card-text mt-2"> Uwzględniłeś/aś wszystkie własne i wrogie plemiona. </li>
-                        <li class="card-text mt-2"> Wybrany promień jest adekwatny do potrzeb. </li>          
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mt-2">Make sure, that...</h5>
+                            <li class="card-text mt-2"> You have included all your own and enemies tribes. </li>
+                            <li class="card-text mt-2"> The selected radius is adequate to the needs. </li>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title mt-2">Pamiętaj, że...</h5>
-                        <li class="card-text mt-2"> Pozostałe opcje są opcjonalne. </li>
-                        <li class="card-text mt-2"> Więcej szczegółów znajdziesz w zakładce Oznaczenia i Przykłady.</li>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mt-2">Remember, that...</h5>
+                            <li class="card-text mt-2">
+                                The other options are optional. </li>
+                            <li class="card-text mt-2">
+                                More details can be found in the Marks and Examples tab.</li>
+                        </div>
                     </div>
-                </div>
+                    {% endblocktrans %}
 
 
-                      
 
+
+
+                </div>
+                <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
             </div>
-            <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-            <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-          </div>
-    </div>
+        </div>
     </div>
 </div>
 <br />
-<br />
-{% endblock %}
-
+<br /> {% endblock %}

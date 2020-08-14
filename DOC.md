@@ -39,17 +39,17 @@
 
     W zakładce plemię -> członkowie -> wojsko/obrona znajdują się przyciski uruchamiające skrypty.
 
-    <img class="img-fluid"  src="static/images/zbiorkawojsko.png" alt="Example1">  
+    <img class="img-fluid"  src="/static/images/zbiorkawojsko.png" alt="Example1">  
 
-    <img class="img-fluid"  src="static/images/zbiorkaobrona.png" alt="Example2">
+    <img class="img-fluid"  src="/static/images/zbiorkaobrona.png" alt="Example2">
 
   * Wyniki
 
     Wyniki prezentowane są w czerownym okienku dialogowym, wystarczy skopiować (ctrl+c) zawartość i wkleić ją na stronie.
 
-    <img class="img-fluid"  src="static/images/resultwojsko.png" alt="Example3">  
+    <img class="img-fluid"  src="/static/images/resultwojsko.png" alt="Example3">  
 
-    <img class="img-fluid"  src="static/images/resultobrona.png" alt="Example4">
+    <img class="img-fluid"  src="/static/images/resultobrona.png" alt="Example4">
 
 ---
 

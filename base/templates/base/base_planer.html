@@ -1,21 +1,19 @@
-{% extends 'base/base.html' %}
-
-{% block content %}
+{% extends 'base/base.html' %} {% load i18n %} {% block content %}
 
 <table class="table table-striped">
     <thead>
         <tr class="bg-primary">
 
-            <th scope="col">Nazwa Rozpiski</th>
-            <th scope="col">Data Akcji</th>
-            <th scope="col">Data utworzenia</th>
-            <th scope="col">Świat</th>
-            <th scope="col">Atakujący</th>
-            <th scope="col">Obrońca</th>
+            <th scope="col">{% trans 'Outline Name' %}</th>
+            <th scope="col">{% trans 'Date' %}</th>
+            <th scope="col">{% trans 'Created' %}</th>
+            <th scope="col">{% trans 'World' %}</th>
+            <th scope="col">{% trans 'Enemy' %}</th>
+            <th scope="col">{% trans 'Ally' %}</th>
             <th scope="col">
-                Ukryj
+                {% trans 'Hide' %}
             </th>
-            <th scope="col">Usuń</th>
+            <th scope="col">{% trans 'Delete' %}</th>
 
         </tr>
     </thead>
@@ -25,8 +23,7 @@
 
         <tr>
             <td>
-                <a class="btn btn-secondary my-2" href="{% url 'base:planer_detail' instance.id %}"
-                    role="button">{{instance.name}}</a>
+                <a class="btn btn-secondary my-2" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
 
             </td>
             <td>
@@ -49,12 +46,12 @@
                 {% if instance.status == 'active' %}
                 <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary mb-2">Ukryj</button>
+                    <button type="submit" class="btn btn-secondary mb-2">{% trans 'Hide' %}</button>
                 </form>
                 {% else %}
                 <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary mb-2">Pokaż</button>
+                    <button type="submit" class="btn btn-secondary mb-2">{% trans 'Show' %}</button>
                 </form>
                 {% endif %}
 
@@ -62,7 +59,7 @@
             <td>
                 <form action="{% url 'base:planer_delete' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary mb-2">Usuń</button>
+                    <button type="submit" class="btn btn-secondary mb-2">{% trans 'Delete' %}</button>
                 </form>
             </td>
 
@@ -72,10 +69,7 @@
 </table>
 
 {% if show_all == True %}
-<p><a class="btn btn-success my-3" href="{% url 'base:planer' %}" role="button">Nie
-        pokazuj ukrytych</a></p>
+<p><a class="btn btn-outline-success my-3" href="{% url 'base:planer' %}" role="button">{% trans "Don't show hidden" %}</a></p>
 {% else %}
-<p><a class="btn btn-success my-3" href="{% url 'base:planer_all' %}" role="button">Pokaż ukryte</a></p>
-{% endif %}
-
-{% endblock %}
+<p><a class="btn btn-outline-success my-3" href="{% url 'base:planer_all' %}" role="button">{% trans 'Show hidden' %}</a></p>
+{% endif %} {% endblock %}
