@@ -1,0 +1,143 @@
+{% extends "base/base.html" %} {% load static %} {% load i18n %} {% block content %}
+<h1>{{overview.player}}</h1>
+
+<div class="container-fluid md-pre h-100">
+    <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab"
+                aria-controls="pills-home" aria-selected="true">{% trans 'Outline Result Copy' %}</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-details" role="tab"
+                aria-controls="pills-contact" aria-selected="false">{% trans 'Outline Result Details' %}</a>
+        </li>
+
+
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
+            <h3 class="mb-5">{% trans 'The table below shows your targets, please copy the contents to your in-game notes.' %}</h2>
+            
+            <textarea class="form-control" id="zbiorka-wojsko" rows="16">
+{{overview.text}}
+</textarea>
+
+        </div>
+
+        <div class="tab-pane fade" id="pills-outline-details" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="form-group" contenteditable="true">
+                <div class="conatiner-fluid" style="width: min-content;">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">{% trans 'Target' %}</th>
+                                <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for target, lst in query %}
+                            <tr>
+
+                                <th>
+
+
+
+                                    <div class="d-flex justify-content-center">
+                                        <h5>
+                                            <span class="badge badge-pill badge-info">
+                                                {{target.player}}
+                                            </span>
+                                        </h5>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+
+                                        <h5>
+                                            <span class="badge badge badge-secondary">
+                                                {{target.target}}
+                                            </span>
+                                        </h5>
+
+                                </th>
+
+                                {% for weight in lst %}
+                                <th>
+                                    <div class='d-flex justify-content-center'>
+                                    <h4>
+                                        <span class='badge badge-pill badge-info'>{{weight.player}}</span>
+                                    </h4>
+                                    </div>
+                                    <div class='d-flex justify-content-center'>
+                                        <h5><span class='badge badge badge-secondary'>{{weight.start}}</span>
+                                        </h5>
+                                    </div>
+
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <th>
+                                                    <img src='{% static "images/ax.png" %}' alt="ax">
+                                                </th>
+                                                <th style="font-size: small;">
+                                                    {{weight.off}}
+                                                </th>
+
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <img src='{% static "images/nobleman.png" %}' alt="ax">
+                                                </th>
+                                                <th style="font-size: small;">
+                                                    {{weight.nobleman}}
+                                                </th>
+
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16"
+                                                        class="bi bi-signpost" fill="#6c757d"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
+                                                        <path d="M7 10h2v6H7v-6z" />
+                                                    </svg>
+                                                </th>
+                                                <th style="font-size: small;">
+                                                    {{weight.distance}}
+                                                </th>
+
+                                            </tr>
+
+
+                                        </table>
+
+
+
+
+
+                                </th>
+                                {% endfor %}
+
+
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.popoverData').popover();
+    });
+</script>
+{% endblock %}

@@ -219,3 +219,15 @@ class WeightModel(models.Model):
 
     def __str__(self):
         return self.start
+
+class Overview(models.Model):
+    """ Present results for tribe members using unique urls """
+
+    token = models.CharField(max_length=100, primary_key=True, db_index=True)
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
+    player = models.CharField(max_length=40)
+    created = models.DateField(auto_now=True)
+    text = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('base:overview', args=[self.token])

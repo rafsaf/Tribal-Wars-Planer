@@ -4,10 +4,9 @@ from . import models
 
 # Register your models here.
 
-admin.site.register(models.Tribe)
+admin.site.register(models.Overview)
 admin.site.register(models.TargetVertex)
 admin.site.register(models.WeightModel)
-admin.site.register(models.Player)
 admin.site.register(models.Result)
 admin.site.register(models.WeightMaximum)
 admin.site.register(models.OutlineTime)
@@ -42,6 +41,23 @@ class AdminVillage(admin.ModelAdmin):
         "village_id",
         "x_coord",
         "y_coord",
+        "world",
+    ]
+
+@admin.register(models.Tribe)
+class AdminTribe(admin.ModelAdmin):
+    list_display = [
+        "tribe_id",
+        "tag",
+        "world",
+    ]
+
+@admin.register(models.Player)
+class AdminPlayer(admin.ModelAdmin):
+    list_display = [
+        "player_id",
+        "tribe_id",
+        "name",
         "world",
     ]
 

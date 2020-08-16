@@ -9,7 +9,7 @@
             </div>
             <div class="mt-5">
                 <form method='POST'>{% csrf_token %} {{ form2|crispy }}
-                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-ocean mb-4" type="submit">{% trans 'Add an enemy tribe' %}</button>
+                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-danger mb-4" type="submit">{% trans 'Add an enemy tribe' %}</button>
                 </form>
             </div>
 
@@ -19,7 +19,7 @@
                 <div class="col-6">
                     <table class="table table-bordered">
                         <thead>
-                            <tr style="background-color: rgb(57, 212, 233);">
+                            <tr style="background-color: teal">
                                 <th>{% trans 'Ally' %}</th>
                             </tr>
                         </thead>

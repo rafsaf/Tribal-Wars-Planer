@@ -1,59 +1,82 @@
 {% extends "base/new_outline/new_outline.html" %} {% block content %} {% load i18n %}
 <h3>{% trans 'Results' %}</h3>
-<div>
-    <button type="button" class="col-auto btn btn-success my-2" data-toggle="modal" data-target=".bd-get-deff-lg">
-    {% trans 'Deff collection results' %}
-</button>
-</div>
-<div>
-    <button type="button" class="col-auto btn btn-success my-2" data-toggle="modal" data-target=".bd-outline-lg">
-    {% trans 'Planer results' %}
-</button>
-</div>
 
 
+<div class="container-fluid md-pre h-100">
+    <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
+        </li>
 
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
+        </li>
 
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
+        </li>
 
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
+        </li>
+    </ul>
 
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
 
+            <table class="table table-bordered">
+                <thead style="background-color: teal;">
 
-<div class="modal fade bd-get-deff-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{% trans 'Deff collection results' %}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{% trans 'Player' %}</th>
+                        <th scope="col">{% trans 'Link to member Page' %}</th>
+                        <th scope="col">{% trans 'Send message' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in overviews %}
+
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <th>{{item.player}}</th>
+                        <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
+                        </th>
+                        <th><a class="send" target="_blank" href="https://pl{{instance.world}}.plemiona.pl/game.php?screen=mail&mode=new&to={{ item.player }}&subject=Cele%20Akcja&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]">{% trans 'Send' %}</a>
+                        </th>
+                    </tr>
+                    <script>
+                        $('.send').click(function() {
+                            $(this).text("{% trans 'Sent!' %}");})
+                    </script>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane fade" id="pills-outline-copy1" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="form-group" contenteditable="true">
+                <textarea class="form-control" id="zbiorka-wojsko" rows="16">
+{% for item in overviews %}
+[b]{{item.player}}[/b]
+[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]
+{% endfor %}
+                </textarea>
             </div>
-            <div class="modal-body">
-                <div class="form-group" contenteditable="true">
-                    <textarea class="form-control" id="zbiorka-wojsko" rows="7" cols="5">{{instance.result.results_get_deff}}</textarea>
-                </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-outline-copy2" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="form-group" contenteditable="true">
+                <textarea class="form-control" id="zbiorka-wojsko" rows="16">{{instance.result.results_outline}}</textarea>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-deff" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="form-group" contenteditable="true">
+                <textarea class="form-control" id="zbiorka-wojsko" rows="16">{{instance.result.results_get_deff}}</textarea>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade bd-outline-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{% trans 'Planer results' %}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group" contenteditable="true">
-                    <textarea class="form-control" id="zbiorka-wojsko" rows="7" cols="5">{{instance.result.results_outline}}</textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br/>
-<br/>
-<br/> {% endblock %}
+{% endblock %}

@@ -1,118 +1,45 @@
 
 from . import basic
-from .basic.timer import ti
 from base.models import VillageModel, Tribe, Player, World
-from time import time
 from urllib.parse import unquote, unquote_plus
 import requests
-import json
 
 
 
-#@basic.timing
-#def cron_schedule_data_update():
- #   """ Update Tribe, VillageModel, Player instances to database """
- #   worlds = World.objects.all()
- #   url = 'https://api.tribalwarshelp.com/graphql'
- #   for instance in worlds:
- #       world = instance.world
- #       query1 = f'query{{villages(server:"pl{world}"){{items{{id x y player{{id name tribe{{id tag}}}}}}}}}}'
- #       query2 = f'query{{players(server:"pl{world}"){{items{{id name tribe{{id tag}}}}}}}}'
- #       query3 = f'query{{tribes(server:"pl{world}"){{items{{id tag}}}}}}'
-#
-#
- #       context1 = {}
- #       create_list1 = []
- #       update_list1 = []
- #       for village in VillageModel.objects.filter(world=world).iterator():
- #           context1[f'{village.x_coord}{village.y_coord}{world}'] = village
- #       data = json.loads(requests.post(url, json={'query': query1}).text)['data']['villages']['items']
- #       for line1 in data:
- #           pk = f"{line1['x']}{line1['y']}{world}"
- #           if pk not in context1:
- #               if line1['player'] is None:
- #                   player_id = 0   
- #                   player_name = ""
- #                   tribe_id = 0
- #                   tribe_tag = ""    
- #               else:
- #                   player_id = line1['player']['id']
- #                   player_name = line1['player']['name']
- #                   if line1['player']['tribe'] is None:
- #                       tribe_id = 0
- #                       tribe_tag = ""
- #                   else:
- #                       tribe_id = line1['player']['tribe']['id']
- #                       tribe_tag = line1['player']['tribe']['tag']
-#
- #               village = VillageModel(
- #                   id=pk, 
- #                   village_id=line1['id'],
- #                   x_coord=line1['x'],
- #                   y_coord=line1['y'],
- #                   player_id=player_id, 
- #                   player_name=player_name, 
- #                   tribe_id=tribe_id, 
- #                   tribe_tag=tribe_tag, 
- #                   world=world)
- #               create_list1.append(village)
- #           else:
- #               village = context1[pk]
- #               if line1['player'] is None:
- #                   player_id = 0   
- #                   player_name = ""
- #                   tribe_id = 0
- #                   tribe_tag = "" 
- #               else:
- #                   player_id = line1['player']['id']
- #                   player_name = line1['player']['name']
- #                   if line1['player']['tribe'] is None:
- #                       tribe_id = 0
- #                       tribe_tag = ""
- #                   else:
- #                       tribe_id = line1['player']['tribe']['id']
- #                       tribe_tag = line1['player']['tribe']['tag']
-#
- #               if village.player_id != player_id or village.tribe_id != tribe_id:
- #                   village.player_id = player_id
- #                   village.player_name = player_name
- #                   village.tribe_id = tribe_id
- #                   village.tribe_name = tribe_tag
- #                   update_list1.append(village)
- #               del context1[pk]
- #       VillageModel.objects.bulk_create(create_list1)
- #       VillageModel.objects.bulk_update(update_list1, ['player_id', 'tribe_id', 'player_name', 'tribe_tag'])
- #       
- #       if len(context1) != 0:
- #           village_ids = [village.id for village in context1.values()]
- #           VillageModel.objects.filter(pk__in=village_ids).delete()
-
-
-
-@basic.timing
 def cron_schedule_data_update():
     """ Update Tribe, VillageModel, Player instances to database """
 
-    worlds = World.objects.all()
+    if not World.objects.filter(world=0).exists():
+        World.objects.create(title='Świat 0', world=0)
+        Tribe.objects.create(id='ALLY::0', tribe_id=0, tag='ALLY', world=0)
+        Tribe.objects.create(id='ENEMY::0', tribe_id=1, tag='ENEMY', world=0)
+        ally_villages = []
+        ally_players = []
+        enemy_players = []
+        enemy_villages = []
+
+        for i in range(5):
+            ally_players.append(Player(id=f'AllyPlayer{i}:0', tribe_id=0, world=0, player_id=i, name=f'AllyPlayer{i}'))
+            enemy_players.append(Player(id=f'EnemyPlayer{i}:0', tribe_id=1, world=0, player_id=i+5, name=f'EnemyPlayer{i}'))
+
+        for i in range(50):
+            ids = i // 10
+            ally_villages.append(
+                VillageModel(world=0, id=f'{100+i}{100+i}0', x_coord=100+i, y_coord=100+i, village_id=i, player_id=ids)
+            )
+            enemy_villages.append(
+                VillageModel(world=0, id=f'{200+i}{200+i}0', x_coord=200+i, y_coord=200+i, village_id=i+50, player_id=ids+5)
+            )
+        Player.objects.bulk_create(enemy_players)
+        Player.objects.bulk_create(ally_players)
+
+        VillageModel.objects.bulk_create(enemy_villages)
+        VillageModel.objects.bulk_create(ally_villages)
+
+    worlds = World.objects.all().exclude(world=0)
     ## VillageModel Model Update
     for instance in worlds:
-    #    q1 = VillageModel.objects.all().filter(world=instance.world)
-    #    q1._raw_delete(q1.db)
-    #    x = [
-    #        i.split(',') for i in requests.get(
-    #            f"https://pl{instance.world}.plemiona.pl/map/village.txt").
-    #        text.split('\n')
-    #    ]
-    #    village_list = [
-    #        VillageModel(
-    #                id=f'{i[2]}{i[3]}{instance.world}',
-    #                village_id=i[0],
-    #                x_coord=i[2],
-    #                y_coord=i[3],
-    #                player_id=i[4],
-    #                world=instance.world) for i in x if i != ['']
-    #    ]
-    #    VillageModel.objects.bulk_create(village_list)
+    
         context = {}
         create_list = list()
         update_list = list()
@@ -143,23 +70,7 @@ def cron_schedule_data_update():
             village_ids = [village.id for village in context.values()]
             VillageModel.objects.filter(pk__in=village_ids).delete()
 
-    # Tribe Model Update
-    
-        #q2 = Tribe.objects.all().filter(world=instance.world)
-        #q2._raw_delete(q2.db)
-        #x = [
-        #    i.split(',') for i in requests.get(
-        #        f"https://pl{instance.world}.plemiona.pl/map/ally.txt").text.
-        #    split('\n')
-        #]
-        #tribe_list = [
-        #    Tribe(id=f'{unquote(unquote_plus(i[2]))}::{instance.world}',
-        #            tribe_id=i[0],
-        #            tag=unquote(unquote_plus(i[2])),
-        #            world=instance.world) for i in x
-        #    if i != [''] and ', ' not in unquote(unquote_plus(i[2]))
-        #]
-        #Tribe.objects.bulk_create(tribe_list)
+   
         context = {}
         create_list = list()
         tribe_ids = []
@@ -196,26 +107,7 @@ def cron_schedule_data_update():
         Tribe.objects.filter(id__in=tribe_ids).delete()
             
         Tribe.objects.bulk_create(create_list)
-        
-
-        
-    # Player Model Update
-        #q3 = Player.objects.all().filter(world=instance.world)
-        #q3._raw_delete(q3.db)
-        #x = [
-        #    i.split(',') for i in requests.get(
-        #        f"https://pl{instance.world}.plemiona.pl/map/player.txt").text.
-        #    split('\n')
-        #]
-        #player_list = [
-        #    Player(id=f'{unquote(unquote_plus(i[1]))}:{instance.world}',
-        #            player_id=i[0],
-        #            name=unquote(unquote_plus(i[1])),
-        #            tribe_id=i[2],
-        #            world=instance.world) for i in x if i != ['']
-        #]
-        #Player.objects.bulk_create(player_list)
-
+    
 
         context = {}
         create_list = list()

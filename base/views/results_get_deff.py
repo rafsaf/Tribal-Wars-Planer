@@ -45,12 +45,14 @@ def outline_detail_2_deff(request, _id):
 
     return render(request, "base/new_outline/new_outline_get_deff.html", context)
 
-
+@login_required
 def outline_detail_results(request, _id):
     """ view for results """
 
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
 
-    context = {"instance": instance}
+    overviews = models.Overview.objects.filter(outline=instance)
+
+    context = {"instance": instance, 'overviews':overviews}
 
     return render(request, "base/new_outline/new_outline_results.html", context)

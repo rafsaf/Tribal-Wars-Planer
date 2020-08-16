@@ -7,6 +7,9 @@
 
         </form>
     </div>
+
+
+
     <div class="col-6">
         <div class="container-fluid md-pre h-100">
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
@@ -50,16 +53,32 @@
                     </div>
                     {% endblocktrans %}
 
-
-
-
-
                 </div>
-                <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-                <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+
+
+
+                <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <li class="card-text mt-2"><span class="md-error">{% trans 'RADIUS' %}</span></li>
+                    <p>{% trans 'Radius is a number of squares to measure distance between villages.' %}</p>
+                    <li class="card-text mt-2"><span class="md-error">{% trans 'OTHER ALLY PLAYERS' %}</span></li>
+                    <p>{% trans 'Nicknames separated by whitespace.' %}</p>
+                    <li class="card-text mt-2"><span class="md-error">{% trans 'OTHER ENEMY PLAYERS' %}</span></li>
+                    <p>{% trans 'Nicknames separated by whitespace.' %}</p>
+                    <li class="card-text mt-2"><span class="md-error">{% trans 'EXCLUDED ENEMY VILLAGES' %}</span></li>
+                    <p>{% trans 'Coords separated by whitespace.' %}</p>
+                </div>
+                <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <pre class="md-pre">
+{% trans 'Radius: <span class="md-correct2">30</span>' %}
+{% trans 'Other ally players: <span class="md-correct2">AllyPlayer1 AllyPlayer2 AllyPlayer3</span>' %}
+{% trans 'Enemy ally players: <span class="md-correct2">EnemyPlayer1 EvilPlayer2</span>' %}
+{% trans 'Excluded enemy villages: <span class="md-correct2">EvilCoord1 EvilCoord2 EvilCoord3 EvilCoord4</span>' %}
+
+                        </pre>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
-<br />
-<br /> {% endblock %}
+    <br />
+    <br /> {% endblock %}

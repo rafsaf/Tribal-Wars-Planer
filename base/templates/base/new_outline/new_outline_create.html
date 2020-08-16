@@ -2,10 +2,85 @@
 
 <div class="row">
     <div class="col-6">
+        <div class="alert alert-primary" role="alert">
+            {% trans 'First time? You can choose a special <span class="md-correct2">World 0</span> created for testing purposes, see ' %}<a target="_blank" href="{% url 'base:documentation' %}#test">{% trans 'docs' %}</a>
+          </div>
         <form method='POST' autocomplete="off">{% csrf_token %} {{ form1|crispy }}
             <button class="btn btn-primary mb-2" type="submit">{% trans 'Submit' %}</button>
         </form>
     </div>
+
+    <div class="col-6">
+        <div class="container-fluid md-pre h-100">
+            <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Marks' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
+                    {% blocktrans %}
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h5 class="card-title">Create new Outline</h5>
+                            <li class="card-text">To go to the Planer first create Outline object.</li>
+                            <li class="card-text">After created, you must use scripts to collect data from your members
+                            </li>
+                            <li class="card-text mt-2">You need to fill in data when you want to attack, name of outline and world number.</li>
+                            <li class="card-text mt-2">On the next page you must choose tags of tribes. </li>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mt-2">Make sure that...</h5>
+                            <li class="card-text mt-2"> Each field is correctly completed. </li>
+                            <li class="card-text mt-2"> You have selected correct world number. </li>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mt-2">Remember that...</h5>
+                            <li class="card-text mt-2">The set data <span class="md-error">CANNOT</span> be changed later. </li>
+                            <li class="card-text mt-2">You must fill in every field. </li>
+                            <li class="card-text mt-2">More details can be found in the Marks and Examples tab.</li>
+                        </div>
+                    </div>
+                    {% endblocktrans %}
+                </div>
+                <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <li class="card-text mt-2"><span class="md-error">{% trans 'OUTLINE NAME' %}</span></li>
+                    <p>{% trans 'Description of your Outline.' %}</p>
+                    <li class="card-text mt-2"><span class="md-error">{% trans 'DATE' %}</span></li>
+                    <p>{% trans 'The date of your Outline.' %}</p>
+                    <li class="card-text mt-2"><span class="md-error">{% trans 'WORLD' %}</span></li>
+                    <p>{% trans 'The world number for this Outline.' %}</p>
+                </div>
+                <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <pre class="md-pre">
+{% trans 'Outline Name: <span class="md-correct2">MyAwesomeOutlineName</span>' %}
+{% trans 'Date: <span class="md-correct2">2020-01-01</span>' %}
+{% trans 'World: <span class="md-correct2">100</span>' %}
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
 </div>
 
 

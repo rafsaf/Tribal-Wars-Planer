@@ -90,7 +90,7 @@ bg-light">
                 {% endif %} {% endfor %}
                 <div class="error-text">
                     <p>{% trans 'Incorrect data in' %} {{form1.off_troops.errors|length}} {% trans 'lines.' %}
-                        <a href="{% url 'base:documentation' %}#bledy"> {% trans 'Why an error appeared?' %}</a>
+                        <a href="{% url 'base:documentation' %}#errors"> {% trans 'Why an error appeared?' %}</a>
                     </p>
                     <p>{% trans '*After clicking submit you will be transferred to first error*' %}</p>
                 </div>
@@ -107,7 +107,7 @@ bg-light">
                 {% endfor %} {% endif %}
 
                 <div class="help-text">
-                    {% trans 'Exact form from off collect script required, see ' %} <a href="{% url 'base:documentation' %}#Skrypt-zbiorka-wojska">{% trans 'docs' %}</a>
+                    {% trans 'Exact form from off collect script required, see ' %} <a href="{% url 'base:documentation' %}#army-script">{% trans 'docs' %}</a>
                 </div>
 
             </div>
@@ -151,7 +151,7 @@ bg-light">
                 <div class="error-text mb-3">
                     <p>
                         {% trans 'Incorrect data in' %} {{form2.deff_troops.errors|length}} {% trans 'lines.' %}
-                        <a href="{% url 'base:documentation' %}#bledy"> {% trans 'Why an error appeared?' %}</a>
+                        <a href="{% url 'base:documentation' %}#errors"> {% trans 'Why an error appeared?' %}</a>
                     </p>
                     <p>{% trans '*After clicking submit you will be transferred to first error*' %}</p>
                 </div>
@@ -168,7 +168,7 @@ bg-light">
                 {% endfor %} {% endif %}
 
                 <div class="help-text">
-                    {% trans 'Exact form from army collect script required, see ' %} <a href="{% url 'base:documentation' %}#Skrypt-zbiorka-obrona">{% trans 'docs' %}</a>
+                    {% trans 'Exact form from army collect script required, see ' %} <a href="{% url 'base:documentation' %}#deff-script">{% trans 'docs' %}</a>
                 </div>
 
             </div>

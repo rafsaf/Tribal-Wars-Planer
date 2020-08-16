@@ -1,11 +1,12 @@
 """ File with outline making and getting stuff """
 import random
 import datetime
+import secrets
 from trbial_wars import basic
 from collections import deque
 from math import inf
 from base import models
-
+from django.utils.translation import gettext
 
 def make_outline(outline: models.Outline):
     """ Make empty outline """
@@ -63,6 +64,7 @@ def make_outline(outline: models.Outline):
             )
         )
 
+
     query3 = models.WeightMaximum.objects.filter(outline=outline)
     query3._raw_delete(query3.db)
     models.WeightMaximum.objects.bulk_create(weight_max_list)
@@ -73,6 +75,9 @@ def make_outline(outline: models.Outline):
     query5._raw_delete(query5.db)
     query4._raw_delete(query4.db)
 
+    query6 = models.Overview.objects.filter(outline=outline)
+    query6._raw_delete(query6.db)
+    
     return make_outline_next(target_info_dict, outline)
 
 
@@ -111,7 +116,7 @@ def make_outline_next(target_info_dict: dict, outline: models.Outline):
                 nob = weight_max.nobleman_max
 
             army = weight_max.off_max // nob
-            for i in range(len(excluded)*50+50, len(excluded)*50+50 + nob):
+            for i in range(len(excluded) * 50 + 50, len(excluded) * 50 + 50 + nob):
                 weight_create_list.append(
                     models.WeightModel(
                         target=target,
@@ -131,8 +136,7 @@ def make_outline_next(target_info_dict: dict, outline: models.Outline):
             weight_max.off_state = weight_max.off_max
             weight_max.off_left = 0
             weight_max_update.append(weight_max)
-
-
+    weight_max_list = [weight for weight in weight_max_list if weight not in excluded]
     random.shuffle(weight_max_list)
     for weight in weight_max_list:
         if weight.off_max < 19000 and weight.nobleman_max == 0:
@@ -144,6 +148,9 @@ def make_outline_next(target_info_dict: dict, outline: models.Outline):
                 context_off, key=lambda target: basic.dist(weight.start, target.target)
             )
             required = context_off[min_off_target]
+            if required == 0:
+                del context_off[min_off_target]
+                continue
             army = weight.off_max
             weight_create_list.append(
                 models.WeightModel(
@@ -158,8 +165,7 @@ def make_outline_next(target_info_dict: dict, outline: models.Outline):
                 )
             )
             context_off[min_off_target] -= 1
-            if context_off[min_off_target] == 0:
-                del context_off[min_off_target]
+ 
             weight.off_state = weight.off_max
             weight.off_left = 0
             weight_max_update.append(weight)
@@ -174,15 +180,15 @@ def make_outline_next(target_info_dict: dict, outline: models.Outline):
 
 class FromPeriods:
     def __init__(self, periods: list(), world: models.World, date: datetime.date):
-        self.date_time = datetime.datetime(year=date.year, month=date.month, day=date.day)
+        self.date_time = datetime.datetime(
+            year=date.year, month=date.month, day=date.day
+        )
         self.world = world
         self.periods = periods
         self.nob_periods = deque(
             [period for period in periods if period.unit == "noble"]
         )
-        self.ram_periods = deque(
-            [period for period in periods if period.unit == "ram"]
-        )
+        self.ram_periods = deque([period for period in periods if period.unit == "ram"])
         self.nob_period = None
         self.ram_period = None
 
@@ -237,11 +243,13 @@ class FromPeriods:
         village1 = basic.Village(weight.start)
         village2 = basic.Village(weight.target.target)
         if period.unit == "noble":
-            unit = "nobleman"
+            unit = gettext("nobleman")
+            desc = 'nobleman'
         else:
-            unit = "ram"
+            unit = gettext("ram")
+            desc = 'ram'
         time_distance = datetime.timedelta(
-            seconds=village1.time_distance(other=village2, unit=unit, world=self.world)
+            seconds=village1.time_distance(other=village2, unit=desc, world=self.world)
         )
         t1_shipment = t1 - time_distance
         t2_shipment = t2 - time_distance
@@ -290,8 +298,10 @@ def make_final_outline(outline: models.Outline):
     )
     villages_id = set()
     for weight in weights:
-        villages_id.add(f'{weight.target.target[0:3]}{weight.target.target[4:7]}{outline.world}')
-        villages_id.add(f'{weight.start[0:3]}{weight.start[4:7]}{outline.world}')
+        villages_id.add(
+            f"{weight.target.target[0:3]}{weight.target.target[4:7]}{outline.world}"
+        )
+        villages_id.add(f"{weight.start[0:3]}{weight.start[4:7]}{outline.world}")
         context_with_target_weight[weight.target.id].append(weight)
     world_model = models.World.objects.get(world=outline.world)
 
@@ -299,38 +309,53 @@ def make_final_outline(outline: models.Outline):
     result_dictionary = {}
 
     for village in models.VillageModel.objects.filter(id__in=villages_id):
-        village_id[f'{village.x_coord}|{village.y_coord}'] = village.village_id
-
+        village_id[f"{village.x_coord}|{village.y_coord}"] = village.village_id
 
     for target_id, lst in context_with_target_weight.items():
         periods_list = list(context_with_target_period[target_id])
-        from_period = FromPeriods(periods=periods_list, world=world_model, date=outline.date)
+        from_period = FromPeriods(
+            periods=periods_list, world=world_model, date=outline.date
+        )
         for weight in lst:
             if weight.nobleman > 0:
-                unit = 'noble'
+                unit = "noble"
             else:
-                unit = 'ram'
-            
+                unit = "ram"
+
             weight = from_period.next(weight=weight)
-            link = f'https://pl{outline.world}.plemiona.pl/game.php?village={village_id[weight.start]}&screen=place&target={village_id[weight.target.target]}'
+            link = f"https://pl{outline.world}.plemiona.pl/game.php?village={village_id[weight.start]}&screen=place&target={village_id[weight.target.target]}"
             try:
                 result_dictionary[
                     village_dict[weight.start]
-                ] += f'[*][url={link}]Link[/url][|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord][|]{unit}[|]{weight.off}[|]{weight.nobleman}[|]{weight.sh_t1}[|]{weight.sh_t2}[|]{weight.t1}[|]{weight.t2}'
+                ] += f"[*][url={link}]Link[/url][|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord][|]{unit}[|]{weight.off}[|]{weight.nobleman}[|]{weight.sh_t1}[|]{weight.sh_t2}[|]{weight.t1}[|]{weight.t2}"
             except KeyError:
                 result_dictionary[
                     village_dict[weight.start]
-                ] = f'[*][url={link}]Link[/url][|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord][|]{unit}[|]{weight.off}[|]{weight.nobleman}[|]{weight.sh_t1}[|]{weight.sh_t2}[|]{weight.t1}[|]{weight.t2}'
-    
-    prefix = '[table][**]LINK[||]Z WIOSKI[||]CEL[||]PRĘDKOŚĆ[||]OFF[||]SZLACHTA[||]MIN WYSYŁKA[||]MAX WYSYŁKA[||]MIN WEJŚCIE[||]MAX WEJŚCIE[/**]'
-    postfix = '[/table]'
-    result = ''
+                ] = f"[*][url={link}]Link[/url][|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord][|]{unit}[|]{weight.off}[|]{weight.nobleman}[|]{weight.sh_t1}[|]{weight.sh_t2}[|]{weight.t1}[|]{weight.t2}"
+
+    prefix = "[table][**]LINK[||]Z WIOSKI[||]CEL[||]PRĘDKOŚĆ[||]OFF[||]SZLACHTA[||]MIN WYSYŁKA[||]MAX WYSYŁKA[||]MIN WEJŚCIE[||]MAX WEJŚCIE[/**]"
+    postfix = "[/table]"
+    result = ""
     for i, j in result_dictionary.items():
         j = prefix + j + postfix
-        result += '\r\n\r\n'+i+'\r\n'+j
+        result_dictionary[i] = j
+        result += "\r\n\r\n" + i + "\r\n" + j
     res = outline.result
     res.results_outline = result
     res.save()
+    players_set = set(village_dict.values())
 
+    overviews = []
+    for player in players_set:
+        token = secrets.token_urlsafe()
+        try:
+            text = result_dictionary[player]
+        except KeyError:
+            continue
 
+        overviews.append(
+            models.Overview(outline=outline, player=player, token=token, text=text,)
+        )
+
+    models.Overview.objects.bulk_create(overviews)
 

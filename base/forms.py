@@ -27,21 +27,24 @@ class OffTroopsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
         super(OffTroopsForm, self).__init__(*args, **kwargs)
-
+    
     def clean_off_troops(self):
         """ User's input from script """
         text = self.cleaned_data["off_troops"].rstrip()
         if text == "":
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
+        
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
+        
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Army(text_army=text_line, evidence=evidence)
             try:
                 army.clean_init(player_dictionary)
             except basic.ArmyError:
                 self.add_error("off_troops", i)
+        
         return text
 
 

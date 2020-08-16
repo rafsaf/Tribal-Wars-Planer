@@ -143,6 +143,11 @@
     font-weight: bold !important;
 }
 
+.md-correct2 {
+    color: #20AA76 !important;
+    font-weight: bold !important;
+}
+
 .md-pre {
     border: 1px solid #ddd !important;
 }

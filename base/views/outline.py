@@ -17,10 +17,13 @@ class OutlineList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         models.Outline.objects.filter(editable='active').delete()
-        return models.Outline.objects.filter(owner=self.request.user).filter(
+        query = models.Outline.objects.filter(owner=self.request.user).filter(
             status="active"
         )
-
+        for outline in query:
+            outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
+            outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
+        return query
 
 class OutlineListShowAll(LoginRequiredMixin, ListView):
     """ login required view which shows hidden instances /planer/show_all """
@@ -29,8 +32,12 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         models.Outline.objects.filter(editable='active').delete()
-        return models.Outline.objects.filter(owner=self.request.user)
-
+        query = models.Outline.objects.filter(owner=self.request.user)
+        for outline in query:
+            outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
+            outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
+        return query
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["show_all"] = True

@@ -27,7 +27,7 @@
                 {% endif %} {% endfor %}
                 <div class="error-text">
                     <p>{% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}
-                        <a href="{% url 'base:documentation' %}#bledy"> {% trans 'Why an error appeared?' %}</a>
+                        <a href="{% url 'base:documentation' %}#errors"> {% trans 'Why an error appeared?' %}</a>
                     </p>
                     <p>{% trans '*After clicking submit you will be transferred to first error*' %}</p>
                 </div>
@@ -50,6 +50,79 @@
         </form>
 
     </div>
+
+
+
+    <div class="col-6">
+        <div class="container-fluid md-pre h-100">
+            <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
+                    {% blocktrans %}
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h5 class="card-title">Write an outline</h5>
+                            <li class="card-text">Enter your targets with number of offs and nobles with it.</li>
+                            <li class="card-text">Correct form in each line is <br><span class="md-correct2">Coord:Off:Noble</span>, e.g <br><span class="md-correct2">500|500:10:4</span>, see Examples tab.
+                            </li>
+                            <li class="card-text mt-2">The current form does not support fakes, one of the workarounds may be to initially set it as a <span class="md-correct2">YourCoord:0:0</span> and then manually refine it later.</li>
+
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mt-2">Make sure that...</h5>
+                            <li class="card-text mt-2"> Your every target village has been taken into account. </li>
+                            <li class="card-text mt-2"> The coordinates entered by you are correct, which means that such a village exists in the world defined earlier in Outline </li>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mt-2">Remember that...</h5>
+                            <li class="card-text mt-2">You can always come back here after submiting but you will lose your progress. </li>
+                            <li class="card-text mt-2">Offs below 19k units will not be written out by default </li>
+                            <li class="card-text mt-2">It is not possible to add a <span class="md-error">Target</span> in any other way than here in a form, later you can switch village as they attack the targets, but you cannot add a new target.</li>
+                        </div>
+                    </div>
+                    {% endblocktrans %}
+                </div>
+
+                <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <pre class="md-pre">
+<span class="md-correct2">500|499:10:2</span>
+<span class="md-correct2">500|498:12:4</span>
+<span class="md-correct2">500|497:6:6</span>
+<span class="md-correct2">500|496:4:4</span>
+<span class="md-correct2">500|495:0:0</span>
+<span class="md-correct2">492|494:1:0</span>
+<span class="md-correct2">493|493:10:5</span>
+                    </pre>
+                    <p>{% trans 'What suits:' %}</p>
+                    <pre class="md-pre">
+<span class="md-correct2">{% trans '500|499 and 10 Off and 2 Nobles' %}</span>
+<span class="md-correct2">{% trans '500|499 and 12 Off and 4 Nobles' %}</span>
+...
+...
+... 
+... 
+... 
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script>
         var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {
             lineNumbers: true,

@@ -168,6 +168,8 @@
         </ul>
     </nav>
 
+
+    
     <div class="conatiner-fluid" style="width: min-content;">
         <table class="table table-sm table-bordered">
             <thead>
@@ -376,7 +378,259 @@
                                                 <button class="btn btn-primary mb-5" name='formset' type="submit">{% trans 'Create' %}</button>
 
                     </form>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function(event) {
+                            val = $('#id_form-0-status').val();
+                            if (val === 'all') {
+                                $('#id_form-0-from_number').val('');
+                                $('#id_form-0-from_number').prop("disabled", true);
 
+                                $('#id_form-0-to_number').val('');
+                                $('#id_form-0-to_number').prop("disabled", true);
+
+                            } else if (val === 'exact') {
+                                $('#id_form-0-from_number').val('');
+                                $('#id_form-0-from_number').prop("disabled", true);
+
+                                $('#id_form-0-to_number').prop("disabled", false);
+
+                            };
+
+                            val = $('#id_form-1-status').val();
+                            if (val === 'all') {
+                                $('#id_form-1-from_number').val('');
+                                $('#id_form-1-from_number').prop("disabled", true);
+
+                                $('#id_form-1-to_number').val('');
+                                $('#id_form-1-to_number').prop("disabled", true);
+
+                            } else if (val === 'exact') {
+                                $('#id_form-1-from_number').val('');
+                                $('#id_form-1-from_number').prop("disabled", true);
+
+                                $('#id_form-1-to_number').prop("disabled", false);
+
+                            };
+
+                            val = $('#id_form-2-status').val();
+                            if (val === 'all') {
+                                $('#id_form-2-from_number').val('');
+                                $('#id_form-2-from_number').prop("disabled", true);
+
+                                $('#id_form-2-to_number').val('');
+                                $('#id_form-2-to_number').prop("disabled", true);
+
+                            } else if (val === 'exact') {
+                                $('#id_form-2-from_number').val('');
+                                $('#id_form-2-from_number').prop("disabled", true);
+
+                                $('#id_form-2-to_number').prop("disabled", false);
+
+                            };
+
+                            val = $('#id_form-3-status').val();
+                            if (val === 'all') {
+                                $('#id_form-3-from_number').val('');
+                                $('#id_form-3-from_number').prop("disabled", true);
+
+                                $('#id_form-3-to_number').val('');
+                                $('#id_form-3-to_number').prop("disabled", true);
+
+                            } else if (val === 'exact') {
+                                $('#id_form-3-from_number').val('');
+                                $('#id_form-3-from_number').prop("disabled", true);
+
+                                $('#id_form-3-to_number').prop("disabled", false);
+
+                            };
+
+                            val = $('#id_form-4-status').val();
+                            if (val === 'all') {
+                                $('#id_form-4-from_number').val('');
+                                $('#id_form-4-from_number').prop("disabled", true);
+
+                                $('#id_form-4-to_number').val('');
+                                $('#id_form-4-to_number').prop("disabled", true);
+
+                            } else if (val === 'exact') {
+                                $('#id_form-4-from_number').val('');
+                                $('#id_form-4-from_number').prop("disabled", true);
+
+                                $('#id_form-4-to_number').prop("disabled", false);
+
+                            };
+
+                            val = $('#id_form-5-status').val();
+                            if (val === 'all') {
+                                $('#id_form-5-from_number').val('');
+                                $('#id_form-5-from_number').prop("disabled", true);
+
+                                $('#id_form-5-to_number').val('');
+                                $('#id_form-5-to_number').prop("disabled", true);
+
+                            } else if (val === 'exact') {
+                                $('#id_form-5-from_number').val('');
+                                $('#id_form-5-from_number').prop("disabled", true);
+
+                                $('#id_form-5-to_number').prop("disabled", false);
+
+                            };
+                        });
+
+                        document.addEventListener("DOMContentLoaded", function(event) {
+                            $('.time-timepicker').each(function() {
+                                $(this).timepicker({
+                                    minuteStep: 1,
+                                    secondStep: 1,
+                                    showSeconds: true,
+                                    showMeridian: false,
+                                    defaultTime: false,
+                                    icons: {
+                                        up: 'fa fa-angle-up',
+                                        down: 'fa fa-angle-down'
+                                    }
+                                })
+                            });
+
+                            $('#id_form-0-status').change(function() {
+                                val = $('#id_form-0-status').val();
+                                if (val === 'all') {
+                                    $('#id_form-0-from_number').val('');
+                                    $('#id_form-0-from_number').prop("disabled", true);
+
+                                    $('#id_form-0-to_number').val('');
+                                    $('#id_form-0-to_number').prop("disabled", true);
+
+                                } else if (val === 'exact') {
+                                    $('#id_form-0-from_number').val('');
+                                    $('#id_form-0-from_number').prop("disabled", true);
+
+                                    $('#id_form-0-to_number').prop("disabled", false);
+
+                                } else {
+                                    $('#id_form-0-from_number').prop("disabled", false);
+
+                                    $('#id_form-0-to_number').prop("disabled", false);
+
+                                };
+                            });
+                            $('#id_form-1-status').change(function() {
+                                val = $('#id_form-1-status').val();
+                                if (val === 'all') {
+                                    $('#id_form-1-from_number').val('');
+                                    $('#id_form-1-from_number').prop("disabled", true);
+
+                                    $('#id_form-1-to_number').val('');
+                                    $('#id_form-1-to_number').prop("disabled", true);
+
+                                } else if (val === 'exact') {
+                                    $('#id_form-1-from_number').val('');
+                                    $('#id_form-1-from_number').prop("disabled", true);
+
+                                    $('#id_form-1-to_number').prop("disabled", false);
+
+                                } else {
+                                    $('#id_form-1-from_number').prop("disabled", false);
+
+                                    $('#id_form-1-to_number').prop("disabled", false);
+
+                                };
+                            });
+                            $('#id_form-2-status').change(function() {
+                                val = $('#id_form-2-status').val();
+                                if (val === 'all') {
+                                    $('#id_form-2-from_number').val('');
+                                    $('#id_form-2-from_number').prop("disabled", true);
+
+                                    $('#id_form-2-to_number').val('');
+                                    $('#id_form-2-to_number').prop("disabled", true);
+
+                                } else if (val === 'exact') {
+                                    $('#id_form-2-from_number').val('');
+                                    $('#id_form-2-from_number').prop("disabled", true);
+
+                                    $('#id_form-2-to_number').prop("disabled", false);
+
+                                } else {
+                                    $('#id_form-2-from_number').prop("disabled", false);
+
+                                    $('#id_form-2-to_number').prop("disabled", false);
+
+                                };
+                            });
+                            $('#id_form-3-status').change(function() {
+                                val = $('#id_form-3-status').val();
+                                if (val === 'all') {
+                                    $('#id_form-3-from_number').val('');
+                                    $('#id_form-3-from_number').prop("disabled", true);
+
+                                    $('#id_form-3-to_number').val('');
+                                    $('#id_form-3-to_number').prop("disabled", true);
+
+                                } else if (val === 'exact') {
+                                    $('#id_form-3-from_number').val('');
+                                    $('#id_form-3-from_number').prop("disabled", true);
+
+                                    $('#id_form-3-to_number').prop("disabled", false);
+
+                                } else {
+                                    $('#id_form-3-from_number').prop("disabled", false);
+
+                                    $('#id_form-3-to_number').prop("disabled", false);
+
+                                };
+                            });
+                            $('#id_form-4-status').change(function() {
+                                val = $('#id_form-4-status').val();
+                                if (val === 'all') {
+                                    $('#id_form-4-from_number').val('');
+                                    $('#id_form-4-from_number').prop("disabled", true);
+
+                                    $('#id_form-4-to_number').val('');
+                                    $('#id_form-4-to_number').prop("disabled", true);
+
+                                } else if (val === 'exact') {
+                                    $('#id_form-4-from_number').val('');
+                                    $('#id_form-4-from_number').prop("disabled", true);
+
+                                    $('#id_form-4-to_number').prop("disabled", false);
+
+                                } else {
+                                    $('#id_form-4-from_number').prop("disabled", false);
+
+                                    $('#id_form-4-to_number').prop("disabled", false);
+
+                                };
+                            });
+                            $('#id_form-5-status').change(function() {
+                                val = $('#id_form-5-status').val();
+                                if (val === 'all') {
+                                    $('#id_form-5-from_number').val('');
+                                    $('#id_form-5-from_number').prop("disabled", true);
+
+                                    $('#id_form-5-to_number').val('');
+                                    $('#id_form-5-to_number').prop("disabled", true);
+
+                                } else if (val === 'exact') {
+                                    $('#id_form-5-from_number').val('');
+                                    $('#id_form-5-from_number').prop("disabled", true);
+
+                                    $('#id_form-5-to_number').prop("disabled", false);
+
+                                } else {
+                                    $('#id_form-5-from_number').prop("disabled", false);
+
+                                    $('#id_form-5-to_number').prop("disabled", false);
+
+                                };
+                            });
+
+
+
+
+
+                        });
+                    </script>
                     </div>
 
 
