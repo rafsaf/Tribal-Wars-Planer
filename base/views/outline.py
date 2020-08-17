@@ -78,7 +78,7 @@ def outline_detail_1(request, _id):
             form1 = forms.OffTroopsForm(request.POST, outline=instance)
             form2 = forms.DeffTroopsForm(None, outline=instance)
             if form1.is_valid():
-                instance.off_troops = request.POST.get("off_troops")
+                instance.off_troops = str(request.POST.get("off_troops")).strip()
                 instance.save()
                 return redirect("base:planer_detail", _id)
 
@@ -86,7 +86,7 @@ def outline_detail_1(request, _id):
             form1 = forms.OffTroopsForm(None, outline=instance)
             form2 = forms.DeffTroopsForm(request.POST, outline=instance)
             if form2.is_valid():
-                instance.deff_troops = request.POST.get("deff_troops")
+                instance.deff_troops = str(request.POST.get("deff_troops")).strip()
                 instance.save()
                 return redirect("base:planer_detail", _id)
     else:
