@@ -1042,7 +1042,7 @@ msgstr ""
 
 #: templates/django_registration/registration_form.html:14
 msgid "Create an account"
-msgstr "Stwórz nową rozpiskę"
+msgstr "Utwórz konto"
 
 #: templates/registration/login.html:20
 msgid "Login"
