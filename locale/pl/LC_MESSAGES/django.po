@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-14 15:02+0200\n"
+"POT-Creation-Date: 2020-08-17 10:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,142 +30,128 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:25 base/templates/base/new_outline/new_outline.html:30
-msgid "Off collection"
-msgstr ""
+#: base/forms.py:25
+msgid "Army collection"
+msgstr "Zbiórka Wojska"
 
-#: base/forms.py:35 base/forms.py:64
+#: base/forms.py:35 base/forms.py:67
 msgid "Text cannot be empty!"
-msgstr ""
+msgstr "Tekst nie może być pusty!"
 
-#: base/forms.py:54 base/templates/base/new_outline/new_outline.html:8
+#: base/forms.py:57 base/templates/base/new_outline/new_outline.html:8
 #: base/templates/base/new_outline/new_outline.html:49
+#: base/templates/base/new_outline/new_outline_initial_period2.html:19
+#: base/templates/base/new_outline/new_outline_results.html:20
 msgid "Deff collection"
-msgstr ""
+msgstr "Zbiórka Deffa"
 
-#: base/forms.py:83
+#: base/forms.py:86
 msgid "Ally tribe"
-msgstr ""
+msgstr "Własne plemiona"
 
-#: base/forms.py:90 base/forms.py:106
+#: base/forms.py:93 base/forms.py:109
 msgid "Select tribe from list"
-msgstr ""
+msgstr "Wybierz plemię z listy"
 
-#: base/forms.py:99
+#: base/forms.py:102
 msgid "Enemy tribe"
-msgstr ""
+msgstr "Przeciwne plemiona"
 
-#: base/forms.py:117
+#: base/forms.py:120
 msgid "Radius"
-msgstr ""
+msgstr "Promień"
 
-#: base/forms.py:124
+#: base/forms.py:127
 msgid "Other ally players"
-msgstr ""
+msgstr "Inni przeciwni gracze"
 
-#: base/forms.py:125 base/forms.py:132
+#: base/forms.py:128 base/forms.py:135
 msgid "Exact nicknames separated by a space or an entry."
-msgstr ""
+msgstr "Dokładne nicki oddzielone spacją lub enterem"
 
-#: base/forms.py:131
+#: base/forms.py:134
 msgid "Other enemy players"
-msgstr ""
+msgstr "Inni przeciwni gracze"
 
-#: base/forms.py:138
+#: base/forms.py:141
 msgid "Excluded enemy villages"
-msgstr ""
+msgstr "Wykluczone wioski wroga"
 
-#: base/forms.py:140
+#: base/forms.py:143
 msgid "Exact coords separated by a space or an entry."
-msgstr ""
+msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:162 base/forms.py:183
+#: base/forms.py:165 base/forms.py:186
 msgid "There is no player: "
-msgstr ""
+msgstr "Nie istnieje gracz: "
 
-#: base/forms.py:200
-msgid "Minimum entry time for nobles"
-msgstr ""
-
-#: base/forms.py:201
-msgid "Maximum entry time for nobles"
-msgstr ""
-
-#: base/forms.py:202
-msgid "Minimum entry time for off"
-msgstr ""
-
-#: base/forms.py:203
-msgid "Maximum entry time for off"
-msgstr ""
-
-#: base/forms.py:212
+#: base/forms.py:208
 msgid "Targets"
-msgstr ""
+msgstr "Cele"
 
-#: base/forms.py:214
+#: base/forms.py:210
 msgid "Exact lines [ coords:off:noble ] separated by an entry."
-msgstr ""
+msgstr "Dokładnie [ kordy:off:szlachcic ] oddzielone enterem."
 
-#: base/forms.py:264
+#: base/forms.py:260
 msgid "Off"
-msgstr ""
+msgstr "Off"
 
-#: base/forms.py:267 base/models.py:182
+#: base/forms.py:263 base/models.py:182
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:275 base/forms.py:286
-#: base/templates/base/new_outline/new_outline_initial_period2.html:300
+#: base/forms.py:271 base/forms.py:282
+#: base/templates/base/new_outline/new_outline_initial_period2.html:301
 #: base/templates/base/new_outline/new_outline_initial_period2.html:660
 msgid "From"
-msgstr ""
+msgstr "Od"
 
-#: base/forms.py:278 base/forms.py:287
-#: base/templates/base/new_outline/new_outline_initial_period2.html:301
+#: base/forms.py:274 base/forms.py:283
+#: base/templates/base/new_outline/new_outline_initial_period2.html:302
 #: base/templates/base/new_outline/new_outline_initial_period2.html:661
 msgid "To"
-msgstr ""
+msgstr "Do"
 
-#: base/forms.py:285
-#: base/templates/base/new_outline/new_outline_initial_period2.html:298
+#: base/forms.py:281
+#: base/templates/base/new_outline/new_outline_initial_period2.html:299
 #: base/templates/base/new_outline/new_outline_initial_period2.html:658
 msgid "Mode"
-msgstr ""
+msgstr "Tryb"
 
-#: base/forms.py:288
-#: base/templates/base/new_outline/new_outline_initial_period2.html:299
+#: base/forms.py:284
+#: base/templates/base/new_outline/new_outline_initial_period2.html:300
 #: base/templates/base/new_outline/new_outline_initial_period2.html:659
 msgid "Unit"
-msgstr ""
+msgstr "Jednostka"
 
-#: base/forms.py:289
-#: base/templates/base/new_outline/new_outline_initial_period2.html:302
+#: base/forms.py:285
+#: base/templates/base/new_outline/new_outline_initial_period2.html:303
 #: base/templates/base/new_outline/new_outline_initial_period2.html:662
 msgid "Min. time"
-msgstr ""
+msgstr "Min. czas"
 
-#: base/forms.py:290
-#: base/templates/base/new_outline/new_outline_initial_period2.html:303
+#: base/forms.py:286
+#: base/templates/base/new_outline/new_outline_initial_period2.html:304
 #: base/templates/base/new_outline/new_outline_initial_period2.html:663
 msgid "Max. time"
-msgstr ""
+msgstr "Max. czas"
 
-#: base/forms.py:361 base/forms.py:371
+#: base/forms.py:357 base/forms.py:367
 msgid "Mode All can be used only once per unit"
-msgstr ""
+msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:378
+#: base/forms.py:374
 msgid "Mode All must be used at least once for noble and for off."
-msgstr ""
+msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:388 base/forms.py:392
+#: base/forms.py:384 base/forms.py:388
 msgid "The All mode time frame MUST always be last for off and for noble."
-msgstr ""
+msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:399 base/forms.py:406
+#: base/forms.py:395 base/forms.py:402
 msgid "The All mode cannot overlap with other time periods"
-msgstr ""
+msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
 #: base/models.py:177
 msgid "All"
@@ -188,14 +174,17 @@ msgid "Tribal Wars Planer"
 msgstr "Plemiona Planer"
 
 #: base/templates/base/base.html:30
+#: base/templates/base/new_outline/new_outline_initial_period2.html:6
 msgid "User Panel"
 msgstr "Panel Użytkownika"
 
 #: base/templates/base/base.html:34
+#: base/templates/base/new_outline/new_outline_initial_period2.html:10
 msgid "My outlines"
 msgstr "Moje rozpiski"
 
 #: base/templates/base/base.html:36
+#: base/templates/base/new_outline/new_outline_initial_period2.html:12
 msgid "Create new outline"
 msgstr "Stwórz nową rozpiskę"
 
@@ -205,6 +194,7 @@ msgstr "Strona Główna"
 
 #: base/templates/base/base.html:65
 #: base/templates/base/new_outline/new_outline.html:12
+#: base/templates/base/new_outline/new_outline_initial_period2.html:22
 msgid "Planer"
 msgstr "Planer"
 
@@ -257,134 +247,287 @@ msgid "COLLECT TRIBE'S DEFF UNITS"
 msgstr "ZBIERAJ WOJSKO PLEMIENNE"
 
 #: base/templates/base/base_planer.html:9
-#, fuzzy
-#| msgid "Create fast,"
 msgid "Created"
-msgstr "Twórz szybkie,"
+msgstr "Utworzono"
 
 #: base/templates/base/base_planer.html:11
-#: base/templates/base/new_outline/new_outline_create_select.html:49
-msgid "Enemy"
-msgstr ""
-
-#: base/templates/base/base_planer.html:12
 #: base/templates/base/new_outline/new_outline_create_select.html:23
 msgid "Ally"
-msgstr ""
+msgstr "Sojusznik"
+
+#: base/templates/base/base_planer.html:12
+#: base/templates/base/new_outline/new_outline_create_select.html:49
+msgid "Enemy"
+msgstr "Wróg"
 
 #: base/templates/base/base_planer.html:14
 #: base/templates/base/base_planer.html:49
 msgid "Hide"
-msgstr ""
+msgstr "Ukryj"
 
 #: base/templates/base/base_planer.html:16
 #: base/templates/base/base_planer.html:62
 #: base/templates/base/new_outline/new_outline_initial_period2.html:685
 msgid "Delete"
-msgstr ""
+msgstr "Usuń"
 
 #: base/templates/base/base_planer.html:54
 msgid "Show"
-msgstr ""
+msgstr "Pokaż"
 
 #: base/templates/base/base_planer.html:72
 msgid "Don't show hidden"
-msgstr ""
+msgstr "Nie pokazuj ukrytych"
 
 #: base/templates/base/base_planer.html:74
 msgid "Show hidden"
-msgstr ""
+msgstr "Pokaż ukryte"
 
 #: base/templates/base/new_outline/new_outline.html:6
+#: base/templates/base/new_outline/new_outline_initial_period2.html:17
 #: base/templates/base/new_outline/new_outline_results.html:2
 msgid "Results"
-msgstr ""
+msgstr "Wyniki"
 
 #: base/templates/base/new_outline/new_outline.html:15
 msgid "BETA"
-msgstr ""
+msgstr "BETA"
 
 #: base/templates/base/new_outline/new_outline.html:21
 msgid "To continue, please fill in forms with scripts results"
-msgstr ""
+msgstr "Aby kontynuować, proszę wypełnij formularze wynikami skryptów"
+
+#: base/templates/base/new_outline/new_outline.html:30
+msgid "Off collection"
+msgstr "Zbiórka wojska"
 
 #: base/templates/base/new_outline/new_outline.html:92
 #: base/templates/base/new_outline/new_outline.html:153
 #: base/templates/base/new_outline/new_outline_initial_period1.html:29
 msgid "Incorrect data in"
-msgstr ""
+msgstr "Nieprawidłowe dane w"
 
 #: base/templates/base/new_outline/new_outline.html:92
 #: base/templates/base/new_outline/new_outline.html:153
 #: base/templates/base/new_outline/new_outline_initial_period1.html:29
 msgid "lines."
-msgstr ""
+msgstr "liniach."
 
 #: base/templates/base/new_outline/new_outline.html:93
 #: base/templates/base/new_outline/new_outline.html:154
 #: base/templates/base/new_outline/new_outline_initial_period1.html:30
 msgid "Why an error appeared?"
-msgstr ""
+msgstr "Dlaczego pojawił się błąd?"
 
 #: base/templates/base/new_outline/new_outline.html:95
 #: base/templates/base/new_outline/new_outline.html:156
 #: base/templates/base/new_outline/new_outline_initial_period1.html:32
 msgid "*After clicking submit you will be transferred to first error*"
-msgstr ""
+msgstr "*Po kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*"
 
 #: base/templates/base/new_outline/new_outline.html:100
 #: base/templates/base/new_outline/new_outline.html:161
 #: base/templates/base/new_outline/new_outline_initial_period1.html:37
 msgid "The text cannot be empty"
-msgstr ""
+msgstr "Tekst nie może być pusty"
 
 #: base/templates/base/new_outline/new_outline.html:110
-#: base/templates/base/new_outline/new_outline.html:171
 msgid "Exact form from off collect script required, see "
-msgstr ""
+msgstr "Dokładna forma z skryptu Zbiórka Wojska jest wymagana, zobacz "
 
 #: base/templates/base/new_outline/new_outline.html:110
 #: base/templates/base/new_outline/new_outline.html:171
+#: base/templates/base/new_outline/new_outline_create.html:6
 msgid "docs"
-msgstr ""
+msgstr "dokumentację"
 
 #: base/templates/base/new_outline/new_outline.html:116
 #: base/templates/base/new_outline/new_outline.html:177
-#: base/templates/base/new_outline/new_outline_create.html:6
+#: base/templates/base/new_outline/new_outline_create.html:9
 #: base/templates/base/new_outline/new_outline_get_deff.html:6
 #: base/templates/base/new_outline/new_outline_initial_period1.html:48
 msgid "Submit"
-msgstr ""
+msgstr "Potwierdź"
+
+#: base/templates/base/new_outline/new_outline.html:171
+msgid "Exact form from army collect script required, see "
+msgstr "Dokładna forma z skryptu Zbiórka Deffa jest wymagana, zobacz"
 
 #: base/templates/base/new_outline/new_outline.html:194
-msgid "Off collection preview"
-msgstr ""
+msgid "Army collection preview"
+msgstr "Podgląd Zbiórka Wojska"
 
 #: base/templates/base/new_outline/new_outline.html:199
 msgid "Deff collection preview"
+msgstr "Podgląd zbiórka Deffa"
+
+#: base/templates/base/new_outline/new_outline_create.html:6
+msgid ""
+"First time? You can choose a special <span class=\"md-correct2\">World 0</"
+"span> created for testing purposes, see "
 msgstr ""
+"Pierwszy raz? Wybierz specjalny <span class=\"md-correct2\">Świat 0</span> "
+"stworzony do celów testowych rozpiski, zobacz "
+
+#: base/templates/base/new_outline/new_outline_create.html:17
+#: base/templates/base/new_outline/new_outline_get_deff.html:17
+#: base/templates/base/new_outline/new_outline_initial_period1.html:60
+msgid "Info"
+msgstr "Info"
+
+#: base/templates/base/new_outline/new_outline_create.html:20
+#: base/templates/base/new_outline/new_outline_get_deff.html:20
+msgid "Marks"
+msgstr "Oznaczenia"
+
+#: base/templates/base/new_outline/new_outline_create.html:23
+#: base/templates/base/new_outline/new_outline_get_deff.html:23
+#: base/templates/base/new_outline/new_outline_initial_period1.html:64
+msgid "Examples"
+msgstr "Przykłady"
+
+#: base/templates/base/new_outline/new_outline_create.html:28
+msgid ""
+"\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"\n"
+"                            <h5 class=\"card-title\">Create new Outline</"
+"h5>\n"
+"                            <li class=\"card-text\">To go to the Planer "
+"first create Outline object.</li>\n"
+"                            <li class=\"card-text\">After created, you must "
+"use scripts to collect data from your members\n"
+"                            </li>\n"
+"                            <li class=\"card-text mt-2\">You need to fill in "
+"data when you want to attack, name of outline and world number.</li>\n"
+"                            <li class=\"card-text mt-2\">On the next page "
+"you must choose tags of tribes. </li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"                            <h5 class=\"card-title mt-2\">Make sure that...</"
+"h5>\n"
+"                            <li class=\"card-text mt-2\"> Each field is "
+"correctly completed. </li>\n"
+"                            <li class=\"card-text mt-2\"> You have selected "
+"correct world number. </li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"                            <h5 class=\"card-title mt-2\">Remember that...</"
+"h5>\n"
+"                            <li class=\"card-text mt-2\">The set data <span "
+"class=\"md-error\">CANNOT</span> be changed later. </li>\n"
+"                            <li class=\"card-text mt-2\">You must fill in "
+"every field. </li>\n"
+"                            <li class=\"card-text mt-2\">More details can be "
+"found in the Marks and Examples tab.</li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    "
+msgstr ""
+"\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"\n"
+"                            <h5 class=\"card-title\">Utwórz nową rozpiskę</"
+"h5>\n"
+"                            <li class=\"card-text\">Aby przejść do planera, "
+"utwórz Rozpiskę.</li>\n"
+"                            <li class=\"card-text\">Po stworzeniu obiektu, "
+"używaj skryptów do zbierania informacji o wojskach członków plemienia.\n"
+"                            </li>\n"
+"                            <li class=\"card-text mt-2\">Wybierz datę akcji, "
+"nazwę rozpiski oraz numer świata.</li>\n"
+"                            <li class=\"card-text mt-2\">W następnej "
+"zakładce wybierz nazwy własnych oraz przeciwnych plemion. </li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"                            <h5 class=\"card-title mt-2\">Upewnij się, że..."
+"</h5>\n"
+"                            <li class=\"card-text mt-2\">Każde pole jest "
+"wypełnione poprawnie </li>\n"
+"                            <li class=\"card-text mt-2\"> Wybrałeś poprawny "
+"numer świata. </li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"                            <h5 class=\"card-title mt-2\">Pamiętaj, że...</"
+"h5>\n"
+"                            <li class=\"card-text mt-2\">Wybrana data <span "
+"class=\"md-error\">NIE MOŻE</span> być później zmieniona. </li>\n"
+"                            <li class=\"card-text mt-2\">Musisz wypełnić "
+"wszystkie pola. </li>\n"
+"                            <li class=\"card-text mt-2\">Więcej szczegółów "
+"znajdziesz w pozostałych zakładkach</li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    "
+
+#: base/templates/base/new_outline/new_outline_create.html:58
+msgid "OUTLINE NAME"
+msgstr "NAZWA ROZPISKI"
+
+#: base/templates/base/new_outline/new_outline_create.html:59
+msgid "Description of your Outline."
+msgstr "Nazwa Twojej rozpiski."
+
+#: base/templates/base/new_outline/new_outline_create.html:60
+msgid "DATE"
+msgstr "DATA"
+
+#: base/templates/base/new_outline/new_outline_create.html:61
+msgid "The date of your Outline."
+msgstr "Data planowanej akcji."
+
+#: base/templates/base/new_outline/new_outline_create.html:62
+msgid "WORLD"
+msgstr "ŚWIAT"
+
+#: base/templates/base/new_outline/new_outline_create.html:63
+msgid "The world number for this Outline."
+msgstr "Numer świata dla tej akcji."
+
+#: base/templates/base/new_outline/new_outline_create.html:67
+msgid "Outline Name: <span class=\"md-correct2\">MyAwesomeOutlineName</span>"
+msgstr ""
+"Nazwa Rozpiski: <span class=\"md-correct2\">MyAwesomeOutlineName</span>"
+
+#: base/templates/base/new_outline/new_outline_create.html:68
+msgid "Date: <span class=\"md-correct2\">2020-01-01</span>"
+msgstr "Data: <span class=\"md-correct2\">2020-01-01</span>"
+
+#: base/templates/base/new_outline/new_outline_create.html:69
+msgid "World: <span class=\"md-correct2\">100</span>"
+msgstr "Świat: <span class=\"md-correct2\">100</span>"
 
 #: base/templates/base/new_outline/new_outline_create_select.html:7
 msgid "Add an ally tribe"
-msgstr ""
+msgstr "Dodaj własne plemię"
 
 #: base/templates/base/new_outline/new_outline_create_select.html:12
 msgid "Add an enemy tribe"
-msgstr ""
+msgstr "Dodaj przeciwne plemię"
 
 #: base/templates/base/new_outline/new_outline_create_select.html:36
 #: base/templates/base/new_outline/new_outline_create_select.html:62
 msgid "Delete all"
-msgstr ""
+msgstr "Usuń wszystkie"
 
 #: base/templates/base/new_outline/new_outline_create_select.html:82
 msgid "Save and create"
-msgstr ""
+msgstr "Zapisz i utwórz"
 
 #: base/templates/base/new_outline/new_outline_create_select.html:90
-#: base/templates/base/new_outline/new_outline_initial_period2.html:69
+#: base/templates/base/new_outline/new_outline_initial_period2.html:68
 msgid "Warning"
-msgstr ""
+msgstr "Ostrzeżenie"
 
 #: base/templates/base/new_outline/new_outline_create_select.html:96
 msgid ""
@@ -396,31 +539,29 @@ msgid ""
 "                <li>Make sure you set up all Enemies.</li>\n"
 "                "
 msgstr ""
+" Aby uniknąć późniejszych problemów, możesz wybrać własne i przeciwne "
+"plemiona\n"
+"                <div class=\"md-error\">TYLKO RAZ!</div>\n"
+"                <br>W przypadku błędu będziesz zmuszony stworzyć nową "
+"rozpiskę.\n"
+"                <li>Upewnij się, że ustawiłeś wszystkie własne plemiona.</"
+"li>\n"
+"                <li>Upewnij się, że ustawiłeś wszystkie przeciwne plemiona.</"
+"li>\n"
+"                "
 
 #: base/templates/base/new_outline/new_outline_create_select.html:105
-#: base/templates/base/new_outline/new_outline_initial_period2.html:81
+#: base/templates/base/new_outline/new_outline_initial_period2.html:80
 #: base/templates/base/new_outline/new_outline_initial_period3.html:26
 msgid "Close"
-msgstr ""
+msgstr "Zamknij"
 
 #: base/templates/base/new_outline/new_outline_create_select.html:108
-#: base/templates/base/new_outline/new_outline_initial_period2.html:85
+#: base/templates/base/new_outline/new_outline_initial_period2.html:84
 msgid "Continue"
-msgstr ""
+msgstr "Kontynuuj"
 
-#: base/templates/base/new_outline/new_outline_get_deff.html:14
-msgid "Info"
-msgstr ""
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:17
-msgid "Marks"
-msgstr ""
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:20
-msgid "Examples"
-msgstr ""
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:25
+#: base/templates/base/new_outline/new_outline_get_deff.html:28
 msgid ""
 "\n"
 "                    <div class=\"card\">\n"
@@ -461,83 +602,300 @@ msgid ""
 "                    </div>\n"
 "                    "
 msgstr ""
+"\n"
+"<div class = \" card \"> \n"
+"<div class = \" card-body \"> \n"
+"\n"
+"<h5 class = \" card-title \"> Zbieraj deff z "
+"zaplecza </h5> \n"
+"<li class = \" card-text \"> Program jest używany do"
+" zbierania jednostek obronnych z wiosek w odległości większej niż promień od"
+" wrogiego plemiona. </li> \n"
+"<li class = \" card-text mt-2 \"> Odległość jest"
+" liczona w kratkach. </li> \n"
+"<li class = \" card-text mt-2 \"> Wartość domyślna "
+"30 odpowiada około 17 godzinom drogi dla szlachcica, z"
+" powodów optymalizacyjnych maksymalny możliwy promień to 60. </li> \n"
+"</div> \n"
+"</div> \n"
+"<div class = \" card \"> \n"
+"<div class = \" card-body \"> \n"
+"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ..."
+"</h5> \n"
+"<li class = \" card-text mt-2 \"> Uwzględniono"
+" wszystkie plemiona własne i wrogie. </li> \n"
+"<li class = \" card-text mt-2 \"> Wybrany"
+" promień jest odpowiedni do potrzeb. </li> \n"
+"</div> \n"
+"</div> \n"
+"<div class = \" card \"> \n"
+"<div class = \" card-body \"> \n"
+"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </"
+"h5> \n"
+"<li class = \" tekst karty mt-2 \"> \n"
+" Pozostałe opcje są opcjonalne. </li> \n"
+"<li class = \" tekst karty mt-2 \"> \n"
+" Więcej szczegółów można znaleźć w pozostałych zakładkach"
+"</li> \n"
+"</div> \n"
+"</div> \n"
+"                    "
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:61
-msgid "Go back"
+#: base/templates/base/new_outline/new_outline_get_deff.html:61
+msgid "RADIUS"
+msgstr "Promień"
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:62
+msgid "Radius is a number of squares to measure distance between villages."
+msgstr "Promień jest to ilość kratek w grze do mierzenia odległośći."
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:63
+msgid "OTHER ALLY PLAYERS"
+msgstr "INNI SOJUSZNICZY GRACZE"
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:64
+#: base/templates/base/new_outline/new_outline_get_deff.html:66
+msgid "Nicknames separated by whitespace."
+msgstr "Nicki oddzielone enterem lub spacją."
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:65
+msgid "OTHER ENEMY PLAYERS"
+msgstr "INNI PRZECIWNI GRACZE"
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:67
+msgid "EXCLUDED ENEMY VILLAGES"
+msgstr "WYKLUCZONE WROGIE WIOSKI"
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:68
+msgid "Coords separated by whitespace."
+msgstr "Kordy oddzielone spacją lub enterem."
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:72
+msgid "Radius: <span class=\"md-correct2\">30</span>"
+msgstr "Promień: <span class=\"md-correct2\">30</span>"
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:73
+msgid ""
+"Other ally players: <span class=\"md-correct2\">AllyPlayer1 AllyPlayer2 "
+"AllyPlayer3</span>"
 msgstr ""
+"Inni sojuszniczy gracze: <span class=\"md-correct2\">AllyPlayer1 AllyPlayer2 "
+"AllyPlayer3</span>"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:75
+#: base/templates/base/new_outline/new_outline_get_deff.html:74
+msgid ""
+"Other enemy players: <span class=\"md-correct2\">EnemyPlayer1 EvilPlayer2</"
+"span>"
+msgstr ""
+"Inni przeciwni gracze: <span class=\"md-correct2\">EnemyPlayer1 EvilPlayer2</"
+"span>"
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:75
+msgid ""
+"Excluded enemy villages: <span class=\"md-correct2\">EvilCoord1 EvilCoord2 "
+"EvilCoord3 EvilCoord4</span>"
+msgstr ""
+"Wykluczone wioski wroga: <span class=\"md-correct2\">EvilCoord1 EvilCoord2 "
+"EvilCoord3 EvilCoord4</span>"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:69
+msgid ""
+"\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"\n"
+"                            <h5 class=\"card-title\">Write an outline</h5>\n"
+"                            <li class=\"card-text\">Enter your targets with "
+"number of offs and nobles with it.</li>\n"
+"                            <li class=\"card-text\">Correct form in each "
+"line is <br><span class=\"md-correct2\">Coord:Off:Noble</span>, e.g "
+"<br><span class=\"md-correct2\">500|500:10:4</span>, see Examples tab.\n"
+"                            </li>\n"
+"                            <li class=\"card-text mt-2\">The current form "
+"does not support fakes, one of the workarounds may be to initially set it as "
+"a <span class=\"md-correct2\">YourCoord:0:0</span> and then manually refine "
+"it later.</li>\n"
+"\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"                            <h5 class=\"card-title mt-2\">Make sure that...</"
+"h5>\n"
+"                            <li class=\"card-text mt-2\"> Your every target "
+"village has been taken into account. </li>\n"
+"                            <li class=\"card-text mt-2\"> The coordinates "
+"entered by you are correct, which means that such a village exists in the "
+"world defined earlier in Outline </li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <div class=\"card\">\n"
+"                        <div class=\"card-body\">\n"
+"                            <h5 class=\"card-title mt-2\">Remember that...</"
+"h5>\n"
+"                            <li class=\"card-text mt-2\">You can always come "
+"back here after submiting but you will lose your progress. </li>\n"
+"                            <li class=\"card-text mt-2\">Offs below 19k "
+"units will not be written out by default </li>\n"
+"                            <li class=\"card-text mt-2\">It is not possible "
+"to add a <span class=\"md-error\">Target</span> in any other way than here "
+"in a form, later you can switch village as they attack the targets, but you "
+"cannot add a new target.</li>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    "
+msgstr ""
+"\n"
+"<div class = \" card \"> \n"
+"<div class = \" card-body \"> \n"
+"\n"
+"<h5 class = \" card-title \"> Utwórz rozpiskę akcji </h5> \n"
+"<li class = \" card-text \"> Wpisz swoje cele oraz"
+" liczbę offów i szlachciców dla nich. </li> \n"
+"<li class = \" card-text \"> Właściwa forma w każdej"
+" linii to <br> <span class = \" md-correct2 \"> Kordy:Off:Szlachta </span>, np."
+"<br> <span class = \" md-correct2 \"> 500|500:10:4 </span>, zobacz zakładkę Przykłady. \n"
+"</li> \n"
+"<li class = \" card-text mt-2 \"> Obecny Planer"
+" nie wspiera fejków, jednym z obejść może być początkowe ustawienie celu na fejki jako"
+" <span class = \" md-correct2 \"> Kordy:0:0 </span>, a następnie sprecyzowanie ataków ręcznie"
+" później. </li> \n"
+"\n"
+"</div> \n"
+"</div> \n"
+"<div class = \" card \"> \n"
+"<div class = \" card-body \"> \n"
+"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ... </"
+"h5> \n"
+"<li class = \" card-text mt-2 \"> Uwzgłędniłeś każdy cel"
+". </li> \n"
+"<li class = \" card-text mt-2 \"> Współrzędne"
+" wpisane przez Ciebie są prawidłowe, co oznacza, że ​​taka wioska istnieje w"
+" świecie zdefiniowany wcześniej w rozpisce. </li> \n"
+"</div> \n"
+"</div> \n"
+"<div class = \" card \"> \n"
+"<div class = \" card-body \"> \n"
+"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </"
+"h5> \n"
+"<li class = \" card-text mt-2 \"> Zawsze możesz powrócić"
+" z powrotem tutaj po rozpisaniu akcji, ale utracisz cały postęp. </li> \n"
+"<li class = \" card-text mt-2 \"> Offy poniżej 19 000"
+" jednostek nie zostaną domyślnie rozpisane. </li> \n"
+"<li class = \" card-text mt-2 \"> Nie jest możliwe,"
+" aby dodać <span class = \" md-error \"> Cel </span> w inny sposób niż tutaj"
+" w formularzu, później możesz zmienić ilość rozkazów na każdy cel, ale nie dodawać nowych"
+" </li> \n"
+"</div> \n"
+"</div>\n"
+"                    "
+
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:109
+msgid "What suits:"
+msgstr "Co odpowiada:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:111
+msgid "500|499 and 10 Off and 2 Nobles"
+msgstr "500|499 oraz 12 offów i 2 szlachcice"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:112
+msgid "500|499 and 12 Off and 4 Nobles"
+msgstr "500|499 oraz 12 offów i 4 szlachcice"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:60
+msgid "Go back"
+msgstr "Powrót"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:74
 msgid ""
 " Current progress will be\n"
 "                                    <div class=\"md-error\">LOST!</div>\n"
 "                                    <br>You will return to the previous "
 "form. "
 msgstr ""
+" Aktualny postęp będzie be\n"
+"                                    <div class=\"md-error\">UTRACONY!</div>\n"
+"                                    <br>Powrócisz do poprzedniego formularza. "
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:114
-#: base/templates/base/new_outline/new_outline_initial_period2.html:118
+#: base/templates/base/new_outline/new_outline_initial_period2.html:113
+#: base/templates/base/new_outline/new_outline_initial_period2.html:117
 #: base/templates/base/new_outline/new_outline_initial_period2.html:715
 #: base/templates/base/new_outline/new_outline_initial_period2.html:719
 #: base/templates/base/new_outline/new_outline_initial_period3.html:214
 #: base/templates/base/new_outline/new_outline_initial_period3.html:221
 msgid "Previous"
-msgstr ""
+msgstr "Poprzednia"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:122
+#: base/templates/base/new_outline/new_outline_initial_period2.html:121
 #: base/templates/base/new_outline/new_outline_initial_period2.html:723
 #: base/templates/base/new_outline/new_outline_initial_period3.html:225
 msgid "of"
-msgstr ""
+msgstr "z"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:126
-#: base/templates/base/new_outline/new_outline_initial_period2.html:130
+#: base/templates/base/new_outline/new_outline_initial_period2.html:125
+#: base/templates/base/new_outline/new_outline_initial_period2.html:129
 #: base/templates/base/new_outline/new_outline_initial_period2.html:727
 #: base/templates/base/new_outline/new_outline_initial_period2.html:731
 #: base/templates/base/new_outline/new_outline_initial_period3.html:229
 #: base/templates/base/new_outline/new_outline_initial_period3.html:234
 msgid "Next"
-msgstr ""
-
-#: base/templates/base/new_outline/new_outline_initial_period2.html:176
-#: base/templates/base/new_outline/new_outline_initial_period2.html:787
-msgid "Target"
-msgstr ""
+msgstr "Następna"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:177
+#: base/templates/base/new_outline/new_outline_initial_period2.html:787
+#: base/templates/base/overview.html:35
+msgid "Target"
+msgstr "Cel"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:178
 #: base/templates/base/new_outline/new_outline_initial_period2.html:789
-#, fuzzy
-#| msgid "My outlines"
+#: base/templates/base/overview.html:36
 msgid "Outline"
-msgstr "Moje rozpiski"
+msgstr "Rozpiska"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:208
+#: base/templates/base/new_outline/new_outline_initial_period2.html:209
 msgid "Edit"
-msgstr ""
+msgstr "Edytuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:284
+#: base/templates/base/new_outline/new_outline_initial_period2.html:285
 msgid "Confirm an outline and Exit"
-msgstr ""
+msgstr "Potwierdź całą rozpiskę i zakończ"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:377
-#, fuzzy
-#| msgid "Create fast,"
+#: base/templates/base/new_outline/new_outline_initial_period2.html:378
 msgid "Create"
-msgstr "Twórz szybkie,"
+msgstr "Utwórz"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:777
 msgid "Confirm selected"
-msgstr ""
+msgstr "Zatwierdź zmiany"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:786
 msgid "Selected"
-msgstr ""
+msgstr "Wybrany"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:788
 msgid "Select Time"
-msgstr ""
+msgstr "Wybierz Czas"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:10
 msgid ""
+"\n"
+"            <div class=\"container-fluid popoverData mt-3 mb-3\" data-html="
+"\"true\" data-content=\"\n"
+"<H2> Note: </ h2>\n"
+"    <p class = 'md-error'> Potentially unsafe form! </p>\n"
+"    <p> When specifying a quantity\n"
+"      <span class = 'md-error'> larger </span>\n"
+"      than the currently filled one, the data will be changed in the "
+"database for the entire list! Even if the attack is removed, the changes "
+"will remain. </p>\n"
+"    <p> Set a value\n"
+"      <span class = 'md-correct'> smaller </span>\n"
+"      than current is safe, troops return to the pool on the right. </p>\" "
+"rel=\"popover\" data-placement=\"right\" data-trigger=\"hover\">\n"
+"                "
+msgstr ""
 "\n"
 "            <div class=\"container-fluid popoverData mt-3 mb-3\" data-html="
 "\"true\" data-content=\"\n"
@@ -552,70 +910,148 @@ msgid ""
 "        niż aktualne jest bezpieczne, wojska wracają do puli po prawej.</p>"
 "\" rel=\"popover\" data-placement=\"right\" data-trigger=\"hover\">\n"
 "                "
-msgstr ""
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:25
 msgid "Change and save"
-msgstr ""
+msgstr "Zmień z zapisz"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:127
 msgid "Divide"
-msgstr ""
+msgstr "Podziel"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:131
 msgid "Divide into 2"
-msgstr ""
+msgstr "Podziel na 2"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:135
 msgid "Divide into 3"
-msgstr ""
+msgstr "Podziel na 3"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:139
 msgid "Divide into 4"
-msgstr ""
+msgstr "Podziel na 4"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:194
 msgid "Sort"
-msgstr ""
+msgstr "Sortuj"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:198
 #: base/templates/base/new_outline/new_outline_initial_period3.html:199
 msgid "Ascending by distance"
-msgstr ""
+msgstr "Rosnąco ze względu na dystans"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:200
 #: base/templates/base/new_outline/new_outline_initial_period3.html:201
 msgid "Descending by distance"
-msgstr ""
+msgstr "Malejąco ze względu na dystans"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:202
 #: base/templates/base/new_outline/new_outline_initial_period3.html:203
 msgid "Descending by number of units"
-msgstr ""
+msgstr "Malejąco ze względu na liczbę jednostek"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:204
 #: base/templates/base/new_outline/new_outline_initial_period3.html:205
 msgid "Descending by number of noble"
-msgstr ""
+msgstr "Malejąco ze względu na ilość szlachty"
 
-#: base/templates/base/new_outline/new_outline_results.html:5
-#: base/templates/base/new_outline/new_outline_results.html:25
-msgid "Deff collection results"
-msgstr ""
+#: base/templates/base/new_outline/new_outline_results.html:8
+msgid "Outline results"
+msgstr "Wyniki rozpiski"
 
-#: base/templates/base/new_outline/new_outline_results.html:10
+#: base/templates/base/new_outline/new_outline_results.html:12
+msgid "Copy Outline urls"
+msgstr "Kopiuj linki"
+
+#: base/templates/base/new_outline/new_outline_results.html:16
+msgid "Copy Outline results"
+msgstr "Kopiuj wyniki rozpiski"
+
+#: base/templates/base/new_outline/new_outline_results.html:32
+msgid "Player"
+msgstr "Gracz"
+
+#: base/templates/base/new_outline/new_outline_results.html:33
+msgid "Link to member Page"
+msgstr "Link do strony gracza"
+
+#: base/templates/base/new_outline/new_outline_results.html:34
+msgid "Send message"
+msgstr "Wyślij wiadomość"
+
 #: base/templates/base/new_outline/new_outline_results.html:43
-#, fuzzy
-#| msgid "Planer"
-msgid "Planer results"
-msgstr "Planer"
+msgid "Go to member Page"
+msgstr "Idź do strony gracza"
+
+#: base/templates/base/new_outline/new_outline_results.html:45
+msgid "Send"
+msgstr "Wyślij"
+
+#: base/templates/base/new_outline/new_outline_results.html:50
+msgid "Sent!"
+msgstr "Wysłano!"
+
+#: base/templates/base/overview.html:8
+msgid "Outline Result Copy"
+msgstr "Wyniki Rozpiski - Kopiuj"
+
+#: base/templates/base/overview.html:13
+msgid "Outline Result Details"
+msgstr "Wyniki Rozpiski - Szczegóły"
+
+#: base/templates/base/overview.html:21
+msgid ""
+"The table below shows your targets, please copy the contents to your in-game "
+"notes."
+msgstr ""
+"Poniższa tabela zawiera Twoje cele, skopiuj zawartość do swoich notatek w "
+"grze. "
+
+#: base/templates/base/overview_fail.html:3
+msgid "Site not found."
+msgstr "Nie znaleziono strony."
+
+#: base/views/outline_initial_views.py:198
+msgid ""
+"It looks like your Army collection is no longer actual! To use the planner: "
+"copy the data from the preview and correct errors or paste the current "
+"military data \n"
+msgstr ""
+"Wygląda na to że dane Twojej Zbiórki Wojska nie są już aktualne! Aby "
+"korzystać z Planera: skopiuj dane z podglądu i popraw błędy albo wklej "
+"aktualne dane \n"
+
+#: base/views/outline_initial_views.py:570
+msgid "All targets must have Times"
+msgstr "Wszystkie cele muszą mieć przypisany czas."
+
+#: base/views/results_get_deff.py:16
+msgid "Deff collection empty!"
+msgstr "Zbiórka Deffa pusta!"
+
+#: base/views/results_get_deff.py:34
+msgid ""
+"It looks like your Deff collection is no longer actual! To use the planner: "
+"copy the data from the preview and correct errors or paste the current "
+"military data \n"
+msgstr ""
+"Wygląda na to że dane Twojej Zbiórki Deffa nie są już aktualne! Aby "
+"korzystać z Zbiórki: skopiuj dane z podglądu i popraw błędy albo wklej "
+"aktualne dane \n"
+
 
 #: templates/django_registration/registration_form.html:14
-#, fuzzy
-#| msgid "Create new outline"
 msgid "Create an account"
 msgstr "Stwórz nową rozpiskę"
 
 #: templates/registration/login.html:20
 msgid "Login"
-msgstr ""
+msgstr "Login"
+
+#: trbial_wars/outline_initial.py:246
+msgid "nobleman"
+msgstr "Szlachcic"
+
+#: trbial_wars/outline_initial.py:249
+msgid "ram"
+msgstr "Taran"

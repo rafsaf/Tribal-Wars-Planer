@@ -9,14 +9,14 @@
         <div class="modal-content">
             {% blocktrans %}
             <div class="container-fluid popoverData mt-3 mb-3" data-html="true" data-content="
-      <h2>Uwaga!</h2>
-      <p class='md-error'>Potencjalnie niebezpieczny formularz!</p>
-      <p>W przypadku podania ilości
-        <span class='md-error'> większych</span> 
-        niż aktualnie wypełnione, dane zostaną zmienione w bazie dla całej rozpiski! Nawet jeśli atak zostanie usunięty, zmiany pozostaną.</p>
-      <p>Ustawienie wartości
-        <span class='md-correct'> mniejszych</span> 
-        niż aktualne jest bezpieczne, wojska wracają do puli po prawej.</p>" rel="popover" data-placement="right" data-trigger="hover">
+<H2> Note: </ h2>
+    <p class = 'md-error'> Potentially unsafe form! </p>
+    <p> When specifying a quantity
+      <span class = 'md-error'> larger </span>
+      than the currently filled one, the data will be changed in the database for the entire list! Even if the attack is removed, the changes will remain. </p>
+    <p> Set a value
+      <span class = 'md-correct'> smaller </span>
+      than current is safe, troops return to the pool on the right. </p>" rel="popover" data-placement="right" data-trigger="hover">
                 {% endblocktrans %} {% load crispy_forms_tags %}
                 <div class="btn-group">
                     <form method='POST'>
