@@ -256,7 +256,7 @@ class FromPeriods:
         weight.t1 = t1
         weight.t2 = t2
         weight.sh_t1 = t1_shipment
-        weight.sh_t2 = t1_shipment
+        weight.sh_t2 = t2_shipment
         return weight
 
 
