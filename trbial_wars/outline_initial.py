@@ -4,7 +4,7 @@ from trbial_wars import weight_utils
 from base import models
 from trbial_wars import basic
 
-@basic.timing
+
 def make_outline(outline: models.Outline):
     """ Make empty outline, then auto write out it """
     # Remove instances in case of earlier exception
