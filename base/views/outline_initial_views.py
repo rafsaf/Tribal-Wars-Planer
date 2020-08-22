@@ -31,6 +31,9 @@ def initial_planer(request, _id):
             models.OutlineTime.objects.filter(outline=instance).delete()
             models.TargetVertex.objects.filter(outline=instance).delete()
             models.Overview.objects.filter(outline=instance).delete()
+            result = instance.result
+            result.results_outline = ""
+            result.save()
             instance.save()
             return redirect("base:planer_initial_form", _id)
     instance.date = str(instance.date)
@@ -613,5 +616,6 @@ def create_final_outline(request, id1):
         return redirect(
             reverse("base:planer_initial", args=[id1]) + "?page=1&mode=time"
         )
+    models.Overview.objects.filter(outline=instance).delete()
     finish.make_final_outline(instance)
     return redirect("base:planer_detail_results", id1)
