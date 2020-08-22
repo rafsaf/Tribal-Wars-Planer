@@ -206,15 +206,28 @@ class InitialOutlineForm(forms.Form):
         max_length=15000,
         widget=forms.Textarea,
         label=gettext_lazy("Targets"),
-        help_text=gettext_lazy(
-            "Exact lines [ coords:off:noble ] separated by an entry."
-        ),
         required=False,
+    )
+    min_off = forms.IntegerField(
+        widget=forms.NumberInput(),
+        min_value=1,
+        max_value=28000,
+        label=gettext_lazy('Min. off units number'),
+        initial=19000,
+    )
+    front_dist = forms.IntegerField(
+        widget=forms.NumberInput(),
+        min_value=0,
+        max_value=40,
+        label=gettext_lazy('Distance from front line'),
+        initial=12,
     )
 
     def __init__(self, *args, **kwargs):
         self.world = kwargs.pop("world")
         super(InitialOutlineForm, self).__init__(*args, **kwargs)
+        self.fields["min_off"].widget.attrs["class"] = "form-control"
+        self.fields["front_dist"].widget.attrs["class"] = "form-control"
 
     def clean_target(self):
         """ User's input Villages """

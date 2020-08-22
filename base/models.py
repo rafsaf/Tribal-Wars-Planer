@@ -108,6 +108,8 @@ class Outline(models.Model):
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     initial_outline_players = models.TextField(blank=True, default="")
     initial_outline_targets = models.TextField(blank=True, default="")
+    initial_outline_min_off = models.IntegerField(default=19000)
+    initial_outline_front_dist = models.IntegerField(default=12)
     off_troops = models.TextField(
         blank=True,
         default="",
@@ -160,6 +162,7 @@ class WeightMaximum(models.Model):
     nobleman_max = models.IntegerField()
     nobleman_state = models.IntegerField(default=0)
     nobleman_left = models.IntegerField()
+    first_line = models.BooleanField(default=False)
 
     def __str__(self):
         return self.start
@@ -216,6 +219,7 @@ class WeightModel(models.Model):
     nobleman = models.IntegerField()
     order = models.IntegerField()
     player = models.CharField(max_length=40)
+    first_line = models.BooleanField(default=False)
 
     def __str__(self):
         return self.start

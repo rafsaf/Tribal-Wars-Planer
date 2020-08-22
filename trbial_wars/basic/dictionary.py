@@ -1,7 +1,6 @@
 """ functions to generate coord-to-player dictionaries """
 
-from base import models
-from .timer import timing
+from base import models 
 
 
 def coord_to_player(outline: models.Outline):

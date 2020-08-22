@@ -3,14 +3,14 @@
 from math import sqrt, ceil
 from base import models
 
+
 def dist(coord1, coord2):
     x_coord1 = int(coord1[0:3])
     y_coord1 = int(coord1[4:7])
     x_coord2 = int(coord2[0:3])
     y_coord2 = int(coord2[4:7])
-    return sqrt(
-        (x_coord1- x_coord2) ** 2 + (y_coord1 - y_coord2) ** 2
-    )
+    return sqrt((x_coord1 - x_coord2) ** 2 + (y_coord1 - y_coord2) ** 2)
+
 
 class Unit:
     """ Unit in the game with its speed """
@@ -104,7 +104,8 @@ class Village:
     def distance(self, other):
         """ Distance between two villages """
         return sqrt(
-            (self.x_coord - other.x_coord) ** 2 + (self.y_coord - other.y_coord) ** 2
+            (self.x_coord - other.x_coord) ** 2
+            + (self.y_coord - other.y_coord) ** 2
         )
 
     def time_distance(self, other, unit: str, world: models.World):
@@ -143,6 +144,6 @@ def yield_four_circle_ends(radius, center):
     for x_coord in range(radius + 1):
         y_coord = radius - x_coord
         yield (x_coord + center[0], y_coord + center[1])
-        yield (x_coord + center[0], - y_coord + center[1])
-        yield (- x_coord + center[0], y_coord + center[1])
-        yield (- x_coord + center[0], - y_coord + center[1])
+        yield (x_coord + center[0], -y_coord + center[1])
+        yield (-x_coord + center[0], y_coord + center[1])
+        yield (-x_coord + center[0], -y_coord + center[1])

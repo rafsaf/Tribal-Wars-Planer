@@ -42,6 +42,14 @@
                     });
                 </script>
                 {% endfor %} {% endif %}
+                <div class="mt-3">{{ form1.min_off.label_tag }} {{ form1.min_off }}
+                    <small id="emailHelp" class="form-text text-muted">{% trans 'Only villages with off units greater than this number will be taken into account in auto outline write.' %}</small>
+                </div>
+                <div class="mt-3">{{ form1.front_dist.label_tag }} {{ form1.front_dist }}
+                    <small id="emailHelp" class="form-text text-muted">{% trans 'Villages CLOSER than this number of squares to ANY enemy village will be marked as "Front" and not auto used.' %}</small>
+                </div>
+                
+                
             </div>
 
 

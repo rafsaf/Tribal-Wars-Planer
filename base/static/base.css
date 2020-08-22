@@ -142,6 +142,13 @@
     color: #42eb2c !important;
     font-weight: bold !important;
 }
+.th-front {
+    background: #d6e9e2 !important;
+}
+
+.th-front2 {
+    background: #e1f0ea !important;
+}
 
 .md-correct2 {
     color: #20AA76 !important;

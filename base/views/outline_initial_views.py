@@ -13,6 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext
 
 import trbial_wars.outline_initial as initial
+import trbial_wars.outline_finish as finish
 import trbial_wars.basic as basic
 from base import models, forms
 
@@ -26,6 +27,10 @@ def initial_planer(request, _id):
     if request.method == "POST":
         if "form1" in request.POST:
             instance.written = "inactive"
+            models.WeightMaximum.objects.filter(outline=instance).delete()
+            models.OutlineTime.objects.filter(outline=instance).delete()
+            models.TargetVertex.objects.filter(outline=instance).delete()
+            models.Overview.objects.filter(outline=instance).delete()
             instance.save()
             return redirect("base:planer_initial_form", _id)
     instance.date = str(instance.date)
@@ -88,7 +93,8 @@ def initial_planer(request, _id):
             form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
         )
         choices = [
-            (f"{time.id}", f"{i + 1}") for (i, time) in enumerate(time_period_context)
+            (f"{time.id}", f"{i + 1}")
+            for (i, time) in enumerate(time_period_context)
         ]
 
         my_forms = formset_factory(
@@ -104,7 +110,9 @@ def initial_planer(request, _id):
                 my_forms = my_forms(request.POST)
                 choose_forms = choose_forms()
                 if my_forms.is_valid():
-                    new_time = models.OutlineTime.objects.create(outline=instance)
+                    new_time = models.OutlineTime.objects.create(
+                        outline=instance
+                    )
                     create_list = []
                     for obj_dict in my_forms.cleaned_data:
                         if obj_dict == {}:
@@ -172,23 +180,36 @@ def initial_planer(request, _id):
         context["choice_formset"] = choose_forms
         context["query2"] = query2
 
-    return render(request, "base/new_outline/new_outline_initial_period2.html", context)
+    return render(
+        request, "base/new_outline/new_outline_initial_period2.html", context
+    )
 
 
 @login_required
 def initial_form(request, _id):
-    """ view with table with created outline, returned after valid filled form earlier """
+    """
+    view with table with created outline,
+
+    returned after valid filled form earlier
+
+     """
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
     if instance.written == "active":
         return redirect("base:planer_initial", _id)
 
-    form1 = forms.InitialOutlineForm(request.POST or None, world=instance.world)
+    form1 = forms.InitialOutlineForm(
+        request.POST or None, world=instance.world
+    )
     form1.fields["target"].initial = instance.initial_outline_targets
 
     if "form1" in request.POST:
         if form1.is_valid():
             target = request.POST.get("target")
             instance.initial_outline_targets = target
+            min_off = request.POST.get('min_off')
+            instance.initial_outline_min_off = min_off
+            front_dist = request.POST.get('front_dist')
+            instance.initial_outline_front_dist = front_dist
             instance.save()
             # make outline
             try:
@@ -203,7 +224,9 @@ def initial_form(request, _id):
             return redirect("base:planer_initial", _id)
 
     context = {"instance": instance, "form1": form1}
-    return render(request, "base/new_outline/new_outline_initial_period1.html", context)
+    return render(
+        request, "base/new_outline/new_outline_initial_period1.html", context
+    )
 
 
 @login_required
@@ -214,13 +237,15 @@ def initial_target(request, id1, id2):
         return Http404()
 
     target = get_object_or_404(models.TargetVertex, pk=id2)
-    nonused_vertices = models.WeightMaximum.objects.filter(outline=instance).exclude(
-        off_left=0, nobleman_left=0
+    nonused_vertices = models.WeightMaximum.objects.filter(
+        outline=instance
+    ).exclude(off_left=0, nobleman_left=0)
+    result_lst = models.WeightModel.objects.filter(target=target).order_by(
+        "order"
     )
-    result_lst = models.WeightModel.objects.filter(target=target).order_by("order")
     for weight in result_lst:
         weight.distance = round(weight.distance, 1)
-    ## sort
+    # sort
     sort = request.GET.get("sort")
     if sort is None:
         sort = "-off_left"
@@ -251,7 +276,7 @@ def initial_target(request, id1, id2):
         for weight in page_obj:
             weight.distance = round(basic.dist(weight.start, target.target), 1)
 
-    ## forms
+    # forms
     if request.method == "POST":
         if "form" in request.POST:
             form = forms.WeightForm(request.POST)
@@ -260,9 +285,9 @@ def initial_target(request, id1, id2):
                 off = int(request.POST.get("off"))
                 nobleman = int(request.POST.get("nobleman"))
 
-                weight = models.WeightModel.objects.select_related("state").filter(
-                    id=weight_id
-                )[0]
+                weight = models.WeightModel.objects.select_related(
+                    "state"
+                ).filter(id=weight_id)[0]
                 state = weight.state
 
                 if off > weight.off:
@@ -272,7 +297,9 @@ def initial_target(request, id1, id2):
                     state.nobleman_max += nobleman - weight.nobleman
 
                 state.off_state = state.off_state - weight.off + off
-                state.nobleman_state = state.nobleman_state - weight.nobleman + nobleman
+                state.nobleman_state = (
+                    state.nobleman_state - weight.nobleman + nobleman
+                )
 
                 state.off_left = state.off_max - state.off_state
                 state.nobleman_left = state.nobleman_max - state.nobleman_state
@@ -307,7 +334,9 @@ def initial_target(request, id1, id2):
         "sort": sort,
         "paint": paint,
     }
-    return render(request, "base/new_outline/new_outline_initial_period3.html", context)
+    return render(
+        request, "base/new_outline/new_outline_initial_period3.html", context
+    )
 
 
 @login_required
@@ -338,8 +367,12 @@ def initial_add_first(request, id1, id2, id3):
             nobleman=weight.nobleman_left,
             order=order,
             distance=round(
-                basic.Village(target.target).distance(basic.Village(weight.start)), 1
+                basic.Village(target.target).distance(
+                    basic.Village(weight.start)
+                ),
+                1,
             ),
+            first_line=weight.first_line,
         )
         weight.off_state += weight.off_left
         weight.off_left = 0
@@ -394,8 +427,12 @@ def initial_add_last(request, id1, id2, id3):
             nobleman=weight.nobleman_left,
             order=order,
             distance=round(
-                basic.Village(target.target).distance(basic.Village(weight.start)), 1
+                basic.Village(target.target).distance(
+                    basic.Village(weight.start)
+                ),
+                1,
             ),
+            first_line=weight.first_line,
         )
         weight.off_state += weight.off_left
         weight.off_left = 0
@@ -481,9 +518,9 @@ def initial_weight_delete(request, id1, id2, id4):
             return Http404()
         sort = request.GET.get("sort")
         page = request.GET.get("page")
-        weight_model = models.WeightModel.objects.select_related("state").filter(
-            pk=id4
-        )[0]
+        weight_model = models.WeightModel.objects.select_related(
+            "state"
+        ).filter(pk=id4)[0]
         weight_model.state.off_left += weight_model.off
         weight_model.state.off_state -= weight_model.off
         weight_model.state.nobleman_left += weight_model.nobleman
@@ -506,7 +543,9 @@ def initial_divide(request, id1, id2, id4, n):
             return Http404()
         sort = request.GET.get("sort")
         page = request.GET.get("page")
-        weight = models.WeightModel.objects.select_related("state").filter(pk=id4)[0]
+        weight = models.WeightModel.objects.select_related("state").filter(
+            pk=id4
+        )[0]
         n_list = [i + 1 for i in range(n - 1)]
         nob_list = [i for i in range(max(weight.nobleman - 1, 0))]
         if n > weight.nobleman:
@@ -536,6 +575,7 @@ def initial_divide(request, id1, id2, id4, n):
                     nobleman=nob,
                     order=weight.order + number,
                     distance=weight.distance,
+                    first_line=weight.first_line,
                 )
             )
         weight.off = off + rest
@@ -567,12 +607,11 @@ def create_final_outline(request, id1):
         .exists()
     )
     if target_with_no_time:
-        request.session["outline_error"] = gettext("All targets must have Times")
+        request.session["outline_error"] = gettext(
+            "All targets must have Times"
+        )
         return redirect(
             reverse("base:planer_initial", args=[id1]) + "?page=1&mode=time"
         )
-    initial.make_final_outline(instance)
+    finish.make_final_outline(instance)
     return redirect("base:planer_detail_results", id1)
-
-    # do stuff
-

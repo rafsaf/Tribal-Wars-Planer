@@ -1,7 +1,8 @@
 """ Army and Defence """
-
+from .cached_property import cached_property
 from base import models
 from trbial_wars import basic
+
 
 def world_evidence(world_number):
     """ For world return [T/F, .. , ..] [paladin, archer, militia]"""
@@ -21,8 +22,10 @@ def world_evidence(world_number):
         result.append(0)
     return tuple(result)
 
+
 class ArmyError(Exception):
     """ Army and Defence base error """
+
 
 class Army:
     """ Off line in off troops """
@@ -53,25 +56,26 @@ class Army:
             raise ArmyError(identifier)
         else:
             if village.coord not in player_dictionary:
-                raise ArmyError(f"{village.coord} nie należy do żadnego plemienia!")
+                raise ArmyError(
+                    f"{village.coord} nie należy do żadnego plemienia!"
+                )
         for army_element in self.text_army[1:-1]:
             if not army_element.isnumeric():
                 raise ArmyError(f"{army_element} nie jest liczbą")
         if self.text_army[-1] != "":
             raise ArmyError(f"Błąd w składni {self.text_army[-1]}")
-        
 
-    @property
+    @cached_property
     def coord(self):
         """ return kordy of village """
         return self.text_army[0]
 
-    @property
+    @cached_property
     def village(self):
         """ return Village instance of text[0] """
         return basic.Village(self.text_army[0])
 
-    @property
+    @cached_property
     def nobleman(self):
         """ Number of nobleman """
         if self.world_evidence[1] == 0:
@@ -82,7 +86,7 @@ class Army:
             return int(self.text_army[11])
         return int(self.text_army[12])
 
-    @property
+    @cached_property
     def off(self):
         """ Number of off """
 
@@ -101,7 +105,7 @@ class Army:
             + int(self.text_army[10]) * 8
         )
 
-    @property
+    @cached_property
     def deff(self):
         """ Number of deff """
         if self.world_evidence[1] == 0:
@@ -120,6 +124,7 @@ class Army:
 
 class DefenceError(Exception):
     """ Defence Error  """
+
 
 class Defence:
     """ Deff line in deff troops """
@@ -143,33 +148,37 @@ class Defence:
             (0, 0, 0): 13,
         }
         if text_army_length != evidence_dictionary[self.world_evidence]:
-            raise DefenceError(f"Długość: {text_army_length} nie jest poprawna")
+            raise DefenceError(
+                f"Długość: {text_army_length} nie jest poprawna"
+            )
         try:
             village = basic.Village(self.text_army[0])
         except basic.VillageError as identifier:
             raise DefenceError(identifier)
         else:
             if village.coord not in player_dictionary:
-                raise DefenceError(f"{village.coord} nie należy do żadnego plemienia!")
+                raise DefenceError(
+                    f"{village.coord} nie należy do żadnego plemienia!"
+                )
         for army_element in self.text_army[2:-1]:
             if not army_element.isnumeric():
                 raise DefenceError(f"{army_element} nie jest liczbą")
-        if self.text_army[1] not in {"w drodze", 'w wiosce'}:
-            raise DefenceError('Drugi element nieprawidłowy')
+        if self.text_army[1] not in {"w drodze", "w wiosce"}:
+            raise DefenceError("Drugi element nieprawidłowy")
         if self.text_army[-1] != "":
             raise DefenceError(f"Błąd w składni {self.text_army[-1]}")
 
-    @property
+    @cached_property
     def coord(self):
         """ return kordy of village """
         return self.text_army[0]
 
-    @property
+    @cached_property
     def village(self):
         """ return Village instance of text[0] """
         return basic.Village(self.text_army[0])
 
-    @property
+    @cached_property
     def nobleman(self):
         """ Number of nobleman """
         if self.world_evidence[1] == 0:
@@ -180,7 +189,7 @@ class Defence:
             return int(self.text_army[12])
         return int(self.text_army[13])
 
-    @property
+    @cached_property
     def off(self):
         """ Number of off """
 
@@ -199,7 +208,7 @@ class Defence:
             + int(self.text_army[11]) * 8
         )
 
-    @property
+    @cached_property
     def deff(self):
         """ Number of deff """
         if self.world_evidence[1] == 0:

@@ -22,7 +22,7 @@
                   bg-light">{% trans 'Planer' %}
 
 
-        <div style="font-size:2.3vh !important;" class="badge badge-info">BETA</div>
+        <div class="badge badge-info">BETA</div>
 
       </a> {%endblock%}
         </div>
@@ -168,9 +168,8 @@
         </ul>
     </nav>
 
-
-    
     <div class="conatiner-fluid" style="width: min-content;">
+
         <table class="table table-sm table-bordered">
             <thead>
                 <tr>
@@ -216,11 +215,17 @@
                     </th>
 
                     {% for weight in lst %}
-                    <th>
-                        <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
-                            rel="popover" data-placement="top" data-trigger="hover">
 
+                    <th>
+                        <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>
+                        {% if weight.first_line == True %}<div class='d-flex justify-content-center'><h5 class='md-correct2'><b>Front</b></h5></div>{% endif %}"
+                            rel="popover" data-placement="top" data-trigger="hover">
+                            {% if weight.first_line == True %}
+                            <table class="table table-sm th-front">
+                            {% else %}
                             <table class="table table-sm">
+
+                            {% endif %}
                                 <tr>
                                     <th>
                                         <img src='{% static "images/ax.png" %}' alt="ax">

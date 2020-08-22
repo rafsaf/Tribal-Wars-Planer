@@ -1,7 +1,10 @@
 """ File with decorator to measure function time """
+
 from time import time
 from functools import wraps
+
 from django.db import connection, reset_queries
+
 
 def ti(lst=[], result=False, clear=False):
     if result:
@@ -12,8 +15,10 @@ def ti(lst=[], result=False, clear=False):
     lst.append(time())
     return None
 
+
 def timing(function):
     """ Time for a given function """
+
     @wraps(function)
     def wrap(*args, **kwargs):
         reset_queries()
@@ -31,15 +36,15 @@ def timing(function):
             new_kwargs = kwargs
         end_queries = len(connection.queries)
         time3 = round(time2 - time1, 5)
-        print(f'\r\n Func: {function.__name__}')
-        print(f'  Args:[{new_args}]')
-        print(f'  Kwargs:[{new_kwargs}]')
-        print(f'  Took: {time3} sec')
-        print(f'  Number of Queries: {end_queries - start_queries}')
+        print(f"\r\n Func: {function.__name__}")
+        print(f"  Args:[{new_args}]")
+        print(f"  Kwargs:[{new_kwargs}]")
+        print(f"  Took: {time3} sec")
+        print(f"  Number of Queries: {end_queries - start_queries}")
         print("  Line by line time: ")
         for i, actual in enumerate(ti(result=True)):
             try:
-                print('   ', i, ' Period: ', round(actual - previous, 5))
+                print("   ", i, " Period: ", round(actual - previous, 5))
             except UnboundLocalError:
                 pass
             previous = actual
@@ -47,3 +52,5 @@ def timing(function):
         return result
 
     return wrap
+
+

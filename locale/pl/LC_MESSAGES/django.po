@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-17 10:22+0200\n"
+"POT-Creation-Date: 2020-08-22 19:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,83 +89,87 @@ msgstr "Nie istnieje gracz: "
 msgid "Targets"
 msgstr "Cele"
 
-#: base/forms.py:210
-msgid "Exact lines [ coords:off:noble ] separated by an entry."
-msgstr "Dokładnie [ kordy:off:szlachcic ] oddzielone enterem."
+#: base/forms.py:215
+msgid "Min. off units number"
+msgstr "Minimalna liczba jednostek w offie"
 
-#: base/forms.py:260
+#: base/forms.py:222
+msgid "Distance from front line"
+msgstr "Odległość od linii frontu"
+
+#: base/forms.py:273
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:263 base/models.py:182
+#: base/forms.py:276 base/models.py:185
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:271 base/forms.py:282
-#: base/templates/base/new_outline/new_outline_initial_period2.html:301
-#: base/templates/base/new_outline/new_outline_initial_period2.html:660
+#: base/forms.py:284 base/forms.py:295
+#: base/templates/base/new_outline/new_outline_initial_period2.html:306
+#: base/templates/base/new_outline/new_outline_initial_period2.html:665
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:274 base/forms.py:283
-#: base/templates/base/new_outline/new_outline_initial_period2.html:302
-#: base/templates/base/new_outline/new_outline_initial_period2.html:661
+#: base/forms.py:287 base/forms.py:296
+#: base/templates/base/new_outline/new_outline_initial_period2.html:307
+#: base/templates/base/new_outline/new_outline_initial_period2.html:666
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:281
-#: base/templates/base/new_outline/new_outline_initial_period2.html:299
-#: base/templates/base/new_outline/new_outline_initial_period2.html:658
+#: base/forms.py:294
+#: base/templates/base/new_outline/new_outline_initial_period2.html:304
+#: base/templates/base/new_outline/new_outline_initial_period2.html:663
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:284
-#: base/templates/base/new_outline/new_outline_initial_period2.html:300
-#: base/templates/base/new_outline/new_outline_initial_period2.html:659
+#: base/forms.py:297
+#: base/templates/base/new_outline/new_outline_initial_period2.html:305
+#: base/templates/base/new_outline/new_outline_initial_period2.html:664
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:285
-#: base/templates/base/new_outline/new_outline_initial_period2.html:303
-#: base/templates/base/new_outline/new_outline_initial_period2.html:662
+#: base/forms.py:298
+#: base/templates/base/new_outline/new_outline_initial_period2.html:308
+#: base/templates/base/new_outline/new_outline_initial_period2.html:667
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:286
-#: base/templates/base/new_outline/new_outline_initial_period2.html:304
-#: base/templates/base/new_outline/new_outline_initial_period2.html:663
+#: base/forms.py:299
+#: base/templates/base/new_outline/new_outline_initial_period2.html:309
+#: base/templates/base/new_outline/new_outline_initial_period2.html:668
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:357 base/forms.py:367
+#: base/forms.py:370 base/forms.py:380
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:374
+#: base/forms.py:387
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:384 base/forms.py:388
+#: base/forms.py:397 base/forms.py:401
 msgid "The All mode time frame MUST always be last for off and for noble."
 msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:395 base/forms.py:402
+#: base/forms.py:408 base/forms.py:415
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/models.py:177
+#: base/models.py:180
 msgid "All"
 msgstr "Wszystkie"
 
-#: base/models.py:178
+#: base/models.py:181
 msgid "Random"
 msgstr "Losowo"
 
-#: base/models.py:179
+#: base/models.py:182
 msgid "Exact"
 msgstr "Dokładnie"
 
-#: base/models.py:183
+#: base/models.py:186
 msgid "Ram"
 msgstr "Taran"
 
@@ -267,7 +271,7 @@ msgstr "Ukryj"
 
 #: base/templates/base/base_planer.html:16
 #: base/templates/base/base_planer.html:62
-#: base/templates/base/new_outline/new_outline_initial_period2.html:685
+#: base/templates/base/new_outline/new_outline_initial_period2.html:690
 msgid "Delete"
 msgstr "Usuń"
 
@@ -345,7 +349,7 @@ msgstr "dokumentację"
 #: base/templates/base/new_outline/new_outline.html:177
 #: base/templates/base/new_outline/new_outline_create.html:9
 #: base/templates/base/new_outline/new_outline_get_deff.html:6
-#: base/templates/base/new_outline/new_outline_initial_period1.html:48
+#: base/templates/base/new_outline/new_outline_initial_period1.html:56
 msgid "Submit"
 msgstr "Potwierdź"
 
@@ -371,7 +375,7 @@ msgstr ""
 
 #: base/templates/base/new_outline/new_outline_create.html:17
 #: base/templates/base/new_outline/new_outline_get_deff.html:17
-#: base/templates/base/new_outline/new_outline_initial_period1.html:60
+#: base/templates/base/new_outline/new_outline_initial_period1.html:68
 msgid "Info"
 msgstr "Info"
 
@@ -382,7 +386,7 @@ msgstr "Oznaczenia"
 
 #: base/templates/base/new_outline/new_outline_create.html:23
 #: base/templates/base/new_outline/new_outline_get_deff.html:23
-#: base/templates/base/new_outline/new_outline_initial_period1.html:64
+#: base/templates/base/new_outline/new_outline_initial_period1.html:72
 msgid "Examples"
 msgstr "Przykłady"
 
@@ -606,37 +610,32 @@ msgstr ""
 "<div class = \" card \"> \n"
 "<div class = \" card-body \"> \n"
 "\n"
-"<h5 class = \" card-title \"> Zbieraj deff z "
-"zaplecza </h5> \n"
-"<li class = \" card-text \"> Program jest używany do"
-" zbierania jednostek obronnych z wiosek w odległości większej niż promień od"
-" wrogiego plemiona. </li> \n"
-"<li class = \" card-text mt-2 \"> Odległość jest"
-" liczona w kratkach. </li> \n"
-"<li class = \" card-text mt-2 \"> Wartość domyślna "
-"30 odpowiada około 17 godzinom drogi dla szlachcica, z"
-" powodów optymalizacyjnych maksymalny możliwy promień to 60. </li> \n"
+"<h5 class = \" card-title \"> Zbieraj deff z zaplecza </h5> \n"
+"<li class = \" card-text \"> Program jest używany do zbierania jednostek "
+"obronnych z wiosek w odległości większej niż promień od wrogiego plemiona. </"
+"li> \n"
+"<li class = \" card-text mt-2 \"> Odległość jest liczona w kratkach. </li> \n"
+"<li class = \" card-text mt-2 \"> Wartość domyślna 30 odpowiada około 17 "
+"godzinom drogi dla szlachcica, z powodów optymalizacyjnych maksymalny "
+"możliwy promień to 60. </li> \n"
 "</div> \n"
 "</div> \n"
 "<div class = \" card \"> \n"
 "<div class = \" card-body \"> \n"
-"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ..."
-"</h5> \n"
-"<li class = \" card-text mt-2 \"> Uwzględniono"
-" wszystkie plemiona własne i wrogie. </li> \n"
-"<li class = \" card-text mt-2 \"> Wybrany"
-" promień jest odpowiedni do potrzeb. </li> \n"
+"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ...</h5> \n"
+"<li class = \" card-text mt-2 \"> Uwzględniono wszystkie plemiona własne i "
+"wrogie. </li> \n"
+"<li class = \" card-text mt-2 \"> Wybrany promień jest odpowiedni do "
+"potrzeb. </li> \n"
 "</div> \n"
 "</div> \n"
 "<div class = \" card \"> \n"
 "<div class = \" card-body \"> \n"
-"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </"
-"h5> \n"
+"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </h5> \n"
 "<li class = \" tekst karty mt-2 \"> \n"
 " Pozostałe opcje są opcjonalne. </li> \n"
 "<li class = \" tekst karty mt-2 \"> \n"
-" Więcej szczegółów można znaleźć w pozostałych zakładkach"
-"</li> \n"
+" Więcej szczegółów można znaleźć w pozostałych zakładkach</li> \n"
 "</div> \n"
 "</div> \n"
 "                    "
@@ -698,7 +697,21 @@ msgstr ""
 "Wykluczone wioski wroga: <span class=\"md-correct2\">EvilCoord1 EvilCoord2 "
 "EvilCoord3 EvilCoord4</span>"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:69
+#: base/templates/base/new_outline/new_outline_initial_period1.html:46
+msgid ""
+"Only villages with off units greater than this number will be taken into "
+"account in auto outline write."
+msgstr "Tylko wioski z ilością wojsk offensywnych większą niż podana liczba będą automatycznie rozpisywane"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:49
+msgid ""
+"Villages CLOSER than this number of squares to ANY enemy village will be "
+"marked as \"Front\" and not auto used."
+msgstr ""
+"Wioski BLIŻEJ niż podana liczba kratek do JAKIEJKOLWIEK wioski wroga (w tym diody) będą na stałe "
+"oznaczone jako \"Front\" i nie będą automatycznie rozpisywane."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:77
 msgid ""
 "\n"
 "                    <div class=\"card\">\n"
@@ -750,56 +763,51 @@ msgstr ""
 "<div class = \" card-body \"> \n"
 "\n"
 "<h5 class = \" card-title \"> Utwórz rozpiskę akcji </h5> \n"
-"<li class = \" card-text \"> Wpisz swoje cele oraz"
-" liczbę offów i szlachciców dla nich. </li> \n"
-"<li class = \" card-text \"> Właściwa forma w każdej"
-" linii to <br> <span class = \" md-correct2 \"> Kordy:Off:Szlachta </span>, np."
-"<br> <span class = \" md-correct2 \"> 500|500:10:4 </span>, zobacz zakładkę Przykłady. \n"
+"<li class = \" card-text \"> Wpisz swoje cele oraz liczbę offów i "
+"szlachciców dla nich. </li> \n"
+"<li class = \" card-text \"> Właściwa forma w każdej linii to <br> <span "
+"class = \" md-correct2 \"> Kordy:Off:Szlachta </span>, np.<br> <span class = "
+"\" md-correct2 \"> 500|500:10:4 </span>, zobacz zakładkę Przykłady. \n"
 "</li> \n"
-"<li class = \" card-text mt-2 \"> Obecny Planer"
-" nie wspiera fejków, jednym z obejść może być początkowe ustawienie celu na fejki jako"
-" <span class = \" md-correct2 \"> Kordy:0:0 </span>, a następnie sprecyzowanie ataków ręcznie"
-" później. </li> \n"
+"<li class = \" card-text mt-2 \"> Obecny Planer nie wspiera fejków, jednym z "
+"obejść może być początkowe ustawienie celu na fejki jako <span class = \" md-"
+"correct2 \"> Kordy:0:0 </span>, a następnie sprecyzowanie ataków ręcznie "
+"później. </li> \n"
 "\n"
 "</div> \n"
 "</div> \n"
 "<div class = \" card \"> \n"
 "<div class = \" card-body \"> \n"
-"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ... </"
-"h5> \n"
-"<li class = \" card-text mt-2 \"> Uwzgłędniłeś każdy cel"
-". </li> \n"
-"<li class = \" card-text mt-2 \"> Współrzędne"
-" wpisane przez Ciebie są prawidłowe, co oznacza, że ​​taka wioska istnieje w"
-" świecie zdefiniowany wcześniej w rozpisce. </li> \n"
+"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ... </h5> \n"
+"<li class = \" card-text mt-2 \"> Uwzgłędniłeś każdy cel. </li> \n"
+"<li class = \" card-text mt-2 \"> Współrzędne wpisane przez Ciebie są "
+"prawidłowe, co oznacza, że ​​taka wioska istnieje w świecie zdefiniowany "
+"wcześniej w rozpisce. </li> \n"
 "</div> \n"
 "</div> \n"
 "<div class = \" card \"> \n"
 "<div class = \" card-body \"> \n"
-"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </"
-"h5> \n"
-"<li class = \" card-text mt-2 \"> Zawsze możesz powrócić"
-" z powrotem tutaj po rozpisaniu akcji, ale utracisz cały postęp. </li> \n"
-"<li class = \" card-text mt-2 \"> Offy poniżej 19 000"
-" jednostek nie zostaną domyślnie rozpisane. </li> \n"
-"<li class = \" card-text mt-2 \"> Nie jest możliwe,"
-" aby dodać <span class = \" md-error \"> Cel </span> w inny sposób niż tutaj"
-" w formularzu, później możesz zmienić ilość rozkazów na każdy cel, ale nie dodawać nowych"
-" </li> \n"
+"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </h5> \n"
+"<li class = \" card-text mt-2 \"> Zawsze możesz powrócić z powrotem tutaj po "
+"rozpisaniu akcji, ale utracisz cały postęp. </li> \n"
+"<li class = \" card-text mt-2 \"> Offy poniżej 19 000 jednostek nie zostaną "
+"domyślnie rozpisane. </li> \n"
+"<li class = \" card-text mt-2 \"> Nie jest możliwe, aby dodać <span class = "
+"\" md-error \"> Cel </span> w inny sposób niż tutaj w formularzu, później "
+"możesz zmienić ilość rozkazów na każdy cel, ale nie dodawać nowych </li> \n"
 "</div> \n"
 "</div>\n"
 "                    "
 
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:109
+#: base/templates/base/new_outline/new_outline_initial_period1.html:117
 msgid "What suits:"
 msgstr "Co odpowiada:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:111
+#: base/templates/base/new_outline/new_outline_initial_period1.html:119
 msgid "500|499 and 10 Off and 2 Nobles"
 msgstr "500|499 oraz 12 offów i 2 szlachcice"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:112
+#: base/templates/base/new_outline/new_outline_initial_period1.html:120
 msgid "500|499 and 12 Off and 4 Nobles"
 msgstr "500|499 oraz 12 offów i 4 szlachcice"
 
@@ -816,65 +824,66 @@ msgid ""
 msgstr ""
 " Aktualny postęp będzie be\n"
 "                                    <div class=\"md-error\">UTRACONY!</div>\n"
-"                                    <br>Powrócisz do poprzedniego formularza. "
+"                                    <br>Powrócisz do poprzedniego "
+"formularza. "
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:113
 #: base/templates/base/new_outline/new_outline_initial_period2.html:117
-#: base/templates/base/new_outline/new_outline_initial_period2.html:715
-#: base/templates/base/new_outline/new_outline_initial_period2.html:719
-#: base/templates/base/new_outline/new_outline_initial_period3.html:214
-#: base/templates/base/new_outline/new_outline_initial_period3.html:221
+#: base/templates/base/new_outline/new_outline_initial_period2.html:720
+#: base/templates/base/new_outline/new_outline_initial_period2.html:724
+#: base/templates/base/new_outline/new_outline_initial_period3.html:219
+#: base/templates/base/new_outline/new_outline_initial_period3.html:226
 msgid "Previous"
 msgstr "Poprzednia"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:121
-#: base/templates/base/new_outline/new_outline_initial_period2.html:723
-#: base/templates/base/new_outline/new_outline_initial_period3.html:225
+#: base/templates/base/new_outline/new_outline_initial_period2.html:728
+#: base/templates/base/new_outline/new_outline_initial_period3.html:230
 msgid "of"
 msgstr "z"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:125
 #: base/templates/base/new_outline/new_outline_initial_period2.html:129
-#: base/templates/base/new_outline/new_outline_initial_period2.html:727
-#: base/templates/base/new_outline/new_outline_initial_period2.html:731
-#: base/templates/base/new_outline/new_outline_initial_period3.html:229
+#: base/templates/base/new_outline/new_outline_initial_period2.html:732
+#: base/templates/base/new_outline/new_outline_initial_period2.html:736
 #: base/templates/base/new_outline/new_outline_initial_period3.html:234
+#: base/templates/base/new_outline/new_outline_initial_period3.html:239
 msgid "Next"
 msgstr "Następna"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:177
-#: base/templates/base/new_outline/new_outline_initial_period2.html:787
+#: base/templates/base/new_outline/new_outline_initial_period2.html:176
+#: base/templates/base/new_outline/new_outline_initial_period2.html:792
 #: base/templates/base/overview.html:35
 msgid "Target"
 msgstr "Cel"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:178
-#: base/templates/base/new_outline/new_outline_initial_period2.html:789
+#: base/templates/base/new_outline/new_outline_initial_period2.html:177
+#: base/templates/base/new_outline/new_outline_initial_period2.html:794
 #: base/templates/base/overview.html:36
 msgid "Outline"
 msgstr "Rozpiska"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:209
+#: base/templates/base/new_outline/new_outline_initial_period2.html:208
 msgid "Edit"
 msgstr "Edytuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:285
+#: base/templates/base/new_outline/new_outline_initial_period2.html:290
 msgid "Confirm an outline and Exit"
 msgstr "Potwierdź całą rozpiskę i zakończ"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:378
+#: base/templates/base/new_outline/new_outline_initial_period2.html:383
 msgid "Create"
 msgstr "Utwórz"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:777
+#: base/templates/base/new_outline/new_outline_initial_period2.html:782
 msgid "Confirm selected"
 msgstr "Zatwierdź zmiany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:786
+#: base/templates/base/new_outline/new_outline_initial_period2.html:791
 msgid "Selected"
 msgstr "Wybrany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:788
+#: base/templates/base/new_outline/new_outline_initial_period2.html:793
 msgid "Select Time"
 msgstr "Wybierz Czas"
 
@@ -915,43 +924,43 @@ msgstr ""
 msgid "Change and save"
 msgstr "Zmień z zapisz"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:127
+#: base/templates/base/new_outline/new_outline_initial_period3.html:132
 msgid "Divide"
 msgstr "Podziel"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:131
+#: base/templates/base/new_outline/new_outline_initial_period3.html:136
 msgid "Divide into 2"
 msgstr "Podziel na 2"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:135
+#: base/templates/base/new_outline/new_outline_initial_period3.html:140
 msgid "Divide into 3"
 msgstr "Podziel na 3"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:139
+#: base/templates/base/new_outline/new_outline_initial_period3.html:144
 msgid "Divide into 4"
 msgstr "Podziel na 4"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:194
+#: base/templates/base/new_outline/new_outline_initial_period3.html:199
 msgid "Sort"
 msgstr "Sortuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:198
-#: base/templates/base/new_outline/new_outline_initial_period3.html:199
+#: base/templates/base/new_outline/new_outline_initial_period3.html:203
+#: base/templates/base/new_outline/new_outline_initial_period3.html:204
 msgid "Ascending by distance"
 msgstr "Rosnąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:200
-#: base/templates/base/new_outline/new_outline_initial_period3.html:201
+#: base/templates/base/new_outline/new_outline_initial_period3.html:205
+#: base/templates/base/new_outline/new_outline_initial_period3.html:206
 msgid "Descending by distance"
 msgstr "Malejąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:202
-#: base/templates/base/new_outline/new_outline_initial_period3.html:203
+#: base/templates/base/new_outline/new_outline_initial_period3.html:207
+#: base/templates/base/new_outline/new_outline_initial_period3.html:208
 msgid "Descending by number of units"
 msgstr "Malejąco ze względu na liczbę jednostek"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:204
-#: base/templates/base/new_outline/new_outline_initial_period3.html:205
+#: base/templates/base/new_outline/new_outline_initial_period3.html:209
+#: base/templates/base/new_outline/new_outline_initial_period3.html:210
 msgid "Descending by number of noble"
 msgstr "Malejąco ze względu na ilość szlachty"
 
@@ -1011,7 +1020,7 @@ msgstr ""
 msgid "Site not found."
 msgstr "Nie znaleziono strony."
 
-#: base/views/outline_initial_views.py:198
+#: base/views/outline_initial_views.py:219
 msgid ""
 "It looks like your Army collection is no longer actual! To use the planner: "
 "copy the data from the preview and correct errors or paste the current "
@@ -1021,7 +1030,7 @@ msgstr ""
 "korzystać z Planera: skopiuj dane z podglądu i popraw błędy albo wklej "
 "aktualne dane \n"
 
-#: base/views/outline_initial_views.py:570
+#: base/views/outline_initial_views.py:611
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
@@ -1039,7 +1048,6 @@ msgstr ""
 "korzystać z Zbiórki: skopiuj dane z podglądu i popraw błędy albo wklej "
 "aktualne dane \n"
 
-
 #: templates/django_registration/registration_form.html:14
 msgid "Create an account"
 msgstr "Utwórz konto"
@@ -1048,10 +1056,13 @@ msgstr "Utwórz konto"
 msgid "Login"
 msgstr "Login"
 
-#: trbial_wars/outline_initial.py:246
+#: trbial_wars/period_utils.py:83
 msgid "nobleman"
 msgstr "Szlachcic"
 
-#: trbial_wars/outline_initial.py:249
+#: trbial_wars/period_utils.py:86
 msgid "ram"
 msgstr "Taran"
+
+#~ msgid "Exact lines [ coords:off:noble ] separated by an entry."
+#~ msgstr "Dokładnie [ kordy:off:szlachcic ] oddzielone enterem."

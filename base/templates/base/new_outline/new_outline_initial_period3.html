@@ -88,6 +88,11 @@
                   </svg>
                                                     </div>
                                                 </th>
+                                                {% if weight.first_line == True %}
+                                                <th class="md-correct2">
+                                                    <div class="ml-1">Front</div>
+                                                </th>
+                                                {% endif %}
                                             </tr>
 
                                         </table>
@@ -246,8 +251,11 @@
                     <div style="overflow-y: scroll; height:calc(71vh) !important;">
                         <div class="row">
                             {% for weight in page_obj %}
-
+                            {% if weight.first_line == True %}
+                            <div class="card col-12 col-lg-6 col-xl-3 th-front2">
+                            {% else %}
                             <div class="card col-12 col-lg-6 col-xl-3">
+                            {% endif %}
                                 <div class="card-body">
                                     <div class="d-flex row justify-content-center">
                                         <h5>
