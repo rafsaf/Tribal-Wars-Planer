@@ -12,9 +12,9 @@ from django.views.generic import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext
 
-import trbial_wars.outline_initial as initial
-import trbial_wars.outline_finish as finish
-import trbial_wars.basic as basic
+import tribal_wars.outline_initial as initial
+import tribal_wars.outline_finish as finish
+import tribal_wars.basic as basic
 from base import models, forms
 
 

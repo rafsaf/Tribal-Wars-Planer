@@ -1,7 +1,7 @@
 """ Army and Defence """
 from .cached_property import cached_property
 from base import models
-from trbial_wars import basic
+from tribal_wars import basic
 
 
 def world_evidence(world_number):

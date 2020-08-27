@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from trbial_wars.get_deff import get_deff
+from tribal_wars.get_deff import get_deff
 from base import models, forms
 from django.utils.translation import gettext
 

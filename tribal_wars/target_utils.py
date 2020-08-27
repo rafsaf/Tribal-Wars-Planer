@@ -1,4 +1,4 @@
-from trbial_wars import basic
+from tribal_wars import basic
 from base import models
 
 

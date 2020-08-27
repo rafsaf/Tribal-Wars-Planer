@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from markdownx.utils import markdownify
-from trbial_wars.database_update import cron_schedule_data_update
+from tribal_wars.database_update import cron_schedule_data_update
 from base import models
-from trbial_wars import basic
+from tribal_wars import basic
 
 def database_update(request):
     # ZMIENIC

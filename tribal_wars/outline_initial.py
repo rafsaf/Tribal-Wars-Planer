@@ -1,8 +1,8 @@
 """ File with outline making """
-from trbial_wars import target_utils
-from trbial_wars import weight_utils
+from tribal_wars import target_utils
+from tribal_wars import weight_utils
 from base import models
-from trbial_wars import basic
+from tribal_wars import basic
 
 
 def make_outline(outline: models.Outline):
@@ -125,7 +125,7 @@ def write_out_outline_offs(targets_general, outline, targets):
 
     weight_model_off_create_list = []
     weight_max_update_list = []
-    
+
     weights_max = models.WeightMaximum.objects.filter(
         outline=outline,
         nobleman_left=0,

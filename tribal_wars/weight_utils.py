@@ -1,5 +1,5 @@
-import trbial_wars.basic as basic
-import trbial_wars.get_deff as get_deff
+import tribal_wars.basic as basic
+import tribal_wars.get_deff as get_deff
 import base.models as models
 
 

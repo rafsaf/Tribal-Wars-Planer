@@ -1,9 +1,9 @@
 import secrets
 from collections import deque
 
-from trbial_wars import period_utils
+from tribal_wars import period_utils
 from base import models
-from trbial_wars import basic
+from tribal_wars import basic
 
 
 def make_final_outline(outline: models.Outline):

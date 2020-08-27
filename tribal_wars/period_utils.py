@@ -6,7 +6,7 @@ from math import inf
 from django.utils.translation import gettext
 
 from base import models
-from trbial_wars import basic
+from tribal_wars import basic
 
 
 class FromPeriods:

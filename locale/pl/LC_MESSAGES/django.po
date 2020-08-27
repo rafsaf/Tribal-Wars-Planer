@@ -1056,11 +1056,11 @@ msgstr "Utwórz konto"
 msgid "Login"
 msgstr "Login"
 
-#: trbial_wars/period_utils.py:83
+#: tribal_wars/period_utils.py:83
 msgid "nobleman"
 msgstr "Szlachcic"
 
-#: trbial_wars/period_utils.py:86
+#: tribal_wars/period_utils.py:86
 msgid "ram"
 msgstr "Taran"
 
