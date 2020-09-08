@@ -26,6 +26,7 @@ class TestCreateOutlineFunction(TestCase):
             archer="inactive",
         )
 
+
         self.admin = User.objects.create_user("admin", None, None)
         self.outline = models.Outline.objects.create(
             owner=self.admin,
@@ -34,7 +35,7 @@ class TestCreateOutlineFunction(TestCase):
             world="150",
             ally_tribe_tag=["pl1", "pl2"],
             enemy_tribe_tag=["pl3", "pl4"],
-            initial_outline_targets="500|506:1:4\r\n503|500:1:2",
+            initial_outline_targets="500|506:1:4\r\n503|500:1:2---",
             initial_outline_min_off=15000,
             initial_outline_front_dist=3,
             off_troops=TEXT,
