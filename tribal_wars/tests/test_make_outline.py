@@ -10,7 +10,7 @@ from tribal_wars import outline_initial as initial
 class TestCreateOutlineFunction(TestCase):
     def setUp(self):
         TEXT = (
-            "500|500,0,0,10000,0,0,0,0,0,4,0,0,\r\n"
+            "500|500,0,0,10000,0,0,0,0,0,2,0,0,\r\n"
             "499|500,0,0,190,0,0,0,0,0,0,0,0,\r\n"
             "498|503,0,0,19500,0,0,0,0,0,0,0,0,\r\n"
             "500|502,0,0,20100,0,0,0,0,0,0,0,0,\r\n"
@@ -34,12 +34,12 @@ class TestCreateOutlineFunction(TestCase):
             world="150",
             ally_tribe_tag=["pl1", "pl2"],
             enemy_tribe_tag=["pl3", "pl4"],
-            initial_outline_targets="500|506:2:3\r\n503|500:1:1",
+            initial_outline_targets="500|506:1:4\r\n503|500:1:2",
             initial_outline_min_off=15000,
             initial_outline_front_dist=3,
             off_troops=TEXT,
         )
-
+        # front
         self.ally_village1 = models.VillageModel(
             id="500500150",
             village_id=1,
@@ -56,7 +56,7 @@ class TestCreateOutlineFunction(TestCase):
             player_id=1,
             world=150,
         )
-        # legal below
+        # front
         self.ally_village3 = models.VillageModel(
             id="498503150",
             village_id=3,
@@ -165,3 +165,76 @@ class TestCreateOutlineFunction(TestCase):
         self.assertEqual(
             models.WeightMaximum.objects.filter(first_line=True).count(), 2
         )
+
+    def test_make_outline_8_weights_created(self):
+        initial.make_outline(outline=self.outline)
+        targets = list(
+            models.TargetVertex.objects.filter(outline=self.outline)
+        )
+        weight_number = models.WeightModel.objects.filter(
+            target__in=targets
+        ).count()
+        self.assertEqual(7, weight_number)
+
+    def test_make_outline_created_6_nobles_2_offs_weights(self):
+        initial.make_outline(outline=self.outline)
+        targets = list(
+            models.TargetVertex.objects.filter(outline=self.outline)
+        )
+        nob_number = (
+            models.WeightModel.objects.filter(target__in=targets)
+            .filter(nobleman=1)
+            .count()
+        )
+
+        self.assertEqual(6, nob_number)
+
+    def test_correct_updated_weight_max_weight_village_1(self):
+        initial.make_outline(outline=self.outline)
+        weight = models.WeightMaximum.objects.get(
+            outline=self.outline, start="500|500"
+        )
+        self.assertEqual(weight.nobleman_left, 0)
+        self.assertEqual(weight.nobleman_state, 2)
+        self.assertEqual(weight.off_left, 0)
+        self.assertEqual(weight.off_state, 10000)
+
+    def test_correct_updated_weight_max_weight_village_3(self):
+        initial.make_outline(outline=self.outline)
+        weight = models.WeightMaximum.objects.get(
+            outline=self.outline, start="498|503"
+        )
+        self.assertEqual(weight.nobleman_left, 0)
+        self.assertEqual(weight.nobleman_state, 0)
+        self.assertEqual(weight.off_left, 19500)
+        self.assertEqual(weight.off_state, 0)
+
+    def test_correct_updated_weight_max_weight_village_4(self):
+        initial.make_outline(outline=self.outline)
+        weight = models.WeightMaximum.objects.get(
+            outline=self.outline, start="500|502"
+        )
+        self.assertEqual(weight.nobleman_left, 0)
+        self.assertEqual(weight.nobleman_state, 0)
+        self.assertEqual(weight.off_left, 0)
+        self.assertEqual(weight.off_state, 20100)
+
+    def test_correct_updated_weight_max_weight_village_5(self):
+        initial.make_outline(outline=self.outline)
+        weight = models.WeightMaximum.objects.get(
+            outline=self.outline, start="498|502"
+        )
+        self.assertEqual(weight.nobleman_left, 0)
+        self.assertEqual(weight.nobleman_state, 2)
+        self.assertEqual(weight.off_left, 0)
+        self.assertEqual(weight.off_state, 20000)
+
+    def test_correct_updated_weight_max_weight_village_6(self):
+        initial.make_outline(outline=self.outline)
+        weight = models.WeightMaximum.objects.get(
+            outline=self.outline, start="500|499"
+        )
+        self.assertEqual(weight.nobleman_left, 0)
+        self.assertEqual(weight.nobleman_state, 2)
+        self.assertEqual(weight.off_left, 0)
+        self.assertEqual(weight.off_state, 20000)

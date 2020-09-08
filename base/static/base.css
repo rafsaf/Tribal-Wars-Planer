@@ -146,8 +146,11 @@
     background: #d6e9e2 !important;
 }
 
-.th-front2 {
-    background: #e1f0ea !important;
+.front-True {
+    background: #e7f1eea4 !important;
+}
+.paint {
+    background: #afdfd0a4 !important;
 }
 
 .md-correct2 {
@@ -241,21 +244,27 @@
     }
 }
 
-.fading {
+.fading- {
     background-color: white;
+    border: 1px solid white;
+}
+.fading-paint {
+    background-color: white ;
+    border: 1px solid rgb(12, 12, 102);
 }
 
-.fading :hover {
-    background: rgb(226, 250, 244);
+.fading- :hover {
+    border-color: rgb(12, 12, 102);
 }
 
-.paint {
-    background: rgb(226, 250, 244) !important;
+.fading- > * :hover{
+    border-color: white;
+    
 }
 
 .btn-outline-info:hover {
     color: rgba(132, 241, 81, 0.986) !important;
-    ;
+
 }
 
 .dropdown-menu:hover {

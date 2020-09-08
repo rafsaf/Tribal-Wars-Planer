@@ -169,7 +169,30 @@
                                 <div>
                                     <h2>
                                         <span class="badge badge-secondary">{{target.target}}</span>
+                                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                    viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+                                    <metadata>
+                                        Created by potrace 1.15, written by Peter Selinger 2001-2017
+                                    </metadata>
+                                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#007bff"
+                                        stroke="none">
+                                        <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135
+                                        -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614
+                                        41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737
+                                        49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647
+                                        -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43
+                                        2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202
+                                        104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218
+                                        113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29
+                                        -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7
+                                        466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87
+                                        525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10
+                                        -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0
+                                        -807 -131 -2556 -444z" />
+                                    </g>
+                                </svg>
                                     </h2>
+                                    
                                 </div>
                             </div>
 
@@ -267,7 +290,7 @@
                                     <div class="row">
 
                                         <div class="col-5">
-                                            <form method="POST" action="{% url 'base:planer_add_first' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                            <form method="POST" action="{% url 'base:planer_add_first_fake' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
                                                 {% csrf_token %}
                                                 <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                       <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-arrow-up-square" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
@@ -279,7 +302,7 @@
                                             </form>
 
 
-                                            <form method="POST" action="{% url 'base:planer_add_last' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                            <form method="POST" action="{% url 'base:planer_add_last_fake' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
                                                 {% csrf_token %}
                                                 <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                       <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-arrow-down-square" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">

@@ -1,7 +1,5 @@
-from itertools import zip_longest
-
 from django.shortcuts import render, redirect
-from django.db.models import Max, Min
+
 from django.urls import reverse
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -11,181 +9,12 @@ from django.forms import formset_factory
 from django.views.generic import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext
+from django.db.models import Max
 
 import tribal_wars.outline_initial as initial
 import tribal_wars.outline_finish as finish
 import tribal_wars.basic as basic
 from base import models, forms
-
-
-@login_required
-def initial_planer(request, _id):
-    """ view with form for initial period outline """
-    instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
-    if instance.written == "inactive":
-        return Http404()
-    if request.method == "POST":
-        if "form1" in request.POST:
-            instance.written = "inactive"
-            models.WeightMaximum.objects.filter(outline=instance).delete()
-            models.OutlineTime.objects.filter(outline=instance).delete()
-            models.TargetVertex.objects.filter(outline=instance).delete()
-            models.Overview.objects.filter(outline=instance).delete()
-            result = instance.result
-            result.results_outline = ""
-            result.save()
-            instance.save()
-            return redirect("base:planer_initial_form", _id)
-    instance.date = str(instance.date)
-
-    target_query = (
-        models.TargetVertex.objects.select_related("outline_time")
-        .filter(outline=instance)
-        .order_by("id")
-    )
-    target_context = {}
-    for target in target_query:
-        target_context[target] = list()
-
-    for weight in (
-        models.WeightModel.objects.select_related("target")
-        .filter(target__in=target_query)
-        .order_by("order")
-    ):
-        weight.distance = round(
-            basic.Village(weight.start, validate=False).distance(
-                basic.Village(weight.target.target, validate=False)
-            ),
-            1,
-        )
-        weight.off = f"{round(weight.off / 1000,1)}k"
-        target_context[weight.target].append(weight)
-
-    target_context = list(target_context.items())
-    paginator = Paginator(target_context, 12)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    mode = request.GET.get("mode")
-    if mode is None or mode not in {"menu", "time"}:
-        mode = "menu"
-
-    context = {"instance": instance, "query": page_obj, "mode": mode}
-
-    if mode == "time":
-        outline_time_query = models.OutlineTime.objects.filter(
-            outline=instance
-        ).order_by("id")
-        time_period_context = {}
-        for outline_time in outline_time_query:
-            time_period_context[outline_time] = list()
-
-        for time in (
-            models.PeriodModel.objects.select_related("outline_time")
-            .filter(outline_time__in=outline_time_query)
-            .order_by("from_time", "-unit")
-        ):
-            time.from_time = str(time.from_time)
-            time.to_time = str(time.to_time)
-            time_period_context[time.outline_time].append(time)
-
-        time_period_id_context = {}
-        for i in time_period_context:
-            time_period_id_context[i.id] = i
-
-        choose_forms = formset_factory(
-            form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
-        )
-        choices = [
-            (f"{time.id}", f"{i + 1}")
-            for (i, time) in enumerate(time_period_context)
-        ]
-
-        my_forms = formset_factory(
-            form=forms.PeriodForm,
-            formset=forms.BasePeriodFormSet,
-            extra=6,
-            min_num=2,
-            max_num=6,
-        )
-
-        if request.method == "POST":
-            if "formset" in request.POST:
-                my_forms = my_forms(request.POST)
-                choose_forms = choose_forms()
-                if my_forms.is_valid():
-                    new_time = models.OutlineTime.objects.create(
-                        outline=instance
-                    )
-                    create_list = []
-                    for obj_dict in my_forms.cleaned_data:
-                        if obj_dict == {}:
-                            continue
-                        obj_dict["outline_time"] = new_time
-                        create_list.append(models.PeriodModel(**obj_dict))
-                    models.PeriodModel.objects.bulk_create(create_list)
-                    return redirect(
-                        reverse("base:planer_initial", args=[_id])
-                        + f"?page={page_obj.number}&mode={mode}"
-                    )
-            if "choice-formset" in request.POST:
-                choose_forms = choose_forms(request.POST)
-                for form in choose_forms.forms:
-                    form.fields["choice"].choices = choices
-                my_forms = my_forms()
-                if choose_forms.is_valid():
-                    update_list = []
-                    for data, tup in zip(choose_forms.cleaned_data, page_obj):
-                        try:
-                            index = int(data["choice"])
-                        except KeyError:
-                            continue
-                        else:
-                            outline_time = time_period_id_context[index]
-
-                        if tup[0].outline_time != outline_time:
-                            tup[0].outline_time = outline_time
-                            update_list.append(tup[0])
-                    models.TargetVertex.objects.bulk_update(
-                        update_list, ["outline_time"]
-                    )
-
-        else:
-            my_forms = my_forms()
-            choose_forms = choose_forms()
-
-        for form in choose_forms.forms:
-            form.fields["choice"].choices = choices
-
-        choice_form_list = [form for form in choose_forms.forms]
-
-        for target, _ in page_obj:
-            for p_key, number in choices:
-                try:
-                    statement = bool(target.outline_time.id == int(p_key))
-                except AttributeError:
-                    continue
-                else:
-                    if statement:
-                        target.value = number
-
-        query2 = zip(page_obj, choice_form_list)
-        try:
-            error = request.session["outline_error"]
-        except KeyError:
-            error = None
-        else:
-            del request.session["outline_error"]
-        finally:
-            context["error"] = error
-
-        context["outline_time"] = time_period_context
-        context["formset"] = my_forms
-        context["choice_formset"] = choose_forms
-        context["query2"] = query2
-
-    return render(
-        request, "base/new_outline/new_outline_initial_period2.html", context
-    )
 
 
 @login_required
@@ -209,9 +38,9 @@ def initial_form(request, _id):
         if form1.is_valid():
             target = request.POST.get("target")
             instance.initial_outline_targets = target
-            min_off = request.POST.get('min_off')
+            min_off = request.POST.get("min_off")
             instance.initial_outline_min_off = min_off
-            front_dist = request.POST.get('front_dist')
+            front_dist = request.POST.get("front_dist")
             instance.initial_outline_front_dist = front_dist
             instance.save()
             # make outline
@@ -219,7 +48,14 @@ def initial_form(request, _id):
                 initial.make_outline(instance)
             except KeyError:
                 request.session["error"] = gettext(
-                    "It looks like your Army collection is no longer actual! To use the planner: copy the data from the preview and correct errors or paste the current military data \n"
+                    (
+                        "It looks like your Army collection is"
+                        " no longer actual! "
+                        "To use the planner: copy the data from"
+                        " the preview and "
+                        "correct errors or paste the current"
+                        " military data \n"
+                    )
                 )
                 return redirect("base:planer_detail", _id)
             instance.written = "active"
@@ -231,7 +67,175 @@ def initial_form(request, _id):
         request, "base/new_outline/new_outline_initial_period1.html", context
     )
 
+@basic.timing
+@login_required
+def initial_planer(request, _id):
+    """ view with form for initial period outline """
+    instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    if instance.written == "inactive":
+        return Http404()
+    if request.method == "POST":
+        if "form1" in request.POST:
+            instance.remove_user_outline()
+            return redirect("base:planer_initial_form", _id)
 
+    mode = basic.Mode(request.GET.get("mode"))
+
+    if mode.is_menu:
+        queries = basic.TargetWeightQueries(outline=instance, fake=False)
+        target_dict = queries.target_dict_with_weights_read()
+        paginator = Paginator(list(target_dict.items()), 12)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        context = {"instance": instance, "query": page_obj, "mode": str(mode)}
+
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period2.html",
+            context,
+        )
+
+    elif mode.is_fake:
+        queries = basic.TargetWeightQueries(outline=instance, fake=True)
+        target_dict = queries.target_dict_with_weights_read()
+        paginator = Paginator(list(target_dict.items()), 12)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        context = {"instance": instance, "query": page_obj, "mode": str(mode)}
+
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period2_2.html",
+            context,
+        )
+
+    elif mode.is_time:
+        queries = basic.TargetWeightQueries(outline=instance, every=True)
+        try:
+            error = request.session["outline_error"]
+        except KeyError:
+            error = None
+        else:
+            del request.session["outline_error"]
+        time_id_and_periods = queries.time_period_dictionary()
+
+        dict_order_to_time_obj = time_id_and_periods[0]
+        dict_time_obj_to_periods = time_id_and_periods[1]
+        dict_target_to_weights = queries.target_dict_with_weights_read()
+
+        paginator = Paginator(list(dict_target_to_weights.items()), 12)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        choices = [
+            (f"{time.order}", f"{time.order}")
+            for time in dict_time_obj_to_periods
+        ]
+
+        select_formset = formset_factory(
+            form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
+        )
+
+        create_formset = formset_factory(
+            form=forms.PeriodForm,
+            formset=forms.BasePeriodFormSet,
+            extra=6,
+            min_num=2,
+            max_num=6,
+        )
+
+        if request.method == "POST":
+            if "formset" in request.POST:
+                create_formset = create_formset(request.POST)
+                select_formset = select_formset()
+                if create_formset.is_valid():
+                    outline_times_Q = models.OutlineTime.objects.filter(
+                        outline=instance
+                    )
+                    if outline_times_Q.count() == 0:
+                        order = 1
+                    else:
+                        order = (
+                            outline_times_Q.aggregate(Max("order"))[
+                                "order__max"
+                            ]
+                            + 1
+                        )
+
+                    new_time = models.OutlineTime.objects.create(
+                        outline=instance, order=order
+                    )
+                    create_list = []
+                    for obj_dict in create_formset.cleaned_data:
+                        if obj_dict == {}:
+                            continue
+                        obj_dict["outline_time"] = new_time
+                        create_list.append(models.PeriodModel(**obj_dict))
+                    models.PeriodModel.objects.bulk_create(create_list)
+                    return redirect(
+                        reverse("base:planer_initial", args=[_id])
+                        + f"?page={page_obj.number}&mode={str(mode)}"
+                    )
+                else:
+                    for form in create_formset:
+                        for err in form.errors:
+                            form.fields[err].widget.attrs["class"] += " border-invalid"
+                            
+            if "choice-formset" in request.POST:
+                select_formset = select_formset(request.POST)
+                for form in select_formset.forms:
+                    form.fields["choice"].choices = choices
+                create_formset = create_formset()
+                if select_formset.is_valid():
+                    update_list = []
+                    for data, tup in zip(
+                        select_formset.cleaned_data, page_obj
+                    ):
+                        try:
+                            index = int(data["choice"])
+                        except KeyError:
+                            continue
+                        else:
+                            outline_time = dict_order_to_time_obj[index]
+
+                        if tup[0].outline_time != outline_time:
+                            tup[0].outline_time = outline_time
+                            update_list.append(tup[0])
+                    models.TargetVertex.objects.bulk_update(
+                        update_list, ["outline_time"]
+                    )
+                    return redirect(
+                        reverse("base:planer_initial", args=[_id])
+                        + f"?page={page_obj.number + 1}&mode={str(mode)}"
+                    )
+
+        else:
+            create_formset = create_formset()
+            select_formset = select_formset()
+
+        for form, target_lst in zip(select_formset.forms, page_obj):
+            form.fields["choice"].choices = choices
+            target_lst[0].form = form
+
+        context = {
+            "instance": instance,
+            "outline_time": dict_time_obj_to_periods,
+            "page_obj": page_obj,
+            "mode": str(mode),
+            "formset": create_formset,
+            "choice_formset": select_formset,
+            "error": error,
+        }
+
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period2_1.html",
+            context,
+        )
+
+@basic.timing
 @login_required
 def initial_target(request, id1, id2):
     """ view with form for initial period outline detail """
@@ -240,45 +244,22 @@ def initial_target(request, id1, id2):
         return Http404()
 
     target = get_object_or_404(models.TargetVertex, pk=id2)
-    nonused_vertices = models.WeightMaximum.objects.filter(
-        outline=instance
-    ).exclude(off_left=0, nobleman_left=0)
+
     result_lst = models.WeightModel.objects.filter(target=target).order_by(
         "order"
     )
     for weight in result_lst:
         weight.distance = round(weight.distance, 1)
     # sort
-    sort = request.GET.get("sort")
-    if sort is None:
-        sort = "-off_left"
-    if sort == "distance":
-        nonused_vertices = list(nonused_vertices)
-        for weight in nonused_vertices:
-            weight.distance = round(basic.dist(weight.start, target.target), 1)
-        nonused_vertices.sort(key=lambda weight: weight.distance)
-        paginator = Paginator(nonused_vertices, 16)
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-    elif sort == "-distance":
-        nonused_vertices = list(nonused_vertices)
-        for weight in nonused_vertices:
-            weight.distance = round(basic.dist(weight.start, target.target), 1)
-        nonused_vertices.sort(key=lambda weight: weight.distance, reverse=True)
-        paginator = Paginator(nonused_vertices, 16)
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-    else:
-        if sort in {"-off_left", "-nobleman_left"}:
-            nonused_vertices = nonused_vertices.order_by(sort)
-        else:
-            nonused_vertices = nonused_vertices.order_by("-off_left")
-        paginator = Paginator(nonused_vertices, 16)
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-        for weight in page_obj:
-            weight.distance = round(basic.dist(weight.start, target.target), 1)
+    sort_obj = basic.SortAndPaginRequest(
+        outline=instance,
+        GET_request=request.GET.get("sort"),
+        PAGE_request=request.GET.get('page'),
+        target=target
+        )
+    page_obj = sort_obj.sorted_query()
 
+    sort = sort_obj.sort
     # forms
     if request.method == "POST":
         if "form" in request.POST:
@@ -314,7 +295,7 @@ def initial_target(request, id1, id2):
                 state.save()
                 return redirect(
                     reverse("base:planer_initial_detail", args=[id1, id2])
-                    + f"?page={page_number}&sort={sort}"
+                    + f"?page={sort_obj.page_number}&sort={sort}"
                 )
         else:
             form = forms.WeightForm(None)
@@ -328,6 +309,11 @@ def initial_target(request, id1, id2):
     except KeyError:
         paint = None
 
+    if paint is not None:
+        for model in result_lst:
+            if model.id == paint:
+                model.paint = 'paint'
+                break
     context = {
         "instance": instance,
         "target": target,
@@ -337,56 +323,18 @@ def initial_target(request, id1, id2):
         "sort": sort,
         "paint": paint,
     }
-    return render(
-        request, "base/new_outline/new_outline_initial_period3.html", context
-    )
-
-
-@login_required
-def initial_add_first(request, id1, id2, id3):
-    if request.method == "POST":
-        outline = models.Outline.objects.get(id=id1)
-        if not request.user == outline.owner:
-            return Http404()
-        sort = request.GET.get("sort")
-        page = request.GET.get("page")
-        target = get_object_or_404(models.TargetVertex, pk=id2)
-        weight = get_object_or_404(models.WeightMaximum, pk=id3)
-        if not models.WeightModel.objects.filter(target=target).exists():
-            order = 0
-        else:
-            order = (
-                models.WeightModel.objects.filter(target=target).aggregate(
-                    Min("order")
-                )["order__min"]
-                - 1
-            )
-        models.WeightModel.objects.create(
-            target=target,
-            player=weight.player,
-            start=weight.start,
-            state=weight,
-            off=weight.off_left,
-            nobleman=weight.nobleman_left,
-            order=order,
-            distance=round(
-                basic.Village(target.target).distance(
-                    basic.Village(weight.start)
-                ),
-                1,
-            ),
-            first_line=weight.first_line,
+    if target.fake:
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period3_1.html",
+            context,
         )
-        weight.off_state += weight.off_left
-        weight.off_left = 0
-        weight.nobleman_state += weight.nobleman_left
-        weight.nobleman_left = 0
-        weight.save()
-        return redirect(
-            reverse("base:planer_initial_detail", args=[id1, id2])
-            + f"?page={page}&sort={sort}"
+    else:
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period3.html",
+            context,
         )
-    return Http404()
 
 
 class InitialDeleteTime(LoginRequiredMixin, DeleteView):
@@ -400,205 +348,6 @@ class InitialDeleteTime(LoginRequiredMixin, DeleteView):
             reverse("base:planer_initial", args=[outline.id])
             + f"?page={page}&mode={mode}"
         )
-
-
-@login_required
-def initial_add_last(request, id1, id2, id3):
-    if request.method == "POST":
-        outline = models.Outline.objects.get(id=id1)
-        if not request.user == outline.owner:
-            return Http404()
-        sort = request.GET.get("sort")
-        page = request.GET.get("page")
-        target = get_object_or_404(models.TargetVertex, pk=id2)
-        weight = get_object_or_404(models.WeightMaximum, pk=id3)
-        if not models.WeightModel.objects.filter(target=target).exists():
-            order = 0
-        else:
-            order = (
-                models.WeightModel.objects.filter(target=target).aggregate(
-                    Max("order")
-                )["order__max"]
-                + 1
-            )
-        models.WeightModel.objects.create(
-            target=target,
-            player=weight.player,
-            start=weight.start,
-            state=weight,
-            off=weight.off_left,
-            nobleman=weight.nobleman_left,
-            order=order,
-            distance=round(
-                basic.Village(target.target).distance(
-                    basic.Village(weight.start)
-                ),
-                1,
-            ),
-            first_line=weight.first_line,
-        )
-        weight.off_state += weight.off_left
-        weight.off_left = 0
-        weight.nobleman_state += weight.nobleman_left
-        weight.nobleman_left = 0
-        weight.save()
-        return redirect(
-            reverse("base:planer_initial_detail", args=[id1, id2])
-            + f"?page={page}&sort={sort}"
-        )
-    return Http404()
-
-
-@login_required
-def initial_move_down(request, id1, id2, id4):
-    if request.method == "POST":
-        outline = models.Outline.objects.get(id=id1)
-        if not request.user == outline.owner:
-            return Http404()
-        sort = request.GET.get("sort")
-        page = request.GET.get("page")
-        weight_model = models.WeightModel.objects.get(pk=id4)
-        target = get_object_or_404(models.TargetVertex, pk=id2)
-        order1 = weight_model.order
-
-        next_weight = (
-            models.WeightModel.objects.filter(order__gt=order1)
-            .filter(target=target)
-            .order_by("order")
-            .first()
-        )
-
-        if next_weight is not None:
-            weight_model.order = next_weight.order
-            weight_model.save()
-            next_weight.order = order1
-            next_weight.save()
-        request.session["weight"] = weight_model.id
-        return redirect(
-            reverse("base:planer_initial_detail", args=[id1, id2])
-            + f"?page={page}&sort={sort}"
-        )
-    return Http404()
-
-
-@login_required
-def initial_move_up(request, id1, id2, id4):
-    if request.method == "POST":
-        outline = models.Outline.objects.get(id=id1)
-        if not request.user == outline.owner:
-            return Http404()
-        sort = request.GET.get("sort")
-        page = request.GET.get("page")
-        weight_model = models.WeightModel.objects.get(pk=id4)
-        target = get_object_or_404(models.TargetVertex, pk=id2)
-        order1 = weight_model.order
-
-        next_weight = (
-            models.WeightModel.objects.filter(order__lt=order1)
-            .filter(target=target)
-            .order_by("-order")
-            .first()
-        )
-
-        if next_weight is not None:
-            weight_model.order = next_weight.order
-            weight_model.save()
-            next_weight.order = order1
-            next_weight.save()
-        request.session["weight"] = weight_model.id
-        return redirect(
-            reverse("base:planer_initial_detail", args=[id1, id2])
-            + f"?page={page}&sort={sort}"
-        )
-    return Http404()
-
-
-@login_required
-def initial_weight_delete(request, id1, id2, id4):
-    if request.method == "POST":
-        outline = models.Outline.objects.get(id=id1)
-        if not request.user == outline.owner:
-            return Http404()
-        sort = request.GET.get("sort")
-        page = request.GET.get("page")
-        weight_model = models.WeightModel.objects.select_related(
-            "state"
-        ).filter(pk=id4)[0]
-        weight_model.state.off_left += weight_model.off
-        weight_model.state.off_state -= weight_model.off
-        weight_model.state.nobleman_left += weight_model.nobleman
-        weight_model.state.nobleman_state -= weight_model.nobleman
-        weight_model.state.save()
-        weight_model.delete()
-
-        return redirect(
-            reverse("base:planer_initial_detail", args=[id1, id2])
-            + f"?page={page}&sort={sort}"
-        )
-    return Http404()
-
-
-@login_required
-def initial_divide(request, id1, id2, id4, n):
-    if request.method == "POST":
-        outline = models.Outline.objects.get(id=id1)
-        if not request.user == outline.owner:
-            return Http404()
-        sort = request.GET.get("sort")
-        page = request.GET.get("page")
-        weight = models.WeightModel.objects.select_related("state").filter(
-            pk=id4
-        )[0]
-        n_list = [i + 1 for i in range(n - 1)]
-        nob_list = [i for i in range(max(weight.nobleman - 1, 0))]
-        if n > weight.nobleman:
-            zipped_list = zip_longest(n_list, nob_list)
-            nob_number = max(weight.nobleman - 1, 0)
-        else:
-            zipped_list = zip(n_list, nob_list)
-            nob_number = n - 1
-
-        off = weight.off // n
-        rest = weight.off - off * n
-        update_list = []
-        create_list = []
-        for number, nob in zipped_list:
-            if nob is None:
-                nob = 0
-            else:
-                nob = 1
-
-            create_list.append(
-                models.WeightModel(
-                    target=weight.target,
-                    player=weight.player,
-                    start=weight.start,
-                    state=weight.state,
-                    off=off,
-                    nobleman=nob,
-                    order=weight.order + number,
-                    distance=weight.distance,
-                    first_line=weight.first_line,
-                )
-            )
-        weight.off = off + rest
-        weight.nobleman = weight.nobleman - nob_number
-        weight.save()
-
-        for next_weight in models.WeightModel.objects.filter(
-            target=weight.target, order__gt=weight.order
-        ):
-            next_weight.order = next_weight.order + n
-            update_list.append(next_weight)
-
-        models.WeightModel.objects.bulk_create(create_list)
-        models.WeightModel.objects.bulk_update(update_list, ["order"])
-
-        return redirect(
-            reverse("base:planer_initial_detail", args=[id1, id2])
-            + f"?page={page}&sort={sort}"
-        )
-    return Http404()
 
 
 @login_required

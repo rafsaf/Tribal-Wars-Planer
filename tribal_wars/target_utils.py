@@ -8,9 +8,9 @@ class TargetsGeneral:
     def __init__(self, outline_targets: str, world: int):
         self.coords = []
         self.target_list = outline_targets.split("\r\n")
-
-        self.targets_dict = self.targets_dict()
-        self.village_dict = self.target_village_dictionary(world=world)
+        if not self.target_list == ['']:
+            self.targets_dict = self.targets_dict()
+            self.village_dict = self.target_village_dictionary(world=world)
 
     def player(self, coord):
         """ Return player name  """
@@ -77,7 +77,7 @@ class SingleTarget:
         """ Check if no more nobles need to be written out to outline """
         return self.nobles_to_write_out == 0
 
-    def parse_nearest(self, weight_max, target):
+    def parse_real_noble(self, weight_max, target):
         """
         For given WeightMax and Target instances return list
 
@@ -120,7 +120,42 @@ class SingleTarget:
 
         return result_weight_lst
 
-    def parse_off(self, weight_max, target):
+    def parse_fake_noble(self, weight_max, target):
+        """
+        For given WeightMax and Target instances return list
+
+        with Weigths with nobles that need to be created.
+
+        Also updates weight_max instance.
+
+        """
+        result_weight_lst = []
+
+        times = min(self.nobles_to_write_out, weight_max.nobleman_left)
+
+        for i in range(times):
+            result_weight_lst.append(
+                models.WeightModel(
+                    target=target,
+                    player=weight_max.player,
+                    start=weight_max.start,
+                    state=weight_max,
+                    off=0,
+                    distance=basic.dist(weight_max.start, target.target),
+                    nobleman=1,
+                    order=self.index,
+                    first_line=weight_max.first_line,
+                )
+            )
+            self.index += 1
+            self.nobles_to_write_out -= 1
+
+        weight_max.nobleman_left = weight_max.nobleman_max - times
+        weight_max.nobleman_state = times
+
+        return result_weight_lst
+
+    def parse_real_off(self, weight_max, target):
         """
         For given WeightMax and Target instances return list
 
@@ -145,5 +180,38 @@ class SingleTarget:
 
         weight_max.off_state = weight_max.off_max
         weight_max.off_left = 0
+
+        return weight
+
+    def parse_fake_off(self, weight_max, target):
+        """
+        For given WeightMax and Target instances return list
+
+        with Weigths with NO nobles, only off that need to be created.
+
+        Also updates weight_max instance.
+
+        """
+        if weight_max.off_left < 100:
+            army = weight_max.off_left
+        else:
+            army = 100
+
+        weight = models.WeightModel(
+            target=target,
+            player=weight_max.player,
+            start=weight_max.start,
+            state=weight_max,
+            off=army,
+            distance=basic.dist(weight_max.start, target.target),
+            nobleman=0,
+            order=self.off_index,
+            first_line=weight_max.first_line,
+        )
+        self.off_index += 1
+        self.offs_to_write_out -= 1
+
+        weight_max.off_state = army
+        weight_max.off_left = weight_max.off_left - army
 
         return weight

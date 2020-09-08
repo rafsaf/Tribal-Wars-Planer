@@ -232,11 +232,20 @@ class InitialOutlineForm(forms.Form):
     def clean_target(self):
         """ User's input Villages """
         basic_villages = []
-        for i, info in enumerate(self.cleaned_data["target"].rstrip().split("\r\n")):
+        count_underline = 0
+
+        data = self.cleaned_data["target"].rstrip().split("\r\n")
+        for i, info in enumerate(data):
             info = info.split(":")
             if len(info) != 3:
-                self.add_error("target", i)
-                continue
+                if info == ['---']:
+                    count_underline += 1
+                    if count_underline > 1:
+                        self.add_error('target', i)
+                    continue
+                else:
+                    self.add_error("target", i)
+                    continue
             try:
                 coord = info[0]
                 village = basic.Village(coord)
@@ -247,12 +256,15 @@ class InitialOutlineForm(forms.Form):
                 self.add_error("target", i)
                 continue
             basic_villages.append(village.coord)
+
         if len(self.errors) > 0:
             return None
-
+        if count_underline == 0:
+            self.add_error('target', len(data) + 1)
         village_list = basic.many_villages(" ".join(basic_villages))
         villages_id = [f"{i.x_coord}{i.y_coord}{self.world}" for i in village_list]
         village_models = models.VillageModel.objects.filter(id__in=villages_id)
+
         if len(village_list) != village_models.count():
             village_set = [
                 f"{village_model.x_coord}|{village_model.y_coord}"
@@ -262,7 +274,6 @@ class InitialOutlineForm(forms.Form):
                 if village.coord not in village_set:
                     self.add_error("target", i)
                     return None
-        return self.cleaned_data["target"]
 
 
 class WeightForm(forms.Form):
@@ -303,10 +314,10 @@ class PeriodForm(forms.ModelForm):
         super(PeriodForm, self).__init__(*args, **kwargs)
         self.fields["status"].widget.attrs["class"] = "form-control"
         self.fields["unit"].widget.attrs["class"] = "form-control"
-        self.fields["from_time"].widget.attrs["class"] = "time-timepicker form-control"
-        self.fields["to_time"].widget.attrs["class"] = "time-timepicker form-control"
         self.fields["from_number"].widget.attrs["class"] = "form-control"
         self.fields["to_number"].widget.attrs["class"] = "form-control"
+        self.fields["from_time"].widget.attrs["class"] = "time-timepicker form-control"
+        self.fields["to_time"].widget.attrs["class"] = "time-timepicker form-control"
 
     def clean(self):
         status = self.cleaned_data.get("status")

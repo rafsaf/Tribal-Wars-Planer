@@ -3,10 +3,15 @@ from tribal_wars import basic
 
 
 class TargetWeightQueries:
-    def __init__(self, outline):
-        self.targets = models.TargetVertex.objects.select_related(
+    def __init__(self, outline, fake=False, every=False):
+        self.outline = outline
+        targets = models.TargetVertex.objects.select_related(
             "outline_time"
-        ).filter(outline=outline)
+        ).filter(outline=outline).order_by('id')
+        if not every:
+            self.targets = targets.filter(fake=fake)
+        else:
+            self.targets = targets
 
     def __create_target_dict(self):
         result = {}
@@ -17,7 +22,7 @@ class TargetWeightQueries:
     def __weights(self):
         return models.WeightModel.objects.select_related("target").filter(
             target__in=self.targets
-        )
+        ).order_by('order')
 
     def target_dict_with_weights_read(self):
         """ Create dict key-target, value-lst with weights, add dist """
@@ -34,7 +39,7 @@ class TargetWeightQueries:
         ids = set()
         context = self.__create_target_dict()
         for weight in self.__weights():
-            context[weight.target]
+            context[weight.target].append(weight)
 
             ids.add(
                 f"{weight.start[0:3]}{weight.start[4:7]}{self.outline.world}"
@@ -48,12 +53,60 @@ class TargetWeightQueries:
             "village_ids": self.__dict_with_village_ids(ids),
         }
 
+    def target_period_dictionary(self):
+        result_dict = {}
+        outline_time_dict = {}
+
+        for target in self.targets:
+            outline_time_dict[target.outline_time] = list()
+        for period in self.__time_periods():
+            outline_time_dict[period.outline_time].append(period)
+
+        for target in self.targets:
+            result_dict[target] = outline_time_dict[target.outline_time]
+
+        return result_dict
+
+    def time_period_dictionary(self):
+        id_time = {}
+        time_periods = {}
+        for time in self.__all_outline_times():
+            time_periods[time] = list()
+
+        for period in self.__all_time_periods():
+            id_time[period.outline_time.order] = period.outline_time
+            time_periods[period.outline_time].append(period)
+
+        return (id_time, time_periods)
+
+    def __all_time_periods(self):
+        times = self.__all_outline_times()
+        periods = (
+            models.PeriodModel.objects.select_related('outline_time').filter(
+                outline_time__in=times
+            )
+        ).order_by("from_time", "-unit")
+        return periods
+
+    def __all_outline_times(self):
+        try:
+            outline_times = self.outline_times
+        except AttributeError:
+            outline_times = list((
+                models.OutlineTime.objects.filter(
+                    outline=self.outline
+                )
+            ).order_by('order'))
+            self.outline_times = outline_times
+        finally:
+            return outline_times
+
     def __time_periods(self):
         periods = (
             models.PeriodModel.objects.select_related("outline_time")
             .filter(
                 outline_time__in=[
-                    target.outline_time.id for target in self.targets
+                    target.outline_time for target in self.targets
                 ]
             )
             .order_by("from_time", "-unit")

@@ -1,6 +1,6 @@
-{% extends "base/base.html" %} 
-{% load static %} 
-{% load i18n %} 
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
 
 {% block showsidebar %}
 <div class="d-flex toggled" id="wrapper">
@@ -163,7 +163,7 @@
 
             <li class="page-item">
                 {% if mode == 'fake' %}
-                <a href="?page={{ page_obj.number }}&mode=fake" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
+                <a href="?page={{ query.number }}&mode=fake" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
                         viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
                         <metadata>
@@ -188,7 +188,7 @@
                     </svg>
                 </a>
                 {% else %}
-                <a href="?page={{ page_obj.number }}&mode=fake" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
+                <a href="?page={{ query.number }}&mode=fake" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
                         viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
                         <metadata>
@@ -242,8 +242,8 @@
         <table class="table table-sm table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">{% trans 'Target' %}</th>
-                    <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
+                    <th scope="col">{% trans 'Fake Target' %}</th>
+                    <th colspan="50" scope="colgroup">{% trans 'Fake Outline' %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -290,9 +290,7 @@
                         <div class="popoverData" data-html="true"
                             data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
                             rel="popover" data-placement="top" data-trigger="hover">
-
                             <table class="table table-sm">
-
                                     <tr>
                                         <th>
                                             <img src='{% static "images/ax.png" %}' alt="ax">

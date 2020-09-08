@@ -30,8 +30,21 @@ class TestTargetWeightQueries(TestCase):
             nobleman_state=2,
             nobleman_left=2,
         )
+        self.outline_time = models.OutlineTime.objects.create(
+            outline=self.outline
+        )
+
+        self.period = models.PeriodModel.objects.create(
+            status='all',
+            outline_time=self.outline_time,
+            unit='ram',
+        )
+
         self.target = models.TargetVertex.objects.create(
-            outline=self.outline, player="player2", target="101|101",
+            outline=self.outline,
+            player="player2",
+            target="101|101",
+            outline_time=self.outline_time,
         )
         self.weight = models.WeightModel.objects.create(
             start="100|100",
@@ -46,9 +59,25 @@ class TestTargetWeightQueries(TestCase):
         self.target_query = basic.TargetWeightQueries(self.outline)
         self.targets = list(self.target_query.targets)
 
-    def test_weights(self):
+    def test____weights(self):
         with self.assertNumQueries(1):
             list(self.target_query._TargetWeightQueries__weights())
+
+    def test___time_periods(self):
+        with self.assertNumQueries(1):
+            list(self.target_query._TargetWeightQueries__time_periods())
+
+    def test_target_period_dictionary(self):
+        with self.assertNumQueries(1):
+            self.target_query.target_period_dictionary()
+
+    def test___dict_with_village_ids(self):
+        with self.assertNumQueries(1):
+            self.target_query._TargetWeightQueries__dict_with_village_ids([0])
+
+    def test___target_dict_with_weights_extendeds(self):
+        with self.assertNumQueries(2):
+            self.target_query.target_dict_with_weights_extended()
 
     def test_target_dict_read_correct_dictionary(self):
         dict_true = {}
@@ -63,7 +92,7 @@ class TestTargetWeightQueries(TestCase):
         with self.assertNumQueries(1):
             self.target_query.target_dict_with_weights_read()
 
-    def test_create_target_dict_correct_dict(self):
+    def test___create_target_dict_correct_dict(self):
         dict_result = {}
         dict_result[self.target] = []
         self.assertEqual(

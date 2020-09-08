@@ -11,12 +11,12 @@ from tribal_wars import basic
 
 class FromPeriods:
     def __init__(
-        self, periods: list(), world: models.World, date: datetime.date
+        self, periods: list(), world: int, date: datetime.date
     ):
         self.date_time = datetime.datetime(
             year=date.year, month=date.month, day=date.day
         )
-        self.world = world
+        self.world = models.World.objects.get(world=world)
         self.periods = periods
         self.nob_periods = deque(
             [period for period in periods if period.unit == "noble"]

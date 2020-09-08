@@ -11,9 +11,13 @@ def make_outline(outline: models.Outline):
     models.WeightMaximum.objects.filter(outline=outline).delete()
     models.TargetVertex.objects.filter(outline=outline).delete()
 
+    user_input = outline.initial_outline_targets.split("---")
     # User input targets
     targets_general = target_utils.TargetsGeneral(
-        outline_targets=outline.initial_outline_targets, world=outline.world,
+        outline_targets=user_input[0].strip(), world=outline.world,
+    )
+    fakes_general = target_utils.TargetsGeneral(
+        outline_targets=user_input[1].strip(), world=outline.world,
     )
 
     # Target model creating
@@ -25,6 +29,16 @@ def make_outline(outline: models.Outline):
                 outline_id=outline.id,
                 target=coord,
                 player=targets_general.player(coord),
+            )
+        )
+
+    for coord in fakes_general:
+        target_model_create_list.append(
+            models.TargetVertex(
+                outline_id=outline.id,
+                target=coord,
+                player=fakes_general.player(coord),
+                fake=True,
             )
         )
 
@@ -56,15 +70,24 @@ def make_outline(outline: models.Outline):
     models.WeightMaximum.objects.bulk_create(weight_max_create_list)
 
     # Auto writing outline for user
-    targets = list(models.TargetVertex.objects.filter(outline=outline))
+    targets = list(
+        models.TargetVertex.objects.filter(outline=outline, fake=False)
+    )
+    f_targets = list(
+        models.TargetVertex.objects.filter(outline=outline, fake=True)
+    )
 
     # Nobles
     write_out_outline_nobles(targets_general, outline, targets)
+    # Nobles fake
+    write_out_outline_nobles(fakes_general, outline, f_targets, True)
+    # Fake offs
+    write_out_outline_offs(fakes_general, outline, f_targets, True)
     # Offs
     write_out_outline_offs(targets_general, outline, targets)
 
 
-def write_out_outline_nobles(targets_general, outline, targets):
+def write_out_outline_nobles(targets_general, outline, targets, fake=False):
     """
     Creates Weights with all User's target nobles if have enough nobles
 
@@ -74,11 +97,13 @@ def write_out_outline_nobles(targets_general, outline, targets):
     weight_model_noble_create_list = []
     weight_max_update_list = []
 
-    weights_with_nobles = list(
-        models.WeightMaximum.objects.filter(
-            outline=outline, nobleman_max__gt=0, off_max__gt=400
+    weights_with_nobles = models.WeightMaximum.objects.filter(
+            outline=outline, nobleman_max__gt=0
         )
-    )
+    if fake:
+        weights_with_nobles = list(weights_with_nobles.filter(first_line=False))
+    else:
+        weights_with_nobles = list(weights_with_nobles.filter(off_max__gt=400))
 
     for target in targets:
         index_error = False
@@ -97,10 +122,14 @@ def write_out_outline_nobles(targets_general, outline, targets):
             except IndexError:
                 index_error = True
                 break  # after all nobles are used, move to finish func
-
-            weights_to_add = single_target.parse_nearest(
-                nearest_weight, target
-            )
+            if fake:
+                weights_to_add = single_target.parse_fake_noble(
+                    nearest_weight, target
+                )
+            else:
+                weights_to_add = single_target.parse_real_noble(
+                    nearest_weight, target
+                )
             for weight_model in weights_to_add:
                 weight_model_noble_create_list.append(weight_model)
             weight_max_update_list.append(nearest_weight)
@@ -115,7 +144,7 @@ def write_out_outline_nobles(targets_general, outline, targets):
     )
 
 
-def write_out_outline_offs(targets_general, outline, targets):
+def write_out_outline_offs(targets_general, outline, targets, fake=False):
     """
     Creates Weights with all User's target offs if have enough nobles
 
@@ -125,13 +154,18 @@ def write_out_outline_offs(targets_general, outline, targets):
 
     weight_model_off_create_list = []
     weight_max_update_list = []
-
+    if fake:
+        min_off = 100
+    else:
+        min_off = int(outline.initial_outline_min_off)
     weights_max = models.WeightMaximum.objects.filter(
         outline=outline,
         nobleman_left=0,
-        off_left__gte=int(outline.initial_outline_min_off),
-        first_line=False
+        off_left__gte=min_off,
+        first_line=False,
     )
+    if len(weights_max) == 0:
+        return
 
     for weight_max in weights_max:
         targets.sort(
@@ -146,8 +180,11 @@ def write_out_outline_offs(targets_general, outline, targets):
         if not single_target.are_offs_to_write_out():
             targets.pop()
             continue
+        if fake:
+            weight_to_add = single_target.parse_fake_off(weight_max, target)
+        else:
+            weight_to_add = single_target.parse_real_off(weight_max, target)
 
-        weight_to_add = single_target.parse_off(weight_max, target)
         weight_model_off_create_list.append(weight_to_add)
         weight_max_update_list.append(weight_max)
 
@@ -156,3 +193,11 @@ def write_out_outline_offs(targets_general, outline, targets):
         weight_max_update_list,
         ["nobleman_left", "nobleman_state", "off_left", "off_state"],
     )
+    if fake:
+        if len(targets) > 0:
+            return write_out_outline_offs(
+                targets_general=targets_general,
+                outline=outline,
+                targets=targets,
+                fake=True,
+            )

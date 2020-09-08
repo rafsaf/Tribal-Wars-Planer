@@ -82,7 +82,8 @@
                             <li class="card-text">Enter your targets with number of offs and nobles with it.</li>
                             <li class="card-text">Correct form in each line is <br><span class="md-correct2">Coord:Off:Noble</span>, e.g <br><span class="md-correct2">500|500:10:4</span>, see Examples tab.
                             </li>
-                            <li class="card-text mt-2">The current form does not support fakes, one of the workarounds may be to initially set it as a <span class="md-correct2">YourCoord:0:0</span> and then manually refine it later.</li>
+                            <li class="card-text mt-2">Enter fakes targets just like real targets, but <span class="md-correct2">under</span> separator line <span class="md-correct2">---</span> which is required</li>
+                            <li class="card-text mt-2">All front villages will have light blue background later in outline</li>
 
                         </div>
                     </div>
@@ -108,21 +109,16 @@
                     <pre class="md-pre">
 <span class="md-correct2">500|499:10:2</span>
 <span class="md-correct2">500|498:12:4</span>
-<span class="md-correct2">500|497:6:6</span>
+<span class="md-correct2">---</span>
 <span class="md-correct2">500|496:4:4</span>
-<span class="md-correct2">500|495:0:0</span>
-<span class="md-correct2">492|494:1:0</span>
-<span class="md-correct2">493|493:10:5</span>
                     </pre>
                     <p>{% trans 'What suits:' %}</p>
                     <pre class="md-pre">
-<span class="md-correct2">{% trans '500|499 and 10 Off and 2 Nobles' %}</span>
-<span class="md-correct2">{% trans '500|499 and 12 Off and 4 Nobles' %}</span>
-...
-...
-... 
-... 
-... 
+<span class="md-correct2">{% trans '500|499 - real: 10 Off and 2 Nobles' %}</span>
+<span class="md-correct2">{% trans '500|498 - real: 12 Off and 4 Nobles' %}</span>
+
+<span class="md-correct2">{% trans '500|496 - fake: 4 Fake-offs and 4 Fake-Nobles' %}</span>
+
                     </pre>
                 </div>
             </div>
