@@ -295,7 +295,7 @@ def initial_target(request, id1, id2):
                 state.save()
                 return redirect(
                     reverse("base:planer_initial_detail", args=[id1, id2])
-                    + f"?page={sort_obj.page_number}&sort={sort}"
+                    + f"?page={page_obj.number}&sort={sort}"
                 )
         else:
             form = forms.WeightForm(None)
