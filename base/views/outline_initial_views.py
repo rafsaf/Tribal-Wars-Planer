@@ -67,7 +67,6 @@ def initial_form(request, _id):
         request, "base/new_outline/new_outline_initial_period1.html", context
     )
 
-@basic.timing
 @login_required
 def initial_planer(request, _id):
     """ view with form for initial period outline """
@@ -235,7 +234,6 @@ def initial_planer(request, _id):
             context,
         )
 
-@basic.timing
 @login_required
 def initial_target(request, id1, id2):
     """ view with form for initial period outline detail """
