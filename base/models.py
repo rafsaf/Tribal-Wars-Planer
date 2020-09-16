@@ -248,6 +248,7 @@ class Overview(models.Model):
     player = models.CharField(max_length=40)
     created = models.DateField(auto_now=True)
     text = models.TextField()
+    show_hidden = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse("base:overview", args=[self.token])

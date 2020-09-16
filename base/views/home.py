@@ -41,12 +41,16 @@ def overview(request, token):
 
     own_weights = models.WeightModel.objects.select_related('target').filter(
         target__outline__id=overview.outline.id, player=overview.player).order_by('order')
-    
+
     for weight in own_weights:
         if weight.target in each_weight_target:
             continue
 
-        if weight.nobleman > 0 and weight.distance < 14: # < 8h
+        if overview.show_hidden:
+            each_weight_target.add(weight.target)
+            own_weight_target.discard(weight.target)
+
+        elif weight.nobleman > 0 and weight.distance < 14:  # < 8h
             each_weight_target.add(weight.target)
             own_weight_target.discard(weight.target)
         else:
@@ -85,7 +89,7 @@ def overview(request, token):
         weight.off = f"{round(weight.off / 1000,1)}k"
         target_context[weight.target].append(weight)
     query = target_context.items()
-    print(query)
+
     context = {'query': query, 'overview': overview}
     return render(request, 'base/overview.html', context=context)
 

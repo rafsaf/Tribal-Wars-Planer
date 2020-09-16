@@ -31,6 +31,7 @@
                         <th scope="col">#</th>
                         <th scope="col">{% trans 'Player' %}</th>
                         <th scope="col">{% trans 'Link to member Page' %}</th>
+                        <th scope="col">{% trans 'Show Hidden' %}</th>
                         <th scope="col">{% trans 'Send message' %}</th>
                     </tr>
                 </thead>
@@ -42,6 +43,7 @@
                         <th>{{item.player}}</th>
                         <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
                         </th>
+                        <th>{{item.show_hidden}}</th>
                         <th><a class="send" target="_blank" href="https://pl{{instance.world}}.plemiona.pl/game.php?screen=mail&mode=new&to={{ item.player }}&subject=Cele%20Akcja&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]">{% trans 'Send' %}</a>
                         </th>
                     </tr>
