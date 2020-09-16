@@ -1,3 +1,4 @@
+import datetime
 from base import models
 
 
@@ -6,9 +7,7 @@ class TableText:
         self.__next_line = "\r\n"
         self.__next_line_double = "\r\n\r\n"
         self.__prefix = (
-            "[table][**]LINK[||]Z WIOSKI[||]CEL[||]PRĘDKOŚĆ"
-            "[||]OFF[||]SZLACHTA[||]MIN WYSYŁKA[||]MAX WYSYŁKA"
-            "[||]MIN WEJŚCIE[||]MAX WEJŚCIE[/**]"
+            "[table][**]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z WIOSKI[||]CEL[/**]"
         )
         self.__postfix = "[/table]"
         self.result = {}
@@ -21,18 +20,26 @@ class TableText:
             f"target={enemy_village_id}"
         )
 
-    def __weight_string(self, weight: models.WeightModel, ally_id, enemy_id):
-        if weight.nobleman > 0:
-            unit = "noble"
-        else:
-            unit = "ram"
+    def __data_color_column(self, datetime1: datetime.datetime, datetime2:datetime.datetime):
+        date_part = datetime1.date()
+
+        t1_part = datetime1.time()
+        t2_part = datetime2.time()
 
         return (
-            f"[*][url={self.__link(self.world, ally_id, enemy_id)}]Link[/url]"
-            f"[|][coord]{weight.start}[/coord]"
-            f"[|][coord]{weight.target.target}[/coord][|]{unit}"
-            f"[|]{weight.off}[|]{weight.nobleman}[|]{weight.sh_t1}"
-            f"[|]{weight.sh_t2}[|]{weight.t1}[|]{weight.t2}"
+            f'{date_part}'
+            f'\n'
+            f'[b][color=#00a500]{t1_part}[/color][/b]-'
+            f'[b][color=#ff0000]{t2_part}[/color][/b]'
+        )
+
+    def __weight_string(self, weight: models.WeightModel, ally_id, enemy_id):
+        return (
+            f"[*][url={self.__link(self.world, ally_id, enemy_id)}]Wyślij[/url]"
+            f"[|]{weight.off}[|]{weight.nobleman}"
+            f"[|]{self.__data_color_column(weight.sh_t1, weight.sh_t2)}"
+            f"[|]{self.__data_color_column(weight.t1, weight.t2)}"
+            f"[|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord]"
         )
 
     def add_weight(self, weight: models.WeightModel, ally_id, enemy_id):
