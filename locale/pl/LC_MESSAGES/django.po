@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-09 00:40+0200\n"
+"POT-Creation-Date: 2020-09-17 12:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,18 +181,21 @@ msgstr "Plemiona Planer"
 #: base/templates/base/base.html:30
 #: base/templates/base/new_outline/new_outline_initial_period2.html:10
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:10
+#: base/templates/base/overview.html:9
 msgid "User Panel"
 msgstr "Panel Użytkownika"
 
 #: base/templates/base/base.html:34
 #: base/templates/base/new_outline/new_outline_initial_period2.html:14
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:14
+#: base/templates/base/overview.html:13
 msgid "My outlines"
 msgstr "Moje rozpiski"
 
 #: base/templates/base/base.html:36
 #: base/templates/base/new_outline/new_outline_initial_period2.html:16
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:16
+#: base/templates/base/overview.html:15
 msgid "Create new outline"
 msgstr "Stwórz nową rozpiskę"
 
@@ -786,10 +789,10 @@ msgstr ""
 "</li> \n"
 "                            <li class=\"card-text mt-2\">Dodaj cele na fejki "
 "identycznie jak prawdziwe, ale <span class=\"md-correct2\">poniżej</span> "
-"oddzielającego cele od fejków separatora <span class=\"md-correct2\">---</span> który jest wymagany</"
-"li>\n"
-"                            <li class=\"card-text mt-2\">Wszystkie "
-"wioski frontowe będą miały jasno niebieskie tło w późniejszym panelu</li>\n"
+"oddzielającego cele od fejków separatora <span class=\"md-correct2\">---</"
+"span> który jest wymagany</li>\n"
+"                            <li class=\"card-text mt-2\">Wszystkie wioski "
+"frontowe będą miały jasno niebieskie tło w późniejszym panelu</li>\n"
 "\n"
 "</div> \n"
 "</div> \n"
@@ -913,13 +916,13 @@ msgstr "Ustaw czasy wejścia i zakończ rozpiskę"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:245
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:531
-#: base/templates/base/overview.html:35
+#: base/templates/base/overview.html:60
 msgid "Target"
 msgstr "Cel"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:246
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:533
-#: base/templates/base/overview.html:36
+#: base/templates/base/overview.html:61
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -1091,30 +1094,34 @@ msgid "Link to member Page"
 msgstr "Link do strony gracza"
 
 #: base/templates/base/new_outline/new_outline_results.html:34
+msgid "Show Hidden"
+msgstr "Pokaż ukryte cele"
+
+#: base/templates/base/new_outline/new_outline_results.html:35
 msgid "Send message"
 msgstr "Wyślij wiadomość"
 
-#: base/templates/base/new_outline/new_outline_results.html:43
+#: base/templates/base/new_outline/new_outline_results.html:44
 msgid "Go to member Page"
 msgstr "Idź do strony gracza"
 
-#: base/templates/base/new_outline/new_outline_results.html:45
+#: base/templates/base/new_outline/new_outline_results.html:47
 msgid "Send"
 msgstr "Wyślij"
 
-#: base/templates/base/new_outline/new_outline_results.html:50
+#: base/templates/base/new_outline/new_outline_results.html:52
 msgid "Sent!"
 msgstr "Wysłano!"
 
-#: base/templates/base/overview.html:8
+#: base/templates/base/overview.html:30
 msgid "Outline Result Copy"
 msgstr "Wyniki Rozpiski - Kopiuj"
 
-#: base/templates/base/overview.html:13
+#: base/templates/base/overview.html:35
 msgid "Outline Result Details"
 msgstr "Wyniki Rozpiski - Szczegóły"
 
-#: base/templates/base/overview.html:21
+#: base/templates/base/overview.html:43
 msgid ""
 "The table below shows your targets, please copy the contents to your in-game "
 "notes."
@@ -1122,11 +1129,15 @@ msgstr ""
 "Poniższa tabela zawiera Twoje cele, skopiuj zawartość do swoich notatek w "
 "grze. "
 
+#: base/templates/base/overview.html:54
+msgid "Alert! The order in the list below matters and is fixed."
+msgstr "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak ustalona."
+
 #: base/templates/base/overview_fail.html:3
 msgid "Site not found."
 msgstr "Nie znaleziono strony."
 
-#: base/views/outline_initial_views.py:363
+#: base/views/outline_initial_views.py:361
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 

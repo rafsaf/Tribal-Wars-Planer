@@ -373,3 +373,16 @@ def initial_divide(request, id1, id2, id4, n):
             + f"?page={page}&sort={sort}"
         )
     return Http404()
+
+
+@login_required
+def overview_hide_unhide(request, id1, token):
+
+    instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
+    overview = get_object_or_404(models.Overview, token=token, outline=instance)
+
+    new_state = not bool(overview.show_hidden)
+    overview.show_hidden = new_state
+
+    overview.save()
+    return redirect("base:planer_detail_results", id1)

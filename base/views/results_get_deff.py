@@ -51,8 +51,8 @@ def outline_detail_results(request, _id):
 
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
 
-    overviews = models.Overview.objects.filter(outline=instance)
+    overviews = models.Overview.objects.filter(outline=instance).order_by('token')
 
-    context = {"instance": instance, 'overviews':overviews}
+    context = {"instance": instance, 'overviews': overviews}
 
     return render(request, "base/new_outline/new_outline_results.html", context)

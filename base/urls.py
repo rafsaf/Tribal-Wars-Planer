@@ -13,6 +13,7 @@ urlpatterns = [
     path("planer/create/", views.new_outline_create, name="planer_create"),
     path("planer/<int:_id>/status", views.inactive_outline, name="planer_status"),
     path("planer/<int:_id>/results", views.outline_detail_results, name="planer_detail_results"),
+    path("planer/<int:id1>/<str:token>/change", views.overview_hide_unhide, name="planer_overview_hide"),
     path("planer/<int:_id>", views.outline_detail_1, name="planer_detail"),
     path("planer/<int:_id>/planer-form", views.initial_form, name="planer_initial_form",),
     path("planer/<int:_id>/planer-menu", views.initial_planer, name="planer_initial",),

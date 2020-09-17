@@ -1,7 +1,29 @@
-{% extends "base/base.html" %} {% load static %} {% load i18n %} {% block content %}
+{% extends "base/base.html" %}
+ {% load static %} 
+ {% load i18n %} 
+
+ {% block showsidebar %}
+    <div class="d-flex toggled" id="wrapper">
+        {% if user.is_authenticated %}
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">{% trans 'User Panel' %}</div>
+            <div class="list-group list-group-flush">
+
+                <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action
+                        bg-light">{% trans 'My outlines' %}</a>
+                <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action
+                        bg-light">{% trans 'Create new outline' %}</a> 
+                        
+            </div>
+        </div>
+        {% endif %} 
+ {% endblock %}
+ 
+ 
+ {% block content %}
 <h1>{{overview.player}}</h1>
 
-<div class="container-fluid md-pre h-100">
+<div class="container-fluid h-100">
     <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab"
@@ -20,7 +42,7 @@
         <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
             <h3 class="mb-5">{% trans 'The table below shows your targets, please copy the contents to your in-game notes.' %}</h2>
             
-            <textarea class="form-control" id="zbiorka-wojsko" rows="16">
+            <textarea class="form-control" id="zbiorka-wojsko" rows="24">
 {{overview.text}}
 </textarea>
 
@@ -28,6 +50,9 @@
 
         <div class="tab-pane fade" id="pills-outline-details" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group">
+                <div class="alert alert-primary" role="alert">
+                    {% trans 'Alert! The order in the list below matters and is fixed.' %}
+                  </div>
                 <div class="conatiner-fluid" style="width: min-content;">
                     <table class="table table-sm table-bordered">
                         <thead>
@@ -41,7 +66,7 @@
                             {% for target, lst in query %}
                             <tr>
 
-                                <th>
+                                <th class="front-{{target.fake}}">
 
 
 
@@ -59,15 +84,24 @@
                                                 {{target.target}}
                                             </span>
                                         </h5>
+                                    </div>
+                                    {% if target.fake %}
+                                    <div class="d-flex justify-content-center">
+
+                                        <h5 style="color: teal;" class="font-italic">
+                                            Fake
+                                        </h5>
+                                    </div>
+                                    {% endif %}
 
                                 </th>
 
                                 {% for weight in lst %}
                                 <th>
                                     <div class='d-flex justify-content-center'>
-                                    <h4>
-                                        <span class='badge badge-pill badge-info'>{{weight.player}}</span>
-                                    </h4>
+                                    <h6>
+                                        <span class='badge badge-pill badge-info text-break'>{{weight.player}}</span>
+                                    </h6>
                                     </div>
                                     <div class='d-flex justify-content-center'>
                                         <h5><span class='badge badge badge-secondary'>{{weight.start}}</span>

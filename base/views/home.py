@@ -88,7 +88,8 @@ def overview(request, token):
         )
         weight.off = f"{round(weight.off / 1000,1)}k"
         target_context[weight.target].append(weight)
-    query = target_context.items()
+    query = list(target_context.items())
+    query.sort(key=lambda tup: tup[0].fake)
 
     context = {'query': query, 'overview': overview}
     return render(request, 'base/overview.html', context=context)
