@@ -7,7 +7,7 @@ from tribal_wars import basic
 
 def make_final_outline(outline: models.Outline):
 
-    queries = basic.TargetWeightQueries(outline=outline)
+    queries = basic.TargetWeightQueries(outline=outline, every=True)
 
     # target - lst[period1, period2, ...]
     target_period_dict = queries.target_period_dictionary()
@@ -20,6 +20,7 @@ def make_final_outline(outline: models.Outline):
     village_id = target_weight_ext_dict["village_ids"]
 
     text = basic.TableText(world_num=outline.world)
+    update_weights = []
 
     with text:
 
@@ -36,6 +37,12 @@ def make_final_outline(outline: models.Outline):
                     ally_id=village_id[weight.start],
                     enemy_id=village_id[weight.target.target],
                 )
+                weight.t1 = weight.t1.time()
+                weight.t2 = weight.t2.time()
+
+                update_weights.append(weight)
+    
+    models.WeightModel.objects.bulk_update(update_weights, ['t1', 't2'])
 
     result_instance = outline.result
     result_instance.results_outline = text.get_full_result()

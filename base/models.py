@@ -235,6 +235,8 @@ class WeightModel(models.Model):
     order = models.IntegerField()
     player = models.CharField(max_length=40)
     first_line = models.BooleanField(default=False)
+    t1 = models.TimeField(default=datetime.time(hour=0, minute=0, second=0))
+    t2 = models.TimeField(default=datetime.time(hour=0, minute=0, second=0))
 
     def __str__(self):
         return self.start

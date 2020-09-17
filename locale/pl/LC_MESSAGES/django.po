@@ -64,7 +64,7 @@ msgstr "Promień"
 
 #: base/forms.py:127
 msgid "Other ally players"
-msgstr "Inni przeciwni gracze"
+msgstr "Inni sojuszniczy gracze"
 
 #: base/forms.py:128 base/forms.py:135
 msgid "Exact nicknames separated by a space or an entry."

@@ -366,8 +366,8 @@
                                 <th>{%if period.to_number != None %}
                                     {{period.to_number}}
                                     {% endif %}</th>
-                                <th>{{period.from_time}}</th>
-                                <th>{{period.to_time}}</th>
+                                <th>{{period.from_time|safe}}</th>
+                                <th>{{period.to_time|safe}}</th>
                             </tr>
                             {% endfor %}
 
