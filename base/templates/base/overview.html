@@ -21,6 +21,18 @@
  
  
  {% block content %}
+ <style>
+    .zoom {
+        transition: transform .2s;;
+        border: 2px solid transparent;
+    }
+
+    .zoom:hover {
+        transform: translateX(10%) translateY(-10%) scale(1.1);
+        background-color: white;
+        
+    }
+ </style>
 <h1>{{overview.player}}</h1>
 
 <div class="container-fluid h-100">
@@ -64,7 +76,7 @@
                         <tbody>
 
                             {% for target, lst in query %}
-                            <tr>
+                            <tr class="zoom">
 
                                 <th class="front-{{target.fake}}">
 
@@ -98,7 +110,7 @@
 
                                 {% for weight in lst %}
                                 <th>
-                                    <div class='d-flex justify-content-center' style="font-size: 1.7vh">
+                                    <div class='d-flex justify-content-center' style="font-size: medium;";">
                                         <span class='badge badge-pill badge-info text-break'>{{weight.player}}</span>
                                     </div>
                                     <div class='d-flex justify-content-center'>
@@ -106,10 +118,10 @@
                                         <span class='badge badge badge-secondary'>{{weight.start}}</span>
                                         </h6>
                                     </div>
-                                    <div class='d-flex justify-content-center' style="font-size: 1.7vh;color:green; ">
+                                    <div class='d-flex justify-content-center' style="font-size: medium;color:green; ">
                                         {{weight.t1|safe}}
                                     </div>
-                                    <div class='d-flex justify-content-center' style="font-size: 1.7vh;color: red;">
+                                    <div class='d-flex justify-content-center' style="font-size: medium;color: red;">
                                         {{weight.t2|safe}}
                                     </div>
 
