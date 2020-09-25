@@ -49,12 +49,13 @@ def make_final_outline(outline: models.Outline):
     result_instance.save()
 
     overviews = []
-    for player, player_text in text:
+    for player, table, string in text.iterate_over():
         token = secrets.token_urlsafe()
 
         overviews.append(
             models.Overview(
-                outline=outline, player=player, token=token, text=player_text,
+                outline=outline, player=player, token=token,
+                table=table, string=string
             )
         )
 

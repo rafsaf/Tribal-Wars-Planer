@@ -17,8 +17,8 @@
 
             {{ form|crispy }}
             
-            <button class="btn btn-ocean mt-3" type="submit">{% trans 'Login' %}</button>
-        
+            <button class="btn btn-ocean my-3" type="submit">{% trans 'Login' %}</button>
+            <p>{% trans "Don't have an account? "  %}<a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
         </form>
 
     </div>

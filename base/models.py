@@ -249,7 +249,8 @@ class Overview(models.Model):
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     player = models.CharField(max_length=40)
     created = models.DateField(auto_now=True)
-    text = models.TextField()
+    table = models.TextField()
+    string = models.TextField()
     show_hidden = models.BooleanField(default=False)
 
     def get_absolute_url(self):

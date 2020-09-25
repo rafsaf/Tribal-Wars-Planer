@@ -97,7 +97,7 @@
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    margin-left: 0;
+    margin-left: -15rem;
 }
 
 @media (min-width: 768px) {
@@ -269,4 +269,11 @@
 
 .dropdown-menu:hover {
     background: white !important;
+}
+
+a[class=teal-copy] {
+    font-size: x-large;
+    color: rgb(11, 136, 145);
+    text-decoration:none;
+    border-bottom: 4px solid teal;
 }

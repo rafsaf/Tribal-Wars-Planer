@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-17 12:34+0200\n"
+"POT-Creation-Date: 2020-09-25 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,85 +178,77 @@ msgstr "Taran"
 msgid "Tribal Wars Planer"
 msgstr "Plemiona Planer"
 
-#: base/templates/base/base.html:30
+#: base/templates/base/base.html:100
 #: base/templates/base/new_outline/new_outline_initial_period2.html:10
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:10
 #: base/templates/base/overview.html:9
 msgid "User Panel"
 msgstr "Panel Użytkownika"
 
-#: base/templates/base/base.html:34
+#: base/templates/base/base.html:104
 #: base/templates/base/new_outline/new_outline_initial_period2.html:14
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:14
 #: base/templates/base/overview.html:13
 msgid "My outlines"
 msgstr "Moje rozpiski"
 
-#: base/templates/base/base.html:36
+#: base/templates/base/base.html:106
 #: base/templates/base/new_outline/new_outline_initial_period2.html:16
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:16
 #: base/templates/base/overview.html:15
 msgid "Create new outline"
 msgstr "Stwórz nową rozpiskę"
 
-#: base/templates/base/base.html:62
+#: base/templates/base/base.html:136
 msgid "Home"
 msgstr "Strona Główna"
 
-#: base/templates/base/base.html:65
+#: base/templates/base/base.html:139
 #: base/templates/base/new_outline/new_outline.html:12
 #: base/templates/base/new_outline/new_outline_initial_period2.html:26
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:26
 msgid "Planer"
 msgstr "Planer"
 
-#: base/templates/base/base.html:68
+#: base/templates/base/base.html:142
 msgid "Documentation"
 msgstr "Dokumentacja"
 
-#: base/templates/base/base.html:72
+#: base/templates/base/base.html:146
 msgid "Admin Site"
 msgstr "Administracja"
 
-#: base/templates/base/base.html:75
+#: base/templates/base/base.html:149
 msgid "Database Update"
 msgstr "Aktualizacja"
 
-#: base/templates/base/base.html:81
-msgid "LOG OUT"
-msgstr "WYLOGUJ"
+#: base/templates/base/base.html:156
+msgid "Account"
+msgstr "Konto"
 
-#: base/templates/base/base.html:84
-msgid "LOGIN"
-msgstr "ZALOGUJ"
+#: base/templates/base/base.html:159
+msgid "Sign out"
+msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:86
-msgid "CREATE AN ACCOUNT"
-msgstr "UWTÓRZ KONTO"
+#: base/templates/base/base.html:161 base/templates/base/base.html:210
+msgid "Sign in"
+msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:120
-msgid "Create fast,"
-msgstr "Twórz szybkie,"
+#: base/templates/base/base.html:163 templates/registration/login.html:21
+msgid "Sign up"
+msgstr "Zarejestruj się"
 
-#: base/templates/base/base.html:120
-msgid "Simple Tribal Wars outlines."
-msgstr "Proste rozpiski akcji plemiennych."
+#: base/templates/base/base.html:168
+msgid "Language"
+msgstr "Język"
 
-#: base/templates/base/base.html:134
-msgid "CREATE NEW OUTLINES"
-msgstr "TWÓRZ NOWE ROZPISKI"
+#: base/templates/base/base.html:209
+msgid "Create simple and fast outlines"
+msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:141
-msgid "WRITE YOUR OWN OUTLINES"
-msgstr "ROZPISUJ WŁASNE AKCJE"
-
-#: base/templates/base/base.html:147
-msgid "WORK OUT THE DETAILS"
-msgstr "DOPRACUJ SZCZEGÓŁY"
-
-#: base/templates/base/base.html:153
-msgid "COLLECT TRIBE'S DEFF UNITS"
-msgstr "ZBIERAJ WOJSKO PLEMIENNE"
+#: base/templates/base/base.html:214
+msgid "Galery"
+msgstr "Galeria"
 
 #: base/templates/base/base_planer.html:9
 msgid "Created"
@@ -916,13 +908,13 @@ msgstr "Ustaw czasy wejścia i zakończ rozpiskę"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:245
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:531
-#: base/templates/base/overview.html:60
+#: base/templates/base/overview.html:91
 msgid "Target"
 msgstr "Cel"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:246
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:533
-#: base/templates/base/overview.html:61
+#: base/templates/base/overview.html:92
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -1113,25 +1105,39 @@ msgstr "Wyślij"
 msgid "Sent!"
 msgstr "Wysłano!"
 
-#: base/templates/base/overview.html:30
-msgid "Outline Result Copy"
-msgstr "Wyniki Rozpiski - Kopiuj"
+#: base/templates/base/overview.html:31
+msgid "Copy"
+msgstr "Kopiuj"
 
-#: base/templates/base/overview.html:35
-msgid "Outline Result Details"
-msgstr "Wyniki Rozpiski - Szczegóły"
+#: base/templates/base/overview.html:36
+msgid "Details"
+msgstr "Szczegóły"
 
-#: base/templates/base/overview.html:43
+#: base/templates/base/overview.html:47
 msgid ""
-"The table below shows your targets, please copy the contents to your in-game "
-"notes."
+"The contents below shows your targets, please copy the one you like to your "
+"in-game notes."
 msgstr ""
-"Poniższa tabela zawiera Twoje cele, skopiuj zawartość do swoich notatek w "
+"Poniższe pola tekstowe zawierają Twoje cele, skopiuj zawartość wybranego do swoich notatek w "
 "grze. "
 
-#: base/templates/base/overview.html:54
+#: base/templates/base/overview.html:51
+msgid "Table"
+msgstr "Tabela"
+
+#: base/templates/base/overview.html:51 base/templates/base/overview.html:66
+msgid "Copy to clipboard"
+msgstr "Kopiuj do schowka"
+
+#: base/templates/base/overview.html:66
+msgid "Text"
+msgstr "Tekst"
+
+#: base/templates/base/overview.html:85
 msgid "Alert! The order in the list below matters and is fixed."
-msgstr "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak ustalona."
+msgstr ""
+"Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
+"ustalona."
 
 #: base/templates/base/overview_fail.html:3
 msgid "Site not found."
@@ -1163,6 +1169,10 @@ msgstr "Utwórz konto"
 msgid "Login"
 msgstr "Login"
 
+#: templates/registration/login.html:21
+msgid "Don't have an account? "
+msgstr "Nie masz jeszcze konta? "
+
 #: tribal_wars/period_utils.py:83
 msgid "nobleman"
 msgstr "Szlachcic"
@@ -1170,6 +1180,39 @@ msgstr "Szlachcic"
 #: tribal_wars/period_utils.py:86
 msgid "ram"
 msgstr "Taran"
+
+#~ msgid "LOG OUT"
+#~ msgstr "WYLOGUJ"
+
+#~ msgid "LOGIN"
+#~ msgstr "ZALOGUJ"
+
+#~ msgid "CREATE AN ACCOUNT"
+#~ msgstr "UWTÓRZ KONTO"
+
+#~ msgid "Create fast,"
+#~ msgstr "Twórz szybkie,"
+
+#~ msgid "Simple Tribal Wars outlines."
+#~ msgstr "Proste rozpiski akcji plemiennych."
+
+#~ msgid "CREATE NEW OUTLINES"
+#~ msgstr "TWÓRZ NOWE ROZPISKI"
+
+#~ msgid "WRITE YOUR OWN OUTLINES"
+#~ msgstr "ROZPISUJ WŁASNE AKCJE"
+
+#~ msgid "WORK OUT THE DETAILS"
+#~ msgstr "DOPRACUJ SZCZEGÓŁY"
+
+#~ msgid "COLLECT TRIBE'S DEFF UNITS"
+#~ msgstr "ZBIERAJ WOJSKO PLEMIENNE"
+
+#~ msgid "Outline Result Copy"
+#~ msgstr "Wyniki Rozpiski - Kopiuj"
+
+#~ msgid "Outline Result Details"
+#~ msgstr "Wyniki Rozpiski - Szczegóły"
 
 #~ msgid ""
 #~ "It looks like your Army collection is no longer actual! To use the "

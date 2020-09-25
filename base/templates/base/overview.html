@@ -21,30 +21,19 @@
  
  
  {% block content %}
- <style>
-    .zoom {
-        transition: transform .2s;;
-        border: 2px solid transparent;
-    }
 
-    .zoom:hover {
-        transform: translateX(10%) translateY(-10%) scale(1.1);
-        background-color: white;
-        
-    }
- </style>
 <h1>{{overview.player}}</h1>
 
 <div class="container-fluid h-100">
-    <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+    <ul class="nav nav-tabs mb-3 mt-1" id="pills-tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab"
-                aria-controls="pills-home" aria-selected="true">{% trans 'Outline Result Copy' %}</a>
+                aria-controls="pills-home" aria-selected="true">{% trans 'Copy' %}</a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-details" role="tab"
-                aria-controls="pills-contact" aria-selected="false">{% trans 'Outline Result Details' %}</a>
+                aria-controls="pills-contact" aria-selected="false">{% trans 'Details' %}</a>
         </li>
 
 
@@ -52,11 +41,41 @@
 
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
-            <h3 class="mb-5">{% trans 'The table below shows your targets, please copy the contents to your in-game notes.' %}</h2>
+
+            <div id='outline-fit' style="width:fit-content">
+                <div class="alert alert-primary" role="alert">
+                    {% trans 'The contents below shows your targets, please copy the one you like to your in-game notes.' %}
+                </div>
+            <div id='table' style="border-left: 5px solid teal;">
+            <h1 class="ml-2 font-italic">
+                <span class="mr-2">{% trans 'Table' %}</span> <button class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
+            </h1>
+            <div class="ml-2">
+                <img  class='d-md-none img-fluid' src="{% static 'images/table-min.jpg'%}" alt="Example Result 1">
+                <img  class='d-none d-md-block img-fluid' src="{% static 'images/table.png'%}" alt="Example Result 1">
+                <textarea class="form-control mt-1" id="table-copy" rows="8">
+                    {{overview.table}}
+                    </textarea>
+            </div>
+            </div>
+
+            <br>
+            <br>
+            <div id='text' style="border-left: 5px solid teal;">
+                <h1 class="ml-2 font-italic">
+                    <span class="mr-2">{% trans 'Text' %}</span> <button class="btn btn-outline-info" onclick="updateClipboard('text-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
+                </h1>
+                <div class="ml-2">
+                    <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
+                    <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
+                    <textarea class="form-control mt-1" id="text-copy" rows="8">
+                        {{overview.string}}
+                        </textarea>
+                </div>
+            </div>
+    
+            </div>
             
-            <textarea class="form-control" id="zbiorka-wojsko" rows="16">
-{{overview.text}}
-</textarea>
 
         </div>
 
@@ -76,7 +95,7 @@
                         <tbody>
 
                             {% for target, lst in query %}
-                            <tr class="zoom">
+                            <tr>
 
                                 <th class="front-{{target.fake}}">
 
@@ -190,5 +209,11 @@
     document.addEventListener("DOMContentLoaded", function (event) {
         $('.popoverData').popover();
     });
+    function updateClipboard(id) {
+        const element = document.getElementById(id);
+        const newClip = element.textContent;
+        navigator.clipboard.writeText(newClip);
+
+    }
 </script>
 {% endblock %}
