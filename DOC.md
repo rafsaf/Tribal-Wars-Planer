@@ -212,7 +212,7 @@
     var players = [];
     // Adds players from current html to get array with players nicknames and ids
     function get_all_players_list(){
-      Array.from(document.querySelector('#ally_content .input-nicer').options).forEach(functio(option_element) {
+      Array.from(document.querySelector('#ally_content .input-nicer').options).forEach(function(option_element) {
         var option_text = option_element.text.trim();
         var option_value = option_element.value;
         if (option_text != 'Wybierz członka') {
@@ -242,7 +242,7 @@
     function getURL(id){
       var params = new URLSearchParams(window.location.search);
       params.set('player_id', id);
-      return "".concat(window.location.origin).concat(window.location.pathname, "?").concat(paramstoString());
+      return "".concat(window.location.origin).concat(window.location.pathname, "?").concat(params.toString());
     }
     // Used to parse string from fetch func to html
     function convertToHTML(str) {
@@ -252,13 +252,13 @@
     }
     // Most important async function, after confirmation waits 2s then uses get_all_players_list.
     // Then starts to fetch response from first player's page, then converts it.
-    // Then uses 'add current player info to output' on it, and so on, in the end prints some dialogwith results.
+    // Then uses 'add current player info to output' on it, and so on, in the end prints some dialog with results.
     async function renderPlayerTroops() {
       var con = window.confirm("Czy chcesz zebrać wojska?(może to chwilkę potrwać ;) )");
       if (con == false){
         return;
       }
-      // added today + 5h and output to local storage, in this term function uses 'ouput' from localstorage
+      // added today + 5h and output to local storage, in this term function uses 'ouput' from local storage
       var today = (new Date()).getTime();
       var after_5_hours = today + 1800000;
       var storage_date = localStorage.getItem('storage_date');
