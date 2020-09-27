@@ -9,3 +9,4 @@ from .queries import *
 from .table_text import *
 from .mode import *
 from .sort_detail_view import *
+from .off_text import *

@@ -1,8 +1,7 @@
 {% extends "base/new_outline/new_outline.html" %} {% load i18n %} {% block content %} {% load crispy_forms_tags %}
 <div>
-    <h1>Deff</h1>
+    <h1>Off</h1>
 </div>
-
 <div class="row my-2">
     <div class="col-6">
         <form method='POST'>{% csrf_token %} {{ form|crispy }}
@@ -33,8 +32,8 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h5 class="card-title">Collect deff from remote villages</h5>
-                            <li class="card-text">The program is used for collecting deff units from villages in distance greater than radius from enemy tribes. </li>
+                            <h5 class="card-title">Collect off from remote villages</h5>
+                            <li class="card-text">The program is used for collecting off units from all villages, in distance greater than radius from enemy tribes in first category and the rest in second. </li>
                             <li class="card-text mt-2">Distance is calculated in squares.</li>
                             <li class="card-text mt-2">The default value of 30 corresponds to approximately 17 hours of a noble's path, for optimization reasons the maximum possible radius is 60. </li>
                         </div>

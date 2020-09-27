@@ -166,6 +166,7 @@
       div.style.top = "40%";
       div.style.position = "absolute";
       div.style.background = "red";
+      div.style.margin = "0px 0px 100px 0px";
       div.style.color = "white";
       div.innerHTML = output;
       document.body.appendChild(div);
@@ -291,6 +292,7 @@
       div.style.top = "40%";
       div.style.position = "absolute";
       div.style.background = "red";
+      div.style.margin = "0px 0px 100px 0px";
       div.style.color = "white";
       div.innerHTML = output;
       document.body.appendChild(div);

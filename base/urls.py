@@ -32,6 +32,7 @@ urlpatterns = [
 
 
     path("planer/<int:_id>/get-deff", views.outline_detail_2_deff, name="planer_detail_get_deff"),
+    path("planer/<int:_id>/get-off", views.outline_detail_2_off, name="planer_detail_get_off"),
 
 
     path("planer/<int:_id>/create/select-tribe", views.new_outline_create_select, name="planer_create_select",),

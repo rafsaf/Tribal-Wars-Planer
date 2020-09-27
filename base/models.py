@@ -141,6 +141,7 @@ class Result(models.Model):
         Outline, on_delete=models.CASCADE, primary_key=True
     )
     results_get_deff = models.TextField(default="")
+    results_get_off = models.TextField(default="")
     results_outline = models.TextField(default="")
 
     def __str__(self):

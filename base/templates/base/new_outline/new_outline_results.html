@@ -19,6 +19,9 @@
         <li class="nav-item">
             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-off" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Off collection' %}</a>
+        </li>
     </ul>
 
     <div class="tab-content" id="pills-tabContent">
@@ -58,7 +61,7 @@
 
         <div class="tab-pane fade" id="pills-outline-copy1" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="16">
+                <textarea class="form-control" id="zbiorka-wojsko" rows="26">
 {% for item in overviews %}
 [b]{{item.player}}[/b]
 [url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]
@@ -69,13 +72,18 @@
 
         <div class="tab-pane fade" id="pills-outline-copy2" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="16">{{instance.result.results_outline}}</textarea>
+                <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_outline}}</textarea>
             </div>
         </div>
 
         <div class="tab-pane fade" id="pills-deff" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="16">{{instance.result.results_get_deff}}</textarea>
+                <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_get_deff}}</textarea>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-off" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="form-group" contenteditable="true">
+                <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_get_off}}</textarea>
             </div>
         </div>
     </div>
