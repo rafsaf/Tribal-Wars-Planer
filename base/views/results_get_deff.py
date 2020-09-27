@@ -16,6 +16,9 @@ def outline_detail_2_deff(request, _id):
     if instance.deff_troops == "":
         request.session["error"] = gettext("Deff collection empty!")
         return redirect("base:planer_detail", _id)
+    if instance.off_troops == "":
+        request.session["error"] = gettext("Off collection empty!")
+        return redirect("base:planer_detail", _id)
 
     form = forms.GetDeffForm(request.POST or None, world=instance.world)
     if "form" in request.POST:
@@ -30,7 +33,7 @@ def outline_detail_2_deff(request, _id):
                 )
             except KeyError:
                 request.session["error"] = gettext(
-                    "It looks like your Deff collection is no longer actual! To use the planner: copy the data from the preview and correct errors or paste the current military data \n"
+                    "It looks like your Deff or Off collection is no longer actual! To use the planner: copy the data from the preview and correct errors or paste the current military data \n"
                 )
                 return redirect("base:planer_detail", _id)
 
