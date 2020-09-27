@@ -279,10 +279,9 @@ def off_text(
             all_off_text.add_army_front(army)
             new_off.add_army_front(army)
             inside = in_village[army.coord]
-            outside = outside_village[army.coord]
 
-            away_off = army.off - inside.off + outside.off
-            away_nob = army.nobleman - inside.nobleman + outside.nobleman
+            away_off = army.off - inside.off
+            away_nob = army.nobleman - inside.nobleman
 
             text += (
                 f"{army.coord}- Off- {army.off} Gruby- {army.nobleman}  "
@@ -294,10 +293,9 @@ def off_text(
             new_off.add_army_out(army)
 
             inside = in_village[army.coord]
-            outside = outside_village[army.coord]
 
-            away_off = army.off - inside.off + outside.off
-            away_nob = army.nobleman - inside.nobleman + outside.nobleman
+            away_off = army.off - inside.off
+            away_nob = army.nobleman - inside.nobleman
 
             text += (
                 f"{army.coord} Off- {army.off} Gruby- {army.nobleman}  "

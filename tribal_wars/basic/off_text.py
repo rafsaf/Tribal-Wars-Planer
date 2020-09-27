@@ -60,7 +60,7 @@ class NewOffsText:
             + " oznacza to że gracz ma 500 nie swoich toporników w "
             + "wiosce LUB inne takie sytuacje!\r\n"
             + "WOJSKA POZA WIOSKĄ = WSZYSTKIE WŁASNE"
-            + " - WSZYSTKIE W WIOSCE + WSZYSTKIE W DRODZE\r\n"
+            + " - WSZYSTKIE W WIOSCE\r\n"
             + self.full_text()
             + self.full_decription()
         )
