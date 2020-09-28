@@ -379,10 +379,31 @@ def initial_divide(request, id1, id2, id4, n):
 def overview_hide_unhide(request, id1, token):
 
     instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
-    overview = get_object_or_404(models.Overview, token=token, outline=instance)
+    overview = get_object_or_404(
+        models.Overview, token=token, outline=instance
+    )
 
     new_state = not bool(overview.show_hidden)
     overview.show_hidden = new_state
 
     overview.save()
     return redirect("base:planer_detail_results", id1)
+
+
+@login_required
+def delete_target(request, id1, id2):
+    if request.method == "POST":
+        outline = models.Outline.objects.get(id=id1)
+        if not request.user == outline.owner:
+            return Http404()
+        page = request.GET.get("page")
+        mode = request.GET.get("mode")
+
+        target = models.TargetVertex.objects.get(pk=id2)
+        target.delete()
+        return redirect(
+            reverse("base:planer_initial", args=[id1])
+            + f"?page={page}&mode={mode}"
+        )
+
+    return Http404()

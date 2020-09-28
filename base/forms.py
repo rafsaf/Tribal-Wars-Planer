@@ -10,7 +10,9 @@ class OutlineForm(forms.Form):
     """ New Outline Form """
 
     name = forms.CharField(
-        max_length=20, label=gettext_lazy("Outline Name"), widget=forms.Textarea
+        max_length=20,
+        label=gettext_lazy("Outline Name"),
+        widget=forms.Textarea,
     )
     date = forms.DateField(label=gettext_lazy("Date"))
     world = forms.ChoiceField(choices=[], label=gettext_lazy("World"))
@@ -27,24 +29,26 @@ class OffTroopsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
         super(OffTroopsForm, self).__init__(*args, **kwargs)
-    
+
     def clean_off_troops(self):
         """ User's input from script """
         text = self.cleaned_data["off_troops"].rstrip()
         if text == "":
-            self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
+            self.add_error(
+                field=None, error=gettext_lazy("Text cannot be empty!")
+            )
             return None
-        
+
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
-        
+
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Army(text_army=text_line, evidence=evidence)
             try:
                 army.clean_init(player_dictionary)
             except basic.ArmyError:
                 self.add_error("off_troops", i)
-        
+
         return text
 
 
@@ -64,7 +68,9 @@ class DeffTroopsForm(forms.ModelForm):
         """ User's input from script """
         text = self.cleaned_data["deff_troops"].rstrip()
         if text == "":
-            self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
+            self.add_error(
+                field=None, error=gettext_lazy("Text cannot be empty!")
+            )
             return None
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
@@ -125,14 +131,18 @@ class GetDeffForm(forms.Form):
     ally_players = forms.CharField(
         max_length=300,
         label=gettext_lazy("Other ally players"),
-        help_text=gettext_lazy("Exact nicknames separated by a space or an entry."),
+        help_text=gettext_lazy(
+            "Exact nicknames separated by a space or an entry."
+        ),
         required=False,
     )
 
     enemy_players = forms.CharField(
         max_length=300,
         label=gettext_lazy("Other enemy players"),
-        help_text=gettext_lazy("Exact nicknames separated by a space or an entry."),
+        help_text=gettext_lazy(
+            "Exact nicknames separated by a space or an entry."
+        ),
         required=False,
     )
 
@@ -140,7 +150,9 @@ class GetDeffForm(forms.Form):
         max_length=300,
         label=gettext_lazy("Excluded enemy villages"),
         required=False,
-        help_text=gettext_lazy("Exact coords separated by a space or an entry."),
+        help_text=gettext_lazy(
+            "Exact coords separated by a space or an entry."
+        ),
     )
 
     def __init__(self, *args, **kwargs):
@@ -162,7 +174,8 @@ class GetDeffForm(forms.Form):
             for name in ally_players_list:
                 if name not in name_set:
                     self.add_error(
-                        "ally_players", gettext_lazy("There is no player: ") + str(name)
+                        "ally_players",
+                        gettext_lazy("There is no player: ") + str(name),
                     )
                     return None
         return ally_players
@@ -212,14 +225,14 @@ class InitialOutlineForm(forms.Form):
         widget=forms.NumberInput(),
         min_value=1,
         max_value=28000,
-        label=gettext_lazy('Min. off units number'),
+        label=gettext_lazy("Min. off units number"),
         initial=19000,
     )
     front_dist = forms.IntegerField(
         widget=forms.NumberInput(),
         min_value=0,
         max_value=40,
-        label=gettext_lazy('Distance from front line'),
+        label=gettext_lazy("Distance from front line"),
         initial=12,
     )
 
@@ -238,10 +251,10 @@ class InitialOutlineForm(forms.Form):
         for i, info in enumerate(data):
             info = info.split(":")
             if len(info) != 3:
-                if info == ['---']:
+                if info == ["---"]:
                     count_underline += 1
                     if count_underline > 1:
-                        self.add_error('target', i)
+                        self.add_error("target", i)
                     continue
                 else:
                     self.add_error("target", i)
@@ -260,9 +273,11 @@ class InitialOutlineForm(forms.Form):
         if len(self.errors) > 0:
             return None
         if count_underline == 0:
-            self.add_error('target', len(data) + 1)
+            self.add_error("target", len(data) + 1)
         village_list = basic.many_villages(" ".join(basic_villages))
-        villages_id = [f"{i.x_coord}{i.y_coord}{self.world}" for i in village_list]
+        villages_id = [
+            f"{i.x_coord}{i.y_coord}{self.world}" for i in village_list
+        ]
         village_models = models.VillageModel.objects.filter(id__in=villages_id)
 
         if len(village_list) != village_models.count():
@@ -316,8 +331,12 @@ class PeriodForm(forms.ModelForm):
         self.fields["unit"].widget.attrs["class"] = "form-control"
         self.fields["from_number"].widget.attrs["class"] = "form-control"
         self.fields["to_number"].widget.attrs["class"] = "form-control"
-        self.fields["from_time"].widget.attrs["class"] = "time-timepicker form-control"
-        self.fields["to_time"].widget.attrs["class"] = "time-timepicker form-control"
+        self.fields["from_time"].widget.attrs[
+            "class"
+        ] = "time-timepicker form-control"
+        self.fields["to_time"].widget.attrs[
+            "class"
+        ] = "time-timepicker form-control"
 
     def clean(self):
         status = self.cleaned_data.get("status")
@@ -378,7 +397,9 @@ class BasePeriodFormSet(BaseFormSet):
                         all_nobleman = True
                     else:
                         raise forms.ValidationError(
-                            gettext_lazy('Mode All can be used only once per unit')
+                            gettext_lazy(
+                                "Mode All can be used only once per unit"
+                            )
                         )
                 from_time_nob.append((time1, status))
                 to_time_nob.append((time2, status))
@@ -388,14 +409,18 @@ class BasePeriodFormSet(BaseFormSet):
                         all_ram = True
                     else:
                         raise forms.ValidationError(
-                            gettext_lazy('Mode All can be used only once per unit')
+                            gettext_lazy(
+                                "Mode All can be used only once per unit"
+                            )
                         )
                 from_time_ram.append((time1, status))
                 to_time_ram.append((time2, status))
 
         if not all_nobleman or not all_ram:
             raise forms.ValidationError(
-        gettext_lazy('Mode All must be used at least once for noble and for off.')
+                gettext_lazy(
+                    "Mode All must be used at least once for noble and for off."
+                )
             )
 
         from_time_nob.sort(key=lambda tup: tup[0])
@@ -405,25 +430,33 @@ class BasePeriodFormSet(BaseFormSet):
 
         if not from_time_nob[-1][1] == "all":
             raise forms.ValidationError(
-                gettext_lazy("The All mode time frame MUST always be last for off and for noble.")
+                gettext_lazy(
+                    "The All mode time frame MUST always be last for off and for noble."
+                )
             )
         if not from_time_ram[-1][1] == "all":
             raise forms.ValidationError(
-                gettext_lazy("The All mode time frame MUST always be last for off and for noble.")
+                gettext_lazy(
+                    "The All mode time frame MUST always be last for off and for noble."
+                )
             )
 
         nob_last = from_time_nob[-1][0]
         for n_from in to_time_nob:
             if nob_last < n_from[0] and n_from[1] != "all":
                 raise forms.ValidationError(
-                    gettext_lazy('The All mode cannot overlap with other time periods')
+                    gettext_lazy(
+                        "The All mode cannot overlap with other time periods"
+                    )
                 )
 
         ram_last = from_time_ram[-1][0]
         for r_from in to_time_ram:
             if ram_last < r_from[0] and r_from[1] != "all":
                 raise forms.ValidationError(
-                    gettext_lazy('The All mode cannot overlap with other time periods')
+                    gettext_lazy(
+                        "The All mode cannot overlap with other time periods"
+                    )
                 )
 
 
@@ -433,4 +466,37 @@ class ChooseOutlineTimeForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(ChooseOutlineTimeForm, self).__init__(*args, **kwargs)
         self.fields["choice"].widget.attrs["class"] = "form-control"
+
+
+class CreateNewInitialTarget(forms.Form):
+    target = forms.CharField(
+        max_length=7,
+        label=gettext_lazy("Target"),
+        help_text=gettext_lazy("Valid coords, 7 chars"),
+    )
+    fake = forms.BooleanField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.outline = kwargs.pop("outline")
+        super(CreateNewInitialTarget, self).__init__(*args, **kwargs)
+
+    def clean_target(self):
+        coord = self.cleaned_data["target"]
+        x_coord = coord[0:3]
+        y_coord = coord[4:7]
+        village_id = x_coord + y_coord + str(self.outline.world)
+        if models.TargetVertex.objects.filter(
+            target=coord, outline=self.outline
+        ).exists():
+            self.add_error(
+                "target", gettext_lazy("This village is already a target!")
+            )
+            return
+
+        if not models.VillageModel.objects.filter(pk=village_id).exists():
+            self.add_error(
+                "target",
+                gettext_lazy("Village with that coords did not found."),
+            )
+            return
 

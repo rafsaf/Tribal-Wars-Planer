@@ -4,6 +4,7 @@ class Mode:
             "menu",
             "time",
             "fake",
+            'add_and_remove',
         ]
 
         if request_GET_mode is None:
@@ -25,6 +26,10 @@ class Mode:
     @property
     def is_fake(self):
         return self.mode == "fake"
+
+    @property
+    def is_add_and_remove(self):
+        return self.mode == "add_and_remove"
 
     def __str__(self):
         return self.mode

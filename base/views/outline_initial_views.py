@@ -67,6 +67,7 @@ def initial_form(request, _id):
         request, "base/new_outline/new_outline_initial_period1.html", context
     )
 
+
 @login_required
 def initial_planer(request, _id):
     """ view with form for initial period outline """
@@ -107,6 +108,73 @@ def initial_planer(request, _id):
         return render(
             request,
             "base/new_outline/new_outline_initial_period2_2.html",
+            context,
+        )
+
+    elif mode.is_add_and_remove:
+        queries = basic.TargetWeightQueries(outline=instance, every=True)
+        target_dict = queries.target_dict_with_weights_read()
+        for target, lst in target_dict.items():
+            number = len(lst)
+            target_dict[target] = number
+        reals = len([target for target in target_dict if target.fake == False])
+        fakes = len([target for target in target_dict if target.fake == True])
+
+        paginator = Paginator(list(target_dict.items()), 20)
+        page_number = request.GET.get("page")
+        message = request.session.get('success')
+        if message:
+            del request.session['success']
+        page_obj = paginator.get_page(page_number)
+
+        if request.method == "POST":
+            if "create" in request.POST:
+                target_form = forms.CreateNewInitialTarget(
+                    request.POST, outline=instance
+                )
+                if target_form.is_valid():
+                    fake = request.POST.get("fake")
+                    if fake == "on":
+                        fake = True
+                    if fake is None:
+                        fake = False
+                    coord = request.POST.get("target")
+                    x_coord = coord[0:3]
+                    y_coord = coord[4:7]
+                    village_id = x_coord + y_coord + str(instance.world)
+
+                    village = models.VillageModel.objects.get(pk=village_id)
+                    player = models.Player.objects.get(
+                        player_id=village.player_id, world=instance.world
+                    )
+
+                    models.TargetVertex.objects.create(
+                        outline=instance,
+                        player=player.name,
+                        target=coord,
+                        fake=fake,
+                    )
+                    request.session['success'] = 'success'
+                    return redirect(
+                        reverse("base:planer_initial", args=[_id])
+                        + f"?page={page_obj.number}&mode={str(mode)}"
+                    )
+        else:
+            target_form = forms.CreateNewInitialTarget(None, outline=instance)
+
+        context = {
+            "message": message,
+            "target_form": target_form,
+            "instance": instance,
+            "query": page_obj,
+            "mode": str(mode),
+            "fakes": fakes,
+            'reals': reals,
+        }
+
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period2_3.html",
             context,
         )
 
@@ -180,8 +248,10 @@ def initial_planer(request, _id):
                 else:
                     for form in create_formset:
                         for err in form.errors:
-                            form.fields[err].widget.attrs["class"] += " border-invalid"
-                            
+                            form.fields[err].widget.attrs[
+                                "class"
+                            ] += " border-invalid"
+
             if "choice-formset" in request.POST:
                 select_formset = select_formset(request.POST)
                 for form in select_formset.forms:
@@ -234,6 +304,7 @@ def initial_planer(request, _id):
             context,
         )
 
+
 @login_required
 def initial_target(request, id1, id2):
     """ view with form for initial period outline detail """
@@ -252,9 +323,9 @@ def initial_target(request, id1, id2):
     sort_obj = basic.SortAndPaginRequest(
         outline=instance,
         GET_request=request.GET.get("sort"),
-        PAGE_request=request.GET.get('page'),
-        target=target
-        )
+        PAGE_request=request.GET.get("page"),
+        target=target,
+    )
     page_obj = sort_obj.sorted_query()
 
     sort = sort_obj.sort
@@ -310,7 +381,7 @@ def initial_target(request, id1, id2):
     if paint is not None:
         for model in result_lst:
             if model.id == paint:
-                model.paint = 'paint'
+                model.paint = "paint"
                 break
     context = {
         "instance": instance,
