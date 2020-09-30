@@ -25,21 +25,48 @@
                     </span>
                 </h2>
             </div>
-            <div class="d-flex flex-row justify-content-center mt-3">
-                <h2>
-                    <span class="badge badge-pill badge-secondary">
-                        {% trans 'Real targets: ' %}{{reals}}
-                    </span>
-                </h2>
-            </div>
-            <div class="d-flex flex-row justify-content-center">
-                <h2>
-                    <span class="badge badge-pill badge-secondary">
-                        {% trans 'Fake targets: ' %}{{fakes}}
-                    </span>
-                </h2>
-            </div>
 
+            <div class="row justify-content-center">
+
+                <div>
+                    <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal"
+                        data-target="#ValidationModal">
+                        <b>{% trans 'Go back' %}</b>
+                    </button>
+                </div>
+
+                <div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% blocktrans %} Current progress will be
+                                <div class="md-error">LOST!</div>
+                                <br>You will return to the previous form. {% endblocktrans %}
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <button name="form1" type="submit" class="btn btn-primary">
+                                        {% trans 'Continue' %}
+                                    </button>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
     </div>
@@ -52,7 +79,7 @@
         {% if query.has_previous %}
         <li class="page-item">
             <a class="page-link"
-                href="?page={{ query.previous_page_number }}&mode={{ mode }}">{% trans 'Previous' %}</a>
+                href="?page={{ query.previous_page_number }}&mode={{ mode }}&player={{player}}">{% trans 'Previous' %}</a>
         </li>
         {% else %}
         <li class="page-item disabled">
@@ -64,7 +91,7 @@
         </li>
         {% if query.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ query.next_page_number }}&mode={{ mode }}">{% trans 'Next' %}</a>
+            <a class="page-link" href="?page={{ query.next_page_number }}&mode={{ mode }}&player={{player}}">{% trans 'Next' %}</a>
         </li>
         {% else %}
         <li class="page-item disabled">
@@ -195,76 +222,99 @@
 </nav>
 
 <div class="conatiner-fluid text-center" id='leftscroll'>
-    <h2>
-        <span class="my-2">
-            {% trans 'You can add & remove targets here.' %}
+    <h2 class="my-4">
+        <span>
+            {% trans "Before proceeding, you may want to set up players' troops manually." %}
         </span>
     </h2>
-    {% if message %}
-    <small class="badge badge-success">
-        {% trans 'Target added successfully !' %}
-    </small>
-    {% endif %}
-    <div id='target-form' class="col-4 mx-auto my-2">
+    <a class="btn btn-ocean btn-block"
+        href="{% url 'base:planer_complete' instance.id %}">{% trans 'Proceed forward, hint: If there is any target, it will be deleted' %}</a>
+    <div class="form-group col-6 mx-auto mt-5">
+        <form method="GET">
+            <input name=page type="hidden" value="{{query.number}}" />
+            <input name=mode type="hidden" value="{{mode}}" />
+            <label for="exampleFormControlSelect1">{% trans 'Select player' %}</label>
+            <select name="player" class="form-control" id="exampleFormControlSelect1">
+                <option value="None">{% trans 'All players' %}</option>
+                {% for player in players %}
+                <option>{{player}}</option>
+                {% endfor %}
+            </select>
 
-        <form method='POST' autocomplete="off">{% csrf_token %} 
-            {{ target_form|crispy }}
-            <button name='create' class="btn btn-block btn-ocean my-2" type="submit">{% trans 'Create' %}</button>
+
+            <button type="submit" class="w-20 mt-2 btn btn-primary">OK</button>
         </form>
     </div>
     <table class="table table-bordered col-6 mx-auto mt-5">
         <thead>
             <tr>
-                <th scope="col">{% trans 'Remove' %}</th>
-                <th scope="col">{% trans 'Target' %}</th>
-                <th scope="col">{% trans 'Orders Number' %}</th>
+
+                <th scope="col" rowspan="2">{% trans 'Number' %}</th>
+                <th scope="col" rowspan="2">{% trans 'Player' %}</th>
+                <th scope="col" rowspan="2">{% trans 'Village' %}</th>
+                <th scope="colgroup" colspan="2">{% trans 'Troops in village' %}
+                    <span class="ml-1 popoverData" data-html="true"
+                        data-content="{% trans 'Troops directly in village now, from collect deff troops script' %}"
+                        rel="popover" data-placement="top" data-trigger="hover">
+                        <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-question-circle"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path
+                                d="M5.25 6.033h1.32c0-.781.458-1.384 1.36-1.384.685 0 1.313.343 1.313 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.007.463h1.307v-.355c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.326 0-2.786.647-2.754 2.533zm1.562 5.516c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                        </svg>
+                    </span>
+                </th>
+                <th scope="colgroup" colspan="2">{% trans 'Troops in database' %}
+                    <span class="ml-1 popoverData" data-html="true"
+                    data-content="{% trans 'By default, these are troops taken from the offs collection, which means that they are all units, even on the way and from outside the village' %}"
+                    rel="popover" data-placement="top" data-trigger="hover">
+                    <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-question-circle"
+                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                            d="M5.25 6.033h1.32c0-.781.458-1.384 1.36-1.384.685 0 1.313.343 1.313 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.007.463h1.307v-.355c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.326 0-2.786.647-2.754 2.533zm1.562 5.516c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                    </svg>
+                </span>
+                </th>
+                <th scope="col" rowspan="2">{% trans 'Save changes' %}</th>
+            </tr>
+            <tr>
+                <th scope="col">{% trans 'Off' %}</th>
+                <th scope="col">{% trans 'Nobles' %}</th>
+                <th scope="col">{% trans 'Off' %}</th>
+                <th scope="col">{% trans 'Nobles' %}</th>
             </tr>
         </thead>
         <tbody>
 
-            {% for target, number in query %}
+            {% for weight in query %}
             <tr>
+                <th>{{forloop.counter}}</th>
+                <th><span class="badge badge-pill badge-info">{{weight.player}}</span></th>
+                <th><span class="badge badge-secondary">{{weight.start}}</span></th>
                 <th>
-                    <form method="POST" action="{% url 'base:planer_delete_target' instance.id target.id %}?page={{ query.number}}&mode={{mode}}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
-                    </form>
-                    
+                    {{weight.off_in_village|default_if_none:'Brak danych'}}
                 </th>
-                <th class="front-{{target.fake}}">
-
-                    <div class="d-flex justify-content-center">
-                        <h5>
-                            <span class="badge badge-pill badge-info">
-                                {{target.player}}
-                            </span>
-                        </h5>
-                    </div>
-                    <div class="d-flex justify-content-center">
-
-                        <h5>
-                            <span class="badge badge badge-secondary">
-                                {{target.target}}
-                            </span>
-                        </h5>
-
-                    </div>
-                    {% if target.fake %}
-                    <div class="d-flex justify-content-center">
-
-                        <h5 style="color: teal;" class="font-italic">
-                            Fake
-                        </h5>
-                    </div>
-                    {% endif %}
-
-                </th>
-
                 <th>
-                    {{ number }}
+                    {{weight.nobleman_in_village|default_if_none:'Brak danych'}}
                 </th>
+                <form method="POST"
+                    action="{% url 'base:planer_change_weight' instance.id weight.id %}?mode={{mode}}&page={{query.number}}&player={{player}}">
+                    {% csrf_token %}
+                    <th style="border-left: 4px solid teal; min-width: 25vh">
+                        <input name="off" class="form-control" min="0" type="number" value="{{weight.off_max}}" />
+                    </th>
+                    <th style="min-width: 20vh;">
+                        <input name="noble" class="form-control" min="0" type="number"
+                            value="{{weight.nobleman_max}}" />
 
-
+                    </th>
+                    <th>
+                        <button type="submit" class="btn btn-outline-success">{% trans 'Save' %}</button>
+                    </th>
+                </form>
             </tr>
             {% endfor %}
 
@@ -278,8 +328,8 @@
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-      })
-      scroll_content_outline();
+    })
+    scroll_content_outline();
 </script>
 
 {% endblock %}

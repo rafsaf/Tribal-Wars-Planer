@@ -167,9 +167,11 @@ class WeightMaximum(models.Model):
     off_max = models.IntegerField()
     off_state = models.IntegerField(default=0)
     off_left = models.IntegerField()
+    off_in_village = models.IntegerField(null=True, blank=True, default=None)
     nobleman_max = models.IntegerField()
     nobleman_state = models.IntegerField(default=0)
     nobleman_left = models.IntegerField()
+    nobleman_in_village = models.IntegerField(null=True, blank=True, default=None)
     first_line = models.BooleanField(default=False)
 
     def __str__(self):

@@ -2,6 +2,21 @@ import tribal_wars.basic as basic
 import tribal_wars.get_deff as get_deff
 import base.models as models
 
+class DefensiveTroops:
+    def __init__(self, outline: models.Outline):
+        self.outline = outline
+        self.evidence = basic.world_evidence(world_number=outline.world)
+        self.deffensive_tropps = self.outline.deff_troops.split('\r\n')
+
+    def in_village_dict(self):
+        result = {}
+        for i, line in enumerate(self.deffensive_tropps):
+            if i % 2 == 1:
+                continue
+            army = basic.Defence(line, evidence=self.evidence)
+            result[army.coord] = army
+        
+        return result
 
 class VillageOwnerDoesNotExist(Exception):
     """ Raised when outline is out of date """

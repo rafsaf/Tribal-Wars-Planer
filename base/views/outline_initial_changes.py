@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Max, Min
 
 from base import models
+from base import forms
 from tribal_wars import basic
 
 
@@ -407,3 +408,30 @@ def delete_target(request, id1, id2):
         )
 
     return Http404()
+
+
+@login_required
+def change_weight_off(request, id1, id2):
+    if request.method == "POST":
+        outline = models.Outline.objects.get(id=id1)
+        if not request.user == outline.owner:
+            return Http404()
+        page = request.GET.get("page")
+        mode = request.GET.get("mode")
+        player = request.GET.get("player")
+
+        weight_max = get_object_or_404(models.WeightMaximum, pk=id2)
+        form = forms.ChangeWeightMaxOff(request.POST)
+        if form.is_valid():
+            off = request.POST.get("off")
+            noble = request.POST.get("noble")
+            weight_max.off_max = off
+            weight_max.left = off
+            weight_max.nobleman_max = noble
+            weight_max.nobleman_left = noble
+            weight_max.save()
+
+        return redirect(
+            reverse("base:planer_initial", args=[id1])
+            + f"?page={page}&mode={mode}&player={player}"
+        )

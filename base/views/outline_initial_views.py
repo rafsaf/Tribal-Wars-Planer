@@ -111,6 +111,34 @@ def initial_planer(request, _id):
             context,
         )
 
+    elif mode.is_weights:
+        query = models.WeightMaximum.objects.filter(outline=instance).order_by(
+            "player", "id"
+        )
+        players = [weight.player for weight in query.distinct("player")]
+        player = request.GET.get("player")
+        if player in players:
+            query = query.filter(player=player)
+
+        paginator = Paginator(query, 50)
+
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        context = {
+            "player": player,
+            "players": players,
+            "instance": instance,
+            "query": page_obj,
+            "mode": str(mode),
+        }
+
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period2_4.html",
+            context,
+        )
+
     elif mode.is_add_and_remove:
         queries = basic.TargetWeightQueries(outline=instance, every=True)
         target_dict = queries.target_dict_with_weights_read()
@@ -122,9 +150,9 @@ def initial_planer(request, _id):
 
         paginator = Paginator(list(target_dict.items()), 20)
         page_number = request.GET.get("page")
-        message = request.session.get('success')
+        message = request.session.get("success")
         if message:
-            del request.session['success']
+            del request.session["success"]
         page_obj = paginator.get_page(page_number)
 
         if request.method == "POST":
@@ -154,7 +182,7 @@ def initial_planer(request, _id):
                         target=coord,
                         fake=fake,
                     )
-                    request.session['success'] = 'success'
+                    request.session["success"] = "success"
                     return redirect(
                         reverse("base:planer_initial", args=[_id])
                         + f"?page={page_obj.number}&mode={str(mode)}"
@@ -169,7 +197,7 @@ def initial_planer(request, _id):
             "query": page_obj,
             "mode": str(mode),
             "fakes": fakes,
-            'reals': reals,
+            "reals": reals,
         }
 
         return render(
@@ -437,3 +465,12 @@ def create_final_outline(request, id1):
     models.Overview.objects.filter(outline=instance).delete()
     finish.make_final_outline(instance)
     return redirect("base:planer_detail_results", id1)
+
+
+@login_required
+def complete_outline(request, id1):
+    instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
+    initial.complete_outline(outline=instance)
+    return redirect(
+        reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu"
+    )

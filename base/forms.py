@@ -220,6 +220,7 @@ class InitialOutlineForm(forms.Form):
         widget=forms.Textarea,
         label=gettext_lazy("Targets"),
         required=False,
+        initial="\r\n---"
     )
     min_off = forms.IntegerField(
         widget=forms.NumberInput(),
@@ -500,3 +501,7 @@ class CreateNewInitialTarget(forms.Form):
             )
             return
 
+
+class ChangeWeightMaxOff(forms.Form):
+    off = forms.IntegerField(min_value=0)
+    noble = forms.IntegerField(min_value=0)
