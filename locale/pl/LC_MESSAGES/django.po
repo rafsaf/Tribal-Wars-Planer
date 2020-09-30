@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-30 13:16+0200\n"
+"POT-Creation-Date: 2020-09-30 13:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,8 +99,8 @@ msgid "Distance from front line"
 msgstr "Odległość od linii frontu"
 
 #: base/forms.py:300
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:284
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:286
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:290
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:292
 msgid "Off"
 msgstr "Off"
 
@@ -161,9 +161,9 @@ msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
 #: base/forms.py:475
-#: base/templates/base/new_outline/new_outline_initial_period2.html:261
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:540
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:207
+#: base/templates/base/new_outline/new_outline_initial_period2.html:273
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:552
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:219
 #: base/templates/base/overview.html:91
 msgid "Target"
 msgstr "Cel"
@@ -294,7 +294,7 @@ msgstr "Ukryj"
 #: base/templates/base/base_planer.html:16
 #: base/templates/base/base_planer.html:62
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:380
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:218
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:230
 msgid "Delete"
 msgstr "Usuń"
 
@@ -880,10 +880,7 @@ msgid ""
 "back here after submiting but you will lose your progress. </li>\n"
 "                            <li class=\"card-text mt-2\">Offs below 19k "
 "units will not be written out by default </li>\n"
-"                            <li class=\"card-text mt-2\">It is not possible "
-"to add a <span class=\"md-error\">Target</span> in any other way than here "
-"in a form, later you can switch village as they attack the targets, but you "
-"cannot add a new target.</li>\n"
+"\n"
 "                        </div>\n"
 "                    </div>\n"
 "                    "
@@ -924,9 +921,7 @@ msgstr ""
 "rozpisaniu akcji, ale utracisz cały postęp. </li> \n"
 "<li class = \" card-text mt-2 \"> Offy poniżej 19 000 jednostek nie zostaną "
 "domyślnie rozpisane. </li> \n"
-"<li class = \" card-text mt-2 \"> Nie jest możliwe, aby dodać <span class = "
-"\" md-error \"> Cel </span> w inny sposób niż tutaj w formularzu, później "
-"możesz zmienić ilość rozkazów na każdy cel, ale nie dodawać nowych </li> \n"
+"\n"
 "</div> \n"
 "</div>\n"
 "                    "
@@ -1010,66 +1005,66 @@ msgstr "z"
 msgid "Next"
 msgstr "Następna"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:147
-#: base/templates/base/new_outline/new_outline_initial_period2.html:152
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:416
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:421
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:145
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:150
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:76
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:81
+#: base/templates/base/new_outline/new_outline_initial_period2.html:148
+#: base/templates/base/new_outline/new_outline_initial_period2.html:157
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:417
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:146
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:155
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:77
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:86
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:104
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:113
 msgid "Add and remove targets"
 msgstr "Dodaj lub usuń cele"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:160
-#: base/templates/base/new_outline/new_outline_initial_period2.html:168
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:429
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:437
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:158
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:166
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:89
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:97
+#: base/templates/base/new_outline/new_outline_initial_period2.html:169
+#: base/templates/base/new_outline/new_outline_initial_period2.html:177
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:438
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:446
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:167
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:175
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:98
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:106
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:125
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:133
 msgid "Set real targets"
 msgstr "Ustaw cele"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:181
-#: base/templates/base/new_outline/new_outline_initial_period2.html:206
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:450
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:475
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:179
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:204
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:110
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:135
+#: base/templates/base/new_outline/new_outline_initial_period2.html:190
+#: base/templates/base/new_outline/new_outline_initial_period2.html:216
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:459
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:485
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:188
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:214
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:119
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:145
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:146
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:172
 msgid "Set fake targets"
 msgstr "Ustaw fejki"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:235
-#: base/templates/base/new_outline/new_outline_initial_period2.html:242
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:504
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:511
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:233
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:240
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:164
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:171
+#: base/templates/base/new_outline/new_outline_initial_period2.html:246
+#: base/templates/base/new_outline/new_outline_initial_period2.html:254
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:515
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:523
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:244
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:252
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:175
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:183
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:202
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:210
 msgid "Set time and confirm"
 msgstr "Ustaw czasy wejścia i zakończ rozpiskę"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:262
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:542
+#: base/templates/base/new_outline/new_outline_initial_period2.html:274
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:554
 #: base/templates/base/overview.html:92
 msgid "Outline"
 msgstr "Rozpiska"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:294
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:292
+#: base/templates/base/new_outline/new_outline_initial_period2.html:306
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:304
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -1078,27 +1073,27 @@ msgid "Confirm an outline and Exit"
 msgstr "Potwierdź całą rozpiskę i zakończ"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:60
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:200
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:212
 msgid "Create"
 msgstr "Utwórz"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:530
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:542
 msgid "Confirm selected"
 msgstr "Zatwierdź zmiany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:539
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:551
 msgid "Selected"
 msgstr "Wybrany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:541
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:553
 msgid "Select Time"
 msgstr "Wybierz Czas"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:259
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:271
 msgid "Fake Target"
 msgstr "Fejk Cel"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:260
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:272
 msgid "Fake Outline"
 msgstr "Fejk Rozpiska"
 
@@ -1110,19 +1105,19 @@ msgstr "Prawdziwe Cele: "
 msgid "Fake targets: "
 msgstr "Fejk Cele: "
 
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:188
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:200
 msgid "You can add & remove targets here."
 msgstr "Możesz tutaj dodawać & usuwać cele"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:193
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:205
 msgid "Target added successfully !"
 msgstr "Cel pomyślnie dodany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:206
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:218
 msgid "Remove"
 msgstr "Usuń"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_3.html:208
+#: base/templates/base/new_outline/new_outline_initial_period2_3.html:220
 msgid "Orders Number"
 msgstr "Liczba rozkazów"
 
@@ -1141,61 +1136,72 @@ msgstr ""
 msgid "Before proceeding, you may want to set up players' troops manually."
 msgstr "Przed przejściem dalej, być może chcesz ustawić wojska graczy ręcznie."
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:231
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:232
 msgid "Proceed forward, hint: If there is any target, it will be deleted"
-msgstr "Przejdź dalej, uwaga: jeśli w obecnej rozpisce są jakieś cele, zostaną najpierw usunięte"
+msgstr ""
+"Przejdź dalej, uwaga: jeśli w obecnej rozpisce są jakieś cele, zostaną "
+"najpierw usunięte"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:236
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:235
+msgid ""
+"If you skip clicking the button above, the orders will not be automatically "
+"written!!!"
+msgstr ""
+"Jeśli nie kliniesz przycisku powyżej a przejdziesz do menu, rozkazy nie "
+"zostaną automatycznie rozpisane!!! Nie są wymagane zmiany poniżej."
+
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:242
 msgid "Select player"
 msgstr "Wybierz Gracza"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:238
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:244
 msgid "All players"
 msgstr "Wszyscy gracze"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:252
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:258
 msgid "Number"
 msgstr "Numer"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:253
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:259
 #: base/templates/base/new_outline/new_outline_results.html:35
 msgid "Player"
 msgstr "Gracz"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:254
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:260
 msgid "Village"
 msgstr "Wioska"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:255
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:261
 msgid "Troops in village"
 msgstr "Wojska w wiosce"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:257
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:263
 msgid "Troops directly in village now, from collect deff troops script"
 msgstr "Wojska bezpośrednio w wiosce w tej chwili, stan z skryptu deffa"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:268
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:274
 msgid "Troops in database"
 msgstr "Wojska w bazie danych"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:270
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:276
 msgid ""
 "By default, these are troops taken from the offs collection, which means "
 "that they are all units, even on the way and from outside the village"
-msgstr "Domyślnie są to wojska wzięte z przeglądu Wojska, skryptu zbiórka Wojska. "
-"Oznacza to, że fakt iż ewentualne wojska są poza wioską lub w drodze, nie jest brany pod uwagę"
-"Stąd poniżej są wszystkie! wojska z tej wioski"
+msgstr ""
+"Domyślnie są to wojska wzięte z przeglądu Wojska, skryptu zbiórka Wojska. "
+"Oznacza to, że fakt iż ewentualne wojska są poza wioską lub w drodze, nie "
+"jest brany pod uwagęStąd poniżej są wszystkie! wojska z tej wioski"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:281
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:287
 msgid "Save changes"
 msgstr "Zapisz zmiany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:285
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:287
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:291
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:293
 msgid "Nobles"
 msgstr "Szlachcice"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:315
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:321
 msgid "Save"
 msgstr "Zapisz"
 

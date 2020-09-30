@@ -227,8 +227,14 @@
             {% trans "Before proceeding, you may want to set up players' troops manually." %}
         </span>
     </h2>
-    <a class="btn btn-ocean btn-block"
+
+    <a class="btn btn-ocean btn-block btn-lg"
         href="{% url 'base:planer_complete' instance.id %}">{% trans 'Proceed forward, hint: If there is any target, it will be deleted' %}</a>
+        <h6 class="my-1">
+            <span>
+                {% trans "If you skip clicking the button above, the orders will not be automatically written!!!" %}
+            </span>
+        </h6>
     <div class="form-group col-6 mx-auto mt-5">
         <form method="GET">
             <input name=page type="hidden" value="{{query.number}}" />
