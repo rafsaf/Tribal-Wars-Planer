@@ -1,4 +1,12 @@
-{% extends 'base/base.html' %} {% load i18n %} {% load static %} {% block content %} {% autoescape off %} {{doc}} {% endautoescape %}
+{% extends 'base/base.html' %} 
+{% load i18n %} {% load static %} 
+
+{% block meta-content %}
+<meta name="description" content="{% trans 'Documentation of Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}">
+
+{% endblock %}
+
+{% block content %} {% autoescape off %} {{doc}} {% endautoescape %}
 
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 

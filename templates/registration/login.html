@@ -1,8 +1,14 @@
 
 {% extends 'base/base.html' %}
+{% load i18n %}
+{% block meta-content %}
+<meta name="description" content="{% trans 'Sign in and create tribal wars proffesional outlines.' %}">
+
+{% endblock %}
+
 
 {% block content %}
-{% load i18n %}
+
 {% load crispy_forms_tags %}
 <div class="container-fluid">
 <div class="row" style="height: 85vh;">

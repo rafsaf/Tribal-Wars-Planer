@@ -1,6 +1,6 @@
 {% load static %} {% load i18n %}
 <!doctype html>
-<html lang="pl-PL">
+<html lang="pl">
 
 <head>
 
@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <title>{% trans 'Tribal Wars Planer' %}</title>
-
+    {% block meta-content %}
+    <meta name="description" content="{% trans 'Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}">
+    {% endblock %}
 
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
     <link rel="stylesheet" href="{% static 'base.css' %}">
@@ -168,7 +170,11 @@
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
                             <div class="dropdown-menu">
                                 <div class="dropdown-divider"></div>
+                                {% if not user.is_authenticated %}
                                 <div class='small text-center'>{% trans 'Account' %}</div>
+                                {% else %}
+                                <div class='small text-center'>{{user.username}}</div>
+                                {% endif %}
                                 <div class="dropdown-divider"></div>
                                 {% if user.is_authenticated %}
                                 <a class="dropdown-item font-red" href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
