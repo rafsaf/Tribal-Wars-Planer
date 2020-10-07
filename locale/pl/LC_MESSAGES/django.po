@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 14:57+0200\n"
+"POT-Creation-Date: 2020-10-07 15:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,87 +196,97 @@ msgstr "Dokładnie"
 msgid "Ram"
 msgstr "Taran"
 
-#: base/templates/base/base.html:15
+#: base/templates/base/base.html:24
 msgid "Tribal Wars Planer"
 msgstr "Plemiona Planer"
 
-#: base/templates/base/base.html:17
+#: base/templates/base/base.html:26
 msgid ""
 "Tribal Wars Planer, professional tool for creating outlines for off-game "
 "coordinators."
-msgstr "Plemiona Planer, profesjonalne narzędzie do tworzenia rozpisek dla koordynatorów offa w grze."
+msgstr ""
+"Plemiona Planer, profesjonalne narzędzie do tworzenia rozpisek dla "
+"koordynatorów offa w grze."
 
-#: base/templates/base/base.html:117
+#: base/templates/base/base.html:126
 #: base/templates/base/new_outline/new_outline_initial_period2.html:10
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:10
 #: base/templates/base/overview.html:9
 msgid "User Panel"
 msgstr "Panel Użytkownika"
 
-#: base/templates/base/base.html:121
+#: base/templates/base/base.html:130
 #: base/templates/base/new_outline/new_outline_initial_period2.html:14
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:14
 #: base/templates/base/overview.html:13
 msgid "My outlines"
 msgstr "Moje rozpiski"
 
-#: base/templates/base/base.html:123
+#: base/templates/base/base.html:132
 #: base/templates/base/new_outline/new_outline_initial_period2.html:16
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:16
 #: base/templates/base/overview.html:15
 msgid "Create new outline"
 msgstr "Stwórz nową rozpiskę"
 
-#: base/templates/base/base.html:153
+#: base/templates/base/base.html:162
 msgid "Home"
 msgstr "Strona Główna"
 
-#: base/templates/base/base.html:156
+#: base/templates/base/base.html:165
 #: base/templates/base/new_outline/new_outline.html:15
 #: base/templates/base/new_outline/new_outline_initial_period2.html:28
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:26
 msgid "Planer"
 msgstr "Planer"
 
-#: base/templates/base/base.html:159
+#: base/templates/base/base.html:168
 msgid "Documentation"
 msgstr "Dokumentacja"
 
-#: base/templates/base/base.html:163
+#: base/templates/base/base.html:172
 msgid "Admin Site"
 msgstr "Administracja"
 
-#: base/templates/base/base.html:166
+#: base/templates/base/base.html:175
 msgid "Database Update"
 msgstr "Aktualizacja"
 
-#: base/templates/base/base.html:174
+#: base/templates/base/base.html:183
 msgid "Account"
 msgstr "Konto"
 
-#: base/templates/base/base.html:180
+#: base/templates/base/base.html:189
 msgid "Sign out"
 msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:182 base/templates/base/base.html:231
+#: base/templates/base/base.html:191 base/templates/base/base.html:240
 msgid "Sign in"
 msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:184 templates/registration/login.html:27
+#: base/templates/base/base.html:193 templates/registration/login.html:27
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
-#: base/templates/base/base.html:189
+#: base/templates/base/base.html:198
 msgid "Language"
 msgstr "Język"
 
-#: base/templates/base/base.html:230
+#: base/templates/base/base.html:239
 msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:235
+#: base/templates/base/base.html:244
 msgid "Galery"
 msgstr "Galeria"
+
+#: base/templates/base/base.html:274
+msgid "Privacy Policy"
+msgstr "Polityka Prywatności"
+
+#: base/templates/base/base.html:275
+msgid "Cookies Policy"
+msgstr "Polityka Cookies"
 
 #: base/templates/base/base_planer.html:9
 msgid "Created"
@@ -320,7 +330,9 @@ msgstr "Pokaż ukryte"
 msgid ""
 "Documentation of Tribal Wars Planer, professional tool for creating outlines "
 "for off-game coordinators."
-msgstr "Dokumentacja Plemiona Planera, profesjonalnego narzędzia do tworzenia rozpisek offów."
+msgstr ""
+"Dokumentacja Plemiona Planera, profesjonalnego narzędzia do tworzenia "
+"rozpisek offów."
 
 #: base/templates/base/new_outline/new_outline.html:7
 #: base/templates/base/new_outline/new_outline_initial_period2.html:21
@@ -1429,7 +1441,9 @@ msgstr ""
 
 #: templates/django_registration/registration_form.html:4
 msgid "Join now for free and create tribal wars proffesional outlines."
-msgstr "Dołącz teraz za darmo do Plemiona Planera i twórz profesjonalne rozpiski offów."
+msgstr ""
+"Dołącz teraz za darmo do Plemiona Planera i twórz profesjonalne rozpiski "
+"offów."
 
 #: templates/django_registration/registration_form.html:21
 msgid "Create an account"
