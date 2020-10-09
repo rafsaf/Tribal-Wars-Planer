@@ -144,7 +144,6 @@ def get_legal_coords(ally_villages, enemy_villages, radius):
     return ally_set - banned_coords
 
 
-@basic.timing
 def get_set_of_villages(ally_villages, enemy_villages, radius):
     """ get list of legal villages from ally villages"""
     result_villages = set()
@@ -278,10 +277,13 @@ def off_text(
         for army in front:
             all_off_text.add_army_front(army)
             new_off.add_army_front(army)
-            inside = in_village[army.coord]
-
-            away_off = army.off - inside.off
-            away_nob = army.nobleman - inside.nobleman
+            try:
+                inside = in_village[army.coord]
+                away_off = army.off - inside.off
+                away_nob = army.nobleman - inside.nobleman
+            except KeyError:
+                away_off = 'brak danych'
+                away_nob = 'brak danych'
 
             text += (
                 f"{army.coord}- Off- {army.off} Gruby- {army.nobleman}  "
@@ -292,10 +294,13 @@ def off_text(
             all_off_text.add_army_out(army)
             new_off.add_army_out(army)
 
-            inside = in_village[army.coord]
-
-            away_off = army.off - inside.off
-            away_nob = army.nobleman - inside.nobleman
+            try:
+                inside = in_village[army.coord]
+                away_off = army.off - inside.off
+                away_nob = army.nobleman - inside.nobleman
+            except KeyError:
+                away_off = 'brak danych'
+                away_nob = 'brak danych'
 
             text += (
                 f"{army.coord} Off- {army.off} Gruby- {army.nobleman}  "
@@ -309,7 +314,6 @@ def off_text(
     return str(all_off_text.text() + output)
 
 
-@basic.timing
 def deff_text2(
     ally_villages,
     enemy_villages,
@@ -371,20 +375,29 @@ def deff_text2(
 
         text += owner + "\r\n---------FRONT---------" + "\r\n"
         for army in front:
-            inside = in_village[army.coord]
+                inside = in_village[army.coord]
+                count_deff_front.add_out(army, inside)
+                deff_number = inside.deff
+                
+            except KeyError:
+                deff_number = 'brak-danych'
 
             count_deff_front.add_front(army, inside)
 
             text += (
-                f"{army.coord}- W wiosce- {inside.deff}  "
+                f"{army.coord}- W wiosce- {deff_number}  "
                 f"(Cały własny deff [ {army.deff} ])\r\n"
             )
         text += "---------ZAPLECZE---------" + "\r\n"
         for army in not_front:
-            inside = in_village[army.coord]
-            count_deff_front.add_out(army, inside)
+            try:
+                inside = in_village[army.coord]
+                count_deff_front.add_out(army, inside)
+                deff_number = inside.deff
+            except KeyError:
+                deff_number = 'brak-danych'
             text += (
-                f"{army.coord} W wiosce- {inside.deff}  "
+                f"{army.coord} W wiosce- {deff_number}  "
                 f"(Cały własny deff [ {army.deff} ])\r\n"
             )
 
