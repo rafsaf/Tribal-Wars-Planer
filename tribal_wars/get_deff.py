@@ -375,10 +375,12 @@ def deff_text2(
 
         text += owner + "\r\n---------FRONT---------" + "\r\n"
         for army in front:
+
+            try:
                 inside = in_village[army.coord]
                 count_deff_front.add_out(army, inside)
                 deff_number = inside.deff
-                
+
             except KeyError:
                 deff_number = 'brak-danych'
 
