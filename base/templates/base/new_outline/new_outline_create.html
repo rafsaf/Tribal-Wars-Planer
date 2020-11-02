@@ -5,9 +5,13 @@
         <div class="alert alert-primary" role="alert">
             {% trans 'First time? You can choose a special <span class="md-correct2">World 0</span> created for testing purposes, see ' %}<a target="_blank" href="{% url 'base:documentation' %}#test">{% trans 'docs' %}</a>
           </div>
+          <div class="alert alert-primary my-2" role="alert">
+            {% trans 'Note, because when designing the site I did not envisage the creation of a new classic world, the world Classic 1 is added under number 1.' %}
+          </div>
         <form method='POST' autocomplete="off">{% csrf_token %} {{ form1|crispy }}
             <button class="btn btn-primary mb-2" type="submit">{% trans 'Submit' %}</button>
         </form>
+
     </div>
 
     <div class="col-6">

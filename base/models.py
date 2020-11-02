@@ -18,6 +18,7 @@ class World(models.Model):
     ]
     title = models.TextField(verbose_name="Tytuł")
     world = models.IntegerField(verbose_name="Numer świata")
+    classic = models.BooleanField(default=False)
     speed_world = models.FloatField(null=True, blank=True, default=1)
     speed_units = models.FloatField(null=True, blank=True, default=1)
     paladin = models.CharField(
@@ -32,11 +33,6 @@ class World(models.Model):
 
     def __str__(self):
         return str(self.title)
-
-    def save(self, *args, **kwargs):
-        if self.title != "Świat {}".format(self.world):
-            raise Exception(f"Invalid World title: {self.title}")
-        super(World, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ("-world",)

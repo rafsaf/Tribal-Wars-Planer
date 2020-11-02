@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-07 15:51+0200\n"
+"POT-Creation-Date: 2020-10-27 13:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,7 +104,7 @@ msgstr "Odległość od linii frontu"
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:303 base/models.py:197
+#: base/forms.py:303 base/models.py:193
 msgid "Noble"
 msgstr "Szlachcic"
 
@@ -180,19 +180,19 @@ msgstr "Ta wioska już jest celem !"
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/models.py:192
+#: base/models.py:188
 msgid "All"
 msgstr "Wszystkie"
 
-#: base/models.py:193
+#: base/models.py:189
 msgid "Random"
 msgstr "Losowo"
 
-#: base/models.py:194
+#: base/models.py:190
 msgid "Exact"
 msgstr "Dokładnie"
 
-#: base/models.py:198
+#: base/models.py:194
 msgid "Ram"
 msgstr "Taran"
 
@@ -398,7 +398,7 @@ msgstr "dokumentację"
 
 #: base/templates/base/new_outline/new_outline.html:119
 #: base/templates/base/new_outline/new_outline.html:180
-#: base/templates/base/new_outline/new_outline_create.html:9
+#: base/templates/base/new_outline/new_outline_create.html:12
 #: base/templates/base/new_outline/new_outline_get_deff.html:10
 #: base/templates/base/new_outline/new_outline_get_off.html:9
 #: base/templates/base/new_outline/new_outline_initial_period1.html:56
@@ -425,27 +425,33 @@ msgstr ""
 "Pierwszy raz? Wybierz specjalny <span class=\"md-correct2\">Świat 0</span> "
 "stworzony do celów testowych rozpiski, zobacz "
 
-#: base/templates/base/new_outline/new_outline_create.html:17
+#: base/templates/base/new_outline/new_outline_create.html:9
+msgid ""
+"Note, because when designing the site I did not envisage the creation of a "
+"new classic world, the world Classic 1 is added under number 1."
+msgstr "Uwaga, ponieważ przy projektowniu strony nie przewidywałem powstania nowego świata Classic, świat Classic 1 jest dodany pod numerem 1."
+
+#: base/templates/base/new_outline/new_outline_create.html:21
 #: base/templates/base/new_outline/new_outline_get_deff.html:21
 #: base/templates/base/new_outline/new_outline_get_off.html:20
 #: base/templates/base/new_outline/new_outline_initial_period1.html:68
 msgid "Info"
 msgstr "Info"
 
-#: base/templates/base/new_outline/new_outline_create.html:20
+#: base/templates/base/new_outline/new_outline_create.html:24
 #: base/templates/base/new_outline/new_outline_get_deff.html:24
 #: base/templates/base/new_outline/new_outline_get_off.html:23
 msgid "Marks"
 msgstr "Oznaczenia"
 
-#: base/templates/base/new_outline/new_outline_create.html:23
+#: base/templates/base/new_outline/new_outline_create.html:27
 #: base/templates/base/new_outline/new_outline_get_deff.html:27
 #: base/templates/base/new_outline/new_outline_get_off.html:26
 #: base/templates/base/new_outline/new_outline_initial_period1.html:72
 msgid "Examples"
 msgstr "Przykłady"
 
-#: base/templates/base/new_outline/new_outline_create.html:28
+#: base/templates/base/new_outline/new_outline_create.html:32
 msgid ""
 "\n"
 "                    <div class=\"card\">\n"
@@ -529,40 +535,40 @@ msgstr ""
 "                    </div>\n"
 "                    "
 
-#: base/templates/base/new_outline/new_outline_create.html:58
+#: base/templates/base/new_outline/new_outline_create.html:62
 msgid "OUTLINE NAME"
 msgstr "NAZWA ROZPISKI"
 
-#: base/templates/base/new_outline/new_outline_create.html:59
+#: base/templates/base/new_outline/new_outline_create.html:63
 msgid "Description of your Outline."
 msgstr "Nazwa Twojej rozpiski."
 
-#: base/templates/base/new_outline/new_outline_create.html:60
+#: base/templates/base/new_outline/new_outline_create.html:64
 msgid "DATE"
 msgstr "DATA"
 
-#: base/templates/base/new_outline/new_outline_create.html:61
+#: base/templates/base/new_outline/new_outline_create.html:65
 msgid "The date of your Outline."
 msgstr "Data planowanej akcji."
 
-#: base/templates/base/new_outline/new_outline_create.html:62
+#: base/templates/base/new_outline/new_outline_create.html:66
 msgid "WORLD"
 msgstr "ŚWIAT"
 
-#: base/templates/base/new_outline/new_outline_create.html:63
+#: base/templates/base/new_outline/new_outline_create.html:67
 msgid "The world number for this Outline."
 msgstr "Numer świata dla tej akcji."
 
-#: base/templates/base/new_outline/new_outline_create.html:67
+#: base/templates/base/new_outline/new_outline_create.html:71
 msgid "Outline Name: <span class=\"md-correct2\">MyAwesomeOutlineName</span>"
 msgstr ""
 "Nazwa Rozpiski: <span class=\"md-correct2\">MyAwesomeOutlineName</span>"
 
-#: base/templates/base/new_outline/new_outline_create.html:68
+#: base/templates/base/new_outline/new_outline_create.html:72
 msgid "Date: <span class=\"md-correct2\">2020-01-01</span>"
 msgstr "Data: <span class=\"md-correct2\">2020-01-01</span>"
 
-#: base/templates/base/new_outline/new_outline_create.html:69
+#: base/templates/base/new_outline/new_outline_create.html:73
 msgid "World: <span class=\"md-correct2\">100</span>"
 msgstr "Świat: <span class=\"md-correct2\">100</span>"
 

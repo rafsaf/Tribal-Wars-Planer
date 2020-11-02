@@ -44,11 +44,16 @@ def cron_schedule_data_update():
         create_list = list()
         update_list = list()
         query = VillageModel.objects.filter(world=instance.world)
+
+        if instance.classic:
+            world_name = f'c{instance.world}'
+        else:
+            world_name = f'{instance.world}'
         
         for village in query.iterator(chunk_size=4000):
             context[f'{village.x_coord}{village.y_coord}{instance.world}'] = village
         
-        req = requests.get(f"https://pl{instance.world}.plemiona.pl/map/village.txt").text
+        req = requests.get(f"https://pl{world_name}.plemiona.pl/map/village.txt").text
         x = [i.split(',') for i in req.split('\n')]
         for line in x:
             if line == ['']:
@@ -78,7 +83,7 @@ def cron_schedule_data_update():
         for tribe in Tribe.objects.filter(world=instance.world):
             context[tribe.tribe_id] = tribe
         
-        for line in [i.split(',') for i in requests.get(f"https://pl{instance.world}.plemiona.pl/map/ally.txt").text.split('\n')]:
+        for line in [i.split(',') for i in requests.get(f"https://pl{world_name}.plemiona.pl/map/ally.txt").text.split('\n')]:
             if line == ['']:
                 continue
             tribe_id = int(line[0])
@@ -116,7 +121,7 @@ def cron_schedule_data_update():
         for player in Player.objects.filter(world=instance.world).iterator():
             context[player.name] = player
         
-        for line in [i.split(',') for i in requests.get(f"https://pl{instance.world}.plemiona.pl/map/player.txt").text.split('\n')]:
+        for line in [i.split(',') for i in requests.get(f"https://pl{world_name}.plemiona.pl/map/player.txt").text.split('\n')]:
             if line == ['']:
                 continue
             name = unquote(unquote_plus(line[1]))
