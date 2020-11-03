@@ -134,7 +134,7 @@
         {% endif %}
         {% endblock %}
 
-        <div id="page-content-wrapper" class="container-fluid" style="padding-left: 0;padding-right: 0;">
+        <div id="page-content-wrapper">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light
                     border-bottom">
@@ -246,10 +246,10 @@
                 </div>
             </nav>
 
-            <div class="mt-4">
+            <div class="mt-4 container-fluid">
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 {% block content %}
-                <div class='text-center'>
+                <div class='text-center' style="padding-left:0 !important;padding-right:0 !important" >
                     <div class='background-image'>
                         <h2 class="font-nav">{% trans 'Create simple and fast outlines' %}</h2>
                         <a href="{% url 'login' %}" style="min-width: 25%"
