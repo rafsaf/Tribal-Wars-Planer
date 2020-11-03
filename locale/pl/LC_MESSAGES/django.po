@@ -293,7 +293,7 @@ msgstr "Galeria"
 
 #: base/templates/base/base.html:302
 msgid "This is an open project Plemiona Planer."
-msgstr "To jest owarty projekt Plemiona Planer."
+msgstr "To jest otwarty projekt Plemiona Planer."
 
 #: base/templates/base/base.html:304
 msgid ""
