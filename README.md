@@ -1,2 +1,1 @@
-# Strona hostowana pod adresem:
-[www.plemiona-planer.pl](https://www.plemiona-planer.pl)
+## Wkrótce pojawi się tu opis instalacji lokalnie wraz z częściowym opisem modułów. 
