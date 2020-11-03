@@ -101,7 +101,14 @@ def outline_detail_results(request, _id):
         "token"
     )
 
-    context = {"instance": instance, "overviews": overviews}
+    world = models.World.objects.get(world=instance.world)
+
+    if world.classic:
+        name_prefix = 'cl'
+    else:
+        name_prefix = 'pl'
+
+    context = {"instance": instance, "overviews": overviews, "name_prefix": name_prefix}
 
     return render(
         request, "base/new_outline/new_outline_results.html", context

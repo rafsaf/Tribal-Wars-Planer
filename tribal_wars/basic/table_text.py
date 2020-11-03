@@ -16,10 +16,15 @@ class TableText:
         self.weight_table = {}
         self.weight_string = {}
         self.world = world_num
+        world_instance = models.World.objects.get(world=self.world)
+        if world_instance.classic:
+            self.name_prefix = 'cl'
+        else:
+            self.name_prefix = 'pl'
 
     def __link(self, ally_village_id, enemy_village_id):
         return (
-            f"[url=https://pl{self.world}.plemiona.pl/game.php?"
+            f"[url=https://{self.name_prefix}{self.world}.plemiona.pl/game.php?"
             f"village={ally_village_id}&screen=place&"
             f"target={enemy_village_id}]Wyślij[/url]"
         )
