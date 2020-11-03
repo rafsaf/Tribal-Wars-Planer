@@ -29,7 +29,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
     <link rel="stylesheet" href="{% static 'base.css' %}">
     <script type="text/javascript" src="{% static 'base.js' %}"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <style>
         body {
             min-height: 100vh;
@@ -51,7 +51,7 @@
             height: 100px;
           }
         .font-nav {
-            font-family: 'Sriracha', cursive;
+            font-family: 'Raleway', sans-serif;
             outline: none;
         }
         .font-teal {
@@ -238,6 +238,7 @@
                     <div class='background-image'>
                <h1>{% trans 'Create simple and fast outlines' %}</h1>
                <a href="{% url 'login' %}" style="min-width: 25%;" class="btn btn-ocean mt-5">{% trans 'Sign in' %}</a>
+               <p class="small mt-1">{% trans "Don't have an account? "  %}<a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
                
                
                     </div>
@@ -265,15 +266,16 @@
     </div>
     <!-- /#wrapper -->
     <footer class="text-center" id='page-end'>
-        <div style="margin-top: 50px;">
-        This is an open project Plemiona Planer, designed &copy; 2020 <a href='https://www.rafsaf.pl'>rafsaf.pl</a>.
+        <div style="margin-top: 50px; font-size:larger;" class="font-nav">
+        {% trans 'This is an open project Plemiona Planer.' %}
         <br>
-        See an error? Have a question? Please write <b>rafal.safin12@gmail.com.</b>
+        {% trans 'See an error? Please write <b>rafal.safin12@gmail.com.</b>' %}
+        <br>
         <br>
         <a href="https://www.privacypolicygenerator.info/live.php?token=qxFsvHREfCJb4l6NeCk6pHuht1DJyzJX" target="_blank">
         {% trans 'Privacy Policy' %}</a> &amp; <a href="https://www.cookiepolicygenerator.com/live.php?token=gi7Fa9wuKgnANR6EQjNFWZu4UeXbGJjh" target="_blank">
-        {% trans 'Cookies Policy' %}</a>
-        
+        {% trans 'Cookies Policy' %}</a><br />
+        &copy; 2020 <a href='https://www.rafsaf.pl'>rafsaf.pl</a>
         <div>
     </footer>
 
@@ -290,18 +292,7 @@
     <script>
         menu_toggle();
     </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var url = window.location.href;
-            if (url.indexOf('/planer') >= 0) {
-                $('#li-planer').addClass('active');
-            } else if (url.indexOf('documentation') >= 0) {
-                $('#li-doc').addClass('active');
-            } else {
-                $('#li-home').addClass('active');
-            };
-        });
-    </script>
+
 </body>
 
 </html>
