@@ -285,7 +285,7 @@ msgstr "Nie masz jeszcze konta? "
 msgid ""
 "Note, all announcements, proposals, reported bugs will be placed on the "
 "discord."
-msgstr "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być zamieszczone na kanale na discordzie."
+msgstr "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być zamieszczane na kanale na discordzie."
 
 #: base/templates/base/base.html:274
 msgid "Galery"
@@ -299,7 +299,7 @@ msgstr "To jest owarty projekt Plemiona Planer."
 msgid ""
 "See an error? Please write <b>rafal.safin12@gmail.com</b> or contact me with "
 "discord."
-msgstr "Widzisz błąd? Napisz <b>rafa.safin12@gmail.com</b> lub skontakuj się przez discorda."
+msgstr "Widzisz błąd? Napisz: <b>rafal.safin12@gmail.com</b> lub skontakuj się przez discorda."
 
 #: base/templates/base/base.html:309
 msgid "Privacy Policy"
