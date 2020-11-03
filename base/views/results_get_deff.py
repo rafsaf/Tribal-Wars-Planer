@@ -104,9 +104,9 @@ def outline_detail_results(request, _id):
     world = models.World.objects.get(world=instance.world)
 
     if world.classic:
-        name_prefix = 'cl'
+        name_prefix = 'c'
     else:
-        name_prefix = 'pl'
+        name_prefix = ''
 
     context = {"instance": instance, "overviews": overviews, "name_prefix": name_prefix}
 
