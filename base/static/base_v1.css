@@ -341,14 +341,6 @@ footer {
     background-size: cover;
 }
 
-.background-image {
-    background-image: url("{% static 'images/background.jpg'%}");
-    background-size: cover;
-    min-height: 250px;
-    border-bottom: 1px solid teal;
-    
-}
-
 .bottom-title {
     align-self: flex-end;
     background-color: white;
