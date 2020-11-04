@@ -30,86 +30,10 @@
     {% endblock %}
 
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
-    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'base_v1.css' %}">
     <script type="text/javascript" src="{% static 'base.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <style>
-        body {
-            min-height: 100vh;
-        }
 
-        footer {
-            border-top: 1px solid #ddd;
-            font-size: x-small;
-        }
-
-        .font-nav {
-            font-family: 'Raleway', sans-serif;
-            outline: none;
-        }
-
-        .font-teal {
-            color: teal;
-            font-weight: bold;
-        }
-
-        .font-teal:hover {
-            color: rgb(7, 92, 92);
-        }
-
-        .font-red {
-            color: rgb(182, 37, 37);
-        }
-
-        .font-red:hover {
-            color: rgb(138, 14, 14);
-        }
-
-        .dropdown-item:active {
-            background-color: #ddd;
-            color: black;
-        }
-
-        .dropdown-item:hover {
-            background-color: rgb(204, 230, 225);
-        }
-
-        .cover-container {
-            height: 300px;
-            width: 100%;
-            white-space: nowrap;
-            overflow-x: scroll;
-            overflow-y: hidden;
-            margin-bottom: 3%;
-        }
-
-        .cover-item {
-            position: relative;
-            display: inline-block;
-            margin: 8px 8px;
-            box-shadow: 2px 2px 4px #bbb;
-            border-top-right-radius: 4px;
-            height: 300px;
-            vertical-align: bottom;
-            background-position: top left;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .background-image {
-            background-image: url("{% static 'images/background.jpg'%}");
-            background-size: cover;
-            min-height: 250px;
-            border-bottom: 1px solid teal;
-            
-        }
-
-        .bottom-title {
-            align-self: flex-end;
-            background-color: white;
-
-        }
-    </style>
 </head>
 
 
