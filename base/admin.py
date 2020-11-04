@@ -4,14 +4,38 @@ from . import models
 
 # Register your models here.
 
-admin.site.register(models.Overview)
-admin.site.register(models.TargetVertex)
-admin.site.register(models.WeightModel)
+
 admin.site.register(models.Result)
 admin.site.register(models.WeightMaximum)
-admin.site.register(models.OutlineTime)
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
+
+
+@admin.register(models.WeightModel)
+class AdminWeightModel(admin.ModelAdmin):
+    list_display = ["target", "start", "player", "state", "off"]
+
+
+@admin.register(models.TargetVertex)
+class AdminTargetVertex(admin.ModelAdmin):
+    list_display = ["outline", "target", "player", "outline_time"]
+
+
+@admin.register(models.OutlineTime)
+class AdminOutlineTime(admin.ModelAdmin):
+    list_display = [
+        "outline",
+        "pk",
+    ]
+
+
+@admin.register(models.Overview)
+class AdminOverview(admin.ModelAdmin):
+    list_display = [
+        "outline",
+        "player",
+        "token",
+    ]
 
 
 @admin.register(models.World)
@@ -44,6 +68,7 @@ class AdminVillage(admin.ModelAdmin):
         "world",
     ]
 
+
 @admin.register(models.Tribe)
 class AdminTribe(admin.ModelAdmin):
     list_display = [
@@ -51,6 +76,7 @@ class AdminTribe(admin.ModelAdmin):
         "tag",
         "world",
     ]
+
 
 @admin.register(models.Player)
 class AdminPlayer(admin.ModelAdmin):
