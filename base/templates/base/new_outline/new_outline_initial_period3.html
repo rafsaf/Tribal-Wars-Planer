@@ -1,7 +1,5 @@
 {% extends "base/new_outline/new_outline_initial_period2.html" %} {% load static %} {% load i18n %} {% block content %}
-<style>
 
-</style>
 
 <!-- Modal -->
 <div id="form-modal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -33,10 +31,74 @@
 
     </div>
 </div>
+<div class="d-block d-lg-none">
+    <nav aria-label="pagination" id="pagination" >
+        <ul class="pagination">
+            <li class="page-item">
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
 
-<div class="container-fluid" id="table" style="max-height: 100vh !important; overflow:hidden;">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a id='distance' class="dropdown-item" href="?page=1&sort=distance">{% trans 'Ascending by distance' %}</a> 
+                        <a id='-distance' class="dropdown-item" href="?page=1&sort=-distance">{% trans 'Descending by distance' %}</a> 
+                        <a id='-off_left' class="dropdown-item" href="?page=1&sort=-off_left">{% trans 'Descending by number of units' %}</a> 
+                        <a id='-nobleman_left' class="dropdown-item" href="?page=1&sort=-nobleman_left">{% trans 'Descending by number of noble' %}</a>
+                        <div class="dropdown-divider"></div>
+                        <a id='closest_offs' class="dropdown-item" href="?page=1&sort=closest_offs">{% trans 'Closest full offs' %}</a>
+                        <a id='closest_noblemans' class="dropdown-item" href="?page=1&sort=closest_noblemans">{% trans 'Closest noblemans' %}</a>
+                        <a id='closest_noble_offs' class="dropdown-item" href="?page=1&sort=closest_noble_offs">{% trans 'Closest offs with noblemans' %}</a>
+                        <div class="dropdown-divider"></div>
+                        <a id='fahrest_offs' class="dropdown-item" href="?page=1&sort=farthest_offs">{% trans 'Farthest full offs' %}</a>
+                        <a id='fahrest_noblemans' class="dropdown-item" href="?page=1&sort=farthest_noblemans">{% trans 'Farthest noblemans' %}</a>
+                        <a id='farthest_noble_offs' class="dropdown-item" href="?page=1&sort=farthest_noble_offs">{% trans 'Farthest offs with noblemans' %}</a>
+
+
+
+
+                    </div>
+                    <script>
+                        $('{{sort}}')
+                    </script>
+                </div>
+            </li>
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1&sort={{sort}}">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}">{% trans 'Previous' %}</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="?page=1&sort={{sort}}">1</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link">{% trans 'Previous' %}</a>
+            </li>
+            {% endif %}
+            <li class="page-item disabled">
+                <a class="page-link text-nowrap">{{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}</a>
+            </li>
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" id="submit" href="?page={{ page_obj.next_page_number }}&sort={{sort}}">{% trans 'Next' %}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a> {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">{% trans 'Next' %}</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a> {% endif %}
+                </li>
+
+
+        </ul>
+    </nav>
+    </div>
+<div class="container-fluid" id="table" style="max-height: 250vh; overflow:hidden;">
     <div class="row">
-        <div class="d-flex card col-6 col-lg-5 col-xl-4 d-flex flex-column">
+        <div class="d-flex card col-12 col-lg-4 d-flex flex-column">
 
             <div style="overflow-y: scroll; height:calc(100vh) !important;" id="leftscroll">
                 <ul class="list-group list-group-flush">
@@ -144,8 +206,8 @@
                 </ul>
                 </div>
             </div>
-
-            <div class="col-6 col-lg-7 col-xl-8 d-flex flex-column">
+            
+            <div class="col-12 col-lg-8 d-flex flex-column">
                 <div class="row">
                     <!-- Obraz <a href="https://pixabay.com/pl/users/Jo-B-246441/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Jo-B</a> z <a href="https://pixabay.com/pl/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3598171"> Pixabay</a>-->
                     <figure class="col-2">
@@ -177,8 +239,8 @@
                     </figure>
                 </div>
                 <div>
-
-                    <nav aria-label="pagination" id="pagination">
+                    <div class="d-none d-lg-block">
+                    <nav aria-label="pagination" id="pagination" >
                         <ul class="pagination">
                             <li class="page-item">
                                 <div class="dropdown">
@@ -241,13 +303,13 @@
 
                         </ul>
                     </nav>
+                    </div>
 
-
-
-                    <div style="overflow-y: scroll; height:calc(69vh) !important;">
+                    <div class="d-block d-lg-none my-3"></div>
+                    <div style="overflow-y: scroll; height:calc(100vh) !important;">
                         <div class="row">
                             {% for weight in page_obj %}
-                            <div class="card col-12 col-lg-6 col-xl-3 front-{{weight.first_line}}">
+                            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 front-{{weight.first_line}}">
                                 <div class="card-body">
                                     <div class="d-flex row justify-content-center">
                                         <h5>
