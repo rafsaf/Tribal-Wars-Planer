@@ -47,7 +47,7 @@ var scroll_content_outline = function(){
 var menu_toggle = function(){
         $("#menu-toggle").click(function (e) {
                 e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
+                $("#sidebar-wrapper").toggleClass("toggled");
             });
             $(document).ready(function() {
                 $('#id_date').addClass('data-picker')

@@ -60,7 +60,7 @@
         </li>
         {% endif %}
         <li class="page-item disabled">
-            <a class="page-link">{{ query.number }} {% trans 'of' %} {{ query.paginator.num_pages }}</a>
+            <a class="page-link text-nowrap">{{ query.number }} {% trans 'of' %} {{ query.paginator.num_pages }}</a>
         </li>
         {% if query.has_next %}
         <li class="page-item">
@@ -205,7 +205,7 @@
         {% trans 'Target added successfully !' %}
     </small>
     {% endif %}
-    <div id='target-form' class="col-4 mx-auto my-2">
+    <div id='target-form' class="col-12 col-lg-4 mx-auto my-2">
 
         <form method='POST' autocomplete="off">{% csrf_token %} 
             {{ target_form|crispy }}

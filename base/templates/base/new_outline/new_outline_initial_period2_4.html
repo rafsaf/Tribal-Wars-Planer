@@ -87,7 +87,7 @@
         </li>
         {% endif %}
         <li class="page-item disabled">
-            <a class="page-link">{{ query.number }} {% trans 'of' %} {{ query.paginator.num_pages }}</a>
+            <a class="page-link text-nowrap">{{ query.number }} {% trans 'of' %} {{ query.paginator.num_pages }}</a>
         </li>
         {% if query.has_next %}
         <li class="page-item">
@@ -235,7 +235,7 @@
                 {% trans "If you skip clicking the button above, the orders will not be automatically written!!!" %}
             </span>
         </h6>
-    <div class="form-group col-6 mx-auto mt-5">
+    <div class="form-group col-12 col-lg-6 mx-auto mt-5">
         <form method="GET">
             <input name=page type="hidden" value="{{query.number}}" />
             <input name=mode type="hidden" value="{{mode}}" />

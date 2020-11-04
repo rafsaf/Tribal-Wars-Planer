@@ -246,7 +246,7 @@
                             </li>
                             {% endif %}
                             <li class="page-item disabled">
-                                <a class="page-link">{{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}</a>
+                                <a class="page-link text-nowrap">{{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}</a>
                             </li>
                             {% if page_obj.has_next %}
                             <li class="page-item">

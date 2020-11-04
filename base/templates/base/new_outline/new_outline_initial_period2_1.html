@@ -4,7 +4,7 @@
 {% block content %}
 
 
-<div class="container-fluid md-pre">
+<div class="container-fluid">
     <form action="{% url 'base:planer_output' instance.id %}" method="POST">
         <div class="row justify-content-center mb-3">
 
@@ -14,7 +14,7 @@
         </div>
     </form>
     <div class="row">
-        <div class="col-7">
+        <div class="col-12 col-lg-7">
             <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"
                 integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA=="
@@ -316,7 +316,7 @@
     </div>
 
 
-    <div class="col-5">
+    <div class="col-12 col-lg-5">
 
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
             {% for time in outline_time %}
@@ -400,7 +400,7 @@
         </li>
         {% endif %}
         <li class="page-item disabled">
-            <a class="page-link">{{ query.number }} {% trans 'of' %} {{ query.paginator.num_pages }}</a>
+            <a class="page-link text-nowrap">{{ query.number }} {% trans 'of' %} {{ query.paginator.num_pages }}</a>
         </li>
         {% if query.has_next %}
         <li class="page-item">
@@ -537,7 +537,7 @@
 <form method="POST">
     {% csrf_token %} {{ choice_formset.management_form }}
     <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-lg-4">
             <button type="submit" name="choice-formset"
                 class="btn btn-outline-info btn-block mb-2">{% trans 'Confirm selected' %}
             </button>

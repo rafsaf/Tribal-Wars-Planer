@@ -96,11 +96,11 @@
     min-width: 100vw;
 }
 
-#wrapper.toggled #sidebar-wrapper {
+#wrapper #sidebar-wrapper.toggled {
     margin-left: -15rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     #sidebar-wrapper {
         margin-left: 0;
     }
@@ -108,12 +108,12 @@
         min-width: 0;
         width: 100%;
     }
-    #wrapper.toggled #sidebar-wrapper {
+    #wrapper #sidebar-wrapper.toggled {
         margin-left: -15rem;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .mt-li {
         margin-top: 0.25rem!important;
     }
@@ -176,6 +176,7 @@
 .line-error {
     background: #FBC2C4 !important;
     color: #8a1f11 !important;
+    
 }
 
 .border-invalid {

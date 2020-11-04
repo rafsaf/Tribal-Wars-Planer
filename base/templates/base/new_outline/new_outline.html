@@ -1,23 +1,50 @@
 
-{% extends "base/base.html" %} {% load static %} {% load i18n %} {% block sidebar %}
+{% extends "base/base.html" %} 
+{% load static %} 
+{% load i18n %} 
+{% block sidebar %}
 
-<a class=" list-group-item list-group-item-action
-bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
-<a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
-bg-light">{% trans 'Results' %}</a>
-<a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
-bg-light">{% trans 'Deff collection' %}</a>
-<a href="{% url 'base:planer_detail_get_off' instance.id %}" class="list-group-item list-group-item-action
-bg-light">{% trans 'Off collection' %}</a>
+    <a class=" list-group-item list-group-item-action
+    bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
+    bg-light">{% trans 'Results' %}</a>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
+    bg-light">{% trans 'Deff collection' %}</a>
+    <a href="{% url 'base:planer_detail_get_off' instance.id %}" class="list-group-item list-group-item-action
+    bg-light">{% trans 'Off collection' %}</a>
 
-<a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
-bg-light">
+    <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
+    bg-light">
     {% trans 'Planer' %}
 
 
     <div class="badge badge-info">{% trans 'BETA' %}</div>
 
-</a> {%endblock%} {% block content %}
+</a> 
+
+{% endblock %} 
+{% block phonesidebar %}
+
+    <a class=" list-group-item list-group-item-action
+    bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
+    bg-light">{% trans 'Results' %}</a>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
+    bg-light">{% trans 'Deff collection' %}</a>
+    <a href="{% url 'base:planer_detail_get_off' instance.id %}" class="list-group-item list-group-item-action
+    bg-light">{% trans 'Off collection' %}</a>
+
+    <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
+    bg-light">
+    {% trans 'Planer' %}
+
+
+    <div class="badge badge-info">{% trans 'BETA' %}</div>
+
+</a> 
+
+{% endblock %} 
+{% block content %}
 
 
 <div>
@@ -68,7 +95,7 @@ bg-light">
 
 <div class="row my-3">
 
-    <div class="col-6">
+    <div class="col-12 col-lg-6">
         <form method='POST'>{% csrf_token %}
 
             <div>
@@ -116,7 +143,7 @@ bg-light">
             </div>
 
 
-            <button class="btn btn-primary mt-3" name="form-1" type="submit">{% trans 'Submit' %}</button>
+            <button class="btn btn-primary my-3" name="form-1" type="submit">{% trans 'Submit' %}</button>
 
         </form>
 
@@ -128,7 +155,7 @@ bg-light">
         });
     </script>
 
-    <div class="col-6">
+    <div class="col-12 col-lg-6">
         <form method='POST'>{% csrf_token %}
 
             <div>
@@ -177,7 +204,7 @@ bg-light">
             </div>
 
 
-            <button class="btn btn-primary mt-3" name="form-2" type="submit">{% trans 'Submit' %}</button>
+            <button class="btn btn-primary my-3" name="form-2" type="submit">{% trans 'Submit' %}</button>
 
         </form>
 

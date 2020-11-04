@@ -1,40 +1,7 @@
-{% extends "base/base.html" %}
+{% extends "base/new_outline/new_outline_initial_period2.html" %}
+
 {% load static %}
 {% load i18n %}
-
-{% block showsidebar %}
-<div class="d-flex toggled" id="wrapper">
-    {% if user.is_authenticated %}
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">{% trans 'User Panel' %} </div>
-        <div class="list-group list-group-flush">
-
-            <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action
-                  bg-light">{% trans 'My outlines' %}</a>
-            <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action
-                  bg-light">{% trans 'Create new outline' %}</a> {% block sidebar %}
-
-            <a class=" list-group-item list-group-item-action
-                  bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
-            <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
-                  bg-light">{% trans 'Results' %}</a>
-            <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
-                  bg-light">{% trans 'Deff collection' %}</a>
-
-            <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
-                  bg-light">{% trans 'Planer' %}
-
-
-                <div class="badge badge-info">BETA</div>
-
-            </a> {%endblock%}
-        </div>
-    </div>
-    {% endif %}
-
-    <!-- /#sidebar-wrapper -->
-    {% endblock %}
 
     {% block content %}
 
@@ -129,7 +96,7 @@
             </li>
             {% endif %}
             <li class="page-item disabled">
-                <a class="page-link">{{ query.number }} {% trans 'of' %} {{ query.paginator.num_pages }}</a>
+                <a class="page-link text-nowrap">{{ query.number }} {% trans 'of' %} {{ query.paginator.num_pages }}</a>
             </li>
             {% if query.has_next %}
             <li class="page-item">

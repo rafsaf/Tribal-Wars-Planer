@@ -1,12 +1,28 @@
-### Dokumentacja:
-  * #### [Skrypty](#Skrypty)
+### Dokumentacja projektu:
+
+  * [Pierwsze kroki z planerem](#start)
+  * [Skrypty](#Skrypty)
     1. [Skrypt zbiórka obrona](#deff-script)
     2. [Skrypt zbiórka wojska](#army-script)
     3. [Skrypt wysyłka celi](#send-script)
+  * [Świat Testowy](#test)
+  * [Błędy](#errors)
 
-  * #### [Świat Testowy](#test)
+---
 
-  * #### [Błędy](#errors)
+### Pierwsze kroki z planerem {#start}
+
+
+  * Nie zapomnij dołączyć do <a target="_blank" href="https://discord.gg/g5pcsCteCT">discorda</a>, tam znajdziesz wszelką pomoc i możesz zgłaszać propozycje oraz błędy.
+
+  *  Możesz zmieniać wersję językową oraz logować się i wylogowywać się rozwijając Menu w pasku nawigacyjnym.
+
+  * Aby rozpocząć tworzenie rozpiski przejdź do zakładki <span class="md-correct2">Stwórz nową rozpiskę</span>.
+
+  * Wszystkie Twoje rozpiski znajdują się w zakładce Moje <span class="md-correct2">Moje rozpiski</span>.
+
+  * Uwaga, jeśli to pierwsze zetknięcie z planerem, najlepiej jest przerobić tutorial z [Światem testowym](#test).
+
 
 ---
 
