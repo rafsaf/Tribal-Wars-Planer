@@ -5,6 +5,7 @@
     1. [Skrypt zbiórka obrona](#deff-script)
     2. [Skrypt zbiórka wojska](#army-script)
     3. [Skrypt wysyłka celi](#send-script)
+    4. [Skrypt indywidualna zbiórka wojska](#self-army-script)
   * [Świat Testowy](#test)
   * [Błędy](#errors)
 
@@ -368,6 +369,111 @@
     if (message) {
         document.getElementById('message').value = message;
     }
+    </pre>
+
+
+---
+
+#### 4. Skrypt indywidualna zbiórka wojska {#self-army-script}
+
+  * [Instalacja, opis i użycie](#Skrypty)
+
+  * Kopiowanie
+
+
+    <button onclick="updateClipboard('copy-button-4')" class="btn btn-secondary my-2">    Kopiuj do schowka
+    </button>  
+
+  * Kod skryptu
+
+    <pre id="copy-button-4" class="prettyprint md-pre">
+    // ==UserScript==
+    // @name     Indywidualna Zbiórka Wojska.
+    // @version  1
+    // @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=overview_villages&ast;
+    // ==/UserScript==
+    // By Rafsaf
+
+
+    const loopOverPlayerArmyTableAndReturnOutputText = () => {
+        let outputText = ""
+        const trs = document.querySelectorAll('.overview_table tr')
+
+        let actualVillageCoord
+        let nextVillageNameIndex = 1
+        let nextVillageDataIndex = 5
+        console.log('hey')
+        trs.forEach((value, index) => {
+            const tds = value.querySelectorAll('td')
+
+            if (index === nextVillageNameIndex) {
+                actualVillageCoord = String(tds[0].innerText).trim().slice(-12,-5)
+                nextVillageNameIndex += 5
+            }
+            if (index === nextVillageDataIndex){
+                outputText += "&lt;br&gt;" + actualVillageCoord + ","
+                tds.forEach((value) => {
+                    let parsedValue = String(value.innerText).trim()
+                    if (parsedValue === 'Wojska') {
+                        parsedValue = 0
+                    } else if (parsedValue === 'razem') {
+                        return
+                    }
+
+                    outputText += parsedValue + ","
+                })
+                nextVillageDataIndex += 5
+            }
+        })
+        console.log(outputText)
+        return outputText
+        
+    }
+
+
+    const createAndShowDivTextAreaWithResults = (outputText) => {
+        const textArea = document.createElement("div")
+        textArea.contentEditable = "true"
+        textArea.style.width = "600px"
+        textArea.style.height = "auto"
+        textArea.style.border = "2px solid black"
+        textArea.style.left = "25%"
+        textArea.style.top = "40%"
+        textArea.style.position = "absolute"
+        textArea.style.background = "red"
+        textArea.style.margin = "0px 0px 100px 0px"
+        textArea.style.color = "white"
+        textArea.innerHTML = outputText
+        document.body.appendChild(textArea)
+    }
+
+    const showPlayerTroopsInDialog = () => {
+        const confirmed = window.confirm("Czy na pewno chcesz zebrać własne wojska?")
+        if (!confirmed) {
+          return
+        }
+        const outputText = loopOverPlayerArmyTableAndReturnOutputText()
+        createAndShowDivTextAreaWithResults(outputText)
+    }
+
+    const createButton = () => {
+        const tdPlace = document.querySelector('#menu_row2')
+        const newTdWithButton = document.createElement('td')
+        newTdWithButton.setAttribute('id', 'new-button-td')
+        tdPlace.appendChild(newTdWithButton)
+
+        const buttonPlace = document.querySelector('#new-button-td')
+        const newButton = document.createElement('btn')
+        newButton.setAttribute('class', 'btn btn-default')
+        newButton.innerHTML = 'Zbierz wojsko'
+
+        buttonPlace.appendChild(newButton)
+        newButton.addEventListener("click", function() {
+            showPlayerTroopsInDialog()
+        })
+    }
+
+    createButton()
     </pre>
 
 
