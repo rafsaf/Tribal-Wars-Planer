@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-04 17:43+0100\n"
+"POT-Creation-Date: 2020-11-06 13:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,7 @@ msgstr "Odległość od linii frontu"
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:303 base/models.py:193
+#: base/forms.py:303 base/models.py:197
 msgid "Noble"
 msgstr "Szlachcic"
 
@@ -181,19 +181,19 @@ msgstr "Ta wioska już jest celem !"
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/models.py:188
+#: base/models.py:192
 msgid "All"
 msgstr "Wszystkie"
 
-#: base/models.py:189
+#: base/models.py:193
 msgid "Random"
 msgstr "Losowo"
 
-#: base/models.py:190
+#: base/models.py:194
 msgid "Exact"
 msgstr "Dokładnie"
 
-#: base/models.py:194
+#: base/models.py:198
 msgid "Ram"
 msgstr "Taran"
 
@@ -209,29 +209,29 @@ msgstr ""
 "Plemiona Planer, profesjonalne narzędzie do tworzenia rozpisek dla "
 "koordynatorów offa w grze."
 
-#: base/templates/base/base.html:123 base/templates/base/base.html:162
+#: base/templates/base/base.html:55 base/templates/base/base.html:94
 #: base/templates/base/new_outline/new_outline_initial_period2.html:9
 #: base/templates/base/overview.html:8
 msgid "User Panel"
 msgstr "Panel Użytkownika"
 
-#: base/templates/base/base.html:127 base/templates/base/base.html:167
+#: base/templates/base/base.html:59 base/templates/base/base.html:99
 #: base/templates/base/new_outline/new_outline_initial_period2.html:13
 #: base/templates/base/overview.html:12
 msgid "My outlines"
 msgstr "Moje rozpiski"
 
-#: base/templates/base/base.html:129 base/templates/base/base.html:169
+#: base/templates/base/base.html:61 base/templates/base/base.html:101
 #: base/templates/base/new_outline/new_outline_initial_period2.html:15
 #: base/templates/base/overview.html:14
 msgid "Create new outline"
 msgstr "Stwórz nową rozpiskę"
 
-#: base/templates/base/base.html:194
+#: base/templates/base/base.html:126
 msgid "Home"
 msgstr "Strona Główna"
 
-#: base/templates/base/base.html:197
+#: base/templates/base/base.html:129
 #: base/templates/base/new_outline/new_outline.html:18
 #: base/templates/base/new_outline/new_outline.html:39
 #: base/templates/base/new_outline/new_outline_initial_period2.html:29
@@ -239,48 +239,48 @@ msgstr "Strona Główna"
 msgid "Planer"
 msgstr "Planer"
 
-#: base/templates/base/base.html:201
+#: base/templates/base/base.html:133
 msgid "Documentation"
 msgstr "Dokumentacja"
 
-#: base/templates/base/base.html:205
+#: base/templates/base/base.html:137
 msgid "Admin Site"
 msgstr "Administracja"
 
-#: base/templates/base/base.html:209
+#: base/templates/base/base.html:141
 msgid "Database Update"
 msgstr "Aktualizacja"
 
-#: base/templates/base/base.html:218
+#: base/templates/base/base.html:150
 msgid "Account"
 msgstr "Konto"
 
-#: base/templates/base/base.html:224
+#: base/templates/base/base.html:156
 msgid "Sign out"
 msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:226 base/templates/base/base.html:289
+#: base/templates/base/base.html:158 base/templates/base/base.html:221
 msgid "Sign in"
 msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:229 base/templates/base/base.html:291
+#: base/templates/base/base.html:161 base/templates/base/base.html:223
 #: templates/registration/login.html:24
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
-#: base/templates/base/base.html:234
+#: base/templates/base/base.html:166
 msgid "Language"
 msgstr "Język"
 
-#: base/templates/base/base.html:287
+#: base/templates/base/base.html:219
 msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:290 templates/registration/login.html:24
+#: base/templates/base/base.html:222 templates/registration/login.html:24
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:304
+#: base/templates/base/base.html:236
 msgid ""
 "Note, all announcements, proposals, reported bugs will be placed on the "
 "discord."
@@ -288,15 +288,15 @@ msgstr ""
 "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być "
 "zamieszczane na kanale na discordzie."
 
-#: base/templates/base/base.html:307
+#: base/templates/base/base.html:239
 msgid "Galery"
 msgstr "Galeria"
 
-#: base/templates/base/base.html:335
+#: base/templates/base/base.html:267
 msgid "This is an open project Plemiona Planer."
 msgstr "To jest otwarty projekt Plemiona Planer."
 
-#: base/templates/base/base.html:337
+#: base/templates/base/base.html:269
 msgid ""
 "See an error? Please write <b>rafal.safin12@gmail.com</b> or contact me with "
 "discord."
@@ -304,11 +304,11 @@ msgstr ""
 "Widzisz błąd? Napisz: <b>rafal.safin12@gmail.com</b> lub skontakuj się przez "
 "discorda."
 
-#: base/templates/base/base.html:342
+#: base/templates/base/base.html:274
 msgid "Privacy Policy"
 msgstr "Polityka Prywatności"
 
-#: base/templates/base/base.html:345
+#: base/templates/base/base.html:277
 msgid "Cookies Policy"
 msgstr "Polityka Cookies"
 
@@ -426,7 +426,7 @@ msgstr "dokumentację"
 
 #: base/templates/base/new_outline/new_outline.html:146
 #: base/templates/base/new_outline/new_outline.html:207
-#: base/templates/base/new_outline/new_outline_create.html:12
+#: base/templates/base/new_outline/new_outline_create.html:9
 #: base/templates/base/new_outline/new_outline_get_deff.html:10
 #: base/templates/base/new_outline/new_outline_get_off.html:9
 #: base/templates/base/new_outline/new_outline_initial_period1.html:56
@@ -447,160 +447,31 @@ msgstr "Podgląd zbiórka Deffa"
 
 #: base/templates/base/new_outline/new_outline_create.html:6
 msgid ""
-"First time? You can choose a special <span class=\"md-correct2\">World 0</"
+"First time? You can choose a special <span class=\"md-correct2\">Test World</"
 "span> created for testing purposes, see "
 msgstr ""
-"Pierwszy raz? Wybierz specjalny <span class=\"md-correct2\">Świat 0</span> "
+"Pierwszy raz? Wybierz specjalny <span class=\"md-correct2\">Świat Testowy</span> "
 "stworzony do celów testowych rozpiski, zobacz "
 
-#: base/templates/base/new_outline/new_outline_create.html:9
-msgid ""
-"Note, because when designing the site I did not envisage the creation of a "
-"new classic world, the world Classic 1 is added under number 1."
-msgstr ""
-"Uwaga, ponieważ przy projektowniu strony nie przewidywałem powstania nowego "
-"świata Classic, świat Classic 1 jest dodany pod numerem 1."
-
-#: base/templates/base/new_outline/new_outline_create.html:21
+#: base/templates/base/new_outline/new_outline_create.html:18
 #: base/templates/base/new_outline/new_outline_get_deff.html:21
 #: base/templates/base/new_outline/new_outline_get_off.html:20
 #: base/templates/base/new_outline/new_outline_initial_period1.html:68
 msgid "Info"
 msgstr "Info"
 
-#: base/templates/base/new_outline/new_outline_create.html:24
+#: base/templates/base/new_outline/new_outline_create.html:21
 #: base/templates/base/new_outline/new_outline_get_deff.html:24
 #: base/templates/base/new_outline/new_outline_get_off.html:23
 msgid "Marks"
 msgstr "Oznaczenia"
 
-#: base/templates/base/new_outline/new_outline_create.html:27
+#: base/templates/base/new_outline/new_outline_create.html:24
 #: base/templates/base/new_outline/new_outline_get_deff.html:27
 #: base/templates/base/new_outline/new_outline_get_off.html:26
 #: base/templates/base/new_outline/new_outline_initial_period1.html:72
 msgid "Examples"
 msgstr "Przykłady"
-
-#: base/templates/base/new_outline/new_outline_create.html:32
-msgid ""
-"\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"\n"
-"                            <h5 class=\"card-title\">Create new Outline</"
-"h5>\n"
-"                            <li class=\"card-text\">To go to the Planer "
-"first create Outline object.</li>\n"
-"                            <li class=\"card-text\">After created, you must "
-"use scripts to collect data from your members\n"
-"                            </li>\n"
-"                            <li class=\"card-text mt-2\">You need to fill in "
-"data when you want to attack, name of outline and world number.</li>\n"
-"                            <li class=\"card-text mt-2\">On the next page "
-"you must choose tags of tribes. </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Make sure that...</"
-"h5>\n"
-"                            <li class=\"card-text mt-2\"> Each field is "
-"correctly completed. </li>\n"
-"                            <li class=\"card-text mt-2\"> You have selected "
-"correct world number. </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Remember that...</"
-"h5>\n"
-"                            <li class=\"card-text mt-2\">The set data <span "
-"class=\"md-error\">CANNOT</span> be changed later. </li>\n"
-"                            <li class=\"card-text mt-2\">You must fill in "
-"every field. </li>\n"
-"                            <li class=\"card-text mt-2\">More details can be "
-"found in the Marks and Examples tab.</li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    "
-msgstr ""
-"\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"\n"
-"                            <h5 class=\"card-title\">Utwórz nową rozpiskę</"
-"h5>\n"
-"                            <li class=\"card-text\">Aby przejść do planera, "
-"utwórz Rozpiskę.</li>\n"
-"                            <li class=\"card-text\">Po stworzeniu obiektu, "
-"używaj skryptów do zbierania informacji o wojskach członków plemienia.\n"
-"                            </li>\n"
-"                            <li class=\"card-text mt-2\">Wybierz datę akcji, "
-"nazwę rozpiski oraz numer świata.</li>\n"
-"                            <li class=\"card-text mt-2\">W następnej "
-"zakładce wybierz nazwy własnych oraz przeciwnych plemion. </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Upewnij się, że..."
-"</h5>\n"
-"                            <li class=\"card-text mt-2\">Każde pole jest "
-"wypełnione poprawnie </li>\n"
-"                            <li class=\"card-text mt-2\"> Wybrałeś poprawny "
-"numer świata. </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Pamiętaj, że...</"
-"h5>\n"
-"                            <li class=\"card-text mt-2\">Wybrana data <span "
-"class=\"md-error\">NIE MOŻE</span> być później zmieniona. </li>\n"
-"                            <li class=\"card-text mt-2\">Musisz wypełnić "
-"wszystkie pola. </li>\n"
-"                            <li class=\"card-text mt-2\">Więcej szczegółów "
-"znajdziesz w pozostałych zakładkach</li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    "
-
-#: base/templates/base/new_outline/new_outline_create.html:62
-msgid "OUTLINE NAME"
-msgstr "NAZWA ROZPISKI"
-
-#: base/templates/base/new_outline/new_outline_create.html:63
-msgid "Description of your Outline."
-msgstr "Nazwa Twojej rozpiski."
-
-#: base/templates/base/new_outline/new_outline_create.html:64
-msgid "DATE"
-msgstr "DATA"
-
-#: base/templates/base/new_outline/new_outline_create.html:65
-msgid "The date of your Outline."
-msgstr "Data planowanej akcji."
-
-#: base/templates/base/new_outline/new_outline_create.html:66
-msgid "WORLD"
-msgstr "ŚWIAT"
-
-#: base/templates/base/new_outline/new_outline_create.html:67
-msgid "The world number for this Outline."
-msgstr "Numer świata dla tej akcji."
-
-#: base/templates/base/new_outline/new_outline_create.html:71
-msgid "Outline Name: <span class=\"md-correct2\">MyAwesomeOutlineName</span>"
-msgstr ""
-"Nazwa Rozpiski: <span class=\"md-correct2\">MyAwesomeOutlineName</span>"
-
-#: base/templates/base/new_outline/new_outline_create.html:72
-msgid "Date: <span class=\"md-correct2\">2020-01-01</span>"
-msgstr "Data: <span class=\"md-correct2\">2020-01-01</span>"
-
-#: base/templates/base/new_outline/new_outline_create.html:73
-msgid "World: <span class=\"md-correct2\">100</span>"
-msgstr "Świat: <span class=\"md-correct2\">100</span>"
 
 #: base/templates/base/new_outline/new_outline_create_select.html:7
 msgid "Add an ally tribe"
@@ -651,7 +522,7 @@ msgstr ""
 #: base/templates/base/new_outline/new_outline_initial_period2.html:112
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:57
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:56
-#: base/templates/base/new_outline/new_outline_initial_period3.html:26
+#: base/templates/base/new_outline/new_outline_initial_period3.html:24
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:26
 msgid "Close"
 msgstr "Zamknij"
@@ -662,225 +533,6 @@ msgstr "Zamknij"
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:60
 msgid "Continue"
 msgstr "Kontynuuj"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:32
-msgid ""
-"\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"\n"
-"                            <h5 class=\"card-title\">Collect deff from "
-"remote villages</h5>\n"
-"                            <li class=\"card-text\">The program is used for "
-"collecting deff units from villages in distance greater than radius from "
-"enemy tribes. </li>\n"
-"                            <li class=\"card-text mt-2\">Distance is "
-"calculated in squares.</li>\n"
-"                            <li class=\"card-text mt-2\">The default value "
-"of 30 corresponds to approximately 17 hours of a noble's path, for "
-"optimization reasons the maximum possible radius is 60. </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Make sure, that..."
-"</h5>\n"
-"                            <li class=\"card-text mt-2\"> You have included "
-"all your own and enemies tribes. </li>\n"
-"                            <li class=\"card-text mt-2\"> The selected "
-"radius is adequate to the needs. </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Remember, that...</"
-"h5>\n"
-"                            <li class=\"card-text mt-2\">\n"
-"                                The other options are optional. </li>\n"
-"                            <li class=\"card-text mt-2\">\n"
-"                                More details can be found in the Marks and "
-"Examples tab.</li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    "
-msgstr ""
-"\n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"\n"
-"<h5 class = \" card-title \"> Zbieraj deff z zaplecza </h5> \n"
-"<li class = \" card-text \"> Program jest używany do zbierania jednostek "
-"obronnych z wiosek w odległości większej niż promień od wrogiego plemiona. </"
-"li> \n"
-"<li class = \" card-text mt-2 \"> Odległość jest liczona w kratkach. </li> \n"
-"<li class = \" card-text mt-2 \"> Wartość domyślna 30 odpowiada około 17 "
-"godzinom drogi dla szlachcica, z powodów optymalizacyjnych maksymalny "
-"możliwy promień to 60. </li> \n"
-"</div> \n"
-"</div> \n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ...</h5> \n"
-"<li class = \" card-text mt-2 \"> Uwzględniono wszystkie plemiona własne i "
-"wrogie. </li> \n"
-"<li class = \" card-text mt-2 \"> Wybrany promień jest odpowiedni do "
-"potrzeb. </li> \n"
-"</div> \n"
-"</div> \n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </h5> \n"
-"<li class = \" tekst karty mt-2 \"> \n"
-" Pozostałe opcje są opcjonalne. </li> \n"
-"<li class = \" tekst karty mt-2 \"> \n"
-" Więcej szczegółów można znaleźć w pozostałych zakładkach</li> \n"
-"</div> \n"
-"</div> \n"
-"                    "
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:65
-#: base/templates/base/new_outline/new_outline_get_off.html:64
-msgid "RADIUS"
-msgstr "Promień"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:66
-#: base/templates/base/new_outline/new_outline_get_off.html:65
-msgid "Radius is a number of squares to measure distance between villages."
-msgstr "Promień jest to ilość kratek w grze do mierzenia odległośći."
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:67
-#: base/templates/base/new_outline/new_outline_get_off.html:66
-msgid "OTHER ALLY PLAYERS"
-msgstr "INNI SOJUSZNICZY GRACZE"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:68
-#: base/templates/base/new_outline/new_outline_get_deff.html:70
-#: base/templates/base/new_outline/new_outline_get_off.html:67
-#: base/templates/base/new_outline/new_outline_get_off.html:69
-msgid "Nicknames separated by whitespace."
-msgstr "Nicki oddzielone enterem lub spacją."
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:69
-#: base/templates/base/new_outline/new_outline_get_off.html:68
-msgid "OTHER ENEMY PLAYERS"
-msgstr "INNI PRZECIWNI GRACZE"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:71
-#: base/templates/base/new_outline/new_outline_get_off.html:70
-msgid "EXCLUDED ENEMY VILLAGES"
-msgstr "WYKLUCZONE WROGIE WIOSKI"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:72
-#: base/templates/base/new_outline/new_outline_get_off.html:71
-msgid "Coords separated by whitespace."
-msgstr "Kordy oddzielone spacją lub enterem."
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:76
-#: base/templates/base/new_outline/new_outline_get_off.html:75
-msgid "Radius: <span class=\"md-correct2\">30</span>"
-msgstr "Promień: <span class=\"md-correct2\">30</span>"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:77
-#: base/templates/base/new_outline/new_outline_get_off.html:76
-msgid ""
-"Other ally players: <span class=\"md-correct2\">AllyPlayer1 AllyPlayer2 "
-"AllyPlayer3</span>"
-msgstr ""
-"Inni sojuszniczy gracze: <span class=\"md-correct2\">AllyPlayer1 AllyPlayer2 "
-"AllyPlayer3</span>"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:78
-#: base/templates/base/new_outline/new_outline_get_off.html:77
-msgid ""
-"Other enemy players: <span class=\"md-correct2\">EnemyPlayer1 EvilPlayer2</"
-"span>"
-msgstr ""
-"Inni przeciwni gracze: <span class=\"md-correct2\">EnemyPlayer1 EvilPlayer2</"
-"span>"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:79
-#: base/templates/base/new_outline/new_outline_get_off.html:78
-msgid ""
-"Excluded enemy villages: <span class=\"md-correct2\">EvilCoord1 EvilCoord2 "
-"EvilCoord3 EvilCoord4</span>"
-msgstr ""
-"Wykluczone wioski wroga: <span class=\"md-correct2\">EvilCoord1 EvilCoord2 "
-"EvilCoord3 EvilCoord4</span>"
-
-#: base/templates/base/new_outline/new_outline_get_off.html:31
-msgid ""
-"\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"\n"
-"                            <h5 class=\"card-title\">Collect off from remote "
-"villages</h5>\n"
-"                            <li class=\"card-text\">The program is used for "
-"collecting off units from all villages, in distance greater than radius from "
-"enemy tribes in first category and the rest in second. </li>\n"
-"                            <li class=\"card-text mt-2\">Distance is "
-"calculated in squares.</li>\n"
-"                            <li class=\"card-text mt-2\">The default value "
-"of 30 corresponds to approximately 17 hours of a noble's path, for "
-"optimization reasons the maximum possible radius is 60. </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Make sure, that..."
-"</h5>\n"
-"                            <li class=\"card-text mt-2\"> You have included "
-"all your own and enemies tribes. </li>\n"
-"                            <li class=\"card-text mt-2\"> The selected "
-"radius is adequate to the needs. </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Remember, that...</"
-"h5>\n"
-"                            <li class=\"card-text mt-2\">\n"
-"                                The other options are optional. </li>\n"
-"                            <li class=\"card-text mt-2\">\n"
-"                                More details can be found in the Marks and "
-"Examples tab.</li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    "
-msgstr ""
-"\n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"\n"
-"<h5 class = \" card-title \"> Zbieraj off z zaplecza </h5> \n"
-"<li class = \" card-text \"> Program jest używany do zbierania jednostek "
-"offowych z wiosek w odległości większej niż promień od wrogiego plemiona "
-"jako zaplecze i w mniejszej jako front </li> \n"
-"<li class = \" card-text mt-2 \"> Odległość jest liczona w kratkach. </li> \n"
-"<li class = \" card-text mt-2 \"> Wartość domyślna 30 odpowiada około 17 "
-"godzinom drogi dla szlachcica, z powodów optymalizacyjnych maksymalny "
-"możliwy promień to 60. </li> \n"
-"</div> \n"
-"</div> \n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ...</h5> \n"
-"<li class = \" card-text mt-2 \"> Uwzględniono wszystkie plemiona własne i "
-"wrogie. </li> \n"
-"<li class = \" card-text mt-2 \"> Wybrany promień jest odpowiedni do "
-"potrzeb. </li> \n"
-"</div> \n"
-"</div> \n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </h5> \n"
-"<li class = \" tekst karty mt-2 \"> \n"
-" Pozostałe opcje są opcjonalne. </li> \n"
-"<li class = \" tekst karty mt-2 \"> \n"
-" Więcej szczegółów można znaleźć w pozostałych zakładkach</li> \n"
-"</div> \n"
-"</div> \n"
-"                    "
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:46
 msgid ""
@@ -898,109 +550,6 @@ msgstr ""
 "Wioski BLIŻEJ niż podana liczba kratek do JAKIEJKOLWIEK wioski wroga (w tym "
 "diody) będą na stałe oznaczone jako \"Front\" i nie będą automatycznie "
 "rozpisywane."
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:77
-msgid ""
-"\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"\n"
-"                            <h5 class=\"card-title\">Write an outline</h5>\n"
-"                            <li class=\"card-text\">Enter your targets with "
-"number of offs and nobles with it.</li>\n"
-"                            <li class=\"card-text\">Correct form in each "
-"line is <br><span class=\"md-correct2\">Coord:Off:Noble</span>, e.g "
-"<br><span class=\"md-correct2\">500|500:10:4</span>, see Examples tab.\n"
-"                            </li>\n"
-"                            <li class=\"card-text mt-2\">Enter fakes targets "
-"just like real targets, but <span class=\"md-correct2\">under</span> "
-"separator line <span class=\"md-correct2\">---</span> which is required</"
-"li>\n"
-"                            <li class=\"card-text mt-2\">All front villages "
-"will have light blue background later in outline</li>\n"
-"\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Make sure that...</"
-"h5>\n"
-"                            <li class=\"card-text mt-2\"> Your every target "
-"village has been taken into account. </li>\n"
-"                            <li class=\"card-text mt-2\"> The coordinates "
-"entered by you are correct, which means that such a village exists in the "
-"world defined earlier in Outline </li>\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    <div class=\"card\">\n"
-"                        <div class=\"card-body\">\n"
-"                            <h5 class=\"card-title mt-2\">Remember that...</"
-"h5>\n"
-"                            <li class=\"card-text mt-2\">You can always come "
-"back here after submiting but you will lose your progress. </li>\n"
-"                            <li class=\"card-text mt-2\">Offs below 19k "
-"units will not be written out by default </li>\n"
-"\n"
-"                        </div>\n"
-"                    </div>\n"
-"                    "
-msgstr ""
-"\n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"\n"
-"<h5 class = \" card-title \"> Utwórz rozpiskę akcji </h5> \n"
-"<li class = \" card-text \"> Wpisz swoje cele oraz liczbę offów i "
-"szlachciców dla nich. </li> \n"
-"<li class = \" card-text \"> Właściwa forma w każdej linii to <br> <span "
-"class = \" md-correct2 \"> Kordy:Off:Szlachta </span>, np.<br> <span class = "
-"\" md-correct2 \"> 500|500:10:4 </span>, zobacz zakładkę Przykłady. \n"
-"</li> \n"
-"                            <li class=\"card-text mt-2\">Dodaj cele na fejki "
-"identycznie jak prawdziwe, ale <span class=\"md-correct2\">poniżej</span> "
-"oddzielającego cele od fejków separatora <span class=\"md-correct2\">---</"
-"span> który jest wymagany</li>\n"
-"                            <li class=\"card-text mt-2\">Wszystkie wioski "
-"frontowe będą miały jasno niebieskie tło w późniejszym panelu</li>\n"
-"\n"
-"</div> \n"
-"</div> \n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"<h5 class = \" tytuł karty mt-2 \"> Upewnij się, że ... </h5> \n"
-"<li class = \" card-text mt-2 \"> Uwzgłędniłeś każdy cel. </li> \n"
-"<li class = \" card-text mt-2 \"> Współrzędne wpisane przez Ciebie są "
-"prawidłowe, co oznacza, że ​​taka wioska istnieje w świecie zdefiniowany "
-"wcześniej w rozpisce. </li> \n"
-"</div> \n"
-"</div> \n"
-"<div class = \" card \"> \n"
-"<div class = \" card-body \"> \n"
-"<h5 class = \" card-title mt-2 \"> Pamiętaj, że ... </h5> \n"
-"<li class = \" card-text mt-2 \"> Zawsze możesz powrócić z powrotem tutaj po "
-"rozpisaniu akcji, ale utracisz cały postęp. </li> \n"
-"<li class = \" card-text mt-2 \"> Offy poniżej 19 000 jednostek nie zostaną "
-"domyślnie rozpisane. </li> \n"
-"\n"
-"</div> \n"
-"</div>\n"
-"                    "
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:115
-msgid "What suits:"
-msgstr "Co odpowiada:"
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:117
-msgid "500|499 - real: 10 Off and 2 Nobles"
-msgstr "500|499 - cel: 10 offów i 2 szlachcice"
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:118
-msgid "500|498 - real: 12 Off and 4 Nobles"
-msgstr "500|498 - cel: 12 offów i 4 szlachcice"
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:120
-msgid "500|496 - fake: 4 Fake-offs and 4 Fake-Nobles"
-msgstr "500|496 - fejk cel: 4 fejk offów i 4 fejk szlachcice"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:90
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:35
@@ -1031,10 +580,14 @@ msgstr ""
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:59
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:82
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:86
-#: base/templates/base/new_outline/new_outline_initial_period3.html:215
-#: base/templates/base/new_outline/new_outline_initial_period3.html:222
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:238
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:245
+#: base/templates/base/new_outline/new_outline_initial_period3.html:69
+#: base/templates/base/new_outline/new_outline_initial_period3.html:76
+#: base/templates/base/new_outline/new_outline_initial_period3.html:277
+#: base/templates/base/new_outline/new_outline_initial_period3.html:284
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:71
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:78
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:305
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:312
 msgid "Previous"
 msgstr "Poprzednia"
 
@@ -1043,8 +596,10 @@ msgstr "Poprzednia"
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:99
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:63
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:90
-#: base/templates/base/new_outline/new_outline_initial_period3.html:226
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:249
+#: base/templates/base/new_outline/new_outline_initial_period3.html:80
+#: base/templates/base/new_outline/new_outline_initial_period3.html:288
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:82
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:316
 msgid "of"
 msgstr "z"
 
@@ -1058,10 +613,14 @@ msgstr "z"
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:71
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:94
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:98
-#: base/templates/base/new_outline/new_outline_initial_period3.html:230
-#: base/templates/base/new_outline/new_outline_initial_period3.html:235
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:253
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:258
+#: base/templates/base/new_outline/new_outline_initial_period3.html:84
+#: base/templates/base/new_outline/new_outline_initial_period3.html:89
+#: base/templates/base/new_outline/new_outline_initial_period3.html:292
+#: base/templates/base/new_outline/new_outline_initial_period3.html:297
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:86
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:91
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:320
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:325
 msgid "Next"
 msgstr "Następna"
 
@@ -1265,7 +824,7 @@ msgstr "Szlachcice"
 msgid "Save"
 msgstr "Zapisz"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:10
+#: base/templates/base/new_outline/new_outline_initial_period3.html:8
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:10
 msgid ""
 "\n"
@@ -1299,85 +858,107 @@ msgstr ""
 "\" rel=\"popover\" data-placement=\"right\" data-trigger=\"hover\">\n"
 "                "
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:25
+#: base/templates/base/new_outline/new_outline_initial_period3.html:23
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:25
 msgid "Change and save"
 msgstr "Zmień z zapisz"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:118
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:118
-msgid "Divide"
-msgstr "Podziel"
-
-#: base/templates/base/new_outline/new_outline_initial_period3.html:122
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:122
-msgid "Divide into 2"
-msgstr "Podziel na 2"
-
-#: base/templates/base/new_outline/new_outline_initial_period3.html:126
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:126
-msgid "Divide into 3"
-msgstr "Podziel na 3"
-
-#: base/templates/base/new_outline/new_outline_initial_period3.html:130
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:130
-msgid "Divide into 4"
-msgstr "Podziel na 4"
-
-#: base/templates/base/new_outline/new_outline_initial_period3.html:185
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:208
+#: base/templates/base/new_outline/new_outline_initial_period3.html:39
+#: base/templates/base/new_outline/new_outline_initial_period3.html:247
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:41
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:275
 msgid "Sort"
 msgstr "Sortuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:188
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:211
+#: base/templates/base/new_outline/new_outline_initial_period3.html:42
+#: base/templates/base/new_outline/new_outline_initial_period3.html:250
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:44
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:278
 msgid "Ascending by distance"
 msgstr "Rosnąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:189
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:212
+#: base/templates/base/new_outline/new_outline_initial_period3.html:43
+#: base/templates/base/new_outline/new_outline_initial_period3.html:251
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:45
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:279
 msgid "Descending by distance"
 msgstr "Malejąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:190
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:213
+#: base/templates/base/new_outline/new_outline_initial_period3.html:44
+#: base/templates/base/new_outline/new_outline_initial_period3.html:252
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:46
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:280
 msgid "Descending by number of units"
 msgstr "Malejąco ze względu na liczbę jednostek"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:191
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:214
+#: base/templates/base/new_outline/new_outline_initial_period3.html:45
+#: base/templates/base/new_outline/new_outline_initial_period3.html:253
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:47
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:281
 msgid "Descending by number of noble"
 msgstr "Malejąco ze względu na ilość szlachty"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:193
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:216
+#: base/templates/base/new_outline/new_outline_initial_period3.html:47
+#: base/templates/base/new_outline/new_outline_initial_period3.html:255
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:49
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:283
 msgid "Closest full offs"
 msgstr "Najbliższe pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:194
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:217
+#: base/templates/base/new_outline/new_outline_initial_period3.html:48
+#: base/templates/base/new_outline/new_outline_initial_period3.html:256
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:50
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:284
 msgid "Closest noblemans"
 msgstr "Najbliższa szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:195
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:218
+#: base/templates/base/new_outline/new_outline_initial_period3.html:49
+#: base/templates/base/new_outline/new_outline_initial_period3.html:257
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:51
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:285
 msgid "Closest offs with noblemans"
 msgstr "Najbliższe pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:197
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:220
+#: base/templates/base/new_outline/new_outline_initial_period3.html:51
+#: base/templates/base/new_outline/new_outline_initial_period3.html:259
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:53
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:287
 msgid "Farthest full offs"
 msgstr "Najdalsze pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:198
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:221
+#: base/templates/base/new_outline/new_outline_initial_period3.html:52
+#: base/templates/base/new_outline/new_outline_initial_period3.html:260
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:54
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:288
 msgid "Farthest noblemans"
 msgstr "Najdalsza szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:199
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:222
+#: base/templates/base/new_outline/new_outline_initial_period3.html:53
+#: base/templates/base/new_outline/new_outline_initial_period3.html:261
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:55
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:289
 msgid "Farthest offs with noblemans"
 msgstr "Najdalsze pełne offy z szlachtą"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:180
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:184
+msgid "Divide"
+msgstr "Podziel"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:184
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:188
+msgid "Divide into 2"
+msgstr "Podziel na 2"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:188
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:192
+msgid "Divide into 3"
+msgstr "Podziel na 3"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:192
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:196
+msgid "Divide into 4"
+msgstr "Podziel na 4"
 
 #: base/templates/base/new_outline/new_outline_results.html:8
 msgid "Outline results"
@@ -1453,19 +1034,19 @@ msgstr ""
 msgid "Site not found."
 msgstr "Nie znaleziono strony."
 
-#: base/views/outline_initial_views.py:460
+#: base/views/outline_initial_views.py:470
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
-#: base/views/results_get_deff.py:17 base/views/results_get_deff.py:59
+#: base/views/results_get_deff.py:18 base/views/results_get_deff.py:71
 msgid "Deff collection empty!"
 msgstr "Zbiórka Deffa pusta!"
 
-#: base/views/results_get_deff.py:20 base/views/results_get_deff.py:62
+#: base/views/results_get_deff.py:21 base/views/results_get_deff.py:74
 msgid "Off collection empty!"
 msgstr "Zbiórka Offa pusta!"
 
-#: base/views/results_get_deff.py:36 base/views/results_get_deff.py:79
+#: base/views/results_get_deff.py:47 base/views/results_get_deff.py:100
 msgid ""
 "It looks like your Deff or Off collection is no longer actual! To use the "
 "planner: copy the data from the preview and correct errors or paste the "
@@ -1484,20 +1065,28 @@ msgid ""
 "Don't forget to join <a target='_blank' href='https://discord.gg/"
 "g5pcsCteCT'> discord </a>, there you will find all the help and can make "
 "suggestions and bugs."
-msgstr "Nie zapomnij dołączyć do <a target='_blank' href='https://discord.gg/g5pcsCteCT'>discorda</a>, tam znajdziesz wszelką pomoc i możesz zgłaszać propozycje oraz błędy."
+msgstr ""
+"Nie zapomnij dołączyć do <a target='_blank' href='https://discord.gg/"
+"g5pcsCteCT'>discorda</a>, tam znajdziesz wszelką pomoc i możesz zgłaszać "
+"propozycje oraz błędy."
 
 #: templates/django_registration/registration_complete.html:8
 msgid ""
 "You can change the language version and log in and out by expanding <span "
 "style = \"font-style: italic; font-size: large; text-decoration: underline;"
 "\"> Menu </span> in the navigation bar."
-msgstr "Możesz zmieniać wersję językową oraz logować się i wylogowywać się rozwijając <span style='font-style: italic; font-size: large;text-decoration: underline;'>Menu</span> w pasku nawigacyjnym."
+msgstr ""
+"Możesz zmieniać wersję językową oraz logować się i wylogowywać się "
+"rozwijając <span style='font-style: italic; font-size: large;text-"
+"decoration: underline;'>Menu</span> w pasku nawigacyjnym."
 
 #: templates/django_registration/registration_complete.html:9
 msgid ""
 "To start go to the tab <span style = \"font-style: italic; font-size: large; "
 "text-decoration: underline;\"> Create new outline </span>"
-msgstr "Aby rozpocząć przejdź do zakładki <span style='font-style: italic; font-size: large;text-decoration: underline;'>Stwórz nową rozpiskę</span>"
+msgstr ""
+"Aby rozpocząć przejdź do zakładki <span style='font-style: italic; font-"
+"size: large;text-decoration: underline;'>Stwórz nową rozpiskę</span>"
 
 #: templates/django_registration/registration_complete.html:10
 msgid "First steps: it is worth starting by reading about"
@@ -1532,4 +1121,5 @@ msgstr "Szlachcic"
 #: tribal_wars/period_utils.py:86
 msgid "ram"
 msgstr "Taran"
+
 
