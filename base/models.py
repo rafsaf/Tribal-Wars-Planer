@@ -147,11 +147,15 @@ class Result(models.Model):
 class Documentation(models.Model):
     """ Docs page """
 
-    title = models.CharField(max_length=10)
+    title = models.CharField(max_length=30)
     main_page = MarkdownxField()
+    language = models.CharField(max_length=2, default="pl")
 
     def __str__(self):
-        return self.title
+        return f'{self.title}_{self.language}'
+    
+    class Meta:
+        ordering = ("-language", "title",)
 
 
 class WeightMaximum(models.Model):

@@ -27,62 +27,23 @@
                     <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
                 </li>
             </ul>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content font-nav" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
-                    {% blocktrans %}
-                    <div class="card">
-                        <div class="card-body">
-
-                            <h5 class="card-title">Collect deff from remote villages</h5>
-                            <li class="card-text">The program is used for collecting deff units from villages in distance greater than radius from enemy tribes. </li>
-                            <li class="card-text mt-2">Distance is calculated in squares.</li>
-                            <li class="card-text mt-2">The default value of 30 corresponds to approximately 17 hours of a noble's path, for optimization reasons the maximum possible radius is 60. </li>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mt-2">Make sure, that...</h5>
-                            <li class="card-text mt-2"> You have included all your own and enemies tribes. </li>
-                            <li class="card-text mt-2"> The selected radius is adequate to the needs. </li>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mt-2">Remember, that...</h5>
-                            <li class="card-text mt-2">
-                                The other options are optional. </li>
-                            <li class="card-text mt-2">
-                                More details can be found in the Marks and Examples tab.</li>
-                        </div>
-                    </div>
-                    {% endblocktrans %}
+                    {{info|safe}}
 
                 </div>
-
-
 
                 <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <li class="card-text mt-2"><span class="md-error">{% trans 'RADIUS' %}</span></li>
-                    <p>{% trans 'Radius is a number of squares to measure distance between villages.' %}</p>
-                    <li class="card-text mt-2"><span class="md-error">{% trans 'OTHER ALLY PLAYERS' %}</span></li>
-                    <p>{% trans 'Nicknames separated by whitespace.' %}</p>
-                    <li class="card-text mt-2"><span class="md-error">{% trans 'OTHER ENEMY PLAYERS' %}</span></li>
-                    <p>{% trans 'Nicknames separated by whitespace.' %}</p>
-                    <li class="card-text mt-2"><span class="md-error">{% trans 'EXCLUDED ENEMY VILLAGES' %}</span></li>
-                    <p>{% trans 'Coords separated by whitespace.' %}</p>
+                    {{marks|safe}}
                 </div>
                 <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <pre class="md-pre">
-{% trans 'Radius: <span class="md-correct2">30</span>' %}
-{% trans 'Other ally players: <span class="md-correct2">AllyPlayer1 AllyPlayer2 AllyPlayer3</span>' %}
-{% trans 'Other enemy players: <span class="md-correct2">EnemyPlayer1 EvilPlayer2</span>' %}
-{% trans 'Excluded enemy villages: <span class="md-correct2">EvilCoord1 EvilCoord2 EvilCoord3 EvilCoord4</span>' %}
-
-                        </pre>
+                    {{example|safe}}
                 </div>
 
             </div>
         </div>
     </div>
     <br />
-    <br /> {% endblock %}
+    <br /> 
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    {% endblock %}

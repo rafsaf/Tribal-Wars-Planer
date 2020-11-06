@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils.translation import get_language
 from markdownx.utils import markdownify
+
+
 from tribal_wars.database_update import cron_schedule_data_update
 from base import models
 from tribal_wars import basic
@@ -23,7 +26,9 @@ def base_view(request):
 
 def base_documentation(request):
     """ base documentation view"""
-    doc = models.Documentation.objects.get(title="Doc").main_page
+    language_code = get_language()
+
+    doc = models.Documentation.objects.get_or_create(title='documentation', language=language_code, defaults={'main_page': ""})[0].main_page
     doc = markdownify(doc)
 
     context = {"doc": doc}

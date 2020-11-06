@@ -10,6 +10,8 @@ from django.views.generic import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext
 from django.db.models import Max
+from django.utils.translation import get_language
+from markdownx.utils import markdownify
 
 import tribal_wars.outline_initial as initial
 import tribal_wars.outline_finish as finish
@@ -28,6 +30,14 @@ def initial_form(request, _id):
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
     if instance.written == "active":
         return redirect("base:planer_initial", _id)
+
+    language_code = get_language()
+
+    info = models.Documentation.objects.get_or_create(title='planer_form_info', language=language_code, defaults={'main_page': ""})[0].main_page
+    info = markdownify(info)
+    example = models.Documentation.objects.get_or_create(title='planer_form_example', language=language_code, defaults={'main_page': ""})[0].main_page
+    example = markdownify(example)
+
 
     form1 = forms.InitialOutlineForm(
         request.POST or None, world=instance.world
@@ -62,7 +72,7 @@ def initial_form(request, _id):
             instance.save()
             return redirect("base:planer_initial", _id)
 
-    context = {"instance": instance, "form1": form1}
+    context = {"instance": instance, "form1": form1, "example": example, "info": info}
     return render(
         request, "base/new_outline/new_outline_initial_period1.html", context
     )

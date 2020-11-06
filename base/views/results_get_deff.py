@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from tribal_wars.get_deff import get_deff
 from base import models, forms
 from django.utils.translation import gettext
-
+from django.utils.translation import get_language
+from markdownx.utils import markdownify
 
 @login_required
 def outline_detail_2_deff(request, _id):
@@ -19,6 +20,16 @@ def outline_detail_2_deff(request, _id):
     if instance.off_troops == "":
         request.session["error"] = gettext("Off collection empty!")
         return redirect("base:planer_detail", _id)
+
+    language_code = get_language()
+
+    info = models.Documentation.objects.get_or_create(title='planer_deff_info', language=language_code, defaults={'main_page': ""})[0].main_page
+    info = markdownify(info)
+    marks = models.Documentation.objects.get_or_create(title='planer_deff_marks', language=language_code, defaults={'main_page': ""})[0].main_page
+    marks = markdownify(marks)
+    example = models.Documentation.objects.get_or_create(title='planer_deff_example', language=language_code, defaults={'main_page': ""})[0].main_page
+    example = markdownify(example)
+
 
     form = forms.GetDeffForm(request.POST or None, world=instance.world)
     if "form" in request.POST:
@@ -41,7 +52,8 @@ def outline_detail_2_deff(request, _id):
 
             return redirect("base:planer_detail_results", _id)
 
-    context = {"instance": instance, "form": form}
+    context = {"instance": instance, "form": form, "info": info,
+        "example": example, "marks": marks}
 
     return render(
         request, "base/new_outline/new_outline_get_deff.html", context
@@ -61,6 +73,15 @@ def outline_detail_2_off(request, _id):
     if instance.off_troops == "":
         request.session["error"] = gettext("Off collection empty!")
         return redirect("base:planer_detail", _id)
+
+    language_code = get_language()
+
+    info = models.Documentation.objects.get_or_create(title='planer_off_info', language=language_code, defaults={'main_page': ""})[0].main_page
+    info = markdownify(info)
+    marks = models.Documentation.objects.get_or_create(title='planer_off_marks', language=language_code, defaults={'main_page': ""})[0].main_page
+    marks = markdownify(marks)
+    example = models.Documentation.objects.get_or_create(title='planer_off_example', language=language_code, defaults={'main_page': ""})[0].main_page
+    example = markdownify(example)
 
     form = forms.GetDeffForm(request.POST or None, world=instance.world)
     if "form" in request.POST:
@@ -84,7 +105,7 @@ def outline_detail_2_off(request, _id):
 
             return redirect("base:planer_detail_results", _id)
 
-    context = {"instance": instance, "form": form}
+    context = {"instance": instance, "form": form, "info": info, "marks": marks, "example": example}
 
     return render(
         request, "base/new_outline/new_outline_get_off.html", context

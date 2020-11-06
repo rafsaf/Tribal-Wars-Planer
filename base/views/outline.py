@@ -20,7 +20,15 @@ class OutlineList(LoginRequiredMixin, ListView):
         query = models.Outline.objects.filter(owner=self.request.user).filter(
             status="active"
         )
+        used_worlds = {}
         for outline in query:
+            if outline.world in used_worlds:
+                outline.world = used_worlds[outline.world]
+            else:
+                world_instance = models.World.objects.get(world=outline.world)
+                used_worlds[outline.world] = world_instance.title
+                outline.world = used_worlds[outline.world]
+
             outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
             outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
         return query
@@ -33,7 +41,14 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
     def get_queryset(self):
         models.Outline.objects.filter(editable='active').delete()
         query = models.Outline.objects.filter(owner=self.request.user)
+        used_worlds = {}
         for outline in query:
+            if outline.world in used_worlds:
+                outline.world = used_worlds[outline.world]
+            else:
+                world_instance = models.World.objects.get(world=outline.world)
+                used_worlds[outline.world] = world_instance.title
+                outline.world = used_worlds[outline.world]
             outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
             outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
         return query

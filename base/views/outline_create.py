@@ -2,16 +2,26 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import get_language
 from base import models, forms
-
+from markdownx.utils import markdownify
 
 @login_required
 def new_outline_create(request):
     """ creates new user's outline login required """
+    language_code = get_language()
+
+    info = models.Documentation.objects.get_or_create(title='planer_create_info', language=language_code, defaults={'main_page': ""})[0].main_page
+    info = markdownify(info)
+    marks = models.Documentation.objects.get_or_create(title='planer_create_marks', language=language_code, defaults={'main_page': ""})[0].main_page
+    marks = markdownify(marks)
+    example = models.Documentation.objects.get_or_create(title='planer_create_example', language=language_code, defaults={'main_page': ""})[0].main_page
+    example = markdownify(example)
+
     if request.method == "POST":
         form1 = forms.OutlineForm(request.POST)
         form1.fields["world"].choices = [
-            (f"{i.world}", f"{i.world}")
+            (f"{i.world}", f"{i.title}")
             for i in models.World.objects.all().order_by("-world")
         ]
         if form1.is_valid():
@@ -28,10 +38,10 @@ def new_outline_create(request):
     else:
         form1 = forms.OutlineForm(None)
         form1.fields["world"].choices = [
-            (f"{i.world}", f"{i.world}")
+            (f"{i.world}", f"{i.title}")
             for i in models.World.objects.all().order_by("-world")
         ]
-    context = {"form1": form1}
+    context = {"form1": form1, "info": info, "marks": marks, "example": example}
     return render(request, "base/new_outline/new_outline_create.html", context)
 
 

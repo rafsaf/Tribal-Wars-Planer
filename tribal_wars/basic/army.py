@@ -90,14 +90,15 @@ class Army:
     def off(self):
         """ Number of off """
 
-        if self.world_evidence[1] == 0:
+        if self.world_evidence[1] == 0: # no archers
+            
             return (
                 int(self.text_army[3])
                 + int(self.text_army[5]) * 4
                 + int(self.text_army[7]) * 5
                 + int(self.text_army[8]) * 8
-            )
-        return (
+            ) 
+        return ( # with archers
             int(self.text_army[3])
             + int(self.text_army[6]) * 4
             + int(self.text_army[7]) * 5
@@ -108,13 +109,13 @@ class Army:
     @cached_property
     def deff(self):
         """ Number of deff """
-        if self.world_evidence[1] == 0:
+        if self.world_evidence[1] == 0: # no archers
             return (
                 int(self.text_army[1])
                 + int(self.text_army[2])
                 + int(self.text_army[6]) * 4
             )
-        return (
+        return ( # with archers
             int(self.text_army[1])
             + int(self.text_army[2])
             + int(self.text_army[4])
