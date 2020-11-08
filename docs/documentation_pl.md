@@ -394,18 +394,14 @@
     // ==/UserScript==
     // By Rafsaf
 
-
     const loopOverPlayerArmyTableAndReturnOutputText = () => {
         let outputText = ""
         const trs = document.querySelectorAll('.overview_table tr')
-
         let actualVillageCoord
         let nextVillageNameIndex = 1
         let nextVillageDataIndex = 5
-        console.log('hey')
         trs.forEach((value, index) => {
             const tds = value.querySelectorAll('td')
-
             if (index === nextVillageNameIndex) {
                 actualVillageCoord = String(tds[0].innerText).trim().slice(-12,-5)
                 nextVillageNameIndex += 5
@@ -419,17 +415,13 @@
                     } else if (parsedValue === 'razem') {
                         return
                     }
-
                     outputText += parsedValue + ","
                 })
                 nextVillageDataIndex += 5
             }
         })
-        console.log(outputText)
         return outputText
-        
     }
-
 
     const createAndShowDivTextAreaWithResults = (outputText) => {
         const textArea = document.createElement("div")
@@ -444,6 +436,7 @@
         textArea.style.margin = "0px 0px 100px 0px"
         textArea.style.color = "white"
         textArea.innerHTML = outputText
+        UI.SuccessMessage('Zebrano! Jeśli masz więcej niż 1 stronę z wioskami, przejdź do zakładki [wszystkie] by zebrać całość.')
         document.body.appendChild(textArea)
     }
 
@@ -461,12 +454,10 @@
         const newTdWithButton = document.createElement('td')
         newTdWithButton.setAttribute('id', 'new-button-td')
         tdPlace.appendChild(newTdWithButton)
-
         const buttonPlace = document.querySelector('#new-button-td')
         const newButton = document.createElement('btn')
         newButton.setAttribute('class', 'btn btn-default')
         newButton.innerHTML = 'Zbierz wojsko'
-
         buttonPlace.appendChild(newButton)
         newButton.addEventListener("click", function() {
             showPlayerTroopsInDialog()
@@ -857,6 +848,3 @@ Rodzaje błędów podczas potwierdzania formularza:
   </pre>
 
 ---
-
-
-

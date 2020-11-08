@@ -2,11 +2,14 @@
 <script src="{% static 'codemirror.js' %}"></script>
 <link rel="stylesheet" href="{% static 'codemirror.css' %}">
 <div class="row my-2">
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-6 h-100 d-flex sticky-top">
+        <div class="mt-2">
         <form method='POST'>{% csrf_token %}
-
-            <div>
-                {{ form1.target.label_tag }} {{ form1.target }} {% if form1.target.errors %} {% for error in form1.target.errors %} {% if forloop.first %}
+                {{ form1.target.label_tag }} 
+                {{ form1.target }} 
+                {% if form1.target.errors %}
+                 {% for error in form1.target.errors %} {% if forloop.first %}
+                
                 <script>
                     document.addEventListener("DOMContentLoaded", function(event) {
                         $('.CodeMirror').addClass('CodeMirror-Invalid');
@@ -49,14 +52,14 @@
                     <small id="emailHelp" class="form-text text-muted">{% trans 'Villages CLOSER than this number of squares to ANY enemy village will be marked as "Front" and not auto used.' %}</small>
                 </div>
                 
-                
-            </div>
+                <button class="btn btn-primary mt-3 " name="form1" type="submit">{% trans 'Submit' %}</button>
+           
+            
 
-
-            <button class="btn btn-primary mt-3" name="form1" type="submit">{% trans 'Submit' %}</button>
+            
 
         </form>
-
+    </div>
     </div>
 
 
