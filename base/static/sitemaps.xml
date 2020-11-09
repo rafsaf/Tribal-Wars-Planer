@@ -15,6 +15,19 @@
 
   </url>
   <url>
+    <loc>https://www.plemiona-planer.pl/</loc>
+    <changefreq>monthly</changefreq>
+    <xhtml:link 
+               rel="alternate"
+               hreflang="pl"
+               href="https://www.plemiona-planer.pl/pl/"/>
+    <xhtml:link 
+               rel="alternate"
+               hreflang="en"
+               href="https://www.plemiona-planer.pl/en/"/>
+
+  </url>
+  <url>
     <changefreq>monthly</changefreq>
     <loc>https://www.plemiona-planer.pl/en/</loc>
     <xhtml:link 
@@ -25,6 +38,18 @@
                rel="alternate"
                hreflang="en"
                href="https://www.plemiona-planer.pl/en/"/>
+
+  </url>
+  <url>
+    <loc>https://www.plemiona-planer.pl/login/</loc>
+    <xhtml:link 
+               rel="alternate"
+               hreflang="pl"
+               href="https://www.plemiona-planer.pl/pl/login/"/>
+    <xhtml:link 
+               rel="alternate"
+               hreflang="en"
+               href="https://www.plemiona-planer.pl/en/login/"/>
 
   </url>
   <url>
@@ -49,6 +74,18 @@
                rel="alternate"
                hreflang="en"
                href="https://www.plemiona-planer.pl/en/login/"/>
+
+  </url>
+  <url>
+    <loc>https://www.plemiona-planer.pl/register/</loc>
+    <xhtml:link 
+               rel="alternate"
+               hreflang="pl"
+               href="https://www.plemiona-planer.pl/pl/register/"/>
+    <xhtml:link 
+               rel="alternate"
+               hreflang="en"
+               href="https://www.plemiona-planer.pl/en/register/"/>
 
   </url>
   <url>
@@ -77,6 +114,18 @@
   </url>
   <url>
     <loc>https://www.plemiona-planer.pl/en/documentation</loc>
+    <xhtml:link 
+               rel="alternate"
+               hreflang="pl"
+               href="https://www.plemiona-planer.pl/pl/documentation"/>
+    <xhtml:link 
+               rel="alternate"
+               hreflang="en"
+               href="https://www.plemiona-planer.pl/en/documentation"/>
+
+  </url>
+  <url>
+    <loc>https://www.plemiona-planer.pl/documentation</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
