@@ -11,8 +11,16 @@ class GetDeffFunctionTest(TestCase):
     ''' Test for get_deff_text file SHOULD be very exact '''
 
     def setUp(self):
-        TEXT = (
-            '500|500,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,0,\r\n'
+        ARMY_TEXT = (
+            '500|500,3000,1000,0,0,0,1000,0,0,0,0,0,0,\r\n'
+            '499|500,2000,1000,0,0,0,1000,0,0,0,0,0,0,\r\n'
+            '498|503,2000,1000,0,0,0,1000,0,0,0,0,0,0,\r\n'
+            '500|502,0,0,0,0,0,1000,0,0,0,0,0,0,\r\n'
+            '498|502,2000,1000,0,0,0,1000,0,0,0,0,0,0,\r\n'
+            '500|499,2000,1000,0,0,0,1000,0,0,0,0,0,0,\r\n'
+        )
+        DEFF_TEXT = (
+            '500|500,w wiosce,13000,13000,0,0,0,1000,0,0,0,0,0,\r\n'
             '500|500,w drodze,0,0,0,0,0,0,0,0,0,0,0,\r\n'
             '499|500,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,0,\r\n'
             '499|500,w drodze,0,0,0,0,0,0,0,0,0,0,0,\r\n'
@@ -32,7 +40,7 @@ class GetDeffFunctionTest(TestCase):
             militia='inactive',
             archer='inactive',
         )
-
+        
         self.admin = User.objects.create_user('admin', None, None)
         self.outline = models.Outline.objects.create(
             owner=self.admin,
@@ -41,7 +49,8 @@ class GetDeffFunctionTest(TestCase):
             world='150',
             ally_tribe_tag=['pl1', 'pl2'],
             enemy_tribe_tag=['pl3', 'pl4'],
-            deff_troops=TEXT,
+            deff_troops=DEFF_TEXT,
+            off_troops=ARMY_TEXT,
         )
         # not legal below
         self.ally_village1 = models.VillageModel(
@@ -60,7 +69,7 @@ class GetDeffFunctionTest(TestCase):
             player_id=1,
             world=150,
         )
-        # not legal below
+        # legal below
         self.ally_village3 = models.VillageModel(
             id='498503150',
             village_id=3,
@@ -93,7 +102,7 @@ class GetDeffFunctionTest(TestCase):
             player_id=2,
             world=150,
         )
-
+        # enemy villages
         self.enemy_village1 = models.VillageModel(
             id='503500150',
             village_id=7,
@@ -158,21 +167,47 @@ class GetDeffFunctionTest(TestCase):
         self.ally_player2.save()
         self.enemy_player1.save()
         self.enemy_player2.save()
-
+        self.maxDiff = None
     def test_get_deff_general_test_is_output_correct(self):
         result = deff.get_deff(outline=self.outline, radius=3)
+
+        # expected = (
+        #     '\r\n'
+        #     'player1\r\n'
+        #     '499|500 - 6000\r\n'
+        #     'Łącznie - 6000 - miejsc w zagrodzie, CK liczone jako x4\r\n'
+        #     '\r\n'
+        #     'player2\r\n'
+        #     '500|502 - 6000\r\n'
+        #     '498|502 - 6000\r\n'
+        #     '500|499 - 6000\r\n'
+        #     'Łącznie - 18000 - miejsc w zagrodzie, CK liczone jako x4\r\n'
+        # )
+
         expected = (
-            '\r\n'
-            'player1\r\n'
-            '499|500 - 6000\r\n'
-            'Łącznie - 6000 - miejsc w zagrodzie, CK liczone jako x4\r\n'
+            '\r\nplayer1\r\n'
+            'Na froncie 0 wsi, 0 deffa W WIOSKACH, zaś 0 CAŁEGO SWOJEGO.\r\n'
+            'Na zapleczu 1 wsi, 6000 deffa W WIOSKACH, zaś 7000 CAŁEGO SWOJEGO.\r\n'
             '\r\n'
             'player2\r\n'
-            '500|502 - 6000\r\n'
-            '498|502 - 6000\r\n'
-            '500|499 - 6000\r\n'
-            'Łącznie - 18000 - miejsc w zagrodzie, CK liczone jako x4\r\n'
+            'Na froncie 2 wsi, 36000 deffa W WIOSKACH, zaś 15000 CAŁEGO SWOJEGO.\r\n'
+            'Na zapleczu 3 wsi, 18000 deffa W WIOSKACH, zaś 18000 CAŁEGO SWOJEGO.\r\n'
+            '\r\n\r\n'
+            'player1\r\n'
+            '---------FRONT---------\r\n'
+            '---------ZAPLECZE---------\r\n'
+            '499|500- W wiosce- 6000  (CAŁY własny deff [ 7000 ])\r\n'
+            '\r\n\r\n'
+            'player2\r\n'
+            '---------FRONT---------\r\n'
+            '500|500- W wiosce- 30000  (CAŁY własny deff [ 8000 ])\r\n'
+            '498|503- W wiosce- 6000  (CAŁY własny deff [ 7000 ])\r\n'
+            '---------ZAPLECZE---------\r\n'
+            '500|502- W wiosce- 6000  (CAŁY własny deff [ 4000 ])\r\n'
+            '498|502- W wiosce- 6000  (CAŁY własny deff [ 7000 ])\r\n'
+            '500|499- W wiosce- 6000  (CAŁY własny deff [ 7000 ])\r\n'
         )
+
         self.assertEqual(result, expected)
 
     def test_get_legal_coords_is_map_correct1(self):

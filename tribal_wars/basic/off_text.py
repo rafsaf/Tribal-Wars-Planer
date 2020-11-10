@@ -66,44 +66,117 @@ class NewOffsText:
         )
 
 
-class NewDeffFront:
-    def __init__(self, name=None):
-        self.ins = 0
-        self.estimated = 0
-        self.villages = 0
-        self.out = 0
-        self.all_out = 0
-        self.name = name
-        self.result = ""
+class DeffException(Exception):
+    pass
 
-    def add_front(self, army, inside):
-        self.ins += inside.deff
-        self.estimated += army.deff
-        self.villages += 1
 
-    def add_out(self, army, inside):
-        self.out += inside.deff
-        self.all_out += army.deff
+class NewDeffText:
+    def __init__(self):
+        self.users = {}
 
-    def simplified(self):
+    def add_back_village(self, user, deff_instance, army_instance):
+        if user in self.users:
+            self.users[user].add_back_village(deff_instance, army_instance)
+        else:
+            self.users[user] = UserDeffInfo(user)
+            self.users[user].add_back_village(deff_instance, army_instance)
+
+    def add_front_village(self, user, deff_instance, army_instance):
+        if user in self.users:
+            self.users[user].add_front_village(deff_instance, army_instance)
+        else:
+            self.users[user] = UserDeffInfo(user)
+            self.users[user].add_front_village(deff_instance, army_instance)
+
+    def __str__(self):
+        description = (
+            "Przetestowane. LEGENDA:\r\n"
+            "CK liczone jako x4 a nie x6, zwiad NIE jest liczony.\r\n"
+            "W WIOSKACH = swój w wiosce + cudzy z stałych.\r\n"
+            "CAŁY SWÓJ = swój w wiosce + swój poza wioską.\r\n\r\n"
+        )
+        text = ""
+        for user_info in self.users.values():
+            description += user_info.user_description()
+            text += str(user_info)
+        return description + text
+
+
+class UserDeffInfo:
+    def __init__(self, username: str):
+        self.name = username
+        self.back_villages = 0
+        self.front_villages = 0
+        self.sumary_info = {
+            "player_back_deff_inside": 0,
+            "player_back_deff_own": 0,
+            "player_front_deff_inside": 0,
+            "player_front_deff_own": 0,
+        }
+        self.player_back_villages = []
+        self.player_front_villages = []
+
+    def user_description(self):
         return (
             f"\r\n{self.name}\r\n"
-            f"Na froncie {self.villages} wsi, łącznie {self.ins}"
-            f" deffa aktualnie w wioskach,"
-            f" w tym łącznie {self.estimated} to własny deff.\r\n"
-            f"Na zapleczu {self.out} WOLNEGO deffa, zaś {self.all_out} CAŁEGO\r\n"
+            f"Na froncie {self.front_villages} wsi, "
+            f"{self.sumary_info['player_front_deff_inside']} "
+            f"deffa W WIOSKACH, "
+            f"zaś {self.sumary_info['player_front_deff_own']} "
+            "CAŁEGO SWOJEGO.\r\n"
+            f"Na zapleczu {self.back_villages} wsi, "
+            f"{self.sumary_info['player_back_deff_inside']} "
+            f"deffa W WIOSKACH, "
+            f"zaś {self.sumary_info['player_back_deff_own']} "
+            f"CAŁEGO SWOJEGO.\r\n"
         )
 
-    def add_user(self, text):
-        self.result += text
+    def add_back_village(self, deff_instance, army_instance):
+        self.back_villages += 1
+        coord = deff_instance.coord
+        inside_army = deff_instance.deff
+        if army_instance is not None:
+            own_army = army_instance.deff
+            self.sumary_info["player_back_deff_own"] += own_army
+        else:
+            own_army = "brak podglądu"
 
-    def get_result(self):
-        text = (
-            "Uwaga 1, CK liczone jako x4\r\n"
-            "Uwaga 2, Łącznej ilości deffa w wioskach "
-            "frontowych może być mniej niż "
-            "całkowitej ilości deffa w tych wioskach, "
-            "bo ktoś rozesłał wojsko itd.\r\n\r\n"
+        village_info_object = VillageDeffInfo(coord, own_army, inside_army)
+        self.player_back_villages.append(village_info_object)
+        self.sumary_info["player_back_deff_inside"] += inside_army
+
+    def add_front_village(self, deff_instance, army_instance):
+        self.front_villages += 1
+        coord = deff_instance.coord
+        inside_army = deff_instance.deff
+        if army_instance is not None:
+            own_army = army_instance.deff
+            self.sumary_info["player_front_deff_own"] += own_army
+        else:
+            own_army = "brak podglądu"
+
+        village_info_object = VillageDeffInfo(coord, own_army, inside_army)
+        self.player_front_villages.append(village_info_object)
+        self.sumary_info["player_front_deff_inside"] += inside_army
+
+    def __str__(self):
+        text = "\r\n\r\n" + self.name + "\r\n---------FRONT---------" + "\r\n"
+        for village_info in self.player_front_villages:
+            text += str(village_info)
+        text += "---------ZAPLECZE---------" + "\r\n"
+        for village_info in self.player_back_villages:
+            text += str(village_info)
+        return text
+
+
+class VillageDeffInfo:
+    def __init__(self, coord, own_army, inside_army):
+        self.coord = coord
+        self.own_army = own_army
+        self.inside_army = inside_army
+
+    def __str__(self):
+        return (
+            f"{self.coord}- W wiosce- {self.inside_army}  "
+            f"(CAŁY własny deff [ {self.own_army} ])\r\n"
         )
-        return str(text + self.result)
-

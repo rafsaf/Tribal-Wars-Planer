@@ -329,82 +329,56 @@ def deff_text2(
     """
 
     not_in_front = get_set_of_villages(ally_villages, enemy_villages, radius)
-
-    in_village: dict = {}
-    outside_village: dict = {}
-    context_all: dict = {}
+    deff_in_village_back: dict = {}
+    deff_in_village_front: dict = {}
+    deff_own_from_village_back: dict = {}
+    deff_own_from_village_front: dict = {}
 
     world_evidence = basic.world_evidence(world_number=world)
 
     for i, line in enumerate(text_deff.strip().split("\r\n")):
+        if i % 2 == 1:
+            continue
 
         deff_instance = basic.Defence(text_army=line, evidence=world_evidence)
         try:
             owner = village_dictionary[deff_instance.coord]
         except KeyError:
-            raise KeyError()
+            raise basic.DeffException()
 
-        if i % 2 == 1:
-            outside_village[deff_instance.coord] = deff_instance
+        if deff_instance.coord in not_in_front:
+            deff_in_village_back[deff_instance.coord] = deff_instance
         else:
-            in_village[deff_instance.coord] = deff_instance
+            deff_in_village_front[deff_instance.coord] = deff_instance
 
     for line in text_off.strip().split("\r\n"):
-        off_instance = basic.Army(text_army=line, evidence=world_evidence)
+        army_instance = basic.Army(text_army=line, evidence=world_evidence)
         try:
-            owner = village_dictionary[off_instance.coord]
+            owner = village_dictionary[army_instance.coord]
         except KeyError:
-            raise KeyError()
+            raise basic.DeffException()
 
-        if owner not in context_all:
-            context_all[owner] = [off_instance]
+        if army_instance.coord in not_in_front:
+            deff_own_from_village_back[army_instance.coord] = army_instance
         else:
-            context_all[owner].append(off_instance)
+            deff_own_from_village_front[army_instance.coord] = army_instance
 
-    all_deff_text = basic.NewDeffFront()
-    output = ""
-    for owner, lst in context_all.items():
-        all_string = "\r\n\r\n"
-        text = ""
-        lst.sort(key=lambda army: army.off, reverse=True)
+    all_deff_text = basic.NewDeffText()
 
-        front = [army for army in lst if army.coord not in not_in_front]
-        not_front = [army for army in lst if army.coord in not_in_front]
+    for coord, deff_instance in deff_in_village_back.items():
+        try:
+            army_instance = deff_own_from_village_back[coord]
+        except KeyError:
+            army_instance = None
+        owner = village_dictionary[coord]
+        all_deff_text.add_back_village(owner, deff_instance, army_instance)
 
-        count_deff_front = basic.NewDeffFront(name=owner)
+    for coord, deff_instance in deff_in_village_front.items():
+        try:
+            army_instance = deff_own_from_village_front[coord]
+        except KeyError:
+            army_instance = None
+        owner = village_dictionary[coord]
+        all_deff_text.add_front_village(owner, deff_instance, army_instance)
 
-        text += owner + "\r\n---------FRONT---------" + "\r\n"
-        for army in front:
-
-            try:
-                inside = in_village[army.coord]
-                count_deff_front.add_out(army, inside)
-                deff_number = inside.deff
-
-            except KeyError:
-                deff_number = 'brak-danych'
-
-            count_deff_front.add_front(army, inside)
-
-            text += (
-                f"{army.coord}- W wiosce- {deff_number}  "
-                f"(Cały własny deff [ {army.deff} ])\r\n"
-            )
-        text += "---------ZAPLECZE---------" + "\r\n"
-        for army in not_front:
-            try:
-                inside = in_village[army.coord]
-                count_deff_front.add_out(army, inside)
-                deff_number = inside.deff
-            except KeyError:
-                deff_number = 'brak-danych'
-            text += (
-                f"{army.coord} W wiosce- {deff_number}  "
-                f"(Cały własny deff [ {army.deff} ])\r\n"
-            )
-
-        all_deff_text.add_user(count_deff_front.simplified())
-        all_string += text
-        output += all_string
-
-    return str(all_deff_text.get_result() + output)
+    return str(all_deff_text)

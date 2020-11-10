@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from tribal_wars.get_deff import get_deff
+from tribal_wars import basic
 from base import models, forms
 from django.utils.translation import gettext
 from django.utils.translation import get_language
@@ -42,7 +43,7 @@ def outline_detail_2_deff(request, _id):
                     enemy_name_list=request.POST.get("enemy_players"),
                     excluded_villages=request.POST.get("excluded"),
                 )
-            except KeyError:
+            except basic.DeffException:
                 request.session["error"] = gettext(
                     "It looks like your Deff or Off collection is no longer actual! To use the planner: copy the data from the preview and correct errors or paste the current military data \n"
                 )
