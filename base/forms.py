@@ -122,7 +122,7 @@ class GetDeffForm(forms.Form):
 
     radius = forms.IntegerField(
         min_value=0,
-        max_value=60,
+        max_value=100,
         label=gettext_lazy("Radius"),
         widget=forms.NumberInput,
         initial=30,
