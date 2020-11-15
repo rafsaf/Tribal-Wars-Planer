@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-06 13:34+0100\n"
+"POT-Creation-Date: 2020-11-15 20:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -304,13 +304,13 @@ msgstr ""
 "Widzisz błąd? Napisz: <b>rafal.safin12@gmail.com</b> lub skontakuj się przez "
 "discorda."
 
-#: base/templates/base/base.html:274
-msgid "Privacy Policy"
-msgstr "Polityka Prywatności"
-
-#: base/templates/base/base.html:277
-msgid "Cookies Policy"
-msgstr "Polityka Cookies"
+#: base/templates/base/base.html:272
+msgid ""
+"Dear User, we inform you that by using the website you agree to our <a "
+"target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy</a>."
+msgstr ""
+"Drogi Użytkowniku, uprzejmie informujemy, że korzystając ze strony zgadzasz się z naszą <a "
+"target=\"_blank\" href=\"/static/privacy-policy.pdf\">polityką prywatności</a>."
 
 #: base/templates/base/base_planer.html:9
 msgid "Created"
@@ -386,31 +386,31 @@ msgstr "Aby kontynuować, proszę wypełnij formularze wynikami skryptów"
 
 #: base/templates/base/new_outline/new_outline.html:122
 #: base/templates/base/new_outline/new_outline.html:183
-#: base/templates/base/new_outline/new_outline_initial_period1.html:29
+#: base/templates/base/new_outline/new_outline_initial_period1.html:32
 msgid "Incorrect data in"
 msgstr "Nieprawidłowe dane w"
 
 #: base/templates/base/new_outline/new_outline.html:122
 #: base/templates/base/new_outline/new_outline.html:183
-#: base/templates/base/new_outline/new_outline_initial_period1.html:29
+#: base/templates/base/new_outline/new_outline_initial_period1.html:32
 msgid "lines."
 msgstr "liniach."
 
 #: base/templates/base/new_outline/new_outline.html:123
 #: base/templates/base/new_outline/new_outline.html:184
-#: base/templates/base/new_outline/new_outline_initial_period1.html:30
+#: base/templates/base/new_outline/new_outline_initial_period1.html:33
 msgid "Why an error appeared?"
 msgstr "Dlaczego pojawił się błąd?"
 
 #: base/templates/base/new_outline/new_outline.html:125
 #: base/templates/base/new_outline/new_outline.html:186
-#: base/templates/base/new_outline/new_outline_initial_period1.html:32
+#: base/templates/base/new_outline/new_outline_initial_period1.html:35
 msgid "*After clicking submit you will be transferred to first error*"
 msgstr "*Po kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*"
 
 #: base/templates/base/new_outline/new_outline.html:130
 #: base/templates/base/new_outline/new_outline.html:191
-#: base/templates/base/new_outline/new_outline_initial_period1.html:37
+#: base/templates/base/new_outline/new_outline_initial_period1.html:40
 msgid "The text cannot be empty"
 msgstr "Tekst nie może być pusty"
 
@@ -429,7 +429,7 @@ msgstr "dokumentację"
 #: base/templates/base/new_outline/new_outline_create.html:9
 #: base/templates/base/new_outline/new_outline_get_deff.html:10
 #: base/templates/base/new_outline/new_outline_get_off.html:9
-#: base/templates/base/new_outline/new_outline_initial_period1.html:56
+#: base/templates/base/new_outline/new_outline_initial_period1.html:55
 msgid "Submit"
 msgstr "Potwierdź"
 
@@ -450,13 +450,13 @@ msgid ""
 "First time? You can choose a special <span class=\"md-correct2\">Test World</"
 "span> created for testing purposes, see "
 msgstr ""
-"Pierwszy raz? Wybierz specjalny <span class=\"md-correct2\">Świat Testowy</span> "
-"stworzony do celów testowych rozpiski, zobacz "
+"Pierwszy raz? Wybierz specjalny <span class=\"md-correct2\">Świat Testowy</"
+"span> stworzony do celów testowych rozpiski, zobacz "
 
 #: base/templates/base/new_outline/new_outline_create.html:18
 #: base/templates/base/new_outline/new_outline_get_deff.html:21
 #: base/templates/base/new_outline/new_outline_get_off.html:20
-#: base/templates/base/new_outline/new_outline_initial_period1.html:68
+#: base/templates/base/new_outline/new_outline_initial_period1.html:71
 msgid "Info"
 msgstr "Info"
 
@@ -469,7 +469,7 @@ msgstr "Oznaczenia"
 #: base/templates/base/new_outline/new_outline_create.html:24
 #: base/templates/base/new_outline/new_outline_get_deff.html:27
 #: base/templates/base/new_outline/new_outline_get_off.html:26
-#: base/templates/base/new_outline/new_outline_initial_period1.html:72
+#: base/templates/base/new_outline/new_outline_initial_period1.html:75
 msgid "Examples"
 msgstr "Przykłady"
 
@@ -534,7 +534,7 @@ msgstr "Zamknij"
 msgid "Continue"
 msgstr "Kontynuuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:46
+#: base/templates/base/new_outline/new_outline_initial_period1.html:49
 msgid ""
 "Only villages with off units greater than this number will be taken into "
 "account in auto outline write."
@@ -542,7 +542,7 @@ msgstr ""
 "Tylko wioski z ilością wojsk offensywnych większą niż podana liczba będą "
 "automatycznie rozpisywane"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:49
+#: base/templates/base/new_outline/new_outline_initial_period1.html:52
 msgid ""
 "Villages CLOSER than this number of squares to ANY enemy village will be "
 "marked as \"Front\" and not auto used."
@@ -1038,15 +1038,15 @@ msgstr "Nie znaleziono strony."
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
-#: base/views/results_get_deff.py:18 base/views/results_get_deff.py:71
+#: base/views/results_get_deff.py:19 base/views/results_get_deff.py:72
 msgid "Deff collection empty!"
 msgstr "Zbiórka Deffa pusta!"
 
-#: base/views/results_get_deff.py:21 base/views/results_get_deff.py:74
+#: base/views/results_get_deff.py:22 base/views/results_get_deff.py:75
 msgid "Off collection empty!"
 msgstr "Zbiórka Offa pusta!"
 
-#: base/views/results_get_deff.py:47 base/views/results_get_deff.py:100
+#: base/views/results_get_deff.py:48 base/views/results_get_deff.py:101
 msgid ""
 "It looks like your Deff or Off collection is no longer actual! To use the "
 "planner: copy the data from the preview and correct errors or paste the "
@@ -1122,4 +1122,8 @@ msgstr "Szlachcic"
 msgid "ram"
 msgstr "Taran"
 
+#~ msgid "Privacy Policy"
+#~ msgstr "Polityka Prywatności"
 
+#~ msgid "Cookies Policy"
+#~ msgstr "Polityka Cookies"
