@@ -43,9 +43,15 @@ def make_final_outline(outline: models.Outline):
                 update_weights.append(weight)
     
     models.WeightModel.objects.bulk_update(update_weights, ['t1', 't2'])
+    
+    outline_info = basic.OutlineInfo(outline=outline)
+    outline_info.generate_nicks()
 
     result_instance = outline.result
     result_instance.results_outline = text.get_full_result()
+    result_instance.results_players = outline_info.players
+    result_instance.results_sum_up = outline_info.show_sum_up()
+
     result_instance.save()
 
     overviews = []

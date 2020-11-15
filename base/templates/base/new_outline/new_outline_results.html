@@ -7,10 +7,15 @@
         <li class="nav-item">
             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-sum-up" data-toggle="pill" href="#pills-outline-sum-up" role="tab" aria-controls="pills-sum-up" aria-selected="false">{% trans 'Sum Up' %}</a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
         </li>
+
+
 
         <li class="nav-item">
             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
@@ -57,6 +62,15 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+
+        <div class="tab-pane fade" id="pills-outline-sum-up" role="tabpanel" aria-labelledby="pills-outline-sum-up">
+            <div class="form-group" contenteditable="true">
+                <textarea class="form-control" id="zbiorka-wojsko" rows="8">{{instance.result.results_players}}</textarea>
+            </div>
+            <div class="form-group" contenteditable="true">
+                <textarea class="form-control" id="zbiorka-wojsko" rows="24">{{instance.result.results_sum_up}}</textarea>
+            </div>
         </div>
 
         <div class="tab-pane fade" id="pills-outline-copy1" role="tabpanel" aria-labelledby="pills-contact-tab">

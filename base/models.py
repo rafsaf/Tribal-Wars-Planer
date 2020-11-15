@@ -139,6 +139,8 @@ class Result(models.Model):
     results_get_deff = models.TextField(default="")
     results_get_off = models.TextField(default="")
     results_outline = models.TextField(default="")
+    results_players = models.TextField(default="")
+    results_sum_up = models.TextField(default="")
 
     def __str__(self):
         return self.outline.name + " results"

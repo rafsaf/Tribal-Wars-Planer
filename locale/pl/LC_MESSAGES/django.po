@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-15 20:00+0100\n"
+"POT-Creation-Date: 2020-11-15 22:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgstr "Tekst nie może być pusty!"
 #: base/templates/base/new_outline/new_outline.html:79
 #: base/templates/base/new_outline/new_outline_initial_period2.html:24
 #: base/templates/base/new_outline/new_outline_initial_period2.html:49
-#: base/templates/base/new_outline/new_outline_results.html:20
+#: base/templates/base/new_outline/new_outline_results.html:25
 msgid "Deff collection"
 msgstr "Zbiórka Deffa"
 
@@ -105,7 +105,7 @@ msgstr "Odległość od linii frontu"
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:303 base/models.py:197
+#: base/forms.py:303 base/models.py:199
 msgid "Noble"
 msgstr "Szlachcic"
 
@@ -181,19 +181,19 @@ msgstr "Ta wioska już jest celem !"
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/models.py:192
+#: base/models.py:194
 msgid "All"
 msgstr "Wszystkie"
 
-#: base/models.py:193
+#: base/models.py:195
 msgid "Random"
 msgstr "Losowo"
 
-#: base/models.py:194
+#: base/models.py:196
 msgid "Exact"
 msgstr "Dokładnie"
 
-#: base/models.py:198
+#: base/models.py:200
 msgid "Ram"
 msgstr "Taran"
 
@@ -309,8 +309,9 @@ msgid ""
 "Dear User, we inform you that by using the website you agree to our <a "
 "target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy</a>."
 msgstr ""
-"Drogi Użytkowniku, uprzejmie informujemy, że korzystając ze strony zgadzasz się z naszą <a "
-"target=\"_blank\" href=\"/static/privacy-policy.pdf\">polityką prywatności</a>."
+"Drogi Użytkowniku, uprzejmie informujemy, że korzystając ze strony zgadzasz "
+"się z naszą <a target=\"_blank\" href=\"/static/privacy-policy.pdf"
+"\">polityką prywatności</a>."
 
 #: base/templates/base/base_planer.html:9
 msgid "Created"
@@ -371,7 +372,7 @@ msgstr "Wyniki"
 #: base/templates/base/new_outline/new_outline.html:60
 #: base/templates/base/new_outline/new_outline_initial_period2.html:26
 #: base/templates/base/new_outline/new_outline_initial_period2.html:51
-#: base/templates/base/new_outline/new_outline_results.html:23
+#: base/templates/base/new_outline/new_outline_results.html:28
 msgid "Off collection"
 msgstr "Zbiórka Wojska"
 
@@ -782,7 +783,7 @@ msgid "Number"
 msgstr "Numer"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:259
-#: base/templates/base/new_outline/new_outline_results.html:35
+#: base/templates/base/new_outline/new_outline_results.html:40
 msgid "Player"
 msgstr "Gracz"
 
@@ -964,35 +965,39 @@ msgstr "Podziel na 4"
 msgid "Outline results"
 msgstr "Wyniki rozpiski"
 
-#: base/templates/base/new_outline/new_outline_results.html:12
+#: base/templates/base/new_outline/new_outline_results.html:11
+msgid "Sum Up"
+msgstr "Podsumowanie"
+
+#: base/templates/base/new_outline/new_outline_results.html:15
 msgid "Copy Outline urls"
 msgstr "Kopiuj linki"
 
-#: base/templates/base/new_outline/new_outline_results.html:16
+#: base/templates/base/new_outline/new_outline_results.html:21
 msgid "Copy Outline results"
 msgstr "Kopiuj wyniki rozpiski"
 
-#: base/templates/base/new_outline/new_outline_results.html:36
+#: base/templates/base/new_outline/new_outline_results.html:41
 msgid "Link to member Page"
 msgstr "Link do strony gracza"
 
-#: base/templates/base/new_outline/new_outline_results.html:37
+#: base/templates/base/new_outline/new_outline_results.html:42
 msgid "Show Hidden"
 msgstr "Pokaż ukryte cele"
 
-#: base/templates/base/new_outline/new_outline_results.html:38
+#: base/templates/base/new_outline/new_outline_results.html:43
 msgid "Send message"
 msgstr "Wyślij wiadomość"
 
-#: base/templates/base/new_outline/new_outline_results.html:47
+#: base/templates/base/new_outline/new_outline_results.html:52
 msgid "Go to member Page"
 msgstr "Idź do strony gracza"
 
-#: base/templates/base/new_outline/new_outline_results.html:50
+#: base/templates/base/new_outline/new_outline_results.html:55
 msgid "Send"
 msgstr "Wyślij"
 
-#: base/templates/base/new_outline/new_outline_results.html:55
+#: base/templates/base/new_outline/new_outline_results.html:60
 msgid "Sent!"
 msgstr "Wysłano!"
 
