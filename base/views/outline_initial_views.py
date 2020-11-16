@@ -329,7 +329,7 @@ def initial_planer(request, _id):
         context = {
             "instance": instance,
             "outline_time": dict_time_obj_to_periods,
-            "page_obj": page_obj,
+            "query": page_obj,
             "mode": str(mode),
             "formset": create_formset,
             "choice_formset": select_formset,

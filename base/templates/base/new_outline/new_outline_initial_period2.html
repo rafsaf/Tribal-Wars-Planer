@@ -138,6 +138,7 @@
             <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
         </figure>
     </div>
+    {% block outline_navbar %}
     <nav aria-label="pagination" id="pagination" class="mt-3">
         <ul class="pagination">
             {% if query.has_previous %}
@@ -284,6 +285,7 @@
     
         </ul>
     </nav>
+    {% endblock %}
 
     <div class="conatiner-fluid" style="width: min-content;">
 
