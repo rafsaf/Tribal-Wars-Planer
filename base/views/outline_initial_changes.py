@@ -401,6 +401,18 @@ def delete_target(request, id1, id2):
         mode = request.GET.get("mode")
 
         target = models.TargetVertex.objects.get(pk=id2)
+        weights = models.WeightModel.objects.select_related("state").filter(
+            target=target
+        )
+        # deletes weights related to this target and updates weight state
+        for weight_model in weights:
+            weight_model.state.off_left += weight_model.off
+            weight_model.state.off_state -= weight_model.off
+            weight_model.state.nobleman_left += weight_model.nobleman
+            weight_model.state.nobleman_state -= weight_model.nobleman
+            weight_model.state.save()
+            weight_model.delete()
+
         target.delete()
         return redirect(
             reverse("base:planer_initial", args=[id1])
