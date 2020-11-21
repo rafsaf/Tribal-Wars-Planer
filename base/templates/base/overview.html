@@ -21,10 +21,10 @@
  
  {% block content %}
 
-<h1>{{overview.player}}</h1>
+<h1 class="font-nav mb-3">{{overview.player}}</h1>
 
-<div class="container-fluid h-100">
-    <ul class="nav nav-tabs mb-3 mt-1" id="pills-tab" role="tablist">
+<div>
+    <ul class="nav nav-tabs mb-3 mt-1 font-nav" id="pills-tab" role="tablist" style="font-size:x-large;">
         <li class="nav-item">
             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab"
                 aria-controls="pills-home" aria-selected="true">{% trans 'Copy' %}</a>
@@ -41,18 +41,18 @@
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
 
-            <div id='outline-fit' style="width:fit-content">
-                <div class="alert alert-primary" role="alert">
+            <div id='outline-fit'>
+                <div class="alert alert-primary my-4" style="font-size: large;" role="alert">
                     {% trans 'The contents below shows your targets, please copy the one you like to your in-game notes.' %}
                 </div>
             <div id='table' style="border-left: 5px solid teal;">
-            <h1 class="ml-2 font-italic">
-                <span class="mr-2">{% trans 'Table' %}</span> <button class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
+            <h1 class="ml-2 font-nav">
+                <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
             </h1>
             <div class="ml-2">
                 <img  class='d-md-none img-fluid' src="{% static 'images/table-min.jpg'%}" alt="Example Result 1">
                 <img  class='d-none d-md-block img-fluid' src="{% static 'images/table.png'%}" alt="Example Result 1">
-                <textarea class="form-control mt-1" id="table-copy" rows="8">
+                <textarea class="form-control mt-1" id="table-copy" rows="10">
                     {{overview.table}}
                     </textarea>
             </div>
@@ -60,14 +60,14 @@
 
             <br>
             <br>
-            <div id='text' style="border-left: 5px solid teal;">
-                <h1 class="ml-2 font-italic">
-                    <span class="mr-2">{% trans 'Text' %}</span> <button class="btn btn-outline-info" onclick="updateClipboard('text-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
+            <div class="mb-5" id='text' style="border-left: 5px solid teal;">
+                <h1 class="ml-2 font-nav">
+                    <span class="mr-2">{% trans 'Text' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('text-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
                 </h1>
                 <div class="ml-2">
                     <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
                     <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
-                    <textarea class="form-control mt-1" id="text-copy" rows="8">
+                    <textarea class="form-control mt-1" id="text-copy" rows="10">
                         {{overview.string}}
                         </textarea>
                 </div>
@@ -80,11 +80,11 @@
 
         <div class="tab-pane fade" id="pills-outline-details" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group">
-                <div class="alert alert-primary" role="alert">
+                <div class="alert alert-primary" style="font-size: large;" role="alert">
                     {% trans 'Alert! The order in the list below matters and is fixed.' %}
                   </div>
-                <div class="conatiner-fluid" style="width: min-content;">
-                    <table class="table table-sm table-bordered">
+                <div class="" style="width: min-content;">
+                    <table class="table table-sm table-bordered mb-5">
                         <thead>
                             <tr>
                                 <th scope="col">{% trans 'Target' %}</th>
@@ -128,7 +128,7 @@
 
                                 {% for weight in lst %}
                                 <th>
-                                    <div class='d-flex justify-content-center' style="font-size: medium;";">
+                                    <div class='d-flex justify-content-center' style="font-size: medium;">
                                         <span class='badge badge-pill badge-info text-break'>{{weight.player}}</span>
                                     </div>
                                     <div class='d-flex justify-content-center'>
