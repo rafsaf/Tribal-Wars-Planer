@@ -305,7 +305,7 @@ class SettingDateForm(forms.ModelForm):
         model = models.Outline
         fields = ["date",]
         labels = {
-            "date": gettext_lazy("Date"),
+            "date": gettext_lazy("Set new date"),
         }
 
 

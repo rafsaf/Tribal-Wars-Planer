@@ -45,12 +45,9 @@ def make_outline(outline: models.Outline):
             )
     except weight_utils.VillageOwnerDoesNotExist:
         raise KeyError()
-
     models.WeightMaximum.objects.bulk_create(weight_max_create_list)
 
-
-def complete_outline(outline: models.Outline):
-    """ Make targets, then auto write out outline """
+    # Make targets
     # Remove instances in case of earlier exception
     models.TargetVertex.objects.filter(outline=outline).delete()
 
@@ -86,6 +83,18 @@ def complete_outline(outline: models.Outline):
         )
 
     models.TargetVertex.objects.bulk_create(target_model_create_list)
+
+
+def complete_outline(outline: models.Outline):
+    """Auto write out outline """
+    user_input = outline.initial_outline_targets.split("---")
+    
+    targets_general = target_utils.TargetsGeneral(
+        outline_targets=user_input[0].strip(), world=outline.world,
+    )
+    fakes_general = target_utils.TargetsGeneral(
+        outline_targets=user_input[1].strip(), world=outline.world,
+    )
 
     # Auto writing outline for user
     targets = list(

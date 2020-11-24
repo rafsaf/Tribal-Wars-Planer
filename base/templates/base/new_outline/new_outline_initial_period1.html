@@ -70,15 +70,19 @@
                       <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
 
-                          <button class="btn btn-link py-3 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <button class="btn btn-link collapsed py-3 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             {% trans '1. Available Troops' %}
                           </button>
                         </h5>
                       </div>
                   
-                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          <form method='POST' autocomplete="off">
+                            {% csrf_token %}
+                          {{form2|crispy}}
+                          <button class="btn btn-sm btn-ocean" name="form2" type="submit">{% trans 'Save and reload troops' %}</button>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -97,7 +101,12 @@
                       </div>
                       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          <form method='POST' autocomplete="off">
+                            {% csrf_token %}
+                          {{form3|crispy}}
+                          <button class="btn btn-sm btn-ocean" name="form3" type="submit">{% trans 'Save' %}</button>
+                          </form>
+                          <h5 class="mt-4">Actual date: {{instance.date}}</h5>
                         </div>
                       </div>
                     </div>
@@ -111,7 +120,7 @@
                         <h5 class="mb-0">
 
                           <button class="btn btn-link collapsed py-3 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                            {% trans '3. Mode selection' %}
+                            {% trans '3. Default mode selection' %}
                           </button>
                         </h5>
                       </div>

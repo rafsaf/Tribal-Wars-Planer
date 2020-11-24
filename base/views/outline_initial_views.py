@@ -41,33 +41,56 @@ def initial_form(request, _id):
     form1 = forms.InitialOutlineForm(
         request.POST or None, world=instance.world
     )
+
+    form2 = forms.AvailableTroopsForm(request.POST or None)
+    form3 = forms.SettingDateForm(request.POST or None)
+
     form1.fields["target"].initial = instance.initial_outline_targets
+    form2.fields["initial_outline_front_dist"].initial = instance.initial_outline_front_dist
+    form2.fields["initial_outline_min_off"].initial = instance.initial_outline_min_off
 
-    if "form1" in request.POST:
-        if form1.is_valid():
-            target = request.POST.get("target")
-            instance.initial_outline_targets = target
-            instance.save()
-            # make outline
-            try:
-                initial.make_outline(instance)
-            except KeyError:
-                request.session["error"] = gettext(
-                    (
-                        "It looks like your Army collection is"
-                        " no longer actual! "
-                        "To use the planner: copy the data from"
-                        " the preview and "
-                        "correct errors or paste the current"
-                        " military data \n"
+    if request.method == "POST":
+        if "form1" in request.POST:
+            if form1.is_valid():
+                target = request.POST.get("target")
+                instance.initial_outline_targets = target
+                instance.save()
+                # make outline
+                try:
+                    initial.make_outline(instance)
+                except KeyError:
+                    request.session["error"] = gettext(
+                        (
+                            "It looks like your Army collection is"
+                            " no longer actual! "
+                            "To use the planner: copy the data from"
+                            " the preview and "
+                            "correct errors or paste the current"
+                            " military data \n"
+                        )
                     )
-                )
-                return redirect("base:planer_detail", _id)
-            
-            instance.save()
-            return redirect("base:planer_initial_form", _id)
+                    return redirect("base:planer_detail", _id)
+                
+                instance.save()
+                return redirect("base:planer_initial_form", _id)
 
-    context = {"instance": instance, "form1": form1, "example": example, "info": info}
+        if "form2" in request.POST:
+            if form2.is_valid():
+                min_off = request.POST.get("initial_outline_min_off")
+                radius = request.POST.get("initial_outline_front_dist")
+                instance.initial_outline_min_off = min_off
+                instance.initial_outline_front_dist = radius
+                instance.save()
+                return redirect("base:planer_initial_form", _id)
+
+        if "form3" in request.POST:
+            if form3.is_valid():
+                date = request.POST.get('date')
+                instance.date = date
+                instance.save()
+                return redirect("base:planer_initial_form", _id)
+
+    context = {"instance": instance, "form1": form1, "example": example, "info": info, "form2": form2, "form3": form3}
     return render(
         request, "base/new_outline/new_outline_initial_period1.html", context
     )
