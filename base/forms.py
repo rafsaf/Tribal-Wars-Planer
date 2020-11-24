@@ -222,26 +222,26 @@ class InitialOutlineForm(forms.Form):
         required=False,
         initial="\r\n---"
     )
-    min_off = forms.IntegerField(
-        widget=forms.NumberInput(),
-        min_value=1,
-        max_value=28000,
-        label=gettext_lazy("Min. off units number"),
-        initial=19000,
-    )
-    front_dist = forms.IntegerField(
-        widget=forms.NumberInput(),
-        min_value=0,
-        max_value=40,
-        label=gettext_lazy("Distance from front line"),
-        initial=12,
-    )
+    # min_off = forms.IntegerField(
+    #     widget=forms.NumberInput(),
+    #     min_value=1,
+    #     max_value=28000,
+    #     label=gettext_lazy("Min. off units number"),
+    #     initial=19000,
+    # )
+    # front_dist = forms.IntegerField(
+    #     widget=forms.NumberInput(),
+    #     min_value=0,
+    #     max_value=40,
+    #     label=gettext_lazy("Distance from front line"),
+    #     initial=12,
+    # )
 
     def __init__(self, *args, **kwargs):
         self.world = kwargs.pop("world")
         super(InitialOutlineForm, self).__init__(*args, **kwargs)
-        self.fields["min_off"].widget.attrs["class"] = "form-control"
-        self.fields["front_dist"].widget.attrs["class"] = "form-control"
+        # self.fields["min_off"].widget.attrs["class"] = "form-control"
+        # self.fields["front_dist"].widget.attrs["class"] = "form-control"
 
     def clean_target(self):
         """ User's input Villages """
@@ -290,6 +290,23 @@ class InitialOutlineForm(forms.Form):
                 if village.coord not in village_set:
                     self.add_error("target", i)
                     return None
+
+class AvailableTroopsForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = ["initial_outline_min_off", "initial_outline_front_dist",]
+        labels = {
+            "initial_outline_min_off": gettext_lazy("Min. off units number"),
+            "initial_outline_front_dist": gettext_lazy("Distance from front line"),
+        }
+
+class SettingDateForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = ["date",]
+        labels = {
+            "date": gettext_lazy("Date"),
+        }
 
 
 class WeightForm(forms.Form):

@@ -1,11 +1,17 @@
-{% extends "base/new_outline/new_outline.html" %} {% block content %} {% load static %} {% load i18n %}
+{% extends "base/new_outline/new_outline.html" %} 
+{% block content %} 
+{% load static %} 
+{% load i18n %}
+
 <script src="{% static 'codemirror.js' %}"></script>
 <link rel="stylesheet" href="{% static 'codemirror.css' %}">
-<div class="row my-2">
-    <div class="col-12 col-lg-6 h-100 d-flex sticky-top">
-        <div class="mt-2">
-        <form method='POST'>{% csrf_token %}
-                {{ form1.target.label_tag }} 
+<div class="row mb-5">
+    <div class="col-12 col-lg-7">
+        <div class=" w-100">
+        <form method='POST'>
+            {% csrf_token %}
+                <h4>{{ form1.target.label_tag }} </h4>
+                
                 {{ form1.target }} 
                 {% if form1.target.errors %}
                  {% for error in form1.target.errors %} {% if forloop.first %}
@@ -27,7 +33,8 @@
                         codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
                     });
                 </script>
-                {% endif %} {% endfor %}
+                {% endif %} 
+                {% endfor %}
                 <div class="error-text">
                     <p>{% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}
                         <a href="{% url 'base:documentation' %}#errors"> {% trans 'Why an error appeared?' %}</a>
@@ -35,7 +42,10 @@
                     <p>{% trans '*After clicking submit you will be transferred to first error*' %}</p>
                 </div>
 
-                {% endif %} {% if form1.target.errors|length == 0 %} {% for error in form1.errors %}
+                {% endif %} 
+                {% if form1.target.errors|length == 0 %} 
+                
+                {% for error in form1.errors %}
                 <div class="error-text mb-3">
                     {% trans 'The text cannot be empty' %}
                 </div>
@@ -44,16 +54,73 @@
                         $('.CodeMirror').addClass('CodeMirror-Invalid');
                     });
                 </script>
-                {% endfor %} {% endif %}
-                <div class="mt-3">{{ form1.min_off.label_tag }} {{ form1.min_off }}
-                    <small id="emailHelp" class="form-text text-muted">{% trans 'Only villages with off units greater than this number will be taken into account in auto outline write.' %}</small>
-                </div>
-                <div class="mt-3">{{ form1.front_dist.label_tag }} {{ form1.front_dist }}
-                    <small id="emailHelp" class="form-text text-muted">{% trans 'Villages CLOSER than this number of squares to ANY enemy village will be marked as "Front" and not auto used.' %}</small>
-                </div>
-                
-                <button class="btn btn-primary mt-3 " name="form1" type="submit">{% trans 'Submit' %}</button>
-           
+                {% endfor %} 
+
+                {% endif %}
+
+                <div class="btn-group my-3">
+                <button class="btn btn-ocean" name="form1" type="submit">{% trans 'Save targets' %}</button>
+                <button class="btn btn-outline-ocean" name="form1" type="submit">{% trans 'Create an outline' %}</button>
+              </div>
+
+              <h4 class="my-3"> {% trans 'Advanced general settings' %} </h4>
+                <div class="accordion font-nav" id="outline-options">
+                    <div class="card">
+                      <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+
+                          <button class="btn btn-link py-3 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            {% trans '1. Available Troops' %}
+                          </button>
+                        </h5>
+                      </div>
+                  
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+                    <div class="card">
+                      <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+
+                          <button class="btn btn-link collapsed py-3 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            {% trans '2. Setting the date' %}
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+
+                    <div class="card">
+                      <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+
+                          <button class="btn btn-link collapsed py-3 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                            {% trans '3. Mode selection' %}
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             
 
             
@@ -64,7 +131,7 @@
 
 
 
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-5">
         <div class="container-fluid md-pre h-100">
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                 <li class="nav-item">

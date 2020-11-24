@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
+from django.core.validators import MaxValueValidator, MinValueValidator
 from markdownx.models import MarkdownxField
 
 
@@ -107,8 +108,8 @@ class Outline(models.Model):
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     initial_outline_players = models.TextField(blank=True, default="")
     initial_outline_targets = models.TextField(blank=True, default="")
-    initial_outline_min_off = models.IntegerField(default=19000)
-    initial_outline_front_dist = models.IntegerField(default=12)
+    initial_outline_min_off = models.IntegerField(default=19000, validators=[MinValueValidator(1), MaxValueValidator(28000)])
+    initial_outline_front_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(100)])
     off_troops = models.TextField(blank=True, default="",)
     deff_troops = models.TextField(blank=True, default="",)
 

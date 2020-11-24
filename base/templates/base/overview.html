@@ -21,9 +21,10 @@
  
  {% block content %}
 
-<h1 class="font-nav mb-3">{{overview.player}}</h1>
+<h1 class="font-nav mb-3 text-center">{{overview.player}}</h1>
 
 <div>
+    <div class="col-12 col-lg-10 offset-lg-1">
     <ul class="nav nav-tabs mb-3 mt-1 font-nav" id="pills-tab" role="tablist" style="font-size:x-large;">
         <li class="nav-item">
             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab"
@@ -37,14 +38,17 @@
 
 
     </ul>
-
+    </div>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
 
-            <div id='outline-fit'>
-                <div class="alert alert-primary my-4" style="font-size: large;" role="alert">
+            <div class="row" id='outline-fit'>
+                <div class="col-auto mx-auto">
+                <div class="alert alert-primary mt-5" style="font-size: large;" role="alert">
                     {% trans 'The contents below shows your targets, please copy the one you like to your in-game notes.' %}
                 </div>
+                </div>
+                <div class="col-12 col-lg-8 offset-lg-2 mt-2">
             <div id='table' style="border-left: 5px solid teal;">
             <h1 class="ml-2 font-nav">
                 <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
@@ -75,15 +79,22 @@
     
             </div>
             
-
+        </div>
         </div>
 
         <div class="tab-pane fade" id="pills-outline-details" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <div class="form-group">
-                <div class="alert alert-primary" style="font-size: large;" role="alert">
+            
+                <div class="row" id='outline-fit'>
+                    <div class="col-auto mx-auto">
+                <div class="alert alert-primary mt-5" style="font-size: large;" role="alert">
                     {% trans 'Alert! The order in the list below matters and is fixed.' %}
                   </div>
-                <div class="" style="width: min-content;">
+                  </div>
+
+                  <div class="col-12 col-lg-10 offset-lg-1 mt-2">
+                      
+                      <div class="table-responsive mb-4" style="overflow-y: auto;height:80vh; border-top: 2px solid teal; border-left: 2px solid teal" id='parent'>
+                <div id='child' class="" style="width: min-content;">
                     <table class="table table-sm table-bordered mb-5">
                         <thead>
                             <tr>
@@ -196,6 +207,9 @@
                         </tbody>
                     </table>
                 </div>
+            
+            </div>
+            </div>
             </div>
         </div>
 

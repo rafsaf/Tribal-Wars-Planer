@@ -75,8 +75,8 @@
                     border-bottom">
                 {% if user.is_authenticated %}
                 <div class="d-none d-lg-block">
-                    <button class="btn btn-default" id="menu-toggle">
-                        <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-toggles" fill="rgb(3, 79, 192)"
+                    <button class="btn toggle-icon" id="menu-toggle">
+                        <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-toggles" fill="teal"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M4.5 9a3.5 3.5 0 1 0 0 7h7a3.5 3.5 0 1 0 0-7h-7zm7 6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-7-14a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm2.45 0A3.49 3.49 0 0 1 8 3.5 3.49 3.49 0 0 1 6.95 6h4.55a2.5 2.5 0 0 0 0-5H6.95zM4.5 0h7a3.5 3.5 0 1 1 0 7h-7a3.5 3.5 0 1 1 0-7z" />
@@ -144,39 +144,39 @@
                         <li class="nav-item dropdown ml-1">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                 aria-haspopup="true" aria-expanded="false">Menu</a>
-                            <div class="dropdown-menu" style="padding-top:0;">
-                                <div class="dropdown-divider" style="padding-top:0; margin-top:0"></div>
+                            <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
+                                <div class="dropdown-divider" style="margin-top:0"></div>
                                 {% if not user.is_authenticated %}
                                 <div class='small text-center'>{% trans 'Account' %}</div>
                                 {% else %}
                                 <div class='small text-center'>{{user.username}}</div>
                                 {% endif %}
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider" style="margin-bottom:0"></div>
                                 {% if user.is_authenticated %}
-                                <a class="dropdown-item font-red" href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
+                                <a class="dropdown-item font-red py-2"  href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
                                 {% else %}
-                                <a class="dropdown-item font-teal" href="{% url 'login' %}">{% trans 'Sign in' %}</a>
+                                <a class="dropdown-item font-teal py-2" href="{% url 'login' %}">{% trans 'Sign in' %}</a>
 
-                                <a class="dropdown-item font-teal"
+                                <a class="dropdown-item font-teal py-2"
                                     href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
                                 {% endif %}
 
 
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider" style="margin-top:0;"></div>
                                 <div class='small text-center'>{% trans 'Language' %}</div>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider" style="margin-bottom:0;"></div>
                                 <form action="{% url 'set_language' %}" method="post">
                                     {% csrf_token %}
                                     <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
                                     <input name="language" type="hidden" value="pl" />
-                                    <input class="dropdown-item font-nav" type="submit" value="Polski" />
+                                    <input class="dropdown-item font-nav py-2" type="submit" value="Polski" />
 
                                 </form>
                                 <form action="{% url 'set_language' %}" method="post">
                                     {% csrf_token %}
                                     <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
                                     <input name="language" type="hidden" value="en" />
-                                    <input class="dropdown-item font-nav" type="submit" value="English" />
+                                    <input class="dropdown-item font-nav py-2"  type="submit" value="English" />
                                 </form>
                             </div>
                         </li>

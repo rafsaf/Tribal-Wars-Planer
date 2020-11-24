@@ -48,10 +48,6 @@ def initial_form(request, _id):
         if form1.is_valid():
             target = request.POST.get("target")
             instance.initial_outline_targets = target
-            min_off = request.POST.get("min_off")
-            instance.initial_outline_min_off = min_off
-            front_dist = request.POST.get("front_dist")
-            instance.initial_outline_front_dist = front_dist
             instance.save()
             # make outline
             try:
