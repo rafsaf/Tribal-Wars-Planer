@@ -38,7 +38,6 @@ def initial_form(request, _id):
     example = models.Documentation.objects.get_or_create(title='planer_form_example', language=language_code, defaults={'main_page': ""})[0].main_page
     example = markdownify(example)
 
-
     form1 = forms.InitialOutlineForm(
         request.POST or None, world=instance.world
     )
@@ -64,9 +63,9 @@ def initial_form(request, _id):
                     )
                 )
                 return redirect("base:planer_detail", _id)
-            instance.written = "active"
+            
             instance.save()
-            return redirect("base:planer_initial", _id)
+            return redirect("base:planer_initial_form", _id)
 
     context = {"instance": instance, "form1": form1, "example": example, "info": info}
     return render(
@@ -114,34 +113,6 @@ def initial_planer(request, _id):
         return render(
             request,
             "base/new_outline/new_outline_initial_period2_2.html",
-            context,
-        )
-
-    elif mode.is_weights:
-        query = models.WeightMaximum.objects.filter(outline=instance).order_by(
-            "player", "id"
-        )
-        players = [weight.player for weight in query.distinct("player")]
-        player = request.GET.get("player")
-        if player in players:
-            query = query.filter(player=player)
-
-        paginator = Paginator(query, 50)
-
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-
-        context = {
-            "player": player,
-            "players": players,
-            "instance": instance,
-            "query": page_obj,
-            "mode": str(mode),
-        }
-
-        return render(
-            request,
-            "base/new_outline/new_outline_initial_period2_4.html",
             context,
         )
 
@@ -477,6 +448,8 @@ def create_final_outline(request, id1):
 def complete_outline(request, id1):
     instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
     initial.complete_outline(outline=instance)
+    instance.written = "active"
+    instance.save()
     return redirect(
         reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu"
     )

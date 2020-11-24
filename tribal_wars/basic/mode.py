@@ -5,20 +5,15 @@ class Mode:
             "time",
             "fake",
             "add_and_remove",
-            "weights",
         ]
 
         if request_GET_mode is None:
-            self.mode = "weights"
+            self.mode = "menu"
         else:
             if request_GET_mode in VALID:
                 self.mode = request_GET_mode
             else:
-                self.mode = "weights"
-
-    @property
-    def is_weights(self):
-        return self.mode == "weights"
+                self.mode = "menu"
 
     @property
     def is_menu(self):

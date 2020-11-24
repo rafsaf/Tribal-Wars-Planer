@@ -2,6 +2,7 @@
 {% block content %} 
 {% load static %} 
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 <script src="{% static 'codemirror.js' %}"></script>
 <link rel="stylesheet" href="{% static 'codemirror.css' %}">
@@ -60,7 +61,7 @@
 
                 <div class="btn-group my-3">
                 <button class="btn btn-ocean" name="form1" type="submit">{% trans 'Save targets' %}</button>
-                <button class="btn btn-outline-ocean" name="form1" type="submit">{% trans 'Create an outline' %}</button>
+                <a href="{% url 'base:planer_complete' instance.id %}" class="btn btn-outline-ocean" name="form1" type="submit">{% trans 'Create an outline' %}</a>
               </div>
 
               <h4 class="my-3"> {% trans 'Advanced general settings' %} </h4>
