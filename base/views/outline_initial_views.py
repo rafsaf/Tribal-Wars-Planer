@@ -16,6 +16,7 @@ from markdownx.utils import markdownify
 import tribal_wars.outline_initial as initial
 import tribal_wars.outline_finish as finish
 import tribal_wars.basic as basic
+import tribal_wars.avaiable_troops as avaiable_troops
 from base import models, forms
 
 
@@ -81,6 +82,7 @@ def initial_form(request, _id):
                 instance.initial_outline_min_off = min_off
                 instance.initial_outline_front_dist = radius
                 instance.save()
+                avaiable_troops.get_legal_coords_outline(outline=instance)
                 return redirect("base:planer_initial_form", _id)
 
         if "form3" in request.POST:

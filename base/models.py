@@ -180,6 +180,9 @@ class WeightMaximum(models.Model):
     def __str__(self):
         return self.start
 
+    def coord_tuple(self):
+        return (int(self.start[0:3]), int(self.start[4:7]))
+
 
 class OutlineTime(models.Model):
     """ Handle Time for Target """
