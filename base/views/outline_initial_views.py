@@ -65,12 +65,14 @@ def initial_form(request, _id):
     form2.fields[
         "initial_outline_min_off"
     ].initial = instance.initial_outline_min_off
+    form4.fields["mode_off"].initial = instance.mode_off
+    form4.fields["mode_noble"].initial = instance.mode_noble
+    form4.fields["mode_division"].initial = instance.mode_division
 
     if request.method == "POST":
         if "form1" in request.POST:
             if form1.is_valid():
-                target = request.POST.get("target")
-                instance.initial_outline_targets = target
+                instance.initial_outline_targets = form1.clean_target()
                 instance.save()
                 # make outline
                 try:
@@ -108,6 +110,17 @@ def initial_form(request, _id):
             if form3.is_valid():
                 date = request.POST.get("date")
                 instance.date = date
+                instance.save()
+                return redirect("base:planer_initial_form", _id)
+
+        if "form4" in request.POST:
+            if form4.is_valid():
+                mode_off = request.POST.get("mode_off")
+                mode_noble = request.POST.get("mode_noble")
+                mode_division = request.POST.get("mode_division")
+                instance.mode_off = mode_off
+                instance.mode_noble = mode_noble
+                instance.mode_division = mode_division
                 instance.save()
                 return redirect("base:planer_initial_form", _id)
 

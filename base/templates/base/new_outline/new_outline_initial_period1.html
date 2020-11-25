@@ -69,6 +69,9 @@
                   {% trans 'Write an outline' %}
                 </a>
               </div>
+            </form>
+        </div>
+
               <table class="table table-sm table-bordered my-3">
                 <thead>
                   <tr>
@@ -158,7 +161,12 @@
                           {{form3|crispy}}
                           <button class="btn btn-sm btn-ocean" name="form3" type="submit">{% trans 'Save' %}</button>
                           </form>
-                          <h5 class="mt-4">Actual date: {{instance.date}}</h5>
+                          <h5 class="mt-4">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                            </svg>
+                            Current date: {{instance.date}}
+                          </h5>
                         </div>
                       </div>
                     </div>
@@ -178,6 +186,38 @@
                       </div>
                       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                         <div class="card-body">
+                          <table class="table table-sm table-bordered my-1">
+                            <thead>
+                              <tr>
+                                <th scope="col">{% trans 'Description' %}</th>
+                                <th scope="col">{% trans 'Current attribute' %}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr >
+                                <th>{% trans 'Mode off' %}</th>
+                                <th> {{ instance.get_mode_off_display }} </th>
+                              </tr>
+                              <tr >
+                                <th>{% trans 'Mode noble' %}</th>
+                                <th> {{ instance.get_mode_noble_display }} </th>
+                              </tr>
+                              <tr >
+                                <th>{% trans 'Nobles division' %}</th>
+                                <th> {{ instance.get_mode_division_display }} </th>
+                              </tr>
+                              
+            
+                            </tbody>
+                          </table>
+                          <h4 class="mt-3">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                              <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                              <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"/>
+                            </svg>
+                            {% trans 'Change default mode:' %}
+                          </h4>
                           <form method='POST' autocomplete="off">
                             {% csrf_token %}
                             {{ form4|crispy }}
@@ -187,15 +227,7 @@
                       </div>
                     </div>
                   </div>
-            
-
-            
-
-        </form>
     </div>
-    </div>
-
-
 
     <div class="col-12 col-lg-5">
         <div class="container-fluid md-pre h-100">

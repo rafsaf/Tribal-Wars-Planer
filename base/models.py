@@ -247,6 +247,26 @@ class PeriodModel(models.Model):
 class TargetVertex(models.Model):
     """ Target Village """
 
+    MODE_OFF = [
+        ("closest", gettext_lazy("Closest Front")),
+        ("close", gettext_lazy("Close Back")),
+        ("random", gettext_lazy("Random Back")),
+        ("far", gettext_lazy("Far Back")),
+    ]
+
+    MODE_NOBLE = [
+        ("closest", gettext_lazy("Closest Front")),
+        ("close", gettext_lazy("Close Back")),
+        ("random", gettext_lazy("Random Back")),
+        ("far", gettext_lazy("Far Back")),
+    ]
+
+    MODE_DIVISION = [
+        ("divide", gettext_lazy("Divide off with nobles")),
+        ("not_divide", gettext_lazy("Dont't divide off")),
+        ("separatly", gettext_lazy("Off and nobles separatly")),
+    ]
+
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     outline_time = models.ForeignKey(
         OutlineTime, on_delete=models.SET_NULL, null=True, default=None
@@ -254,6 +274,13 @@ class TargetVertex(models.Model):
     target = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
     fake = models.BooleanField(default=False)
+    
+    required_off = models.IntegerField(default=0)
+    required_noble = models.IntegerField(default=0)
+
+    mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
+    mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
+    mode_division = models.CharField(max_length=15, choices=MODE_DIVISION, default="not_divide")
 
     def __str__(self):
         return self.target

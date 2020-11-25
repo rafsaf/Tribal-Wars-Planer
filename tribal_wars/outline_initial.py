@@ -1,4 +1,5 @@
 """ File with outline making """
+from tribal_wars import input_target
 from tribal_wars import target_utils
 from tribal_wars import weight_utils
 from base import models
@@ -9,7 +10,6 @@ def make_outline(outline: models.Outline):
     """ Create only weight max models """
     # Remove instances in case of earlier exception
     models.WeightMaximum.objects.filter(outline=outline).delete()
-    models.TargetVertex.objects.filter(outline=outline).delete()
 
     # Weight max model creating
     weight_max_create_list = []
@@ -53,36 +53,23 @@ def make_outline(outline: models.Outline):
 
     user_input = outline.initial_outline_targets.split("---")
     # User input targets
-    targets_general = target_utils.TargetsGeneral(
-        outline_targets=user_input[0].strip(), world=outline.world,
+    targets_input = input_target.TargetsGeneralInput(
+        outline_targets=user_input[0].strip(), world=outline.world, fake=False, outline=outline
     )
-    fakes_general = target_utils.TargetsGeneral(
-        outline_targets=user_input[1].strip(), world=outline.world,
+    targets_input.generate_targets()
+    target_list1 = targets_input.targets
+    # target creating
+    models.TargetVertex.objects.bulk_create(target_list1)
+
+    # User input fake targets
+    fake_input = input_target.TargetsGeneralInput(
+        outline_targets=user_input[1].strip(), world=outline.world, fake=True, outline=outline
     )
 
-    # Target model creating
-    target_model_create_list = []
-
-    for coord in targets_general:
-        target_model_create_list.append(
-            models.TargetVertex(
-                outline_id=outline.id,
-                target=coord,
-                player=targets_general.player(coord),
-            )
-        )
-
-    for coord in fakes_general:
-        target_model_create_list.append(
-            models.TargetVertex(
-                outline_id=outline.id,
-                target=coord,
-                player=fakes_general.player(coord),
-                fake=True,
-            )
-        )
-
-    models.TargetVertex.objects.bulk_create(target_model_create_list)
+    fake_input.generate_targets()
+    target_list2 = fake_input.targets
+    # fakes target creating
+    models.TargetVertex.objects.bulk_create(target_list2)
 
 
 def complete_outline(outline: models.Outline):

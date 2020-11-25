@@ -230,53 +230,18 @@ class InitialOutlineForm(forms.Form):
         # self.fields["front_dist"].widget.attrs["class"] = "form-control"
 
     def clean_target(self):
-        """ User's input Villages """
-        basic_villages = []
-        count_underline = 0
-
-        data = self.cleaned_data["target"].rstrip().split("\r\n")
-        for i, info in enumerate(data):
-            info = info.split(":")
-            if len(info) != 3:
-                if info == ["---"]:
-                    count_underline += 1
-                    if count_underline > 1:
-                        self.add_error("target", i)
-                    continue
-                else:
-                    self.add_error("target", i)
-                    continue
-            try:
-                coord = info[0]
-                village = basic.Village(coord)
-            except basic.VillageError:
-                self.add_error("target", i)
-                continue
-            if not info[1].isnumeric() or not info[2].isnumeric():
-                self.add_error("target", i)
-                continue
-            basic_villages.append(village.coord)
-
-        if len(self.errors) > 0:
-            return None
-        if count_underline == 0:
-            self.add_error("target", len(data) + 1)
-        village_list = basic.many_villages(" ".join(basic_villages))
-        villages_id = [
-            f"{i.x_coord}{i.y_coord}{self.world}" for i in village_list
-        ]
-        village_models = models.VillageModel.objects.filter(id__in=villages_id)
-
-        if len(village_list) != village_models.count():
-            village_set = [
-                f"{village_model.x_coord}|{village_model.y_coord}"
-                for village_model in village_models
-            ]
-            for i, village in enumerate(village_list):
-                if village.coord not in village_set:
-                    self.add_error("target", i)
-                    return None
-
+        """ User's input Villages """ 
+        data = self.cleaned_data["target"]
+        if data == "":
+            return "---\r\n"
+        data_lines = basic.TargetsData(data=data, world=self.world)
+        data_lines.validate()
+        if len(data_lines.errors_ids) == 0:
+            return data_lines.new_validated_data
+        for error_id in data_lines.errors_ids:
+            self.add_error("target", error_id)
+        return data
+    
 
 class AvailableTroopsForm(forms.ModelForm):
     class Meta:
