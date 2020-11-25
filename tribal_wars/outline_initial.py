@@ -2,6 +2,7 @@
 from tribal_wars import input_target
 from tribal_wars import target_utils
 from tribal_wars import weight_utils
+from tribal_wars import write_out_outline
 from base import models
 from tribal_wars import basic
 
@@ -34,6 +35,8 @@ def make_outline(outline: models.Outline):
                     outline_id=outline.id,
                     player=army.player,
                     start=army.coord,
+                    x_coord=int(army.coord[0:3]),
+                    y_coord=int(army.coord[4:7]),
                     off_max=army.off,
                     off_left=army.off,
                     off_in_village=in_off,
@@ -120,6 +123,8 @@ def write_out_outline_nobles(targets_general, outline, targets, fake=False):
         weights_with_nobles = list(weights_with_nobles.filter(off_max__gt=400))
 
     for target in targets:
+        xxxxxxxxxxxxxxxxxxxx = write_out_outline.WriteTarget(target, outline)
+        xxxxxxxxxxxxxxxxxxxx.sorted_weights()
         index_error = False
         single_target: target_utils.SingleTarget = targets_general.single(
             target.target

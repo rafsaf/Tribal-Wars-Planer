@@ -26,6 +26,7 @@ class TargetsGeneralInput:
                     models.TargetVertex(
                         outline=self.outline,
                         target=line[0],
+                        fake=self.fake,
                         player=self.player(line[0]),
                         required_off=line[1],
                         required_noble=line[2],

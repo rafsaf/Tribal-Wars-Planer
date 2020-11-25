@@ -100,7 +100,7 @@
     <div class="row">
         <div class="d-flex card col-12 col-lg-4 d-flex flex-column">
 
-            <div style="overflow-y: scroll; height:calc(100vh) !important;" id="leftscroll">
+            <div style="overflow-y: scroll; height:calc(85vh) !important;" id="leftscroll">
                 <ul class="list-group list-group-flush">
                     {% for weight in result_lst %} 
                             <div class="fading-{{weight.paint}}">
@@ -306,7 +306,7 @@
                     </div>
 
                     <div class="d-block d-lg-none my-3"></div>
-                    <div style="overflow-y: scroll; height:calc(100vh) !important;">
+                    <div class="container-fluid" style="overflow-y: scroll; height:calc(58vh) !important;">
                         <div class="row">
                             {% for weight in page_obj %}
                             <div class="card col-12 col-md-6 col-lg-4 col-xl-3 front-{{weight.first_line}}">
