@@ -220,22 +220,8 @@ class InitialOutlineForm(forms.Form):
         widget=forms.Textarea,
         label=gettext_lazy("Targets"),
         required=False,
-        initial="\r\n---"
+        initial="\r\n---",
     )
-    # min_off = forms.IntegerField(
-    #     widget=forms.NumberInput(),
-    #     min_value=1,
-    #     max_value=28000,
-    #     label=gettext_lazy("Min. off units number"),
-    #     initial=19000,
-    # )
-    # front_dist = forms.IntegerField(
-    #     widget=forms.NumberInput(),
-    #     min_value=0,
-    #     max_value=40,
-    #     label=gettext_lazy("Distance from front line"),
-    #     initial=12,
-    # )
 
     def __init__(self, *args, **kwargs):
         self.world = kwargs.pop("world")
@@ -291,23 +277,56 @@ class InitialOutlineForm(forms.Form):
                     self.add_error("target", i)
                     return None
 
+
 class AvailableTroopsForm(forms.ModelForm):
     class Meta:
         model = models.Outline
-        fields = ["initial_outline_min_off", "initial_outline_front_dist", "initial_outline_target_dist",]
+        fields = [
+            "initial_outline_min_off",
+            "initial_outline_front_dist",
+            "initial_outline_target_dist",
+        ]
         labels = {
             "initial_outline_min_off": gettext_lazy("Min. off units number"),
-            "initial_outline_front_dist": gettext_lazy("Distance from front line"),
-            "initial_outline_target_dist": gettext_lazy("Distance near targets"),
+            "initial_outline_front_dist": gettext_lazy(
+                "Distance from front line"
+            ),
+            "initial_outline_target_dist": gettext_lazy(
+                "Distance near targets"
+            ),
         }
+
 
 class SettingDateForm(forms.ModelForm):
     class Meta:
         model = models.Outline
-        fields = ["date",]
+        fields = [
+            "date",
+        ]
         labels = {
             "date": gettext_lazy("Set new date"),
         }
+
+
+class ModeOutlineForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "mode_off",
+            "mode_noble",
+            "mode_division",
+        ]
+        widgets = {
+            "mode_off": forms.RadioSelect,
+            "mode_noble": forms.RadioSelect,
+            "mode_division": forms.RadioSelect,
+        }
+
+#    def __init__(self, *args, **kwargs):
+#        super(ModeOutlineForm, self).__init__(*args, **kwargs)
+#        self.fields["mode_off"].widget.attrs["class"] = "form-check"
+#        self.fields["mode_noble"].widget.attrs["class"] = "form-check"
+#        self.fields["mode_division"].widget.attrs["class"] = "form-check"
 
 
 class WeightForm(forms.Form):

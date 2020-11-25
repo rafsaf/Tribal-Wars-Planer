@@ -34,9 +34,17 @@ def initial_form(request, _id):
 
     language_code = get_language()
 
-    info = models.Documentation.objects.get_or_create(title='planer_form_info', language=language_code, defaults={'main_page': ""})[0].main_page
+    info = models.Documentation.objects.get_or_create(
+        title="planer_form_info",
+        language=language_code,
+        defaults={"main_page": ""},
+    )[0].main_page
     info = markdownify(info)
-    example = models.Documentation.objects.get_or_create(title='planer_form_example', language=language_code, defaults={'main_page': ""})[0].main_page
+    example = models.Documentation.objects.get_or_create(
+        title="planer_form_example",
+        language=language_code,
+        defaults={"main_page": ""},
+    )[0].main_page
     example = markdownify(example)
 
     form1 = forms.InitialOutlineForm(
@@ -45,11 +53,18 @@ def initial_form(request, _id):
 
     form2 = forms.AvailableTroopsForm(request.POST or None)
     form3 = forms.SettingDateForm(request.POST or None)
+    form4 = forms.ModeOutlineForm(request.POST or None)
 
     form1.fields["target"].initial = instance.initial_outline_targets
-    form2.fields["initial_outline_front_dist"].initial = instance.initial_outline_front_dist
-    form2.fields["initial_outline_target_dist"].initial = instance.initial_outline_target_dist
-    form2.fields["initial_outline_min_off"].initial = instance.initial_outline_min_off
+    form2.fields[
+        "initial_outline_front_dist"
+    ].initial = instance.initial_outline_front_dist
+    form2.fields[
+        "initial_outline_target_dist"
+    ].initial = instance.initial_outline_target_dist
+    form2.fields[
+        "initial_outline_min_off"
+    ].initial = instance.initial_outline_min_off
 
     if request.method == "POST":
         if "form1" in request.POST:
@@ -72,7 +87,7 @@ def initial_form(request, _id):
                         )
                     )
                     return redirect("base:planer_detail", _id)
-                
+
                 instance.save()
                 return redirect("base:planer_initial_form", _id)
 
@@ -91,12 +106,20 @@ def initial_form(request, _id):
 
         if "form3" in request.POST:
             if form3.is_valid():
-                date = request.POST.get('date')
+                date = request.POST.get("date")
                 instance.date = date
                 instance.save()
                 return redirect("base:planer_initial_form", _id)
 
-    context = {"instance": instance, "form1": form1, "example": example, "info": info, "form2": form2, "form3": form3}
+    context = {
+        "instance": instance,
+        "form1": form1,
+        "example": example,
+        "info": info,
+        "form2": form2,
+        "form3": form3,
+        "form4": form4,
+    }
     return render(
         request, "base/new_outline/new_outline_initial_period1.html", context
     )

@@ -90,6 +90,26 @@ class Outline(models.Model):
         ("inactive", "Inactive"),
     ]
 
+    MODE_OFF = [
+        ("closest", gettext_lazy("Closest Front")),
+        ("close", gettext_lazy("Close Back")),
+        ("random", gettext_lazy("Random Back")),
+        ("far", gettext_lazy("Far Back")),
+    ]
+
+    MODE_NOBLE = [
+        ("closest", gettext_lazy("Closest Front")),
+        ("close", gettext_lazy("Close Back")),
+        ("random", gettext_lazy("Random Back")),
+        ("far", gettext_lazy("Far Back")),
+    ]
+
+    MODE_DIVISION = [
+        ("divide", gettext_lazy("Divide off with nobles")),
+        ("not_divide", gettext_lazy("Dont't divide off")),
+        ("separatly", gettext_lazy("Off and nobles separatly")),
+    ]
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(null=True, blank=True)
     name = models.TextField()
@@ -106,11 +126,13 @@ class Outline(models.Model):
     )
     ally_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
+    
     initial_outline_players = models.TextField(blank=True, default="")
     initial_outline_targets = models.TextField(blank=True, default="")
     initial_outline_min_off = models.IntegerField(default=19000, validators=[MinValueValidator(1), MaxValueValidator(28000)])
     initial_outline_front_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(100)])
     initial_outline_target_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(150)])
+    
     off_troops = models.TextField(blank=True, default="",)
     deff_troops = models.TextField(blank=True, default="",)
 
@@ -118,6 +140,10 @@ class Outline(models.Model):
     avaiable_nobles = ArrayField(models.IntegerField(), default=list)
     avaiable_offs_near = ArrayField(models.IntegerField(), default=list)
     avaiable_nobles_near = ArrayField(models.IntegerField(), default=list)
+
+    mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
+    mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
+    mode_division = models.CharField(max_length=15, choices=MODE_DIVISION, default="not_divide")
 
     class Meta:
         ordering = ("-created",)
