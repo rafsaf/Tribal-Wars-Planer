@@ -101,7 +101,7 @@ def complete_outline(outline: models.Outline):
     # Fake offs
     write_out_outline_offs(fakes_general, outline, f_targets, True)
     # Offs
-    write_out_outline_offs(targets_general, outline, targets)
+    # write_out_outline_offs(targets_general, outline, targets)
 
 
 def write_out_outline_nobles(targets_general, outline, targets, fake=False):
@@ -124,7 +124,7 @@ def write_out_outline_nobles(targets_general, outline, targets, fake=False):
 
     for target in targets:
         xxxxxxxxxxxxxxxxxxxx = write_out_outline.WriteTarget(target, outline)
-        xxxxxxxxxxxxxxxxxxxx.sorted_weights()
+        xxxxxxxxxxxxxxxxxxxx.write()
         index_error = False
         single_target: target_utils.SingleTarget = targets_general.single(
             target.target
