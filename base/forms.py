@@ -294,10 +294,11 @@ class InitialOutlineForm(forms.Form):
 class AvailableTroopsForm(forms.ModelForm):
     class Meta:
         model = models.Outline
-        fields = ["initial_outline_min_off", "initial_outline_front_dist",]
+        fields = ["initial_outline_min_off", "initial_outline_front_dist", "initial_outline_target_dist",]
         labels = {
             "initial_outline_min_off": gettext_lazy("Min. off units number"),
             "initial_outline_front_dist": gettext_lazy("Distance from front line"),
+            "initial_outline_target_dist": gettext_lazy("Distance near targets"),
         }
 
 class SettingDateForm(forms.ModelForm):

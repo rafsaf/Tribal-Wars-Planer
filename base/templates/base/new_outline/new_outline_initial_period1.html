@@ -63,8 +63,44 @@
                 <button class="btn btn-ocean" name="form1" type="submit">{% trans 'Save targets' %}</button>
                 <a href="{% url 'base:planer_complete' instance.id %}" class="btn btn-outline-ocean" name="form1" type="submit">{% trans 'Create an outline' %}</a>
               </div>
+              <table class="table table-sm table-bordered my-3">
+                <thead>
+                  <tr>
+                    <th scope="col">{% trans 'Description' %}</th>
+                    <th scope="col">{% trans 'All' %}</th>
+                    <th scope="col">{% trans 'Front' %}</th>
+                    <th scope="col">{% trans 'Back' %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <th>{% trans 'Offs' %}</th>
+                    {% for item in instance.avaiable_offs %}
+                    <th> {{ item }} </th>
+                    {% endfor %}
+                  </tr>
+                  <tr >
+                    <th>{% trans 'Nobles' %}</th>
+                    {% for item in instance.avaiable_nobles %}
+                    <th> {{ item }} </th>
+                    {% endfor %}
+                  </tr>
+                  <tr >
+                    <th>{% trans 'Offs near targets' %}</th>
+                    {% for item in instance.avaiable_offs_near %}
+                    <th> {{ item }} </th>
+                    {% endfor %}
+                  </tr>
+                  <tr >
+                    <th>{% trans 'Nobles near targets' %}</th>
+                    {% for item in instance.avaiable_nobles_near %}
+                    <th> {{ item }} </th>
+                    {% endfor %}
+                  </tr>
 
-              <h4 class="my-3"> {% trans 'Advanced general settings' %} </h4>
+                </tbody>
+              </table>
+              <h4 class="my-3"> {% trans 'Advanced general settings:' %} </h4>
                 <div class="accordion font-nav" id="outline-options">
                     <div class="card">
                       <div class="card-header" id="headingOne">
@@ -78,11 +114,14 @@
                   
                       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">
+                          
+                          <div class="mt-1">
                           <form method='POST' autocomplete="off">
                             {% csrf_token %}
                           {{form2|crispy}}
                           <button class="btn btn-sm btn-ocean" name="form2" type="submit">{% trans 'Save and reload troops' %}</button>
                           </form>
+                        </div>
                         </div>
                       </div>
                     </div>

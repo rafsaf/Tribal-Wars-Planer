@@ -110,8 +110,14 @@ class Outline(models.Model):
     initial_outline_targets = models.TextField(blank=True, default="")
     initial_outline_min_off = models.IntegerField(default=19000, validators=[MinValueValidator(1), MaxValueValidator(28000)])
     initial_outline_front_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    initial_outline_target_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(150)])
     off_troops = models.TextField(blank=True, default="",)
     deff_troops = models.TextField(blank=True, default="",)
+
+    avaiable_offs = ArrayField(models.IntegerField(), default=list)
+    avaiable_nobles = ArrayField(models.IntegerField(), default=list)
+    avaiable_offs_near = ArrayField(models.IntegerField(), default=list)
+    avaiable_nobles_near = ArrayField(models.IntegerField(), default=list)
 
     class Meta:
         ordering = ("-created",)
@@ -230,7 +236,8 @@ class TargetVertex(models.Model):
         return reverse(
             "base:planer_initial_detail", args=[self.outline_id, self.id]
         )
-
+    def coord_tuple(self):
+        return (int(self.target[0:3]), int(self.target[4:7]))
 
 class WeightModel(models.Model):
     """ Command between start and target """

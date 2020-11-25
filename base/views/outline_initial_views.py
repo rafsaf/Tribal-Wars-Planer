@@ -48,6 +48,7 @@ def initial_form(request, _id):
 
     form1.fields["target"].initial = instance.initial_outline_targets
     form2.fields["initial_outline_front_dist"].initial = instance.initial_outline_front_dist
+    form2.fields["initial_outline_target_dist"].initial = instance.initial_outline_target_dist
     form2.fields["initial_outline_min_off"].initial = instance.initial_outline_min_off
 
     if request.method == "POST":
@@ -79,10 +80,13 @@ def initial_form(request, _id):
             if form2.is_valid():
                 min_off = request.POST.get("initial_outline_min_off")
                 radius = request.POST.get("initial_outline_front_dist")
+                radius_target = request.POST.get("initial_outline_target_dist")
                 instance.initial_outline_min_off = min_off
                 instance.initial_outline_front_dist = radius
+                instance.initial_outline_target_dist = radius_target
                 instance.save()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
+                avaiable_troops.legal_coords_near_targets(outline=instance)
                 return redirect("base:planer_initial_form", _id)
 
         if "form3" in request.POST:
