@@ -11,8 +11,6 @@ def make_outline(outline: models.Outline):
     """ Create only weight max models """
     # Remove instances in case of earlier exception
     if models.WeightMaximum.objects.filter(outline=outline).count() == 0:
-        models.WeightMaximum.objects.filter(outline=outline).delete()
-
         # Weight max model creating
         weight_max_create_list = []
 
@@ -91,12 +89,20 @@ def complete_outline(outline: models.Outline):
     targets = models.TargetVertex.objects.filter(outline=outline, fake=False)
     fakes = models.TargetVertex.objects.filter(outline=outline, fake=True)
     for target in fakes:
+        if target.required_off == 0:
+            continue
         parsed = write_out_outline.WriteTarget(target, outline)
         parsed.write_ram()
+        if parsed.end_up_offs:
+            break
 
     for target in targets:
+        if target.required_off == 0:
+            continue
         parsed = write_out_outline.WriteTarget(target, outline)
         parsed.write_ram()
+        if parsed.end_up_offs:
+            break
 
     # Nobles
     # write_out_outline_nobles(targets_general, outline, targets)
