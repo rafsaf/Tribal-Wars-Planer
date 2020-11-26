@@ -14,8 +14,116 @@ class WriteTarget:
         self.outline = outline
         self.end_up_offs = False
         self.end_up_nobles = False
+        self.index = 0
 
-    @basic.timing
+
+    def write_noble(self):
+        weights_max_update_lst = []
+        weights_create_lst = []
+
+        nobles_weight_max = self.sorted_weights_noble()
+        available = sum([weight.nobleman_left for weight in nobles_weight_max])
+        if available == 0:
+            self.end_up_nobles = True
+            return None
+        
+        choosen_by_the_god = [] # list with (weight_max, number_of_nobles_to_write) tuples
+
+        if self.target.mode_guide == "one": #one weight-one target prefer
+
+            while self.target.required_noble > 0 and len(nobles_weight_max) > 0:
+                exact = sorted([weight for weight in nobles_weight_max if weight.nobleman_left >= self.target.required_noble], key=lambda weight: (-weight.off_left, -weight.distance))
+                if len(exact) > 0: # there is a village with exact OR more number of nobles than required
+                    choosen_by_the_god.append( (exact[0], self.target.required_noble) )
+                    self.target.required_noble = 0
+                else:
+                    nobles_weight_max.sort(key=lambda weight: (-weight.off_left, -weight.distance))
+                    to_add = nobles_weight_max.pop(0)
+                    choosen_by_the_god.append((to_add, to_add.nobleman_left))
+                    self.target.required_noble -= to_add.nobleman_left
+        
+        elif self.target.mode_guide == "many": # optimal- one or many prefer
+            nobles_weight_max.sort(key=lambda weight: (-weight.off_left, -weight.distance))
+            while self.target.required_noble > 0 and len(nobles_weight_max) > 0:
+                to_add = nobles_weight_max.pop(0)
+                noble_to_add = min(to_add.nobleman_left, self.target.required_noble)
+                self.target.required_noble -= noble_to_add
+                choosen_by_the_god.append((to_add, noble_to_add))
+
+        elif self.target.mode_guide == "single": # only single nobles
+            nobles_weight_max.sort(key=lambda weight: (-weight.off_left, -weight.distance))
+            while self.target.required_noble > 0 and len(nobles_weight_max) > 0:
+                to_add = nobles_weight_max.pop(0)
+                self.target.required_noble -= 1
+                choosen_by_the_god.append((to_add, 1))
+
+        i = 0
+        for weight_max, noble_number in choosen_by_the_god:
+            if self.target.fake:
+                off = 0
+                big_off = 0
+                to_left = weight_max.off_left
+
+            elif weight_max.off_left < 200 * weight_max.nobleman_left:
+                off = weight_max.off_left // weight_max.nobleman_left
+                big_off = weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+                if weight_max.nobleman_left > noble_number:
+                    to_left = off * (weight_max.nobleman_left - noble_number)
+                else:
+                    to_left = 0
+
+            elif self.target.mode_division == "divide":
+                if weight_max.nobleman_left > noble_number:
+                    to_left = 200 * (weight_max.nobleman_left - noble_number)
+                else:
+                    to_left = 0
+                
+                off = (weight_max.off_left - to_left) // noble_number
+                big_off = weight_max.off_left - to_left - (off * (noble_number - 1))
+
+            elif self.target.mode_division == "not_divide":
+                if weight_max.nobleman_left > noble_number:
+                    to_left = 200 * (weight_max.nobleman_left - noble_number)
+                else:
+                    to_left = 0
+                off = 200
+                big_off = weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+
+            elif self.target.mode_division == "separatly":
+                off = 200
+                big_off = 200
+                to_left = weight_max.off_left - (off * (noble_number))
+            
+            for _ in range(noble_number):
+                if _ == 0:
+                    off_troops = big_off
+                else:
+                    off_troops = off
+
+                weight = models.WeightModel(
+                    target=self.target,
+                    player=weight_max.player,
+                    start=weight_max.start,
+                    state=weight_max,
+                    off=off_troops,
+                    distance=weight_max.distance,
+                    nobleman=1,
+                    order=i + self.index,
+                    first_line=weight_max.first_line,
+                )
+                i += 1
+                weights_create_lst.append(weight)
+
+            weight_max.off_state += weight_max.off_left - to_left
+            weight_max.off_left = to_left
+            weight_max.nobleman_state += noble_number
+            weight_max.nobleman_left = weight_max.nobleman_left - noble_number
+
+            weights_max_update_lst.append(weight_max)
+
+        models.WeightMaximum.objects.bulk_update(weights_max_update_lst, fields=["off_state", "off_left", "nobleman_state", "nobleman_left"])
+        models.WeightModel.objects.bulk_create(weights_create_lst)
+
     def write_ram(self):
         weights_max_update_lst = []
         weights_create_lst = []
@@ -36,7 +144,7 @@ class WriteTarget:
                 off=off,
                 distance=weight_max.distance,
                 nobleman=0,
-                order=i,
+                order=i + self.index,
                 first_line=weight_max.first_line,
             )
 
@@ -78,6 +186,7 @@ class WriteTarget:
         )
 
         if self.target.mode_off == "closest":
+            self.index = 30000
             weight_list = default_off_query.order_by("distance")[
                 : self.target.required_off
             ]
@@ -88,6 +197,7 @@ class WriteTarget:
             )
 
         if self.target.mode_off == "close":
+            self.index = 20000
             weight_list = list(
                 default_off_query.filter(
                     first_line=False,
@@ -106,6 +216,7 @@ class WriteTarget:
             )
 
         if self.target.mode_off == "random":
+            self.index = 10000
             weight_list = list(
                 default_off_query.filter(
                     first_line=False,
@@ -119,6 +230,7 @@ class WriteTarget:
             )
 
         if self.target.mode_off == "far":
+            self.index = 0
             weight_list = list(
                 default_off_query.filter(
                     first_line=False,
@@ -141,8 +253,8 @@ class WriteTarget:
         default_noble_query = models.WeightMaximum.objects.filter(
             outline=self.outline,
             nobleman_left__gte=1,
-            off_left__gte=100,
-            distance__lte=self.outline.initial_outline_target_dist,
+            off_left__gte=200,
+            
         )
 
         default_noble_query = default_noble_query.annotate(
@@ -154,9 +266,10 @@ class WriteTarget:
                 ** (1 / 2),
                 output_field=DecimalField(max_digits=2),
             )
-        )
+        ).filter(distance__lte=self.outline.initial_outline_target_dist)
 
         if self.target.mode_noble == "closest":
+            self.index = 70000
             weight_list = default_noble_query.order_by("distance")[
                 : 10
             ]
@@ -165,6 +278,7 @@ class WriteTarget:
             )
 
         if self.target.mode_noble == "close":
+            self.index = 60000
             weight_list = list(
                 default_noble_query.filter(
                     first_line=False,
@@ -177,6 +291,7 @@ class WriteTarget:
             )
 
         if self.target.mode_noble == "random":
+            self.index = 50000
             weight_list = list(
                 default_noble_query.filter(
                     first_line=False,
@@ -188,6 +303,7 @@ class WriteTarget:
             )
 
         if self.target.mode_noble == "far":
+            self.index = 40000
             weight_list = list(
                 default_noble_query.filter(
                     first_line=False,

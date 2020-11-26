@@ -1,7 +1,6 @@
 from django.core.paginator import Paginator
-from django.db.models import F
+from django.db.models import F, ExpressionWrapper, FloatField
 
-from .village import dist
 from base import models
 
 
@@ -9,6 +8,8 @@ class SortAndPaginRequest:
     def __init__(self, outline, GET_request: str, PAGE_request, target):
         self.outline = outline
         self.target = target.target
+        self.x_coord = target.coord_tuple()[0]
+        self.y_coord = target.coord_tuple()[1]
         self.page = PAGE_request
         VALID = [
             "distance",
@@ -37,7 +38,7 @@ class SortAndPaginRequest:
         return nonused_vertices
 
     def __pagin(self, lst_or_query):
-        paginator = Paginator(lst_or_query, 16)
+        paginator = Paginator(lst_or_query, 12)
         page_obj = paginator.get_page(self.page)
         return page_obj
 
@@ -45,67 +46,129 @@ class SortAndPaginRequest:
         query = self.__nonused()
 
         if self.sort == "distance":
-            query = list(query)
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            query.sort(key=lambda weight: weight.distance)
+            query = query.annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            ).order_by('distance')
+
             return self.__pagin(query)
 
         elif self.sort in {"-off_left", "-nobleman_left"}:
-            query = self.__pagin(query.order_by(self.sort))
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            return query
+            query = query.order_by(self.sort).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            )
+            return self.__pagin(query)
 
         elif self.sort == "-distance":
-            query = list(query)
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            query.sort(key=lambda weight: weight.distance, reverse=True)
+            query = query.annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            ).order_by('-distance')
+
             return self.__pagin(query)
 
         elif self.sort == "closest_offs":
-            query = list(query.filter(off_left__gte=self.outline.initial_outline_min_off))
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            query.sort(key=lambda weight: weight.distance)
+            query = query.filter(off_left__gte=self.outline.initial_outline_min_off).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            )
+
             return self.__pagin(query)
 
         elif self.sort == "farthest_offs":
-            query = list(query.filter(off_left__gte=self.outline.initial_outline_min_off))
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            query.sort(key=lambda weight: weight.distance, reverse=True)
+            query = query.filter(off_left__gte=self.outline.initial_outline_min_off).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            ).order_by("-distance")
+
             return self.__pagin(query)
 
         elif self.sort == "closest_noblemans":
-            query = list(query.filter(nobleman_left__gte=1))
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            query.sort(key=lambda weight: weight.distance)
+            query = query.filter(nobleman_left__gte=1).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            ).order_by("distance")
             return self.__pagin(query)
 
         elif self.sort == "farthest_noblemans":
-            query = list(query.filter(nobleman_left__gte=1))
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            query.sort(key=lambda weight: weight.distance, reverse=True)
+            query = query.filter(nobleman_left__gte=1).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            ).order_by("-distance")
+
             return self.__pagin(query)
 
         elif self.sort == "closest_noble_offs":
-            query = list(query.filter(
+            query = query.filter(
                 nobleman_left__gte=1,
-                off_left__gte=self.outline.initial_outline_min_off))
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            query.sort(key=lambda weight: weight.distance)
+                off_left__gte=self.outline.initial_outline_min_off).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            ).order_by("distance")
+
             return self.__pagin(query)
 
         elif self.sort == "farthest_noble_offs":
-            query = list(query.filter(
+            query = query.filter(
                 nobleman_left__gte=1,
-                off_left__gte=self.outline.initial_outline_min_off))
-            for weight in query:
-                weight.distance = round(dist(weight.start, self.target), 1)
-            query.sort(key=lambda weight: weight.distance, reverse=True)
+                off_left__gte=self.outline.initial_outline_min_off).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
+                    )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            ).order_by("-distance")
+
             return self.__pagin(query)

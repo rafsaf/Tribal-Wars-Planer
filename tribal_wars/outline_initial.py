@@ -95,7 +95,13 @@ def complete_outline(outline: models.Outline):
         parsed.write_ram()
         if parsed.end_up_offs:
             break
-
+    for target in targets:
+        if target.required_noble == 0:
+            continue
+        parsed = write_out_outline.WriteTarget(target, outline)
+        parsed.write_noble()
+        if parsed.end_up_nobles:
+            break
     for target in targets:
         if target.required_off == 0:
             continue
@@ -103,7 +109,13 @@ def complete_outline(outline: models.Outline):
         parsed.write_ram()
         if parsed.end_up_offs:
             break
-
+    for target in fakes:
+        if target.required_noble == 0:
+            continue
+        parsed = write_out_outline.WriteTarget(target, outline)
+        parsed.write_noble()
+        if parsed.end_up_nobles:
+            break
     # Nobles
     # write_out_outline_nobles(targets_general, outline, targets)
     # Nobles fake
