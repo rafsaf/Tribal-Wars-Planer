@@ -134,7 +134,7 @@ class Outline(models.Model):
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     
     initial_outline_players = models.TextField(blank=True, default="")
-    initial_outline_targets = models.TextField(blank=True, default="")
+    initial_outline_targets = models.TextField(blank=True, default="---")
     initial_outline_min_off = models.IntegerField(default=19000, validators=[MinValueValidator(1), MaxValueValidator(28000)])
     initial_outline_front_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(100)])
     initial_outline_target_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(150)])
@@ -167,7 +167,10 @@ class Outline(models.Model):
         Overview.objects.filter(outline=self).delete()
         result = self.result
         result.results_outline = ""
+        result.results_players = ""
+        result.results_sum_up = ""
         result.save()
+
         self.save()
 
 

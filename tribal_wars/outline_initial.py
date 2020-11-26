@@ -10,46 +10,46 @@ from tribal_wars import basic
 def make_outline(outline: models.Outline):
     """ Create only weight max models """
     # Remove instances in case of earlier exception
-    models.WeightMaximum.objects.filter(outline=outline).delete()
+    if models.WeightMaximum.objects.filter(outline=outline).count() == 0:
+        models.WeightMaximum.objects.filter(outline=outline).delete()
 
-    # Weight max model creating
-    weight_max_create_list = []
+        # Weight max model creating
+        weight_max_create_list = []
 
-    deff_troops = weight_utils.DefensiveTroops(outline=outline)
-    in_village_troops = deff_troops.in_village_dict()
+        deff_troops = weight_utils.DefensiveTroops(outline=outline)
+        in_village_troops = deff_troops.in_village_dict()
 
+        try:
+            for army in weight_utils.OffTroops(outline=outline):
 
-    try:
-        for army in weight_utils.OffTroops(outline=outline):
+                if army.coord in in_village_troops:
+                    in_army = in_village_troops[army.coord]
+                    in_off = in_army.off
+                    in_nobleman = in_army.nobleman
+                else:
+                    in_off = None
+                    in_nobleman = None
 
-            if army.coord in in_village_troops:
-                in_army = in_village_troops[army.coord]
-                in_off = in_army.off
-                in_nobleman = in_army.nobleman
-            else:
-                in_off = None
-                in_nobleman = None
-
-            weight_max_create_list.append(
-                models.WeightMaximum(
-                    outline_id=outline.id,
-                    player=army.player,
-                    start=army.coord,
-                    x_coord=int(army.coord[0:3]),
-                    y_coord=int(army.coord[4:7]),
-                    off_max=army.off,
-                    off_left=army.off,
-                    off_in_village=in_off,
-                    nobleman_max=army.nobleman,
-                    nobleman_left=army.nobleman,
-                    nobleman_in_village=in_nobleman,
-                    first_line=army.first_line,
-                    fake_limit=outline.initial_outline_fake_limit,
+                weight_max_create_list.append(
+                    models.WeightMaximum(
+                        outline_id=outline.id,
+                        player=army.player,
+                        start=army.coord,
+                        x_coord=int(army.coord[0:3]),
+                        y_coord=int(army.coord[4:7]),
+                        off_max=army.off,
+                        off_left=army.off,
+                        off_in_village=in_off,
+                        nobleman_max=army.nobleman,
+                        nobleman_left=army.nobleman,
+                        nobleman_in_village=in_nobleman,
+                        first_line=army.first_line,
+                        fake_limit=outline.initial_outline_fake_limit,
+                    )
                 )
-            )
-    except weight_utils.VillageOwnerDoesNotExist:
-        raise KeyError()
-    models.WeightMaximum.objects.bulk_create(weight_max_create_list)
+        except weight_utils.VillageOwnerDoesNotExist:
+            raise KeyError()
+        models.WeightMaximum.objects.bulk_create(weight_max_create_list)
 
     # Make targets
     # Remove instances in case of earlier exception

@@ -27,8 +27,11 @@ def initial_form(request, _id):
 
     returned after valid filled form earlier
 
-     """
+    """
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    if instance.off_troops == "":
+        request.session["error"] = gettext("Off collection empty!")
+        return redirect("base:planer_detail", _id)
     if instance.written == "active":
         return redirect("base:planer_initial", _id)
 
@@ -68,7 +71,10 @@ def initial_form(request, _id):
     form4.fields["mode_off"].initial = instance.mode_off
     form4.fields["mode_noble"].initial = instance.mode_noble
     form4.fields["mode_division"].initial = instance.mode_division
-
+    form4.fields["mode_guide"].initial = instance.mode_guide
+    form4.fields["initial_outline_fake_limit"].initial = instance.initial_outline_fake_limit
+    if models.WeightMaximum.objects.filter(outline=instance).count() == 0:
+        initial.make_outline(instance)
     if request.method == "POST":
         if "form1" in request.POST:
             if form1.is_valid():
@@ -126,6 +132,10 @@ def initial_form(request, _id):
                 instance.mode_guide = mode_guide
                 instance.initial_outline_fake_limit = fake_limit
                 instance.save()
+
+                models.TargetVertex.objects.filter(outline=instance).update(mode_off=mode_off, mode_noble=mode_noble, mode_division=mode_division, mode_guide=mode_guide)
+                models.WeightMaximum.objects.filter(outline=instance).update(fake_limit=fake_limit)
+
                 return redirect("base:planer_initial_form", _id)
 
     context = {

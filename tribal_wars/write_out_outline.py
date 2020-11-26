@@ -84,36 +84,44 @@ class WriteTarget:
                 reverse=True,
             )
 
-        elif self.target.mode_off == "close":
-            return sample(
-                sorted(
-                    default_off_query.filter(
+        if self.target.mode_off == "close":
+            weight_list = list(default_off_query.filter(
+                        first_line=False,
                         distance__gte=self.outline.initial_outline_front_dist
-                    ).order_by("distance")[: 2 * self.target.required_off],
-                    key=lambda item: item.distance,
-                    reverse=True,
-                ),
-                self.target.required_off,
+                    ).order_by("distance")[: 2 * self.target.required_off])
+            if len(weight_list) < self.target.required_off:
+                required = len(weight_list)
+            else:
+                required = self.target.required_off
+            return sorted(
+                sample(weight_list,
+                required,
+                ), key=lambda item: item.distance, reverse=True,
             )
 
-        elif self.target.mode_off == "random":
+        if self.target.mode_off == "random":
             return sorted(
-                default_off_query.filter(
+                list(default_off_query.filter(
+                    first_line=False,
                     distance__gte=self.outline.initial_outline_front_dist
-                ).order_by("?")[: self.target.required_off],
+                ).order_by("?")[: self.target.required_off]),
                 key=lambda item: item.distance,
                 reverse=True,
             )
 
-        elif self.target.mode_off == "far":
-            return sample(
-                sorted(
-                    default_off_query.filter(
+        if self.target.mode_off == "far":
+            weight_list = list(default_off_query.filter(
+                        first_line=False,
                         distance__gte=self.outline.initial_outline_front_dist
-                    ).order_by("-distance")[: 3 * self.target.required_off],
-                    key=lambda item: item.distance,
-                    reverse=True,
-                ),
-                self.target.required_off,
+                    ).order_by("-distance")[: 3 * self.target.required_off])
+            if len(weight_list) < self.target.required_off:
+                required = len(weight_list)
+            else:
+                required = self.target.required_off
+            return sorted(
+                sample(
+                    weight_list,
+                required
+                ), key=lambda item: item.distance, reverse=True,
             )
 

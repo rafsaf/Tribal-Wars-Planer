@@ -101,14 +101,22 @@ def get_legal_coords_outline(outline: models.Outline):
                     banned_coords.add(coord)
 
     legal_coords = ally_set - banned_coords
+    # back ofs
     starts = [f"{tup[0]}|{tup[1]}" for tup in legal_coords]
+
+    models.WeightMaximum.objects.filter(outline=outline, start__in=starts).update(first_line=False)
+    models.WeightMaximum.objects.filter(outline=outline).exclude(start__in=starts).update(first_line=True)
+
     all_weights = models.WeightMaximum.objects.filter(
         outline=outline, off_max__gte=outline.initial_outline_min_off
     )
 
     all_off = all_weights.count()
-    back_off = all_weights.filter(start__in=starts).count()
-    front_off = all_weights.exclude(start__in=starts).count()
+    back_off = all_weights.filter(start__in=starts)
+    back_off = back_off.count()
+
+    front_off = all_weights.exclude(start__in=starts)
+    front_off = front_off.count()
 
     snob_weights = models.WeightMaximum.objects.filter(
         outline=outline, nobleman_max__gte=1
