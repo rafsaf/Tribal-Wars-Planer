@@ -95,13 +95,13 @@
                     {% endfor %}
                   </tr>
                   <tr >
-                    <th>{% trans 'Offs near targets' %}</th>
+                    <th>{% trans 'Offs closer than max noble distance' %}</th>
                     {% for item in instance.avaiable_offs_near %}
                     <th> {{ item }} </th>
                     {% endfor %}
                   </tr>
                   <tr >
-                    <th>{% trans 'Nobles near targets' %}</th>
+                    <th>{% trans 'Nobles closer than max noble distance' %}</th>
                     {% for item in instance.avaiable_nobles_near %}
                     <th> {{ item }} </th>
                     {% endfor %}
@@ -205,6 +205,14 @@
                               <tr >
                                 <th>{% trans 'Nobles division' %}</th>
                                 <th> {{ instance.get_mode_division_display }} </th>
+                              </tr>
+                              <tr >
+                                <th>{% trans 'Nobles guidelines' %}</th>
+                                <th> {{ instance.get_mode_guide_display }} </th>
+                              </tr>
+                              <tr >
+                                <th>{% trans 'Fake limit per village' %}</th>
+                                <th> {{ instance.initial_outline_fake_limit }} </th>
                               </tr>
                               
             

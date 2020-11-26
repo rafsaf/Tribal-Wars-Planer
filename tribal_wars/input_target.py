@@ -33,6 +33,7 @@ class TargetsGeneralInput:
                         mode_off=self.outline.mode_off,
                         mode_noble=self.outline.mode_noble,
                         mode_division=self.outline.mode_division,
+                        mode_guide=self.outline.mode_guide,
                     )
                 )
 

@@ -110,6 +110,12 @@ class Outline(models.Model):
         ("separatly", gettext_lazy("Off and nobles separatly")),
     ]
 
+    NOBLE_GUIDELINES = [
+        ("one", gettext_lazy("Try send all nobles to one target")),
+        ("many", gettext_lazy("Nobles to one or many targets")),
+        ("single", gettext_lazy("Try single nobles from many villages")),
+    ]
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(null=True, blank=True)
     name = models.TextField()
@@ -132,7 +138,8 @@ class Outline(models.Model):
     initial_outline_min_off = models.IntegerField(default=19000, validators=[MinValueValidator(1), MaxValueValidator(28000)])
     initial_outline_front_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(100)])
     initial_outline_target_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(150)])
-    
+    initial_outline_fake_limit = models.IntegerField(default=4, validators=[MinValueValidator(0), MaxValueValidator(20)])
+
     off_troops = models.TextField(blank=True, default="",)
     deff_troops = models.TextField(blank=True, default="",)
 
@@ -144,6 +151,7 @@ class Outline(models.Model):
     mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
     mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
     mode_division = models.CharField(max_length=15, choices=MODE_DIVISION, default="not_divide")
+    mode_guide = models.CharField(max_length=15, choices=NOBLE_GUIDELINES, default="one")
 
     class Meta:
         ordering = ("-created",)
@@ -210,6 +218,7 @@ class WeightMaximum(models.Model):
     nobleman_left = models.IntegerField()
     nobleman_in_village = models.IntegerField(null=True, blank=True, default=None)
     first_line = models.BooleanField(default=False)
+    fake_limit = models.IntegerField(default=4, validators=[MinValueValidator(0), MaxValueValidator(20)])
 
     def __str__(self):
         return self.start
@@ -269,6 +278,12 @@ class TargetVertex(models.Model):
         ("separatly", gettext_lazy("Off and nobles separatly")),
     ]
 
+    NOBLE_GUIDELINES = [
+        ("one", gettext_lazy("Try send all nobles to one target")),
+        ("many", gettext_lazy("Nobles to one or many targets")),
+        ("single", gettext_lazy("Try single nobles from many villages")),
+    ]
+
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     outline_time = models.ForeignKey(
         OutlineTime, on_delete=models.SET_NULL, null=True, default=None
@@ -283,6 +298,7 @@ class TargetVertex(models.Model):
     mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
     mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
     mode_division = models.CharField(max_length=15, choices=MODE_DIVISION, default="not_divide")
+    mode_guide = models.CharField(max_length=15, choices=NOBLE_GUIDELINES, default="one")
 
     def __str__(self):
         return self.target

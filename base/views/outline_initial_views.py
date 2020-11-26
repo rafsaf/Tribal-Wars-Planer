@@ -118,9 +118,13 @@ def initial_form(request, _id):
                 mode_off = request.POST.get("mode_off")
                 mode_noble = request.POST.get("mode_noble")
                 mode_division = request.POST.get("mode_division")
+                mode_guide = request.POST.get("mode_guide")
+                fake_limit = request.POST.get("initial_outline_fake_limit")
                 instance.mode_off = mode_off
                 instance.mode_noble = mode_noble
                 instance.mode_division = mode_division
+                instance.mode_guide = mode_guide
+                instance.initial_outline_fake_limit = fake_limit
                 instance.save()
                 return redirect("base:planer_initial_form", _id)
 

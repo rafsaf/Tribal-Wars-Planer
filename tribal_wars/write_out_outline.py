@@ -14,39 +14,57 @@ class WriteTarget:
         self.outline = outline
 
     @basic.timing
-    def write(self):
+    def write_ram(self):
         weights_max_update_lst = []
         weights_create_lst = []
 
         for i, weight_max in enumerate(self.sorted_weights()):
+            if self.target.fake:
+                off = 100
+                fake_limit = 1
+            else:
+                off = weight_max.off_left
+                fake_limit = 0
+
             weight = models.WeightModel(
                 target=self.target,
                 player=weight_max.player,
                 start=weight_max.start,
                 state=weight_max,
-                off=weight_max.off_max,
+                off=off,
                 distance=weight_max.distance,
                 nobleman=0,
                 order=i,
                 first_line=weight_max.first_line,
             )
 
-            weight_max.off_state = weight_max.off_max
-            weight_max.off_left = 0
+            weight_max.off_state += off
+            weight_max.off_left -= off
+            weight_max.fake_limit -= fake_limit
 
             weights_create_lst.append(weight)
             weights_max_update_lst.append(weight_max)
 
         models.WeightMaximum.objects.bulk_update(
-            weights_max_update_lst, fields=["off_state", "off_left"]
+            weights_max_update_lst,
+            fields=["off_state", "off_left", "fake_limit"],
         )
         models.WeightModel.objects.bulk_create(weights_create_lst)
 
     def sorted_weights(self):
-        default_off_query = models.WeightMaximum.objects.filter(
-            outline=self.outline,
-            off_max__gte=self.outline.initial_outline_min_off,
-        ).annotate(
+        if self.target.fake:
+            default_off_query = models.WeightMaximum.objects.filter(
+                fake_limit__gte=1,
+                outline=self.outline,
+                off_left__gte=self.outline.initial_outline_min_off,
+            )
+        else:
+            default_off_query = models.WeightMaximum.objects.filter(
+                outline=self.outline,
+                off_left__gte=self.outline.initial_outline_min_off,
+            )
+
+        default_off_query = default_off_query.annotate(
             distance=ExpressionWrapper(
                 (
                     (F("x_coord") - self.x_coord) ** 2
@@ -56,6 +74,7 @@ class WriteTarget:
                 output_field=DecimalField(max_digits=2),
             )
         )
+
         if self.target.mode_off == "closest":
             return sorted(
                 default_off_query.order_by("distance")[
@@ -91,9 +110,7 @@ class WriteTarget:
                 sorted(
                     default_off_query.filter(
                         distance__gte=self.outline.initial_outline_front_dist
-                    ).order_by("-distance")[
-                        : 3 * self.target.required_off
-                    ],
+                    ).order_by("-distance")[: 3 * self.target.required_off],
                     key=lambda item: item.distance,
                     reverse=True,
                 ),

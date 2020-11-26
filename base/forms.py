@@ -257,7 +257,7 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Distance from front line"
             ),
             "initial_outline_target_dist": gettext_lazy(
-                "Distance near targets"
+                "Max Distance for nobles"
             ),
         }
 
@@ -280,11 +280,14 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_off",
             "mode_noble",
             "mode_division",
+            "mode_guide",
+            "initial_outline_fake_limit",
         ]
         widgets = {
             "mode_off": forms.RadioSelect,
             "mode_noble": forms.RadioSelect,
             "mode_division": forms.RadioSelect,
+            "mode_guide": forms.RadioSelect,
         }
 
 #    def __init__(self, *args, **kwargs):

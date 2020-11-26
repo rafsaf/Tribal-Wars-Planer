@@ -44,6 +44,7 @@ def make_outline(outline: models.Outline):
                     nobleman_left=army.nobleman,
                     nobleman_in_village=in_nobleman,
                     first_line=army.first_line,
+                    fake_limit=outline.initial_outline_fake_limit,
                 )
             )
     except weight_utils.VillageOwnerDoesNotExist:
@@ -77,29 +78,32 @@ def make_outline(outline: models.Outline):
 
 def complete_outline(outline: models.Outline):
     """Auto write out outline """
-    user_input = outline.initial_outline_targets.split("---")
-    
-    targets_general = target_utils.TargetsGeneral(
-        outline_targets=user_input[0].strip(), world=outline.world,
-    )
-    fakes_general = target_utils.TargetsGeneral(
-        outline_targets=user_input[1].strip(), world=outline.world,
-    )
+    # user_input = outline.initial_outline_targets.split("---")
+    # 
+    # targets_general = target_utils.TargetsGeneral(
+    #     outline_targets=user_input[0].strip(), world=outline.world,
+    # )
+    # fakes_general = target_utils.TargetsGeneral(
+    #     outline_targets=user_input[1].strip(), world=outline.world,
+    # )
 
     # Auto writing outline for user
-    targets = list(
-        models.TargetVertex.objects.filter(outline=outline, fake=False)
-    )
-    f_targets = list(
-        models.TargetVertex.objects.filter(outline=outline, fake=True)
-    )
+    targets = models.TargetVertex.objects.filter(outline=outline, fake=False)
+    fakes = models.TargetVertex.objects.filter(outline=outline, fake=True)
+    for target in fakes:
+        parsed = write_out_outline.WriteTarget(target, outline)
+        parsed.write_ram()
+
+    for target in targets:
+        parsed = write_out_outline.WriteTarget(target, outline)
+        parsed.write_ram()
 
     # Nobles
-    write_out_outline_nobles(targets_general, outline, targets)
+    # write_out_outline_nobles(targets_general, outline, targets)
     # Nobles fake
-    write_out_outline_nobles(fakes_general, outline, f_targets, True)
+    # write_out_outline_nobles(fakes_general, outline, f_targets, True)
     # Fake offs
-    write_out_outline_offs(fakes_general, outline, f_targets, True)
+    # write_out_outline_offs(fakes_general, outline, f_targets, True)
     # Offs
     # write_out_outline_offs(targets_general, outline, targets)
 
@@ -124,7 +128,7 @@ def write_out_outline_nobles(targets_general, outline, targets, fake=False):
 
     for target in targets:
         xxxxxxxxxxxxxxxxxxxx = write_out_outline.WriteTarget(target, outline)
-        xxxxxxxxxxxxxxxxxxxx.write()
+        xxxxxxxxxxxxxxxxxxxx.write_ram()
         index_error = False
         single_target: target_utils.SingleTarget = targets_general.single(
             target.target
