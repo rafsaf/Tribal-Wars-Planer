@@ -130,7 +130,7 @@ def outline_detail_results(request, _id):
     form1 = forms.SettingMessageForm(request.POST or None)
     form1.fields["default_show_hidden"].initial = instance.default_show_hidden
     form1.fields["title_message"].initial = instance.title_message
-    form1.fields["text_message"].initial = instance.text_message.replace("%0A", "\r\n")
+    form1.fields["text_message"].initial = instance.text_message.replace("%0A", "\r\n").replace("+", " ")
 
 
     if request.method == "POST":
@@ -146,7 +146,7 @@ def outline_detail_results(request, _id):
                 text_message = request.POST.get("text_message")
                 instance.default_show_hidden = default_show_hidden
                 instance.title_message = title_message
-                instance.text_message = text_message.replace("\r\n", "%0A")
+                instance.text_message = text_message.replace("\r\n", "%0A").replace(" ", "+")
                 instance.save()
 
                 overviews_update_lst = []
