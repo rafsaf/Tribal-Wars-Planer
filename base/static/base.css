@@ -89,7 +89,7 @@
 }
 
 #sidebar-wrapper .list-group {
-    width: 13rem;
+    width: 15rem;
 }
 
 #page-content-wrapper {
@@ -97,7 +97,7 @@
 }
 
 #wrapper #sidebar-wrapper.toggled {
-    margin-left: -13rem;
+    margin-left: -15rem;
 }
 
 @media (min-width: 992px) {
@@ -109,7 +109,7 @@
         width: 100%;
     }
     #wrapper #sidebar-wrapper.toggled {
-        margin-left: -13rem;
+        margin-left: -15rem;
     }
 }
 
