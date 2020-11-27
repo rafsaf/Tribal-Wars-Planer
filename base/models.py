@@ -35,6 +35,17 @@ class World(models.Model):
     def __str__(self):
         return str(self.title)
 
+    def tw_stats_link_to_village(self, village_id):
+        if self.classic:
+            short = f"plc{self.world}"
+        else:
+            short = f"pl{self.world}"
+
+        return (
+            f"https://pl.twstats.com/{short}/index.php?"
+            f"page=village&id={village_id}"
+        )
+
     class Meta:
         ordering = ("-world",)
 
@@ -132,13 +143,22 @@ class Outline(models.Model):
     )
     ally_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
-    
+
     initial_outline_players = models.TextField(blank=True, default="")
     initial_outline_targets = models.TextField(blank=True, default="---")
-    initial_outline_min_off = models.IntegerField(default=19000, validators=[MinValueValidator(1), MaxValueValidator(28000)])
-    initial_outline_front_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(100)])
-    initial_outline_target_dist = models.IntegerField(default=12, validators=[MinValueValidator(0), MaxValueValidator(150)])
-    initial_outline_fake_limit = models.IntegerField(default=4, validators=[MinValueValidator(0), MaxValueValidator(20)])
+    initial_outline_min_off = models.IntegerField(
+        default=19000,
+        validators=[MinValueValidator(1), MaxValueValidator(28000)],
+    )
+    initial_outline_front_dist = models.IntegerField(
+        default=12, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
+    initial_outline_target_dist = models.IntegerField(
+        default=12, validators=[MinValueValidator(0), MaxValueValidator(150)]
+    )
+    initial_outline_fake_limit = models.IntegerField(
+        default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
+    )
 
     off_troops = models.TextField(blank=True, default="",)
     deff_troops = models.TextField(blank=True, default="",)
@@ -148,10 +168,26 @@ class Outline(models.Model):
     avaiable_offs_near = ArrayField(models.IntegerField(), default=list)
     avaiable_nobles_near = ArrayField(models.IntegerField(), default=list)
 
-    mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
-    mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
-    mode_division = models.CharField(max_length=15, choices=MODE_DIVISION, default="not_divide")
-    mode_guide = models.CharField(max_length=15, choices=NOBLE_GUIDELINES, default="one")
+    mode_off = models.CharField(
+        max_length=15, choices=MODE_OFF, default="random"
+    )
+    mode_noble = models.CharField(
+        max_length=15, choices=MODE_NOBLE, default="closest"
+    )
+    mode_division = models.CharField(
+        max_length=15, choices=MODE_DIVISION, default="not_divide"
+    )
+    mode_guide = models.CharField(
+        max_length=15, choices=NOBLE_GUIDELINES, default="one"
+    )
+
+    filter_weights_min = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(30000)]
+    )
+    filter_weights_max = models.IntegerField(
+        default=30000,
+        validators=[MinValueValidator(0), MaxValueValidator(30000)],
+    )
 
     class Meta:
         ordering = ("-created",)
@@ -198,10 +234,13 @@ class Documentation(models.Model):
     language = models.CharField(max_length=2, default="pl")
 
     def __str__(self):
-        return f'{self.title}_{self.language}'
-    
+        return f"{self.title}_{self.language}"
+
     class Meta:
-        ordering = ("-language", "title",)
+        ordering = (
+            "-language",
+            "title",
+        )
 
 
 class WeightMaximum(models.Model):
@@ -219,9 +258,13 @@ class WeightMaximum(models.Model):
     nobleman_max = models.IntegerField()
     nobleman_state = models.IntegerField(default=0)
     nobleman_left = models.IntegerField()
-    nobleman_in_village = models.IntegerField(null=True, blank=True, default=None)
+    nobleman_in_village = models.IntegerField(
+        null=True, blank=True, default=None
+    )
     first_line = models.BooleanField(default=False)
-    fake_limit = models.IntegerField(default=4, validators=[MinValueValidator(0), MaxValueValidator(20)])
+    fake_limit = models.IntegerField(
+        default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
+    )
 
     def __str__(self):
         return self.start
@@ -294,14 +337,22 @@ class TargetVertex(models.Model):
     target = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
     fake = models.BooleanField(default=False)
-    
+
     required_off = models.IntegerField(default=0)
     required_noble = models.IntegerField(default=0)
 
-    mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
-    mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
-    mode_division = models.CharField(max_length=15, choices=MODE_DIVISION, default="not_divide")
-    mode_guide = models.CharField(max_length=15, choices=NOBLE_GUIDELINES, default="one")
+    mode_off = models.CharField(
+        max_length=15, choices=MODE_OFF, default="random"
+    )
+    mode_noble = models.CharField(
+        max_length=15, choices=MODE_NOBLE, default="closest"
+    )
+    mode_division = models.CharField(
+        max_length=15, choices=MODE_DIVISION, default="not_divide"
+    )
+    mode_guide = models.CharField(
+        max_length=15, choices=NOBLE_GUIDELINES, default="one"
+    )
 
     def __str__(self):
         return self.target
@@ -310,8 +361,10 @@ class TargetVertex(models.Model):
         return reverse(
             "base:planer_initial_detail", args=[self.outline_id, self.id]
         )
+
     def coord_tuple(self):
         return (int(self.target[0:3]), int(self.target[4:7]))
+
 
 class WeightModel(models.Model):
     """ Command between start and target """

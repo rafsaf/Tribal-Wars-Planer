@@ -397,6 +397,12 @@ def initial_target(request, id1, id2):
         return Http404()
 
     target = get_object_or_404(models.TargetVertex, pk=id2)
+    x = int(target.target[0:3])
+    y = int(target.target[4:7])
+    world = models.World.objects.get(world=instance.world)
+    village_id = models.VillageModel.objects.get(world=world.world, x_coord=x, y_coord=y).village_id
+
+    link_to_tw = world.tw_stats_link_to_village(village_id)
 
     result_lst = models.WeightModel.objects.filter(target=target).order_by(
         "order"
@@ -414,7 +420,23 @@ def initial_target(request, id1, id2):
 
     sort = sort_obj.sort
     # forms
+    filter_form = forms.SetNewOutlineFilters(request.POST or None)
+    filter_form.fields["filter_weights_min"].initial = instance.filter_weights_min
+    filter_form.fields["filter_weights_max"].initial = instance.filter_weights_max
+
     if request.method == "POST":
+        if "form-filter" in request.POST:
+            if filter_form.is_valid():
+                minimum = request.POST.get("filter_weights_min")
+                maximum = request.POST.get("filter_weights_max")
+                instance.filter_weights_min = minimum
+                instance.filter_weights_max = maximum
+                instance.save()
+                return redirect(
+                    reverse("base:planer_initial_detail", args=[id1, id2])
+                    + f"?page={page_obj.number}&sort={sort}"
+                )
+
         if "form" in request.POST:
             form = forms.WeightForm(request.POST)
             if form.is_valid():
@@ -468,6 +490,8 @@ def initial_target(request, id1, id2):
                 model.paint = "paint"
                 break
     context = {
+        "filter_form": filter_form,
+        "link": link_to_tw,
         "instance": instance,
         "target": target,
         "result_lst": result_lst,
@@ -532,3 +556,12 @@ def complete_outline(request, id1):
     return redirect(
         reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu"
     )
+
+
+@login_required
+def update_outline_troops(request, id1):
+    instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
+    models.WeightMaximum.objects.all().delete()
+    initial.make_outline(outline=instance)
+    instance.save()
+    return redirect("base:planer_initial_form", id1)

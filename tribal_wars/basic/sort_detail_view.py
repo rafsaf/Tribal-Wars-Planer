@@ -33,7 +33,10 @@ class SortAndPaginRequest:
     def __nonused(self):
         nonused_vertices = models.WeightMaximum.objects.filter(
             outline=self.outline
-        ).exclude(off_left=0, nobleman_left=0)
+        ).exclude(off_left=0, nobleman_left=0).filter(
+            off_left__gte=self.outline.filter_weights_min,
+            off_left__lte=self.outline.filter_weights_max,
+        )
 
         return nonused_vertices
 

@@ -208,13 +208,13 @@
             </div>
             
             <div class="col-12 col-lg-8 d-flex flex-column">
-                    <table class="table-responsive" style="overflow-x: auto;">
-                    <table class="table table-sm table-bordered ">
+                    
+                    <table class="table table-sm table-bordered mb-1">
                         <thead>
                           <tr>
                             <th scope="col">{% trans 'Player' %}</th>
                             <th scope="col">{% trans 'Target' %}</th>
-                            <th scope="col">{% trans 'TW Stats' %}</th>
+                            <th scope="col" class="text-nowrap">{% trans 'TW Stats' %}</th>
                             <th scope="col">{% trans 'Troops from' %}</th>
                             <th scope="col">{% trans 'Troops to' %}</th>
                             <th scope="col">{% trans 'Save' %}</th>
@@ -225,27 +225,31 @@
                           <tr>
                             <th><h4><span class="badge badge-pill badge-info">{{target.player}}</span></h4></th>
                             <th><h4><span class="badge badge-secondary">{{target.target}}</span></h4></th>
-                            <td><h5><a href='xdd' style="color: #804000;font-weight:700;font-family:SansationBold;">Tw stats</a></h5></td>
+                            <td class="text-nowrap"><h5><a rel="noopener" target="_blank" href="{{link}}" style="color: #804000;font-weight:700;font-family:SansationBold;">TW Stats</a></h5></td>
+                            <form method="POST">
+                                {% csrf_token %}
+                            
                             <td>
-                                <input type="number" name="initial_outline_min_off" value="19000" class="numberinput form-control" required id="id_initial_outline_min_off">
+                                {{filter_form.filter_weights_min}}
                             </td>
                             <td>
-                                <input type="number" name="initial_outline_min_off" value="21000" class="numberinput form-control" required id="id_initial_outline_min_off">
+                                {{filter_form.filter_weights_max}}
                             </td>
                             <td>
-                                <button class="btn btn-outline-ocean">
-                                    Save
+                                <button name="form-filter" type="submit" class="btn btn-ocean btn-sm">
+                                    {% trans 'Save' %}
                                 </button>
                             </td>
+                            </form>
                           </tr>
                         </tbody>
                       </table>
-                    </table>
+                    
                 
-                <div>
-                    <div class="d-none d-lg-block">
-                    <nav aria-label="pagination" id="pagination" >
-                        <ul class="pagination">
+                
+                    <div class="d-none d-lg-block" >
+                    <nav aria-label="pagination" id="pagination">
+                        <ul class="pagination mb-2">
                             <li class="page-item">
                                 <div class="dropdown">
                                     <button class="btn btn-info dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
@@ -307,14 +311,14 @@
 
                         </ul>
                     </nav>
-                    </div>
-
+                    
+                </div>
                     <div class="d-block d-lg-none my-3"></div>
                     <div class="container-fluid" style="overflow-y: auto; height:calc(67vh) !important;">
                         <div class="row">
                             {% for weight in page_obj %}
                             <div class="card col-12 col-md-6 col-lg-4 col-xl-3 front-{{weight.first_line}}">
-                                <div class="card-body" style="height:22vh;padding-top:1px;padding-bottom:1px">
+                                <div class="card-body" style="padding-top:1px;padding-bottom:0px">
                                     <div class="d-flex row justify-content-center">
                                         <h5>
                                             <span class="badge badge-pill badge-info">{{weight.player}}</span>
@@ -331,7 +335,7 @@
                                             <form method="POST" action="{% url 'base:planer_add_first' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
                                                 {% csrf_token %}
                                                 <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
-                      <svg width="2.1em" height="2.1em" viewBox="0 0 16 16" class="bi bi-arrow-up-square" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
+                      <svg  width="2.1em" height="2.1em" viewBox="0 0 16 16" class="bi bi-arrow-up-square" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                         <path fill-rule="evenodd" d="M4.646 8.354a.5.5 0 0 0 .708 0L8 5.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 0 .708z" />
                         <path fill-rule="evenodd" d="M8 11.5a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-1 0v5a.5.5 0 0 0 .5.5z" />
@@ -393,7 +397,7 @@
                     </div>
 
 
-                </div>
+                
             </div>
         </div>
 

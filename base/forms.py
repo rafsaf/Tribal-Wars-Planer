@@ -273,6 +273,20 @@ class SettingDateForm(forms.ModelForm):
         }
 
 
+class SetNewOutlineFilters(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "filter_weights_min",
+            "filter_weights_max",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(SetNewOutlineFilters, self).__init__(*args, **kwargs)
+        self.fields["filter_weights_min"].widget.attrs["class"] = "form-control"
+        self.fields["filter_weights_max"].widget.attrs["class"] = "form-control"
+
+
 class ModeOutlineForm(forms.ModelForm):
     class Meta:
         model = models.Outline
