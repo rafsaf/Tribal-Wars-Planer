@@ -35,22 +35,34 @@ def legal_coords_near_targets(outline: models.Outline):
         outline=outline, off_max__gte=outline.initial_outline_min_off
     )
 
-    front_off = all_weights.filter(start__in=starts).count()
+    all_off = all_weights.filter(start__in=starts).count()
+    front_off = all_weights.filter(start__in=starts, first_line=True).count()
+    back_off = all_weights.filter(start__in=starts, first_line=False).count()
 
 
     snob_weights = models.WeightMaximum.objects.filter(
         outline=outline, nobleman_max__gte=1
     )
 
-    front_noble = snob_weights.filter(start__in=starts).aggregate(
+    all_noble = snob_weights.filter(start__in=starts).aggregate(
+        Sum("nobleman_max")
+    )["nobleman_max__sum"]
+    front_noble = snob_weights.filter(start__in=starts, first_line=True).aggregate(
+        Sum("nobleman_max")
+    )["nobleman_max__sum"]
+    back_noble = snob_weights.filter(start__in=starts, first_line=False).aggregate(
         Sum("nobleman_max")
     )["nobleman_max__sum"]
 
+    if all_noble is None:
+        front_noble = 0
     if front_noble is None:
         front_noble = 0
+    if back_noble is None:
+        front_noble = 0
 
-    outline.avaiable_nobles_near = [front_noble]
-    outline.avaiable_offs_near = [front_off]
+    outline.avaiable_nobles_near = [all_noble, front_noble, back_noble]
+    outline.avaiable_offs_near = [all_off, front_off, back_off]
     outline.save()
 
 def get_legal_coords_outline(outline: models.Outline):

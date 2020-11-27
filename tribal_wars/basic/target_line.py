@@ -89,12 +89,12 @@ class TargetsOneLine:
 
         # rest two matches are not integers
         if len(split_line) == 3:
-            if not split_line[1].isnumeric() or not split_line[2].isnumeric():
+            if not self.split_is_valid(split_line[1]) or not self.split_is_valid(split_line[2]):
                 raise SeparateLineException()
 
         # only one match after coord
         if len(split_line) == 2:
-            if not split_line[1].isnumeric():
+            if not self.split_is_valid(split_line[1]):
                 raise SeparateLineException
             self.line += ':0'
 
@@ -103,3 +103,17 @@ class TargetsOneLine:
             self.line += ':0:0'
 
         return (coord, self.line)
+
+    def split_is_valid(self, split_line: str):
+        # valids are numeric and 0|0|0|0 only
+        if split_line.isnumeric():
+            return True
+
+        new = split_line.split("|")
+        if len(new) != 4:
+            return False
+        for item in new:
+            if not item.isnumeric():
+                return False
+        return True
+

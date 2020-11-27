@@ -18,7 +18,7 @@ class AdminWeightModel(admin.ModelAdmin):
 
 @admin.register(models.TargetVertex)
 class AdminTargetVertex(admin.ModelAdmin):
-    list_display = ["outline", "target", "player", "outline_time"]
+    list_display = ["outline", "target", "player", "outline_time", "exact_off", "exact_noble"]
 
 
 @admin.register(models.OutlineTime)

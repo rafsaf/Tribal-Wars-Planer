@@ -260,7 +260,38 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Max Distance for nobles"
             ),
         }
+        help_texts = {
+            "initial_outline_min_off": gettext_lazy("Greater than or equal to 1 and less than or equal to 28000."),
+            "initial_outline_front_dist": gettext_lazy(
+                "Greater than or equal to 0 and less than or equal to 100."
+            ),
+            "initial_outline_target_dist": gettext_lazy(
+                "Greater than or equal to 0 and less than or equal to 150."
+            ),
+        }
 
+
+class SettingMessageForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "default_show_hidden",
+            "title_message",
+            "text_message",
+        ]
+        labels = {
+            "default_show_hidden": gettext_lazy("Show all hidden"),
+            "title_message": gettext_lazy("Title of message:"),
+            "text_message": gettext_lazy("Content of message:"),
+        }
+        help_texts = {
+            "title_message": gettext_lazy("Maximum length: 50"),
+            "text_message": gettext_lazy("Maximum length: 300"),
+
+        }
+        widgets = {
+            "text_message": forms.Textarea(),
+        }
 
 class SettingDateForm(forms.ModelForm):
     class Meta:
@@ -279,12 +310,14 @@ class SetNewOutlineFilters(forms.ModelForm):
         fields = [
             "filter_weights_min",
             "filter_weights_max",
+            "filter_card_number",
         ]
 
     def __init__(self, *args, **kwargs):
         super(SetNewOutlineFilters, self).__init__(*args, **kwargs)
         self.fields["filter_weights_min"].widget.attrs["class"] = "form-control"
         self.fields["filter_weights_max"].widget.attrs["class"] = "form-control"
+        self.fields["filter_card_number"].widget.attrs["class"] = "form-control"
 
 
 class ModeOutlineForm(forms.ModelForm):
@@ -297,6 +330,13 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide",
             "initial_outline_fake_limit",
         ]
+        labels = {
+            "mode_off": gettext_lazy("Choose the distance of the written offs:"),
+            "mode_noble": gettext_lazy("Choose the distance of the written offs:"),
+            "mode_division": gettext_lazy("Choose how to split offs with nobles:"),
+            "mode_guide": gettext_lazy("Choose prefered way of writing required nobles:"),
+            "initial_outline_fake_limit": gettext_lazy("Maximum number of fakes from one off village:"),
+        }
         widgets = {
             "mode_off": forms.RadioSelect,
             "mode_noble": forms.RadioSelect,
@@ -310,6 +350,28 @@ class ModeOutlineForm(forms.ModelForm):
 #        self.fields["mode_noble"].widget.attrs["class"] = "form-check"
 #        self.fields["mode_division"].widget.attrs["class"] = "form-check"
 
+
+class ModeTargetSetForm(forms.ModelForm):
+    class Meta:
+        model = models.TargetVertex
+        fields = [
+            "mode_off",
+            "mode_noble",
+            "mode_division",
+            "mode_guide",
+        ]
+        widgets = {
+            "mode_off": forms.RadioSelect,
+            "mode_noble": forms.RadioSelect,
+            "mode_division": forms.RadioSelect,
+            "mode_guide": forms.RadioSelect,
+        }
+        labels = {
+            "mode_off": "",
+            "mode_noble": "",
+            "mode_division": "",
+            "mode_guide": "",
+        }
 
 class WeightForm(forms.Form):
     """ Change weight model """

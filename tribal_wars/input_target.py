@@ -22,14 +22,30 @@ class TargetsGeneralInput:
         if not self.target_text == ['']:
             for line in self.target_text:
                 line = line.split(":")
+                if line[1].isnumeric():
+                    required_off = line[1]
+                    exact_off = list()
+                else:
+                    required_off = 0
+                    exact_off = line[1].split("|")
+
+                if line[2].isnumeric():
+                    required_noble = line[2]
+                    exact_noble = list()
+                else:
+                    required_noble = 0
+                    exact_noble = line[2].split("|")
+
                 self.targets.append(
                     models.TargetVertex(
                         outline=self.outline,
                         target=line[0],
                         fake=self.fake,
                         player=self.player(line[0]),
-                        required_off=line[1],
-                        required_noble=line[2],
+                        required_off=required_off,
+                        required_noble=required_noble,
+                        exact_off=exact_off,
+                        exact_noble=exact_noble,
                         mode_off=self.outline.mode_off,
                         mode_noble=self.outline.mode_noble,
                         mode_division=self.outline.mode_division,

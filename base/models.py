@@ -188,6 +188,13 @@ class Outline(models.Model):
         default=30000,
         validators=[MinValueValidator(0), MaxValueValidator(30000)],
     )
+    filter_card_number = models.IntegerField(
+        default=12,
+        validators=[MinValueValidator(1), MaxValueValidator(40)],
+    )
+    default_show_hidden = models.BooleanField(default=False)
+    title_message = models.CharField(max_length=50, default="Cele Akcja")
+    text_message = models.CharField(max_length=300, default="", blank=True)
 
     class Meta:
         ordering = ("-created",)
@@ -340,6 +347,9 @@ class TargetVertex(models.Model):
 
     required_off = models.IntegerField(default=0)
     required_noble = models.IntegerField(default=0)
+
+    exact_off = ArrayField(models.IntegerField(), default=list, size=4)
+    exact_noble = ArrayField(models.IntegerField(), default=list, size=4)
 
     mode_off = models.CharField(
         max_length=15, choices=MODE_OFF, default="random"

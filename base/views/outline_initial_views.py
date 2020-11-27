@@ -50,29 +50,6 @@ def initial_form(request, _id):
     )[0].main_page
     example = markdownify(example)
 
-    form1 = forms.InitialOutlineForm(
-        request.POST or None, world=instance.world
-    )
-
-    form2 = forms.AvailableTroopsForm(request.POST or None)
-    form3 = forms.SettingDateForm(request.POST or None)
-    form4 = forms.ModeOutlineForm(request.POST or None)
-
-    form1.fields["target"].initial = instance.initial_outline_targets
-    form2.fields[
-        "initial_outline_front_dist"
-    ].initial = instance.initial_outline_front_dist
-    form2.fields[
-        "initial_outline_target_dist"
-    ].initial = instance.initial_outline_target_dist
-    form2.fields[
-        "initial_outline_min_off"
-    ].initial = instance.initial_outline_min_off
-    form4.fields["mode_off"].initial = instance.mode_off
-    form4.fields["mode_noble"].initial = instance.mode_noble
-    form4.fields["mode_division"].initial = instance.mode_division
-    form4.fields["mode_guide"].initial = instance.mode_guide
-    form4.fields["initial_outline_fake_limit"].initial = instance.initial_outline_fake_limit
     if models.WeightMaximum.objects.filter(outline=instance).count() == 0:
         try:
             initial.make_outline(instance)
@@ -89,8 +66,41 @@ def initial_form(request, _id):
             )
             return redirect("base:planer_detail", _id)
 
+    form1 = forms.InitialOutlineForm(None, world=instance.world)
+
+    form2 = forms.AvailableTroopsForm(None)
+    form3 = forms.SettingDateForm(None)
+    form4 = forms.ModeOutlineForm(None)
+
+    targets = models.TargetVertex.objects.filter(outline=instance).order_by("id")
+    len_targets = len(targets)
+
+    formset_select = formset_factory(
+            form=forms.ModeTargetSetForm, extra=len_targets, max_num=len_targets
+        )
+
+    form1.fields["target"].initial = instance.initial_outline_targets
+    form2.fields[
+        "initial_outline_front_dist"
+    ].initial = instance.initial_outline_front_dist
+    form2.fields[
+        "initial_outline_target_dist"
+    ].initial = instance.initial_outline_target_dist
+    form2.fields[
+        "initial_outline_min_off"
+    ].initial = instance.initial_outline_min_off
+    form4.fields["mode_off"].initial = instance.mode_off
+    form4.fields["mode_noble"].initial = instance.mode_noble
+    form4.fields["mode_division"].initial = instance.mode_division
+    form4.fields["mode_guide"].initial = instance.mode_guide
+    form4.fields["initial_outline_fake_limit"].initial = instance.initial_outline_fake_limit
+
+
+    
+
     if request.method == "POST":
         if "form1" in request.POST:
+            form1 = forms.InitialOutlineForm(request.POST, world=instance.world)
             if form1.is_valid():
                 instance.initial_outline_targets = form1.clean_target()
                 instance.save()
@@ -114,6 +124,7 @@ def initial_form(request, _id):
                 return redirect("base:planer_initial_form", _id)
 
         if "form2" in request.POST:
+            form2 = forms.AvailableTroopsForm(request.POST)
             if form2.is_valid():
                 min_off = request.POST.get("initial_outline_min_off")
                 radius = request.POST.get("initial_outline_front_dist")
@@ -127,6 +138,7 @@ def initial_form(request, _id):
                 return redirect("base:planer_initial_form", _id)
 
         if "form3" in request.POST:
+            form3 = forms.SettingDateForm(request.POST)
             if form3.is_valid():
                 date = request.POST.get("date")
                 instance.date = date
@@ -134,6 +146,7 @@ def initial_form(request, _id):
                 return redirect("base:planer_initial_form", _id)
 
         if "form4" in request.POST:
+            form4 = forms.ModeOutlineForm(request.POST)
             if form4.is_valid():
                 mode_off = request.POST.get("mode_off")
                 mode_noble = request.POST.get("mode_noble")
@@ -151,6 +164,30 @@ def initial_form(request, _id):
                 models.WeightMaximum.objects.filter(outline=instance).update(fake_limit=fake_limit)
 
                 return redirect("base:planer_initial_form", _id)
+        
+        if "formset" in request.POST:
+            formset_select = formset_select(request.POST)
+            if formset_select.is_valid():
+                targets_to_update = []
+                for data, target in zip(formset_select.cleaned_data, targets):
+                    target.mode_off = data['mode_off']
+                    target.mode_noble = data['mode_noble']
+                    target.mode_division = data['mode_division']
+                    target.mode_guide = data['mode_guide']
+                    targets_to_update.append(target)
+                models.TargetVertex.objects.bulk_update(targets_to_update, fields=['mode_off', 'mode_noble', 'mode_division', 'mode_guide', ])
+                return redirect("base:planer_initial_form", _id)
+        else:
+            formset_select = formset_select(None)
+    else:
+        formset_select = formset_select(None)
+
+    for form, target in zip(formset_select, targets):
+        form.target = target
+        form.fields["mode_off"].initial = target.mode_off
+        form.fields["mode_noble"].initial = target.mode_noble
+        form.fields["mode_division"].initial = target.mode_division
+        form.fields["mode_guide"].initial = target.mode_guide
 
     context = {
         "instance": instance,
@@ -160,6 +197,7 @@ def initial_form(request, _id):
         "form2": form2,
         "form3": form3,
         "form4": form4,
+        "formset": formset_select,
     }
     return render(
         request, "base/new_outline/new_outline_initial_period1.html", context
@@ -402,7 +440,7 @@ def initial_planer(request, _id):
             context,
         )
 
-@basic.timing
+
 @login_required
 def initial_target(request, id1, id2):
     """ view with form for initial period outline detail """
@@ -437,14 +475,17 @@ def initial_target(request, id1, id2):
     filter_form = forms.SetNewOutlineFilters(request.POST or None)
     filter_form.fields["filter_weights_min"].initial = instance.filter_weights_min
     filter_form.fields["filter_weights_max"].initial = instance.filter_weights_max
+    filter_form.fields["filter_card_number"].initial = instance.filter_card_number
 
     if request.method == "POST":
         if "form-filter" in request.POST:
             if filter_form.is_valid():
                 minimum = request.POST.get("filter_weights_min")
                 maximum = request.POST.get("filter_weights_max")
+                cards = request.POST.get("filter_card_number")
                 instance.filter_weights_min = minimum
                 instance.filter_weights_max = maximum
+                instance.filter_card_number = cards
                 instance.save()
                 return redirect(
                     reverse("base:planer_initial_detail", args=[id1, id2])

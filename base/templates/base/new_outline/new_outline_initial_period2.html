@@ -62,7 +62,7 @@
 
     <div class="row">
         <figure class="col-2">
-            <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
+            <img class="d-none d-lg-flex img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
         </figure>
         <div class="col-8">
             <div class="d-flex flex-column justify-content-center h-100">
@@ -135,9 +135,10 @@
             </div>
         </div>
         <figure class="col-2">
-            <img src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
+            <img class="d-none d-lg-flex img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
         </figure>
     </div>
+    <div class="table-responsive">
     {% block outline_navbar %}
 
     <nav aria-label="pagination" id="pagination" class="mt-3">
@@ -396,7 +397,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
             $('.popoverData').popover();

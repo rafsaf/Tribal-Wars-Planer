@@ -116,21 +116,47 @@ def outline_detail_2_off(request, _id):
 @login_required
 def outline_detail_results(request, _id):
     """ view for results """
-
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
-
     overviews = models.Overview.objects.filter(outline=instance).order_by(
         "token"
     )
-
     world = models.World.objects.get(world=instance.world)
-
     if world.classic:
         name_prefix = 'c'
     else:
         name_prefix = ''
 
-    context = {"instance": instance, "overviews": overviews, "name_prefix": name_prefix}
+
+    form1 = forms.SettingMessageForm(request.POST or None)
+    form1.fields["default_show_hidden"].initial = instance.default_show_hidden
+    form1.fields["title_message"].initial = instance.title_message
+    form1.fields["text_message"].initial = instance.text_message.replace("%0A", "\r\n")
+
+
+    if request.method == "POST":
+        if "form1" in request.POST:
+            if form1.is_valid():
+                default_show_hidden = request.POST.get("default_show_hidden")
+                if default_show_hidden == "on":
+                    default_show_hidden = True
+                else:
+                    default_show_hidden = False
+
+                title_message = request.POST.get("title_message")
+                text_message = request.POST.get("text_message")
+                instance.default_show_hidden = default_show_hidden
+                instance.title_message = title_message
+                instance.text_message = text_message.replace("\r\n", "%0A")
+                instance.save()
+
+                overviews_update_lst = []
+                for overview in overviews:
+                    overview.show_hidden = default_show_hidden
+                    overviews_update_lst.append(overview)
+                models.Overview.objects.bulk_update(overviews_update_lst, fields=["show_hidden"])
+                return redirect("base:planer_detail_results", _id)
+
+    context = {"instance": instance, "overviews": overviews, "name_prefix": name_prefix, "form1": form1}
 
     return render(
         request, "base/new_outline/new_outline_results.html", context

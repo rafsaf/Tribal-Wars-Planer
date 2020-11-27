@@ -88,34 +88,106 @@ def complete_outline(outline: models.Outline):
     # Auto writing outline for user
     targets = models.TargetVertex.objects.filter(outline=outline, fake=False)
     fakes = models.TargetVertex.objects.filter(outline=outline, fake=True)
+    modes_list = ["closest", "close", "random", "far"]
+
+    leave = False
     for target in fakes:
+        if leave:
+            break
+
         if target.required_off == 0:
+            if len(target.exact_off) == 4:
+                for required_off, mode in zip(target.exact_off, modes_list): # closest, close, random, far
+                    if required_off == 0:
+                        continue
+                    target.required_off = required_off
+                    target.mode_off = mode
+
+                    parsed = write_out_outline.WriteTarget(target, outline)
+                    parsed.write_ram()
+                    if parsed.end_up_offs:
+                        leave = True
+                        break
             continue
+
         parsed = write_out_outline.WriteTarget(target, outline)
         parsed.write_ram()
         if parsed.end_up_offs:
             break
+
+    leave = False
     for target in targets:
+        if leave:
+            break
         if target.required_noble == 0:
+            if len(target.exact_noble) == 4:
+                for required_noble, mode in zip(target.exact_noble, modes_list): # closest, close, random, far
+                    if required_noble == 0:
+                        continue
+                    target.required_noble = required_noble
+                    target.mode_noble = mode
+
+                    parsed = write_out_outline.WriteTarget(target, outline)
+                    parsed.write_noble()
+                    if parsed.end_up_nobles:
+                        leave = True
+                        break
             continue
+
         parsed = write_out_outline.WriteTarget(target, outline)
         parsed.write_noble()
         if parsed.end_up_nobles:
             break
+    
+    leave = False
     for target in targets:
+        if leave:
+            break
+
         if target.required_off == 0:
+            if len(target.exact_off) == 4:
+                for required_off, mode in zip(target.exact_off, modes_list): # closest, close, random, far
+                    if required_off == 0:
+                        continue
+                    target.required_off = required_off
+                    target.mode_off = mode
+
+                    parsed = write_out_outline.WriteTarget(target, outline)
+                    parsed.write_ram()
+                    if parsed.end_up_offs:
+                        leave = True
+                        break
             continue
+
         parsed = write_out_outline.WriteTarget(target, outline)
         parsed.write_ram()
         if parsed.end_up_offs:
             break
+    
+    leave = False
     for target in fakes:
+        if leave:
+            break
         if target.required_noble == 0:
+            if len(target.exact_noble) == 4:
+                for required_noble, mode in zip(target.exact_noble, modes_list): # closest, close, random, far
+                    if required_noble == 0:
+                        continue
+                    target.required_noble = required_noble
+                    target.mode_noble = mode
+
+                    parsed = write_out_outline.WriteTarget(target, outline)
+                    parsed.write_noble()
+                    if parsed.end_up_nobles:
+                        leave = True
+                        break
             continue
+
         parsed = write_out_outline.WriteTarget(target, outline)
         parsed.write_noble()
         if parsed.end_up_nobles:
             break
+
     # Nobles
     # write_out_outline_nobles(targets_general, outline, targets)
     # Nobles fake

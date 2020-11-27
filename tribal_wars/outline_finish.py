@@ -36,6 +36,7 @@ def make_final_outline(outline: models.Outline):
                     weight=weight,
                     ally_id=village_id[weight.start],
                     enemy_id=village_id[weight.target.target],
+                    fake=target.fake,
                 )
                 weight.t1 = weight.t1.time()
                 weight.t2 = weight.t2.time()
@@ -61,7 +62,7 @@ def make_final_outline(outline: models.Outline):
         overviews.append(
             models.Overview(
                 outline=outline, player=player, token=token,
-                table=table, string=string
+                table=table, string=string, show_hidden=outline.default_show_hidden
             )
         )
 

@@ -30,7 +30,7 @@ class SortAndPaginRequest:
         else:
             self.sort = "distance"
 
-    def __nonused(self):
+    def __nonused(self): 
         nonused_vertices = (
             models.WeightMaximum.objects.filter(outline=self.outline)
             .exclude(off_left=0, nobleman_left=0)
@@ -43,7 +43,7 @@ class SortAndPaginRequest:
         return nonused_vertices
 
     def __pagin(self, lst_or_query):
-        paginator = Paginator(lst_or_query, 12)
+        paginator = Paginator(lst_or_query, int(self.outline.filter_card_number))
         page_obj = paginator.get_page(self.page)
         return page_obj
 
@@ -103,7 +103,7 @@ class SortAndPaginRequest:
                     ** (1 / 2),
                     output_field=FloatField(max_length=5),
                 )
-            )
+            ).order_by("distance")
 
             return self.__pagin(query)
 

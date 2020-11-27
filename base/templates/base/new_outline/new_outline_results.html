@@ -1,8 +1,11 @@
-{% extends "base/new_outline/new_outline.html" %} {% block content %} {% load i18n %}
+{% extends "base/new_outline/new_outline.html" %}
+{% block content %}
+{% load i18n %}
+{% load crispy_forms_tags %}
 <h3>{% trans 'Results' %}</h3>
 
-
-<div class="container-fluid md-pre h-100" id='leftscroll'>
+<div class="table-responsive">
+<div class="container-fluid h-100" id='leftscroll'>
     <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
@@ -32,15 +35,37 @@
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
 
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0">
+
+                    <button class="btn btn-link collapsed py-1 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                      {% trans 'Set title, text and show hidden value' %}
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{form1|crispy}}
+                        <button name="form1" class="btn btn-ocean" type="submit">{% trans 'Save' %}</button>
+                    </form>
+                    
+
+                  </div>
+                </div>
+              </div>
+            <div>
             <table class="table table-bordered">
                 <thead style="background-color: teal;">
 
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">{% trans 'Player' %}</th>
-                        <th scope="col">{% trans 'Link to member Page' %}</th>
-                        <th scope="col">{% trans 'Show Hidden' %}</th>
-                        <th scope="col">{% trans 'Send message' %}</th>
+                    <tr style="color: white;">
+                        <th scope="col" style="border:1px solid teal">#</th>
+                        <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
+                        <th scope="col" style="border:1px solid teal">{% trans 'Link to member Page' %}</th>
+                        <th scope="col" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
+                        <th scope="col" style="border:1px solid teal">{% trans 'Send message' %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +77,7 @@
                         <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
                         </th>
                         <th><a href="{% url 'base:planer_overview_hide' instance.id item.token %}">{{item.show_hidden}}</a></th>
-                        <th><a class="send" target="_blank" href="https://pl{{name_prefix}}{{instance.world}}.plemiona.pl/game.php?screen=mail&mode=new&to={{ item.player }}&subject=Cele%20Akcja&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]">{% trans 'Send' %}</a>
+                        <th><a class="send" target="_blank" href="https://{{name_prefix}}{{instance.world}}.plemiona.pl/game.php?screen=mail&mode=new&to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
                         </th>
                     </tr>
                     <script>
@@ -62,6 +87,8 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+
         </div>
 
         <div class="tab-pane fade" id="pills-outline-sum-up" role="tabpanel" aria-labelledby="pills-outline-sum-up">
@@ -101,6 +128,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <script>
     $(window).on("load", function () {

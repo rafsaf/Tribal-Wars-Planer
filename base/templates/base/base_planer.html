@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %} {% load i18n %} {% block content %}
-
+<div class="table-responsive">
 <table class="table table-striped">
     <thead>
         <tr class="bg-primary">
@@ -67,7 +67,7 @@
             {% endfor %}
     </tbody>
 </table>
-
+</div>
 {% if show_all == True %}
 <p><a class="btn btn-outline-success my-3" href="{% url 'base:planer' %}" role="button">{% trans "Don't show hidden" %}</a></p>
 {% else %}

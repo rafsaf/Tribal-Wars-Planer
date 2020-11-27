@@ -22,11 +22,15 @@ class TableText:
         else:
             self.name_prefix = ''
 
-    def __link(self, ally_village_id, enemy_village_id):
+    def __link(self, ally_village_id, enemy_village_id, fake):
+        if fake:
+            send = "Wyślij Fejka"
+        else:
+            send = "Wyślij Atak"
         return (
             f"[url=https://pl{self.name_prefix}{self.world}.plemiona.pl/game.php?"
             f"village={ally_village_id}&screen=place&"
-            f"target={enemy_village_id}]Wyślij[/url]"
+            f"target={enemy_village_id}]{send}[/url]"
         )
 
     def __date_table(self, datetime1, datetime2):
@@ -38,7 +42,7 @@ class TableText:
         return (
             f'{date_part}'
             f'\n'
-            f'[b][color=#00a500]{t1_part}[/color][/b]-'
+            f'[b][color=#0e5e5e]{t1_part}[/color][/b]-'
             f'[b][color=#ff0000]{t2_part}[/color][/b]'
         )
 
@@ -53,31 +57,45 @@ class TableText:
             f"do {t2_part}."
         ) 
 
-    def __weight_table(self, weight: models.WeightModel, ally_id, enemy_id):
+    def __weight_table(self, weight: models.WeightModel, ally_id, enemy_id, fake):
+        if fake and weight.nobleman > 0:
+            send = "Fejk gruby"
+        elif fake and weight.nobleman == 0:
+            send = "Fejk taran"
+        else:
+            send = f"{weight.off}"
+
         return (
-            f"[|]{self.__link(ally_id, enemy_id)}"
-            f"[|]{weight.off}[|]{weight.nobleman}"
+            f"[|]{self.__link(ally_id, enemy_id, fake)}"
+            f"[|]{send}[|]{weight.nobleman}"
             f"[|]{self.__date_table(weight.sh_t1, weight.sh_t2)}"
             f"[|]{self.__date_table(weight.t1, weight.t2)}"
             f"[|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord]"
         )
 
-    def __weight_string(self, weight: models.WeightModel, ally_id, enemy_id):
+    def __weight_string(self, weight: models.WeightModel, ally_id, enemy_id, fake):
+        if fake and weight.nobleman > 0:
+            send = f"Wyślij [b]Fejk gruby[/b] (Off-{weight.off}, Grubych-{weight.nobleman}) "
+        elif fake and weight.nobleman == 0:
+            send = f"Wyślij [b]Fejk taran[/b] (Off-{weight.off}, Grubych-{weight.nobleman}) "
+        else:
+            send = f"Wyślij [b]Atak[/b] (Off-{weight.off}, Grubych-{weight.nobleman}) "
+
         return (
-            f"Wyślij atak (Off-{weight.off}, Grubych-{weight.nobleman}) "
+            f"{send}"
             f"z wioski {weight.start} na wioskę {weight.target.target} "
             f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"
-            f"{self.__link(ally_id, enemy_id)}"
+            f"{self.__link(ally_id, enemy_id, fake)}"
         )
 
-    def add_weight(self, weight: models.WeightModel, ally_id, enemy_id):
+    def add_weight(self, weight: models.WeightModel, ally_id, enemy_id, fake):
         
         self.weight_table[weight] = str(
-            self.__weight_table(weight, ally_id, enemy_id)
+            self.__weight_table(weight, ally_id, enemy_id, fake)
         )
 
         self.weight_string[weight] = str(
-            self.__weight_string(weight, ally_id, enemy_id)
+            self.__weight_string(weight, ally_id, enemy_id, fake)
         )
         try:
             self.result[weight.player].append(weight)
