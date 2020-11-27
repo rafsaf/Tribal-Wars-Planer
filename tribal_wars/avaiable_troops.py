@@ -55,11 +55,11 @@ def legal_coords_near_targets(outline: models.Outline):
     )["nobleman_max__sum"]
 
     if all_noble is None:
-        front_noble = 0
+        all_noble = 0
     if front_noble is None:
         front_noble = 0
     if back_noble is None:
-        front_noble = 0
+        back_noble = 0
 
     outline.avaiable_nobles_near = [all_noble, front_noble, back_noble]
     outline.avaiable_offs_near = [all_off, front_off, back_off]
