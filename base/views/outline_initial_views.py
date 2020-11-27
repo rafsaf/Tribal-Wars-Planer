@@ -74,7 +74,21 @@ def initial_form(request, _id):
     form4.fields["mode_guide"].initial = instance.mode_guide
     form4.fields["initial_outline_fake_limit"].initial = instance.initial_outline_fake_limit
     if models.WeightMaximum.objects.filter(outline=instance).count() == 0:
-        initial.make_outline(instance)
+        try:
+            initial.make_outline(instance)
+        except KeyError:
+            request.session["error"] = gettext(
+                (
+                    "It looks like your Army collection is"
+                    " no longer actual! "
+                    "To use the planner: copy the data from"
+                    " the preview and "
+                    "correct errors or paste the current"
+                    " military data \n"
+                )
+            )
+            return redirect("base:planer_detail", _id)
+
     if request.method == "POST":
         if "form1" in request.POST:
             if form1.is_valid():
@@ -562,6 +576,20 @@ def complete_outline(request, id1):
 def update_outline_troops(request, id1):
     instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
     models.WeightMaximum.objects.all().delete()
-    initial.make_outline(outline=instance)
+    try:
+        initial.make_outline(instance)
+    except KeyError:
+        request.session["error"] = gettext(
+            (
+                "It looks like your Army collection is"
+                " no longer actual! "
+                "To use the planner: copy the data from"
+                " the preview and "
+                "correct errors or paste the current"
+                " military data \n"
+            )
+        )
+        return redirect("base:planer_detail", id1)
+
     instance.save()
     return redirect("base:planer_initial_form", id1)
