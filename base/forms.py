@@ -332,7 +332,7 @@ class ModeOutlineForm(forms.ModelForm):
         ]
         labels = {
             "mode_off": gettext_lazy("Choose the distance of the written offs:"),
-            "mode_noble": gettext_lazy("Choose the distance of the written offs:"),
+            "mode_noble": gettext_lazy("Choose the distance of the written nobles:"),
             "mode_division": gettext_lazy("Choose how to split offs with nobles:"),
             "mode_guide": gettext_lazy("Choose prefered way of writing required nobles:"),
             "initial_outline_fake_limit": gettext_lazy("Maximum number of fakes from one off village:"),
