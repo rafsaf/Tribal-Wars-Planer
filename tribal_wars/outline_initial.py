@@ -14,19 +14,8 @@ def make_outline(outline: models.Outline):
         # Weight max model creating
         weight_max_create_list = []
 
-        deff_troops = weight_utils.DefensiveTroops(outline=outline)
-        in_village_troops = deff_troops.in_village_dict()
-
         try:
             for army in weight_utils.OffTroops(outline=outline):
-
-                if army.coord in in_village_troops:
-                    in_army = in_village_troops[army.coord]
-                    in_off = in_army.off
-                    in_nobleman = in_army.nobleman
-                else:
-                    in_off = None
-                    in_nobleman = None
 
                 weight_max_create_list.append(
                     models.WeightMaximum(
@@ -37,10 +26,8 @@ def make_outline(outline: models.Outline):
                         y_coord=int(army.coord[4:7]),
                         off_max=army.off,
                         off_left=army.off,
-                        off_in_village=in_off,
                         nobleman_max=army.nobleman,
                         nobleman_left=army.nobleman,
-                        nobleman_in_village=in_nobleman,
                         first_line=army.first_line,
                         fake_limit=outline.initial_outline_fake_limit,
                     )
@@ -56,7 +43,10 @@ def make_outline(outline: models.Outline):
     user_input = outline.initial_outline_targets.split("---")
     # User input targets
     targets_input = input_target.TargetsGeneralInput(
-        outline_targets=user_input[0].strip(), world=outline.world, fake=False, outline=outline
+        outline_targets=user_input[0].strip(),
+        world=outline.world,
+        fake=False,
+        outline=outline,
     )
     targets_input.generate_targets()
     target_list1 = targets_input.targets
@@ -65,7 +55,10 @@ def make_outline(outline: models.Outline):
 
     # User input fake targets
     fake_input = input_target.TargetsGeneralInput(
-        outline_targets=user_input[1].strip(), world=outline.world, fake=True, outline=outline
+        outline_targets=user_input[1].strip(),
+        world=outline.world,
+        fake=True,
+        outline=outline,
     )
 
     fake_input.generate_targets()
@@ -77,7 +70,7 @@ def make_outline(outline: models.Outline):
 def complete_outline(outline: models.Outline):
     """Auto write out outline """
     # user_input = outline.initial_outline_targets.split("---")
-    # 
+    #
     # targets_general = target_utils.TargetsGeneral(
     #     outline_targets=user_input[0].strip(), world=outline.world,
     # )
@@ -97,7 +90,9 @@ def complete_outline(outline: models.Outline):
 
         if target.required_off == 0:
             if len(target.exact_off) == 4:
-                for required_off, mode in zip(target.exact_off, modes_list): # closest, close, random, far
+                for required_off, mode in zip(
+                    target.exact_off, modes_list
+                ):  # closest, close, random, far
                     if required_off == 0:
                         continue
                     target.required_off = required_off
@@ -121,7 +116,9 @@ def complete_outline(outline: models.Outline):
             break
         if target.required_noble == 0:
             if len(target.exact_noble) == 4:
-                for required_noble, mode in zip(target.exact_noble, modes_list): # closest, close, random, far
+                for required_noble, mode in zip(
+                    target.exact_noble, modes_list
+                ):  # closest, close, random, far
                     if required_noble == 0:
                         continue
                     target.required_noble = required_noble
@@ -138,7 +135,7 @@ def complete_outline(outline: models.Outline):
         parsed.write_noble()
         if parsed.end_up_nobles:
             break
-    
+
     leave = False
     for target in targets:
         if leave:
@@ -146,7 +143,9 @@ def complete_outline(outline: models.Outline):
 
         if target.required_off == 0:
             if len(target.exact_off) == 4:
-                for required_off, mode in zip(target.exact_off, modes_list): # closest, close, random, far
+                for required_off, mode in zip(
+                    target.exact_off, modes_list
+                ):  # closest, close, random, far
                     if required_off == 0:
                         continue
                     target.required_off = required_off
@@ -163,14 +162,16 @@ def complete_outline(outline: models.Outline):
         parsed.write_ram()
         if parsed.end_up_offs:
             break
-    
+
     leave = False
     for target in fakes:
         if leave:
             break
         if target.required_noble == 0:
             if len(target.exact_noble) == 4:
-                for required_noble, mode in zip(target.exact_noble, modes_list): # closest, close, random, far
+                for required_noble, mode in zip(
+                    target.exact_noble, modes_list
+                ):  # closest, close, random, far
                     if required_noble == 0:
                         continue
                     target.required_noble = required_noble
@@ -209,10 +210,12 @@ def write_out_outline_nobles(targets_general, outline, targets, fake=False):
     weight_max_update_list = []
 
     weights_with_nobles = models.WeightMaximum.objects.filter(
-            outline=outline, nobleman_max__gt=0
-        )
+        outline=outline, nobleman_max__gt=0
+    )
     if fake:
-        weights_with_nobles = list(weights_with_nobles.filter(first_line=False))
+        weights_with_nobles = list(
+            weights_with_nobles.filter(first_line=False)
+        )
     else:
         weights_with_nobles = list(weights_with_nobles.filter(off_max__gt=400))
 

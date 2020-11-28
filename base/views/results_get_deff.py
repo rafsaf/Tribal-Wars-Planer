@@ -8,6 +8,7 @@ from django.utils.translation import gettext
 from django.utils.translation import get_language
 from markdownx.utils import markdownify
 
+
 @login_required
 def outline_detail_2_deff(request, _id):
     """ details user outline, get deff page """
@@ -24,13 +25,24 @@ def outline_detail_2_deff(request, _id):
 
     language_code = get_language()
 
-    info = models.Documentation.objects.get_or_create(title='planer_deff_info', language=language_code, defaults={'main_page': ""})[0].main_page
+    info = models.Documentation.objects.get_or_create(
+        title="planer_deff_info",
+        language=language_code,
+        defaults={"main_page": ""},
+    )[0].main_page
     info = markdownify(info)
-    marks = models.Documentation.objects.get_or_create(title='planer_deff_marks', language=language_code, defaults={'main_page': ""})[0].main_page
+    marks = models.Documentation.objects.get_or_create(
+        title="planer_deff_marks",
+        language=language_code,
+        defaults={"main_page": ""},
+    )[0].main_page
     marks = markdownify(marks)
-    example = models.Documentation.objects.get_or_create(title='planer_deff_example', language=language_code, defaults={'main_page': ""})[0].main_page
+    example = models.Documentation.objects.get_or_create(
+        title="planer_deff_example",
+        language=language_code,
+        defaults={"main_page": ""},
+    )[0].main_page
     example = markdownify(example)
-
 
     form = forms.GetDeffForm(request.POST or None, world=instance.world)
     if "form" in request.POST:
@@ -53,8 +65,13 @@ def outline_detail_2_deff(request, _id):
 
             return redirect("base:planer_detail_results", _id)
 
-    context = {"instance": instance, "form": form, "info": info,
-        "example": example, "marks": marks}
+    context = {
+        "instance": instance,
+        "form": form,
+        "info": info,
+        "example": example,
+        "marks": marks,
+    }
 
     return render(
         request, "base/new_outline/new_outline_get_deff.html", context
@@ -77,11 +94,23 @@ def outline_detail_2_off(request, _id):
 
     language_code = get_language()
 
-    info = models.Documentation.objects.get_or_create(title='planer_off_info', language=language_code, defaults={'main_page': ""})[0].main_page
+    info = models.Documentation.objects.get_or_create(
+        title="planer_off_info",
+        language=language_code,
+        defaults={"main_page": ""},
+    )[0].main_page
     info = markdownify(info)
-    marks = models.Documentation.objects.get_or_create(title='planer_off_marks', language=language_code, defaults={'main_page': ""})[0].main_page
+    marks = models.Documentation.objects.get_or_create(
+        title="planer_off_marks",
+        language=language_code,
+        defaults={"main_page": ""},
+    )[0].main_page
     marks = markdownify(marks)
-    example = models.Documentation.objects.get_or_create(title='planer_off_example', language=language_code, defaults={'main_page': ""})[0].main_page
+    example = models.Documentation.objects.get_or_create(
+        title="planer_off_example",
+        language=language_code,
+        defaults={"main_page": ""},
+    )[0].main_page
     example = markdownify(example)
 
     form = forms.GetDeffForm(request.POST or None, world=instance.world)
@@ -106,7 +135,13 @@ def outline_detail_2_off(request, _id):
 
             return redirect("base:planer_detail_results", _id)
 
-    context = {"instance": instance, "form": form, "info": info, "marks": marks, "example": example}
+    context = {
+        "instance": instance,
+        "form": form,
+        "info": info,
+        "marks": marks,
+        "example": example,
+    }
 
     return render(
         request, "base/new_outline/new_outline_get_off.html", context
@@ -122,16 +157,16 @@ def outline_detail_results(request, _id):
     )
     world = models.World.objects.get(world=instance.world)
     if world.classic:
-        name_prefix = 'c'
+        name_prefix = "c"
     else:
-        name_prefix = ''
-
+        name_prefix = ""
 
     form1 = forms.SettingMessageForm(request.POST or None)
     form1.fields["default_show_hidden"].initial = instance.default_show_hidden
     form1.fields["title_message"].initial = instance.title_message
-    form1.fields["text_message"].initial = instance.text_message.replace("%0A", "\r\n").replace("+", " ")
-
+    form1.fields["text_message"].initial = instance.text_message.replace(
+        "%0A", "\r\n"
+    ).replace("+", " ")
 
     if request.method == "POST":
         if "form1" in request.POST:
@@ -146,17 +181,26 @@ def outline_detail_results(request, _id):
                 text_message = request.POST.get("text_message")
                 instance.default_show_hidden = default_show_hidden
                 instance.title_message = title_message
-                instance.text_message = text_message.replace("\r\n", "%0A").replace(" ", "+")
+                instance.text_message = text_message.replace(
+                    "\r\n", "%0A"
+                ).replace(" ", "+")
                 instance.save()
 
                 overviews_update_lst = []
                 for overview in overviews:
                     overview.show_hidden = default_show_hidden
                     overviews_update_lst.append(overview)
-                models.Overview.objects.bulk_update(overviews_update_lst, fields=["show_hidden"])
+                models.Overview.objects.bulk_update(
+                    overviews_update_lst, fields=["show_hidden"]
+                )
                 return redirect("base:planer_detail_results", _id)
 
-    context = {"instance": instance, "overviews": overviews, "name_prefix": name_prefix, "form1": form1}
+    context = {
+        "instance": instance,
+        "overviews": overviews,
+        "name_prefix": name_prefix,
+        "form1": form1,
+    }
 
     return render(
         request, "base/new_outline/new_outline_results.html", context
