@@ -223,7 +223,8 @@
                             <th scope="col" class="text-nowrap">{% trans 'TW Stats' %}</th>
                             <th scope="col">{% trans 'Troops from' %}</th>
                             <th scope="col">{% trans 'Troops to' %}</th>
-                            <th scope="col">{% trans 'Cards on page' %}</th>
+                            <th style="min-width: 130px;" scope="col" class="text-nowrap">{% trans 'Show' %}</th>
+                            <th class="text-nowrap" scope="col">{% trans 'Cards on page' %}</th>
                             <th scope="col">{% trans 'Save' %}</th>
                             
                           </tr>
@@ -271,6 +272,14 @@
                             <td>
                                 {{filter_form.filter_weights_max}}
                                 {% for error in filter_form.filter_weights_max.errors %}
+                                <div class="md-error">
+                                    {{ error }}
+                                </div>
+                                {% endfor %}
+                            </td>
+                            <td class="text-center" style="font-size: small;">
+                                {{filter_form.filter_hide_front}}
+                                {% for error in filter_form.filter_hide_front.errors %}
                                 <div class="md-error">
                                     {{ error }}
                                 </div>
