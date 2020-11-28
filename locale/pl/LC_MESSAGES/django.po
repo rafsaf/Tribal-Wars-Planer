@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 21:17+0100\n"
+"POT-Creation-Date: 2020-11-28 23:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,89 +139,89 @@ msgstr "Maksymalna długość: 300"
 msgid "Set new date"
 msgstr "Wybierz nową datę"
 
-#: base/forms.py:334
+#: base/forms.py:336
 msgid "Choose the distance of the written offs:"
 msgstr "Wybierz dystans dla rozpisywanych offów:"
 
-#: base/forms.py:335
+#: base/forms.py:337
 msgid "Choose the distance of the written nobles:"
 msgstr "Wybierz dystans dla rozpisywanych szlachciców:"
 
-#: base/forms.py:336
+#: base/forms.py:338
 msgid "Choose how to split offs with nobles:"
 msgstr "Wybierz jak powinny być dzielone offy z szlachciami:"
 
-#: base/forms.py:337
+#: base/forms.py:339
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Wybierz preferowany sposób rozpisywania wymaganych szlachiców:"
 
-#: base/forms.py:338
+#: base/forms.py:340
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 
-#: base/forms.py:381
+#: base/forms.py:383
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:147
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:149
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:384 base/models.py:299
+#: base/forms.py:386 base/models.py:306
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:392 base/forms.py:403
+#: base/forms.py:394 base/forms.py:405
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:36
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:350
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:395 base/forms.py:404
+#: base/forms.py:397 base/forms.py:406
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:37
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:351
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:402
+#: base/forms.py:404
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:32
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:348
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:405
+#: base/forms.py:407
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:33
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:349
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:406
+#: base/forms.py:408
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:34
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:352
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:407
+#: base/forms.py:409
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:35
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:353
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:483 base/forms.py:495
+#: base/forms.py:485 base/forms.py:497
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:504
+#: base/forms.py:506
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:516 base/forms.py:522
+#: base/forms.py:518 base/forms.py:524
 msgid "The All mode time frame MUST always be last for off and for noble."
 msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:531 base/forms.py:540
+#: base/forms.py:533 base/forms.py:542
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/forms.py:556
+#: base/forms.py:558
 #: base/templates/base/new_outline/new_outline_initial_period1.html:282
 #: base/templates/base/new_outline/new_outline_initial_period2.html:298
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:409
@@ -232,80 +232,90 @@ msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 msgid "Target"
 msgstr "Cel"
 
-#: base/forms.py:557
+#: base/forms.py:559
 msgid "Valid coords, 7 chars"
 msgstr "Poprawne koordy, 7 znaków"
 
-#: base/forms.py:574
+#: base/forms.py:576
 msgid "This village is already a target!"
 msgstr "Ta wioska już jest celem !"
 
-#: base/forms.py:581
+#: base/forms.py:583
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/models.py:105 base/models.py:112 base/models.py:315 base/models.py:322
+#: base/models.py:105 base/models.py:112 base/models.py:322 base/models.py:329
 #: base/templates/base/new_outline/new_outline_initial_period1.html:294
 #: base/templates/base/new_outline/new_outline_initial_period1.html:334
 msgid "Closest Front"
 msgstr "Front Najbliżej"
 
-#: base/models.py:106 base/models.py:113 base/models.py:316 base/models.py:323
+#: base/models.py:106 base/models.py:113 base/models.py:323 base/models.py:330
 #: base/templates/base/new_outline/new_outline_initial_period1.html:304
 #: base/templates/base/new_outline/new_outline_initial_period1.html:344
 msgid "Close Back"
 msgstr "Zaplecze Blisko"
 
-#: base/models.py:107 base/models.py:114 base/models.py:317 base/models.py:324
+#: base/models.py:107 base/models.py:114 base/models.py:324 base/models.py:331
 #: base/templates/base/new_outline/new_outline_initial_period1.html:314
 #: base/templates/base/new_outline/new_outline_initial_period1.html:354
 msgid "Random Back"
 msgstr "Zaplecze Losowo"
 
-#: base/models.py:108 base/models.py:115 base/models.py:318 base/models.py:325
+#: base/models.py:108 base/models.py:115 base/models.py:325 base/models.py:332
 #: base/templates/base/new_outline/new_outline_initial_period1.html:324
 #: base/templates/base/new_outline/new_outline_initial_period1.html:364
 msgid "Far Back"
 msgstr "Zaplecze Daleko"
 
-#: base/models.py:119 base/models.py:329
+#: base/models.py:119 base/models.py:336
 msgid "Divide off with nobles"
 msgstr "Dziel offy z szlachtą"
 
-#: base/models.py:120 base/models.py:330
+#: base/models.py:120 base/models.py:337
 msgid "Dont't divide off"
 msgstr "Nie dziel offów z szlachtą"
 
-#: base/models.py:121 base/models.py:331
+#: base/models.py:121 base/models.py:338
 msgid "Off and nobles separatly"
 msgstr "Offy i szlachta osobno"
 
-#: base/models.py:125 base/models.py:335
+#: base/models.py:125 base/models.py:342
 msgid "Try send all nobles to one target"
 msgstr "Rozpisuj szlachtę możliwie na jedną wioskę"
 
-#: base/models.py:126 base/models.py:336
+#: base/models.py:126 base/models.py:343
 msgid "Nobles to one or many targets"
 msgstr "Szlachta na jedną lub wiele wiosek (optymalnie)"
 
-#: base/models.py:127 base/models.py:337
+#: base/models.py:127 base/models.py:344
 msgid "Try single nobles from many villages"
 msgstr "Rozpisuj szlachtę na cel możliwie z pojedynczych wiosek"
 
-#: base/models.py:294
+#: base/models.py:131 base/models.py:301
 #: base/templates/base/new_outline/new_outline_initial_period1.html:84
 msgid "All"
 msgstr "Wszystkie"
 
-#: base/models.py:295
+#: base/models.py:132
+#: base/templates/base/new_outline/new_outline_initial_period1.html:85
+msgid "Front"
+msgstr "Front"
+
+#: base/models.py:133
+#: base/templates/base/new_outline/new_outline_initial_period1.html:86
+msgid "Back"
+msgstr "Zaplecze"
+
+#: base/models.py:302
 msgid "Random"
 msgstr "Losowo"
 
-#: base/models.py:296
+#: base/models.py:303
 msgid "Exact"
 msgstr "Dokładnie"
 
-#: base/models.py:300
+#: base/models.py:307
 msgid "Ram"
 msgstr "Taran"
 
@@ -453,6 +463,8 @@ msgid "Delete"
 msgstr "Usuń"
 
 #: base/templates/base/base_planer.html:54
+#: base/templates/base/new_outline/new_outline_initial_period3.html:221
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:226
 msgid "Show"
 msgstr "Pokaż"
 
@@ -688,14 +700,6 @@ msgstr "Rozpisz tą akcję"
 msgid "Description"
 msgstr "Opis"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:85
-msgid "Front"
-msgstr "Front"
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:86
-msgid "Back"
-msgstr "Zaplecze"
-
 #: base/templates/base/new_outline/new_outline_initial_period1.html:91
 msgid "Offs"
 msgstr "Offy"
@@ -742,10 +746,10 @@ msgstr "2. Zmiana daty akcji"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:250
 #: base/templates/base/new_outline/new_outline_initial_period1.html:462
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:178
-#: base/templates/base/new_outline/new_outline_initial_period3.html:222
-#: base/templates/base/new_outline/new_outline_initial_period3.html:260
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:227
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:289
+#: base/templates/base/new_outline/new_outline_initial_period3.html:223
+#: base/templates/base/new_outline/new_outline_initial_period3.html:269
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:228
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:298
 #: base/templates/base/new_outline/new_outline_results.html:52
 msgid "Save"
 msgstr "Zapisz"
@@ -849,20 +853,20 @@ msgstr ""
 #: base/templates/base/new_outline/new_outline_initial_period2.html:153
 #: base/templates/base/new_outline/new_outline_initial_period3.html:69
 #: base/templates/base/new_outline/new_outline_initial_period3.html:76
-#: base/templates/base/new_outline/new_outline_initial_period3.html:305
-#: base/templates/base/new_outline/new_outline_initial_period3.html:312
+#: base/templates/base/new_outline/new_outline_initial_period3.html:314
+#: base/templates/base/new_outline/new_outline_initial_period3.html:321
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:71
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:78
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:334
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:341
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:343
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:350
 msgid "Previous"
 msgstr "Poprzednia"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:157
 #: base/templates/base/new_outline/new_outline_initial_period3.html:80
-#: base/templates/base/new_outline/new_outline_initial_period3.html:316
+#: base/templates/base/new_outline/new_outline_initial_period3.html:325
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:82
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:345
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:354
 msgid "of"
 msgstr "z"
 
@@ -870,12 +874,12 @@ msgstr "z"
 #: base/templates/base/new_outline/new_outline_initial_period2.html:165
 #: base/templates/base/new_outline/new_outline_initial_period3.html:84
 #: base/templates/base/new_outline/new_outline_initial_period3.html:89
-#: base/templates/base/new_outline/new_outline_initial_period3.html:320
-#: base/templates/base/new_outline/new_outline_initial_period3.html:325
+#: base/templates/base/new_outline/new_outline_initial_period3.html:329
+#: base/templates/base/new_outline/new_outline_initial_period3.html:334
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:86
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:91
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:349
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:354
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:358
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:363
 msgid "Next"
 msgstr "Następna"
 
@@ -1080,79 +1084,79 @@ msgid "Change and save"
 msgstr "Zmień z zapisz"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:39
-#: base/templates/base/new_outline/new_outline_initial_period3.html:275
+#: base/templates/base/new_outline/new_outline_initial_period3.html:284
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:41
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:304
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:313
 msgid "Sort"
 msgstr "Sortuj"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:42
-#: base/templates/base/new_outline/new_outline_initial_period3.html:278
+#: base/templates/base/new_outline/new_outline_initial_period3.html:287
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:44
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:307
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:316
 msgid "Ascending by distance"
 msgstr "Rosnąco ze względu na dystans"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:43
-#: base/templates/base/new_outline/new_outline_initial_period3.html:279
+#: base/templates/base/new_outline/new_outline_initial_period3.html:288
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:45
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:308
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:317
 msgid "Descending by distance"
 msgstr "Malejąco ze względu na dystans"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:44
-#: base/templates/base/new_outline/new_outline_initial_period3.html:280
+#: base/templates/base/new_outline/new_outline_initial_period3.html:289
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:46
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:309
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:318
 msgid "Descending by number of units"
 msgstr "Malejąco ze względu na liczbę jednostek"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:45
-#: base/templates/base/new_outline/new_outline_initial_period3.html:281
+#: base/templates/base/new_outline/new_outline_initial_period3.html:290
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:47
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:310
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:319
 msgid "Descending by number of noble"
 msgstr "Malejąco ze względu na ilość szlachty"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:47
-#: base/templates/base/new_outline/new_outline_initial_period3.html:283
+#: base/templates/base/new_outline/new_outline_initial_period3.html:292
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:49
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:312
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:321
 msgid "Closest full offs"
 msgstr "Najbliższe pełne offy"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:48
-#: base/templates/base/new_outline/new_outline_initial_period3.html:284
+#: base/templates/base/new_outline/new_outline_initial_period3.html:293
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:50
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:313
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:322
 msgid "Closest noblemans"
 msgstr "Najbliższa szlachta"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:49
-#: base/templates/base/new_outline/new_outline_initial_period3.html:285
+#: base/templates/base/new_outline/new_outline_initial_period3.html:294
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:51
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:314
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:323
 msgid "Closest offs with noblemans"
 msgstr "Najbliższe pełne offy z szlachtą"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:51
-#: base/templates/base/new_outline/new_outline_initial_period3.html:287
+#: base/templates/base/new_outline/new_outline_initial_period3.html:296
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:53
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:316
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:325
 msgid "Farthest full offs"
 msgstr "Najdalsze pełne offy"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:52
-#: base/templates/base/new_outline/new_outline_initial_period3.html:288
+#: base/templates/base/new_outline/new_outline_initial_period3.html:297
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:54
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:317
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:326
 msgid "Farthest noblemans"
 msgstr "Najdalsza szlachta"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:53
-#: base/templates/base/new_outline/new_outline_initial_period3.html:289
+#: base/templates/base/new_outline/new_outline_initial_period3.html:298
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:55
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:318
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:327
 msgid "Farthest offs with noblemans"
 msgstr "Najdalsze pełne offy z szlachtą"
 
@@ -1186,8 +1190,8 @@ msgstr "Offy od"
 msgid "Troops to"
 msgstr "Offy do"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:221
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:226
+#: base/templates/base/new_outline/new_outline_initial_period3.html:222
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:227
 msgid "Cards on page"
 msgstr "Karty na stronę"
 
@@ -1273,20 +1277,20 @@ msgstr ""
 msgid "Site not found."
 msgstr "Nie znaleziono strony."
 
-#: base/views/outline_initial_views.py:33 base/views/results_get_deff.py:22
-#: base/views/results_get_deff.py:75
+#: base/views/outline_initial_views.py:33 base/views/results_get_deff.py:23
+#: base/views/results_get_deff.py:92
 msgid "Off collection empty!"
 msgstr "Zbiórka Offa pusta!"
 
-#: base/views/outline_initial_views.py:595
+#: base/views/outline_initial_views.py:599
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
-#: base/views/results_get_deff.py:19 base/views/results_get_deff.py:72
+#: base/views/results_get_deff.py:20 base/views/results_get_deff.py:89
 msgid "Deff collection empty!"
 msgstr "Zbiórka Deffa pusta!"
 
-#: base/views/results_get_deff.py:48 base/views/results_get_deff.py:101
+#: base/views/results_get_deff.py:60 base/views/results_get_deff.py:130
 msgid ""
 "It looks like your Deff or Off collection is no longer actual! To use the "
 "planner: copy the data from the preview and correct errors or paste the "
