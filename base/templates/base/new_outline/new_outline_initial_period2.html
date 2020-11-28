@@ -17,7 +17,7 @@
             {% block sidebar %}
 
             <a class=" list-group-item list-group-item-action
-                  bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+                  bg-secondary" style="color: rgb(243, 243, 243);" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
             <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
                   bg-light">{% trans 'Results' %}</a>
             <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
