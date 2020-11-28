@@ -5,6 +5,7 @@ from django.db.models import Sum
 from base import models
 from . import basic
 
+
 def legal_coords_near_targets(outline: models.Outline):
     """ Create set with ally_vill without enemy_vill closer than radius """
 
@@ -15,11 +16,13 @@ def legal_coords_near_targets(outline: models.Outline):
         for weight in models.WeightMaximum.objects.filter(outline=outline)
     ]
     enemy_count = models.TargetVertex.objects.filter(outline=outline).count()
-    instance_number = ceil(enemy_count * (0.10) + 1000)
+    instance_number = ceil(enemy_count * (0.10) + 3000)
 
     enemy_villages = [
         target.coord_tuple()
-        for target in models.TargetVertex.objects.filter(outline=outline).order_by("?")[:instance_number]
+        for target in models.TargetVertex.objects.filter(
+            outline=outline
+        ).order_by("?")[:instance_number]
     ]
 
     banned_coords = set()
@@ -44,7 +47,6 @@ def legal_coords_near_targets(outline: models.Outline):
     front_off = all_weights.filter(start__in=starts, first_line=True).count()
     back_off = all_weights.filter(start__in=starts, first_line=False).count()
 
-
     snob_weights = models.WeightMaximum.objects.filter(
         outline=outline, nobleman_max__gte=1
     )
@@ -52,12 +54,12 @@ def legal_coords_near_targets(outline: models.Outline):
     all_noble = snob_weights.filter(start__in=starts).aggregate(
         Sum("nobleman_max")
     )["nobleman_max__sum"]
-    front_noble = snob_weights.filter(start__in=starts, first_line=True).aggregate(
-        Sum("nobleman_max")
-    )["nobleman_max__sum"]
-    back_noble = snob_weights.filter(start__in=starts, first_line=False).aggregate(
-        Sum("nobleman_max")
-    )["nobleman_max__sum"]
+    front_noble = snob_weights.filter(
+        start__in=starts, first_line=True
+    ).aggregate(Sum("nobleman_max"))["nobleman_max__sum"]
+    back_noble = snob_weights.filter(
+        start__in=starts, first_line=False
+    ).aggregate(Sum("nobleman_max"))["nobleman_max__sum"]
 
     if all_noble is None:
         all_noble = 0
@@ -69,6 +71,7 @@ def legal_coords_near_targets(outline: models.Outline):
     outline.avaiable_nobles_near = [all_noble, front_noble, back_noble]
     outline.avaiable_offs_near = [all_off, front_off, back_off]
     outline.save()
+
 
 def get_legal_coords_outline(outline: models.Outline):
     """ Create set with ally_vill without enemy_vill closer than radius """
@@ -99,8 +102,7 @@ def get_legal_coords_outline(outline: models.Outline):
     ally_set = set()
 
     enemy_count = enemy_villages.count()
-    instance_number = ceil(enemy_count * (0.10) + 1000)
-
+    instance_number = ceil(enemy_count * (0.4) + 3000)
 
     for village in ally_villages:
         ally_set.add((village[0], village[1]))
@@ -125,8 +127,12 @@ def get_legal_coords_outline(outline: models.Outline):
     # back ofs
     starts = [f"{tup[0]}|{tup[1]}" for tup in legal_coords]
 
-    models.WeightMaximum.objects.filter(outline=outline, start__in=starts).update(first_line=False)
-    models.WeightMaximum.objects.filter(outline=outline).exclude(start__in=starts).update(first_line=True)
+    models.WeightMaximum.objects.filter(
+        outline=outline, start__in=starts
+    ).update(first_line=False)
+    models.WeightMaximum.objects.filter(outline=outline).exclude(
+        start__in=starts
+    ).update(first_line=True)
 
     all_weights = models.WeightMaximum.objects.filter(
         outline=outline, off_max__gte=outline.initial_outline_min_off

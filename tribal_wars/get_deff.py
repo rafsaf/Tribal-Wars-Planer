@@ -120,7 +120,7 @@ def get_deff(
             village_dictionary,
         )
 
-def get_legal_coords(ally_villages, enemy_villages, radius, p=0.4):
+def get_legal_coords(ally_villages, enemy_villages, radius, p=0.6):
     """ Create set with ally_vill without enemy_vill closer than radius """
     # ally_villages_ids = [village.pk for village in ally_villages]
 # 

@@ -39,6 +39,10 @@ class SortAndPaginRequest:
                 off_left__lte=self.outline.filter_weights_max,
             )
         )
+        if self.outline.filter_hide_front == "back":
+            nonused_vertices = nonused_vertices.filter(first_line=False)
+        if self.outline.filter_hide_front == "front":
+            nonused_vertices = nonused_vertices.filter(first_line=True)
 
         return nonused_vertices
 

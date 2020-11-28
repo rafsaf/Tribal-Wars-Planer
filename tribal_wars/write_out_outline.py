@@ -3,7 +3,6 @@ from random import sample
 from django.db.models import F, DecimalField, ExpressionWrapper
 
 from base import models
-from tribal_wars import basic
 
 
 class WriteTarget:
@@ -16,7 +15,6 @@ class WriteTarget:
         self.end_up_nobles = False
         self.index = 0
 
-
     def write_noble(self):
         weights_max_update_lst = []
         weights_create_lst = []
@@ -24,35 +22,71 @@ class WriteTarget:
         nobles_weight_max = self.sorted_weights_noble()
         available = sum([weight.nobleman_left for weight in nobles_weight_max])
         if available == 0:
-            self.end_up_nobles = True
-            return None
-        
-        choosen_by_the_god = [] # list with (weight_max, number_of_nobles_to_write) tuples
+            if self.target.mode_noble == "closest":
+                self.end_up_nobles = True
+                return None
+            self.target.mode_noble = "finished_back"
+            nobles_weight_max = self.sorted_weights_noble()
+            available = sum(
+                [weight.nobleman_left for weight in nobles_weight_max]
+            )
+            if available == 0:
+                self.end_up_nobles = True
+                return None
 
-        if self.target.mode_guide == "one": #one weight-one target prefer
+        choosen_by_the_god = (
+            []
+        )  # list with (weight_max, number_of_nobles_to_write) tuples
 
-            while self.target.required_noble > 0 and len(nobles_weight_max) > 0:
-                exact = sorted([weight for weight in nobles_weight_max if weight.nobleman_left >= self.target.required_noble], key=lambda weight: (-weight.off_left, -weight.distance))
-                if len(exact) > 0: # there is a village with exact OR more number of nobles than required
-                    choosen_by_the_god.append( (exact[0], self.target.required_noble) )
+        if self.target.mode_guide == "one":  # one weight-one target prefer
+
+            while (
+                self.target.required_noble > 0 and len(nobles_weight_max) > 0
+            ):
+                exact = sorted(
+                    [
+                        weight
+                        for weight in nobles_weight_max
+                        if weight.nobleman_left >= self.target.required_noble
+                    ],
+                    key=lambda weight: (-weight.off_left, -weight.distance),
+                )
+                if (
+                    len(exact) > 0
+                ):  # there is a village with exact OR more number of nobles than required
+                    choosen_by_the_god.append(
+                        (exact[0], self.target.required_noble)
+                    )
                     self.target.required_noble = 0
                 else:
-                    nobles_weight_max.sort(key=lambda weight: (-weight.off_left, -weight.distance))
+                    nobles_weight_max.sort(
+                        key=lambda weight: (-weight.off_left, -weight.distance)
+                    )
                     to_add = nobles_weight_max.pop(0)
                     choosen_by_the_god.append((to_add, to_add.nobleman_left))
                     self.target.required_noble -= to_add.nobleman_left
-        
-        elif self.target.mode_guide == "many": # optimal- one or many prefer
-            nobles_weight_max.sort(key=lambda weight: (-weight.off_left, -weight.distance))
-            while self.target.required_noble > 0 and len(nobles_weight_max) > 0:
+
+        elif self.target.mode_guide == "many":  # optimal- one or many prefer
+            nobles_weight_max.sort(
+                key=lambda weight: (-weight.off_left, -weight.distance)
+            )
+            while (
+                self.target.required_noble > 0 and len(nobles_weight_max) > 0
+            ):
                 to_add = nobles_weight_max.pop(0)
-                noble_to_add = min(to_add.nobleman_left, self.target.required_noble)
+                noble_to_add = min(
+                    to_add.nobleman_left, self.target.required_noble
+                )
                 self.target.required_noble -= noble_to_add
                 choosen_by_the_god.append((to_add, noble_to_add))
 
-        elif self.target.mode_guide == "single": # only single nobles
-            nobles_weight_max.sort(key=lambda weight: (-weight.off_left, -weight.distance))
-            while self.target.required_noble > 0 and len(nobles_weight_max) > 0:
+        elif self.target.mode_guide == "single":  # only single nobles
+            nobles_weight_max.sort(
+                key=lambda weight: (-weight.off_left, -weight.distance)
+            )
+            while (
+                self.target.required_noble > 0 and len(nobles_weight_max) > 0
+            ):
                 to_add = nobles_weight_max.pop(0)
                 self.target.required_noble -= 1
                 choosen_by_the_god.append((to_add, 1))
@@ -66,20 +100,24 @@ class WriteTarget:
 
             elif weight_max.off_left < 200 * weight_max.nobleman_left:
                 off = weight_max.off_left // weight_max.nobleman_left
-                big_off = weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+                big_off = weight_max.off_left - (
+                    off * (weight_max.nobleman_left - 1)
+                )
                 if weight_max.nobleman_left > noble_number:
                     to_left = off * (weight_max.nobleman_left - noble_number)
                 else:
                     to_left = 0
 
             elif self.target.mode_division == "divide":
+
+                off = weight_max.off_left // weight_max.nobleman_left
+                big_off = (
+                    weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+                )
                 if weight_max.nobleman_left > noble_number:
-                    to_left = 200 * (weight_max.nobleman_left - noble_number)
+                    to_left = off * (weight_max.nobleman_left - noble_number)
                 else:
                     to_left = 0
-                
-                off = (weight_max.off_left - to_left) // noble_number
-                big_off = weight_max.off_left - to_left - (off * (noble_number - 1))
 
             elif self.target.mode_division == "not_divide":
                 if weight_max.nobleman_left > noble_number:
@@ -87,13 +125,15 @@ class WriteTarget:
                 else:
                     to_left = 0
                 off = 200
-                big_off = weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+                big_off = weight_max.off_left - (
+                    off * (weight_max.nobleman_left - 1)
+                )
 
             elif self.target.mode_division == "separatly":
                 off = 200
                 big_off = 200
                 to_left = weight_max.off_left - (off * (noble_number))
-            
+
             for _ in range(noble_number):
                 if _ == 0:
                     off_troops = big_off
@@ -121,7 +161,15 @@ class WriteTarget:
 
             weights_max_update_lst.append(weight_max)
 
-        models.WeightMaximum.objects.bulk_update(weights_max_update_lst, fields=["off_state", "off_left", "nobleman_state", "nobleman_left"])
+        models.WeightMaximum.objects.bulk_update(
+            weights_max_update_lst,
+            fields=[
+                "off_state",
+                "off_left",
+                "nobleman_state",
+                "nobleman_left",
+            ],
+        )
         models.WeightModel.objects.bulk_create(weights_create_lst)
 
     def write_ram(self):
@@ -251,10 +299,7 @@ class WriteTarget:
     def sorted_weights_noble(self):
 
         default_noble_query = models.WeightMaximum.objects.filter(
-            outline=self.outline,
-            nobleman_left__gte=1,
-            off_left__gte=200,
-            
+            outline=self.outline, nobleman_left__gte=1, off_left__gte=200,
         )
 
         default_noble_query = default_noble_query.annotate(
@@ -268,14 +313,16 @@ class WriteTarget:
             )
         ).filter(distance__lte=self.outline.initial_outline_target_dist)
 
-        if self.target.mode_noble == "closest":
+        if self.target.mode_noble == "finished_back":
+            # after there is no nobles back, take front nobles
             self.index = 70000
-            weight_list = default_noble_query.order_by("distance")[
-                : 10
-            ]
-            return sorted(
-                weight_list, key=lambda item: item.distance,
-            )
+            weight_list = default_noble_query.order_by("-distance")[:10]
+            return sorted(weight_list, key=lambda item: item.distance,)
+
+        if self.target.mode_noble == "closest":
+            self.index = 80000
+            weight_list = default_noble_query.order_by("distance")[:10]
+            return sorted(weight_list, key=lambda item: item.distance,)
 
         if self.target.mode_noble == "close":
             self.index = 60000
@@ -283,12 +330,9 @@ class WriteTarget:
                 default_noble_query.filter(
                     first_line=False,
                     distance__gte=self.outline.initial_outline_front_dist,
-                ).order_by("distance")[: 10]
+                ).order_by("distance")[:10]
             )
-            return sorted(
-                weight_list,
-                key=lambda item: item.distance,
-            )
+            return sorted(weight_list, key=lambda item: item.distance,)
 
         if self.target.mode_noble == "random":
             self.index = 50000
@@ -296,11 +340,9 @@ class WriteTarget:
                 default_noble_query.filter(
                     first_line=False,
                     distance__gte=self.outline.initial_outline_front_dist,
-                ).order_by("?")[: 10]
+                ).order_by("?")[:10]
             )
-            return sorted(
-                weight_list, key=lambda item: item.distance,
-            )
+            return sorted(weight_list, key=lambda item: item.distance,)
 
         if self.target.mode_noble == "far":
             self.index = 40000
@@ -308,10 +350,7 @@ class WriteTarget:
                 default_noble_query.filter(
                     first_line=False,
                     distance__gte=self.outline.initial_outline_front_dist,
-                ).order_by("-distance")[: 10]
+                ).order_by("-distance")[:10]
             )
-            return sorted(
-                weight_list,
-                key=lambda item: item.distance,
-            )
+            return sorted(weight_list, key=lambda item: item.distance,)
 

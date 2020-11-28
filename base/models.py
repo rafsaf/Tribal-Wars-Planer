@@ -127,6 +127,12 @@ class Outline(models.Model):
         ("single", gettext_lazy("Try single nobles from many villages")),
     ]
 
+    HIDE_CHOICES = [
+        ("all", gettext_lazy("All")),
+        ("front", gettext_lazy("Front")),
+        ("back", gettext_lazy("Back")),
+    ]
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(null=True, blank=True)
     name = models.TextField()
@@ -192,6 +198,7 @@ class Outline(models.Model):
         default=12,
         validators=[MinValueValidator(1), MaxValueValidator(40)],
     )
+    filter_hide_front = models.CharField(max_length=20, choices=HIDE_CHOICES, default="all")
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(max_length=50, default="Cele Akcja")
     text_message = models.CharField(max_length=300, default="", blank=True)
