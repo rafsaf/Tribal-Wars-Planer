@@ -6,6 +6,8 @@ From script Obrona to nice good looking version
 Also prining only villages in center
 
 """
+from math import ceil
+
 from django.db.models import F, IntegerField, ExpressionWrapper
 
 from base import models
@@ -118,48 +120,37 @@ def get_deff(
             village_dictionary,
         )
 
-
-def get_legal_coords(ally_villages, enemy_villages, radius):
+def get_legal_coords(ally_villages, enemy_villages, radius, p=0.4):
     """ Create set with ally_vill without enemy_vill closer than radius """
     # ally_villages_ids = [village.pk for village in ally_villages]
-    #
-    # query = models.VillageModel.objects.none()
-    # list_of_queries = []
-    # basic.ti()
-    # for village in enemy_villages:
-    #    left_right = [village.x_coord - radius, village.x_coord + radius]
-    #    up_down = [village.y_coord - radius, village.y_coord + radius]
-    #
-    #    new_query = (
-    #        models.VillageModel.objects.filter(pk__in=ally_villages_ids)
-    #        .filter(x_coord__gte=left_right[0], x_coord__lte=left_right[1],
-    #                y_coord__lte=up_down[0], y_coord__gte=up_down[1])
-    #        .annotate(
-    #            distance=ExpressionWrapper(
-    #                (
-    #                    (F("x_coord") - village.x_coord) ** 2
-    #                    + (F("y_coord") - village.y_coord) ** 2
-    #                )
-    #                ** (1 / 2),
-    #                output_field=IntegerField(),
-    #            )
-    #        )
-    #        .filter(distance__lte=radius)
-    #    )
-    #    list_of_queries.append(new_query)
-    #
-    # query.union(*list_of_queries)
-    # query = list(query)
-    # basic.ti()
-    # front_villages_ids = [village.pk for village in query]
-    # return_list = list(models.VillageModel.objects.exclude(pk__in=front_villages_ids))
-    # return return_list
+# 
+    # query = models.VillageModel.objects.filter(pk__in=ally_villages_ids)
+# 
+    # for i, village in enumerate(enemy_villages):
+    #     if not i % 10 == 0:
+    #         continue
+    #     left_right = [village.x_coord - radius, village.x_coord + radius]
+    #     up_down = [village.y_coord + radius, village.y_coord - radius]
+# 
+    #     query = query.exclude(x_coord__gte=left_right[0], x_coord__lte=left_right[1],
+    #                 y_coord__lte=up_down[0], y_coord__gte=up_down[1])
+    #     
+    #     if i % 1000 == 0 and i != 0:
+    #         ally_villages_ids = [village.pk for village in query]
+    #         query = models.VillageModel.objects.filter(pk__in=ally_villages_ids)
+    # 
+    # ally_set = set()
+    # for village in query:
+    #     ally_set.add((village.x_coord, village.y_coord))
+    # return ally_set
+    enemy_count = enemy_villages.count()
+    instance_number = ceil(enemy_count * (p) + 1000)
 
     banned_coords = set()
     ally_set = set()
     for village in ally_villages:
         ally_set.add((village.x_coord, village.y_coord))
-    for village in enemy_villages:
+    for village in enemy_villages.order_by("?")[:instance_number]:
         pass_bool = False
         if (village.x_coord, village.y_coord) in banned_coords:
             for coord in basic.yield_four_circle_ends(
@@ -168,13 +159,12 @@ def get_legal_coords(ally_villages, enemy_villages, radius):
                 if coord in banned_coords:
                     break
                 pass_bool = True
-
-    if not pass_bool:
-        for coord in basic.yield_circle(
-            radius, (village.x_coord, village.y_coord)
-        ):
-            if coord not in banned_coords:
-                banned_coords.add(coord)
+        if not pass_bool:
+            for coord in basic.yield_circle(
+                radius, (village.x_coord, village.y_coord)
+            ):
+                if coord not in banned_coords:
+                    banned_coords.add(coord)
 
     return ally_set - banned_coords
 

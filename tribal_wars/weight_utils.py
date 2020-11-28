@@ -43,6 +43,7 @@ class OffTroops:
             ally_villages=ally_villages,
             enemy_villages=enemy_villages,
             radius=int(self.outline.initial_outline_front_dist),
+            p=0.05,
         )
         coord_set = set()
         for coord_tuple in legal_coords_set:

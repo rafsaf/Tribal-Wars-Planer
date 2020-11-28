@@ -1,3 +1,5 @@
+from math import ceil
+
 from django.db.models import Sum
 
 from base import models
@@ -12,9 +14,12 @@ def legal_coords_near_targets(outline: models.Outline):
         weight.coord_tuple()
         for weight in models.WeightMaximum.objects.filter(outline=outline)
     ]
+    enemy_count = models.TargetVertex.objects.filter(outline=outline).count()
+    instance_number = ceil(enemy_count * (0.10) + 1000)
+
     enemy_villages = [
         target.coord_tuple()
-        for target in models.TargetVertex.objects.filter(outline=outline)
+        for target in models.TargetVertex.objects.filter(outline=outline).order_by("?")[:instance_number]
     ]
 
     banned_coords = set()
@@ -93,9 +98,13 @@ def get_legal_coords_outline(outline: models.Outline):
     banned_coords = set()
     ally_set = set()
 
+    enemy_count = enemy_villages.count()
+    instance_number = ceil(enemy_count * (0.10) + 1000)
+
+
     for village in ally_villages:
         ally_set.add((village[0], village[1]))
-    for village in enemy_villages:
+    for village in enemy_villages.order_by("?")[:instance_number]:
         pass_bool = False
         if (village.x_coord, village.y_coord) in banned_coords:
             for coord in basic.yield_four_circle_ends(

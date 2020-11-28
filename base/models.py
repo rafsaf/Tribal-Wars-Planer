@@ -154,7 +154,7 @@ class Outline(models.Model):
         default=12, validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
     initial_outline_target_dist = models.IntegerField(
-        default=12, validators=[MinValueValidator(0), MaxValueValidator(150)]
+        default=50, validators=[MinValueValidator(0), MaxValueValidator(150)]
     )
     initial_outline_fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
