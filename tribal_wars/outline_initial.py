@@ -110,10 +110,7 @@ def complete_outline(outline: models.Outline):
         if parsed.end_up_offs:
             break
 
-    leave = False
     for target in targets:
-        if leave:
-            break
         if target.required_noble == 0:
             if len(target.exact_noble) == 4:
                 for required_noble, mode in zip(
@@ -126,15 +123,11 @@ def complete_outline(outline: models.Outline):
 
                     parsed = write_out_outline.WriteTarget(target, outline)
                     parsed.write_noble()
-                    if parsed.end_up_nobles:
-                        leave = True
-                        break
+
             continue
 
         parsed = write_out_outline.WriteTarget(target, outline)
         parsed.write_noble()
-        if parsed.end_up_nobles:
-            break
 
     leave = False
     for target in targets:
@@ -163,10 +156,8 @@ def complete_outline(outline: models.Outline):
         if parsed.end_up_offs:
             break
 
-    leave = False
     for target in fakes:
-        if leave:
-            break
+
         if target.required_noble == 0:
             if len(target.exact_noble) == 4:
                 for required_noble, mode in zip(
@@ -179,15 +170,10 @@ def complete_outline(outline: models.Outline):
 
                     parsed = write_out_outline.WriteTarget(target, outline)
                     parsed.write_noble()
-                    if parsed.end_up_nobles:
-                        leave = True
-                        break
             continue
 
         parsed = write_out_outline.WriteTarget(target, outline)
         parsed.write_noble()
-        if parsed.end_up_nobles:
-            break
 
     # Nobles
     # write_out_outline_nobles(targets_general, outline, targets)
