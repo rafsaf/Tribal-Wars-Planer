@@ -636,7 +636,11 @@ def update_outline_troops(request, id1):
                 " military data \n"
             )
         )
+        
         return redirect("base:planer_detail", id1)
-
+    instance.avaiable_offs = []
+    instance.avaiable_offs_near = []
+    instance.avaiable_nobles = []
+    instance.avaiable_nobles_near = []
     instance.save()
     return redirect("base:planer_initial_form", id1)
