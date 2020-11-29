@@ -365,3 +365,82 @@ footer {
 .toogle-icon:focus {
     box-shadow: none !important;
 }
+
+@media (min-width: 992px) {
+    .nav-link.ocean-tab-mid{
+        border-top: 1px solid teal;
+        border-bottom: 1px solid teal;
+        border-left: 0;
+        border-right: 0.5px solid teal;
+        background-color: white;
+        border-radius: 0;
+        color: black;
+    }
+    .nav-link.ocean-tab-left{
+        border-top: 1px solid teal;
+        border-bottom: 1px solid teal;
+        border-left: 1px solid teal;
+        border-right: 0.5px solid teal;
+        background-color: white;
+        border-radius: 15px 0px 0px 15px;
+        color: black;
+    }
+    .nav-link.ocean-tab-right{
+        border-top: 1px solid teal;
+        border-bottom: 1px solid teal;
+        border-left: 0;
+        border-right: 1px solid teal;
+        background-color: white;
+        border-radius: 0px 15px 15px 0px;
+        color: black;
+    }
+
+    .nav-link.active.ocean-tab-mid{
+        background-color: teal;
+        color: white;
+    }
+    .nav-link.active.ocean-tab-left{
+        background-color: teal;
+        color: white;
+    }
+    .nav-link.active.ocean-tab-right{
+        background-color: teal;
+        color: white;
+    }
+}
+@media (max-width: 992px) {
+    .nav-link.ocean-tab-mid{
+        border: 1px solid teal;
+        background-color: white;
+        min-width: 350px !important;
+        border-radius: 5px;
+        color: black;
+    }
+    .nav-link.ocean-tab-left{
+        border: 1px solid teal;
+        background-color: white;
+        min-width: 350px !important;
+        border-radius: 5px;
+        color: black;
+    }
+    .nav-link.ocean-tab-right{
+        border: 1px solid teal;
+        background-color: white;
+        min-width: 350px !important;
+        border-radius: 5px;
+        color: black;
+    }
+
+    .nav-link.active.ocean-tab-mid{
+        background-color: teal;
+        color: white;
+    }
+    .nav-link.active.ocean-tab-left{
+        background-color: teal;
+        color: white;
+    }
+    .nav-link.active.ocean-tab-right{
+        background-color: teal;
+        color: white;
+    }
+}

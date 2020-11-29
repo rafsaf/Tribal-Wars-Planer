@@ -1,5 +1,5 @@
  {% extends 'base/base.html' %} {% load i18n %} {% block content %} {% load crispy_forms_tags %}
-<div class="container-fluid md-pre">
+<div class="container-fluid md-pre mt-3">
     <div class="row">
         <div class="col-12 col-lg-4">
             <div class="mt-3">
@@ -33,7 +33,7 @@
                                 <td>
                                     <form action="{% url 'base:planer_delete_ally_tags' instance.id %}" method="POST">
                                         {% csrf_token %}
-                                        <button class="btn btn-block btn-outline-danger" type="submit">{% trans 'Delete all' %}</button>
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-block btn-outline-danger" type="submit">{% trans 'Delete all' %}</button>
 
                                     </form>
                                 </td>
@@ -59,7 +59,7 @@
                                 <td>
                                     <form action="{% url 'base:planer_delete_enemy_tags' instance.id %}" method="POST">
                                         {% csrf_token %}
-                                        <button class="btn btn-block btn-outline-danger" type="submit">{% trans 'Delete all' %}</button>
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-block btn-outline-danger" type="submit">{% trans 'Delete all' %}</button>
 
                                     </form>
                                 </td>
@@ -78,7 +78,7 @@
     </div>
 </div>
 <div>
-    <button type="button" class="btn btn-outline-primary btn-lg btn-block mt-2" data-toggle="modal" data-target="#ValidationModal">
+    <button type="button" class="btn btn-outline-ocean btn-lg btn-block mt-2" data-toggle="modal" data-target="#ValidationModal">
         {% trans 'Save and create' %}
       </button>
 </div>
@@ -105,7 +105,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
                 <form action="{% url 'base:planer_disable_editable' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">{% trans 'Continue' %}</button>
+                    <button onclick="this.disabled=true;this.form.submit();" type="submit" class="btn btn-ocean">{% trans 'Continue' %}</button>
                 </form>
             </div>
         </div>

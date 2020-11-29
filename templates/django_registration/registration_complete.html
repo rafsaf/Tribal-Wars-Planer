@@ -2,11 +2,13 @@
 {% load i18n %}
 
 {% block content %}
-<div class="font-nav">
+<div class="row justify-content-center">
+<div class="font-nav col-12 col-lg-10 mt-5">
 <h3>{% trans 'Congratulations, you have successfully registered!' %}</h3>
 <li class="mt-1">{% trans "Don't forget to join <a target='_blank' href='https://discord.gg/g5pcsCteCT'> discord </a>, there you will find all the help and can make suggestions and bugs." %}</li>
 <li class="mt-1">{% trans 'You can change the language version and log in and out by expanding <span style = "font-style: italic; font-size: large; text-decoration: underline;"> Menu </span> in the navigation bar.' %}</li>
 <li class="mt-1">{% trans 'To start go to the tab <span style = "font-style: italic; font-size: large; text-decoration: underline;"> Create new outline </span>' %}</li>
 <h5 class="mt-3">{% trans 'First steps: it is worth starting by reading about' %} <a target="_blank" href="{% url 'base:documentation' %}#test">{% trans 'Test world' %}</a>.</h5>
+</div>
 </div>
 {% endblock %}

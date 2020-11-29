@@ -53,16 +53,28 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
+                                    <button id="dismiss-btn" type="button" class="btn btn-secondary"
                                         data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
-                                    <form method="POST">
+                                    <form id="form1-form" method="POST">
+                                        <input type="hidden" name="form1" value="">
                                         {% csrf_token %}
-                                        <button name="form1" type="submit" class="btn btn-primary">
+                                        <button id="form1-btn" class="btn btn-ocean">
                                             {% trans 'Continue' %}
                                         </button>
 
                                     </form>
                                 </div>
+                                <script>
+                                    const buttonForm1 = document.getElementById("form1-btn")
+                                    const buttonDismiss = document.getElementById("dismiss-btn")
+                                    buttonForm1.onclick = () => {
+                                        buttonForm1.disabled = true
+                                        buttonDismiss.disabled = true
+                                        buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
+                                        const form1 = document.getElementById("form1-form")
+                                        form1.submit()
+                                      }
+                                </script>
                             </div>
                         </div>
                     </div>

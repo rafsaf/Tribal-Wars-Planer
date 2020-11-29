@@ -15,7 +15,7 @@
 
             <form method='POST'>{% csrf_token %} {{ form|crispy }}
 
-                <button class="btn btn-ocean mt-3" type="submit">{% trans 'Create an account' %}</button>
+                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mt-3" type="submit">{% trans 'Create an account' %}</button>
 
             </form>
             

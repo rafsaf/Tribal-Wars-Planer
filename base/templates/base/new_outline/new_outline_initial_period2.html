@@ -25,13 +25,19 @@
             <a href="{% url 'base:planer_detail_get_off' instance.id %}" class="list-group-item list-group-item-action
                   bg-light">{% trans 'Off collection' %}</a>
 
-            <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
-                  bg-light">{% trans 'Planer' %}
-
-
-                <div class="badge badge-info">BETA</div>
-
-            </a> 
+            <a id="planer-link" onclick="onPlanerLinkClick();" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
+            bg-light">
+            {% trans 'Planer' %}
+            <div class="badge badge-info">{% trans 'BETA' %}</div>
+            </a>
+            <script>
+                onPlanerLinkClick = () => {
+                    setTimeout(()=>{
+                        const planerLink = document.getElementById("planer-link")
+                        planerLink.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-info my-auto' role='status'></span>{% trans 'Hold on a second...' %}"
+                    }, 800)
+                }
+            </script>
             {% endblock %}
         </div>
     </div>
@@ -108,16 +114,28 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
+                                    <button id="dismiss-btn" type="button" class="btn btn-secondary"
                                         data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
-                                    <form method="POST">
+                                    <form id="form1-form" method="POST">
+                                        <input type="hidden" name="form1" value="">
                                         {% csrf_token %}
-                                        <button name="form1" type="submit" class="btn btn-primary">
+                                        <button id="form1-btn" class="btn btn-ocean">
                                             {% trans 'Continue' %}
                                         </button>
 
                                     </form>
                                 </div>
+                                <script>
+                                    const buttonForm1 = document.getElementById("form1-btn")
+                                    const buttonDismiss = document.getElementById("dismiss-btn")
+                                    buttonForm1.onclick = () => {
+                                        buttonForm1.disabled = true
+                                        buttonDismiss.disabled = true
+                                        buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
+                                        const form1 = document.getElementById("form1-form")
+                                        form1.submit()
+                                      }
+                                </script>
                             </div>
                         </div>
                     </div>

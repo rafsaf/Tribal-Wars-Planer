@@ -65,9 +65,10 @@
     {% endif %}
     <div id='target-form' class="col-12 col-lg-4 mx-auto my-2">
 
-        <form method='POST' autocomplete="off">{% csrf_token %} 
+        <form method='POST' autocomplete="off">{% csrf_token %}
+            <input name="create" type="hidden" value="">
             {{ target_form|crispy }}
-            <button name='create' class="btn btn-block btn-ocean my-2" type="submit">{% trans 'Create' %}</button>
+            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-block btn-ocean my-2">{% trans 'Create' %}</button>
         </form>
     </div>
     <table class="table table-bordered col-6 mx-auto mt-5">
@@ -85,7 +86,8 @@
                 <th>
                     <form method="POST" action="{% url 'base:planer_delete_target' instance.id target.id %}?page={{ query.number}}&mode={{mode}}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
+
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
                     </form>
                     
                 </th>

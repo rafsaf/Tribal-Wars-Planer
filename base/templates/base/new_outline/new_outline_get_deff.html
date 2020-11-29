@@ -1,30 +1,43 @@
 {% extends "base/new_outline/new_outline.html" %} {% load i18n %} {% block content %} {% load crispy_forms_tags %}
-<div>
-    <h1>Deff</h1>
-</div>
+
 
 <div class="row my-2">
     <div class="col-12 col-lg-6">
-        <form method='POST'>{% csrf_token %} {{ form|crispy }}
+        <div >
+            <h2>Deff</h2>
+        </div>
+        <form id="form-form" method='POST'>
+            <input type="hidden" name="form" value="">
+            {% csrf_token %} 
+            {{ form|crispy }}
 
-            <button class="btn btn-primary mb-5" id="button1" name="form" type="submit">{% trans 'Submit' %}</button>
+            <button class="btn btn-ocean mb-5" id="form-btn">{% trans 'Submit' %}</button>
 
         </form>
     </div>
+    <script>
+        const buttonForm = document.getElementById("form-btn")
 
+        buttonForm.onclick = () => {
+          buttonForm.disabled = true
+          buttonForm.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
+          const form = document.getElementById("form-form")
+          form.submit()
+        }
+    </script>
 
 
     <div class="col-12 col-lg-6">
         <div class="container-fluid md-pre h-100">
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                <li class="nav-item responsive-tab">
+                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Marks' %}</a>
+                <li class="nav-item responsive-tab">
+                    <a class="nav-link ocean-tab-mid" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Marks' %}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                <li class="nav-item responsive-tab">
+                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
                 </li>
             </ul>
             <div class="tab-content font-nav" id="pills-tabContent">

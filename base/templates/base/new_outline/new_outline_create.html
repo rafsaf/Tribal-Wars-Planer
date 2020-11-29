@@ -1,12 +1,16 @@
 {% extends 'base/base.html' %} {% load i18n %} {% block content %} {% load crispy_forms_tags %}
 
-<div class="row">
+<div class="row mt-3">
     <div class="col-12 col-lg-6">
         <div class="alert alert-primary" role="alert">
             {% trans 'First time? You can choose a special <span class="md-correct2">Test World</span> created for testing purposes, see ' %}<a target="_blank" href="{% url 'base:documentation' %}#test">{% trans 'docs' %}</a>
           </div>
-        <form method='POST' autocomplete="off">{% csrf_token %} {{ form1|crispy }}
-            <button class="btn btn-primary mb-5" type="submit">{% trans 'Submit' %}</button>
+        <form method='POST' autocomplete="off">
+            {% csrf_token %} 
+            {{ form1|crispy }}
+            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mb-5">
+                {% trans 'Submit' %}
+            </button>
         </form>
 
     </div>
@@ -15,13 +19,13 @@
         <div class="container-fluid md-pre h-100">
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Marks' %}</a>
+                    <a class="nav-link ocean-tab-mid" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Marks' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
                 </li>
             </ul>
             <div class="tab-content font-nav" id="pills-tabContent">

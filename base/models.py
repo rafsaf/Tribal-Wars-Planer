@@ -1,6 +1,7 @@
 """ Database models """
 import datetime
 
+import django
 from django.utils.translation import gettext_lazy
 from django.db import models
 from django.contrib.auth.models import User
@@ -134,7 +135,7 @@ class Outline(models.Model):
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(null=True, blank=True)
+    date = models.DateField(default=django.utils.timezone.now)
     name = models.TextField()
     world = models.IntegerField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

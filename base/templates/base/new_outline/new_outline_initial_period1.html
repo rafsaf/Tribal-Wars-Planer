@@ -6,10 +6,10 @@
 
 <script src="{% static 'codemirror.js' %}"></script>
 <link rel="stylesheet" href="{% static 'codemirror.css' %}">
-<div class="row mb-5">
+<div class="row mb-5 mt-2">
     <div class="col-12 col-lg-7">
         <div class=" w-100">
-        <form id="save-target-form" method='POST'>
+        <form id="form1-form" method='POST'>
           <input type="hidden" name="form1" value=""/>
             {% csrf_token %}
                 <h4>{{ form1.target.label_tag }} </h4>
@@ -64,26 +64,27 @@
                 {% endfor %} 
 
                 {% endif %}
+              </form>
+
+              <form id="form-complete" action="{% url 'base:planer_complete' instance.id %}">
+              </form>
 
                 <div class="btn-group my-3">
-                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean" name="form1" type="submit">{% trans 'Save targets' %}</button>
-                <script>
-                  const confirm_complete_outline = () => {
-                    const form = document.getElementById("completeOutlineForm")
-                    form.submit();
-                  }
-                </script>
-                <form id="completeOutlineForm" action="{% url 'base:planer_complete' instance.id %}">
-                  <button onclick="this.disabled=true;confirm_complete_outline();" class="btn btn-outline-ocean" type="submit">
+
+                <button id="form1-btn" class="btn btn-ocean"> {% trans 'Save targets' %}</button>
+
+                
+                  <button id="form-complete-btn" class="btn btn-outline-ocean">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
                     </svg>
                     {% trans 'Write an outline' %}
                   </button>
-                </form>
+               
                 
               </div>
-            </form>
+            
+
         </div>
 
               <table class="table table-sm table-bordered my-3">
@@ -144,13 +145,17 @@
                   
                       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">
-                          <a href="{% url 'base:planer_update_troops' instance.id %}" class="btn btn-outline-ocean mb-3">
-                            <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
-                            <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
-                          </svg>
-                          {% trans 'Click here to update if you have changed Army troops' %}
-                        </a>
+
+                          <form id="form-update" action="{% url 'base:planer_update_troops' instance.id %}">
+                            <button id="form-update-btn" class="btn btn-outline-ocean mb-3">
+                              <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                              <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                            </svg>
+                            {% trans 'Click here to update if you have changed Army troops' %}
+                            </button>
+                          </form>
+
                         <h5 class="my-3">
                           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-wide-connected" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434L8.932.727zM8 12.997a4.998 4.998 0 1 0 0-9.995 4.998 4.998 0 0 0 0 9.996z"/>
@@ -159,10 +164,13 @@
                           {% trans 'Available troops settings:' %}
                         </h5>
                           <div class="mt-1">
-                          <form method='POST' autocomplete="off">
+                          <form id="form2-form" method='POST' autocomplete="off">
+                            <input type="hidden" name="form2" value=""/>
                             {% csrf_token %}
                           {{form2|crispy}}
-                          <button class="btn btn-sm btn-ocean" name="form2" type="submit">{% trans 'Save and reload troops' %}</button>
+                          <button class="btn btn-sm btn-ocean" id="form2-btn" >
+                            {% trans 'Save and reload troops' %}
+                          </button>
                           </form>
                         </div>
                         </div>
@@ -183,10 +191,11 @@
                       </div>
                       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="card-body">
-                          <form method='POST' autocomplete="off">
+                          <form id="form3-form" method='POST' autocomplete="off">
+                            <input type="hidden" name="form3" value="">
                             {% csrf_token %}
                           {{form3|crispy}}
-                          <button class="btn btn-sm btn-ocean" name="form3" type="submit">{% trans 'Save' %}</button>
+                          <button class="btn btn-sm btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
                           </form>
                           <h5 class="mt-4">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -253,10 +262,11 @@
                             </svg>
                             {% trans 'Change default mode:' %}
                           </h4>
-                          <form method='POST' autocomplete="off">
+                          <form id="form4-form" method='POST' autocomplete="off">
+                            <input type="hidden" name="form4" value="">
                             {% csrf_token %}
                             {{ form4|crispy }}
-                          <button class="btn btn-sm btn-ocean" name="form4" type="submit">{% trans 'Save' %}</button>
+                          <button class="btn btn-sm btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
                           </form>
                         </div>
                       </div>
@@ -278,7 +288,8 @@
                           <style>
                             thead th.formset { position: sticky; top: 0;background-color: teal; color: white; }
                           </style>
-                          <form method="POST">
+                          <form id="formset-form" method="POST">
+                            <input type="hidden" name="formset" value="">
                             {% csrf_token %}
                             {{ formset.management_form }}
                           <div class="table-responsive" style="max-height: 50vh;">
@@ -468,7 +479,7 @@
                           
                           
                         </div>
-                        <button name="formset" class="btn btn-ocean mt-4" type="submit">{% trans 'Save' %}</button>
+                        <button id="formset-btn" class="btn btn-ocean mt-4">{% trans 'Save' %}</button>
                       </form>
                         </div>
                       </div>
@@ -488,11 +499,11 @@
         <div class="container-fluid md-pre h-100">
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
                 </li>
             </ul>
             <div class="tab-content font-nav" id="pills-tabContent">
@@ -507,7 +518,68 @@
         </div>
     </div>
 
+    <script>
+      const buttonForm1 = document.getElementById("form1-btn")
+      const buttonFormComplete = document.getElementById("form-complete-btn")
+      const buttonFormUpdate = document.getElementById("form-update-btn")
+      const buttonForm2 = document.getElementById("form2-btn")
+      const buttonForm3 = document.getElementById("form3-btn")
+      const buttonForm4 = document.getElementById("form4-btn")
+      const buttonFormset = document.getElementById("formset-btn")
 
+      buttonForm1.onclick = () => {
+        buttonForm1.disabled = true
+        buttonFormComplete.disabled = true
+        buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
+        const form1 = document.getElementById("form1-form")
+        form1.submit()
+      }
+
+      buttonFormComplete.onclick = () => {
+        buttonForm1.disabled = true
+        buttonFormComplete.disabled = true
+        buttonFormComplete.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
+        const formComplete = document.getElementById("form-complete")
+        formComplete.submit()
+      }
+
+      buttonFormUpdate.onclick = () => {
+        buttonFormUpdate.disabled = true
+        buttonForm2.disabled = true
+
+        buttonFormUpdate.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Updating Army data...' %}"
+        const formUpdate = document.getElementById("form-update")
+        formUpdate.submit()
+      }
+
+      buttonForm2.onclick = () => {
+        buttonFormUpdate.disabled = true
+        buttonForm2.disabled = true
+
+        buttonForm2.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Reloading troops...' %}"
+        const form2 = document.getElementById("form2-form")
+        form2.submit()
+      }
+      buttonForm3.onclick = () => {
+        buttonForm3.disabled = true
+        buttonForm3.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
+        const form3 = document.getElementById("form3-form")
+        form3.submit()
+      }
+      buttonForm4.onclick = () => {
+        buttonForm4.disabled = true
+        buttonForm4.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
+        const form4 = document.getElementById("form4-form")
+        form4.submit()
+      }
+      buttonFormset.onclick = () => {
+        buttonFormset.disabled = true
+        buttonFormset.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
+        const formset = document.getElementById("formset-form")
+        formset.submit()
+      }
+
+    </script>
 
     <script>
         var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {

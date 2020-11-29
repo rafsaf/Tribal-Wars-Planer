@@ -295,6 +295,8 @@ def initial_planer(request, _id):
                         reverse("base:planer_initial", args=[_id])
                         + f"?page={page_obj.number}&mode={str(mode)}"
                     )
+            else:
+                target_form = forms.CreateNewInitialTarget(None, outline=instance)
         else:
             target_form = forms.CreateNewInitialTarget(None, outline=instance)
 

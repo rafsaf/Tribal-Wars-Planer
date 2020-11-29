@@ -1,19 +1,19 @@
 {% extends 'base/base.html' %} {% load i18n %} {% block content %}
 <div class="table-responsive">
-<table class="table table-striped">
-    <thead>
-        <tr class="bg-primary">
+<table class="table table-striped mt-3">
+    <thead style="background-color: teal;">
+        <tr style="color: white;">
 
-            <th scope="col">{% trans 'Outline Name' %}</th>
-            <th scope="col">{% trans 'Date' %}</th>
-            <th scope="col">{% trans 'Created' %}</th>
-            <th scope="col">{% trans 'World' %}</th>
-            <th scope="col">{% trans 'Ally' %}</th>
-            <th scope="col">{% trans 'Enemy' %}</th>
-            <th scope="col">
+            <th class='text-nowrap' scope="col" style="border:1px solid teal">{% trans 'Outline Name' %}</th>
+            <th scope="col" style="border:1px solid teal">{% trans 'Date' %}</th>
+            <th scope="col" style="border:1px solid teal">{% trans 'Created' %}</th>
+            <th scope="col" style="border:1px solid teal">{% trans 'World' %}</th>
+            <th scope="col" style="border:1px solid teal">{% trans 'Ally' %}</th>
+            <th scope="col" style="border:1px solid teal">{% trans 'Enemy' %}</th>
+            <th scope="col" style="border:1px solid teal">
                 {% trans 'Hide' %}
             </th>
-            <th scope="col">{% trans 'Delete' %}</th>
+            <th scope="col" style="border:1px solid teal">{% trans 'Delete' %}</th>
 
         </tr>
     </thead>
@@ -46,12 +46,12 @@
                 {% if instance.status == 'active' %}
                 <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary mb-2">{% trans 'Hide' %}</button>
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary mb-2">{% trans 'Hide' %}</button>
                 </form>
                 {% else %}
                 <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary mb-2">{% trans 'Show' %}</button>
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary mb-2">{% trans 'Show' %}</button>
                 </form>
                 {% endif %}
 
@@ -59,17 +59,17 @@
             <td>
                 <form action="{% url 'base:planer_delete' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary mb-2">{% trans 'Delete' %}</button>
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary mb-2">{% trans 'Delete' %}</button>
                 </form>
             </td>
 
-
+ 
             {% endfor %}
     </tbody>
 </table>
 </div>
 {% if show_all == True %}
-<p><a class="btn btn-outline-success my-3" href="{% url 'base:planer' %}" role="button">{% trans "Don't show hidden" %}</a></p>
+<p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer' %}" role="button">{% trans "Don't show hidden" %}</a></p>
 {% else %}
-<p><a class="btn btn-outline-success my-3" href="{% url 'base:planer_all' %}" role="button">{% trans 'Show hidden' %}</a></p>
+<p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer_all' %}" role="button">{% trans 'Show hidden' %}</a></p>
 {% endif %} {% endblock %}

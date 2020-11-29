@@ -8,8 +8,8 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             {% blocktrans %}
-            <div class="container-fluid popoverData mt-3 mb-3" data-html="true" data-content="
-<H2> Note: </ h2>
+            <div  class="container-fluid popoverData mt-3 mb-3" data-html="true" data-content="
+    <h2> Note: </h2>
     <p class = 'md-error'> Potentially unsafe form! </p>
     <p> When specifying a quantity
       <span class = 'md-error'> larger </span>
@@ -34,6 +34,7 @@
     </div>
 </div>
 <div class="d-block d-lg-none">
+    <div class="table-responsive">
     <nav aria-label="pagination" id="pagination" >
         <ul class="pagination">
             <li class="page-item">
@@ -98,7 +99,7 @@
         </ul>
     </nav>
     </div>
-
+</div>
     <div class="my-3"></div>
 <div class="container-fluid" id="table" style="max-height: 290vh !important; overflow:hidden;">
     <div class="row">
@@ -221,8 +222,8 @@
                             <th scope="col">{% trans 'Player' %}</th>
                             <th scope="col">{% trans 'Target' %}</th>
                             <th scope="col" class="text-nowrap">{% trans 'TW Stats' %}</th>
-                            <th scope="col">{% trans 'Troops from' %}</th>
-                            <th scope="col">{% trans 'Troops to' %}</th>
+                            <th scope="col" class="text-nowrap">{% trans 'Troops from' %}</th>
+                            <th scope="col" class="text-nowrap">{% trans 'Troops to' %}</th>
                             <th style="min-width: 130px;" scope="col" class="text-nowrap">{% trans 'Show' %}</th>
                             <th class="text-nowrap" scope="col">{% trans 'Cards on page' %}</th>
                             <th scope="col">{% trans 'Save' %}</th>
@@ -260,6 +261,7 @@
                             <td class="text-nowrap"><h5><a rel="noopener" target="_blank" href="{{link}}" style="color: #804000;font-weight:700;font-family:SansationBold;">TW Stats</a></h5></td>
                             <form method="POST">
                                 {% csrf_token %}
+                                <input type="hidden" name="form-filter" value="">
                             
                             <td>
                                 {{filter_form.filter_weights_min}}
@@ -294,7 +296,7 @@
                                 {% endfor %}
                             </td>
                             <td>
-                                <button name="form-filter" type="submit" class="btn btn-ocean btn-sm">
+                                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean btn-sm">
                                     {% trans 'Save' %}
                                 </button>
                             </td>

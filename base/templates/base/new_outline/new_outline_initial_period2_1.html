@@ -9,7 +9,7 @@
         <div class="row justify-content-center mb-3">
 
             {% csrf_token %}
-            <button class="btn btn-info btn-block">{% trans 'Confirm an outline and Exit' %}</button>
+            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean btn-block">{% trans 'Confirm an outline and Exit' %}</button>
 
         </div>
     </form>
@@ -26,6 +26,7 @@
             <script src="https://use.fontawesome.com/0cd1dfa084.js"></script>
 
             <form method="post">
+                <input type="hidden" name="formset" value="">
                 {% csrf_token %}
                 {{ formset.management_form }}
                 <div class="form-row mb-2">
@@ -57,7 +58,7 @@
  
          </div>
          {% endif %}
-        <button class="btn btn-primary mb-5" name='formset' type="submit">{% trans 'Create' %}</button>
+        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mb-5" >{% trans 'Create' %}</button>
 
         </form>
         <script>
@@ -317,7 +318,7 @@
 
 
     <div class="col-12 col-lg-5">
-
+        <div class="table-responsive">
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
             {% for time in outline_time %}
             <li class="nav-item">
@@ -374,16 +375,17 @@
 
                         </tbody>
                     </table>
-                    <form method="post"
+                    <form method="POST"
                         action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
                         {% csrf_token %}
-                        <button class="btn btn-outline-danger">{% trans 'Delete' %}</button>
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
                     </form>
                 </div>
                 {% endfor %}
             </div>
 
         </div>
+    </div>
     </div>
 </div>
 <div class="table-responsive">
@@ -392,10 +394,11 @@
 {% endblock %}
 
 <form method="POST">
+    <input type="hidden" name="choice-formset" value="">
     {% csrf_token %} {{ choice_formset.management_form }}
     <div class="row">
         <div class="col-12 col-lg-4">
-            <button type="submit" name="choice-formset"
+            <button onclick="this.disabled=true;this.form.submit();"
                 class="btn btn-outline-info btn-block mb-2">{% trans 'Confirm selected' %}
             </button>
         </div>
