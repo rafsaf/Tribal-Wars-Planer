@@ -30,7 +30,7 @@ class SortAndPaginRequest:
         else:
             self.sort = "distance"
 
-    def __nonused(self): 
+    def __nonused(self):
         nonused_vertices = (
             models.WeightMaximum.objects.filter(outline=self.outline)
             .exclude(off_left=0, nobleman_left=0)
@@ -47,7 +47,9 @@ class SortAndPaginRequest:
         return nonused_vertices
 
     def __pagin(self, lst_or_query):
-        paginator = Paginator(lst_or_query, int(self.outline.filter_card_number))
+        paginator = Paginator(
+            lst_or_query, int(self.outline.filter_card_number)
+        )
         page_obj = paginator.get_page(self.page)
         return page_obj
 
@@ -96,18 +98,22 @@ class SortAndPaginRequest:
             return self.__pagin(query)
 
         elif self.sort == "closest_offs":
-            query = query.filter(
-                off_left__gte=self.outline.initial_outline_min_off
-            ).annotate(
-                distance=ExpressionWrapper(
-                    (
-                        (F("x_coord") - self.x_coord) ** 2
-                        + (F("y_coord") - self.y_coord) ** 2
-                    )
-                    ** (1 / 2),
-                    output_field=FloatField(max_length=5),
+            query = (
+                query.filter(
+                    off_left__gte=self.outline.initial_outline_min_off
                 )
-            ).order_by("distance")
+                .annotate(
+                    distance=ExpressionWrapper(
+                        (
+                            (F("x_coord") - self.x_coord) ** 2
+                            + (F("y_coord") - self.y_coord) ** 2
+                        )
+                        ** (1 / 2),
+                        output_field=FloatField(max_length=5),
+                    )
+                )
+                .order_by("distance")
+            )
 
             return self.__pagin(query)
 
@@ -207,4 +213,3 @@ class SortAndPaginRequest:
             )
 
             return self.__pagin(query)
-

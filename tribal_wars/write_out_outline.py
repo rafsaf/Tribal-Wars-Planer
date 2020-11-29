@@ -236,13 +236,13 @@ class WriteTarget:
         if self.target.mode_off == "closest":
             self.index = 30000
             weight_list = default_off_query.order_by("distance")[
-                : self.target.required_off
+                : 2 * self.target.required_off
             ]
             if len(weight_list) < self.target.required_off:
                 self.end_up_offs = True
             return sorted(
-                weight_list, key=lambda item: item.distance, reverse=True,
-            )
+                weight_list, key=lambda item: (item.nobleman_left, -item.distance),
+            )[:self.target.required_off]
 
         if self.target.mode_off == "close":
             self.index = 20000

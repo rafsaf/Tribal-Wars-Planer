@@ -153,11 +153,14 @@ def get_legal_coords(ally_villages, enemy_villages, radius, p=0.6):
     for village in enemy_villages.order_by("?")[:instance_number]:
         pass_bool = False
         if (village.x_coord, village.y_coord) in banned_coords:
+            i = 0
             for coord in basic.yield_four_circle_ends(
                 radius, (village.x_coord, village.y_coord)
             ):
                 if coord in banned_coords:
                     break
+                i += 1
+            if i == 4:
                 pass_bool = True
         if not pass_bool:
             for coord in basic.yield_circle(

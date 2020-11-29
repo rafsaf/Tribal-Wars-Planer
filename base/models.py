@@ -195,10 +195,11 @@ class Outline(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(30000)],
     )
     filter_card_number = models.IntegerField(
-        default=12,
-        validators=[MinValueValidator(1), MaxValueValidator(40)],
+        default=12, validators=[MinValueValidator(1), MaxValueValidator(40)],
     )
-    filter_hide_front = models.CharField(max_length=20, choices=HIDE_CHOICES, default="all")
+    filter_hide_front = models.CharField(
+        max_length=20, choices=HIDE_CHOICES, default="all"
+    )
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(max_length=50, default="Cele Akcja")
     text_message = models.CharField(max_length=300, default="", blank=True)
@@ -415,4 +416,3 @@ class Overview(models.Model):
 
     def get_absolute_url(self):
         return reverse("base:overview", args=[self.token])
-

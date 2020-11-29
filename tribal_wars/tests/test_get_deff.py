@@ -192,11 +192,14 @@ class GetDeffFunctionTest(TestCase):
             "CAŁY SWÓJ = swój w wiosce + swój poza wioską.\r\n\r\n"
             "\r\nplayer1\r\n"
             "Na froncie 0 wsi, 0 deffa W WIOSKACH, zaś 0 CAŁEGO SWOJEGO.\r\n"
-            "Na zapleczu 1 wsi, 6000 deffa W WIOSKACH, zaś 7000 CAŁEGO SWOJEGO.\r\n"
+            "Na zapleczu 1 wsi, 6000 deffa W WIOSKACH,"
+            " zaś 7000 CAŁEGO SWOJEGO.\r\n"
             "\r\n"
             "player2\r\n"
-            "Na froncie 2 wsi, 36000 deffa W WIOSKACH, zaś 15000 CAŁEGO SWOJEGO.\r\n"
-            "Na zapleczu 3 wsi, 18000 deffa W WIOSKACH, zaś 18000 CAŁEGO SWOJEGO.\r\n"
+            "Na froncie 2 wsi, 36000 deffa W WIOSKACH,"
+            " zaś 15000 CAŁEGO SWOJEGO.\r\n"
+            "Na zapleczu 3 wsi, 18000 deffa W WIOSKACH,"
+            " zaś 18000 CAŁEGO SWOJEGO.\r\n"
             "\r\n\r\n"
             "player1\r\n"
             "---------FRONT---------\r\n"
@@ -216,21 +219,30 @@ class GetDeffFunctionTest(TestCase):
         self.assertEqual(result, expected)
 
     def test_get_legal_coords_is_map_correct1(self):
-        list_enemy = [self.ally_village1]
-        list_ally = [
-            self.ally_village2,
-            self.ally_village3,
-            self.ally_village4,
-            self.ally_village5,
-            self.ally_village6,
+        list_enemy_pk = [village.pk for village in [self.ally_village1]]
+        list_ally_pk = [
+            village.pk
+            for village in [
+                self.ally_village2,
+                self.ally_village3,
+                self.ally_village4,
+                self.ally_village5,
+                self.ally_village6,
+            ]
         ]
+        list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk)
+        list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk)
         self.assertEqual(
             deff.get_legal_coords(list_ally, list_enemy, 4), set()
         )
 
     def test_get_legal_coords_is_map_correct2(self):
-        list_ally = [self.enemy_village2]
-        list_enemy = [self.ally_village2, self.ally_village6]
+        list_ally_pk = [village.pk for village in [self.enemy_village2]]
+        list_enemy_pk = [
+            village.pk for village in [self.ally_village2, self.ally_village6]
+        ]
+        list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk)
+        list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk)
         self.assertEqual(
             deff.get_legal_coords(list_ally, list_enemy, 4), {(500, 506)}
         )
