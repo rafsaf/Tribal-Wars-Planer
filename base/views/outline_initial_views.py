@@ -89,6 +89,7 @@ def initial_form(request, _id):
     form2.fields[
         "initial_outline_min_off"
     ].initial = instance.initial_outline_min_off
+    form3.fields["date"].initial = ""
     form4.fields["mode_off"].initial = instance.mode_off
     form4.fields["mode_noble"].initial = instance.mode_noble
     form4.fields["mode_division"].initial = instance.mode_division
