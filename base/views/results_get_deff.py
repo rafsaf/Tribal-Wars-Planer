@@ -151,15 +151,12 @@ def outline_detail_2_off(request, _id):
 @login_required
 def outline_detail_results(request, _id):
     """ view for results """
-    instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
     overviews = models.Overview.objects.filter(outline=instance).order_by(
         "token"
     )
-    world = models.World.objects.get(world=instance.world)
-    if world.classic:
-        name_prefix = "c"
-    else:
-        name_prefix = ""
+    world = instance.world
+    name_prefix = world.link_to_game()
 
     form1 = forms.SettingMessageForm(request.POST or None)
     form1.fields["default_show_hidden"].initial = instance.default_show_hidden

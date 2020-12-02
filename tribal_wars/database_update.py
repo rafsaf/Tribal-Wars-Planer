@@ -1,142 +1,230 @@
-
-from . import basic
-from base.models import VillageModel, Tribe, Player, World
+from xml.etree import ElementTree
 from urllib.parse import unquote, unquote_plus
 import requests
 
+from base.models import VillageModel, Tribe, Player, World, Server
+from . import basic
 
-
+ 
 def cron_schedule_data_update():
-    """ Update Tribe, VillageModel, Player instances to database """
+    """ Update all Tribe, VillageModel, Player instances """
+        
+    for world in World.objects.select_related("server").exclude(postfix="Test"):
+        instance = WorldQuery(world=world)
+        instance.update_all()
 
-    if not World.objects.filter(world=0).exists():
-        World.objects.create(title='Świat 0', world=0)
-        Tribe.objects.create(id='ALLY::0', tribe_id=0, tag='ALLY', world=0)
-        Tribe.objects.create(id='ENEMY::0', tribe_id=1, tag='ENEMY', world=0)
-        ally_villages = []
-        ally_players = []
-        enemy_players = []
-        enemy_villages = []
 
-        for i in range(5):
-            ally_players.append(Player(id=f'AllyPlayer{i}:0', tribe_id=0, world=0, player_id=i, name=f'AllyPlayer{i}'))
-            enemy_players.append(Player(id=f'EnemyPlayer{i}:0', tribe_id=1, world=0, player_id=i+5, name=f'EnemyPlayer{i}'))
+class WorldQuery:
+    def __init__(self, world: World):
+        self.world = world
 
-        for i in range(50):
-            ids = i // 10
-            ally_villages.append(
-                VillageModel(world=0, id=f'{100+i}{100+i}0', x_coord=100+i, y_coord=100+i, village_id=i, player_id=ids)
-            )
-            enemy_villages.append(
-                VillageModel(world=0, id=f'{200+i}{200+i}0', x_coord=200+i, y_coord=200+i, village_id=i+50, player_id=ids+5)
-            )
-        Player.objects.bulk_create(enemy_players)
-        Player.objects.bulk_create(ally_players)
+    def check_if_world_exist_and_try_create(self):
+        """
+        Check if world exists in game
+        if world is already added, return tuple None, 'added'
+        if yes, return tuple World instance, 'success'
+        if no, return tuple None, 'error'
+        """
+        if World.objects.filter(server=self.world.server, postfix=self.world.postfix).exists():
+            return (None, 'added')
+        try:
+            req = requests.get(self.world.link_to_game("/interface.php?func=get_config"))
+        except requests.exceptions.RequestException:
+            return (None, 'error')
+        if req.history:
+            return (None, 'error')
 
-        VillageModel.objects.bulk_create(enemy_villages)
-        VillageModel.objects.bulk_create(ally_villages)
-
-    worlds = World.objects.all().exclude(world=0)
-    ## VillageModel Model Update
-    for instance in worlds:
-    
-        context = {}
-        create_list = list()
-        update_list = list()
-        query = VillageModel.objects.filter(world=instance.world)
-
-        if instance.classic:
-            world_name = f'c{instance.world}'
+        tree = ElementTree.fromstring(req.content)
+        self.world.speed_world = float(tree[0].text) # world speed
+        self.world.speed_units = float(tree[1].text) # unit speed
+        if bool(int(tree[7][1].text)): # knights
+            self.world.paladin = "active"
         else:
-            world_name = f'{instance.world}'
-        
-        for village in query.iterator(chunk_size=4000):
-            context[f'{village.x_coord}{village.y_coord}{instance.world}'] = village
-        
-        req = requests.get(f"https://pl{world_name}.plemiona.pl/map/village.txt").text
-        x = [i.split(',') for i in req.split('\n')]
-        for line in x:
-            if line == ['']:
-                continue
-            pk = f'{line[2]}{line[3]}{instance.world}'
-            if pk not in context:
-                village = VillageModel(id=pk, village_id=line[0], x_coord=line[2], y_coord=line[3], player_id=line[4], world=instance.world)
-                create_list.append(village)
-            else:
-                village = context[pk]
-                if village.player_id != int(line[4]):
-                    village.player_id = int(line[4])
-                    update_list.append(village)
-                del context[pk]
-        VillageModel.objects.bulk_create(create_list)
-        VillageModel.objects.bulk_update(update_list, ['player_id'])
-        
-        if len(context) != 0:
-            village_ids = [village.id for village in context.values()]
-            VillageModel.objects.filter(pk__in=village_ids).delete()
+            self.world.paladin = "inactive"
 
-   
-        context = {}
+        if bool(int(tree[7][3].text)): # archer
+            self.world.archer = "active"
+        else:
+            self.world.archer = "inactive"
+
+        self.world.max_noble_distance = int(tree[9][3].text) #max dist
+
+        try:
+            req_units = requests.get(self.world.link_to_game("/interface.php?func=get_unit_info"))
+        except requests.exceptions.RequestException:
+            return (None, 'error')
+        if req_units.history:
+            return (None, 'error')
+
+        tree_units = ElementTree.fromstring(req_units.content)
+        
+        militia_found = False
+        for child in tree_units:
+            if child.tag == "militia":
+                militia_found = True
+                break
+        
+        if militia_found:
+            self.world.militia = "active"
+        else:
+            self.world.militia = "inactive"
+
+        self.world.save()
+        return (self.world, "success")
+
+    def check_if_world_is_archived(self, url_param: str):
+        postfix = str(self.world)
+        archive_end = f"/archive/{postfix}"
+        if url_param.endswith(archive_end):
+            self.world.delete()
+        else:
+            self.handle_connection_error()
+
+    def handle_connection_error(self):
+        self.world.connection_errors += 1
+        self.world.save()
+
+    def update_all(self):
+        self.update_tribes()
+        self.update_players()
+        self.update_villages()
+
+    def update_villages(self):
         create_list = list()
-        tribe_ids = []
-        
-        for tribe in Tribe.objects.filter(world=instance.world):
-            context[tribe.tribe_id] = tribe
-        
-        for line in [i.split(',') for i in requests.get(f"https://pl{world_name}.plemiona.pl/map/ally.txt").text.split('\n')]:
-            if line == ['']:
-                continue
-            tribe_id = int(line[0])
-            if tribe_id not in context:
-                tag = unquote(unquote_plus(line[2]))
 
-                tribe = Tribe(
-                    id=f'{tag}::{instance.world}',
-                    tribe_id=line[0],
-                    tag=tag,
-                    world=instance.world)
-                create_list.append(tribe)
-            else:
-                tribe = context[tribe_id]
-                tag = unquote(unquote_plus(line[2]))
-                
-                if tribe.tag != tag:
-                    new_tribe = Tribe(id=f'{tag}::{instance.world}', tribe_id=tribe.tribe_id, tag=tag, world=instance.world)
-                    create_list.append(new_tribe)
-                    tribe_ids.append(tribe.id)
-                    
-                del context[tribe_id]
-        if len(context) != 0:
-            for tribe in context.values():
-                tribe_ids.append(tribe.id)
-        Tribe.objects.filter(id__in=tribe_ids).delete()
+        try:
+            req = requests.get(self.world.link_to_game("/map/village.txt"))
+        except requests.exceptions.RequestException:
+            self.handle_connection_error()
+
+        else:
+            if req.history:
+                return self.check_if_world_is_archived(req.url)
+            player_context = {}
             
-        Tribe.objects.bulk_create(create_list)
-    
+            players = Player.objects.filter(world=self.world)
+            for player in players:
+                player_context[player.player_id] = player
 
-        context = {}
+            village_set1 = set(VillageModel.objects.filter(player=None, world=self.world).values_list("village_id",))
+            village_set2 = set(VillageModel.objects.select_related().exclude(player=None).filter(world=self.world).values_list("village_id", "player__player_id"))
+
+            
+            for line in [i.split(',') for i in req.text.split('\n')]:
+                if line == ['']:
+                    continue
+
+                village_id = int(line[0])
+                player_id = int(line[4])
+               
+                if (village_id,) in village_set1 and player_id == 0:
+                    village_set1.remove((village_id,))
+                    continue
+
+                if (village_id, player_id) in village_set2:
+                    village_set2.remove((village_id, player_id))
+                    continue
+                
+                
+                if player_id == 0:
+                    player = None
+                elif player_id not in player_context:
+                    
+                    continue
+                else:
+                    player = player_context[player_id]
+
+                village = VillageModel(village_id=village_id, x_coord=line[2], y_coord=line[3], coord=f"{line[2]}|{line[3]}", player=player, world=self.world)
+                create_list.append(village)
+
+            village_ids_to_remove = [int(village[0]) for village in village_set1] + [int(village[0]) for village in village_set2]
+            VillageModel.objects.filter(village_id__in=village_ids_to_remove, world=self.world).delete()
+            VillageModel.objects.bulk_create(create_list)
+
+    def update_tribes(self):
         create_list = list()
-        update_list = list()
         
-        for player in Player.objects.filter(world=instance.world).iterator():
-            context[player.name] = player
-        
-        for line in [i.split(',') for i in requests.get(f"https://pl{world_name}.plemiona.pl/map/player.txt").text.split('\n')]:
-            if line == ['']:
-                continue
-            name = unquote(unquote_plus(line[1]))
-            if name not in context:
-                player = Player(id=f'{name}:{instance.world}', player_id=line[0], name=name, tribe_id=line[2], world=instance.world)
+        try:
+            req = requests.get(self.world.link_to_game("/map/ally.txt"))
+        except requests.exceptions.RequestException:
+            self.handle_connection_error()
+
+        else:
+            if req.history:
+                return self.check_if_world_is_archived(req.url)
+
+            tribe_set = set(Tribe.objects.filter(world=self.world).values_list("tribe_id"))
+
+            for line in [i.split(',') for i in req.text.split('\n')]:
+                if line == ['']:
+                    continue
+
+                tribe_id = int(line[0])
+                if (tribe_id, ) in tribe_set:
+
+                    tribe_set.remove((tribe_id, ))
+                else:
+                    tag = unquote(unquote_plus(line[2]))
+                    tribe = Tribe(
+                        tribe_id=line[0],
+                        tag=tag,
+                        world=self.world)
+                    create_list.append(tribe)
+
+            Tribe.objects.filter(tribe_id__in=[item[0] for item in tribe_set]).delete()
+            Tribe.objects.bulk_create(create_list)
+
+    def update_players(self):
+        create_list = list()
+
+        try:
+            req = requests.get(self.world.link_to_game("/map/player.txt"))
+        except requests.exceptions.RequestException:
+            self.handle_connection_error()
+
+        else:
+            if req.history:
+                return self.check_if_world_is_archived(req.url)
+            tribe_context = {}
+
+            tribes = Tribe.objects.filter(world=self.world)
+            for tribe in tribes:
+                tribe_context[tribe.tribe_id] = tribe
+
+            player_set1 = set(Player.objects.filter(tribe=None, world=self.world).values_list("player_id"))
+
+            player_set2 = set(Player.objects.exclude(tribe=None).filter(world=self.world).select_related("tribe")
+                .filter(world=self.world).values_list("player_id", "tribe__tribe_id"))
+
+            for line in [i.split(',') for i in req.text.split('\n')]:
+                if line == ['']:
+                    continue
+
+                player_id = int(line[0])
+                tribe_id = int(line[2])
+               
+                if (player_id,) in player_set1 and tribe_id == 0:
+                    player_set1.remove((player_id,))
+                    
+                    continue
+
+                if (player_id, tribe_id) in player_set2:
+                    player_set2.remove((player_id, tribe_id))
+                    continue
+                
+                # else create
+                name = unquote(unquote_plus(line[1]))
+                if tribe_id == 0:
+                    tribe = None
+                elif tribe_id not in tribe_context:
+                    continue
+                else:
+                    tribe = tribe_context[tribe_id]
+
+                player = Player(player_id=player_id, name=name, tribe=tribe, world=self.world)
                 create_list.append(player)
-            else:
-                player = context[name]
-                if player.tribe_id != int(line[2]):
-                    player.tribe_id = int(line[2])
-                    update_list.append(player)
-                del context[name]
-        Player.objects.bulk_create(create_list)
-        Player.objects.bulk_update(update_list, ['tribe_id'])
-        
-        if len(context) != 0:
-            player_ids = [player.id for player in context.values()]
-            Player.objects.filter(pk__in=player_ids).delete()
+
+            players_ids_to_remove = [player[0] for player in player_set1] + [player[0] for player in player_set2]
+            Player.objects.filter(world=self.world, player_id__in=players_ids_to_remove).delete()
+            Player.objects.bulk_create(create_list)
+            

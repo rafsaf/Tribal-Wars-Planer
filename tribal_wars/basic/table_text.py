@@ -1,34 +1,27 @@
 import datetime
 from base import models
-
+from django.utils.translation import gettext as _
 
 class TableText:
-    def __init__(self, world_num: int):
+    def __init__(self, world: models.World):
         self.__next_line = "\r\n"
         self.__next_line_double = "\r\n\r\n"
-        self.__prefix = (
-            "[table][**]NR[||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z WIOSKI[||]CEL[/**]"
-        )
+        self.__prefix = _("[table][**][||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]")
         self.__postfix = "[/table]"
         self.result = {}
         self.table_result = {}
         self.string_result = {}
         self.weight_table = {}
         self.weight_string = {}
-        self.world = world_num
-        world_instance = models.World.objects.get(world=self.world)
-        if world_instance.classic:
-            self.name_prefix = 'c'
-        else:
-            self.name_prefix = ''
+        self.world = world
 
     def __link(self, ally_village_id, enemy_village_id, fake):
         if fake:
-            send = "Wyślij Fejka"
+            send = _("Send Fake")
         else:
-            send = "Wyślij Atak"
+            send = _("Send Attack")
         return (
-            f"[url=https://pl{self.name_prefix}{self.world}.plemiona.pl/game.php?"
+            f"[url={self.world.link_to_game()}/game.php?"
             f"village={ally_village_id}&screen=place&"
             f"target={enemy_village_id}]{send}[/url]"
         )
@@ -51,17 +44,19 @@ class TableText:
 
         t1_part = datetime1.time()
         t2_part = datetime2.time()
-
+        day = _("day")
+        fro = _("from")
+        to = _("to")
         return (
-            f"dnia {date_part} od {t1_part} "
-            f"do {t2_part}."
+            f"{day} {date_part} {fro} {t1_part} "
+            f"{to} {t2_part}."
         ) 
 
     def __weight_table(self, weight: models.WeightModel, ally_id, enemy_id, fake):
         if fake and weight.nobleman > 0:
-            send = "Fejk gruby"
+            send = _("Fake noble")
         elif fake and weight.nobleman == 0:
-            send = "Fejk taran"
+            send = _("Fake ram")
         else:
             send = f"{weight.off}"
 
@@ -74,16 +69,22 @@ class TableText:
         )
 
     def __weight_string(self, weight: models.WeightModel, ally_id, enemy_id, fake):
+        nobles = _("Nobles-")
+        from_village = _("from village")
+        to = _("to")
         if fake and weight.nobleman > 0:
-            send = f"Wyślij [b]Fejk gruby[/b] (Off-{weight.off}, Grubych-{weight.nobleman}) "
+            text = _("Send [b]Fake noble[/b] (Off-")
+            send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
         elif fake and weight.nobleman == 0:
-            send = f"Wyślij [b]Fejk taran[/b] (Off-{weight.off}, Grubych-{weight.nobleman}) "
+            text = _("Send [b]Fake ram[/b] (Off-")
+            send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
         else:
-            send = f"Wyślij [b]Atak[/b] (Off-{weight.off}, Grubych-{weight.nobleman}) "
+            text = _("Send [b]Attack[/b] (Off-")
+            send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
 
         return (
             f"{send}"
-            f"z wioski {weight.start} na wioskę {weight.target.target} "
+            f"{from_village} {weight.start} {to} {weight.target.target} "
             f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"
             f"{self.__link(ally_id, enemy_id, fake)}"
         )

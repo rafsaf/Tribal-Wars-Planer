@@ -1,0 +1,13 @@
+{% extends "base/base.html" %} 
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div >
+    <h1>{{user.name}}</h1>
+    <h1>{% trans 'Settings here' %}</h1>
+
+</div>
+
+
+{% endblock %}

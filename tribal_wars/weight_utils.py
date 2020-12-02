@@ -30,20 +30,18 @@ class OffTroops:
 
     def __init__(self, outline: models.Outline):
         self.outline = outline
-        self.evidence = basic.world_evidence(world_number=outline.world)
+        self.evidence = basic.world_evidence(world=outline.world)
         self.village_dictionary = basic.coord_to_player(outline=outline)
         self.off_troops = self.outline.off_troops.split('\r\n')
         self.beyond_first_line = self.legal_coords()
 
     def legal_coords(self):
-        query_class = basic.AllyEnemyVillagesQueries(self.outline)
-        ally_villages = query_class.ally_villages()
-        enemy_villages = query_class.enemy_villages()
+        ally_villages = models.VillageModel.objects.select_related().filter(player__tribe__tag__in=self.outline.ally_tribe_tag, world=self.outline.world).values("x_coord", "y_coord", "coord")
+        enemy_villages = models.VillageModel.objects.select_related().filter(player__tribe__tag__in=self.outline.enemy_tribe_tag, world=self.outline.world).values("x_coord", "y_coord")
         legal_coords_set = get_deff.get_legal_coords(
             ally_villages=ally_villages,
             enemy_villages=enemy_villages,
             radius=int(self.outline.initial_outline_front_dist),
-            p=0.1,
         )
         coord_set = set()
         for coord_tuple in legal_coords_set:

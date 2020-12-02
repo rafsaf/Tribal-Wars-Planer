@@ -1,0 +1,22 @@
+{% extends "base/base.html" %} 
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div >
+    <h1>{{user.name}}</h1>
+    <h1>{% trans 'Add new world' %}</h1>
+    <div>
+    <form method="POST" autocomplete="off">
+        <input type="hidden" value="" name="form1">
+        {% csrf_token %}
+        {{form1|crispy}}
+        <button class="btn btn-ocean" onclick="this.disabled=true;this.form.submit();">
+            {% trans 'Add new world' %}
+        </button>
+    </form>
+</div>
+</div>
+
+
+{% endblock %}

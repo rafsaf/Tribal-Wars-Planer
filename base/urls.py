@@ -5,6 +5,8 @@ app_name = "base"
 
 urlpatterns = [
     path("", views.base_view, name="base"),
+    path("profile/user-settings", views.profile_settings, name="settings"),
+    path("profile/add-world", views.add_world, name="add_world"),
     path("overview/<str:token>", views.overview, name="overview"),
     path("overview-fail", views.overview_fail, name="overview_fail"),
     path("planer/", views.OutlineList.as_view(), name="planer"),

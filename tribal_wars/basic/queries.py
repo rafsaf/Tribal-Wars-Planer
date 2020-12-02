@@ -41,13 +41,8 @@ class TargetWeightQueries:
         for weight in self.__weights():
             context[weight.target].append(weight)
 
-            ids.add(
-                f"{weight.start[0:3]}{weight.start[4:7]}{self.outline.world}"
-            )
-            ids.add(
-                f"{weight.target.target[0:3]}"
-                f"{weight.target.target[4:7]}{self.outline.world}"
-            )
+            ids.add(weight.start)
+            ids.add(weight.target.target)
         return {
             "weights": context,
             "village_ids": self.__dict_with_village_ids(ids),
@@ -117,66 +112,12 @@ class TargetWeightQueries:
         result_id_dict = {}
 
         for village in models.VillageModel.objects.filter(
-            id__in=iterable_with_ids
-        ):
+            coord__in=iterable_with_ids
+            ).values("coord", "village_id"):
 
             result_id_dict[
-                f"{village.x_coord}|{village.y_coord}"
-            ] = village.village_id
+                village["coord"]
+            ] = village["village_id"]
 
         return result_id_dict
 
-
-class AllyEnemyVillagesQueries:
-    def __init__(self, outline: models.Outline):
-        self.outline = outline
-
-    def __ally_tribes(self, id_list_only=True):
-        ally_tribes_tags = self.outline.ally_tribe_tag
-        ally_tribes_pk = [
-            f"{tag}::{self.outline.world}" for tag in ally_tribes_tags
-        ]
-        tribes = models.Tribe.objects.filter(pk__in=ally_tribes_pk)
-        if id_list_only:
-            return [tribe.tribe_id for tribe in tribes]
-        return tribes
-
-    def __enemy_tribes(self, id_list_only=True):
-        enemy_tribes_tags = self.outline.enemy_tribe_tag
-        enemy_tribes_pk = [
-            f"{tag}::{self.outline.world}" for tag in enemy_tribes_tags
-        ]
-        tribes = models.Tribe.objects.filter(pk__in=enemy_tribes_pk)
-        if id_list_only:
-            return [tribe.tribe_id for tribe in tribes]
-        return tribes
-
-    def __ally_players(self, id_list_only=True):
-        ally_players = models.Player.objects.filter(
-            tribe_id__in=self.__ally_tribes(), world=self.outline.world
-        )
-        if id_list_only:
-            return [player.player_id for player in ally_players]
-        return ally_players
-
-    def __enemy_players(self, id_list_only=True):
-        enemy_players = models.Player.objects.filter(
-            tribe_id__in=self.__enemy_tribes(), world=self.outline.world
-        )
-        if id_list_only:
-            return [player.player_id for player in enemy_players]
-        return enemy_players
-
-    def ally_villages(self):
-        """ get all ally villages which belong to ally tribes in outline """
-        ally_villages = models.VillageModel.objects.filter(
-            player_id__in=self.__ally_players(), world=self.outline.world
-        )
-        return ally_villages
-
-    def enemy_villages(self):
-        """ get all enemy villages which belong to enemy tribes in outline """
-        enemy_villages = models.VillageModel.objects.filter(
-            player_id__in=self.__enemy_players(), world=self.outline.world
-        )
-        return enemy_villages

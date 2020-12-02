@@ -16,7 +16,7 @@ class FromPeriods:
         self.date_time = datetime.datetime(
             year=date.year, month=date.month, day=date.day
         )
-        self.world = models.World.objects.get(world=world)
+        self.world = world
         self.periods = periods
         self.nob_periods = deque(
             [period for period in periods if period.unit == "noble"]

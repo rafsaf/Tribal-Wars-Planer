@@ -6,6 +6,8 @@ from . import models
 
 
 admin.site.register(models.Result)
+admin.site.register(models.Server)
+admin.site.register(models.Profile)
 admin.site.register(models.WeightMaximum)
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
@@ -41,16 +43,18 @@ class AdminOverview(admin.ModelAdmin):
 @admin.register(models.World)
 class AdminWorld(admin.ModelAdmin):
     list_display = [
-        "title",
-        "world",
+        "server",
+        "postfix",
+        "connection_errors",
         "speed_world",
         "speed_units",
         "paladin",
         "archer",
         "militia",
+        "max_noble_distance",
     ]
     list_editable = [
-        "world",
+        "connection_errors",
         "speed_world",
         "speed_units",
         "paladin",
@@ -66,6 +70,13 @@ class AdminVillage(admin.ModelAdmin):
         "x_coord",
         "y_coord",
         "world",
+        "player",
+    ]
+    list_editable = [
+        "x_coord",
+        "y_coord",
+        "world",
+        "player",
     ]
 
 
@@ -76,14 +87,21 @@ class AdminTribe(admin.ModelAdmin):
         "tag",
         "world",
     ]
+    list_editable = [
+        "world",
+    ]
 
 
 @admin.register(models.Player)
 class AdminPlayer(admin.ModelAdmin):
     list_display = [
         "player_id",
-        "tribe_id",
+        "tribe",
         "name",
+        "world",
+    ]
+    list_editable = [
+        "tribe",
         "world",
     ]
 

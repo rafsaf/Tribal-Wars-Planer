@@ -15,13 +15,13 @@ from . import basic
 
 
 def get_deff(
-    outline: models.Outline,
-    radius: int,
-    deff=True,
-    ally_name_list=None,
-    enemy_name_list=None,
-    excluded_villages="",
-):
+        outline: models.Outline,
+        radius: int,
+        deff=True,
+        ally_name_list=None,
+        enemy_name_list=None,
+        excluded_villages="",
+    ):
     """
     Args is instance of Outline, WARNING! be sure to use CORRECT
     data in instance, returns text with deff results.
@@ -31,73 +31,9 @@ def get_deff(
     if enemy_name_list is None:
         enemy_name_list = []
 
-    if outline.deff_troops == "":
-        return ""
-
-    my_tribe = outline.ally_tribe_tag
-    ally_tribe_pk = [f"{tag}::{outline.world}" for tag in my_tribe]
-    enemy_tribe = outline.enemy_tribe_tag
-
-    my_tribe_id = [
-        tribe.tribe_id
-        for tribe in models.Tribe.objects.all().filter(id__in=ally_tribe_pk)
-    ]
-    ally_players = models.Player.objects.all().filter(
-        tribe_id__in=my_tribe_id, world=outline.world
-    )
-
-    my_tribe_villages = models.VillageModel.objects.all().filter(
-        world=outline.world,
-        player_id__in=[player.player_id for player in ally_players]
-        + [
-            player.player_id
-            for player in models.Player.objects.all().filter(
-                name__in=ally_name_list, world=outline.world
-            )
-        ],
-    )
-
-    if excluded_villages != "":
-        excluded_villages = basic.many_villages(excluded_villages)
-
-        my_tribe_villages = my_tribe_villages.exclude(
-            id__in=[
-                f"{village.coord}-{outline.world}"
-                for village in excluded_villages
-            ]
-        )
-
-    enemy_tribe_villages = models.VillageModel.objects.all().filter(
-        world=outline.world,
-        player_id__in=[
-            player.player_id
-            for player in models.Player.objects.all().filter(
-                tribe_id__in=[
-                    tribe.tribe_id
-                    for tribe in models.Tribe.objects.all().filter(
-                        world=outline.world, tag__in=enemy_tribe
-                    )
-                ]
-                + [
-                    player.player_id
-                    for player in models.Player.objects.all().filter(
-                        name__in=enemy_name_list
-                    )
-                ],
-                world=outline.world,
-            )
-        ],
-    )
-
-    village_dictionary = {}
-    player_dictionary = {}
-
-    for player in ally_players:
-        player_dictionary[player.player_id] = player.name
-    for village_model in my_tribe_villages:
-        village_dictionary[
-            f"{village_model.x_coord}|{village_model.y_coord}"
-        ] = player_dictionary[village_model.player_id]
+    my_tribe_villages = models.VillageModel.objects.select_related().filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world).values("x_coord", "y_coord", "coord")
+    enemy_tribe_villages = models.VillageModel.objects.select_related().filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world).values("x_coord", "y_coord")
+    village_dictionary = basic.dictionary.coord_to_player(outline=outline)
 
     if deff:
         return deff_text2(
@@ -106,21 +42,20 @@ def get_deff(
             radius,
             outline.off_troops,
             outline.deff_troops,
-            int(outline.world),
+            outline.world,
             village_dictionary,
         )
-    else:
-        return off_text(
-            my_tribe_villages,
-            enemy_tribe_villages,
-            radius,
-            outline.off_troops,
-            outline.deff_troops,
-            int(outline.world),
-            village_dictionary,
-        )
+    return off_text(
+        my_tribe_villages,
+        enemy_tribe_villages,
+        radius,
+        outline.off_troops,
+        outline.deff_troops,
+        outline.world,
+        village_dictionary,
+    )
 
-def get_legal_coords(ally_villages, enemy_villages, radius, p=0.6):
+def get_legal_coords(ally_villages, enemy_villages, radius):
     """ Create set with ally_vill without enemy_vill closer than radius """
     # ally_villages_ids = [village.pk for village in ally_villages]
 # 
@@ -143,19 +78,17 @@ def get_legal_coords(ally_villages, enemy_villages, radius, p=0.6):
     # for village in query:
     #     ally_set.add((village.x_coord, village.y_coord))
     # return ally_set
-    enemy_count = enemy_villages.count()
-    instance_number = ceil(enemy_count * (p) + 1000)
 
     banned_coords = set()
     ally_set = set()
     for village in ally_villages:
-        ally_set.add((village.x_coord, village.y_coord))
-    for village in enemy_villages.order_by("?")[:instance_number]:
+        ally_set.add((int(village["x_coord"]), int(village["y_coord"])))
+    for village in enemy_villages:
         pass_bool = False
-        if (village.x_coord, village.y_coord) in banned_coords:
+        if (int(village["x_coord"]), int(village["y_coord"])) in banned_coords:
             i = 0
             for coord in basic.yield_four_circle_ends(
-                radius, (village.x_coord, village.y_coord)
+                radius, (village["x_coord"], village["y_coord"])
             ):
                 if coord in banned_coords:
                     break
@@ -164,7 +97,7 @@ def get_legal_coords(ally_villages, enemy_villages, radius, p=0.6):
                 pass_bool = True
         if not pass_bool:
             for coord in basic.yield_circle(
-                radius, (village.x_coord, village.y_coord)
+                radius, (village["x_coord"], village["y_coord"])
             ):
                 if coord not in banned_coords:
                     banned_coords.add(coord)
@@ -177,8 +110,8 @@ def get_set_of_villages(ally_villages, enemy_villages, radius):
     result_villages = set()
     legal_cords = get_legal_coords(ally_villages, enemy_villages, radius)
     for i in ally_villages:
-        if (i.x_coord, i.y_coord) in legal_cords:
-            result_villages.add(f"{i.x_coord}|{i.y_coord}")
+        if (i["x_coord"], i["y_coord"]) in legal_cords:
+            result_villages.add(i["coord"])
     
     return result_villages
 
@@ -203,7 +136,7 @@ def deff_text(
     if text_obrona == "":
         return ""
 
-    world_evidence = basic.world_evidence(world_number=world)
+    world_evidence = basic.world_evidence(world=world)
 
     for i, line in enumerate(text_obrona.strip().split("\r\n")):
 
@@ -262,7 +195,7 @@ def off_text(
     outside_village: dict = {}
     context_all: dict = {}
 
-    world_evidence = basic.world_evidence(world_number=world)
+    world_evidence = basic.world_evidence(world=world)
 
     for i, line in enumerate(text_deff.strip().split("\r\n")):
 
@@ -362,7 +295,7 @@ def deff_text2(
     deff_own_from_village_back: dict = {}
     deff_own_from_village_front: dict = {}
 
-    world_evidence = basic.world_evidence(world_number=world)
+    world_evidence = basic.world_evidence(world=world)
 
     for i, line in enumerate(text_deff.strip().split("\r\n")):
         if i % 2 == 1:

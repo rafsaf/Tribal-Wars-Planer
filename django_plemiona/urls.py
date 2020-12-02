@@ -17,13 +17,15 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
-
+from django_registration.backends.one_step.views import RegistrationView
+from django_plemiona import forms
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('base.urls')),
     path('markdownx/', include('markdownx.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
+    path('register/', RegistrationView.as_view(form_class=forms.RecaptchaRegistrationForm), name='django_registration_register'),
     path('', include('django_registration.backends.one_step.urls')),
     path('', include('django.contrib.auth.urls')),
     

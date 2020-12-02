@@ -22,6 +22,7 @@
             
             <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3" type="submit">{% trans 'Login' %}</button>
             <p>{% trans "Don't have an account? "  %}<a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
+            <p><a href="{% url 'password_reset' %}">{% trans 'Password recovery' %}</a></p>
         </form>
 
     </div>

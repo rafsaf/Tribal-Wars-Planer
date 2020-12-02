@@ -4,9 +4,8 @@ from base import models
 from tribal_wars import basic
 
 
-def world_evidence(world_number):
+def world_evidence(world: models.World):
     """ For world return [T/F, .. , ..] [paladin, archer, militia]"""
-    world = models.World.objects.get(world=world_number)
     result = []
     if world.paladin == "active":
         result.append(1)

@@ -1,6 +1,6 @@
 {% load static %} {% load i18n %}
 <!doctype html>
-<html lang="pl">
+<html lang="en">
 
 <head>
 
@@ -30,7 +30,7 @@
     {% endblock %}
 
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
-    <link rel="stylesheet" href="{% static 'base-29-11.css' %}">
+    <link rel="stylesheet" href="{% static 'base-01-12.css' %}">
     <script type="text/javascript" src="{% static 'base_v1.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <style>
@@ -153,6 +153,9 @@
                                 {% endif %}
                                 <div class="dropdown-divider" style="margin-bottom:0"></div>
                                 {% if user.is_authenticated %}
+                                <a class="dropdown-item font-teal py-2"  href="{% url 'base:settings' %}">{% trans 'User settings' %}</a>
+                                <a class="dropdown-item font-teal py-2"  href="{% url 'password_change' %}">{% trans 'Change password' %}</a>
+                                <a class="dropdown-item font-teal py-2"  href="{% url 'base:add_world' %}">{% trans 'Add new world' %}</a>
                                 <a class="dropdown-item font-red py-2"  href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
                                 {% else %}
                                 <a class="dropdown-item font-teal py-2" href="{% url 'login' %}">{% trans 'Sign in' %}</a>

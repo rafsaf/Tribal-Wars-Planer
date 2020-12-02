@@ -1,3 +1,6 @@
+from django.db.models import F, ExpressionWrapper, CharField
+from django.db.models.functions import Cast, Concat
+
 from base import models
 from tribal_wars import basic
 
@@ -11,7 +14,7 @@ class TargetsData:
         self.data = data
         self.lines = data.split("\r\n")
         self.division_count = 0
-        self.village_ids = []
+        self.villages_coord = []
         self.vill_id_line = {}
         self.errors_ids = set()
         self.new_validated_data = str()
@@ -34,10 +37,8 @@ class TargetsData:
 
                 else:
                     # line is correct
-                    coord = validated[0]
-                    village_id = f"{ coord[0:3] }{ coord[4:7] }{ self.world }"
-                    self.village_ids.append(village_id)
-                    self.vill_id_line[village_id] = i
+                    self.villages_coord.append(validated[0])
+                    self.vill_id_line[validated[0]] = i
                     self.new_validated_data += validated[1] + "\r\n"
 
         self.validate_villages_database()
@@ -46,15 +47,14 @@ class TargetsData:
             self.new_validated_data += "---"
 
     def validate_villages_database(self):
-        village_models = models.VillageModel.objects.filter(
-            id__in=self.village_ids)
+        village_models = models.VillageModel.objects.select_related().filter(world=self.world, coord__in=self.villages_coord)
 
-        if len(self.village_ids) != village_models.count():
-            villages_ids_set = set(self.village_ids)
+        if len(self.villages_coord) != village_models.count():
+            villages_ids_set = set(self.villages_coord)
 
             for village in village_models:
-                if not village.pk in villages_ids_set:
-                    self.errors_ids.add(self.vill_id_line[village.pk])
+                if not village.coord in villages_ids_set:
+                    self.errors_ids.add(self.vill_id_line[village.coord])
 
 
 class SeparateLineException(Exception):

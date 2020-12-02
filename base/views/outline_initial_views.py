@@ -28,7 +28,7 @@ def initial_form(request, _id):
     returned after valid filled form earlier
 
     """
-    instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
     if instance.off_troops == "":
         request.session["error"] = gettext("Off collection empty!")
         return redirect("base:planer_detail", _id)
@@ -137,6 +137,7 @@ def initial_form(request, _id):
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.legal_coords_near_targets(outline=instance)
                 return redirect("base:planer_initial_form", _id)
+                
 
         if "form3" in request.POST:
             form3 = forms.SettingDateForm(request.POST)
@@ -208,7 +209,7 @@ def initial_form(request, _id):
 @login_required
 def initial_planer(request, _id):
     """ view with form for initial period outline """
-    instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
     if instance.written == "inactive":
         return Http404()
     if request.method == "POST":
@@ -447,17 +448,14 @@ def initial_planer(request, _id):
 @login_required
 def initial_target(request, id1, id2):
     """ view with form for initial period outline detail """
-    instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
+    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
     if instance.written == "inactive":
         return Http404()
 
     target = get_object_or_404(models.TargetVertex, pk=id2)
-    x = int(target.target[0:3])
-    y = int(target.target[4:7])
-    world = models.World.objects.get(world=instance.world)
-    village_id = models.VillageModel.objects.get(world=world.world, x_coord=x, y_coord=y).village_id
+    village_id = models.VillageModel.objects.get(world=instance.world, coord=target.target).village_id
 
-    link_to_tw = world.tw_stats_link_to_village(village_id)
+    link_to_tw = instance.world.tw_stats_link_to_village(village_id)
 
     result_lst = models.WeightModel.objects.filter(target=target).order_by(
         "order"

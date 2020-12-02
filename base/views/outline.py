@@ -16,19 +16,12 @@ class OutlineList(LoginRequiredMixin, ListView):
     template_name = "base/base_planer.html"
 
     def get_queryset(self):
-        models.Outline.objects.filter(editable='active').delete()
-        query = models.Outline.objects.filter(owner=self.request.user).filter(
+        models.Outline.objects.filter(editable='active', owner=self.request.user).delete()
+        query = models.Outline.objects.select_related("world").filter(owner=self.request.user).filter(
             status="active"
         )
-        used_worlds = {}
-        for outline in query:
-            if outline.world in used_worlds:
-                outline.world = used_worlds[outline.world]
-            else:
-                world_instance = models.World.objects.get(world=outline.world)
-                used_worlds[outline.world] = world_instance.title
-                outline.world = used_worlds[outline.world]
 
+        for outline in query:
             outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
             outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
         return query
@@ -39,16 +32,10 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
     template_name = "base/base_planer.html"
 
     def get_queryset(self):
-        models.Outline.objects.filter(editable='active').delete()
-        query = models.Outline.objects.filter(owner=self.request.user)
-        used_worlds = {}
+        models.Outline.objects.filter(editable='active', owner=self.request.user).delete()
+        query = models.Outline.objects.select_related("world").filter(owner=self.request.user)
+
         for outline in query:
-            if outline.world in used_worlds:
-                outline.world = used_worlds[outline.world]
-            else:
-                world_instance = models.World.objects.get(world=outline.world)
-                used_worlds[outline.world] = world_instance.title
-                outline.world = used_worlds[outline.world]
             outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
             outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
         return query
@@ -85,7 +72,7 @@ class OutlineDelete(LoginRequiredMixin, DeleteView):
 @login_required
 def outline_detail_1(request, _id):
     """details user's outline , login required"""
-    models.Outline.objects.filter(editable='active').delete()
+    models.Outline.objects.filter(editable='active', owner=request.user).delete()
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
 
     if request.method == "POST":

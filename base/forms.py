@@ -1,7 +1,7 @@
 """ App forms """
 from django.forms import BaseFormSet
 from django import forms
-from tribal_wars import basic
+from tribal_wars import basic, database_update
 from . import models
 from django.utils.translation import gettext_lazy
 
@@ -226,9 +226,8 @@ class InitialOutlineForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.world = kwargs.pop("world")
         super(InitialOutlineForm, self).__init__(*args, **kwargs)
-        # self.fields["min_off"].widget.attrs["class"] = "form-control"
-        # self.fields["front_dist"].widget.attrs["class"] = "form-control"
 
+    
     def clean_target(self):
         """ User's input Villages """ 
         data = self.cleaned_data["target"]
@@ -588,3 +587,36 @@ class CreateNewInitialTarget(forms.Form):
 class ChangeWeightMaxOff(forms.Form):
     off = forms.IntegerField(min_value=0)
     noble = forms.IntegerField(min_value=0)
+
+class AddNewWorldForm(forms.ModelForm):
+    class Meta:
+        model = models.World
+        fields = ["server", "postfix"]
+
+        labels = {
+            "server": gettext_lazy("Choose server"),
+            "postfix": gettext_lazy("World prefix"),
+        }
+
+        help_texts = {
+            "postfix": gettext_lazy("Hint: For 'pl160.plemiona.pl' prefix is '160'.   For 'csc1.divokekmeny.cz' prefix is 'c1'.")
+        }
+
+    def clean(self):
+
+        server = self.cleaned_data.get("server")
+        postfix = self.cleaned_data.get("postfix")
+        if postfix is None:
+            return None
+        try:
+            server = models.Server.objects.get(dns=server)
+        except Exception:
+            return None
+        world = models.World(server=server, postfix=postfix)
+        world_query = database_update.WorldQuery(world=world)
+
+        result = world_query.check_if_world_exist_and_try_create()
+        if result[1] == "error":
+            raise forms.ValidationError(gettext_lazy("Connection error, world does not exists or is archived!"))
+        elif result[1] == "added":
+            raise forms.ValidationError(gettext_lazy("World is already added!"))

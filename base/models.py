@@ -8,19 +8,43 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from markdownx.models import MarkdownxField
+
+
+class Server(models.Model):
+    dns = models.CharField(max_length=50, primary_key=True)
+    prefix = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.dns
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    server = models.ForeignKey(Server, on_delete=models.SET_NULL, null=True, default=None)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 
 class World(models.Model):
     """ World in the game """
-
     STATUS_CHOICES = [
         ("active", "Active"),
         ("inactive", "Inactive"),
     ]
-    title = models.TextField(verbose_name="Tytuł")
-    world = models.IntegerField(verbose_name="Numer świata")
-    classic = models.BooleanField(default=False)
+    server = models.ForeignKey(Server, on_delete=models.CASCADE)
+    postfix = models.CharField(max_length=10)
+
+    connection_errors = models.IntegerField(default=0)
     speed_world = models.FloatField(null=True, blank=True, default=1)
     speed_units = models.FloatField(null=True, blank=True, default=1)
     paladin = models.CharField(
@@ -32,36 +56,31 @@ class World(models.Model):
     militia = models.CharField(
         choices=STATUS_CHOICES, max_length=8, default="active"
     )
+    max_noble_distance = models.IntegerField(default=50)
 
     def __str__(self):
-        return str(self.title)
+        return self.server.prefix + self.postfix
 
-    def tw_stats_link_to_village(self, village_id):
-        if self.classic:
-            short = f"plc{self.world}"
-        else:
-            short = f"pl{self.world}"
-
+    def link_to_game(self, addition=""):
         return (
-            f"https://pl.twstats.com/{short}/index.php?"
-            f"page=village&id={village_id}"
+            f"https://{str(self)}."
+            f"{self.server.dns}"
+            f"{addition}"
         )
 
-    class Meta:
-        ordering = ("-world",)
-
-
-class TribeHasUnallowedPatternInTag(Exception):
-    """ Tribe Exception """
+    def tw_stats_link_to_village(self, village_id):
+        return (
+            f"https://{self.server.prefix}.twstats.com/{str(self)}/index.php?"
+            f"page=village&id={village_id}"
+        )
 
 
 class Tribe(models.Model):
     """ Tribe in game """
 
-    id = models.CharField(primary_key=True, max_length=11)
     tribe_id = models.IntegerField()
     tag = models.TextField()
-    world = models.IntegerField()
+    world = models.ForeignKey(World, on_delete=models.CASCADE, db_index=True)
 
     def __str__(self):
         return self.tag
@@ -70,11 +89,10 @@ class Tribe(models.Model):
 class Player(models.Model):
     """ Player in the game """
 
-    id = models.CharField(primary_key=True, max_length=30)
     player_id = models.IntegerField()
     name = models.TextField()
-    tribe_id = models.IntegerField()
-    world = models.IntegerField()
+    tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE, null=True, blank=True)
+    world = models.ForeignKey(World, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -83,16 +101,48 @@ class Player(models.Model):
 class VillageModel(models.Model):
     """ Village in the game """
 
-    id = models.CharField(primary_key=True, max_length=9)
     village_id = models.IntegerField()
     x_coord = models.IntegerField()
     y_coord = models.IntegerField()
-    player_id = models.IntegerField()
-    world = models.IntegerField(db_index=True)
+    coord = models.CharField(max_length=7)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
+    world = models.ForeignKey(World, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.village_id)
+        return self.coord
 
+
+def create_test_world(server: Server):
+    test_world = World.objects.create(server=server, postfix="Test")
+    tribe1 = Tribe.objects.create(tribe_id=0, tag='ALLY', world=test_world)
+    tribe2 = Tribe.objects.create(tribe_id=1, tag='ENEMY', world=test_world)
+    ally_villages = []
+    ally_players = []
+    enemy_players = []
+    enemy_villages = []
+    for i in range(5):
+        ally_players.append(Player(tribe=tribe1, world=test_world, player_id=i, name=f'AllyPlayer{i}'))
+        enemy_players.append(Player(tribe=tribe2, world=test_world, player_id=i+5, name=f'EnemyPlayer{i}'))
+    Player.objects.bulk_create(enemy_players)
+    Player.objects.bulk_create(ally_players)
+    ally_players = list(Player.objects.filter(world=test_world, player_id__lte=4))
+    enemy_players = list(Player.objects.filter(world=test_world, player_id__gte=5))
+    for i in range(50):
+        ids = i // 10
+        ally_villages.append(
+            VillageModel(world=test_world, x_coord=100+i, y_coord=100+i, coord=f"{100+i}|{100+i}", village_id=i, player=ally_players[ids])
+        )
+        enemy_villages.append(
+            VillageModel(world=test_world, x_coord=200+i, y_coord=200+i, coord=f"{200+i}|{200+i}", village_id=i+50, player=enemy_players[ids])
+        )
+
+    VillageModel.objects.bulk_create(enemy_villages)
+    VillageModel.objects.bulk_create(ally_villages)
+
+@receiver(post_save, sender=Server)
+def new_server_create_test_world(sender, instance, created, **kwargs):
+    if created:
+        create_test_world(server=instance)
 
 class Outline(models.Model):
     """ Outline with all informations about it"""
@@ -137,7 +187,7 @@ class Outline(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=django.utils.timezone.now)
     name = models.TextField()
-    world = models.IntegerField(null=True, blank=True)
+    world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         choices=STATUS_CHOICES, max_length=8, default="active"
@@ -202,7 +252,7 @@ class Outline(models.Model):
         max_length=20, choices=HIDE_CHOICES, default="all"
     )
     default_show_hidden = models.BooleanField(default=False)
-    title_message = models.CharField(max_length=50, default="Cele Akcja")
+    title_message = models.CharField(max_length=50, default=gettext_lazy("Outline Targets"))
     text_message = models.CharField(max_length=300, default="", blank=True)
 
     class Meta:

@@ -19,7 +19,7 @@ def make_final_outline(outline: models.Outline):
     # coord - village_id
     village_id = target_weight_ext_dict["village_ids"]
 
-    text = basic.TableText(world_num=outline.world)
+    text = basic.TableText(world=outline.world)
     update_weights = []
 
     with text:
