@@ -22,6 +22,7 @@ class OutlineList(LoginRequiredMixin, ListView):
         )
 
         for outline in query:
+            outline.world_human = outline.world.human()
             outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
             outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
         return query
@@ -36,6 +37,7 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
         query = models.Outline.objects.select_related("world").filter(owner=self.request.user)
 
         for outline in query:
+            outline.world_human = outline.world.human()
             outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
             outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
         return query

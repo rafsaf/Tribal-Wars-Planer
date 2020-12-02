@@ -185,7 +185,7 @@ def outline_detail_results(request, _id):
 
                 overviews_update_lst = []
                 for overview in overviews:
-                    overview.show_hidden = default_show_hidden
+                    overview.show_hidden = not overview.show_hidden
                     overviews_update_lst.append(overview)
                 models.Overview.objects.bulk_update(
                     overviews_update_lst, fields=["show_hidden"]

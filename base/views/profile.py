@@ -16,7 +16,7 @@ def add_world(request):
             form1 = forms.AddNewWorldForm(request.POST)
             if form1.is_valid():
                 # already created in form clean()
-                return redirect("base:settings")
+                return redirect("base:add_world")
 
     context = {"user": user, "form1": form1}
     return render(request, "base/user/add_world.html", context=context)

@@ -18,13 +18,13 @@ def new_outline_create(request):
     marks = markdownify(marks)
     example = models.Documentation.objects.get_or_create(title='planer_create_example', language=language_code, defaults={'main_page': ""})[0].main_page
     example = markdownify(example)
-    
+    profile = models.Profile.objects.select_related().get(user=request.user)
     if request.method == "POST":
-
+        
         form1 = forms.OutlineForm(request.POST)
         form1.fields["world"].choices = [
-            (f"{i.pk}", f"{str(i)}")
-            for i in models.World.objects.filter(server=request.user.profile.server).order_by("pk")
+            (f"{world.pk}", world.human())
+            for world in models.World.objects.filter(server=profile.server).order_by("-postfix")
         ]
         if form1.is_valid():
             world = request.POST["world"]
@@ -42,8 +42,8 @@ def new_outline_create(request):
     else:
         form1 = forms.OutlineForm(None)
         form1.fields["world"].choices = [
-            (f"{i.pk}", f"{str(i)}")
-            for i in models.World.objects.filter(server=request.user.profile.server).order_by("pk")
+            (f"{world.pk}", f"{world.human()}")
+            for world in models.World.objects.filter(server=profile.server).order_by("-postfix")
         ]
     context = {"form1": form1, "info": info, "marks": marks, "example": example}
     return render(request, "base/new_outline/new_outline_create.html", context)

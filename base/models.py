@@ -28,7 +28,9 @@ class Profile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        default_server = Server.objects.get_or_create(dns="plemiona.pl", prefix="pl")[0]
+        Profile.objects.create(user=instance, server=default_server)
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -60,6 +62,9 @@ class World(models.Model):
 
     def __str__(self):
         return self.server.prefix + self.postfix
+
+    def human(self):
+        return gettext_lazy("World ") + self.postfix
 
     def link_to_game(self, addition=""):
         return (
