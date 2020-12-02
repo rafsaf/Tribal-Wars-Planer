@@ -2,17 +2,25 @@
 
 <div class="row mt-3">
     <div class="col-12 col-lg-6">
+        <h6 class="font-nav">Your server is set to <span class="font-teal">{{profile.server}}.</span> <a href="{% url 'base:settings' %}">{% trans 'Click here to change it.' %}</a> </h6>
         <div class="alert alert-primary" role="alert">
-            {% trans 'First time? You can choose a special <span class="md-correct2">Test World</span> created for testing purposes, see ' %}<a target="_blank" href="{% url 'base:documentation' %}#test">{% trans 'docs' %}</a>
+            {% trans 'First time? You can choose a special <span class="md-correct2">World Test</span> created for testing purposes, see ' %}<a target="_blank" href="{% url 'base:documentation' %}#test">{% trans 'docs' %}</a>
           </div>
+
         <form method='POST' autocomplete="off">
             {% csrf_token %} 
             {{ form1|crispy }}
-            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mb-5">
+            <h6 class="font-nav">{% trans 'Can’t you see your world, maybe it just came out? ' %} <br>
+                <a href="{% url 'base:add_world' %}">{% trans 'Click here to add new worlds automatically' %}</a>.<br>
+                
+            
+            
+            </h6>
+            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mb-5 mt-2">
                 {% trans 'Submit' %}
             </button>
         </form>
-
+        
     </div>
 
     <div class="col-12 col-lg-6">

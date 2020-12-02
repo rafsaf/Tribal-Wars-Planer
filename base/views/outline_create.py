@@ -24,7 +24,7 @@ def new_outline_create(request):
         form1 = forms.OutlineForm(request.POST)
         form1.fields["world"].choices = [
             (f"{world.pk}", world.human())
-            for world in models.World.objects.filter(server=profile.server).order_by("-postfix")
+            for world in models.World.objects.filter(server=profile.server).order_by("postfix")
         ]
         if form1.is_valid():
             world = request.POST["world"]
@@ -43,9 +43,9 @@ def new_outline_create(request):
         form1 = forms.OutlineForm(None)
         form1.fields["world"].choices = [
             (f"{world.pk}", f"{world.human()}")
-            for world in models.World.objects.filter(server=profile.server).order_by("-postfix")
+            for world in models.World.objects.filter(server=profile.server).order_by("postfix")
         ]
-    context = {"form1": form1, "info": info, "marks": marks, "example": example}
+    context = {"form1": form1, "info": info, "marks": marks, "example": example, "profile": profile}
     return render(request, "base/new_outline/new_outline_create.html", context)
 
 

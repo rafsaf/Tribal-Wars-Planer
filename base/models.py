@@ -2,7 +2,7 @@
 import datetime
 
 import django
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy, gettext
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -63,8 +63,12 @@ class World(models.Model):
     def __str__(self):
         return self.server.prefix + self.postfix
 
-    def human(self):
-        return gettext_lazy("World ") + self.postfix
+    def human(self, prefix=False):
+        if prefix:
+            last = " " + self.server.prefix.upper()
+        else:
+            last = ""
+        return  gettext_lazy("World ") + self.postfix + last
 
     def link_to_game(self, addition=""):
         return (

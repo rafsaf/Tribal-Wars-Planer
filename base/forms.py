@@ -598,10 +598,6 @@ class AddNewWorldForm(forms.ModelForm):
             "postfix": gettext_lazy("World prefix"),
         }
 
-        help_texts = {
-            "postfix": gettext_lazy("Hint: For 'pl160.plemiona.pl' prefix is '160'.   For 'csc1.divokekmeny.cz' prefix is 'c1'.")
-        }
-
     def clean(self):
 
         server = self.cleaned_data.get("server")
@@ -620,3 +616,11 @@ class AddNewWorldForm(forms.ModelForm):
             raise forms.ValidationError(gettext_lazy("Connection error, world does not exists or is archived!"))
         elif result[1] == "added":
             raise forms.ValidationError(gettext_lazy("World is already added!"))
+
+class ChangeServerForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ["server"]
+        labels = {
+            "server": gettext_lazy("You can set your server:")
+        }
