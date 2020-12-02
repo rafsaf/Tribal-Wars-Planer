@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.utils import timezone
 
 from base import models, forms
 
@@ -75,7 +76,7 @@ class OutlineDelete(LoginRequiredMixin, DeleteView):
 def outline_detail_1(request, _id):
     """details user's outline , login required"""
     models.Outline.objects.filter(editable='active', owner=request.user).delete()
-    instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
 
     if request.method == "POST":
         if "form-1" in request.POST:
@@ -101,6 +102,8 @@ def outline_detail_1(request, _id):
         form1 = forms.OffTroopsForm(None, outline=instance)
         form2 = forms.DeffTroopsForm(None, outline=instance)
 
+    _timedelta = timezone.now() - instance.world.last_update
+    instance.world.last_update = _timedelta.seconds // 60
     context = {"instance": instance, "form1": form1, "form2": form2}
 
     error = request.session.get("error")

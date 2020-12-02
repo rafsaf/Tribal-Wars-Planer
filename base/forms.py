@@ -4,15 +4,14 @@ from django import forms
 from tribal_wars import basic, database_update
 from . import models
 from django.utils.translation import gettext_lazy
+from django.core.validators import MaxLengthValidator
 
 
 class OutlineForm(forms.Form):
     """ New Outline Form """
 
     name = forms.CharField(
-        max_length=20,
-        label=gettext_lazy("Outline Name"),
-        widget=forms.Textarea,
+        max_length=20, label=gettext_lazy("Outline Name"), widget=forms.Textarea,
     )
     date = forms.DateField(label=gettext_lazy("Date"))
     world = forms.ChoiceField(choices=[], label=gettext_lazy("World"))
@@ -34,9 +33,7 @@ class OffTroopsForm(forms.ModelForm):
         """ User's input from script """
         text = self.cleaned_data["off_troops"].rstrip()
         if text == "":
-            self.add_error(
-                field=None, error=gettext_lazy("Text cannot be empty!")
-            )
+            self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
 
         player_dictionary = basic.coord_to_player(self.outline)
@@ -68,9 +65,7 @@ class DeffTroopsForm(forms.ModelForm):
         """ User's input from script """
         text = self.cleaned_data["deff_troops"].rstrip()
         if text == "":
-            self.add_error(
-                field=None, error=gettext_lazy("Text cannot be empty!")
-            )
+            self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
@@ -131,18 +126,14 @@ class GetDeffForm(forms.Form):
     ally_players = forms.CharField(
         max_length=300,
         label=gettext_lazy("Other ally players"),
-        help_text=gettext_lazy(
-            "Exact nicknames separated by a space or an entry."
-        ),
+        help_text=gettext_lazy("Exact nicknames separated by a space or an entry."),
         required=False,
     )
 
     enemy_players = forms.CharField(
         max_length=300,
         label=gettext_lazy("Other enemy players"),
-        help_text=gettext_lazy(
-            "Exact nicknames separated by a space or an entry."
-        ),
+        help_text=gettext_lazy("Exact nicknames separated by a space or an entry."),
         required=False,
     )
 
@@ -150,9 +141,7 @@ class GetDeffForm(forms.Form):
         max_length=300,
         label=gettext_lazy("Excluded enemy villages"),
         required=False,
-        help_text=gettext_lazy(
-            "Exact coords separated by a space or an entry."
-        ),
+        help_text=gettext_lazy("Exact coords separated by a space or an entry."),
     )
 
     def __init__(self, *args, **kwargs):
@@ -227,9 +216,8 @@ class InitialOutlineForm(forms.Form):
         self.world = kwargs.pop("world")
         super(InitialOutlineForm, self).__init__(*args, **kwargs)
 
-    
     def clean_target(self):
-        """ User's input Villages """ 
+        """ User's input Villages """
         data = self.cleaned_data["target"]
         if data == "":
             return "---\r\n"
@@ -240,7 +228,7 @@ class InitialOutlineForm(forms.Form):
         for error_id in data_lines.errors_ids:
             self.add_error("target", error_id)
         return data
-    
+
 
 class AvailableTroopsForm(forms.ModelForm):
     class Meta:
@@ -252,15 +240,13 @@ class AvailableTroopsForm(forms.ModelForm):
         ]
         labels = {
             "initial_outline_min_off": gettext_lazy("Min. off units number"),
-            "initial_outline_front_dist": gettext_lazy(
-                "Distance from front line"
-            ),
-            "initial_outline_target_dist": gettext_lazy(
-                "Max Distance for nobles"
-            ),
+            "initial_outline_front_dist": gettext_lazy("Distance from front line"),
+            "initial_outline_target_dist": gettext_lazy("Max Distance for nobles"),
         }
         help_texts = {
-            "initial_outline_min_off": gettext_lazy("Greater than or equal to 1 and less than or equal to 28000."),
+            "initial_outline_min_off": gettext_lazy(
+                "Greater than or equal to 1 and less than or equal to 28000."
+            ),
             "initial_outline_front_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 100."
             ),
@@ -285,12 +271,23 @@ class SettingMessageForm(forms.ModelForm):
         }
         help_texts = {
             "title_message": gettext_lazy("Maximum length: 50"),
-            "text_message": gettext_lazy("Maximum length: 300"),
-
+            "text_message": gettext_lazy("Maximum length: 500"),
         }
         widgets = {
-            "text_message": forms.Textarea(),
+            "text_message": forms.Textarea,
         }
+
+    def clean_text_message(self):
+        text = self.cleaned_data.get("text_message")
+        length = len(text.replace("\r\n", "%0A").replace(" ", "+"))
+        if length > 500:
+            raise forms.ValidationError(
+                gettext_lazy(
+                    f"Ensure this value has at most 500 characters (it has {length})."
+                )
+            )
+
+
 
 class SettingDateForm(forms.ModelForm):
     class Meta:
@@ -335,8 +332,12 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_off": gettext_lazy("Choose the distance of the written offs:"),
             "mode_noble": gettext_lazy("Choose the distance of the written nobles:"),
             "mode_division": gettext_lazy("Choose how to split offs with nobles:"),
-            "mode_guide": gettext_lazy("Choose prefered way of writing required nobles:"),
-            "initial_outline_fake_limit": gettext_lazy("Maximum number of fakes from one off village:"),
+            "mode_guide": gettext_lazy(
+                "Choose prefered way of writing required nobles:"
+            ),
+            "initial_outline_fake_limit": gettext_lazy(
+                "Maximum number of fakes from one off village:"
+            ),
         }
         widgets = {
             "mode_off": forms.RadioSelect,
@@ -344,6 +345,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_division": forms.RadioSelect,
             "mode_guide": forms.RadioSelect,
         }
+
 
 #    def __init__(self, *args, **kwargs):
 #        super(ModeOutlineForm, self).__init__(*args, **kwargs)
@@ -373,6 +375,7 @@ class ModeTargetSetForm(forms.ModelForm):
             "mode_division": "",
             "mode_guide": "",
         }
+
 
 class WeightForm(forms.Form):
     """ Change weight model """
@@ -414,12 +417,8 @@ class PeriodForm(forms.ModelForm):
         self.fields["unit"].widget.attrs["class"] = "form-control"
         self.fields["from_number"].widget.attrs["class"] = "form-control"
         self.fields["to_number"].widget.attrs["class"] = "form-control"
-        self.fields["from_time"].widget.attrs[
-            "class"
-        ] = "time-timepicker form-control"
-        self.fields["to_time"].widget.attrs[
-            "class"
-        ] = "time-timepicker form-control"
+        self.fields["from_time"].widget.attrs["class"] = "time-timepicker form-control"
+        self.fields["to_time"].widget.attrs["class"] = "time-timepicker form-control"
 
     def clean(self):
         status = self.cleaned_data.get("status")
@@ -480,9 +479,7 @@ class BasePeriodFormSet(BaseFormSet):
                         all_nobleman = True
                     else:
                         raise forms.ValidationError(
-                            gettext_lazy(
-                                "Mode All can be used only once per unit"
-                            )
+                            gettext_lazy("Mode All can be used only once per unit")
                         )
                 from_time_nob.append((time1, status))
                 to_time_nob.append((time2, status))
@@ -492,9 +489,7 @@ class BasePeriodFormSet(BaseFormSet):
                         all_ram = True
                     else:
                         raise forms.ValidationError(
-                            gettext_lazy(
-                                "Mode All can be used only once per unit"
-                            )
+                            gettext_lazy("Mode All can be used only once per unit")
                         )
                 from_time_ram.append((time1, status))
                 to_time_ram.append((time2, status))
@@ -528,18 +523,14 @@ class BasePeriodFormSet(BaseFormSet):
         for n_from in to_time_nob:
             if nob_last < n_from[0] and n_from[1] != "all":
                 raise forms.ValidationError(
-                    gettext_lazy(
-                        "The All mode cannot overlap with other time periods"
-                    )
+                    gettext_lazy("The All mode cannot overlap with other time periods")
                 )
 
         ram_last = from_time_ram[-1][0]
         for r_from in to_time_ram:
             if ram_last < r_from[0] and r_from[1] != "all":
                 raise forms.ValidationError(
-                    gettext_lazy(
-                        "The All mode cannot overlap with other time periods"
-                    )
+                    gettext_lazy("The All mode cannot overlap with other time periods")
                 )
 
 
@@ -571,15 +562,12 @@ class CreateNewInitialTarget(forms.Form):
         if models.TargetVertex.objects.filter(
             target=coord, outline=self.outline
         ).exists():
-            self.add_error(
-                "target", gettext_lazy("This village is already a target!")
-            )
+            self.add_error("target", gettext_lazy("This village is already a target!"))
             return
 
         if not models.VillageModel.objects.filter(pk=village_id).exists():
             self.add_error(
-                "target",
-                gettext_lazy("Village with that coords did not found."),
+                "target", gettext_lazy("Village with that coords did not found."),
             )
             return
 
@@ -587,6 +575,7 @@ class CreateNewInitialTarget(forms.Form):
 class ChangeWeightMaxOff(forms.Form):
     off = forms.IntegerField(min_value=0)
     noble = forms.IntegerField(min_value=0)
+
 
 class AddNewWorldForm(forms.ModelForm):
     class Meta:
@@ -613,14 +602,16 @@ class AddNewWorldForm(forms.ModelForm):
 
         result = world_query.check_if_world_exist_and_try_create()
         if result[1] == "error":
-            raise forms.ValidationError(gettext_lazy("Connection error, world does not exists or is archived!"))
+            raise forms.ValidationError(
+                gettext_lazy("Connection error, world does not exists or is archived!")
+            )
         elif result[1] == "added":
             raise forms.ValidationError(gettext_lazy("World is already added!"))
+
 
 class ChangeServerForm(forms.ModelForm):
     class Meta:
         model = models.Profile
         fields = ["server"]
-        labels = {
-            "server": gettext_lazy("You can set your server:")
-        }
+        labels = {"server": gettext_lazy("You can set your server:")}
+

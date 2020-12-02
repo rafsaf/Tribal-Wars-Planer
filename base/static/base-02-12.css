@@ -412,21 +412,21 @@ footer {
     .nav-link.ocean-tab-mid{
         border: 1px solid teal;
         background-color: white;
-        min-width: 350px !important;
+        min-width: 310px !important;
         border-radius: 5px;
         color: black;
     }
     .nav-link.ocean-tab-left{
         border: 1px solid teal;
         background-color: white;
-        min-width: 350px !important;
+        min-width: 310px !important;
         border-radius: 5px;
         color: black;
     }
     .nav-link.ocean-tab-right{
         border: 1px solid teal;
         background-color: white;
-        min-width: 350px !important;
+        min-width: 310px !important;
         border-radius: 5px;
         color: black;
     }

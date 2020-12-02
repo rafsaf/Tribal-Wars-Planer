@@ -10,6 +10,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 from markdownx.models import MarkdownxField
 
@@ -45,6 +46,7 @@ class World(models.Model):
     ]
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
     postfix = models.CharField(max_length=10)
+    last_update = models.DateTimeField(auto_now_add=True)
 
     connection_errors = models.IntegerField(default=0)
     speed_world = models.FloatField(null=True, blank=True, default=1)
@@ -82,6 +84,7 @@ class World(models.Model):
             f"https://{self.server.prefix}.twstats.com/{str(self)}/index.php?"
             f"page=village&id={village_id}"
         )
+
 
 
 class Tribe(models.Model):
@@ -262,7 +265,7 @@ class Outline(models.Model):
     )
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(max_length=50, default=gettext_lazy("Outline Targets"))
-    text_message = models.CharField(max_length=300, default="", blank=True)
+    text_message = models.CharField(max_length=500, default="", blank=True)
 
     class Meta:
         ordering = ("-created",)
@@ -275,7 +278,7 @@ class Outline(models.Model):
         WeightMaximum.objects.filter(outline=self).delete()
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
-        Overview.objects.filter(outline=self).delete()
+        Overview.objects.filter(outline=self).update(removed=True)
         result = self.result
         result.results_outline = ""
         result.results_players = ""
@@ -467,12 +470,14 @@ class Overview(models.Model):
     """ Present results for tribe members using unique urls """
 
     token = models.CharField(max_length=100, primary_key=True, db_index=True)
-    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
+    outline = models.ForeignKey(Outline, on_delete=models.SET_NULL, null=True, blank=True)
     player = models.CharField(max_length=40)
     created = models.DateField(auto_now=True)
     table = models.TextField()
     string = models.TextField()
+    targets = models.TextField(default="")
     show_hidden = models.BooleanField(default=False)
+    removed = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse("base:overview", args=[self.token])

@@ -152,7 +152,7 @@ def outline_detail_2_off(request, _id):
 def outline_detail_results(request, _id):
     """ view for results """
     instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
-    overviews = models.Overview.objects.filter(outline=instance).order_by(
+    overviews = models.Overview.objects.filter(outline=instance, removed=False).order_by(
         "token"
     )
     world = instance.world
@@ -169,13 +169,14 @@ def outline_detail_results(request, _id):
         if "form1" in request.POST:
             if form1.is_valid():
                 default_show_hidden = request.POST.get("default_show_hidden")
+                
                 if default_show_hidden == "on":
                     default_show_hidden = True
                 else:
                     default_show_hidden = False
 
                 title_message = request.POST.get("title_message")
-                text_message = request.POST.get("text_message")
+                text_message = request.POST.get("text_message").strip()
                 instance.default_show_hidden = default_show_hidden
                 instance.title_message = title_message
                 instance.text_message = text_message.replace(
@@ -185,7 +186,7 @@ def outline_detail_results(request, _id):
 
                 overviews_update_lst = []
                 for overview in overviews:
-                    overview.show_hidden = not overview.show_hidden
+                    overview.show_hidden = default_show_hidden
                     overviews_update_lst.append(overview)
                 models.Overview.objects.bulk_update(
                     overviews_update_lst, fields=["show_hidden"]

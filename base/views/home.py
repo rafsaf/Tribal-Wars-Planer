@@ -41,34 +41,51 @@ def overview(request, token):
     except models.Overview.DoesNotExist:
         return redirect('base:overview_fail')
 
-    own_weight_target = set()
-    each_weight_target = set()
+    if overview.outline is not None:
+        own_weight_target = set()
+        each_weight_target = set()
 
-    own_weights = models.WeightModel.objects.select_related('target').filter(
-        target__outline__id=overview.outline.id, player=overview.player).order_by('order')
+        own_weights = models.WeightModel.objects.select_related('target').filter(
+            target__outline__id=overview.outline.id, player=overview.player).order_by('order')
 
-    for weight in own_weights:
-        if weight.target in each_weight_target:
-            continue
+        for weight in own_weights:
+            if weight.target in each_weight_target:
+                continue
 
-        if overview.show_hidden:
-            each_weight_target.add(weight.target)
-            own_weight_target.discard(weight.target)
+            if overview.show_hidden:
+                each_weight_target.add(weight.target)
+                own_weight_target.discard(weight.target)
 
-        elif weight.nobleman > 0 and weight.distance < 14:  # < 8h
-            each_weight_target.add(weight.target)
-            own_weight_target.discard(weight.target)
-        else:
-            own_weight_target.add(weight.target)
+            elif weight.nobleman > 0 and weight.distance < 14:  # < 8h
+                each_weight_target.add(weight.target)
+                own_weight_target.discard(weight.target)
+            else:
+                own_weight_target.add(weight.target)
 
 
 
-    target_context = {}
+        target_context = {}
 
-    for target in own_weight_target:
-        target_context[target] = list()
-    for weight in own_weights:
-        if weight.target in own_weight_target:
+        for target in own_weight_target:
+            target_context[target] = list()
+        for weight in own_weights:
+            if weight.target in own_weight_target:
+                weight.distance = round(
+                    basic.Village(weight.start, validate=False).distance(
+                        basic.Village(weight.target.target, validate=False)
+                    ),
+                    1,
+                )
+                weight.off = f"{round(weight.off / 1000,1)}k"
+                target_context[weight.target].append(weight)
+        
+        for target in each_weight_target:
+            target_context[target] = list()
+        for weight in (
+            models.WeightModel.objects.select_related("target")
+            .filter(target__in=each_weight_target)
+            .order_by("order")
+        ):
             weight.distance = round(
                 basic.Village(weight.start, validate=False).distance(
                     basic.Village(weight.target.target, validate=False)
@@ -77,24 +94,10 @@ def overview(request, token):
             )
             weight.off = f"{round(weight.off / 1000,1)}k"
             target_context[weight.target].append(weight)
-    
-    for target in each_weight_target:
-        target_context[target] = list()
-    for weight in (
-        models.WeightModel.objects.select_related("target")
-        .filter(target__in=each_weight_target)
-        .order_by("order")
-    ):
-        weight.distance = round(
-            basic.Village(weight.start, validate=False).distance(
-                basic.Village(weight.target.target, validate=False)
-            ),
-            1,
-        )
-        weight.off = f"{round(weight.off / 1000,1)}k"
-        target_context[weight.target].append(weight)
-    query = list(target_context.items())
-    query.sort(key=lambda tup: tup[0].fake)
+        query = list(target_context.items())
+        query.sort(key=lambda tup: tup[0].fake)
+    else:
+        query = []
 
     context = {'query': query, 'overview': overview}
     return render(request, 'base/overview.html', context=context)
