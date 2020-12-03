@@ -134,25 +134,41 @@ class WriteTarget:
                 big_off = 200
                 to_left = weight_max.off_left - (off * (noble_number))
 
-            for _ in range(noble_number):
-                if _ == 0:
-                    off_troops = big_off
-                else:
-                    off_troops = off
+            if self.outline.mode_split == "split":
+                for _ in range(noble_number):
+                    if _ == 0:
+                        off_troops = big_off
+                    else:
+                        off_troops = off
 
+                    weight = models.WeightModel(
+                        target=self.target,
+                        player=weight_max.player,
+                        start=weight_max.start,
+                        state=weight_max,
+                        off=off_troops,
+                        distance=weight_max.distance,
+                        nobleman=1,
+                        order=i + self.index,
+                        first_line=weight_max.first_line,
+                    )
+                    i += 1
+                    weights_create_lst.append(weight)
+            elif self.outline.mode_split == "together":
                 weight = models.WeightModel(
                     target=self.target,
                     player=weight_max.player,
                     start=weight_max.start,
                     state=weight_max,
-                    off=off_troops,
+                    off=big_off + (noble_number - 1) * off,
                     distance=weight_max.distance,
-                    nobleman=1,
+                    nobleman=noble_number,
                     order=i + self.index,
                     first_line=weight_max.first_line,
                 )
                 i += 1
-                weights_create_lst.append(weight)
+                weights_create_lst.append(weight)          
+
 
             weight_max.off_state += weight_max.off_left - to_left
             weight_max.off_left = to_left

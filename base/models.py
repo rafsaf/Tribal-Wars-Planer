@@ -184,6 +184,11 @@ class Outline(models.Model):
         ("separatly", gettext_lazy("Off and nobles separatly")),
     ]
 
+    MODE_SPLIT = [
+        ("together", gettext_lazy("Nobles from one village as one command")),
+        ("split", gettext_lazy("Nobles from one village as many commands")),
+    ]
+
     NOBLE_GUIDELINES = [
         ("one", gettext_lazy("Try send all nobles to one target")),
         ("many", gettext_lazy("Nobles to one or many targets")),
@@ -248,6 +253,9 @@ class Outline(models.Model):
     )
     mode_guide = models.CharField(
         max_length=15, choices=NOBLE_GUIDELINES, default="one"
+    )
+    mode_split = models.CharField(
+        max_length=15, choices=MODE_SPLIT, default="split"
     )
 
     filter_weights_min = models.IntegerField(

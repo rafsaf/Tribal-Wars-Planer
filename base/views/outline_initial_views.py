@@ -94,6 +94,7 @@ def initial_form(request, _id):
     form4.fields["mode_noble"].initial = instance.mode_noble
     form4.fields["mode_division"].initial = instance.mode_division
     form4.fields["mode_guide"].initial = instance.mode_guide
+    form4.fields["mode_split"].initial = instance.mode_split
     form4.fields["initial_outline_fake_limit"].initial = instance.initial_outline_fake_limit
 
 
@@ -155,10 +156,12 @@ def initial_form(request, _id):
                 mode_division = request.POST.get("mode_division")
                 mode_guide = request.POST.get("mode_guide")
                 fake_limit = request.POST.get("initial_outline_fake_limit")
+                mode_split = request.POST.get("mode_split")
                 instance.mode_off = mode_off
                 instance.mode_noble = mode_noble
                 instance.mode_division = mode_division
                 instance.mode_guide = mode_guide
+                instance.mode_split = mode_split
                 instance.initial_outline_fake_limit = fake_limit
                 instance.save()
 

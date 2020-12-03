@@ -326,6 +326,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_noble",
             "mode_division",
             "mode_guide",
+            "mode_split",
             "initial_outline_fake_limit",
         ]
         labels = {
@@ -335,6 +336,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide": gettext_lazy(
                 "Choose prefered way of writing required nobles:"
             ),
+            "mode_split": gettext_lazy("Choose how noble commands should be written out:"),
             "initial_outline_fake_limit": gettext_lazy(
                 "Maximum number of fakes from one off village:"
             ),
@@ -343,6 +345,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_off": forms.RadioSelect,
             "mode_noble": forms.RadioSelect,
             "mode_division": forms.RadioSelect,
+            "mode_split": forms.RadioSelect,
             "mode_guide": forms.RadioSelect,
         }
 
