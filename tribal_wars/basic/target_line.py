@@ -83,6 +83,8 @@ class TargetsOneLine:
         # first (only) match is not proper village coord
         try:
             coord = split_line[0]
+            if len(coord) != 7:
+                raise basic.VillageError()
             village = basic.Village(coord)
         except basic.VillageError:
             raise SeparateLineException()
