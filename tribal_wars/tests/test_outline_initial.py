@@ -18,12 +18,16 @@ class TestMakeOutlineFunction(TestCase):
             "500|505,0,0,20000,0,0,0,0,0,2,0,0,"
         )
 
-        self.world = models.World.objects.create(
-            title="Świat 150",
-            world=150,
+        self.server = models.Server.objects.create(
+            dns="testserver",
+            prefix="te",
+        )
+        self.world1 = models.World.objects.create(
+            server=self.server,
+            postfix="1",
             paladin="inactive",
-            militia="inactive",
             archer="inactive",
+            militia="active",
         )
 
         self.admin = User.objects.create_user("admin", None, None)
@@ -32,7 +36,7 @@ class TestMakeOutlineFunction(TestCase):
             owner=self.admin,
             date=datetime.date.today(),
             name="name",
-            world="150",
+            world=self.world1,
             ally_tribe_tag=["pl1"],
             enemy_tribe_tag=["pl2"],
             initial_outline_targets="500|499:1:4\r\n500|498:1:2---",
@@ -41,100 +45,103 @@ class TestMakeOutlineFunction(TestCase):
             off_troops=TEXT,
         )
         # front
-        self.ally_village1 = models.VillageModel(
-            id="500500150",
-            village_id=0,
-            x_coord=500,
-            y_coord=500,
-            player_id=0,
-            world=150,
-        )
-        # front
-        self.ally_village2 = models.VillageModel(
-            id="500501150",
-            village_id=1,
-            x_coord=500,
-            y_coord=501,
-            player_id=0,
-            world=150,
-        )
-        # front
-        self.ally_village3 = models.VillageModel(
-            id="500502150",
-            village_id=2,
-            x_coord=500,
-            y_coord=502,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village4 = models.VillageModel(
-            id="500503150",
-            village_id=3,
-            x_coord=500,
-            y_coord=503,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village5 = models.VillageModel(
-            id="500504150",
-            village_id=4,
-            x_coord=500,
-            y_coord=504,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village6 = models.VillageModel(
-            id="500505150",
-            village_id=5,
-            x_coord=500,
-            y_coord=505,
-            player_id=0,
-            world=150,
-        )
 
-        self.enemy_village1 = models.VillageModel(
-            id="500499150",
-            village_id=6,
-            x_coord=500,
-            y_coord=499,
-            player_id=1,
-            world=150,
-        )
-        self.enemy_village2 = models.VillageModel(
-            id="500498150",
-            village_id=7,
-            x_coord=500,
-            y_coord=498,
-            player_id=1,
-            world=150,
-        )
-        self.enemy_village3 = models.VillageModel(
-            id="500497150",
-            village_id=8,
-            x_coord=500,
-            y_coord=497,
-            player_id=1,
-            world=150,
-        )
 
         self.ally_tribe = models.Tribe(
-            id="pl1::150", tribe_id=0, tag="pl1", world=150
+            tribe_id=0, tag="pl1", world=self.world1
         )
         self.enemy_tribe = models.Tribe(
-            id="pl2::150", tribe_id=1, tag="pl2", world=150
+            tribe_id=1, tag="pl2", world=self.world1
         )
 
         self.ally_player = models.Player(
-            id="player0:150",
             player_id=0,
             name="player0",
-            tribe_id=0,
-            world=150,
+            tribe=self.ally_tribe,
+            world=self.world1,
         )
         self.enemy_player = models.Player(
-            "player1:150", player_id=1, name="player1", tribe_id=1, world=150
+            player_id=1, name="player1", tribe=self.enemy_tribe, world=self.world1
+        )
+        self.ally_village1 = models.VillageModel(
+            coord="500|500",
+            village_id=0,
+            x_coord=500,
+            y_coord=500,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        # front
+        self.ally_village2 = models.VillageModel(
+            coord="500|501",
+            village_id=1,
+            x_coord=500,
+            y_coord=501,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        # front
+        self.ally_village3 = models.VillageModel(
+            coord="500|502",
+            village_id=2,
+            x_coord=500,
+            y_coord=502,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village4 = models.VillageModel(
+            coord="500|503",
+            village_id=3,
+            x_coord=500,
+            y_coord=503,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village5 = models.VillageModel(
+            coord="500|504",
+            village_id=4,
+            x_coord=500,
+            y_coord=504,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village6 = models.VillageModel(
+            coord="500|505",
+            village_id=5,
+            x_coord=500,
+            y_coord=505,
+            player=self.ally_player,
+            world=self.world1,
         )
 
+        self.enemy_village1 = models.VillageModel(
+            coord="500|499",
+            village_id=6,
+            x_coord=500,
+            y_coord=499,
+            player=self.enemy_player,
+            world=self.world1,
+        )
+        self.enemy_village2 = models.VillageModel(
+            coord="500|498",
+            village_id=7,
+            x_coord=500,
+            y_coord=498,
+            player=self.enemy_player,
+            world=self.world1,
+        )
+        self.enemy_village3 = models.VillageModel(
+            coord="500|497",
+            village_id=8,
+            x_coord=500,
+            y_coord=497,
+            player=self.enemy_player,
+            world=self.world1,
+        )
+        self.ally_tribe.save()
+        self.enemy_tribe.save()
+        self.ally_player.save()
+        self.enemy_player.save()
         self.ally_village1.save()
         self.ally_village2.save()
         self.ally_village3.save()
@@ -144,10 +151,7 @@ class TestMakeOutlineFunction(TestCase):
         self.enemy_village1.save()
         self.enemy_village2.save()
         self.enemy_village3.save()
-        self.ally_tribe.save()
-        self.enemy_tribe.save()
-        self.ally_player.save()
-        self.enemy_player.save()
+
 
     def test_make_outline_2_targets_real_create(self):
         initial.make_outline(outline=self.outline)
@@ -250,13 +254,20 @@ class TestMakeOutlineFunction(TestCase):
             models.WeightMaximum.objects.filter(first_line=True).count(), 3
         )
 
-    def test_make_outline_number_of_queries_is_17(self):
-        with self.assertNumQueries(17):
+    def test_make_outline_number_of_queries_is_8(self):
+        with self.assertNumQueries(8):
             initial.make_outline(outline=self.outline)
 
-    def test_repeat_make_outline_number_of_queries_is_24(self):
+    def test_repeat_make_outline_number_of_queries_is_14(self):
         # second one do not create weight max models
-        with self.assertNumQueries(24):
+        with self.assertNumQueries(14):
+            initial.make_outline(outline=self.outline)
+            initial.make_outline(outline=self.outline)
+
+    def test_repeat_make_outline_number_of_queries_is_20(self):
+        # second one do not create weight max models
+        with self.assertNumQueries(20):
+            initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)
 
@@ -293,12 +304,16 @@ class TestCompleteOutlineFunction(TestCase):
             "500|510,0,0,10000,0,0,0,0,0,0,0,0,"
         )
 
-        self.world = models.World.objects.create(
-            title="Świat 150",
-            world=150,
+        self.server = models.Server.objects.create(
+            dns="testserver",
+            prefix="te",
+        )
+        self.world1 = models.World.objects.create(
+            server=self.server,
+            postfix="1",
             paladin="inactive",
-            militia="inactive",
             archer="inactive",
+            militia="active",
         )
 
         self.admin = User.objects.create_user("admin", None, None)
@@ -307,7 +322,7 @@ class TestCompleteOutlineFunction(TestCase):
             owner=self.admin,
             date=datetime.date.today(),
             name="name",
-            world="150",
+            world=self.world1,
             ally_tribe_tag=["pl1"],
             enemy_tribe_tag=["pl2"],
             initial_outline_targets="500|499:1:4\r\n500|498:1:2---",
@@ -316,158 +331,157 @@ class TestCompleteOutlineFunction(TestCase):
             off_troops=TEXT,
         )
         # front
-        self.ally_village1 = models.VillageModel(
-            id="500500150",
-            village_id=0,
-            x_coord=500,
-            y_coord=500,
-            player_id=0,
-            world=150,
-        )
-        # front
-        self.ally_village2 = models.VillageModel(
-            id="500501150",
-            village_id=1,
-            x_coord=500,
-            y_coord=501,
-            player_id=0,
-            world=150,
-        )
-        # front
-        self.ally_village3 = models.VillageModel(
-            id="500502150",
-            village_id=2,
-            x_coord=500,
-            y_coord=502,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village4 = models.VillageModel(
-            id="500503150",
-            village_id=3,
-            x_coord=500,
-            y_coord=503,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village5 = models.VillageModel(
-            id="500504150",
-            village_id=4,
-            x_coord=500,
-            y_coord=504,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village6 = models.VillageModel(
-            id="500505150",
-            village_id=5,
-            x_coord=500,
-            y_coord=505,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village9 = models.VillageModel(
-            id="500506150",
-            village_id=9,
-            x_coord=500,
-            y_coord=506,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village10 = models.VillageModel(
-            id="500507150",
-            village_id=10,
-            x_coord=500,
-            y_coord=507,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village11 = models.VillageModel(
-            id="500508150",
-            village_id=11,
-            x_coord=500,
-            y_coord=508,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village12 = models.VillageModel(
-            id="500509150",
-            village_id=12,
-            x_coord=500,
-            y_coord=509,
-            player_id=0,
-            world=150,
-        )
-        self.ally_village13 = models.VillageModel(
-            id="500510150",
-            village_id=13,
-            x_coord=500,
-            y_coord=510,
-            player_id=0,
-            world=150,
-        )
 
-        self.enemy_village1 = models.VillageModel(
-            id="500499150",
-            village_id=6,
-            x_coord=500,
-            y_coord=499,
-            player_id=1,
-            world=150,
-        )
-        self.enemy_village2 = models.VillageModel(
-            id="500498150",
-            village_id=7,
-            x_coord=500,
-            y_coord=498,
-            player_id=1,
-            world=150,
-        )
-        self.enemy_village3 = models.VillageModel(
-            id="500497150",
-            village_id=8,
-            x_coord=500,
-            y_coord=497,
-            player_id=1,
-            world=150,
-        )
 
         self.ally_tribe = models.Tribe(
-            id="pl1::150", tribe_id=0, tag="pl1", world=150
+            tribe_id=0, tag="pl1", world=self.world1
         )
         self.enemy_tribe = models.Tribe(
-            id="pl2::150", tribe_id=1, tag="pl2", world=150
+            tribe_id=1, tag="pl2", world=self.world1
         )
 
         self.ally_player = models.Player(
-            id="player0:150",
             player_id=0,
             name="player0",
-            tribe_id=0,
-            world=150,
+            tribe=self.ally_tribe,
+            world=self.world1,
         )
         self.enemy_player = models.Player(
-            "player1:150", player_id=1, name="player1", tribe_id=1, world=150
+            player_id=1, name="player1", tribe=self.enemy_tribe, world=self.world1
+        )
+        self.ally_village1 = models.VillageModel(
+            coord="500|500",
+            village_id=0,
+            x_coord=500,
+            y_coord=500,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        # front
+        self.ally_village2 = models.VillageModel(
+            coord="500|501",
+            village_id=1,
+            x_coord=500,
+            y_coord=501,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        # front
+        self.ally_village3 = models.VillageModel(
+            coord="500|502",
+            village_id=2,
+            x_coord=500,
+            y_coord=502,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village4 = models.VillageModel(
+            coord="500|503",
+            village_id=3,
+            x_coord=500,
+            y_coord=503,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village5 = models.VillageModel(
+            coord="500|504",
+            village_id=4,
+            x_coord=500,
+            y_coord=504,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village6 = models.VillageModel(
+            coord="500|505",
+            village_id=5,
+            x_coord=500,
+            y_coord=505,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village7 = models.VillageModel(
+            coord="500|506",
+            village_id=6,
+            x_coord=500,
+            y_coord=506,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village8 = models.VillageModel(
+            coord="500|507",
+            village_id=7,
+            x_coord=500,
+            y_coord=507,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village9 = models.VillageModel(
+            coord="500|508",
+            village_id=8,
+            x_coord=500,
+            y_coord=508,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village10 = models.VillageModel(
+            coord="500|509",
+            village_id=9,
+            x_coord=500,
+            y_coord=509,
+            player=self.ally_player,
+            world=self.world1,
+        )
+        self.ally_village11 = models.VillageModel(
+            coord="500|510",
+            village_id=10,
+            x_coord=500,
+            y_coord=510,
+            player=self.ally_player,
+            world=self.world1,
         )
 
+        self.enemy_village1 = models.VillageModel(
+            coord="500|499",
+            village_id=6,
+            x_coord=500,
+            y_coord=499,
+            player=self.enemy_player,
+            world=self.world1,
+        )
+        self.enemy_village2 = models.VillageModel(
+            coord="500|498",
+            village_id=7,
+            x_coord=500,
+            y_coord=498,
+            player=self.enemy_player,
+            world=self.world1,
+        )
+        self.enemy_village3 = models.VillageModel(
+            coord="500|497",
+            village_id=8,
+            x_coord=500,
+            y_coord=497,
+            player=self.enemy_player,
+            world=self.world1,
+        )
+        self.ally_tribe.save()
+        self.enemy_tribe.save()
+        self.ally_player.save()
+        self.enemy_player.save()
         self.ally_village1.save()
         self.ally_village2.save()
         self.ally_village3.save()
         self.ally_village4.save()
         self.ally_village5.save()
         self.ally_village6.save()
+        self.ally_village7.save()
+        self.ally_village8.save()
         self.ally_village9.save()
         self.ally_village10.save()
         self.ally_village11.save()
-        self.ally_village12.save()
-        self.ally_village13.save()
         self.enemy_village1.save()
         self.enemy_village2.save()
         self.enemy_village3.save()
-        self.ally_tribe.save()
-        self.enemy_tribe.save()
-        self.ally_player.save()
-        self.enemy_player.save()
 
     def test_outline_complete_far_off_correct1(self):
         self.outline.initial_outline_targets = "500|499:1:0---"

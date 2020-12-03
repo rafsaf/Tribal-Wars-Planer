@@ -8,39 +8,43 @@ class TestArmy(TestCase):
     """ Test for Army"""
 
     def setUp(self):
+        self.server = models.Server.objects.create(
+            dns="testserver",
+            prefix="te",
+        )
         self.world1 = models.World.objects.create(
-            title="Świat 1",
-            world=1,
+            server=self.server,
+            postfix="1",
             paladin="inactive",
             archer="inactive",
             militia="active",
         )
         self.world2 = models.World.objects.create(
-            title="Świat 2",
-            world=2,
+            server=self.server,
+            postfix="2",
             paladin="inactive",
             archer="inactive",
             militia="inactive",
         )
         self.world3 = models.World.objects.create(
-            title="Świat 3",
-            world=3,
+            server=self.server,
+            postfix="3",
             paladin="active",
             archer="active",
             militia="active",
         )
         self.world4 = models.World.objects.create(
-            title="Świat 4",
-            world=4,
+            server=self.server,
+            postfix="4",
             paladin="active",
             archer="active",
             militia="inactive",
         )
 
-        self.world1_evidence = basic.world_evidence(1)
-        self.world2_evidence = basic.world_evidence(2)
-        self.world3_evidence = basic.world_evidence(3)
-        self.world4_evidence = basic.world_evidence(4)
+        self.world1_evidence = basic.world_evidence(self.world1)
+        self.world2_evidence = basic.world_evidence(self.world2)
+        self.world3_evidence = basic.world_evidence(self.world3)
+        self.world4_evidence = basic.world_evidence(self.world4)
 
         self.text_world1 = "500|500,1,2,3,5,6,8,9,10,12,13,14,15,"
         self.text_world2 = "500|500,1,2,3,5,6,8,9,10,12,14,15,"

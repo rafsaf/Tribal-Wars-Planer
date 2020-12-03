@@ -33,132 +33,128 @@ class GetDeffFunctionTest(TestCase):
             "500|499,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,0,\r\n"
             "500|499,w drodze,0,0,0,0,0,0,0,0,0,0,0,"
         )
-        self.world = models.World.objects.create(
-            title="Świat 150",
-            world=150,
-            paladin="inactive",
-            militia="inactive",
-            archer="inactive",
-        )
 
+
+        self.server = models.Server.objects.create(
+            dns="testserver",
+            prefix="te",
+        )
+        self.world1 = models.World.objects.create(
+            server=self.server,
+            postfix="1",
+            paladin="inactive",
+            archer="inactive",
+            militia="inactive",
+        )
         self.admin = User.objects.create_user("admin", None, None)
         self.outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
             name="name",
-            world="150",
+            world=self.world1,
             ally_tribe_tag=["pl1", "pl2"],
-            enemy_tribe_tag=["pl3", "pl4"],
+            enemy_tribe_tag=["pl3", " pl4"],
             deff_troops=DEFF_TEXT,
             off_troops=ARMY_TEXT,
         )
-        # not legal below
-        self.ally_village1 = models.VillageModel(
-            id="500500150",
-            village_id=1,
-            x_coord=500,
-            y_coord=500,
-            player_id=2,
-            world=150,
-        )
-        self.ally_village2 = models.VillageModel(
-            id="499500150",
-            village_id=2,
-            x_coord=499,
-            y_coord=500,
-            player_id=1,
-            world=150,
-        )
-        # legal below
-        self.ally_village3 = models.VillageModel(
-            id="498503150",
-            village_id=3,
-            x_coord=498,
-            y_coord=503,
-            player_id=2,
-            world=150,
-        )
-        self.ally_village4 = models.VillageModel(
-            id="500502150",
-            village_id=4,
-            x_coord=500,
-            y_coord=502,
-            player_id=2,
-            world=150,
-        )
-        self.ally_village5 = models.VillageModel(
-            id="498502150",
-            village_id=5,
-            x_coord=498,
-            y_coord=502,
-            player_id=2,
-            world=150,
-        )
-        self.ally_village6 = models.VillageModel(
-            id="500499150",
-            village_id=6,
-            x_coord=500,
-            y_coord=499,
-            player_id=2,
-            world=150,
-        )
-        # enemy villages
-        self.enemy_village1 = models.VillageModel(
-            id="503500150",
-            village_id=7,
-            x_coord=503,
-            y_coord=500,
-            player_id=3,
-            world=150,
-        )
-        self.enemy_village2 = models.VillageModel(
-            id="500506150",
-            village_id=8,
-            x_coord=500,
-            y_coord=506,
-            player_id=4,
-            world=150,
-        )
-
         self.ally_tribe1 = models.Tribe(
-            id="pl1::150", tribe_id=1, tag="pl1", world=150
+            tribe_id=1, tag="pl1", world=self.world1
         )
         self.ally_tribe2 = models.Tribe(
-            id="pl2::150", tribe_id=2, tag="pl2", world=150
+            tribe_id=2, tag="pl2", world=self.world1
         )
         self.enemy_tribe1 = models.Tribe(
-            id="pl3::150", tribe_id=3, tag="pl3", world=150
+            tribe_id=3, tag="pl3", world=self.world1
         )
         self.enemy_tribe2 = models.Tribe(
-            id="pl4::150", tribe_id=4, tag="pl4", world=150
+            tribe_id=4, tag="pl4", world=self.world1
         )
 
         self.ally_player1 = models.Player(
-            id="player1:150",
             player_id=1,
             name="player1",
-            tribe_id=1,
-            world=150,
+            tribe=self.ally_tribe1,
+            world=self.world1,
         )
         self.ally_player2 = models.Player(
-            "player2:150", player_id=2, name="player2", tribe_id=2, world=150
+            player_id=2, name="player2", tribe=self.ally_tribe2, world=self.world1
         )
 
         self.enemy_player1 = models.Player(
-            "player3:150", player_id=3, name="player3", tribe_id=3, world=150
+            player_id=3, name="player3", tribe=self.enemy_tribe1, world=self.world1
         )
         self.enemy_player2 = models.Player(
-            "player4:150", player_id=4, name="player4", tribe_id=4, world=150
+            player_id=4, name="player4", tribe=self.enemy_tribe2, world=self.world1
+        )
+        self.ally_village1 = models.VillageModel(
+            coord="500|500",
+            village_id=1,
+            x_coord=500,
+            y_coord=500,
+            player=self.ally_player2,
+            world=self.world1,
+        )
+        self.ally_village2 = models.VillageModel(
+            coord="499|500",
+            village_id=2,
+            x_coord=499,
+            y_coord=500,
+            player=self.ally_player1,
+            world=self.world1,
+        )
+        # legal below
+        self.ally_village3 = models.VillageModel(
+            coord="498|503",
+            village_id=3,
+            x_coord=498,
+            y_coord=503,
+            player=self.ally_player2,
+            world=self.world1,
+        )
+        self.ally_village4 = models.VillageModel(
+            coord="500|502",
+            village_id=4,
+            x_coord=500,
+            y_coord=502,
+            player=self.ally_player2,
+            world=self.world1,
+        )
+        self.ally_village5 = models.VillageModel(
+            coord="498|502",
+            village_id=5,
+            x_coord=498,
+            y_coord=502,
+            player=self.ally_player2,
+            world=self.world1,
+        )
+        self.ally_village6 = models.VillageModel(
+            coord="500|499",
+            village_id=6,
+            x_coord=500,
+            y_coord=499,
+            player=self.ally_player2,
+            world=self.world1,
         )
 
-        self.ally_village1.save()
-        self.ally_village2.save()
-        self.ally_village3.save()
-        self.ally_village4.save()
-        self.ally_village5.save()
-        self.ally_village6.save()
-        self.enemy_village1.save()
-        self.enemy_village2.save()
+        self.enemy_village1 = models.VillageModel(
+            coord="503|500",
+            village_id=1,
+            x_coord=503,
+            y_coord=500,
+            player=self.enemy_player1,
+            world=self.world1,
+        )
+        self.enemy_village2 = models.VillageModel(
+            coord="500|506",
+            village_id=1,
+            x_coord=500,
+            y_coord=506,
+            player=self.enemy_player2,
+            world=self.world1,
+        )
+
+
+
         self.ally_tribe1.save()
         self.ally_tribe2.save()
         self.enemy_tribe1.save()
@@ -167,11 +163,22 @@ class GetDeffFunctionTest(TestCase):
         self.ally_player2.save()
         self.enemy_player1.save()
         self.enemy_player2.save()
+        self.ally_village1.save()
+        self.ally_village2.save()
+        self.ally_village3.save()
+        self.ally_village4.save()
+        self.ally_village5.save()
+        self.ally_village6.save()
+        self.enemy_village1.save()
+        self.enemy_village2.save()
+
+
+
         self.maxDiff = None
 
     def test_get_deff_general_test_is_output_correct(self):
         result = deff.get_deff(outline=self.outline, radius=3)
-
+        
         # expected = (
         #     '\r\n'
         #     'player1\r\n'
@@ -196,10 +203,10 @@ class GetDeffFunctionTest(TestCase):
             " zaś 7000 CAŁEGO SWOJEGO.\r\n"
             "\r\n"
             "player2\r\n"
-            "Na froncie 2 wsi, 36000 deffa W WIOSKACH,"
-            " zaś 15000 CAŁEGO SWOJEGO.\r\n"
-            "Na zapleczu 3 wsi, 18000 deffa W WIOSKACH,"
-            " zaś 18000 CAŁEGO SWOJEGO.\r\n"
+            "Na froncie 1 wsi, 30000 deffa W WIOSKACH,"
+            " zaś 8000 CAŁEGO SWOJEGO.\r\n"
+            "Na zapleczu 4 wsi, 24000 deffa W WIOSKACH,"
+            " zaś 25000 CAŁEGO SWOJEGO.\r\n"
             "\r\n\r\n"
             "player1\r\n"
             "---------FRONT---------\r\n"
@@ -209,8 +216,8 @@ class GetDeffFunctionTest(TestCase):
             "player2\r\n"
             "---------FRONT---------\r\n"
             "500|500- W wiosce- 30000  (CAŁY własny deff [ 8000 ])\r\n"
-            "498|503- W wiosce- 6000  (CAŁY własny deff [ 7000 ])\r\n"
             "---------ZAPLECZE---------\r\n"
+            "498|503- W wiosce- 6000  (CAŁY własny deff [ 7000 ])\r\n"
             "500|502- W wiosce- 6000  (CAŁY własny deff [ 4000 ])\r\n"
             "498|502- W wiosce- 6000  (CAŁY własny deff [ 7000 ])\r\n"
             "500|499- W wiosce- 6000  (CAŁY własny deff [ 7000 ])\r\n"
@@ -230,8 +237,8 @@ class GetDeffFunctionTest(TestCase):
                 self.ally_village6,
             ]
         ]
-        list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk)
-        list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk)
+        list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk).values()
+        list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk).values()
         self.assertEqual(
             deff.get_legal_coords(list_ally, list_enemy, 4), set()
         )
@@ -241,8 +248,8 @@ class GetDeffFunctionTest(TestCase):
         list_enemy_pk = [
             village.pk for village in [self.ally_village2, self.ally_village6]
         ]
-        list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk)
-        list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk)
+        list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk).values()
+        list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk).values()
         self.assertEqual(
             deff.get_legal_coords(list_ally, list_enemy, 4), {(500, 506)}
         )

@@ -602,7 +602,7 @@ def create_final_outline(request, id1):
         return redirect(
             reverse("base:planer_initial", args=[id1]) + "?page=1&mode=time"
         )
-    models.Overview.objects.filter(outline=instance).delete()
+    models.Overview.objects.filter(outline=instance).update(removed=True)
     finish.make_final_outline(instance)
     return redirect("base:planer_detail_results", id1)
 
@@ -621,7 +621,7 @@ def complete_outline(request, id1):
 @login_required
 def update_outline_troops(request, id1):
     instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
-    models.WeightMaximum.objects.all().delete()
+    models.WeightMaximum.objects.filter(outline=instance).delete()
     try:
         initial.make_outline(instance)
     except KeyError:

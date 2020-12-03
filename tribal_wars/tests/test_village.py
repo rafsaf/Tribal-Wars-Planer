@@ -14,30 +14,37 @@ class VillageTest(TestCase):
         self.wioska1 = basic.Village("345|555")
         self.wioska2 = basic.Village("345|455 ")
         self.wioska3 = basic.Village(" 342|455 ")
-
-        self.world1 = models.World(
-            id=1,
-            title="Świat 150",
-            world=150,
+        self.server = models.Server.objects.create(
+            dns="testserver",
+            prefix="te",
+        )
+        self.world1 = models.World.objects.create(
+            server=self.server,
+            postfix="1",
             speed_world=1.2,
             speed_units=0.8,
         )
         self.world1.save()
-
+        self.tribe1 = models.Tribe.objects.create(
+            tribe_id=1,
+            tag="name",
+            world=self.world1,
+        )
+        self.player1 = models.Player(
+            player_id=1, name="player1", tribe=self.tribe1, world=self.world1
+        )
+        self.player1.save()
         self.village1 = models.VillageModel(
-            id="345555150",
+            coord="345|555",
             village_id=2,
             x_coord=345,
             y_coord=555,
-            player_id=1,
-            world=150,
+            player=self.player1,
+            world=self.world1,
         )
         self.village1.save()
 
-        self.player1 = models.Player(
-            id="player:150", player_id=1, name="player1", tribe_id=1, world=150
-        )
-        self.player1.save()
+
 
     def test_are_x_and_y_coordinates_correct(self):
         self.assertEqual(self.wioska1.coord, "345|555")

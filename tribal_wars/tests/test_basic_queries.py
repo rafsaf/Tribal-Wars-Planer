@@ -9,12 +9,23 @@ from tribal_wars import basic
 
 class TestTargetWeightQueries(TestCase):
     def setUp(self):
+        self.server = models.Server.objects.create(
+            dns="testserver",
+            prefix="te",
+        )
+        self.world1 = models.World.objects.create(
+            server=self.server,
+            postfix="1",
+            paladin="inactive",
+            archer="inactive",
+            militia="active",
+        )
         self.admin = User.objects.create_user("admin", None, None)
         self.outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
             name="name",
-            world="150",
+            world=self.world1,
             ally_tribe_tag=["pl1", "pl2"],
             enemy_tribe_tag=["pl3", " pl4"],
         )
@@ -101,85 +112,3 @@ class TestTargetWeightQueries(TestCase):
         )
 
 
-class TestAllyEnemyVillageQueries(TestCase):
-    def setUp(self):
-        self.admin = User.objects.create_user("admin", None, None)
-        self.outline = models.Outline.objects.create(
-            owner=self.admin,
-            date=datetime.date.today(),
-            name="name",
-            world="150",
-            ally_tribe_tag=["pl1"],
-            enemy_tribe_tag=["pl2"],
-        )
-
-        self.ally_village1 = models.VillageModel(
-            id="500500150",
-            village_id=1,
-            x_coord=500,
-            y_coord=500,
-            player_id=1,
-            world=150,
-        )
-        self.ally_tribe1 = models.Tribe(
-            id="pl1::150", tribe_id=1, tag="pl1", world=150
-        )
-        self.ally_player1 = models.Player(
-            id="player1:150",
-            player_id=1,
-            name="player1",
-            tribe_id=1,
-            world=150,
-        )
-
-        self.ally_village1.save()
-        self.ally_tribe1.save()
-        self.ally_player1.save()
-
-        self.enemy_village1 = models.VillageModel(
-            id="500600150",
-            village_id=2,
-            x_coord=500,
-            y_coord=500,
-            player_id=2,
-            world=150,
-        )
-        self.enemy_tribe1 = models.Tribe(
-            id="pl2::150", tribe_id=2, tag="pl2", world=150
-        )
-        self.enemy_player1 = models.Player(
-            id="player2:150",
-            player_id=2,
-            name="player2",
-            tribe_id=2,
-            world=150,
-        )
-
-        self.enemy_village1.save()
-        self.enemy_tribe1.save()
-        self.enemy_player1.save()
-        self.village_query = basic.AllyEnemyVillagesQueries(self.outline)
-
-    def test_ally_tribes(self):
-        with self.assertNumQueries(1):
-            self.village_query._AllyEnemyVillagesQueries__ally_tribes()
-
-    def test_ally_players(self):
-        with self.assertNumQueries(2):
-            self.village_query._AllyEnemyVillagesQueries__ally_players()
-
-    def test_ally_villages(self):
-        with self.assertNumQueries(3):
-            list(self.village_query.ally_villages())
-
-    def test_enemy_tribes(self):
-        with self.assertNumQueries(1):
-            self.village_query._AllyEnemyVillagesQueries__enemy_tribes()
-
-    def test_enemy_players(self):
-        with self.assertNumQueries(2):
-            self.village_query._AllyEnemyVillagesQueries__enemy_players()
-
-    def test_enemy_villages(self):
-        with self.assertNumQueries(3):
-            list(self.village_query.enemy_villages())
