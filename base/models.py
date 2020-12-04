@@ -478,7 +478,7 @@ class OutlineOverview(models.Model):
 
 class Overview(models.Model):
     """ Present results for tribe members using unique urls """
-    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE, null=True)
+    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
     token = models.CharField(max_length=100, primary_key=True, db_index=True)
     outline = models.ForeignKey(Outline, on_delete=models.SET_NULL, null=True, blank=True)
     player = models.CharField(max_length=40)

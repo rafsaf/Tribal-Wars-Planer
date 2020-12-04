@@ -7,6 +7,6 @@
 * Każde pole jest wypełnione poprawnie
 * Wybrałeś poprawny numer świata.
 #### Pamiętaj, że...
-* Wybrana data NIE MOŻE być później zmieniona.
+* Wybrana data MOŻE! być później zmieniona.
 * Musisz wypełnić wszystkie pola.
 * Więcej szczegółów znajdziesz w pozostałych zakładkach

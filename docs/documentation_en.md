@@ -105,7 +105,7 @@
     // Uses some methods to get all stuff from table with units from current html site
     function add_current_player_info_to_output(doc){
       var trs = doc.querySelectorAll('.table-responsive .vis tr');
-      var attacks;
+      var attacks = 0;
       var coordinates;
       for (var i = 1; i < trs.length; i++) {
         output += "&lt;br&gt;";
@@ -350,24 +350,25 @@
     <pre id="copy-button-3" class="prettyprint md-pre">
     // ==UserScript==
     // @name     GET message autocomplete
-    // @version  1
-    // @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=mail&ast;mode=new&ast;
+    // @version  1.0
+    // @match    *://*.plemiona.pl/game.php*screen=mail*mode=new*
     // ==/UserScript==
     // By Rafsaf
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const to = urlParams.get('to');
-    const subject = urlParams.get('subject');
-    const message = urlParams.get('message');
-
-    if (to) {
-        document.getElementById('to').value = to;
+    
+    const hash = window.location.hash.substr(1);
+    const result = hash.split('&').reduce(function (res, item) {
+        var parts = item.split('=');
+        res[parts[0]] = parts[1];
+        return res;
+    }, {});
+    if ("to" in result) {
+        document.getElementById('to').value = decodeURI(result.to);
     }
-    if (subject) {
-        document.getElementsByName('subject')[0].value = subject;
+    if ("subject" in result) {
+        document.getElementsByName('subject')[0].value = decodeURI(result.subject);
     }
-    if (message) {
-        document.getElementById('message').value = message;
+    if ("message" in result) {
+        document.getElementById('message').value = decodeURI(result.message);
     }
     </pre>
 
@@ -394,18 +395,14 @@
     // ==/UserScript==
     // By Rafsaf
 
-
     const loopOverPlayerArmyTableAndReturnOutputText = () => {
         let outputText = ""
         const trs = document.querySelectorAll('.overview_table tr')
-
         let actualVillageCoord
         let nextVillageNameIndex = 1
         let nextVillageDataIndex = 5
-        console.log('hey')
         trs.forEach((value, index) => {
             const tds = value.querySelectorAll('td')
-
             if (index === nextVillageNameIndex) {
                 actualVillageCoord = String(tds[0].innerText).trim().slice(-12,-5)
                 nextVillageNameIndex += 5
@@ -419,17 +416,13 @@
                     } else if (parsedValue === 'razem') {
                         return
                     }
-
                     outputText += parsedValue + ","
                 })
                 nextVillageDataIndex += 5
             }
         })
-        console.log(outputText)
         return outputText
-        
     }
-
 
     const createAndShowDivTextAreaWithResults = (outputText) => {
         const textArea = document.createElement("div")
@@ -445,6 +438,7 @@
         textArea.style.color = "white"
         textArea.innerHTML = outputText
         document.body.appendChild(textArea)
+        UI.SuccessMessage('Zebrano! Jeśli masz więcej niż 1 stronę z wioskami, przejdź do zakładki [wszystkie] by zebrać całość.')
     }
 
     const showPlayerTroopsInDialog = () => {
@@ -461,12 +455,10 @@
         const newTdWithButton = document.createElement('td')
         newTdWithButton.setAttribute('id', 'new-button-td')
         tdPlace.appendChild(newTdWithButton)
-
         const buttonPlace = document.querySelector('#new-button-td')
         const newButton = document.createElement('btn')
         newButton.setAttribute('class', 'btn btn-default')
         newButton.innerHTML = 'Zbierz wojsko'
-
         buttonPlace.appendChild(newButton)
         newButton.addEventListener("click", function() {
             showPlayerTroopsInDialog()
@@ -486,15 +478,19 @@
 
   * Krok 1 - Utworzenie Rozpiski
 
-    Należy utworzyć nową rozpiskę w zakładce <span class="md-error">Stwórz nową rozpiskę</span> pamiętając by wybranym światem gry był <span class="md-correct2">Świat 0</span>.
+    Należy utworzyć nową rozpiskę w zakładce <span class="md-error">Stwórz nową rozpiskę</span> pamiętając by wybranym światem gry był <span class="md-correct2">Świat Testowy</span>. W obecnej wersji data jest niezmienna i musi być 'na sztywno'. W bliżej nieokreślonej przyszłości będzie później możliwość zmian.
   
   * Krok 2 - Wybieranie plemion
 
-    W każdej rozpisce należy wybrać dokładne plemię nasze (atakujące) i przeciwne (atakowane). W przypadku kilku takich, wybieramy kilka. Na testowym świecie 0 istnieją dokładnie dwa plemiona, <span class="md-correct2">ALLY</span> i <span class="md-error">ENEMY</span>, ustawiamy nasze plemię jako <span class="md-correct2">ALLY</span> zaś przeciwne jako <span class="md-error">ENEMY</span>, pamiętając o kliknięciu "DODAJ". Potwierdzmy.
+    W każdej rozpisce należy wybrać dokładne plemię nasze (atakujące) i przeciwne (atakowane). W przypadku kilku takich, wybieramy kilka. Na testowym świecie 0 istnieją dokładnie dwa plemiona, <span class="md-correct2">ALLY</span> i <span class="md-error">ENEMY</span>, ustawiamy nasze plemię jako <span class="md-correct2">ALLY</span> zaś przeciwne jako <span class="md-error">ENEMY</span>, pamiętając o kliknięciu "DODAJ". Potwierdzmy. Warto pamiętać, że jeśli nie podamy tutaj plemienia a wkleimy jego przegląd w Zbiórkę Wojska w następnej zakładce, to otrzymamy piękną ścianę błędów - planer dogłębnie sprawdza czy to co wkleja użytkownik ma sens - w tym czy podane wioski są w jednym z podanych plemion.
 
   * Krok 3 - Uzupełnianie Zbiórki Wojska
 
-    Wynik skryptu Zbiórki Wojska musi zostać wklejony w pole "Zbiórka Wojska", dla celów świata testowego wklej poniższe dane:
+    Wynik skryptu Zbiórki Wojska musi zostać wklejony w pole "Zbiórka Wojska".
+
+    Garść informacji. Tutaj wklejamy wyniki wypluwane przez skrypty dostępne tutaj w dokumentacji czy choćby w skryptotece plemion. Zbierają one info o każdym graczu w naszym plemieniu do jednego pola tekstowego, skąd je kopiujemy i wklejamy w odpowiednie pole w tej zakładce. Tutaj ten wynik jest przetwarzany by upewnić się, że wklejane informacji mają sens. Sporo rzeczy jest sprawdzane, przede wszystkim czy te wioski w ogóle istnieją na tym świecie, czy mają właściciela, czy właściciel jest w jednym z plemion, które ustaliliśmy wcześniej. Dalej forma każdego wiersza: czy zgadza się długość, ilość przecinków, czy to są liczby naturalne, czy ilość jednostek jest adekwatna do ustawień świata (chłopi, rycerze, łucznicy wpływają na długość wierszy - jeśli są to jest więcej cyfer itd.), czy kordy mają poprawny format i czy nie ma przypadkiem pustych miejsc w środku lub spacji między przecinkami. Pewnie jeszcze więcej pomniejszych problemów, ale pozwolę sobie darować ich szukanie i wymienianie tutaj. Warto jednak wiedzieć, że cokolwiek innego niż rezultat skryptu na 99% nie przejdzie.
+
+    <p class="md-error">Dla celów świata testowego wklej poniższe dane:</P>
 
     <pre class="md-pre">
     <div class="md-correct2">
@@ -670,14 +666,14 @@
 
   * Krok 4 - Rozpisanie akcji
 
-    W zakładce <span class="md-error">Planer</span> należy umieszczać cele akcji zgodnie z opisem w zakładce, pamiętając że offy poniżej 19k jednostek domyślnie nie zostaną rozpisane. Na świecie testowym można umieścić poniższe cele, zmieniając ilość offów i szlachty na dowolnie wybraną lub pozostawiając przykładowe niżej:
+    W zakładce <span class="md-error">Planer</span> należy umieszczać cele akcji zgodnie z opisem w zakładce, klikając "Zapisz cele" aktualizujemy cele na które planujemy rozpisać akcję. Zachęcam MOCNO by ją najpierw przeczytać wraz z przykładami i "pobawić się" w ustawianie różnych odległości od frontu, maksymalnych odległości dla szlachciców, wybierać, zmieniać tryby rozpiski, następnie klikać 'Rozpisz tą akcję' i sprawdzać co się zmieniło. Na świecie testowym można umieścić poniższe cele, zmieniając ilość offów i szlachty wedle potrzeb by zobaczyć zmiany.
 
     <pre class="md-pre">
     <div class="md-error">
-200|200:4:4
+200|200:4:4|0|0|0
 205|205:2:2
 210|210:4:4
-215|215:5:2
+215|215:0|2|3|5:2
 220|220:4:4
 225|225:4:2
 230|230:4:4
@@ -685,30 +681,41 @@
 235|235:6:3
     </div>
     </pre>
+    Następnie kiedy ogarniemy już - mniej więcej - możliwości automatycznego rozpisywania (szczególnie dużych akcji), klikamy "Rozpisz tą akcję" i przechodzimy do zakładki <span class="md-error">2. Menu</span> z rozpisanymi celami (Jeśli jest pusta, to znaczy, że w poprzednim okienku nie zostało coś zapisane ;) )
 
-  * Krok 5 - Szczegóły rozpiski
+    ##### 4 Zakładki
+
+    <p class="md-error">1. DODAJ LUB USUŃ CELE</p>
+
+    Ta zakładka jest bardzo prosta. Dodaj kordy wioski zaznaczając czy jest to cel czy też cel na fejki. Uwaga, jeśli nie chce się dodać, to sprawdź czy na pewno ta wioska istnieje na świecie, czy na pewno nie jest to wioska barbarzyńska (takich się nie da dodać w obecnej wersji) oraz czy nie została już przez Ciebie dodana wcześniej.	
+
+    <p class="md-error">2. MENU - USTAW CELE</p>
 
     Cele są podzielone po 12 na jedną stronę. Przy każdym z nich znajduje się przycisk <span class="md-correct2">Edytuj</span> pozwalający dopracować każdy cel z osobna.
 
     Wspierane operacje to:
      
-     - Zamiana atakujących wiosek miejscami.
+     - Zamiana atakujących wiosek miejscami. (okrągłe zielone strzałki)
 
-     - Zmiana ilości wojsk w ataku.
+     - Zmiana ilości wojsk w ataku (niebieska ikonka pliku)
 
-     - Podział ataku na 2,3,4 równe części.
+     - Podział ataku na 2,3,4 równe części. (rozwijany przycisk "Podziel")
 
-     - Dodawanie nowej atakującej wioski (z tych które pozostały 'wolne') na początek lub koniec.
+     - Dodawanie nowej atakującej wioski (z tych które pozostały 'wolne') na początek lub koniec. (duże kwadratowe zielone strzałki)
 
-     - Sortowanie pozostałych wiosek na kilka sposobów.
+     - Sortowanie pozostałych wiosek na kilkanaście sposobów (niebieski przycisk obok wyboru strony, polecam np. "Najbliższe grube" - bardzo mi ułatwiała życie na wczesnym etapie gry, ale specjalnie jest ich dużo by było w czym wybierać)
 
-     - Usuwanie ataku
+     - Usuwanie ataku (szary iks)
 
     Warto wspomnieć, że nie istnieje wymóg 1 Cel - 1 Wioska, nie ma przeszkód by jedna wioska 'atakowała' wiele różnych celów.
 
-  * Krok 6 - Ustawienie czasów wejścia
+    <p class="md-error">3. MENU - USTAW FEJKI</p>
 
-    Na stronie rozpiski domyślna zakładka to Menu, klikając na ikonę zegara przechodzimy do zakładki Time, by ustalić czas wejścia poszczególnych rozkazów.
+    To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie fejkiem W OBECNEJ WERSJI jest liczba jednostek w postaci 100 toporników, będzie to natomiast zmienione na coś lepszego w późniejszym czasie. Przycisk dodaj w edycji pojedynczych celi fejkowych działa trochę inaczej niż celi prawdziwych, bo dodaje 100 jednostek albo 1 grubego, zamiast całości jednostek. Poza tym jest to ten sam widok.
+
+    <p class="md-error">4. USTAW CZASY WEJŚCIA I ZAKOŃCZ ROZPISKĘ</p>
+
+    Klikając na ikonę zegara przechodzimy do zakładki Time, by ustalić czas wejścia poszczególnych rozkazów, po kliknięciu potwierdzenia u samej góry zaś kończymy rozpiskę.
 
     Użytkownik ma możliwość tworzenia wielu objektów w zakładce, w praktyce jednak wystarczyć może nawet jeden lub kilka. Wybieramy przedziały czasowe dla rozkazu, jednostkę oraz tryb spośród 3 możliwych. Przykładowy czas mógłby wyglądać tak:
 
@@ -726,25 +733,30 @@
 
      5. Rozpisać *pozostałe szlachcice* na 12:30
 
-    Następnie na każdej stronie należy wybrać czas wejścia każdemu celowi i kliknąć potwierdzić zakończenie rozpisywania.
+    Następnie na każdej stronie należy wybrać czas wejścia każdemu celowi i kliknąć potwierdzić zakończenie rozpisywania u samej góry. 
 
-  * Krok 7 - Wyniki
+    Musi mieć to sens i godzina max wejścia  późniejsza lub taka sama co min wyjścia. Poza tym tryb WSZYSTKIE- szlachcic oraz tryb WSZYSTKIE- taran musi się pojawić chociaż raz. Po kolei  (w sensie czasowo od najwcześniejszej godziny do najpóźniejszej) są rozpisywane offy i grube aż się skończą więc korzystanie z trybów LOSOWO i DOKŁADNIE wygląda tak, że np. chcemy mieć dokładnie 2 offy na 7:00 i dalej WSZYSTKIE offy od 8:00 do 9:00 więc ustawiamy odpowiednio zegary i tak też zostanie to rozpisane. Gdyby zdarzyło się np DOKŁADNIE 20 offów a gracz ma tylko 5, to w niczym to nie przeszkadza, zostanie po prostu rozpisane 5 offów na ten przedział czasu.
+
+    <p class="md-error">WYNIKI</p>
 
     - Zakładka pierwsza
 
-        Domyślnie został stworzony <span class="md-correct2">unikalny adres url</span> dla każdego gracza gdzie prezentowane są <span class="md-correct2">tylko i wyłącznie jego cele</span> wraz z tekstem do wklejenia w notatkach, oraz graficznym zaprezentowaniem jego rozkazów.
+    Domyślnie został stworzony <span class="md-correct2">UNIKALNY ADRES URL</span> dla każdego gracza gdzie prezentowane są <span class="md-correct2">tylko i wyłącznie jego cele</span> wraz z tekstem do wklejenia w notatkach, oraz graficznym zaprezentowaniem jego rozkazów.
 
-        <span class="md-error">JEŚLI</span> atakuje on wioskę w odległości poniżej ok. 8h dla szalchcica (14 kratek) na jego stronie będą widoczne wszystkie rozkazy innych współplemieńców na ten cel, w innym wypadku - tylko jego rozkazy.
+    <span class="md-error">JEŚLI</span> atakuje on wioskę w odległości poniżej ok. 8h dla szalchcica (14 kratek) na jego stronie będą widoczne wszystkie rozkazy innych współplemieńców na ten cel, w innym wypadku - tylko jego rozkazy. Dlatego też możesz sprawić by gracz widział wszystkie komendy jakie tylko są, wciskając przy nim na 'pokaż ukryte cele' z false na true. Przydaje się to np. jeśli gracz jest bardzo zaufany lub na początkowym etapie gdzie każdy musi wiedzieć wszystko.
 
-        Korzystanie z skrpytu auto-uzupełniania wiadomości pozwala przyspieszyć rozsyłanie celów
+    Korzystanie z skryptu auto-uzupełniania wiadomości pozwala przyspieszyć rozsyłanie celów bo klikając na link zostajemy przeniesieni do uzupełnionej wiadomości w grze na nowej karcie, gdzie wystarczy tylko kliknąć 'wyślij'.
+
+
+    Uwaga! Proszę pamiętać, że gracze mogą z początku nie zrozumieć przesłanych linków (choć postarałem się maksymalnie uprościć ten widok by każdy wiedział o co chodzi). Tym nie mniej, są tam dwie zakładki - pierwsza gdzie kopiują swoje cele i druga, gdzie mogą zobaczyć graficznie z kim lecą i na jakie wioski i tez w jakiej kolejności. Powinni udostępnić (teoretycznie) komendy wszystkim osobom, które lecą wraz z nimi na owe cele, przynajmniej jeśli to początkowy etap lub wymaga tego sytuacja.
 
     - Zakładka druga
 
-        W przypadku nie korzstania z auto uzupełniania wiadomości w grze, można ręcznie przekopiować członkom plemienia linki do strony z ich celami.
+    W przypadku nie korzstania z auto uzupełniania wiadomości w grze, można ręcznie przekopiować członkom plemienia linki do strony z ich celami.
 
     - Zakładka trzecia
 
-        W razie konieczności dostępna jest także forma wszystkich celów w plemieniu w postaci tekstu, wystarczy ręcznie przekopiować je członkom plemienia.
+    W razie konieczności dostępna jest także forma wszystkich celów w plemieniu w postaci tekstu, wystarczy ręcznie przekopiować je członkom plemienia.
 
 
 ---
@@ -857,6 +869,3 @@ Rodzaje błędów podczas potwierdzania formularza:
   </pre>
 
 ---
-
-
-

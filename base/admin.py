@@ -9,6 +9,7 @@ admin.site.register(models.Result)
 admin.site.register(models.Server)
 admin.site.register(models.Profile)
 admin.site.register(models.WeightMaximum)
+admin.site.register(models.OutlineOverview)
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
