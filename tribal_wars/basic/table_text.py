@@ -70,7 +70,7 @@ class TableText:
     def __weight_string(self, weight: models.WeightModel, ally_id, enemy_id, fake):
         nobles = _("Nobles-")
         from_village = _("from village")
-        to = _("to")
+        to = _("to ")
         if fake and weight.nobleman > 0:
             text = _("Send [b]Fake noble[/b] (Off-")
             send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
@@ -83,7 +83,7 @@ class TableText:
 
         return (
             f"{send}"
-            f"{from_village} {weight.start} {to} {weight.target.target} "
+            f"{from_village} {weight.start} {to}{weight.target.target} "
             f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"
             f"{self.__link(ally_id, enemy_id, fake)}"
         )

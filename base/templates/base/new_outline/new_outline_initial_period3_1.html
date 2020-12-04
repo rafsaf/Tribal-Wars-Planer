@@ -38,30 +38,46 @@
     <nav aria-label="pagination" id="pagination" >
         <ul class="pagination">
             <li class="page-item">
-                <div class="dropdown">
+                <div class="dropdown" >
                     <button class="btn btn-info dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu my-0 py-0" style="font-size: small;max-height:65vh" aria-labelledby="dropdownMenuButton">
+                        <div style="overflow-y: auto;">
                         <a id='distance' class="dropdown-item" href="?page=1&sort=distance">{% trans 'Ascending by distance' %}</a> 
+                        <a id='avg_distance' class="dropdown-item" href="?page=1&sort=avg_distance">{% trans 'Average by distance' %}</a> 
                         <a id='-distance' class="dropdown-item" href="?page=1&sort=-distance">{% trans 'Descending by distance' %}</a> 
                         <a id='-off_left' class="dropdown-item" href="?page=1&sort=-off_left">{% trans 'Descending by number of units' %}</a> 
                         <a id='-nobleman_left' class="dropdown-item" href="?page=1&sort=-nobleman_left">{% trans 'Descending by number of noble' %}</a>
-                        <div class="dropdown-divider"></div>
+
+
+                        <div class="dropdown-divider mb-0 mt-1"></div>
+
+
                         <a id='closest_offs' class="dropdown-item" href="?page=1&sort=closest_offs">{% trans 'Closest full offs' %}</a>
                         <a id='closest_noblemans' class="dropdown-item" href="?page=1&sort=closest_noblemans">{% trans 'Closest noblemans' %}</a>
                         <a id='closest_noble_offs' class="dropdown-item" href="?page=1&sort=closest_noble_offs">{% trans 'Closest offs with noblemans' %}</a>
-                        <div class="dropdown-divider"></div>
+
+
+                        <div class="dropdown-divider mb-0 mt-1"></div>
+
+
+                        <a id='avg_offs' class="dropdown-item" href="?page=1&sort=avg_offs">{% trans 'Average full offs' %}</a>
+                        <a id='avg_noblemans' class="dropdown-item" href="?page=1&sort=avg_noblemans">{% trans 'Average noblemans' %}</a>
+                        <a id='avg_noble_offs' class="dropdown-item" href="?page=1&sort=avg_noble_offs">{% trans 'Average offs with noblemans' %}</a>
+
+
+                        <div class="dropdown-divider mb-0 mt-1"></div>
+
+
                         <a id='fahrest_offs' class="dropdown-item" href="?page=1&sort=farthest_offs">{% trans 'Farthest full offs' %}</a>
                         <a id='fahrest_noblemans' class="dropdown-item" href="?page=1&sort=farthest_noblemans">{% trans 'Farthest noblemans' %}</a>
                         <a id='farthest_noble_offs' class="dropdown-item" href="?page=1&sort=farthest_noble_offs">{% trans 'Farthest offs with noblemans' %}</a>
-
+                            </div>
 
 
 
                     </div>
-                    <script>
-                        $('{{sort}}')
-                    </script>
+
                 </div>
             </li>
             {% if page_obj.has_previous %}
@@ -100,7 +116,7 @@
     </nav>
     </div>
 </div>
-    <div class="my-3"></div>
+
 <div class="container-fluid" id="table" style="max-height: 290vh !important; overflow:hidden;">
     <div class="row">
         <div class="d-flex card col-12 col-lg-4 d-flex flex-column" style="border:none">
@@ -113,8 +129,8 @@
                                 <li class="list-group-item front-{{weight.first_line}}">
 
                                     <div class="row justify-content-center w-100 mb-1">
-                                        <div style="position: absolute; top:0;left:0;padding-top:0">
-                                            {{forloop.counter}}
+                                        <div style="position: absolute; top:0;left:1px;padding-top:0">
+                                            <small>{{forloop.counter}}</small>
                                         </div>
                                         <span class='badge badge-pill badge-info'>{{weight.player}}</span><span class=' ml-1 badge badge badge-secondary'>{{weight.start}}</span>
                                     </div>
@@ -263,7 +279,7 @@
                                 </svg></h5>
 
                             </th>
-                            <td class="text-nowrap"><h5><a rel="noopener" target="_blank" href="{{link}}" style="color: #804000;font-weight:700;font-family:SansationBold;">TW Stats</a></h5></td>
+                            <th class="text-nowrap font-nav"><h6><a rel="noopener" target="_blank" href="{{link}}" style="color: #804000;font-weight:700;">TW Stats</a></h6></th>
                             <form method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="form-filter" value="">
@@ -316,30 +332,46 @@
                     <nav aria-label="pagination" id="pagination">
                         <ul class="pagination mb-2">
                             <li class="page-item">
-                                <div class="dropdown">
+                                <div class="dropdown" >
                                     <button class="btn btn-info dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
-
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a id='distance' class="dropdown-item" href="?page=1&sort=distance">{% trans 'Ascending by distance' %}</a> 
-                                        <a id='-distance' class="dropdown-item" href="?page=1&sort=-distance">{% trans 'Descending by distance' %}</a> 
-                                        <a id='-off_left' class="dropdown-item" href="?page=1&sort=-off_left">{% trans 'Descending by number of units' %}</a> 
-                                        <a id='-nobleman_left' class="dropdown-item" href="?page=1&sort=-nobleman_left">{% trans 'Descending by number of noble' %}</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a id='closest_offs' class="dropdown-item" href="?page=1&sort=closest_offs">{% trans 'Closest full offs' %}</a>
-                                        <a id='closest_noblemans' class="dropdown-item" href="?page=1&sort=closest_noblemans">{% trans 'Closest noblemans' %}</a>
-                                        <a id='closest_noble_offs' class="dropdown-item" href="?page=1&sort=closest_noble_offs">{% trans 'Closest offs with noblemans' %}</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a id='fahrest_offs' class="dropdown-item" href="?page=1&sort=farthest_offs">{% trans 'Farthest full offs' %}</a>
-                                        <a id='fahrest_noblemans' class="dropdown-item" href="?page=1&sort=farthest_noblemans">{% trans 'Farthest noblemans' %}</a>
-                                        <a id='farthest_noble_offs' class="dropdown-item" href="?page=1&sort=farthest_noble_offs">{% trans 'Farthest offs with noblemans' %}</a>
-
-
-
-
+                
+                                    <div class="dropdown-menu my-0 py-0" style="font-size: small;max-height:65vh" aria-labelledby="dropdownMenuButton">
+                                        <div style="overflow-y: auto;">
+                                        <a id='distance2' class="dropdown-item" href="?page=1&sort=distance">{% trans 'Ascending by distance' %}</a> 
+                                        <a id='avg_distance2' class="dropdown-item" href="?page=1&sort=avg_distance">{% trans 'Average by distance' %}</a> 
+                                        <a id='-distance2' class="dropdown-item" href="?page=1&sort=-distance">{% trans 'Descending by distance' %}</a> 
+                                        <a id='-off_left2' class="dropdown-item" href="?page=1&sort=-off_left">{% trans 'Descending by number of units' %}</a> 
+                                        <a id='-nobleman_left2' class="dropdown-item" href="?page=1&sort=-nobleman_left">{% trans 'Descending by number of noble' %}</a>
+                
+                
+                                        <div class="dropdown-divider mb-0 mt-1"></div>
+                
+                
+                                        <a id='closest_offs2' class="dropdown-item" href="?page=1&sort=closest_offs">{% trans 'Closest full offs' %}</a>
+                                        <a id='closest_noblemans2' class="dropdown-item" href="?page=1&sort=closest_noblemans">{% trans 'Closest noblemans' %}</a>
+                                        <a id='closest_noble_offs2' class="dropdown-item" href="?page=1&sort=closest_noble_offs">{% trans 'Closest offs with noblemans' %}</a>
+                
+                
+                                        <div class="dropdown-divider mb-0 mt-1"></div>
+                
+                
+                                        <a id='avg_offs2' class="dropdown-item" href="?page=1&sort=avg_offs">{% trans 'Average full offs' %}</a>
+                                        <a id='avg_noblemans2' class="dropdown-item" href="?page=1&sort=avg_noblemans">{% trans 'Average noblemans' %}</a>
+                                        <a id='avg_noble_offs2' class="dropdown-item" href="?page=1&sort=avg_noble_offs">{% trans 'Average offs with noblemans' %}</a>
+                
+                
+                                        <div class="dropdown-divider mb-0 mt-1"></div>
+                
+                
+                                        <a id='fahrest_offs2' class="dropdown-item" href="?page=1&sort=farthest_offs">{% trans 'Farthest full offs' %}</a>
+                                        <a id='fahrest_noblemans2' class="dropdown-item" href="?page=1&sort=farthest_noblemans">{% trans 'Farthest noblemans' %}</a>
+                                        <a id='farthest_noble_offs2' class="dropdown-item" href="?page=1&sort=farthest_noble_offs">{% trans 'Farthest offs with noblemans' %}</a>
+                                            </div>
+                
+                
+                
                                     </div>
-                                    <script>
-                                        $('{{sort}}')
-                                    </script>
+
                                 </div>
                             </li>
                             {% if page_obj.has_previous %}
@@ -486,7 +518,15 @@
             scroll_content_outline();
             modal();
         </script>
-
+        <style>
+            .selected{
+                background-color: rgb(106, 196, 196) !important;
+            }
+        </style>
+        <script>
+            $("#{{sort}}").addClass("selected")
+            $("#{{sort}}2").addClass("selected")
+        </script>
         {% endblock %}
         {% block footer %}
         {% endblock %}

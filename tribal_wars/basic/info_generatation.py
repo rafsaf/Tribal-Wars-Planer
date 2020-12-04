@@ -15,12 +15,12 @@ class OutlineInfo:
         self.all_targets = basic.TargetWeightQueries(
             outline=outline, every=True
         ).target_dict_with_weights_read()
-        self.target_message = _("Targets:\r\n")
-        self.fake_message = _("Fakes:\r\n")
+        self.target_message = _("Targets:") + "\r\n"
+        self.fake_message = _("Fakes:") + "\r\n"
         self.players = ""
 
     def generate_nicks(self):
-        result = _("Nicknames: \r\n\r\n")
+        result = _("Nicknames: ") + "\r\n\r\n"
         targets_ids = [target.id for target in self.all_targets]
 
         unique_weights = (

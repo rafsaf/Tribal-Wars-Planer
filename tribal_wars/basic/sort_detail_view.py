@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.db.models import F, ExpressionWrapper, FloatField
+from django.db.models import F, ExpressionWrapper, FloatField, Avg, Max
 
 from base import models
 
@@ -13,14 +13,18 @@ class SortAndPaginRequest:
         self.page = PAGE_request
         VALID = [
             "distance",
+            "avg_distance",
             "-distance",
             "-off_left",
             "-nobleman_left",
             "closest_offs",
+            "avg_offs",
             "farthest_offs",
             "closest_noblemans",
+            "avg_noblemans",
             "farthest_noblemans",
             "closest_noble_offs",
+            "avg_noble_offs",
             "farthest_noble_offs",
         ]
         if GET_request is None:
@@ -51,9 +55,7 @@ class SortAndPaginRequest:
         return nonused_vertices
 
     def __pagin(self, lst_or_query):
-        paginator = Paginator(
-            lst_or_query, int(self.outline.filter_card_number)
-        )
+        paginator = Paginator(lst_or_query, int(self.outline.filter_card_number))
         page_obj = paginator.get_page(self.page)
         return page_obj
 
@@ -72,6 +74,24 @@ class SortAndPaginRequest:
                 )
             ).order_by("distance")
 
+            return self.__pagin(query)
+
+        elif self.sort == "avg_distance":
+            query = (
+                query.annotate(
+                    distance=ExpressionWrapper(
+                        (
+                            (F("x_coord") - self.x_coord) ** 2
+                            + (F("y_coord") - self.y_coord) ** 2
+                        )
+                        ** (1 / 2),
+                        output_field=FloatField(max_length=5),
+                    )
+                )
+            )
+            avg = query.aggregate(avg_distance=Avg("distance"))["avg_distance"]
+            query = query.order_by((F("distance") - avg) ** 2)
+            
             return self.__pagin(query)
 
         elif self.sort in {"-off_left", "-nobleman_left"}:
@@ -103,9 +123,7 @@ class SortAndPaginRequest:
 
         elif self.sort == "closest_offs":
             query = (
-                query.filter(
-                    off_left__gte=self.outline.initial_outline_min_off
-                )
+                query.filter(off_left__gte=self.outline.initial_outline_min_off)
                 .annotate(
                     distance=ExpressionWrapper(
                         (
@@ -121,11 +139,27 @@ class SortAndPaginRequest:
 
             return self.__pagin(query)
 
+        elif self.sort == "avg_offs":
+            query = (
+                query.filter(off_left__gte=self.outline.initial_outline_min_off)
+                .annotate(
+                    distance=ExpressionWrapper(
+                        (
+                            (F("x_coord") - self.x_coord) ** 2
+                            + (F("y_coord") - self.y_coord) ** 2
+                        )
+                        ** (1 / 2),
+                        output_field=FloatField(max_length=5),
+                    )
+                )
+            )
+            avg = query.aggregate(avg_distance=Avg("distance"))["avg_distance"]
+            query = query.order_by((F("distance") - avg) ** 2)
+            return self.__pagin(query)
+
         elif self.sort == "farthest_offs":
             query = (
-                query.filter(
-                    off_left__gte=self.outline.initial_outline_min_off
-                )
+                query.filter(off_left__gte=self.outline.initial_outline_min_off)
                 .annotate(
                     distance=ExpressionWrapper(
                         (
@@ -156,6 +190,24 @@ class SortAndPaginRequest:
                 )
                 .order_by("distance")
             )
+            return self.__pagin(query)
+
+        elif self.sort == "avg_noblemans":
+            query = (
+                query.filter(nobleman_left__gte=1)
+                .annotate(
+                    distance=ExpressionWrapper(
+                        (
+                            (F("x_coord") - self.x_coord) ** 2
+                            + (F("y_coord") - self.y_coord) ** 2
+                        )
+                        ** (1 / 2),
+                        output_field=FloatField(max_length=5),
+                    )
+                )
+            )
+            avg = query.aggregate(avg_distance=Avg("distance"))["avg_distance"]
+            query = query.order_by((F("distance") - avg) ** 2)
             return self.__pagin(query)
 
         elif self.sort == "farthest_noblemans":
@@ -194,6 +246,28 @@ class SortAndPaginRequest:
                 )
                 .order_by("distance")
             )
+
+            return self.__pagin(query)
+
+        elif self.sort == "avg_noble_offs":
+            query = (
+                query.filter(
+                    nobleman_left__gte=1,
+                    off_left__gte=self.outline.initial_outline_min_off,
+                )
+                .annotate(
+                    distance=ExpressionWrapper(
+                        (
+                            (F("x_coord") - self.x_coord) ** 2
+                            + (F("y_coord") - self.y_coord) ** 2
+                        )
+                        ** (1 / 2),
+                        output_field=FloatField(max_length=5),
+                    )
+                )
+            )
+            avg = query.aggregate(avg_distance=Avg("distance"))["avg_distance"]
+            query = query.order_by((F("distance") - avg) ** 2)
 
             return self.__pagin(query)
 

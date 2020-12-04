@@ -104,7 +104,7 @@ def outline_detail_1(request, _id):
         form2 = forms.DeffTroopsForm(None, outline=instance)
 
     if instance.world.postfix == "Test":
-        instance.world.update = "Never"
+        instance.world.update = gettext("Never")
     else:
         _timedelta = timezone.now() - instance.world.last_update
         instance.world.update = str(_timedelta.seconds // 60) + gettext(" minute(s) ago.")

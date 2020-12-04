@@ -92,12 +92,17 @@ class NewDeffText:
             self.users[user].add_front_village(deff_instance, army_instance)
 
     def __str__(self):
-        description = _(
-            "Tested. LEGEND: \r\n"
-            "HEAVY counted as x4 and not x6, scouts are NOT counted.\r\n"
-            "IN VILLAGES = troops in the village + everyone else's troops.\r\n"
-            "ALL OWN = troops in the village + troops outside the village.\r\n\r\n"
+        description = (
+            _("Tested. LEGEND: ")
+            + "\r\n"
+            + _("HEAVY counted as x4 and not x6, scouts are NOT counted.")
+            + "\r\n"
+            + _("IN VILLAGES = troops in the village + everyone else's troops.")
+            + "\r\n"
+            + _("ALL OWN = troops in the village + troops outside the village.")
+            + "\r\n\r\n"
         )
+
         text = ""
         for user_info in self.users.values():
             description += user_info.user_description()

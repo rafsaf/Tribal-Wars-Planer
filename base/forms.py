@@ -230,8 +230,8 @@ class SettingMessageForm(forms.ModelForm):
         if length > 500:
             raise forms.ValidationError(
                 gettext_lazy(
-                    f"Ensure this value has at most 500 characters (it has {length})."
-                )
+                    "Ensure this value has at most 500 characters (it has "
+                ) + f" {length})."
             )
 
 

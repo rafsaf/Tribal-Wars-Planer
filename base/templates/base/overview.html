@@ -51,33 +51,36 @@
                 </div>
                 </div>
                 <div class="col-12 col-lg-8 offset-lg-2 mt-2">
-            <div id='table' style="border-left: 5px solid teal;">
-            <h1 class="ml-2 font-nav">
-                <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
-            </h1>
-            <div class="ml-2">
-                <img  class='d-md-none img-fluid' src="{% static 'images/table-min.jpg'%}" alt="Example Result 1">
-                <img  class='d-none d-md-block img-fluid' src="{% static 'images/table.png'%}" alt="Example Result 1">
-                <textarea class="form-control mt-1" id="table-copy" rows="10">
-                    {{overview.table}}
-                    </textarea>
-            </div>
-            </div>
+                    <div class="mb-5" id='text' style="border-left: 5px solid teal;">
+                        <h1 class="ml-2 font-nav">
+                            <span class="mr-2">{% trans 'Text' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('text-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
+                        </h1>
+                        <div class="ml-2">
+                            <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
+                            <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
+                            <textarea class="form-control mt-1" id="text-copy" rows="10">
+                                {{overview.string}}
+                                </textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="mb-5" id='table' style="border-left: 5px solid teal;">
+                    <h1 class="ml-2 font-nav">
+                        <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
+                    </h1>
+                    <small class="ml-2 form-text text-muted">{% trans 'Hint: Use Text format if u have many commands. ' %}</small>
+                    <div class="ml-2">
+                        <img  class='d-md-none img-fluid' src="{% static 'images/table-min.jpg'%}" alt="Example Result 1">
+                        <img  class='d-none d-md-block img-fluid' src="{% static 'images/table.png'%}" alt="Example Result 1">
+                        <textarea class="form-control mt-1" id="table-copy" rows="10">
+                            {{overview.table}}
+                            </textarea>
+                    </div>
+                    </div>
 
-            <br>
-            <br>
-            <div class="mb-5" id='text' style="border-left: 5px solid teal;">
-                <h1 class="ml-2 font-nav">
-                    <span class="mr-2">{% trans 'Text' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('text-copy');this.innerHTML='Copied';">{% trans 'Copy to clipboard' %}</button>
-                </h1>
-                <div class="ml-2">
-                    <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
-                    <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
-                    <textarea class="form-control mt-1" id="text-copy" rows="10">
-                        {{overview.string}}
-                        </textarea>
-                </div>
-            </div>
+
+
     
             </div>
             
