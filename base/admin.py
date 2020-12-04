@@ -17,10 +17,18 @@ admin.site.register(models.Documentation, MarkdownxModelAdmin)
 class AdminWeightModel(admin.ModelAdmin):
     list_display = ["target", "start", "player", "state", "off"]
 
+@admin.register(models.WeightModelOverview)
+class AdminWeightModel(admin.ModelAdmin):
+    list_display = ["target", "start", "player", "off"]
+
 
 @admin.register(models.TargetVertex)
 class AdminTargetVertex(admin.ModelAdmin):
     list_display = ["outline", "target", "player", "outline_time", "exact_off", "exact_noble"]
+
+@admin.register(models.TargetVertexOverview)
+class AdminTargetVertexOverview(admin.ModelAdmin):
+    list_display = ["outline_overview", "target", "player"]
 
 
 @admin.register(models.OutlineTime)

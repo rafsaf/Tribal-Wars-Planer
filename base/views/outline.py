@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -102,8 +103,12 @@ def outline_detail_1(request, _id):
         form1 = forms.OffTroopsForm(None, outline=instance)
         form2 = forms.DeffTroopsForm(None, outline=instance)
 
-    _timedelta = timezone.now() - instance.world.last_update
-    instance.world.last_update = _timedelta.seconds // 60
+    if instance.world.postfix == "Test":
+        instance.world.update = "Never"
+    else:
+        _timedelta = timezone.now() - instance.world.last_update
+        instance.world.update = str(_timedelta.seconds // 60) + gettext(" minute(s) ago.")
+    
     context = {"instance": instance, "form1": form1, "form2": form2}
 
     error = request.session.get("error")

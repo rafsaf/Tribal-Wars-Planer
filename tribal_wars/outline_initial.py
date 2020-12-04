@@ -79,8 +79,8 @@ def complete_outline(outline: models.Outline):
     # )
 
     # Auto writing outline for user
-    targets = models.TargetVertex.objects.filter(outline=outline, fake=False)
-    fakes = models.TargetVertex.objects.filter(outline=outline, fake=True)
+    targets = models.TargetVertex.objects.filter(outline=outline, fake=False).order_by("id")
+    fakes = models.TargetVertex.objects.filter(outline=outline, fake=True).order_by("id")
     modes_list = ["closest", "close", "random", "far"]
 
     leave = False

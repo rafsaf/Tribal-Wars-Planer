@@ -7,7 +7,7 @@ urlpatterns = [
     path("", views.base_view, name="base"),
     path("profile/user-settings", views.profile_settings, name="settings"),
     path("profile/add-world", views.add_world, name="add_world"),
-    path("overview/<str:token>", views.overview, name="overview"),
+    path("overview/<str:token>", views.overview_view, name="overview"),
     path("overview-fail", views.overview_fail, name="overview_fail"),
     path("planer/", views.OutlineList.as_view(), name="planer"),
     path("planer/show-all", views.OutlineListShowAll.as_view(), name="planer_all"),
@@ -30,6 +30,7 @@ urlpatterns = [
     path("planer/<int:id1>/<int:id2>/<int:id3>/add_first_fake", views.initial_add_first_fake, name="planer_add_first_fake",),
     path("planer/<int:id1>/<int:id2>/<int:id3>/add_last_fake", views.initial_add_last_fake, name="planer_add_last_fake",),
     path("planer/<int:id1>/<int:id2>/<int:id3>/add_last", views.initial_add_last, name="planer_add_last",),
+    path("planer/<int:id1>/<int:id2>/<int:id3>/hide", views.initial_hide_weight, name="planer_hide_weight",),
     path("planer/<int:id1>/<int:id2>/<int:id4>/up", views.initial_move_up, name="planer_move_up",),
     path("planer/<int:id1>/<int:id2>/<int:id4>/<int:n>", views.initial_divide, name="planer_divide",),
     path("planer/<int:id1>/<int:id2>/<int:id4>/down", views.initial_move_down, name="planer_move_down",),
@@ -37,8 +38,8 @@ urlpatterns = [
 
 
 
-    path("planer/<int:_id>/get-deff", views.outline_detail_2_deff, name="planer_detail_get_deff"),
-    path("planer/<int:_id>/get-off", views.outline_detail_2_off, name="planer_detail_get_off"),
+    path("planer/<int:_id>/get-deff", views.outline_detail_get_deff, name="planer_detail_get_deff"),
+ 
 
 
     path("planer/<int:_id>/create/select-tribe", views.new_outline_create_select, name="planer_create_select",),

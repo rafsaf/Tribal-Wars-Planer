@@ -120,25 +120,13 @@ class GetDeffForm(forms.Form):
         max_value=100,
         label=gettext_lazy("Radius"),
         widget=forms.NumberInput,
+        help_text=gettext_lazy("Max 100"),
         initial=30,
     )
 
-    ally_players = forms.CharField(
-        max_length=300,
-        label=gettext_lazy("Other ally players"),
-        help_text=gettext_lazy("Exact nicknames separated by a space or an entry."),
-        required=False,
-    )
-
-    enemy_players = forms.CharField(
-        max_length=300,
-        label=gettext_lazy("Other enemy players"),
-        help_text=gettext_lazy("Exact nicknames separated by a space or an entry."),
-        required=False,
-    )
-
     excluded = forms.CharField(
-        max_length=300,
+        max_length=3000,
+        widget=forms.Textarea,
         label=gettext_lazy("Excluded enemy villages"),
         required=False,
         help_text=gettext_lazy("Exact coords separated by a space or an entry."),
@@ -148,47 +136,6 @@ class GetDeffForm(forms.Form):
         self.world = kwargs.pop("world")
         super(GetDeffForm, self).__init__(*args, **kwargs)
 
-    def clean_ally_players(self):
-        """ User's ally players input """
-        ally_players = self.cleaned_data["ally_players"]
-        ally_players_list = ally_players.strip().split()
-
-        player_query = models.Player.objects.filter(
-            name__in=ally_players_list, world=self.world
-        )
-        if len(ally_players_list) != player_query.count():
-            name_set = set()
-            for player in player_query:
-                name_set.add(player.name)
-            for name in ally_players_list:
-                if name not in name_set:
-                    self.add_error(
-                        "ally_players",
-                        gettext_lazy("There is no player: ") + str(name),
-                    )
-                    return None
-        return ally_players
-
-    def clean_enemy_players(self):
-        """ User's enemy players input  """
-        enemy_players = self.cleaned_data["enemy_players"]
-        enemy_players_list = self.cleaned_data["enemy_players"].strip().split()
-
-        player_query = models.Player.objects.filter(
-            name__in=enemy_players_list, world=self.world
-        )
-        if len(enemy_players_list) != player_query.count():
-            name_set = set()
-            for player in player_query:
-                name_set.add(player.name)
-            for name in enemy_players_list:
-                if name not in name_set:
-                    self.add_error(
-                        "enemy_players",
-                        gettext_lazy("There is no player: ") + str(name),
-                    )
-                    return None
-        return enemy_players
 
     def clean_excluded(self):
         """ Excluded Villages """
@@ -610,6 +557,10 @@ class AddNewWorldForm(forms.ModelForm):
             )
         elif result[1] == "added":
             raise forms.ValidationError(gettext_lazy("World is already added!"))
+
+        elif result[1] == "success":
+            world_query.update_all()
+            world_query.world.save()
 
 
 class ChangeServerForm(forms.ModelForm):

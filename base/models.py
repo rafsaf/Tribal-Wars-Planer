@@ -199,6 +199,7 @@ class Outline(models.Model):
         ("all", gettext_lazy("All")),
         ("front", gettext_lazy("Front")),
         ("back", gettext_lazy("Back")),
+        ("hidden", gettext_lazy("Hidden"))
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -218,7 +219,6 @@ class Outline(models.Model):
     ally_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
 
-    initial_outline_players = models.TextField(blank=True, default="")
     initial_outline_targets = models.TextField(blank=True, default="---")
     initial_outline_min_off = models.IntegerField(
         default=19000,
@@ -303,7 +303,6 @@ class Result(models.Model):
         Outline, on_delete=models.CASCADE, primary_key=True
     )
     results_get_deff = models.TextField(default="")
-    results_get_off = models.TextField(default="")
     results_outline = models.TextField(default="")
     results_players = models.TextField(default="")
     results_sum_up = models.TextField(default="")
@@ -347,6 +346,7 @@ class WeightMaximum(models.Model):
     nobleman_in_village = models.IntegerField(
         null=True, blank=True, default=None
     )
+    hidden = models.BooleanField(default=False)
     first_line = models.BooleanField(default=False)
     fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
@@ -473,14 +473,16 @@ class WeightModel(models.Model):
     def __str__(self):
         return self.start
 
+class OutlineOverview(models.Model):
+    outline = models.ForeignKey(Outline, on_delete=models.SET_NULL, null=True, blank=True)
 
 class Overview(models.Model):
     """ Present results for tribe members using unique urls """
-
+    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
     token = models.CharField(max_length=100, primary_key=True, db_index=True)
     outline = models.ForeignKey(Outline, on_delete=models.SET_NULL, null=True, blank=True)
     player = models.CharField(max_length=40)
-    created = models.DateField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     table = models.TextField()
     string = models.TextField()
     targets = models.TextField(default="")
@@ -489,3 +491,34 @@ class Overview(models.Model):
 
     def get_absolute_url(self):
         return reverse("base:overview", args=[self.token])
+
+
+class TargetVertexOverview(models.Model):
+    """ Copied Target Village """
+
+    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
+    target = models.CharField(max_length=7)
+    player = models.CharField(max_length=30)
+    fake = models.BooleanField(default=False)
+    target_vertex = models.ForeignKey(TargetVertex, on_delete=models.SET_NULL, null=True, default=None, blank=True)
+
+    def __str__(self):
+        return self.target
+
+
+class WeightModelOverview(models.Model):
+    """ Copied Command between start and target """
+
+    target = models.ForeignKey(TargetVertexOverview, on_delete=models.CASCADE)
+    start = models.CharField(max_length=7)
+    off = models.IntegerField()
+    distance = models.FloatField()
+    nobleman = models.IntegerField()
+    order = models.IntegerField()
+    player = models.CharField(max_length=40)
+    t1 = models.TimeField(default=datetime.time(hour=0, minute=0, second=0))
+    t2 = models.TimeField(default=datetime.time(hour=0, minute=0, second=0))
+
+    def __str__(self):
+        return self.start
+

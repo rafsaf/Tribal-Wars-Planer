@@ -1,6 +1,9 @@
 """ Village, Unit, Map classes """
 
 from math import sqrt, ceil
+
+from django.utils.translation import gettext as _
+
 from base import models
 
 
@@ -64,22 +67,28 @@ class Village:
         """ Validate coord """
         coord = self.coord
         if not coord:
-            raise VillageError("Kordy są puste!")
+            raise VillageError(_("Coords are empty!"))
         if not isinstance(coord, str):
             if len(coord) > 20:
                 coord = f"{coord}..."
-            raise VillageError(f"{coord}: Nie jest typu napisem!")
+            not_string = _(": Is not string type!")
+            raise VillageError(f"{coord}{not_string}")
         coord = coord.strip()
         if len(coord) != 7:
             if len(coord) > 20:
                 coord = f"{coord}..."
-            raise VillageError(f"{coord}: Nie jest prawidłowej długości!")
+            too_long = _(": Is not the correct length!")
+            raise VillageError(f"{coord}{too_long}")
         if not coord[0:3].isnumeric():
-            raise VillageError(f"{coord}: '{coord[0:4]}' Nie jest liczbą!")
+            not_number = _("Is not a number")
+            raise VillageError(f"{coord}: '{coord[0:4]}' {not_number}")
         if not coord[4:7].isnumeric():
-            raise VillageError(f"{coord}: '{coord[4:7]}' Nie jest liczbą!")
+            not_number = _("Is not a number")
+            raise VillageError(f"{coord}: '{coord[4:7]}' {not_number}")
         if not coord[3] == "|":
-            raise VillageError(f"{coord}: Znak '{coord[3]}' ie jest '|'!")
+            symbol = _("Symbol")
+            not_equal = _("Is not equal to '|'!")
+            raise VillageError(f"{coord}: {symbol} '{coord[3]}' {not_equal}")
         self.coord = coord
         self.x_coord = int(coord[0:3])
         self.y_coord = int(coord[4:7])

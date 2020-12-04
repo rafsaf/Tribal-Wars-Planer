@@ -44,12 +44,11 @@ class TableText:
 
         t1_part = datetime1.time()
         t2_part = datetime2.time()
-        day = _("day")
         fro = _("from")
         to = _("to")
         return (
-            f"{day} {date_part} {fro} {t1_part} "
-            f"{to} {t2_part}."
+            f"\r\n[color=#ff0000][b]{date_part} {fro} {t1_part} "
+            f"{to} {t2_part}[/b][/color]"
         ) 
 
     def __weight_table(self, weight: models.WeightModel, ally_id, enemy_id, fake):
@@ -118,6 +117,9 @@ class TableText:
             )
             for i, weight in enumerate(lst):
                 table += f"[*]{i+1}" + self.weight_table[weight]
+                if i % 32 == 0 and i != 0:
+                    table += self.__postfix + self.__next_line_double + self.__next_line_double + self.__next_line_double + self.__prefix
+
             
             table += self.__postfix
             self.table_result[player] = table
@@ -135,7 +137,7 @@ class TableText:
             self.string_result[player] = text
 
     def get_full_result(self):
-        return self.__next_line_double.join(self.table_result.values())
+        return self.__next_line_double.join(self.string_result.values())
 
     def __enter__(self):
         pass

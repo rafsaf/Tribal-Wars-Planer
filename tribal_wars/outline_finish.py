@@ -55,15 +55,49 @@ def make_final_outline(outline: models.Outline):
 
     result_instance.save()
 
+    outline_overview = models.OutlineOverview.objects.create(outline=outline)
     overviews = []
     for player, table, string in text.iterate_over():
         token = secrets.token_urlsafe()
 
         overviews.append(
             models.Overview(
-                outline=outline, player=player, token=token,
+                outline=outline, player=player, token=token, outline_overview=outline_overview,
                 table=table, string=string, show_hidden=outline.default_show_hidden
             )
         )
-
     models.Overview.objects.bulk_create(overviews)
+
+    targets_overwiews = []
+    weight_overwiews = []
+    for target in models.TargetVertex.objects.filter(outline=outline):
+        targets_overwiews.append(
+            models.TargetVertexOverview(
+                player=target.player,
+                target=target.target,
+                fake=target.fake,
+                outline_overview=outline_overview,
+                target_vertex=target,
+            )
+        )
+    models.TargetVertexOverview.objects.bulk_create(targets_overwiews)
+    target_context = {}
+    for targets_overwiew in models.TargetVertexOverview.objects.filter(outline_overview=outline_overview):
+        target_context[targets_overwiew.target_vertex] = targets_overwiew
+
+    for weight in models.WeightModel.objects.select_related("target", "target__outline").filter(target__outline=outline):
+        weight_overwiews.append(
+            models.WeightModelOverview(
+                player=weight.player,
+                start=weight.start,
+                order=weight.order,
+                target=target_context[weight.target],
+                distance=weight.distance,
+                off=weight.off,
+                nobleman=weight.nobleman,
+                t1=weight.t1,
+                t2=weight.t2,
+            )
+        )
+    models.WeightModelOverview.objects.bulk_create(weight_overwiews)
+    

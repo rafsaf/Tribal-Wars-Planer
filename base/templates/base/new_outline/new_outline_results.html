@@ -25,11 +25,9 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
+            <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-off" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Off collection' %}</a>
-        </li>
+
     </ul>
 
     <div class="tab-content" id="pills-tabContent">
@@ -39,7 +37,7 @@
                 <div class="card-header" id="headingTwo">
                   <h5 class="mb-0">
 
-                    <button class="btn btn-link collapsed py-1 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <button class="btn btn-link collapsed py-1 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         {% if form1.errors %}
                         <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
@@ -52,7 +50,7 @@
                   </h5>
 
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body">
                     <form method="POST">
                         <input type="hidden" name="form1" value="">
@@ -65,6 +63,65 @@
                   </div>
                 </div>
               </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0">
+
+                    <button class="btn btn-link collapsed text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                      {% trans 'Removed links' %}
+                    </button>
+
+                  </h5>
+
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead style="background-color: teal;">
+        
+                            <tr style="color: white;">
+                                <th scope="col" style="border:1px solid teal">{% trans 'Created' %}</th>
+                                <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
+                                <th scope="col" style="border:1px solid teal">{% trans 'Link to member Page' %}</th>
+                                <th scope="col" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
+                                <th scope="col" style="border:1px solid teal">{% trans 'Send message' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in removed_overviews %}
+        
+                            <tr>
+                                <th scope="row">{{ item.created }}</th>
+                                <th>{{item.player}}</th>
+                                <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
+                                </th>
+                                <th><a href="{% url 'base:planer_overview_hide' instance.id item.token %}">{{item.show_hidden}}</a></th>
+                                <th><a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new&to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
+                                </th>
+                            </tr>
+                            <script>
+                                $('.send').click(function() {
+                                    $(this).text("{% trans 'Sent!' %}");})
+                            </script>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
             <div>
             <table class="table table-bordered">
                 <thead style="background-color: teal;">
@@ -131,11 +188,7 @@
                 <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_get_deff}}</textarea>
             </div>
         </div>
-        <div class="tab-pane fade" id="pills-off" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_get_off}}</textarea>
-            </div>
-        </div>
+
     </div>
 </div>
 </div>

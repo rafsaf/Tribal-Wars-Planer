@@ -1,3 +1,5 @@
+from django.utils.translation import gettext as _
+
 from base import models
 from tribal_wars import basic
 
@@ -13,12 +15,12 @@ class OutlineInfo:
         self.all_targets = basic.TargetWeightQueries(
             outline=outline, every=True
         ).target_dict_with_weights_read()
-        self.target_message = "Cele:\r\n"
-        self.fake_message = "Fejki:\r\n"
+        self.target_message = _("Targets:\r\n")
+        self.fake_message = _("Fakes:\r\n")
         self.players = ""
 
     def generate_nicks(self):
-        result = "Nicki: \r\n\r\n"
+        result = _("Nicknames: \r\n\r\n")
         targets_ids = [target.id for target in self.all_targets]
 
         unique_weights = (
@@ -45,15 +47,19 @@ class OutlineInfo:
     def generete_fake_target(self, target, lst):
         only_offs = len([weight for weight in lst if weight.nobleman == 0])
         only_nobles = len([weight for weight in lst if weight.nobleman > 0])
+        fakes = _("fakes")
+        nobles = _("fake nobles")
         self.fake_message += (
-            f"{target.target} - {only_offs} fejków - {only_nobles} grubych\r\n"
+            f"{target.target} - {only_offs} {fakes} - {only_nobles} {nobles}\r\n"
         )
 
     def generete_real_target(self, target, lst):
         only_offs = len([weight for weight in lst if weight.nobleman == 0])
         only_nobles = len([weight for weight in lst if weight.nobleman > 0])
+        offs = _("offs")
+        nobles = _("nobles")
         self.target_message += (
-            f"{target.target} - {only_offs} offów - {only_nobles} grubych\r\n"
+            f"{target.target} - {only_offs} {offs} - {only_nobles} {nobles}\r\n"
         )
 
     def show_sum_up(self):

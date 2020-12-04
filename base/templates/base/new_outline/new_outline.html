@@ -10,8 +10,6 @@
     bg-light">{% trans 'Results' %}</a>
     <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
     bg-light">{% trans 'Deff collection' %}</a>
-    <a href="{% url 'base:planer_detail_get_off' instance.id %}" class="list-group-item list-group-item-action
-    bg-light">{% trans 'Off collection' %}</a>
 
     <a id="planer-link" onclick="onPlanerLinkClick();" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
     bg-light">
@@ -36,8 +34,6 @@
     bg-light">{% trans 'Results' %}</a>
     <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
     bg-light">{% trans 'Deff collection' %}</a>
-    <a href="{% url 'base:planer_detail_get_off' instance.id %}" class="list-group-item list-group-item-action
-    bg-light">{% trans 'Off collection' %}</a>
 
     <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
     bg-light">
@@ -54,7 +50,7 @@
 
 <div>
     <h5>{% trans 'To continue, please fill in forms with scripts results.' %}</h5>
-    <p>{% trans 'Last world update ' %} {{instance.world.last_update}} {% trans 'minute(s) ago.' %}</p>
+    <p>{% trans 'Last world update: ' %} {{instance.world.update}}</p>
 </div>
 
 

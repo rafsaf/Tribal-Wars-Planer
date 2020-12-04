@@ -109,8 +109,13 @@
                 <ul class="list-group list-group-flush">
                     {% for weight in result_lst %} 
                             <div class="fading-{{weight.paint}}">
+
                                 <li class="list-group-item front-{{weight.first_line}}">
+
                                     <div class="row justify-content-center w-100 mb-1">
+                                        <div style="position: absolute; top:0;left:0;padding-top:0">
+                                            {{forloop.counter}}
+                                        </div>
                                         <span class='badge badge-pill badge-info'>{{weight.player}}</span><span class=' ml-1 badge badge badge-secondary'>{{weight.start}}</span>
                                     </div>
                                     <div class="row justify-content-center w-100">
@@ -378,8 +383,24 @@
                         <div class="row">
                             {% for weight in page_obj %}
                             <div class="card col-12 col-md-6 col-lg-4 col-xl-3 front-{{weight.first_line}}">
-                                <div class="card-body" style="padding-top:1px;padding-bottom:0px">
-                                    <div class="d-flex row justify-content-center">
+                                <div class="card-body" style="padding-top:0px;padding-bottom:0px">
+                                    <div style="position: absolute; top:0;right:0;padding-top:0">
+                                        <form action="{% url 'base:planer_hide_weight' instance.id target.id weight.id %}?page={{ page_obj.number }}&sort={{ sort }}" method="POST">
+                                            {% csrf_token %}
+                                            <button style="padding: 0;" class="btn btn-default" onclick="this.disabled=true;this.form.submit();">
+                                                {% if weight.hidden == False %}
+                                                <svg style="padding: 0;" width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                  </svg>
+                                                {% else %}
+                                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-check2" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                  </svg>
+                                                {% endif %}
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div style="padding-top: 1px ;" class="d-flex row justify-content-center">
                                         <h5>
                                             <span class="badge badge-pill badge-info">{{weight.player}}</span>
                                         </h5>

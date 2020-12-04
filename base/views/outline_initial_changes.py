@@ -223,6 +223,19 @@ def initial_add_last(request, id1, id2, id3):
         )
     return Http404()
 
+@login_required
+def initial_hide_weight(request, id1, id2, id3):
+    if request.method == "POST":
+        sort = request.GET.get("sort")
+        page = request.GET.get("page")
+        weight = get_object_or_404(models.WeightMaximum, pk=id3)
+        weight.hidden = not weight.hidden
+        weight.save()
+        return redirect(
+            reverse("base:planer_initial_detail", args=[id1, id2])
+            + f"?page={page}&sort={sort}"
+        )
+    return Http404()
 
 @login_required
 def initial_move_down(request, id1, id2, id4):

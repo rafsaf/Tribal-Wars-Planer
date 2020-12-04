@@ -27,6 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = ["localhost"]
 
 SECRET_KEY = "your_secret_key"
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "markdownx",
     "django_registration",
     "django_crontab",
+    'captcha',
     # from django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -91,15 +93,18 @@ WSGI_APPLICATION = "django_plemiona.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "your_database_name",
-        "USER": "your_user",
-        "PASSWORD": "your_password",
+        "NAME": "django_plemiona",
+        "USER": "rafsaf",
+        "PASSWORD": "drzwi123",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
 }
 
-CRONJOBS = [("* */2 * * *", "base.cron.db_update")]
+CRONJOBS = [
+    ("* */2 * * *", "base.cron.db_update"),
+    ("0 3 * * *", "base.cron.outdate_overviews_delete"),
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -156,6 +161,15 @@ LOGIN_REDIRECT_URL = "base:base"
 LOGIN_URL = "login"
 LOGOUT_REDIRECT_URL = "base:base"
 
+EMAIL_BACKEND = 'django_ses.SESBackend'
+AWS_ACCESS_KEY_ID = 'AKIAU5MB5PQDND3JDQMH'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_SES_REGION_NAME = 'eu-central-1'
+AWS_SES_REGION_ENDPOINT = 'email.eu-central-1.amazonaws.com'
+DEFAULT_FROM_EMAIL = 'plemionaplaner.pl@gmail.com'
+
+RECAPTCHA_PUBLIC_KEY = '6LfTofUZAAAAAIFiXfroDC4NtxnHlXqMMHx4jiQJ'
+RECAPTCHA_PRIVATE_KEY = '6LfTofUZAAAAAOPybWlY4WLU4G0v2YwcLvwLRfIH'
 
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 # def show_toolbar(request):
