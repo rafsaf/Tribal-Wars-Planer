@@ -1343,8 +1343,8 @@ msgstr ""
 msgid ""
 "New, currently supported by the website, legal (soon on the forum) version "
 "of send script"
-msgstr "Nowa, legalna, wysłana do supportu (niedługo na forum) wersja skryptu "
-"do wysyłania wiadomości"
+msgstr "Nowa, aktualnie wspierana, legalna, wysłana do supportu (niedługo na forum)"
+" wersja skryptu do wysyłania wiadomości"
 
 #: base/templates/base/new_outline/new_outline_results.html:7
 msgid "here"
