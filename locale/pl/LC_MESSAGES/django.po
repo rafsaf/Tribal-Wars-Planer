@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-04 21:29+0100\n"
+"POT-Creation-Date: 2020-12-05 03:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1095,7 +1095,7 @@ msgstr "Numer"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:239
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:243
 #: base/templates/base/new_outline/new_outline_results.html:90
-#: base/templates/base/new_outline/new_outline_results.html:137
+#: base/templates/base/new_outline/new_outline_results.html:138
 msgid "Player"
 msgstr "Gracz"
 
@@ -1340,8 +1340,11 @@ msgstr ""
 "                "
 
 #: base/templates/base/new_outline/new_outline_results.html:6
-msgid "New legal version of send script"
-msgstr "Nowa, legalna, wysłana już do supportu wersja skryptu do wiadomości"
+msgid ""
+"New, currently supported by the website, legal (soon on the forum) version "
+"of send script"
+msgstr "Nowa, legalna, wysłana do supportu (niedługo na forum) wersja skryptu "
+"do wysyłania wiadomości"
 
 #: base/templates/base/new_outline/new_outline_results.html:7
 msgid "here"
@@ -1372,32 +1375,32 @@ msgid "Removed links"
 msgstr "Stare linki"
 
 #: base/templates/base/new_outline/new_outline_results.html:91
-#: base/templates/base/new_outline/new_outline_results.html:138
+#: base/templates/base/new_outline/new_outline_results.html:139
 msgid "Link to member Page"
 msgstr "Link do strony gracza"
 
 #: base/templates/base/new_outline/new_outline_results.html:92
-#: base/templates/base/new_outline/new_outline_results.html:139
+#: base/templates/base/new_outline/new_outline_results.html:140
 msgid "Show Hidden"
 msgstr "Pokaż ukryte cele"
 
 #: base/templates/base/new_outline/new_outline_results.html:93
-#: base/templates/base/new_outline/new_outline_results.html:140
+#: base/templates/base/new_outline/new_outline_results.html:141
 msgid "Send message"
 msgstr "Wyślij wiadomość"
 
 #: base/templates/base/new_outline/new_outline_results.html:102
-#: base/templates/base/new_outline/new_outline_results.html:149
+#: base/templates/base/new_outline/new_outline_results.html:150
 msgid "Go to member Page"
 msgstr "Idź do strony gracza"
 
 #: base/templates/base/new_outline/new_outline_results.html:105
-#: base/templates/base/new_outline/new_outline_results.html:152
+#: base/templates/base/new_outline/new_outline_results.html:153
 msgid "Send"
 msgstr "Wyślij"
 
-#: base/templates/base/new_outline/new_outline_results.html:110
-#: base/templates/base/new_outline/new_outline_results.html:157
+#: base/templates/base/new_outline/new_outline_results.html:111
+#: base/templates/base/new_outline/new_outline_results.html:158
 msgid "Sent!"
 msgstr "Wysłano!"
 
@@ -1846,3 +1849,6 @@ msgstr "szlachcic"
 #: tribal_wars/period_utils.py:86
 msgid "ram"
 msgstr "taran"
+
+#~ msgid "New legal version of send script"
+#~ msgstr "Nowa, legalna, wysłana już do supportu wersja skryptu do wiadomości"
