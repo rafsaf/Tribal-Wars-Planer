@@ -13,8 +13,7 @@ def database_update(request):
     # ZMIENIC
     """ to update database manually, superuser required """
     if request.user.is_superuser:
-        
-        outdate_overviews_delete()
+        db_update()
         return redirect("base:base")
     else:
         return Http404()
