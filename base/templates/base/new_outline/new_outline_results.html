@@ -102,7 +102,7 @@
                                 <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
                                 </th>
                                 <th><a href="{% url 'base:planer_overview_hide' instance.id item.token %}">{{item.show_hidden}}</a></th>
-                                <th><a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new&#9875;to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
+                                <th><a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
                                 </th>
 
                             </tr>
@@ -150,7 +150,7 @@
                         <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
                         </th>
                         <th><a href="{% url 'base:planer_overview_hide' instance.id item.token %}">{{item.show_hidden}}</a></th>
-                        <th><a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new&to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
+                        <th><a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
                         </th>
                     </tr>
                     <script>
