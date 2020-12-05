@@ -92,7 +92,7 @@ def outline_detail_results(request, _id):
     form1.fields["title_message"].initial = instance.title_message
     form1.fields["text_message"].initial = instance.text_message.replace(
         "%0A", "\r\n"
-    ).replace("+", " ")
+    )
 
     if request.method == "POST":
         if "form1" in request.POST:
@@ -110,7 +110,7 @@ def outline_detail_results(request, _id):
                 instance.title_message = title_message
                 instance.text_message = text_message.replace(
                     "\r\n", "%0A"
-                ).replace(" ", "+")
+                )
                 instance.save()
 
                 overviews_update_lst = []

@@ -226,7 +226,7 @@ class SettingMessageForm(forms.ModelForm):
 
     def clean_text_message(self):
         text = self.cleaned_data.get("text_message")
-        length = len(text.replace("\r\n", "%0A").replace(" ", "+"))
+        length = len(text.replace("\r\n", "%0A"))
         if length > 500:
             raise forms.ValidationError(
                 gettext_lazy(
