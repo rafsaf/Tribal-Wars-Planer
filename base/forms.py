@@ -11,7 +11,9 @@ class OutlineForm(forms.Form):
     """ New Outline Form """
 
     name = forms.CharField(
-        max_length=20, label=gettext_lazy("Outline Name"), widget=forms.Textarea,
+        max_length=20,
+        label=gettext_lazy("Outline Name"),
+        widget=forms.Textarea,
     )
     date = forms.DateField(label=gettext_lazy("Date"))
     world = forms.ChoiceField(choices=[], label=gettext_lazy("World"))
@@ -136,7 +138,6 @@ class GetDeffForm(forms.Form):
         self.world = kwargs.pop("world")
         super(GetDeffForm, self).__init__(*args, **kwargs)
 
-
     def clean_excluded(self):
         """ Excluded Villages """
         villages = self.cleaned_data["excluded"]
@@ -183,6 +184,7 @@ class AvailableTroopsForm(forms.ModelForm):
         fields = [
             "initial_outline_min_off",
             "initial_outline_front_dist",
+            "initial_outline_excluded_coords",
             "initial_outline_target_dist",
         ]
         labels = {
@@ -201,6 +203,22 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Greater than or equal to 0 and less than or equal to 150."
             ),
         }
+
+    initial_outline_excluded_coords = forms.CharField(
+        label=gettext_lazy("Excluded enemy villages coords (secluded villages)"),
+        required=False,
+        max_length=100000,
+        help_text=gettext_lazy("Exact coords separated by a space or an entry"),
+        widget=forms.Textarea,
+    )
+
+    def clean_initial_outline_excluded_coords(self):
+        """ Excluded Villages """
+        coords = self.cleaned_data["initial_outline_excluded_coords"]
+        try:
+            village_list = basic.many_villages(coords)
+        except basic.VillageError as error:
+            self.add_error("initial_outline_excluded_coords", str(error))
 
 
 class SettingMessageForm(forms.ModelForm):
@@ -229,11 +247,9 @@ class SettingMessageForm(forms.ModelForm):
         length = len(text.replace("\r\n", "%0A"))
         if length > 500:
             raise forms.ValidationError(
-                gettext_lazy(
-                    "Ensure this value has at most 500 characters (it has "
-                ) + f" {length})."
+                gettext_lazy("Ensure this value has at most 500 characters (it has ")
+                + f" {length})."
             )
-
 
 
 class SettingDateForm(forms.ModelForm):
@@ -283,7 +299,9 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide": gettext_lazy(
                 "Choose prefered way of writing required nobles:"
             ),
-            "mode_split": gettext_lazy("Choose how noble commands should be written out:"),
+            "mode_split": gettext_lazy(
+                "Choose how noble commands should be written out:"
+            ),
             "initial_outline_fake_limit": gettext_lazy(
                 "Maximum number of fakes from one off village:"
             ),
@@ -517,7 +535,8 @@ class CreateNewInitialTarget(forms.Form):
 
         if not models.VillageModel.objects.filter(pk=village_id).exists():
             self.add_error(
-                "target", gettext_lazy("Village with that coords did not found."),
+                "target",
+                gettext_lazy("Village with that coords did not found."),
             )
             return
 
@@ -568,4 +587,3 @@ class ChangeServerForm(forms.ModelForm):
         model = models.Profile
         fields = ["server"]
         labels = {"server": gettext_lazy("You can set your server:")}
-

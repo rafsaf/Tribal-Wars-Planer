@@ -89,6 +89,9 @@ def initial_form(request, _id):
     form2.fields[
         "initial_outline_min_off"
     ].initial = instance.initial_outline_min_off
+    form2.fields[
+        "initial_outline_excluded_coords"
+    ].initial = instance.initial_outline_excluded_coords
     form3.fields["date"].initial = ""
     form4.fields["mode_off"].initial = instance.mode_off
     form4.fields["mode_noble"].initial = instance.mode_noble
@@ -131,9 +134,11 @@ def initial_form(request, _id):
                 min_off = request.POST.get("initial_outline_min_off")
                 radius = request.POST.get("initial_outline_front_dist")
                 radius_target = request.POST.get("initial_outline_target_dist")
+                excluded_coords = request.POST.get("initial_outline_excluded_coords")
                 instance.initial_outline_min_off = min_off
                 instance.initial_outline_front_dist = radius
                 instance.initial_outline_target_dist = radius_target
+                instance.initial_outline_excluded_coords = excluded_coords
                 instance.save()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.legal_coords_near_targets(outline=instance)
