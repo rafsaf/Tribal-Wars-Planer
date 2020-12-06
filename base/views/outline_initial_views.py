@@ -285,18 +285,12 @@ def initial_planer(request, _id):
                     if fake is None:
                         fake = False
                     coord = request.POST.get("target")
-                    x_coord = coord[0:3]
-                    y_coord = coord[4:7]
-                    village_id = x_coord + y_coord + str(instance.world)
 
-                    village = models.VillageModel.objects.get(pk=village_id)
-                    player = models.Player.objects.get(
-                        player_id=village.player_id, world=instance.world
-                    )
+                    village = models.VillageModel.objects.select_related().get(coord=coord, world=instance.world)
 
                     models.TargetVertex.objects.create(
                         outline=instance,
-                        player=player.name,
+                        player=village.player.name,
                         target=coord,
                         fake=fake,
                     )

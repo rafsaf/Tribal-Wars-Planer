@@ -523,17 +523,15 @@ class CreateNewInitialTarget(forms.Form):
         super(CreateNewInitialTarget, self).__init__(*args, **kwargs)
 
     def clean_target(self):
-        coord = self.cleaned_data["target"]
-        x_coord = coord[0:3]
-        y_coord = coord[4:7]
-        village_id = x_coord + y_coord + str(self.outline.world)
+        coord = self.cleaned_data["target"].strip()
+
         if models.TargetVertex.objects.filter(
             target=coord, outline=self.outline
         ).exists():
             self.add_error("target", gettext_lazy("This village is already a target!"))
             return
 
-        if not models.VillageModel.objects.filter(pk=village_id).exists():
+        if not models.VillageModel.objects.filter(coord=coord, world=self.outline.world).exists():
             self.add_error(
                 "target",
                 gettext_lazy("Village with that coords did not found."),
