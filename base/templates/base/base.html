@@ -39,37 +39,37 @@
             background-size: cover;
             min-height: 250px;
             border-bottom: 1px solid teal;
-            
+
         }
     </style>
 </head>
 
 
 <body>
-    <div class="d-flex" id="wrapper" >
+    <div class="d-flex" id="wrapper">
         <div class="d-none d-lg-flex">
-        {% block showsidebar %}
-    
-        {% if user.is_authenticated %}
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">{% trans 'User Panel' %}</div>
-            <div class="list-group list-group-flush">
+            {% block showsidebar %}
 
-                <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action
+            {% if user.is_authenticated %}
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading">{% trans 'User Panel' %}</div>
+                <div class="list-group list-group-flush">
+
+                    <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action
                         bg-light">{% trans 'My outlines' %}</a>
-                <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action
+                    <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action
                         bg-light">{% trans 'Create new outline' %}</a>
 
-                {% block sidebar %}
-                {% endblock %}
+                    {% block sidebar %}
+                    {% endblock %}
+                </div>
             </div>
-        </div>
-        {% endif %}
-    
-        {% endblock %}
+            {% endif %}
+
+            {% endblock %}
         </div>
 
-        <div id="page-content-wrapper" >
+        <div id="page-content-wrapper">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light
                     border-bottom">
@@ -81,7 +81,7 @@
                             <path fill-rule="evenodd"
                                 d="M4.5 9a3.5 3.5 0 1 0 0 7h7a3.5 3.5 0 1 0 0-7h-7zm7 6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-7-14a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm2.45 0A3.49 3.49 0 0 1 8 3.5 3.49 3.49 0 0 1 6.95 6h4.55a2.5 2.5 0 0 0 0-5H6.95zM4.5 0h7a3.5 3.5 0 1 1 0 7h-7a3.5 3.5 0 1 1 0-7z" />
                         </svg>
-                    </button> 
+                    </button>
                 </div>
                 <div class="d-block d-lg-none font-nav">
 
@@ -91,10 +91,10 @@
                         <li class="nav-item dropdown ml-1">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                 aria-haspopup="true" aria-expanded="false">
-                            {% trans 'User Panel' %}
+                                {% trans 'User Panel' %}
                             </a>
                             <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
-                                
+
                                 <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action
                                 bg-light">{% trans 'My outlines' %}</a>
                                 <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action
@@ -107,8 +107,8 @@
                     </ul>
                 </div>
 
-                
-                
+
+
                 {% endif %}
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -153,12 +153,15 @@
                                 {% endif %}
                                 <div class="dropdown-divider" style="margin-bottom:0"></div>
                                 {% if user.is_authenticated %}
-                                <a class="dropdown-item font-teal py-2"  href="{% url 'base:settings' %}">{% trans 'My account' %}</a>
-                                
-                                
-                                <a class="dropdown-item font-red py-2"  href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
+                                <a class="dropdown-item font-teal py-2"
+                                    href="{% url 'base:settings' %}">{% trans 'My account' %}</a>
+
+
+                                <a class="dropdown-item font-red py-2"
+                                    href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
                                 {% else %}
-                                <a class="dropdown-item font-teal py-2" href="{% url 'login' %}">{% trans 'Sign in' %}</a>
+                                <a class="dropdown-item font-teal py-2"
+                                    href="{% url 'login' %}">{% trans 'Sign in' %}</a>
 
                                 <a class="dropdown-item font-teal py-2"
                                     href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
@@ -179,14 +182,38 @@
                                     {% csrf_token %}
                                     <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
                                     <input name="language" type="hidden" value="en" />
-                                    <input class="dropdown-item font-nav py-2"  type="submit" value="English" />
+                                    <input class="dropdown-item font-nav py-2" type="submit" value="English" />
                                 </form>
                             </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link ml-1" target="_blank" href='https://discord.gg/g5pcsCteCT'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="22" viewBox="0 0 532 130"><path d="M53.2 20.3H20v37.6l22.1 20V41.4H54c7.5 0 11.2 3.7 11.2 9.5v27.9c0 5.8-3.5 9.7-11.2 9.7H20v21.2h33.2c17.8.1 34.5-8.8 34.5-29.4V50.2c0-20.8-16.7-29.9-34.5-29.9zm174.1 60.1V49.6c0-11.1 19.8-13.7 25.8-2.5l18.3-7.5C264.3 23.7 251.1 19 240.2 19c-17.8 0-35.4 10.4-35.4 30.6v30.8c0 20.3 17.6 30.6 35 30.6 11.2 0 24.6-5.6 32-20.1l-19.6-9.1c-4.8 12.4-24.9 9.4-24.9-1.4zm-60.6-26.6c-6.9-1.5-11.5-4-11.8-8.3.4-10.4 16.3-10.7 25.6-.8l14.7-11.4C186 22 175.6 19 164.8 19c-16.3 0-32.1 9.2-32.1 26.8 0 17.1 13 26.2 27.3 28.4 7.3 1 15.4 3.9 15.2 9-.6 9.6-20.2 9.1-29.1-1.8L132 94.8c8.3 10.7 19.6 16.2 30.2 16.2 16.3 0 34.4-9.5 35.1-26.8 1-22-14.8-27.5-30.6-30.4zm-66.9 55.9h22.4V20.3H99.8v89.4zm377.7-89.4h-33.2v37.6l22.1 20V41.4h11.8c7.5 0 11.2 3.7 11.2 9.5v27.9c0 5.8-3.5 9.7-11.2 9.7h-34v21.2h33.2c17.8.1 34.5-8.8 34.5-29.4V50.2c.1-20.8-16.6-29.9-34.4-29.9zM314.6 19c-18.4 0-36.7 10.1-36.7 30.7v30.6c0 20.5 18.4 30.7 36.9 30.7 18.4 0 36.7-10.2 36.7-30.7V49.7c0-20.5-18.5-30.7-36.9-30.7zM329 80.3c0 6.4-7.2 9.7-14.3 9.7-7.2 0-14.4-3.2-14.4-9.7V49.7c0-6.6 7-10.1 14-10.1 7.3 0 14.7 3.2 14.7 10.1v30.6zm102.8-30.6c-.5-21-14.7-29.4-33-29.4h-35.5v89.5H386V81.3h4l20.6 28.4h28L414.4 79c10.8-3.4 17.4-12.7 17.4-29.3zm-32.6 12.1H386V41.4h13.2c14.2 0 14.2 20.4 0 20.4z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="20" viewBox="0 0 532 130">
+                                    <path
+                                        d="M53.2 20.3H20v37.6l22.1 20V41.4H54c7.5 0 11.2 3.7 11.2 9.5v27.9c0 5.8-3.5 9.7-11.2 9.7H20v21.2h33.2c17.8.1 34.5-8.8 34.5-29.4V50.2c0-20.8-16.7-29.9-34.5-29.9zm174.1 60.1V49.6c0-11.1 19.8-13.7 25.8-2.5l18.3-7.5C264.3 23.7 251.1 19 240.2 19c-17.8 0-35.4 10.4-35.4 30.6v30.8c0 20.3 17.6 30.6 35 30.6 11.2 0 24.6-5.6 32-20.1l-19.6-9.1c-4.8 12.4-24.9 9.4-24.9-1.4zm-60.6-26.6c-6.9-1.5-11.5-4-11.8-8.3.4-10.4 16.3-10.7 25.6-.8l14.7-11.4C186 22 175.6 19 164.8 19c-16.3 0-32.1 9.2-32.1 26.8 0 17.1 13 26.2 27.3 28.4 7.3 1 15.4 3.9 15.2 9-.6 9.6-20.2 9.1-29.1-1.8L132 94.8c8.3 10.7 19.6 16.2 30.2 16.2 16.3 0 34.4-9.5 35.1-26.8 1-22-14.8-27.5-30.6-30.4zm-66.9 55.9h22.4V20.3H99.8v89.4zm377.7-89.4h-33.2v37.6l22.1 20V41.4h11.8c7.5 0 11.2 3.7 11.2 9.5v27.9c0 5.8-3.5 9.7-11.2 9.7h-34v21.2h33.2c17.8.1 34.5-8.8 34.5-29.4V50.2c.1-20.8-16.6-29.9-34.4-29.9zM314.6 19c-18.4 0-36.7 10.1-36.7 30.7v30.6c0 20.5 18.4 30.7 36.9 30.7 18.4 0 36.7-10.2 36.7-30.7V49.7c0-20.5-18.5-30.7-36.9-30.7zM329 80.3c0 6.4-7.2 9.7-14.3 9.7-7.2 0-14.4-3.2-14.4-9.7V49.7c0-6.6 7-10.1 14-10.1 7.3 0 14.7 3.2 14.7 10.1v30.6zm102.8-30.6c-.5-21-14.7-29.4-33-29.4h-35.5v89.5H386V81.3h4l20.6 28.4h28L414.4 79c10.8-3.4 17.4-12.7 17.4-29.3zm-32.6 12.1H386V41.4h13.2c14.2 0 14.2 20.4 0 20.4z" />
+                                    </svg>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ml-1" target="_blank" rel="noopener" href='https://www.youtube.com/channel/UCzgp6T7tHcmdFnaD6ek1r5Q?view_as=subscriber'>
+                                <svg width="80" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    viewBox="0 0 492 110" xmlns:v="https://vecta.io/nano">
+                                    <path
+                                        d="M154.3 17.5a19.6 19.6 0 0 0-13.8-13.8C128.4.4 79.7.4 79.7.4S31 .5 18.9 3.8A19.6 19.6 0 0 0 5.1 17.6C1.44 39.1.02 71.86 5.2 92.5A19.6 19.6 0 0 0 19 106.3c12.1 3.3 60.8 3.3 60.8 3.3s48.7 0 60.8-3.3a19.6 19.6 0 0 0 13.8-13.8c3.86-21.53 5.05-54.27-.1-75z"
+                                        fill="red" />
+                                    <path fill="#fff" d="M64.2 78.4L104.6 55 64.2 31.6z" />
+                                    <g fill="#282828">
+                                        <path
+                                            d="M227.9 99.7c-3.1-2.1-5.3-5.3-6.6-9.7s-1.9-10.2-1.9-17.5v-9.9c0-7.3.7-13.3 2.2-17.7 1.5-4.5 3.8-7.7 7-9.7s7.3-3.1 12.4-3.1c5 0 9.1 1 12.1 3.1s5.3 5.3 6.7 9.7 2.1 10.3 2.1 17.6v9.9c0 7.3-.7 13.1-2.1 17.5s-3.6 7.6-6.7 9.7c-3.1 2-7.3 3.1-12.5 3.1-5.4.1-9.6-1-12.7-3zM245.2 89c.9-2.2 1.3-5.9 1.3-10.9V56.8c0-4.9-.4-8.5-1.3-10.7-.9-2.3-2.4-3.4-4.5-3.4s-3.5 1.1-4.4 3.4-1.3 5.8-1.3 10.7v21.3c0 5 .4 8.7 1.2 10.9s2.3 3.3 4.5 3.3c2.1 0 3.6-1.1 4.5-3.3zm219.2-16.3v3.5l.4 9.9c.3 2.2.8 3.8 1.6 4.8s2.1 1.5 3.8 1.5c2.3 0 3.9-.9 4.7-2.7.9-1.8 1.3-4.8 1.4-8.9l13.3.8c.1.6.1 1.4.1 2.4 0 6.3-1.7 11-5.2 14.1s-8.3 4.7-14.6 4.7c-7.6 0-12.9-2.4-15.9-7.1s-4.6-12.1-4.6-22V61.6c.34-17 3.33-29.45 20.9-29.5 5.3 0 9.3 1 12.1 2.9s4.8 4.9 6 9 1.7 9.7 1.7 16.9v11.7h-25.7zm2-28.8c-.8 1-1.3 2.5-1.6 4.7s-.4 10-.4 10v4.9h11.2v-4.9c0 4.9-.1-7.7-.4-10s-.8-3.9-1.6-4.8-2-1.4-3.6-1.4c-1.7.1-2.9.6-3.6 1.5zM190.5 71.4L173 8.2h15.3s7.15 31.7 9.6 46.6h.4c2.78-15.82 9.8-46.6 9.8-46.6h15.3l-17.7 63.1v30.3h-15.1V71.4z" />
+                                        <path id="A"
+                                            d="M311.5 33.4v68.3h-12l-1.3-8.4h-.3c-3.3 6.3-8.2 9.5-14.7 9.5-11.77-.03-13.08-10-13.2-18.4v-51h15.4v50.1c0 3 .3 5.2 1 6.5 1.42 2.78 5.1 2.07 7.1.7a8 8 0 0 0 2.7-3.1V33.4z"
+                                            fill="#282828" />
+                                        <path
+                                            d="M353.3 20.6H338v81.1h-15V20.6h-15.3V8.2h45.5v12.4zm87.9 23.7c-.9-4.3-2.4-7.4-4.5-9.4-2.1-1.9-4.9-2.9-8.6-2.9a14.1 14.1 0 0 0-7.9 2.4c-2.5 1.6-4.3 3.7-5.7 6.3h-.1v-36h-14.8v96.9h12.7l1.6-6.5h.3a14 14 0 0 0 5.3 5.5c2.4 1.3 5 2 7.9 2 5.2 0 9-2.4 11.5-7.2 2.4-4.8 3.7-12.3 3.7-22.4V62.2c0-7.6-.5-13.6-1.4-17.9zm-14.1 27.9c0 5-.2 8.9-.6 11.7s-1.1 4.8-2.1 6-2.3 1.8-3.9 1.8c-3.1-.1-4.86-1.5-6.1-3.6V49.3c.5-1.9 1.4-3.4 2.7-4.6 2.2-2.47 5.96-2.5 7.7 0 .9 1.2 1.4 3.3 1.8 6.2.3 2.9.5 7 .5 12.4z" />
+                                    </g>
+                                    <use xlink:href="#A" x="78.9" />
+                                </svg>
+                                </a>
                         </li>
 
 
@@ -212,54 +239,113 @@
             <div class="mt-2 container-fluid">
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <div style="min-height: 80vh;">
-                {% block content %}
-                <div class='text-center' style="padding-left:0 !important;padding-right:0 !important" >
-                    <div class='background-image'>
-                        <h2 class="font-nav">{% trans 'Create simple and fast outlines' %}</h2>
-                        <a href="{% url 'login' %}" style="min-width: 25%"
-                            class="btn btn-ocean mt-5 font-nav"><h3>{% trans 'Sign in' %}</h3></a>
-                        <p class="small mt-1">{% trans "Don't have an account? "  %}<a
-                                href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
+                    {% block content %}
+                    <div class='text-center' style="padding-left:0 !important;padding-right:0 !important">
+                        <div class='background-image'>
+                            <h2 class="font-nav">{% trans 'Create simple and fast outlines' %}</h2>
+                            <a href="{% url 'login' %}" style="min-width: 30%" class="btn btn-ocean mt-5">
+                                <h3>{% trans 'Sign in' %}</h3>
+                            </a>
+                            <p class=" mt-1">{% trans "Don't have an account? "  %}<a
+                                    href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
 
 
+                        </div>
+                        <div id='yt'>
+                            <div class="row mt-3 justify-content-center">
+
+                                <div class="col-12 col-lg-8">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" frameborder="2"
+                                            src="https://www.youtube.com/embed/5IieYbciZRk" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+ 
+
+                        <h1 class="font-nav mt-5">{% trans 'Galery' %}</h1>
+                        <div style="border-top: 1px solid teal;">
+                            <div class='cover-container mt-2'>
+                                <img height="300" class="border" src="{% static 'images/img1_1.png'%}" alt="..."
+                                    class="cover-item">
+                                <img height="300" class="border" src="{% static 'images/img2.png'%}" alt="..."
+                                    class="cover-item">
+                                <img height="300" class="border" src="{% static 'images/img3.png'%}" alt="..."
+                                    class="cover-item">
+                                <img height="300" class="border" src="{% static 'images/img4.png'%}" alt="..."
+                                    class="cover-item">
+                                <img height="300" class="border" src="{% static 'images/img5.png'%}" alt="..."
+                                    class="cover-item">
+                                <img height="300" class="border" src="{% static 'images/img6.png'%}" alt="..."
+                                    class="cover-item">
+                                <img height="300" class="border" src="{% static 'images/img7.png'%}" alt="..."
+                                    class="cover-item">
+                                <img height="300" class="border" src="{% static 'images/img9.png'%}" alt="..."
+                                    class="cover-item">
+                                <img height="300" class="border" src="{% static 'images/img10.png'%}" alt="..."
+                                    class="cover-item">
+                            </div>
+                        </div>
+                        <div class="font-nav mb-2 mt-0"
+                        style="font-size: larger; max-width: 100%;">
+
+                        <p class="mb-5">
+                            <svg width="2em" height="2em" viewBox="0 0 17 16" class="bi bi-exclamation-triangle"
+                                fill="red" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M7.938 2.016a.146.146 0 0 0-.054.057L1.027 13.74a.176.176 0 0 0-.002.183c.016.03.037.05.054.06.015.01.034.017.066.017h13.713a.12.12 0 0 0 .066-.017.163.163 0 0 0 .055-.06.176.176 0 0 0-.003-.183L8.12 2.073a.146.146 0 0 0-.054-.057A.13.13 0 0 0 8.002 2a.13.13 0 0 0-.064.016zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                                <path
+                                    d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+                            </svg>
+                            {% trans 'Note, all announcements, proposals, reported bugs will be placed on the discord.' %}
+                        </p>
                     </div>
-                    <div class="font-nav my-3" style="font-size: larger; border-bottom: 1px solid rgb(196, 218, 218); max-width: 100%;">
-                    <a href='https://discord.gg/g5pcsCteCT'>
-                    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="330" viewBox="0 0 800 272.1"><style>.st0{fill:#7289DA;}</style><path class="st0" d="M142.8 120.1c-5.7 0-10.2 4.9-10.2 11s4.6 11 10.2 11c5.7 0 10.2-4.9 10.2-11s-4.6-11-10.2-11zM106.3 120.1c-5.7 0-10.2 4.9-10.2 11s4.6 11 10.2 11c5.7 0 10.2-4.9 10.2-11 .1-6.1-4.5-11-10.2-11z"/><path class="st0" d="M191.4 36.9h-134c-11.3 0-20.5 9.2-20.5 20.5v134c0 11.3 9.2 20.5 20.5 20.5h113.4l-5.3-18.3 12.8 11.8 12.1 11.1 21.6 18.7V57.4c-.1-11.3-9.3-20.5-20.6-20.5zm-38.6 129.5s-3.6-4.3-6.6-8c13.1-3.7 18.1-11.8 18.1-11.8-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.4-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.6-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.2-1.8-1-2.8-1.7-2.8-1.7s4.8 7.9 17.5 11.7c-3 3.8-6.7 8.2-6.7 8.2-22.1-.7-30.5-15.1-30.5-15.1 0-31.9 14.4-57.8 14.4-57.8 14.4-10.7 28-10.4 28-10.4l1 1.2c-18 5.1-26.2 13-26.2 13s2.2-1.2 5.9-2.8c10.7-4.7 19.2-5.9 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.5 0 0-7.9-7.5-24.9-12.6l1.4-1.6s13.7-.3 28 10.4c0 0 14.4 25.9 14.4 57.8 0-.1-8.4 14.3-30.5 15zM303.8 79.7h-33.2V117l22.1 19.9v-36.2h11.8c7.5 0 11.2 3.6 11.2 9.4v27.7c0 5.8-3.5 9.7-11.2 9.7h-34v21.1h33.2c17.8.1 34.5-8.8 34.5-29.2v-29.8c.1-20.8-16.6-29.9-34.4-29.9zm174 59.7v-30.6c0-11 19.8-13.5 25.8-2.5l18.3-7.4c-7.2-15.8-20.3-20.4-31.2-20.4-17.8 0-35.4 10.3-35.4 30.3v30.6c0 20.2 17.6 30.3 35 30.3 11.2 0 24.6-5.5 32-19.9l-19.6-9c-4.8 12.3-24.9 9.3-24.9-1.4zM417.3 113c-6.9-1.5-11.5-4-11.8-8.3.4-10.3 16.3-10.7 25.6-.8l14.7-11.3c-9.2-11.2-19.6-14.2-30.3-14.2-16.3 0-32.1 9.2-32.1 26.6 0 16.9 13 26 27.3 28.2 7.3 1 15.4 3.9 15.2 8.9-.6 9.5-20.2 9-29.1-1.8l-14.2 13.3c8.3 10.7 19.6 16.1 30.2 16.1 16.3 0 34.4-9.4 35.1-26.6 1-21.7-14.8-27.2-30.6-30.1zm-67 55.5h22.4V79.7h-22.4v88.8zM728 79.7h-33.2V117l22.1 19.9v-36.2h11.8c7.5 0 11.2 3.6 11.2 9.4v27.7c0 5.8-3.5 9.7-11.2 9.7h-34v21.1H728c17.8.1 34.5-8.8 34.5-29.2v-29.8c0-20.8-16.7-29.9-34.5-29.9zm-162.9-1.2c-18.4 0-36.7 10-36.7 30.5v30.3c0 20.3 18.4 30.5 36.9 30.5 18.4 0 36.7-10.2 36.7-30.5V109c0-20.4-18.5-30.5-36.9-30.5zm14.4 60.8c0 6.4-7.2 9.7-14.3 9.7-7.2 0-14.4-3.1-14.4-9.7V109c0-6.5 7-10 14-10 7.3 0 14.7 3.1 14.7 10v30.3zM682.4 109c-.5-20.8-14.7-29.2-33-29.2h-35.5v88.8h22.7v-28.2h4l20.6 28.2h28L665 138.1c10.7-3.4 17.4-12.7 17.4-29.1zm-32.6 12h-13.2v-20.3h13.2c14.1 0 14.1 20.3 0 20.3z"/></svg>
-                    </a>
-                    <p class="mb-5">
-                        <svg width="2em" height="2em" viewBox="0 0 17 16" class="bi bi-exclamation-triangle" fill="red" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M7.938 2.016a.146.146 0 0 0-.054.057L1.027 13.74a.176.176 0 0 0-.002.183c.016.03.037.05.054.06.015.01.034.017.066.017h13.713a.12.12 0 0 0 .066-.017.163.163 0 0 0 .055-.06.176.176 0 0 0-.003-.183L8.12 2.073a.146.146 0 0 0-.054-.057A.13.13 0 0 0 8.002 2a.13.13 0 0 0-.064.016zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
-                            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
-                          </svg>
-                    {% trans 'Note, all announcements, proposals, reported bugs will be placed on the discord.' %}</p>
+                        <div class="row mt-4 justify-content-center">
+
+                            <div class="col-6 col-lg-3">
+                                <a href='https://discord.gg/g5pcsCteCT'>
+                                    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 272.1">
+                                        <style>
+                                            .st0 {
+                                                fill: #7289DA;
+                                            }
+                                        </style>
+                                        <path class="st0"
+                                            d="M142.8 120.1c-5.7 0-10.2 4.9-10.2 11s4.6 11 10.2 11c5.7 0 10.2-4.9 10.2-11s-4.6-11-10.2-11zM106.3 120.1c-5.7 0-10.2 4.9-10.2 11s4.6 11 10.2 11c5.7 0 10.2-4.9 10.2-11 .1-6.1-4.5-11-10.2-11z" />
+                                        <path class="st0"
+                                            d="M191.4 36.9h-134c-11.3 0-20.5 9.2-20.5 20.5v134c0 11.3 9.2 20.5 20.5 20.5h113.4l-5.3-18.3 12.8 11.8 12.1 11.1 21.6 18.7V57.4c-.1-11.3-9.3-20.5-20.6-20.5zm-38.6 129.5s-3.6-4.3-6.6-8c13.1-3.7 18.1-11.8 18.1-11.8-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.4-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.6-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.2-1.8-1-2.8-1.7-2.8-1.7s4.8 7.9 17.5 11.7c-3 3.8-6.7 8.2-6.7 8.2-22.1-.7-30.5-15.1-30.5-15.1 0-31.9 14.4-57.8 14.4-57.8 14.4-10.7 28-10.4 28-10.4l1 1.2c-18 5.1-26.2 13-26.2 13s2.2-1.2 5.9-2.8c10.7-4.7 19.2-5.9 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.5 0 0-7.9-7.5-24.9-12.6l1.4-1.6s13.7-.3 28 10.4c0 0 14.4 25.9 14.4 57.8 0-.1-8.4 14.3-30.5 15zM303.8 79.7h-33.2V117l22.1 19.9v-36.2h11.8c7.5 0 11.2 3.6 11.2 9.4v27.7c0 5.8-3.5 9.7-11.2 9.7h-34v21.1h33.2c17.8.1 34.5-8.8 34.5-29.2v-29.8c.1-20.8-16.6-29.9-34.4-29.9zm174 59.7v-30.6c0-11 19.8-13.5 25.8-2.5l18.3-7.4c-7.2-15.8-20.3-20.4-31.2-20.4-17.8 0-35.4 10.3-35.4 30.3v30.6c0 20.2 17.6 30.3 35 30.3 11.2 0 24.6-5.5 32-19.9l-19.6-9c-4.8 12.3-24.9 9.3-24.9-1.4zM417.3 113c-6.9-1.5-11.5-4-11.8-8.3.4-10.3 16.3-10.7 25.6-.8l14.7-11.3c-9.2-11.2-19.6-14.2-30.3-14.2-16.3 0-32.1 9.2-32.1 26.6 0 16.9 13 26 27.3 28.2 7.3 1 15.4 3.9 15.2 8.9-.6 9.5-20.2 9-29.1-1.8l-14.2 13.3c8.3 10.7 19.6 16.1 30.2 16.1 16.3 0 34.4-9.4 35.1-26.6 1-21.7-14.8-27.2-30.6-30.1zm-67 55.5h22.4V79.7h-22.4v88.8zM728 79.7h-33.2V117l22.1 19.9v-36.2h11.8c7.5 0 11.2 3.6 11.2 9.4v27.7c0 5.8-3.5 9.7-11.2 9.7h-34v21.1H728c17.8.1 34.5-8.8 34.5-29.2v-29.8c0-20.8-16.7-29.9-34.5-29.9zm-162.9-1.2c-18.4 0-36.7 10-36.7 30.5v30.3c0 20.3 18.4 30.5 36.9 30.5 18.4 0 36.7-10.2 36.7-30.5V109c0-20.4-18.5-30.5-36.9-30.5zm14.4 60.8c0 6.4-7.2 9.7-14.3 9.7-7.2 0-14.4-3.1-14.4-9.7V109c0-6.5 7-10 14-10 7.3 0 14.7 3.1 14.7 10v30.3zM682.4 109c-.5-20.8-14.7-29.2-33-29.2h-35.5v88.8h22.7v-28.2h4l20.6 28.2h28L665 138.1c10.7-3.4 17.4-12.7 17.4-29.1zm-32.6 12h-13.2v-20.3h13.2c14.1 0 14.1 20.3 0 20.3z" />
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <a target="_blank" rel="noopener" href='https://www.youtube.com/channel/UCzgp6T7tHcmdFnaD6ek1r5Q?view_as=subscriber'>
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    viewBox="0 0 492 110" xmlns:v="https://vecta.io/nano">
+                                    <path
+                                        d="M154.3 17.5a19.6 19.6 0 0 0-13.8-13.8C128.4.4 79.7.4 79.7.4S31 .5 18.9 3.8A19.6 19.6 0 0 0 5.1 17.6C1.44 39.1.02 71.86 5.2 92.5A19.6 19.6 0 0 0 19 106.3c12.1 3.3 60.8 3.3 60.8 3.3s48.7 0 60.8-3.3a19.6 19.6 0 0 0 13.8-13.8c3.86-21.53 5.05-54.27-.1-75z"
+                                        fill="red" />
+                                    <path fill="#fff" d="M64.2 78.4L104.6 55 64.2 31.6z" />
+                                    <g fill="#282828">
+                                        <path
+                                            d="M227.9 99.7c-3.1-2.1-5.3-5.3-6.6-9.7s-1.9-10.2-1.9-17.5v-9.9c0-7.3.7-13.3 2.2-17.7 1.5-4.5 3.8-7.7 7-9.7s7.3-3.1 12.4-3.1c5 0 9.1 1 12.1 3.1s5.3 5.3 6.7 9.7 2.1 10.3 2.1 17.6v9.9c0 7.3-.7 13.1-2.1 17.5s-3.6 7.6-6.7 9.7c-3.1 2-7.3 3.1-12.5 3.1-5.4.1-9.6-1-12.7-3zM245.2 89c.9-2.2 1.3-5.9 1.3-10.9V56.8c0-4.9-.4-8.5-1.3-10.7-.9-2.3-2.4-3.4-4.5-3.4s-3.5 1.1-4.4 3.4-1.3 5.8-1.3 10.7v21.3c0 5 .4 8.7 1.2 10.9s2.3 3.3 4.5 3.3c2.1 0 3.6-1.1 4.5-3.3zm219.2-16.3v3.5l.4 9.9c.3 2.2.8 3.8 1.6 4.8s2.1 1.5 3.8 1.5c2.3 0 3.9-.9 4.7-2.7.9-1.8 1.3-4.8 1.4-8.9l13.3.8c.1.6.1 1.4.1 2.4 0 6.3-1.7 11-5.2 14.1s-8.3 4.7-14.6 4.7c-7.6 0-12.9-2.4-15.9-7.1s-4.6-12.1-4.6-22V61.6c.34-17 3.33-29.45 20.9-29.5 5.3 0 9.3 1 12.1 2.9s4.8 4.9 6 9 1.7 9.7 1.7 16.9v11.7h-25.7zm2-28.8c-.8 1-1.3 2.5-1.6 4.7s-.4 10-.4 10v4.9h11.2v-4.9c0 4.9-.1-7.7-.4-10s-.8-3.9-1.6-4.8-2-1.4-3.6-1.4c-1.7.1-2.9.6-3.6 1.5zM190.5 71.4L173 8.2h15.3s7.15 31.7 9.6 46.6h.4c2.78-15.82 9.8-46.6 9.8-46.6h15.3l-17.7 63.1v30.3h-15.1V71.4z" />
+                                        <path id="A"
+                                            d="M311.5 33.4v68.3h-12l-1.3-8.4h-.3c-3.3 6.3-8.2 9.5-14.7 9.5-11.77-.03-13.08-10-13.2-18.4v-51h15.4v50.1c0 3 .3 5.2 1 6.5 1.42 2.78 5.1 2.07 7.1.7a8 8 0 0 0 2.7-3.1V33.4z"
+                                            fill="#282828" />
+                                        <path
+                                            d="M353.3 20.6H338v81.1h-15V20.6h-15.3V8.2h45.5v12.4zm87.9 23.7c-.9-4.3-2.4-7.4-4.5-9.4-2.1-1.9-4.9-2.9-8.6-2.9a14.1 14.1 0 0 0-7.9 2.4c-2.5 1.6-4.3 3.7-5.7 6.3h-.1v-36h-14.8v96.9h12.7l1.6-6.5h.3a14 14 0 0 0 5.3 5.5c2.4 1.3 5 2 7.9 2 5.2 0 9-2.4 11.5-7.2 2.4-4.8 3.7-12.3 3.7-22.4V62.2c0-7.6-.5-13.6-1.4-17.9zm-14.1 27.9c0 5-.2 8.9-.6 11.7s-1.1 4.8-2.1 6-2.3 1.8-3.9 1.8c-3.1-.1-4.86-1.5-6.1-3.6V49.3c.5-1.9 1.4-3.4 2.7-4.6 2.2-2.47 5.96-2.5 7.7 0 .9 1.2 1.4 3.3 1.8 6.2.3 2.9.5 7 .5 12.4z" />
+                                    </g>
+                                    <use xlink:href="#A" x="78.9" />
+                                </svg>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
-                    
-                    <h2 class="font-nav mt-2">{% trans 'Galery' %}</h2>
-                    <div style="border-bottom: 1px solid teal;">
-                    <div class='cover-container mt-2'>
-                        <img height="300" class="border" src="{% static 'images/img1_1.png'%}" alt="..."
-                            class="cover-item">
-                        <img height="300" class="border" src="{% static 'images/img2.png'%}" alt="..."
-                            class="cover-item">
-                        <img height="300" class="border" src="{% static 'images/img3.png'%}" alt="..."
-                            class="cover-item">
-                        <img height="300" class="border" src="{% static 'images/img4.png'%}" alt="..."
-                            class="cover-item">
-                        <img height="300" class="border" src="{% static 'images/img5.png'%}" alt="..."
-                            class="cover-item">
-                        <img height="300" class="border" src="{% static 'images/img6.png'%}" alt="..."
-                            class="cover-item">
-                        <img height="300" class="border" src="{% static 'images/img7.png'%}" alt="..."
-                            class="cover-item">
-                        <img height="300" class="border" src="{% static 'images/img9.png'%}" alt="..."
-                            class="cover-item">
-                        <img height="300" class="border" src="{% static 'images/img10.png'%}" alt="..."
-                            class="cover-item">
+
                     </div>
-                </div>
-                </div>
-                {% endblock %}
+                    {% endblock %}
                 </div>
                 {% block footer %}
                 <footer class="text-center w-100" id='page-end'>
