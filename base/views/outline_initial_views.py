@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.urls import reverse
 from django.http import Http404
+from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -575,18 +576,18 @@ def initial_target(request, id1, id2):
             context,
         )
 
-
-class InitialDeleteTime(LoginRequiredMixin, DeleteView):
-    model = models.OutlineTime
-
-    def get_success_url(self):
-        outline = self.object.outline
-        mode = self.request.GET.get("mode")
-        page = self.request.GET.get("page")
-        return (
-            reverse("base:planer_initial", args=[outline.id])
-            + f"?page={page}&mode={mode}"
-        )
+@require_POST
+@login_required
+def initial_delete_time(request, id5):
+    outline_time = get_object_or_404(models.OutlineTime.select_related(), id=id5)
+    outline = get_object_or_404(models.Outline, owner=request.user, id=outline_time.outline.id)
+    mode = request.GET.get("mode")
+    page = request.GET.get("page")
+    outline_time.delete()
+    return (
+        reverse("base:planer_initial", args=[outline.id])
+        + f"?page={page}&mode={mode}"
+    )    
 
 
 @login_required

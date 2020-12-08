@@ -22,7 +22,7 @@ urlpatterns = [
     path("planer/<int:id1>/create_output", views.create_final_outline, name="planer_output",),
     path("planer/<int:id1>/complete", views.complete_outline, name="planer_complete",),
     path("planer/<int:id1>/update_troops", views.update_outline_troops, name="planer_update_troops",),
-    path("planer/planer-menu/<int:pk>", views.InitialDeleteTime.as_view(), name="planer_delete_time",),
+    path("planer/planer-menu/<int:pk>", views.initial_delete_time, name="planer_delete_time",),
     path("planer/<int:id1>/delete_target/<int:id2>", views.delete_target, name="planer_delete_target",),
     path("planer/<int:id1>/change-weight/<int:id2>/", views.change_weight_off, name="planer_change_weight",),
     path("planer/<int:id1>/planer-target/<int:id2>", views.initial_target, name="planer_initial_detail",),
@@ -46,6 +46,6 @@ urlpatterns = [
     path("planer/<int:_id>/delete/ally-tags",views.outline_delete_ally_tags,name="planer_delete_ally_tags"),
     path("planer/<int:_id>/delete/enemy-tags",views.outline_delete_enemy_tags,name="planer_delete_enemy_tags"),
     path("planer/<int:_id>/disable_editable",views.outline_disable_editable,name="planer_disable_editable"),
-    path("planer/<int:pk>/delete", views.OutlineDelete.as_view(), name="planer_delete"),
+    path("planer/<int:_id>/delete", views.outline_delete, name="planer_delete"),
     path("documentation", views.base_documentation, name="documentation"),
 ]

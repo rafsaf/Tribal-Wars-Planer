@@ -66,11 +66,12 @@ def inactive_outline(request, _id):
         return redirect("base:planer_all")
 
 
-class OutlineDelete(LoginRequiredMixin, DeleteView):
-    """ class based view to delete outline login required"""
-
-    model = models.Outline
-    success_url = reverse_lazy("base:planer")
+@require_POST
+@login_required
+def outline_delete(request, _id):
+    outline = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    outline.delete()
+    return redirect("base:planer")
 
 
 @login_required
