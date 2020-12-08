@@ -8,13 +8,14 @@ from tribal_wars import get_deff
 
 def legal_coords_near_targets(outline: models.Outline):
     """ Create set with ally_vill without enemy_vill closer than radius """
+    excluded_coords = outline.initial_outline_excluded_coords.split()
 
     radius = int(outline.initial_outline_target_dist)
     ally_villages = [weight["start"] for weight in models.WeightMaximum.objects.filter(outline=outline).values("start")]
     enemy_villages = [target["target"] for target in models.TargetVertex.objects.filter(outline=outline).values("target")]
 
     my_villages = models.VillageModel.objects.filter(coord__in=ally_villages, world=outline.world).values("x_coord", "y_coord", "coord")
-    enemy_villages = models.VillageModel.objects.filter(coord__in=enemy_villages, world=outline.world).values("x_coord", "y_coord")
+    enemy_villages = models.VillageModel.objects.exclude(coord__in=excluded_coords).filter(coord__in=enemy_villages, world=outline.world).values("x_coord", "y_coord")
 
     starts = get_deff.get_set_of_villages(
         ally_villages=my_villages,
@@ -56,12 +57,13 @@ def legal_coords_near_targets(outline: models.Outline):
 
 def get_legal_coords_outline(outline: models.Outline):
     """ Create set with ally_vill without enemy_vill closer than radius """
+    excluded_coords = outline.initial_outline_excluded_coords.split()
 
     radius = int(outline.initial_outline_front_dist)
     ally_villages = [weight["start"] for weight in models.WeightMaximum.objects.filter(outline=outline).values("start")]
 
     my_villages = models.VillageModel.objects.filter(coord__in=ally_villages, world=outline.world).values("x_coord", "y_coord", "coord")
-    enemy_villages = models.VillageModel.objects.select_related().filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world).values("x_coord", "y_coord")
+    enemy_villages = models.VillageModel.objects.select_related().exclude(coord__in=excluded_coords).filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world).values("x_coord", "y_coord")
 
     starts = get_deff.get_set_of_villages(
         ally_villages=my_villages,

@@ -112,7 +112,7 @@ class TargetWeightQueries:
         result_id_dict = {}
 
         for village in models.VillageModel.objects.filter(
-            coord__in=iterable_with_ids
+            coord__in=iterable_with_ids, world=self.outline.world
             ).values("coord", "village_id"):
 
             result_id_dict[
