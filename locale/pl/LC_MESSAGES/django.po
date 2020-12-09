@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-09 03:04+0100\n"
+"POT-Creation-Date: 2020-12-09 18:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -233,7 +233,7 @@ msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:78
 #: base/templates/base/new_outline/new_outline_initial_period3.html:239
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:241
-#: base/templates/base/overview.html:107
+#: base/templates/base/overview.html:122
 msgid "Target"
 msgstr "Cel"
 
@@ -463,11 +463,11 @@ msgstr ""
 "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być "
 "zamieszczane na kanale na discordzie."
 
-#: base/templates/base/base.html:337
+#: base/templates/base/base.html:338
 msgid "This is an open project Plemiona Planer."
 msgstr "To jest otwarty projekt Plemiona Planer."
 
-#: base/templates/base/base.html:339
+#: base/templates/base/base.html:340
 msgid ""
 "See an error? Please write <b>plemionaplaner.pl@gmail.com</b> or contact me "
 "with discord."
@@ -475,7 +475,7 @@ msgstr ""
 "Widzisz błąd? Napisz: <b>plemionaplaner.pl@gmail.com</b> lub skontakuj się "
 "przez discorda."
 
-#: base/templates/base/base.html:342
+#: base/templates/base/base.html:343
 msgid ""
 "Dear User, we inform you that by using the website you agree to our <a "
 "target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy and "
@@ -534,10 +534,12 @@ msgid ""
 "generated links will remain valid as is, but you will no longer be able to "
 "access them through the Results tab. You may consider hiding this outline "
 "instead of deleting it."
-msgstr "Utracisz cały postęp w tej rozpisce. Utworzone rozkazy, cele, "
-"zapisane wyniki skryptów oraz wszelkie inne dane również zostaną usunięte na zawsze. "
-"Wygenerowane linki pozostaną ważne i nie będzie w nich zmian, ale nie będziesz już miał "
-"do nich dostępu z zakładki Wyników. Możesz rozważyć ukrycie tej rozpiski zamiast jej usuwania."
+msgstr ""
+"Utracisz cały postęp w tej rozpisce. Utworzone rozkazy, cele, zapisane "
+"wyniki skryptów oraz wszelkie inne dane również zostaną usunięte na zawsze. "
+"Wygenerowane linki pozostaną ważne i nie będzie w nich zmian, ale nie "
+"będziesz już miał do nich dostępu z zakładki Wyników. Możesz "
+"rozważyć ukrycie tej rozpiski zamiast jej usuwania."
 
 #: base/templates/base/base_planer.html:81
 msgid "This operation cannot be undone!"
@@ -1021,7 +1023,7 @@ msgstr "Ustaw czasy wejścia i zakończ rozpiskę"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:311
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:415
-#: base/templates/base/overview.html:108
+#: base/templates/base/overview.html:123
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -1459,14 +1461,17 @@ msgid "Text"
 msgstr "Tekst"
 
 #: base/templates/base/overview.html:57 base/templates/base/overview.html:71
+#: base/templates/base/overview.html:87
 msgid "Successfully copied!"
 msgstr "Pomyślnie skopiowano!"
 
 #: base/templates/base/overview.html:57 base/templates/base/overview.html:71
+#: base/templates/base/overview.html:87
 msgid "Click to copy again"
 msgstr "Kliknij by ponownie skopiować"
 
 #: base/templates/base/overview.html:57 base/templates/base/overview.html:71
+#: base/templates/base/overview.html:87
 msgid "Copy to clipboard"
 msgstr "Kopiuj do schowka"
 
@@ -1478,7 +1483,15 @@ msgstr "Tabela"
 msgid "Hint: Use Text format if u have many commands. "
 msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
 
-#: base/templates/base/overview.html:96
+#: base/templates/base/overview.html:87
+msgid "Text for deputy"
+msgstr "Tekst dla zastępcy"
+
+#: base/templates/base/overview.html:89
+msgid "Hint: Use this one when someone else will send this commands."
+msgstr "Wskazówka: Użyj tej formy jeśli ktoś inny będzie za Ciebie wysyłał ataki z zastępstwa."
+
+#: base/templates/base/overview.html:111
 msgid "Alert! The order in the list below matters and is fixed."
 msgstr ""
 "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
@@ -1804,7 +1817,7 @@ msgstr "- W wiosce- "
 msgid "(All deff"
 msgstr "(Cały deff"
 
-#: tribal_wars/basic/table_text.py:9
+#: tribal_wars/basic/table_text.py:11
 msgid ""
 "[table][**][||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/"
 "**]"
@@ -1812,51 +1825,51 @@ msgstr ""
 "[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z "
 "WIOSKI[||]CEL[/**]"
 
-#: tribal_wars/basic/table_text.py:20
+#: tribal_wars/basic/table_text.py:31
 msgid "Send Fake"
 msgstr "Wyślij Fejk"
 
-#: tribal_wars/basic/table_text.py:22
+#: tribal_wars/basic/table_text.py:33
 msgid "Send Attack"
 msgstr "Wyślij Atak"
 
-#: tribal_wars/basic/table_text.py:47
+#: tribal_wars/basic/table_text.py:58
 msgid "from"
 msgstr "od"
 
-#: tribal_wars/basic/table_text.py:48
+#: tribal_wars/basic/table_text.py:59
 msgid "to"
 msgstr "do"
 
-#: tribal_wars/basic/table_text.py:56
+#: tribal_wars/basic/table_text.py:69
 msgid "Fake noble"
 msgstr "Fejk gruby"
 
-#: tribal_wars/basic/table_text.py:58
+#: tribal_wars/basic/table_text.py:71
 msgid "Fake ram"
 msgstr "Fejk taran"
 
-#: tribal_wars/basic/table_text.py:71
+#: tribal_wars/basic/table_text.py:86
 msgid "Nobles-"
 msgstr "Szlachcice-"
 
-#: tribal_wars/basic/table_text.py:72
+#: tribal_wars/basic/table_text.py:87
 msgid "from village"
 msgstr "z wioski"
 
-#: tribal_wars/basic/table_text.py:73
+#: tribal_wars/basic/table_text.py:88
 msgid "to "
 msgstr "na "
 
-#: tribal_wars/basic/table_text.py:75
+#: tribal_wars/basic/table_text.py:90
 msgid "Send [b]Fake noble[/b] (Off-"
 msgstr "Wyślij [b]Fake gruby[/b] (Off-"
 
-#: tribal_wars/basic/table_text.py:78
+#: tribal_wars/basic/table_text.py:93
 msgid "Send [b]Fake ram[/b] (Off-"
 msgstr "Wyślij [b]Fake taran[/b] (Off-"
 
-#: tribal_wars/basic/table_text.py:81
+#: tribal_wars/basic/table_text.py:96
 msgid "Send [b]Attack[/b] (Off-"
 msgstr "Wyślij [b]Atak[/b] (Off-"
 
