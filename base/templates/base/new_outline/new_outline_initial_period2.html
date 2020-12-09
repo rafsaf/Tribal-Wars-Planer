@@ -58,7 +58,8 @@
     </a> 
     {% endblock %}
     {% block content %}
-
+    <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
+    <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
     <div class="row">
         <figure class="col-2">
             <img class="d-none d-lg-flex img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
@@ -352,7 +353,7 @@
 
                     <th class="front-{{weight.first_line}}">
                         <div class="popoverData" data-html="true"
-                            data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
+                            data-content="<div class='text-center'><h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
                             rel="popover" data-placement="top" data-trigger="hover">
 
                             <table class="table table-sm">
@@ -385,7 +386,7 @@
                                                 <path d="M7 10h2v6H7v-6z" />
                                             </svg>
                                         </th>
-                                        <th style="font-size: small;">
+                                        <th style="font-size: small;" onclick="calculate_distance(this);">
                                             {{weight.distance}}
                                         </th>
 
@@ -416,6 +417,7 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
           })
+
     </script>
 
     {% endblock %}

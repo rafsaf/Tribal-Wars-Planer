@@ -57,10 +57,56 @@
 
             </td>
             <td>
-                <form action="{% url 'base:planer_delete' instance.id %}" method="POST">
-                    {% csrf_token %}
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary mb-2">{% trans 'Delete' %}</button>
-                </form>
+                <div>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal"
+                        data-target="#ValidationModal-{{instance.id}}">
+                        {% trans 'Delete' %}
+                    </button>
+                </div>
+                
+                <div class="modal fade" id="ValidationModal-{{instance.id}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{% trans 'Warning' %}</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="md-correct2">{{instance.name}}</h4>
+                                {% trans "You will lose all progress on this outline. The orders (weights), targets, entered script results and any data will be deleted forever too. The generated links will remain valid as is, but you will no longer be able to access them through the Results tab. You may consider hiding this outline instead of deleting it." %}
+                                
+                                <h5 class="md-error mt-2">{% trans "This operation cannot be undone!" %}</h5>
+                                
+                
+                            </div>
+                            <div class="modal-footer">
+                                <button id="dismiss-{{instance.id}}-btn" type="button" class="btn btn-secondary"
+                                    data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
+                                <form id="form-{{instance.id}}-form" action="{% url 'base:planer_delete' instance.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button id="form-{{instance.id}}-btn" class="btn btn-danger">
+                                        {% trans 'Delete forever' %}
+                                    </button>
+                
+                                </form>
+                            </div>
+                            <script>
+                                const buttonForm1 = document.getElementById("form-{{instance.id}}-btn")
+                                const buttonDismiss = document.getElementById("dismiss-{{instance.id}}-btn")
+                                buttonForm1.onclick = () => {
+                                    buttonForm1.disabled = true
+                                    buttonDismiss.disabled = true
+                                    buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
+                                    const form1 = document.getElementById("form-{{instance.id}}-form")
+                                    form1.submit()
+                                  }
+                            </script>
+                        </div>
+                    </div>
+                </div>
             </td>
 
  
@@ -72,4 +118,11 @@
 <p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer' %}" role="button">{% trans "Don't show hidden" %}</a></p>
 {% else %}
 <p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer_all' %}" role="button">{% trans 'Show hidden' %}</a></p>
-{% endif %} {% endblock %}
+{% endif %} 
+{% endblock %}
+<form action="{% url 'base:planer_delete' instance.id %}" method="POST">
+    {% csrf_token %}
+    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary mb-2">{% trans 'Delete' %}</button>
+</form>
+
+

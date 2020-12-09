@@ -60,3 +60,34 @@ var menu_toggle = function(){
                 interval: 2500
               });
 }
+
+const calculate_distance = (element) => {
+  world_speed = parseFloat(document.getElementById('speed_world').value);
+  units_speed = parseFloat(document.getElementById('speed_units').value);
+
+  if (element.clicked) {
+      element.innerHTML=element.distance;
+      element.clicked=false
+  } 
+  else {
+      element.distance=parseFloat(element.innerHTML);
+      let fixed_ram = (element.distance / units_speed / world_speed / 60 * 30)
+      if (fixed_ram > 99.9) {
+        fixed_ram = fixed_ram.toFixed(0)
+      }
+      else {
+        fixed_ram = fixed_ram.toFixed(1)
+      }
+
+      let fixed_noble = (element.distance / units_speed / world_speed / 60 * 35)
+      if (fixed_noble > 99.9) {
+        fixed_noble = fixed_noble.toFixed(0)
+      }
+      else {
+        fixed_noble = fixed_noble.toFixed(1)
+      }
+      
+      element.innerHTML=`<span class='text-nowrap'>${fixed_ram}h / ${fixed_noble}h</span>`;
+      element.clicked=true;
+  }
+}

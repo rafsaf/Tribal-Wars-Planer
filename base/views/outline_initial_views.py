@@ -181,6 +181,8 @@ def initial_form(request, _id):
             if formset_select.is_valid():
                 targets_to_update = []
                 for data, target in zip(formset_select.cleaned_data, targets):
+                    if data == {}:
+                        continue
                     target.mode_off = data['mode_off']
                     target.mode_noble = data['mode_noble']
                     target.mode_division = data['mode_division']

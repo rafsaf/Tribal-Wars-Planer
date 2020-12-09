@@ -4,7 +4,8 @@
 {% load i18n %}
 
     {% block content %}
-
+    <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
+    <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
     <div class="row">
         <figure class="col-2">
             <img class="d-none d-lg-flex img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight">
@@ -182,7 +183,7 @@
                                                 <path d="M7 10h2v6H7v-6z" />
                                             </svg>
                                         </th>
-                                        <th style="font-size: small;">
+                                        <th style="font-size: small;" onclick="calculate_distance(this);">
                                             {{weight.distance}}
                                         </th>
 

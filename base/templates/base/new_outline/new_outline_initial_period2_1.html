@@ -3,7 +3,8 @@
 {% load i18n %}
 {% block content %}
 
-
+<input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
+<input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 <div class="container-fluid">
     <form action="{% url 'base:planer_output' instance.id %}" method="POST">
         <div class="row justify-content-center mb-3">
@@ -491,7 +492,7 @@
                                             <path d="M7 10h2v6H7v-6z" />
                                         </svg>
                                     </th>
-                                    <th style="font-size: small;">
+                                    <th style="font-size: small;" onclick="calculate_distance(this);">
                                         {{weight.distance}}
                                     </th>
 
