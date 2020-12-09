@@ -258,15 +258,15 @@ class TestMakeOutlineFunction(TestCase):
         with self.assertNumQueries(8):
             initial.make_outline(outline=self.outline)
 
-    def test_repeat_make_outline_number_of_queries_is_14(self):
+    def test_repeat_make_outline_number_of_queries_is_15(self):
         # second one do not create weight max models
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(15):
             initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)
 
-    def test_repeat_make_outline_number_of_queries_is_20(self):
+    def test_repeat_make_outline_number_of_queries_is_22(self):
         # second one do not create weight max models
-        with self.assertNumQueries(20):
+        with self.assertNumQueries(22):
             initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)

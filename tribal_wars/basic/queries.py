@@ -43,10 +43,11 @@ class TargetWeightQueries:
 
             ids.add(weight.start)
             ids.add(weight.target.target)
+        result = self.__dict_with_village_ids(ids)
         return {
             "weights": context,
-            "village_ids": self.__dict_with_village_ids(ids)[0],
-            "player_ids": self.__dict_with_village_ids(ids)[1],
+            "village_ids": result[0],
+            "player_ids": result[1],
         }
 
     def target_period_dictionary(self):
