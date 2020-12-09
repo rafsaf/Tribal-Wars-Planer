@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-06 17:02+0100\n"
+"POT-Creation-Date: 2020-12-09 03:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,8 @@ msgstr "Większa lub równa 0 i mniejsza lub równa 150."
 
 #: base/forms.py:208
 msgid "Excluded enemy villages coords (secluded villages)"
-msgstr "Nieuwzględniane przy liczeniu frontowych offów wioski wroga (diody itp.)"
+msgstr ""
+"Nieuwzględniane przy liczeniu frontowych offów wioski wroga (diody itp.)"
 
 #: base/forms.py:211
 msgid "Exact coords separated by a space or an entry"
@@ -174,38 +175,38 @@ msgid "Noble"
 msgstr "Szlachcic"
 
 #: base/forms.py:364 base/forms.py:375
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:37
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:351
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:38
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:352
 msgid "From"
 msgstr "Od"
 
 #: base/forms.py:367 base/forms.py:376
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:38
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:352
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:39
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:353
 msgid "To"
 msgstr "Do"
 
 #: base/forms.py:374
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:33
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:349
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:34
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:350
 msgid "Mode"
 msgstr "Tryb"
 
 #: base/forms.py:377
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:34
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:350
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:35
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:351
 msgid "Unit"
 msgstr "Jednostka"
 
 #: base/forms.py:378
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:35
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:353
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:36
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:354
 msgid "Min. time"
 msgstr "Min. czas"
 
 #: base/forms.py:379
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:36
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:354
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:37
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:355
 msgid "Max. time"
 msgstr "Max. czas"
 
@@ -227,12 +228,12 @@ msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
 #: base/forms.py:516
 #: base/templates/base/new_outline/new_outline_initial_period1.html:324
-#: base/templates/base/new_outline/new_outline_initial_period2.html:309
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:412
+#: base/templates/base/new_outline/new_outline_initial_period2.html:310
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:413
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:78
-#: base/templates/base/new_outline/new_outline_initial_period3.html:240
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:244
-#: base/templates/base/overview.html:106
+#: base/templates/base/new_outline/new_outline_initial_period3.html:239
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:241
+#: base/templates/base/overview.html:107
 msgid "Target"
 msgstr "Cel"
 
@@ -240,31 +241,31 @@ msgstr "Cel"
 msgid "Valid coords, 7 chars"
 msgstr "Poprawne koordy, 7 znaków"
 
-#: base/forms.py:533
+#: base/forms.py:531
 msgid "This village is already a target!"
 msgstr "Ta wioska już jest celem !"
 
-#: base/forms.py:539
+#: base/forms.py:537
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:555
+#: base/forms.py:553
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:556
+#: base/forms.py:554
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:575
+#: base/forms.py:573
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:578
+#: base/forms.py:576
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:589
+#: base/forms.py:587
 msgid "You can set your server:"
 msgstr "Możesz ustawić swój serwer:"
 
@@ -421,36 +422,40 @@ msgstr "Aktualizacja"
 msgid "Account"
 msgstr "Konto"
 
-#: base/templates/base/base.html:156
+#: base/templates/base/base.html:157
 msgid "My account"
 msgstr "Moje Konto"
 
-#: base/templates/base/base.html:159
+#: base/templates/base/base.html:161
 msgid "Sign out"
 msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:161 base/templates/base/base.html:220
+#: base/templates/base/base.html:164 base/templates/base/base.html:231
 msgid "Sign in"
 msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:164 base/templates/base/base.html:222
+#: base/templates/base/base.html:167 base/templates/base/base.html:234
 #: templates/registration/login.html:24
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
-#: base/templates/base/base.html:169
+#: base/templates/base/base.html:172
 msgid "Language"
 msgstr "Język"
 
-#: base/templates/base/base.html:218
+#: base/templates/base/base.html:229
 msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:221 templates/registration/login.html:24
+#: base/templates/base/base.html:233 templates/registration/login.html:24
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:235
+#: base/templates/base/base.html:250
+msgid "Galery"
+msgstr "Galeria"
+
+#: base/templates/base/base.html:284
 msgid ""
 "Note, all announcements, proposals, reported bugs will be placed on the "
 "discord."
@@ -458,15 +463,11 @@ msgstr ""
 "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być "
 "zamieszczane na kanale na discordzie."
 
-#: base/templates/base/base.html:238
-msgid "Galery"
-msgstr "Galeria"
-
-#: base/templates/base/base.html:267
+#: base/templates/base/base.html:337
 msgid "This is an open project Plemiona Planer."
 msgstr "To jest otwarty projekt Plemiona Planer."
 
-#: base/templates/base/base.html:269
+#: base/templates/base/base.html:339
 msgid ""
 "See an error? Please write <b>plemionaplaner.pl@gmail.com</b> or contact me "
 "with discord."
@@ -474,7 +475,7 @@ msgstr ""
 "Widzisz błąd? Napisz: <b>plemionaplaner.pl@gmail.com</b> lub skontakuj się "
 "przez discorda."
 
-#: base/templates/base/base.html:272
+#: base/templates/base/base.html:342
 msgid ""
 "Dear User, we inform you that by using the website you agree to our <a "
 "target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy and "
@@ -505,23 +506,71 @@ msgid "Hide"
 msgstr "Ukryj"
 
 #: base/templates/base/base_planer.html:16
-#: base/templates/base/base_planer.html:62
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:381
+#: base/templates/base/base_planer.html:63
+#: base/templates/base/base_planer.html:125
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:382
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:90
 msgid "Delete"
 msgstr "Usuń"
 
 #: base/templates/base/base_planer.html:54
-#: base/templates/base/new_outline/new_outline_initial_period3.html:244
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:248
+#: base/templates/base/new_outline/new_outline_initial_period3.html:243
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:245
 msgid "Show"
 msgstr "Pokaż"
 
 #: base/templates/base/base_planer.html:72
+#: base/templates/base/new_outline/new_outline_create_select.html:90
+#: base/templates/base/new_outline/new_outline_initial_period2.html:99
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:45
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:43
+msgid "Warning"
+msgstr "Ostrzeżenie"
+
+#: base/templates/base/base_planer.html:79
+msgid ""
+"You will lose all progress on this outline. The orders (weights), targets, "
+"entered script results and any data will be deleted forever too. The "
+"generated links will remain valid as is, but you will no longer be able to "
+"access them through the Results tab. You may consider hiding this outline "
+"instead of deleting it."
+msgstr "Utracisz cały postęp w tej rozpisce. Utworzone rozkazy, cele, "
+"zapisane wyniki skryptów oraz wszelkie inne dane również zostaną usunięte na zawsze. "
+"Wygenerowane linki pozostaną ważne i nie będzie w nich zmian, ale nie będziesz już miał "
+"do nich dostępu z zakładki Wyników. Możesz rozważyć ukrycie tej rozpiski zamiast jej usuwania."
+
+#: base/templates/base/base_planer.html:81
+msgid "This operation cannot be undone!"
+msgstr "Tej operacji nie można cofnąć!"
+
+#: base/templates/base/base_planer.html:87
+#: base/templates/base/new_outline/new_outline_create_select.html:105
+#: base/templates/base/new_outline/new_outline_initial_period2.html:112
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:58
+#: base/templates/base/new_outline/new_outline_initial_period2_4.html:56
+#: base/templates/base/new_outline/new_outline_initial_period3.html:25
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:25
+msgid "Close"
+msgstr "Zamknij"
+
+#: base/templates/base/base_planer.html:91
+msgid "Delete forever"
+msgstr "Usuń na zawsze"
+
+#: base/templates/base/base_planer.html:102
+#: base/templates/base/new_outline/new_outline_get_deff.html:23
+#: base/templates/base/new_outline/new_outline_get_off.html:22
+#: base/templates/base/new_outline/new_outline_initial_period1.html:563
+#: base/templates/base/new_outline/new_outline_initial_period2.html:128
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:74
+msgid "Processing..."
+msgstr "Przetwarzanie..."
+
+#: base/templates/base/base_planer.html:118
 msgid "Don't show hidden"
 msgstr "Nie pokazuj ukrytych"
 
-#: base/templates/base/base_planer.html:74
+#: base/templates/base/base_planer.html:120
 msgid "Show hidden"
 msgstr "Pokaż ukryte"
 
@@ -677,13 +726,6 @@ msgstr "Usuń wszystkie"
 msgid "Save and create"
 msgstr "Zapisz i utwórz"
 
-#: base/templates/base/new_outline/new_outline_create_select.html:90
-#: base/templates/base/new_outline/new_outline_initial_period2.html:98
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:44
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:43
-msgid "Warning"
-msgstr "Ostrzeżenie"
-
 #: base/templates/base/new_outline/new_outline_create_select.html:96
 msgid ""
 " To avoid future conflicts you can set up ally and enemy tribes\n"
@@ -705,29 +747,12 @@ msgstr ""
 "li>\n"
 "                "
 
-#: base/templates/base/new_outline/new_outline_create_select.html:105
-#: base/templates/base/new_outline/new_outline_initial_period2.html:111
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:57
-#: base/templates/base/new_outline/new_outline_initial_period2_4.html:56
-#: base/templates/base/new_outline/new_outline_initial_period3.html:24
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:26
-msgid "Close"
-msgstr "Zamknij"
-
 #: base/templates/base/new_outline/new_outline_create_select.html:108
-#: base/templates/base/new_outline/new_outline_initial_period2.html:116
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:62
+#: base/templates/base/new_outline/new_outline_initial_period2.html:117
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:63
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:60
 msgid "Continue"
 msgstr "Kontynuuj"
-
-#: base/templates/base/new_outline/new_outline_get_deff.html:23
-#: base/templates/base/new_outline/new_outline_get_off.html:22
-#: base/templates/base/new_outline/new_outline_initial_period1.html:563
-#: base/templates/base/new_outline/new_outline_initial_period2.html:127
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:73
-msgid "Processing..."
-msgstr "Przetwarzanie..."
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:43
 msgid "Valid lines looks like (assuming that such a village 000|000 exists):"
@@ -818,10 +843,10 @@ msgstr "2. Zmiana daty akcji"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:291
 #: base/templates/base/new_outline/new_outline_initial_period1.html:504
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:178
-#: base/templates/base/new_outline/new_outline_initial_period3.html:246
-#: base/templates/base/new_outline/new_outline_initial_period3.html:293
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:250
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:321
+#: base/templates/base/new_outline/new_outline_initial_period3.html:245
+#: base/templates/base/new_outline/new_outline_initial_period3.html:292
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:247
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:318
 #: base/templates/base/new_outline/new_outline_results.html:65
 msgid "Save"
 msgstr "Zapisz"
@@ -881,8 +906,8 @@ msgid "Mode guide"
 msgstr "Dobieranie szlachty"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:416
-#: base/templates/base/new_outline/new_outline_initial_period3.html:203
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:206
+#: base/templates/base/new_outline/new_outline_initial_period3.html:202
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:203
 msgid "Divide"
 msgstr "Podziel"
 
@@ -921,14 +946,14 @@ msgstr "Aktualizacja danych..."
 msgid "Reloading troops..."
 msgstr "Ponowne przeliczanie..."
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:89
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:35
+#: base/templates/base/new_outline/new_outline_initial_period2.html:90
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:36
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:34
 msgid "Go back"
 msgstr "Powrót"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:104
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:50
+#: base/templates/base/new_outline/new_outline_initial_period2.html:105
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:51
 msgid ""
 " Current progress will be\n"
 "                                    <div class=\"md-error\">LOST!</div>\n"
@@ -940,97 +965,97 @@ msgstr ""
 "                                    <br>Powrócisz do poprzedniego "
 "formularza. "
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:160
-#: base/templates/base/new_outline/new_outline_initial_period2.html:164
-#: base/templates/base/new_outline/new_outline_initial_period3.html:86
-#: base/templates/base/new_outline/new_outline_initial_period3.html:93
-#: base/templates/base/new_outline/new_outline_initial_period3.html:354
-#: base/templates/base/new_outline/new_outline_initial_period3.html:361
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:88
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:95
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:382
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:389
+#: base/templates/base/new_outline/new_outline_initial_period2.html:161
+#: base/templates/base/new_outline/new_outline_initial_period2.html:165
+#: base/templates/base/new_outline/new_outline_initial_period3.html:85
+#: base/templates/base/new_outline/new_outline_initial_period3.html:92
+#: base/templates/base/new_outline/new_outline_initial_period3.html:353
+#: base/templates/base/new_outline/new_outline_initial_period3.html:360
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:85
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:379
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:386
 msgid "Previous"
 msgstr "Poprzednia"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:168
-#: base/templates/base/new_outline/new_outline_initial_period3.html:97
-#: base/templates/base/new_outline/new_outline_initial_period3.html:365
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:99
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:393
+#: base/templates/base/new_outline/new_outline_initial_period2.html:169
+#: base/templates/base/new_outline/new_outline_initial_period3.html:96
+#: base/templates/base/new_outline/new_outline_initial_period3.html:364
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:96
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:390
 msgid "of"
 msgstr "z"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:172
-#: base/templates/base/new_outline/new_outline_initial_period2.html:176
-#: base/templates/base/new_outline/new_outline_initial_period3.html:101
-#: base/templates/base/new_outline/new_outline_initial_period3.html:106
-#: base/templates/base/new_outline/new_outline_initial_period3.html:369
-#: base/templates/base/new_outline/new_outline_initial_period3.html:374
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:103
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:108
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:397
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:402
+#: base/templates/base/new_outline/new_outline_initial_period2.html:173
+#: base/templates/base/new_outline/new_outline_initial_period2.html:177
+#: base/templates/base/new_outline/new_outline_initial_period3.html:100
+#: base/templates/base/new_outline/new_outline_initial_period3.html:105
+#: base/templates/base/new_outline/new_outline_initial_period3.html:368
+#: base/templates/base/new_outline/new_outline_initial_period3.html:373
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:100
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:105
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:394
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:399
 msgid "Next"
 msgstr "Następna"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:182
-#: base/templates/base/new_outline/new_outline_initial_period2.html:191
+#: base/templates/base/new_outline/new_outline_initial_period2.html:183
+#: base/templates/base/new_outline/new_outline_initial_period2.html:192
 msgid "Add and remove targets"
 msgstr "Dodaj lub usuń cele"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:203
-#: base/templates/base/new_outline/new_outline_initial_period2.html:211
+#: base/templates/base/new_outline/new_outline_initial_period2.html:204
+#: base/templates/base/new_outline/new_outline_initial_period2.html:212
 msgid "Set real targets"
 msgstr "Ustaw cele"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:224
-#: base/templates/base/new_outline/new_outline_initial_period2.html:250
+#: base/templates/base/new_outline/new_outline_initial_period2.html:225
+#: base/templates/base/new_outline/new_outline_initial_period2.html:251
 msgid "Set fake targets"
 msgstr "Ustaw fejki"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:280
-#: base/templates/base/new_outline/new_outline_initial_period2.html:288
+#: base/templates/base/new_outline/new_outline_initial_period2.html:281
+#: base/templates/base/new_outline/new_outline_initial_period2.html:289
 msgid "Set time and confirm"
 msgstr "Ustaw czasy wejścia i zakończ rozpiskę"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:310
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:414
-#: base/templates/base/overview.html:107
+#: base/templates/base/new_outline/new_outline_initial_period2.html:311
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:415
+#: base/templates/base/overview.html:108
 msgid "Outline"
 msgstr "Rozpiska"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:342
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:141
+#: base/templates/base/new_outline/new_outline_initial_period2.html:343
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:142
 msgid "Edit"
 msgstr "Edytuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:12
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:13
 msgid "Confirm an outline and Exit"
 msgstr "Potwierdź całą rozpiskę i zakończ"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:61
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:62
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:71
 msgid "Create"
 msgstr "Utwórz"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:402
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:403
 msgid "Confirm selected"
 msgstr "Zatwierdź zmiany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:411
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:412
 msgid "Selected"
 msgstr "Wybrany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:413
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:414
 msgid "Select Time"
 msgstr "Wybierz Czas"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:108
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:109
 msgid "Fake Target"
 msgstr "Fejk Cel"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_2.html:109
+#: base/templates/base/new_outline/new_outline_initial_period2_2.html:110
 msgid "Fake Outline"
 msgstr "Fejk Rozpiska"
 
@@ -1100,8 +1125,8 @@ msgid "Number"
 msgstr "Numer"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:116
-#: base/templates/base/new_outline/new_outline_initial_period3.html:239
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:243
+#: base/templates/base/new_outline/new_outline_initial_period3.html:238
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:240
 #: base/templates/base/new_outline/new_outline_results.html:90
 #: base/templates/base/new_outline/new_outline_results.html:138
 msgid "Player"
@@ -1136,7 +1161,7 @@ msgstr ""
 msgid "Save changes"
 msgstr "Zapisz zmiany"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:8
+#: base/templates/base/new_outline/new_outline_initial_period3.html:9
 msgid ""
 "\n"
 "            <div class=\"container-fluid popoverData mt-3 mb-3\" data-html="
@@ -1169,152 +1194,152 @@ msgstr ""
 "\" rel=\"popover\" data-placement=\"right\" data-trigger=\"hover\">\n"
 "                "
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:23
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:25
+#: base/templates/base/new_outline/new_outline_initial_period3.html:24
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:24
 msgid "Change and save"
 msgstr "Zmień z zapisz"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:40
-#: base/templates/base/new_outline/new_outline_initial_period3.html:308
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:42
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:336
+#: base/templates/base/new_outline/new_outline_initial_period3.html:37
+#: base/templates/base/new_outline/new_outline_initial_period3.html:307
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:37
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:333
 msgid "Sort"
 msgstr "Sortuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:44
-#: base/templates/base/new_outline/new_outline_initial_period3.html:312
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:46
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:340
+#: base/templates/base/new_outline/new_outline_initial_period3.html:41
+#: base/templates/base/new_outline/new_outline_initial_period3.html:311
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:41
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:337
 msgid "Ascending by distance"
 msgstr "Rosnąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:45
-#: base/templates/base/new_outline/new_outline_initial_period3.html:313
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:47
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:341
+#: base/templates/base/new_outline/new_outline_initial_period3.html:42
+#: base/templates/base/new_outline/new_outline_initial_period3.html:312
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:42
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:338
 msgid "Average by distance"
 msgstr "Średnio ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:46
-#: base/templates/base/new_outline/new_outline_initial_period3.html:314
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:48
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:342
+#: base/templates/base/new_outline/new_outline_initial_period3.html:43
+#: base/templates/base/new_outline/new_outline_initial_period3.html:313
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:43
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:339
 msgid "Descending by distance"
 msgstr "Malejąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:47
-#: base/templates/base/new_outline/new_outline_initial_period3.html:315
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:49
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:343
+#: base/templates/base/new_outline/new_outline_initial_period3.html:44
+#: base/templates/base/new_outline/new_outline_initial_period3.html:314
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:44
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:340
 msgid "Descending by number of units"
 msgstr "Malejąco ze względu na liczbę jednostek"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:48
-#: base/templates/base/new_outline/new_outline_initial_period3.html:316
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:50
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:344
+#: base/templates/base/new_outline/new_outline_initial_period3.html:45
+#: base/templates/base/new_outline/new_outline_initial_period3.html:315
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:45
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:341
 msgid "Descending by number of noble"
 msgstr "Malejąco ze względu na ilość szlachty"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:54
-#: base/templates/base/new_outline/new_outline_initial_period3.html:322
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:56
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:350
+#: base/templates/base/new_outline/new_outline_initial_period3.html:51
+#: base/templates/base/new_outline/new_outline_initial_period3.html:321
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:51
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:347
 msgid "Closest full offs"
 msgstr "Najbliższe pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:55
-#: base/templates/base/new_outline/new_outline_initial_period3.html:323
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:57
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:351
+#: base/templates/base/new_outline/new_outline_initial_period3.html:52
+#: base/templates/base/new_outline/new_outline_initial_period3.html:322
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:52
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:348
 msgid "Closest noblemans"
 msgstr "Najbliższa szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:56
-#: base/templates/base/new_outline/new_outline_initial_period3.html:324
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:58
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:352
+#: base/templates/base/new_outline/new_outline_initial_period3.html:53
+#: base/templates/base/new_outline/new_outline_initial_period3.html:323
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:53
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:349
 msgid "Closest offs with noblemans"
 msgstr "Najbliższe pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:62
-#: base/templates/base/new_outline/new_outline_initial_period3.html:330
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:64
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:358
+#: base/templates/base/new_outline/new_outline_initial_period3.html:59
+#: base/templates/base/new_outline/new_outline_initial_period3.html:329
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:59
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:355
 msgid "Average full offs"
 msgstr "Średnio pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:63
-#: base/templates/base/new_outline/new_outline_initial_period3.html:331
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:65
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:359
+#: base/templates/base/new_outline/new_outline_initial_period3.html:60
+#: base/templates/base/new_outline/new_outline_initial_period3.html:330
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:60
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:356
 msgid "Average noblemans"
 msgstr "Średnio szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:64
-#: base/templates/base/new_outline/new_outline_initial_period3.html:332
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:66
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:360
+#: base/templates/base/new_outline/new_outline_initial_period3.html:61
+#: base/templates/base/new_outline/new_outline_initial_period3.html:331
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:61
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:357
 msgid "Average offs with noblemans"
 msgstr "Średnio pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:70
-#: base/templates/base/new_outline/new_outline_initial_period3.html:338
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:72
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:366
+#: base/templates/base/new_outline/new_outline_initial_period3.html:67
+#: base/templates/base/new_outline/new_outline_initial_period3.html:337
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:67
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:363
 msgid "Farthest full offs"
 msgstr "Najdalsze pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:71
-#: base/templates/base/new_outline/new_outline_initial_period3.html:339
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:73
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:367
+#: base/templates/base/new_outline/new_outline_initial_period3.html:68
+#: base/templates/base/new_outline/new_outline_initial_period3.html:338
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:68
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:364
 msgid "Farthest noblemans"
 msgstr "Najdalsza szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:72
-#: base/templates/base/new_outline/new_outline_initial_period3.html:340
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:74
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:368
+#: base/templates/base/new_outline/new_outline_initial_period3.html:69
+#: base/templates/base/new_outline/new_outline_initial_period3.html:339
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:69
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:365
 msgid "Farthest offs with noblemans"
 msgstr "Najdalsze pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:207
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:210
+#: base/templates/base/new_outline/new_outline_initial_period3.html:206
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:207
 msgid "Divide into 2"
 msgstr "Podziel na 2"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:211
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:214
+#: base/templates/base/new_outline/new_outline_initial_period3.html:210
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:211
 msgid "Divide into 3"
 msgstr "Podziel na 3"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:215
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:218
+#: base/templates/base/new_outline/new_outline_initial_period3.html:214
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:215
 msgid "Divide into 4"
 msgstr "Podziel na 4"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:241
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:245
+#: base/templates/base/new_outline/new_outline_initial_period3.html:240
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:242
 msgid "TW Stats"
 msgstr "TW Stats"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:242
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:246
+#: base/templates/base/new_outline/new_outline_initial_period3.html:241
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:243
 msgid "Troops from"
 msgstr "Offy od"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:243
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:247
+#: base/templates/base/new_outline/new_outline_initial_period3.html:242
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:244
 msgid "Troops to"
 msgstr "Offy do"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:245
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:249
+#: base/templates/base/new_outline/new_outline_initial_period3.html:244
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:246
 msgid "Cards on page"
 msgstr "Karty na stronę"
 
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:10
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:9
 msgid ""
 "\n"
 "            <div  class=\"container-fluid popoverData mt-3 mb-3\" data-html="
@@ -1413,15 +1438,15 @@ msgstr "Wyślij"
 msgid "Sent!"
 msgstr "Wysłano!"
 
-#: base/templates/base/overview.html:33
+#: base/templates/base/overview.html:34
 msgid "Copy"
 msgstr "Kopiuj"
 
-#: base/templates/base/overview.html:38
+#: base/templates/base/overview.html:39
 msgid "Details"
 msgstr "Szczegóły"
 
-#: base/templates/base/overview.html:50
+#: base/templates/base/overview.html:51
 msgid ""
 "The contents below shows your targets, please copy the one you like to your "
 "in-game notes."
@@ -1429,23 +1454,31 @@ msgstr ""
 "Poniższe pola tekstowe zawierają Twoje cele, skopiuj zawartość wybranego do "
 "swoich notatek w grze. "
 
-#: base/templates/base/overview.html:56
+#: base/templates/base/overview.html:57
 msgid "Text"
 msgstr "Tekst"
 
-#: base/templates/base/overview.html:56 base/templates/base/overview.html:70
+#: base/templates/base/overview.html:57 base/templates/base/overview.html:71
+msgid "Successfully copied!"
+msgstr "Pomyślnie skopiowano!"
+
+#: base/templates/base/overview.html:57 base/templates/base/overview.html:71
+msgid "Click to copy again"
+msgstr "Kliknij by ponownie skopiować"
+
+#: base/templates/base/overview.html:57 base/templates/base/overview.html:71
 msgid "Copy to clipboard"
 msgstr "Kopiuj do schowka"
 
-#: base/templates/base/overview.html:70
+#: base/templates/base/overview.html:71
 msgid "Table"
 msgstr "Tabela"
 
-#: base/templates/base/overview.html:72
+#: base/templates/base/overview.html:73
 msgid "Hint: Use Text format if u have many commands. "
 msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
 
-#: base/templates/base/overview.html:95
+#: base/templates/base/overview.html:96
 msgid "Alert! The order in the list below matters and is fixed."
 msgstr ""
 "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
@@ -1513,19 +1546,19 @@ msgstr "Serwer: "
 msgid "Set server"
 msgstr "Ustaw serwer"
 
-#: base/views/outline.py:107
+#: base/views/outline.py:108
 msgid "Never"
 msgstr "Nigdy"
 
-#: base/views/outline.py:110
+#: base/views/outline.py:111
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:33 base/views/results_get_deff.py:23
+#: base/views/outline_initial_views.py:34 base/views/results_get_deff.py:23
 msgid "Off collection empty!"
 msgstr "Zbiórka Offa pusta!"
 
-#: base/views/outline_initial_views.py:608
+#: base/views/outline_initial_views.py:605
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
