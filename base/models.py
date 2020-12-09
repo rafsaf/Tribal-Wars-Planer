@@ -486,6 +486,7 @@ class Overview(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     table = models.TextField()
     string = models.TextField()
+    deputy = models.TextField(default="")
     targets = models.TextField(default="")
     show_hidden = models.BooleanField(default=False)
     removed = models.BooleanField(default=False)

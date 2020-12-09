@@ -54,7 +54,7 @@
                 <div class="col-12 col-lg-8 offset-lg-2 mt-2">
                     <div class="mb-5" id='text' style="border-left: 5px solid teal;">
                         <h1 class="ml-2 font-nav">
-                            <span class="mr-2">{% trans 'Text' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('text-copy');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>{% trans 'Successfully copied!'%}`;setTimeout(()=>{this.innerHTML=`<svg width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>{% trans 'Click to copy again'%}`;this.blur()},1800);">{% trans 'Copy to clipboard' %}</button>
+                            <span class="mr-2">{% trans 'Text' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('text-copy');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>{% trans 'Successfully copied!'%}`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>{% trans 'Click to copy again'%}`;this.blur()},1800);">{% trans 'Copy to clipboard' %}</button>
                         </h1>
                         <div class="ml-2">
                             <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
@@ -68,7 +68,7 @@
                     <br>
                     <div class="mb-5" id='table' style="border-left: 5px solid teal;">
                     <h1 class="ml-2 font-nav">
-                        <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>{% trans 'Successfully copied!'%}`;setTimeout(()=>{this.innerHTML=`<svg width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>{% trans 'Click to copy again'%}`;this.blur()},1800);">{% trans 'Copy to clipboard' %}</button>
+                        <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>{% trans 'Successfully copied!'%}`;setTimeout(()=>{this.innerHTML=`<svg width='1.3em' class='mr-2'  height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>{% trans 'Click to copy again'%}`;this.blur()},1800);">{% trans 'Copy to clipboard' %}</button>
                     </h1>
                     <small class="ml-2 form-text text-muted">{% trans 'Hint: Use Text format if u have many commands. ' %}</small>
                     <div class="ml-2">
@@ -79,7 +79,22 @@
                             </textarea>
                     </div>
                     </div>
-
+                    <br>
+                    <br>
+                    <div class="mb-5" id='text' style="border-left: 5px solid teal;">
+                        <h1 class="ml-2 font-nav">
+                            
+                            <span class="mr-2">{% trans 'Text for deputy' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('deputy-copy');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>{% trans 'Successfully copied!'%}`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2' width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>{% trans 'Click to copy again'%}`;this.blur()},1800);">{% trans 'Copy to clipboard' %}</button>
+                        </h1>
+                        <small class="ml-2 form-text text-muted">{% trans 'Hint: Use this one when someone else will send this commands.' %}</small>
+                        <div class="ml-2">
+                            <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
+                            <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
+                            <textarea class="form-control mt-1" id="deputy-copy" rows="10">
+                                {{overview.deputy}}
+                                </textarea>
+                        </div>
+                    </div>
 
 
     

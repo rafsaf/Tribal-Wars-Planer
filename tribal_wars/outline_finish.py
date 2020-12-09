@@ -18,6 +18,7 @@ def make_final_outline(outline: models.Outline):
 
     # coord - village_id
     village_id = target_weight_ext_dict["village_ids"]
+    player_id = target_weight_ext_dict["player_ids"]
 
     text = basic.TableText(world=outline.world)
     update_weights = []
@@ -37,6 +38,7 @@ def make_final_outline(outline: models.Outline):
                     ally_id=village_id[weight.start],
                     enemy_id=village_id[weight.target.target],
                     fake=target.fake,
+                    deputy=player_id[weight.start]
                 )
                 weight.t1 = weight.t1.time()
                 weight.t2 = weight.t2.time()
@@ -57,13 +59,13 @@ def make_final_outline(outline: models.Outline):
 
     outline_overview = models.OutlineOverview.objects.create(outline=outline)
     overviews = []
-    for player, table, string in text.iterate_over():
+    for player, table, string, deputy in text.iterate_over():
         token = secrets.token_urlsafe()
 
         overviews.append(
             models.Overview(
                 outline=outline, player=player, token=token, outline_overview=outline_overview,
-                table=table, string=string, show_hidden=outline.default_show_hidden
+                table=table, string=string, deputy=deputy, show_hidden=outline.default_show_hidden
             )
         )
     models.Overview.objects.bulk_create(overviews)

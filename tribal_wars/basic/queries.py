@@ -45,7 +45,8 @@ class TargetWeightQueries:
             ids.add(weight.target.target)
         return {
             "weights": context,
-            "village_ids": self.__dict_with_village_ids(ids),
+            "village_ids": self.__dict_with_village_ids(ids)[0],
+            "player_ids": self.__dict_with_village_ids(ids)[1],
         }
 
     def target_period_dictionary(self):
@@ -110,14 +111,16 @@ class TargetWeightQueries:
 
     def __dict_with_village_ids(self, iterable_with_ids):
         result_id_dict = {}
+        result_player_id = {}
 
-        for village in models.VillageModel.objects.filter(
+        for village in models.VillageModel.objects.select_related().filter(
             coord__in=iterable_with_ids, world=self.outline.world
-            ).values("coord", "village_id"):
+            ).values("coord", "village_id", "player__player_id"):
 
             result_id_dict[
                 village["coord"]
             ] = village["village_id"]
 
-        return result_id_dict
+            result_player_id[village["coord"]] = village["player__player_id"]
+        return (result_id_dict, result_player_id)
 
