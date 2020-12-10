@@ -226,7 +226,7 @@
                     {% block content %}
                     <div class='text-center' >
                         <div class='background-image d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
-                            <h2 class="font-nav">{% trans 'Create simple and fast outlines' %}</h2>
+                            <h2 class="font-nav py-2">{% trans 'Create simple and fast outlines' %}</h2>
                             <a href="{% url 'login' %}" style="width: 32%" class="btn btn-ocean mt-5">
                                 <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
                             </a>
@@ -246,7 +246,7 @@
 
                         </div>
                         <div id='yt'>
-                            <div class="row mt-2">
+                            <div class="row mt-3">
 
                                 <div class="col-5 offset-1 d-none d-lg-block" style="border-left: 5px solid teal;">
                                     
@@ -256,30 +256,162 @@
                                     </div>
                                     <div class="mt-4 embed-responsive embed-responsive-16by9">
                                         <iframe class="embed-responsive-item" frameborder="2"
-                                            src="https://www.youtube.com/embed/5IieYbciZRk" allowfullscreen></iframe>
+                                            src="https://www.youtube.com/embed/-JjWdeSQJxI" allowfullscreen></iframe>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                        <ul class="nav nav-pills mb-3 mt-1 mx-auto" id="pills-tab" role="tablist">
+                                        <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Benefits' %}</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link ocean-tab-mid" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Seciurity' %}</a>
+                                                <a class="nav-link ocean-tab-mid" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Security' %}</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Author' %}</a>
                                             </li>
                                         </ul>
-                                        <div class="tab-content font-nav" id="pills-tabContent">
-                                            <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
-                                                {{info|safe}}
+                                        <div class="tab-content font-nav text-left" id="pills-tabContent" style="font-size: larger;">
+                                            <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab" >
+                                                <p class="mt-4">
+
+                                                      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                                                      </svg>
+                                                      {% trans 'You save a tons of time and have all outlines in one place.' %}
+                                                </p>
+                                                <p>
+
+                                                      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                                                      </svg>
+                                                      {% trans 'Players receive final orders ready to paste in the in-game notes and send.' %}
+                                                </p>
+                                                <p>
+
+                                                      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                                                      </svg>
+                                                      {% trans 'Instantly distribute created objectives to players.' %}
+                                                </p>
+                                                <p>
+
+                                                      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                                                      </svg>
+                                                      {% trans 'Friendly and easy-to-use interface.' %}
+                                                </p>
+                                                <p>
+
+                                                      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                                                      </svg>
+                                                      {% trans 'The ability to accurately describe each axeman yourself or leave it to the Planer, choosing from dozens of options.' %}
+                                                </p>
+                                                <p>
+
+                                                      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                                                      </svg>
+                                                      {% trans 'Growing number of users.' %}
+                                                </p>
+                                                <p>
+
+                                                      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                                                      </svg>
+                                                      {% trans 'Constantly adding new options and fixing bugs.' %}
+                                                </p>
+                                                <p>
+
+                                                      <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                        <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                                                      </svg>
+                                                      {% trans 'The scripts used are reported and approved by the game support.' %}
+                                                </p>
+                                                <p>
+
+                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="#dc3545" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                      </svg>
+                                                      {% trans 'Putting away notebooks, sheets and excel sheets in the trash.' %}
+                                                </p>
+                                                <p>
+
+                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="#dc3545" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                      </svg>
+                                                      {% trans 'You will avoid common problems like doubled commands.' %}
+                                                </p>
+                                                <p>
+
+                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="#dc3545" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                      </svg>
+                                                      {% trans 'No more mistakes when sending messages to players.' %}
+                                                </p>
                                             </div>
                                             <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                                {{marks|safe}}
+                                                <p class="mt-4">
+                                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-lock-fill" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>
+                                                        <path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                                                      </svg>
+                                                    {% trans 'The application is written in the modern and very secure <a target="_blank" href="https://www.djangoproject.com/">Django</a> framework. Therefore it solves COMPLETELY most of the seciurity mistakes of smaller applications like SQL injection, cross-site scripting, cross-site request forgery and clickjacking also providing a safe way to manage user accounts.' %}
+                                                    
+                                                </p>
+                                                <p>
+                                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-lock-fill" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>
+                                                        <path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                                                      </svg>
+                                                    {% trans 'When designing the application, special emphasis was placed on the security of user accounts, preventing access to the data entered by them for other users and third parties.' %}
+                                                    
+                                                </p>
+                                                <p>
+                                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-lock-fill" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>
+                                                        <path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                                                      </svg>
+                                                    {% trans 'Both the web server and the database server are located in the <a href="https://aws.amazon.com/">Amazon Web Services</a> cloud, with special attention to all their safety recommendations.' %}
+                                                    
+                                                </p>
+                                                <p>
+                                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-lock-fill" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>
+                                                        <path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                                                      </svg>
+                                                    {% trans 'The only one person involved in code writing and project maintenance from the beginning to date, means little risk of accidental sudden exposure of user data.' %}
+                                                    
+                                                </p>
+                                                <p>
+                                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-lock-fill" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>
+                                                        <path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                                                      </svg>
+                                                    {% trans 'Ensuring the privacy of users is the most important task of this project, your data will never be passed on to other users, game players or third parties or anyone else for any purpose.' %}
+                                                    
+                                                </p>
+                                                
                                             </div>
                                             <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                                {{example|safe}}
+                                                {% trans 'My name is Rafał, I am a student of the Faculty of Mathematics and Computer Science at the University of Wroclaw. For over a year I have been interested in web applications, both backend and frontend, cloud technologies and security in the web. I write mainly in Python and Javascript, but I also plan to learn other languages ​​and technologies :)' %}
+                                                
+                                                <br> <br>
+                                                {% trans 'In addition to the above, I am a fan of fantasy, I have been reading series more or less regularly since childhood, my favourite author is Ursula Le Guin and her series Earthsea. I am a seasonal runner (my greatest achievement is participation in provincial competitions), I love chess and poker and a good movie too.' %}
+                                                <br> <br>
+
                                             </div>
                                         </div>
                                     
@@ -291,7 +423,7 @@
                             <div class="font-nav mb-2 mt-0"
                             style="font-size: larger; max-width: 100%;">
     
-                            <p class="mb-3 mt-4">
+                            <p class="mb-3 mt-5 py-4" style="border-top: 1px solid teal;">
                                 <svg width="2em" height="2em" viewBox="0 0 17 16" class="bi bi-exclamation-triangle"
                                     fill="red" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -345,8 +477,8 @@
                                 </div>
                             </div>
 
-                        <h1 class="font-nav mt-5">{% trans 'Galery' %}</h1>
-                        <div style="border-top: 1px solid teal;">
+                        <h1 style="border-top: 1px solid teal;font-size:xxx-large;" class="font-nav mt-5 py-4">{% trans 'Galery' %} </h1>
+                        <div >
                             <div class='cover-container mt-2'>
                                 <img height="300" class="border" src="{% static 'images/img1_1.png'%}" alt="..."
                                     class="cover-item">

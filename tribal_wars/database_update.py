@@ -182,7 +182,7 @@ class WorldQuery:
                 return self.check_if_world_is_archived(req.url)
 
             tribe_set = set(
-                Tribe.objects.filter(world=self.world).values_list("tribe_id")
+                Tribe.objects.filter(world=self.world).values_list("tribe_id", "tag")
             )
 
             for line in [i.split(",") for i in req.text.split("\n")]:
@@ -190,15 +190,16 @@ class WorldQuery:
                     continue
 
                 tribe_id = int(line[0])
-                if (tribe_id,) in tribe_set:
+                tag = unquote(unquote_plus(line[2]))
 
-                    tribe_set.remove((tribe_id,))
+                if (tribe_id, tag) in tribe_set:
+                    tribe_set.remove((tribe_id, tag))
+
                 else:
-                    tag = unquote(unquote_plus(line[2]))
-                    tribe = Tribe(tribe_id=line[0], tag=tag, world=self.world)
+                    tribe = Tribe(tribe_id=tribe_id, tag=tag, world=self.world)
                     create_list.append(tribe)
 
-            Tribe.objects.filter(tribe_id__in=[item[0] for item in tribe_set]).delete()
+            Tribe.objects.filter(tribe_id__in=[item[0] for item in tribe_set], world=self.world).delete()
             Tribe.objects.bulk_create(create_list)
 
     def update_players(self):
