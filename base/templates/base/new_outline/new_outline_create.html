@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %} {% load i18n %} {% block content %} {% load crispy_forms_tags %}
 
-<div class="row mt-3">
+<div class="row mt-3 mb-4">
     <div class="col-12 col-lg-6">
         <h6 class="font-nav">{% trans 'Your server is set to' %} <span class="font-teal">{{profile.server}}.</span> <a href="{% url 'base:settings' %}">{% trans 'Click here to change it.' %}</a> </h6>
         <div class="alert alert-primary" role="alert">

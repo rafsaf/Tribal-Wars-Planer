@@ -224,13 +224,23 @@
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <div style="min-height: 80vh;">
                     {% block content %}
-                    <div class='text-center' style="padding-left:-15px !important;padding-right:-15px !important">
-                        <div class='background-image'>
+                    <div class='text-center' >
+                        <div class='background-image d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
                             <h2 class="font-nav">{% trans 'Create simple and fast outlines' %}</h2>
-                            <a href="{% url 'login' %}" style="min-width: 30%" class="btn btn-ocean mt-5">
-                                <h3>{% trans 'Sign in' %}</h3>
+                            <a href="{% url 'login' %}" style="width: 32%" class="btn btn-ocean mt-5">
+                                <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
                             </a>
-                            <p class=" mt-1">{% trans "Don't have an account? "  %}<a
+                            <p style="font-size: normal;" class="mt-1">{% trans "Don't have an account? "  %}<a
+                                    href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
+
+
+                        </div>
+                        <div class='background-image d-block d-lg-none' style="margin-left:-15px !important;margin-right:-15px !important">
+                            <h2 class="font-nav">{% trans 'Create simple and fast outlines' %}</h2>
+                            <a href="{% url 'login' %}" style="width: 60%" class="btn btn-ocean mt-5">
+                                <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
+                            </a>
+                            <p style="font-size: normal;" class="mt-1">{% trans "Don't have an account? "  %}<a
                                     href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
 
 
@@ -333,7 +343,8 @@
                     {% endblock %}
                 </div>
                 {% block footer %}
-                <footer class="text-center w-100" id='page-end'>
+                <div style="margin-left:-15px !important;margin-right:-15px !important">
+                <footer class="text-center w-100"  id='page-end'>
                     <div style="margin-top: 50px; font-size:larger;" class="font-nav">
                         {% trans 'This is an open project Plemiona Planer.' %}
                         <br>
@@ -346,6 +357,7 @@
 
                         <div>
                 </footer>
+                </div>
                 {% endblock %}
             </div>
 
