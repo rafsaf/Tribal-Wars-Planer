@@ -226,8 +226,8 @@
                     {% block content %}
                     <div class='text-center' >
                         <div class='background-image d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
-                            <h2 class="font-nav py-2">{% trans 'Create simple and fast outlines' %}</h2>
-                            <a href="{% url 'login' %}" style="width: 32%" class="btn btn-ocean mt-5">
+                            <h2 class="font-nav pt-2">{% trans 'Create simple and fast outlines' %}</h2>
+                            <a href="{% url 'login' %}" style="width: 32%" class="btn btn-ocean mt-3">
                                 <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
                             </a>
                             <p style="font-size: normal;" class="mt-1">{% trans "Don't have an account? "  %}<a
@@ -247,8 +247,13 @@
                         </div>
                         <div id='yt'>
                             <div class="row mt-3">
+                                {% if user.is_authenticated %}
+                                <div class="col-5 d-none d-lg-block" style="margin-left:5px">
+                                {% else %}
+                                <div class="col-0 col-lg-1"></div>
+                                <div class="col-5 d-none d-lg-block" style="border-left: 5px solid teal;">
+                                {% endif %}
 
-                                <div class="col-5 offset-1 d-none d-lg-block" style="border-left: 5px solid teal;">
                                     
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <iframe class="embed-responsive-item" frameborder="2"
@@ -259,7 +264,12 @@
                                             src="https://www.youtube.com/embed/-JjWdeSQJxI" allowfullscreen></iframe>
                                     </div>
                                 </div>
+                                {% if user.is_authenticated %}
                                 <div class="col-12 col-lg-6">
+                                {% else %}
+                                <div class="col-12 col-lg-5">
+                                {% endif %}
+                                
                                         <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Benefits' %}</a>
