@@ -75,17 +75,14 @@ class AdminWorld(admin.ModelAdmin):
 @admin.register(models.VillageModel)
 class AdminVillage(admin.ModelAdmin):
     list_display = [
+        "id",
+        "coord",
         "village_id",
-        "x_coord",
-        "y_coord",
-        "world",
-        "player",
     ]
     list_editable = [
-        "x_coord",
-        "y_coord",
-        "world",
-        "player",
+        "coord",
+        "village_id",
+
     ]
 
 
@@ -125,8 +122,4 @@ class AdminNewOutline(admin.ModelAdmin):
         "owner",
         "ally_tribe_tag",
         "enemy_tribe_tag",
-    ]
-    list_editable = [
-        "status",
-        "owner",
     ]

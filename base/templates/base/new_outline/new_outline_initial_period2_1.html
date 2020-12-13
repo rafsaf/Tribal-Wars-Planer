@@ -6,9 +6,9 @@
 <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
 <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 <div class="container-fluid">
-    <form action="{% url 'base:planer_output' instance.id %}" method="POST">
+    <form method="POST">
         <div class="row justify-content-center mb-3">
-
+            <input type="hidden" value="" name="form-finish">
             {% csrf_token %}
             <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean btn-block">{% trans 'Confirm an outline and Exit' %}</button>
 
@@ -43,10 +43,15 @@
 
                 <div class="form-row mb-2">
                         {% for field in form %}
-
+                        {% if forloop.first %}
                         <div class="col-md-2">
                             {{field}}
                         </div>
+                        {% else %}
+                        <div class="col-md-2">
+                            {{field}}
+                        </div>
+                        {% endif %}
                         {% endfor %}
 
                 </div>

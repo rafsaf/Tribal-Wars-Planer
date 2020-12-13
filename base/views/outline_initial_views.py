@@ -29,7 +29,9 @@ def initial_form(request, _id):
     returned after valid filled form earlier
 
     """
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
+    instance = get_object_or_404(
+        models.Outline.objects.select_related(), id=_id, owner=request.user
+    )
     if instance.off_troops == "":
         request.session["error"] = gettext("Off collection empty!")
         return redirect("base:planer_detail", _id)
@@ -77,8 +79,8 @@ def initial_form(request, _id):
     len_targets = len(targets)
 
     formset_select = formset_factory(
-            form=forms.ModeTargetSetForm, extra=len_targets, max_num=len_targets
-        )
+        form=forms.ModeTargetSetForm, extra=len_targets, max_num=len_targets
+    )
 
     form1.fields["target"].initial = instance.initial_outline_targets
     form2.fields[
@@ -87,9 +89,7 @@ def initial_form(request, _id):
     form2.fields[
         "initial_outline_target_dist"
     ].initial = instance.initial_outline_target_dist
-    form2.fields[
-        "initial_outline_min_off"
-    ].initial = instance.initial_outline_min_off
+    form2.fields["initial_outline_min_off"].initial = instance.initial_outline_min_off
     form2.fields[
         "initial_outline_excluded_coords"
     ].initial = instance.initial_outline_excluded_coords
@@ -99,10 +99,9 @@ def initial_form(request, _id):
     form4.fields["mode_division"].initial = instance.mode_division
     form4.fields["mode_guide"].initial = instance.mode_guide
     form4.fields["mode_split"].initial = instance.mode_split
-    form4.fields["initial_outline_fake_limit"].initial = instance.initial_outline_fake_limit
-
-
-    
+    form4.fields[
+        "initial_outline_fake_limit"
+    ].initial = instance.initial_outline_fake_limit
 
     if request.method == "POST":
         if "form1" in request.POST:
@@ -144,7 +143,6 @@ def initial_form(request, _id):
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.legal_coords_near_targets(outline=instance)
                 return redirect("base:planer_initial_form", _id)
-                
 
         if "form3" in request.POST:
             form3 = forms.SettingDateForm(request.POST)
@@ -171,11 +169,18 @@ def initial_form(request, _id):
                 instance.initial_outline_fake_limit = fake_limit
                 instance.save()
 
-                models.TargetVertex.objects.filter(outline=instance).update(mode_off=mode_off, mode_noble=mode_noble, mode_division=mode_division, mode_guide=mode_guide)
-                models.WeightMaximum.objects.filter(outline=instance).update(fake_limit=fake_limit)
+                models.TargetVertex.objects.filter(outline=instance).update(
+                    mode_off=mode_off,
+                    mode_noble=mode_noble,
+                    mode_division=mode_division,
+                    mode_guide=mode_guide,
+                )
+                models.WeightMaximum.objects.filter(outline=instance).update(
+                    fake_limit=fake_limit
+                )
 
                 return redirect("base:planer_initial_form", _id)
-        
+
         if "formset" in request.POST:
             formset_select = formset_select(request.POST)
             if formset_select.is_valid():
@@ -183,12 +188,20 @@ def initial_form(request, _id):
                 for data, target in zip(formset_select.cleaned_data, targets):
                     if data == {}:
                         continue
-                    target.mode_off = data['mode_off']
-                    target.mode_noble = data['mode_noble']
-                    target.mode_division = data['mode_division']
-                    target.mode_guide = data['mode_guide']
+                    target.mode_off = data["mode_off"]
+                    target.mode_noble = data["mode_noble"]
+                    target.mode_division = data["mode_division"]
+                    target.mode_guide = data["mode_guide"]
                     targets_to_update.append(target)
-                models.TargetVertex.objects.bulk_update(targets_to_update, fields=['mode_off', 'mode_noble', 'mode_division', 'mode_guide', ])
+                models.TargetVertex.objects.bulk_update(
+                    targets_to_update,
+                    fields=[
+                        "mode_off",
+                        "mode_noble",
+                        "mode_division",
+                        "mode_guide",
+                    ],
+                )
                 return redirect("base:planer_initial_form", _id)
         else:
             formset_select = formset_select(None)
@@ -212,15 +225,15 @@ def initial_form(request, _id):
         "form4": form4,
         "formset": formset_select,
     }
-    return render(
-        request, "base/new_outline/new_outline_initial_period1.html", context
-    )
+    return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
 
 @login_required
 def initial_planer(request, _id):
     """ view with form for initial period outline """
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
+    instance = get_object_or_404(
+        models.Outline.objects.select_related(), id=_id, owner=request.user
+    )
     if instance.written == "inactive":
         return Http404()
     if request.method == "POST":
@@ -289,7 +302,9 @@ def initial_planer(request, _id):
                         fake = False
                     coord = request.POST.get("target")
 
-                    village = models.VillageModel.objects.select_related().get(coord=coord, world=instance.world)
+                    village = models.VillageModel.objects.select_related().get(
+                        coord=coord, world=instance.world
+                    )
 
                     models.TargetVertex.objects.create(
                         outline=instance,
@@ -342,8 +357,7 @@ def initial_planer(request, _id):
         page_obj = paginator.get_page(page_number)
 
         choices = [
-            (f"{time.order}", f"{time.order}")
-            for time in dict_time_obj_to_periods
+            (f"{time.order}", f"{time.order}") for time in dict_time_obj_to_periods
         ]
 
         select_formset = formset_factory(
@@ -359,6 +373,23 @@ def initial_planer(request, _id):
         )
 
         if request.method == "POST":
+            if "form-finish" in request.POST:
+                target_with_no_time = (
+                    models.TargetVertex.objects.filter(outline=instance)
+                    .filter(outline_time=None)
+                    .exists()
+                )
+                if target_with_no_time:
+                    request.session["outline_error"] = gettext(
+                        "All targets must have Times"
+                    )
+                    return redirect(
+                        reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
+                    )
+                models.Overview.objects.filter(outline=instance).update(removed=True)
+                finish.make_final_outline(instance)
+                return redirect("base:planer_detail_results", _id)
+
             if "formset" in request.POST:
                 create_formset = create_formset(request.POST)
                 select_formset = select_formset()
@@ -370,10 +401,7 @@ def initial_planer(request, _id):
                         order = 1
                     else:
                         order = (
-                            outline_times_Q.aggregate(Max("order"))[
-                                "order__max"
-                            ]
-                            + 1
+                            outline_times_Q.aggregate(Max("order"))["order__max"] + 1
                         )
 
                     new_time = models.OutlineTime.objects.create(
@@ -393,9 +421,7 @@ def initial_planer(request, _id):
                 else:
                     for form in create_formset:
                         for err in form.errors:
-                            form.fields[err].widget.attrs[
-                                "class"
-                            ] += " border-invalid"
+                            form.fields[err].widget.attrs["class"] += " border-invalid"
 
             if "choice-formset" in request.POST:
                 select_formset = select_formset(request.POST)
@@ -404,9 +430,7 @@ def initial_planer(request, _id):
                 create_formset = create_formset()
                 if select_formset.is_valid():
                     update_list = []
-                    for data, tup in zip(
-                        select_formset.cleaned_data, page_obj
-                    ):
+                    for data, tup in zip(select_formset.cleaned_data, page_obj):
                         try:
                             index = int(data["choice"])
                         except KeyError:
@@ -453,18 +477,20 @@ def initial_planer(request, _id):
 @login_required
 def initial_target(request, id1, id2):
     """ view with form for initial period outline detail """
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
+    instance = get_object_or_404(
+        models.Outline.objects.select_related(), id=id1, owner=request.user
+    )
     if instance.written == "inactive":
         return Http404()
 
     target = get_object_or_404(models.TargetVertex, pk=id2)
-    village_id = models.VillageModel.objects.get(world=instance.world, coord=target.target).village_id
+    village_id = models.VillageModel.objects.get(
+        world=instance.world, coord=target.target
+    ).village_id
 
     link_to_tw = instance.world.tw_stats_link_to_village(village_id)
 
-    result_lst = models.WeightModel.objects.filter(target=target).order_by(
-        "order"
-    )
+    result_lst = models.WeightModel.objects.filter(target=target).order_by("order")
     for weight in result_lst:
         weight.distance = round(weight.distance, 1)
     # sort
@@ -509,9 +535,9 @@ def initial_target(request, id1, id2):
                 off = int(request.POST.get("off"))
                 nobleman = int(request.POST.get("nobleman"))
 
-                weight = models.WeightModel.objects.select_related(
-                    "state"
-                ).filter(id=weight_id)[0]
+                weight = models.WeightModel.objects.select_related("state").filter(
+                    id=weight_id
+                )[0]
                 state = weight.state
 
                 if off > weight.off:
@@ -521,9 +547,7 @@ def initial_target(request, id1, id2):
                     state.nobleman_max += nobleman - weight.nobleman
 
                 state.off_state = state.off_state - weight.off + off
-                state.nobleman_state = (
-                    state.nobleman_state - weight.nobleman + nobleman
-                )
+                state.nobleman_state = state.nobleman_state - weight.nobleman + nobleman
 
                 state.off_left = state.off_max - state.off_state
                 state.nobleman_left = state.nobleman_max - state.nobleman_state
@@ -578,18 +602,20 @@ def initial_target(request, id1, id2):
             context,
         )
 
+
 @require_POST
 @login_required
-def initial_delete_time(request, id5):
-    outline_time = get_object_or_404(models.OutlineTime.select_related(), id=id5)
-    outline = get_object_or_404(models.Outline, owner=request.user, id=outline_time.outline.id)
+def initial_delete_time(request, pk):
+    outline_time = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
+    outline = get_object_or_404(
+        models.Outline, owner=request.user, id=outline_time.outline.id
+    )
     mode = request.GET.get("mode")
     page = request.GET.get("page")
     outline_time.delete()
-    return (
-        reverse("base:planer_initial", args=[outline.id])
-        + f"?page={page}&mode={mode}"
-    )    
+    return redirect(
+        reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
+    )
 
 
 @login_required
@@ -601,9 +627,7 @@ def create_final_outline(request, id1):
         .exists()
     )
     if target_with_no_time:
-        request.session["outline_error"] = gettext(
-            "All targets must have Times"
-        )
+        request.session["outline_error"] = gettext("All targets must have Times")
         return redirect(
             reverse("base:planer_initial", args=[id1]) + "?page=1&mode=time"
         )
@@ -618,9 +642,7 @@ def complete_outline(request, id1):
     initial.complete_outline(outline=instance)
     instance.written = "active"
     instance.save()
-    return redirect(
-        reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu"
-    )
+    return redirect(reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu")
 
 
 @login_required
@@ -640,7 +662,7 @@ def update_outline_troops(request, id1):
                 " military data \n"
             )
         )
-        
+
         return redirect("base:planer_detail", id1)
     instance.avaiable_offs = []
     instance.avaiable_offs_near = []
