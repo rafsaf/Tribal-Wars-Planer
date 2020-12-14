@@ -248,10 +248,11 @@
                         <div id='yt'>
                             <div class="row mt-3">
                                 {% if user.is_authenticated %}
-                                <div class="col-5 d-none d-lg-block" style="margin-left:5px">
+                                <div class="col-0 col-lg-1"></div>
+                                <div class="col-5 d-none d-lg-block">
                                 {% else %}
                                 <div class="col-0 col-lg-1"></div>
-                                <div class="col-5 d-none d-lg-block" style="border-left: 5px solid teal;">
+                                <div class="col-5 d-none d-lg-block ml-4">
                                 {% endif %}
 
                                     
@@ -265,7 +266,7 @@
                                     </div>
                                 </div>
                                 {% if user.is_authenticated %}
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12 col-lg-5">
                                 {% else %}
                                 <div class="col-12 col-lg-5">
                                 {% endif %}
