@@ -44,9 +44,9 @@ def make_final_outline(outline: models.Outline):
                 weight.t2 = weight.t2.time()
 
                 update_weights.append(weight)
-    
+  
     models.WeightModel.objects.bulk_update(update_weights, ['t1', 't2'])
-    
+  
     outline_info = basic.OutlineInfo(outline=outline)
     outline_info.generate_nicks()
 
