@@ -119,11 +119,11 @@ class GetDeffForm(forms.Form):
 
     radius = forms.IntegerField(
         min_value=0,
-        max_value=100,
+        max_value=45,
         label=gettext_lazy("Radius"),
         widget=forms.NumberInput,
-        help_text=gettext_lazy("Max 100"),
-        initial=30,
+        help_text=gettext_lazy("Max 45"),
+        initial=10,
     )
 
     excluded = forms.CharField(
@@ -197,7 +197,7 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Greater than or equal to 1 and less than or equal to 28000."
             ),
             "initial_outline_front_dist": gettext_lazy(
-                "Greater than or equal to 0 and less than or equal to 100."
+                "Greater than or equal to 0 and less than or equal to 45."
             ),
             "initial_outline_target_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 150."

@@ -20,6 +20,9 @@
         {% endblock %}
  
  {% block content %}
+ <div class="text-center font-nav" style="background-color: rgb(15, 153, 153);color:white; height:min-content;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
+    <p>{% trans 'Now you can donate this project' %} <a style="color: rgb(78, 183, 243)" target="_blank" href="https://paypal.me/pools/c/8vcDj7febh">{% trans 'here' %}</a></p> 
+</div>
  <input id="speed_world" type="hidden" value="{{overview.outline.world.speed_world}}">
  <input id="speed_units" type="hidden" value="{{overview.outline.world.speed_units}}">
 <h1 class="font-nav text-center">{{overview.player}}</h1>

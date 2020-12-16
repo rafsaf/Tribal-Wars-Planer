@@ -220,10 +220,13 @@
                 </div>
             </nav>
 
-            <div class="mt-2 container-fluid">
+            <div class="container-fluid" style="margin-top: 10px;">
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <div style="min-height: 80vh;">
                     {% block content %}
+                    <div class="text-center font-nav" style="background-color: rgb(15, 153, 153);color:white; height:min-content;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
+                        <p>{% trans 'Now you can donate this project' %} <a style="color: rgb(78, 183, 243)" target="_blank" href="https://paypal.me/pools/c/8vcDj7febh">{% trans 'here' %}</a></p> 
+                    </div>
                     <div class='text-center' >
                         <div class='background-image d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
                             <h2 class="font-nav pt-2">{% trans 'Create simple and fast outlines' %}</h2>
