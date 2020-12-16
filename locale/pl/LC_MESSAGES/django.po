@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 21:56+0100\n"
+"POT-Creation-Date: 2020-12-16 04:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,37 +176,37 @@ msgstr "Szlachcic"
 
 #: base/forms.py:364 base/forms.py:375
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:38
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:352
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:357
 msgid "From"
 msgstr "Od"
 
 #: base/forms.py:367 base/forms.py:376
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:39
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:353
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:358
 msgid "To"
 msgstr "Do"
 
 #: base/forms.py:374
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:34
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:350
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:355
 msgid "Mode"
 msgstr "Tryb"
 
 #: base/forms.py:377
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:35
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:351
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:356
 msgid "Unit"
 msgstr "Jednostka"
 
 #: base/forms.py:378
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:36
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:354
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:359
 msgid "Min. time"
 msgstr "Min. czas"
 
 #: base/forms.py:379
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:37
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:355
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:360
 msgid "Max. time"
 msgstr "Max. czas"
 
@@ -229,7 +229,7 @@ msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 #: base/forms.py:516
 #: base/templates/base/new_outline/new_outline_initial_period1.html:324
 #: base/templates/base/new_outline/new_outline_initial_period2.html:310
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:413
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:428
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:78
 #: base/templates/base/new_outline/new_outline_initial_period3.html:239
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:241
@@ -453,144 +453,159 @@ msgstr "Twórz szybkie i proste rozpiski"
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:265
+#: base/templates/base/base.html:276
 msgid "Benefits"
 msgstr "Korzyści"
 
-#: base/templates/base/base.html:268
+#: base/templates/base/base.html:279
 msgid "Security"
 msgstr "Bezpieczeństwo"
 
-#: base/templates/base/base.html:271
+#: base/templates/base/base.html:282
 msgid "Author"
 msgstr "O Twórcy"
 
-#: base/templates/base/base.html:282
+#: base/templates/base/base.html:293
 msgid "You save a tons of time and have all outlines in one place."
-msgstr "Oszczędzisz mnóstwo czasu i będziesz mieć wszystkie rozpiski w jednym miejscu."
+msgstr ""
+"Oszczędzisz mnóstwo czasu i będziesz mieć wszystkie rozpiski w jednym "
+"miejscu."
 
-#: base/templates/base/base.html:290
+#: base/templates/base/base.html:301
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
-msgstr "Gracze otrzymają końcowe cele jako tekst gotowy do wklejenia do notatek i wysłania."
+msgstr ""
+"Gracze otrzymają końcowe cele jako tekst gotowy do wklejenia do notatek i "
+"wysłania."
 
-#: base/templates/base/base.html:298
+#: base/templates/base/base.html:309
 msgid "Instantly distribute created objectives to players."
 msgstr "Natychmiastowe wysyłanie do graczy utworzonych dla nich wytycznych."
 
-#: base/templates/base/base.html:306
+#: base/templates/base/base.html:317
 msgid "Friendly and easy-to-use interface."
 msgstr "Przyjazny i łatwy w obsłudze interfejs."
 
-#: base/templates/base/base.html:314
+#: base/templates/base/base.html:325
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
-msgstr "Możliwość rozpisania każdego topornika własnoręcznie albo pozostawienia ciężaru "
-"rozpisywania celi Planerowi, wybierając spośród dziesiątek opcji."
+msgstr ""
+"Możliwość rozpisania każdego topornika własnoręcznie albo pozostawienia "
+"ciężaru rozpisywania celi Planerowi, wybierając spośród dziesiątek opcji."
 
-#: base/templates/base/base.html:322
+#: base/templates/base/base.html:333
 msgid "Growing number of users."
 msgstr "Coraz więcej zaangażowanych w projekt użytkowników."
 
-#: base/templates/base/base.html:330
+#: base/templates/base/base.html:341
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Ciągłe dodawanie nowych opcji i naprawianie błędów."
 
-#: base/templates/base/base.html:338
+#: base/templates/base/base.html:349
 msgid "The scripts used are reported and approved by the game support."
-msgstr "Skrypty używane w grze wykorzystywane na stronie są zgłoszone i "
-"uznane za legalne przez Support."
+msgstr ""
+"Skrypty używane w grze wykorzystywane na stronie są zgłoszone i uznane za "
+"legalne przez Support."
 
-#: base/templates/base/base.html:346
+#: base/templates/base/base.html:357
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "Wyrzucisz wszystkie notatniki, kartki i arkusze excela do kosza."
 
-#: base/templates/base/base.html:354
+#: base/templates/base/base.html:365
 msgid "You will avoid common problems like doubled commands."
 msgstr "Pozbędziesz się typowych problemów jak podwojone komendy."
 
-#: base/templates/base/base.html:362
+#: base/templates/base/base.html:373
 msgid "No more mistakes when sending messages to players."
 msgstr "Nigdy więcej pomyłek przy rozsyłaniu celów graczom w wiadomościach."
 
-#: base/templates/base/base.html:371
+#: base/templates/base/base.html:382
 msgid ""
 "The application is written in the modern and very secure <a target=\"_blank"
 "\" href=\"https://www.djangoproject.com/\">Django</a> framework. Therefore "
 "it solves COMPLETELY most of the seciurity mistakes of smaller applications "
 "like SQL injection, cross-site scripting, cross-site request forgery and "
 "clickjacking also providing a safe way to manage user accounts."
-msgstr "Aplikacja jest napisana w nowoczesnym i bardzo bezpiecznym frameworku <a target=\"_blank"
-"\" href=\"https://www.djangoproject.com/\">Django</a>. Pozwala to na "
-"CAŁKOWITE pozbycie się popularnych w mniejszych aplikacjach luk w bezpieczeństwie "
-"takich jak SQL injection, cross-site scripting, cross-site request forgery czy "
-"clickjacking, zapewniając jednocześnie w bezpieczny sposób utrzymywanie kont "
-"użytkowników."
+msgstr ""
+"Aplikacja jest napisana w nowoczesnym i bardzo bezpiecznym frameworku <a "
+"target=\"_blank\" href=\"https://www.djangoproject.com/\">Django</a>. "
+"Pozwala to na CAŁKOWITE pozbycie się popularnych w mniejszych aplikacjach "
+"luk w bezpieczeństwie takich jak SQL injection, cross-site scripting, cross-"
+"site request forgery czy clickjacking, zapewniając jednocześnie w bezpieczny "
+"sposób utrzymywanie kont użytkowników."
 
-#: base/templates/base/base.html:379
+#: base/templates/base/base.html:390
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
 "users and third parties."
-msgstr "Podczas projektownia aplikacji, ogromny nacisk został położony na kwestie "
-"bezpieczeństwa kont użytkowników, uniemożliwiając jakikolwiek dostęp do danych użytkowników "
-"innym użytkownikom strony oraz osobom trzecim."
+msgstr ""
+"Podczas projektownia aplikacji, ogromny nacisk został położony na kwestie "
+"bezpieczeństwa kont użytkowników, uniemożliwiając jakikolwiek dostęp do "
+"danych użytkowników innym użytkownikom strony oraz osobom trzecim."
 
-#: base/templates/base/base.html:387
+#: base/templates/base/base.html:398
 msgid ""
 "Both the web server and the database server are located in the <a href="
 "\"https://aws.amazon.com/\">Amazon Web Services</a> cloud, with special "
 "attention to all their safety recommendations."
-msgstr "Oba serwery wykorzystywane przez stronę, tzn. web serwer oraz serwer z bazą danych "
-"znajdują się w chmurze <a href=\"https://aws.amazon.com/\">Amazon Web Services</a>, "
-"ze specjalnym naciskiem położonym na ich rekomendacje w kwestiach bezpieczeństwa."
+msgstr ""
+"Oba serwery wykorzystywane przez stronę, tzn. web serwer oraz serwer z bazą "
+"danych znajdują się w chmurze <a href=\"https://aws.amazon.com/\">Amazon Web "
+"Services</a>, ze specjalnym naciskiem położonym na ich rekomendacje w "
+"kwestiach bezpieczeństwa."
 
-#: base/templates/base/base.html:395
+#: base/templates/base/base.html:406
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
 "user data."
-msgstr "Jedna osoba zaangażowana w pisanie kodu oraz opiekę i zarządzanie projektem "
-"od początku do dnia dzisiejszego, oznacza relatywnie małą szansę na przypadkowe, "
-"nagłe narażenie danych użytkowników na ekspozycję."
+msgstr ""
+"Jedna osoba zaangażowana w pisanie kodu oraz opiekę i zarządzanie projektem "
+"od początku do dnia dzisiejszego, oznacza relatywnie małą szansę na "
+"przypadkowe, nagłe narażenie danych użytkowników na ekspozycję."
 
-#: base/templates/base/base.html:403
+#: base/templates/base/base.html:414
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
 "parties or anyone else for any purpose."
-msgstr "Zapewnienie prywatności użytkownikom strony jest pierwszym i najważniejszym "
-"realizowanym celem tego projektu, Twoje dane nigdy nie zostaną udostępnione innym "
-"użytkownikom, graczom gry, osobom trzecim a także komukolwiek innemu, z jakiegokolwiek "
-"powodu."
+msgstr ""
+"Zapewnienie prywatności użytkownikom strony jest pierwszym i najważniejszym "
+"realizowanym celem tego projektu, Twoje dane nigdy nie zostaną udostępnione "
+"innym użytkownikom, graczom gry, osobom trzecim a także komukolwiek innemu, "
+"z jakiegokolwiek powodu."
 
-#: base/templates/base/base.html:409
+#: base/templates/base/base.html:420
 msgid ""
 "My name is Rafał, I am a student of the Faculty of Mathematics and Computer "
 "Science at the University of Wroclaw. For over a year I have been interested "
 "in web applications, both backend and frontend, cloud technologies and "
 "security in the web. I write mainly in Python and Javascript, but I also "
 "plan to learn other languages ​​and technologies :)"
-msgstr "Mam na imię Rafał, jestem studentem wydziału Matematyki i Informatyki "
-"Uniwersytetu Wrocławiskiego. Od ponad roku interesuję się aplikacjami webowymi, "
-"tak backendem jak i frontendem, technologiami chmurowymi i bezpieczeństwem w sieci. "
-"Piszę głównie w Pythonie i JS, ale mam w planach także naukę innych języków i "
-"technologii :)"
+msgstr ""
+"Mam na imię Rafał, jestem studentem wydziału Matematyki i Informatyki "
+"Uniwersytetu Wrocławiskiego. Od ponad roku interesuję się aplikacjami "
+"webowymi, tak backendem jak i frontendem, technologiami chmurowymi i "
+"bezpieczeństwem w sieci. Piszę głównie w Pythonie i JS, ale mam w planach "
+"także naukę innych języków i technologii :)"
 
-#: base/templates/base/base.html:412
+#: base/templates/base/base.html:423
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
 "Guin and her series Earthsea. I am a seasonal runner (my greatest "
 "achievement is participation in provincial competitions), I love chess and "
 "poker and a good movie too."
-msgstr "Ponadto jestem wielkim fanem fantastyki, czytam mniej lub bardziej regularnie "
-"kolejne serie fantasy od dzieciństwa. Moim ulubionym autorem jest Ursula Le Guin, zaś "
-"serią jej cykl Ziemiomorze. Jestem sezonowym biegaczem (największe osiągnięcie to "
-"występ na zawodach na szczeblu wojewódzkim), lubię szachy i pokera a także dobry film."
+msgstr ""
+"Ponadto jestem wielkim fanem fantastyki, czytam mniej lub bardziej "
+"regularnie kolejne serie fantasy od dzieciństwa. Moim ulubionym autorem jest "
+"Ursula Le Guin, zaś serią jej cykl Ziemiomorze. Jestem sezonowym biegaczem "
+"(największe osiągnięcie to występ na zawodach na szczeblu wojewódzkim), "
+"lubię szachy i pokera a także dobry film."
 
-#: base/templates/base/base.html:434
+#: base/templates/base/base.html:445
 msgid ""
 "Note, all announcements, proposals, reported bugs will be placed on the "
 "discord."
@@ -598,15 +613,15 @@ msgstr ""
 "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być "
 "zamieszczane na kanale na discordzie."
 
-#: base/templates/base/base.html:480
+#: base/templates/base/base.html:491
 msgid "Galery"
 msgstr "Galeria"
 
-#: base/templates/base/base.html:514
+#: base/templates/base/base.html:525
 msgid "This is an open project Plemiona Planer."
 msgstr "To jest otwarty projekt Plemiona Planer."
 
-#: base/templates/base/base.html:516
+#: base/templates/base/base.html:527
 msgid ""
 "See an error? Please write <b>plemionaplaner.pl@gmail.com</b> or contact me "
 "with discord."
@@ -614,7 +629,7 @@ msgstr ""
 "Widzisz błąd? Napisz: <b>plemionaplaner.pl@gmail.com</b> lub skontakuj się "
 "przez discorda."
 
-#: base/templates/base/base.html:519
+#: base/templates/base/base.html:530
 msgid ""
 "Dear User, we inform you that by using the website you agree to our <a "
 "target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy and "
@@ -647,7 +662,7 @@ msgstr "Ukryj"
 #: base/templates/base/base_planer.html:16
 #: base/templates/base/base_planer.html:63
 #: base/templates/base/base_planer.html:125
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:382
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:391
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:90
 msgid "Delete"
 msgstr "Usuń"
@@ -1161,7 +1176,7 @@ msgid "Set time and confirm"
 msgstr "Ustaw czasy wejścia i zakończ rozpiskę"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:311
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:415
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:430
 #: base/templates/base/overview.html:123
 msgid "Outline"
 msgstr "Rozpiska"
@@ -1175,20 +1190,24 @@ msgstr "Edytuj"
 msgid "Confirm an outline and Exit"
 msgstr "Potwierdź całą rozpiskę i zakończ"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:62
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:67
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:71
 msgid "Create"
 msgstr "Utwórz"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:403
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:396
+msgid "Set for every target"
+msgstr "Ustaw dla wszystkich celów"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:418
 msgid "Confirm selected"
 msgstr "Zatwierdź zmiany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:412
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:427
 msgid "Selected"
 msgstr "Wybrany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:414
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:429
 msgid "Select Time"
 msgstr "Wybierz Czas"
 
@@ -1708,11 +1727,12 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:34 base/views/results_get_deff.py:23
+#: base/views/outline_initial_views.py:36 base/views/results_get_deff.py:23
 msgid "Off collection empty!"
 msgstr "Zbiórka Offa pusta!"
 
-#: base/views/outline_initial_views.py:605
+#: base/views/outline_initial_views.py:384
+#: base/views/outline_initial_views.py:646
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
