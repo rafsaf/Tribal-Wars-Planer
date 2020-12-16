@@ -617,6 +617,22 @@ def initial_delete_time(request, pk):
         reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
     )
 
+@require_POST
+@login_required
+def initial_set_all_time(request, pk):
+    outline_time = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
+    outline = get_object_or_404(
+        models.Outline, owner=request.user, id=outline_time.outline.id
+    )
+    mode = request.GET.get("mode")
+    page = request.GET.get("page")
+    targets = models.TargetVertex.objects.filter(outline=outline)
+    targets.update(outline_time=outline_time)
+
+    return redirect(
+        reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
+    )
+
 
 @login_required
 def create_final_outline(request, id1):

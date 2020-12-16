@@ -381,11 +381,21 @@
 
                         </tbody>
                     </table>
+
+                    <div class="btn-group" role="group" aria-label="Basic example">
+
+  
                     <form method="POST"
                         action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
                         {% csrf_token %}
                         <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
                     </form>
+                    <form method="POST"
+                        action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                        {% csrf_token %}
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-ocean ml-2">{% trans 'Set for every target' %}</button>
+                    </form>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
