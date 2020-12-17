@@ -18,6 +18,7 @@ class OutlineInfo:
         self.target_message = _("Targets:") + "\r\n"
         self.fake_message = _("Fakes:") + "\r\n"
         self.players = ""
+        self.world_evidence = basic.world_evidence(self.outline.world)
 
     def generate_nicks(self):
         result = _("Nicknames: ") + "\r\n\r\n"
@@ -65,3 +66,39 @@ class OutlineInfo:
     def show_sum_up(self):
         self.generate_sum_up()
         return self.target_message + "\r\n\r\n" + self.fake_message
+
+    def parse_weight_to_army(self, weight_max: models.WeightMaximum, line_lst, noble_index):
+        line_lst[0] = str(weight_max.start) + ","
+        line_lst[3] = str(weight_max.off_left) + ","
+        line_lst[noble_index] = str(weight_max.nobleman_left) + ","
+        return "".join(line_lst)
+
+    def show_export_troops(self):
+        evidence_dictionary = {
+            (1, 1, 1): 16,
+            (1, 1, 0): 15,
+            (0, 1, 1): 15,
+            (1, 0, 1): 14,
+            (1, 0, 0): 13,
+            (0, 0, 1): 13,
+            (0, 1, 0): 14,
+            (0, 0, 0): 12,
+        }
+        line_length = evidence_dictionary[self.world_evidence]
+        line_lst = ["0," for i in range(line_length)]
+        if self.world_evidence[1] == 0:
+            if self.world_evidence[0] == 0:
+                noble_index = 9
+            else:
+                noble_index = 10
+        elif self.world_evidence[0] == 0:
+            noble_index = 11
+        else:
+            noble_index = 12
+        
+        sum_text = ""
+        for weight_max in models.WeightMaximum.objects.filter(outline=self.outline):
+            sum_text += self.parse_weight_to_army(weight_max, line_lst, noble_index)
+            sum_text += "\r\n"
+        return sum_text
+

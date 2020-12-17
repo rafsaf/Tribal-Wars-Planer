@@ -350,25 +350,24 @@
     <pre id="copy-button-3" class="prettyprint md-pre">
     // ==UserScript==
     // @name     GET message autocomplete
-    // @version  1.0
-    // @match    *://*.plemiona.pl/game.php*screen=mail*mode=new*
+    // @version  1
+    // @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=mail&ast;mode=new&ast;
     // ==/UserScript==
     // By Rafsaf
-    
-    const hash = window.location.hash.substr(1);
-    const result = hash.split('&').reduce(function (res, item) {
-        var parts = item.split('=');
-        res[parts[0]] = parts[1];
-        return res;
-    }, {});
-    if ("to" in result) {
-        document.getElementById('to').value = decodeURI(result.to);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const to = urlParams.get('to');
+    const subject = urlParams.get('subject');
+    const message = urlParams.get('message');
+
+    if (to) {
+        document.getElementById('to').value = to;
     }
-    if ("subject" in result) {
-        document.getElementsByName('subject')[0].value = decodeURI(result.subject);
+    if (subject) {
+        document.getElementsByName('subject')[0].value = subject;
     }
-    if ("message" in result) {
-        document.getElementById('message').value = decodeURI(result.message);
+    if (message) {
+        document.getElementById('message').value = message;
     }
     </pre>
 

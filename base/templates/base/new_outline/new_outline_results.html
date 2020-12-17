@@ -10,7 +10,7 @@
 
  
 <div class="table-responsive">
-<div class="mt-2" id='leftscroll'>
+<div class="mt-2 mb-5" id='leftscroll'>
     <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
         <li class="nav-item navitem100">
             <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
@@ -27,6 +27,10 @@
 
         <li class="nav-item navitem100">
             <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
+        </li>
+
+        <li class="nav-item navitem100">
+            <a class="nav-link ocean-tab-mid" id="pills-export" data-toggle="pill" href="#pills-outline-export" role="tab" aria-controls="pills-export" aria-selected="false">{% trans 'Left troops' %}</a>
         </li>
 
         <li class="nav-item navitem100">
@@ -186,6 +190,15 @@
         <div class="tab-pane fade" id="pills-outline-copy2" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group" contenteditable="true">
                 <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_outline}}</textarea>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-outline-export" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="my-3">
+              {% trans 'Below you will find the remaining unused player armies. The data is generated AFTER the whole outline is completed, together with the targets, commands, link, etc. If you plan to create a second outline, e.g. for the next day, create a new outline and paste the data below. Although you can use it any other way :) Note that for the sake of simplicity, all offensive troops are listed as axemen, while deff troops are omitted.' %}
+            </div>
+            <div class="form-group" contenteditable="true">
+                <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_export}}</textarea>
             </div>
         </div>
 

@@ -307,6 +307,7 @@ class Result(models.Model):
     results_outline = models.TextField(default="")
     results_players = models.TextField(default="")
     results_sum_up = models.TextField(default="")
+    results_export = models.TextField(default="")
 
     def __str__(self):
         return self.outline.name + " results"

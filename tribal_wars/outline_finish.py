@@ -54,6 +54,7 @@ def make_final_outline(outline: models.Outline):
     result_instance.results_outline = text.get_full_result()
     result_instance.results_players = outline_info.players
     result_instance.results_sum_up = outline_info.show_sum_up()
+    result_instance.results_export = outline_info.show_export_troops()
 
     result_instance.save()
 
