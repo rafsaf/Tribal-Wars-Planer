@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-16 22:35+0100\n"
+"POT-Creation-Date: 2020-12-17 01:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -463,40 +463,44 @@ msgstr "Twórz szybkie i proste rozpiski"
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:279
+#: base/templates/base/base.html:265
+msgid "Show more videos"
+msgstr "Pokaż więcej filmów"
+
+#: base/templates/base/base.html:288
 msgid "Benefits"
 msgstr "Korzyści"
 
-#: base/templates/base/base.html:282
+#: base/templates/base/base.html:291
 msgid "Security"
 msgstr "Bezpieczeństwo"
 
-#: base/templates/base/base.html:285
+#: base/templates/base/base.html:294
 msgid "Author"
 msgstr "O Twórcy"
 
-#: base/templates/base/base.html:296
+#: base/templates/base/base.html:305
 msgid "You save a tons of time and have all outlines in one place."
 msgstr ""
 "Oszczędzisz mnóstwo czasu i będziesz mieć wszystkie rozpiski w jednym "
 "miejscu."
 
-#: base/templates/base/base.html:304
+#: base/templates/base/base.html:313
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
 msgstr ""
 "Gracze otrzymają końcowe cele jako tekst gotowy do wklejenia do notatek i "
 "wysłania."
 
-#: base/templates/base/base.html:312
+#: base/templates/base/base.html:321
 msgid "Instantly distribute created objectives to players."
 msgstr "Natychmiastowe wysyłanie do graczy utworzonych dla nich wytycznych."
 
-#: base/templates/base/base.html:320
+#: base/templates/base/base.html:329
 msgid "Friendly and easy-to-use interface."
 msgstr "Przyjazny i łatwy w obsłudze interfejs."
 
-#: base/templates/base/base.html:328
+#: base/templates/base/base.html:337
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
@@ -504,33 +508,33 @@ msgstr ""
 "Możliwość rozpisania każdego topornika własnoręcznie albo pozostawienia "
 "ciężaru rozpisywania celi Planerowi, wybierając spośród dziesiątek opcji."
 
-#: base/templates/base/base.html:336
+#: base/templates/base/base.html:345
 msgid "Growing number of users."
 msgstr "Coraz więcej zaangażowanych w projekt użytkowników."
 
-#: base/templates/base/base.html:344
+#: base/templates/base/base.html:353
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Ciągłe dodawanie nowych opcji i naprawianie błędów."
 
-#: base/templates/base/base.html:352
+#: base/templates/base/base.html:361
 msgid "The scripts used are reported and approved by the game support."
 msgstr ""
 "Skrypty używane w grze wykorzystywane na stronie są zgłoszone i uznane za "
 "legalne przez Support."
 
-#: base/templates/base/base.html:360
+#: base/templates/base/base.html:369
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "Wyrzucisz wszystkie notatniki, kartki i arkusze excela do kosza."
 
-#: base/templates/base/base.html:368
+#: base/templates/base/base.html:377
 msgid "You will avoid common problems like doubled commands."
 msgstr "Pozbędziesz się typowych problemów jak podwojone komendy."
 
-#: base/templates/base/base.html:376
+#: base/templates/base/base.html:385
 msgid "No more mistakes when sending messages to players."
 msgstr "Nigdy więcej pomyłek przy rozsyłaniu celów graczom w wiadomościach."
 
-#: base/templates/base/base.html:385
+#: base/templates/base/base.html:394
 msgid ""
 "The application is written in the modern and very secure <a target=\"_blank"
 "\" href=\"https://www.djangoproject.com/\">Django</a> framework. Therefore "
@@ -545,7 +549,7 @@ msgstr ""
 "site request forgery czy clickjacking, zapewniając jednocześnie w bezpieczny "
 "sposób utrzymywanie kont użytkowników."
 
-#: base/templates/base/base.html:393
+#: base/templates/base/base.html:402
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
@@ -555,7 +559,7 @@ msgstr ""
 "bezpieczeństwa kont użytkowników, uniemożliwiając jakikolwiek dostęp do "
 "danych użytkowników innym użytkownikom strony oraz osobom trzecim."
 
-#: base/templates/base/base.html:401
+#: base/templates/base/base.html:410
 msgid ""
 "Both the web server and the database server are located in the <a href="
 "\"https://aws.amazon.com/\">Amazon Web Services</a> cloud, with special "
@@ -566,7 +570,7 @@ msgstr ""
 "Services</a>, ze specjalnym naciskiem położonym na ich rekomendacje w "
 "kwestiach bezpieczeństwa."
 
-#: base/templates/base/base.html:409
+#: base/templates/base/base.html:418
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
@@ -576,7 +580,7 @@ msgstr ""
 "od początku do dnia dzisiejszego, oznacza relatywnie małą szansę na "
 "przypadkowe, nagłe narażenie danych użytkowników na ekspozycję."
 
-#: base/templates/base/base.html:417
+#: base/templates/base/base.html:426
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
@@ -587,7 +591,7 @@ msgstr ""
 "innym użytkownikom, graczom gry, osobom trzecim a także komukolwiek innemu, "
 "z jakiegokolwiek powodu."
 
-#: base/templates/base/base.html:423
+#: base/templates/base/base.html:432
 msgid ""
 "My name is Rafał, I am a student of the Faculty of Mathematics and Computer "
 "Science at the University of Wroclaw. For over a year I have been interested "
@@ -601,7 +605,7 @@ msgstr ""
 "bezpieczeństwem w sieci. Piszę głównie w Pythonie i JS, ale mam w planach "
 "także naukę innych języków i technologii :)"
 
-#: base/templates/base/base.html:426
+#: base/templates/base/base.html:435
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
@@ -615,7 +619,7 @@ msgstr ""
 "(największe osiągnięcie to występ na zawodach na szczeblu wojewódzkim), "
 "lubię szachy i pokera a także dobry film."
 
-#: base/templates/base/base.html:448
+#: base/templates/base/base.html:457
 msgid ""
 "Note, all announcements, proposals, reported bugs will be placed on the "
 "discord."
@@ -623,15 +627,15 @@ msgstr ""
 "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być "
 "zamieszczane na kanale na discordzie."
 
-#: base/templates/base/base.html:494
+#: base/templates/base/base.html:503
 msgid "Galery"
 msgstr "Galeria"
 
-#: base/templates/base/base.html:528
+#: base/templates/base/base.html:537
 msgid "This is an open project Plemiona Planer."
 msgstr "To jest otwarty projekt Plemiona Planer."
 
-#: base/templates/base/base.html:530
+#: base/templates/base/base.html:539
 msgid ""
 "See an error? Please write <b>plemionaplaner.pl@gmail.com</b> or contact me "
 "with discord."
@@ -639,7 +643,7 @@ msgstr ""
 "Widzisz błąd? Napisz: <b>plemionaplaner.pl@gmail.com</b> lub skontakuj się "
 "przez discorda."
 
-#: base/templates/base/base.html:533
+#: base/templates/base/base.html:542
 msgid ""
 "Dear User, we inform you that by using the website you agree to our <a "
 "target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy and "
