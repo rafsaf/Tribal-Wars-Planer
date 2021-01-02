@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 21:20+0100\n"
+"POT-Creation-Date: 2021-01-02 23:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,154 +79,154 @@ msgstr "Dokładne kordy oddzielone spacją lub enterem "
 msgid "Targets"
 msgstr "Cele"
 
-#: base/forms.py:191
+#: base/forms.py:192
 msgid "Min. off units number"
 msgstr "Minimalna liczba jednostek w offie"
 
-#: base/forms.py:192
+#: base/forms.py:193
 msgid "Distance from front line"
 msgstr "Odległość od linii frontu"
 
-#: base/forms.py:193
+#: base/forms.py:194
 msgid "Max Distance for nobles"
 msgstr "Maksymalna odległość dla szlachciców"
 
-#: base/forms.py:197
+#: base/forms.py:198
 msgid "Greater than or equal to 1 and less than or equal to 28000."
 msgstr "Większa lub równa 1 i mniejsza lub równa 28000."
 
-#: base/forms.py:200
+#: base/forms.py:201
 msgid "Greater than or equal to 0 and less than or equal to 45."
 msgstr "Większa lub równa 0 i mniejsza lub równa 45."
 
-#: base/forms.py:203
+#: base/forms.py:204
 msgid "Greater than or equal to 0 and less than or equal to 150."
 msgstr "Większa lub równa 0 i mniejsza lub równa 150."
 
-#: base/forms.py:208
+#: base/forms.py:209
 msgid "Excluded enemy villages coords (secluded villages)"
 msgstr ""
 "Nieuwzględniane przy liczeniu frontowych offów wioski wroga (diody itp.)"
 
-#: base/forms.py:211
+#: base/forms.py:212
 msgid "Exact coords separated by a space or an entry"
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:233
+#: base/forms.py:234
 msgid "Show all hidden"
 msgstr "Pokaż wszystkie ukryte"
 
-#: base/forms.py:234
+#: base/forms.py:235
 msgid "Title of message:"
 msgstr "Tytuł wiadomości"
 
-#: base/forms.py:235
+#: base/forms.py:236
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:238
+#: base/forms.py:239
 msgid "Maximum length: 50"
 msgstr "Maksymalna długość: 50"
 
-#: base/forms.py:239
+#: base/forms.py:240
 msgid "Maximum length: 500"
 msgstr "Maksymalna długość: 500"
 
-#: base/forms.py:250
+#: base/forms.py:251
 msgid "Ensure this value has at most 500 characters (it has "
 msgstr "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
 
-#: base/forms.py:262
+#: base/forms.py:263
 msgid "Set new date"
 msgstr "Wybierz nową datę"
 
-#: base/forms.py:296
+#: base/forms.py:297
 msgid "Choose the distance of the written offs:"
 msgstr "Wybierz dystans dla rozpisywanych offów:"
 
-#: base/forms.py:297
+#: base/forms.py:298
 msgid "Choose the distance of the written nobles:"
 msgstr "Wybierz dystans dla rozpisywanych szlachciców:"
 
-#: base/forms.py:298
+#: base/forms.py:299
 msgid "Choose how to split offs with nobles:"
 msgstr "Wybierz jak powinny być dzielone offy z szlachciami:"
 
-#: base/forms.py:300
+#: base/forms.py:301
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Wybierz preferowany sposób rozpisywania wymaganych szlachiców:"
 
-#: base/forms.py:303
+#: base/forms.py:304
 msgid "Choose how noble commands should be written out:"
 msgstr "Wybierz jak komendy z wiosek z szlachtą powinny być rozpisane:"
 
-#: base/forms.py:306
+#: base/forms.py:307
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 
-#: base/forms.py:353
+#: base/forms.py:354
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:147
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:149
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:356 base/models.py:380
+#: base/forms.py:357 base/models.py:380
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:364 base/forms.py:375
+#: base/forms.py:365 base/forms.py:376
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:38
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:357
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:367 base/forms.py:376
+#: base/forms.py:368 base/forms.py:377
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:39
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:358
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:374
+#: base/forms.py:375
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:34
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:355
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:377
+#: base/forms.py:378
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:35
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:356
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:378
+#: base/forms.py:379
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:36
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:359
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:379
+#: base/forms.py:380
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:37
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:360
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:450 base/forms.py:460
+#: base/forms.py:451 base/forms.py:461
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:468
+#: base/forms.py:469
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:480 base/forms.py:486
+#: base/forms.py:481 base/forms.py:487
 msgid "The All mode time frame MUST always be last for off and for noble."
 msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:494 base/forms.py:501
+#: base/forms.py:495 base/forms.py:502
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/forms.py:516
+#: base/forms.py:517
 #: base/templates/base/new_outline/new_outline_initial_period1.html:324
 #: base/templates/base/new_outline/new_outline_initial_period2.html:310
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:428
@@ -237,35 +237,35 @@ msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 msgid "Target"
 msgstr "Cel"
 
-#: base/forms.py:517
+#: base/forms.py:518
 msgid "Valid coords, 7 chars"
 msgstr "Poprawne koordy, 7 znaków"
 
-#: base/forms.py:531
+#: base/forms.py:532
 msgid "This village is already a target!"
 msgstr "Ta wioska już jest celem !"
 
-#: base/forms.py:537
+#: base/forms.py:538
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:553
+#: base/forms.py:554
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:554
+#: base/forms.py:555
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:573
+#: base/forms.py:574
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:576
+#: base/forms.py:577
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:587
+#: base/forms.py:588
 msgid "You can set your server:"
 msgstr "Możesz ustawić swój serwer:"
 
@@ -1765,8 +1765,24 @@ msgstr " minut temu."
 msgid "Off collection empty!"
 msgstr "Zbiórka Offa pusta!"
 
-#: base/views/outline_initial_views.py:384
-#: base/views/outline_initial_views.py:646
+#: base/views/outline_initial_views.py:60
+#: base/views/outline_initial_views.py:108
+#: base/views/outline_initial_views.py:654
+msgid ""
+"It looks like your Army collection is no longer actual! To use the Planer "
+"please copy the data from the preview and correct errors or paste the "
+"current military data. Then you should return to the Planer tab and confirm "
+"the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to "
+"update if u have changed Army troops\"."
+msgstr ""
+"Wygląda na to, że dane Twojej Zbiórki Wojska nie są już aktualne! Prawdopodobnie zaktualizowały się dane Twojego świata. "
+"Aby skorzystać z Planera, skopiuj dane z podglądu wklejonych wojsk (Przycisk \"Podgląd Zbiórki Wojska\") i popraw błędy albo wklej "
+"aktualne dane. Następnie powróć do zakładki Planera i potwierdź wprowadzone zmiany klikając"
+" w zakładce \"1. Dostępne jednostki\" przycisk \"Kliknij by zaktualizować po zmianie Zbiórki"
+" Wojska\"."
+
+#: base/views/outline_initial_views.py:367
+#: base/views/outline_initial_views.py:629
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 

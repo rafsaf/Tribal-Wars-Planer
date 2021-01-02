@@ -50,11 +50,11 @@ class TargetsData:
         village_models = models.VillageModel.objects.select_related().filter(world=self.world, coord__in=self.villages_coord)
 
         if len(self.villages_coord) != village_models.count():
-            villages_ids_set = set(self.villages_coord)
+            villages_ids_set = set([village.coord for village in village_models])
 
-            for village in village_models:
-                if not village.coord in villages_ids_set:
-                    self.errors_ids.add(self.vill_id_line[village.coord])
+            for village in self.villages_coord:
+                if not village in villages_ids_set:
+                    self.errors_ids.add(self.vill_id_line[village])
 
 
 class SeparateLineException(Exception):

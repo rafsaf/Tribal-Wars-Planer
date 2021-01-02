@@ -57,16 +57,8 @@ def initial_form(request, _id):
         try:
             initial.make_outline(instance)
         except KeyError:
-            request.session["error"] = gettext(
-                (
-                    "It looks like your Army collection is"
-                    " no longer actual! "
-                    "To use the planner: copy the data from"
-                    " the preview and "
-                    "correct errors or paste the current"
-                    " military data \n"
-                )
-            )
+            request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
+
             return redirect("base:planer_detail", _id)
 
     form1 = forms.InitialOutlineForm(None, world=instance.world)
@@ -113,16 +105,7 @@ def initial_form(request, _id):
                 try:
                     initial.make_outline(instance)
                 except KeyError:
-                    request.session["error"] = gettext(
-                        (
-                            "It looks like your Army collection is"
-                            " no longer actual! "
-                            "To use the planner: copy the data from"
-                            " the preview and "
-                            "correct errors or paste the current"
-                            " military data \n"
-                        )
-                    )
+                    request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
                     return redirect("base:planer_detail", _id)
 
                 instance.save()
@@ -668,16 +651,7 @@ def update_outline_troops(request, id1):
     try:
         initial.make_outline(instance)
     except KeyError:
-        request.session["error"] = gettext(
-            (
-                "It looks like your Army collection is"
-                " no longer actual! "
-                "To use the planner: copy the data from"
-                " the preview and "
-                "correct errors or paste the current"
-                " military data \n"
-            )
-        )
+        request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
 
         return redirect("base:planer_detail", id1)
     instance.avaiable_offs = []
