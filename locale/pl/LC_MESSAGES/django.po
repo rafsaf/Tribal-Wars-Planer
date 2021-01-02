@@ -465,7 +465,7 @@ msgstr "Nie masz jeszcze konta? "
 
 #: base/templates/base/base.html:263
 msgid "Whole playlist on YouTube"
-msgstr "Cała playlista na Youtube"
+msgstr "Cała playlista na YouTube"
 
 #: base/templates/base/base.html:273
 msgid "Show more videos"
