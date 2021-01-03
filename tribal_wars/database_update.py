@@ -2,6 +2,7 @@ from xml.etree import ElementTree
 from urllib.parse import unquote, unquote_plus
 import requests
 
+from django.db.models import Count
 from django.utils import timezone
 
 from base.models import VillageModel, Tribe, Player, World
@@ -100,6 +101,10 @@ class WorldQuery:
         self.world.last_update = timezone.now()
 
     def update_villages(self):
+        dupl_ids = list(VillageModel.objects.filter(world=self.world).values_list("village_id", flat=True).annotate(num_id=Count('village_id')).filter(num_id__gt=1))
+        if len(dupl_ids) > 0:
+            VillageModel.objects.filter(world=self.world, village_id__in=dupl_ids).delete()
+
         create_list = list()
 
         try:
@@ -221,7 +226,7 @@ class WorldQuery:
 
             player_set1 = set(
                 Player.objects.filter(tribe=None, world=self.world).values_list(
-                    "player_id"
+                    "player_id", "name"
                 )
             )
 
@@ -230,7 +235,7 @@ class WorldQuery:
                 .filter(world=self.world)
                 .select_related("tribe")
                 .filter(world=self.world)
-                .values_list("player_id", "tribe__tribe_id")
+                .values_list("player_id", "name", "tribe__tribe_id")
             )
 
             for line in [i.split(",") for i in req.text.split("\n")]:
@@ -238,19 +243,19 @@ class WorldQuery:
                     continue
 
                 player_id = int(line[0])
+                name = unquote(unquote_plus(line[1]))
                 tribe_id = int(line[2])
 
-                if (player_id,) in player_set1 and tribe_id == 0:
-                    player_set1.remove((player_id,))
+                if (player_id, name) in player_set1 and tribe_id == 0:
+                    player_set1.remove((player_id, name))
 
                     continue
 
-                if (player_id, tribe_id) in player_set2:
-                    player_set2.remove((player_id, tribe_id))
+                if (player_id, name, tribe_id) in player_set2:
+                    player_set2.remove((player_id, name, tribe_id))
                     continue
 
                 # else create
-                name = unquote(unquote_plus(line[1]))
                 if tribe_id == 0:
                     tribe = None
                 elif tribe_id not in tribe_context:
