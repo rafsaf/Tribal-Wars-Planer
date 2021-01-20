@@ -12,8 +12,32 @@
         <form id="form1-form" method='POST'>
           <input type="hidden" name="form1" value=""/>
             {% csrf_token %}
-                <h4>{{ form1.target.label_tag }} </h4>
-                
+                <h4 class="mb-0">{{ form1.target.label_tag }} 
+
+                </h4>
+                {% if target_dups or fake_dups %}
+                <a class="md-correct2 mt-0 mb-1" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat">
+                  {% trans 'Duplicates detected, click to view them' %}
+                </a>
+                <div class="collapse mb-3" id="collapseRepeat">
+                  <div class="card card-body">
+                    <div class="row">
+                      <div class="col-4">
+                        <h5>{% trans 'Targets-Duplicated' %}</h5>
+                        {% for coord, dup in target_dups %}
+                        <p>{{coord}} - {{dup}}</p>
+                        {% endfor %}
+                      </div>
+                      <div class="col-4">
+                        <h5>{% trans 'Fakes-Duplicated' %}</h5>
+                        {% for coord, dup in fake_dups %}
+                        <p class="my-0">{{coord}} - {{dup}}</p>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
                 {{ form1.target }} 
                 {% if form1.target.errors %}
                  {% for error in form1.target.errors %} {% if forloop.first %}

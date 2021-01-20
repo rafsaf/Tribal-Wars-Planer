@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from collections import Counter
 
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404
 from django.views.decorators.http import require_POST
@@ -69,6 +70,9 @@ def initial_form(request, _id):
 
     targets = models.TargetVertex.objects.filter(outline=instance).order_by("id")
     len_targets = len(targets)
+
+    target_dups = [(coord, nums) for coord, nums in Counter([target.target for target in targets if not target.fake]).items() if nums > 1]
+    fake_dups = [(coord, nums) for coord, nums in Counter([target.target for target in targets if target.fake]).items() if nums > 1]
 
     if len_targets <= 100:
         formset_select = formset_factory(
@@ -210,6 +214,8 @@ def initial_form(request, _id):
         "form3": form3,
         "form4": form4,
         "formset": formset_select,
+        "fake_dups": fake_dups,
+        "target_dups": target_dups,
     }
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
