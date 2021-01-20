@@ -91,7 +91,7 @@ class Tribe(models.Model):
     """ Tribe in game """
 
     tribe_id = models.IntegerField()
-    tag = models.TextField()
+    tag = models.TextField(db_index=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE, db_index=True)
 
     def __str__(self):
@@ -102,7 +102,7 @@ class Player(models.Model):
     """ Player in the game """
 
     player_id = models.IntegerField()
-    name = models.TextField()
+    name = models.TextField(db_index=True)
     tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE, null=True, blank=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE)
 
@@ -116,7 +116,7 @@ class VillageModel(models.Model):
     village_id = models.IntegerField()
     x_coord = models.IntegerField()
     y_coord = models.IntegerField()
-    coord = models.CharField(max_length=7)
+    coord = models.CharField(max_length=7, db_index=True)
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE)
 
@@ -333,8 +333,8 @@ class Documentation(models.Model):
 class WeightMaximum(models.Model):
     """ Control state smaller than maximum """
 
-    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
-    start = models.CharField(max_length=7)
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
+    start = models.CharField(max_length=7, db_index=True)
     x_coord = models.IntegerField(default=0)
     y_coord = models.IntegerField(default=0)
     player = models.CharField(max_length=30)
@@ -418,11 +418,11 @@ class TargetVertex(models.Model):
         ("single", gettext_lazy("Try single nobles from many villages")),
     ]
 
-    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
     outline_time = models.ForeignKey(
         OutlineTime, on_delete=models.SET_NULL, null=True, default=None
     )
-    target = models.CharField(max_length=7)
+    target = models.CharField(max_length=7, db_index=True)
     player = models.CharField(max_length=30)
     fake = models.BooleanField(default=False)
 
