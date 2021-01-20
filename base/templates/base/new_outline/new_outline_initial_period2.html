@@ -23,19 +23,11 @@
             <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
                   bg-light">{% trans 'Deff collection' %}</a>
 
-            <a id="planer-link" onclick="onPlanerLinkClick();" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
+            <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
             bg-light">
             {% trans 'Planer' %}
             
             </a>
-            <script>
-                onPlanerLinkClick = () => {
-                    setTimeout(()=>{
-                        const planerLink = document.getElementById("planer-link")
-                        planerLink.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-info my-auto' role='status'></span>{% trans 'Hold on a second...' %}"
-                    }, 800)
-                }
-            </script>
             {% endblock %}
         </div>
     </div>
