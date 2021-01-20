@@ -630,7 +630,7 @@ def initial_set_all_time(request, pk):
 
 @login_required
 def create_final_outline(request, id1):
-    instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
+    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
     target_with_no_time = (
         models.TargetVertex.objects.filter(outline=instance)
         .filter(outline_time=None)
@@ -648,7 +648,7 @@ def create_final_outline(request, id1):
 
 @login_required
 def complete_outline(request, id1):
-    instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
+    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
     initial.complete_outline(outline=instance)
     instance.written = "active"
     instance.save()
@@ -657,7 +657,7 @@ def complete_outline(request, id1):
 
 @login_required
 def update_outline_troops(request, id1):
-    instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
+    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
     models.WeightMaximum.objects.filter(outline=instance).delete()
     off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
     if off_form.is_valid():
