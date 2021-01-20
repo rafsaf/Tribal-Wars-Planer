@@ -67,259 +67,7 @@
         <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mb-5" >{% trans 'Create' %}</button>
 
         </form>
-        <script>
-            document.addEventListener("DOMContentLoaded", function (event) {
-                val = $('#id_form-0-status').val();
-                if (val === 'all') {
-                    $('#id_form-0-from_number').val('');
-                    $('#id_form-0-from_number').prop("disabled", true);
 
-                    $('#id_form-0-to_number').val('');
-                    $('#id_form-0-to_number').prop("disabled", true);
-
-                } else if (val === 'exact') {
-                    $('#id_form-0-from_number').val('');
-                    $('#id_form-0-from_number').prop("disabled", true);
-
-                    $('#id_form-0-to_number').prop("disabled", false);
-
-                };
-
-                val = $('#id_form-1-status').val();
-                if (val === 'all') {
-                    $('#id_form-1-from_number').val('');
-                    $('#id_form-1-from_number').prop("disabled", true);
-
-                    $('#id_form-1-to_number').val('');
-                    $('#id_form-1-to_number').prop("disabled", true);
-
-                } else if (val === 'exact') {
-                    $('#id_form-1-from_number').val('');
-                    $('#id_form-1-from_number').prop("disabled", true);
-
-                    $('#id_form-1-to_number').prop("disabled", false);
-
-                };
-
-                val = $('#id_form-2-status').val();
-                if (val === 'all') {
-                    $('#id_form-2-from_number').val('');
-                    $('#id_form-2-from_number').prop("disabled", true);
-
-                    $('#id_form-2-to_number').val('');
-                    $('#id_form-2-to_number').prop("disabled", true);
-
-                } else if (val === 'exact') {
-                    $('#id_form-2-from_number').val('');
-                    $('#id_form-2-from_number').prop("disabled", true);
-
-                    $('#id_form-2-to_number').prop("disabled", false);
-
-                };
-
-                val = $('#id_form-3-status').val();
-                if (val === 'all') {
-                    $('#id_form-3-from_number').val('');
-                    $('#id_form-3-from_number').prop("disabled", true);
-
-                    $('#id_form-3-to_number').val('');
-                    $('#id_form-3-to_number').prop("disabled", true);
-
-                } else if (val === 'exact') {
-                    $('#id_form-3-from_number').val('');
-                    $('#id_form-3-from_number').prop("disabled", true);
-
-                    $('#id_form-3-to_number').prop("disabled", false);
-
-                };
-
-                val = $('#id_form-4-status').val();
-                if (val === 'all') {
-                    $('#id_form-4-from_number').val('');
-                    $('#id_form-4-from_number').prop("disabled", true);
-
-                    $('#id_form-4-to_number').val('');
-                    $('#id_form-4-to_number').prop("disabled", true);
-
-                } else if (val === 'exact') {
-                    $('#id_form-4-from_number').val('');
-                    $('#id_form-4-from_number').prop("disabled", true);
-
-                    $('#id_form-4-to_number').prop("disabled", false);
-
-                };
-
-                val = $('#id_form-5-status').val();
-                if (val === 'all') {
-                    $('#id_form-5-from_number').val('');
-                    $('#id_form-5-from_number').prop("disabled", true);
-
-                    $('#id_form-5-to_number').val('');
-                    $('#id_form-5-to_number').prop("disabled", true);
-
-                } else if (val === 'exact') {
-                    $('#id_form-5-from_number').val('');
-                    $('#id_form-5-from_number').prop("disabled", true);
-
-                    $('#id_form-5-to_number').prop("disabled", false);
-
-                };
-            });
-
-            document.addEventListener("DOMContentLoaded", function (event) {
-                $('.time-timepicker').each(function () {
-                    $(this).timepicker({
-                        minuteStep: 1,
-                        secondStep: 1,
-                        showSeconds: true,
-                        showMeridian: false,
-                        defaultTime: false,
-                        icons: {
-                            up: 'fa fa-angle-up',
-                            down: 'fa fa-angle-down'
-                        }
-                    })
-                });
-
-                $('#id_form-0-status').change(function () {
-                    val = $('#id_form-0-status').val();
-                    if (val === 'all') {
-                        $('#id_form-0-from_number').val('');
-                        $('#id_form-0-from_number').prop("disabled", true);
-
-                        $('#id_form-0-to_number').val('');
-                        $('#id_form-0-to_number').prop("disabled", true);
-
-                    } else if (val === 'exact') {
-                        $('#id_form-0-from_number').val('');
-                        $('#id_form-0-from_number').prop("disabled", true);
-
-                        $('#id_form-0-to_number').prop("disabled", false);
-
-                    } else {
-                        $('#id_form-0-from_number').prop("disabled", false);
-
-                        $('#id_form-0-to_number').prop("disabled", false);
-
-                    };
-                });
-                $('#id_form-1-status').change(function () {
-                    val = $('#id_form-1-status').val();
-                    if (val === 'all') {
-                        $('#id_form-1-from_number').val('');
-                        $('#id_form-1-from_number').prop("disabled", true);
-
-                        $('#id_form-1-to_number').val('');
-                        $('#id_form-1-to_number').prop("disabled", true);
-
-                    } else if (val === 'exact') {
-                        $('#id_form-1-from_number').val('');
-                        $('#id_form-1-from_number').prop("disabled", true);
-
-                        $('#id_form-1-to_number').prop("disabled", false);
-
-                    } else {
-                        $('#id_form-1-from_number').prop("disabled", false);
-
-                        $('#id_form-1-to_number').prop("disabled", false);
-
-                    };
-                });
-                $('#id_form-2-status').change(function () {
-                    val = $('#id_form-2-status').val();
-                    if (val === 'all') {
-                        $('#id_form-2-from_number').val('');
-                        $('#id_form-2-from_number').prop("disabled", true);
-
-                        $('#id_form-2-to_number').val('');
-                        $('#id_form-2-to_number').prop("disabled", true);
-
-                    } else if (val === 'exact') {
-                        $('#id_form-2-from_number').val('');
-                        $('#id_form-2-from_number').prop("disabled", true);
-
-                        $('#id_form-2-to_number').prop("disabled", false);
-
-                    } else {
-                        $('#id_form-2-from_number').prop("disabled", false);
-
-                        $('#id_form-2-to_number').prop("disabled", false);
-
-                    };
-                });
-                $('#id_form-3-status').change(function () {
-                    val = $('#id_form-3-status').val();
-                    if (val === 'all') {
-                        $('#id_form-3-from_number').val('');
-                        $('#id_form-3-from_number').prop("disabled", true);
-
-                        $('#id_form-3-to_number').val('');
-                        $('#id_form-3-to_number').prop("disabled", true);
-
-                    } else if (val === 'exact') {
-                        $('#id_form-3-from_number').val('');
-                        $('#id_form-3-from_number').prop("disabled", true);
-
-                        $('#id_form-3-to_number').prop("disabled", false);
-
-                    } else {
-                        $('#id_form-3-from_number').prop("disabled", false);
-
-                        $('#id_form-3-to_number').prop("disabled", false);
-
-                    };
-                });
-                $('#id_form-4-status').change(function () {
-                    val = $('#id_form-4-status').val();
-                    if (val === 'all') {
-                        $('#id_form-4-from_number').val('');
-                        $('#id_form-4-from_number').prop("disabled", true);
-
-                        $('#id_form-4-to_number').val('');
-                        $('#id_form-4-to_number').prop("disabled", true);
-
-                    } else if (val === 'exact') {
-                        $('#id_form-4-from_number').val('');
-                        $('#id_form-4-from_number').prop("disabled", true);
-
-                        $('#id_form-4-to_number').prop("disabled", false);
-
-                    } else {
-                        $('#id_form-4-from_number').prop("disabled", false);
-
-                        $('#id_form-4-to_number').prop("disabled", false);
-
-                    };
-                });
-                $('#id_form-5-status').change(function () {
-                    val = $('#id_form-5-status').val();
-                    if (val === 'all') {
-                        $('#id_form-5-from_number').val('');
-                        $('#id_form-5-from_number').prop("disabled", true);
-
-                        $('#id_form-5-to_number').val('');
-                        $('#id_form-5-to_number').prop("disabled", true);
-
-                    } else if (val === 'exact') {
-                        $('#id_form-5-from_number').val('');
-                        $('#id_form-5-from_number').prop("disabled", true);
-
-                        $('#id_form-5-to_number').prop("disabled", false);
-
-                    } else {
-                        $('#id_form-5-from_number').prop("disabled", false);
-
-                        $('#id_form-5-to_number').prop("disabled", false);
-
-                    };
-                });
-
-
-
-
-
-            });
-        </script>
     </div>
 
 
@@ -404,7 +152,7 @@
     </div>
     </div>
 </div>
-<div class="table-responsive">
+<div class="fixed-scrollbar-container">
 {% block outline_navbar %}
 {{block.super}}
 {% endblock %}
@@ -516,10 +264,6 @@
 
                             </table>
 
-
-
-
-
                     </th>
 
                     {% endfor %}
@@ -561,12 +305,67 @@
 {% endif %}
 
 <script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        $('.popoverData').popover();
+    activateTooltips();
+    handleAllFormsetSelect();
+    $(function($) {
+        var fixedBarTemplate = '<div class="fixed-scrollbar"><div></div></div>';
+        var fixedBarCSS = { display: 'none', overflowX: 'scroll', position: 'fixed', width: '100%', bottom: 0 };
+
+        $('.fixed-scrollbar-container').each(function() {
+            var $container = $(this);
+            var $bar = $(fixedBarTemplate).appendTo($container).css(fixedBarCSS);
+
+            $bar.scroll(function() {
+                $container.scrollLeft($bar.scrollLeft());
+            });
+
+            $bar.data("status", "off");
+        });
+
+        var fixSize = function() {
+            $('.fixed-scrollbar').each(function() {
+                var $bar = $(this);
+                var $container = $bar.parent();
+
+                $bar.children('div').height(1).width($container[0].scrollWidth);
+                $bar.width($container.width()).scrollLeft($container.scrollLeft());
+            });
+        };
+
+        $(window).on("load.fixedbar resize.fixedbar", function() {
+            fixSize();
+        });
+
+        var scrollTimeout = null;
+
+        $(window).on("scroll.fixedbar", function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                $('.fixed-scrollbar-container').each(function() {
+                    var $container = $(this);
+                    var $bar = $container.children('.fixed-scrollbar');
+
+                    if ($bar.length) {
+                        var containerOffset = { top: $container.offset().top, bottom: $container.offset().top + $container.height() };
+                        var windowOffset = { top: $(window).scrollTop(), bottom: $(window).scrollTop() + $(window).height() };
+
+                        if ((containerOffset.top > windowOffset.bottom) || (windowOffset.bottom > containerOffset.bottom)) {
+                            if ($bar.data("status") == "on") {
+                                $bar.hide().data("status", "off");
+                            }
+                        } else {
+                            if ($bar.data("status") == "off") {
+                                $bar.show().data("status", "on");
+                                $bar.scrollLeft($container.scrollLeft());
+                            }
+                        }
+                    }
+                });
+            }, 50);
+        });
+
+        $(window).trigger("scroll.fixedbar");
     });
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
 </script>
 
 

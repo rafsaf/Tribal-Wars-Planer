@@ -96,7 +96,7 @@
             <img class="d-none d-lg-block img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight" >
         </figure>
     </div>
-    <div class="table-responsive">
+    <div class="fixed-scrollbar-container">
     {% block outline_navbar %}
     {{block.super}}
     {% endblock %}
@@ -207,13 +207,67 @@
         </table>
     </div>
 </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
-            $('.popoverData').popover();
+<script>
+    activateTooltips();
+    $(function($) {
+        var fixedBarTemplate = '<div class="fixed-scrollbar"><div></div></div>';
+        var fixedBarCSS = { display: 'none', overflowX: 'scroll', position: 'fixed', width: '100%', bottom: 0 };
+
+        $('.fixed-scrollbar-container').each(function() {
+            var $container = $(this);
+            var $bar = $(fixedBarTemplate).appendTo($container).css(fixedBarCSS);
+
+            $bar.scroll(function() {
+                $container.scrollLeft($bar.scrollLeft());
+            });
+
+            $bar.data("status", "off");
         });
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-          })
-    </script>
+
+        var fixSize = function() {
+            $('.fixed-scrollbar').each(function() {
+                var $bar = $(this);
+                var $container = $bar.parent();
+
+                $bar.children('div').height(1).width($container[0].scrollWidth);
+                $bar.width($container.width()).scrollLeft($container.scrollLeft());
+            });
+        };
+
+        $(window).on("load.fixedbar resize.fixedbar", function() {
+            fixSize();
+        });
+
+        var scrollTimeout = null;
+
+        $(window).on("scroll.fixedbar", function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                $('.fixed-scrollbar-container').each(function() {
+                    var $container = $(this);
+                    var $bar = $container.children('.fixed-scrollbar');
+
+                    if ($bar.length) {
+                        var containerOffset = { top: $container.offset().top, bottom: $container.offset().top + $container.height() };
+                        var windowOffset = { top: $(window).scrollTop(), bottom: $(window).scrollTop() + $(window).height() };
+
+                        if ((containerOffset.top > windowOffset.bottom) || (windowOffset.bottom > containerOffset.bottom)) {
+                            if ($bar.data("status") == "on") {
+                                $bar.hide().data("status", "off");
+                            }
+                        } else {
+                            if ($bar.data("status") == "off") {
+                                $bar.show().data("status", "on");
+                                $bar.scrollLeft($container.scrollLeft());
+                            }
+                        }
+                    }
+                });
+            }, 50);
+        });
+
+        $(window).trigger("scroll.fixedbar");
+    });
+</script>
 
     {% endblock %}

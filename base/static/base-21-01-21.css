@@ -502,3 +502,21 @@ footer {
     background: url('//i.imgur.com/TxzC70f.png') no-repeat;
     cursor: pointer;
 }
+
+.fixed-scrollbar-container {
+    overflow:auto;
+}
+::-webkit-scrollbar {
+    width: 0.8em;
+    height: 1em;
+}
+::-webkit-scrollbar-button {
+    background: #ccc
+}
+::-webkit-scrollbar-track-piece {
+    background: #ccc
+}
+::-webkit-scrollbar-thumb {
+    background: #888
+}​
+
