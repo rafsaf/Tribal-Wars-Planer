@@ -271,22 +271,6 @@ class TestMakeOutlineFunction(TestCase):
             initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)
 
-    def test_raise_key_error_when_text_is_not_actual(self):
-        # not existing village 000|000 in database
-        OUT_OF_DATE_TEXT = (
-            "000|000,0,0,10000,0,0,0,0,0,2,0,0,\r\n"
-            "500|501,0,0,190,0,0,0,0,0,0,0,0,\r\n"
-            "500|502,0,0,19500,0,0,0,0,0,0,0,0,\r\n"
-            "500|503,0,0,20100,0,0,0,0,0,0,0,0,\r\n"
-            "500|504,0,0,20000,0,0,0,0,0,2,0,0,\r\n"
-            "500|505,0,0,20000,0,0,0,0,0,2,0,0,"
-        )
-        self.outline.off_troops = OUT_OF_DATE_TEXT
-        self.outline.save()
-
-        with self.assertRaises(KeyError):
-            initial.make_outline(outline=self.outline)
-
 
 class TestCompleteOutlineFunction(TestCase):
     def setUp(self):

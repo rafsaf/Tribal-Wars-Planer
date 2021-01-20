@@ -9,16 +9,9 @@ def create_initial_data():
     user1 = User.objects.create_user(username="user1", password="user1")
     user2 = User.objects.create_user(username="user2", password="user2")
 
-    outlines = []
     tribes = []
     villages = []
     players = []
-    weight_maxs = []
-    weights = []
-    targets = []
-
-
-
 
     TEXT = (
         "500|500,0,0,10000,0,0,0,0,0,2,0,0,\r\n"
@@ -49,12 +42,11 @@ def create_initial_data():
         world=world1,
         ally_tribe_tag=["pl1"],
         enemy_tribe_tag=["pl2"],
-        initial_outline_targets="500|499:1:4\r\n500|498:1:2---",
+        initial_outline_targets="500|499:1:1\r\n500|497:1|0|0|1:2|0|0|2\r\n---\r\n500|498:1:2",
         initial_outline_min_off=15000,
         initial_outline_front_dist=3,
         off_troops=TEXT,
     )
-
 
     outline2 = models.Outline.objects.create(
         id=2,
@@ -69,41 +61,9 @@ def create_initial_data():
         initial_outline_front_dist=3,
         off_troops=TEXT,
     )
-    
-    outline3 = models.Outline.objects.create(
-        id=3,
-        owner=user2,
-        date=datetime.date.today(),
-        name="name",
-        world=world1,
-        ally_tribe_tag=["pl1"],
-        enemy_tribe_tag=["pl2"],
-        initial_outline_targets="500|499:1:4\r\n500|498:1:2---",
-        initial_outline_min_off=15000,
-        initial_outline_front_dist=3,
-        off_troops=TEXT,
-    )
-    
-    outline4 = models.Outline.objects.create(
-        id=4,
-        owner=user2,
-        date=datetime.date.today(),
-        name="name",
-        world=world1,
-        ally_tribe_tag=["pl1"],
-        enemy_tribe_tag=["pl2"],
-        initial_outline_targets="500|499:1:4\r\n500|498:1:2---",
-        initial_outline_min_off=15000,
-        initial_outline_front_dist=3,
-        off_troops=TEXT,
-    )
 
-    ally_tribe = models.Tribe(
-        tribe_id=0, tag="pl1", world=world1
-    )
-    enemy_tribe = models.Tribe(
-        tribe_id=1, tag="pl2", world=world1
-    )
+    ally_tribe = models.Tribe(tribe_id=0, tag="pl1", world=world1)
+    enemy_tribe = models.Tribe(tribe_id=1, tag="pl2", world=world1)
     tribes.append(ally_tribe)
     tribes.append(enemy_tribe)
     models.Tribe.objects.bulk_create(tribes)
@@ -209,70 +169,71 @@ def create_initial_data():
     villages.append(enemy_village3)
     models.VillageModel.objects.bulk_create(villages)
 
-    weight_max1 = models.WeightMaximum(
+    weight_max1 = models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=500,
-        player="user1",
+        player="player0",
         outline=outline1,
-        start="500|501",
+        start="500|500",
         off_max=10000,
-        off_left=10000,
-        off_state=0,
+        off_left=5000,
+        off_state=5000,
         nobleman_max=2,
-        nobleman_left=2,
+        nobleman_left=1,
+        nobleman_state=1,
         first_line=True,
-        fake_limit=2
+        fake_limit=2,
     )
-    weights.append(weight_max1)
-    weight_max2 = models.WeightMaximum(
+
+    weight_max2 = models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=501,
-        player="user1",
+        player="player0",
         outline=outline1,
         start="500|501",
         off_max=190,
-        off_left=190,
-        off_state=0,
+        off_left=90,
+        off_state=100,
         nobleman_max=0,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2
+        fake_limit=2,
     )
-    weights.append(weight_max2)
-    weight_max3 = models.WeightMaximum(
+
+    weight_max3 = models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=502,
-        player="user1",
+        player="player0",
         outline=outline1,
         start="500|502",
-        off_max=190,
-        off_left=190,
-        off_state=0,
+        off_max=19500,
+        off_left=500,
+        off_state=19000,
         nobleman_max=0,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2
+        fake_limit=2,
     )
-    weights.append(weight_max3)
-    weight_max4 = models.WeightMaximum(
+
+    weight_max4 = models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=503,
-        player="user1",
+        player="player0",
         outline=outline1,
         start="500|503",
-        off_max=19500,
-        off_left=19500,
+        off_max=20100,
+        off_left=20100,
         off_state=0,
         nobleman_max=0,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2
+        fake_limit=2,
     )
-    weights.append(weight_max4)
-    weight_max5 = models.WeightMaximum(
+
+    weight_max5 = models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=504,
-        player="user1",
+        player="player0",
         outline=outline1,
         start="500|504",
         off_max=20000,
@@ -281,13 +242,13 @@ def create_initial_data():
         nobleman_max=2,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2
+        fake_limit=2,
     )
-    weights.append(weight_max5)
-    weight_max6 = models.WeightMaximum(
+
+    weight_max6 = models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=505,
-        player="user1",
+        player="player0",
         outline=outline1,
         start="500|505",
         off_max=20000,
@@ -296,8 +257,95 @@ def create_initial_data():
         nobleman_max=2,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2
+        fake_limit=2,
     )
-    weights.append(weight_max6)
-    models.WeightMaximum.objects.bulk_create(weights)
+
+    outlinetime1 = models.OutlineTime.objects.create(outline=outline1)
+
+    time1 = models.PeriodModel(
+        outline_time=outlinetime1,
+        status="all",
+        unit="ram",
+        from_time=datetime.time(hour=7),
+        to_time=datetime.time(hour=9),
+    )
+    time2 = models.PeriodModel(
+        outline_time=outlinetime1,
+        status="all",
+        unit="noble",
+        from_time=datetime.time(hour=9),
+        to_time=datetime.time(hour=10),
+    )
+    time1.save()
+    time2.save()
+
+    target1 = models.TargetVertex(
+        target="500|499",
+        player="player1",
+        required_off=1,
+        required_noble=1,
+        outline=outline1,
+        outline_time=outlinetime1,
+    )
+    target2 = models.TargetVertex(
+        target="500|497",
+        player="player1",
+        exact_off=[1, 0, 0, 1],
+        exact_noble=[2, 0, 0, 2],
+        required_off=1,
+        required_noble=1,
+        outline=outline1,
+        outline_time=outlinetime1,
+    )
+    target3 = models.TargetVertex(
+        target="500|498",
+        player="player1",
+        required_off=1,
+        required_noble=2,
+        fake=True,
+        outline=outline1,
+        outline_time=outlinetime1,
+    )
+    target1.save()
+    target2.save()
+    target3.save()
+
+    weight1 = models.WeightModel(
+        player="player0",
+        start="500|500",
+        first_line=True,
+        order=0,
+        target=target1,
+        state=weight_max1,
+        distance=1,
+        off=5000,
+        nobleman=1,
+    )
+
+    weight2 = models.WeightModel(
+        player="player0",
+        start="500|501",
+        first_line=True,
+        order=1,
+        target=target1,
+        state=weight_max2,
+        distance=2,
+        off=100,
+        nobleman=0,
+    )
+    weight3 = models.WeightModel(
+        player="player0",
+        start="500|502",
+        first_line=True,
+        order=2,
+        target=target1,
+        state=weight_max3,
+        distance=3,
+        off=19000,
+        nobleman=0,
+    )
+
+    weight1.save()
+    weight2.save()
+    weight3.save()
 

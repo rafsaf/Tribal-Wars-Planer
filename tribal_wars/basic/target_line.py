@@ -47,9 +47,9 @@ class TargetsData:
             self.new_validated_data += "---"
 
     def validate_villages_database(self):
-        village_models = models.VillageModel.objects.select_related().filter(world=self.world, coord__in=self.villages_coord)
+        village_models = models.VillageModel.objects.select_related().filter(world=self.world, coord__in=self.villages_coord).exclude(player=None)
 
-        if len(self.villages_coord) != village_models.count():
+        if len(set(self.villages_coord)) != village_models.count():
             villages_ids_set = set([village.coord for village in village_models])
 
             for village in self.villages_coord:

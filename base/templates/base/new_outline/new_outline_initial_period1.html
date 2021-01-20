@@ -307,9 +307,13 @@
                       </div>
                       <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                         <div class="card-body">
+                          {% if formset is None %}
+                          {% trans 'The tab is only available under 100 targets.' %}
+                          {% else %}
                           <style>
                             thead th.formset { position: sticky; top: 0;background-color: teal; color: white; }
                           </style>
+
                           <form id="formset-form" method="POST">
                             <input type="hidden" name="formset" value="">
                             {% csrf_token %}
@@ -502,7 +506,8 @@
                           
                         </div>
                         <button id="formset-btn" class="btn btn-ocean mt-4">{% trans 'Save' %}</button>
-                      </form>
+                          </form>
+                          {% endif %}
                         </div>
                       </div>
                     </div>

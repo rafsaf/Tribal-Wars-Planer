@@ -41,8 +41,16 @@ class OffTroopsForm(forms.ModelForm):
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
 
+        already_used_villages = set()
+
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Army(text_army=text_line, evidence=evidence)
+            if army.coord in already_used_villages:
+                self.add_error("off_troops", i)
+                continue
+            else:
+                already_used_villages.add(army.coord)
+
             try:
                 army.clean_init(player_dictionary)
             except basic.ArmyError:
@@ -161,7 +169,7 @@ class InitialOutlineForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
-        self.world = kwargs.pop("world")
+        self.outline = kwargs.pop("outline")
         super(InitialOutlineForm, self).__init__(*args, **kwargs)
 
     def clean_target(self):
@@ -169,10 +177,11 @@ class InitialOutlineForm(forms.Form):
         data = self.cleaned_data["target"]
         if data == "":
             return "---\r\n"
-        data_lines = basic.TargetsData(data=data, world=self.world)
+        data_lines = basic.TargetsData(data=data, world=self.outline.world)
         data_lines.validate()
         if len(data_lines.errors_ids) == 0:
-            return data_lines.new_validated_data
+            self.outline.initial_outline_targets = data_lines.new_validated_data
+            self.outline.save()
         for error_id in data_lines.errors_ids:
             self.add_error("target", error_id)
         return data

@@ -61,7 +61,7 @@ def initial_form(request, _id):
 
             return redirect("base:planer_detail", _id)
 
-    form1 = forms.InitialOutlineForm(None, world=instance.world)
+    form1 = forms.InitialOutlineForm(None, outline=instance)
 
     form2 = forms.AvailableTroopsForm(None)
     form3 = forms.SettingDateForm(None)
@@ -70,9 +70,12 @@ def initial_form(request, _id):
     targets = models.TargetVertex.objects.filter(outline=instance).order_by("id")
     len_targets = len(targets)
 
-    formset_select = formset_factory(
-        form=forms.ModeTargetSetForm, extra=len_targets, max_num=len_targets
-    )
+    if len_targets <= 100:
+        formset_select = formset_factory(
+            form=forms.ModeTargetSetForm, extra=len_targets, max_num=len_targets
+        )
+    else:
+        formset_select = None
 
     form1.fields["target"].initial = instance.initial_outline_targets
     form2.fields[
@@ -97,10 +100,8 @@ def initial_form(request, _id):
 
     if request.method == "POST":
         if "form1" in request.POST:
-            form1 = forms.InitialOutlineForm(request.POST, world=instance.world)
+            form1 = forms.InitialOutlineForm(request.POST, outline=instance)
             if form1.is_valid():
-                instance.initial_outline_targets = form1.clean_target()
-                instance.save()
                 # make outline
                 try:
                     initial.make_outline(instance)
@@ -164,7 +165,7 @@ def initial_form(request, _id):
 
                 return redirect("base:planer_initial_form", _id)
 
-        if "formset" in request.POST:
+        if "formset" in request.POST and formset_select is not None:
             formset_select = formset_select(request.POST)
             if formset_select.is_valid():
                 targets_to_update = []
@@ -187,16 +188,18 @@ def initial_form(request, _id):
                 )
                 return redirect("base:planer_initial_form", _id)
         else:
-            formset_select = formset_select(None)
+            if formset_select is not None:
+                formset_select = formset_select(None)
     else:
-        formset_select = formset_select(None)
-
-    for form, target in zip(formset_select, targets):
-        form.target = target
-        form.fields["mode_off"].initial = target.mode_off
-        form.fields["mode_noble"].initial = target.mode_noble
-        form.fields["mode_division"].initial = target.mode_division
-        form.fields["mode_guide"].initial = target.mode_guide
+        if formset_select is not None:
+            formset_select = formset_select(None)
+    if formset_select is not None:
+        for form, target in zip(formset_select, targets):
+            form.target = target
+            form.fields["mode_off"].initial = target.mode_off
+            form.fields["mode_noble"].initial = target.mode_noble
+            form.fields["mode_division"].initial = target.mode_division
+            form.fields["mode_guide"].initial = target.mode_guide
 
     context = {
         "instance": instance,

@@ -2,6 +2,7 @@ import datetime
 
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.utils.translation import activate
 
 from base import models
 from tribal_wars import get_deff as deff
@@ -11,6 +12,7 @@ class GetDeffFunctionTest(TestCase):
     """ Test for get_deff_text file SHOULD be very exact """
 
     def setUp(self):
+        activate("en")
         ARMY_TEXT = (
             "500|500,3000,1000,0,0,0,1000,0,0,0,0,0,0,\r\n"
             "499|500,2000,1000,0,0,0,1000,0,0,0,0,0,0,\r\n"
@@ -57,6 +59,7 @@ class GetDeffFunctionTest(TestCase):
             deff_troops=DEFF_TEXT,
             off_troops=ARMY_TEXT,
         )
+        models.Result.objects.create(outline=self.outline)
         self.ally_tribe1 = models.Tribe(
             tribe_id=1, tag="pl1", world=self.world1
         )
