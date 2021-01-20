@@ -55,9 +55,11 @@ def initial_form(request, _id):
     example = markdownify(example)
 
     if models.WeightMaximum.objects.filter(outline=instance).count() == 0:
-        try:
+
+        off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+        if off_form.is_valid():
             initial.make_outline(instance)
-        except KeyError:
+        else:
             request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
 
             return redirect("base:planer_detail", _id)
@@ -657,9 +659,10 @@ def complete_outline(request, id1):
 def update_outline_troops(request, id1):
     instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
     models.WeightMaximum.objects.filter(outline=instance).delete()
-    try:
+    off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+    if off_form.is_valid():
         initial.make_outline(instance)
-    except KeyError:
+    else:
         request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
 
         return redirect("base:planer_detail", id1)
