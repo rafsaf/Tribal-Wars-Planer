@@ -178,4 +178,5 @@ function process() {
 
         RenderPlayerTroops();
     }
-}
+};
+process();
