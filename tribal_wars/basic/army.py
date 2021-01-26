@@ -138,16 +138,16 @@ class Defence:
 
         text_army_length = len(self.text_army)
         evidence_dictionary = {
-            (1, 1, 1): 17,
-            (1, 1, 0): 16,
-            (0, 1, 1): 16,
-            (1, 0, 1): 15,
-            (1, 0, 0): 14,
-            (0, 0, 1): 14,
-            (0, 1, 0): 15,
-            (0, 0, 0): 13,
+            (1, 1, 1): {17, 16},
+            (1, 1, 0): {16, 15},
+            (0, 1, 1): {16, 15},
+            (1, 0, 1): {15, 14},
+            (1, 0, 0): {14, 13},
+            (0, 0, 1): {14, 13},
+            (0, 1, 0): {15, 14},
+            (0, 0, 0): {13, 12},
         }
-        if text_army_length != evidence_dictionary[self.world_evidence]:
+        if text_army_length not in evidence_dictionary[self.world_evidence]:
             raise DefenceError(
                 f"Długość: {text_army_length} nie jest poprawna"
             )
