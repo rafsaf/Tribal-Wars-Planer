@@ -284,6 +284,11 @@ class Outline(models.Model):
 
     def remove_user_outline(self):
         self.written = "inactive"
+        self.avaiable_offs = []
+        self.avaiable_offs_near = []
+        self.avaiable_nobles = []
+        self.avaiable_nobles_near = []
+ 
         WeightMaximum.objects.filter(outline=self).delete()
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
