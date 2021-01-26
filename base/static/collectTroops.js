@@ -5,8 +5,9 @@ if (
     (params.get("mode") !== "members_defense" &&
         params.get("mode") !== "members_troops")
 ) {
-    UI.ErrorMessage("Przejdź do Członkowie -> Wojska/Obrona", "2e3");
+    UI.ErrorMessage("Przejdz do Plemie -> Czlonkowie -> Wojska/Obrona", "2e3");
 } else {
+    const cacheTime = Data.cacheTime * 60 * 1000
     let output = "";
     let lackAccessPlayers = "";
     let players = [];
@@ -14,16 +15,19 @@ if (
     let firstLine;
     let showFirstLine;
     let showNicknames;
+    let mode;
     if (params.get("mode") === "members_troops") {
-        scriptName = "Zbiórka Wojska";
+        scriptName = "Zbiorka Wojska";
         firstLine = Data.firstLineTroops;
         showFirstLine = Data.showFirstLineTroops;
         showNicknames = Data.showNicknamesTroops;
+        mode = "troops";
     } else {
-        scriptName = "Zbiórka Deffa";
+        scriptName = "Zbiorka Deffa";
         firstLine = Data.firstLineDeff;
         showFirstLine = Data.showFirstLineDeff;
         showNicknames = Data.showNicknamesDeff;
+        mode = "defence"
     }
 
     // Adds players from current html to get array with players nicknames and ids
@@ -53,7 +57,7 @@ if (
             if (rowIndex === 0) {
                 return;
             }
-            if (output !=="" || playerOutputTroops !== "") {
+            if (output !== "" || playerOutputTroops !== "") {
                 playerOutputTroops += "\r\n";
             }
             if (useNick) {
@@ -114,13 +118,18 @@ if (
     async function RenderPlayerTroops() {
         const removedPlayers = Data.removedPlayers.split(";");
         const today = new Date().getTime();
-        const afterCacheTime = today + Data.cacheTime;
-        const storageDate = localStorage.getItem("storageDate");
+        const afterCacheTime = today + cacheTime;
+        const storageDate = localStorage.getItem("troops-storageDate" + mode);
+        let parseTime;
 
-        if (today < storageDate) {
-            output = localStorage.getItem("output");
-            lackAccessPlayers = localStorage.getItem("lackAccessPlayers");
+        if (today < storageDate && Data.cache) {
+            output = localStorage.getItem("troops-output" + mode);
+            lackAccessPlayers = localStorage.getItem("troops-lackAccessPlayers" + mode);
+            parseTime = new Date(parseInt(localStorage.getItem("troops-parseTime" + mode)));
+            parseTime = parseTime.toLocaleTimeString();
         } else {
+            parseTime = new Date(today);
+            parseTime = parseTime.toLocaleTimeString();
             AllPlayersList();
             players
                 .filter((player) => {
@@ -148,10 +157,10 @@ if (
                         AddPlayerPageToOutput(playerPageDocument, player.nick, useNick);
                     })
             );
-
-            localStorage.setItem("storageDate", afterCacheTime);
-            localStorage.setItem("output", output);
-            localStorage.getItem("lackAccessPlayers", lackAccessPlayers);
+            localStorage.setItem("troops-parseTime" + mode, String(today))
+            localStorage.setItem("troops-storageDate" + mode, afterCacheTime);
+            localStorage.setItem("troops-output" + mode, output);
+            localStorage.setItem("troops-lackAccessPlayers" + mode, lackAccessPlayers);
         }
         Dialog.show(
             "scriptFinalContent",
@@ -159,9 +168,10 @@ if (
           ${Data.removedPlayers === ""
                 ? ""
                 : `<p>Nieuwzględnieni: ${Data.removedPlayers}</p>`
-            }${lackAccessPlayers === "" ? `` : `<h4>Uwaga, częściowy lub całkowity brak podglądu:</h4>` + lackAccessPlayers
+            }${lackAccessPlayers === "" ? `` : `<h4>Uwaga, czesciowy lub calkowity brak podgladu:</h4>` + lackAccessPlayers
             }<textarea rows="15" style="width:95%;margin-top:15px;margin-bottom:25px;">${showFirstLine ? firstLine + "\r\n" : ""
-            }${output}</textarea>`
+            }${output}</textarea>
+            <small style="text-align:right">Wygenerowano ${parseTime}.</small>`
         );
     }
 
