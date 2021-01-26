@@ -6,64 +6,55 @@ From script Obrona to nice good looking version
 Also prining only villages in center
 
 """
+
 from base import models
 from . import basic
 
 
 def get_deff(
-        outline: models.Outline,
-        radius: int,
-        excluded_villages="",
-    ):
+    outline: models.Outline,
+    radius: int,
+    excluded_villages="",
+):
     """
     Args is instance of Outline, WARNING! be sure to use CORRECT
     data in instance, returns text with deff results.
     """
     excluded_coords = excluded_villages.split()
 
-    my_tribe_villages = models.VillageModel.objects.select_related().filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world).values("x_coord", "y_coord", "coord")
+    my_tribe_villages = (
+        models.VillageModel.objects.select_related()
+        .filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world)
+        .values("x_coord", "y_coord", "coord")
+    )
 
-    enemy_tribe_villages = models.VillageModel.objects.select_related().filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world).exclude(coord__in=excluded_coords).values("x_coord", "y_coord")
-
-    village_dictionary = basic.dictionary.coord_to_player(outline=outline)
+    enemy_tribe_villages = (
+        models.VillageModel.objects.select_related()
+        .filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world)
+        .exclude(coord__in=excluded_coords)
+        .values("x_coord", "y_coord")
+    )
 
     return deff_text(
         my_tribe_villages,
         enemy_tribe_villages,
         radius,
-        outline.off_troops,
-        outline.deff_troops,
-        outline.world,
-        village_dictionary,
+        outline,
     )
 
 
 def get_legal_coords(ally_villages, enemy_villages, radius):
     """ Create set with ally_vill without enemy_vill closer than radius """
-    banned_coords = set()
     ally_set = set()
-    for village in ally_villages:
+    for village in ally_villages.iterator(chunk_size=1000):
         ally_set.add((int(village["x_coord"]), int(village["y_coord"])))
-    for village in enemy_villages:
-        pass_bool = False
-        if (int(village["x_coord"]), int(village["y_coord"])) in banned_coords:
-            i = 0
-            for coord in basic.yield_four_circle_ends(
-                radius, (village["x_coord"], village["y_coord"])
-            ):
-                if coord in banned_coords:
-                    break
-                i += 1
-            if i == 4:
-                pass_bool = True
-        if not pass_bool:
-            for coord in basic.yield_circle(
-                radius, (village["x_coord"], village["y_coord"])
-            ):
-                if coord not in banned_coords:
-                    banned_coords.add(coord)
+    for village in enemy_villages.iterator(chunk_size=1000):
+        for coord in basic.yield_circle(
+            radius, (village["x_coord"], village["y_coord"])
+        ):
+            ally_set.discard(coord)
 
-    return ally_set - banned_coords
+    return ally_set
 
 
 def get_set_of_villages(ally_villages, enemy_villages, radius):
@@ -73,33 +64,31 @@ def get_set_of_villages(ally_villages, enemy_villages, radius):
     for i in ally_villages:
         if (i["x_coord"], i["y_coord"]) in legal_cords:
             result_villages.add(i["coord"])
-    
+
     return result_villages
 
 
 def deff_text(
-        ally_villages,
-        enemy_villages,
-        radius,
-        text_off,
-        text_deff,
-        world,
-        village_dictionary,
-    ):
+    ally_villages,
+    enemy_villages,
+    radius: int,
+    outline: models.Outline,
+):
     """
     uses get_list_of_villages to get legal villages in legal area,
     from text_obrona get numbers of units finaly returns text with results
     """
 
     not_in_front = get_set_of_villages(ally_villages, enemy_villages, radius)
+    village_dictionary = basic.dictionary.coord_to_player(outline=outline)
     deff_in_village_back: dict = {}
     deff_in_village_front: dict = {}
     deff_own_from_village_back: dict = {}
     deff_own_from_village_front: dict = {}
 
-    world_evidence = basic.world_evidence(world=world)
+    world_evidence = basic.world_evidence(world=outline.world)
 
-    for i, line in enumerate(text_deff.strip().split("\r\n")):
+    for i, line in enumerate(outline.deff_troops.strip().split("\r\n")):
         if i % 2 == 1:
             continue
 
@@ -114,7 +103,7 @@ def deff_text(
         else:
             deff_in_village_front[deff_instance.coord] = deff_instance
 
-    for line in text_off.strip().split("\r\n"):
+    for line in outline.off_troops.strip().split("\r\n"):
         army_instance = basic.Army(text_army=line, evidence=world_evidence)
         try:
             owner = village_dictionary[army_instance.coord]

@@ -7,7 +7,7 @@ from base import models
 from tribal_wars import basic
 
 
-def make_outline(outline: models.Outline):
+def make_outline(outline: models.Outline, make_targets=True):
     """ Create only weight max models """
     # Remove instances in case of earlier exception
     if models.WeightMaximum.objects.filter(outline=outline).count() == 0:
@@ -36,35 +36,35 @@ def make_outline(outline: models.Outline):
             raise KeyError()
         models.WeightMaximum.objects.bulk_create(weight_max_create_list)
 
-    # Make targets
-    # Remove instances in case of earlier exception
-    models.TargetVertex.objects.filter(outline=outline).delete()
+    if make_targets:
+        # Make targets 
+        # Remove instances in case of earlier exception
+        models.TargetVertex.objects.filter(outline=outline).delete()
+        user_input = outline.initial_outline_targets.split("---")
+        # User input targets
+        targets_input = input_target.TargetsGeneralInput(
+            outline_targets=user_input[0].strip(),
+            world=outline.world,
+            fake=False,
+            outline=outline,
+        )
+        targets_input.generate_targets()
+        target_list1 = targets_input.targets
+        # target creating
+        models.TargetVertex.objects.bulk_create(target_list1)
 
-    user_input = outline.initial_outline_targets.split("---")
-    # User input targets
-    targets_input = input_target.TargetsGeneralInput(
-        outline_targets=user_input[0].strip(),
-        world=outline.world,
-        fake=False,
-        outline=outline,
-    )
-    targets_input.generate_targets()
-    target_list1 = targets_input.targets
-    # target creating
-    models.TargetVertex.objects.bulk_create(target_list1)
+        # User input fake targets
+        fake_input = input_target.TargetsGeneralInput(
+            outline_targets=user_input[1].strip(),
+            world=outline.world,
+            fake=True,
+            outline=outline,
+        )
 
-    # User input fake targets
-    fake_input = input_target.TargetsGeneralInput(
-        outline_targets=user_input[1].strip(),
-        world=outline.world,
-        fake=True,
-        outline=outline,
-    )
-
-    fake_input.generate_targets()
-    target_list2 = fake_input.targets
-    # fakes target creating
-    models.TargetVertex.objects.bulk_create(target_list2)
+        fake_input.generate_targets()
+        target_list2 = fake_input.targets
+        # fakes target creating
+        models.TargetVertex.objects.bulk_create(target_list2)
 
 
 def complete_outline(outline: models.Outline):
@@ -79,8 +79,12 @@ def complete_outline(outline: models.Outline):
     # )
 
     # Auto writing outline for user
-    targets = models.TargetVertex.objects.filter(outline=outline, fake=False).order_by("id")
-    fakes = models.TargetVertex.objects.filter(outline=outline, fake=True).order_by("id")
+    targets = models.TargetVertex.objects.filter(outline=outline, fake=False).order_by(
+        "id"
+    )
+    fakes = models.TargetVertex.objects.filter(outline=outline, fake=True).order_by(
+        "id"
+    )
     modes_list = ["closest", "close", "random", "far"]
 
     leave = False
@@ -199,9 +203,7 @@ def write_out_outline_nobles(targets_general, outline, targets, fake=False):
         outline=outline, nobleman_max__gt=0
     )
     if fake:
-        weights_with_nobles = list(
-            weights_with_nobles.filter(first_line=False)
-        )
+        weights_with_nobles = list(weights_with_nobles.filter(first_line=False))
     else:
         weights_with_nobles = list(weights_with_nobles.filter(off_max__gt=400))
 
@@ -209,9 +211,7 @@ def write_out_outline_nobles(targets_general, outline, targets, fake=False):
         xxxxxxxxxxxxxxxxxxxx = write_out_outline.WriteTarget(target, outline)
         xxxxxxxxxxxxxxxxxxxx.write_ram()
         index_error = False
-        single_target: target_utils.SingleTarget = targets_general.single(
-            target.target
-        )
+        single_target: target_utils.SingleTarget = targets_general.single(target.target)
         if single_target.are_nobles_not_required():
             continue
         weights_with_nobles.sort(
@@ -225,13 +225,9 @@ def write_out_outline_nobles(targets_general, outline, targets, fake=False):
                 index_error = True
                 break  # after all nobles are used, move to finish func
             if fake:
-                weights_to_add = single_target.parse_fake_noble(
-                    nearest_weight, target
-                )
+                weights_to_add = single_target.parse_fake_noble(nearest_weight, target)
             else:
-                weights_to_add = single_target.parse_real_noble(
-                    nearest_weight, target
-                )
+                weights_to_add = single_target.parse_real_noble(nearest_weight, target)
             for weight_model in weights_to_add:
                 weight_model_noble_create_list.append(weight_model)
             weight_max_update_list.append(nearest_weight)

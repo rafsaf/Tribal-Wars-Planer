@@ -8,8 +8,6 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.forms import formset_factory
-from django.views.generic import DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext
 from django.db.models import Max
 from django.utils.translation import get_language
@@ -58,7 +56,7 @@ def initial_form(request, _id):
 
         off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
         if off_form.is_valid():
-            initial.make_outline(instance)
+            initial.make_outline(instance, make_targets=False)
         else:
             request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
 
@@ -108,13 +106,12 @@ def initial_form(request, _id):
         if "form1" in request.POST:
             form1 = forms.InitialOutlineForm(request.POST, outline=instance)
             if form1.is_valid():
-                # make outline
-                try:
-                    initial.make_outline(instance)
-                except KeyError:
+                off_form1 = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+                if off_form1.is_valid():
+                    initial.make_outline(instance, make_targets=True)
+                else:
                     request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
                     return redirect("base:planer_detail", _id)
-
                 instance.save()
                 return redirect("base:planer_initial_form", _id)
 
@@ -661,7 +658,7 @@ def update_outline_troops(request, id1):
     models.WeightMaximum.objects.filter(outline=instance).delete()
     off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
     if off_form.is_valid():
-        initial.make_outline(instance)
+        initial.make_outline(instance, make_targets=False)
     else:
         request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
 

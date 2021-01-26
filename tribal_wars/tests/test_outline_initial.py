@@ -247,26 +247,26 @@ class TestMakeOutlineFunction(TestCase):
         self.assertEqual(target1.mode_division, self.outline.mode_division)
         self.assertEqual(target1.mode_guide, self.outline.mode_guide)
 
-    def test_make_outline_6_weights_max_create_3_is_front(self):
+    def test_make_outline_6_weights_max_create_0_is_front(self):
         initial.make_outline(outline=self.outline)
         self.assertEqual(models.WeightMaximum.objects.all().count(), 6)
         self.assertEqual(
-            models.WeightMaximum.objects.filter(first_line=True).count(), 3
+            models.WeightMaximum.objects.filter(first_line=True).count(), 0
         )
 
-    def test_make_outline_number_of_queries_is_8(self):
-        with self.assertNumQueries(8):
+    def test_make_outline_number_of_queries_is_6(self):
+        with self.assertNumQueries(6):
             initial.make_outline(outline=self.outline)
 
-    def test_repeat_make_outline_number_of_queries_is_15(self):
+    def test_repeat_make_outline_number_of_queries_is_13(self):
         # second one do not create weight max models
-        with self.assertNumQueries(15):
+        with self.assertNumQueries(13):
             initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)
 
-    def test_repeat_make_outline_number_of_queries_is_22(self):
+    def test_repeat_make_outline_number_of_queries_is_20(self):
         # second one do not create weight max models
-        with self.assertNumQueries(22):
+        with self.assertNumQueries(20):
             initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)
             initial.make_outline(outline=self.outline)
@@ -504,7 +504,7 @@ class TestCompleteOutlineFunction(TestCase):
         target1 = models.TargetVertex.objects.get(target="500|499")
         weight = models.WeightModel.objects.get(target=target1)
         self.assertTrue(
-            weight.start in ["500|503", "500|504", ]
+            weight.start in ["500|503", "500|502", ]
         )
 
     def test_outline_complete_closest_off_correct1(self):

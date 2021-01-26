@@ -569,6 +569,15 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
         )
         self.assertTrue(off_form.is_valid())
 
+    def test_off_form_not_correct_when_village_is_barbarian(self):
+        barbarian_village = models.VillageModel.objects.get(coord="500|500")
+        barbarian_village.player = None
+        barbarian_village.save()
+        off_form = forms.OffTroopsForm(
+            {"off_troops": self.text_off1}, outline=self.outline
+        )
+        self.assertFalse(off_form.is_valid())
+
     def test_off_form_is_not_correct_one_line_bad(self):
         off_form = forms.OffTroopsForm(
             {"off_troops": self.text_off_bad1}, outline=self.outline
@@ -587,6 +596,15 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             {"deff_troops": self.text_deff1}, outline=self.outline
         )
         self.assertTrue(deff_form.is_valid())
+
+    def test_deff_form_not_correct_when_village_is_barbarian(self):
+        barbarian_village = models.VillageModel.objects.get(coord="500|500")
+        barbarian_village.player = None
+        barbarian_village.save()
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": self.text_deff1}, outline=self.outline
+        )
+        self.assertFalse(deff_form.is_valid())
 
     def test_deff_form_is_not_correct_one_line_bad(self):
         deff_form = forms.DeffTroopsForm(
