@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-20 20:50+0100\n"
+"POT-Creation-Date: 2021-01-26 22:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,218 +18,218 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: base/forms.py:15 base/templates/base/base_planer.html:7
+#: base/forms.py:14 base/templates/base/base_planer.html:7
 msgid "Outline Name"
 msgstr "Nazwa Rozpiski"
 
-#: base/forms.py:18 base/templates/base/base_planer.html:8
+#: base/forms.py:17 base/templates/base/base_planer.html:8
 msgid "Date"
 msgstr "Data"
 
-#: base/forms.py:19 base/templates/base/base_planer.html:10
+#: base/forms.py:18 base/templates/base/base_planer.html:10
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:28
+#: base/forms.py:27
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
 
-#: base/forms.py:38 base/forms.py:78
+#: base/forms.py:37 base/forms.py:77
 msgid "Text cannot be empty!"
 msgstr "Tekst nie może być pusty!"
 
-#: base/forms.py:68 base/templates/base/new_outline/new_outline.html:12
-#: base/templates/base/new_outline/new_outline.html:36
-#: base/templates/base/new_outline/new_outline.html:79
+#: base/forms.py:67 base/templates/base/new_outline/new_outline.html:12
+#: base/templates/base/new_outline/new_outline.html:28
+#: base/templates/base/new_outline/new_outline.html:71
 #: base/templates/base/new_outline/new_outline_initial_period2.html:24
-#: base/templates/base/new_outline/new_outline_initial_period2.html:53
+#: base/templates/base/new_outline/new_outline_initial_period2.html:45
 #: base/templates/base/new_outline/new_outline_results.html:37
 msgid "Deff collection"
 msgstr "Zbiórka Deffa"
 
-#: base/forms.py:97
+#: base/forms.py:96
 msgid "Ally tribe"
 msgstr "Własne plemiona"
 
-#: base/forms.py:104 base/forms.py:120
+#: base/forms.py:103 base/forms.py:119
 msgid "Select tribe from list"
 msgstr "Wybierz plemię z listy"
 
-#: base/forms.py:113
+#: base/forms.py:112
 msgid "Enemy tribe"
 msgstr "Przeciwne plemiona"
 
-#: base/forms.py:131
+#: base/forms.py:130
 msgid "Radius"
 msgstr "Promień"
 
-#: base/forms.py:133
+#: base/forms.py:132
 msgid "Max 45"
 msgstr "Maks 45"
 
-#: base/forms.py:140
+#: base/forms.py:139
 msgid "Excluded enemy villages"
 msgstr "Wykluczone wioski wroga"
 
-#: base/forms.py:142
+#: base/forms.py:141
 msgid "Exact coords separated by a space or an entry."
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:166
+#: base/forms.py:165
 msgid "Targets"
 msgstr "Cele"
 
-#: base/forms.py:200
+#: base/forms.py:199
 msgid "Min. off units number"
 msgstr "Minimalna liczba jednostek w offie"
 
-#: base/forms.py:201
+#: base/forms.py:200
 msgid "Distance from front line"
 msgstr "Odległość od linii frontu"
 
-#: base/forms.py:202
+#: base/forms.py:201
 msgid "Max Distance for nobles"
 msgstr "Maksymalna odległość dla szlachciców"
 
-#: base/forms.py:206
+#: base/forms.py:205
 msgid "Greater than or equal to 1 and less than or equal to 28000."
 msgstr "Większa lub równa 1 i mniejsza lub równa 28000."
 
-#: base/forms.py:209
+#: base/forms.py:208
 msgid "Greater than or equal to 0 and less than or equal to 45."
 msgstr "Większa lub równa 0 i mniejsza lub równa 45."
 
-#: base/forms.py:212
+#: base/forms.py:211
 msgid "Greater than or equal to 0 and less than or equal to 150."
 msgstr "Większa lub równa 0 i mniejsza lub równa 150."
 
-#: base/forms.py:217
+#: base/forms.py:216
 msgid "Excluded enemy villages coords (secluded villages)"
 msgstr ""
 "Nieuwzględniane przy liczeniu frontowych offów wioski wroga (diody itp.)"
 
-#: base/forms.py:220
+#: base/forms.py:219
 msgid "Exact coords separated by a space or an entry"
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:242
+#: base/forms.py:241
 msgid "Show all hidden"
 msgstr "Pokaż wszystkie ukryte"
 
-#: base/forms.py:243
+#: base/forms.py:242
 msgid "Title of message:"
 msgstr "Tytuł wiadomości"
 
-#: base/forms.py:244
+#: base/forms.py:243
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:247
+#: base/forms.py:246
 msgid "Maximum length: 50"
 msgstr "Maksymalna długość: 50"
 
-#: base/forms.py:248
+#: base/forms.py:247
 msgid "Maximum length: 500"
 msgstr "Maksymalna długość: 500"
 
-#: base/forms.py:259
+#: base/forms.py:258
 msgid "Ensure this value has at most 500 characters (it has "
 msgstr "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
 
-#: base/forms.py:271
+#: base/forms.py:270
 msgid "Set new date"
 msgstr "Wybierz nową datę"
 
-#: base/forms.py:305
+#: base/forms.py:304
 msgid "Choose the distance of the written offs:"
 msgstr "Wybierz dystans dla rozpisywanych offów:"
 
-#: base/forms.py:306
+#: base/forms.py:305
 msgid "Choose the distance of the written nobles:"
 msgstr "Wybierz dystans dla rozpisywanych szlachciców:"
 
-#: base/forms.py:307
+#: base/forms.py:306
 msgid "Choose how to split offs with nobles:"
 msgstr "Wybierz jak powinny być dzielone offy z szlachciami:"
 
-#: base/forms.py:309
+#: base/forms.py:308
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Wybierz preferowany sposób rozpisywania wymaganych szlachiców:"
 
-#: base/forms.py:312
+#: base/forms.py:311
 msgid "Choose how noble commands should be written out:"
 msgstr "Wybierz jak komendy z wiosek z szlachtą powinny być rozpisane:"
 
-#: base/forms.py:315
+#: base/forms.py:314
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 
-#: base/forms.py:362
+#: base/forms.py:361
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:147
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:149
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:365 base/models.py:380
+#: base/forms.py:364 base/models.py:380
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:373 base/forms.py:384
+#: base/forms.py:372 base/forms.py:383
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:38
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:357
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:105
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:376 base/forms.py:385
+#: base/forms.py:375 base/forms.py:384
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:39
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:358
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:106
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:383
+#: base/forms.py:382
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:34
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:355
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:103
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:386
+#: base/forms.py:385
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:35
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:356
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:104
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:387
+#: base/forms.py:386
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:36
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:359
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:107
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:388
+#: base/forms.py:387
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:37
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:360
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:108
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:459 base/forms.py:469
+#: base/forms.py:458 base/forms.py:468
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:477
+#: base/forms.py:476
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:489 base/forms.py:495
+#: base/forms.py:488 base/forms.py:494
 msgid "The All mode time frame MUST always be last for off and for noble."
 msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:503 base/forms.py:510
+#: base/forms.py:502 base/forms.py:509
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/forms.py:525
+#: base/forms.py:524
 #: base/templates/base/new_outline/new_outline_initial_period1.html:352
-#: base/templates/base/new_outline/new_outline_initial_period2.html:310
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:428
+#: base/templates/base/new_outline/new_outline_initial_period2.html:306
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:176
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:78
 #: base/templates/base/new_outline/new_outline_initial_period3.html:239
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:241
@@ -237,35 +237,35 @@ msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 msgid "Target"
 msgstr "Cel"
 
-#: base/forms.py:526
+#: base/forms.py:525
 msgid "Valid coords, 7 chars"
 msgstr "Poprawne koordy, 7 znaków"
 
-#: base/forms.py:540
+#: base/forms.py:539
 msgid "This village is already a target!"
 msgstr "Ta wioska już jest celem !"
 
-#: base/forms.py:546
+#: base/forms.py:545
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:562
+#: base/forms.py:561
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:563
+#: base/forms.py:562
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:582
+#: base/forms.py:581
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:585
+#: base/forms.py:584
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:596
+#: base/forms.py:595
 msgid "You can set your server:"
 msgstr "Możesz ustawić swój serwer:"
 
@@ -400,9 +400,9 @@ msgstr "Strona Główna"
 
 #: base/templates/base/base.html:129
 #: base/templates/base/new_outline/new_outline.html:16
-#: base/templates/base/new_outline/new_outline.html:40
+#: base/templates/base/new_outline/new_outline.html:32
 #: base/templates/base/new_outline/new_outline_initial_period2.html:28
-#: base/templates/base/new_outline/new_outline_initial_period2.html:56
+#: base/templates/base/new_outline/new_outline_initial_period2.html:48
 msgid "Planer"
 msgstr "Planer"
 
@@ -410,101 +410,101 @@ msgstr "Planer"
 msgid "Documentation"
 msgstr "Dokumentacja"
 
-#: base/templates/base/base.html:137
-msgid "Admin Site"
-msgstr "Administracja"
-
-#: base/templates/base/base.html:141
+#: base/templates/base/base.html:138
 msgid "Database Update"
 msgstr "Aktualizacja"
 
-#: base/templates/base/base.html:150
+#: base/templates/base/base.html:143
+msgid "Admin Site"
+msgstr "Administracja"
+
+#: base/templates/base/base.html:152
 msgid "Account"
 msgstr "Konto"
 
-#: base/templates/base/base.html:157
+#: base/templates/base/base.html:159
 msgid "My account"
 msgstr "Moje Konto"
 
-#: base/templates/base/base.html:161
+#: base/templates/base/base.html:163
 msgid "Sign out"
 msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:164 base/templates/base/base.html:236
-#: base/templates/base/base.html:246
+#: base/templates/base/base.html:166 base/templates/base/base.html:238
+#: base/templates/base/base.html:248
 msgid "Sign in"
 msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:167 base/templates/base/base.html:239
-#: base/templates/base/base.html:249 templates/registration/login.html:24
+#: base/templates/base/base.html:169 base/templates/base/base.html:241
+#: base/templates/base/base.html:251 templates/registration/login.html:24
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
-#: base/templates/base/base.html:172
+#: base/templates/base/base.html:174
 msgid "Language"
 msgstr "Język"
 
-#: base/templates/base/base.html:229 base/templates/base/overview.html:25
+#: base/templates/base/base.html:231 base/templates/base/overview.html:25
 msgid "Now you can donate this project"
 msgstr "Już teraz możesz wesprzeć ten projekt"
 
-#: base/templates/base/base.html:229
+#: base/templates/base/base.html:231
 #: base/templates/base/new_outline/new_outline_results.html:7
 #: base/templates/base/overview.html:25
 msgid "here"
 msgstr "tutaj"
 
-#: base/templates/base/base.html:234 base/templates/base/base.html:244
+#: base/templates/base/base.html:236 base/templates/base/base.html:246
 msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:238 base/templates/base/base.html:248
+#: base/templates/base/base.html:240 base/templates/base/base.html:250
 #: templates/registration/login.html:24
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:263
+#: base/templates/base/base.html:265
 msgid "Whole playlist on YouTube"
 msgstr "Cała playlista na YouTube"
 
-#: base/templates/base/base.html:273
+#: base/templates/base/base.html:275
 msgid "Show more videos"
 msgstr "Pokaż więcej filmów"
 
-#: base/templates/base/base.html:299
+#: base/templates/base/base.html:301
 msgid "Benefits"
 msgstr "Korzyści"
 
-#: base/templates/base/base.html:302
+#: base/templates/base/base.html:304
 msgid "Security"
 msgstr "Bezpieczeństwo"
 
-#: base/templates/base/base.html:305
+#: base/templates/base/base.html:307
 msgid "Author"
 msgstr "O Twórcy"
 
-#: base/templates/base/base.html:316
+#: base/templates/base/base.html:318
 msgid "You save a tons of time and have all outlines in one place."
 msgstr ""
 "Oszczędzisz mnóstwo czasu i będziesz mieć wszystkie rozpiski w jednym "
 "miejscu."
 
-#: base/templates/base/base.html:324
+#: base/templates/base/base.html:326
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
 msgstr ""
 "Gracze otrzymają końcowe cele jako tekst gotowy do wklejenia do notatek i "
 "wysłania."
 
-#: base/templates/base/base.html:332
+#: base/templates/base/base.html:334
 msgid "Instantly distribute created objectives to players."
 msgstr "Natychmiastowe wysyłanie do graczy utworzonych dla nich wytycznych."
 
-#: base/templates/base/base.html:340
+#: base/templates/base/base.html:342
 msgid "Friendly and easy-to-use interface."
 msgstr "Przyjazny i łatwy w obsłudze interfejs."
 
-#: base/templates/base/base.html:348
+#: base/templates/base/base.html:350
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
@@ -512,33 +512,33 @@ msgstr ""
 "Możliwość rozpisania każdego topornika własnoręcznie albo pozostawienia "
 "ciężaru rozpisywania celi Planerowi, wybierając spośród dziesiątek opcji."
 
-#: base/templates/base/base.html:356
+#: base/templates/base/base.html:358
 msgid "Growing number of users."
 msgstr "Coraz więcej zaangażowanych w projekt użytkowników."
 
-#: base/templates/base/base.html:364
+#: base/templates/base/base.html:366
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Ciągłe dodawanie nowych opcji i naprawianie błędów."
 
-#: base/templates/base/base.html:372
+#: base/templates/base/base.html:374
 msgid "The scripts used are reported and approved by the game support."
 msgstr ""
 "Skrypty używane w grze wykorzystywane na stronie są zgłoszone i uznane za "
 "legalne przez Support."
 
-#: base/templates/base/base.html:380
+#: base/templates/base/base.html:382
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "Wyrzucisz wszystkie notatniki, kartki i arkusze excela do kosza."
 
-#: base/templates/base/base.html:388
+#: base/templates/base/base.html:390
 msgid "You will avoid common problems like doubled commands."
 msgstr "Pozbędziesz się typowych problemów jak podwojone komendy."
 
-#: base/templates/base/base.html:396
+#: base/templates/base/base.html:398
 msgid "No more mistakes when sending messages to players."
 msgstr "Nigdy więcej pomyłek przy rozsyłaniu celów graczom w wiadomościach."
 
-#: base/templates/base/base.html:405
+#: base/templates/base/base.html:407
 msgid ""
 "The application is written in the modern and very secure <a target=\"_blank"
 "\" href=\"https://www.djangoproject.com/\">Django</a> framework. Therefore "
@@ -553,7 +553,7 @@ msgstr ""
 "site request forgery czy clickjacking, zapewniając jednocześnie w bezpieczny "
 "sposób utrzymywanie kont użytkowników."
 
-#: base/templates/base/base.html:413
+#: base/templates/base/base.html:415
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
@@ -563,7 +563,7 @@ msgstr ""
 "bezpieczeństwa kont użytkowników, uniemożliwiając jakikolwiek dostęp do "
 "danych użytkowników innym użytkownikom strony oraz osobom trzecim."
 
-#: base/templates/base/base.html:421
+#: base/templates/base/base.html:423
 msgid ""
 "Both the web server and the database server are located in the <a href="
 "\"https://aws.amazon.com/\">Amazon Web Services</a> cloud, with special "
@@ -574,7 +574,7 @@ msgstr ""
 "Services</a>, ze specjalnym naciskiem położonym na ich rekomendacje w "
 "kwestiach bezpieczeństwa."
 
-#: base/templates/base/base.html:429
+#: base/templates/base/base.html:431
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
@@ -584,7 +584,7 @@ msgstr ""
 "od początku do dnia dzisiejszego, oznacza relatywnie małą szansę na "
 "przypadkowe, nagłe narażenie danych użytkowników na ekspozycję."
 
-#: base/templates/base/base.html:437
+#: base/templates/base/base.html:439
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
@@ -595,7 +595,7 @@ msgstr ""
 "innym użytkownikom, graczom gry, osobom trzecim a także komukolwiek innemu, "
 "z jakiegokolwiek powodu."
 
-#: base/templates/base/base.html:443
+#: base/templates/base/base.html:445
 msgid ""
 "My name is Rafał, I am a student of the Faculty of Mathematics and Computer "
 "Science at the University of Wroclaw. For over a year I have been interested "
@@ -609,7 +609,7 @@ msgstr ""
 "bezpieczeństwem w sieci. Piszę głównie w Pythonie i JS, ale mam w planach "
 "także naukę innych języków i technologii :)"
 
-#: base/templates/base/base.html:446
+#: base/templates/base/base.html:448
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
@@ -623,7 +623,7 @@ msgstr ""
 "(największe osiągnięcie to występ na zawodach na szczeblu wojewódzkim), "
 "lubię szachy i pokera a także dobry film."
 
-#: base/templates/base/base.html:468
+#: base/templates/base/base.html:470
 msgid ""
 "Note, all announcements, proposals, reported bugs will be placed on the "
 "discord."
@@ -631,15 +631,15 @@ msgstr ""
 "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być "
 "zamieszczane na kanale na discordzie."
 
-#: base/templates/base/base.html:514
+#: base/templates/base/base.html:516
 msgid "Galery"
 msgstr "Galeria"
 
-#: base/templates/base/base.html:548
+#: base/templates/base/base.html:550
 msgid "This is an open project Plemiona Planer."
 msgstr "To jest otwarty projekt Plemiona Planer."
 
-#: base/templates/base/base.html:550
+#: base/templates/base/base.html:552
 msgid ""
 "See an error? Please write <b>plemionaplaner.pl@gmail.com</b> or contact me "
 "with discord."
@@ -647,7 +647,7 @@ msgstr ""
 "Widzisz błąd? Napisz: <b>plemionaplaner.pl@gmail.com</b> lub skontakuj się "
 "przez discorda."
 
-#: base/templates/base/base.html:553
+#: base/templates/base/base.html:555
 msgid ""
 "Dear User, we inform you that by using the website you agree to our <a "
 "target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy and "
@@ -680,7 +680,7 @@ msgstr "Ukryj"
 #: base/templates/base/base_planer.html:16
 #: base/templates/base/base_planer.html:63
 #: base/templates/base/base_planer.html:125
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:391
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:139
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:90
 msgid "Delete"
 msgstr "Usuń"
@@ -693,7 +693,7 @@ msgstr "Pokaż"
 
 #: base/templates/base/base_planer.html:72
 #: base/templates/base/new_outline/new_outline_create_select.html:90
-#: base/templates/base/new_outline/new_outline_initial_period2.html:99
+#: base/templates/base/new_outline/new_outline_initial_period2.html:91
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:45
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:43
 msgid "Warning"
@@ -719,7 +719,7 @@ msgstr "Tej operacji nie można cofnąć!"
 
 #: base/templates/base/base_planer.html:87
 #: base/templates/base/new_outline/new_outline_create_select.html:105
-#: base/templates/base/new_outline/new_outline_initial_period2.html:112
+#: base/templates/base/new_outline/new_outline_initial_period2.html:104
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:58
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:56
 #: base/templates/base/new_outline/new_outline_initial_period3.html:25
@@ -735,7 +735,7 @@ msgstr "Usuń na zawsze"
 #: base/templates/base/new_outline/new_outline_get_deff.html:20
 #: base/templates/base/new_outline/new_outline_get_off.html:22
 #: base/templates/base/new_outline/new_outline_initial_period1.html:592
-#: base/templates/base/new_outline/new_outline_initial_period2.html:128
+#: base/templates/base/new_outline/new_outline_initial_period2.html:120
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:74
 msgid "Processing..."
 msgstr "Przetwarzanie..."
@@ -757,84 +757,84 @@ msgstr ""
 "rozpisek offów."
 
 #: base/templates/base/new_outline/new_outline.html:10
-#: base/templates/base/new_outline/new_outline.html:34
+#: base/templates/base/new_outline/new_outline.html:26
 #: base/templates/base/new_outline/new_outline_initial_period2.html:22
-#: base/templates/base/new_outline/new_outline_initial_period2.html:51
+#: base/templates/base/new_outline/new_outline_initial_period2.html:43
 msgid "Results"
 msgstr "Wyniki"
 
-#: base/templates/base/new_outline/new_outline.html:23
-#: base/templates/base/new_outline/new_outline_initial_period2.html:35
+#: base/templates/base/new_outline/new_outline.html:14
+#: base/templates/base/new_outline/new_outline_initial_period2.html:26
 msgid "Hold on a second..."
 msgstr "Jeszcze chwila..."
 
-#: base/templates/base/new_outline/new_outline.html:50
+#: base/templates/base/new_outline/new_outline.html:42
 msgid "To continue, please fill in forms with scripts results."
 msgstr "Aby kontynuować, proszę wypełnij formularze wynikami skryptów."
 
-#: base/templates/base/new_outline/new_outline.html:51
+#: base/templates/base/new_outline/new_outline.html:43
 msgid "Last world update: "
 msgstr "Ostatnia aktualizacja świata: "
 
-#: base/templates/base/new_outline/new_outline.html:60
+#: base/templates/base/new_outline/new_outline.html:52
 msgid "Off collection"
 msgstr "Zbiórka Wojska"
 
-#: base/templates/base/new_outline/new_outline.html:124
-#: base/templates/base/new_outline/new_outline.html:187
+#: base/templates/base/new_outline/new_outline.html:116
+#: base/templates/base/new_outline/new_outline.html:179
 #: base/templates/base/new_outline/new_outline_initial_period1.html:66
 msgid "Incorrect data in"
 msgstr "Nieprawidłowe dane w"
 
-#: base/templates/base/new_outline/new_outline.html:124
-#: base/templates/base/new_outline/new_outline.html:187
+#: base/templates/base/new_outline/new_outline.html:116
+#: base/templates/base/new_outline/new_outline.html:179
 #: base/templates/base/new_outline/new_outline_initial_period1.html:66
 msgid "lines."
 msgstr "liniach."
 
-#: base/templates/base/new_outline/new_outline.html:125
-#: base/templates/base/new_outline/new_outline.html:188
+#: base/templates/base/new_outline/new_outline.html:117
+#: base/templates/base/new_outline/new_outline.html:180
 msgid "Why an error appeared?"
 msgstr "Dlaczego pojawił się błąd?"
 
-#: base/templates/base/new_outline/new_outline.html:127
-#: base/templates/base/new_outline/new_outline.html:190
+#: base/templates/base/new_outline/new_outline.html:119
+#: base/templates/base/new_outline/new_outline.html:182
 msgid "*After clicking submit you will be transferred to first error*"
 msgstr "*Po kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*"
 
-#: base/templates/base/new_outline/new_outline.html:132
-#: base/templates/base/new_outline/new_outline.html:195
+#: base/templates/base/new_outline/new_outline.html:124
+#: base/templates/base/new_outline/new_outline.html:187
 #: base/templates/base/new_outline/new_outline_initial_period1.html:81
 msgid "The text cannot be empty"
 msgstr "Tekst nie może być pusty"
 
-#: base/templates/base/new_outline/new_outline.html:142
+#: base/templates/base/new_outline/new_outline.html:134
 msgid "Exact form from off collect script required, see "
 msgstr "Dokładna forma z skryptu Zbiórka Wojska jest wymagana, zobacz "
 
-#: base/templates/base/new_outline/new_outline.html:142
-#: base/templates/base/new_outline/new_outline.html:205
+#: base/templates/base/new_outline/new_outline.html:134
+#: base/templates/base/new_outline/new_outline.html:197
 #: base/templates/base/new_outline/new_outline_create.html:7
 msgid "docs"
 msgstr "dokumentację"
 
-#: base/templates/base/new_outline/new_outline.html:148
-#: base/templates/base/new_outline/new_outline.html:211
+#: base/templates/base/new_outline/new_outline.html:140
+#: base/templates/base/new_outline/new_outline.html:203
 #: base/templates/base/new_outline/new_outline_create.html:20
 #: base/templates/base/new_outline/new_outline_get_deff.html:11
 #: base/templates/base/new_outline/new_outline_get_off.html:13
 msgid "Submit"
 msgstr "Potwierdź"
 
-#: base/templates/base/new_outline/new_outline.html:205
+#: base/templates/base/new_outline/new_outline.html:197
 msgid "Exact form from army collect script required, see "
 msgstr "Dokładna forma z skryptu Zbiórka Deffa jest wymagana, zobacz"
 
-#: base/templates/base/new_outline/new_outline.html:228
+#: base/templates/base/new_outline/new_outline.html:220
 msgid "Army collection preview"
 msgstr "Podgląd Zbiórka Wojska"
 
-#: base/templates/base/new_outline/new_outline.html:233
+#: base/templates/base/new_outline/new_outline.html:225
 msgid "Deff collection preview"
 msgstr "Podgląd zbiórka Deffa"
 
@@ -921,7 +921,7 @@ msgstr ""
 "                "
 
 #: base/templates/base/new_outline/new_outline_create_select.html:108
-#: base/templates/base/new_outline/new_outline_initial_period2.html:117
+#: base/templates/base/new_outline/new_outline_initial_period2.html:109
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:63
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:60
 msgid "Continue"
@@ -1135,13 +1135,13 @@ msgstr "Aktualizacja danych..."
 msgid "Reloading troops..."
 msgstr "Ponowne przeliczanie..."
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:90
+#: base/templates/base/new_outline/new_outline_initial_period2.html:82
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:36
 #: base/templates/base/new_outline/new_outline_initial_period2_4.html:34
 msgid "Go back"
 msgstr "Powrót"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:105
+#: base/templates/base/new_outline/new_outline_initial_period2.html:97
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:51
 msgid ""
 " Current progress will be\n"
@@ -1154,67 +1154,33 @@ msgstr ""
 "                                    <br>Powrócisz do poprzedniego "
 "formularza. "
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:161
-#: base/templates/base/new_outline/new_outline_initial_period2.html:165
-#: base/templates/base/new_outline/new_outline_initial_period3.html:85
-#: base/templates/base/new_outline/new_outline_initial_period3.html:92
-#: base/templates/base/new_outline/new_outline_initial_period3.html:353
-#: base/templates/base/new_outline/new_outline_initial_period3.html:360
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:85
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:92
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:379
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:386
-msgid "Previous"
-msgstr "Poprzednia"
-
-#: base/templates/base/new_outline/new_outline_initial_period2.html:169
-#: base/templates/base/new_outline/new_outline_initial_period3.html:96
-#: base/templates/base/new_outline/new_outline_initial_period3.html:364
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:96
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:390
-msgid "of"
-msgstr "z"
-
-#: base/templates/base/new_outline/new_outline_initial_period2.html:173
-#: base/templates/base/new_outline/new_outline_initial_period2.html:177
-#: base/templates/base/new_outline/new_outline_initial_period3.html:100
-#: base/templates/base/new_outline/new_outline_initial_period3.html:105
-#: base/templates/base/new_outline/new_outline_initial_period3.html:368
-#: base/templates/base/new_outline/new_outline_initial_period3.html:373
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:100
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:105
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:394
-#: base/templates/base/new_outline/new_outline_initial_period3_1.html:399
-msgid "Next"
-msgstr "Następna"
-
-#: base/templates/base/new_outline/new_outline_initial_period2.html:183
-#: base/templates/base/new_outline/new_outline_initial_period2.html:192
+#: base/templates/base/new_outline/new_outline_initial_period2.html:178
+#: base/templates/base/new_outline/new_outline_initial_period2.html:187
 msgid "Add and remove targets"
 msgstr "Dodaj lub usuń cele"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:204
-#: base/templates/base/new_outline/new_outline_initial_period2.html:212
+#: base/templates/base/new_outline/new_outline_initial_period2.html:199
+#: base/templates/base/new_outline/new_outline_initial_period2.html:207
 msgid "Set real targets"
 msgstr "Ustaw cele"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:225
-#: base/templates/base/new_outline/new_outline_initial_period2.html:251
+#: base/templates/base/new_outline/new_outline_initial_period2.html:220
+#: base/templates/base/new_outline/new_outline_initial_period2.html:246
 msgid "Set fake targets"
 msgstr "Ustaw fejki"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:281
-#: base/templates/base/new_outline/new_outline_initial_period2.html:289
+#: base/templates/base/new_outline/new_outline_initial_period2.html:276
+#: base/templates/base/new_outline/new_outline_initial_period2.html:284
 msgid "Set time and confirm"
 msgstr "Ustaw czasy wejścia i zakończ rozpiskę"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:311
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:430
+#: base/templates/base/new_outline/new_outline_initial_period2.html:307
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:178
 #: base/templates/base/overview.html:128
 msgid "Outline"
 msgstr "Rozpiska"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:343
+#: base/templates/base/new_outline/new_outline_initial_period2.html:339
 #: base/templates/base/new_outline/new_outline_initial_period2_2.html:142
 msgid "Edit"
 msgstr "Edytuj"
@@ -1228,19 +1194,19 @@ msgstr "Potwierdź całą rozpiskę i zakończ"
 msgid "Create"
 msgstr "Utwórz"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:396
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:144
 msgid "Set for every target"
 msgstr "Ustaw dla wszystkich celów"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:418
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:166
 msgid "Confirm selected"
 msgstr "Zatwierdź zmiany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:427
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:175
 msgid "Selected"
 msgstr "Wybrany"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:429
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:177
 msgid "Select Time"
 msgstr "Wybierz Czas"
 
@@ -1496,6 +1462,35 @@ msgstr "Najdalsza szlachta"
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:365
 msgid "Farthest offs with noblemans"
 msgstr "Najdalsze pełne offy z szlachtą"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:85
+#: base/templates/base/new_outline/new_outline_initial_period3.html:92
+#: base/templates/base/new_outline/new_outline_initial_period3.html:353
+#: base/templates/base/new_outline/new_outline_initial_period3.html:360
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:85
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:379
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:386
+msgid "Previous"
+msgstr "Poprzednia"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:96
+#: base/templates/base/new_outline/new_outline_initial_period3.html:364
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:96
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:390
+msgid "of"
+msgstr "z"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:100
+#: base/templates/base/new_outline/new_outline_initial_period3.html:105
+#: base/templates/base/new_outline/new_outline_initial_period3.html:368
+#: base/templates/base/new_outline/new_outline_initial_period3.html:373
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:100
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:105
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:394
+#: base/templates/base/new_outline/new_outline_initial_period3_1.html:399
+msgid "Next"
+msgstr "Następna"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:206
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:207
@@ -1777,7 +1772,7 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:37 base/views/results_get_deff.py:23
+#: base/views/outline_initial_views.py:35 base/views/results_get_deff.py:23
 msgid "Off collection empty!"
 msgstr "Zbiórka Offa pusta!"
 
@@ -1799,8 +1794,8 @@ msgstr ""
 "Dostępne jednostki\" przycisk \"Kliknij by zaktualizować po zmianie Zbiórki "
 "Wojska\"."
 
-#: base/views/outline_initial_views.py:376
-#: base/views/outline_initial_views.py:638
+#: base/views/outline_initial_views.py:375
+#: base/views/outline_initial_views.py:637
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
@@ -1817,6 +1812,20 @@ msgstr ""
 "Wygląda na to że dane Twojej Zbiórki Deffa albo Offa nie są już aktualne! "
 "Aby korzystać z Zbiórki: skopiuj dane z podglądu i popraw błędy albo wklej "
 "aktualne dane \n"
+
+#: templates/404.html:4
+msgid ""
+"Ops, no access, or the content you're looking for is no longer available on "
+"the site."
+msgstr ""
+"Ops, brak dostępu, albo szukana zawartość strony nie jest już dłużej dostępna."
+
+#: templates/500.html:4
+msgid ""
+"Ops, a server error has occurred. Please try again in a moment and if this "
+"does not help, contact the administration."
+msgstr ""
+"Ops, wystąpił błąd serwera. Spróbuj ponownie za chwilę, a jeśli to nie pomoże, skontaktuj się z administracją."
 
 #: templates/django_registration/registration_complete.html:7
 msgid "Congratulations, you have successfully registered!"
