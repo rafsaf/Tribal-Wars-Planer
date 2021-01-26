@@ -53,7 +53,7 @@ if (
             if (rowIndex === 0) {
                 return;
             }
-            if (playerOutputTroops !== "") {
+            if (output !=="" || playerOutputTroops !== "") {
                 playerOutputTroops += "\r\n";
             }
             if (useNick) {
