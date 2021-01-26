@@ -171,7 +171,7 @@ if (
             }${lackAccessPlayers === "" ? `` : `<h4>Uwaga, czesciowy lub calkowity brak podgladu:</h4>` + lackAccessPlayers
             }<textarea rows="15" style="width:95%;margin-top:15px;margin-bottom:25px;">${showFirstLine ? firstLine + "\r\n" : ""
             }${output}</textarea>
-            <small style="text-align:right">Wygenerowano ${parseTime}.</small>`
+            <p style="text-align:right"><small>Wygenerowano ${parseTime}.</small></p>`
         );
     }
 
