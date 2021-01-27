@@ -87,7 +87,6 @@ def outline_detail_1(request, _id):
             form1 = forms.OffTroopsForm(post, outline=instance)
             form2 = forms.DeffTroopsForm(None, outline=instance)
             if form1.is_valid():
-                print("valid")
                 instance.off_troops = post['off_troops']
                 instance.save()
                 return redirect("base:planer_detail", _id)
