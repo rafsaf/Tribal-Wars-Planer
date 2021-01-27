@@ -2,150 +2,150 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.plemiona-planer.pl/pl/</loc>
+    <loc>https://plemiona-planer.pl/pl/</loc>
     <changefreq>monthly</changefreq>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/"/>
+               href="https://plemiona-planer.pl/pl/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/"/>
+               href="https://plemiona-planer.pl/en/"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/</loc>
+    <loc>https://plemiona-planer.pl/</loc>
     <changefreq>monthly</changefreq>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/"/>
+               href="https://plemiona-planer.pl/pl/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/"/>
+               href="https://plemiona-planer.pl/en/"/>
 
   </url>
   <url>
     <changefreq>monthly</changefreq>
-    <loc>https://www.plemiona-planer.pl/en/</loc>
+    <loc>https://plemiona-planer.pl/en/</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/"/>
+               href="https://plemiona-planer.pl/pl/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/"/>
+               href="https://plemiona-planer.pl/en/"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/login/</loc>
+    <loc>https://plemiona-planer.pl/login/</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/login/"/>
+               href="https://plemiona-planer.pl/pl/login/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/login/"/>
+               href="https://plemiona-planer.pl/en/login/"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/en/login/</loc>
+    <loc>https://plemiona-planer.pl/en/login/</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/login/"/>
+               href="https://plemiona-planer.pl/pl/login/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/login/"/>
+               href="https://plemiona-planer.pl/en/login/"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/pl/login/</loc>
+    <loc>https://plemiona-planer.pl/pl/login/</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/login/"/>
+               href="https://plemiona-planer.pl/pl/login/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/login/"/>
+               href="https://plemiona-planer.pl/en/login/"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/register/</loc>
+    <loc>https://plemiona-planer.pl/register/</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/register/"/>
+               href="https://plemiona-planer.pl/pl/register/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/register/"/>
+               href="https://plemiona-planer.pl/en/register/"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/en/register/</loc>
+    <loc>https://plemiona-planer.pl/en/register/</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/register/"/>
+               href="https://plemiona-planer.pl/pl/register/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/register/"/>
+               href="https://plemiona-planer.pl/en/register/"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/pl/register/</loc>
+    <loc>https://plemiona-planer.pl/pl/register/</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/register/"/>
+               href="https://plemiona-planer.pl/pl/register/"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/register/"/>
+               href="https://plemiona-planer.pl/en/register/"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/en/documentation</loc>
+    <loc>https://plemiona-planer.pl/en/documentation</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/documentation"/>
+               href="https://plemiona-planer.pl/pl/documentation"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/documentation"/>
+               href="https://plemiona-planer.pl/en/documentation"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/documentation</loc>
+    <loc>https://plemiona-planer.pl/documentation</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/documentation"/>
+               href="https://plemiona-planer.pl/pl/documentation"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/documentation"/>
+               href="https://plemiona-planer.pl/en/documentation"/>
 
   </url>
   <url>
-    <loc>https://www.plemiona-planer.pl/pl/documentation</loc>
+    <loc>https://plemiona-planer.pl/pl/documentation</loc>
     <xhtml:link 
                rel="alternate"
                hreflang="pl"
-               href="https://www.plemiona-planer.pl/pl/documentation"/>
+               href="https://plemiona-planer.pl/pl/documentation"/>
     <xhtml:link 
                rel="alternate"
                hreflang="en"
-               href="https://www.plemiona-planer.pl/en/documentation"/>
+               href="https://plemiona-planer.pl/en/documentation"/>
 
   </url>
   
