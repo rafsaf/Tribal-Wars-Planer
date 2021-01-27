@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-26 22:07+0100\n"
+"POT-Creation-Date: 2021-01-27 22:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,7 +170,7 @@ msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:364 base/models.py:380
+#: base/forms.py:364 base/models.py:385
 msgid "Noble"
 msgstr "Szlachcic"
 
@@ -233,7 +233,7 @@ msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:78
 #: base/templates/base/new_outline/new_outline_initial_period3.html:239
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:241
-#: base/templates/base/overview.html:127
+#: base/templates/base/overview.html:121
 msgid "Target"
 msgstr "Cel"
 
@@ -273,39 +273,39 @@ msgstr "Możesz ustawić swój serwer:"
 msgid "World "
 msgstr "Świat "
 
-#: base/models.py:168 base/models.py:175 base/models.py:396 base/models.py:403
+#: base/models.py:168 base/models.py:175 base/models.py:401 base/models.py:408
 #: base/templates/base/new_outline/new_outline_initial_period1.html:364
 #: base/templates/base/new_outline/new_outline_initial_period1.html:404
 msgid "Closest Front"
 msgstr "Front Najbliżej"
 
-#: base/models.py:169 base/models.py:176 base/models.py:397 base/models.py:404
+#: base/models.py:169 base/models.py:176 base/models.py:402 base/models.py:409
 #: base/templates/base/new_outline/new_outline_initial_period1.html:374
 #: base/templates/base/new_outline/new_outline_initial_period1.html:414
 msgid "Close Back"
 msgstr "Zaplecze Blisko"
 
-#: base/models.py:170 base/models.py:177 base/models.py:398 base/models.py:405
+#: base/models.py:170 base/models.py:177 base/models.py:403 base/models.py:410
 #: base/templates/base/new_outline/new_outline_initial_period1.html:384
 #: base/templates/base/new_outline/new_outline_initial_period1.html:424
 msgid "Random Back"
 msgstr "Zaplecze Losowo"
 
-#: base/models.py:171 base/models.py:178 base/models.py:399 base/models.py:406
+#: base/models.py:171 base/models.py:178 base/models.py:404 base/models.py:411
 #: base/templates/base/new_outline/new_outline_initial_period1.html:394
 #: base/templates/base/new_outline/new_outline_initial_period1.html:434
 msgid "Far Back"
 msgstr "Zaplecze Daleko"
 
-#: base/models.py:182 base/models.py:410
+#: base/models.py:182 base/models.py:415
 msgid "Divide off with nobles"
 msgstr "Dziel offy z szlachtą"
 
-#: base/models.py:183 base/models.py:411
+#: base/models.py:183 base/models.py:416
 msgid "Dont't divide off"
 msgstr "Nie dziel offów z szlachtą"
 
-#: base/models.py:184 base/models.py:412
+#: base/models.py:184 base/models.py:417
 msgid "Off and nobles separatly"
 msgstr "Offy i szlachta osobno"
 
@@ -317,19 +317,19 @@ msgstr "Szlachta z jednej wioski jako jeden rozkaz"
 msgid "Nobles from one village as many commands"
 msgstr "Szlachta z jednej wioski jako wiele rozkazów"
 
-#: base/models.py:193 base/models.py:416
+#: base/models.py:193 base/models.py:421
 msgid "Try send all nobles to one target"
 msgstr "Rozpisuj szlachtę możliwie na jedną wioskę"
 
-#: base/models.py:194 base/models.py:417
+#: base/models.py:194 base/models.py:422
 msgid "Nobles to one or many targets"
 msgstr "Szlachta na jedną lub wiele wiosek (optymalnie)"
 
-#: base/models.py:195 base/models.py:418
+#: base/models.py:195 base/models.py:423
 msgid "Try single nobles from many villages"
 msgstr "Rozpisuj szlachtę na cel możliwie z pojedynczych wiosek"
 
-#: base/models.py:199 base/models.py:375
+#: base/models.py:199 base/models.py:380
 #: base/templates/base/new_outline/new_outline_initial_period1.html:118
 msgid "All"
 msgstr "Wszystkie"
@@ -352,15 +352,15 @@ msgstr "Ukryte"
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models.py:376
+#: base/models.py:381
 msgid "Random"
 msgstr "Losowo"
 
-#: base/models.py:377
+#: base/models.py:382
 msgid "Exact"
 msgstr "Dokładnie"
 
-#: base/models.py:381
+#: base/models.py:386
 msgid "Ram"
 msgstr "Taran"
 
@@ -1176,7 +1176,7 @@ msgstr "Ustaw czasy wejścia i zakończ rozpiskę"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:307
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:178
-#: base/templates/base/overview.html:128
+#: base/templates/base/overview.html:122
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -1663,40 +1663,45 @@ msgstr ""
 msgid "Text"
 msgstr "Tekst"
 
-#: base/templates/base/overview.html:62 base/templates/base/overview.html:76
-#: base/templates/base/overview.html:92
+#: base/templates/base/overview.html:62 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:88
 msgid "Successfully copied!"
 msgstr "Pomyślnie skopiowano!"
 
-#: base/templates/base/overview.html:62 base/templates/base/overview.html:76
-#: base/templates/base/overview.html:92
+#: base/templates/base/overview.html:62 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:88
 msgid "Click to copy again"
 msgstr "Kliknij by ponownie skopiować"
 
-#: base/templates/base/overview.html:62 base/templates/base/overview.html:76
-#: base/templates/base/overview.html:92
+#: base/templates/base/overview.html:62 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:88
 msgid "Copy to clipboard"
 msgstr "Kopiuj do schowka"
 
-#: base/templates/base/overview.html:76
+#: base/templates/base/overview.html:67 base/templates/base/overview.html:80
+#: base/templates/base/overview.html:94
+msgid "A link to your targets on plemiona-planer.pl."
+msgstr "Link do Twoich celów na plemiona-planer.pl."
+
+#: base/templates/base/overview.html:74
 msgid "Table"
 msgstr "Tabela"
 
-#: base/templates/base/overview.html:78
+#: base/templates/base/overview.html:76
 msgid "Hint: Use Text format if u have many commands. "
 msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
 
-#: base/templates/base/overview.html:92
+#: base/templates/base/overview.html:88
 msgid "Text for deputy"
 msgstr "Tekst dla zastępcy"
 
-#: base/templates/base/overview.html:94
+#: base/templates/base/overview.html:90
 msgid "Hint: Use this one when someone else will send this commands."
 msgstr ""
 "Wskazówka: Użyj tej formy jeśli ktoś inny będzie za Ciebie wysyłał ataki z "
 "zastępstwa."
 
-#: base/templates/base/overview.html:116
+#: base/templates/base/overview.html:110
 msgid "Alert! The order in the list below matters and is fixed."
 msgstr ""
 "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
@@ -1764,11 +1769,11 @@ msgstr "Serwer: "
 msgid "Set server"
 msgstr "Ustaw serwer"
 
-#: base/views/outline.py:108
+#: base/views/outline.py:111
 msgid "Never"
 msgstr "Nigdy"
 
-#: base/views/outline.py:111
+#: base/views/outline.py:114
 msgid " minute(s) ago."
 msgstr " minut temu."
 
@@ -1818,14 +1823,16 @@ msgid ""
 "Ops, no access, or the content you're looking for is no longer available on "
 "the site."
 msgstr ""
-"Ops, brak dostępu, albo szukana zawartość strony nie jest już dłużej dostępna."
+"Ops, brak dostępu, albo szukana zawartość strony nie jest już dłużej "
+"dostępna."
 
 #: templates/500.html:4
 msgid ""
 "Ops, a server error has occurred. Please try again in a moment and if this "
 "does not help, contact the administration."
 msgstr ""
-"Ops, wystąpił błąd serwera. Spróbuj ponownie za chwilę, a jeśli to nie pomoże, skontaktuj się z administracją."
+"Ops, wystąpił błąd serwera. Spróbuj ponownie za chwilę, a jeśli to nie "
+"pomoże, skontaktuj się z administracją."
 
 #: templates/django_registration/registration_complete.html:7
 msgid "Congratulations, you have successfully registered!"
