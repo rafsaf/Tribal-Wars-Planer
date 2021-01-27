@@ -91,7 +91,7 @@ def outline_detail_1(request, _id):
                 instance.save()
                 return redirect("base:planer_detail", _id)
 
-        if "form-2" in request.POST:
+        elif "form-2" in request.POST:
             post = request.POST.copy()
             post['deff_troops'] = post['deff_troops'].strip()
             form1 = forms.OffTroopsForm(None, outline=instance)

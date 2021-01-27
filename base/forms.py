@@ -160,7 +160,7 @@ class InitialOutlineForm(forms.Form):
     """ New Initial Outline """
 
     target = forms.CharField(
-        max_length=15000,
+        max_length=50000,
         widget=forms.Textarea,
         label=gettext_lazy("Targets"),
         required=False,
