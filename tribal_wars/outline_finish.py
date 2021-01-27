@@ -1,5 +1,5 @@
 import secrets
-
+import json
 from tribal_wars import period_utils
 from base import models
 from tribal_wars import basic
@@ -11,7 +11,7 @@ def make_final_outline(outline: models.Outline):
         .distinct("player")
         .values_list("player", flat=True)
     )
-    #coord - player_id
+    # coord - player_id
     player_id = {}
     players = models.Player.objects.filter(name__in=distinct_player_names).values(
         "name", "player_id"
@@ -39,7 +39,6 @@ def make_final_outline(outline: models.Outline):
     # target - lst[weight1, weight2, ...]
     weights_dict = queries.target_dict_with_weights_extended()
 
-
     text = basic.TableText(world=outline.world)
     update_weights = []
     with text:
@@ -64,7 +63,9 @@ def make_final_outline(outline: models.Outline):
 
                 update_weights.append(weight)
 
-    models.WeightModel.objects.bulk_update(update_weights, ["t1", "t2"])
+    models.WeightModel.objects.bulk_update(
+        update_weights, ["t1", "t2"], batch_size=2000
+    )
 
     outline_info = basic.OutlineInfo(outline=outline)
     outline_info.generate_nicks()
@@ -76,8 +77,14 @@ def make_final_outline(outline: models.Outline):
     result_instance.results_export = outline_info.show_export_troops()
 
     result_instance.save()
-    outline_overview = models.OutlineOverview.objects.create(outline=outline)
+    json_weight_dict = queries.target_dict_with_weights_json_format()
+    json_targets = queries.targets_json_format()
+    
+    outline_overview = models.OutlineOverview.objects.create(
+        outline=outline, weights_json=json_weight_dict, targets_json=json_targets
+    )
     overviews = []
+
     for player, table, string, deputy in text.iterate_over():
         token = secrets.token_urlsafe()
 
@@ -94,47 +101,3 @@ def make_final_outline(outline: models.Outline):
             )
         )
     models.Overview.objects.bulk_create(overviews)
-
-    targets_overwiews = []
-    for target in models.TargetVertex.objects.filter(outline=outline):
-        targets_overwiews.append(
-            models.TargetVertexOverview(
-                player=target.player,
-                target=target.target,
-                fake=target.fake,
-                outline_overview=outline_overview,
-                target_vertex=target,
-            )
-        )
-    models.TargetVertexOverview.objects.bulk_create(targets_overwiews)
-    target_context = {}
-    for targets_overwiew in models.TargetVertexOverview.objects.select_related("target_vertex").filter(
-        outline_overview=outline_overview
-    ):
-        target_context[targets_overwiew.target_vertex] = targets_overwiew
-    weight_overwiews = []
-    i = 0
-    for weight in (
-        models.WeightModel.objects.select_related("target", "target__outline")
-        .filter(target__outline=outline)
-        .iterator()
-    ):
-        weight_overwiews.append(
-            models.WeightModelOverview(
-                player=weight.player,
-                start=weight.start,
-                order=weight.order,
-                target=target_context[weight.target],
-                distance=weight.distance,
-                off=weight.off,
-                nobleman=weight.nobleman,
-                t1=weight.t1,
-                t2=weight.t2,
-            )
-        )
-        i += 1
-        if i == 3000:
-            models.WeightModelOverview.objects.bulk_create(weight_overwiews)
-            i = 0
-            weight_overwiews = []
-    models.WeightModelOverview.objects.bulk_create(weight_overwiews)

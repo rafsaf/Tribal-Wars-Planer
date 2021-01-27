@@ -1,46 +1,85 @@
+import json
+
 from base import models
 from tribal_wars import basic
+from django.forms.models import model_to_dict
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 class TargetWeightQueries:
     def __init__(self, outline, fake=False, every=False):
         self.outline = outline
-        targets = models.TargetVertex.objects.select_related(
-            "outline_time"
-        ).filter(outline=outline).order_by('id')
+        targets = (
+            models.TargetVertex.objects.select_related("outline_time")
+            .filter(outline=outline)
+            .order_by("id")
+        )
         if not every:
             self.targets = targets.filter(fake=fake)
         else:
             self.targets = targets
 
-    def __create_target_dict(self):
+    def targets_json_format(self):
+        context = {}
+        for target in self.targets:
+            context[target.target] = {
+                "target": target.target,
+                "player": target.player,
+                "fake": target.fake,
+            }
+        return json.dumps(context)
+
+    def __create_target_dict(self, for_json=False):
+        if for_json:
+            result = {}
+            for target in self.targets:
+                result[target.target] = list()
+            return result
         result = {}
         for target in self.targets:
             result[target] = list()
         return result
 
     def __weights(self):
-        return models.WeightModel.objects.select_related("target").filter(
-            target__in=self.targets
-        ).order_by('order')
+        return (
+            models.WeightModel.objects.select_related("target")
+            .filter(target__in=self.targets)
+            .order_by("order")
+        )
 
     def target_dict_with_weights_read(self):
         """ Create dict key-target, value-lst with weights, add dist """
         context = self.__create_target_dict()
-        for weight in self.__weights():
-            weight.distance = round(
-                basic.dist(weight.start, weight.target.target), 1
-            )
+        for weight in self.__weights().iterator(chunk_size=3000):
+            weight.distance = round(basic.dist(weight.start, weight.target.target), 1)
             weight.off = f"{round(weight.off / 1000,1)}k"
             context[weight.target].append(weight)
         return context
 
     def target_dict_with_weights_extended(self):
         context = self.__create_target_dict()
-        for weight in self.__weights():
+        for weight in self.__weights().iterator(chunk_size=3000):
             context[weight.target].append(weight)
         return context
-            
+
+    def target_dict_with_weights_json_format(self):
+        context = self.__create_target_dict(for_json=True)
+        for weight in self.__weights().iterator(chunk_size=3000):
+            context[weight.target.target].append(
+                model_to_dict(
+                    weight,
+                    fields=[
+                        "start",
+                        "player",
+                        "off",
+                        "nobleman",
+                        "distance",
+                        "t1",
+                        "t2",
+                    ],
+                )
+            )
+        return json.dumps(context, cls=DjangoJSONEncoder)
 
     def target_period_dictionary(self):
         result_dict = {}
@@ -71,7 +110,7 @@ class TargetWeightQueries:
     def __all_time_periods(self):
         times = self.__all_outline_times()
         periods = (
-            models.PeriodModel.objects.select_related('outline_time').filter(
+            models.PeriodModel.objects.select_related("outline_time").filter(
                 outline_time__in=times
             )
         ).order_by("from_time", "-unit")
@@ -81,11 +120,11 @@ class TargetWeightQueries:
         try:
             outline_times = self.outline_times
         except AttributeError:
-            outline_times = list((
-                models.OutlineTime.objects.filter(
-                    outline=self.outline
+            outline_times = list(
+                (models.OutlineTime.objects.filter(outline=self.outline)).order_by(
+                    "order"
                 )
-            ).order_by('order'))
+            )
             self.outline_times = outline_times
         finally:
             return outline_times
@@ -93,11 +132,7 @@ class TargetWeightQueries:
     def __time_periods(self):
         periods = (
             models.PeriodModel.objects.select_related("outline_time")
-            .filter(
-                outline_time__in=[
-                    target.outline_time for target in self.targets
-                ]
-            )
+            .filter(outline_time__in=[target.outline_time for target in self.targets])
             .order_by("from_time", "-unit")
         )
         return periods
@@ -105,13 +140,12 @@ class TargetWeightQueries:
     def __dict_with_village_ids(self, iterable_with_ids):
         result_id_dict = {}
 
-        for village in models.VillageModel.objects.select_related().filter(
-            coord__in=iterable_with_ids, world=self.outline.world
-            ).values("coord", "village_id", "player__player_id"):
+        for village in (
+            models.VillageModel.objects.select_related()
+            .filter(coord__in=iterable_with_ids, world=self.outline.world)
+            .values("coord", "village_id", "player__player_id")
+        ):
 
-            result_id_dict[
-                village["coord"]
-            ] = village["village_id"]
+            result_id_dict[village["coord"]] = village["village_id"]
 
         return result_id_dict
-

@@ -100,6 +100,9 @@ def outline_detail_1(request, _id):
                 instance.deff_troops = post['deff_troops']
                 instance.save()
                 return redirect("base:planer_detail", _id)
+        else:
+            form1 = forms.OffTroopsForm(None, outline=instance)
+            form2 = forms.DeffTroopsForm(None, outline=instance)
     else:
         form1 = forms.OffTroopsForm(None, outline=instance)
         form2 = forms.DeffTroopsForm(None, outline=instance)

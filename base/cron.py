@@ -13,10 +13,10 @@ def db_update():
 def outdate_overviews_delete():
     """ Delete expired links """
     expiration_data = now() - timedelta(days=21)
-    to_delete_lst = []
+    to_delete_lst = set()
     expired = models.Overview.objects.select_related().filter(created__lt=expiration_data)
     for overview in expired:
-        to_delete_lst.append(overview.outline_overview.pk)
+        to_delete_lst.add(overview.outline_overview.pk)
     
     models.OutlineOverview.objects.filter(pk__in=to_delete_lst).delete()
     expired.delete()

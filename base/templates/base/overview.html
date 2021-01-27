@@ -64,9 +64,7 @@
                         <div class="ml-2">
                             <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
                             <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
-                            <textarea class="form-control mt-1" id="text-copy" rows="10">
-                                {{overview.string}}
-                                </textarea>
+                            <textarea class="form-control mt-1" id="text-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.string}}</textarea>
                         </div>
                     </div>
                     <br>
@@ -79,9 +77,7 @@
                     <div class="ml-2">
                         <img  class='d-md-none img-fluid' src="{% static 'images/table-min.jpg'%}" alt="Example Result 1">
                         <img  class='d-none d-md-block img-fluid' src="{% static 'images/table.png'%}" alt="Example Result 1">
-                        <textarea class="form-control mt-1" id="table-copy" rows="10">
-                            {{overview.table}}
-                            </textarea>
+                        <textarea class="form-control mt-1" id="table-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.table}}</textarea>
                     </div>
                     </div>
                     <br>
@@ -95,9 +91,7 @@
                         <div class="ml-2">
                             <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
                             <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
-                            <textarea class="form-control mt-1" id="deputy-copy" rows="10">
-                                {{overview.deputy}}
-                                </textarea>
+                            <textarea class="form-control mt-1" id="deputy-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.deputy}}</textarea>
                         </div>
                     </div>
 
@@ -211,7 +205,7 @@
                                                     </svg>
                                                 </th>
                                                 <th style="font-size: small;" onclick="calculate_distance(this);">
-                                                    {{weight.distance}}
+                                                    {{weight.distance|floatformat:1}}
                                                 </th>
 
                                             </tr>
