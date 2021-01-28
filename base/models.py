@@ -465,7 +465,7 @@ class TargetVertex(models.Model):
 class WeightModel(models.Model):
     """ Command between start and target """
 
-    target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE)
+    target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE, db_index=True)
     state = models.ForeignKey(WeightMaximum, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
     off = models.IntegerField()
