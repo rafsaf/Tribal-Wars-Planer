@@ -87,7 +87,7 @@ class TestTargetWeightQueries(TestCase):
             self.target_query._TargetWeightQueries__dict_with_village_ids([0])
 
     def test___target_dict_with_weights_extendeds(self):
-        with self.assertNumQueries(2):
+        with self.assertNumQueries(1):
             self.target_query.target_dict_with_weights_extended()
 
     def test_target_dict_read_correct_dictionary(self):

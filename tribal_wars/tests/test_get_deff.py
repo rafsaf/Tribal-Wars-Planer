@@ -179,6 +179,44 @@ class GetDeffFunctionTest(TestCase):
 
         self.maxDiff = None
 
+    def test_get_deff_all_excluded_is_correct(self):
+        result = deff.get_deff(outline=self.outline, radius=3, excluded_villages="503|500 500|506")
+
+        expected = (
+            "Tested. LEGEND: \r\n"
+            "HEAVY counted as x4 and not x6, scouts are NOT counted.\r\n"
+            "IN VILLAGES = troops in the village + everyone else's troops.\r\n"
+            "ALL OWN = troops in the village + troops outside the village.\r\n\r\n"
+            "\r\nplayer2\r\n"
+            "On front 0 villages, 0 deff IN VILLAGE and "
+            "0 ALL OWN.\r\n"
+            "On back 5 villages, 54000 deff IN VILLAGE and "
+            "33000 ALL OWN.\r\n"
+            "\r\n"
+            "player1\r\n"
+            "On front 0 villages, 0 deff IN VILLAGE and 0 ALL OWN.\r\n"
+            "On back 1 villages, 6000 deff IN VILLAGE and "
+            "7000 ALL OWN.\r\n"
+            "\r\n\r\n"
+            "player2\r\n"
+            "---------FRONT---------\r\n"
+            "---------BACK---------\r\n"
+            "500|500- In village- 30000  (All deff [ 8000 ])\r\n"
+            "498|503- In village- 6000  (All deff [ 7000 ])\r\n"
+            "500|502- In village- 6000  (All deff [ 4000 ])\r\n"
+            "498|502- In village- 6000  (All deff [ 7000 ])\r\n"
+            "500|499- In village- 6000  (All deff [ 7000 ])\r\n"
+            "\r\n\r\n"
+            "player1\r\n"
+            "---------FRONT---------\r\n"
+            "---------BACK---------\r\n"
+            "499|500- In village- 6000  (All deff [ 7000 ])\r\n"
+
+
+        )
+
+        self.assertEqual(result, expected)
+
     def test_get_deff_general_test_is_output_correct(self):
         result = deff.get_deff(outline=self.outline, radius=3)
         
