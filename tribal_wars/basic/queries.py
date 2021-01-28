@@ -50,7 +50,7 @@ class TargetWeightQueries:
     def target_dict_with_weights_read(self):
         """ Create dict key-target, value-lst with weights, add dist """
         context = self.__create_target_dict()
-        for weight in self.__weights().iterator(chunk_size=3000):
+        for weight in self.__weights():
             weight.distance = round(basic.dist(weight.start, weight.target.target), 1)
             weight.off = f"{round(weight.off / 1000,1)}k"
             context[weight.target].append(weight)

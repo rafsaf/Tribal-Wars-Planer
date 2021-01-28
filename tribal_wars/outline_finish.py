@@ -13,7 +13,7 @@ def make_final_outline(outline: models.Outline):
     )
     # coord - player_id
     player_id = {}
-    players = models.Player.objects.filter(name__in=distinct_player_names).values(
+    players = models.Player.objects.filter(name__in=distinct_player_names, world=outline.world).values(
         "name", "player_id"
     )
     for player in players:
@@ -29,7 +29,7 @@ def make_final_outline(outline: models.Outline):
     # coord - village_id
     village_id = {}
     villages = models.VillageModel.objects.filter(
-        coord__in=distinct_weight_coords
+        coord__in=distinct_weight_coords, world=outline.world
     ).values("coord", "village_id")
     for village in villages.iterator():
         village_id[village["coord"]] = village["village_id"]
