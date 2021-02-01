@@ -1,6 +1,5 @@
 {% extends 'base/base.html' %} 
 {% load i18n %} {% load static %} 
-
 {% block meta-content %}
 <meta name="description" content="{% trans 'Documentation of Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}"/>
 
@@ -8,6 +7,7 @@
 
 {% block content %}
 {% autoescape off %} 
+
 <div class="row justify-content-center">
 <div id='docs' class="font-nav col-12 col-lg-9">
     {{doc}}
@@ -16,8 +16,6 @@
  
 
 {% endautoescape %}
-
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 
 <script>
     function updateClipboard(id) {
