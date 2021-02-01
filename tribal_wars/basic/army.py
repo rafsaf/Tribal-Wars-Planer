@@ -85,12 +85,14 @@ class Army:
             return int(self.text_army[11])
         return int(self.text_army[12])
 
+    def check_if_off(self, archers: bool):
+        pass
+
     @cached_property
     def off(self):
         """ Number of off """
 
         if self.world_evidence[1] == 0: # no archers
-            
             return (
                 int(self.text_army[3])
                 + int(self.text_army[5]) * 4

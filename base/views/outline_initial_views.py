@@ -28,7 +28,7 @@ def initial_form(request, _id):
     returned after valid filled form earlier
 
     """
-    instance = get_object_or_404(
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
     if instance.off_troops == "":
@@ -67,7 +67,7 @@ def initial_form(request, _id):
     form2 = forms.AvailableTroopsForm(None)
     form3 = forms.SettingDateForm(None)
     form4 = forms.ModeOutlineForm(None)
-
+    form5 = forms.NightBonusSetForm(None)
     targets = models.TargetVertex.objects.filter(outline=instance).order_by("id")
     len_targets = len(targets)
 
@@ -101,7 +101,9 @@ def initial_form(request, _id):
     form4.fields[
         "initial_outline_fake_limit"
     ].initial = instance.initial_outline_fake_limit
-
+    form5.fields["night_bonus"].initial = instance.night_bonus
+    form5.fields["enter_t1"].initial = instance.enter_t1
+    form5.fields["enter_t2"].initial = instance.enter_t2
     if request.method == "POST":
         if "form1" in request.POST:
             form1 = forms.InitialOutlineForm(request.POST, outline=instance)
@@ -168,6 +170,27 @@ def initial_form(request, _id):
 
                 return redirect("base:planer_initial_form", _id)
 
+        if "form5" in request.POST:
+            form5 = forms.NightBonusSetForm(request.POST)
+            if form5.is_valid():
+                night_bonus = request.POST.get("night_bonus")
+                if night_bonus == "on":
+                    night_bonus = True
+                else:
+                    night_bonus = False
+                enter_t1 = request.POST.get("enter_t1")
+                enter_t2 = request.POST.get("enter_t2")
+                instance.night_bonus = night_bonus
+                instance.enter_t1 = enter_t1
+                instance.enter_t2 = enter_t2
+                instance.save()
+                models.TargetVertex.objects.filter(outline=instance).update(
+                    night_bonus = night_bonus,
+                    enter_t1 = enter_t1,
+                    enter_t2 = enter_t2,
+                )
+                return redirect("base:planer_initial_form", _id)
+
         if "formset" in request.POST and formset_select is not None:
             formset_select = formset_select(request.POST)
             if formset_select.is_valid():
@@ -212,6 +235,7 @@ def initial_form(request, _id):
         "form2": form2,
         "form3": form3,
         "form4": form4,
+        "form5": form5,
         "formset": formset_select,
         "fake_dups": fake_dups,
         "target_dups": target_dups,

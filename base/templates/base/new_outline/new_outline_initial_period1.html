@@ -6,7 +6,7 @@
 
 <script src="{% static 'codemirror.js' %}"></script>
 <link rel="stylesheet" href="{% static 'codemirror.css' %}">
-<div class="row mb-5 mt-2">
+<div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
     <div class="col-12 col-lg-7">
         <div class=" w-100">
         <form id="form1-form" method='POST'>
@@ -227,18 +227,19 @@
                       </div>
                       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="card-body">
+                          <h4 class="mb-5">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                            </svg>
+                            {% trans 'Current date:' %} <span class="md-error">{{instance.date}}</span> 
+                          </h4>
                           <form id="form3-form" method='POST' autocomplete="off">
                             <input type="hidden" name="form3" value="">
                             {% csrf_token %}
                           {{form3|crispy}}
                           <button class="btn btn-sm btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
                           </form>
-                          <h5 class="mt-4">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                            </svg>
-                            {% trans 'Current date:' %} {{instance.date}}
-                          </h5>
+
                         </div>
                       </div>
                     </div>
@@ -536,8 +537,44 @@
                       </div>
                     </div>
 
+                    <div class="card">
+                      <div class="card-header" id="headingFive">
+                        <h5 class="mb-0">
 
+                          <button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                            {% if form5.errors %}
+                        <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                          </svg></span>
+                        {% endif %}
+                            {% trans '5. Avoid night bonus' %}
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                          <div class="mb-5">
+                            {% if instance.night_bonus %}
+                              <h4>{% trans 'ACTIVE: ' %} <span class="md-correct2"> {%trans 'True' %}</span></h4>
+                              <h4>{% trans 'Time 1: ' %} <span class="md-correct2">{{instance.enter_t1}}</span></h4>
+                              <h4>{% trans 'Time 2: ' %} <span class="md-correct2">{{instance.enter_t2}}</span></h4>
+                            {% else %}
+                              <h4>{% trans 'ACTIVE: ' %} <span class="md-error">{% trans 'False' %}</span></h4>
+                            {% endif %}
+                          </div>
 
+                          <form id="form5-form" method='POST' autocomplete="off">
+                            <input type="hidden" name="form5" value="">
+                            {% csrf_token %}
+                          {{form5|crispy}}
+                          <button class="btn btn-sm btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
+                          </form>
+
+                        </div>
+                      </div>
+                    </div>
+                    
 
 
 
@@ -568,7 +605,7 @@
             </div>
         </div>
     </div>
-
+    
     <script>
       const buttonForm1 = document.getElementById("form1-btn")
       const buttonFormComplete = document.getElementById("form-complete-btn")
@@ -576,6 +613,7 @@
       const buttonForm2 = document.getElementById("form2-btn")
       const buttonForm3 = document.getElementById("form3-btn")
       const buttonForm4 = document.getElementById("form4-btn")
+      const buttonForm5 = document.getElementById("form5-btn")
       const buttonFormset = document.getElementById("formset-btn")
 
       buttonForm1.onclick = () => {
@@ -623,6 +661,12 @@
         const form4 = document.getElementById("form4-form")
         form4.submit()
       }
+      buttonForm5.onclick = () => {
+        buttonForm5.disabled = true
+        buttonForm5.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
+        const form5 = document.getElementById("form5-form")
+        form5.submit()
+      }
       buttonFormset.onclick = () => {
         buttonFormset.disabled = true
         buttonFormset.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
@@ -646,5 +690,6 @@
         })
   </script>
 </div>
+
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 {% endblock %}

@@ -275,7 +275,9 @@ class Outline(models.Model):
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(max_length=50, default=gettext_lazy("Outline Targets"))
     text_message = models.CharField(max_length=500, default="", blank=True)
-
+    night_bonus = models.BooleanField(default=False)
+    enter_t1 = models.IntegerField(default=7)
+    enter_t2 = models.IntegerField(default=12)
     class Meta:
         ordering = ("-created",)
 
@@ -449,6 +451,9 @@ class TargetVertex(models.Model):
     mode_guide = models.CharField(
         max_length=15, choices=NOBLE_GUIDELINES, default="one"
     )
+    night_bonus = models.BooleanField(default=False)
+    enter_t1 = models.IntegerField(default=7)
+    enter_t2 = models.IntegerField(default=12)
 
     def __str__(self):
         return self.target

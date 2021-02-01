@@ -3,9 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="row justify-content-center font-nav" style="min-height: 70vh;">
-
-    <div class="col-10 col-md-6 col-lg-5 col-xl-4 align-self-center">
+<div class="container-md font-nav py-5" style="min-height: 70vh; max-width:1000px !important;">
     <h1>{% trans 'Add new world' %}</h1>
     <div>
         {% if message %}
@@ -26,8 +24,6 @@
             {% trans 'Add new world' %}
         </button>
     </form>
-
-</div>
 </div>
 
 {% endblock %}

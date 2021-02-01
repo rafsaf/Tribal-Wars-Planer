@@ -224,7 +224,7 @@
 
             <div class="container-fluid" style="margin-top: 10px;">
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                <div style="min-height: 80vh;">
+                <div style="min-height: 91vh;">
                     {% block content %}
                     <div class="text-center font-nav" style="background-color: rgb(15, 153, 153);color:white; height:min-content;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
                         <div class="container-fluid">
@@ -544,19 +544,14 @@
                     {% endblock %}
                 </div>
                 {% block footer %}
-                <div style="margin-left:-15px !important;margin-right:-15px !important">
-                <footer class="text-center w-100"  id='page-end'>
-                    <div style="margin-top: 50px; font-size:larger;" class="font-nav">
-                        {% trans 'This is an open project Plemiona Planer.' %}
-                        <br>
-                        {% trans 'See an error? Please write <b>plemionaplaner.pl@gmail.com</b> or contact me with discord.' %}
-                        <br>
-                        <br>
+                <div style="margin-left:-15px !important;margin-right:-15px !important;margin-top:20px;">
+                <footer class="text-center w-100" id='page-end'>
+                    <div style="font-size:larger;" class="font-nav py-2">
                         {% trans 'Dear User, we inform you that by using the website you agree to our <a target="_blank" href="/static/privacy-policy.pdf">privacy policy and regulations</a>.' %}
                         <br>
                         &copy; 2020 <a href='https://www.rafsaf.pl'>rafsaf.pl</a>
 
-                        <div>
+                    </div>
                 </footer>
                 </div>
                 {% endblock %}

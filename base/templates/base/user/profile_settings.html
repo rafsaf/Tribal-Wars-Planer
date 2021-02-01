@@ -4,10 +4,8 @@
 {% block content %}
 
 
-<div class="row justify-content-center font-nav" style="min-height: 70vh;">
-
-    <div class="col-11 col-md-8 col-lg-7 col-xl-6 mt-5">
-        <h2 class="text-center">{% trans 'Settings' %}</h2>
+<div class="container-md font-nav py-5" style="min-height: 70vh; max-width:1000px !important;">
+        <h2>{% trans 'Settings' %}</h2>
     <h4 class="mt-3">1. <span class="font-teal">{% trans 'Username: ' %}</span> {{user.username}}</h4>
     <h4 class="mt-3">2. <span class="font-teal">{% trans 'Email address: ' %}</span> {{user.email}}</h4>
     <small class="form-text text-muted">{% trans 'Hint: Contact with admin to change your email address. ' %}</small>
@@ -22,8 +20,6 @@
             {% trans 'Set server' %}
         </button>
     </form>
-</div>
-
 </div>
 
 

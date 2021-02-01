@@ -352,6 +352,34 @@ class ModeTargetSetForm(forms.ModelForm):
             "mode_guide": "",
         }
 
+class NightBonusSetForm(forms.Form):
+    night_bonus = forms.BooleanField(
+        required=False,
+        label=gettext_lazy("Choose whether to avoid the night bonus"),
+        initial=False,
+    )
+    enter_t1 = forms.IntegerField(
+        min_value=0,
+        max_value=23,
+        label=gettext_lazy("Approximate hours of entry"),
+        widget=forms.NumberInput,
+        initial=7,
+    )
+    enter_t2 = forms.IntegerField(
+        min_value=0,
+        max_value=23,
+        label=gettext_lazy("Approximate hours of the last entry"),
+        widget=forms.NumberInput,
+        initial=12,
+    )
+    def clean(self):
+        super().clean()
+        t1 = self.cleaned_data.get("enter_t1")
+        t2 = self.cleaned_data.get("enter_t2")
+        if t1 and t2:
+            if t1 > t2:
+                self.add_error("enter_t1", gettext_lazy("First value must be less or equal to second!"))
+
 
 class WeightForm(forms.Form):
     """ Change weight model """

@@ -8,20 +8,10 @@
  {% block content %} 
 
 
-<div class="container-fluid ">
-    <div class="row justify-content-center" style="min-height: 70vh;">
-
-        <div class="col-10 col-md-6 col-lg-5 col-xl-4 align-self-center my-3">
-
+ <div class="container-md font-nav py-5" style="min-height: 70vh; max-width:1000px !important;">
             <form autocomplete="off" method='POST'>{% csrf_token %} {{ form|crispy }}
-
                 <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mt-3" type="submit">{% trans 'Create an account' %}</button>
-
             </form>
-            
-        </div>
-
-    </div>
 </div>
 
 {% endblock %}
