@@ -41,6 +41,12 @@
             border-bottom: 1px solid teal;
         
         }
+        button.btn.btn-secondary {
+            border-radius: 0px !important;
+        }
+        a.btn.btn-secondary {
+            border-radius: 0px !important;
+        }
     </style>
 </head>
 
@@ -226,7 +232,7 @@
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <div style="min-height: 91vh;">
                     {% block content %}
-                    <div class="text-center font-nav" style="background-color: rgb(15, 153, 153);color:white; height:min-content;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
+                    <div class="text-center" style="background-color: rgb(15, 153, 153);color:white; height:min-content;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
                         <div class="container-fluid">
                         <p>{% trans 'Now you can donate this project' %} <a style="color: rgb(50, 224, 50);" target="_blank" href="https://paypal.me/pools/c/8vcDj7febh">{% trans 'here' %}</a></p> 
                         </div>
@@ -253,7 +259,7 @@
 
                         </div>
                         <div id='yt'>
-                            <div class="row mt-3 font-nav ">
+                            <div class="row mt-3">
                                 <div class="col-0 col-lg-1"></div>
                                 <div class="col-12 col-lg-5">
                                 <a rel="noopener" target="_blank" class="" style="font-size: x-large" href="https://youtube.com/playlist?list=PLp2M1k91norqln-EtMAsdbeNZl4--tk3A">
@@ -307,7 +313,7 @@
                                                 <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Author' %}</a>
                                             </li>
                                         </ul>
-                                        <div class="tab-content font-nav text-left" id="pills-tabContent" style="font-size: larger;">
+                                        <div class="tab-content text-left" id="pills-tabContent" style="font-size: larger;">
                                             <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab" >
                                                 <p class="mt-4">
 
@@ -456,7 +462,7 @@
 
                                 </div>
                             </div>
-                            <div class="font-nav mb-2 mt-0"
+                            <div class="mb-2 mt-0"
                             style="font-size: larger; max-width: 100%;">
     
                             <p class="mb-3 mt-5 py-4" style="border-top: 1px solid teal;">
@@ -513,7 +519,7 @@
                                 </div>
                             </div>
 
-                        <h1 style="border-top: 1px solid teal;font-size:xxx-large;" class="font-nav mt-5 py-4">{% trans 'Galery' %} </h1>
+                        <h1 style="border-top: 1px solid teal;font-size:xxx-large;" class="mt-5 py-4">{% trans 'Galery' %} </h1>
                         <div >
                             <div class='cover-container mt-2'>
                                 <img height="300" class="border" src="{% static 'images/img1_1.png'%}" alt="..."
@@ -544,9 +550,9 @@
                     {% endblock %}
                 </div>
                 {% block footer %}
-                <div style="margin-left:-15px !important;margin-right:-15px !important;margin-top:20px;">
+                <div style="margin-left:-15px !important;margin-right:-15px !important;margin-top:100px;">
                 <footer class="text-center w-100" id='page-end'>
-                    <div style="font-size:larger;" class="font-nav py-2">
+                    <div style="font-size:larger;" class="py-2">
                         {% trans 'Dear User, we inform you that by using the website you agree to our <a target="_blank" href="/static/privacy-policy.pdf">privacy policy and regulations</a>.' %}
                         <br>
                         &copy; 2020 <a href='https://www.rafsaf.pl'>rafsaf.pl</a>

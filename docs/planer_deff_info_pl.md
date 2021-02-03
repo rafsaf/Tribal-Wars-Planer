@@ -1,33 +1,14 @@
-#### Zbieraj deff z zaplecza
-* Program jest używany do zbierania jednostek obronnych z wiosek w odległości większej niż promień od wrogiego plemiona jako zaplecze zaś w odległości mniejszej jako front.
-* Odległość jest liczona w kratkach.
-* Wartość domyślna 30 odpowiada około 17 godzinom drogi dla szlachcica na większości światów, z powodów optymalizacyjnych maksymalny możliwy promień to 100.
-* Uwaga, przy dużej wielkości promienia i liczbie wiosek w naszych i wrogich plemionach, (np. kilka wrogów po 5k+ wiosek i nasze plemiona 5k+ wiosek) może to chwile potrwać, jeśli chcesz upewnić się, że to nie błąd, spróbuj zmniejszyć promień do małej wartości i sprawdź rezultat. Jeśli wszystko jest w porządku, to powodem jest rozmiar wprowadzonych danych i musisz albo dłuższą chwilę poczekać (ponad minutę), albo zmniejszyć promień. Chyba że przypadkowo jesteś milionerem i zapłacisz za przeniesienie na mocniejszy host :)
-#### Upewnij się, że ...
-* Uwzględniono wszystkie plemiona własne i wrogie.
-* Wybrany promień jest odpowiedni do potrzeb.
-#### Pamiętaj, że ...
-* Pozostałe opcje są opcjonalne.
-* Więcej szczegółów można znaleźć w pozostałych zakładkach
-#### Przykładowy wynik dla 1 gracza
-<pre class="md-pre">
-Przetestowane. LEGENDA:
-CK liczone jako x4 a nie x6, zwiad NIE jest liczony.
-W WIOSKACH = swój w wiosce + cudzy z stałych.
-CAŁY SWÓJ = swój w wiosce + swój poza wioską.
+### Zbieranie deffa z zaplecza
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Zakładka służy do zbierania jednostek obronnych z wiosek w odległości większej niż promień od wrogiego plemiona jako <span class="md-error">Zaplecze</span>, zaś w odległości mniejszej jako <span class="md-error">Front</span>. To może chwilę potrwać.</div>
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Po pomyślnym utworzeniu raportu, zostaniesz przeniesiony do zakładki <span class="md-error">Wyniki</span>, gdzie możesz go obejrzeć w zakładce <span class="md-error">Zbiórka Deffa</span>.</div>
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Odległość jest liczona w kratkach. Wartość domyślna <span class="md-correct2">Promienia</span>  10 odpowiada około 6 godzinom drogi dla szlachcica na większości światów, z powodów optymalizacyjnych maksymalny możliwy promień to 45. Celem wyrzucenia diód i wszelkich innych wrogich wiosek, które mogłyby zakłocić wynik podziału na <span class="md-error">Front</span> i <span class="md-error">Zaplecze</span>, wpisz ich koordy w pole <span class="md-correct2">Wykluczone wioski wroga</span>.</div>
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> W zakładce <b>Przykłady</b> znajdziesz przykładowy wynik jakiego możesz się spodziewać po wygenerowaniu wraz z krótkim opisem.</div>
 
 
-Gracz1
-Na froncie 2 wsi, 30000 deffa W WIOSKACH, zaś 25000 CAŁEGO SWOJEGO.
-Na zapleczu 4 wsi, 5400 deffa W WIOSKACH, zaś 65000 CAŁEGO SWOJEGO.
+### Do czego wykorzystywać dane z raportu
 
-Gracz1
----------FRONT---------
-100|100- W wiosce- 20000  (CAŁY własny deff [ 5000 ])
-101|101- W wiosce- 10000  (CAŁY własny deff [ 20000 ])
----------ZAPLECZE---------
-105|105- W wiosce- 100  (CAŁY własny deff [ 10000 ])
-106|106- W wiosce- 100  (CAŁY własny deff [ 15000 ])
-107|107- W wiosce- 5000 (CAŁY własny deff [ 20000 ])
-108|108- W wiosce- 200  (CAŁY własny deff [ 20000 ])
-</pre>
+W kilka chwili można w ten sposób wyłapać osoby z zaplecza, które posiadają deff, który nie powinien im stać w wioskach, wraz z ilością posiadanego przez nich wolnego deffa. Innym zastosowaniem będzie zbieranie wolnego deffa przed akcją. W wygenerowanym raporcie znajduje się też informacja ile dany gracz posiada wiosek i stałych obstaw na froncie.

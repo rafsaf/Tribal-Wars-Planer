@@ -31,12 +31,6 @@ def outline_detail_get_deff(request, _id):
         defaults={"main_page": ""},
     )[0].main_page
     info = markdownify(info)
-    marks = models.Documentation.objects.get_or_create(
-        title="planer_deff_marks",
-        language=language_code,
-        defaults={"main_page": ""},
-    )[0].main_page
-    marks = markdownify(marks)
     example = models.Documentation.objects.get_or_create(
         title="planer_deff_example",
         language=language_code,
@@ -68,7 +62,6 @@ def outline_detail_get_deff(request, _id):
         "form": form,
         "info": info,
         "example": example,
-        "marks": marks,
     }
 
     return render(

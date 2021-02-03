@@ -1,0 +1,19 @@
+### Uzupełnianie danymi z gry
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Korzystając ze <a target="_blank" href="/documentation#instalacja-niezbednych-skryptow">skryptów do gry</a>, po zebraniu danych o graczach z plemienia, wklej tutaj ich wyniki. W zakładce <b>Przykłady</b> znajdziesz krótki materiał dotyczący ich instalacji w przypadku trudności.</div>
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> By przejść do  zakładki <span class="md-error">Planer</span> i rozpisać akcję, wymagane jest jedynie uzupełnienie <b>Zbiórki Wojska</b>. Dodatkowo dla zakładki <span class="md-error">Zbiórka Deffa</span> wymagana są dane z <b>Zbiórki Deffa</b>.</div>
+
+
+### Pojawiające się błędy
+
+<h5 class="md-error pt-2">Czyli nie zniechęcaj się!</h5>
+Przede wszystkim załóż, że nie jest to problem po stronie <b>Planera</b> i błąd w kodzie strony <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-upside-down" viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0-1a8 8 0 1 1 0 16A8 8 0 0 1 8 0z"/><path d="M4.285 6.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 4.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 3.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 9.5C7 8.672 6.552 8 6 8s-1 .672-1 1.5.448 1.5 1 1.5 1-.672 1-1.5zm4 0c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5.448 1.5 1 1.5 1-.672 1-1.5z"/></svg>
+
+Najczęstsze błędy to przede wszystkim:
+<p class="my-0"><span class="md-error">1.</span> Jeśli wszystko co wpisałeś jest błędne, prawdopodobnie wklejone wioski nie należą do plemion i/lub świata, które zadeklarowałeś przy tworzeniu tej rozpiski.</p>
+<p class="my-0"><span class="md-error">2.</span> Gracze nie udostępniający przeglądu powodują generowanie pytajników zamiast ilości wojsk, usuń te wiersze.</p>
+<p class="my-0"><span class="md-error">3.</span> Dane aktualizują się co 15min, czasem w tym okresie wioski zmieniają właściciela lub gracze człon.</p>
+
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Jeśli to żadne z powyższych, trochę informacji na temat tego, co jeszcze jest sprawdzane wraz z przykładem wklejanego tekstu, możesz znaleźć też <a target="_blank" href="/documentation#uzupelnianie-zbiorki-wojska">tutaj</a>. Jeśli zaś czujesz, że to na pewno błąd strony, powinieneś zgłosić to na <b>Discordzie</b>.</div>

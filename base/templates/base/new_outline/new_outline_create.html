@@ -2,15 +2,14 @@
 
 <div class="row mt-3 mb-4">
     <div class="col-12 col-lg-7">
-        <h6 class="font-nav">{% trans 'Your server is set to' %} <span class="font-teal">{{profile.server}}.</span> <a href="{% url 'base:settings' %}">{% trans 'Click here to change it.' %}</a> </h6>
-        <div class="alert alert-primary" role="alert">
-            {% trans 'First time? You can choose a special <span class="md-correct2">World Test</span> created for testing purposes, see ' %}<a target="_blank" href="{% url 'base:documentation' %}#test">{% trans 'docs' %}</a>
-          </div>
+        <h6 class="">{% trans 'Your server is set to' %} <span class="font-teal">{{profile.server}}.</span> <a href="{% url 'base:settings' %}">{% trans 'Click here to change it.' %}</a></h6>
+
+        <div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> {% trans 'First time? You can choose a special <span class="md-correct2">World Test</span> created for testing purposes, see ' %}<a target="_blank" href="{% url 'base:documentation' %}#swiat-testowy-czyli-pierwsze-kroki-z-planerem">{% trans 'docs' %}</a>.</div>
 
         <form method='POST' autocomplete="off">
             {% csrf_token %} 
             {{ form1|crispy }}
-            <h6 class="font-nav">{% trans 'Can’t you see your world, maybe it just came out? ' %} <br>
+            <h6 class="">{% trans 'Can’t you see your world, maybe it just came out? ' %} <br>
                 <a href="{% url 'base:add_world' %}">{% trans 'Click here to add new worlds automatically' %}</a>.<br>
                 
             
@@ -22,7 +21,7 @@
         </form>
         
     </div>
-
+ 
     <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
         <div class="h-100">
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
@@ -30,18 +29,12 @@
                     <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Marks' %}</a>
-                </li>
-                <li class="nav-item navitem100">
                     <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
                 </li>
             </ul>
-            <div class="tab-content font-nav" id="pills-tabContent">
+            <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
                     {{info|safe}}
-                </div>
-                <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    {{marks|safe}}
                 </div>
                 <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
                     {{example|safe}}
@@ -49,15 +42,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
 </div>
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 
