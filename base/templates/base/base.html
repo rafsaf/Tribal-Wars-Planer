@@ -81,7 +81,7 @@
                     border-bottom">
                 {% if user.is_authenticated %}
                 <div class="d-none d-lg-block">
-                    <button class="btn toggle-icon" id="menu-toggle">
+                    <button onclick="setTimeout(()=>{this.blur();},600)" class="btn toggle-icon" id="menu-toggle">
                         <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-toggles" fill="teal"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
