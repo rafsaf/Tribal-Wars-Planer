@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-05 14:13+0100\n"
+"POT-Creation-Date: 2021-02-05 14:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1816,12 +1816,12 @@ msgid ""
 "<p>4. Click the button <span class='md-correct2'>Click here to update if u "
 "have changed Army troops</span>.</p>"
 msgstr ""
-"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska nie są już aktualne!</h5> <p>Aby móc "
-"użyć Planera:</p> <p>1. Wklej aktualne dane <b>Zbiórki Wojska</b> "
+"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska nie są już aktualne!</h5> "
+"<p>Aby móc użyć Planera:</p> <p>1. Wklej aktualne dane <b>Zbiórki Wojska</b> "
 "i <b>Potwierdź</b>.</p> <p>2. Powróć do zakładki <b>Planera</b>.</p> <p>3. "
-"Rozwiń pierwszą zakładkę <span class='md-correct2'>1. Dostępne jednostki</span>.</p> "
-"<p>4. Naciśnij przycisk <span class='md-correct2'>Kliknij by zaktualizować po zmianie "
-"Zbiórki Wojska</span>.</p>"
+"Rozwiń pierwszą zakładkę <span class='md-correct2'>1. Dostępne jednostki</"
+"span>.</p> <p>4. Naciśnij przycisk <span class='md-correct2'>Kliknij by "
+"zaktualizować po zmianie Zbiórki Wojska</span>.</p>"
 
 #: base/views/outline_initial_views.py:399
 msgid "<h5>All targets must have an assigned Time.</h5>"
@@ -1842,9 +1842,11 @@ msgid ""
 "<b>Army and Deff collections</b> and <b>Submit</b> both.</p> <p>2. Return to "
 "the <b>Deff collection</b> tab.</p> <p>3. Try again."
 msgstr ""
-"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska lub Deffa nie są już aktualne!</h5> "
-"<p>Aby móc użyć zakładki Zbiórka Deffa:</p> <p>1. Wklej akutalne dane <b>Zbiórek Wojska i Deffa</b> "
-"i <b>Potwierdź</b> obie.</p> <p>2. Powróć do zakładki <b>Zbiórka Deffa</b>.</p> <p>3. Spróbuj ponownie.</p>"
+"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska lub Deffa nie są już "
+"aktualne!</h5> <p>Aby móc użyć zakładki Zbiórka Deffa:</p> <p>1. Wklej "
+"akutalne dane <b>Zbiórek Wojska i Deffa</b> i <b>Potwierdź</b> obie.</p> "
+"<p>2. Powróć do zakładki <b>Zbiórka Deffa</b>.</p> <p>3. Spróbuj ponownie.</"
+"p>"
 
 #: templates/404.html:4
 msgid ""
@@ -1994,21 +1996,22 @@ msgid ""
 "please visit plemiona-planer.pl and request another reset."
 msgstr ""
 "Link ten może być użyty tylko raz. Jeśli będziesz potrzebować "
-"zresetowaćswoje hasło ponownie, prosimy odwiedzić plemiona-planer.pl i "
+"zresetować swoje hasło ponownie, prosimy odwiedzić plemiona-planer.pl i "
 "wysłać nową prośbę o reset."
 
 #: templates/registration/password_reset_email.html:7
 msgid "If you did not make this request, you can simply ignore this email."
 msgstr ""
-"Jeśli to nie Ty wysłałeś tą prośbę, możesz po prostu zignorować tego maila."
+"Jeśli to nie Ty wysłałeś/aś tą prośbę, możesz po prostu zignorować tego maila. "
+"W razie wątpliwości, skontaktuj się z administracją strony."
 
 #: templates/registration/password_reset_email.html:9
 msgid "Sincerely,"
 msgstr "Z pozdrowieniami"
 
 #: templates/registration/password_reset_email.html:10
-msgid "The plemiona-planer.pl Team"
-msgstr "Zespół plemiona-planer.pl"
+msgid "plemiona-planer.pl"
+msgstr "plemiona-planer.pl"
 
 #: templates/registration/password_reset_form.html:22
 msgid "Reset password"
@@ -2181,5 +2184,3 @@ msgstr "szlachcic"
 #: tribal_wars/period_utils.py:86
 msgid "ram"
 msgstr "taran"
-
-
