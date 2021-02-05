@@ -32,7 +32,7 @@ def initial_form(request, _id):
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
     if instance.off_troops == "":
-        request.session["error"] = gettext("Off collection empty!")
+        request.session["error"] = gettext("<h5>Army collection is empty!</h5>")
         return redirect("base:planer_detail", _id)
     if instance.written == "active":
         return redirect("base:planer_initial", _id)
@@ -58,7 +58,7 @@ def initial_form(request, _id):
         if off_form.is_valid():
             initial.make_outline(instance, make_targets=False)
         else:
-            request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
+            request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
 
             return redirect("base:planer_detail", _id)
 
@@ -112,7 +112,7 @@ def initial_form(request, _id):
                 if off_form1.is_valid():
                     initial.make_outline(instance, make_targets=True)
                 else:
-                    request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
+                    request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
                     return redirect("base:planer_detail", _id)
                 instance.save()
                 return redirect("base:planer_initial_form", _id)
@@ -396,7 +396,7 @@ def initial_planer(request, _id):
                 )
                 if target_with_no_time:
                     request.session["outline_error"] = gettext(
-                        "All targets must have Times"
+                        "<h5>All targets must have an assigned Time.</h5>"
                     )
                     return redirect(
                         reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
@@ -684,7 +684,7 @@ def update_outline_troops(request, id1):
     if off_form.is_valid():
         initial.make_outline(instance, make_targets=False)
     else:
-        request.session["error"] = gettext("It looks like your Army collection is no longer actual! To use the Planer please copy the data from the preview and correct errors or paste the current military data. Then you should return to the Planer tab and confirm the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to update if u have changed Army troops\".")
+        request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
 
         return redirect("base:planer_detail", id1)
     instance.avaiable_offs = []

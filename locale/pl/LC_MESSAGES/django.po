@@ -1796,7 +1796,7 @@ msgstr " minut temu."
 
 #: base/views/outline_initial_views.py:35 base/views/results_get_deff.py:23
 msgid "Off collection empty!"
-msgstr "Zbiórka Offa pusta!"
+msgstr "Zbiórka Wojska pusta!"
 
 #: base/views/outline_initial_views.py:61
 #: base/views/outline_initial_views.py:115

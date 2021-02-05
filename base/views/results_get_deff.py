@@ -17,10 +17,10 @@ def outline_detail_get_deff(request, _id):
 
     # only correct deff_troops allowed
     if instance.deff_troops == "":
-        request.session["error"] = gettext("Deff collection empty!")
+        request.session["error"] = gettext("<h5>Deff collection is empty!</h5>")
         return redirect("base:planer_detail", _id)
     if instance.off_troops == "":
-        request.session["error"] = gettext("Off collection empty!")
+        request.session["error"] = gettext("<h5>Army collection is empty!</h5>")
         return redirect("base:planer_detail", _id)
 
     language_code = get_language()
@@ -49,7 +49,7 @@ def outline_detail_get_deff(request, _id):
                 )
             except basic.DeffException:
                 request.session["error"] = gettext(
-                    "It looks like your Deff or Off collection is no longer actual! To use the planner: copy the data from the preview and correct errors or paste the current military data \n"
+                    "<h5>It looks like your Army or Deff collections are no longer actual!</h5> <p>To use the Deff collection:</p> <p>1. Paste the current data in the <b>Army and Deff collections</b> and <b>Submit</b> both.</p> <p>2. Return to the <b>Deff collection</b> tab.</p> <p>3. Try again."
                 )
                 return redirect("base:planer_detail", _id)
 
