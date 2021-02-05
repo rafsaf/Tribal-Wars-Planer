@@ -113,6 +113,31 @@ function img_box(self) {
     else {
         idpopup_img_box.style.opacity = 1
     }
+    window.onkeyup = function (event) {
+        if (event.keyCode == 27) {
+            if (use_fade_inout_img_box == 'yes') {
+                var idfadeout_img_box = setInterval(function() {
+                    if (vopa_img_box >= 0) {
+                        idpopup_img_box.style.opacity = vopa_img_box
+                        vopa_img_box -= speed_img_box
+                    } else {
+                        idpopup_img_box.style.opacity = 0
+                        clearInterval(idfadeout_img_box)
+                        idpopup_img_box.style.display = 'none'
+                        idpopup_img_box.innerHTML = ''
+                        document.body.style.overflow = 'visible'
+                        vopa_img_box = 0
+                    }
+                }, 10)
+            }
+            else {
+                idpopup_img_box.style.opacity = 0
+                idpopup_img_box.style.display = 'none'
+                idpopup_img_box.innerHTML = ''
+                document.body.style.overflow = 'visible'
+            }
+        }
+    }
 
     idpopup_img_box.onclick = function() {
         if (use_fade_inout_img_box == 'yes') {

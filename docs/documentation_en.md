@@ -800,9 +800,10 @@ if ("message" in result) {
 <a href="#spis-tresci"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
 </svg> Powrót do spisu treści.</a>
 <p class="mb-0"><b><a href="#jak-wpisywac-i-zapisac-cele-akcji">1. Jak wpisywać i zapisać cele akcji</a></b></p>
-<p class="my-0"><b><a href="#male-akcje-kompletny-poradnik">2. Małe akcje - kompletny poradnik</a></b></p>
-<p class="my-0"><b><a href="#srednie-akcje-kompletny-poradnik">3. Średnie akcje - kompletny poradnik</a></b></p>
-<p class="my-0"><b><a href="#duze-akcje-kompletny-poradnik">4. Duże akcje - kompletny poradnik</a></b></p>
+<p class="my-0"><b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">2. Dwa rejony plemienia czyli co to Front i Zaplecze</a></b></p>
+<p class="my-0"><b><a href="#male-akcje-kompletny-poradnik">3. Małe akcje - kompletny poradnik</a></b></p>
+<p class="my-0"><b><a href="#srednie-akcje-kompletny-poradnik">4. Średnie akcje - kompletny poradnik</a></b></p>
+<p class="my-0"><b><a href="#duze-akcje-kompletny-poradnik">5. Duże akcje - kompletny poradnik</a></b></p>
 
 ---
 
@@ -850,34 +851,81 @@ W takim przypadku zmiast jednej liczby offów wpisaliśmy **2|0|5|0** a zamiast 
 <br>
 <br>
 
+## Dwa rejony plemienia czyli co to Front i Zaplecze {#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze}
+
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> <span class="md-error">Zawsze</span> rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na <span class="md-error">Frontowe</span> i <span class="md-error">Zapleczowe</span> zgodnie z duchem danej rozpiski. Do tego celu służy zakładka <span class="md-correct2">1. Dostępne jednostki</span>, zaś wyniki prezentowane są w tabeli pod celami.</div>
+
+Odpowiedzią na to, by podczas rozpisywania akcji **nie** rozpisywać frontowych offów frontowcom, którzy powinni je trzymać na dobitki z bliska (lub używać w dowolny inny sposób), jest podział naszych wiosek na dwie grupy, <span class="md-error">Front</span>, czyli offy i szlachta **blisko** wroga, oraz <span class="md-error">Zaplecze</span> czyli offy i szlachta **daleko** od wroga. Jak dokładnie to się odbywa i jak to kontrolować, wyjaśni się za chwilę, ważne by dwa razy to zdanie przeczytać jeśli trzeba i zapamiętać.
+
+To, jak zostaną podzielone nasze offy i szlachta, zależy od ustawień w zakładce <span class="md-correct2">1. Dostępne jednostki</span>, rozważmy najpierw **0 kratek odległości od linii frontu**, patrz rys. niżej.
+
+<br>
+<h5>Zakładka <span class="md-correct2">1. Dostępne jednostki</span> gdzie dzielimy offy i szlachtę na Front i Zaplecze</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/troops-form.png" alt="Troops form">
+
+<br>
+<h5>Przykład wyniku dla <b>0 kratek odległości od linii frontu</b></h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/troops-table1.png" alt="Troops table2">
+
+<br>
+<h5>Przykład wyniku dla <b>20 kratek odległości od linii frontu</b></h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/troops-table2.png" alt="Troops table2">
+<br>
+
+Tylko offy **większe niż wybrana minimalna liczba jednostek w offie** zostaną pokazane. W obecnej wersji ck z offów również będą **rozpoznane** i odróżnione od ck z wiosek deffowych oraz policzone. Wynik zależy głównie od <span class="md-error">Przeciwnych plemion</span>, które zostały wybrane na samym początku przy tworzeniu rozpiski. Algorytm jest bardzo prosty, dookoła każdej **wrogiej** wioski liczony jest rejon w odległości, która została podana jako <b>odległość od linii frontu</b>. Biorąc sumę tych wszystkich rejonów w całość, możemy dla każdej **sojuszniczej** wioski wskazać czy jest ona w pobliżu tych wrogich wiosek (wtedy jest frontowa), czy też nie jest (wtedy jest na zapleczu). Stąd też w pole <span class="md-correct2">Nieuwzględniane przy liczeniu frontowych offów wioski wroga</span> wklejamy wszelkie wrogie diody, by nie zaburzały wyniku. Dwa dolne wiersze uwzględniają jeszcze podaną <span class="md-correct2">maksymalną odległość dla szlachty</span>, gdzie z mniejszej niż wskazana ilość kratek, nie zostanie rozpisany żaden **szlachcic**.
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Warto zawsze wybrać wszystkie nasze pobliskie wrogie plemiona do rozpiski, a nie tylko to na które rozpisujemy akcję. Jeśli nasze plemię ma dwa fronty z plemionami <b>A</b> oraz <b>B</b>, a my chcemy rozpisać akcję na <b>A</b>, to wciąż chcemy zachować frontowe offy przy <b>B</b> na użytek tamtejszych frontowców, stąd dodajemy oba plemiona do wrogich plemion (w przeciwnym wypadku, jeśli będzie tylko plemię <b>A</b> to może się okazać, że offy frontowe spod <b>B</b> są rozpisane na akcję.</div>
+
+<b><a href="#podstawowe-poradniki-zakladki-planer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg> Powrót do początku rozdziału.</a></b>
+
+---
+
+<br>
+<br>
+<br>
+
 ## Małe akcje - kompletny poradnik {#male-akcje-kompletny-poradnik}
 
-Uwaga, podany niżej pomysł na małe akcje nie jest zobowiązujący, można to robić w dowolny sposób, choćby potraktować je jako średnie akcje.
 
-<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać małą akcję, docelowo w początkowym etapie świata, na <b>mniej niż 25 celów</b> (w praktyce limit nie istnieje, ale zaprezentowana metoda będzie coraz bardziej czasochłonna wraz ze wzrostem liczby celów). <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem!</b></a></div><br>
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Uwaga, podany niżej pomysł na małe akcje nie jest zobowiązujący, można to robić w dowolny sposób, choćby potraktować je jako średnie akcje.</div>
+
+W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać małą akcję, docelowo w początkowym etapie świata, na <b>mniej niż 25 celów</b> (w praktyce limit nie istnieje, ale zaprezentowana metoda będzie coraz bardziej czasochłonna wraz ze wzrostem liczby celów). <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem!</b></a>
+<br>
+<br>
 
 Pomysł polega na ręcznym rozpisaniu rozkazów na wszystkie cele i **nie korzystaniu** z możliwości automatycznego rozpisywania. Jest ku temu kilka powodów, gdy gracze nie mają pełnych offów, mnóstwa grubych i odległości do wrogów nie są sensowne (przemieszanie z wrogiem nie jest sensowne), automatyczne rozpisywanie akcji mija się z celem. Dokładnie i szybko można zrobić to ręcznie - **tylko że ręcznie z pomocą Planera!**, co przyspiesza tworzenie rozpiski i rozsyłanie celów do maksimum. Do tego był wstępnie stworzony, właśnie do małych akcji, w tym jest najlepszy. Cała nakładka do większych akcji to późniejsze dodatki. Ale do rzeczy!
 
-<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Zawsze rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na front i zaplecze zgodnie z duchem rozpiski. Do tego celu służy zakładka <span class="md-correct2">1. Dostępne jednostki</span>, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> <span class="md-error">Zawsze</span> rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na <span class="md-error">Frontowe</span> i <span class="md-error">Zapleczowe</span> zgodnie z duchem danej rozpiski. Do tego celu służy zakładka <span class="md-correct2">1. Dostępne jednostki</span>, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
 
-<p>Dla małej akcji może to wyglądać następująco:</p>
-
+<h5>Dla małej akcji uzupełniona zakładka może wyglądać następująco:</h5>
 <img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/small-outline0.png" alt="Small outline 0">
 
-W **Zakładce** <span class="md-correct2">1. Dostępne jednostki</span> ustaw minimalną liczbę w offie na adekwatną, **małą wartość np. 2000**, (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu również małą czyli **1-10 kratek**. Klikamy <span class="md-correct2">Zapisz i odśwież dostępne</span>. Uzupełniona zostanie tabela z ilością naszych offów.
+<br>
+Ustaw tam minimalną liczbę w offie na adekwatną, **małą wartość np. 2000**, (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu również małą czyli **1-10 kratek**. Klikamy <span class="md-correct2">Zapisz i odśwież dostępne</span>. Uzupełniona zostanie tabela z ilością naszych offów.
 
+<br>
+
+<h5>Tak mniej więcej powinna wyglądać uzupełniona tabela:</h5>
 <img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/small-outline01.png" alt="Small outline 01">
 
 <div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Teraz wiesz już na czym stoisz i możesz przejść do wpisywania celów w zależności od podanych ilości offów, którymi dysponujesz.</div><br>
 
 <img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/small-outline1.png" alt="Small outline 1">
 
-Po wpisaniu kordów jak wyżej i ich zapisaniu, każda linijka będzie wyglądać podobnie do **000|000:0:0**.<br>  Ignorujemy wszystkie pozostałe zaawansowane ustawienia i klikamy <span class="md-correct2">Rozpisz tą akcję</span>.<br>
 
+Po wpisaniu kordów jak wyżej i ich zapisaniu, każda linijka będzie wyglądać podobnie do **000|000:0:0**.<br>  <b><span class="md-error">Ignorujemy wszystkie pozostałe zaawansowane ustawienia, pozostawiając 0 offów i 0 szlachty w każdej linijce i klikamy</span></b> <span class="md-correct2">Rozpisz tą akcję</span>.
+
+<br>
 
 <img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/small-outline2.png" alt="Small outline 2">
 
+<br>
+
 Po przejściu do następnej zakładki, zauważymy, że wszystkie cele są puste. **Przechodzimy kolejno do edytowania wszystkich celów** przyciskami <span class="md-correct2">Edytuj</span> i rozpisujemy rozkazy od najbliższych graczy w wybranej przez siebie kolejności, pomocne będą sortowania oprócz domyślnego <span class="md-correct2">Rosnąco ze względu na odległość</span>, <span class="md-correct2">Najbliższe pełne offy</span> oraz <span class="md-correct2">Najbliższa szlachta</span>.
+
+<br>
 
 <img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/small-outline3.png" alt="Small outline 3">
 
@@ -896,7 +944,48 @@ Po przejściu do następnej zakładki, zauważymy, że wszystkie cele są puste.
 
 Uwaga, podany niżej pomysł na średnie akcje nie jest zobowiązujący, można to robić w dowolny sposób, choćby potraktować je jako małe lub duże akcje.
 
-<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać średnią akcję, docelowo w trochę późniejszym etapie świata, na <b>mniej niż 100 celów</b>, gdzie w plemieniu są już podczas akcji raczej pełne offy lub niewiele mniejsze. <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem!</b></a></div><br>
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać średnią akcję, docelowo w trochę późniejszym etapie świata, na <b>mniej niż 100 celów</b>, gdzie w plemieniu są już podczas akcji raczej pełne offy lub niewiele mniejsze. <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem</b></a>! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich poradników w tym dziale, czyli <a target="_blank" href="#jak-wpisywac-i-zapisac-cele-akcji"><b>Jak wpisywać i zapisać cele akcji</b></a> i <a target="_blank" href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze"><b>Dwa rejony plemienia czyli co to front i zaplecze</b></a>.</div>
+<br>
+<br>
+
+Akcję będziemy rozpisywać wykorzystując automatyczne rozpisywanie z racji ilości celów i skorzystamy z wszelkich dostępnych zaawansowanych opcji. W razie konieczności, można zmienić ustawienia indywidualnie dla każdego celu czy to w **Zakładce 4** zmieniając dla niego tryb rozpisywania, czy też *ostatecznie* już po utworzeniu rozpiski, edytując wybrane cele ręcznie, tak jak w przypadku małych akcji.
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> <span class="md-error">Zawsze</span> rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na <span class="md-error">Frontowe</span> i <span class="md-error">Zapleczowe</span> zgodnie z duchem danej rozpiski. Do tego celu służy zakładka <span class="md-correct2">1. Dostępne jednostki</span>, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
+
+<h5>Dla średniej akcji uzupełniona zakładka może wyglądać następująco:</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/mid-outline1.png" alt="Mid outline 1">
+<br>
+
+Ustaw tam minimalną liczbę w offie na adekwatną ilość, pewnie więcej niż 10000 (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu na około 5-25, jeśli przeciwnik ma na terenie plemienia diody, wyrzuć je wklejąc w pole **Nieuwzględniane przy liczeniu frontowych offów wioski wroga**. Klikamy <span class="md-correct2">Zapisz i odśwież dostępne</span>. Uzupełniona zostanie tabela z ilością naszych offów.
+
+<br>
+
+<h5>Tak mniej więcej powinna wyglądać uzupełniona tabela:</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/mid-outline2.png" alt="Mid outline 2">
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Teraz wiesz już na czym stoisz i możesz przejść do wpisywania celów w zależności od podanych ilości offów, którymi dysponujesz. Pomocna tu będzie wiedza z pierwszego poradnika o wpisywaniu celów.</div><br>
+
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/small-outline1.png" alt="Small outline 1">
+
+
+Po wpisaniu kordów jak wyżej i ich zapisaniu, każda linijka będzie wyglądać podobnie do **000|000:0:0**.<br>  <b><span class="md-error">Ignorujemy wszystkie pozostałe zaawansowane ustawienia, pozostawiając 0 offów i 0 szlachty w każdej linijce i klikamy</span></b> <span class="md-correct2">Rozpisz tą akcję</span>.
+
+<br>
+
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/small-outline2.png" alt="Small outline 2">
+
+<br>
+
+Po przejściu do następnej zakładki, zauważymy, że wszystkie cele są puste. **Przechodzimy kolejno do edytowania wszystkich celów** przyciskami <span class="md-correct2">Edytuj</span> i rozpisujemy rozkazy od najbliższych graczy w wybranej przez siebie kolejności, pomocne będą sortowania oprócz domyślnego <span class="md-correct2">Rosnąco ze względu na odległość</span>, <span class="md-correct2">Najbliższe pełne offy</span> oraz <span class="md-correct2">Najbliższa szlachta</span>.
+
+<br>
+
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/small-outline3.png" alt="Small outline 3">
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Powyżej pokazano jak może wyglądać przykładowo rozpisany cel w początkowym etapie gry, <b>2 offy</b> na początku, następnie <b>4 szlachcice</b>. Pamiętaj że po każdym dodaniu wojsk, aktualizuje się ich stan we wszystkich celach (innymi słowy, jest to dobrze zaprogramowane, nie rozpiszesz więcej wojsk niż maksimum posiadane przez graczy). Po rozpisaniu wszystkich celów, znanym już z <b>Świata Testowego</b> sposobem przejdź do zakładki Czasów, ustal czasy wejścia, zakończ rozpiskę i roześlij graczom ich cele.</div><br>
+
+<b><a href="#podstawowe-poradniki-zakladki-planer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg> Powrót do początku rozdziału.</a></b>
 
 <br>
 <br>
@@ -913,10 +1002,142 @@ Uwaga, podany niżej pomysł na średnie akcje nie jest zobowiązujący, można 
 </div>
 <a href="#spis-tresci"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
 </svg> Powrót do spisu treści.</a>
+<p class="mb-0"><b><a href="#dostepne-jednostki-i-opis-tabeli">1. Dostępne jednostki i opis Tabeli.</a></b></p>
+<p class="my-0"><b><a href="#zmiana-daty-akcji">2. Zmiana daty akcji.</a></b></p>
+<p class="my-0"><b><a href="#domyslne-ustawienia-trybu-akcji">3. Domyślne ustawienia trybu akcji</a></b></p>
+<p class="my-0"><b><a href="#wybierz-tryb-dla-kazdego-celu-z-osobna">4. Wybierz tryb dla każdego celu z osobna</a></b></p>
+<p class="my-0"><b><a href="#unikanie-bonusu-nocnego">5. Unikanie bonusu nocnego.</a></b></p>
 
 ---
 
-aa
+<br>
+<br>
+
+## 1. Dostępne jednostki i opis Tabeli {#dostepne-jednostki-i-opis-tabeli}
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Zakładka służy do dzielenia wiosek naszego plemienia na <span class="md-error">Front</span> i <span class="md-error">Zaplecze</span>. Ponieważ jej znajomość jest podstawą obsługi strony, całość jej opisu znajdziesz w <b>Podstawowych poradnikach zakładki Planer</b>, w tym artykule<br> <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa rejony plemienia czyli co to front i zaplecze</a></b>.</div>
+
+<br>
+
+<b><a href="#opisy-zaawansowanych-ustawien-akcji"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg> Powrót do początku rozdziału.</a></b>
+
+---
+
+<br>
+<br>
+<br>
+
+## 2. Zmiana daty akcji {#zmiana-daty-akcji}
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Zakładka jest bardzo prosta i służy do zmiany daty wejścia akcji, która była wstępnie podana na początku przy tworzeniu rozpiski. </div>
+
+<h5>Wygląd zakładki z przykładową datą:</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/change-date.png" alt="Target mode change">
+
+Nie istnieje i nie będzie istniała możliwość *de facto* rozpisania akcji na kilka dni. Jedyną możliwością jest rozpisanie akcji na pierwszy dzień np. **01.01**, wysłania wyników graczom, a następnie w <span class="md-error">Zakładce Wyniki</span>, po zakończonej rozpisce, możesz znaleźć *pozostałe*, niewykorzystane jednostki w zakładce <span class="md-error">Niewykorzystane wojska</span>. Tworząc nową rozpiskę z inną datą, np. na kolejny dzień **02.01** i kopiując tam te dane o Wojskach, można rozpisać akcję na kolejny dzień.
+
+<br>
+
+<b><a href="#opisy-zaawansowanych-ustawien-akcji"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg> Powrót do początku rozdziału.</a></b>
+
+---
+
+<br>
+<br>
+<br>
+
+## 3. Domyślne ustawienia trybu akcji {#domyslne-ustawienia-trybu-akcji}
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Zakładka służy do ustalenia szczegółow skąd dokładnie powinny lecieć offy na akcję oraz innych, ogólnych ustawień rozpiski. Zapnij pasy.</div>
+
+
+<h5>Wygląd zakładki z domyślnymi ustawieniami:</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/change-mode1.png" alt="Target mode change">
+
+W artykule <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa rejony plemienia czyli co to front i zaplecze</a></b> dowidziałeś/aś się jak Planer radzi sobie z podziałem na <span class="md-error">Front</span> i <span class="md-error">Zaplecze</span>. W punktach<br>
+**1.** i **2.** na powyższym zdjęciu, możesz zdefiniować z których dokładnie części plemienia powinny domyślnie polecieć offy i szlachta. Domyślnie jest to **Zaplecze Losowo** dla offów oraz **Front Najbliżej** dla szlachty.<br>
+
+**Front Najbliżej** oznacza tyle co <span class="md-error">Jak najbliżej się da</span>, niekoniecznie nawet musi być to z wiosek z <span class="md-error">Frontu</span>, jeśli np. nie ma frontowych wiosek lub podczas automatycznego rozpisywania, w danym rejonie już zostaną same wioski z zaplecza (bo frontowe zostaną wykorzystane), wówczas zwyczajnie zostaną wzięte jak najbliższe wioski.
+
+**Zaplecze Blisko** to już musowo wioski z <span class="md-error">Zaplecza</span>, a wśród nich wzięte są najbliższe możliwe.
+
+**Zaplecze Losowo** to wioski z <span class="md-error">Zaplecza</span>, wzięte prawdziwie (a nie pseudo) losowo spośród wszystkich możliwych, domyślne ustawienie dla offów - przeważnie nie chcemy by cokolwiek (odległość, wysyłający gracz) świadczyło, że to off i dało się go odróżnić od fejków.
+
+**Zaplecze Daleko** to wioski z <span class="md-error">Zaplecza</span>, posortowane odwrotnie niż te z **Zaplecze Blisko**, to znaczy od najdalszych jakie są tylko możliwe.
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Dla dodatkowej frajdy, którą niewątpliwie będą czuć obrońcy akcji pisanych na tej stronie, wszystkie powyższe ustawienia mają minimalny stopień losowości, tzn <b>najbliższe</b> i <b>najdalsze</b> możliwe, mają pewne malutkie wahanie, ponieważ teoretycznie <b>Zaplecze Blisko</b> i <b>Zaplecze Daleko</b> są możliwe do rozpoznania dla obrońcy, a w ten sposób będzie to troszkę cięższe do odgadnięcia.</div>
+
+
+
+<b><a href="#opisy-zaawansowanych-ustawien-akcji"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg> Powrót do początku rozdziału.</a></b>
+
+---
+
+<br>
+<br>
+<br>
+
+## 4. Wybierz tryb dla każdego celu z osobna {#wybierz-tryb-dla-kazdego-celu-z-osobna}
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Zakładka służy do ustalenia szczegółów skąd dokładnie powinny lecieć offy na akcję dla każdego celu z osobna. Do wyboru dla poszczególnych celów są opcje omawiane w <b><a href="#domyslne-ustawienia-trybu-akcji">3. Domyślne ustawienia trybu akcji</a></b>.</div>
+
+<h5>Wygląd zakładki z kilkoma poprzestawianymi trybami:</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/target-mode-change.png" alt="Target mode change">
+
+<br>
+
+Uwaga, pamiętaj że po każdym ponownym kliknięciu <span class="md-correct2">Zapisz cele</span>, ustawienia wszystkich celów powracają do tych z zakładki **3. Domyślne ustawienia trybu akcji**. Być może lepszym sposobem, jest używanie rozszerzonego kodowania celów omawianego w **Podstawowych poradnikach zakładki Planer**, w artykule<br> <b><a href="#jak-wpisywac-i-zapisac-cele-akcji">Jak wpisywać i zapisać cele akcji</a></b>.
+
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Formularz zmiany trybów dla każdego celu z osobna, jest dostępny tylko do 100 celi, powyżej tej ilości wyświetlna jest krótka informacja, że nie można jej użyć.</div>
+
+<br>
+
+<b><a href="#opisy-zaawansowanych-ustawien-akcji"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg> Powrót do początku rozdziału.</a></b>
+
+---
+
+<br>
+<br>
+<br>
+
+## 5. Unikanie bonusu nocnego {#unikanie-bonusu-nocnego}
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Zakładka służy do opcjonalnego ustawienia opcji unikania bonusu nocnego dla generowanych rozkazów dla offów i fejk offów. <b>Szlachcice będą normalnie rozpisywane całą dobę!</b> Nie oznacza to także całkowitej likwidacji możliwości wystąpienia wysyłek nocnych, a tylko ich minimalizacji.</div>
+
+W przypadku aktywacji, Planer będzie unikał wysyłek w godzinach **00:00-07:00**, nie ma możliwości zmiany tych godzin.
+
+<br>
+
+<h5>Wygląd zakładki wyłączonej:</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/avoid-night.png" alt="Avoid night bonus tab">
+
+<br>
+
+Domyślnie opcja ta jest **wyłączona**, zaznacz pierwszy kwadracik by ją ustawić. Z racji tego, że *de facto* dokładne czasy wejścia offów ustala się na samym końcu, w zakładce <span class="md-error">Time</span>, podajemy jedynie **przybliżone** godziny wejścia wszystkich offów lub ich większości. Dla ustalenia uwagi, większość akcji planowana jest na rano, np. offy wchodzą **7-11**, wtedy też takie dwie godziny wpisujemy w formularz.
+
+<br>
+
+<h5>Wygląd zakładki aktywowanej:</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/avoid-night2.png" alt="Avoid night bonus tab">
+
+
+<br>
+
+<b><a href="#opisy-zaawansowanych-ustawien-akcji"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg> Powrót do początku rozdziału.</a></b>
+
+<br>
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> To już wszystko w tym artykule dotyczącym Opisów ustawień zaawansowanych.
+<br>
+<a href="#spis-tresci"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg> Kliknij by powrócić do spisu treści</a>.</div>
+---
 
 <br>
 <br>
