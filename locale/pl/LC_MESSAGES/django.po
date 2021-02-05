@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-05 14:36+0100\n"
+"POT-Creation-Date: 2021-02-05 21:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1868,49 +1868,47 @@ msgstr ""
 msgid "Congratulations, you have successfully registered!"
 msgstr "Gratulacje, udało Ci się zarejestrować!"
 
-#: templates/django_registration/registration_complete.html:7
+#: templates/django_registration/registration_complete.html:8
 msgid ""
-"Don't forget to join <a target='_blank' href='https://discord.gg/"
-"g5pcsCteCT'> discord </a>, there you will find all the help and can make "
+"Don't forget to join <b><a target='_blank' href='https://discord.gg/"
+"g5pcsCteCT'>Discord</a></b>, there you will find all the help and can make "
 "suggestions and bugs."
 msgstr ""
 "Nie zapomnij dołączyć do <a target='_blank' href='https://discord.gg/"
-"g5pcsCteCT'>discorda</a>, tam znajdziesz wszelką pomoc i możesz zgłaszać "
+"g5pcsCteCT'>Discorda</a>, tam znajdziesz wszelką pomoc i możesz zgłaszać "
 "propozycje oraz błędy."
-
-#: templates/django_registration/registration_complete.html:8
-msgid ""
-"You can change the language version and log in and out by expanding <span "
-"style = \"font-style: italic; font-size: large; text-decoration: underline;"
-"\"> Menu </span> in the navigation bar."
-msgstr ""
-"Możesz zmieniać wersję językową oraz logować się i wylogowywać się "
-"rozwijając <span style='font-style: italic; font-size: large;text-"
-"decoration: underline;'>Menu</span> w pasku nawigacyjnym."
 
 #: templates/django_registration/registration_complete.html:9
 msgid ""
-"To start go to the tab <span style = \"font-style: italic; font-size: large; "
-"text-decoration: underline;\"> Create new outline </span>"
+"You can change the language version and log in and out by expanding <b>Menu</"
+"b> in the navigation bar."
 msgstr ""
-"Aby rozpocząć przejdź do zakładki <span style='font-style: italic; font-"
-"size: large;text-decoration: underline;'>Stwórz nową rozpiskę</span>"
+"Możesz zmieniać wersję językową oraz logować się i wylogowywać się "
+"rozwijając <b>Menu</b> w pasku nawigacyjnym."
 
 #: templates/django_registration/registration_complete.html:10
-msgid "First steps: it is worth starting by reading about"
-msgstr "Pierwsze kroki: warto zacząć od przeczytania o"
+msgid ""
+"To create a first outline, go to the tab <span class=\"md-error\">Create new "
+"outline</span>."
+msgstr ""
+"Aby utworzyć pierwszą rozpiskę, przejdź do <span class=\"md-error\">Stwórz "
+"nową rozpiskę</span>."
 
-#: templates/django_registration/registration_complete.html:10
-msgid "Test world"
-msgstr "Świecie testowym"
+#: templates/django_registration/registration_complete.html:11
+msgid "You should start by reading:"
+msgstr "Powinieneś rozpocząć od przeczytania:"
 
-#: templates/django_registration/registration_form.html:4
+#: templates/django_registration/registration_complete.html:12
+msgid "The test world that is first steps with Planer"
+msgstr "Świat Testowy czyli pierwsze kroki z Planerem"
+
+#: templates/django_registration/registration_form.html:6
 msgid "Join now for free and create tribal wars proffesional outlines."
 msgstr ""
 "Dołącz teraz za darmo do Plemiona Planera i twórz profesjonalne rozpiski "
 "offów."
 
-#: templates/django_registration/registration_form.html:13
+#: templates/django_registration/registration_form.html:24
 msgid "Create an account"
 msgstr "Utwórz konto"
 
@@ -1932,25 +1930,15 @@ msgid "You have successfully changed your password."
 msgstr "Pomyślnie udało się zmienić hasło."
 
 #: templates/registration/password_change_done.html:7
-#: templates/registration/password_reset_done.html:9
-msgid "Back to home page:"
-msgstr "Powróć do strony głównej:"
-
-#: templates/registration/password_change_done.html:7
 #: templates/registration/password_reset_complete.html:7
 #: templates/registration/password_reset_confirm.html:26
 #: templates/registration/password_reset_done.html:9
-msgid "Click"
-msgstr "Klik"
+msgid "Back to home page"
+msgstr "Powróć do strony głównej"
 
-#: templates/registration/password_change_form.html:16
+#: templates/registration/password_change_form.html:26
 msgid "Change password"
 msgstr "Zmień hasło"
-
-#: templates/registration/password_reset_complete.html:7
-#: templates/registration/password_reset_confirm.html:26
-msgid "Back to home page: "
-msgstr "Powróć do strony głównej: "
 
 #: templates/registration/password_reset_confirm.html:18
 msgid "Set password"
@@ -1995,15 +1983,15 @@ msgid ""
 "This link can only be used once. If you need to reset your password again, "
 "please visit plemiona-planer.pl and request another reset."
 msgstr ""
-"Link ten może być użyty tylko raz. Jeśli będziesz potrzebować "
-"zresetować swoje hasło ponownie, prosimy odwiedzić plemiona-planer.pl i "
-"wysłać nową prośbę o reset."
+"Link ten może być użyty tylko raz. Jeśli będziesz potrzebować zresetować "
+"swoje hasło ponownie, prosimy odwiedzić plemiona-planer.pl i wysłać nową "
+"prośbę o reset."
 
 #: templates/registration/password_reset_email.html:7
 msgid "If you did not make this request, you can simply ignore this email."
 msgstr ""
-"Jeśli to nie Ty wysłałeś/aś tą prośbę, możesz po prostu zignorować tego maila. "
-"W razie wątpliwości, skontaktuj się z administracją strony."
+"Jeśli to nie Ty wysłałeś/aś tą prośbę, możesz po prostu zignorować tego "
+"maila. W razie wątpliwości, skontaktuj się z administracją strony."
 
 #: templates/registration/password_reset_email.html:9
 msgid "Sincerely,"
@@ -2013,7 +2001,7 @@ msgstr "Z pozdrowieniami"
 msgid "plemiona-planer.pl"
 msgstr "plemiona-planer.pl"
 
-#: templates/registration/password_reset_form.html:22
+#: templates/registration/password_reset_form.html:17
 msgid "Reset password"
 msgstr "Zresetuj hasło"
 
@@ -2184,3 +2172,22 @@ msgstr "szlachcic"
 #: tribal_wars/period_utils.py:86
 msgid "ram"
 msgstr "taran"
+
+#~ msgid "Back to home page: "
+#~ msgstr "Powróć do strony głównej: "
+
+#~ msgid "Click"
+#~ msgstr "Klik"
+
+#~ msgid ""
+#~ "To start go to the tab <span style = \"font-style: italic; font-size: "
+#~ "large; text-decoration: underline;\"> Create new outline </span>"
+#~ msgstr ""
+#~ "Aby rozpocząć przejdź do zakładki <span style='font-style: italic; font-"
+#~ "size: large;text-decoration: underline;'>Stwórz nową rozpiskę</span>"
+
+#~ msgid "First steps: it is worth starting by reading about"
+#~ msgstr "Pierwsze kroki: warto zacząć od przeczytania o"
+
+#~ msgid "Test world"
+#~ msgstr "Świecie testowym"
