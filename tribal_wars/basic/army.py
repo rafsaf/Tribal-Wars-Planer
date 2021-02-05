@@ -85,27 +85,64 @@ class Army:
             return int(self.text_army[11])
         return int(self.text_army[12])
 
-    def check_if_off(self, archers: bool):
-        pass
 
-    @cached_property
-    def off(self):
-        """ Number of off """
+    def __raw_deff(self):
+        # no heavy cavalery
+        if self.world_evidence[1] == 0: # no archers
+            return (
+                int(self.text_army[1])
+                + int(self.text_army[2])
+                + int(self.text_army[4]) * 2
+                + int(self.text_army[8]) * 8
+            )
+        return ( # with archers
+            int(self.text_army[1])
+            + int(self.text_army[2])
+            + int(self.text_army[4])
+            + int(self.text_army[5]) * 2
+            + int(self.text_army[10]) * 8
+        )
 
+    def __raw_off(self):
+        # no heavy cavalery
         if self.world_evidence[1] == 0: # no archers
             return (
                 int(self.text_army[3])
+                + int(self.text_army[4]) * 2
                 + int(self.text_army[5]) * 4
                 + int(self.text_army[7]) * 5
                 + int(self.text_army[8]) * 8
             ) 
         return ( # with archers
             int(self.text_army[3])
+            + int(self.text_army[5]) * 2
             + int(self.text_army[6]) * 4
             + int(self.text_army[7]) * 5
             + int(self.text_army[9]) * 5
             + int(self.text_army[10]) * 8
         )
+
+
+
+    @cached_property
+    def off(self):
+        """ Number of off """
+        raw_deff = self.__raw_deff()
+        raw_off = self.__raw_off()
+
+        if raw_off > raw_deff:
+            if self.world_evidence[1] == 0: # no archers
+                return (
+                    raw_off
+                    + int(self.text_army[6]) * 6
+                ) 
+            return ( # with archers
+                raw_off
+                + int(self.text_army[8]) * 6
+            )
+        if self.world_evidence[1] == 0: # no archers
+            return raw_off - 2 * int(self.text_army[4])
+        return raw_off - 2 * int(self.text_army[5])
 
     @cached_property
     def deff(self):

@@ -66,7 +66,7 @@ def make_outline(outline: models.Outline, make_targets=True):
         # fakes target creating
         models.TargetVertex.objects.bulk_create(target_list2)
 
-@basic.timing
+
 def complete_outline(outline: models.Outline):
     """Auto write out outline """
     # user_input = outline.initial_outline_targets.split("---")

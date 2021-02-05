@@ -257,9 +257,10 @@ class WriteTarget:
                 )
             ).annotate(
                 night_bool=Case(
-                    When(night_score__gt=150, then=True),
-                    default=Value('False'),
-                    output_field=BooleanField()
+                    When(night_score__gt=130, then=3),
+                    When(night_score__gt=80, night_score__lte=130, then=2),
+                    default=Value('1'),
+                    output_field=IntegerField()
                 )
             )
 
@@ -309,7 +310,7 @@ class WriteTarget:
                     default_off_query.filter(
                         first_line=False,
                         distance__gte=self.outline.initial_outline_front_dist,
-                        night_bool=True,
+                        night_bool=3,
                     ).order_by("?")[: self.target.required_off]
                 )
                 if len(weight_list) < self.target.required_off:
@@ -317,10 +318,20 @@ class WriteTarget:
                         default_off_query.filter(
                             first_line=False,
                             distance__gte=self.outline.initial_outline_front_dist,
-                        ).order_by("?",)[: self.target.required_off]
+                            night_bool=2,
+                        ).order_by("?")[: self.target.required_off]
                     )
                     if len(weight_list) < self.target.required_off:
-                        self.end_up_offs = True
+                        weight_list = list(
+                            default_off_query.filter(
+                                first_line=False,
+                                distance__gte=self.outline.initial_outline_front_dist,
+                                night_bool=1,
+                            ).order_by("?")[: self.target.required_off]
+                        )
+                        if len(weight_list) < self.target.required_off:
+                            self.end_up_offs = True
+
                 return sorted(
                     weight_list,
                     key=lambda item: item.distance,

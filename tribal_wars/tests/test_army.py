@@ -55,10 +55,19 @@ class TestArmy(TestCase):
         self.text_world3 = "500|500,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,"
         self.text_world4 = "500|500,1,2,3,4,5,6,7,8,9,10,11,12,14,15,"
 
+        self.text_world5 = "537|535,0,0,6135,56,2743,100,276,243,2,3,0,"
+        self.text_world6 = "537|534,1,0,6205,8,2778,100,309,231,0,3,0,"
+        self.text_world7 = "402|277,2794,1898,5000,50,0,580,200,100,0,4,0,"
+        self.text_world8 = "407|277,2825,1892,3000,91,0,608,0,51,0,0,0,"
+
         self.army1 = basic.Army(self.text_world1, self.world1_evidence)
         self.army2 = basic.Army(self.text_world2, self.world2_evidence)
         self.army3 = basic.Army(self.text_world3, self.world3_evidence)
         self.army4 = basic.Army(self.text_world4, self.world4_evidence)
+        self.army5 = basic.Army(self.text_world5, self.world2_evidence)
+        self.army6 = basic.Army(self.text_world6, self.world2_evidence)
+        self.army7 = basic.Army(self.text_world7, self.world2_evidence)
+        self.army8 = basic.Army(self.text_world8, self.world2_evidence)
 
     def test_army1_coord_is_correct(self):
         self.assertEqual(self.army1.coord, "500|500")
@@ -91,16 +100,28 @@ class TestArmy(TestCase):
         self.assertEqual(self.army4.deff, 39)
 
     def test_off_army1_correct_int_return(self):
-        self.assertEqual(self.army1.off, 152)
+        self.assertEqual(self.army1.off, 210)
 
     def test_off_army2_correct_int_return(self):
-        self.assertEqual(self.army2.off, 152)
+        self.assertEqual(self.army2.off, 210)
 
     def test_off_army3_correct_int_return(self):
-        self.assertEqual(self.army3.off, 187)
+        self.assertEqual(self.army3.off, 245)
 
     def test_off_army4_correct_int_return(self):
-        self.assertEqual(self.army4.off, 187)
+        self.assertEqual(self.army4.off, 245)
+
+    def test_off_army5_correct_int_return(self):
+        self.assertEqual(self.army5.off, 21143)
+
+    def test_off_army6_correct_int_return(self):
+        self.assertEqual(self.army6.off, 21326)
+
+    def test_off_army7_correct_int_return(self):
+        self.assertEqual(self.army7.off, 10380)
+
+    def test_off_army8_correct_int_return(self):
+        self.assertEqual(self.army8.off, 3408)
 
 
 class TestDefence(TestCase):
