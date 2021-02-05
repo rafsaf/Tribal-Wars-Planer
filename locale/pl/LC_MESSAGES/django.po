@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-05 10:22+0100\n"
+"POT-Creation-Date: 2021-02-05 14:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -843,6 +843,11 @@ msgstr "Info"
 msgid "Examples"
 msgstr "Przykłady"
 
+#: base/templates/base/new_outline/new_outline.html:294
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:286
+msgid "An error occured"
+msgstr "Uwaga, wystąpił błąd"
+
 #: base/templates/base/new_outline/new_outline_create.html:5
 msgid "Your server is set to"
 msgstr "Twój ustawiony serwer to"
@@ -1583,7 +1588,9 @@ msgstr ""
 #: base/templates/base/new_outline/new_outline_results.html:6
 msgid ""
 "To send messages with a button, you will need a script that you can find"
-msgstr "By wysyłać wiadomości przyciskiem, potrzebujesz jeszcze skryptu, który można znaleźć"
+msgstr ""
+"By wysyłać wiadomości przyciskiem, potrzebujesz jeszcze skryptu, który można "
+"znaleźć"
 
 #: base/templates/base/new_outline/new_outline_results.html:13
 msgid "Outline results"
@@ -1795,45 +1802,49 @@ msgid " minute(s) ago."
 msgstr " minut temu."
 
 #: base/views/outline_initial_views.py:35 base/views/results_get_deff.py:23
-msgid "Off collection empty!"
-msgstr "Zbiórka Wojska pusta!"
+msgid "<h5>Army collection is empty!</h5>"
+msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
 #: base/views/outline_initial_views.py:61
 #: base/views/outline_initial_views.py:115
 #: base/views/outline_initial_views.py:687
 msgid ""
-"It looks like your Army collection is no longer actual! To use the Planer "
-"please copy the data from the preview and correct errors or paste the "
-"current military data. Then you should return to the Planer tab and confirm "
-"the changes by clicking on the \"1. Avaiable Troops\" button \"Click here to "
-"update if u have changed Army troops\"."
+"<h5>It looks like your Army collection is no longer actual!</h5> <p>To use "
+"the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> "
+"and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. "
+"Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> "
+"<p>4. Click the button <span class='md-correct2'>Click here to update if u "
+"have changed Army troops</span>.</p>"
 msgstr ""
-"Wygląda na to, że dane Twojej Zbiórki Wojska nie są już aktualne! "
-"Prawdopodobnie zaktualizowały się dane Twojego świata. Aby skorzystać z "
-"Planera, skopiuj dane z podglądu wklejonych wojsk (Przycisk \"Podgląd "
-"Zbiórki Wojska\") i popraw błędy albo wklej aktualne dane. Następnie powróć "
-"do zakładki Planera i potwierdź wprowadzone zmiany klikając w zakładce \"1. "
-"Dostępne jednostki\" przycisk \"Kliknij by zaktualizować po zmianie Zbiórki "
-"Wojska\"."
+"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska nie są już aktualne!</h5> <p>Aby móc "
+"użyć Planera:</p> <p>1. Wklej aktualne dane <b>Zbiórki Wojska</b> "
+"i <b>Potwierdź</b>.</p> <p>2. Powróć do zakładki <b>Planera</b>.</p> <p>3. "
+"Rozwiń pierwszą zakładkę <span class='md-correct2'>1. Dostępne jednostki</span>.</p> "
+"<p>4. Naciśnij przycisk <span class='md-correct2'>Kliknij by zaktualizować po zmianie "
+"Zbiórki Wojska</span>.</p>"
 
 #: base/views/outline_initial_views.py:399
+msgid "<h5>All targets must have an assigned Time.</h5>"
+msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
+
 #: base/views/outline_initial_views.py:661
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
 #: base/views/results_get_deff.py:20
-msgid "Deff collection empty!"
-msgstr "Zbiórka Deffa pusta!"
+msgid "<h5>Deff collection is empty!</h5>"
+msgstr "<h5>Zbiórka Deffa jest pusta!</h5>"
 
 #: base/views/results_get_deff.py:52
 msgid ""
-"It looks like your Deff or Off collection is no longer actual! To use the "
-"planner: copy the data from the preview and correct errors or paste the "
-"current military data \n"
+"<h5>It looks like your Army or Deff collections are no longer actual!</h5> "
+"<p>To use the Deff collection:</p> <p>1. Paste the current data in the "
+"<b>Army and Deff collections</b> and <b>Submit</b> both.</p> <p>2. Return to "
+"the <b>Deff collection</b> tab.</p> <p>3. Try again."
 msgstr ""
-"Wygląda na to że dane Twojej Zbiórki Deffa albo Offa nie są już aktualne! "
-"Aby korzystać z Zbiórki: skopiuj dane z podglądu i popraw błędy albo wklej "
-"aktualne dane \n"
+"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska lub Deffa nie są już aktualne!</h5> "
+"<p>Aby móc użyć zakładki Zbiórka Deffa:</p> <p>1. Wklej akutalne dane <b>Zbiórek Wojska i Deffa</b> "
+"i <b>Potwierdź</b> obie.</p> <p>2. Powróć do zakładki <b>Zbiórka Deffa</b>.</p> <p>3. Spróbuj ponownie.</p>"
 
 #: templates/404.html:4
 msgid ""
@@ -2171,37 +2182,4 @@ msgstr "szlachcic"
 msgid "ram"
 msgstr "taran"
 
-#~ msgid "This is an open project Plemiona Planer."
-#~ msgstr "To jest otwarty projekt Plemiona Planer."
 
-#~ msgid ""
-#~ "See an error? Please write <b>plemionaplaner.pl@gmail.com</b> or contact "
-#~ "me with discord."
-#~ msgstr ""
-#~ "Widzisz błąd? Napisz: <b>plemionaplaner.pl@gmail.com</b> lub skontakuj "
-#~ "się przez discorda."
-
-#~ msgid "To continue, please fill in forms with scripts results."
-#~ msgstr "Aby kontynuować, proszę wypełnij formularze wynikami skryptów."
-
-#~ msgid "Why an error appeared?"
-#~ msgstr "Dlaczego pojawił się błąd?"
-
-#~ msgid "Exact form from off collect script required, see "
-#~ msgstr "Dokładna forma z skryptu Zbiórka Wojska jest wymagana, zobacz "
-
-#~ msgid "Exact form from army collect script required, see "
-#~ msgstr "Dokładna forma z skryptu Zbiórka Deffa jest wymagana, zobacz"
-
-#~ msgid ""
-#~ "New, currently supported by the website, legal (soon on the forum) "
-#~ "version of send script"
-#~ msgstr ""
-#~ "Nowa, aktualnie wspierana, legalna, wysłana do supportu (niedługo na "
-#~ "forum) wersja skryptu do wysyłania wiadomości"
-
-#~ msgid "Greater than or equal to 0 and less than or equal to 100."
-#~ msgstr "Większa lub równa 0 i mniejsza lub równa 100."
-
-#~ msgid "New legal version of send script"
-#~ msgstr "Nowa, legalna, wysłana już do supportu wersja skryptu do wiadomości"
