@@ -134,7 +134,7 @@ class WriteTarget:
                         start=weight_max.start,
                         state=weight_max,
                         off=off_troops,
-                        distance=sqrt(weight_max.distance),
+                        distance=weight_max.distance,
                         nobleman=1,
                         order=i + self.index,
                         first_line=weight_max.first_line,
@@ -148,7 +148,7 @@ class WriteTarget:
                     start=weight_max.start,
                     state=weight_max,
                     off=big_off + (noble_number - 1) * off,
-                    distance=sqrt(weight_max.distance),
+                    distance=weight_max.distance,
                     nobleman=noble_number,
                     order=i + self.index,
                     first_line=weight_max.first_line,
@@ -392,7 +392,7 @@ class WriteTarget:
                 (
                     (F("x_coord") - self.x_coord) ** 2
                     + (F("y_coord") - self.y_coord) ** 2
-                ),
+                ) ** (1 / 2),
                 output_field=DecimalField(max_digits=2),
             )
         ).filter(distance__lte=self.outline.initial_outline_target_dist)
