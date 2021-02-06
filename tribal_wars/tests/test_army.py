@@ -59,7 +59,8 @@ class TestArmy(TestCase):
         self.text_world6 = "537|534,1,0,6205,8,2778,100,309,231,0,3,0,"
         self.text_world7 = "402|277,2794,1898,5000,50,0,580,200,100,0,4,0,"
         self.text_world8 = "407|277,2825,1892,3000,91,0,608,0,51,0,0,0,"
-
+        self.text_world9 = "407|277,0,0,4613,20,2313,0,250,75,0,0,0,"
+                            
         self.army1 = basic.Army(self.text_world1, self.world1_evidence)
         self.army2 = basic.Army(self.text_world2, self.world2_evidence)
         self.army3 = basic.Army(self.text_world3, self.world3_evidence)
@@ -68,6 +69,7 @@ class TestArmy(TestCase):
         self.army6 = basic.Army(self.text_world6, self.world2_evidence)
         self.army7 = basic.Army(self.text_world7, self.world2_evidence)
         self.army8 = basic.Army(self.text_world8, self.world2_evidence)
+        self.army9 = basic.Army(self.text_world9, self.world2_evidence)
 
     def test_army1_coord_is_correct(self):
         self.assertEqual(self.army1.coord, "500|500")
@@ -122,6 +124,11 @@ class TestArmy(TestCase):
 
     def test_off_army8_correct_int_return(self):
         self.assertEqual(self.army8.off, 3408)
+
+    def test_off_army9_correct_int_return(self):
+        self.assertEqual(self.army9.off, 15755)
+
+    
 
 
 class TestDefence(TestCase):

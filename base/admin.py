@@ -8,24 +8,33 @@ from . import models
 admin.site.register(models.Result)
 admin.site.register(models.Server)
 admin.site.register(models.Profile)
-admin.site.register(models.WeightMaximum)
-admin.site.register(models.OutlineOverview)
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
 
+@admin.register(models.OutlineOverview)
+class AdminOutlineOverview(admin.ModelAdmin):
+    list_display = ["pk", "outline",]
+    search_fields = ["outline__owner__username", "outline__name"]
+
+@admin.register(models.WeightMaximum)
+class AdminWeightMaximumModel(admin.ModelAdmin):
+    list_display = ["start", "outline", "player", "off_max", "nobleman_max"]
+    search_fields = ["start"]
+
 @admin.register(models.WeightModel)
 class AdminWeightModel(admin.ModelAdmin):
     list_display = ["target", "start", "player", "state", "off"]
+    search_fields = ["start"]
 
 @admin.register(models.WeightModelOverview)
 class AdminWeightModel(admin.ModelAdmin):
     list_display = ["target", "start", "player", "off"]
 
-
 @admin.register(models.TargetVertex)
 class AdminTargetVertex(admin.ModelAdmin):
     list_display = ["outline", "target", "player", "outline_time", "exact_off", "exact_noble"]
+    search_fields = ["target"]
 
 @admin.register(models.TargetVertexOverview)
 class AdminTargetVertexOverview(admin.ModelAdmin):
@@ -75,16 +84,12 @@ class AdminWorld(admin.ModelAdmin):
 @admin.register(models.VillageModel)
 class AdminVillage(admin.ModelAdmin):
     list_display = [
-        "id",
-        "coord",
         "village_id",
-    ]
-    list_editable = [
         "coord",
-        "village_id",
-
+        "world",
+        "player",
     ]
-
+    search_fields = ["coord", "world__postfix", "village_id"]
 
 @admin.register(models.Tribe)
 class AdminTribe(admin.ModelAdmin):
@@ -93,33 +98,27 @@ class AdminTribe(admin.ModelAdmin):
         "tag",
         "world",
     ]
-    list_editable = [
-        "world",
-    ]
+    search_fields = ["tag", "world__postfix"]
 
 
 @admin.register(models.Player)
 class AdminPlayer(admin.ModelAdmin):
     list_display = [
         "player_id",
-        "tribe",
         "name",
         "world",
-    ]
-    list_editable = [
         "tribe",
-        "world",
     ]
-
+    search_fields = ["name", "world__postfix"]
 
 @admin.register(models.Outline)
 class AdminNewOutline(admin.ModelAdmin):
     list_display = [
         "name",
-        "date",
+        "created",
         "world",
-        "status",
         "owner",
         "ally_tribe_tag",
         "enemy_tribe_tag",
     ]
+    search_fields = ["owner__username", "world__postfix"]
