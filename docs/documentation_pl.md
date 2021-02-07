@@ -357,7 +357,7 @@ Co oznacza:
 
 5. Rozpisać *pozostałe szlachcice* na 12:30
 
-<div class="p-3 mb-2 bg-warning text-dark">Uwaga! Podany czas musi mieć sens, godzina maksymalnego wejścia późniejsza lub taka sama co minimalnego wejścia. Poza tym tryb WSZYSTKIE- szlachcic oraz tryb WSZYSTKIE- taran musi się pojawić chociaż raz. Po kolei (czasowo od najwcześniejszej godziny do najpóźniejszej) są rozpisywane offy i grube aż się skończą więc korzystanie z trybów LOSOWO i DOKŁADNIE wygląda tak, że gdy chcemy mieć dokładnie 2 offy na 7:00 i dalej WSZYSTKIE offy od 8:00 do 9:00 to ustawiamy (DOKŁADNIE - TARAN - 7:00 - 7:00 - 2) oraz (WSZYSTKIE - TARAN - 8:00 - 9:00). Gdyby zdarzyło się np. DOKŁADNIE 20 offów a gracz ma tylko 5, to nic nie szkodzi, zostanie rozpisane 5 offów na ten przedział czasu. W przypadku trudności, warto obejrzeć materiał w którym o tym opowiadam, bardziej skomplikowane czasy nie są intuicyjne, ułatwieniem może być rozumienie trybu WSZYSTKIE jako WSZYSTKIE POZOSTAŁE, stąd musi on występować choć raz (czyli dwa razy, dla taranów i szlachty).</div>
+<div class="p-3 mb-2 bg-info text-white">Uwaga! Podany czas musi mieć sens, godzina maksymalnego wejścia późniejsza lub taka sama co minimalnego wejścia. Poza tym tryb <span class="md-error">WSZYSTKIE</span> - szlachcic oraz tryb <span class="md-error">WSZYSTKIE</span> - taran musi się pojawić chociaż raz. Po kolei (czasowo od najwcześniejszej godziny do najpóźniejszej) są rozpisywane offy i grube aż się skończą więc korzystanie z trybów <span class="md-error">LOSOWO</span> i <span class="md-error">DOKŁADNIE</span> wygląda tak, że gdy chcemy mieć dokładnie 2 offy na 7:00 i dalej <span class="md-error">WSZYSTKIE</span> offy od 8:00 do 9:00 to ustawiamy (<span class="md-error">DOKŁADNIE</span> - TARAN - 7:00 - 7:00 - 2) oraz (<span class="md-error">WSZYSTKIE</span> - TARAN - 8:00 - 9:00). Gdyby zdarzyło się np. <span class="md-error">DOKŁADNIE</span> 20 offów a gracz ma tylko 5, to nic nie szkodzi, zostanie rozpisane 5 offów na ten przedział czasu. W przypadku trudności, warto obejrzeć materiał w którym o tym opowiadam, bardziej skomplikowane czasy nie są intuicyjne, ułatwieniem może być rozumienie trybu <span class="md-error">WSZYSTKIE</span> jako <span class="md-error">WSZYSTKIE POZOSTAŁE</span>, stąd musi on występować choć raz (czyli dwa razy, dla taranów i szlachty).</div>
 
 <br>
 
@@ -398,7 +398,7 @@ Rozwijając zakładkę <span class="md-correct2">Wybierz tytuł, zawartość i "
 <br>
 <br>
 
-<div class="p-3 mb-2 bg-warning text-dark">Uwaga! Z biegiem czasu i rozwojem aplikacji, zmieniono (i już tak pozostanie) usuwalne linki na nieusuwalne linki, których użytkownik nie ma możliwości zmiany ani zablokowania dostępu np. po wysłaniu nieodpowiedniej osobie. Konwencja ta gwarantuje, że rozpisujący nie usunie przypadkowo rozesłanych już linków, co spowodowałoby ogromne nieporozumienia. Linki są aktywne 21 dni, niezależnie czy rozpiska nadal istnieje czy też rozpisujący ją usunął.</div>
+<div class="p-3 mb-2 bg-info text-white">Uwaga! Z biegiem czasu i rozwojem aplikacji, zmieniono (i już tak pozostanie) <span class="md-error">usuwalne</span> linki na <span class="md-error">nieusuwalne</span> linki, których użytkownik nie ma możliwości zmiany ani zablokowania dostępu np. po wysłaniu nieodpowiedniej osobie. Konwencja ta gwarantuje, że rozpisujący nie usunie przypadkowo rozesłanych już linków, co spowodowałoby ogromne nieporozumienia. <span class="md-error">Linki są aktywne przez 21 dni</span>, niezależnie czy rozpiska nadal istnieje czy też rozpisujący ją usunął.</div>
 
 <br>
 
