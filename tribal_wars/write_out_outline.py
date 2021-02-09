@@ -1,9 +1,9 @@
 from random import sample
-from math import sqrt
+from statistics import mean
 
 from django.db.models import F, DecimalField, ExpressionWrapper, IntegerField, Value, FloatField, Case, When
 from django.db.models.fields import BooleanField
-from django.db.models.functions import Mod
+from django.db.models.functions import Mod, Abs
 from base import models
 
 
@@ -11,7 +11,6 @@ class WriteTarget:
     def __init__(
         self, target: models.TargetVertex, outline: models.Outline, world: models.World
     ):
-        self.world: models.World = world
         self.target = target
         self.x_coord = target.coord_tuple()[0]
         self.y_coord = target.coord_tuple()[1]
@@ -19,6 +18,9 @@ class WriteTarget:
         self.end_up_offs = False
         self.end_up_nobles = False
         self.index = 0
+        self.avg_dist = mean((self.target.enter_t1, self.target.enter_t2))
+        self.interval_dist = self.target.enter_t2 - self.avg_dist
+        self.dividier = world.speed_world * world.speed_units * 2
 
     def write_noble(self):
         weights_max_update_lst = []
@@ -239,26 +241,16 @@ class WriteTarget:
                 time_hours=ExpressionWrapper(
                     (
                         F("distance")
-                        / self.world.speed_world
-                        / self.world.speed_units
-                        / 60
-                        * 30
+                        / self.dividier
                     ),
                     output_field=FloatField(),
-                ),
-                time_mod = Mod("time_hours", Value("24", output_field=FloatField()), output_field=FloatField())
-            ).annotate(
-                night_score=ExpressionWrapper(
-                    (
-                        (self.target.enter_t1 - F("time_mod") - 3.5) ** 2
-                        + (self.target.enter_t2 - F("time_mod") - 3.5) ** 2
-                    ),
-                    output_field=DecimalField(max_digits=2),
-                )
+                )).annotate(
+                time_mod = Mod("time_hours", Value("24", output_field=FloatField()), output_field=FloatField()),
+                night_score = Mod(self.avg_dist - F("time_mod") + 24, Value("24", output_field=FloatField()), output_field=FloatField()),
             ).annotate(
                 night_bool=Case(
-                    When(night_score__gt=130, then=3),
-                    When(night_score__gt=80, night_score__lte=130, then=2),
+                    When(night_score__gte=7+self.interval_dist, night_score__lte=24 - self.interval_dist, then=3),
+                    When(night_score__gte=7, night_score__lte=24, then=2),
                     default=Value('1'),
                     output_field=IntegerField()
                 )
@@ -321,6 +313,7 @@ class WriteTarget:
                             night_bool=2,
                         ).order_by("?")[: self.target.required_off]
                     )
+                    print("not 3")
                     if len(weight_list) < self.target.required_off:
                         weight_list = list(
                             default_off_query.filter(
@@ -329,9 +322,9 @@ class WriteTarget:
                                 night_bool=1,
                             ).order_by("?")[: self.target.required_off]
                         )
+                        print("not 2")
                         if len(weight_list) < self.target.required_off:
                             self.end_up_offs = True
-
                 return sorted(
                     weight_list,
                     key=lambda item: item.distance,
@@ -346,6 +339,7 @@ class WriteTarget:
                 )
                 if len(weight_list) < self.target.required_off:
                     self.end_up_offs = True
+
                 return sorted(
                     weight_list,
                     key=lambda item: item.distance,

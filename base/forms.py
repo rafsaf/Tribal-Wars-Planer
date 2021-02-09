@@ -360,14 +360,14 @@ class NightBonusSetForm(forms.Form):
     )
     enter_t1 = forms.IntegerField(
         min_value=0,
-        max_value=23,
+        max_value=24,
         label=gettext_lazy("Approximate hours of entry"),
         widget=forms.NumberInput,
         initial=7,
     )
     enter_t2 = forms.IntegerField(
         min_value=0,
-        max_value=23,
+        max_value=24,
         label=gettext_lazy("Approximate hours of the last entry"),
         widget=forms.NumberInput,
         initial=12,
