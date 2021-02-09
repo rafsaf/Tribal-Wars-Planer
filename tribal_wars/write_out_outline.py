@@ -313,7 +313,6 @@ class WriteTarget:
                             night_bool=2,
                         ).order_by("?")[: self.target.required_off]
                     )
-                    print("not 3")
                     if len(weight_list) < self.target.required_off:
                         weight_list = list(
                             default_off_query.filter(
@@ -322,7 +321,6 @@ class WriteTarget:
                                 night_bool=1,
                             ).order_by("?")[: self.target.required_off]
                         )
-                        print("not 2")
                         if len(weight_list) < self.target.required_off:
                             self.end_up_offs = True
                 return sorted(
