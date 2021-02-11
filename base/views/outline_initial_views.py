@@ -45,6 +45,7 @@ def initial_form(request, _id):
         defaults={"main_page": ""},
     )[0].main_page
     info = markdownify(info)
+
     example = models.Documentation.objects.get_or_create(
         title="planer_form_example",
         language=language_code,
@@ -54,25 +55,52 @@ def initial_form(request, _id):
 
     if models.WeightMaximum.objects.filter(outline=instance).count() == 0:
 
-        off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+        off_form = forms.OffTroopsForm(
+            {"off_troops": instance.off_troops}, outline=instance
+        )
         if off_form.is_valid():
-            initial.make_outline(instance, make_targets=False)
+            initial.make_outline(instance, target_mode=None)
         else:
-            request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
+            request.session["error"] = gettext(
+                "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+            )
 
             return redirect("base:planer_detail", _id)
 
-    form1 = forms.InitialOutlineForm(None, outline=instance)
+    target_mode = basic.TargetMode(request.GET.get("t"))
 
+    form1 = forms.InitialOutlineForm(None, outline=instance, target_mode=target_mode)
     form2 = forms.AvailableTroopsForm(None)
     form3 = forms.SettingDateForm(None)
     form4 = forms.ModeOutlineForm(None)
     form5 = forms.NightBonusSetForm(None)
     targets = models.TargetVertex.objects.filter(outline=instance).order_by("id")
     len_targets = len(targets)
+    len_fake = len([target for target in targets if target.fake])
+    len_ruin = len([target for target in targets if target.ruin])
+    len_real = len_targets - len_fake - len_ruin
 
-    target_dups = [(coord, nums) for coord, nums in Counter([target.target for target in targets if not target.fake]).items() if nums > 1]
-    fake_dups = [(coord, nums) for coord, nums in Counter([target.target for target in targets if target.fake]).items() if nums > 1]
+    target_dups = [
+        (coord, nums)
+        for coord, nums in Counter(
+            [target.target for target in targets if not target.fake and not target.ruin]
+        ).items()
+        if nums > 1
+    ]
+    fake_dups = [
+        (coord, nums)
+        for coord, nums in Counter(
+            [target.target for target in targets if target.fake]
+        ).items()
+        if nums > 1
+    ]
+    ruin_dups = [
+        (coord, nums)
+        for coord, nums in Counter(
+            [target.target for target in targets if target.ruin]
+        ).items()
+        if nums > 1
+    ]
 
     if len_targets <= 100:
         formset_select = formset_factory(
@@ -81,7 +109,13 @@ def initial_form(request, _id):
     else:
         formset_select = None
 
-    form1.fields["target"].initial = instance.initial_outline_targets
+    if target_mode.is_real:
+        form1.fields["target"].initial = instance.initial_outline_targets
+    elif target_mode.is_fake:
+        form1.fields["target"].initial = instance.initial_outline_fakes
+    else:
+        form1.fields["target"].initial = instance.initial_outline_ruins
+
     form2.fields[
         "initial_outline_front_dist"
     ].initial = instance.initial_outline_front_dist
@@ -106,16 +140,20 @@ def initial_form(request, _id):
     form5.fields["enter_t2"].initial = instance.enter_t2
     if request.method == "POST":
         if "form1" in request.POST:
-            form1 = forms.InitialOutlineForm(request.POST, outline=instance)
+            form1 = forms.InitialOutlineForm(request.POST, outline=instance, target_mode=target_mode)
             if form1.is_valid():
-                off_form1 = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+                off_form1 = forms.OffTroopsForm(
+                    {"off_troops": instance.off_troops}, outline=instance
+                )
                 if off_form1.is_valid():
-                    initial.make_outline(instance, make_targets=True)
+                    initial.make_outline(instance, target_mode=target_mode)
                 else:
-                    request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
+                    request.session["error"] = gettext(
+                        "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+                    )
                     return redirect("base:planer_detail", _id)
                 instance.save()
-                return redirect("base:planer_initial_form", _id)
+                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
 
         if "form2" in request.POST:
             form2 = forms.AvailableTroopsForm(request.POST)
@@ -131,7 +169,7 @@ def initial_form(request, _id):
                 instance.save()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.legal_coords_near_targets(outline=instance)
-                return redirect("base:planer_initial_form", _id)
+                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
 
         if "form3" in request.POST:
             form3 = forms.SettingDateForm(request.POST)
@@ -139,7 +177,7 @@ def initial_form(request, _id):
                 date = request.POST.get("date")
                 instance.date = date
                 instance.save()
-                return redirect("base:planer_initial_form", _id)
+                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
 
         if "form4" in request.POST:
             form4 = forms.ModeOutlineForm(request.POST)
@@ -168,7 +206,7 @@ def initial_form(request, _id):
                     fake_limit=fake_limit
                 )
 
-                return redirect("base:planer_initial_form", _id)
+                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
 
         if "form5" in request.POST:
             form5 = forms.NightBonusSetForm(request.POST)
@@ -185,11 +223,11 @@ def initial_form(request, _id):
                 instance.enter_t2 = enter_t2
                 instance.save()
                 models.TargetVertex.objects.filter(outline=instance).update(
-                    night_bonus = night_bonus,
-                    enter_t1 = enter_t1,
-                    enter_t2 = enter_t2,
+                    night_bonus=night_bonus,
+                    enter_t1=enter_t1,
+                    enter_t2=enter_t2,
                 )
-                return redirect("base:planer_initial_form", _id)
+                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
 
         if "formset" in request.POST and formset_select is not None:
             formset_select = formset_select(request.POST)
@@ -212,7 +250,7 @@ def initial_form(request, _id):
                         "mode_guide",
                     ],
                 )
-                return redirect("base:planer_initial_form", _id)
+                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
         else:
             if formset_select is not None:
                 formset_select = formset_select(None)
@@ -239,6 +277,11 @@ def initial_form(request, _id):
         "formset": formset_select,
         "fake_dups": fake_dups,
         "target_dups": target_dups,
+        "ruin_dups": ruin_dups,
+        "mode": target_mode.mode,
+        "len_real": len_real,
+        "len_fake": len_fake,
+        "len_ruin": len_ruin,
     }
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
@@ -632,6 +675,7 @@ def initial_delete_time(request, pk):
         reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
     )
 
+
 @require_POST
 @login_required
 def initial_set_all_time(request, pk):
@@ -651,7 +695,9 @@ def initial_set_all_time(request, pk):
 
 @login_required
 def create_final_outline(request, id1):
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
+    instance = get_object_or_404(
+        models.Outline.objects.select_related(), id=id1, owner=request.user
+    )
     target_with_no_time = (
         models.TargetVertex.objects.filter(outline=instance)
         .filter(outline_time=None)
@@ -669,7 +715,9 @@ def create_final_outline(request, id1):
 
 @login_required
 def complete_outline(request, id1):
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
+    instance = get_object_or_404(
+        models.Outline.objects.select_related(), id=id1, owner=request.user
+    )
     initial.complete_outline(outline=instance)
     instance.written = "active"
     instance.save()
@@ -678,18 +726,25 @@ def complete_outline(request, id1):
 
 @login_required
 def update_outline_troops(request, id1):
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
+    instance = get_object_or_404(
+        models.Outline.objects.select_related(), id=id1, owner=request.user
+    )
     models.WeightMaximum.objects.filter(outline=instance).delete()
-    off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+    off_form = forms.OffTroopsForm(
+        {"off_troops": instance.off_troops}, outline=instance
+    )
     if off_form.is_valid():
-        initial.make_outline(instance, make_targets=False)
+        initial.make_outline(instance, target_mode=None)
     else:
-        request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
+        request.session["error"] = gettext(
+            "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+        )
 
         return redirect("base:planer_detail", id1)
+    target_mode = basic.TargetMode(request.GET.get("t"))
     instance.avaiable_offs = []
     instance.avaiable_offs_near = []
     instance.avaiable_nobles = []
     instance.avaiable_nobles_near = []
     instance.save()
-    return redirect("base:planer_initial_form", id1)
+    return redirect(reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode.mode}")

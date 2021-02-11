@@ -1,70 +1,61 @@
 """ File with outline making """
 from tribal_wars import input_target
-from tribal_wars import target_utils
 from tribal_wars import weight_utils
 from tribal_wars import write_out_outline
 from base import models
 from tribal_wars import basic
 
 
-def make_outline(outline: models.Outline, make_targets=True):
-    """ Create only weight max models """
-    # Remove instances in case of earlier exception
+def make_outline(outline: models.Outline, target_mode: basic.TargetMode = None):
+    """ Create weight max models and/or targets """
+
     if models.WeightMaximum.objects.filter(outline=outline).count() == 0:
-        # Weight max model creating
         weight_max_create_list = []
 
-        try:
-            for army in weight_utils.OffTroops(outline=outline):
-
-                weight_max_create_list.append(
-                    models.WeightMaximum(
-                        outline_id=outline.id,
-                        player=army.player,
-                        start=army.coord,
-                        x_coord=int(army.coord[0:3]),
-                        y_coord=int(army.coord[4:7]),
-                        off_max=army.off,
-                        off_left=army.off,
-                        nobleman_max=army.nobleman,
-                        nobleman_left=army.nobleman,
-                        first_line=army.first_line,
-                        fake_limit=outline.initial_outline_fake_limit,
-                    )
+        for army in weight_utils.OffTroops(outline=outline):
+            weight_max_create_list.append(
+                models.WeightMaximum(
+                    outline_id=outline.id,
+                    player=army.player,
+                    start=army.coord,
+                    x_coord=int(army.coord[0:3]),
+                    y_coord=int(army.coord[4:7]),
+                    off_max=army.off,
+                    off_left=army.off,
+                    nobleman_max=army.nobleman,
+                    nobleman_left=army.nobleman,
+                    first_line=army.first_line,
+                    fake_limit=outline.initial_outline_fake_limit,
                 )
-        except weight_utils.VillageOwnerDoesNotExist:
-            raise KeyError()
+            )
+
         models.WeightMaximum.objects.bulk_create(weight_max_create_list)
 
-    if make_targets:
-        # Make targets 
-        # Remove instances in case of earlier exception
-        models.TargetVertex.objects.filter(outline=outline).delete()
-        user_input = outline.initial_outline_targets.split("---")
-        # User input targets
-        targets_input = input_target.TargetsGeneralInput(
-            outline_targets=user_input[0].strip(),
-            world=outline.world,
-            fake=False,
-            outline=outline,
-        )
-        targets_input.generate_targets()
-        target_list1 = targets_input.targets
-        # target creating
-        models.TargetVertex.objects.bulk_create(target_list1)
+    if target_mode is not None:
+        # Remove targets
+        models.TargetVertex.objects.filter(
+            outline=outline, fake=target_mode.fake, ruin=target_mode.ruin
+        ).delete()
 
-        # User input fake targets
-        fake_input = input_target.TargetsGeneralInput(
-            outline_targets=user_input[1].strip(),
+        # Create targets depend of target mode
+        if target_mode.is_real:
+            user_input: str = outline.initial_outline_targets.strip()
+        elif target_mode.is_fake:
+            user_input: str = outline.initial_outline_fakes.strip()
+        else:
+            user_input: str = outline.initial_outline_ruins.strip()
+
+        targets = input_target.TargetsGeneralInput(
+            outline_targets=user_input,
             world=outline.world,
-            fake=True,
+            fake=target_mode.fake,
+            ruin=target_mode.ruin,
             outline=outline,
         )
 
-        fake_input.generate_targets()
-        target_list2 = fake_input.targets
-        # fakes target creating
-        models.TargetVertex.objects.bulk_create(target_list2)
+        models.TargetVertex.objects.bulk_create(targets.list(), batch_size=500)
+
+
 
 
 def complete_outline(outline: models.Outline):
@@ -179,5 +170,3 @@ def complete_outline(outline: models.Outline):
 
         parsed = write_out_outline.WriteTarget(target, outline, world)
         parsed.write_noble()
-
-

@@ -10,45 +10,82 @@
     <div class="col-12 col-lg-7">
         <div class=" w-100">
           <style>
-            .btn-group-own button {
-              background-color: #4CAF50; /* Green background */
-              border: 1px solid green; /* Green border */
-              color: white; /* White text */
-              padding: 10px 24px; /* Some padding */
-              cursor: pointer; /* Pointer/hand icon */
-              float: left; /* Float the buttons side by side */
+            a.t-tab-teal {
+              font-size: 1.05rem;
+              box-shadow: 0 -4px 0 0 white;
+              font-weight: 450;
+              padding: 0.3em 0.9em 0.5em;
+              border: 1px solid hsl(219, 1%, 72%);
+              background: hsl(220, 20%, 94%);
+            }
+
+            @media (max-width: 700px) {
+              .t-tab-teal {
+                font-size: 0.8rem;
+              }
+            }
+
+            a.t-tab-teal {
+              color: black !important;
+            }
+            a.t-tab-teal:hover {
+              color: black !important;
+              text-decoration: none;
             }
             
-            .btn-group-own button:not(:last-child) {
-              border-right: none; /* Prevent double borders */
+            .t-tab-teal:hover {
+              box-shadow: 0 -3px 0 0 hsl(20, 96%, 48%);
             }
             
-            /* Clear floats (clearfix hack) */
-            .btn-group-own:after {
-              content: "";
-              clear: both;
-              display: table;
+            .t-tab-teal.t-tab-teal.t-tab-teal-active {
+              background: hsl(220, 43%, 99%);
             }
             
-            /* Add a background color on hover */
-            .btn-group-own button:hover {
-              background-color: #3e8e41;
+            .t-tab-teal.t-tab-teal-active {
+              box-shadow: 0 -5px 0 0 teal;
             }
           </style>
-          <div class="btn-group-own">
-            <button>Apple</button>
-            <button>Samsung</button>
-            <button>Sony</button>
+          <div class="mb-4 mt-2">
+            {% if mode == "real" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=real">
+              Cele &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
+            </a>
+            {% else %}
+            <a class="t-tab-teal" href="?t=real">
+              Cele &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
+            </a>
+            {% endif %}
+            {% if mode == "fake" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=fake">
+              Fejki &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
+            </a>
+            {% else %}
+            <a class="t-tab-teal" href="?t=fake">
+              Fejki &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
+            </a>
+            {% endif %}
+            {% if mode == "ruin" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">
+              Burzaki &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
+            </a>
+            {% else %}
+            <a class="t-tab-teal" href="?t=ruin">
+              Burzaki &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
+            </a>
+            {% endif %}
+
+
           </div>
         <form id="form1-form" method='POST'>
           <input type="hidden" name="form1" value=""/>
             {% csrf_token %}
 
-                {% if target_dups or fake_dups %}
-                <a class="md-correct2 mt-0 mb-1" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat">
+                {% if target_dups or fake_dups or ruin_dups %}
+                <div class="mb-2">
+                <a class="md-correct2 mt-0" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;">
                   {% trans 'Duplicates detected, click to view them' %}
                 </a>
-                <div class="collapse mb-3" id="collapseRepeat">
+                <div class="collapse mb-3 mt-1" id="collapseRepeat">
                   <div class="card card-body">
                     <div class="row">
                       <div class="col-4">
@@ -63,9 +100,16 @@
                         <p class="my-0">{{coord}} - {{dup}}</p>
                         {% endfor %}
                       </div>
+                      <div class="col-4">
+                        <h5>{% trans 'Ruin-Duplicated' %}</h5>
+                        {% for coord, dup in ruin_dups %}
+                        <p class="my-0">{{coord}} - {{dup}}</p>
+                        {% endfor %}
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
                 {% endif %}
                 {{ form1.target }} 
                 {% if form1.target.errors %}
@@ -94,7 +138,6 @@
                     <p>
                     {% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}<br><br>
                     {% trans 'Valid lines looks like (assuming that such a village 000|000 exists):' %}<br>
-                    {% trans '"---" - separator line between offs and fakes' %}<br>
                     {% trans '"000|000" - clean coords' %}<br>
                     {% trans '"000|000:0:0" - coords with :off:noble numbers' %}<br>
                     {% trans '"000|000:0|0|0|0:0" - additional off info, list instead of number' %}<br>

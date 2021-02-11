@@ -219,7 +219,10 @@ class Outline(models.Model):
     ally_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
 
-    initial_outline_targets = models.TextField(blank=True, default="---")
+    initial_outline_targets = models.TextField(blank=True, default="")
+    initial_outline_fakes = models.TextField(blank=True, default="")
+    initial_outline_ruins = models.TextField(blank=True, default="")
+
     initial_outline_min_off = models.IntegerField(
         default=19000,
         validators=[MinValueValidator(1), MaxValueValidator(28000)],
@@ -432,6 +435,7 @@ class TargetVertex(models.Model):
     target = models.CharField(max_length=7, db_index=True)
     player = models.CharField(max_length=30)
     fake = models.BooleanField(default=False)
+    ruin = models.BooleanField(default=False)
 
     required_off = models.IntegerField(default=0)
     required_noble = models.IntegerField(default=0)

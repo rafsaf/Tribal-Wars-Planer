@@ -13,7 +13,6 @@ class TargetsData:
         self.world = world
         self.data = data
         self.lines = data.split("\r\n")
-        self.division_count = 0
         self.villages_coord = []
         self.vill_id_line = {}
         self.errors_ids = set()
@@ -23,28 +22,17 @@ class TargetsData:
         for i, line in enumerate(self.lines):
             try:
                 validated = TargetsOneLine(line).validate_line()
-            except SeparateLineException:
+            except LineError:
                 # this line will be red - with error
                 self.errors_ids.add(i)
             else:
-                if validated is None:
-                    # line is separator
-                    self.division_count += 1
-                    self.new_validated_data +=  "---\r\n"
-                    if self.division_count > 1:
-                        # too much separators
-                        self.errors_ids.add(i)
-
-                else:
-                    # line is correct
-                    self.villages_coord.append(validated[0])
-                    self.vill_id_line[validated[0]] = i
-                    self.new_validated_data += validated[1] + "\r\n"
+                # line is correct
+                self.villages_coord.append(validated[0])
+                self.vill_id_line[validated[0]] = i
+                self.new_validated_data += validated[1] + "\r\n"
 
         self.validate_villages_database()
 
-        if self.division_count == 0:
-            self.new_validated_data += "---"
 
     def validate_villages_database(self):
         village_models = models.VillageModel.objects.select_related().filter(world=self.world, coord__in=self.villages_coord).exclude(player=None)
@@ -57,9 +45,8 @@ class TargetsData:
                     self.errors_ids.add(self.vill_id_line[village])
 
 
-class SeparateLineException(Exception):
-    pass
-
+class LineError(Exception):
+    """ Represents an error in line like '000|000:5:5' """
 
 class TargetsOneLine:
     """ Represent one target line like '000|000:5:5' or '000|000' """
@@ -69,16 +56,11 @@ class TargetsOneLine:
 
     def validate_line(self):
         """ Raise exception when line is incorrect, None when line is a separator, (coord, line) else """
-
-        # check if line is separator
-        if self.line == "---":
-            return None
-
         split_line = self.line.split(":")
 
         # too much data
         if len(split_line) > 3:
-            raise SeparateLineException()
+            raise LineError()
 
         # first (only) match is not proper village coord
         try:
@@ -87,17 +69,17 @@ class TargetsOneLine:
                 raise basic.VillageError()
             village = basic.Village(coord)
         except basic.VillageError:
-            raise SeparateLineException()
+            raise LineError()
 
         # rest two matches are not integers
         if len(split_line) == 3:
             if not self.split_is_valid(split_line[1]) or not self.split_is_valid(split_line[2]):
-                raise SeparateLineException()
+                raise LineError()
 
         # only one match after coord
         if len(split_line) == 2:
             if not self.split_is_valid(split_line[1]):
-                raise SeparateLineException
+                raise LineError()
             self.line += ':0'
 
         # only coord
