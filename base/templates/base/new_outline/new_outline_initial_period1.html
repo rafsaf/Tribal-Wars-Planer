@@ -9,12 +9,41 @@
 <div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
     <div class="col-12 col-lg-7">
         <div class=" w-100">
+          <style>
+            .btn-group-own button {
+              background-color: #4CAF50; /* Green background */
+              border: 1px solid green; /* Green border */
+              color: white; /* White text */
+              padding: 10px 24px; /* Some padding */
+              cursor: pointer; /* Pointer/hand icon */
+              float: left; /* Float the buttons side by side */
+            }
+            
+            .btn-group-own button:not(:last-child) {
+              border-right: none; /* Prevent double borders */
+            }
+            
+            /* Clear floats (clearfix hack) */
+            .btn-group-own:after {
+              content: "";
+              clear: both;
+              display: table;
+            }
+            
+            /* Add a background color on hover */
+            .btn-group-own button:hover {
+              background-color: #3e8e41;
+            }
+          </style>
+          <div class="btn-group-own">
+            <button>Apple</button>
+            <button>Samsung</button>
+            <button>Sony</button>
+          </div>
         <form id="form1-form" method='POST'>
           <input type="hidden" name="form1" value=""/>
             {% csrf_token %}
-                <h4 class="mb-0">{{ form1.target.label_tag }} 
 
-                </h4>
                 {% if target_dups or fake_dups %}
                 <a class="md-correct2 mt-0 mb-1" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat">
                   {% trans 'Duplicates detected, click to view them' %}
