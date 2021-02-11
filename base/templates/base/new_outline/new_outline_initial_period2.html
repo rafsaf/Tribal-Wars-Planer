@@ -269,7 +269,20 @@
             </a>
             {% endif %}
         </li>
+        <li class="page-item">
+            {% if mode == 'ruin' %}
+            <a style="height:42px" href="?page=1&mode=ruin" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set ruin targets' %}">
+                <img src="{% static 'images/cat.svg' %}" alt="cat" width="auto" height="100%">
+            </a> 
 
+            {% else %}
+
+            <a style="height:42px" href="?page=1&mode=ruin" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set ruin targets' %}">
+                <img src="{% static 'images/cat.svg' %}" alt="cat" width="auto" height="100%">
+            </a> 
+                    
+            {% endif %}
+        </li> 
         <li class="page-item">
             {% if mode == 'time' %}
             <a style="height:42px" href="?page=1&mode=time" class="page-link paint" data-toggle="tooltip" data-placement="top"

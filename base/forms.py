@@ -164,6 +164,7 @@ class InitialOutlineForm(forms.Form):
         widget=forms.Textarea,
         label=gettext_lazy("Targets"),
         required=False,
+        strip=False
     )
 
     def __init__(self, *args, **kwargs):
@@ -173,7 +174,7 @@ class InitialOutlineForm(forms.Form):
 
     def clean_target(self):
         """ User's input Targets """
-
+        
         data = self.cleaned_data["target"]
         data_lines = basic.TargetsData(data=data, world=self.outline.world)
         if data == "":
@@ -183,11 +184,11 @@ class InitialOutlineForm(forms.Form):
 
         if len(data_lines.errors_ids) == 0:
             if self.target_mode.is_real:
-                self.outline.initial_outline_targets = data_lines.new_validated_data
+                self.outline.initial_outline_targets = data_lines.new_validated_data.strip()
             elif self.target_mode.is_fake:
-                self.outline.initial_outline_fakes = data_lines.new_validated_data
+                self.outline.initial_outline_fakes = data_lines.new_validated_data.strip()
             else:
-                self.outline.initial_outline_ruins = data_lines.new_validated_data
+                self.outline.initial_outline_ruins = data_lines.new_validated_data.strip()
             self.outline.save()
 
         for error_id in data_lines.errors_ids:
