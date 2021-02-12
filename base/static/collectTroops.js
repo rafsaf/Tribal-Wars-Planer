@@ -178,7 +178,7 @@ function process() {
               document.body.appendChild(progress);
 
               for (player of notDisabledPlayers) {
-                  progress.innerHTML = newProgesP(i, len);
+                  progress.innerHTML = newProgesPar(i, len);
                   const response = await fetch(GetURL(player.id));
                   const html = await response.text();
                   const playerPageDocument = ConvertToHTML(html);
