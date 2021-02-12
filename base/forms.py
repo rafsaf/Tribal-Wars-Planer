@@ -298,6 +298,17 @@ class SetNewOutlineFilters(forms.ModelForm):
         self.fields["filter_card_number"].widget.attrs["class"] = "form-control"
         self.fields["filter_hide_front"].widget.attrs["class"] = "form-control"
 
+class SetTargetsMenuFilters(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "filter_targets_number",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(SetTargetsMenuFilters, self).__init__(*args, **kwargs)
+        self.fields["filter_targets_number"].widget.attrs["class"] = "form-control"
+
 
 class ModeOutlineForm(forms.ModelForm):
     class Meta:

@@ -272,9 +272,17 @@ class Outline(models.Model):
     filter_card_number = models.IntegerField(
         default=12, validators=[MinValueValidator(1), MaxValueValidator(40)],
     )
+    filter_targets_number = models.IntegerField(
+        default=12, validators=[MinValueValidator(1), MaxValueValidator(40)],
+    )
     filter_hide_front = models.CharField(
         max_length=20, choices=HIDE_CHOICES, default="all"
     )
+
+    filter_targets_number = models.IntegerField(
+        default=12, validators=[MinValueValidator(1), MaxValueValidator(50)],
+    )
+
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(max_length=50, default=gettext_lazy("Outline Targets"))
     text_message = models.CharField(max_length=500, default="", blank=True)
@@ -293,6 +301,11 @@ class Outline(models.Model):
         self.avaiable_offs_near = []
         self.avaiable_nobles = []
         self.avaiable_nobles_near = []
+        self.filter_weights_min = 0
+        self.filter_weights_max = 30000
+        self.filter_card_number = 12
+        self.filter_targets_number = 12
+        self.filter_hide_front = "all"
  
         WeightMaximum.objects.filter(outline=self).delete()
         OutlineTime.objects.filter(outline=self).delete()

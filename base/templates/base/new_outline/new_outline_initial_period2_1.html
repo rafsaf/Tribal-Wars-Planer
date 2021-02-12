@@ -5,17 +5,19 @@
 
 <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
 <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
-<div class="container-fluid">
-    <form method="POST">
-        <div class="row justify-content-center mb-3">
-            <input type="hidden" value="" name="form-finish">
-            {% csrf_token %}
-            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean btn-block">{% trans 'Confirm an outline and Exit' %}</button>
 
-        </div>
-    </form>
+<div class="fixed-scrollbar-container">
+    {% block outline_navbar %}
+    {{block.super}}
+    {% endblock %}
+
+   
+    <div class="container-fluid" style="margin-left:-10px;margin-right:-10px">
+
+
+
     <div class="row">
-        <div class="col-12 col-lg-7">
+    <div class="col-12 col-lg-7">
             <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"
                 integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA=="
@@ -72,7 +74,7 @@
 
 
     <div class="col-12 col-lg-5">
-        <div class="table-responsive">
+
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
             {% for time in outline_time %}
             <li class="nav-item">
@@ -85,7 +87,7 @@
             </li>
             {% endfor %}
         </ul>
-
+        
         <div class="tab-content" id="pills-tabContent">
 
             {% for time, periodmodel in outline_time.items %}
@@ -93,11 +95,58 @@
             {% if forloop.counter == 1 %}
             <div class="tab-pane fade show active" id="{{time.order}}" role="tabpanel"
                 aria-labelledby="pills-{{time.order}}">
-                {% else %}
-                <div class="tab-pane fade show" id="{{time.order}}" role="tabpanel"
+                <table class="table table-sm ">
+                    <thead>
+                        <tr>
+                            <th scope="col">{% trans 'Mode' %}</th>
+                            <th scope="col">{% trans 'Unit' %}</th>
+                            <th scope="col">{% trans 'From' %}</th>
+                            <th scope="col">{% trans 'To' %}</th>
+                            <th scope="col">{% trans 'Min. time' %}</th>
+                            <th scope="col">{% trans 'Max. time' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        {% for period in periodmodel %}
+                        <tr>
+                            <th>{{period.get_status_display}}</th>
+                            <th>{{period.get_unit_display}}</th>
+                            <th>{%if period.from_number != None %}
+                                {{period.from_number}}
+                                {% endif %}</th>
+                            <th>{%if period.to_number != None %}
+                                {{period.to_number}}
+                                {% endif %}</th>
+                            <th>{{period.from_time|safe}}</th>
+                            <th>{{period.to_time|safe}}</th>
+                        </tr>
+                        {% endfor %}
+
+
+                    </tbody>
+                </table>
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+
+                <form method="POST"
+                    action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                    {% csrf_token %}
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
+                </form>
+                <form method="POST"
+                    action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                    {% csrf_token %}
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-ocean ml-2">{% trans 'Set for every target' %}</button>
+                </form>
+
+                </div>
+            </div>
+            {% else %}
+            <div class="tab-pane fade show" id="{{time.order}}" role="tabpanel"
                     aria-labelledby="pills-{{time.order}}">
-                    {% endif %}
-                    <table class="table table-sm ">
+                <table class="table table-sm ">
                         <thead>
                             <tr>
                                 <th scope="col">{% trans 'Mode' %}</th>
@@ -128,11 +177,10 @@
 
 
                         </tbody>
-                    </table>
+                </table>
 
-                    <div class="btn-group" role="group" aria-label="Basic example">
+                <div class="btn-group" role="group" aria-label="Basic example">
 
-  
                     <form method="POST"
                         action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
                         {% csrf_token %}
@@ -143,57 +191,43 @@
                         {% csrf_token %}
                         <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-ocean ml-2">{% trans 'Set for every target' %}</button>
                     </form>
-                    </div>
+
                 </div>
-                {% endfor %}
             </div>
+            {% endif %}
+
+
+            {% endfor %}
+            
 
         </div>
-    </div>
-    </div>
-</div>
-<div class="fixed-scrollbar-container">
-{% block outline_navbar %}
-{{block.super}}
-{% endblock %}
 
-<form method="POST">
-    <input type="hidden" name="choice-formset" value="">
-    {% csrf_token %} {{ choice_formset.management_form }}
-    <div class="row">
-        <div class="col-12 col-lg-4">
-            <button onclick="this.disabled=true;this.form.submit();"
-                class="btn btn-outline-info btn-block mb-2">{% trans 'Confirm selected' %}
-            </button>
-        </div>
+    </div>
     </div>
 
-    <div class="conatiner-fluid">
         <table class="table table-sm table-bordered" style="width:min-content">
             <thead>
                 <tr>
-                    <th scope="col">{% trans 'Selected' %}</th>
                     <th scope="col">{% trans 'Target' %}</th>
                     <th scope="col">{% trans 'Select Time' %}</th>
                     <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
                 </tr>
             </thead>
             <tbody>
-
+                <style>
+                    button.btn-light {
+                        border: 1px solid rgb(136, 135, 135);
+                    }
+                </style>
+                <script>
+                    const changeButton = (element) => {
+                        element.className = "btn btn-lg btn-light my-1 py-0 px-1";
+                        element.blur();
+                    }
+                </script>
                 {% for target, lst in query %}
                 <tr>
                     <th>
-                        <div class="row justify-content-center">
-                            <h4>
-                                <span class="badge badge-primary">{{target.outline_time.order}}</span>
-                            </h4>
-                        </div>
-
-                    </th>
-                    <th>
-
-
-
                         <div class="d-flex justify-content-center">
                             <h5>
                                 <span class="badge badge-pill badge-info">
@@ -202,22 +236,23 @@
                             </h5>
                         </div>
                         <div class="d-flex justify-content-center">
-
                             <h5>
                                 <span class="badge badge badge-secondary">
                                     {{target.target}}
                                 </span>
                             </h5>
-
                         </div>
-
-
-
                     </th>
 
-
                     <th style="min-width: 13vh !important;">
-                        {{target.form.choice}}
+                        {% for time in outline_time %}
+                        {% if forloop.counter == 1 %}
+                        <button onclick="changeButton(this);" class="btn btn-lg btn-primary my-1 py-0 px-1">{{time.order}}</button>
+
+                        {% else %}
+                        <button class="btn btn-lg btn-light my-1 py-0 px-1">{{time.order}}</button>
+                        {% endif %}
+                        {% endfor %}
                     </th>
 
                     {% for weight in lst %}
@@ -272,10 +307,11 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-</form>
 
-</div>
+
+    </div>
+</div>  
+
 {% if error != None %}
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -371,5 +407,46 @@
     });
 </script>
 
+<div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {% blocktrans %} Current progress will be
+            <div class="md-error">LOST!</div>
+            <br>You will return to the previous form. {% endblocktrans %}
 
+        </div>
+        <div class="modal-footer">
+            <button id="dismiss-btn" type="button" class="btn btn-secondary"
+                data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
+            <form id="form1-form" method="POST">
+                <input type="hidden" name="form1" value="">
+                {% csrf_token %}
+                <button id="form1-btn" class="btn btn-ocean">
+                    {% trans 'Continue' %}
+                </button>
+
+            </form>
+        </div>
+        <script>
+            const buttonForm1 = document.getElementById("form1-btn")
+            const buttonDismiss = document.getElementById("dismiss-btn")
+            buttonForm1.onclick = () => {
+                buttonForm1.disabled = true
+                buttonDismiss.disabled = true
+                buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
+                const form1 = document.getElementById("form1-form")
+                form1.submit()
+              }
+        </script>
+    </div>
+</div>
+</div>
 {% endblock %}

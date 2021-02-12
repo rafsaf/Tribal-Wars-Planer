@@ -6,96 +6,7 @@
     {% block content %}
     <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
     <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
-    <div class="row">
-        <figure class="col-2">
-            <img class="d-none d-lg-flex img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight">
-        </figure>
-        <div class="col-8">
-            <div class="d-flex flex-column justify-content-center h-100">
-                <div class="d-flex flex-row justify-content-center">
-                    <h2>
-                        <span class="badge badge-pill badge-info">
-                            {{instance.name}}
-                        </span>
-                    </h2>
-                </div>
 
-                <div class="d-flex flex-row justify-content-center">
-                    <h2>
-                        <span class="badge badge-pill badge-info">
-                            {{instance.date}}
-                        </span>
-                    </h2>
-                </div>
-
-                <div class="row justify-content-center">
-
-                    <div>
-                        <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal"
-                            data-target="#ValidationModal">
-                            <b>{% trans 'Go back' %}</b>
-                        </button>
-                    </div>
-
-                    <div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    {% blocktrans %} Current progress will be
-                                    <div class="md-error">LOST!</div>
-                                    <br>You will return to the previous form. {% endblocktrans %}
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button id="dismiss-btn" type="button" class="btn btn-secondary"
-                                        data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
-                                    <form id="form1-form" method="POST">
-                                        <input type="hidden" name="form1" value="">
-                                        {% csrf_token %}
-                                        <button id="form1-btn" class="btn btn-ocean">
-                                            {% trans 'Continue' %}
-                                        </button>
-
-                                    </form>
-                                </div>
-                                <script>
-                                    const buttonForm1 = document.getElementById("form1-btn")
-                                    const buttonDismiss = document.getElementById("dismiss-btn")
-                                    buttonForm1.onclick = () => {
-                                        buttonForm1.disabled = true
-                                        buttonDismiss.disabled = true
-                                        buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
-                                        const form1 = document.getElementById("form1-form")
-                                        form1.submit()
-                                      }
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-                </div>
-
-            </div>
-        </div>
-        <figure class="col-2">
-            <img class="d-none d-lg-block img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight" >
-        </figure>
-    </div>
     <div class="fixed-scrollbar-container">
     {% block outline_navbar %}
     {{block.super}}
@@ -106,8 +17,8 @@
         <table class="table table-sm table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">{% trans 'Fake Target' %}</th>
-                    <th colspan="50" scope="colgroup">{% trans 'Fake Outline' %}</th>
+                    <th class="text-nowrap" scope="col">{% trans 'Fake Target' %}</th>
+                    <th class="text-nowrap" colspan="50" scope="colgroup">{% trans 'Fake Outline' %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -269,5 +180,46 @@
         $(window).trigger("scroll.fixedbar");
     });
 </script>
+<div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {% blocktrans %} Current progress will be
+            <div class="md-error">LOST!</div>
+            <br>You will return to the previous form. {% endblocktrans %}
 
+        </div>
+        <div class="modal-footer">
+            <button id="dismiss-btn" type="button" class="btn btn-secondary"
+                data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
+            <form id="form1-form" method="POST">
+                <input type="hidden" name="form1" value="">
+                {% csrf_token %}
+                <button id="form1-btn" class="btn btn-ocean">
+                    {% trans 'Continue' %}
+                </button>
+
+            </form>
+        </div>
+        <script>
+            const buttonForm1 = document.getElementById("form1-btn")
+            const buttonDismiss = document.getElementById("dismiss-btn")
+            buttonForm1.onclick = () => {
+                buttonForm1.disabled = true
+                buttonDismiss.disabled = true
+                buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
+                const form1 = document.getElementById("form1-form")
+                form1.submit()
+              }
+        </script>
+    </div>
+</div>
+</div>
     {% endblock %}

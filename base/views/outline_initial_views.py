@@ -1,5 +1,6 @@
 from collections import Counter
 
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404
@@ -140,7 +141,9 @@ def initial_form(request, _id):
     form5.fields["enter_t2"].initial = instance.enter_t2
     if request.method == "POST":
         if "form1" in request.POST:
-            form1 = forms.InitialOutlineForm(request.POST, outline=instance, target_mode=target_mode)
+            form1 = forms.InitialOutlineForm(
+                request.POST, outline=instance, target_mode=target_mode
+            )
             if form1.is_valid():
                 off_form1 = forms.OffTroopsForm(
                     {"off_troops": instance.off_troops}, outline=instance
@@ -153,7 +156,10 @@ def initial_form(request, _id):
                     )
                     return redirect("base:planer_detail", _id)
                 instance.save()
-                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "form2" in request.POST:
             form2 = forms.AvailableTroopsForm(request.POST)
@@ -169,7 +175,10 @@ def initial_form(request, _id):
                 instance.save()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.legal_coords_near_targets(outline=instance)
-                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "form3" in request.POST:
             form3 = forms.SettingDateForm(request.POST)
@@ -177,7 +186,10 @@ def initial_form(request, _id):
                 date = request.POST.get("date")
                 instance.date = date
                 instance.save()
-                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "form4" in request.POST:
             form4 = forms.ModeOutlineForm(request.POST)
@@ -206,7 +218,10 @@ def initial_form(request, _id):
                     fake_limit=fake_limit
                 )
 
-                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "form5" in request.POST:
             form5 = forms.NightBonusSetForm(request.POST)
@@ -227,7 +242,10 @@ def initial_form(request, _id):
                     enter_t1=enter_t1,
                     enter_t2=enter_t2,
                 )
-                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "formset" in request.POST and formset_select is not None:
             formset_select = formset_select(request.POST)
@@ -250,7 +268,10 @@ def initial_form(request, _id):
                         "mode_guide",
                     ],
                 )
-                return redirect(reverse("base:planer_initial_form", args=[_id]) + f"?t={target_mode.mode}")
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
         else:
             if formset_select is not None:
                 formset_select = formset_select(None)
@@ -289,26 +310,61 @@ def initial_form(request, _id):
 @login_required
 def initial_planer(request, _id):
     """ view with form for initial period outline """
-    instance = get_object_or_404(
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
     if instance.written == "inactive":
         return Http404()
+
+    filter_form = forms.SetTargetsMenuFilters(None)
+    filter_form.fields["filter_targets_number"].initial = instance.filter_targets_number
+
+    mode = basic.Mode(request.GET.get("mode"))
     if request.method == "POST":
         if "form1" in request.POST:
             instance.remove_user_outline()
             return redirect("base:planer_initial_form", _id)
 
-    mode = basic.Mode(request.GET.get("mode"))
+        if "form-filter-targets" in request.POST:
+            filter_form = forms.SetTargetsMenuFilters(request.POST)
+            if filter_form.is_valid():
+                page_number = request.GET.get("page") or 1
+                cards = request.POST.get("filter_targets_number")
+                instance.filter_targets_number = cards
+
+                instance.save()
+
+                return redirect(
+                    reverse("base:planer_initial", args=[_id])
+                    + f"?page={page_number}&mode={str(mode)}"
+                )
+
 
     if mode.is_menu:
-        queries = basic.TargetWeightQueries(outline=instance, fake=False)
+        queries = basic.TargetWeightQueries(outline=instance, fake=False, ruin=False)
         target_dict = queries.target_dict_with_weights_read()
-        paginator = Paginator(list(target_dict.items()), 12)
+        paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(off_left__gte=instance.initial_outline_min_off).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
 
-        context = {"instance": instance, "query": page_obj, "mode": str(mode)}
+        context = {
+            "instance": instance,
+            "query": page_obj,
+            "mode": str(mode),
+            "filter_form": filter_form,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
+        }
 
         return render(
             request,
@@ -317,17 +373,32 @@ def initial_planer(request, _id):
         )
 
     elif mode.is_fake:
-        queries = basic.TargetWeightQueries(outline=instance, fake=True)
+        queries = basic.TargetWeightQueries(outline=instance, fake=True, ruin=False)
         target_dict = queries.target_dict_with_weights_read()
-        paginator = Paginator(list(target_dict.items()), 12)
+        paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
 
-        context = {"instance": instance, "query": page_obj, "mode": str(mode)}
+        context = {"instance": instance, "query": page_obj, "mode": str(mode),"filter_form": filter_form,}
 
         return render(
             request,
             "base/new_outline/new_outline_initial_period2_2.html",
+            context,
+        )
+
+    elif mode.is_ruin:
+        queries = basic.TargetWeightQueries(outline=instance, fake=False, ruin=True)
+        target_dict = queries.target_dict_with_weights_read()
+        paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        context = {"instance": instance, "query": page_obj, "mode": str(mode),"filter_form": filter_form,}
+
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period2_4.html",
             context,
         )
 
@@ -340,7 +411,7 @@ def initial_planer(request, _id):
         reals = len([target for target in target_dict if target.fake == False])
         fakes = len([target for target in target_dict if target.fake == True])
 
-        paginator = Paginator(list(target_dict.items()), 20)
+        paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
         message = request.session.get("success")
         if message:
@@ -386,6 +457,7 @@ def initial_planer(request, _id):
             "instance": instance,
             "query": page_obj,
             "mode": str(mode),
+            "filter_form": filter_form,
             "fakes": fakes,
             "reals": reals,
         }
@@ -406,17 +478,14 @@ def initial_planer(request, _id):
             del request.session["outline_error"]
         time_id_and_periods = queries.time_period_dictionary()
 
-        dict_order_to_time_obj = time_id_and_periods[0]
         dict_time_obj_to_periods = time_id_and_periods[1]
         dict_target_to_weights = queries.target_dict_with_weights_read()
 
-        paginator = Paginator(list(dict_target_to_weights.items()), 12)
+        paginator = Paginator(list(dict_target_to_weights.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
 
-        choices = [
-            (f"{time.order}", f"{time.order}") for time in dict_time_obj_to_periods
-        ]
+
 
         select_formset = formset_factory(
             form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
@@ -481,45 +550,16 @@ def initial_planer(request, _id):
                         for err in form.errors:
                             form.fields[err].widget.attrs["class"] += " border-invalid"
 
-            if "choice-formset" in request.POST:
-                select_formset = select_formset(request.POST)
-                for form in select_formset.forms:
-                    form.fields["choice"].choices = choices
-                create_formset = create_formset()
-                if select_formset.is_valid():
-                    update_list = []
-                    for data, tup in zip(select_formset.cleaned_data, page_obj):
-                        try:
-                            index = int(data["choice"])
-                        except KeyError:
-                            continue
-                        else:
-                            outline_time = dict_order_to_time_obj[index]
-
-                        if tup[0].outline_time != outline_time:
-                            tup[0].outline_time = outline_time
-                            update_list.append(tup[0])
-                    models.TargetVertex.objects.bulk_update(
-                        update_list, ["outline_time"]
-                    )
-                    return redirect(
-                        reverse("base:planer_initial", args=[_id])
-                        + f"?page={page_obj.number + 1}&mode={str(mode)}"
-                    )
-
         else:
             create_formset = create_formset()
-            select_formset = select_formset()
 
-        for form, target_lst in zip(select_formset.forms, page_obj):
-            form.fields["choice"].choices = choices
-            target_lst[0].form = form
 
         context = {
             "instance": instance,
             "outline_time": dict_time_obj_to_periods,
             "query": page_obj,
             "mode": str(mode),
+            "filter_form": filter_form,
             "formset": create_formset,
             "choice_formset": select_formset,
             "error": error,
@@ -747,4 +787,6 @@ def update_outline_troops(request, id1):
     instance.avaiable_nobles = []
     instance.avaiable_nobles_near = []
     instance.save()
-    return redirect(reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode.mode}")
+    return redirect(
+        reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode.mode}"
+    )

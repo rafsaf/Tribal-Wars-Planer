@@ -7,7 +7,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 
 class TargetWeightQueries:
-    def __init__(self, outline, fake=False, every=False):
+    def __init__(self, outline, ruin=False, fake=False, every=False):
         self.outline = outline
         targets = (
             models.TargetVertex.objects.select_related("outline_time")
@@ -15,7 +15,7 @@ class TargetWeightQueries:
             .order_by("id")
         )
         if not every:
-            self.targets = targets.filter(fake=fake)
+            self.targets = targets.filter(fake=fake, ruin=ruin)
         else:
             self.targets = targets
 

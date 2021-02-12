@@ -4,6 +4,7 @@ class Mode:
             "menu",
             "time",
             "fake",
+            "ruin",
             "add_and_remove",
         ]
 
@@ -26,6 +27,10 @@ class Mode:
     @property
     def is_fake(self):
         return self.mode == "fake"
+
+    @property
+    def is_ruin(self):
+        return self.mode == "ruin"
 
     @property
     def is_add_and_remove(self):
