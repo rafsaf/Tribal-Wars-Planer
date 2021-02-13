@@ -7,7 +7,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 
 class TargetWeightQueries:
-    def __init__(self, outline, ruin=False, fake=False, every=False, only_with_weights=False):
+    def __init__(self, outline, ruin=False, fake=False, every=False, only_with_weights=False, filtr=None):
         self.outline = outline
         targets = (
             models.TargetVertex.objects.select_related("outline_time")
@@ -25,6 +25,11 @@ class TargetWeightQueries:
                 self.targets = targets.filter(id__in=with_weight_targets)
             else:
                 self.targets = targets
+        if filtr is not None:
+            player = filtr[0]
+            coord = filtr[1]
+            self.targets = self.targets.filter(target__icontains=coord, player__icontains=player)
+
 
     def targets_json_format(self):
         context = {}

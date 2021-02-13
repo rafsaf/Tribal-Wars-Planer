@@ -446,3 +446,162 @@ const handleButtonClicks = (save, processing, armyUpdate, reloading) => {
       }
   });
 }
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const changeTargetTime = async (target_id, time_id) => {
+    const id1 = parseInt(target_id);
+    const id2 = parseInt(time_id);
+    const timeSelector = String(target_id) + "-time-" + String(time_id);
+    const newTime = document.getElementById(timeSelector);
+    const actualInnerHTML = newTime.innerHTML
+    newTime.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`
+
+    const response = await fetch(`/api/target-time-update/${id1}/${id2}/`, {
+        method: "PUT",
+        credentials: "same-origin",
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+    })
+    if (response.status !== 200) {
+        newTime.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`
+        const oldClassName = newTime.className
+        newTime.className = 'btn btn-lg btn-danger my-1 py-0 px-1'
+        
+        setTimeout(() => {
+            newTime.className = oldClassName
+            newTime.innerHTML = actualInnerHTML
+            newTime.blur()
+        }, 2000)
+    } else {
+        const data = await response.json();
+        newTime.className = "btn btn-lg btn-primary my-1 py-0 px-1"
+        newTime.innerHTML = actualInnerHTML
+        newTime.blur();
+        if (data.old !== "none" && data.old !== data.new) {
+            const oldTime = document.getElementById(data.old);
+            oldTime.className = 'btn btn-lg btn-light my-1 py-0 px-1'
+        }
+    }
+}
+
+const deleteTarget = async (target_id) => {
+    const id1 = parseInt(target_id);
+    const targetButtonSelector = "target-btn-" + String(target_id);
+    const targetRowSelector = "target-row-" + String(target_id);
+    const targetButton = document.getElementById(targetButtonSelector);
+    const targetRow = document.getElementById(targetRowSelector);
+
+    const targetButtonOldInnerHTML = targetButton.innerHTML
+    targetButton.disabled = true;
+    targetButton.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`
+
+    const response = await fetch(`/api/target-delete/${id1}/`, {
+        method: "DELETE",
+        credentials: "same-origin",
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+    })
+    if (response.status !== 204) {
+        targetButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`
+        setTimeout(() => {
+            targetButton.innerHTML = targetButtonOldInnerHTML
+            targetButton.blur()
+        }, 2000)
+    } else {
+        targetRow.style.display = 'none';
+    }
+}
+
+const submitGoBackButton = (text) => {
+    const buttonForm1 = document.getElementById("form1-btn")
+    const buttonDismiss = document.getElementById("dismiss-btn")
+    buttonForm1.onclick = () => {
+        buttonForm1.disabled = true
+        buttonDismiss.disabled = true
+        buttonForm1.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${text}`
+        const form1 = document.getElementById("form1-form")
+        form1.submit()
+      }
+}
+
+const activateFixedScrollbarContainer = () => {
+    $(function($) {
+        var fixedBarTemplate = '<div class="fixed-scrollbar"><div></div></div>';
+        var fixedBarCSS = { display: 'none', overflowX: 'scroll', position: 'fixed', width: '100%', bottom: 0 };
+
+        $('.fixed-scrollbar-container').each(function() {
+            var $container = $(this);
+            var $bar = $(fixedBarTemplate).appendTo($container).css(fixedBarCSS);
+
+            $bar.scroll(function() {
+                $container.scrollLeft($bar.scrollLeft());
+            });
+
+            $bar.data("status", "off");
+        });
+
+        var fixSize = function() {
+            $('.fixed-scrollbar').each(function() {
+                var $bar = $(this);
+                var $container = $bar.parent();
+
+                $bar.children('div').height(1).width($container[0].scrollWidth);
+                $bar.width($container.width()).scrollLeft($container.scrollLeft());
+            });
+        };
+
+        $(window).on("load.fixedbar resize.fixedbar", function() {
+            fixSize();
+        });
+
+        var scrollTimeout = null;
+
+        $(window).on("scroll.fixedbar", function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                $('.fixed-scrollbar-container').each(function() {
+                    var $container = $(this);
+                    var $bar = $container.children('.fixed-scrollbar');
+
+                    if ($bar.length) {
+                        var containerOffset = { top: $container.offset().top, bottom: $container.offset().top + $container.height() };
+                        var windowOffset = { top: $(window).scrollTop(), bottom: $(window).scrollTop() + $(window).height() };
+
+                        if ((containerOffset.top > windowOffset.bottom) || (windowOffset.bottom > containerOffset.bottom)) {
+                            if ($bar.data("status") == "on") {
+                                $bar.hide().data("status", "off");
+                            }
+                        } else {
+                            if ($bar.data("status") == "off") {
+                                $bar.show().data("status", "on");
+                                $bar.scrollLeft($container.scrollLeft());
+                            }
+                        }
+                    }
+                });
+            }, 50);
+        });
+
+        $(window).trigger("scroll.fixedbar");
+    });
+}

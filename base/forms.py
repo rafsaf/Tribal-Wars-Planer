@@ -570,14 +570,13 @@ class ChooseOutlineTimeForm(forms.Form):
 class CreateNewInitialTarget(forms.Form):
     target = forms.CharField(
         max_length=7,
-        label=gettext_lazy("Target"),
-        help_text=gettext_lazy("Valid coords, 7 chars"),
+        label=gettext_lazy(""),
     )
-    fake = forms.BooleanField(required=False)
-
+    
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
         super(CreateNewInitialTarget, self).__init__(*args, **kwargs)
+        self.fields["target"].widget.attrs["class"] = "form-control"
 
     def clean_target(self):
         coord = self.cleaned_data["target"].strip()

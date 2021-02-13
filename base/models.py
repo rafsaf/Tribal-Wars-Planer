@@ -289,6 +289,10 @@ class Outline(models.Model):
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)
+    default_off_time_id = models.IntegerField(default=None, null=True, blank=True)
+    default_fake_time_id = models.IntegerField(default=None, null=True, blank=True)
+    default_ruin_time_id = models.IntegerField(default=None, null=True, blank=True)
+
     class Meta:
         ordering = ("-created",)
 
@@ -306,11 +310,14 @@ class Outline(models.Model):
         self.filter_card_number = 12
         self.filter_targets_number = 12
         self.filter_hide_front = "all"
+        self.default_off_time_id = None
+        self.default_fake_time_id = None
+        self.default_ruin_time_id = None
  
         WeightMaximum.objects.filter(outline=self).delete()
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
-        Overview.objects.filter(outline=self).update(removed=True)
+        Overview.objects.filter(outline=self, removed=False).update(removed=True)
         result = self.result
         result.results_outline = ""
         result.results_players = ""

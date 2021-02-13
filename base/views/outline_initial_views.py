@@ -379,12 +379,26 @@ def initial_planer(request, _id):
         paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
 
         context = {
             "instance": instance,
             "query": page_obj,
             "mode": str(mode),
             "filter_form": filter_form,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
         }
 
         return render(
@@ -399,12 +413,26 @@ def initial_planer(request, _id):
         paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
 
         context = {
             "instance": instance,
             "query": page_obj,
             "mode": str(mode),
             "filter_form": filter_form,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
         }
 
         return render(
@@ -414,20 +442,28 @@ def initial_planer(request, _id):
         )
 
     elif mode.is_add_and_remove:
-        queries = basic.TargetWeightQueries(outline=instance, every=True)
-        target_dict = queries.target_dict_with_weights_read()
-        for target, lst in target_dict.items():
-            number = len(lst)
-            target_dict[target] = number
-        reals = len([target for target in target_dict if target.fake == False])
-        fakes = len([target for target in target_dict if target.fake == True])
+        player = request.GET.get("player") or ""
+        coord = request.GET.get("coord") or ""
 
+        queries = basic.TargetWeightQueries(outline=instance, every=True, filtr=[player, coord])
+        target_dict = queries.target_dict_with_weights_read()
         paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
+
         message = request.session.get("success")
         if message:
             del request.session["success"]
-        page_obj = paginator.get_page(page_number)
 
         if request.method == "POST":
             if "create" in request.POST:
@@ -435,22 +471,28 @@ def initial_planer(request, _id):
                     request.POST, outline=instance
                 )
                 if target_form.is_valid():
-                    fake = request.POST.get("fake")
-                    if fake == "on":
-                        fake = True
-                    if fake is None:
+                    target_type = request.POST.get("type-form")
+                    if target_type == "real":
                         fake = False
+                        ruin = False
+                    elif target_type == "fake":
+                        fake = True
+                        ruin = False
+                    elif target_type == "ruin":
+                        fake = False
+                        ruin = True
+                    else:
+                        return Http404()
                     coord = request.POST.get("target")
-
                     village = models.VillageModel.objects.select_related().get(
                         coord=coord, world=instance.world
                     )
-
                     models.TargetVertex.objects.create(
                         outline=instance,
                         player=village.player.name,
                         target=coord,
                         fake=fake,
+                        ruin=ruin,
                     )
                     request.session["success"] = "success"
                     return redirect(
@@ -469,8 +511,14 @@ def initial_planer(request, _id):
             "query": page_obj,
             "mode": str(mode),
             "filter_form": filter_form,
-            "fakes": fakes,
-            "reals": reals,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
+            "player": player,
+            "coord": coord,
+
         }
 
         return render(
@@ -497,6 +545,15 @@ def initial_planer(request, _id):
         )
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
 
         select_formset = formset_factory(
             form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
@@ -578,6 +635,11 @@ def initial_planer(request, _id):
             "formset": create_formset,
             "choice_formset": select_formset,
             "error": error,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
         }
 
         return render(
@@ -725,6 +787,14 @@ def initial_delete_time(request, pk):
     )
     mode = request.GET.get("mode")
     page = request.GET.get("page")
+    if outline.default_off_time_id == outline_time.pk:
+        outline.default_off_time_id = None
+    if outline.default_fake_time_id == outline_time.pk:
+        outline.default_fake_time_id = None
+    if outline.default_ruin_time_id == outline_time.pk:
+        outline.default_ruin_time_id = None
+
+    outline.save()
     outline_time.delete()
     return redirect(
         reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
@@ -735,13 +805,30 @@ def initial_delete_time(request, pk):
 @login_required
 def initial_set_all_time(request, pk):
     outline_time = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
-    outline = get_object_or_404(
+    outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
     mode = request.GET.get("mode")
     page = request.GET.get("page")
-    targets = models.TargetVertex.objects.filter(outline=outline)
+    fake = request.GET.get("fake")
+    ruin = request.GET.get("ruin")
+
+    if fake == "true":
+        fake = True
+        ruin = False
+        outline.default_fake_time_id = outline_time.pk
+    elif ruin == "true":
+        fake = False
+        ruin = True
+        outline.default_ruin_time_id = outline_time.pk
+    else:
+        fake = False
+        ruin = False
+        outline.default_off_time_id = outline_time.pk
+
+    targets = models.TargetVertex.objects.filter(outline=outline, fake=fake, ruin=ruin)
     targets.update(outline_time=outline_time)
+    outline.save()
 
     return redirect(
         reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
