@@ -78,10 +78,9 @@
                             <a class="nav-link ml-1"
                                 href="{% url 'base:documentation' %}">{% trans 'Documentation' %}</a>
                         </li>
-                        {% if user.is_superuser %}
-                        <li class="nav-item">
-                            <a class="nav-link ml-1"
-                                href="{% url 'base:planer_update' %}">{% trans 'Database Update' %}</a>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item" id="li-planer">
+                            <a class="nav-link ml-1" href="{% url 'base:premium' %}">{% trans 'Premium' %}</a>
                         </li>
                         {% endif %}
                         {% if user.is_staff %}

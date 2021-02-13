@@ -310,10 +310,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             </button>
         </div>
         <div class="modal-body">
-            {% blocktrans %} Current progress will be
-            <div class="md-error">LOST!</div>
-            <br>You will return to the previous form. {% endblocktrans %}
-
+            {% trans "<p>Your current progress here will be <span class='md-error'>LOST</span>!</p><p>You will return to the previous tab. Front and Back division will be reset and targets removed.</p>" %}
         </div>
         <div class="modal-footer">
             <button id="dismiss-btn" type="button" class="btn btn-secondary"

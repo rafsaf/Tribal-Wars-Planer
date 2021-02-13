@@ -7,11 +7,11 @@ urlpatterns = [
     path("", views.base_view, name="base"),
     path("profile/user-settings", views.profile_settings, name="settings"),
     path("profile/add-world", views.add_world, name="add_world"),
+    path("profile/premium", views.premium_view, name="premium"),
     path("overview/<str:token>", views.overview_view, name="overview"),
     path("overview-fail", views.overview_fail, name="overview_fail"),
     path("planer/", views.OutlineList.as_view(), name="planer"),
     path("planer/show-all", views.OutlineListShowAll.as_view(), name="planer_all"),
-    path("planer/update", views.database_update, name="planer_update"),
     path("planer/create/", views.new_outline_create, name="planer_create"),
     path("planer/<int:_id>/status", views.inactive_outline, name="planer_status"),
     path("planer/<int:_id>/results", views.outline_detail_results, name="planer_detail_results"),
@@ -49,4 +49,5 @@ urlpatterns = [
     path("planer/<int:_id>/disable_editable",views.outline_disable_editable,name="planer_disable_editable"),
     path("planer/<int:_id>/delete", views.outline_delete, name="planer_delete"),
     path("documentation", views.base_documentation, name="documentation"),
+    
 ]

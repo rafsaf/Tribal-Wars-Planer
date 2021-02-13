@@ -1,25 +1,13 @@
 import json
 
 from django.shortcuts import render, redirect
-from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import get_language
 from markdownx.utils import markdownify
-from django.core.serializers.json import DjangoJSONEncoder
 
-from base.cron import db_update, outdate_overviews_delete
+
 from base import models
 from tribal_wars import basic
-
-
-def database_update(request):
-    # ZMIENIC
-    """ to update database manually, superuser required """
-    if request.user.is_superuser:
-        db_update()
-        return redirect("base:base")
-    else:
-        return Http404()
 
 
 def base_view(request):

@@ -5,7 +5,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from base.models import TargetVertex, OutlineTime, Outline, WeightModel, WeightMaximum
+from base.models import (
+    TargetVertex,
+    OutlineTime,
+    Outline,
+    WeightModel,
+    WeightMaximum,
+    Overview,
+)
 
 
 class TargetTimeUpdate(APIView):
@@ -68,3 +75,27 @@ class TargetDelete(APIView):
         weights.delete()
         target.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class OverwiewStateHideUpdate(APIView):
+    """
+    For given target id, delete obj.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, outline_id, token, format=None):
+        outline = get_object_or_404(Outline, id=outline_id, owner=request.user)
+        overview = get_object_or_404(Overview, token=token)
+
+        new_state = not bool(overview.show_hidden)
+        if new_state:
+            name = "True"
+            new_class = "btn btn-light md-blue"
+        else:
+            name = "False"
+            new_class = "btn btn-light md-error"
+
+        overview.show_hidden = new_state
+        overview.save()
+        return Response({"name": name, "class": new_class},status=status.HTTP_200_OK)

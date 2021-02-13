@@ -40,3 +40,9 @@ def profile_settings(request):
                 return redirect("base:settings")
     context = {"user": user, "form1": form1}
     return render(request, "base/user/profile_settings.html", context=context)
+
+@login_required
+def premium_view(request):
+    user = request.user
+    context = {"user": user}
+    return render(request, "base/user/premium.html", context=context)

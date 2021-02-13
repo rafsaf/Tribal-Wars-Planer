@@ -149,6 +149,10 @@ a.btn.btn-secondary {
   color: #42eb2c !important;
   font-weight: bold !important;
 }
+.md-blue {
+  color: #007bff !important;
+  font-weight: bold;
+}
 .th-front {
   background: #d6e9e2 !important;
 }

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from tribal_wars.get_deff import get_deff
@@ -55,7 +56,7 @@ def outline_detail_get_deff(request, _id):
 
             result.save()
 
-            return redirect("base:planer_detail_results", _id)
+            return redirect(reverse("base:planer_detail_results", args=[_id])+"?tab=deff")
 
     context = {
         "instance": instance,
@@ -115,6 +116,7 @@ def outline_detail_results(request, _id):
                 )
                 return redirect("base:planer_detail_results", _id)
 
+    
     context = {
         "instance": instance,
         "overviews": overviews,
@@ -122,6 +124,9 @@ def outline_detail_results(request, _id):
         "name_prefix": name_prefix,
         "form1": form1,
     }
+    tab = request.GET.get("tab")
+    if tab == "deff":
+        context["go_deff_tab"] = True
 
     return render(
         request, "base/new_outline/new_outline_results.html", context
