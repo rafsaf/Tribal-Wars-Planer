@@ -21,7 +21,7 @@ def make_final_outline(outline: models.Outline):
     for player in players:
         player_id[player["name"]] = player["player_id"]
 
-    queries = basic.TargetWeightQueries(outline=outline, every=True)
+    queries = basic.TargetWeightQueries(outline=outline, every=True, only_with_weights=True)
 
     distinct_weight_coords = list(
         models.WeightModel.objects.filter(target__in=queries.targets)
@@ -46,6 +46,7 @@ def make_final_outline(outline: models.Outline):
     with text:
 
         for target, lst in weights_dict.items():
+
             json_weights[target.target] = list()
 
             periods_list = target_period_dict[target]
@@ -80,7 +81,7 @@ def make_final_outline(outline: models.Outline):
                         ],
                     )
                 )
-
+    
     outline_info = basic.OutlineInfo(outline=outline)
     outline_info.generate_nicks()
 

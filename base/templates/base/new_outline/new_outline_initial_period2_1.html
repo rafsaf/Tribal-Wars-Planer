@@ -2,7 +2,11 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-
+<style>
+    button.btn-light {
+        border: 1px solid rgb(136, 135, 135);
+    }
+</style>
 <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
 <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 
@@ -214,17 +218,7 @@
                 </tr>
             </thead>
             <tbody>
-                <style>
-                    button.btn-light {
-                        border: 1px solid rgb(136, 135, 135);
-                    }
-                </style>
-                <script>
-                    const changeButton = (element) => {
-                        element.className = "btn btn-lg btn-light my-1 py-0 px-1";
-                        element.blur();
-                    }
-                </script>
+
                 {% for target, lst in query %}
                 <tr>
                     <th>
@@ -243,24 +237,20 @@
                             </h5>
                         </div>
                     </th>
-
                     <th style="min-width: 13vh !important;">
                         {% for time in outline_time %}
-                        {% if forloop.counter == 1 %}
-                        <button onclick="changeButton(this);" class="btn btn-lg btn-primary my-1 py-0 px-1">{{time.order}}</button>
-
+                        {% if time.pk == target.outline_time.pk %}
+                        <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-primary my-1 py-0 px-1">{{time.order}}</button>
                         {% else %}
-                        <button class="btn btn-lg btn-light my-1 py-0 px-1">{{time.order}}</button>
+                        <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-light my-1 py-0 px-1">{{time.order}}</button>
                         {% endif %}
                         {% endfor %}
                     </th>
-
                     {% for weight in lst %}
                     <th class="front-{{weight.first_line}}">
                         <div class="popoverData" data-html="true"
                             data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
                             rel="popover" data-placement="top" data-trigger="hover">
-
                             <table class="table table-sm">
                                 <tr>
                                     <th>
@@ -269,7 +259,6 @@
                                     <th style="font-size: small;">
                                         {{weight.off}}
                                     </th>
-
                                 </tr>
                                 <tr>
                                     <th>
@@ -278,7 +267,6 @@
                                     <th style="font-size: small;">
                                         {{weight.nobleman}}
                                     </th>
-
                                 </tr>
                                 <tr>
                                     <th>
@@ -293,17 +281,11 @@
                                     <th style="font-size: small;" onclick="calculate_distance(this);">
                                         {{weight.distance}}
                                     </th>
-
                                 </tr>
-
-
                             </table>
-
                     </th>
-
                     {% endfor %}
                 </tr>
-
                 {% endfor %}
             </tbody>
         </table>
@@ -344,6 +326,60 @@
 {% endif %}
 
 <script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const changeTargetTime = async (target_id, time_id) => {
+        const id1 = parseInt(target_id);
+        const id2 = parseInt(time_id);
+        const timeSelector = String(target_id) + "-time-" + String(time_id);
+        const newTime = document.getElementById(timeSelector);
+        const actualInnerHTML = newTime.innerHTML
+        newTime.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`
+
+        const response = await fetch(`/api/target-time-update/${id1}/${id2}/`, {
+            method: "PUT",
+            credentials: "same-origin",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+        })
+        if (response.status !== 200) {
+            newTime.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`
+            const oldClassName = newTime.className
+            newTime.className = 'btn btn-lg btn-danger my-1 py-0 px-1'
+            
+            setTimeout(() => {
+                newTime.className = oldClassName
+                newTime.innerHTML = actualInnerHTML
+                newTime.blur()
+            }, 2000)
+        } else {
+            const data = await response.json();
+            newTime.className = "btn btn-lg btn-primary my-1 py-0 px-1"
+            newTime.innerHTML = actualInnerHTML
+            newTime.blur();
+            if (data.old !== "none" && data.old !== data.new) {
+                const oldTime = document.getElementById(data.old);
+                oldTime.className = 'btn btn-lg btn-light my-1 py-0 px-1'
+            }
+        }
+    }
     activateTooltips();
     handleAllFormsetSelect();
     $(function($) {

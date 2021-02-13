@@ -339,7 +339,6 @@ def initial_planer(request, _id):
                     + f"?page={page_number}&mode={str(mode)}"
                 )
 
-
     if mode.is_menu:
         queries = basic.TargetWeightQueries(outline=instance, fake=False, ruin=False)
         target_dict = queries.target_dict_with_weights_read()
@@ -351,7 +350,9 @@ def initial_planer(request, _id):
         count_fake = targets.filter(fake=True, ruin=False).count()
         count_ruin = targets.filter(fake=False, ruin=True).count()
         weights = models.WeightMaximum.objects.filter(outline=instance)
-        count_off = weights.filter(off_left__gte=instance.initial_outline_min_off).count()
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
         count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
 
         context = {
@@ -379,7 +380,12 @@ def initial_planer(request, _id):
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
 
-        context = {"instance": instance, "query": page_obj, "mode": str(mode),"filter_form": filter_form,}
+        context = {
+            "instance": instance,
+            "query": page_obj,
+            "mode": str(mode),
+            "filter_form": filter_form,
+        }
 
         return render(
             request,
@@ -394,7 +400,12 @@ def initial_planer(request, _id):
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
 
-        context = {"instance": instance, "query": page_obj, "mode": str(mode),"filter_form": filter_form,}
+        context = {
+            "instance": instance,
+            "query": page_obj,
+            "mode": str(mode),
+            "filter_form": filter_form,
+        }
 
         return render(
             request,
@@ -469,7 +480,7 @@ def initial_planer(request, _id):
         )
 
     elif mode.is_time:
-        queries = basic.TargetWeightQueries(outline=instance, every=True)
+        queries = basic.TargetWeightQueries(outline=instance, every=True, only_with_weights=True)
         try:
             error = request.session["outline_error"]
         except KeyError:
@@ -481,11 +492,11 @@ def initial_planer(request, _id):
         dict_time_obj_to_periods = time_id_and_periods[1]
         dict_target_to_weights = queries.target_dict_with_weights_read()
 
-        paginator = Paginator(list(dict_target_to_weights.items()), instance.filter_targets_number)
+        paginator = Paginator(
+            list(dict_target_to_weights.items()), instance.filter_targets_number
+        )
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
-
-
 
         select_formset = formset_factory(
             form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
@@ -501,9 +512,14 @@ def initial_planer(request, _id):
 
         if request.method == "POST":
             if "form-finish" in request.POST:
+                with_weight_targets = models.WeightModel.objects.select_related("target").filter(
+                    target__outline=instance
+                ).distinct("target").values_list("target", flat=True)
+
                 target_with_no_time = (
                     models.TargetVertex.objects.filter(outline=instance)
                     .filter(outline_time=None)
+                    .filter(id__in=with_weight_targets)
                     .exists()
                 )
                 if target_with_no_time:
@@ -552,7 +568,6 @@ def initial_planer(request, _id):
 
         else:
             create_formset = create_formset()
-
 
         context = {
             "instance": instance,
