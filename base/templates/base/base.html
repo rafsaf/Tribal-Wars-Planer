@@ -78,7 +78,7 @@
                             <a class="nav-link ml-1"
                                 href="{% url 'base:documentation' %}">{% trans 'Documentation' %}</a>
                         </li>
-                        {% if user.is_authenticated %}
+                        {% if user.is_authenticated and user.profile.server.dns == "plemiona.pl" %}
                         <li class="nav-item" id="li-planer">
                             <a class="nav-link ml-1" href="{% url 'base:premium' %}">{% trans 'Premium' %}</a>
                         </li>
@@ -147,11 +147,6 @@
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <div style="min-height: 91vh;">
                     {% block content %}
-                    <div class="text-center" style="background-color: rgb(15, 153, 153);color:white; height:min-content;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
-                        <div class="container-fluid">
-                        <p>{% trans 'Now you can donate this project' %} <a style="color: rgb(50, 224, 50);" target="_blank" href="https://paypal.me/pools/c/8vcDj7febh">{% trans 'here' %}</a></p> 
-                        </div>
-                    </div>
                     <div class='text-center' >
                         <div class='background-image d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
                             <h2 class="font-nav pt-2">{% trans 'Create simple and fast outlines' %}</h2>

@@ -6,7 +6,7 @@
 <div class="fixed-scrollbar-container">
 <div class="container-md py-5" style="min-height: 70vh; max-width:1000px !important;">
 
-    <h3>Moje ustawienia</h3>
+    <h3>{% trans 'My settings' %}</h3>
     <table class="table table-bordered my-3 mt-4" style="width: min-content;">
         <tbody>
             <tr>
@@ -15,23 +15,36 @@
 
             </tr>
             <tr>
-                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Email address ' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Email address' %}</th>
                 <th style="min-width: 45vh;" class="text-nowrap">{{user.email}}</th>
 
             </tr>
             <tr>
-                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Password ' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Password' %}</th>
                 <th style="min-width: 45vh;" class="text-nowrap"><a href="{% url 'password_change' %}">{% trans 'Reset my password' %}</a></th>
             </tr>
             <tr>
-                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Server ' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Server' %}</th>
                 <th style="min-width: 45vh;" class="text-nowrap">{{user.profile.server.dns}}</th>
             </tr>
             <tr>
-                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Premium ' %}</th>
-                <th style="min-width: 45vh;" class="text-nowrap"><a href="{% url 'base:premium' %}">{% trans 'Nieaktywne' %}</a></th>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Premium' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">
+                    {% if user.profile.is_premium %}
+                    <a href="{% url 'base:premium' %}">{% trans 'Activated' %}</a>
+                    {% else %}
+                    <a href="{% url 'base:premium' %}">{% trans 'Not activated' %}</a>
+                    {% endif %}
+                </th>
             </tr>
-
+            {% if user.profile.is_premium %}
+            <tr>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Premium validity' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">
+                    {{user.profile.validity_date}}
+                </th>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
     <small class="form-text text-muted">{% trans 'Contact with admin to change your email address. ' %}</small>

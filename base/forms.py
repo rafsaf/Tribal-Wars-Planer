@@ -129,14 +129,14 @@ class GetDeffForm(forms.Form):
         max_value=45,
         label=gettext_lazy("Radius"),
         widget=forms.NumberInput,
-        help_text=gettext_lazy("Max 45"),
+        help_text=gettext_lazy("Greater than or equal to 0 and less than or equal to 45."),
         initial=10,
     )
 
     excluded = forms.CharField(
         max_length=3000,
         widget=forms.Textarea,
-        label=gettext_lazy("Excluded enemy villages"),
+        label=gettext_lazy("Excluded enemy secluded villages"),
         required=False,
         help_text=gettext_lazy("Exact coords separated by a space or an entry."),
     )
@@ -570,7 +570,7 @@ class ChooseOutlineTimeForm(forms.Form):
 class CreateNewInitialTarget(forms.Form):
     target = forms.CharField(
         max_length=7,
-        label=gettext_lazy(""),
+        label="",
     )
     
     def __init__(self, *args, **kwargs):

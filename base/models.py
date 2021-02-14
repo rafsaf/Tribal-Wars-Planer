@@ -3,6 +3,7 @@ import datetime
 from dateutil.relativedelta import relativedelta
 
 import django
+from django.db.models.fields import BooleanField
 from django.utils.translation import gettext_lazy, gettext
 from django.db import models
 from django.contrib.auth.models import User
@@ -12,6 +13,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 from markdownx.models import MarkdownxField
 
@@ -23,15 +26,27 @@ class Server(models.Model):
     def __str__(self):
         return self.dns
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    server = models.ForeignKey(Server, on_delete=models.SET_NULL, null=True, default=None)
+    server = models.ForeignKey(
+        Server, on_delete=models.SET_NULL, null=True, default=None)
     validity_date = models.DateField(default=None, blank=True, null=True)
+    
+    def is_premium(self) -> bool:
+        if self.validity_date is None:
+            return False
+        today = timezone.now()
+        if today.date() > self.validity_date:
+            return False
+        return True
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        default_server = Server.objects.get_or_create(dns="plemiona.pl", prefix="pl")[0]
+        default_server = Server.objects.get_or_create(
+            dns="plemiona.pl", prefix="pl")[0]
         Profile.objects.create(user=instance, server=default_server)
 
 
@@ -72,7 +87,7 @@ class World(models.Model):
             last = " " + self.server.prefix.upper()
         else:
             last = ""
-        return  gettext_lazy("World ") + self.postfix + last
+        return gettext_lazy("World ") + self.postfix + last
 
     def link_to_game(self, addition=""):
         return (
@@ -86,7 +101,6 @@ class World(models.Model):
             f"https://{self.server.prefix}.twstats.com/{str(self)}/index.php?"
             f"page=village&id={village_id}"
         )
-
 
 
 class Tribe(models.Model):
@@ -105,7 +119,8 @@ class Player(models.Model):
 
     player_id = models.IntegerField()
     name = models.TextField(db_index=True)
-    tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE, null=True, blank=True)
+    tribe = models.ForeignKey(
+        Tribe, on_delete=models.CASCADE, null=True, blank=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -119,7 +134,8 @@ class VillageModel(models.Model):
     x_coord = models.IntegerField()
     y_coord = models.IntegerField()
     coord = models.CharField(max_length=7, db_index=True)
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
+    player = models.ForeignKey(
+        Player, on_delete=models.CASCADE, null=True, blank=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -135,28 +151,36 @@ def create_test_world(server: Server):
     enemy_players = []
     enemy_villages = []
     for i in range(5):
-        ally_players.append(Player(tribe=tribe1, world=test_world, player_id=i, name=f'AllyPlayer{i}'))
-        enemy_players.append(Player(tribe=tribe2, world=test_world, player_id=i+5, name=f'EnemyPlayer{i}'))
+        ally_players.append(
+            Player(tribe=tribe1, world=test_world, player_id=i, name=f'AllyPlayer{i}'))
+        enemy_players.append(
+            Player(tribe=tribe2, world=test_world, player_id=i+5, name=f'EnemyPlayer{i}'))
     Player.objects.bulk_create(enemy_players)
     Player.objects.bulk_create(ally_players)
-    ally_players = list(Player.objects.filter(world=test_world, player_id__lte=4))
-    enemy_players = list(Player.objects.filter(world=test_world, player_id__gte=5))
+    ally_players = list(Player.objects.filter(
+        world=test_world, player_id__lte=4))
+    enemy_players = list(Player.objects.filter(
+        world=test_world, player_id__gte=5))
     for i in range(50):
         ids = i // 10
         ally_villages.append(
-            VillageModel(world=test_world, x_coord=100+i, y_coord=100+i, coord=f"{100+i}|{100+i}", village_id=i, player=ally_players[ids])
+            VillageModel(world=test_world, x_coord=100+i, y_coord=100+i,
+                         coord=f"{100+i}|{100+i}", village_id=i, player=ally_players[ids])
         )
         enemy_villages.append(
-            VillageModel(world=test_world, x_coord=200+i, y_coord=200+i, coord=f"{200+i}|{200+i}", village_id=i+50, player=enemy_players[ids])
+            VillageModel(world=test_world, x_coord=200+i, y_coord=200+i,
+                         coord=f"{200+i}|{200+i}", village_id=i+50, player=enemy_players[ids])
         )
 
     VillageModel.objects.bulk_create(enemy_villages)
     VillageModel.objects.bulk_create(ally_villages)
 
+
 @receiver(post_save, sender=Server)
 def new_server_create_test_world(sender, instance, created, **kwargs):
     if created:
         create_test_world(server=instance)
+
 
 class Outline(models.Model):
     """ Outline with all informations about it"""
@@ -286,14 +310,18 @@ class Outline(models.Model):
     )
 
     default_show_hidden = models.BooleanField(default=False)
-    title_message = models.CharField(max_length=50, default=gettext_lazy("Outline Targets"))
+    title_message = models.CharField(
+        max_length=50, default=gettext_lazy("Outline Targets"))
     text_message = models.CharField(max_length=500, default="", blank=True)
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)
-    default_off_time_id = models.IntegerField(default=None, null=True, blank=True)
-    default_fake_time_id = models.IntegerField(default=None, null=True, blank=True)
-    default_ruin_time_id = models.IntegerField(default=None, null=True, blank=True)
+    default_off_time_id = models.IntegerField(
+        default=None, null=True, blank=True)
+    default_fake_time_id = models.IntegerField(
+        default=None, null=True, blank=True)
+    default_ruin_time_id = models.IntegerField(
+        default=None, null=True, blank=True)
 
     class Meta:
         ordering = ("-created",)
@@ -315,11 +343,12 @@ class Outline(models.Model):
         self.default_off_time_id = None
         self.default_fake_time_id = None
         self.default_ruin_time_id = None
- 
+
         WeightMaximum.objects.filter(outline=self).delete()
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
-        Overview.objects.filter(outline=self, removed=False).update(removed=True)
+        Overview.objects.filter(
+            outline=self, removed=False).update(removed=True)
         result = self.result
         result.results_outline = ""
         result.results_players = ""
@@ -365,7 +394,8 @@ class Documentation(models.Model):
 class WeightMaximum(models.Model):
     """ Control state smaller than maximum """
 
-    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
+    outline = models.ForeignKey(
+        Outline, on_delete=models.CASCADE, db_index=True)
     start = models.CharField(max_length=7, db_index=True)
     x_coord = models.IntegerField(default=0)
     y_coord = models.IntegerField(default=0)
@@ -450,7 +480,8 @@ class TargetVertex(models.Model):
         ("single", gettext_lazy("Try single nobles from many villages")),
     ]
 
-    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
+    outline = models.ForeignKey(
+        Outline, on_delete=models.CASCADE, db_index=True)
     outline_time = models.ForeignKey(
         OutlineTime, on_delete=models.SET_NULL, null=True, default=None
     )
@@ -496,7 +527,8 @@ class TargetVertex(models.Model):
 class WeightModel(models.Model):
     """ Command between start and target """
 
-    target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE, db_index=True)
+    target = models.ForeignKey(
+        TargetVertex, on_delete=models.CASCADE, db_index=True)
     state = models.ForeignKey(WeightMaximum, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
     off = models.IntegerField()
@@ -511,16 +543,21 @@ class WeightModel(models.Model):
     def __str__(self):
         return self.start
 
+
 class OutlineOverview(models.Model):
-    outline = models.ForeignKey(Outline, on_delete=models.SET_NULL, null=True, blank=True)
+    outline = models.ForeignKey(
+        Outline, on_delete=models.SET_NULL, null=True, blank=True)
     weights_json = models.TextField(default="", blank=True)
     targets_json = models.TextField(default="", blank=True)
 
+
 class Overview(models.Model):
     """ Present results for tribe members using unique urls """
-    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
+    outline_overview = models.ForeignKey(
+        OutlineOverview, on_delete=models.CASCADE)
     token = models.CharField(max_length=100, primary_key=True, db_index=True)
-    outline = models.ForeignKey(Outline, on_delete=models.SET_NULL, null=True, blank=True)
+    outline = models.ForeignKey(
+        Outline, on_delete=models.SET_NULL, null=True, blank=True)
     player = models.CharField(max_length=40)
     created = models.DateTimeField(auto_now_add=True)
     table = models.TextField()
@@ -537,11 +574,13 @@ class Overview(models.Model):
 class TargetVertexOverview(models.Model):
     """ Copied Target Village """
 
-    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
+    outline_overview = models.ForeignKey(
+        OutlineOverview, on_delete=models.CASCADE)
     target = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
     fake = models.BooleanField(default=False)
-    target_vertex = models.ForeignKey(TargetVertex, on_delete=models.SET_NULL, null=True, default=None, blank=True)
+    target_vertex = models.ForeignKey(
+        TargetVertex, on_delete=models.SET_NULL, null=True, default=None, blank=True)
 
     def __str__(self):
         return self.target
@@ -563,19 +602,24 @@ class WeightModelOverview(models.Model):
     def __str__(self):
         return self.start
 
+
 class Payment(models.Model):
     """ Represents real payment, only superuser access """
     STATUS = [
         ("finished", gettext_lazy("Finished")),
         ("returned", gettext_lazy("Returned")),
     ]
-    status = models.CharField(max_length=30, choices=STATUS, default="finished")
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    status = models.CharField(
+        max_length=30, choices=STATUS, default="finished")
+    user = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL)
+    send_mail = models.BooleanField(default=True)
     amount = models.IntegerField()
     payment_date = models.DateField()
     months = models.IntegerField(default=1)
     comment = models.CharField(max_length=150, default="", blank=True)
     new_date = models.DateField(default=None, null=True, blank=True)
+
 
 @receiver(post_save, sender=Payment)
 def handle_payment(sender, instance: Payment, created, **kwargs):
@@ -590,8 +634,17 @@ def handle_payment(sender, instance: Payment, created, **kwargs):
             user_profile.validity_date = current_date + relative_months + day
         else:
             user_profile.validity_date = user_profile.validity_date + relative_months + day
-        
+
+        if instance.send_mail:
+            msg_html = render_to_string('email_payment.html', {
+                "amount": instance.amount,
+                "payment_date": instance.payment_date,
+                "new_date": instance.new_date,
+                "user": instance.user
+            })
+            send_mail("plemiona-planer.pl", "",
+                      "plemionaplaner.pl@gmail.com", recipient_list=[instance.user.email],
+                      html_message=msg_html)
         instance.new_date = user_profile.validity_date
         user_profile.save()
         instance.save()
-
