@@ -3,15 +3,38 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-
+<div class="fixed-scrollbar-container">
 <div class="container-md py-5" style="min-height: 70vh; max-width:1000px !important;">
-        <h2>{% trans 'Settings' %}</h2>
-    <h4 class="mt-3">1. <span class="font-teal">{% trans 'Username: ' %}</span> {{user.username}}</h4>
-    <h4 class="mt-3">2. <span class="font-teal">{% trans 'Email address: ' %}</span> {{user.email}}</h4>
-    <small class="form-text text-muted">{% trans 'Hint: Contact with admin to change your email address. ' %}</small>
-    <h4 class="mt-3">3. <span class="font-teal">{% trans 'Password: ' %}</span> <a href="{% url 'password_change' %}">{% trans 'Reset my password' %}</a></h4>
-    <h4 class="mt-3">4. <span class="font-teal">{% trans 'Server: ' %}</span> {{user.profile.server.dns}}</a></h4>
-    
+
+    <h3>Moje ustawienia</h3>
+    <table class="table table-bordered my-3 mt-4" style="width: min-content;">
+        <tbody>
+            <tr>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Username' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">{{user.username}}</th>
+
+            </tr>
+            <tr>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Email address ' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">{{user.email}}</th>
+
+            </tr>
+            <tr>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Password ' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap"><a href="{% url 'password_change' %}">{% trans 'Reset my password' %}</a></th>
+            </tr>
+            <tr>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Server ' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">{{user.profile.server.dns}}</th>
+            </tr>
+            <tr>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Premium ' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap"><a href="{% url 'base:premium' %}">{% trans 'Nieaktywne' %}</a></th>
+            </tr>
+
+        </tbody>
+    </table>
+    <small class="form-text text-muted">{% trans 'Contact with admin to change your email address. ' %}</small>
     <form method="POST" autocomplete="off" class="mt-4">
         <input type="hidden" value="" name="form1">
         {% csrf_token %}
@@ -20,7 +43,10 @@
             {% trans 'Set server' %}
         </button>
     </form>
+
+    
 </div>
+</div> 
 
 
 {% endblock %}

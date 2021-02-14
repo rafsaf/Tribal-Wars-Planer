@@ -12,6 +12,11 @@ admin.site.register(models.PeriodModel)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
 
+@admin.register(models.Payment)
+class AdminPaymentModel(admin.ModelAdmin):
+    list_display = ["user", "amount", "payment_date", "new_date"]
+    search_fields = ["user__username"]
+
 @admin.register(models.OutlineOverview)
 class AdminOutlineOverview(admin.ModelAdmin):
     list_display = ["pk", "outline",]

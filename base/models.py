@@ -1,5 +1,6 @@
 """ Database models """
 import datetime
+from dateutil.relativedelta import relativedelta
 
 import django
 from django.utils.translation import gettext_lazy, gettext
@@ -25,6 +26,7 @@ class Server(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     server = models.ForeignKey(Server, on_delete=models.SET_NULL, null=True, default=None)
+    validity_date = models.DateField(default=None, blank=True, null=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -560,4 +562,36 @@ class WeightModelOverview(models.Model):
 
     def __str__(self):
         return self.start
+
+class Payment(models.Model):
+    """ Represents real payment, only superuser access """
+    STATUS = [
+        ("finished", gettext_lazy("Finished")),
+        ("returned", gettext_lazy("Returned")),
+    ]
+    status = models.CharField(max_length=30, choices=STATUS, default="finished")
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    amount = models.IntegerField()
+    payment_date = models.DateField()
+    months = models.IntegerField(default=1)
+    comment = models.CharField(max_length=150, default="", blank=True)
+    new_date = models.DateField(default=None, null=True, blank=True)
+
+@receiver(post_save, sender=Payment)
+def create_user_profile(sender, instance: Payment, created, **kwargs):
+    if created:
+        user_profile: Profile = instance.user.profile
+        current_date = instance.payment_date
+        relative_months = relativedelta(months=instance.months)
+        day = relativedelta(days=1)
+        if user_profile.validity_date is None:
+            user_profile.validity_date = current_date + relative_months + day
+        elif user_profile.validity_date <= current_date:
+            user_profile.validity_date = current_date + relative_months + day
+        else:
+            user_profile.validity_date = user_profile.validity_date + relative_months + day
+        
+        instance.new_date = user_profile.validity_date
+        user_profile.save()
+        instance.save()
 

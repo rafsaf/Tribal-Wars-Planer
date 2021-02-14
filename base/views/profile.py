@@ -44,5 +44,6 @@ def profile_settings(request):
 @login_required
 def premium_view(request):
     user = request.user
-    context = {"user": user}
+    payments = models.Payment.objects.filter(user=user).order_by("-payment_date")
+    context = {"user": user, "payments": payments}
     return render(request, "base/user/premium.html", context=context)
