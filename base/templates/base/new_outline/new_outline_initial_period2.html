@@ -89,9 +89,8 @@
           </tr>
         </tbody>
       </table>
-    {% with query.number as page_num %}
-    {% with query.paginator.num_pages as num_pages %}
-    <nav aria-label="pagination" id="pagination" class="mt-3 mb-2">
+
+    <nav aria-label="pagination" id="pagination" class="mt-3">
         <ul class="pagination" >
             <li class="page-item mr-1">
                 <button type="button" style="height: 48px;min-width:150px;" class="text-nowrap btn btn-secondary btn-lg" data-toggle="modal"
@@ -101,20 +100,6 @@
                   </svg> {% trans 'Go back' %}</b>
             </button>
             </li>
-            {% if mode == 'time' %}
-            <li class="page-item mr-1">
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" value="" name="form-finish">
-                    <button onclick="this.disabled=true;this.form.submit();" style="height: 48px;border-radius: 0 !important;" class="text-nowrap btn btn-ocean btn-lg" data-toggle="modal"
-                    data-target="#ValidationModal">
-                    <b><svg xmlns="http://www.w3.org/2000/svg" width="25" height="35" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                      </svg> {% trans 'Finish the Outline' %}</b>
-                    </button>
-                </form>
-            </li>
-            {% endif %}
             <li class="page-item ml-1">
                 {% if mode == 'add_and_remove' %}
                 <a href="?page=1&mode=add_and_remove" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px"
@@ -193,27 +178,56 @@
                     </svg></a> 
                 {% endif %}
             </li>
-        {% for n in query.paginator.page_range %}
-          {% if page_num|add:'-3' == n %}
-            <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page=1&mode={{mode}}"><h4>1</h4></a></li>
-            {% if n != 1 %}
-              <li class="page-item disabled"><a class="page-link" style="height:48px;width:45px"><h4>&#8943;</h4></a></li>
+            {% if mode == 'time' %}
+            <li class="page-item mr-1">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" value="" name="form-finish">
+                    <button onclick="this.disabled=true;this.form.submit();" style="height: 48px;border-radius: 0 !important;" class="text-nowrap btn btn-ocean btn-lg" data-toggle="modal"
+                    data-target="#ValidationModal">
+                    <b><svg xmlns="http://www.w3.org/2000/svg" width="25" height="35" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                      </svg> {% trans 'Finish the Outline' %}</b>
+                    </button>
+                </form>
+            </li>
             {% endif %}
-          {% elif page_num == n %}
-            <li class="page-item"><a class="page-link" style="height:48px;width:45px;background-color: teal!important;color: white !important;" href="?page={{page_num}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
-          {% elif page_num|add:'-3' < n and n < page_num|add:'3' %}
-            <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page={{n}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
-          {% elif page_num|add:'3' == n %}
-            {% if n != num_pages %}
-              <li class="page-item disabled"><a class="page-link" style="height:48px;width:45px"><h4>&#8943;</h4></a></li>
-            {% endif %}
-            <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page={{num_pages}}&mode={{mode}}"><h4>{{ num_pages }}</h4></a></li>
-          {% endif %}
-        {% endfor %}
         </ul>
     </nav>
-    {% endwith %}
-    {% endwith %}
+    {% endblock %}
+    {% block outline_navigation %}
+    <div class="container-fluid" style="margin-left: -15px;margin-right:-15px;">
+    <div class="row mt-2 mb-0">
+    <div class="col-0 col-md-6 col-xl-7"></div>
+    <div class="col-auto">
+    <nav aria-label="pagination_nav" id="pagination_nav">
+        <ul class="pagination" >
+            {% with query.number as page_num %}
+            {% with query.paginator.num_pages as num_pages %}
+            {% for n in query.paginator.page_range %}
+              {% if page_num|add:'-3' == n %}
+                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page=1&mode={{mode}}"><h4>1</h4></a></li>
+                {% if n != 1 %}
+                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:45px"><h4>&#8943;</h4></a></li>
+                {% endif %}
+              {% elif page_num == n %}
+                <li class="page-item"><a class="page-link" style="height:48px;width:45px;background-color: teal!important;color: white !important;" href="?page={{page_num}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
+              {% elif page_num|add:'-3' < n and n < page_num|add:'3' %}
+                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page={{n}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
+              {% elif page_num|add:'3' == n %}
+                {% if n != num_pages %}
+                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:45px"><h4>&#8943;</h4></a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page={{num_pages}}&mode={{mode}}"><h4>{{ num_pages }}</h4></a></li>
+              {% endif %}
+            {% endfor %}
+            {% endwith %}
+            {% endwith %}
+        </ul>
+    </nav>
+    </div>
+    </div>
+    </div>
     {% endblock %}
     <div class="conatiner-fluid" style="width: min-content;">
         <table class="table table-sm table-bordered">

@@ -61,7 +61,7 @@
     </table>
 
 
-    <table class="table table-bordered my-3 mt-4" style="width: min-content;">
+    <table class="table table-sm table-bordered mb-4 mt-2" style="width: min-content;">
         <thead>
             <tr>
                 <th rowspan="2" style="min-width: 25vh;" class="text-nowrap">{% trans 'Delete Targets below' %}</th>
@@ -84,8 +84,10 @@
 
         </thead>
     </table>
-
-    <table class="table table-sm table-bordered mt-4" style="width:min-content">
+    {% block outline_navigation %}
+    {{block.super}}
+    {% endblock %}
+    <table class="table table-sm table-bordered" style="width:min-content">
         <thead>
             <tr>
                 <th scope="col">{% trans 'Target' %}</th>

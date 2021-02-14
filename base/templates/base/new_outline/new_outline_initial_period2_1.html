@@ -24,7 +24,7 @@
     {{block.super}}
     {% endblock %}
 
-    <table class="table table-sm table-bordered my-3 mt-4" style="width: min-content;">
+    <table class="table table-sm table-bordered my-2 mt-3" style="width: min-content;">
         <thead>
             <tr>
                 <th style="min-width: 15vh;" class="text-nowrap">{% trans 'Type of order' %}</th>
@@ -108,7 +108,7 @@
 
     <div class="container-fluid" style="margin-left:-13px;margin-right:-13px">
     <div class="row">
-    <div class="col-12 col-lg-7">
+    <div class="col-12 col-lg-7 mt-2">
             <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"
                 integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA=="
@@ -162,7 +162,7 @@
         </form>
 
     </div>
-    <div class="col-12 col-lg-5">
+    <div class="col-12 col-lg-5 mt-2">
         <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
             {% for time in outline_time %}
             <li class="nav-item">
@@ -263,7 +263,10 @@
         </div>
     </div>
     </div>
-    <table class="table table-sm table-bordered mt-4" style="width:min-content">
+    {% block outline_navigation %}
+    {{block.super}}
+    {% endblock %}
+    <table class="table table-sm table-bordered" style="width:min-content">
         <thead>
             <tr>
                 <th scope="col">{% trans 'Target' %}</th>

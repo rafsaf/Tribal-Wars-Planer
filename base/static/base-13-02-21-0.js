@@ -383,68 +383,11 @@ const handleAllFormsetSelect = () => {
   });
 }
 
-const handleButtonClicks = (save, processing, armyUpdate, reloading) => {
-  document.addEventListener("DOMContentLoaded", function () {
-      const buttonForm1 = document.getElementById("form1-btn")
-      const buttonFormComplete = document.getElementById("form-complete-btn")
-      const buttonFormUpdate = document.getElementById("form-update-btn")
-      const buttonForm2 = document.getElementById("form2-btn")
-      const buttonForm3 = document.getElementById("form3-btn")
-      const buttonForm4 = document.getElementById("form4-btn")
-      const buttonFormset = document.getElementById("formset-btn")
-
-      buttonForm1.onclick = () => {
-      buttonForm1.disabled = true
-      buttonFormComplete.disabled = true
-      buttonForm1.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${save}`
-      const form1 = document.getElementById("form1-form")
-      form1.submit()
-      }
-
-      buttonFormComplete.onclick = () => {
-      buttonForm1.disabled = true
-      buttonFormComplete.disabled = true
-      buttonFormComplete.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${processing}`
-      const formComplete = document.getElementById("form-complete")
-      formComplete.submit()
-      }
-
-      buttonFormUpdate.onclick = () => {
-      buttonFormUpdate.disabled = true
-      buttonForm2.disabled = true
-
-      buttonFormUpdate.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${armyUpdate}`
-      const formUpdate = document.getElementById("form-update")
-      formUpdate.submit()
-      }
-
-      buttonForm2.onclick = () => {
-      buttonFormUpdate.disabled = true
-      buttonForm2.disabled = true
-
-      buttonForm2.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${reloading}`
-      const form2 = document.getElementById("form2-form")
-      form2.submit()
-      }
-      buttonForm3.onclick = () => {
-      buttonForm3.disabled = true
-      buttonForm3.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${save}`
-      const form3 = document.getElementById("form3-form")
-      form3.submit()
-      }
-      buttonForm4.onclick = () => {
-      buttonForm4.disabled = true
-      buttonForm4.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${save}`
-      const form4 = document.getElementById("form4-form")
-      form4.submit()
-      }
-      buttonFormset.onclick = () => {
-      buttonFormset.disabled = true
-      buttonFormset.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${save}`
-      const formset = document.getElementById("formset-form")
-      formset.submit()
-      }
-  });
+const handleClickButton = (element, message, formId) => {
+    element.disabled = true;
+    element.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${message}`;
+    const form = document.getElementById(formId);
+    form.submit();
 }
 
 function getCookie(name) {
@@ -545,6 +488,7 @@ const submitGoBackButton = (text) => {
 }
 
 const activateFixedScrollbarContainer = () => {
+    document.addEventListener("DOMContentLoaded", function (event) {
     $(function($) {
         var fixedBarTemplate = '<div class="fixed-scrollbar"><div></div></div>';
         var fixedBarCSS = { display: 'none', overflowX: 'scroll', position: 'fixed', width: '100%', bottom: 0 };
@@ -603,7 +547,7 @@ const activateFixedScrollbarContainer = () => {
         });
 
         $(window).trigger("scroll.fixedbar");
-    });
+    });});
 }
 
 const changeIsHiddenState = async (outline_id, token) => {
@@ -635,4 +579,22 @@ const changeIsHiddenState = async (outline_id, token) => {
         overview.blur();
 
     }
+}
+
+
+const codemirrorValidation = (json_errors, selectorClass) => {
+    document.addEventListener("DOMContentLoaded", function(event) {
+        $(selectorClass).addClass('CodeMirror-Invalid');
+        const codemirror = $(selectorClass);
+        const codeMirrorEditor = codemirror[0].CodeMirror;
+        const errors = JSON.parse(json_errors)
+        
+        Object.entries(errors).forEach(([key, value], index) => {
+            if (index === 0) {
+                codeMirrorEditor.scrollIntoView(parseInt(value.message));
+            }
+            codeMirrorEditor.addLineClass(parseInt(value.message), 'wrap', 'line-error');
+        });
+    });
+
 }

@@ -4,8 +4,8 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-<script src="{% static 'codemirror.js' %}"></script>
-<link rel="stylesheet" href="{% static 'codemirror.css' %}">
+<script src="{% static 'codemirror-min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
 <div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
     <div class="col-12 col-lg-7">
         <div class=" w-100">
@@ -34,7 +34,7 @@
             }
             
             .t-tab-teal:hover {
-              box-shadow: 0 -3px 0 0 hsl(24, 7%, 29%);
+              box-shadow: 0 -3px 0 0 hsl(219, 1%, 72%);;
             }
             
             .t-tab-teal.t-tab-teal.t-tab-teal-active {
@@ -113,27 +113,8 @@
                 {% endif %}
                 {{ form1.target }} 
                 {% if form1.target.errors %}
-                 {% for error in form1.target.errors %} {% if forloop.first %}
+                <script>codemirrorValidation(`{{form1.target.errors.as_json|safe}}`, `.CodeMirror`);</script>
                 
-                <script>
-                    document.addEventListener("DOMContentLoaded", function(event) {
-                        $('.CodeMirror').addClass('CodeMirror-Invalid');
-                        codemirror = $('.CodeMirror');
-                        var codeMirrorEditor = codemirror[0].CodeMirror;
-                        codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                        codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
-                    });
-                </script>
-                {% else %}
-                <script>
-                    document.addEventListener("DOMContentLoaded", function(event) {
-                        codemirror = $('.CodeMirror');
-                        var codeMirrorEditor = codemirror[0].CodeMirror;
-                        codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                    });
-                </script>
-                {% endif %} 
-                {% endfor %}
                 <div class="error-text">
                     <p>
                     {% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}<br><br>
@@ -167,10 +148,10 @@
 
                 <div class="btn-group my-3">
 
-                <button id="form1-btn" class="btn btn-ocean"> {% trans 'Save targets' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`);" id="form1-btn" class="btn btn-ocean"> {% trans 'Save targets' %}</button>
 
                 
-                  <button id="form-complete-btn" class="btn btn-outline-ocean">
+                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`);" id="form-complete-btn" class="btn btn-outline-ocean">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
                     </svg>
@@ -249,7 +230,7 @@
                         <div class="card-body">
 
                           <form id="form-update" action="{% url 'base:planer_update_troops' instance.id %}">
-                            <button id="form-update-btn" class="btn btn-outline-ocean mb-3">
+                            <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-update`);" id="form-update-btn" class="btn btn-outline-ocean mb-3">
                               <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
                               <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
@@ -270,7 +251,7 @@
                             <input type="hidden" name="form2" value=""/>
                             {% csrf_token %}
                           {{form2|crispy}}
-                          <button class="btn btn-sm btn-ocean" id="form2-btn" >
+                          <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`);" class="btn btn-sm btn-ocean" id="form2-btn" >
                             {% trans 'Save and reload troops' %}
                           </button>
                           </form>
@@ -278,9 +259,6 @@
                         </div>
                       </div>
                     </div>
-
-
-
 
                     <div class="card">
                       <div class="card-header" id="headingTwo">
@@ -309,16 +287,12 @@
                             <input type="hidden" name="form3" value="">
                             {% csrf_token %}
                           {{form3|crispy}}
-                          <button class="btn btn-sm btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
+                          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-sm btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
                           </form>
 
                         </div>
                       </div>
                     </div>
-
-
-
-
 
                     <div class="card">
                       <div class="card-header" id="headingThree">
@@ -385,7 +359,7 @@
                             <input type="hidden" name="form4" value="">
                             {% csrf_token %}
                             {{ form4|crispy }}
-                          <button class="btn btn-sm btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
+                          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form4-form`);" class="btn btn-sm btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
                           </form>
                         </div>
                       </div>
@@ -602,7 +576,7 @@
                           
                           
                         </div>
-                        <button id="formset-btn" class="btn btn-ocean mt-4">{% trans 'Save' %}</button>
+                        <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`formset-form`);" id="formset-btn" class="btn btn-ocean mt-4">{% trans 'Save' %}</button>
                           </form>
                           {% endif %}
                         </div>
@@ -640,16 +614,12 @@
                             <input type="hidden" name="form5" value="">
                             {% csrf_token %}
                           {{form5|crispy}}
-                          <button class="btn btn-sm btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
+                          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form5-form`);" class="btn btn-sm btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
                           </form>
 
                         </div>
                       </div>
                     </div>
-                    
-
-
-
 
                   </div>
         <div class="d-block d-lg-none mb-4"></div>
@@ -678,90 +648,10 @@
         </div>
     </div>
     
+    <script>var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});</script>
     <script>
-      const buttonForm1 = document.getElementById("form1-btn")
-      const buttonFormComplete = document.getElementById("form-complete-btn")
-      const buttonFormUpdate = document.getElementById("form-update-btn")
-      const buttonForm2 = document.getElementById("form2-btn")
-      const buttonForm3 = document.getElementById("form3-btn")
-      const buttonForm4 = document.getElementById("form4-btn")
-      const buttonForm5 = document.getElementById("form5-btn")
-      const buttonFormset = document.getElementById("formset-btn")
-
-      buttonForm1.onclick = () => {
-        buttonForm1.disabled = true
-        buttonFormComplete.disabled = true
-        buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const form1 = document.getElementById("form1-form")
-        form1.submit()
-      }
-
-      buttonFormComplete.onclick = () => {
-        buttonForm1.disabled = true
-        buttonFormComplete.disabled = true
-        buttonFormComplete.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
-        const formComplete = document.getElementById("form-complete")
-        formComplete.submit()
-      }
-
-      buttonFormUpdate.onclick = () => {
-        buttonFormUpdate.disabled = true
-        buttonForm2.disabled = true
-
-        buttonFormUpdate.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Updating Army data...' %}"
-        const formUpdate = document.getElementById("form-update")
-        formUpdate.submit()
-      }
-
-      buttonForm2.onclick = () => {
-        buttonFormUpdate.disabled = true
-        buttonForm2.disabled = true
-
-        buttonForm2.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Reloading troops...' %}"
-        const form2 = document.getElementById("form2-form")
-        form2.submit()
-      }
-      buttonForm3.onclick = () => {
-        buttonForm3.disabled = true
-        buttonForm3.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const form3 = document.getElementById("form3-form")
-        form3.submit()
-      }
-      buttonForm4.onclick = () => {
-        buttonForm4.disabled = true
-        buttonForm4.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const form4 = document.getElementById("form4-form")
-        form4.submit()
-      }
-      buttonForm5.onclick = () => {
-        buttonForm5.disabled = true
-        buttonForm5.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const form5 = document.getElementById("form5-form")
-        form5.submit()
-      }
-      buttonFormset.onclick = () => {
-        buttonFormset.disabled = true
-        buttonFormset.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const formset = document.getElementById("formset-form")
-        formset.submit()
-      }
-
+      activateTooltips();
     </script>
-
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {
-            lineNumbers: true,
-        });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function (event) {
-          $('.popoverData').popover();
-      });
-      $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
-        })
-  </script>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 {% endblock %}
