@@ -578,7 +578,7 @@ class Payment(models.Model):
     new_date = models.DateField(default=None, null=True, blank=True)
 
 @receiver(post_save, sender=Payment)
-def create_user_profile(sender, instance: Payment, created, **kwargs):
+def handle_payment(sender, instance: Payment, created, **kwargs):
     if created:
         user_profile: Profile = instance.user.profile
         current_date = instance.payment_date
