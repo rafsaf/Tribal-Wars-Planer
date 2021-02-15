@@ -9,12 +9,13 @@ from base import models
 
 class WriteTarget:
     def __init__(
-        self, target: models.TargetVertex, outline: models.Outline, world: models.World
+        self, target: models.TargetVertex, outline: models.Outline, world: models.World, ruin=False
     ):
-        self.target = target
+        self.target: models.TargetVertex = target
         self.x_coord = target.coord_tuple()[0]
         self.y_coord = target.coord_tuple()[1]
-        self.outline = outline
+        self.outline: models.Outline = outline
+        self.ruin = ruin
         self.end_up_offs = False
         self.end_up_nobles = False
         self.index = 0
@@ -180,12 +181,19 @@ class WriteTarget:
         weights_max_update_lst = []
         weights_create_lst = []
 
+        weight_max: models.WeightMaximum
         for i, weight_max in enumerate(self.sorted_weights_offs()):
             if self.target.fake:
                 off = 100
                 fake_limit = 1
+                catapult=0
+            elif self.ruin:
+                off = self.outline.initial_outline_catapult_default * 8
+                catapult = self.outline.initial_outline_catapult_default
+                fake_limit = 0
             else:
                 off = weight_max.off_left
+                catapult = weight_max.catapult_left
                 fake_limit = 0
 
             weight = models.WeightModel(
@@ -194,6 +202,8 @@ class WriteTarget:
                 start=weight_max.start,
                 state=weight_max,
                 off=off,
+                catapult=catapult,
+                ruin=self.ruin,
                 distance=weight_max.distance,
                 nobleman=0,
                 order=i + self.index,
@@ -202,6 +212,8 @@ class WriteTarget:
 
             weight_max.off_state += off
             weight_max.off_left -= off
+            weight_max.catapult_state += catapult
+            weight_max.catapult_left -= catapult
             weight_max.fake_limit -= fake_limit
 
             weights_create_lst.append(weight)
@@ -220,6 +232,11 @@ class WriteTarget:
                 outline=self.outline,
                 off_left__gte=self.outline.initial_outline_min_off,
             )
+        elif self.ruin:
+            default_off_query = models.WeightMaximum.objects.filter(
+                outline=self.outline,
+                catapult_left__gte=self.outline.initial_outline_catapult_default,
+            )  
         else:
             default_off_query = models.WeightMaximum.objects.filter(
                 outline=self.outline,
@@ -258,6 +275,8 @@ class WriteTarget:
 
         if self.target.mode_off == "closest":
             self.index = 30000
+            if self.ruin:
+                self.index += 40000
             weight_list = default_off_query.order_by("distance")[
                 : 2 * self.target.required_off
             ]
@@ -270,6 +289,8 @@ class WriteTarget:
 
         if self.target.mode_off == "close":
             self.index = 20000
+            if self.ruin:
+                self.index += 40000
             if self.target.night_bonus:
                 weight_list = list(
                     default_off_query.filter(
@@ -297,6 +318,8 @@ class WriteTarget:
 
         if self.target.mode_off == "random":
             self.index = 10000
+            if self.ruin:
+                self.index += 40000
             if self.target.night_bonus:
                 weight_list = list(
                     default_off_query.filter(
@@ -346,6 +369,8 @@ class WriteTarget:
 
         if self.target.mode_off == "far":
             self.index = 0
+            if self.ruin:
+                self.index += 40000
             if self.target.night_bonus:
                 weight_list = list(
                     default_off_query.filter(
@@ -391,7 +416,7 @@ class WriteTarget:
 
         if self.target.mode_noble == "finished_back":
             # after there is no nobles back, take front nobles
-            self.index = 70000
+            self.index = 120000
             weight_list = default_noble_query.order_by("-distance")[:10]
             return sorted(
                 weight_list,
@@ -399,7 +424,7 @@ class WriteTarget:
             )
 
         if self.target.mode_noble == "closest":
-            self.index = 80000
+            self.index = 110000
             weight_list = default_noble_query.order_by("distance")[:10]
             return sorted(
                 weight_list,
@@ -407,7 +432,7 @@ class WriteTarget:
             )
 
         if self.target.mode_noble == "close":
-            self.index = 60000
+            self.index = 100000
             weight_list = list(
                 default_noble_query.filter(
                     first_line=False,
@@ -420,7 +445,7 @@ class WriteTarget:
             )
 
         if self.target.mode_noble == "random":
-            self.index = 50000
+            self.index = 90000
             weight_list = list(
                 default_noble_query.filter(
                     first_line=False,
@@ -433,7 +458,7 @@ class WriteTarget:
             )
 
         if self.target.mode_noble == "far":
-            self.index = 40000
+            self.index = 80000
             weight_list = list(
                 default_noble_query.filter(
                     first_line=False,

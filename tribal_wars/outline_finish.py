@@ -47,7 +47,7 @@ def make_final_outline(outline: models.Outline):
 
         for target, lst in weights_dict.items():
 
-            json_weights[target.target] = list()
+            json_weights[target.pk] = list()
 
             periods_list = target_period_dict[target]
             from_period = period_utils.FromPeriods(
@@ -61,13 +61,14 @@ def make_final_outline(outline: models.Outline):
                     ally_id=village_id[weight.start],
                     enemy_id=village_id[weight.target.target],
                     fake=target.fake,
+                    ruin=weight.ruin,
                     deputy=player_id[weight.player],
                 )
 
                 weight.t1 = weight.t1.time()
                 weight.t2 = weight.t2.time()
 
-                json_weights[target.target].append(
+                json_weights[target.pk].append(
                     model_to_dict(
                         weight,
                         fields=[
@@ -75,6 +76,8 @@ def make_final_outline(outline: models.Outline):
                             "player",
                             "off",
                             "nobleman",
+                            "catapult",
+                            "ruin",
                             "distance",
                             "t1",
                             "t2",

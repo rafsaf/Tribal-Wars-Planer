@@ -41,11 +41,11 @@ def make_outline(outline: models.Outline, target_mode: basic.TargetMode = None):
 
         # Create targets depend of target mode
         if target_mode.is_real:
-            user_input: str = outline.initial_outline_targets.strip()
+            user_input: str = outline.initial_outline_targets
         elif target_mode.is_fake:
-            user_input: str = outline.initial_outline_fakes.strip()
+            user_input: str = outline.initial_outline_fakes
         else:
-            user_input: str = outline.initial_outline_ruins.strip()
+            user_input: str = outline.initial_outline_ruins
 
         targets = input_target.TargetsGeneralInput(
             outline_targets=user_input,
@@ -61,10 +61,13 @@ def make_outline(outline: models.Outline, target_mode: basic.TargetMode = None):
 def complete_outline(outline: models.Outline):
     """Auto write out outline """
     world: models.World = outline.world
-    targets = models.TargetVertex.objects.filter(outline=outline, fake=False).order_by(
+    targets = models.TargetVertex.objects.filter(outline=outline, fake=False, ruin=False).order_by(
         "id"
     )
-    fakes = models.TargetVertex.objects.filter(outline=outline, fake=True).order_by(
+    fakes = models.TargetVertex.objects.filter(outline=outline, fake=True, ruin=False).order_by(
+        "id"
+    )
+    ruins = models.TargetVertex.objects.filter(outline=outline, fake=False, ruin=True).order_by(
         "id"
     )
     modes_list = ["closest", "close", "random", "far"]
@@ -96,6 +99,33 @@ def complete_outline(outline: models.Outline):
         if parsed.end_up_offs:
             break
 
+    target: models.TargetVertex
+    for target in ruins:
+        if leave:
+            break
+
+        if target.required_noble == 0:
+            if len(target.exact_noble) == 4:
+                for required_off, mode in zip(
+                    target.exact_noble, modes_list
+                ):  # closest, close, random, far
+                    if required_off == 0:
+                        continue
+                    target.required_off = required_off
+                    target.mode_off = mode
+
+                    parsed = write_out_outline.WriteTarget(target, outline, world, ruin=True)
+                    parsed.write_ram()
+                    if parsed.end_up_offs:
+                        leave = True
+                        break
+            continue
+
+        parsed = write_out_outline.WriteTarget(target, outline, world, ruin=True)
+        parsed.write_ram()
+        if parsed.end_up_offs:
+            break
+
     for target in targets:
         if target.required_noble == 0:
             if len(target.exact_noble) == 4:
@@ -117,6 +147,32 @@ def complete_outline(outline: models.Outline):
 
     leave = False
     for target in targets:
+        if leave:
+            break
+
+        if target.required_off == 0:
+            if len(target.exact_off) == 4:
+                for required_off, mode in zip(
+                    target.exact_off, modes_list
+                ):  # closest, close, random, far
+                    if required_off == 0:
+                        continue
+                    target.required_off = required_off
+                    target.mode_off = mode
+
+                    parsed = write_out_outline.WriteTarget(target, outline, world)
+                    parsed.write_ram()
+                    if parsed.end_up_offs:
+                        leave = True
+                        break
+            continue
+
+        parsed = write_out_outline.WriteTarget(target, outline, world)
+        parsed.write_ram()
+        if parsed.end_up_offs:
+            break
+
+    for target in ruins:
         if leave:
             break
 

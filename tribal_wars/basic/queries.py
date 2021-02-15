@@ -33,11 +33,13 @@ class TargetWeightQueries:
 
     def targets_json_format(self):
         context = {}
+        target: models.TargetVertex
         for target in self.targets:
-            context[target.target] = {
+            context[target.pk] = {
                 "target": target.target,
                 "player": target.player,
                 "fake": target.fake,
+                "ruin": target.ruin,
             }
         return json.dumps(context)
 
