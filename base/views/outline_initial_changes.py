@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Max, Min
 
 from base import models
-from base import forms
 from tribal_wars import basic
 
 
@@ -24,9 +23,9 @@ def initial_add_first(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Min("order")
-            )["order__min"]
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
             - 1
         )
     models.WeightModel.objects.create(
@@ -39,9 +38,7 @@ def initial_add_first(request, id1, id2, id3):
         nobleman=weight.nobleman_left,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
@@ -71,9 +68,9 @@ def initial_add_first_off(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Min("order")
-            )["order__min"]
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
             - 1
         )
     models.WeightModel.objects.create(
@@ -86,9 +83,7 @@ def initial_add_first_off(request, id1, id2, id3):
         nobleman=0,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
@@ -116,9 +111,9 @@ def initial_add_first_ruin(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Min("order")
-            )["order__min"]
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
             - 1
         )
     if weight.catapult_left > 0:
@@ -138,9 +133,7 @@ def initial_add_first_ruin(request, id1, id2, id3):
             nobleman=0,
             order=order,
             distance=round(
-                basic.Village(target.target).distance(
-                    basic.Village(weight.start)
-                ),
+                basic.Village(target.target).distance(basic.Village(weight.start)),
                 1,
             ),
             first_line=weight.first_line,
@@ -155,6 +148,7 @@ def initial_add_first_ruin(request, id1, id2, id3):
         + f"?page={page}&sort={sort}"
     )
 
+
 @require_POST
 @login_required
 def initial_add_first_fake(request, id1, id2, id3):
@@ -167,9 +161,9 @@ def initial_add_first_fake(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Min("order")
-            )["order__min"]
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
             - 1
         )
 
@@ -191,7 +185,6 @@ def initial_add_first_fake(request, id1, id2, id3):
             nobles = 0
             army = 8 * catapult + off_else
 
-
     models.WeightModel.objects.create(
         target=target,
         player=weight.player,
@@ -202,9 +195,7 @@ def initial_add_first_fake(request, id1, id2, id3):
         nobleman=nobles,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
@@ -220,6 +211,8 @@ def initial_add_first_fake(request, id1, id2, id3):
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}"
     )
+
+
 @require_POST
 @login_required
 def initial_add_first_fake_noble(request, id1, id2, id3):
@@ -232,9 +225,9 @@ def initial_add_first_fake_noble(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Min("order")
-            )["order__min"]
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
             - 1
         )
     if weight.nobleman_left > 0:
@@ -252,9 +245,7 @@ def initial_add_first_fake_noble(request, id1, id2, id3):
             nobleman=nobles,
             order=order,
             distance=round(
-                basic.Village(target.target).distance(
-                    basic.Village(weight.start)
-                ),
+                basic.Village(target.target).distance(basic.Village(weight.start)),
                 1,
             ),
             first_line=weight.first_line,
@@ -268,6 +259,7 @@ def initial_add_first_fake_noble(request, id1, id2, id3):
         + f"?page={page}&sort={sort}"
     )
 
+
 @require_POST
 @login_required
 def initial_add_last_fake(request, id1, id2, id3):
@@ -280,9 +272,9 @@ def initial_add_last_fake(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Max("order")
-            )["order__max"]
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
             + 1
         )
 
@@ -304,7 +296,6 @@ def initial_add_last_fake(request, id1, id2, id3):
             nobles = 0
             army = 8 * catapult + off_else
 
-
     models.WeightModel.objects.create(
         target=target,
         player=weight.player,
@@ -315,9 +306,7 @@ def initial_add_last_fake(request, id1, id2, id3):
         nobleman=nobles,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
@@ -334,6 +323,7 @@ def initial_add_last_fake(request, id1, id2, id3):
         + f"?page={page}&sort={sort}"
     )
 
+
 @require_POST
 @login_required
 def initial_add_last_fake_noble(request, id1, id2, id3):
@@ -346,9 +336,9 @@ def initial_add_last_fake_noble(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Max("order")
-            )["order__max"]
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
             + 1
         )
     if weight.nobleman_left > 0:
@@ -366,9 +356,7 @@ def initial_add_last_fake_noble(request, id1, id2, id3):
             nobleman=nobles,
             order=order,
             distance=round(
-                basic.Village(target.target).distance(
-                    basic.Village(weight.start)
-                ),
+                basic.Village(target.target).distance(basic.Village(weight.start)),
                 1,
             ),
             first_line=weight.first_line,
@@ -395,9 +383,9 @@ def initial_add_last_ruin(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Max("order")
-            )["order__max"]
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
             + 1
         )
     if weight.catapult_left > 0:
@@ -417,9 +405,7 @@ def initial_add_last_ruin(request, id1, id2, id3):
             nobleman=0,
             order=order,
             distance=round(
-                basic.Village(target.target).distance(
-                    basic.Village(weight.start)
-                ),
+                basic.Village(target.target).distance(basic.Village(weight.start)),
                 1,
             ),
             first_line=weight.first_line,
@@ -448,9 +434,9 @@ def initial_add_last_off(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Max("order")
-            )["order__max"]
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
             + 1
         )
     models.WeightModel.objects.create(
@@ -463,9 +449,7 @@ def initial_add_last_off(request, id1, id2, id3):
         nobleman=0,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
@@ -481,6 +465,7 @@ def initial_add_last_off(request, id1, id2, id3):
         + f"?page={page}&sort={sort}"
     )
 
+
 @require_POST
 @login_required
 def initial_add_last(request, id1, id2, id3):
@@ -493,9 +478,9 @@ def initial_add_last(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Max("order")
-            )["order__max"]
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
             + 1
         )
     models.WeightModel.objects.create(
@@ -508,9 +493,7 @@ def initial_add_last(request, id1, id2, id3):
         nobleman=weight.nobleman_left,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
@@ -556,7 +539,6 @@ def initial_move_down(request, id1, id2, id4):
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}"
     )
-
 
 
 @login_required
@@ -620,9 +602,9 @@ def initial_divide(request, id1, id2, id4, n):
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
-    weight: models.WeightModel = models.WeightModel.objects.select_related("state").filter(
-        pk=id4
-    )[0]
+    weight: models.WeightModel = models.WeightModel.objects.select_related(
+        "state"
+    ).filter(pk=id4)[0]
     n_list = [i + 1 for i in range(n - 1)]
     nob_list = [i for i in range(max(weight.nobleman - 1, 0))]
     if n > weight.nobleman:
@@ -687,9 +669,7 @@ def delete_target(request, id1, id2):
     mode = request.GET.get("mode")
 
     target: models.TargetVertex = models.TargetVertex.objects.get(pk=id2)
-    weights = models.WeightModel.objects.select_related("state").filter(
-        target=target
-    )
+    weights = models.WeightModel.objects.select_related("state").filter(target=target)
     # deletes weights related to this target and updates weight state
 
     weight_model: models.WeightModel
@@ -707,8 +687,7 @@ def delete_target(request, id1, id2):
     target.delete()
 
     return redirect(
-        reverse("base:planer_initial", args=[id1])
-        + f"?page={page}&mode={mode}"
+        reverse("base:planer_initial", args=[id1]) + f"?page={page}&mode={mode}"
     )
 
 
