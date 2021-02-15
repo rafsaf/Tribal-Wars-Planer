@@ -249,6 +249,10 @@ class Outline(models.Model):
     initial_outline_fakes = models.TextField(blank=True, default="")
     initial_outline_ruins = models.TextField(blank=True, default="")
 
+    initial_outline_catapult_default = models.IntegerField(
+        default=40,
+        validators=[MinValueValidator(10), MaxValueValidator(200)]
+    )
     initial_outline_min_off = models.IntegerField(
         default=19000,
         validators=[MinValueValidator(1), MaxValueValidator(28000)],
@@ -400,16 +404,19 @@ class WeightMaximum(models.Model):
     x_coord = models.IntegerField(default=0)
     y_coord = models.IntegerField(default=0)
     player = models.CharField(max_length=30)
+
     off_max = models.IntegerField()
     off_state = models.IntegerField(default=0)
     off_left = models.IntegerField()
-    off_in_village = models.IntegerField(null=True, blank=True, default=None)
+
     nobleman_max = models.IntegerField()
     nobleman_state = models.IntegerField(default=0)
     nobleman_left = models.IntegerField()
-    nobleman_in_village = models.IntegerField(
-        null=True, blank=True, default=None
-    )
+
+    catapult_max = models.IntegerField(default=0)
+    catapult_state = models.IntegerField(default=0)
+    catapult_left = models.IntegerField(default=0)
+
     hidden = models.BooleanField(default=False)
     first_line = models.BooleanField(default=False)
     fake_limit = models.IntegerField(
@@ -534,11 +541,11 @@ class WeightModel(models.Model):
     off = models.IntegerField()
     distance = models.FloatField()
     nobleman = models.IntegerField()
+    catapult = models.IntegerField(default=0)
+    ruin = models.BooleanField(default=False)
     order = models.IntegerField()
     player = models.CharField(max_length=40)
     first_line = models.BooleanField(default=False)
-    t1 = models.TimeField(default=datetime.time(hour=0, minute=0, second=0))
-    t2 = models.TimeField(default=datetime.time(hour=0, minute=0, second=0))
 
     def __str__(self):
         return self.start

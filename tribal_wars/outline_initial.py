@@ -22,6 +22,8 @@ def make_outline(outline: models.Outline, target_mode: basic.TargetMode = None):
                     y_coord=int(army.coord[4:7]),
                     off_max=army.off,
                     off_left=army.off,
+                    catapult_max=army.catapult,
+                    catapult_left=army.catapult,
                     nobleman_max=army.nobleman,
                     nobleman_left=army.nobleman,
                     first_line=army.first_line,
@@ -56,20 +58,8 @@ def make_outline(outline: models.Outline, target_mode: basic.TargetMode = None):
         models.TargetVertex.objects.bulk_create(targets.list(), batch_size=500)
 
 
-
-
 def complete_outline(outline: models.Outline):
     """Auto write out outline """
-    # user_input = outline.initial_outline_targets.split("---")
-    #
-    # targets_general = target_utils.TargetsGeneral(
-    #     outline_targets=user_input[0].strip(), world=outline.world,
-    # )
-    # fakes_general = target_utils.TargetsGeneral(
-    #     outline_targets=user_input[1].strip(), world=outline.world,
-    # )
-
-    # Auto writing outline for user
     world: models.World = outline.world
     targets = models.TargetVertex.objects.filter(outline=outline, fake=False).order_by(
         "id"

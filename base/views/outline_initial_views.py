@@ -665,7 +665,7 @@ def initial_target(request, id1, id2):
 
     link_to_tw = instance.world.tw_stats_link_to_village(village_id)
 
-    result_lst = models.WeightModel.objects.filter(target=target).order_by("order")
+    result_lst = models.WeightModel.objects.select_related("state").filter(target=target).order_by("order")
     for weight in result_lst:
         weight.distance = round(weight.distance, 1)
     # sort
@@ -709,26 +709,47 @@ def initial_target(request, id1, id2):
                 weight_id = request.POST.get("weight_id")
                 off = int(request.POST.get("off"))
                 nobleman = int(request.POST.get("nobleman"))
-
-                weight = models.WeightModel.objects.select_related("state").filter(
-                    id=weight_id
+                weight: models.WeightModel = models.WeightModel.objects.select_related("state").filter(
+                    pk=weight_id
                 )[0]
-                state = weight.state
+                state: models.WeightMaximum = weight.state
+                off_diffrence = off - weight.off
+                noble_diffrence = nobleman - weight.nobleman
 
+                state.off_state += off_diffrence
+                state.off_left -= off_diffrence
+                state.nobleman_state += noble_diffrence
+                state.nobleman_left -= noble_diffrence
+
+                off_additional = 0
                 if off > weight.off:
-                    state.off_max += off - weight.off
+                    if off > weight.off + state.off_left - state.catapult_left * 8:
+                        off_from_catapults = weight.off + state.off_left - off
+                        catapults_up = min((off_from_catapults // 8) + 1, state.catapult_left)
+                        state.catapult_state += catapults_up
+                        state.catapult_left -= catapults_up
+                        state.off_state += catapults_up * 8 - off_from_catapults
+                        state.off_left -= catapults_up * 8 - off_from_catapults
+                        off_additional = catapults_up * 8 - off_from_catapults
+                    else:
+                        catapults_up = 0
+                    catapults = weight.catapult + catapults_up
+                else:
+                    if weight.catapult * 8 > off:
+                        off_from_catapults = weight.catapult * 8 - off
+                        catapults_down = min((off_from_catapults // 8) + 1, weight.catapult)
+                        state.catapult_state -= catapults_down
+                        state.catapult_left += catapults_down
+                        state.off_state -= catapults_down * 8 - off_from_catapults
+                        state.off_left += catapults_down * 8 - off_from_catapults
+                        off_additional = off_from_catapults - catapults_down * 8
+                    else:
+                        catapults_down = 0
+                    catapults = weight.catapult - catapults_down
 
-                if nobleman > weight.nobleman:
-                    state.nobleman_max += nobleman - weight.nobleman
-
-                state.off_state = state.off_state - weight.off + off
-                state.nobleman_state = state.nobleman_state - weight.nobleman + nobleman
-
-                state.off_left = state.off_max - state.off_state
-                state.nobleman_left = state.nobleman_max - state.nobleman_state
-
-                weight.off = off
+                weight.off = off + off_additional
                 weight.nobleman = nobleman
+                weight.catapult = catapults
 
                 weight.save()
                 state.save()
@@ -764,18 +785,12 @@ def initial_target(request, id1, id2):
         "sort": sort,
         "paint": paint,
     }
-    if target.fake:
-        return render(
-            request,
-            "base/new_outline/new_outline_initial_period3_1.html",
-            context,
-        )
-    else:
-        return render(
-            request,
-            "base/new_outline/new_outline_initial_period3.html",
-            context,
-        )
+
+    return render(
+        request,
+        "base/new_outline/new_outline_initial_period3.html",
+        context,
+    )
 
 
 @require_POST

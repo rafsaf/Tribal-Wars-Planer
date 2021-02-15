@@ -4,12 +4,16 @@ const modal = () => {
           var button = $(event.relatedTarget) // Button that triggered the modal
           var start = button.data('start')
           var off = button.data('off')
+          var leftOff = button.data('leftoff')
           var nobleman = button.data('nobleman')
+          var leftNobleman = button.data('leftnobleman')
           var id = button.data('id')
           var modal = $(this)
           modal.find('.modal-title').text(start)
           modal.find('#id_off').val(off)
+          modal.find('#id_off').attr("max", parseInt(off) + parseInt(leftOff))
           modal.find('#id_nobleman').val(nobleman)
+          modal.find('#id_nobleman').attr("max", parseInt(nobleman) + parseInt(leftNobleman))
           modal.find('#id_weight_id').val(id)
       })
 

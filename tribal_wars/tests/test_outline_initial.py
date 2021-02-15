@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 
 from base import models
-from tribal_wars import outline_initial as initial
+from tribal_wars import basic, outline_initial as initial
 
 
 class TestMakeOutlineFunction(TestCase):
@@ -29,30 +29,27 @@ class TestMakeOutlineFunction(TestCase):
             archer="inactive",
             militia="active",
         )
+        self.real_target_mode = basic.TargetMode("real")
+        self.fake_target_mode = basic.TargetMode("fake")
 
         self.admin = User.objects.create_user("admin", None, None)
 
-        self.outline = models.Outline.objects.create(
+        self.outline: models.Outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
             name="name",
             world=self.world1,
             ally_tribe_tag=["pl1"],
             enemy_tribe_tag=["pl2"],
-            initial_outline_targets="500|499:1:4\r\n500|498:1:2---",
+            initial_outline_targets="500|499:1:4\r\n500|498:1:2",
             initial_outline_min_off=15000,
             initial_outline_front_dist=3,
             off_troops=TEXT,
         )
         # front
 
-
-        self.ally_tribe = models.Tribe(
-            tribe_id=0, tag="pl1", world=self.world1
-        )
-        self.enemy_tribe = models.Tribe(
-            tribe_id=1, tag="pl2", world=self.world1
-        )
+        self.ally_tribe = models.Tribe(tribe_id=0, tag="pl1", world=self.world1)
+        self.enemy_tribe = models.Tribe(tribe_id=1, tag="pl2", world=self.world1)
 
         self.ally_player = models.Player(
             player_id=0,
@@ -152,32 +149,31 @@ class TestMakeOutlineFunction(TestCase):
         self.enemy_village2.save()
         self.enemy_village3.save()
 
-
     def test_make_outline_2_targets_real_create(self):
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         self.assertEqual(models.TargetVertex.objects.all().count(), 2)
 
     def test_make_outline_2_targets_real_1_fake_create(self):
-        self.outline.initial_outline_targets = (
-            "500|499:1:4\r\n500|498:1:2---500|497:0:0"
-        )
+        self.outline.initial_outline_targets = "500|499:1:4\r\n500|498:1:2"
+        self.outline.initial_outline_fakes = "500|497:0:0"
         self.outline.save()
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
+        initial.make_outline(outline=self.outline, target_mode=self.fake_target_mode)
         self.assertEqual(models.TargetVertex.objects.all().count(), 3)
 
     def test_make_outline_target1_exists(self):
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         self.assertEqual(
             models.TargetVertex.objects.filter(
-                outline=self.outline, target="500|499"
+                outline=self.outline, target="500|499", fake=False, ruin=False
             ).count(),
             1,
         )
 
     def test_make_outline_target1_required_off_1_required_noble_4(self):
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target1 = models.TargetVertex.objects.get(
-            target="500|499", outline=self.outline
+            target="500|499", outline=self.outline, fake=False, ruin=False
         )
         self.assertEqual(target1.required_off, 1)
         self.assertEqual(target1.required_noble, 4)
@@ -185,9 +181,9 @@ class TestMakeOutlineFunction(TestCase):
         self.assertEqual(target1.exact_noble, [])
 
     def test_make_outline_target2_required_off_1_required_noble_2(self):
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target2 = models.TargetVertex.objects.get(
-            target="500|498", outline=self.outline
+            target="500|498", outline=self.outline, fake=False, ruin=False
         )
         self.assertEqual(target2.required_off, 1)
         self.assertEqual(target2.required_noble, 2)
@@ -195,13 +191,14 @@ class TestMakeOutlineFunction(TestCase):
         self.assertEqual(target2.exact_noble, [])
 
     def test_make_outline_target1_off_0_noble_5_exact_correct_off(self):
-        self.outline.initial_outline_targets = (
-            "500|499:1|2|3|4:5\r\n500|498:6:7|8|9|10---"
-        )
+        self.outline.initial_outline_targets = "500|499:1|2|3|4:5\r\n500|498:6:7|8|9|10"
         self.outline.save()
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target1 = models.TargetVertex.objects.get(
-            target="500|499", outline=self.outline
+            target="500|499",
+            outline=self.outline,
+            fake=False,
+            ruin=False,
         )
         self.assertEqual(target1.required_off, 0)
         self.assertEqual(target1.required_noble, 5)
@@ -209,13 +206,14 @@ class TestMakeOutlineFunction(TestCase):
         self.assertEqual(target1.exact_noble, [])
 
     def test_make_outline_target2_off_1_noble_0_exact_correct_noble(self):
-        self.outline.initial_outline_targets = (
-            "500|499:1|2|3|4:5\r\n500|498:6:7|8|9|10---"
-        )
+        self.outline.initial_outline_targets = "500|499:1|2|3|4:5\r\n500|498:6:7|8|9|10"
         self.outline.save()
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target2 = models.TargetVertex.objects.get(
-            target="500|498", outline=self.outline
+            target="500|498",
+            outline=self.outline,
+            ruin=False,
+            fake=False,
         )
         self.assertEqual(target2.required_off, 6)
         self.assertEqual(target2.required_noble, 0)
@@ -223,9 +221,9 @@ class TestMakeOutlineFunction(TestCase):
         self.assertEqual(target2.exact_noble, [7, 8, 9, 10])
 
     def test_make_outline_target1_has_same_default_modes_as_outline(self):
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target1 = models.TargetVertex.objects.get(
-            target="500|498", outline=self.outline
+            target="500|498", outline=self.outline, fake=False, ruin=False
         )
         self.assertEqual(target1.mode_off, self.outline.mode_off)
         self.assertEqual(target1.mode_noble, self.outline.mode_noble)
@@ -238,9 +236,9 @@ class TestMakeOutlineFunction(TestCase):
         self.outline.mode_guide = "single"
         self.outline.mode_division = "separatly"
         self.outline.save()
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target1 = models.TargetVertex.objects.get(
-            target="500|498", outline=self.outline
+            target="500|498", outline=self.outline, fake=False, ruin=False
         )
         self.assertEqual(target1.mode_off, self.outline.mode_off)
         self.assertEqual(target1.mode_noble, self.outline.mode_noble)
@@ -248,7 +246,7 @@ class TestMakeOutlineFunction(TestCase):
         self.assertEqual(target1.mode_guide, self.outline.mode_guide)
 
     def test_make_outline_6_weights_max_create_0_is_front(self):
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         self.assertEqual(models.WeightMaximum.objects.all().count(), 6)
         self.assertEqual(
             models.WeightMaximum.objects.filter(first_line=True).count(), 0
@@ -256,20 +254,32 @@ class TestMakeOutlineFunction(TestCase):
 
     def test_make_outline_number_of_queries_is_6(self):
         with self.assertNumQueries(6):
-            initial.make_outline(outline=self.outline)
+            initial.make_outline(
+                outline=self.outline, target_mode=self.real_target_mode
+            )
 
     def test_repeat_make_outline_number_of_queries_is_13(self):
         # second one do not create weight max models
         with self.assertNumQueries(13):
-            initial.make_outline(outline=self.outline)
-            initial.make_outline(outline=self.outline)
+            initial.make_outline(
+                outline=self.outline, target_mode=self.real_target_mode
+            )
+            initial.make_outline(
+                outline=self.outline, target_mode=self.real_target_mode
+            )
 
     def test_repeat_make_outline_number_of_queries_is_20(self):
         # second one do not create weight max models
         with self.assertNumQueries(20):
-            initial.make_outline(outline=self.outline)
-            initial.make_outline(outline=self.outline)
-            initial.make_outline(outline=self.outline)
+            initial.make_outline(
+                outline=self.outline, target_mode=self.real_target_mode
+            )
+            initial.make_outline(
+                outline=self.outline, target_mode=self.real_target_mode
+            )
+            initial.make_outline(
+                outline=self.outline, target_mode=self.real_target_mode
+            )
 
 
 class TestCompleteOutlineFunction(TestCase):
@@ -302,7 +312,9 @@ class TestCompleteOutlineFunction(TestCase):
 
         self.admin = User.objects.create_user("admin", None, None)
 
-        self.outline = models.Outline.objects.create(
+        self.real_target_mode: basic.TargetMode = basic.TargetMode("real")
+
+        self.outline: models.Outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
             name="name",
@@ -316,13 +328,8 @@ class TestCompleteOutlineFunction(TestCase):
         )
         # front
 
-
-        self.ally_tribe = models.Tribe(
-            tribe_id=0, tag="pl1", world=self.world1
-        )
-        self.enemy_tribe = models.Tribe(
-            tribe_id=1, tag="pl2", world=self.world1
-        )
+        self.ally_tribe = models.Tribe(tribe_id=0, tag="pl1", world=self.world1)
+        self.enemy_tribe = models.Tribe(tribe_id=1, tag="pl2", world=self.world1)
 
         self.ally_player = models.Player(
             player_id=0,
@@ -468,9 +475,9 @@ class TestCompleteOutlineFunction(TestCase):
         self.enemy_village3.save()
 
     def test_outline_complete_far_off_correct1(self):
-        self.outline.initial_outline_targets = "500|499:1:0---"
+        self.outline.initial_outline_targets = "500|499:1:0"
         self.outline.save()
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target1 = models.TargetVertex.objects.get(target="500|499")
         target1.mode_off = "far"
         target1.save()
@@ -478,13 +485,18 @@ class TestCompleteOutlineFunction(TestCase):
         target1 = models.TargetVertex.objects.get(target="500|499")
         weight = models.WeightModel.objects.get(target=target1)
         self.assertTrue(
-            weight.start in ["500|507", "500|508", "500|509", ]
+            weight.start
+            in [
+                "500|507",
+                "500|508",
+                "500|509",
+            ]
         )
 
     def test_outline_complete_random_off_correct1(self):
-        self.outline.initial_outline_targets = "500|499:1:0---"
+        self.outline.initial_outline_targets = "500|499:1:0"
         self.outline.save()
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target1 = models.TargetVertex.objects.get(target="500|499")
         target1.mode_off = "random"
         target1.save()
@@ -494,9 +506,9 @@ class TestCompleteOutlineFunction(TestCase):
         self.assertTrue(int(weight.start[4:7]) > 502)
 
     def test_outline_complete_close_off_correct1(self):
-        self.outline.initial_outline_targets = "500|499:1:0---"
+        self.outline.initial_outline_targets = "500|499:1:0"
         self.outline.save()
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target1 = models.TargetVertex.objects.get(target="500|499")
         target1.mode_off = "close"
         target1.save()
@@ -504,19 +516,21 @@ class TestCompleteOutlineFunction(TestCase):
         target1 = models.TargetVertex.objects.get(target="500|499")
         weight = models.WeightModel.objects.get(target=target1)
         self.assertTrue(
-            weight.start in ["500|503", "500|502", ]
+            weight.start
+            in [
+                "500|503",
+                "500|502",
+            ]
         )
 
     def test_outline_complete_closest_off_correct1(self):
-        self.outline.initial_outline_targets = "500|499:1:0---"
+        self.outline.initial_outline_targets = "500|499:1:0"
         self.outline.save()
-        initial.make_outline(outline=self.outline)
+        initial.make_outline(outline=self.outline, target_mode=self.real_target_mode)
         target1 = models.TargetVertex.objects.get(target="500|499")
         target1.mode_off = "closest"
         target1.save()
         initial.complete_outline(outline=self.outline)
         target1 = models.TargetVertex.objects.get(target="500|499")
         weight = models.WeightModel.objects.get(target=target1)
-        self.assertTrue(
-            weight.start in ["500|502"]
-        )
+        self.assertTrue(weight.start in ["500|502"])

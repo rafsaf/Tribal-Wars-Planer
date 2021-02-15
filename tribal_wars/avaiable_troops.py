@@ -6,21 +6,36 @@ from base import models
 from . import basic
 from tribal_wars import get_deff
 
+
 def legal_coords_near_targets(outline: models.Outline):
     """ Create set with ally_vill without enemy_vill closer than radius """
     excluded_coords = outline.initial_outline_excluded_coords.split()
 
     radius = int(outline.initial_outline_target_dist)
-    ally_villages = [weight["start"] for weight in models.WeightMaximum.objects.filter(outline=outline).values("start")]
-    enemy_villages = [target["target"] for target in models.TargetVertex.objects.filter(outline=outline).values("target")]
+    ally_villages = [
+        weight["start"]
+        for weight in models.WeightMaximum.objects.filter(outline=outline).values(
+            "start"
+        )
+    ]
+    enemy_villages = [
+        target["target"]
+        for target in models.TargetVertex.objects.filter(outline=outline).values(
+            "target"
+        )
+    ]
 
-    my_villages = models.VillageModel.objects.filter(coord__in=ally_villages, world=outline.world).values("x_coord", "y_coord", "coord")
-    enemy_villages = models.VillageModel.objects.exclude(coord__in=excluded_coords).filter(coord__in=enemy_villages, world=outline.world).values("x_coord", "y_coord")
+    my_villages = models.VillageModel.objects.filter(
+        coord__in=ally_villages, world=outline.world
+    ).values("x_coord", "y_coord", "coord")
+    enemy_villages = (
+        models.VillageModel.objects.exclude(coord__in=excluded_coords)
+        .filter(coord__in=enemy_villages, world=outline.world)
+        .values("x_coord", "y_coord")
+    )
 
     starts = get_deff.get_set_of_villages(
-        ally_villages=my_villages,
-        enemy_villages=enemy_villages,
-        radius=radius
+        ally_villages=my_villages, enemy_villages=enemy_villages, radius=radius
     )
 
     all_weights = models.WeightMaximum.objects.filter(
@@ -35,13 +50,10 @@ def legal_coords_near_targets(outline: models.Outline):
         outline=outline, nobleman_max__gte=1
     ).exclude(start__in=starts)
 
-    all_noble = snob_weights.aggregate(
-        Sum("nobleman_max")
-    )["nobleman_max__sum"]
-    front_noble = snob_weights.filter(
-       first_line=True
-    ).aggregate(Sum("nobleman_max"))["nobleman_max__sum"]
-
+    all_noble = snob_weights.aggregate(Sum("nobleman_max"))["nobleman_max__sum"]
+    front_noble = snob_weights.filter(first_line=True).aggregate(Sum("nobleman_max"))[
+        "nobleman_max__sum"
+    ]
 
     if all_noble is None:
         all_noble = 0
@@ -60,20 +72,30 @@ def get_legal_coords_outline(outline: models.Outline):
     excluded_coords = outline.initial_outline_excluded_coords.split()
 
     radius = int(outline.initial_outline_front_dist)
-    ally_villages = [weight["start"] for weight in models.WeightMaximum.objects.filter(outline=outline).values("start")]
+    ally_villages = [
+        weight["start"]
+        for weight in models.WeightMaximum.objects.filter(outline=outline).values(
+            "start"
+        )
+    ]
 
-    my_villages = models.VillageModel.objects.filter(coord__in=ally_villages, world=outline.world).values("x_coord", "y_coord", "coord")
-    enemy_villages = models.VillageModel.objects.select_related().exclude(coord__in=excluded_coords).filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world).values("x_coord", "y_coord")
-
-    starts = get_deff.get_set_of_villages(
-        ally_villages=my_villages,
-        enemy_villages=enemy_villages,
-        radius=radius
+    my_villages = models.VillageModel.objects.filter(
+        coord__in=ally_villages, world=outline.world
+    ).values("x_coord", "y_coord", "coord")
+    enemy_villages = (
+        models.VillageModel.objects.select_related()
+        .exclude(coord__in=excluded_coords)
+        .filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world)
+        .values("x_coord", "y_coord")
     )
 
-    models.WeightMaximum.objects.filter(
-        outline=outline, start__in=starts
-    ).update(first_line=False)
+    starts = get_deff.get_set_of_villages(
+        ally_villages=my_villages, enemy_villages=enemy_villages, radius=radius
+    )
+
+    models.WeightMaximum.objects.filter(outline=outline, start__in=starts).update(
+        first_line=False
+    )
     models.WeightMaximum.objects.filter(outline=outline).exclude(
         start__in=starts
     ).update(first_line=True)
@@ -93,15 +115,13 @@ def get_legal_coords_outline(outline: models.Outline):
         outline=outline, nobleman_max__gte=1
     )
 
-    all_noble = snob_weights.aggregate(Sum("nobleman_max"))[
+    all_noble = snob_weights.aggregate(Sum("nobleman_max"))["nobleman_max__sum"]
+    back_noble = snob_weights.filter(start__in=starts).aggregate(Sum("nobleman_max"))[
         "nobleman_max__sum"
     ]
-    back_noble = snob_weights.filter(start__in=starts).aggregate(
-        Sum("nobleman_max")
-    )["nobleman_max__sum"]
-    front_noble = snob_weights.exclude(start__in=starts).aggregate(
-        Sum("nobleman_max")
-    )["nobleman_max__sum"]
+    front_noble = snob_weights.exclude(start__in=starts).aggregate(Sum("nobleman_max"))[
+        "nobleman_max__sum"
+    ]
 
     if all_noble is None:
         all_noble = 0

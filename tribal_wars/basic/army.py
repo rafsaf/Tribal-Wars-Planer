@@ -55,9 +55,7 @@ class Army:
             raise ArmyError(identifier)
         else:
             if village.coord not in player_dictionary:
-                raise ArmyError(
-                    f"{village.coord} nie należy do żadnego plemienia!"
-                )
+                raise ArmyError(f"{village.coord} nie należy do żadnego plemienia!")
         for army_element in self.text_army[1:-1]:
             if not army_element.isnumeric():
                 raise ArmyError(f"{army_element} nie jest liczbą")
@@ -85,17 +83,24 @@ class Army:
             return int(self.text_army[11])
         return int(self.text_army[12])
 
+    @cached_property
+    def catapult(self):
+        """ Literal Number of catapult """
+        # no heavy cavalery
+        if self.world_evidence[1] == 0:  # no archers
+            return int(self.text_army[8])
+        return int(self.text_army[10])
 
     def __raw_deff(self):
         # no heavy cavalery
-        if self.world_evidence[1] == 0: # no archers
+        if self.world_evidence[1] == 0:  # no archers
             return (
                 int(self.text_army[1])
                 + int(self.text_army[2])
                 + int(self.text_army[4]) * 2
                 + int(self.text_army[8]) * 8
             )
-        return ( # with archers
+        return (  # with archers
             int(self.text_army[1])
             + int(self.text_army[2])
             + int(self.text_army[4])
@@ -105,15 +110,15 @@ class Army:
 
     def __raw_off(self):
         # no heavy cavalery
-        if self.world_evidence[1] == 0: # no archers
+        if self.world_evidence[1] == 0:  # no archers
             return (
                 int(self.text_army[3])
                 + int(self.text_army[4]) * 2
                 + int(self.text_army[5]) * 4
                 + int(self.text_army[7]) * 5
                 + int(self.text_army[8]) * 8
-            ) 
-        return ( # with archers
+            )
+        return (  # with archers
             int(self.text_army[3])
             + int(self.text_army[5]) * 2
             + int(self.text_army[6]) * 4
@@ -122,8 +127,6 @@ class Army:
             + int(self.text_army[10]) * 8
         )
 
-
-
     @cached_property
     def off(self):
         """ Number of off """
@@ -131,29 +134,23 @@ class Army:
         raw_off = self.__raw_off()
 
         if raw_off > raw_deff:
-            if self.world_evidence[1] == 0: # no archers
-                return (
-                    raw_off
-                    + int(self.text_army[6]) * 6
-                ) 
-            return ( # with archers
-                raw_off
-                + int(self.text_army[8]) * 6
-            )
-        if self.world_evidence[1] == 0: # no archers
+            if self.world_evidence[1] == 0:  # no archers
+                return raw_off + int(self.text_army[6]) * 6
+            return raw_off + int(self.text_army[8]) * 6  # with archers
+        if self.world_evidence[1] == 0:  # no archers
             return raw_off - 2 * int(self.text_army[4])
         return raw_off - 2 * int(self.text_army[5])
 
     @cached_property
     def deff(self):
         """ Number of deff """
-        if self.world_evidence[1] == 0: # no archers
+        if self.world_evidence[1] == 0:  # no archers
             return (
                 int(self.text_army[1])
                 + int(self.text_army[2])
                 + int(self.text_army[6]) * 4
             )
-        return ( # with archers
+        return (  # with archers
             int(self.text_army[1])
             + int(self.text_army[2])
             + int(self.text_army[4])
@@ -187,18 +184,14 @@ class Defence:
             (0, 0, 0): {13, 12},
         }
         if text_army_length not in evidence_dictionary[self.world_evidence]:
-            raise DefenceError(
-                f"Długość: {text_army_length} nie jest poprawna"
-            )
+            raise DefenceError(f"Długość: {text_army_length} nie jest poprawna")
         try:
             village = basic.Village(self.text_army[0])
         except basic.VillageError as identifier:
             raise DefenceError(identifier)
         else:
             if village.coord not in player_dictionary:
-                raise DefenceError(
-                    f"{village.coord} nie należy do żadnego plemienia!"
-                )
+                raise DefenceError(f"{village.coord} nie należy do żadnego plemienia!")
         for army_element in self.text_army[2:-1]:
             if not army_element.isnumeric():
                 raise DefenceError(f"{army_element} nie jest liczbą")

@@ -1339,7 +1339,7 @@ msgstr ""
 #: base/templates/base/new_outline/new_outline_initial_period3.html:24
 #: base/templates/base/new_outline/new_outline_initial_period3_1.html:24
 msgid "Change and save"
-msgstr "Zmień z zapisz"
+msgstr "Zmień i zapisz"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:37
 #: base/templates/base/new_outline/new_outline_initial_period3.html:307

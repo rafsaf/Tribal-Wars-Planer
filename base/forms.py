@@ -413,7 +413,6 @@ class WeightForm(forms.Form):
         widget=forms.NumberInput, label=gettext_lazy("Noble"), min_value=0
     )
 
-
 class PeriodForm(forms.ModelForm):
     """ One Period for OutlineTime """
 
@@ -593,11 +592,6 @@ class CreateNewInitialTarget(forms.Form):
                 gettext_lazy("Village with that coords did not found."),
             )
             return
-
-
-class ChangeWeightMaxOff(forms.Form):
-    off = forms.IntegerField(min_value=0)
-    noble = forms.IntegerField(min_value=0)
 
 
 class AddNewWorldForm(forms.ModelForm):

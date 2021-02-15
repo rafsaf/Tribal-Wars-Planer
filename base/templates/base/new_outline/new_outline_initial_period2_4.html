@@ -64,13 +64,22 @@
                                         </th>
                                     </tr>
                                     <tr>
+                                        {% if weight.ruin %}
+                                        <th>
+                                            <img src='{% static "images/catapult.png" %}' alt="cat">
+                                        </th>
+                                        <th style="font-size: small;cursor:default;">
+                                            {{weight.catapult}}
+                                        </th>
+
+                                        {% else %}
                                         <th>
                                             <img src='{% static "images/nobleman.png" %}' alt="ax">
                                         </th>
                                         <th style="font-size: small;cursor:default;">
                                             {{weight.nobleman}}
                                         </th>
-
+                                        {% endif %}
                                     </tr>
                                     <tr>
                                         <th>

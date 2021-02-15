@@ -61,17 +61,18 @@ class TargetDelete(APIView):
 
         weights = WeightModel.objects.select_related("state").filter(target=target)
         # deletes weights related to this target and updates weight state
-        state_updates = []
+        weight_model: WeightModel
         for weight_model in weights:
-            weight_model.state.off_left += weight_model.off
-            weight_model.state.off_state -= weight_model.off
-            weight_model.state.nobleman_left += weight_model.nobleman
-            weight_model.state.nobleman_state -= weight_model.nobleman
-            state_updates.append(weight_model.state)
+            state: WeightMaximum = weight_model.state
 
-        WeightMaximum.objects.bulk_update(
-            state_updates, ["off_left", "off_state", "nobleman_left", "nobleman_state"]
-        )
+            state.off_left += weight_model.off
+            state.off_state -= weight_model.off
+            state.nobleman_left += weight_model.nobleman
+            state.nobleman_state -= weight_model.nobleman
+            state.catapult_left -= weight_model.catapult
+            state.catapult_state += weight_model.catapult
+            state.save()
+
         weights.delete()
         target.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
