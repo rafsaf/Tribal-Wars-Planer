@@ -2129,7 +2129,7 @@ msgstr "Wyślij [b]fake[/b] (Off-"
 
 #: tribal_wars/basic/table_text.py:100
 msgid "Send [b]ruin[/b] (Catapults-"
-msgstr "Wyślij [b]burzak[/b[ (Katapulty-"
+msgstr "Wyślij [b]burzak[/b] (Katapulty-"
 
 #: tribal_wars/basic/table_text.py:103
 msgid "Send [b]OFF[/b] (Off-"

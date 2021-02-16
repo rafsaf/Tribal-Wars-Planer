@@ -1,4 +1,5 @@
 """ File with outline making """
+from django.db.models.query import QuerySet
 from tribal_wars import input_target
 from tribal_wars import weight_utils
 from tribal_wars import write_out_outline
@@ -61,163 +62,79 @@ def make_outline(outline: models.Outline, target_mode: basic.TargetMode = None):
 def complete_outline(outline: models.Outline):
     """Auto write out outline """
     world: models.World = outline.world
-    targets = models.TargetVertex.objects.filter(outline=outline, fake=False, ruin=False).order_by(
-        "id"
-    )
-    fakes = models.TargetVertex.objects.filter(outline=outline, fake=True, ruin=False).order_by(
-        "id"
-    )
-    ruins = models.TargetVertex.objects.filter(outline=outline, fake=False, ruin=True).order_by(
-        "id"
-    )
+    targets = models.TargetVertex.objects.filter(
+        outline=outline, fake=False, ruin=False
+    ).order_by("id")
+    fakes = models.TargetVertex.objects.filter(
+        outline=outline, fake=True, ruin=False
+    ).order_by("id")
+    ruins = models.TargetVertex.objects.filter(
+        outline=outline, fake=False, ruin=True
+    ).order_by("id")
+
+    create_weights(fakes, outline, world, noble=False)
+    create_weights(ruins, outline, world, noble=False, ruin=True)
+    create_weights(targets, outline, world, noble=True)
+    create_weights(targets, outline, world, noble=False)
+    create_weights(ruins, outline, world, noble=False)
+    create_weights(fakes, outline, world, noble=True)
+
+
+def create_weights(
+    targets_query: QuerySet,
+    outline: models.Outline,
+    world: models.World,
+    noble=False,
+    ruin=False,
+) -> None:
     modes_list = ["closest", "close", "random", "far"]
 
-    leave = False
-    for target in fakes:
-        if leave:
-            break
-
-        if target.required_off == 0:
-            if len(target.exact_off) == 4:
-                for required_off, mode in zip(
-                    target.exact_off, modes_list
-                ):  # closest, close, random, far
-                    if required_off == 0:
-                        continue
-                    target.required_off = required_off
-                    target.mode_off = mode
-
-                    parsed = write_out_outline.WriteTarget(target, outline, world)
-                    parsed.write_ram()
-                    if parsed.end_up_offs:
-                        leave = True
-                        break
-            continue
-
-        parsed = write_out_outline.WriteTarget(target, outline, world)
-        parsed.write_ram()
-        if parsed.end_up_offs:
-            break
-
-    leave = False
     target: models.TargetVertex
-    for target in ruins:
-        if leave:
-            break
-        target.required_off = target.required_noble
-        target.exact_off = target.exact_noble
-        if target.required_off == 0:
-            if len(target.exact_off) == 4:
-                for required_off, mode in zip(
-                    target.exact_off, modes_list
-                ):  # closest, close, random, far
-                    if required_off == 0:
-                        continue
-                    target.required_off = required_off
-                    target.mode_off = mode
+    for target in targets_query.iterator():
+        if ruin:  # here noble numbers becomes offs and we treat it like off
+            target.required_off = target.required_noble
+            target.exact_off = target.exact_noble
 
-                    parsed = write_out_outline.WriteTarget(target, outline, world, ruin=True)
-                    parsed.write_ram()
-                    if parsed.end_up_offs:
-                        leave = True
-                        break
-            continue
+        if noble:
+            if target.required_noble == 0:  # extended syntax
+                if len(target.exact_noble) == 4:
+                    for required_noble, mode in zip(
+                        target.exact_noble, modes_list
+                    ):  # closest, close, random, far
+                        if required_noble == 0:
+                            continue
+                        target.required_noble = required_noble
+                        target.mode_noble = mode
 
-        parsed = write_out_outline.WriteTarget(target, outline, world, ruin=True)
-        parsed.write_ram()
-        if parsed.end_up_offs:
-            break
+                        parsed = write_out_outline.WriteTarget(target, outline, world)
+                        parsed.write_noble()
+            else:
+                parsed: write_out_outline.WriteTarget = write_out_outline.WriteTarget(
+                    target, outline, world
+                )
+                parsed.write_noble()
 
-    leave = False
-    for target in targets:
-        if target.required_noble == 0:
-            if len(target.exact_noble) == 4:
-                for required_noble, mode in zip(
-                    target.exact_noble, modes_list
-                ):  # closest, close, random, far
-                    if required_noble == 0:
-                        continue
-                    target.required_noble = required_noble
-                    target.mode_noble = mode
+        else:
+            if target.required_off == 0:
+                if len(target.exact_off) == 4:
+                    for required_off, mode in zip(
+                        target.exact_off, modes_list
+                    ):  # closest, close, random, far
+                        if required_off == 0:
+                            continue
+                        target.required_off = required_off
+                        target.mode_off = mode
 
-                    parsed = write_out_outline.WriteTarget(target, outline, world)
-                    parsed.write_noble()
-
-            continue
-
-        parsed = write_out_outline.WriteTarget(target, outline, world)
-        parsed.write_noble()
-
-    leave = False
-    for target in targets:
-        if leave:
-            break
-
-        if target.required_off == 0:
-            if len(target.exact_off) == 4:
-                for required_off, mode in zip(
-                    target.exact_off, modes_list
-                ):  # closest, close, random, far
-                    if required_off == 0:
-                        continue
-                    target.required_off = required_off
-                    target.mode_off = mode
-
-                    parsed = write_out_outline.WriteTarget(target, outline, world)
-                    parsed.write_ram()
-                    if parsed.end_up_offs:
-                        leave = True
-                        break
-            continue
-
-        parsed = write_out_outline.WriteTarget(target, outline, world)
-        parsed.write_ram()
-        if parsed.end_up_offs:
-            break
-
-    leave = False
-    for target in ruins:
-        if leave:
-            break
-
-        if target.required_off == 0:
-            if len(target.exact_off) == 4:
-                for required_off, mode in zip(
-                    target.exact_off, modes_list
-                ):  # closest, close, random, far
-                    if required_off == 0:
-                        continue
-                    target.required_off = required_off
-                    target.mode_off = mode
-
-                    parsed = write_out_outline.WriteTarget(target, outline, world)
-                    parsed.write_ram()
-                    if parsed.end_up_offs:
-                        leave = True
-                        break
-            continue
-
-        parsed = write_out_outline.WriteTarget(target, outline, world)
-        parsed.write_ram()
-        if parsed.end_up_offs:
-            break
-
-    leave = False
-    for target in fakes:
-
-        if target.required_noble == 0:
-            if len(target.exact_noble) == 4:
-                for required_noble, mode in zip(
-                    target.exact_noble, modes_list
-                ):  # closest, close, random, far
-                    if required_noble == 0:
-                        continue
-                    target.required_noble = required_noble
-                    target.mode_noble = mode
-
-                    parsed = write_out_outline.WriteTarget(target, outline, world)
-                    parsed.write_noble()
-            continue
-
-        parsed = write_out_outline.WriteTarget(target, outline, world)
-        parsed.write_noble()
+                        parsed = write_out_outline.WriteTarget(
+                            target, outline, world, ruin=ruin
+                        )
+                        parsed.write_ram()
+                        if parsed.end_up_offs:
+                            return
+            else:
+                parsed = write_out_outline.WriteTarget(
+                    target, outline, world, ruin=ruin
+                )
+                parsed.write_ram()
+                if parsed.end_up_offs:
+                    break
