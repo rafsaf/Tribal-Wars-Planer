@@ -15,10 +15,12 @@ class TableText:
         self.table_result = {}
         self.string_result = {}
         self.deputy_result = {}
+        self.extended_result = {}
 
         self.weight_table = {}
         self.weight_string = {}
         self.weight_deputy = {}
+        self.weight_extended = {}
 
         self.world = world
 
@@ -64,7 +66,7 @@ class TableText:
         )
 
     def __weight_table(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, ruin, deputy=None
+        self, weight: models.WeightModel, ally_id, enemy_id, fake, ruin, deputy=None,
     ):
         if fake and weight.nobleman > 0:
             send = _("fake noble")
@@ -85,7 +87,7 @@ class TableText:
         )
 
     def __weight_string(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, ruin, deputy=None
+        self, weight: models.WeightModel, ally_id, enemy_id, fake, ruin, deputy=None, simple=False,
     ):
         nobles = _("Nobles-")
         from_village = _("from village")
@@ -103,9 +105,13 @@ class TableText:
             text = _("Send [b]OFF[/b] (Off-")
             send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
 
+        if simple:
+            own_and_enemy_villages = ""
+        else:
+            own_and_enemy_villages = f"{from_village} {weight.start} {to}{weight.target.target}"
         return (
             f"{send}"
-            f"{from_village} {weight.start} {to}{weight.target.target} "
+            f"{own_and_enemy_villages}"
             f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"
             f"{self.__link(ally_id, enemy_id, fake, ruin, deputy=deputy)}"
         )
@@ -119,6 +125,10 @@ class TableText:
         )
 
         self.weight_string[weight] = str(
+            self.__weight_string(weight, ally_id, enemy_id, fake, ruin, simple=True)
+        )
+
+        self.weight_extended[weight] = str(
             self.__weight_string(weight, ally_id, enemy_id, fake, ruin)
         )
 
@@ -139,7 +149,7 @@ class TableText:
 
     def __create_table(self):
         for player, lst in self.result.items():
-            table = str(self.__next_line + player + self.__next_line + self.__prefix)
+            table = str(self.__next_line + self.__next_line + self.__prefix)
             for i, weight in enumerate(lst):
                 table += f"[*]{i+1}" + self.weight_table[weight]
                 if i % 32 == 0 and i != 0:
@@ -156,7 +166,7 @@ class TableText:
 
     def __create_string(self):
         for player, lst in self.result.items():
-            text = str(self.__next_line + player + self.__next_line)
+            text = str(self.__next_line + self.__next_line)
             for i, weight in enumerate(lst):
                 text += (
                     f"{i+1}. " + self.weight_string[weight] + self.__next_line_double
@@ -166,13 +176,23 @@ class TableText:
 
     def __create_deputy(self):
         for player, lst in self.result.items():
-            text = str(self.__next_line + player + self.__next_line)
+            text = str(self.__next_line + self.__next_line)
             for i, weight in enumerate(lst):
                 text += (
                     f"{i+1}. " + self.weight_deputy[weight] + self.__next_line_double
                 )
 
             self.deputy_result[player] = text
+
+    def __create_extended(self):
+        for player, lst in self.result.items():
+            text = str(self.__next_line + self.__next_line)
+            for i, weight in enumerate(lst):
+                text += (
+                    f"{i+1}. " + self.weight_extended[weight] + self.__next_line_double
+                )
+
+            self.extended_result[player] = text
 
     def get_full_result(self):
         return self.__next_line_double.join(self.string_result.values())
@@ -185,6 +205,7 @@ class TableText:
         self.__create_table()
         self.__create_string()
         self.__create_deputy()
+        self.__create_extended()
 
     def iterate_over(self):
         for player in self.result:
@@ -193,4 +214,5 @@ class TableText:
                 self.table_result[player],
                 self.string_result[player],
                 self.deputy_result[player],
+                self.extended_result[player],
             )

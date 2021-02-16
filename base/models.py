@@ -575,6 +575,7 @@ class Overview(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     table = models.TextField()
     string = models.TextField()
+    extended = models.TextField(default="")
     deputy = models.TextField(default="")
     targets = models.TextField(default="")
     show_hidden = models.BooleanField(default=False)

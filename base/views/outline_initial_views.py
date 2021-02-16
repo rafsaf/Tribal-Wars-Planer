@@ -1,7 +1,6 @@
 from collections import Counter
-from tribal_wars.basic import mode
 
-from django.db.models import Sum, Q, F
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404, HttpRequest, HttpResponse
@@ -823,7 +822,9 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
 @require_POST
 @login_required
 def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
-    outline_time: models.OutlineTime = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
+    outline_time: models.OutlineTime = get_object_or_404(
+        models.OutlineTime.objects.select_related(), pk=pk
+    )
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
@@ -846,7 +847,9 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
 @require_POST
 @login_required
 def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
-    outline_time: models.OutlineTime = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
+    outline_time: models.OutlineTime = get_object_or_404(
+        models.OutlineTime.objects.select_related(), pk=pk
+    )
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )

@@ -527,4 +527,32 @@ footer {
   background: #888;
 }
 
+.bbcodetable {
+  background: #fff;
+  border: #999966 1px solid;
+}
+table.vis.tribalwarsbg {
+  display: table;
+  border-collapse: separate;
+  box-sizing: border-box;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-color: grey;
+}
+.vis {
+  border-collapse: separate;
+  word-wrap: normal;
+}
+.content-border {
+  padding: 0;
+  margin: 0;
+  background: #e3d5b3;
+
+}
+.content-border-head {
+  padding: 0;
+  margin: 0;
+  background: #c1a264;
+}
+
 

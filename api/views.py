@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-
+from django.http import HttpRequest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -22,14 +22,17 @@ class TargetTimeUpdate(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def put(self, request, target_id, time_id, format=None):
-        target = get_object_or_404(TargetVertex, pk=target_id)
+    def put(
+        self, request: HttpRequest, target_id: int, time_id: int, format=None
+    ) -> Response:
+        target: TargetVertex = get_object_or_404(TargetVertex, pk=target_id)
         outline_time: OutlineTime = get_object_or_404(
-            OutlineTime.objects.select_related("outline"), pk=time_id
+            OutlineTime.objects.select_related("outline"),
+            pk=time_id,
+            outline__owner=request.user,
         )
+        old_id: str
 
-        if outline_time.outline.owner != request.user:
-            return Response(status=status.HTTP_404_NOT_FOUND)
         if target.outline_time is None:
             old_id = "none"
         else:
@@ -51,7 +54,7 @@ class TargetDelete(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def delete(self, request, target_id, format=None):
+    def delete(self, request: HttpRequest, target_id: int, format=None) -> Response:
         target: TargetVertex = get_object_or_404(
             TargetVertex.objects.select_related("outline"), pk=target_id
         )
@@ -64,7 +67,6 @@ class TargetDelete(APIView):
         weight_model: WeightModel
         for weight_model in weights:
             state: WeightMaximum = weight_model.state
-
             state.off_left += weight_model.off
             state.off_state -= weight_model.off
             state.nobleman_left += weight_model.nobleman
@@ -85,11 +87,15 @@ class OverwiewStateHideUpdate(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def put(self, request, outline_id, token, format=None):
-        outline = get_object_or_404(Outline, id=outline_id, owner=request.user)
-        overview = get_object_or_404(Overview, token=token)
+    def put(
+        self, request: HttpRequest, outline_id: int, token: str, format=None
+    ) -> Response:
+        outline: Outline = get_object_or_404(Outline, id=outline_id, owner=request.user)
+        overview: Overview = get_object_or_404(Overview, token=token)
 
-        new_state = not bool(overview.show_hidden)
+        new_state: bool = not bool(overview.show_hidden)
+        name: str
+        new_class: str
         if new_state:
             name = "True"
             new_class = "btn btn-light md-blue"
@@ -99,4 +105,4 @@ class OverwiewStateHideUpdate(APIView):
 
         overview.show_hidden = new_state
         overview.save()
-        return Response({"name": name, "class": new_class},status=status.HTTP_200_OK)
+        return Response({"name": name, "class": new_class}, status=status.HTTP_200_OK)

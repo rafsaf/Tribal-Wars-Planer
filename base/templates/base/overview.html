@@ -14,6 +14,8 @@
 {% endblock %}
 
 {% block content %}
+<style>.tribalwarsbg{background: url("{% static 'images/bg_content_48x48.png' %}");font-family:Verdana, Arial;}
+</style>
 <input id="speed_world" type="hidden" value="{{overview.outline.world.speed_world}}">
 <input id="speed_units" type="hidden" value="{{overview.outline.world.speed_units}}">
 <h1 class="font-nav text-center">{{overview.player}}</h1>
@@ -31,6 +33,7 @@
         </li>
     </ul>
 </div>
+
 <div class="tab-content" id="pills-tabContent" style="margin-bottom:-80px;">
     <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
         <div class="row" id='outline-fit'>
@@ -42,13 +45,52 @@
             <div class="col-12 col-lg-8 offset-lg-2 mt-2">
                 <div class="mb-5" id='text' style="border-left: 5px solid teal;">
                     <h1 class="ml-2 font-nav">
-                        <span class="mr-2">{% trans 'Text' %}</span><button style="font-size: large;" class="btn btn-outline-info" onclick="handleButtonClipboardUpdate(this,`text-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}</button>
+                        <span class="mr-2">{% trans 'Text simple' %}</span><button style="font-size: large;" class="btn btn-outline-ocean" onclick="handleButtonClipboardUpdate(this,`text-simple-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}</button>
                     </h1>
 
                     <div class="ml-2">
-                        <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
-                        <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
-                        <textarea class="form-control mt-1" id="text-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.string}}</textarea>
+
+                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="pl-2">
+                                <br>
+                                1. {% trans 'Send <b>OFF</b> (Off-' %}20970, {% trans "Nobles-" %}0)
+                                <br>
+                                <b>2021-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                <br>
+                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <textarea class="form-control mt-1" id="text-simple-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.string}}</textarea>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="mb-5" id='text' style="border-left: 5px solid teal;">
+                    <h1 class="ml-2 font-nav">
+                        <span class="mr-2">{% trans 'Text extended' %}</span><button style="font-size: large;" class="btn btn-outline-ocean" onclick="handleButtonClipboardUpdate(this,`text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}</button>
+                    </h1>
+
+                    <div class="ml-2">
+
+                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="pl-2">
+                                <br>
+                                1. {% trans 'Send <b>OFF</b> (Off-' %}20970, {% trans "Nobles-" %}0) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%}</span>
+                                <br>
+                                <b>2021-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                <br>
+                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <textarea class="form-control mt-1" id="text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.extended}}</textarea>
                     </div>
                 </div>
 
@@ -57,12 +99,50 @@
 
                 <div class="mb-5" id='table' style="border-left: 5px solid teal;">
                     <h1 class="ml-2 font-nav">
-                        <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="handleButtonClipboardUpdate(this,`table-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}</button>
+                        <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-ocean" onclick="handleButtonClipboardUpdate(this,`table-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}</button>
                     </h1>
                     <small class="ml-2 form-text text-muted">{% trans 'Hint: Use Text format if u have many commands. ' %}</small>
                     <div class="ml-2">
-                        <img  class='d-md-none img-fluid' src="{% static 'images/table-min.jpg'%}" alt="Example Result 1">
-                        <img  class='d-none d-md-block img-fluid' src="{% static 'images/table.png'%}" alt="Example Result 1">
+                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="table-responsive">
+                            <table class="vis bbcodetable">
+                                <tbody>
+                                    <tr class="content-border-head">
+                                        <th></th>
+                                        <th>{% trans 'SEND' %}</th>
+                                        <th>{% trans 'OFF' %}</th>
+                                        <th>{% trans 'NOBLE' %}</th>
+                                        <th>{% trans 'SENDING' %}</th>
+                                        <th>{% trans 'ENTER' %}</th>
+                                        <th>{% trans 'FROM' %}</th>
+                                        <th>{% trans 'TARGET' %}</th>
+                                    </tr>
+                                    <tr class="content-border">
+                                        <td >1</td>
+                                        <td>
+                                            <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                        </td>
+                                        <td>20970</td>
+                                        <td>0</td>
+                                        <td>
+                                            2021-03-02<br>
+                                            <b><span style="color:#0e5e5e">07:34:56</span></b>-<b><span style="color:#ff0000">08:34:56</span></b>
+                                        </td>
+                                        <td>2021-03-05<br>
+                                            <b><span style="color:#0e5e5e">07:00:00</span></b>-<b><span style="color:#ff0000">08:00:00</span></b>
+                                        </td>
+                                        <td>
+                                            <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span>
+                                        </td>
+                                        <td>
+                                            <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+
                         <textarea class="form-control mt-1" id="table-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.table}}</textarea>
                     </div>
                 </div>
@@ -73,14 +153,25 @@
                 <div class="mb-5" id='text' style="border-left: 5px solid teal;">
                     <h1 class="ml-2 font-nav">
                         <span class="mr-2">{% trans 'Text for deputy' %}</span> 
-                        <button style="font-size: large;" class="btn btn-outline-info" onclick="handleButtonClipboardUpdate(this,`deputy-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}
+                        <button style="font-size: large;" class="btn btn-outline-ocean" onclick="handleButtonClipboardUpdate(this,`deputy-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}
                         </button>
                     </h1>
 
                     <small class="ml-2 form-text text-muted">{% trans 'Hint: Use this one when someone else will send this commands.' %}</small>
                     <div class="ml-2">
-                        <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
-                        <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
+
+                        <div style="cursor: default;" class="tribalwarsbg" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="pl-2">
+                                <br>
+                                1. {% trans 'Send <b>OFF</b> (Off-' %}20970, {% trans "Nobles-" %}0) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best" %}</span>
+                                <br>
+                                <b>2021-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                <br>
+                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
                         <textarea class="form-control mt-1" id="deputy-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.deputy}}</textarea>
                     </div>
                 </div>
@@ -222,5 +313,5 @@
         </div>
     </div>
 </div>
-<script>document.addEventListener("DOMContentLoaded", function (event) {$('.popoverData').popover();});</script>
+<script>activateTooltips();</script>
 {% endblock %}
