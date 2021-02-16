@@ -1,4 +1,5 @@
 from collections import Counter
+from django.contrib.auth.models import User
 
 from django.db.models import Sum
 from django.shortcuts import render, redirect
@@ -37,6 +38,12 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         return redirect("base:planer_detail", _id)
     if instance.written == "active":
         return redirect("base:planer_initial", _id)
+    premium_error: bool
+    if request.session.get("premium_error") is True:
+        premium_error = True
+        del request.session["premium_error"]
+    else:
+        premium_error = False
 
     language_code = get_language()
 
@@ -315,6 +322,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "len_real": len_real,
         "len_fake": len_fake,
         "len_ruin": len_ruin,
+        "premium_error": premium_error,
     }
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
@@ -481,8 +489,12 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
 
         if request.method == "POST":
             if "create" in request.POST:
+                user: User = request.user
+                profile: models.Profile = models.Profile.objects.get(user=user)
+                is_premium: bool = profile.is_premium()
+
                 target_form = forms.CreateNewInitialTarget(
-                    request.POST, outline=instance
+                    request.POST, outline=instance, is_premium=is_premium
                 )
                 if target_form.is_valid():
                     target_type = request.POST.get("type-form")
@@ -514,9 +526,9 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
                         + f"?page={page_obj.number}&mode={str(mode)}"
                     )
             else:
-                target_form = forms.CreateNewInitialTarget(None, outline=instance)
+                target_form = forms.CreateNewInitialTarget(None, outline=instance, is_premium=True)
         else:
-            target_form = forms.CreateNewInitialTarget(None, outline=instance)
+            target_form = forms.CreateNewInitialTarget(None, outline=instance, is_premium=True)
 
         context = {
             "message": message,
@@ -906,6 +918,15 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
+    user: User = request.user
+    profile: models.Profile = models.Profile.objects.get(user=user)
+    if not profile.is_premium():
+        target_mode = request.GET.get("t")
+        target_count = models.TargetVertex.objects.filter(outline=instance).count()
+        if target_count > 25:
+            request.session["premium_error"] = True
+            return redirect(reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}")
+
     initial.complete_outline(outline=instance)
     instance.written = "active"
     instance.save()

@@ -581,12 +581,16 @@ class CreateNewInitialTarget(forms.Form):
     )
     
     def __init__(self, *args, **kwargs):
-        self.outline = kwargs.pop("outline")
+        self.outline: models.Outline = kwargs.pop("outline")
+        self.is_premium: bool = kwargs.pop("is_premium")
         super(CreateNewInitialTarget, self).__init__(*args, **kwargs)
         self.fields["target"].widget.attrs["class"] = "form-control"
 
     def clean_target(self):
-        coord = self.cleaned_data["target"].strip()
+        coord: str = self.cleaned_data["target"].strip()
+        if not self.is_premium:
+            self.add_error("target", gettext_lazy("You need a premium account to add more targets here."))
+            return
 
         if models.TargetVertex.objects.filter(
             target=coord, outline=self.outline

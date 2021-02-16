@@ -685,5 +685,27 @@
       activateTooltips();
     </script>
 </div>
+{% if premium_error %}
 
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content text-white bg-danger">
+            <div class="modal-header">
+                <h3 class="modal-title">{% trans 'An error occured' %}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>{% trans "Premium account is required to complete outlines greater than 25 targets. Buy it" %} <b><a style='color:white;text-decoration:underline' href="{% url 'base:premium' %}">{% trans 'here' %}</a></b> {% trans "or reduce the number of outline targets." %}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        $('.bd-example-modal-lg').modal('show');
+    });
+</script>
+{% endif %}
 {% endblock %}

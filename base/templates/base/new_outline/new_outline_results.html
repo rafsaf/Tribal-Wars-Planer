@@ -188,12 +188,17 @@
         </div>
 
         <div class="tab-pane fade" id="pills-outline-export" role="tabpanel" aria-labelledby="pills-contact-tab">
+            {% if user.profile.is_premium %}
             <div class="my-3">
-              {% trans 'Below you will find the remaining unused player armies. The data is generated AFTER the whole outline is completed, together with the targets, commands, link, etc. If you plan to create a second outline, e.g. for the next day, create a new outline and paste the data below. Although you can use it any other way :) Note that for the sake of simplicity, all offensive troops are listed as axemen, while deff troops are omitted.' %}
+              {% trans 'Below you will find all the unused troops left after the roster. Paste them into the Army Collection in order to start a new action.' %}
             </div>
             <div class="form-group" contenteditable="true">
                 <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_export}}</textarea>
             </div>
+            {% else %}
+            <div class="my-3">{% trans 'You have no access to unused troops without premium account.' %}</div>
+            
+            {% endif %}
         </div>
 
         <div class="tab-pane fade" id="pills-deff" role="tabpanel" aria-labelledby="pills-contact-tab">

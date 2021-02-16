@@ -5,8 +5,22 @@
 {% block content %}
 <style>.copy-button{border:0;background-color:white}.border-row{font-weight: 500;}</style>
 <div class="fixed-scrollbar-container">
-<div class="container py-3" style="min-height: 70vh; max-width:1000px !important;font-size: larger;">
+<div class="container py-1" style="min-height: 70vh; max-width:1000px !important;font-size: larger;">
 <div style="margin-right:-15px;margin-left:-15px;">
+    <table class="table table-bordered" style="width: min-content;">
+        <thead>
+            <tr>
+                <th style="min-width: 25vh;" class="text-nowrap">{% trans 'Premium' %}</th>
+                <th style="min-width: 25vh;" class="text-nowrap">
+                    {% if user.profile.is_premium %}
+                    {% trans 'Active until the day' %} - {{user.profile.validity_date}}
+                    {% else %}
+                    {% trans 'Not active'%}
+                    {% endif %}
+                </th>
+            </tr>
+        </thead>
+    </table>
     <h3>{% trans 'Payment can be made to the number below:' %}</h3>
     <div class="form-group row mb-4">
         <div class="col-12 col-md-9 col-lg-6 mt-2">

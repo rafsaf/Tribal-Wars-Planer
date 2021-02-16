@@ -636,12 +636,14 @@ class Payment(models.Model):
 
 
 @receiver(post_save, sender=Payment)
-def handle_payment(sender, instance: Payment, created, **kwargs):
+def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
     if created:
-        user_profile: Profile = instance.user.profile
-        current_date = instance.payment_date
-        relative_months = relativedelta(months=instance.months)
-        day = relativedelta(days=1)
+        user: User = instance.user
+        user_profile: Profile = Profile.objects.get(user=user)
+
+        current_date: datetime.date = instance.payment_date
+        relative_months: relativedelta = relativedelta(months=instance.months)
+        day: relativedelta = relativedelta(days=1)
         if user_profile.validity_date is None:
             user_profile.validity_date = current_date + relative_months + day
         elif user_profile.validity_date <= current_date:
@@ -657,8 +659,9 @@ def handle_payment(sender, instance: Payment, created, **kwargs):
                 "user": instance.user
             })
             send_mail("plemiona-planer.pl", "",
-                      "plemionaplaner.pl@gmail.com", recipient_list=[instance.user.email],
+                      "plemionaplaner.pl@gmail.com", recipient_list=[user.email],
                       html_message=msg_html)
+
         instance.new_date = user_profile.validity_date
         user_profile.save()
         instance.save()
