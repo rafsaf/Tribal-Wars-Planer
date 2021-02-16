@@ -71,7 +71,8 @@ class TableText:
         elif fake and weight.nobleman == 0:
             send = _("fake")
         elif ruin:
-            send = f"catapult-{weight.catapult}"
+            send = _("Catapults-")
+            send = f"{send}{weight.catapult}"
         else:
             send = f"{weight.off}"
 

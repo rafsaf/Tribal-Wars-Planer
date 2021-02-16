@@ -44,6 +44,8 @@ def overview_view(request, token):
                 for weight in lst:
                     if weight["player"] == overview.player:
                         query.append((targets[target], lst))
+                        break
+                
         else:
             for target, lst in weights.items():
                 owns = [weight for weight in lst if weight["player"] == overview.player]
