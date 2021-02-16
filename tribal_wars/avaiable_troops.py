@@ -1,6 +1,7 @@
 from math import ceil
 
-from django.db.models import Sum
+from django.db.models import Sum, F
+from django.db.models.query import QuerySet
 
 from base import models
 from . import basic
@@ -132,4 +133,38 @@ def get_legal_coords_outline(outline: models.Outline):
 
     outline.avaiable_nobles = [all_noble, front_noble, back_noble]
     outline.avaiable_offs = [all_off, front_off, back_off]
+    outline.save()
+
+
+def update_available_ruins(outline: models.Outline) -> None:
+    ruins_from_other: int = (
+        models.WeightMaximum.objects.filter(
+            first_line=False,
+            outline=outline,
+            catapult_left__gte=outline.initial_outline_catapult_default,
+            off_left__lt=outline.initial_outline_min_off,
+        )
+        .annotate(
+            ruin_number=(F("catapult_left") / outline.initial_outline_catapult_default)
+        )
+        .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
+        or 0
+    )
+
+    ruins_from_offs: int = (
+        models.WeightMaximum.objects.filter(
+            first_line=False,
+            catapult_left__gte=outline.initial_outline_catapult_default
+            + outline.initial_outline_off_left_catapult,
+            off_left__gte=outline.initial_outline_min_off,
+        )
+        .annotate(
+            ruin_number=(F("catapult_left") - outline.initial_outline_off_left_catapult)
+            / outline.initial_outline_catapult_default
+        )
+        .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
+        or 0
+    )
+
+    outline.avaiable_ruins = ruins_from_offs + ruins_from_other
     outline.save()

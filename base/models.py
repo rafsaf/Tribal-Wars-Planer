@@ -250,8 +250,12 @@ class Outline(models.Model):
     initial_outline_ruins = models.TextField(blank=True, default="")
 
     initial_outline_catapult_default = models.IntegerField(
-        default=40,
-        validators=[MinValueValidator(10), MaxValueValidator(200)]
+        default=80,
+        validators=[MinValueValidator(10), MaxValueValidator(400)]
+    )
+    initial_outline_off_left_catapult = models.IntegerField(
+        default=50,
+        validators=[MinValueValidator(0), MaxValueValidator(400)]
     )
     initial_outline_min_off = models.IntegerField(
         default=19000,
@@ -275,6 +279,7 @@ class Outline(models.Model):
     avaiable_nobles = ArrayField(models.IntegerField(), default=list)
     avaiable_offs_near = ArrayField(models.IntegerField(), default=list)
     avaiable_nobles_near = ArrayField(models.IntegerField(), default=list)
+    avaiable_ruins = models.IntegerField(default=None, null=True, blank=True)
 
     mode_off = models.CharField(
         max_length=15, choices=MODE_OFF, default="random"
@@ -339,6 +344,7 @@ class Outline(models.Model):
         self.avaiable_offs_near = []
         self.avaiable_nobles = []
         self.avaiable_nobles_near = []
+        self.avaiable_ruins = None
         self.filter_weights_min = 0
         self.filter_weights_max = 30000
         self.filter_card_number = 12

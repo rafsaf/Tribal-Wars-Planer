@@ -99,15 +99,17 @@ def complete_outline(outline: models.Outline):
         if parsed.end_up_offs:
             break
 
+    leave = False
     target: models.TargetVertex
     for target in ruins:
         if leave:
             break
-
-        if target.required_noble == 0:
-            if len(target.exact_noble) == 4:
+        target.required_off = target.required_noble
+        target.exact_off = target.exact_noble
+        if target.required_off == 0:
+            if len(target.exact_off) == 4:
                 for required_off, mode in zip(
-                    target.exact_noble, modes_list
+                    target.exact_off, modes_list
                 ):  # closest, close, random, far
                     if required_off == 0:
                         continue
@@ -126,6 +128,7 @@ def complete_outline(outline: models.Outline):
         if parsed.end_up_offs:
             break
 
+    leave = False
     for target in targets:
         if target.required_noble == 0:
             if len(target.exact_noble) == 4:
@@ -172,6 +175,7 @@ def complete_outline(outline: models.Outline):
         if parsed.end_up_offs:
             break
 
+    leave = False
     for target in ruins:
         if leave:
             break
@@ -198,6 +202,7 @@ def complete_outline(outline: models.Outline):
         if parsed.end_up_offs:
             break
 
+    leave = False
     for target in fakes:
 
         if target.required_noble == 0:

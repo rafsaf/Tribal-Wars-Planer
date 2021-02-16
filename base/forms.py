@@ -320,6 +320,8 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide",
             "mode_split",
             "initial_outline_fake_limit",
+            "initial_outline_catapult_default",
+            "initial_outline_off_left_catapult",
         ]
         labels = {
             "mode_off": gettext_lazy("Choose the distance of the written offs:"),
@@ -333,6 +335,12 @@ class ModeOutlineForm(forms.ModelForm):
             ),
             "initial_outline_fake_limit": gettext_lazy(
                 "Maximum number of fakes from one off village:"
+            ),
+            "initial_outline_catapult_default": gettext_lazy(
+                "Number of catapults in one ruin attack:"
+            ),
+            "initial_outline_off_left_catapult": gettext_lazy(
+                "Number of catapults that will always be left in full offs:"
             ),
         }
         widgets = {

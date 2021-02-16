@@ -174,29 +174,53 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr >
+                  <tr>
                     <th>{% trans 'Offs' %}</th>
                     {% for item in instance.avaiable_offs %}
                     <th> {{ item }} </th>
+                    {% empty %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     {% endfor %}
                   </tr>
-                  <tr >
+                  <tr>
                     <th>{% trans 'Nobles' %}</th>
                     {% for item in instance.avaiable_nobles %}
                     <th> {{ item }} </th>
+                    {% empty %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     {% endfor %}
                   </tr>
-                  <tr >
+                  <tr>
                     <th>{% trans 'Offs closer than max noble distance' %}</th>
                     {% for item in instance.avaiable_offs_near %}
                     <th> {{ item }} </th>
+                    {% empty %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     {% endfor %}
                   </tr>
-                  <tr >
+                  <tr>
                     <th>{% trans 'Nobles closer than max noble distance' %}</th>
                     {% for item in instance.avaiable_nobles_near %}
                     <th> {{ item }} </th>
+                    {% empty %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     {% endfor %}
+                  </tr>
+                  <tr>
+                    <th>{% trans 'The approximate number of ruin attacks to write out' %}</th>
+                    <th > 
+                      {% if instance.avaiable_ruins %}
+                      {{instance.avaiable_ruins}}
+                      {% endif %}
+                    </th>
                   </tr>
 
                 </tbody>
@@ -342,6 +366,14 @@
                               <tr >
                                 <th>{% trans 'Fake limit per village' %}</th>
                                 <th> {{ instance.initial_outline_fake_limit }} </th>
+                              </tr>
+                              <tr >
+                                <th>{% trans 'Number of catapults in one ruin attack' %}</th>
+                                <th> {{ instance.initial_outline_catapult_default }} </th>
+                              </tr>
+                              <tr >
+                                <th>{% trans 'Number of catapults that will always be left in full offs' %}</th>
+                                <th> {{ instance.initial_outline_off_left_catapult }} </th>
                               </tr>
                               
             

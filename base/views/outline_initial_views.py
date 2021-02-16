@@ -1,9 +1,10 @@
 from collections import Counter
+from tribal_wars.basic import mode
 
-from django.db.models import Sum
+from django.db.models import Sum, Q, F
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import Http404
+from django.http import Http404, HttpRequest, HttpResponse
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -22,7 +23,7 @@ from base import models, forms
 
 
 @login_required
-def initial_form(request, _id):
+def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     """
     view with table with created outline,
 
@@ -136,6 +137,12 @@ def initial_form(request, _id):
     form4.fields[
         "initial_outline_fake_limit"
     ].initial = instance.initial_outline_fake_limit
+    form4.fields[
+        "initial_outline_off_left_catapult"
+    ].initial = instance.initial_outline_off_left_catapult
+    form4.fields[
+        "initial_outline_catapult_default"
+    ].initial = instance.initial_outline_catapult_default
     form5.fields["night_bonus"].initial = instance.night_bonus
     form5.fields["enter_t1"].initial = instance.enter_t1
     form5.fields["enter_t2"].initial = instance.enter_t2
@@ -175,6 +182,7 @@ def initial_form(request, _id):
                 instance.save()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.legal_coords_near_targets(outline=instance)
+                avaiable_troops.update_available_ruins(outline=instance)
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
@@ -200,12 +208,17 @@ def initial_form(request, _id):
                 mode_guide = request.POST.get("mode_guide")
                 fake_limit = request.POST.get("initial_outline_fake_limit")
                 mode_split = request.POST.get("mode_split")
+                catapult_default = request.POST.get("initial_outline_catapult_default")
+                catapult_left = request.POST.get("initial_outline_off_left_catapult")
+
                 instance.mode_off = mode_off
                 instance.mode_noble = mode_noble
                 instance.mode_division = mode_division
                 instance.mode_guide = mode_guide
                 instance.mode_split = mode_split
                 instance.initial_outline_fake_limit = fake_limit
+                instance.initial_outline_catapult_default = catapult_default
+                instance.initial_outline_off_left_catapult = catapult_left
                 instance.save()
 
                 models.TargetVertex.objects.filter(outline=instance).update(
@@ -308,7 +321,7 @@ def initial_form(request, _id):
 
 
 @login_required
-def initial_planer(request, _id):
+def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
     """ view with form for initial period outline """
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
@@ -445,7 +458,9 @@ def initial_planer(request, _id):
         player = request.GET.get("player") or ""
         coord = request.GET.get("coord") or ""
 
-        queries = basic.TargetWeightQueries(outline=instance, every=True, filtr=[player, coord])
+        queries = basic.TargetWeightQueries(
+            outline=instance, every=True, filtr=[player, coord]
+        )
         target_dict = queries.target_dict_with_weights_read()
         paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
@@ -518,7 +533,6 @@ def initial_planer(request, _id):
             "count_noble": count_noble,
             "player": player,
             "coord": coord,
-
         }
 
         return render(
@@ -528,7 +542,9 @@ def initial_planer(request, _id):
         )
 
     elif mode.is_time:
-        queries = basic.TargetWeightQueries(outline=instance, every=True, only_with_weights=True)
+        queries = basic.TargetWeightQueries(
+            outline=instance, every=True, only_with_weights=True
+        )
         try:
             error = request.session["outline_error"]
         except KeyError:
@@ -569,9 +585,12 @@ def initial_planer(request, _id):
 
         if request.method == "POST":
             if "form-finish" in request.POST:
-                with_weight_targets = models.WeightModel.objects.select_related("target").filter(
-                    target__outline=instance
-                ).distinct("target").values_list("target", flat=True)
+                with_weight_targets = (
+                    models.WeightModel.objects.select_related("target")
+                    .filter(target__outline=instance)
+                    .distinct("target")
+                    .values_list("target", flat=True)
+                )
 
                 target_with_no_time = (
                     models.TargetVertex.objects.filter(outline=instance)
@@ -650,7 +669,7 @@ def initial_planer(request, _id):
 
 
 @login_required
-def initial_target(request, id1, id2):
+def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     """ view with form for initial period outline detail """
     instance = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
@@ -665,7 +684,11 @@ def initial_target(request, id1, id2):
 
     link_to_tw = instance.world.tw_stats_link_to_village(village_id)
 
-    result_lst = models.WeightModel.objects.select_related("state").filter(target=target).order_by("order")
+    result_lst = (
+        models.WeightModel.objects.select_related("state")
+        .filter(target=target)
+        .order_by("order")
+    )
     for weight in result_lst:
         weight.distance = round(weight.distance, 1)
     # sort
@@ -709,9 +732,9 @@ def initial_target(request, id1, id2):
                 weight_id = request.POST.get("weight_id")
                 off = int(request.POST.get("off"))
                 nobleman = int(request.POST.get("nobleman"))
-                weight: models.WeightModel = models.WeightModel.objects.select_related("state").filter(
-                    pk=weight_id
-                )[0]
+                weight: models.WeightModel = models.WeightModel.objects.select_related(
+                    "state"
+                ).filter(pk=weight_id)[0]
                 state: models.WeightMaximum = weight.state
                 off_diffrence = off - weight.off
                 noble_diffrence = nobleman - weight.nobleman
@@ -725,7 +748,9 @@ def initial_target(request, id1, id2):
                 if off > weight.off:
                     if off > weight.off + state.off_left - state.catapult_left * 8:
                         off_from_catapults = weight.off + state.off_left - off
-                        catapults_up = min((off_from_catapults // 8) + 1, state.catapult_left)
+                        catapults_up = min(
+                            (off_from_catapults // 8) + 1, state.catapult_left
+                        )
                         state.catapult_state += catapults_up
                         state.catapult_left -= catapults_up
                         state.off_state += catapults_up * 8 - off_from_catapults
@@ -737,7 +762,9 @@ def initial_target(request, id1, id2):
                 else:
                     if weight.catapult * 8 > off:
                         off_from_catapults = weight.catapult * 8 - off
-                        catapults_down = min((off_from_catapults // 8) + 1, weight.catapult)
+                        catapults_down = min(
+                            (off_from_catapults // 8) + 1, weight.catapult
+                        )
                         state.catapult_state -= catapults_down
                         state.catapult_left += catapults_down
                         state.off_state -= catapults_down * 8 - off_from_catapults
@@ -795,13 +822,13 @@ def initial_target(request, id1, id2):
 
 @require_POST
 @login_required
-def initial_delete_time(request, pk):
-    outline_time = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
-    outline = get_object_or_404(
+def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
+    outline_time: models.OutlineTime = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
+    outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
-    mode = request.GET.get("mode")
-    page = request.GET.get("page")
+    mode: str = request.GET.get("mode")
+    page: str = request.GET.get("page")
     if outline.default_off_time_id == outline_time.pk:
         outline.default_off_time_id = None
     if outline.default_fake_time_id == outline_time.pk:
@@ -818,15 +845,15 @@ def initial_delete_time(request, pk):
 
 @require_POST
 @login_required
-def initial_set_all_time(request, pk):
-    outline_time = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
+def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
+    outline_time: models.OutlineTime = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
-    mode = request.GET.get("mode")
-    page = request.GET.get("page")
-    fake = request.GET.get("fake")
-    ruin = request.GET.get("ruin")
+    mode: str = request.GET.get("mode")
+    page: str = request.GET.get("page")
+    fake: str = request.GET.get("fake")
+    ruin: str = request.GET.get("ruin")
 
     if fake == "true":
         fake = True
@@ -851,11 +878,11 @@ def initial_set_all_time(request, pk):
 
 
 @login_required
-def create_final_outline(request, id1):
-    instance = get_object_or_404(
+def create_final_outline(request: HttpRequest, id1: int) -> HttpResponse:
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
-    target_with_no_time = (
+    target_with_no_time: bool = (
         models.TargetVertex.objects.filter(outline=instance)
         .filter(outline_time=None)
         .exists()
@@ -865,14 +892,15 @@ def create_final_outline(request, id1):
         return redirect(
             reverse("base:planer_initial", args=[id1]) + "?page=1&mode=time"
         )
+
     models.Overview.objects.filter(outline=instance).update(removed=True)
     finish.make_final_outline(instance)
     return redirect("base:planer_detail_results", id1)
 
 
 @login_required
-def complete_outline(request, id1):
-    instance = get_object_or_404(
+def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
     initial.complete_outline(outline=instance)
@@ -882,12 +910,12 @@ def complete_outline(request, id1):
 
 
 @login_required
-def update_outline_troops(request, id1):
-    instance = get_object_or_404(
+def update_outline_troops(request: HttpRequest, id1: int) -> HttpResponse:
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
     models.WeightMaximum.objects.filter(outline=instance).delete()
-    off_form = forms.OffTroopsForm(
+    off_form: forms.OffTroopsForm = forms.OffTroopsForm(
         {"off_troops": instance.off_troops}, outline=instance
     )
     if off_form.is_valid():
@@ -903,6 +931,7 @@ def update_outline_troops(request, id1):
     instance.avaiable_offs_near = []
     instance.avaiable_nobles = []
     instance.avaiable_nobles_near = []
+    instance.avaiable_ruins = None
     instance.save()
     return redirect(
         reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode.mode}"

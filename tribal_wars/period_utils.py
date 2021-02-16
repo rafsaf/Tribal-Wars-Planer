@@ -28,7 +28,7 @@ class FromPeriods:
         self.ram_period = None
 
     def next(self, weight: models.WeightModel):
-        if weight.nobleman == 0:
+        if weight.nobleman == 0 and not weight.ruin:
             if self.ram_period is None:
                 period = self.ram_periods.popleft()
                 period.attack_number = self.attack_number(period)
