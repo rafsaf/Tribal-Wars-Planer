@@ -24,7 +24,7 @@ class TableText:
 
         self.world = world
 
-    def __link(self, ally_village_id, enemy_village_id, fake, ruin, deputy=None):
+    def __link(self, ally_village_id, enemy_village_id, fake, ruin=False, deputy=None, noble=False):
         if deputy is not None:
             t = f"&t={deputy}"
         else:
@@ -33,8 +33,10 @@ class TableText:
             send = _("Send fake")
         elif ruin:
             send = _("Send ruin")
-        else:
+        elif not noble:
             send = _("Send OFF")
+        else:
+            send = _("Send NOBLE")
         return (
             f"[url={self.world.link_to_game()}/game.php?"
             f"village={ally_village_id}&screen=place&"
@@ -66,20 +68,24 @@ class TableText:
         )
 
     def __weight_table(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, ruin, deputy=None,
+        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None,
     ):
         if fake and weight.nobleman > 0:
             send = _("fake noble")
         elif fake and weight.nobleman == 0:
             send = _("fake")
-        elif ruin:
+        elif weight.ruin:
             send = _("Catapults-")
-            send = f"{send}{weight.catapult}"
+            if weight.building is not None:
+                building = "- " + weight.get_building_display()
+            else:
+                building = ""
+            send = f"{send}{weight.catapult}{building}"
         else:
             send = f"{weight.off}"
 
         return (
-            f"[|]{self.__link(ally_id, enemy_id, fake, ruin, deputy=deputy)}"
+            f"[|]{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
             f"[|]{send}[|]{weight.nobleman}"
             f"[|]{self.__date_table(weight.sh_t1, weight.sh_t2)}"
             f"[|]{self.__date_table(weight.t1, weight.t2)}"
@@ -87,53 +93,62 @@ class TableText:
         )
 
     def __weight_string(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, ruin, deputy=None, simple=False,
+        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None, simple=False,
     ):
         nobles = _("Nobles-")
         from_village = _("from village")
         to = _("to ")
         if fake and weight.nobleman > 0:
-            text = _("Send [b]fake noble[/b] (Off-")
-            send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
+            text = _("[color=#00a500][b]Send fake noble[/b][/color] (1 noble)")
+            send = f"{text}"
         elif fake and weight.nobleman == 0:
-            text = _("Send [b]fake[/b] (Off-")
-            send = f"{text}{weight.off}) "
-        elif ruin:
-            text = _("Send [b]ruin[/b] (Catapults-")
-            send = f"{text}{weight.catapult}) "            
+            text = _("[color=#00a500][b]Send fake[/b][/color]")
+            send = f"{text}"
+        elif weight.ruin:
+            text = _("[color=#0e0eff][b]Ruin[/b][/color] (Catapults-")
+            if weight.building is not None:
+                building = "[b]" + weight.get_building_display() + "[/b]"
+            else:
+                building = ""
+            send = f"{text}{weight.catapult} {building})"            
         else:
-            text = _("Send [b]OFF[/b] (Off-")
-            send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
+            if weight.nobleman == 0:
+                text = _("[size=12][b]OFF[/b][/size] (Off-")
+                send = f"{text}{weight.off})"
+            else:
+                text = _("[color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color]")
+                send = f"{text} (Off-{weight.off}, {nobles}{weight.nobleman}) "
+            
 
         if simple:
             own_and_enemy_villages = ""
         else:
-            own_and_enemy_villages = f"{from_village} {weight.start} {to}{weight.target.target}"
+            own_and_enemy_villages = f" {from_village} {weight.start} {to}{weight.target.target}"
         return (
             f"{send}"
             f"{own_and_enemy_villages}"
             f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"
-            f"{self.__link(ally_id, enemy_id, fake, ruin, deputy=deputy)}"
+            f"{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
         )
 
     def add_weight(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, ruin=False, deputy=None
+        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None
     ):
 
         self.weight_table[weight] = str(
-            self.__weight_table(weight, ally_id, enemy_id, fake, ruin)
+            self.__weight_table(weight, ally_id, enemy_id, fake)
         )
 
         self.weight_string[weight] = str(
-            self.__weight_string(weight, ally_id, enemy_id, fake, ruin, simple=True)
+            self.__weight_string(weight, ally_id, enemy_id, fake, simple=True)
         )
 
         self.weight_extended[weight] = str(
-            self.__weight_string(weight, ally_id, enemy_id, fake, ruin)
+            self.__weight_string(weight, ally_id, enemy_id, fake)
         )
 
         self.weight_deputy[weight] = str(
-            self.__weight_string(weight, ally_id, enemy_id, fake, ruin, deputy=deputy)
+            self.__weight_string(weight, ally_id, enemy_id, fake, deputy=deputy)
         )
         try:
             self.result[weight.player].append(weight)

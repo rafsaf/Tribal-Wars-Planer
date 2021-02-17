@@ -1,4 +1,5 @@
 """ File with outline making """
+from tribal_wars.basic.ruin import RuinHandle
 from django.db.models.query import QuerySet
 from tribal_wars import input_target
 from tribal_wars import weight_utils
@@ -73,7 +74,7 @@ def complete_outline(outline: models.Outline):
     ).order_by("id")
 
     create_weights(fakes, outline, world, noble=False)
-    create_weights(ruins, outline, world, noble=False, ruin=True)
+    create_weights_ruin(ruins, outline, world)
     create_weights(targets, outline, world, noble=True)
     create_weights(targets, outline, world, noble=False)
     create_weights(ruins, outline, world, noble=False)
@@ -138,3 +139,41 @@ def create_weights(
                 parsed.write_ram()
                 if parsed.end_up_offs:
                     break
+
+
+def create_weights_ruin(
+    targets_query: QuerySet,
+    outline: models.Outline,
+    world: models.World,
+) -> None:
+    modes_list = ["random", "random", "random", "random"]
+    target: models.TargetVertex
+    for target in targets_query.iterator():
+        # here noble numbers becomes offs and we treat it like off
+        target.required_off = target.required_noble
+        target.exact_off = target.exact_noble
+        target.mode_off = "random"
+
+        if target.required_off == 0:
+            if len(target.exact_off) == 4:
+                for required_off, mode in zip(
+                    target.exact_off, modes_list
+                ):  # random, random, random, random
+                    if required_off == 0:
+                        continue
+                    target.required_off = required_off
+                    target.mode_off = mode
+
+                    parsed = write_out_outline.WriteTarget(
+                        target, outline, world, ruin=True
+                    )
+                    parsed.write_ram()
+                    if parsed.end_up_offs:
+                        return
+        else:
+            parsed = write_out_outline.WriteTarget(
+                target, outline, world, ruin=True
+            )
+            parsed.write_ram()
+            if parsed.end_up_offs:
+                break

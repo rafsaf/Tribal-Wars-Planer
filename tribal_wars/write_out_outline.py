@@ -1,5 +1,6 @@
 from random import sample
 from statistics import mean
+from tribal_wars.basic.ruin import RuinHandle
 from typing import Union
 
 from django.db.models import (
@@ -28,16 +29,16 @@ class WriteTarget:
         ruin=False,
     ):
         self.target: models.TargetVertex = target
-        self.x_coord = target.coord_tuple()[0]
-        self.y_coord = target.coord_tuple()[1]
+        self.x_coord: int = target.coord_tuple()[0]
+        self.y_coord: int = target.coord_tuple()[1]
         self.outline: models.Outline = outline
-        self.ruin = ruin
-        self.end_up_offs = False
-        self.end_up_nobles = False
-        self.index = 0
-        self.avg_dist = mean((self.target.enter_t1, self.target.enter_t2))
-        self.interval_dist = self.target.enter_t2 - self.avg_dist
-        self.dividier = world.speed_world * world.speed_units * 2
+        self.ruin: bool = ruin
+        self.end_up_offs: bool = False
+        self.end_up_nobles: bool = False
+        self.index: int = 0
+        self.avg_dist: int = mean((self.target.enter_t1, self.target.enter_t2))
+        self.interval_dist: int = self.target.enter_t2 - self.avg_dist
+        self.dividier: int = world.speed_world * world.speed_units * 2
 
     def write_noble(self):
         weights_max_update_lst = []
@@ -196,9 +197,13 @@ class WriteTarget:
     def write_ram(self):
         weights_max_update_lst = []
         weights_create_lst = []
+        if self.ruin:
+            ruin_handle: RuinHandle = RuinHandle(outline=self.outline)
+            ruin_iter = ruin_handle.yield_building()
 
         weight_max: models.WeightMaximum
         for i, weight_max in enumerate(self.sorted_weights_offs()):
+            building = None
             if self.target.fake:
                 off = 100
                 fake_limit = 1
@@ -207,6 +212,10 @@ class WriteTarget:
                 off = self.outline.initial_outline_catapult_default * 8
                 catapult = self.outline.initial_outline_catapult_default
                 fake_limit = 0
+                try: 
+                    building = next(ruin_iter)
+                except StopIteration:
+                    break
             else:
                 off = weight_max.off_left
                 catapult = weight_max.catapult_left
@@ -220,6 +229,7 @@ class WriteTarget:
                 off=off,
                 catapult=catapult,
                 ruin=self.ruin,
+                building=building,
                 distance=weight_max.distance,
                 nobleman=0,
                 order=i + self.index,

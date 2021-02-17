@@ -30,9 +30,10 @@ class Server(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     server = models.ForeignKey(
-        Server, on_delete=models.SET_NULL, null=True, default=None)
+        Server, on_delete=models.SET_NULL, null=True, default=None
+    )
     validity_date = models.DateField(default=None, blank=True, null=True)
-    
+
     def is_premium(self) -> bool:
         if self.validity_date is None:
             return False
@@ -45,8 +46,7 @@ class Profile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        default_server = Server.objects.get_or_create(
-            dns="plemiona.pl", prefix="pl")[0]
+        default_server = Server.objects.get_or_create(dns="plemiona.pl", prefix="pl")[0]
         Profile.objects.create(user=instance, server=default_server)
 
 
@@ -57,6 +57,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 class World(models.Model):
     """ World in the game """
+
     STATUS_CHOICES = [
         ("active", "Active"),
         ("inactive", "Inactive"),
@@ -68,15 +69,9 @@ class World(models.Model):
     connection_errors = models.IntegerField(default=0)
     speed_world = models.FloatField(null=True, blank=True, default=1)
     speed_units = models.FloatField(null=True, blank=True, default=1)
-    paladin = models.CharField(
-        choices=STATUS_CHOICES, max_length=8, default="active"
-    )
-    archer = models.CharField(
-        choices=STATUS_CHOICES, max_length=8, default="active"
-    )
-    militia = models.CharField(
-        choices=STATUS_CHOICES, max_length=8, default="active"
-    )
+    paladin = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
+    archer = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
+    militia = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     max_noble_distance = models.IntegerField(default=50)
 
     def __str__(self):
@@ -90,11 +85,7 @@ class World(models.Model):
         return gettext_lazy("World ") + self.postfix + last
 
     def link_to_game(self, addition=""):
-        return (
-            f"https://{str(self)}."
-            f"{self.server.dns}"
-            f"{addition}"
-        )
+        return f"https://{str(self)}." f"{self.server.dns}" f"{addition}"
 
     def tw_stats_link_to_village(self, village_id):
         return (
@@ -119,8 +110,7 @@ class Player(models.Model):
 
     player_id = models.IntegerField()
     name = models.TextField(db_index=True)
-    tribe = models.ForeignKey(
-        Tribe, on_delete=models.CASCADE, null=True, blank=True)
+    tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE, null=True, blank=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -134,8 +124,7 @@ class VillageModel(models.Model):
     x_coord = models.IntegerField()
     y_coord = models.IntegerField()
     coord = models.CharField(max_length=7, db_index=True)
-    player = models.ForeignKey(
-        Player, on_delete=models.CASCADE, null=True, blank=True)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
     world = models.ForeignKey(World, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -144,32 +133,46 @@ class VillageModel(models.Model):
 
 def create_test_world(server: Server):
     test_world = World.objects.create(server=server, postfix="Test")
-    tribe1 = Tribe.objects.create(tribe_id=0, tag='ALLY', world=test_world)
-    tribe2 = Tribe.objects.create(tribe_id=1, tag='ENEMY', world=test_world)
+    tribe1 = Tribe.objects.create(tribe_id=0, tag="ALLY", world=test_world)
+    tribe2 = Tribe.objects.create(tribe_id=1, tag="ENEMY", world=test_world)
     ally_villages = []
     ally_players = []
     enemy_players = []
     enemy_villages = []
     for i in range(5):
         ally_players.append(
-            Player(tribe=tribe1, world=test_world, player_id=i, name=f'AllyPlayer{i}'))
+            Player(tribe=tribe1, world=test_world, player_id=i, name=f"AllyPlayer{i}")
+        )
         enemy_players.append(
-            Player(tribe=tribe2, world=test_world, player_id=i+5, name=f'EnemyPlayer{i}'))
+            Player(
+                tribe=tribe2, world=test_world, player_id=i + 5, name=f"EnemyPlayer{i}"
+            )
+        )
     Player.objects.bulk_create(enemy_players)
     Player.objects.bulk_create(ally_players)
-    ally_players = list(Player.objects.filter(
-        world=test_world, player_id__lte=4))
-    enemy_players = list(Player.objects.filter(
-        world=test_world, player_id__gte=5))
+    ally_players = list(Player.objects.filter(world=test_world, player_id__lte=4))
+    enemy_players = list(Player.objects.filter(world=test_world, player_id__gte=5))
     for i in range(50):
         ids = i // 10
         ally_villages.append(
-            VillageModel(world=test_world, x_coord=100+i, y_coord=100+i,
-                         coord=f"{100+i}|{100+i}", village_id=i, player=ally_players[ids])
+            VillageModel(
+                world=test_world,
+                x_coord=100 + i,
+                y_coord=100 + i,
+                coord=f"{100+i}|{100+i}",
+                village_id=i,
+                player=ally_players[ids],
+            )
         )
         enemy_villages.append(
-            VillageModel(world=test_world, x_coord=200+i, y_coord=200+i,
-                         coord=f"{200+i}|{200+i}", village_id=i+50, player=enemy_players[ids])
+            VillageModel(
+                world=test_world,
+                x_coord=200 + i,
+                y_coord=200 + i,
+                coord=f"{200+i}|{200+i}",
+                village_id=i + 50,
+                player=enemy_players[ids],
+            )
         )
 
     VillageModel.objects.bulk_create(enemy_villages)
@@ -225,23 +228,32 @@ class Outline(models.Model):
         ("all", gettext_lazy("All")),
         ("front", gettext_lazy("Front")),
         ("back", gettext_lazy("Back")),
-        ("hidden", gettext_lazy("Hidden"))
+        ("hidden", gettext_lazy("Hidden")),
     ]
+
+    ORDER_RUINING = [
+        ("first", gettext_lazy("Farm -> Headquarters -> Smithy -> Barracks -> EKO...")),
+        (
+            "second",
+            gettext_lazy("Farm -> Headquarters -> Warehouse -> Smithy -> EKO..."),
+        ),
+    ]
+
+    RUINED_VILLAGES_POINTS = [
+        ("big", gettext_lazy("Average greater than 8k")),
+        ("medium", gettext_lazy("Average 5-8k")),
+    ]
+
+    CATAPULTS_NUMBER = [(50, 50), (75, 75), (100, 100), (150, 150), (200, 200)]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=django.utils.timezone.now)
     name = models.TextField()
     world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(
-        choices=STATUS_CHOICES, max_length=8, default="active"
-    )
-    written = models.CharField(
-        choices=STATUS_CHOICES, max_length=8, default="inactive"
-    )
-    editable = models.CharField(
-        choices=STATUS_CHOICES, max_length=8, default="active"
-    )
+    status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
+    written = models.CharField(choices=STATUS_CHOICES, max_length=8, default="inactive")
+    editable = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     ally_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
 
@@ -250,12 +262,16 @@ class Outline(models.Model):
     initial_outline_ruins = models.TextField(blank=True, default="")
 
     initial_outline_catapult_default = models.IntegerField(
-        default=80,
-        validators=[MinValueValidator(10), MaxValueValidator(400)]
+        default=100, choices=CATAPULTS_NUMBER
     )
     initial_outline_off_left_catapult = models.IntegerField(
-        default=50,
-        validators=[MinValueValidator(0), MaxValueValidator(400)]
+        default=50, validators=[MinValueValidator(0), MaxValueValidator(400)]
+    )
+    initial_outline_average_ruining_points = models.CharField(
+        max_length=150, choices=RUINED_VILLAGES_POINTS, default="big"
+    )
+    initial_outline_ruining_order = models.CharField(
+        max_length=150, choices=ORDER_RUINING, default="first"
     )
     initial_outline_min_off = models.IntegerField(
         default=19000,
@@ -272,8 +288,14 @@ class Outline(models.Model):
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )
 
-    off_troops = models.TextField(blank=True, default="",)
-    deff_troops = models.TextField(blank=True, default="",)
+    off_troops = models.TextField(
+        blank=True,
+        default="",
+    )
+    deff_troops = models.TextField(
+        blank=True,
+        default="",
+    )
 
     avaiable_offs = ArrayField(models.IntegerField(), default=list)
     avaiable_nobles = ArrayField(models.IntegerField(), default=list)
@@ -281,21 +303,15 @@ class Outline(models.Model):
     avaiable_nobles_near = ArrayField(models.IntegerField(), default=list)
     avaiable_ruins = models.IntegerField(default=None, null=True, blank=True)
 
-    mode_off = models.CharField(
-        max_length=15, choices=MODE_OFF, default="random"
-    )
-    mode_noble = models.CharField(
-        max_length=15, choices=MODE_NOBLE, default="closest"
-    )
+    mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
+    mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
     mode_division = models.CharField(
         max_length=15, choices=MODE_DIVISION, default="not_divide"
     )
     mode_guide = models.CharField(
         max_length=15, choices=NOBLE_GUIDELINES, default="one"
     )
-    mode_split = models.CharField(
-        max_length=15, choices=MODE_SPLIT, default="split"
-    )
+    mode_split = models.CharField(max_length=15, choices=MODE_SPLIT, default="split")
 
     filter_weights_min = models.IntegerField(
         default=0, validators=[MinValueValidator(0), MaxValueValidator(30000)]
@@ -305,32 +321,33 @@ class Outline(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(30000)],
     )
     filter_card_number = models.IntegerField(
-        default=12, validators=[MinValueValidator(1), MaxValueValidator(40)],
+        default=12,
+        validators=[MinValueValidator(1), MaxValueValidator(40)],
     )
     filter_targets_number = models.IntegerField(
-        default=12, validators=[MinValueValidator(1), MaxValueValidator(40)],
+        default=12,
+        validators=[MinValueValidator(1), MaxValueValidator(40)],
     )
     filter_hide_front = models.CharField(
         max_length=20, choices=HIDE_CHOICES, default="all"
     )
 
     filter_targets_number = models.IntegerField(
-        default=12, validators=[MinValueValidator(1), MaxValueValidator(50)],
+        default=12,
+        validators=[MinValueValidator(1), MaxValueValidator(50)],
     )
 
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(
-        max_length=50, default=gettext_lazy("Outline Targets"))
+        max_length=50, default=gettext_lazy("Outline Targets")
+    )
     text_message = models.CharField(max_length=500, default="", blank=True)
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)
-    default_off_time_id = models.IntegerField(
-        default=None, null=True, blank=True)
-    default_fake_time_id = models.IntegerField(
-        default=None, null=True, blank=True)
-    default_ruin_time_id = models.IntegerField(
-        default=None, null=True, blank=True)
+    default_off_time_id = models.IntegerField(default=None, null=True, blank=True)
+    default_fake_time_id = models.IntegerField(default=None, null=True, blank=True)
+    default_ruin_time_id = models.IntegerField(default=None, null=True, blank=True)
 
     class Meta:
         ordering = ("-created",)
@@ -357,8 +374,7 @@ class Outline(models.Model):
         WeightMaximum.objects.filter(outline=self).delete()
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
-        Overview.objects.filter(
-            outline=self, removed=False).update(removed=True)
+        Overview.objects.filter(outline=self, removed=False).update(removed=True)
         result = self.result
         result.results_outline = ""
         result.results_players = ""
@@ -371,9 +387,7 @@ class Outline(models.Model):
 class Result(models.Model):
     """ Presents Outline and Deff results """
 
-    outline = models.OneToOneField(
-        Outline, on_delete=models.CASCADE, primary_key=True
-    )
+    outline = models.OneToOneField(Outline, on_delete=models.CASCADE, primary_key=True)
     results_get_deff = models.TextField(default="")
     results_outline = models.TextField(default="")
     results_players = models.TextField(default="")
@@ -404,8 +418,7 @@ class Documentation(models.Model):
 class WeightMaximum(models.Model):
     """ Control state smaller than maximum """
 
-    outline = models.ForeignKey(
-        Outline, on_delete=models.CASCADE, db_index=True)
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
     start = models.CharField(max_length=7, db_index=True)
     x_coord = models.IntegerField(default=0)
     y_coord = models.IntegerField(default=0)
@@ -493,8 +506,7 @@ class TargetVertex(models.Model):
         ("single", gettext_lazy("Try single nobles from many villages")),
     ]
 
-    outline = models.ForeignKey(
-        Outline, on_delete=models.CASCADE, db_index=True)
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
     outline_time = models.ForeignKey(
         OutlineTime, on_delete=models.SET_NULL, null=True, default=None
     )
@@ -509,12 +521,8 @@ class TargetVertex(models.Model):
     exact_off = ArrayField(models.IntegerField(), default=list, size=4)
     exact_noble = ArrayField(models.IntegerField(), default=list, size=4)
 
-    mode_off = models.CharField(
-        max_length=15, choices=MODE_OFF, default="random"
-    )
-    mode_noble = models.CharField(
-        max_length=15, choices=MODE_NOBLE, default="closest"
-    )
+    mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
+    mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
     mode_division = models.CharField(
         max_length=15, choices=MODE_DIVISION, default="not_divide"
     )
@@ -529,9 +537,7 @@ class TargetVertex(models.Model):
         return self.target
 
     def get_absolute_url(self):
-        return reverse(
-            "base:planer_initial_detail", args=[self.outline_id, self.id]
-        )
+        return reverse("base:planer_initial_detail", args=[self.outline_id, self.id])
 
     def coord_tuple(self):
         return (int(self.target[0:3]), int(self.target[4:7]))
@@ -540,8 +546,26 @@ class TargetVertex(models.Model):
 class WeightModel(models.Model):
     """ Command between start and target """
 
-    target = models.ForeignKey(
-        TargetVertex, on_delete=models.CASCADE, db_index=True)
+    BUILDINGS = [
+        ("headquarters", gettext_lazy("Headquarters")),
+        ("barracks", gettext_lazy("Barracks")),
+        ("stable", gettext_lazy("Stable")),
+        ("workshop", gettext_lazy("Workshop")),
+        ("church", gettext_lazy("Church")),
+        ("academy", gettext_lazy("Academy")),
+        ("smithy", gettext_lazy("Smithy")),
+        ("rally_point", gettext_lazy("Rally point")),
+        ("statue", gettext_lazy("Statue")),
+        ("market", gettext_lazy("Market")),
+        ("timber_camp", gettext_lazy("Timber camp")),
+        ("clay_pit", gettext_lazy("Clay pit")),
+        ("iron_mine", gettext_lazy("Iron mine")),
+        ("farm", gettext_lazy("Farm")),
+        ("warehouse", gettext_lazy("Warehouse")),
+        ("wall", gettext_lazy("wall")),
+    ]
+
+    target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE, db_index=True)
     state = models.ForeignKey(WeightMaximum, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
     off = models.IntegerField()
@@ -549,6 +573,9 @@ class WeightModel(models.Model):
     nobleman = models.IntegerField()
     catapult = models.IntegerField(default=0)
     ruin = models.BooleanField(default=False)
+    building = models.CharField(
+        default=None, max_length=50, choices=BUILDINGS, null=True, blank=True
+    )
     order = models.IntegerField()
     player = models.CharField(max_length=40)
     first_line = models.BooleanField(default=False)
@@ -559,18 +586,20 @@ class WeightModel(models.Model):
 
 class OutlineOverview(models.Model):
     outline = models.ForeignKey(
-        Outline, on_delete=models.SET_NULL, null=True, blank=True)
+        Outline, on_delete=models.SET_NULL, null=True, blank=True
+    )
     weights_json = models.TextField(default="", blank=True)
     targets_json = models.TextField(default="", blank=True)
 
 
 class Overview(models.Model):
     """ Present results for tribe members using unique urls """
-    outline_overview = models.ForeignKey(
-        OutlineOverview, on_delete=models.CASCADE)
+
+    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
     token = models.CharField(max_length=100, primary_key=True, db_index=True)
     outline = models.ForeignKey(
-        Outline, on_delete=models.SET_NULL, null=True, blank=True)
+        Outline, on_delete=models.SET_NULL, null=True, blank=True
+    )
     player = models.CharField(max_length=40)
     created = models.DateTimeField(auto_now_add=True)
     table = models.TextField()
@@ -588,13 +617,13 @@ class Overview(models.Model):
 class TargetVertexOverview(models.Model):
     """ Copied Target Village """
 
-    outline_overview = models.ForeignKey(
-        OutlineOverview, on_delete=models.CASCADE)
+    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
     target = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
     fake = models.BooleanField(default=False)
     target_vertex = models.ForeignKey(
-        TargetVertex, on_delete=models.SET_NULL, null=True, default=None, blank=True)
+        TargetVertex, on_delete=models.SET_NULL, null=True, default=None, blank=True
+    )
 
     def __str__(self):
         return self.target
@@ -619,14 +648,13 @@ class WeightModelOverview(models.Model):
 
 class Payment(models.Model):
     """ Represents real payment, only superuser access """
+
     STATUS = [
         ("finished", gettext_lazy("Finished")),
         ("returned", gettext_lazy("Returned")),
     ]
-    status = models.CharField(
-        max_length=30, choices=STATUS, default="finished")
-    user = models.ForeignKey(
-        User, null=True, blank=True, on_delete=models.SET_NULL)
+    status = models.CharField(max_length=30, choices=STATUS, default="finished")
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     send_mail = models.BooleanField(default=True)
     amount = models.IntegerField()
     payment_date = models.DateField()
@@ -649,18 +677,27 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
         elif user_profile.validity_date <= current_date:
             user_profile.validity_date = current_date + relative_months + day
         else:
-            user_profile.validity_date = user_profile.validity_date + relative_months + day
+            user_profile.validity_date = (
+                user_profile.validity_date + relative_months + day
+            )
 
         if instance.send_mail:
-            msg_html = render_to_string('email_payment.html', {
-                "amount": instance.amount,
-                "payment_date": instance.payment_date,
-                "new_date": instance.new_date,
-                "user": instance.user
-            })
-            send_mail("plemiona-planer.pl", "",
-                      "plemionaplaner.pl@gmail.com", recipient_list=[user.email],
-                      html_message=msg_html)
+            msg_html = render_to_string(
+                "email_payment.html",
+                {
+                    "amount": instance.amount,
+                    "payment_date": instance.payment_date,
+                    "new_date": instance.new_date,
+                    "user": instance.user,
+                },
+            )
+            send_mail(
+                "plemiona-planer.pl",
+                "",
+                "plemionaplaner.pl@gmail.com",
+                recipient_list=[user.email],
+                html_message=msg_html,
+            )
 
         instance.new_date = user_profile.validity_date
         user_profile.save()

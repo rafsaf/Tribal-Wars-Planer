@@ -52,7 +52,7 @@ def make_final_outline(outline: models.Outline):
         for target in queries.targets:
             json_weights[target.pk] = list()
             lst = models.WeightModel.objects.filter(target=target).select_related(
-                "target"
+                "target", "state"
             )
             info_line = info_generatation.TargetCount(target, lst)
             outline_info.add_target_info(info_line.line, info_line.target_type)
@@ -70,7 +70,6 @@ def make_final_outline(outline: models.Outline):
                     ally_id=village_id[weight.start],
                     enemy_id=village_id[weight.target.target],
                     fake=target.fake,
-                    ruin=weight.ruin,
                     deputy=player_id[weight.player],
                 )
 

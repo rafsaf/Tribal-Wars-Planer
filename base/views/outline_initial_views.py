@@ -82,6 +82,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     form3 = forms.SettingDateForm(None)
     form4 = forms.ModeOutlineForm(None)
     form5 = forms.NightBonusSetForm(None)
+    form6 = forms.RuiningOutlineForm(None)
     targets = models.TargetVertex.objects.filter(outline=instance).order_by("id")
     len_targets = len(targets)
     len_fake = len([target for target in targets if target.fake])
@@ -143,15 +144,24 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     form4.fields[
         "initial_outline_fake_limit"
     ].initial = instance.initial_outline_fake_limit
-    form4.fields[
-        "initial_outline_off_left_catapult"
-    ].initial = instance.initial_outline_off_left_catapult
-    form4.fields[
-        "initial_outline_catapult_default"
-    ].initial = instance.initial_outline_catapult_default
+
     form5.fields["night_bonus"].initial = instance.night_bonus
     form5.fields["enter_t1"].initial = instance.enter_t1
     form5.fields["enter_t2"].initial = instance.enter_t2
+
+    form6.fields[
+        "initial_outline_off_left_catapult"
+    ].initial = instance.initial_outline_off_left_catapult
+    form6.fields[
+        "initial_outline_catapult_default"
+    ].initial = instance.initial_outline_catapult_default
+    form6.fields[
+        "initial_outline_ruining_order"
+    ].initial = instance.initial_outline_ruining_order
+    form6.fields[
+        "initial_outline_average_ruining_points"
+    ].initial = instance.initial_outline_average_ruining_points
+
     if request.method == "POST":
         if "form1" in request.POST:
             form1 = forms.InitialOutlineForm(
@@ -214,8 +224,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 mode_guide = request.POST.get("mode_guide")
                 fake_limit = request.POST.get("initial_outline_fake_limit")
                 mode_split = request.POST.get("mode_split")
-                catapult_default = request.POST.get("initial_outline_catapult_default")
-                catapult_left = request.POST.get("initial_outline_off_left_catapult")
 
                 instance.mode_off = mode_off
                 instance.mode_noble = mode_noble
@@ -223,8 +231,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 instance.mode_guide = mode_guide
                 instance.mode_split = mode_split
                 instance.initial_outline_fake_limit = fake_limit
-                instance.initial_outline_catapult_default = catapult_default
-                instance.initial_outline_off_left_catapult = catapult_left
+
                 instance.save()
 
                 models.TargetVertex.objects.filter(outline=instance).update(
@@ -261,6 +268,31 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     enter_t1=enter_t1,
                     enter_t2=enter_t2,
                 )
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
+
+        if "form6" in request.POST:
+            form6 = forms.RuiningOutlineForm(request.POST)
+            if form6.is_valid():
+                catapult_default: str = request.POST.get("initial_outline_catapult_default")
+                catapult_left: str = request.POST.get("initial_outline_off_left_catapult")
+                initial_outline_ruining_order: str = request.POST.get(
+                    "initial_outline_ruining_order"
+                )
+                initial_outline_average_ruining_points: str = request.POST.get(
+                    "initial_outline_average_ruining_points"
+                )
+
+                instance.initial_outline_catapult_default = catapult_default
+                instance.initial_outline_off_left_catapult = catapult_left
+                instance.initial_outline_ruining_order = initial_outline_ruining_order
+                instance.initial_outline_average_ruining_points = (
+                    initial_outline_average_ruining_points
+                )
+
+                instance.save()
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
@@ -314,6 +346,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "form3": form3,
         "form4": form4,
         "form5": form5,
+        "form6": form6,
         "formset": formset_select,
         "fake_dups": fake_dups,
         "target_dups": target_dups,
@@ -526,9 +559,13 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
                         + f"?page={page_obj.number}&mode={str(mode)}"
                     )
             else:
-                target_form = forms.CreateNewInitialTarget(None, outline=instance, is_premium=True)
+                target_form = forms.CreateNewInitialTarget(
+                    None, outline=instance, is_premium=True
+                )
         else:
-            target_form = forms.CreateNewInitialTarget(None, outline=instance, is_premium=True)
+            target_form = forms.CreateNewInitialTarget(
+                None, outline=instance, is_premium=True
+            )
 
         context = {
             "message": message,
@@ -925,7 +962,9 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
         target_count = models.TargetVertex.objects.filter(outline=instance).count()
         if target_count > 25:
             request.session["premium_error"] = True
-            return redirect(reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}")
+            return redirect(
+                reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}"
+            )
 
     initial.complete_outline(outline=instance)
     instance.written = "active"

@@ -21,7 +21,7 @@ def legal_coords_near_targets(outline: models.Outline):
     ]
     enemy_villages = [
         target["target"]
-        for target in models.TargetVertex.objects.filter(outline=outline).values(
+        for target in models.TargetVertex.objects.filter(outline=outline, fake=False, ruin=False).values(
             "target"
         )
     ]
