@@ -116,7 +116,7 @@ class TableText:
                 text = _("[size=12][b]OFF[/b][/size] (Off-")
                 send = f"{text}{weight.off})"
             else:
-                text = _("[color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color]")
+                text = _("[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]")
                 send = f"{text} (Off-{weight.off}, {nobles}{weight.nobleman}) "
             
 
