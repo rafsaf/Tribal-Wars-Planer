@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-16 12:40+0100\n"
+"POT-Creation-Date: 2021-02-17 01:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,7 +185,7 @@ msgstr "Przybliżone ostatnie czasy wejścia akcji"
 msgid "First value must be less or equal to second!"
 msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 
-#: base/forms.py:418 base/templates/base/overview.html:147
+#: base/forms.py:418 base/templates/base/overview.html:238
 msgid "Off"
 msgstr "Off"
 
@@ -251,31 +251,35 @@ msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/forms.py:594
+#: base/forms.py:592
+msgid "You need a premium account to add more targets here."
+msgstr "Potrzebujesz konta premium by dodawać cele w tym miejscu."
+
+#: base/forms.py:598
 msgid "This village is already a target!"
 msgstr "Ta wioska już jest celem !"
 
-#: base/forms.py:600
+#: base/forms.py:604
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:611
+#: base/forms.py:615
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:612
+#: base/forms.py:616
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:631
+#: base/forms.py:635
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:634
+#: base/forms.py:638
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:645
+#: base/forms.py:649
 msgid "You can set your server:"
 msgstr "Możesz ustawić swój serwer:"
 
@@ -374,11 +378,11 @@ msgstr "Dokładnie"
 msgid "Ram"
 msgstr "Taran"
 
-#: base/models.py:622
+#: base/models.py:623
 msgid "Finished"
 msgstr "Zakończono"
 
-#: base/models.py:623
+#: base/models.py:624
 msgid "Returned"
 msgstr "Zwrócono"
 
@@ -428,7 +432,7 @@ msgstr "Planer"
 msgid "Documentation"
 msgstr "Dokumentacja"
 
-#: base/templates/base/base.html:83
+#: base/templates/base/base.html:83 base/templates/base/user/premium.html:13
 #: base/templates/base/user/profile_settings.html:31
 msgid "Premium"
 msgstr "Premium"
@@ -821,6 +825,7 @@ msgid "Examples"
 msgstr "Przykłady"
 
 #: base/templates/base/new_outline/new_outline.html:194
+#: base/templates/base/new_outline/new_outline_initial_period1.html:694
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:370
 msgid "An error occured"
 msgstr "Uwaga, wystąpił błąd"
@@ -1082,7 +1087,7 @@ msgstr "Zakładka jest dostępna tylko poniżej 100 celów."
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:278
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:93
 #: base/templates/base/new_outline/new_outline_initial_period3.html:138
-#: base/templates/base/overview.html:105
+#: base/templates/base/overview.html:196
 msgid "Target"
 msgstr "Cel"
 
@@ -1143,6 +1148,22 @@ msgstr "Czas wejścia 2:"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:641
 msgid "False"
 msgstr "Nie"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:700
+msgid ""
+"Premium account is required to complete outlines greater than 25 targets. "
+"Buy it"
+msgstr "Konto premium jest potrzebne by tworzyć akcje większe niż 25 celów. "
+"Możesz kupić je"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:700
+#: base/templates/base/new_outline/new_outline_results.html:35
+msgid "here"
+msgstr "tutaj"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:700
+msgid "or reduce the number of outline targets."
+msgstr "albo zmniejszyć łączną ilość celów."
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:50
 msgid "Summary"
@@ -1214,7 +1235,7 @@ msgstr "Zakończ Rozpiskę"
 #: base/templates/base/new_outline/new_outline_initial_period2.html:236
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:280
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:95
-#: base/templates/base/overview.html:106
+#: base/templates/base/overview.html:197
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -1471,10 +1492,6 @@ msgstr ""
 "By wysyłać wiadomości przyciskiem, potrzebujesz jeszcze skryptu, który można "
 "znaleźć"
 
-#: base/templates/base/new_outline/new_outline_results.html:35
-msgid "here"
-msgstr "tutaj"
-
 #: base/templates/base/new_outline/new_outline_results.html:47
 msgid "Set title, text and show hidden value"
 msgstr "Wybierz tytuł, zawartość i wartość \"Pokaż ukryte\" "
@@ -1513,32 +1530,27 @@ msgstr "Wyślij"
 msgid "Sent!"
 msgstr "Wysłano!"
 
-#: base/templates/base/new_outline/new_outline_results.html:192
+#: base/templates/base/new_outline/new_outline_results.html:193
 msgid ""
-"Below you will find the remaining unused player armies. The data is "
-"generated AFTER the whole outline is completed, together with the targets, "
-"commands, link, etc. If you plan to create a second outline, e.g. for the "
-"next day, create a new outline and paste the data below. Although you can "
-"use it any other way :) Note that for the sake of simplicity, all offensive "
-"troops are listed as axemen, while deff troops are omitted."
+"Below you will find all the unused troops left after the roster. Paste them "
+"into the Army Collection in order to start a new action."
 msgstr ""
-"Poniżej znajdziesz wszystkie pozostałe wojska graczy. Dane są generowane PO "
-"zakończeniu całej rozpiski, równocześnie z komendami i linkami itd. Jeśli "
-"planujesz wykonać drugą rozpiskę, np. na następny dzień z pozostałych wojsk, "
-"utwórz nową rozpiskę i skopiuj tam poniższe dane. Choć możesz je użyć w "
-"dowolny inny sposób :) Zauważ, że dla uproszczenia, całe pozostałe wojska "
-"offensywne są zapisane jako topornicy, zaś jakikolwiek deff w wiosce został "
-"pominięty."
+"Poniżej znajdziesz wszystkie niewykorzystane wojska pozostałe po zakończonej rozpisce. "
+"Wklej je do Zbiórki Wojska by wykorzystać w kolejnej akcji."
 
-#: base/templates/base/overview.html:25
+#: base/templates/base/new_outline/new_outline_results.html:199
+msgid "You have no access to unused troops without premium account."
+msgstr "Nie masz dostępu do niewykorzystanych wojsk bez konta premium."
+
+#: base/templates/base/overview.html:27
 msgid "Copy"
 msgstr "Kopiuj"
 
-#: base/templates/base/overview.html:29
+#: base/templates/base/overview.html:31
 msgid "Details"
 msgstr "Szczegóły"
 
-#: base/templates/base/overview.html:39
+#: base/templates/base/overview.html:42
 msgid ""
 "The contents below shows your targets, please copy the one you like to your "
 "in-game notes."
@@ -1546,57 +1558,130 @@ msgstr ""
 "Poniższe pola tekstowe zawierają Twoje cele, skopiuj zawartość wybranego do "
 "swoich notatek w grze. "
 
-#: base/templates/base/overview.html:45
-msgid "Text"
-msgstr "Tekst"
+#: base/templates/base/overview.html:48
+msgid "Text simple"
+msgstr "Tekst prosty"
 
-#: base/templates/base/overview.html:45 base/templates/base/overview.html:60
-#: base/templates/base/overview.html:76
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:75
+#: base/templates/base/overview.html:102 base/templates/base/overview.html:156
 msgid "Successfully copied!"
 msgstr "Pomyślnie skopiowano!"
 
-#: base/templates/base/overview.html:45 base/templates/base/overview.html:60
-#: base/templates/base/overview.html:76
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:75
+#: base/templates/base/overview.html:102 base/templates/base/overview.html:156
 msgid "Click to copy again"
 msgstr "Kliknij by ponownie skopiować"
 
-#: base/templates/base/overview.html:45 base/templates/base/overview.html:60
-#: base/templates/base/overview.html:76
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:75
+#: base/templates/base/overview.html:102 base/templates/base/overview.html:156
 msgid "Copy to clipboard"
 msgstr "Kopiuj do schowka"
 
-#: base/templates/base/overview.html:51 base/templates/base/overview.html:66
-#: base/templates/base/overview.html:84
+#: base/templates/base/overview.html:53 base/templates/base/overview.html:80
+#: base/templates/base/overview.html:106 base/templates/base/overview.html:163
+msgid "This is what this form of orders looks like when pasted into a notebook"
+msgstr "Ten typ rozkazów tak będzie wyglądał po wklejeniu do notatek w grze"
+
+#: base/templates/base/overview.html:56 base/templates/base/overview.html:83
+#: base/templates/base/overview.html:166
+msgid "Send <b>OFF</b> (Off-"
+msgstr "Wyślij <b>OFF</b> (Off-"
+
+#: base/templates/base/overview.html:56 base/templates/base/overview.html:83
+#: base/templates/base/overview.html:166 tribal_wars/basic/table_text.py:92
+msgid "Nobles-"
+msgstr "Szlachcice-"
+
+#: base/templates/base/overview.html:60 base/templates/base/overview.html:87
+#: base/templates/base/overview.html:123 base/templates/base/overview.html:170
+#: tribal_wars/basic/table_text.py:37
+msgid "Send OFF"
+msgstr "Wyślij OFF"
+
+#: base/templates/base/overview.html:66 base/templates/base/overview.html:93
+#: base/templates/base/overview.html:146 base/templates/base/overview.html:175
 msgid "A link to your targets on plemiona-planer.pl."
 msgstr "Link do Twoich celów na plemiona-planer.pl."
 
-#: base/templates/base/overview.html:60
+#: base/templates/base/overview.html:75
+msgid "Text extended"
+msgstr "Tekst rozszerzony"
+
+#: base/templates/base/overview.html:83 base/templates/base/overview.html:166
+#: tribal_wars/basic/table_text.py:93
+msgid "from village"
+msgstr "z wioski"
+
+#: base/templates/base/overview.html:83 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:166
+msgid "Remember this is only the example"
+msgstr "Pamiętaj, że to tylko przykład"
+
+#: base/templates/base/overview.html:83 base/templates/base/overview.html:166
+#: tribal_wars/basic/table_text.py:94
+msgid "to "
+msgstr "na "
+
+#: base/templates/base/overview.html:83 base/templates/base/overview.html:138
+#: base/templates/base/overview.html:166
+msgid "Plemiona Planer is the best"
+msgstr "Plemiona Planer jest najlepszy"
+
+#: base/templates/base/overview.html:102
 msgid "Table"
 msgstr "Tabela"
 
-#: base/templates/base/overview.html:62
+#: base/templates/base/overview.html:104
 msgid "Hint: Use Text format if u have many commands. "
 msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
 
-#: base/templates/base/overview.html:75
+#: base/templates/base/overview.html:112
+msgid "SEND"
+msgstr "WYŚLIJ"
+
+#: base/templates/base/overview.html:113
+msgid "OFF"
+msgstr "OFF"
+
+#: base/templates/base/overview.html:114
+msgid "NOBLE"
+msgstr "GRUBE"
+
+#: base/templates/base/overview.html:115
+msgid "SENDING"
+msgstr "WYSYŁKA"
+
+#: base/templates/base/overview.html:116
+msgid "ENTER"
+msgstr "WEJŚCIE"
+
+#: base/templates/base/overview.html:117
+msgid "FROM"
+msgstr "Z WIOSKI"
+
+#: base/templates/base/overview.html:118
+msgid "TARGET"
+msgstr "CEL"
+
+#: base/templates/base/overview.html:155
 msgid "Text for deputy"
 msgstr "Tekst dla zastępcy"
 
-#: base/templates/base/overview.html:80
+#: base/templates/base/overview.html:160
 msgid "Hint: Use this one when someone else will send this commands."
 msgstr ""
 "Wskazówka: Użyj tej formy jeśli ktoś inny będzie za Ciebie wysyłał ataki z "
 "zastępstwa."
 
-#: base/templates/base/overview.html:95
+#: base/templates/base/overview.html:186
 msgid "Alert! The order in the list below matters and is fixed."
 msgstr ""
 "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
 "ustalona."
 
-#: base/templates/base/overview.html:139
+#: base/templates/base/overview.html:230
 msgid "Ruin"
-msgstr "Burzak"
+msgstr "Burzenie"
 
 #: base/templates/base/overview_fail.html:3
 msgid "Site not found."
@@ -1627,11 +1712,19 @@ msgstr "Dla \"plc1.plemiona.pl\" przedrostek to \"c1\". "
 msgid "For \"csc1.divokekmeny.czl\" prefix is \"c1\". "
 msgstr "Dla \"csc1.divokekmeny.czl\" przedrostek to \"c1\". "
 
-#: base/templates/base/user/premium.html:10
+#: base/templates/base/user/premium.html:16
+msgid "Active until the day"
+msgstr "Aktywne do dnia"
+
+#: base/templates/base/user/premium.html:18
+msgid "Not active"
+msgstr "Nie aktywne"
+
+#: base/templates/base/user/premium.html:24
 msgid "Payment can be made to the number below:"
 msgstr "Płatność może być dokonana na numer konta poniżej:"
 
-#: base/templates/base/user/premium.html:21
+#: base/templates/base/user/premium.html:35
 msgid ""
 "By supporting the project and its author, you get access to unlimited use of "
 "the Planer's capabilities. The support is voluntary and is not required to "
@@ -1641,79 +1734,79 @@ msgstr ""
 "możliwości planera. Wsparcie jest dobrowolne i nie jest wymagane by "
 "korzystać ze strony, chociaż jej funkcjonalność jest wtedy ograniczona."
 
-#: base/templates/base/user/premium.html:23
+#: base/templates/base/user/premium.html:37
 msgid "1. Transfer"
 msgstr "1. Przelew"
 
-#: base/templates/base/user/premium.html:25
+#: base/templates/base/user/premium.html:39
 msgid "2. Confirmation of payment"
 msgstr "2. Potwierdzenie płatności"
 
-#: base/templates/base/user/premium.html:27
+#: base/templates/base/user/premium.html:41
 msgid "3. Activation and return email"
 msgstr "3. Aktywacja i zwrotny email"
 
-#: base/templates/base/user/premium.html:32
+#: base/templates/base/user/premium.html:46
 msgid "1 month"
 msgstr "1 miesiąc"
 
-#: base/templates/base/user/premium.html:33
+#: base/templates/base/user/premium.html:47
 msgid "2 months"
 msgstr "2 miesiące"
 
-#: base/templates/base/user/premium.html:34
+#: base/templates/base/user/premium.html:48
 msgid "3 months"
 msgstr "3 miesiące"
 
-#: base/templates/base/user/premium.html:37
+#: base/templates/base/user/premium.html:51
 msgid "30 zł"
 msgstr "30 zł"
 
-#: base/templates/base/user/premium.html:38
+#: base/templates/base/user/premium.html:52
 msgid "50 zł"
 msgstr "50 zł"
 
-#: base/templates/base/user/premium.html:39
+#: base/templates/base/user/premium.html:53
 msgid "70 zł"
 msgstr "70 zł"
 
-#: base/templates/base/user/premium.html:43
+#: base/templates/base/user/premium.html:57
 msgid "Other transfer details for your account:"
 msgstr "Pozostałe dane przelewu dla Twojego konta:"
 
-#: base/templates/base/user/premium.html:45
+#: base/templates/base/user/premium.html:59
 msgid "Recipient"
 msgstr "Odbiorca"
 
-#: base/templates/base/user/premium.html:54
+#: base/templates/base/user/premium.html:68
 msgid "Transfer title"
 msgstr "Tytuł przelewu"
 
-#: base/templates/base/user/premium.html:62
+#: base/templates/base/user/premium.html:76
 msgid "Payment history"
 msgstr "Historia płatności"
 
-#: base/templates/base/user/premium.html:66
+#: base/templates/base/user/premium.html:80
 msgid "Implementation status"
 msgstr "Status"
 
-#: base/templates/base/user/premium.html:67
+#: base/templates/base/user/premium.html:81
 msgid "Payment date"
 msgstr "Data płatności"
 
-#: base/templates/base/user/premium.html:68
+#: base/templates/base/user/premium.html:82
 msgid "Amount"
 msgstr "Kwota"
 
-#: base/templates/base/user/premium.html:69
+#: base/templates/base/user/premium.html:83
 msgid "Number of months"
 msgstr "Liczba miesięcy"
 
-#: base/templates/base/user/premium.html:70
+#: base/templates/base/user/premium.html:84
 msgid "End of account validity"
 msgstr "Koniec ważności konta"
 
-#: base/templates/base/user/premium.html:71
+#: base/templates/base/user/premium.html:85
 msgid "Comments"
 msgstr "Uwagi"
 
@@ -1773,9 +1866,9 @@ msgstr " minut temu."
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:67
-#: base/views/outline_initial_views.py:162
-#: base/views/outline_initial_views.py:925
+#: base/views/outline_initial_views.py:73
+#: base/views/outline_initial_views.py:168
+#: base/views/outline_initial_views.py:949
 msgid ""
 "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use "
 "the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> "
@@ -1791,11 +1884,11 @@ msgstr ""
 "span>.</p> <p>4. Naciśnij przycisk <span class='md-correct2'>Kliknij by "
 "zaktualizować po zmianie Zbiórki Wojska</span>.</p>"
 
-#: base/views/outline_initial_views.py:603
+#: base/views/outline_initial_views.py:614
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
-#: base/views/outline_initial_views.py:891
+#: base/views/outline_initial_views.py:906
 msgid "All targets must have Times"
 msgstr "Wszystkie cele muszą mieć przypisany czas."
 
@@ -1995,31 +2088,40 @@ msgstr ""
 msgid "Reset password"
 msgstr "Zresetuj hasło"
 
-#: tribal_wars/basic/info_generatation.py:18
+#: tribal_wars/basic/info_generatation.py:17
 msgid "Targets:"
 msgstr "Cele:"
 
-#: tribal_wars/basic/info_generatation.py:19
+#: tribal_wars/basic/info_generatation.py:18
 msgid "Fakes:"
 msgstr "Fejk Cele:"
 
-#: tribal_wars/basic/info_generatation.py:24
+#: tribal_wars/basic/info_generatation.py:19
+msgid "Ruins:"
+msgstr "Burzone Cele:"
+
+#: tribal_wars/basic/info_generatation.py:23
 msgid "Nicknames: "
 msgstr "Nazwy graczy: "
 
-#: tribal_wars/basic/info_generatation.py:51
+#: tribal_wars/basic/info_generatation.py:119
 msgid "fakes"
 msgstr "fejków"
 
-#: tribal_wars/basic/info_generatation.py:52
+#: tribal_wars/basic/info_generatation.py:120
 msgid "fake nobles"
 msgstr "fake grubych"
 
-#: tribal_wars/basic/info_generatation.py:60
+#: tribal_wars/basic/info_generatation.py:129
+#: tribal_wars/basic/info_generatation.py:137
 msgid "offs"
 msgstr "offów"
 
-#: tribal_wars/basic/info_generatation.py:61
+#: tribal_wars/basic/info_generatation.py:130
+msgid "ruins"
+msgstr "burzaków"
+
+#: tribal_wars/basic/info_generatation.py:138
 msgid "nobles"
 msgstr "szlachciców"
 
@@ -2083,55 +2185,39 @@ msgstr ""
 "[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z "
 "WIOSKI[||]CEL[/**]"
 
-#: tribal_wars/basic/table_text.py:31
+#: tribal_wars/basic/table_text.py:33
 msgid "Send fake"
 msgstr "Wyślij fejk"
 
-#: tribal_wars/basic/table_text.py:33
+#: tribal_wars/basic/table_text.py:35
 msgid "Send ruin"
 msgstr "Wyślij burzak"
 
-#: tribal_wars/basic/table_text.py:35
-msgid "Send OFF"
-msgstr "Wyślij OFF"
-
-#: tribal_wars/basic/table_text.py:70
+#: tribal_wars/basic/table_text.py:72
 msgid "fake noble"
 msgstr "fake gruby"
 
-#: tribal_wars/basic/table_text.py:72
+#: tribal_wars/basic/table_text.py:74
 msgid "fake"
 msgstr "fake"
 
-#: tribal_wars/basic/table_text.py:74
+#: tribal_wars/basic/table_text.py:76
 msgid "Catapults-"
 msgstr "Katapulty-"
 
-#: tribal_wars/basic/table_text.py:90
-msgid "Nobles-"
-msgstr "Szlachcice-"
-
-#: tribal_wars/basic/table_text.py:91
-msgid "from village"
-msgstr "z wioski"
-
-#: tribal_wars/basic/table_text.py:92
-msgid "to "
-msgstr "na "
-
-#: tribal_wars/basic/table_text.py:94
+#: tribal_wars/basic/table_text.py:96
 msgid "Send [b]fake noble[/b] (Off-"
 msgstr "Wyślij [b]fake gruby[/b] (Off-"
 
-#: tribal_wars/basic/table_text.py:97
+#: tribal_wars/basic/table_text.py:99
 msgid "Send [b]fake[/b] (Off-"
 msgstr "Wyślij [b]fake[/b] (Off-"
 
-#: tribal_wars/basic/table_text.py:100
+#: tribal_wars/basic/table_text.py:102
 msgid "Send [b]ruin[/b] (Catapults-"
 msgstr "Wyślij [b]burzak[/b] (Katapulty-"
 
-#: tribal_wars/basic/table_text.py:103
+#: tribal_wars/basic/table_text.py:105
 msgid "Send [b]OFF[/b] (Off-"
 msgstr "Wyślij [b]OFF[/b] (Off-"
 
@@ -2158,6 +2244,26 @@ msgstr "Znak"
 #: tribal_wars/basic/village.py:90
 msgid "Is not equal to '|'!"
 msgstr "Nie jest równy '|'!"
+
+#~ msgid ""
+#~ "Below you will find the remaining unused player armies. The data is "
+#~ "generated AFTER the whole outline is completed, together with the "
+#~ "targets, commands, link, etc. If you plan to create a second outline, e."
+#~ "g. for the next day, create a new outline and paste the data below. "
+#~ "Although you can use it any other way :) Note that for the sake of "
+#~ "simplicity, all offensive troops are listed as axemen, while deff troops "
+#~ "are omitted."
+#~ msgstr ""
+#~ "Poniżej znajdziesz wszystkie pozostałe wojska graczy. Dane są generowane "
+#~ "PO zakończeniu całej rozpiski, równocześnie z komendami i linkami itd. "
+#~ "Jeśli planujesz wykonać drugą rozpiskę, np. na następny dzień z "
+#~ "pozostałych wojsk, utwórz nową rozpiskę i skopiuj tam poniższe dane. Choć "
+#~ "możesz je użyć w dowolny inny sposób :) Zauważ, że dla uproszczenia, całe "
+#~ "pozostałe wojska offensywne są zapisane jako topornicy, zaś jakikolwiek "
+#~ "deff w wiosce został pominięty."
+
+#~ msgid "Text"
+#~ msgstr "Tekst"
 
 #~ msgid "nobleman"
 #~ msgstr "szlachcic"
@@ -2320,9 +2426,6 @@ msgstr "Nie jest równy '|'!"
 
 #~ msgid "Fake targets: "
 #~ msgstr "Fejk Cele: "
-
-#~ msgid "You can add & remove targets here."
-#~ msgstr "Możesz tutaj dodawać & usuwać cele"
 
 #~ msgid "Remove"
 #~ msgstr "Usuń"
