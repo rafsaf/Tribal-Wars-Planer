@@ -216,6 +216,7 @@ class WriteTarget:
                     building = next(ruin_iter)
                 except StopIteration:
                     break
+                print(building, catapult, i + 1)
             else:
                 off = weight_max.off_left
                 catapult = weight_max.catapult_left
@@ -259,11 +260,18 @@ class WriteTarget:
 
     def sorted_weights_offs(self):
         if self.target.fake:
-            default_off_query = models.WeightMaximum.objects.filter(
-                fake_limit__gte=1,
-                outline=self.outline,
-                off_left__gte=self.outline.initial_outline_min_off,
-            )
+            if self.outline.initial_outline_fake_mode == "off":
+                default_off_query = models.WeightMaximum.objects.filter(
+                    fake_limit__gte=1,
+                    outline=self.outline,
+                    off_left__gte=self.outline.initial_outline_min_off,
+                )
+            else:
+                default_off_query = models.WeightMaximum.objects.filter(
+                    fake_limit__gte=1,
+                    outline=self.outline,
+                    off_left__gte=100 + F("catapult_left") * 8,
+                )   
         elif self.ruin:
             default_off_query = models.WeightMaximum.objects.filter(
                 outline=self.outline

@@ -246,6 +246,11 @@ class Outline(models.Model):
 
     CATAPULTS_NUMBER = [(50, 50), (75, 75), (100, 100), (150, 150), (200, 200)]
 
+    FAKE_MIN_OFF_CHOICES = [
+        ("off", gettext_lazy("Fakes only from off villages")),
+        ("all", gettext_lazy("Fakes from all villages")),
+    ]
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=django.utils.timezone.now)
     name = models.TextField()
@@ -287,6 +292,7 @@ class Outline(models.Model):
     initial_outline_fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )
+    initial_outline_fake_mode = models.CharField(max_length=60, choices=FAKE_MIN_OFF_CHOICES, default="off")
 
     off_troops = models.TextField(
         blank=True,

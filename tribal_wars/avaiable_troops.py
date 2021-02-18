@@ -150,9 +150,10 @@ def update_available_ruins(outline: models.Outline) -> None:
         .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
         or 0
     )
-
+    
     ruins_from_offs: int = (
         models.WeightMaximum.objects.filter(
+            outline=outline,
             first_line=False,
             catapult_left__gte=outline.initial_outline_catapult_default
             + outline.initial_outline_off_left_catapult,

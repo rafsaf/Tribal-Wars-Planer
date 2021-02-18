@@ -144,6 +144,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     form4.fields[
         "initial_outline_fake_limit"
     ].initial = instance.initial_outline_fake_limit
+    form4.fields[
+        "initial_outline_fake_mode"
+    ].initial = instance.initial_outline_fake_mode
 
     form5.fields["night_bonus"].initial = instance.night_bonus
     form5.fields["enter_t1"].initial = instance.enter_t1
@@ -224,6 +227,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 mode_guide = request.POST.get("mode_guide")
                 fake_limit = request.POST.get("initial_outline_fake_limit")
                 mode_split = request.POST.get("mode_split")
+                initial_outline_fake_mode = request.POST.get("initial_outline_fake_mode")
 
                 instance.mode_off = mode_off
                 instance.mode_noble = mode_noble
@@ -231,6 +235,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 instance.mode_guide = mode_guide
                 instance.mode_split = mode_split
                 instance.initial_outline_fake_limit = fake_limit
+                instance.initial_outline_fake_mode = initial_outline_fake_mode
 
                 instance.save()
 

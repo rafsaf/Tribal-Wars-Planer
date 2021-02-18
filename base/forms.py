@@ -320,6 +320,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide",
             "mode_split",
             "initial_outline_fake_limit",
+            "initial_outline_fake_mode",
         ]
         labels = {
             "mode_off": gettext_lazy("Choose the distance of the written offs:"),
@@ -333,6 +334,9 @@ class ModeOutlineForm(forms.ModelForm):
             ),
             "initial_outline_fake_limit": gettext_lazy(
                 "Maximum number of fakes from one off village:"
+            ),
+            "initial_outline_fake_mode": gettext_lazy(
+                "Determine which villages to write fake attacks from:"
             ),
         }
         widgets = {
