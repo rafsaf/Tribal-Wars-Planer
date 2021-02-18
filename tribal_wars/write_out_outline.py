@@ -110,44 +110,64 @@ class WriteTarget:
             if self.target.fake:
                 off = 0
                 big_off = 0
+                catapult = 0
+                big_catapult = 0
                 to_left = weight_max.off_left
+                catapult_to_left = weight_max.catapult_left
 
             elif weight_max.off_left < 200 * weight_max.nobleman_left:
                 off = weight_max.off_left // weight_max.nobleman_left
                 big_off = weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+                catapult = weight_max.catapult_left // weight_max.nobleman_left
+                big_catapult = weight_max.catapult_left - (catapult * (weight_max.nobleman_left - 1))
                 if weight_max.nobleman_left > noble_number:
                     to_left = off * (weight_max.nobleman_left - noble_number)
+                    catapult_to_left = catapult * (weight_max.nobleman_left - noble_number)
                 else:
                     to_left = 0
+                    catapult_to_left = 0
 
             elif self.target.mode_division == "divide":
 
                 off = weight_max.off_left // weight_max.nobleman_left
                 big_off = weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+                catapult = weight_max.catapult_left // weight_max.nobleman_left
+                big_catapult = weight_max.catapult_left - (catapult * (weight_max.nobleman_left - 1))
                 if weight_max.nobleman_left > noble_number:
                     to_left = off * (weight_max.nobleman_left - noble_number)
+                    catapult_to_left = catapult * (weight_max.nobleman_left - noble_number)
                 else:
                     to_left = 0
+                    catapult_to_left = 0
 
             elif self.target.mode_division == "not_divide":
                 if weight_max.nobleman_left > noble_number:
                     to_left = 200 * (weight_max.nobleman_left - noble_number)
+                    catapult_to_left = 0
                 else:
                     to_left = 0
+                    catapult_to_left = 0
                 off = 200
+                catapult = 0
                 big_off = weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+                big_catapult= weight_max.catapult_left
 
             else:  # self.target.mode_division == "separatly":
                 off = 200
+                catapult = 0
                 big_off = 200
+                big_catapult = 0
                 to_left = weight_max.off_left - (off * (noble_number))
+                catapult_to_left = weight_max.catapult_left
 
             if self.outline.mode_split == "split":
                 for _ in range(noble_number):
                     if _ == 0:
                         off_troops = big_off
+                        catapult_troops = big_catapult
                     else:
                         off_troops = off
+                        catapult_troops = catapult
 
                     weight = models.WeightModel(
                         target=self.target,
@@ -155,6 +175,7 @@ class WriteTarget:
                         start=weight_max.start,
                         state=weight_max,
                         off=off_troops,
+                        catapult=catapult_troops,
                         distance=weight_max.distance,
                         nobleman=1,
                         order=i + self.index,
@@ -168,6 +189,7 @@ class WriteTarget:
                     player=weight_max.player,
                     start=weight_max.start,
                     state=weight_max,
+                    catapult=big_catapult + (noble_number - 1) * catapult,
                     off=big_off + (noble_number - 1) * off,
                     distance=weight_max.distance,
                     nobleman=noble_number,
@@ -179,6 +201,8 @@ class WriteTarget:
 
             weight_max.off_state += weight_max.off_left - to_left
             weight_max.off_left = to_left
+            weight_max.catapult_state += weight_max.catapult_left - catapult_to_left
+            weight_max.catapult_left = catapult_to_left
             weight_max.nobleman_state += noble_number
             weight_max.nobleman_left = weight_max.nobleman_left - noble_number
 
@@ -191,6 +215,8 @@ class WriteTarget:
                 "off_left",
                 "nobleman_state",
                 "nobleman_left",
+                "catapult_state",
+                "catapult_left",
             ],
         )
         models.WeightModel.objects.bulk_create(weights_create_lst)
