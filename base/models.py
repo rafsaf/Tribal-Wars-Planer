@@ -32,7 +32,7 @@ class Profile(models.Model):
     server = models.ForeignKey(
         Server, on_delete=models.SET_NULL, null=True, default=None
     )
-    validity_date = models.DateField(default=None, blank=True, null=True)
+    validity_date = models.DateField(default=datetime.date(year=2021, month=2, day=25), blank=True, null=True)
 
     def is_premium(self) -> bool:
         if self.validity_date is None:

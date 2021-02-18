@@ -86,15 +86,11 @@ def create_weights(
     outline: models.Outline,
     world: models.World,
     noble=False,
-    ruin=False,
 ) -> None:
     modes_list = ["closest", "close", "random", "far"]
 
     target: models.TargetVertex
     for target in targets_query.iterator():
-        if ruin:  # here noble numbers becomes offs and we treat it like off
-            target.required_off = target.required_noble
-            target.exact_off = target.exact_noble
 
         if noble:
             if target.required_noble == 0:  # extended syntax
@@ -127,14 +123,14 @@ def create_weights(
                         target.mode_off = mode
 
                         parsed = write_out_outline.WriteTarget(
-                            target, outline, world, ruin=ruin
+                            target, outline, world
                         )
                         parsed.write_ram()
                         if parsed.end_up_offs:
                             return
             else:
                 parsed = write_out_outline.WriteTarget(
-                    target, outline, world, ruin=ruin
+                    target, outline, world
                 )
                 parsed.write_ram()
                 if parsed.end_up_offs:

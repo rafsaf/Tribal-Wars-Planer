@@ -1,7 +1,7 @@
 from random import sample
 from statistics import mean
+from typing import Generator, List
 from tribal_wars.basic.ruin import RuinHandle
-from typing import Union
 
 from django.db.models import (
     F,
@@ -15,8 +15,6 @@ from django.db.models import (
     When,
 )
 from django.db.models.functions import Mod
-from django.db.models.query import QuerySet
-
 from base import models
 
 
@@ -26,7 +24,7 @@ class WriteTarget:
         target: models.TargetVertex,
         outline: models.Outline,
         world: models.World,
-        ruin=False,
+        ruin: bool=False,
     ):
         self.target: models.TargetVertex = target
         self.x_coord: int = target.coord_tuple()[0]
@@ -36,13 +34,14 @@ class WriteTarget:
         self.end_up_offs: bool = False
         self.end_up_nobles: bool = False
         self.index: int = 0
-        self.avg_dist: int = mean((self.target.enter_t1, self.target.enter_t2))
+        
+        self.avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
         self.interval_dist: int = self.target.enter_t2 - self.avg_dist
         self.dividier: int = world.speed_world * world.speed_units * 2
 
     def write_noble(self):
-        weights_max_update_lst = []
-        weights_create_lst = []
+        weights_max_update_lst: List[models.WeightMaximum] = []
+        weights_create_lst: List[models.WeightModel] = []
 
         nobles_weight_max = self.sorted_weights_noble()
         available = sum([weight.nobleman_left for weight in nobles_weight_max])
@@ -104,7 +103,9 @@ class WriteTarget:
                 self.target.required_noble -= 1
                 choosen_by_the_god.append((to_add, 1))
 
-        i = 0
+        i: int = 0
+        weight_max: models.WeightMaximum
+        noble_number: int
         for weight_max, noble_number in choosen_by_the_god:
             if self.target.fake:
                 off = 0
@@ -199,7 +200,7 @@ class WriteTarget:
         weights_create_lst = []
         if self.ruin:
             ruin_handle: RuinHandle = RuinHandle(outline=self.outline)
-            ruin_iter = ruin_handle.yield_building()
+            ruin_iter: Generator = ruin_handle.yield_building()
 
         weight_max: models.WeightMaximum
         for i, weight_max in enumerate(self.sorted_weights_offs()):
@@ -216,7 +217,6 @@ class WriteTarget:
                     building = next(ruin_iter)
                 except StopIteration:
                     break
-                print(building, catapult, i + 1)
             else:
                 off = weight_max.off_left
                 catapult = weight_max.catapult_left

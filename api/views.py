@@ -62,7 +62,7 @@ class TargetDelete(APIView):
             Outline, owner=request.user, pk=target.outline.pk
         )
 
-        weights = WeightModel.objects.select_related("state").filter(target=target)
+        weights = WeightModel.objects.filter(target=target)
         # deletes weights related to this target and updates weight state
         weight_model: WeightModel
         for weight_model in weights:
