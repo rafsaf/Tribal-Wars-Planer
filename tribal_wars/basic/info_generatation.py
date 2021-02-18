@@ -21,7 +21,7 @@ class OutlineInfo:
 
     def generate_nicks(self) -> str:
         result: str = _("Nicknames: ") + "\r\n\r\n"
-        unique_weights: list = (
+        unique_weights = (
             models.WeightModel.objects.filter(target__outline=self.outline)
             .distinct("player")
             .values_list("player", flat=True)
