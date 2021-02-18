@@ -15,22 +15,28 @@ class TableText:
         self.table_result = {}
         self.string_result = {}
         self.deputy_result = {}
+        self.extended_result = {}
 
         self.weight_table = {}
         self.weight_string = {}
         self.weight_deputy = {}
+        self.weight_extended = {}
 
         self.world = world
 
-    def __link(self, ally_village_id, enemy_village_id, fake, deputy=None):
+    def __link(self, ally_village_id, enemy_village_id, fake, ruin=False, deputy=None, noble=False):
         if deputy is not None:
             t = f"&t={deputy}"
         else:
             t = ""
         if fake:
-            send = _("Send Fake")
+            send = _("Send fake")
+        elif ruin:
+            send = _("Send ruin")
+        elif not noble:
+            send = _("Send OFF")
         else:
-            send = _("Send Attack")
+            send = _("Send NOBLE")
         return (
             f"[url={self.world.link_to_game()}/game.php?"
             f"village={ally_village_id}&screen=place&"
@@ -55,25 +61,31 @@ class TableText:
 
         t1_part = datetime1.time()
         t2_part = datetime2.time()
-        fro = _("from")
-        to = _("to")
+
         return (
-            f"\r\n[color=#ff0000][b]{date_part} {fro} {t1_part} "
-            f"{to} {t2_part}[/b][/color]"
+            f"\r\n[b]{date_part} [color=#ff0000]{t1_part} "
+            f"- {t2_part}[/color][/b]"
         )
 
     def __weight_table(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None
+        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None,
     ):
         if fake and weight.nobleman > 0:
-            send = _("Fake noble")
+            send = _("fake noble")
         elif fake and weight.nobleman == 0:
-            send = _("Fake ram")
+            send = _("fake")
+        elif weight.ruin:
+            send = _("Catapults-")
+            if weight.building is not None:
+                building = "- " + weight.get_building_display()
+            else:
+                building = ""
+            send = f"{send}{weight.catapult}{building}"
         else:
             send = f"{weight.off}"
 
         return (
-            f"[|]{self.__link(ally_id, enemy_id, fake, deputy=deputy)}"
+            f"[|]{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
             f"[|]{send}[|]{weight.nobleman}"
             f"[|]{self.__date_table(weight.sh_t1, weight.sh_t2)}"
             f"[|]{self.__date_table(weight.t1, weight.t2)}"
@@ -81,26 +93,42 @@ class TableText:
         )
 
     def __weight_string(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None
+        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None, simple=False,
     ):
         nobles = _("Nobles-")
         from_village = _("from village")
         to = _("to ")
         if fake and weight.nobleman > 0:
-            text = _("Send [b]Fake noble[/b] (Off-")
-            send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
+            text = _("[color=#00a500][b]Send fake noble[/b][/color] (1 noble)")
+            send = f"{text}"
         elif fake and weight.nobleman == 0:
-            text = _("Send [b]Fake ram[/b] (Off-")
-            send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
+            text = _("[color=#00a500][b]Send fake[/b][/color]")
+            send = f"{text}"
+        elif weight.ruin:
+            text = _("[color=#0e0eff][b]Ruin[/b][/color] (Catapults-")
+            if weight.building is not None:
+                building = "[b]" + weight.get_building_display() + "[/b]"
+            else:
+                building = ""
+            send = f"{text}{weight.catapult} {building})"            
         else:
-            text = _("Send [b]Attack[/b] (Off-")
-            send = f"{text}{weight.off}, {nobles}{weight.nobleman}) "
+            if weight.nobleman == 0:
+                text = _("[size=12][b]OFF[/b][/size] (Off-")
+                send = f"{text}{weight.off})"
+            else:
+                text = _("[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]")
+                send = f"{text} (Off-{weight.off}, {nobles}{weight.nobleman}) "
+            
 
+        if simple:
+            own_and_enemy_villages = ""
+        else:
+            own_and_enemy_villages = f" {from_village} {weight.start} {to}{weight.target.target}"
         return (
             f"{send}"
-            f"{from_village} {weight.start} {to}{weight.target.target} "
+            f"{own_and_enemy_villages}"
             f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"
-            f"{self.__link(ally_id, enemy_id, fake, deputy=deputy)}"
+            f"{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
         )
 
     def add_weight(
@@ -112,6 +140,10 @@ class TableText:
         )
 
         self.weight_string[weight] = str(
+            self.__weight_string(weight, ally_id, enemy_id, fake, simple=True)
+        )
+
+        self.weight_extended[weight] = str(
             self.__weight_string(weight, ally_id, enemy_id, fake)
         )
 
@@ -132,7 +164,7 @@ class TableText:
 
     def __create_table(self):
         for player, lst in self.result.items():
-            table = str(self.__next_line + player + self.__next_line + self.__prefix)
+            table = str(self.__next_line + self.__next_line + self.__prefix)
             for i, weight in enumerate(lst):
                 table += f"[*]{i+1}" + self.weight_table[weight]
                 if i % 32 == 0 and i != 0:
@@ -149,7 +181,7 @@ class TableText:
 
     def __create_string(self):
         for player, lst in self.result.items():
-            text = str(self.__next_line + player + self.__next_line)
+            text = str(self.__next_line + self.__next_line)
             for i, weight in enumerate(lst):
                 text += (
                     f"{i+1}. " + self.weight_string[weight] + self.__next_line_double
@@ -159,13 +191,23 @@ class TableText:
 
     def __create_deputy(self):
         for player, lst in self.result.items():
-            text = str(self.__next_line + player + self.__next_line)
+            text = str(self.__next_line + self.__next_line)
             for i, weight in enumerate(lst):
                 text += (
                     f"{i+1}. " + self.weight_deputy[weight] + self.__next_line_double
                 )
 
             self.deputy_result[player] = text
+
+    def __create_extended(self):
+        for player, lst in self.result.items():
+            text = str(self.__next_line + self.__next_line)
+            for i, weight in enumerate(lst):
+                text += (
+                    f"{i+1}. " + self.weight_extended[weight] + self.__next_line_double
+                )
+
+            self.extended_result[player] = text
 
     def get_full_result(self):
         return self.__next_line_double.join(self.string_result.values())
@@ -178,6 +220,7 @@ class TableText:
         self.__create_table()
         self.__create_string()
         self.__create_deputy()
+        self.__create_extended()
 
     def iterate_over(self):
         for player in self.result:
@@ -186,4 +229,5 @@ class TableText:
                 self.table_result[player],
                 self.string_result[player],
                 self.deputy_result[player],
+                self.extended_result[player],
             )

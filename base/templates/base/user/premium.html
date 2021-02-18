@@ -1,0 +1,117 @@
+{% extends "base/base.html" %} 
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>.copy-button{border:0;background-color:white}.border-row{font-weight: 500;}</style>
+<div class="fixed-scrollbar-container">
+<div class="container py-1" style="min-height: 70vh; max-width:1000px !important;font-size: larger;">
+<div style="margin-right:-15px;margin-left:-15px;">
+    <table class="table table-bordered" style="width: min-content;">
+        <thead>
+            <tr>
+                <th style="min-width: 25vh;" class="text-nowrap">{% trans 'Premium' %}</th>
+                <th style="min-width: 25vh;" class="text-nowrap">
+                    {% if user.profile.is_premium %}
+                    {% trans 'Active until the day' %} - {{user.profile.validity_date}}
+                    {% else %}
+                    {% trans 'Not active'%}
+                    {% endif %}
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <h3>{% trans 'Payment can be made to the number below:' %}</h3>
+    <div class="form-group row mb-4">
+        <div class="col-12 col-md-9 col-lg-6 mt-2">
+          <input type="text" class="form-control" id="account" value="27 1020 4913 0000 9202 0149 7262" readonly>
+        </div>
+        <div class="col-auto mt-2">
+            <button class="copy-button" onclick="copyDataToClipboard(this,`account`,true)"><img onclick="" width="30px" height="30px" src="{% static 'images/copy-text.svg' %}"></button>
+        </div>
+    </div>
+
+    <p></p>
+    <p>{% trans "By supporting the project and its author, you get access to unlimited use of the Planer's capabilities. The support is voluntary and is not required to use the website, although its functionality is then limited." %}</p>
+    <p>
+    <span style="background-color: teal;color:white;font-size:large" class="badge badge-secondary my-1">{% trans '1. Transfer' %}</span> 
+
+    <span style="background-color: teal;color:white;font-size:large" class="badge badge-secondary my-1">{% trans '2. Confirmation of payment' %}</span> 
+
+    <span style="background-color: teal;color:white;font-size:large" class="badge badge-secondary my-1">{% trans '3. Activation and return email' %}</span> 
+    </p>
+    <table class="table table-bordered my-4" style="width: min-content;">
+        <tbody>
+            <tr>
+                <th style="min-width: 25vh;" class="text-nowrap">{% trans '1 month' %}</th>
+                <th style="min-width: 25vh;" class="text-nowrap">{% trans '2 months' %}</th>
+                <th style="min-width: 25vh;" class="text-nowrap">{% trans '3 months' %}</th>
+            </tr>
+            <tr>
+                <th style="min-width: 25vh;" class="text-nowrap">{% trans '30 zł' %}</th>
+                <th style="min-width: 25vh;" class="text-nowrap">{% trans '55 zł' %}</th>
+                <th style="min-width: 25vh;" class="text-nowrap">{% trans '70 zł' %}</th>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="my-4">{% trans 'Other transfer details for your account:' %}</h3>
+    <div class="form-group row">
+        <label for="receiver" class="col-12 col-sm-auto mt-2">{% trans 'Recipient' %}</label>
+        <div class="col-12 col-md-9 col-lg-6 mt-2">
+          <input type="text" class="form-control" id="receiver" value="Rafał Safin" readonly>
+        </div>
+        <div class="col-auto mt-2">
+            <button class="copy-button" onclick="copyDataToClipboard(this,`receiver`,true)"><img onclick="" width="30px" height="30px" src="{% static 'images/copy-text.svg' %}"></button>
+        </div>
+    </div>
+    <div class="form-group row mb-4">
+        <label for="receiver" class="col-12 col-sm-auto mt-2">{% trans 'Transfer title' %}</label>
+        <div class="col-12 col-md-9 col-lg-6 mt-2">
+          <input type="text" class="form-control" id="title" value="plemiona-planer:{{user.username}}" readonly>
+        </div>
+        <div class="col-auto mt-2">
+            <button class="copy-button" onclick="copyDataToClipboard(this,`title`,true)"><img onclick="" width="30px" height="30px" src="{% static 'images/copy-text.svg' %}"></button>
+        </div>
+    </div>
+    <h3 class="mt-5">{% trans 'Payment history' %}</h3>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th class="text-nowrap">{% trans 'Implementation status' %}</th>
+                <th class="text-nowrap">{% trans 'Payment date' %}</th>
+                <th class="text-nowrap">{% trans 'Amount' %}</th>
+                <th class="text-nowrap">{% trans 'Number of months' %}</th>
+                <th class="text-nowrap">{% trans 'End of account validity' %}</th>
+                <th class="text-nowrap">{% trans 'Comments' %}</th>
+            </tr>
+        </thead>
+        <tbody >
+            {% for payment in payments %}
+            <tr>
+                <th class="text-nowrap border-row">{{payment.get_status_display}}</th>
+                <th class="text-nowrap border-row">{{payment.payment_date}}</th>
+                <th class="text-nowrap border-row">{{payment.amount}}</th>
+                <th class="text-nowrap border-row">{{payment.months}}</th>
+                <th class="text-nowrap border-row">{{payment.new_date}}</th>
+                <th class="text-nowrap border-row">{{payment.comment}}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<script>
+    function copyDataToClipboard(element, id, form) {
+        const newClip = form ? document.getElementById(id).value : document.getElementById(id).textContent;
+        navigator.clipboard.writeText(newClip);
+        element.blur();
+        const buttonContent = element.innerHTML;
+        element.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-check2-all" viewBox="0 0 16 16"><path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7l-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/><path d="M5.354 7.146l.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/></svg>`;
+        setTimeout(() => {
+            element.innerHTML = buttonContent
+        }, 600)
+    }
+</script>
+
+{% endblock %}

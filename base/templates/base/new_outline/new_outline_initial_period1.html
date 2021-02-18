@@ -4,22 +4,88 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-<script src="{% static 'codemirror.js' %}"></script>
-<link rel="stylesheet" href="{% static 'codemirror.css' %}">
+<script src="{% static 'codemirror-min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
 <div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
     <div class="col-12 col-lg-7">
         <div class=" w-100">
+          <style>
+            a.t-tab-teal {
+              font-size: 1.05rem;
+              box-shadow: 0 -4px 0 0 white;
+              font-weight: 450;
+              padding: 0.3em 0.9em 0.5em;
+              border: 1px solid hsl(219, 1%, 72%);
+              background: hsl(220, 20%, 94%);
+            }
+
+            @media (max-width: 700px) {
+              .t-tab-teal {
+                font-size: 0.8rem;
+              }
+            }
+
+            a.t-tab-teal {
+              color: black !important;
+            }
+            a.t-tab-teal:hover {
+              color: black !important;
+              text-decoration: none;
+            }
+            
+            .t-tab-teal:hover {
+              box-shadow: 0 -3px 0 0 hsl(219, 1%, 72%);;
+            }
+            
+            .t-tab-teal.t-tab-teal.t-tab-teal-active {
+              background: hsl(220, 43%, 99%);
+            }
+            
+            .t-tab-teal.t-tab-teal-active {
+              box-shadow: 0 -5px 0 0 teal;
+            }
+          </style>
+          <div class="mb-4 mt-2">
+            {% if mode == "real" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=real">
+              Cele &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
+            </a>
+            {% else %}
+            <a class="t-tab-teal" href="?t=real">
+              Cele &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
+            </a>
+            {% endif %}
+            {% if mode == "fake" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=fake">
+              Fejki &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
+            </a>
+            {% else %}
+            <a class="t-tab-teal" href="?t=fake">
+              Fejki &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
+            </a>
+            {% endif %}
+            {% if mode == "ruin" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">
+              Burzaki &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
+            </a>
+            {% else %}
+            <a class="t-tab-teal" href="?t=ruin">
+              Burzaki &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
+            </a>
+            {% endif %}
+
+
+          </div>
         <form id="form1-form" method='POST'>
           <input type="hidden" name="form1" value=""/>
             {% csrf_token %}
-                <h4 class="mb-0">{{ form1.target.label_tag }} 
 
-                </h4>
-                {% if target_dups or fake_dups %}
-                <a class="md-correct2 mt-0 mb-1" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat">
+                {% if target_dups or fake_dups or ruin_dups %}
+                <div class="mb-2">
+                <a class="md-correct2 mt-0" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;">
                   {% trans 'Duplicates detected, click to view them' %}
                 </a>
-                <div class="collapse mb-3" id="collapseRepeat">
+                <div class="collapse mb-3 mt-1" id="collapseRepeat">
                   <div class="card card-body">
                     <div class="row">
                       <div class="col-4">
@@ -34,38 +100,25 @@
                         <p class="my-0">{{coord}} - {{dup}}</p>
                         {% endfor %}
                       </div>
+                      <div class="col-4">
+                        <h5>{% trans 'Ruin-Duplicated' %}</h5>
+                        {% for coord, dup in ruin_dups %}
+                        <p class="my-0">{{coord}} - {{dup}}</p>
+                        {% endfor %}
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
                 {% endif %}
                 {{ form1.target }} 
                 {% if form1.target.errors %}
-                 {% for error in form1.target.errors %} {% if forloop.first %}
+                <script>codemirrorValidation(`{{form1.target.errors.as_json|safe}}`, `.CodeMirror`);</script>
                 
-                <script>
-                    document.addEventListener("DOMContentLoaded", function(event) {
-                        $('.CodeMirror').addClass('CodeMirror-Invalid');
-                        codemirror = $('.CodeMirror');
-                        var codeMirrorEditor = codemirror[0].CodeMirror;
-                        codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                        codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
-                    });
-                </script>
-                {% else %}
-                <script>
-                    document.addEventListener("DOMContentLoaded", function(event) {
-                        codemirror = $('.CodeMirror');
-                        var codeMirrorEditor = codemirror[0].CodeMirror;
-                        codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                    });
-                </script>
-                {% endif %} 
-                {% endfor %}
                 <div class="error-text">
                     <p>
                     {% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}<br><br>
                     {% trans 'Valid lines looks like (assuming that such a village 000|000 exists):' %}<br>
-                    {% trans '"---" - separator line between offs and fakes' %}<br>
                     {% trans '"000|000" - clean coords' %}<br>
                     {% trans '"000|000:0:0" - coords with :off:noble numbers' %}<br>
                     {% trans '"000|000:0|0|0|0:0" - additional off info, list instead of number' %}<br>
@@ -95,10 +148,10 @@
 
                 <div class="btn-group my-3">
 
-                <button id="form1-btn" class="btn btn-ocean"> {% trans 'Save targets' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`);" id="form1-btn" class="btn btn-ocean"> {% trans 'Save targets' %}</button>
 
                 
-                  <button id="form-complete-btn" class="btn btn-outline-ocean">
+                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`);" id="form-complete-btn" class="btn btn-outline-ocean">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
                     </svg>
@@ -121,29 +174,59 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr >
-                    <th>{% trans 'Offs' %}</th>
+                  <tr>
+                    <th style="cursor: default;">{% trans 'Offs' %}</th>
                     {% for item in instance.avaiable_offs %}
-                    <th> {{ item }} </th>
+                    <th style="cursor: default;"> {{ item }} </th>
+                    {% empty %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     {% endfor %}
                   </tr>
-                  <tr >
-                    <th>{% trans 'Nobles' %}</th>
+                  <tr>
+                    <th style="cursor: default;">{% trans 'Nobles' %}</th>
                     {% for item in instance.avaiable_nobles %}
                     <th> {{ item }} </th>
+                    {% empty %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     {% endfor %}
                   </tr>
-                  <tr >
-                    <th>{% trans 'Offs closer than max noble distance' %}</th>
+                  <tr>
+                    <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles' %}" class="text-nowrap" scope="col">
+                      {% trans 'Offs closer than' %} {{instance.initial_outline_target_dist}}  {% trans 'squares from real targets' %} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                      
+                    </th>
                     {% for item in instance.avaiable_offs_near %}
                     <th> {{ item }} </th>
+                    {% empty %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     {% endfor %}
                   </tr>
-                  <tr >
-                    <th>{% trans 'Nobles closer than max noble distance' %}</th>
+                  <tr>
+                    <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Nobles around real targets at maximum distance for nobles' %}" class="text-nowrap" scope="col">
+                      {% trans 'Nobles closer than' %} {{instance.initial_outline_target_dist}}  {% trans 'squares from real targets' %} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                      
+                    </th>
                     {% for item in instance.avaiable_nobles_near %}
                     <th> {{ item }} </th>
+                    {% empty %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     {% endfor %}
+                  </tr>
+                  <tr>
+                    <th>{% trans 'The approximate number of ruin attacks to write out' %}</th>
+                    <th > 
+                      {% if instance.avaiable_ruins %}
+                      {{instance.avaiable_ruins}}
+                      {% endif %}
+                    </th>
                   </tr>
 
                 </tbody>
@@ -177,7 +260,7 @@
                         <div class="card-body">
 
                           <form id="form-update" action="{% url 'base:planer_update_troops' instance.id %}">
-                            <button id="form-update-btn" class="btn btn-outline-ocean mb-3">
+                            <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-update`);" id="form-update-btn" class="btn btn-outline-ocean mb-3">
                               <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
                               <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
@@ -198,7 +281,7 @@
                             <input type="hidden" name="form2" value=""/>
                             {% csrf_token %}
                           {{form2|crispy}}
-                          <button class="btn btn-sm btn-ocean" id="form2-btn" >
+                          <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`);" class="btn btn-sm btn-ocean" id="form2-btn" >
                             {% trans 'Save and reload troops' %}
                           </button>
                           </form>
@@ -206,9 +289,6 @@
                         </div>
                       </div>
                     </div>
-
-
-
 
                     <div class="card">
                       <div class="card-header" id="headingTwo">
@@ -237,16 +317,12 @@
                             <input type="hidden" name="form3" value="">
                             {% csrf_token %}
                           {{form3|crispy}}
-                          <button class="btn btn-sm btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
+                          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-sm btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
                           </form>
 
                         </div>
                       </div>
                     </div>
-
-
-
-
 
                     <div class="card">
                       <div class="card-header" id="headingThree">
@@ -313,7 +389,7 @@
                             <input type="hidden" name="form4" value="">
                             {% csrf_token %}
                             {{ form4|crispy }}
-                          <button class="btn btn-sm btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
+                          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form4-form`);" class="btn btn-sm btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
                           </form>
                         </div>
                       </div>
@@ -530,7 +606,7 @@
                           
                           
                         </div>
-                        <button id="formset-btn" class="btn btn-ocean mt-4">{% trans 'Save' %}</button>
+                        <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`formset-form`);" id="formset-btn" class="btn btn-ocean mt-4">{% trans 'Save' %}</button>
                           </form>
                           {% endif %}
                         </div>
@@ -568,16 +644,44 @@
                             <input type="hidden" name="form5" value="">
                             {% csrf_token %}
                           {{form5|crispy}}
-                          <button class="btn btn-sm btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
+                          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form5-form`);" class="btn btn-sm btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
                           </form>
 
                         </div>
                       </div>
                     </div>
-                    
 
+                    <div class="card">
+                      <div class="card-header" id="headingSix">
+                        <h5 class="mb-0">
 
+                          <button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                            {% if form5.errors %}
+                        <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                          </svg></span>
+                        {% endif %}
+                            {% trans '6. Ruining' %}
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                        <div class="card-body">
+                          <div class="mb-5">
 
+                          </div>
+                          
+                          <form id="form6-form" method='POST' autocomplete="off">
+                            <input type="hidden" name="form6" value="">
+                            {% csrf_token %}
+                          {{form6|crispy}}
+                          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-sm btn-ocean" id="form6-btn" >{% trans 'Save' %}</button>
+                          </form>
+
+                        </div>
+                      </div>
+                    </div>
 
                   </div>
         <div class="d-block d-lg-none mb-4"></div>
@@ -606,90 +710,32 @@
         </div>
     </div>
     
+    <script>var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});</script>
     <script>
-      const buttonForm1 = document.getElementById("form1-btn")
-      const buttonFormComplete = document.getElementById("form-complete-btn")
-      const buttonFormUpdate = document.getElementById("form-update-btn")
-      const buttonForm2 = document.getElementById("form2-btn")
-      const buttonForm3 = document.getElementById("form3-btn")
-      const buttonForm4 = document.getElementById("form4-btn")
-      const buttonForm5 = document.getElementById("form5-btn")
-      const buttonFormset = document.getElementById("formset-btn")
-
-      buttonForm1.onclick = () => {
-        buttonForm1.disabled = true
-        buttonFormComplete.disabled = true
-        buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const form1 = document.getElementById("form1-form")
-        form1.submit()
-      }
-
-      buttonFormComplete.onclick = () => {
-        buttonForm1.disabled = true
-        buttonFormComplete.disabled = true
-        buttonFormComplete.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
-        const formComplete = document.getElementById("form-complete")
-        formComplete.submit()
-      }
-
-      buttonFormUpdate.onclick = () => {
-        buttonFormUpdate.disabled = true
-        buttonForm2.disabled = true
-
-        buttonFormUpdate.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Updating Army data...' %}"
-        const formUpdate = document.getElementById("form-update")
-        formUpdate.submit()
-      }
-
-      buttonForm2.onclick = () => {
-        buttonFormUpdate.disabled = true
-        buttonForm2.disabled = true
-
-        buttonForm2.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Reloading troops...' %}"
-        const form2 = document.getElementById("form2-form")
-        form2.submit()
-      }
-      buttonForm3.onclick = () => {
-        buttonForm3.disabled = true
-        buttonForm3.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const form3 = document.getElementById("form3-form")
-        form3.submit()
-      }
-      buttonForm4.onclick = () => {
-        buttonForm4.disabled = true
-        buttonForm4.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const form4 = document.getElementById("form4-form")
-        form4.submit()
-      }
-      buttonForm5.onclick = () => {
-        buttonForm5.disabled = true
-        buttonForm5.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const form5 = document.getElementById("form5-form")
-        form5.submit()
-      }
-      buttonFormset.onclick = () => {
-        buttonFormset.disabled = true
-        buttonFormset.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Saving...' %}"
-        const formset = document.getElementById("formset-form")
-        formset.submit()
-      }
-
+      activateTooltips();
     </script>
-
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {
-            lineNumbers: true,
-        });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function (event) {
-          $('.popoverData').popover();
-      });
-      $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
-        })
-  </script>
 </div>
+{% if premium_error %}
 
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content text-white bg-danger">
+            <div class="modal-header">
+                <h3 class="modal-title">{% trans 'An error occured' %}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>{% trans "Premium account is required to complete outlines greater than 25 targets. Buy it" %} <b><a style='color:white;text-decoration:underline' href="{% url 'base:premium' %}">{% trans 'here' %}</a></b> {% trans "or reduce the number of outline targets." %}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        $('.bd-example-modal-lg').modal('show');
+    });
+</script>
+{% endif %}
 {% endblock %}

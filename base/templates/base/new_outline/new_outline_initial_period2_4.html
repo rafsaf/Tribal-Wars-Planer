@@ -1,198 +1,116 @@
 {% extends "base/new_outline/new_outline_initial_period2.html" %}
+
 {% load static %}
 {% load i18n %}
-{% load crispy_forms_tags %}
-{% block content %}
 
-<div class="row">
-    <figure class="col-2">
-        <img class="d-none d-lg-block" src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
-    </figure>
-    <div class="col-8">
-        <div class="d-flex flex-column justify-content-center h-100">
-            <div class="d-flex flex-row justify-content-center">
-                <h2>
-                    <span class="badge badge-pill badge-info">
-                        {{instance.name}}
-                    </span>
-                </h2>
-            </div>
+    {% block content %}
+    <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
+    <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 
-            <div class="d-flex flex-row justify-content-center">
-                <h2>
-                    <span class="badge badge-pill badge-info">
-                        {{instance.date}}
-                    </span>
-                </h2>
-            </div>
-
-            <div class="row justify-content-center">
-
-                <div>
-                    <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal"
-                        data-target="#ValidationModal">
-                        <b>{% trans 'Go back' %}</b>
-                    </button>
-                </div>
-
-                <div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                {% blocktrans %} Current progress will be
-                                <div class="md-error">LOST!</div>
-                                <br>You will return to the previous form. {% endblocktrans %}
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
-                                <form method="POST">
-                                    {% csrf_token %}
-                                    <button name="form1" type="submit" class="btn btn-ocean">
-                                        {% trans 'Continue' %}
-                                    </button>
-
-                                </form>
-                            </div>
+    <div class="fixed-scrollbar-container">
+    {% block outline_navbar %}
+    {{block.super}}
+    {% endblock %}
+    {% block outline_navigation %}
+    {{block.super}}
+    {% endblock %}
+    <div class="conatiner-fluid" style="width: min-content;">
+        <table class="table table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-nowrap">{% trans 'Ruin Target' %}</th>
+                    <th class="text-nowrap" colspan="50" scope="colgroup">{% trans 'Ruin Outline' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for target, lst in query %}
+                <tr>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            <h5>
+                                <span class="badge badge-pill badge-info">
+                                    {{target.player}}
+                                </span>
+                            </h5>
                         </div>
-                    </div>
-                </div>
+                        <div class="d-flex justify-content-center">
+                            <h5>
+                                <span class="badge badge badge-secondary">
+                                    {{target.target}}
+                                </span>
+                            </h5>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <h5>
+                                <a target="_blank" href="{{target.get_absolute_url}}"
+                                    class="btn btn-sm btn-outline-info">
+                                    {% trans 'Edit' %}
+                                </a>
+                            </h5>
+                        </div>
+                    </th>
+                    {% for weight in lst %}
+                    <th class="front-{{weight.first_line}}">
+                        <div class="popoverData" data-html="true"
+                            data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
+                            rel="popover" data-placement="top" data-trigger="hover">
+                            <table class="table table-sm">
+                                    <tr>
+                                        <th>
+                                            <img src='{% static "images/ax.png" %}' alt="ax">
+                                        </th>
+                                        <th style="font-size: small;cursor:default;">
+                                            {{weight.off}}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        {% if weight.ruin %}
+                                        <th>
+                                            <img src='{% static "images/catapult.png" %}' alt="cat">
+                                        </th>
+                                        <th style="font-size: small;cursor:default;">
+                                            {{weight.catapult}}
+                                        </th>
 
-            </div>
-
-        </div>
+                                        {% else %}
+                                        <th>
+                                            <img src='{% static "images/nobleman.png" %}' alt="ax">
+                                        </th>
+                                        <th style="font-size: small;cursor:default;">
+                                            {{weight.nobleman}}
+                                        </th>
+                                        {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost"
+                                                fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
+                                                <path d="M7 10h2v6H7v-6z" />
+                                            </svg>
+                                        </th>
+                                        <th style="font-size: small;cursor:pointer;" onclick="calculate_distance(this);">
+                                            {{weight.distance}}
+                                        </th>
+                                    </tr>
+                                </table>
+                    </th>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <figure class="col-2">
-        <img class="d-none d-lg-block" src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
-    </figure>
 </div>
-{% block outline_navbar %}
+<script>
+    activateTooltips();
+    activateFixedScrollbarContainer();
+</script>
+
+{% block outline_go_back %}
 {{block.super}}
 {% endblock %}
-
-<div class="conatiner-fluid text-center" id='leftscroll'>
-    <h2 class="my-4">
-        <span>
-            {% trans "Before proceeding, you may want to set up players' troops manually." %}
-        </span>
-    </h2>
-
-    <a class="btn btn-ocean btn-block btn-lg"
-        href="{% url 'base:planer_complete' instance.id %}">{% trans 'Proceed forward, hint: If there is any target, it will be deleted' %}</a>
-        <h6 class="my-1">
-            <span>
-                {% trans "If you skip clicking the button above, the orders will not be automatically written!!!" %}
-            </span>
-        </h6>
-    <div class="form-group col-12 col-lg-6 mx-auto mt-5">
-        <form method="GET">
-            <input name=page type="hidden" value="{{query.number}}" />
-            <input name=mode type="hidden" value="{{mode}}" />
-            <label for="exampleFormControlSelect1">{% trans 'Select player' %}</label>
-            <select name="player" class="form-control" id="exampleFormControlSelect1">
-                <option value="None">{% trans 'All players' %}</option>
-                {% for player in players %}
-                <option>{{player}}</option>
-                {% endfor %}
-            </select>
-
-
-            <button type="submit" class="w-20 mt-2 btn btn-ocean">OK</button>
-        </form>
-    </div>
-    <table class="table table-bordered col-6 mx-auto mt-5">
-        <thead>
-            <tr>
-
-                <th scope="col" rowspan="2">{% trans 'Number' %}</th>
-                <th scope="col" rowspan="2">{% trans 'Player' %}</th>
-                <th scope="col" rowspan="2">{% trans 'Village' %}</th>
-                <th scope="colgroup" colspan="2">{% trans 'Troops in village' %}
-                    <span class="ml-1 popoverData" data-html="true"
-                        data-content="{% trans 'Troops directly in village now, from collect deff troops script' %}"
-                        rel="popover" data-placement="top" data-trigger="hover">
-                        <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-question-circle"
-                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                            <path
-                                d="M5.25 6.033h1.32c0-.781.458-1.384 1.36-1.384.685 0 1.313.343 1.313 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.007.463h1.307v-.355c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.326 0-2.786.647-2.754 2.533zm1.562 5.516c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
-                        </svg>
-                    </span>
-                </th>
-                <th scope="colgroup" colspan="2">{% trans 'Troops in database' %}
-                    <span class="ml-1 popoverData" data-html="true"
-                    data-content="{% trans 'By default, these are troops taken from the offs collection, which means that they are all units, even on the way and from outside the village' %}"
-                    rel="popover" data-placement="top" data-trigger="hover">
-                    <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-question-circle"
-                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                        <path
-                            d="M5.25 6.033h1.32c0-.781.458-1.384 1.36-1.384.685 0 1.313.343 1.313 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.007.463h1.307v-.355c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.326 0-2.786.647-2.754 2.533zm1.562 5.516c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
-                    </svg>
-                </span>
-                </th>
-                <th scope="col" rowspan="2">{% trans 'Save changes' %}</th>
-            </tr>
-            <tr>
-                <th scope="col">{% trans 'Off' %}</th>
-                <th scope="col">{% trans 'Nobles' %}</th>
-                <th scope="col">{% trans 'Off' %}</th>
-                <th scope="col">{% trans 'Nobles' %}</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            {% for weight in query %}
-            <tr>
-                <th>{{forloop.counter}}</th>
-                <th><span class="badge badge-pill badge-info">{{weight.player}}</span></th>
-                <th><span class="badge badge-secondary">{{weight.start}}</span></th>
-                <th>
-                    {{weight.off_in_village|default_if_none:'Brak danych'}}
-                </th>
-                <th>
-                    {{weight.nobleman_in_village|default_if_none:'Brak danych'}}
-                </th>
-                <form method="POST"
-                    action="{% url 'base:planer_change_weight' instance.id weight.id %}?mode={{mode}}&page={{query.number}}&player={{player}}">
-                    {% csrf_token %}
-                    <th style="border-left: 4px solid teal; min-width: 25vh">
-                        <input name="off" class="form-control" min="0" type="number" value="{{weight.off_max}}" />
-                    </th>
-                    <th style="min-width: 20vh;">
-                        <input name="noble" class="form-control" min="0" type="number"
-                            value="{{weight.nobleman_max}}" />
-
-                    </th>
-                    <th>
-                        <button type="submit" class="btn btn-outline-ocean">{% trans 'Save' %}</button>
-                    </th>
-                </form>
-            </tr>
-            {% endfor %}
-
-        </tbody>
-    </table>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        $('.popoverData').popover();
-    });
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-    scroll_content_outline();
-</script>
 
 {% endblock %}

@@ -5,11 +5,11 @@ from tribal_wars import basic
 class TargetsGeneralInput:
     """ class with methods on user input targets """
 
-    def __init__(self, outline_targets: str, world: int, outline: models.Outline, fake=False):
+    def __init__(self, outline_targets: str, world: int, outline: models.Outline, fake=False, ruin=False):
         self.outline = outline
         self.fake = fake
+        self.ruin = ruin
         
-        self.targets = []
         self.target_text = outline_targets.split("\r\n")
         if not self.target_text == ['']:
             self.village_dict = self.target_village_dictionary(world=world)
@@ -18,7 +18,8 @@ class TargetsGeneralInput:
         """ Return player name  """
         return self.village_dict[coord]
 
-    def generate_targets(self):
+    def list(self):
+        targets = []
         if not self.target_text == ['']:
             for line in self.target_text:
                 line = line.split(":")
@@ -36,11 +37,12 @@ class TargetsGeneralInput:
                     required_noble = 0
                     exact_noble = line[2].split("|")
 
-                self.targets.append(
+                targets.append(
                     models.TargetVertex(
                         outline=self.outline,
                         target=line[0],
                         fake=self.fake,
+                        ruin=self.ruin,
                         player=self.player(line[0]),
                         required_off=required_off,
                         required_noble=required_noble,
@@ -55,6 +57,7 @@ class TargetsGeneralInput:
                         enter_t2=self.outline.enter_t2,
                     )
                 )
+        return targets
 
     def target_village_dictionary(self, world):
         """ Create a dictionary with player names """

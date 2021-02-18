@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Max, Min
 
 from base import models
-from base import forms
 from tribal_wars import basic
 
 
@@ -24,9 +23,9 @@ def initial_add_first(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Min("order")
-            )["order__min"]
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
             - 1
         )
     models.WeightModel.objects.create(
@@ -35,12 +34,11 @@ def initial_add_first(request, id1, id2, id3):
         start=weight.start,
         state=weight,
         off=weight.off_left,
+        catapult=weight.catapult_left,
         nobleman=weight.nobleman_left,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
@@ -49,11 +47,107 @@ def initial_add_first(request, id1, id2, id3):
     weight.off_left = 0
     weight.nobleman_state += weight.nobleman_left
     weight.nobleman_left = 0
+    weight.catapult_state += weight.catapult_left
+    weight.catapult_left = 0
     weight.save()
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}"
     )
+
+
+@require_POST
+@login_required
+def initial_add_first_off(request, id1, id2, id3):
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    sort = request.GET.get("sort")
+    page = request.GET.get("page")
+    target = get_object_or_404(models.TargetVertex, pk=id2)
+    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    if not models.WeightModel.objects.filter(target=target).exists():
+        order = 0
+    else:
+        order = (
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
+            - 1
+        )
+    models.WeightModel.objects.create(
+        target=target,
+        player=weight.player,
+        start=weight.start,
+        state=weight,
+        off=weight.off_left,
+        catapult=weight.catapult_left,
+        nobleman=0,
+        order=order,
+        distance=round(
+            basic.Village(target.target).distance(basic.Village(weight.start)),
+            1,
+        ),
+        first_line=weight.first_line,
+    )
+    weight.off_state += weight.off_left
+    weight.off_left = 0
+    weight.catapult_state += weight.catapult_left
+    weight.catapult_left = 0
+    weight.save()
+    return redirect(
+        reverse("base:planer_initial_detail", args=[id1, id2])
+        + f"?page={page}&sort={sort}"
+    )
+
+
+@require_POST
+@login_required
+def initial_add_first_ruin(request, id1, id2, id3):
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    sort = request.GET.get("sort")
+    page = request.GET.get("page")
+    target = get_object_or_404(models.TargetVertex, pk=id2)
+    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    if not models.WeightModel.objects.filter(target=target).exists():
+        order = 0
+    else:
+        order = (
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
+            - 1
+        )
+    if weight.catapult_left > 0:
+        if weight.catapult_left > outline.initial_outline_catapult_default:
+            catapult = outline.initial_outline_catapult_default
+        else:
+            catapult = weight.catapult_left
+
+        models.WeightModel.objects.create(
+            target=target,
+            player=weight.player,
+            start=weight.start,
+            state=weight,
+            off=catapult * 8,
+            ruin=True,
+            catapult=catapult,
+            nobleman=0,
+            order=order,
+            distance=round(
+                basic.Village(target.target).distance(basic.Village(weight.start)),
+                1,
+            ),
+            first_line=weight.first_line,
+        )
+        weight.off_state += catapult * 8
+        weight.off_left -= catapult * 8
+        weight.catapult_state += catapult
+        weight.catapult_left = weight.catapult_left - catapult
+        weight.save()
+    return redirect(
+        reverse("base:planer_initial_detail", args=[id1, id2])
+        + f"?page={page}&sort={sort}"
+    )
+
 
 @require_POST
 @login_required
@@ -67,41 +161,49 @@ def initial_add_first_fake(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Min("order")
-            )["order__min"]
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
             - 1
         )
-    if weight.nobleman_left > 0:
-        army = 0
-        nobles = 1
 
-    elif weight.off_left < 100:
-        army = weight.off_left
-        nobles = 0
+    off_catapults = weight.catapult_left * 8
+    off_else = weight.off_left - off_catapults
 
-    else:
+    if off_else >= 100:
         army = 100
         nobles = 0
+        catapult = 0
+    else:
+        off_to_fill_out = 100 - off_else
+        if off_catapults < off_to_fill_out:
+            army = off_else + off_catapults
+            nobles = 0
+            catapult = weight.catapult_left
+        else:
+            catapult = off_to_fill_out // 8
+            nobles = 0
+            army = 8 * catapult + off_else
 
     models.WeightModel.objects.create(
         target=target,
         player=weight.player,
         start=weight.start,
         state=weight,
+        catapult=catapult,
         off=army,
         nobleman=nobles,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
     )
     weight.off_state += army
     weight.off_left -= army
+    weight.catapult_state += catapult
+    weight.catapult_left -= catapult
     weight.nobleman_state += nobles
     weight.nobleman_left -= nobles
     weight.save()
@@ -109,6 +211,54 @@ def initial_add_first_fake(request, id1, id2, id3):
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}"
     )
+
+
+@require_POST
+@login_required
+def initial_add_first_fake_noble(request, id1, id2, id3):
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    sort = request.GET.get("sort")
+    page = request.GET.get("page")
+    target = get_object_or_404(models.TargetVertex, pk=id2)
+    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    if not models.WeightModel.objects.filter(target=target).exists():
+        order = 0
+    else:
+        order = (
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
+            - 1
+        )
+    if weight.nobleman_left > 0:
+        army = 0
+        nobles = 1
+        catapult = 0
+
+        models.WeightModel.objects.create(
+            target=target,
+            player=weight.player,
+            start=weight.start,
+            state=weight,
+            catapult=catapult,
+            off=army,
+            nobleman=nobles,
+            order=order,
+            distance=round(
+                basic.Village(target.target).distance(basic.Village(weight.start)),
+                1,
+            ),
+            first_line=weight.first_line,
+        )
+        weight.nobleman_state += nobles
+        weight.nobleman_left -= nobles
+        weight.save()
+
+    return redirect(
+        reverse("base:planer_initial_detail", args=[id1, id2])
+        + f"?page={page}&sort={sort}"
+    )
+
 
 @require_POST
 @login_required
@@ -122,44 +272,194 @@ def initial_add_last_fake(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Max("order")
-            )["order__max"]
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
             + 1
         )
-    if weight.nobleman_left > 0:
-        army = 0
-        nobles = 1
 
-    elif weight.off_left < 100:
-        army = weight.off_left
-        nobles = 0
+    off_catapults = weight.catapult_left * 8
+    off_else = weight.off_left - off_catapults
 
-    else:
+    if off_else >= 100:
         army = 100
         nobles = 0
+        catapult = 0
+    else:
+        off_to_fill_out = 100 - off_else
+        if off_catapults < off_to_fill_out:
+            army = off_else + off_catapults
+            nobles = 0
+            catapult = weight.catapult_left
+        else:
+            catapult = off_to_fill_out // 8
+            nobles = 0
+            army = 8 * catapult + off_else
 
     models.WeightModel.objects.create(
         target=target,
         player=weight.player,
         start=weight.start,
         state=weight,
+        catapult=catapult,
         off=army,
         nobleman=nobles,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
     )
     weight.off_state += army
     weight.off_left -= army
+    weight.catapult_state += catapult
+    weight.catapult_left -= catapult
     weight.nobleman_state += nobles
     weight.nobleman_left -= nobles
     weight.save()
+    return redirect(
+        reverse("base:planer_initial_detail", args=[id1, id2])
+        + f"?page={page}&sort={sort}"
+    )
+
+
+@require_POST
+@login_required
+def initial_add_last_fake_noble(request, id1, id2, id3):
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    sort = request.GET.get("sort")
+    page = request.GET.get("page")
+    target = get_object_or_404(models.TargetVertex, pk=id2)
+    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    if not models.WeightModel.objects.filter(target=target).exists():
+        order = 0
+    else:
+        order = (
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
+            + 1
+        )
+    if weight.nobleman_left > 0:
+        army = 0
+        nobles = 1
+        catapult = 0
+
+        models.WeightModel.objects.create(
+            target=target,
+            player=weight.player,
+            start=weight.start,
+            state=weight,
+            catapult=catapult,
+            off=army,
+            nobleman=nobles,
+            order=order,
+            distance=round(
+                basic.Village(target.target).distance(basic.Village(weight.start)),
+                1,
+            ),
+            first_line=weight.first_line,
+        )
+        weight.nobleman_state += nobles
+        weight.nobleman_left -= nobles
+        weight.save()
+
+    return redirect(
+        reverse("base:planer_initial_detail", args=[id1, id2])
+        + f"?page={page}&sort={sort}"
+    )
+
+
+@require_POST
+@login_required
+def initial_add_last_ruin(request, id1, id2, id3):
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    sort = request.GET.get("sort")
+    page = request.GET.get("page")
+    target = get_object_or_404(models.TargetVertex, pk=id2)
+    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    if not models.WeightModel.objects.filter(target=target).exists():
+        order = 0
+    else:
+        order = (
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
+            + 1
+        )
+    if weight.catapult_left > 0:
+        if weight.catapult_left > outline.initial_outline_catapult_default:
+            catapult = outline.initial_outline_catapult_default
+        else:
+            catapult = weight.catapult_left
+
+        models.WeightModel.objects.create(
+            target=target,
+            player=weight.player,
+            start=weight.start,
+            state=weight,
+            off=catapult * 8,
+            ruin=True,
+            catapult=catapult,
+            nobleman=0,
+            order=order,
+            distance=round(
+                basic.Village(target.target).distance(basic.Village(weight.start)),
+                1,
+            ),
+            first_line=weight.first_line,
+        )
+        weight.off_state += catapult * 8
+        weight.off_left -= catapult * 8
+        weight.catapult_state += catapult
+        weight.catapult_left = weight.catapult_left - catapult
+        weight.save()
+
+    return redirect(
+        reverse("base:planer_initial_detail", args=[id1, id2])
+        + f"?page={page}&sort={sort}"
+    )
+
+
+@require_POST
+@login_required
+def initial_add_last_off(request, id1, id2, id3):
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    sort = request.GET.get("sort")
+    page = request.GET.get("page")
+    target = get_object_or_404(models.TargetVertex, pk=id2)
+    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    if not models.WeightModel.objects.filter(target=target).exists():
+        order = 0
+    else:
+        order = (
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
+            + 1
+        )
+    models.WeightModel.objects.create(
+        target=target,
+        player=weight.player,
+        start=weight.start,
+        state=weight,
+        off=weight.off_left,
+        catapult=weight.catapult_left,
+        nobleman=0,
+        order=order,
+        distance=round(
+            basic.Village(target.target).distance(basic.Village(weight.start)),
+            1,
+        ),
+        first_line=weight.first_line,
+    )
+    weight.off_state += weight.off_left
+    weight.off_left = 0
+    weight.catapult_state += weight.catapult_left
+    weight.catapult_left = 0
+    weight.save()
+
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}"
@@ -178,9 +478,9 @@ def initial_add_last(request, id1, id2, id3):
         order = 0
     else:
         order = (
-            models.WeightModel.objects.filter(target=target).aggregate(
-                Max("order")
-            )["order__max"]
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
             + 1
         )
     models.WeightModel.objects.create(
@@ -189,12 +489,11 @@ def initial_add_last(request, id1, id2, id3):
         start=weight.start,
         state=weight,
         off=weight.off_left,
+        catapult=weight.catapult_left,
         nobleman=weight.nobleman_left,
         order=order,
         distance=round(
-            basic.Village(target.target).distance(
-                basic.Village(weight.start)
-            ),
+            basic.Village(target.target).distance(basic.Village(weight.start)),
             1,
         ),
         first_line=weight.first_line,
@@ -203,23 +502,10 @@ def initial_add_last(request, id1, id2, id3):
     weight.off_left = 0
     weight.nobleman_state += weight.nobleman_left
     weight.nobleman_left = 0
+    weight.catapult_state += weight.catapult_left
+    weight.catapult_left = 0
     weight.save()
-    return redirect(
-        reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
-    )
 
-
-@require_POST
-@login_required
-def initial_hide_weight(request, id1, id2, id3):
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    sort = request.GET.get("sort")
-    page = request.GET.get("page")
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
-    weight.hidden = not weight.hidden
-    weight.save()
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}"
@@ -253,7 +539,6 @@ def initial_move_down(request, id1, id2, id4):
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}"
     )
-
 
 
 @login_required
@@ -291,14 +576,18 @@ def initial_weight_delete(request, id1, id2, id4):
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
-    weight_model = models.WeightModel.objects.select_related(
+    weight_model: models.WeightModel = models.WeightModel.objects.select_related(
         "state"
     ).filter(pk=id4)[0]
-    weight_model.state.off_left += weight_model.off
-    weight_model.state.off_state -= weight_model.off
-    weight_model.state.nobleman_left += weight_model.nobleman
-    weight_model.state.nobleman_state -= weight_model.nobleman
-    weight_model.state.save()
+    state: models.WeightMaximum = weight_model.state
+    state.off_left += weight_model.off
+    state.off_state -= weight_model.off
+
+    state.nobleman_left += weight_model.nobleman
+    state.nobleman_state -= weight_model.nobleman
+    state.catapult_left += weight_model.catapult
+    state.catapult_state -= weight_model.catapult
+    state.save()
     weight_model.delete()
 
     return redirect(
@@ -313,9 +602,9 @@ def initial_divide(request, id1, id2, id4, n):
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
-    weight = models.WeightModel.objects.select_related("state").filter(
-        pk=id4
-    )[0]
+    weight: models.WeightModel = models.WeightModel.objects.select_related(
+        "state"
+    ).filter(pk=id4)[0]
     n_list = [i + 1 for i in range(n - 1)]
     nob_list = [i for i in range(max(weight.nobleman - 1, 0))]
     if n > weight.nobleman:
@@ -326,7 +615,9 @@ def initial_divide(request, id1, id2, id4, n):
         nob_number = n - 1
 
     off = weight.off // n
+    catapult = weight.catapult // n
     rest = weight.off - off * n
+    rest_catapult = weight.catapult - catapult * n
     update_list = []
     create_list = []
     for number, nob in zipped_list:
@@ -342,6 +633,8 @@ def initial_divide(request, id1, id2, id4, n):
                 start=weight.start,
                 state=weight.state,
                 off=off,
+                ruin=weight.ruin,
+                catapult=catapult,
                 nobleman=nob,
                 order=weight.order + number,
                 distance=weight.distance,
@@ -349,6 +642,7 @@ def initial_divide(request, id1, id2, id4, n):
             )
         )
     weight.off = off + rest
+    weight.catapult = catapult + rest_catapult
     weight.nobleman = weight.nobleman - nob_number
     weight.save()
 
@@ -367,21 +661,6 @@ def initial_divide(request, id1, id2, id4, n):
     )
 
 
-@login_required
-def overview_hide_unhide(request, id1, token):
-
-    instance = get_object_or_404(models.Outline, id=id1, owner=request.user)
-    overview = get_object_or_404(
-        models.Overview, token=token, outline=instance
-    )
-
-    new_state = not bool(overview.show_hidden)
-    overview.show_hidden = new_state
-
-    overview.save()
-    return redirect("base:planer_detail_results", id1)
-
-
 @require_POST
 @login_required
 def delete_target(request, id1, id2):
@@ -389,46 +668,40 @@ def delete_target(request, id1, id2):
     page = request.GET.get("page")
     mode = request.GET.get("mode")
 
-    target = models.TargetVertex.objects.get(pk=id2)
-    weights = models.WeightModel.objects.select_related("state").filter(
-        target=target
-    )
+    target: models.TargetVertex = models.TargetVertex.objects.get(pk=id2)
+    weights = models.WeightModel.objects.select_related("state").filter(target=target)
     # deletes weights related to this target and updates weight state
-    for weight_model in weights:
-        weight_model.state.off_left += weight_model.off
-        weight_model.state.off_state -= weight_model.off
-        weight_model.state.nobleman_left += weight_model.nobleman
-        weight_model.state.nobleman_state -= weight_model.nobleman
-        weight_model.state.save()
-        weight_model.delete()
 
+    weight_model: models.WeightModel
+    for weight_model in weights:
+        state: models.WeightMaximum = weight_model.state
+        state.off_left += weight_model.off + weight_model.catapult * 8
+        state.off_state -= weight_model.off - weight_model.catapult * 8
+        state.nobleman_left += weight_model.nobleman
+        state.nobleman_state -= weight_model.nobleman
+        state.catapult_left -= weight_model.catapult
+        state.catapult_state += weight_model.catapult
+        state.save()
+
+    weights.delete()
     target.delete()
+
     return redirect(
-        reverse("base:planer_initial", args=[id1])
-        + f"?page={page}&mode={mode}"
+        reverse("base:planer_initial", args=[id1]) + f"?page={page}&mode={mode}"
     )
 
 
 @require_POST
 @login_required
-def change_weight_off(request, id1, id2):
+def initial_hide_weight(request, id1, id2, id3):
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    target = get_object_or_404(models.TargetVertex, pk=id2)
+    sort = request.GET.get("sort")
     page = request.GET.get("page")
-    mode = request.GET.get("mode")
-    player = request.GET.get("player")
-
-    weight_max = get_object_or_404(models.WeightMaximum, pk=id2)
-    form = forms.ChangeWeightMaxOff(request.POST)
-    if form.is_valid():
-        off = request.POST.get("off")
-        noble = request.POST.get("noble")
-        weight_max.off_max = off
-        weight_max.left = off
-        weight_max.nobleman_max = noble
-        weight_max.nobleman_left = noble
-        weight_max.save()
-
+    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    weight.hidden = not weight.hidden
+    weight.save()
     return redirect(
-        reverse("base:planer_initial", args=[id1])
-        + f"?page={page}&mode={mode}&player={player}"
+        reverse("base:planer_initial_detail", args=[id1, id2])
+        + f"?page={page}&sort={sort}"
     )

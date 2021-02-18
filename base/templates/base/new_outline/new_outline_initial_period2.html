@@ -4,39 +4,30 @@
 
 {% block showsidebar %}
     {% if user.is_authenticated %}
-    <!-- Sidebar -->
     <div class="bg-light border-right toggled" id="sidebar-wrapper">
         <div class="sidebar-heading">{% trans 'User Panel' %} </div>
         <div class="list-group list-group-flush">
-
             <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action
                   bg-light">{% trans 'My outlines' %}</a>
             <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action
                   bg-light">{% trans 'Create new outline' %}</a> 
-                  
             {% block sidebar %}
-
             <a class=" list-group-item list-group-item-action
                   bg-secondary" style="color: rgb(243, 243, 243);" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
             <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
                   bg-light">{% trans 'Results' %}</a>
             <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
                   bg-light">{% trans 'Deff collection' %}</a>
-
             <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
             bg-light">
             {% trans 'Planer' %}
-            
             </a>
             {% endblock %}
         </div>
     </div>
     {% endif %}
-
-    <!-- /#sidebar-wrapper -->
     {% endblock %}
     {% block phonesidebar %}
-
     <a class=" list-group-item list-group-item-action
           bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
     <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
@@ -46,260 +37,198 @@
 
     <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
           bg-light">{% trans 'Planer' %}
-
     </a> 
     {% endblock %}
     {% block content %}
     <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
     <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
-    <div class="row">
-        <figure class="col-2">
-            <img class="d-none d-lg-flex img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
-        </figure>
-        <div class="col-8">
-            <div class="d-flex flex-column justify-content-center h-100">
-                <div class="d-flex flex-row justify-content-center">
-                    <h2>
-                        <span class="badge badge-pill badge-info">
-                            {{instance.name}}
-                        </span>
-                    </h2>
-                </div>
-
-                <div class="d-flex flex-row justify-content-center">
-                    <h2>
-                        <span class="badge badge-pill badge-info">
-                            {{instance.date}}
-                        </span>
-                    </h2>
-                </div>
-
-                <div class="row justify-content-center">
-
-                    <div>
-                        <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal"
-                            data-target="#ValidationModal">
-                            <b>{% trans 'Go back' %}</b>
-                        </button>
-                    </div>
-
-                    <div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    {% blocktrans %} Current progress will be
-                                    <div class="md-error">LOST!</div>
-                                    <br>You will return to the previous form. {% endblocktrans %}
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button id="dismiss-btn" type="button" class="btn btn-secondary"
-                                        data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
-                                    <form id="form1-form" method="POST">
-                                        <input type="hidden" name="form1" value="">
-                                        {% csrf_token %}
-                                        <button id="form1-btn" class="btn btn-ocean">
-                                            {% trans 'Continue' %}
-                                        </button>
-
-                                    </form>
-                                </div>
-                                <script>
-                                    const buttonForm1 = document.getElementById("form1-btn")
-                                    const buttonDismiss = document.getElementById("dismiss-btn")
-                                    buttonForm1.onclick = () => {
-                                        buttonForm1.disabled = true
-                                        buttonDismiss.disabled = true
-                                        buttonForm1.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
-                                        const form1 = document.getElementById("form1-form")
-                                        form1.submit()
-                                      }
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-                </div>
-
-            </div>
-        </div>
-        <figure class="col-2">
-            <img class="d-none d-lg-flex img-fluid" src='{% static "images/knight-2.jpg" %}' alt="knight" class="img-fluid">
-        </figure>
-    </div>
-   
     <div class="fixed-scrollbar-container">
     {% block outline_navbar %}
-    
-    {% with query.number as page_num %}
-      {% with query.paginator.num_pages as num_pages %}
+    <table class="table table-sm table-bordered mb-2" style="width: min-content;">
+        <thead>
+          <tr>
+            <th class="text-nowrap">{% trans 'Summary' %}</th>
+            <th class="text-nowrap">{% trans 'Outline Date' %}</th>
+            <th class="text-nowrap">{% trans 'Targets' %}</th>
+            <th class="text-nowrap">{% trans 'Fake Targets' %}</th>
+            <th class="text-nowrap">{% trans 'Ruin Targets' %}</th>
+            <th class="text-nowrap">{% trans 'Offs left' %}</th>
+            <th class="text-nowrap">{% trans 'Nobles left' %}</th>
+            <th class="text-nowrap">{% trans 'Night bonus avoid' %}</th>
+            <th class="text-nowrap">{% trans 'Targets on page' %}</th>
+            <th class="text-nowrap">{% trans 'Save' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <th><h5><span class="badge badge-info">{{instance.name}}</span></h5></th>
+            <th><h5><span class="badge badge-secondary">{{instance.date}}</span></h5></th>
+            <th><h5><span class="badge badge-secondary">{{count_targets}}</span></h5></th>
+            <th><h5><span class="badge badge-secondary">{{count_fake}}</span></h5></th>
+            <th><h5><span class="badge badge-secondary">{{count_ruin}}</span></h5></th>
+            <th><h5><span class="badge badge-info">{{count_off}}</span></h5></th>
+            <th><h5><span class="badge badge-info">{{count_noble}}</span></h5></th>
+            <th><h5><span class="badge badge-info">{{instance.enter_t1}} - {{instance.enter_t2}}</span></h5></th>
+            <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="form-filter-targets" value="">
+                <th>
+                    {{filter_form.filter_targets_number}}
+                    {% for error in filter_form.filter_targets_number.errors %}
+                    <div class="md-error">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </th>
+                <th>
+                    <button onclick="this.disabled=true;this.form.submit();" name="form-filter" type="submit" class="btn btn-ocean btn-sm">
+                        {% trans 'Save' %}
+                    </button>
+                </th>
+            </form>
+          </tr>
+        </tbody>
+      </table>
 
-      <nav aria-label="pagination" id="pagination" class="mt-3 ml-1">
+    <nav aria-label="pagination" id="pagination" class="mt-3">
         <ul class="pagination" >
-        {% for n in query.paginator.page_range %}
-          {% if page_num|add:'-3' == n %}
-            {# First page #}
-            <li class="page-item"><a class="page-link" style="height: 42px;" href="?page=1&mode={{mode}}">1</a></li>
-            {% if n != 1 %}
-              <li class="page-item disabled"><a class="page-link" style="height: 42px;">&#8943;</a></li>
-            {% endif %}
-          {% elif page_num == n %}
-            {# Current page #}
-            <li class="page-item active"><a class="page-link" style="height: 42px;" href="?page={{page_num}}&mode={{mode}}">{{n}}</a></li>
-          {% elif page_num|add:'-3' < n and n < page_num|add:'3' %}
-            {# Pages around current page #}
-            <li class="page-item"><a class="page-link" style="height: 42px;" href="?page={{n}}&mode={{mode}}">{{n}}</a></li>
-          {% elif page_num|add:'3' == n %}
-            {# Last page #}
-            {% if n != num_pages %}
-              <li class="page-item disabled"><a class="page-link" style="height: 42px;">&#8943;</a></li>
-            {% endif %}
-            <li class="page-item"><a class="page-link" style="height: 42px;" href="?page={{num_pages}}&mode={{mode}}">{{ num_pages }}</a></li>
-          {% endif %}
-        {% endfor %}
-        <li class="page-item ml-2">
-            {% if mode == 'add_and_remove' %}
-            <a href="?page=1&mode=add_and_remove" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:42px"
-                title="{% trans 'Add and remove targets' %}"><svg width="1.2em" height="1.2em" viewBox="0 0 16 16"
-                    class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                    <path fill-rule="evenodd"
-                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                </svg></a>
-            {% else %}
-            <a href="?page=1&mode=add_and_remove" class="page-link" data-toggle="tooltip" data-placement="top" style="height:42px"
-                title="{% trans 'Add and remove targets' %}"><svg width="1.2em" height="1.2em" viewBox="0 0 16 16"
-                    class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                    <path fill-rule="evenodd"
-                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                </svg></a>
-            {% endif %}
-        </li>
-        <li class="page-item">
-            {% if mode == 'menu' %}
-            <a href="?page=1&mode=menu" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:42px"
-                title="{% trans 'Set real targets' %}"><svg width="1.2em" height="1.2em" viewBox="0 0 16 16"
-                    class="bi bi-menu-button-wide-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M14 7H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM2 6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H2z" />
-                    <path fill-rule="evenodd"
-                        d="M15 11H1v-1h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm9.927.427l.396.396a.25.25 0 0 0 .354 0l.396-.396A.25.25 0 0 0 13.396 2h-.792a.25.25 0 0 0-.177.427z" />
-                </svg></a> {% else %}
-            <a href="?page=1&mode=menu" class="page-link" data-toggle="tooltip" data-placement="top" style="height:42px"
-                title="{% trans 'Set real targets' %}"><svg width="1.2em" height="1.2em" viewBox="0 0 16 16"
-                    class="bi bi-menu-button-wide-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M14 7H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM2 6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H2z" />
-                    <path fill-rule="evenodd"
-                        d="M15 11H1v-1h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm9.927.427l.396.396a.25.25 0 0 0 .354 0l.396-.396A.25.25 0 0 0 13.396 2h-.792a.25.25 0 0 0-.177.427z" />
-                </svg></a> {% endif %}
-
-        </li>
-
-        <li class="page-item">
-            {% if mode == 'fake' %}
-            <a style="height:42px" href="?page=1&mode=fake" class="page-link paint" data-toggle="tooltip" data-placement="top"
-                title="{% trans 'Set fake targets' %}">
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
-                    viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor"
-                        stroke="none">
-                        <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135
-                        -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614
-                        41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737
-                        49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647
-                        -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43
-                        2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202
-                        104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218
-                        113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29
-                        -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7
-                        466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87
-                        525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10
-                        -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0
-                        -807 -131 -2556 -444z" />
-                    </g>
-                </svg>
-            </a>
-            {% else %}
-            <a style="height:42px" href="?page=1&mode=fake" class="page-link" data-toggle="tooltip" data-placement="top"
-                title="{% trans 'Set fake targets' %}">
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
-                    viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor"
-                        stroke="none">
-                        <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135
-                        -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614
-                        41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737
-                        49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647
-                        -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43
-                        2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202
-                        104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218
-                        113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29
-                        -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7
-                        466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87
-                        525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10
-                        -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0
-                        -807 -131 -2556 -444z" />
-                    </g>
-                </svg>
-            </a>
-            {% endif %}
-        </li>
-
-        <li class="page-item">
+            <li class="page-item mr-1">
+                <button type="button" style="height: 48px;min-width:150px;" class="text-nowrap btn btn-secondary btn-lg" data-toggle="modal"
+                data-target="#ValidationModal">
+                <b><svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+                  </svg> {% trans 'Go back' %}</b>
+            </button>
+            </li>
+            <li class="page-item ml-1">
+                {% if mode == 'add_and_remove' %}
+                <a href="?page=1&mode=add_and_remove" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px"
+                    title="{% trans 'Add and remove targets' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                        class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg></a>
+                {% else %}
+                <a href="?page=1&mode=add_and_remove" class="page-link" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px"
+                    title="{% trans 'Add and remove targets' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                        class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg></a>
+                {% endif %}
+            </li>
+            <li class="page-item">
+                {% if mode == 'menu' %}
+                <a href="?page=1&mode=menu" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px"
+                    title="{% trans 'Set real targets' %}"><img src="{% static 'images/sword.svg' %}" alt="cat"></a> {% else %}
+                <a href="?page=1&mode=menu" class="page-link" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px"
+                    title="{% trans 'Set real targets' %}"><img src="{% static 'images/sword.svg' %}" alt="cat"></a> {% endif %}
+    
+            </li>
+    
+            <li class="page-item">
+                {% if mode == 'fake' %}
+                <a style="height:48px;width:48px" href="?page=1&mode=fake" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em"
+                        viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor"
+                            stroke="none">
+                            <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135 -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614 41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737 49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647 -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43 2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202 104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218 113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29 -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7 466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87 525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10 -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0 -807 -131 -2556 -444z" />
+                        </g>
+                    </svg>
+                </a>
+                {% else %}
+                <a style="height:48px;width:48px" href="?page=1&mode=fake" class="page-link" data-toggle="tooltip" data-placement="top"
+                    title="{% trans 'Set fake targets' %}">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em"
+                        viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor"
+                            stroke="none">
+                            <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135 -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614 41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737 49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647 -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43 2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202 104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218 113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29 -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7 466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87 525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10 -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0 -807 -131 -2556 -444z" />
+                        </g>
+                    </svg>
+                </a>
+                {% endif %}
+            </li>
+            <li class="page-item">
+                {% if mode == 'ruin' %}
+                <a style="height:48px;width:48px" href="?page=1&mode=ruin" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set ruin targets' %}">
+                    <img src="{% static 'images/cat.svg' %}" alt="cat" width="auto" height="100%">
+                </a> 
+                {% else %}
+                <a style="height:48px;width:48px" href="?page=1&mode=ruin" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set ruin targets' %}">
+                    <img src="{% static 'images/cat.svg' %}" alt="cat" width="auto" height="100%">
+                </a> 
+                {% endif %}
+            </li> 
+            <li class="page-item mr-3">
+                {% if mode == 'time' %}
+                <a style="height:48px;width:48px" href="?page=1&mode=time" class="page-link paint" data-toggle="tooltip" data-placement="top"
+                    title="{% trans 'Set time and confirm' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                        class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
+                        <path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+                    </svg></a> {% else %}
+                <a style="height:48px;width:48px" href="?page=1&mode=time" class="page-link" data-toggle="tooltip" data-placement="top"
+                    title="{% trans 'Set time and confirm' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                        class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
+                        <path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+                    </svg></a> 
+                {% endif %}
+            </li>
             {% if mode == 'time' %}
-            <a style="height:42px" href="?page=1&mode=time" class="page-link paint" data-toggle="tooltip" data-placement="top"
-                title="{% trans 'Set time and confirm' %}"><svg width="1.2em" height="1.2em" viewBox="0 0 16 16"
-                    class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
-                    <path fill-rule="evenodd"
-                        d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
-                </svg></a> {% else %}
-            <a style="height:42px" href="?page=1&mode=time" class="page-link" data-toggle="tooltip" data-placement="top"
-                title="{% trans 'Set time and confirm' %}"><svg width="1.2em" height="1.2em" viewBox="0 0 16 16"
-                    class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" />
-                    <path fill-rule="evenodd"
-                        d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
-                </svg></a> {% endif %}
-        </li>
-      </ul>
-      </nav>
-
-    {% endwith %}
-    {% endwith %}
-
-
+            <li class="page-item mr-1">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" value="" name="form-finish">
+                    <button onclick="this.disabled=true;this.form.submit();" style="height: 48px;border-radius: 0 !important;" class="text-nowrap btn btn-ocean btn-lg" data-toggle="modal"
+                    data-target="#ValidationModal">
+                    <b><svg xmlns="http://www.w3.org/2000/svg" width="25" height="35" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                      </svg> {% trans 'Finish the Outline' %}</b>
+                    </button>
+                </form>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
     {% endblock %}
-
+    {% block outline_navigation %}
+    <div class="container-fluid" style="margin-left: -15px;margin-right:-15px;">
+    <div class="row mt-2 mb-0">
+    <div class="col-0 col-md-6 col-xl-7"></div>
+    <div class="col-auto">
+    <nav aria-label="pagination_nav" id="pagination_nav">
+        <ul class="pagination" >
+            {% with query.number as page_num %}
+            {% with query.paginator.num_pages as num_pages %}
+            {% for n in query.paginator.page_range %}
+              {% if page_num|add:'-3' == n %}
+                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page=1&mode={{mode}}"><h4>1</h4></a></li>
+                {% if n != 1 %}
+                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:45px"><h4>&#8943;</h4></a></li>
+                {% endif %}
+              {% elif page_num == n %}
+                <li class="page-item"><a class="page-link" style="height:48px;width:45px;background-color: teal!important;color: white !important;" href="?page={{page_num}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
+              {% elif page_num|add:'-3' < n and n < page_num|add:'3' %}
+                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page={{n}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
+              {% elif page_num|add:'3' == n %}
+                {% if n != num_pages %}
+                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:45px"><h4>&#8943;</h4></a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page={{num_pages}}&mode={{mode}}"><h4>{{ num_pages }}</h4></a></li>
+              {% endif %}
+            {% endfor %}
+            {% endwith %}
+            {% endwith %}
+        </ul>
+    </nav>
+    </div>
+    </div>
+    </div>
+    {% endblock %}
     <div class="conatiner-fluid" style="width: min-content;">
-
         <table class="table table-sm table-bordered">
             <thead>
                 <tr>
@@ -308,14 +237,9 @@
                 </tr>
             </thead>
             <tbody>
-
                 {% for target, lst in query %}
                 <tr>
-
                     <th>
-
-
-
                         <div class="d-flex justify-content-center">
                             <h5>
                                 <span class="badge badge-pill badge-info">
@@ -324,13 +248,11 @@
                             </h5>
                         </div>
                         <div class="d-flex justify-content-center">
-
                             <h5>
                                 <span class="badge badge badge-secondary">
                                     {{target.target}}
                                 </span>
                             </h5>
-
                         </div>
                         <div class="d-flex justify-content-center">
                             <h5>
@@ -340,37 +262,26 @@
                                 </a>
                             </h5>
                         </div>
-
-
-
                     </th>
-
                     {% for weight in lst %}
-
                     <th class="front-{{weight.first_line}}">
-                        <div class="popoverData" data-html="true"
-                            data-content="<div class='text-center'><h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
-                            rel="popover" data-placement="top" data-trigger="hover">
-
+                        <div class="popoverData" data-html="true" data-content="<div class='text-center'><h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>" rel="popover" data-placement="top" data-trigger="hover">
                             <table class="table table-sm">
-
                                     <tr>
                                         <th>
                                             <img src='{% static "images/ax.png" %}' alt="ax">
                                         </th>
-                                        <th style="font-size: small;">
+                                        <th style="font-size: small;cursor:default;">
                                             {{weight.off}}
                                         </th>
-
                                     </tr>
                                     <tr>
                                         <th>
                                             <img src='{% static "images/nobleman.png" %}' alt="ax">
                                         </th>
-                                        <th style="font-size: small;">
+                                        <th style="font-size: small;cursor:default;">
                                             {{weight.nobleman}}
                                         </th>
-
                                     </tr>
                                     <tr>
                                         <th>
@@ -382,91 +293,54 @@
                                                 <path d="M7 10h2v6H7v-6z" />
                                             </svg>
                                         </th>
-                                        <th style="font-size: small;" onclick="calculate_distance(this);">
+                                        <th style="font-size: small;cursor:pointer;" onclick="calculate_distance(this);">
                                             {{weight.distance}}
                                         </th>
-
                                     </tr>
-
-
                                 </table>
-
-
-
-
-
                     </th>
                     {% endfor %}
-
-
                 </tr>
                 {% endfor %}
-
             </tbody>
         </table>
     </div>
 </div>
 <script>
     activateTooltips();
-    $(function($) {
-        var fixedBarTemplate = '<div class="fixed-scrollbar"><div></div></div>';
-        var fixedBarCSS = { display: 'none', overflowX: 'scroll', position: 'fixed', width: '100%', bottom: 0 };
-
-        $('.fixed-scrollbar-container').each(function() {
-            var $container = $(this);
-            var $bar = $(fixedBarTemplate).appendTo($container).css(fixedBarCSS);
-
-            $bar.scroll(function() {
-                $container.scrollLeft($bar.scrollLeft());
-            });
-
-            $bar.data("status", "off");
-        });
-
-        var fixSize = function() {
-            $('.fixed-scrollbar').each(function() {
-                var $bar = $(this);
-                var $container = $bar.parent();
-
-                $bar.children('div').height(1).width($container[0].scrollWidth);
-                $bar.width($container.width()).scrollLeft($container.scrollLeft());
-            });
-        };
-
-        $(window).on("load.fixedbar resize.fixedbar", function() {
-            fixSize();
-        });
-
-        var scrollTimeout = null;
-
-        $(window).on("scroll.fixedbar", function() {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(function() {
-                $('.fixed-scrollbar-container').each(function() {
-                    var $container = $(this);
-                    var $bar = $container.children('.fixed-scrollbar');
-
-                    if ($bar.length) {
-                        var containerOffset = { top: $container.offset().top, bottom: $container.offset().top + $container.height() };
-                        var windowOffset = { top: $(window).scrollTop(), bottom: $(window).scrollTop() + $(window).height() };
-
-                        if ((containerOffset.top > windowOffset.bottom) || (windowOffset.bottom > containerOffset.bottom)) {
-                            if ($bar.data("status") == "on") {
-                                $bar.hide().data("status", "off");
-                            }
-                        } else {
-                            if ($bar.data("status") == "off") {
-                                $bar.show().data("status", "on");
-                                $bar.scrollLeft($container.scrollLeft());
-                            }
-                        }
-                    }
-                });
-            }, 50);
-        });
-
-        $(window).trigger("scroll.fixedbar");
-    });
+    activateFixedScrollbarContainer();
 </script>
 
-    {% endblock %}
+{% block outline_go_back %}
+<div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {% trans "<p>Your current progress here will be <span class='md-error'>LOST</span>!</p><p>You will return to the previous tab. Front and Back division will be reset and targets removed.</p>" %}
+        </div>
+        <div class="modal-footer">
+            <button id="dismiss-btn" type="button" class="btn btn-secondary"
+                data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
+            <form id="form1-form" method="POST">
+                <input type="hidden" name="form1" value="">
+                {% csrf_token %}
+                <button id="form1-btn" class="btn btn-ocean">
+                    {% trans 'Continue' %}
+                </button>
+
+            </form>
+        </div>
+        <script>submitGoBackButton(`{% trans 'Processing...' %}`);</script>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% endblock %}

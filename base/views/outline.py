@@ -88,7 +88,7 @@ def outline_delete(request, _id):
 def outline_detail_1(request, _id):
     """details user's outline , login required"""
     models.Outline.objects.filter(editable="active", owner=request.user).delete()
-    instance = get_object_or_404(
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
     language_code = get_language()
@@ -104,12 +104,17 @@ def outline_detail_1(request, _id):
     )[0].main_page
     example = markdownify(example)
 
+    form1 = forms.OffTroopsForm(None, outline=instance)
+    form2 = forms.DeffTroopsForm(None, outline=instance)
+
+    form1.fields["off_troops"].initial = instance.off_troops
+    form2.fields["deff_troops"].initial = instance.deff_troops
+
     if request.method == "POST":
         if "form-1" in request.POST:
             post = request.POST.copy()
             post["off_troops"] = post["off_troops"].strip()
             form1 = forms.OffTroopsForm(post, outline=instance)
-            form2 = forms.DeffTroopsForm(None, outline=instance)
             if form1.is_valid():
                 instance.off_troops = post["off_troops"]
                 instance.save()
@@ -119,19 +124,12 @@ def outline_detail_1(request, _id):
         elif "form-2" in request.POST:
             post = request.POST.copy()
             post["deff_troops"] = post["deff_troops"].strip()
-            form1 = forms.OffTroopsForm(None, outline=instance)
             form2 = forms.DeffTroopsForm(post, outline=instance)
             if form2.is_valid():
                 instance.deff_troops = post["deff_troops"]
                 instance.save()
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)
-        else:
-            form1 = forms.OffTroopsForm(None, outline=instance)
-            form2 = forms.DeffTroopsForm(None, outline=instance)
-    else:
-        form1 = forms.OffTroopsForm(None, outline=instance)
-        form2 = forms.DeffTroopsForm(None, outline=instance)
 
     if instance.world.postfix == "Test":
         instance.world.update = gettext("Never")+"."

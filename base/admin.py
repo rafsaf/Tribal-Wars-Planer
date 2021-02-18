@@ -7,10 +7,19 @@ from . import models
 
 admin.site.register(models.Result)
 admin.site.register(models.Server)
-admin.site.register(models.Profile)
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
+
+@admin.register(models.Payment)
+class AdminPaymentModel(admin.ModelAdmin):
+    list_display = ["user", "amount", "payment_date", "new_date"]
+    search_fields = ["user__username"]
+
+@admin.register(models.Profile)
+class AdminProfileModel(admin.ModelAdmin):
+    list_display = ["user", "server", "validity_date"]
+    search_fields = ["user__username"]
 
 @admin.register(models.OutlineOverview)
 class AdminOutlineOverview(admin.ModelAdmin):

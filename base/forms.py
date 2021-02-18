@@ -129,14 +129,14 @@ class GetDeffForm(forms.Form):
         max_value=45,
         label=gettext_lazy("Radius"),
         widget=forms.NumberInput,
-        help_text=gettext_lazy("Max 45"),
+        help_text=gettext_lazy("Greater than or equal to 0 and less than or equal to 45."),
         initial=10,
     )
 
     excluded = forms.CharField(
         max_length=3000,
         widget=forms.Textarea,
-        label=gettext_lazy("Excluded enemy villages"),
+        label=gettext_lazy("Excluded enemy secluded villages"),
         required=False,
         help_text=gettext_lazy("Exact coords separated by a space or an entry."),
     )
@@ -164,23 +164,33 @@ class InitialOutlineForm(forms.Form):
         widget=forms.Textarea,
         label=gettext_lazy("Targets"),
         required=False,
-        initial="\r\n---",
+        strip=False
     )
 
     def __init__(self, *args, **kwargs):
-        self.outline = kwargs.pop("outline")
+        self.outline: models.Outline = kwargs.pop("outline")
+        self.target_mode: basic.TargetMode = kwargs.pop("target_mode")
         super(InitialOutlineForm, self).__init__(*args, **kwargs)
 
     def clean_target(self):
-        """ User's input Villages """
+        """ User's input Targets """
+        
         data = self.cleaned_data["target"]
-        if data == "":
-            return "---\r\n"
         data_lines = basic.TargetsData(data=data, world=self.outline.world)
-        data_lines.validate()
+        if data == "":
+            data_lines.new_validated_data = ""
+        else:
+            data_lines.validate()
+
         if len(data_lines.errors_ids) == 0:
-            self.outline.initial_outline_targets = data_lines.new_validated_data
+            if self.target_mode.is_real:
+                self.outline.initial_outline_targets = data_lines.new_validated_data.strip()
+            elif self.target_mode.is_fake:
+                self.outline.initial_outline_fakes = data_lines.new_validated_data.strip()
+            else:
+                self.outline.initial_outline_ruins = data_lines.new_validated_data.strip()
             self.outline.save()
+
         for error_id in data_lines.errors_ids:
             self.add_error("target", error_id)
         return data
@@ -288,6 +298,17 @@ class SetNewOutlineFilters(forms.ModelForm):
         self.fields["filter_card_number"].widget.attrs["class"] = "form-control"
         self.fields["filter_hide_front"].widget.attrs["class"] = "form-control"
 
+class SetTargetsMenuFilters(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "filter_targets_number",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(SetTargetsMenuFilters, self).__init__(*args, **kwargs)
+        self.fields["filter_targets_number"].widget.attrs["class"] = "form-control"
+
 
 class ModeOutlineForm(forms.ModelForm):
     class Meta:
@@ -299,6 +320,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide",
             "mode_split",
             "initial_outline_fake_limit",
+            "initial_outline_fake_mode",
         ]
         labels = {
             "mode_off": gettext_lazy("Choose the distance of the written offs:"),
@@ -313,6 +335,9 @@ class ModeOutlineForm(forms.ModelForm):
             "initial_outline_fake_limit": gettext_lazy(
                 "Maximum number of fakes from one off village:"
             ),
+            "initial_outline_fake_mode": gettext_lazy(
+                "Determine which villages to write fake attacks from:"
+            ),
         }
         widgets = {
             "mode_off": forms.RadioSelect,
@@ -322,12 +347,30 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide": forms.RadioSelect,
         }
 
+class RuiningOutlineForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "initial_outline_catapult_default",
+            "initial_outline_off_left_catapult",
+            "initial_outline_ruining_order",
+            "initial_outline_average_ruining_points",
+        ]
+        labels = {
+            "initial_outline_catapult_default": gettext_lazy(
+                "Number of catapults in one ruin attack:"
+            ),
+            "initial_outline_off_left_catapult": gettext_lazy(
+                "Number of catapults that will always be left in full offs:"
+            ),
+            "initial_outline_ruining_order": gettext_lazy(
+                "Order of demolition of buildings:"
+            ),
+            "initial_outline_average_ruining_points": gettext_lazy(
+                "How many points on average do demolished targets have:"
+            ),
+        }
 
-#    def __init__(self, *args, **kwargs):
-#        super(ModeOutlineForm, self).__init__(*args, **kwargs)
-#        self.fields["mode_off"].widget.attrs["class"] = "form-check"
-#        self.fields["mode_noble"].widget.attrs["class"] = "form-check"
-#        self.fields["mode_division"].widget.attrs["class"] = "form-check"
 
 
 class ModeTargetSetForm(forms.ModelForm):
@@ -391,7 +434,6 @@ class WeightForm(forms.Form):
     nobleman = forms.IntegerField(
         widget=forms.NumberInput, label=gettext_lazy("Noble"), min_value=0
     )
-
 
 class PeriodForm(forms.ModelForm):
     """ One Period for OutlineTime """
@@ -549,17 +591,20 @@ class ChooseOutlineTimeForm(forms.Form):
 class CreateNewInitialTarget(forms.Form):
     target = forms.CharField(
         max_length=7,
-        label=gettext_lazy("Target"),
-        help_text=gettext_lazy("Valid coords, 7 chars"),
+        label="",
     )
-    fake = forms.BooleanField(required=False)
-
+    
     def __init__(self, *args, **kwargs):
-        self.outline = kwargs.pop("outline")
+        self.outline: models.Outline = kwargs.pop("outline")
+        self.is_premium: bool = kwargs.pop("is_premium")
         super(CreateNewInitialTarget, self).__init__(*args, **kwargs)
+        self.fields["target"].widget.attrs["class"] = "form-control"
 
     def clean_target(self):
-        coord = self.cleaned_data["target"].strip()
+        coord: str = self.cleaned_data["target"].strip()
+        if not self.is_premium:
+            self.add_error("target", gettext_lazy("You need a premium account to add more targets here."))
+            return
 
         if models.TargetVertex.objects.filter(
             target=coord, outline=self.outline
@@ -573,11 +618,6 @@ class CreateNewInitialTarget(forms.Form):
                 gettext_lazy("Village with that coords did not found."),
             )
             return
-
-
-class ChangeWeightMaxOff(forms.Form):
-    off = forms.IntegerField(min_value=0)
-    noble = forms.IntegerField(min_value=0)
 
 
 class AddNewWorldForm(forms.ModelForm):

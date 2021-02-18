@@ -1,252 +1,317 @@
 {% extends "base/base.html" %}
- {% load static %} 
- {% load i18n %} 
- {% block showsidebar %}
-    
-        {% if user.is_authenticated %}
-        <div class="bg-light border-right toggled" id="sidebar-wrapper">
-            <div class="sidebar-heading">{% trans 'User Panel' %}</div>
-            <div class="list-group list-group-flush">
-
-                <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action
-                        bg-light">{% trans 'My outlines' %}</a>
-                <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action
-                        bg-light">{% trans 'Create new outline' %}</a>
-
-            </div>
-        </div>
-        {% endif %}
-    
-        {% endblock %}
- 
- {% block content %}
- <div class="text-center" style="background-color: rgb(15, 153, 153);color:white; height:min-content;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
-    <div class="container-fluid">
-    <p>{% trans 'Now you can donate this project' %} <a style="color: rgb(50, 224, 50);" target="_blank" href="https://paypal.me/pools/c/8vcDj7febh">{% trans 'here' %}</a></p> 
+{% load static %} 
+{% load i18n %} 
+{% block showsidebar %}
+{% if user.is_authenticated %}
+<div class="bg-light border-right toggled" id="sidebar-wrapper">
+    <div class="sidebar-heading">{% trans 'User Panel' %}</div>
+    <div class="list-group list-group-flush">
+        <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light">{% trans 'My outlines' %}</a>
+        <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light">{% trans 'Create new outline' %}</a>
     </div>
 </div>
- <input id="speed_world" type="hidden" value="{{overview.outline.world.speed_world}}">
- <input id="speed_units" type="hidden" value="{{overview.outline.world.speed_units}}">
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<style>.tribalwarsbg{background: url("{% static 'images/bg_content_48x48.png' %}");font-family:Verdana, Arial;}
+</style>
+<input id="speed_world" type="hidden" value="{{overview.outline.world.speed_world}}">
+<input id="speed_units" type="hidden" value="{{overview.outline.world.speed_units}}">
 <h1 class="font-nav text-center">{{overview.player}}</h1>
 <h4 class="font-nav mb-3 text-center">{{overview.outline.date}}</h4>
 
-<div>
-    <div class="col-12 col-lg-10 offset-lg-1">
+<div class="col-12 col-lg-10 offset-lg-1">
     <ul class="nav nav-tabs mb-3 mt-1 font-nav" id="pills-tab" role="tablist" style="font-size:x-large;">
         <li class="nav-item" >
-            
-            <a style="color:black;" class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab"
-                aria-controls="pills-home" aria-selected="true">{% trans 'Copy' %}</a>
+            <a style="color:black;" class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Copy' %}
+            </a>
         </li>
-
         <li class="nav-item">
-            <a style="color: black;" class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-details" role="tab"
-                aria-controls="pills-contact" aria-selected="false">{% trans 'Details' %}</a>
+            <a style="color: black;" class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-details" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Details' %}
+            </a>
         </li>
-
-
     </ul>
-    </div>
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
+</div>
 
-            <div class="row" id='outline-fit'>
-                <div class="col-auto mx-auto">
-                <div class="alert alert-primary mt-5" style="font-size: large;" role="alert">
+<div class="tab-content" id="pills-tabContent" style="margin-bottom:-80px;">
+    <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="row" id='outline-fit'>
+            <div class="col-auto mx-auto">
+                <div class="alert alert-primary mt-5" style="font-size: large;cursor:default;" role="alert">
                     {% trans 'The contents below shows your targets, please copy the one you like to your in-game notes.' %}
                 </div>
-                </div>
-                <div class="col-12 col-lg-8 offset-lg-2 mt-2">
-                    <div class="mb-5" id='text' style="border-left: 5px solid teal;">
-                        <h1 class="ml-2 font-nav">
-                            <span class="mr-2">{% trans 'Text' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('text-copy');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>{% trans 'Successfully copied!'%}`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>{% trans 'Click to copy again'%}`;this.blur()},1800);">{% trans 'Copy to clipboard' %}</button>
-                        </h1>
-                        <div class="ml-2">
-                            <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
-                            <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
-                            <textarea class="form-control mt-1" id="text-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.string}}</textarea>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="mb-5" id='table' style="border-left: 5px solid teal;">
+            </div>
+            <div class="col-12 col-lg-8 offset-lg-2 mt-2">
+                <div class="mb-5" id='text' style="border-left: 5px solid teal;">
                     <h1 class="ml-2 font-nav">
-                        <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('table-copy');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>{% trans 'Successfully copied!'%}`;setTimeout(()=>{this.innerHTML=`<svg width='1.3em' class='mr-2'  height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>{% trans 'Click to copy again'%}`;this.blur()},1800);">{% trans 'Copy to clipboard' %}</button>
+                        <span class="mr-2">{% trans 'Text simple' %}</span><button style="font-size: large;" class="btn btn-outline-ocean" onclick="handleButtonClipboardUpdate(this,`text-simple-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}</button>
+                    </h1>
+
+                    <div class="ml-2">
+
+                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="pl-2">
+                                <br>
+                                1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970)
+                                <br>
+                                <b>2021-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                <br>
+                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <textarea class="form-control mt-1" id="text-simple-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.string}}</textarea>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="mb-5" id='text' style="border-left: 5px solid teal;">
+                    <h1 class="ml-2 font-nav">
+                        <span class="mr-2">{% trans 'Text extended' %}</span><button style="font-size: large;" class="btn btn-outline-ocean" onclick="handleButtonClipboardUpdate(this,`text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}</button>
+                    </h1>
+
+                    <div class="ml-2">
+
+                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="pl-2">
+                                <br>
+                                1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%}</span>
+                                <br>
+                                <b>2021-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                <br>
+                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <textarea class="form-control mt-1" id="text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.extended}}</textarea>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="mb-5" id='table' style="border-left: 5px solid teal;">
+                    <h1 class="ml-2 font-nav">
+                        <span class="mr-2">{% trans 'Table' %}</span> <button style="font-size: large;" class="btn btn-outline-ocean" onclick="handleButtonClipboardUpdate(this,`table-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}</button>
                     </h1>
                     <small class="ml-2 form-text text-muted">{% trans 'Hint: Use Text format if u have many commands. ' %}</small>
                     <div class="ml-2">
-                        <img  class='d-md-none img-fluid' src="{% static 'images/table-min.jpg'%}" alt="Example Result 1">
-                        <img  class='d-none d-md-block img-fluid' src="{% static 'images/table.png'%}" alt="Example Result 1">
+                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="table-responsive">
+                            <table class="vis bbcodetable">
+                                <tbody>
+                                    <tr class="content-border-head">
+                                        <th></th>
+                                        <th>{% trans 'SEND' %}</th>
+                                        <th>{% trans 'OFF' %}</th>
+                                        <th>{% trans 'NOBLE' %}</th>
+                                        <th>{% trans 'SENDING' %}</th>
+                                        <th>{% trans 'ENTER' %}</th>
+                                        <th>{% trans 'FROM' %}</th>
+                                        <th>{% trans 'TARGET' %}</th>
+                                    </tr>
+                                    <tr class="content-border">
+                                        <td >1</td>
+                                        <td>
+                                            <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                        </td>
+                                        <td>20970</td>
+                                        <td>0</td>
+                                        <td>
+                                            2021-03-02<br>
+                                            <b><span style="color:#0e5e5e">07:34:56</span></b>-<b><span style="color:#ff0000">08:34:56</span></b>
+                                        </td>
+                                        <td>2021-03-05<br>
+                                            <b><span style="color:#0e5e5e">07:00:00</span></b>-<b><span style="color:#ff0000">08:00:00</span></b>
+                                        </td>
+                                        <td>
+                                            <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span>
+                                        </td>
+                                        <td>
+                                            <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+
                         <textarea class="form-control mt-1" id="table-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.table}}</textarea>
                     </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="mb-5" id='text' style="border-left: 5px solid teal;">
-                        <h1 class="ml-2 font-nav">
-                            
-                            <span class="mr-2">{% trans 'Text for deputy' %}</span> <button style="font-size: large;" class="btn btn-outline-info" onclick="updateClipboard('deputy-copy');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>{% trans 'Successfully copied!'%}`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2' width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>{% trans 'Click to copy again'%}`;this.blur()},1800);">{% trans 'Copy to clipboard' %}</button>
-                        </h1>
-                        <small class="ml-2 form-text text-muted">{% trans 'Hint: Use this one when someone else will send this commands.' %}</small>
-                        <div class="ml-2">
-                            <img class="d-md-none img-fluid" src="{% static 'images/text-min.jpg'%}" alt="Example Result 2">
-                            <img class="d-none d-md-block img-fluid" src="{% static 'images/text.png'%}" alt="Example Result 2">
-                            <textarea class="form-control mt-1" id="deputy-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.deputy}}</textarea>
-                        </div>
-                    </div>
-
-
-    
-            </div>
-            
-        </div>
-        </div>
-
-        <div class="tab-pane fade" id="pills-outline-details" role="tabpanel" aria-labelledby="pills-contact-tab">
-            
-                <div class="row" id='outline-fit'>
-                    <div class="col-auto mx-auto">
-                <div class="alert alert-primary mt-5" style="font-size: large;" role="alert">
-                    {% trans 'Alert! The order in the list below matters and is fixed.' %}
-                  </div>
-                  </div>
-
-                  <div class="col-12 col-lg-10 offset-lg-1 mt-2">
-                      
-                      <div class="table-responsive mb-4" style="overflow-y: auto;height:80vh; border-top: 1px solid grey" id='parent'>
-                <div id='child' class="" style="width: min-content;">
-                    <table class="table table-sm table-bordered mb-5">
-                        <thead>
-                            <tr>
-                                <th scope="col">{% trans 'Target' %}</th>
-                                <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {% for target, lst in query %}
-                            <tr>
-
-                                <th class="front-{{target.fake}}">
-
-
-
-                                    <div class="d-flex justify-content-center">
-                                        <h5>
-                                            <span class="badge badge-pill badge-info">
-                                                {{target.player}}
-                                            </span>
-                                        </h5>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-
-                                        <h5>
-                                            <span class="badge badge badge-secondary">
-                                                {{target.target}}
-                                            </span>
-                                        </h5>
-                                    </div>
-                                    {% if target.fake %}
-                                    <div class="d-flex justify-content-center">
-
-                                        <h5 style="color: teal;" class="font-italic">
-                                            Fake
-                                        </h5>
-                                    </div>
-                                    {% endif %}
-
-                                </th>
-
-                                {% for weight in lst %}
-                                <th>
-                                    <div class='d-flex justify-content-center' style="font-size: medium;">
-                                        <span class='badge badge-pill badge-info text-break'>{{weight.player}}</span>
-                                    </div>
-                                    <div class='d-flex justify-content-center'>
-                                        <h6>
-                                        <span class='badge badge badge-secondary'>{{weight.start}}</span>
-                                        </h6>
-                                    </div>
-                                    <div class='d-flex justify-content-center' style="font-size: medium;color:green; ">
-                                        {{weight.t1|safe}}
-                                    </div>
-                                    <div class='d-flex justify-content-center' style="font-size: medium;color: red;">
-                                        {{weight.t2|safe}}
-                                    </div>
-
-                                        <table class="table table-sm">
-                                            <tr>
-                                                <th>
-                                                    <img src='{% static "images/ax.png" %}' alt="ax">
-                                                </th>
-                                                <th style="font-size: small;">
-                                                    {{weight.off}}
-                                                </th>
-
-                                            </tr>
-                                            <tr>
-                                                <th>
-                                                    <img src='{% static "images/nobleman.png" %}' alt="ax">
-                                                </th>
-                                                <th style="font-size: small;">
-                                                    {{weight.nobleman}}
-                                                </th>
-
-                                            </tr>
-                                            <tr>
-                                                <th>
-                                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16"
-                                                        class="bi bi-signpost" fill="#6c757d"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
-                                                        <path fill-rule="evenodd"
-                                                            d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
-                                                        <path d="M7 10h2v6H7v-6z" />
-                                                    </svg>
-                                                </th>
-                                                <th style="font-size: small;" onclick="calculate_distance(this);">
-                                                    {{weight.distance|floatformat:1}}
-                                                </th>
-
-                                            </tr>
-
-
-                                        </table>
-
-
-
-
-
-                                </th>
-                                {% endfor %}
-
-
-                            </tr>
-                            {% endfor %}
-
-                        </tbody>
-                    </table>
                 </div>
-            
-            </div>
-            </div>
+
+                <br>
+                <br>
+
+                <div class="mb-5" id='text' style="border-left: 5px solid teal;">
+                    <h1 class="ml-2 font-nav">
+                        <span class="mr-2">{% trans 'Text for deputy' %}</span> 
+                        <button style="font-size: large;" class="btn btn-outline-ocean" onclick="handleButtonClipboardUpdate(this,`deputy-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`);">{% trans 'Copy to clipboard' %}
+                        </button>
+                    </h1>
+
+                    <small class="ml-2 form-text text-muted">{% trans 'Hint: Use this one when someone else will send this commands.' %}</small>
+                    <div class="ml-2">
+
+                        <div style="cursor: default;" class="tribalwarsbg" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="pl-2">
+                                <br>
+                                1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best" %}</span>
+                                <br>
+                                <b>2021-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                <br>
+                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                        <textarea class="form-control mt-1" id="deputy-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.deputy}}</textarea>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 
+    <div class="tab-pane fade" id="pills-outline-details" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="row" id='outline-fit'>
+            <div class="col-auto mx-auto">
+                <div class="alert alert-primary mt-5" style="font-size: large;cursor:default;" role="alert">
+                    {% trans 'Alert! The order in the list below matters and is fixed.' %}
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-10 offset-lg-1 mt-2">
+                <div class="table-responsive mb-4" style="overflow-y: auto;height:80vh; border-top: 1px solid grey" id='parent'>
+                    <div id='child' class="" style="width: min-content;">
+                        <table class="table table-sm table-bordered mb-5">
+                            <thead>
+                                <tr>
+                                    <th scope="col">{% trans 'Target' %}</th>
+                                    <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for target, lst in query %}
+                                <tr>
+                                    <th class="front-{{target.fake}}">
+                                        <div class="d-flex justify-content-center">
+                                            <h5>
+                                                <span class="badge badge-pill badge-info">
+                                                    {{target.player}}
+                                                </span>
+                                            </h5>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h5>
+                                                <span class="badge badge badge-secondary">
+                                                    {{target.target}}
+                                                </span>
+                                            </h5>
+                                        </div>
+                                        {% if target.fake %}
+                                        <div class="d-flex justify-content-center">
+
+                                            <h5 style="color: teal;" class="font-italic">
+                                                Fake
+                                            </h5>
+                                        </div>
+                                        {% elif target.ruin %}
+                                        <div class="d-flex justify-content-center">
+
+                                            <h5 style="color: rgb(109, 70, 46);" class="font-italic">
+                                                <img src='{% static "images/catapult.png" %}' alt="cat">
+                                                {% trans 'Ruin' %}
+                                            </h5>
+                                        </div>
+                                        {% else %}
+                                        <div class="d-flex justify-content-center">
+
+                                            <h5 style="color: rgb(79, 81, 85);" class="font-italic">
+                                                <img src='{% static "images/ax.png" %}' alt="ax">
+                                                {% trans 'Off' %}
+                                            </h5>
+                                        </div>
+                                        {% endif %}
+                                    </th>
+                                    {% for weight in lst %}
+                                    <th>
+                                        <div class='d-flex justify-content-center' style="font-size: medium;">
+                                            <span class='badge badge-pill badge-info text-break'>{{weight.player}}</span>
+                                        </div>
+                                        <div class='d-flex justify-content-center'>
+                                            <h6>
+                                            <span class='badge badge badge-secondary'>{{weight.start}}</span>
+                                            </h6>
+                                        </div>
+                                        <div class='d-flex justify-content-center' style="font-size: medium;color:green; ">
+                                            {{weight.t1|safe}}
+                                        </div>
+                                        <div class='d-flex justify-content-center' style="font-size: medium;color: red;">
+                                            {{weight.t2|safe}}
+                                        </div>
+                                            <table class="table table-sm">
+                                                <tr>
+                                                    <th>
+                                                        <img src='{% static "images/ax.png" %}' alt="ax">
+                                                    </th>
+                                                    <th style="font-size: small;cursor:default">
+                                                        {{weight.off}}
+                                                    </th>
+
+                                                </tr>
+                                                {% if weight.ruin %}
+                                                <tr>
+                                                    <th>
+                                                        <img src='{% static "images/catapult.png" %}' alt="cat">
+                                                    </th>
+                                                    <th style="font-size: small;cursor:default;">
+                                                        {{weight.catapult}}
+                                                    </th>
+                                                </tr>
+                                                {% else %}
+                                                <tr>
+                                                    <th>
+                                                        <img src='{% static "images/nobleman.png" %}' alt="ax">
+                                                    </th>
+                                                    <th style="font-size: small;cursor:default;">
+                                                        {{weight.nobleman}}
+                                                    </th>
+                                                </tr>
+                                                {% endif %}
+                                                <tr>
+                                                    <th>
+                                                        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16"
+                                                            class="bi bi-signpost" fill="#6c757d"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
+                                                            <path fill-rule="evenodd"
+                                                                d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
+                                                            <path d="M7 10h2v6H7v-6z" />
+                                                        </svg>
+                                                    </th>
+                                                    <th style="font-size: small;cursor:pointer;" onclick="calculate_distance(this);">
+                                                        {{weight.distance|floatformat:1}}
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                    </th>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        $('.popoverData').popover();
-    });
-    function updateClipboard(id) {
-        const element = document.getElementById(id);
-        const newClip = element.textContent;
-        navigator.clipboard.writeText(newClip);
-
-    }
-</script>
+<script>activateTooltips();</script>
 {% endblock %}

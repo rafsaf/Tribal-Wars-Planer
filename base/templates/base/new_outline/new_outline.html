@@ -3,112 +3,38 @@
 {% load static %} 
 {% load i18n %} 
 {% block sidebar %}
-
     <a class=" list-group-item list-group-item-action
     bg-secondary" style="color: rgb(243, 243, 243);" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
     <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
     bg-light">{% trans 'Results' %}</a>
     <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
     bg-light">{% trans 'Deff collection' %}</a>
-
     <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
     bg-light">
     {% trans 'Planer' %}
-    
     </a>
-
 {% endblock %} 
 {% block phonesidebar %}
-
     <a class=" list-group-item list-group-item-action
     bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
     <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
     bg-light">{% trans 'Results' %}</a>
     <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
     bg-light">{% trans 'Deff collection' %}</a>
-
     <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
     bg-light">
     {% trans 'Planer' %}
-
-
-</a> 
-
+    </a> 
 {% endblock %} 
 {% block content %}
-
-<div class="modal fade bd-zbiorka-wojsko-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{% trans 'Off collection' %}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group" contenteditable="true">
-                    <textarea class="form-control" id="zbiorka-wojsko" rows="7" cols="5">{{instance.off_troops}}</textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade bd-zbiorka-obrona-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{% trans 'Deff collection' %}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group" contenteditable="true">
-                    <textarea class="form-control" id="zbiorka-obrona" rows="7" cols="5">{{instance.deff_troops}}</textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="row mt-3 mb-4">
     <div class="col-12 col-lg-7">
-
         <div>
             <div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> {% trans 'Last world update: ' %} {{instance.world.update}}</div>
-            {% if message_off %}
-            <div id="message_off" class="alert alert-success my-2" role="alert">
-                {% trans 'Army troops have been successfully added.' %}
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function(event) {
-                    const message = document.getElementById('message_off');
-                    setTimeout(() => {
-                        message.style.display = 'none';
-                    }, 2600)
-                });
-            </script>
-            {% endif %}
-            {% if message_deff %}
-            <div id="message_deff" class="alert alert-success my-2" role="alert">
-                {% trans 'Deff troops have been successfully added.' %}
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function(event) {
-                    const message = document.getElementById('message_deff');
-                    setTimeout(() => {
-                        message.style.display = 'none';
-                    }, 2600)
-                });
-            </script>
-            {% endif %}
         </div>
         
-        <script src="{% static 'codemirror.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'codemirror.css' %}">
+        <script src="{% static 'codemirror-min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
         
         <div class="row">
         
@@ -118,31 +44,27 @@
                     {% csrf_token %}
         
                     <div>
-                        <h4> {{ form1.off_troops.label_tag }} </h4> 
+                        <div>
+                            <h4 style="display: inline-block;" id="off-form-label">{{ form1.off_troops.label_tag }} </h4>
+                            {% if message_off %}
+                            <div style="display: inline-block;" id="message_off" class="alert alert-success my-0 py-0" role="alert">
+                                <span style="font-size: small !important;">{% trans 'Army troops have been successfully added.' %}</span>
+                            </div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function(event) {
+                                    const message = document.getElementById('message_off');
+                                    setTimeout(() => {
+                                        message.style.display = 'none';
+                                    }, 2000)
+                                });
+                            </script>
+                            {% endif %}
+                        </div> 
 
                         {{ form1.off_troops }} 
                         {% if form1.off_troops.errors %} 
-                        {% for error in form1.off_troops.errors %} 
-                        {% if forloop.first %}
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function(event) {
-                                $('.cm-s-off-troops-codemirror').addClass('CodeMirror-Invalid');
-                                codemirror = $('.cm-s-off-troops-codemirror');
-                                var codeMirrorEditor = codemirror[0].CodeMirror;
-                                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                                codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
-                            });
-                        </script>
-                        {% else %}
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function(event) {
-                                codemirror = $('.cm-s-off-troops-codemirror');
-                                var codeMirrorEditor = codemirror[0].CodeMirror;
-                                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                            });
-                        </script>
-                        {% endif %}
-                        {% endfor %}
+                        <script>codemirrorValidation(`{{form1.off_troops.errors.as_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
+
                         <div class="error-text">
                             <p class="mb-0">{% trans 'Incorrect data in' %} {{form1.off_troops.errors|length}} {% trans 'lines.' %}</p>
                             <p class="mt-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
@@ -161,17 +83,9 @@
                         </script>
                         {% endfor %} 
                         {% endif %}
-        
-        
                     </div>
-                    <div class="btn-group my-3">
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean">{% trans 'Submit' %}
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}
                     </button>
-
-                    <button type="button" class="btn btn-outline-ocean" data-toggle="modal" data-target=".bd-zbiorka-wojsko-lg">
-                        {% trans 'Army collection preview' %}
-                    </button>
-                    </div>
                 </form>
             </div>
             <script>
@@ -187,36 +101,36 @@
                     {% csrf_token %}
         
                     <div>
-                        <h4 id="deff-form-label">{{ form2.deff_troops.label_tag }} </h4>
-
+                        <div>
+                            <h4 style="display: inline-block;" id="deff-form-label">{{ form2.deff_troops.label_tag }}</h4>
+                            {% if message_deff %}
+                            <div style="display: inline-block;" id="message_deff" class="alert alert-success my-0 py-0" role="alert">
+                                <span style="font-size: small !important;">{% trans 'Deff troops have been successfully added.' %}</span>
+                            </div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function(event) {
+                                    document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
+                                    const message = document.getElementById('message_deff');
+                                    setTimeout(() => {
+                                        message.style.display = 'none';
+                                    }, 2000)
+                                });
+                            </script>
+                            {% endif %}
+                        </div>
                         {{ form2.deff_troops }} 
                         {% if form2.errors %}
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function(event) {document.getElementById('deff-form-label').scrollIntoView();});
-                        </script>
+
                         {% endif %}
-                        {% if form2.deff_troops.errors %} 
-                        {% for error in form2.deff_troops.errors %} 
-                        {% if forloop.first %}
+                        {% if form2.deff_troops.errors %}
+                        
+                        <script>codemirrorValidation(`{{form2.deff_troops.errors.as_json|safe}}`, `.cm-s-deff-troops-codemirror`);</script>
                         <script>
                             document.addEventListener("DOMContentLoaded", function(event) {
-                                $('.cm-s-deff-troops-codemirror').addClass('CodeMirror-Invalid');
-                                codemirror = $('.cm-s-deff-troops-codemirror');
-                                var codeMirrorEditor = codemirror[0].CodeMirror;
-                                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                                codeMirrorEditor.scrollIntoView(parseInt('{{error}}'));
+                                document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
                             });
                         </script>
-                        {% else %}
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function(event) {
-                                codemirror = $('.cm-s-deff-troops-codemirror');
-                                var codeMirrorEditor = codemirror[0].CodeMirror;
-                                codeMirrorEditor.addLineClass(parseInt('{{error}}'), 'wrap', 'line-error');
-                            });
-                        </script>
-                        {% endif %} 
-                        {% endfor %}
+                    
                         <div class="error-text mb-3">
                             <p class="mb-0">{% trans 'Incorrect data in' %} {{form2.deff_troops.errors|length}} {% trans 'lines.' %}</p>
                             <p class="mt-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
@@ -235,22 +149,11 @@
                         </script>
                         {% endfor %} 
                         {% endif %}
-        
-
-        
                     </div>
-        
-                    <div class="btn-group my-3">
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean">{% trans 'Submit' %}
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}
                     </button>
-                    <button type="button" class="btn btn-outline-ocean" data-toggle="modal" data-target=".bd-zbiorka-obrona-lg">
-                        {% trans 'Deff collection preview' %}
-                    </button>
-                    </div>
                 </form>
-        
             </div>
-        
             <script>
                 var editor = CodeMirror.fromTextArea(document.getElementById("id_deff_troops"), {
                     theme: 'deff-troops-codemirror',
@@ -258,10 +161,7 @@
                 });
             </script>
         </div>
-        
-
     </div>
- 
     <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
         <div class="h-100">
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">

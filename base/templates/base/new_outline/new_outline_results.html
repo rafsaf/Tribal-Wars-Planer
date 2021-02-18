@@ -2,8 +2,11 @@
 {% block content %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-
-
+<style>
+  a.btn-light {
+      border: 1px solid rgb(136, 135, 135);
+  }
+</style>
 <div class="table-responsive">
 <div class="mt-2 mb-5" id='leftscroll'>
     <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
@@ -13,35 +16,28 @@
         <li class="nav-item navitem100">
             <a class="nav-link ocean-tab-mid" id="pills-sum-up" data-toggle="pill" href="#pills-outline-sum-up" role="tab" aria-controls="pills-sum-up" aria-selected="false">{% trans 'Sum Up' %}</a>
         </li>
-
         <li class="nav-item navitem100">
             <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
         </li>
-
-
-
         <li class="nav-item navitem100">
             <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
         </li>
-
         <li class="nav-item navitem100">
             <a class="nav-link ocean-tab-mid" id="pills-export" data-toggle="pill" href="#pills-outline-export" role="tab" aria-controls="pills-export" aria-selected="false">{% trans 'Left troops' %}</a>
         </li>
-
         <li class="nav-item navitem100">
             <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
         </li>
 
     </ul>
-    <div class="container">
     <div class="tab-content pt-1" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
-          <div class="p-2 my-2  bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="{% url 'base:documentation' %}#send-script"> {% trans 'here' %}</a>.</div>
+          <div class="p-2 my-2 mb-3  bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="{% url 'base:documentation' %}#send-script"> {% trans 'here' %}</a>.</div>
             <div class="card">
                 <div class="card-header" id="headingTwo">
                   <h5 class="mb-0">
 
-                    <button class="btn btn-link collapsed py-1 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <button style="text-decoration: none;" class="btn btn-link collapsed py-1 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         {% if form1.errors %}
                         <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
@@ -71,7 +67,7 @@
                 <div class="card-header" id="headingTwo">
                   <h5 class="mb-0">
 
-                    <button class="btn btn-link collapsed text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <button style="text-decoration: none;" class="btn btn-link collapsed text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                       {% trans 'Removed links' %}
                     </button>
 
@@ -93,16 +89,22 @@
                         </thead>
                         <tbody>
                             {% for item in removed_overviews %}
-        
                             <tr>
                                 <th scope="row">{{ item.created }}</th>
                                 <th>{{item.player}}</th>
                                 <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
                                 </th>
-                                <th><a href="{% url 'base:planer_overview_hide' instance.id item.token %}">{{item.show_hidden}}</a></th>
+                                <th>
+                                  {% if item.show_hidden %}
+                                  <button id="{{item.token}}" class="btn btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                  </button>
+                                  {% else %}
+                                  <button id="{{item.token}}" class="btn btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                  </button>                          
+                                  {% endif %}
+                                </th>
                                 <th><a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
                                 </th>
-
                             </tr>
                             <script>
                                 $('.send').click(function() {
@@ -111,26 +113,12 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    
-
                   </div>
                 </div>
               </div>
-
-
-
-
-
-
-
-
-
-
-
             <div>
             <table class="table table-bordered">
                 <thead style="background-color: teal;">
-
                     <tr style="color: white;">
                         <th scope="col" style="border:1px solid teal">#</th>
                         <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
@@ -141,14 +129,25 @@
                 </thead>
                 <tbody>
                     {% for item in overviews %}
-
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <th>{{item.player}}</th>
-                        <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
+                        <th>
+                          <a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}
+                          </a>
                         </th>
-                        <th><a href="{% url 'base:planer_overview_hide' instance.id item.token %}">{{item.show_hidden}}</a></th>
-                        <th><a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
+                        <th>
+                          {% if item.show_hidden %}
+                          <button id="{{item.token}}" class="btn btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                          </button>
+                          {% else %}
+                          <button id="{{item.token}}" class="btn btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                          </button>                          
+                          {% endif %}
+                        </th>
+                        <th>
+                          <a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}
+                          </a>
                         </th>
                     </tr>
                     <script>
@@ -189,12 +188,17 @@
         </div>
 
         <div class="tab-pane fade" id="pills-outline-export" role="tabpanel" aria-labelledby="pills-contact-tab">
+            {% if user.profile.is_premium %}
             <div class="my-3">
-              {% trans 'Below you will find the remaining unused player armies. The data is generated AFTER the whole outline is completed, together with the targets, commands, link, etc. If you plan to create a second outline, e.g. for the next day, create a new outline and paste the data below. Although you can use it any other way :) Note that for the sake of simplicity, all offensive troops are listed as axemen, while deff troops are omitted.' %}
+              {% trans 'Below you will find all the unused troops left after the roster. Paste them into the Army Collection in order to start a new action.' %}
             </div>
             <div class="form-group" contenteditable="true">
                 <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_export}}</textarea>
             </div>
+            {% else %}
+            <div class="my-3">{% trans 'You have no access to unused troops without premium account.' %}</div>
+            
+            {% endif %}
         </div>
 
         <div class="tab-pane fade" id="pills-deff" role="tabpanel" aria-labelledby="pills-contact-tab">
@@ -204,32 +208,15 @@
         </div>
 
     </div>
-  </div>
+
 </div>
 </div>
-<script>
-    $(window).on("load", function () {
-        // weave your magic here.
-    
-        if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
-          $(window).scrollTop(localStorage.getItem("my_app_name_here-quote-scroll"));
-    
-    
-        };
-        if (localStorage.getItem("my_app_name-left-scroll") != null) {
-          $('#leftscroll').scrollTop(localStorage.getItem("my_app_name-left-scroll"));
-        };
-    
-    
-        $(window).on("scroll", function () {
-          localStorage.setItem("my_app_name_here-quote-scroll", $(window).scrollTop());
-        });
-    
-        $('#leftscroll').on("scroll", function () {
-          var scroll = $('#leftscroll').scrollTop();
-          localStorage.setItem("my_app_name-left-scroll", scroll);
-        });
-      });
+{% if go_deff_tab %}
+<script>    
+  $(window).on("load", function () {
+    $('#pills-tab a[href="#pills-deff"]').tab('show')
+  });
 </script>
+{% endif %}
 
 {% endblock %}

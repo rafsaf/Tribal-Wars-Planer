@@ -23,6 +23,9 @@ class TestInitialOutlineForm(TestCase):
             militia="inactive",
         )
         self.admin = User.objects.create_user("admin", None, None)
+
+        self.real_target_mode: basic.TargetMode = basic.TargetMode("real")
+
         self.outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
@@ -55,6 +58,7 @@ class TestInitialOutlineForm(TestCase):
         off_form = forms.InitialOutlineForm(
             {"target": "500|500"},
             outline=self.outline,
+            target_mode=self.real_target_mode,
         )
         self.assertTrue(off_form.is_valid())
 
@@ -62,6 +66,7 @@ class TestInitialOutlineForm(TestCase):
         off_form = forms.InitialOutlineForm(
             {"target": "499|500"},
             outline=self.outline,
+            target_mode=self.real_target_mode,
         )
         self.assertFalse(off_form.is_valid())
 
@@ -71,5 +76,6 @@ class TestInitialOutlineForm(TestCase):
         off_form = forms.InitialOutlineForm(
             {"target": "500|500"},
             outline=self.outline,
+            target_mode=self.real_target_mode,
         )
         self.assertFalse(off_form.is_valid())

@@ -2,20 +2,116 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-
+<style>
+    button.btn-light {
+        border: 1px solid rgb(136, 135, 135);
+    }
+    a.nav-link.nav-link-pills {
+        border: 1px solid rgb(136, 135, 135);
+        border-right: 0px;
+        border-radius: 0px !important;
+    }
+    a.nav-link.nav-link-pills.last-nav-link {
+        border: 1px solid rgb(136, 135, 135);
+        border-radius: 0px !important;
+    }
+</style>
 <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
 <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
-<div class="container-fluid">
-    <form method="POST">
-        <div class="row justify-content-center mb-3">
-            <input type="hidden" value="" name="form-finish">
-            {% csrf_token %}
-            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean btn-block">{% trans 'Confirm an outline and Exit' %}</button>
 
-        </div>
-    </form>
+<div class="fixed-scrollbar-container">
+    {% block outline_navbar %}
+    {{block.super}}
+    {% endblock %}
+
+    <table class="table table-sm table-bordered my-2 mt-3" style="width: min-content;">
+        <thead>
+            <tr>
+                <th style="min-width: 15vh;" class="text-nowrap">{% trans 'Type of order' %}</th>
+                <th class="text-nowrap">{% trans 'Targets' %}</th>
+                <th class="text-nowrap">{% trans 'Fake Targets' %}</th>
+                <th class="text-nowrap" data-toggle="tooltip" data-placement="top" title="{% trans 'For ruins, the Ram Unit means Off and the Noble Unit represents later ruins' %}">
+                    {% trans 'Ruin Targets' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                </th>
+            </tr>
+            <tr class="text-center">
+                <th class="text-nowrap pb-2 text-left">{% trans 'Default Time' %}</th>
+                <th style="min-width: 25vh;">
+                    <div>
+                    {% for time in outline_time %}
+                    {% if time.pk == instance.default_off_time_id %}
+                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                        {% csrf_token %}
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1">{{time.order}}</button>
+                    </form>
+                    {% else %}
+                    <form style="display:inline" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                        {% csrf_token %}
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1">{{time.order}}</button>
+                    </form>
+                    {% endif %}
+                    {% empty %}
+                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-question-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                        </svg>
+                    </span>
+                    {% endfor %}
+                    </div>
+                </th>
+                <th style="min-width: 25vh;">
+                    {% for time in outline_time %}
+                    {% if time.pk == instance.default_fake_time_id %}
+                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&fake=true">
+                        {% csrf_token %}
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1">{{time.order}}</button>
+                    </form>
+                    {% else %}
+                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&fake=true">
+                        {% csrf_token %}
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1">{{time.order}}</button>
+                    </form>
+                    {% endif %}
+                    {% empty %}
+                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-question-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                        </svg>
+                    </span>
+                    {% endfor %}
+                </th>
+                <th style="min-width: 25vh;">
+                    {% for time in outline_time %}
+                    {% if time.pk == instance.default_ruin_time_id %}
+                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&ruin=true">
+                        {% csrf_token %}
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1">{{time.order}}</button>
+                    </form>
+                    {% else %}
+                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&ruin=true">
+                        {% csrf_token %}
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1">{{time.order}}</button>
+                    </form>
+                    {% endif %}
+                    {% empty %}
+                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-question-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                        </svg>
+                    </span>
+                    {% endfor %}
+                </th>
+            </tr>
+        </thead>
+    </table>
+
+    <div class="container-fluid" style="margin-left:-13px;margin-right:-13px">
     <div class="row">
-        <div class="col-12 col-lg-7">
+    <div class="col-12 col-lg-7 mt-2">
             <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"
                 integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA=="
@@ -64,40 +160,77 @@
  
          </div>
          {% endif %}
-        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mb-5" >{% trans 'Create' %}</button>
+        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean" >{% trans 'Create' %}</button>
 
         </form>
 
     </div>
-
-
-    <div class="col-12 col-lg-5">
-        <div class="table-responsive">
-        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+    <div class="col-12 col-lg-5 mt-2">
+        <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
             {% for time in outline_time %}
             <li class="nav-item">
-                {% if forloop.counter == 1 %}
-                <a class="nav-link active" id="pills-{{time.order}}" data-toggle="pill" href="#{{time.order}}"
+                {% if forloop.first %}
+                <a class="nav-link nav-link-pills active" id="pills-{{time.order}}" data-toggle="pill" href="#{{time.order}}"
+                    role="tab" aria-controls="pills-{{time.order}}" aria-selected="true">{{time.order}}</a>
+                {% elif forloop.last %}
+                <a class="nav-link nav-link-pills last-nav-link" id="pills-{{time.order}}" data-toggle="pill" href="#{{time.order}}"
                     role="tab" aria-controls="pills-{{time.order}}" aria-selected="true">{{time.order}}</a>
                 {% else %}
-                <a class="nav-link" id="pills-{{time.order}}" data-toggle="pill" href="#{{time.order}}" role="tab"
-                    aria-controls="pills-{{time.order}}" aria-selected="false">{{time.order}}</a> {% endif %}
+                <a class="nav-link nav-link-pills" id="pills-{{time.order}}" data-toggle="pill" href="#{{time.order}}" role="tab"
+                    aria-controls="pills-{{time.order}}" aria-selected="false">{{time.order}}</a> 
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
-
+        
         <div class="tab-content" id="pills-tabContent">
-
             {% for time, periodmodel in outline_time.items %}
-
             {% if forloop.counter == 1 %}
             <div class="tab-pane fade show active" id="{{time.order}}" role="tabpanel"
                 aria-labelledby="pills-{{time.order}}">
-                {% else %}
-                <div class="tab-pane fade show" id="{{time.order}}" role="tabpanel"
-                    aria-labelledby="pills-{{time.order}}">
-                    {% endif %}
-                    <table class="table table-sm ">
+                <table class="table table-sm ">
+                    <thead>
+                        <tr>
+                            <th scope="col">{% trans 'Mode' %}</th>
+                            <th data-toggle="tooltip" data-placement="top" title="{% trans 'For ruins, the Ram Unit means Off and the Noble Unit represents later ruins' %}" class="text-nowrap" scope="col">
+                                {% trans 'Unit' %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                            </th>
+                            <th scope="col">{% trans 'From' %}</th>
+                            <th scope="col">{% trans 'To' %}</th>
+                            <th scope="col">{% trans 'Min. time' %}</th>
+                            <th scope="col">{% trans 'Max. time' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for period in periodmodel %}
+                        <tr>
+                            <th>{{period.get_status_display}}</th>
+                            <th>{{period.get_unit_display}}</th>
+                            <th>{%if period.from_number != None %}
+                                {{period.from_number}}
+                                {% endif %}</th>
+                            <th>{%if period.to_number != None %}
+                                {{period.to_number}}
+                                {% endif %}</th>
+                            <th>{{period.from_time|safe}}</th>
+                            <th>{{period.to_time|safe}}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                <form method="POST"
+                    action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                    {% csrf_token %}
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
+                </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="tab-pane fade show" id="{{time.order}}" role="tabpanel" aria-labelledby="pills-{{time.order}}">
+                <table class="table table-sm ">
                         <thead>
                             <tr>
                                 <th scope="col">{% trans 'Mode' %}</th>
@@ -109,8 +242,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
-
                             {% for period in periodmodel %}
                             <tr>
                                 <th>{{period.get_status_display}}</th>
@@ -125,159 +256,112 @@
                                 <th>{{period.to_time|safe}}</th>
                             </tr>
                             {% endfor %}
-
-
                         </tbody>
-                    </table>
-
-                    <div class="btn-group" role="group" aria-label="Basic example">
-
-  
+                </table>
                     <form method="POST"
                         action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
                         {% csrf_token %}
                         <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
                     </form>
-                    <form method="POST"
-                        action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
-                        {% csrf_token %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-ocean ml-2">{% trans 'Set for every target' %}</button>
-                    </form>
-                    </div>
-                </div>
-                {% endfor %}
             </div>
-
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
     </div>
-</div>
-<div class="fixed-scrollbar-container">
-{% block outline_navbar %}
-{{block.super}}
-{% endblock %}
-
-<form method="POST">
-    <input type="hidden" name="choice-formset" value="">
-    {% csrf_token %} {{ choice_formset.management_form }}
-    <div class="row">
-        <div class="col-12 col-lg-4">
-            <button onclick="this.disabled=true;this.form.submit();"
-                class="btn btn-outline-info btn-block mb-2">{% trans 'Confirm selected' %}
-            </button>
-        </div>
-    </div>
-
-    <div class="conatiner-fluid">
-        <table class="table table-sm table-bordered" style="width:min-content">
-            <thead>
-                <tr>
-                    <th scope="col">{% trans 'Selected' %}</th>
-                    <th scope="col">{% trans 'Target' %}</th>
-                    <th scope="col">{% trans 'Select Time' %}</th>
-                    <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                {% for target, lst in query %}
-                <tr>
-                    <th>
-                        <div class="row justify-content-center">
-                            <h4>
-                                <span class="badge badge-primary">{{target.outline_time.order}}</span>
-                            </h4>
-                        </div>
-
-                    </th>
-                    <th>
-
-
-
-                        <div class="d-flex justify-content-center">
-                            <h5>
-                                <span class="badge badge-pill badge-info">
-                                    {{target.player}}
-                                </span>
-                            </h5>
-                        </div>
-                        <div class="d-flex justify-content-center">
-
-                            <h5>
-                                <span class="badge badge badge-secondary">
-                                    {{target.target}}
-                                </span>
-                            </h5>
-
-                        </div>
-
-
-
-                    </th>
-
-
-                    <th style="min-width: 13vh !important;">
-                        {{target.form.choice}}
-                    </th>
-
-                    {% for weight in lst %}
-                    <th class="front-{{weight.first_line}}">
-                        <div class="popoverData" data-html="true"
-                            data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
-                            rel="popover" data-placement="top" data-trigger="hover">
-
-                            <table class="table table-sm">
-                                <tr>
-                                    <th>
-                                        <img src='{% static "images/ax.png" %}' alt="ax">
-                                    </th>
-                                    <th style="font-size: small;">
-                                        {{weight.off}}
-                                    </th>
-
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <img src='{% static "images/nobleman.png" %}' alt="ax">
-                                    </th>
-                                    <th style="font-size: small;">
-                                        {{weight.nobleman}}
-                                    </th>
-
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost"
-                                            fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
-                                            <path fill-rule="evenodd"
-                                                d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
-                                            <path d="M7 10h2v6H7v-6z" />
-                                        </svg>
-                                    </th>
-                                    <th style="font-size: small;" onclick="calculate_distance(this);">
-                                        {{weight.distance}}
-                                    </th>
-
-                                </tr>
-
-
-                            </table>
-
-                    </th>
-
+    {% block outline_navigation %}
+    {{block.super}}
+    {% endblock %}
+    <table class="table table-sm table-bordered" style="width:min-content">
+        <thead>
+            <tr>
+                <th scope="col">{% trans 'Target' %}</th>
+                <th scope="col">{% trans 'Select Time' %}</th>
+                <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for target, lst in query %}
+            <tr>
+                <th>
+                    <div class="d-flex justify-content-center">
+                        <h5>
+                            <span class="badge badge-pill badge-info">
+                                {{target.player}}
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h5>
+                            <span class="badge badge badge-secondary">
+                                {{target.target}}
+                            </span>
+                        </h5>
+                    </div>
+                </th>
+                <th style="min-width: 15vh !important;">
+                    {% for time in outline_time %}
+                    {% if time.pk == target.outline_time.pk %}
+                    <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-primary my-1 py-0 px-1">{{time.order}}</button>
+                    {% else %}
+                    <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-light my-1 py-0 px-1">{{time.order}}</button>
+                    {% endif %}
+                    {% empty %}
+                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time above' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-question-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                        </svg>
+                    </span>
                     {% endfor %}
-                </tr>
-
+                </th>
+                {% for weight in lst %}
+                <th class="front-{{weight.first_line}}">
+                    <div class="popoverData" data-html="true"
+                        data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
+                        rel="popover" data-placement="top" data-trigger="hover">
+                        <table class="table table-sm">
+                            <tr>
+                                <th>
+                                    <img src='{% static "images/ax.png" %}' alt="ax">
+                                </th>
+                                <th style="font-size: small;cursor:default;">
+                                    {{weight.off}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <img src='{% static "images/nobleman.png" %}' alt="ax">
+                                </th>
+                                <th style="font-size: small;cursor:default;">
+                                    {{weight.nobleman}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost"
+                                        fill="#6c757d" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" />
+                                        <path d="M7 10h2v6H7v-6z" />
+                                    </svg>
+                                </th>
+                                <th style="font-size: small;cursor:pointer;" onclick="calculate_distance(this);">
+                                    {{weight.distance}}
+                                </th>
+                            </tr>
+                        </table>
+                </th>
                 {% endfor %}
-            </tbody>
-        </table>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     </div>
-</form>
+</div>  
 
-</div>
 {% if error != None %}
-
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -294,82 +378,17 @@
         </div>
     </div>
 </div>
-
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        $('.bd-example-modal-lg').modal('show');
-
-
-    });
-</script>
-
+<script>document.addEventListener("DOMContentLoaded", function (event) {$('.bd-example-modal-lg').modal('show');});</script>
 {% endif %}
 
 <script>
     activateTooltips();
     handleAllFormsetSelect();
-    $(function($) {
-        var fixedBarTemplate = '<div class="fixed-scrollbar"><div></div></div>';
-        var fixedBarCSS = { display: 'none', overflowX: 'scroll', position: 'fixed', width: '100%', bottom: 0 };
-
-        $('.fixed-scrollbar-container').each(function() {
-            var $container = $(this);
-            var $bar = $(fixedBarTemplate).appendTo($container).css(fixedBarCSS);
-
-            $bar.scroll(function() {
-                $container.scrollLeft($bar.scrollLeft());
-            });
-
-            $bar.data("status", "off");
-        });
-
-        var fixSize = function() {
-            $('.fixed-scrollbar').each(function() {
-                var $bar = $(this);
-                var $container = $bar.parent();
-
-                $bar.children('div').height(1).width($container[0].scrollWidth);
-                $bar.width($container.width()).scrollLeft($container.scrollLeft());
-            });
-        };
-
-        $(window).on("load.fixedbar resize.fixedbar", function() {
-            fixSize();
-        });
-
-        var scrollTimeout = null;
-
-        $(window).on("scroll.fixedbar", function() {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(function() {
-                $('.fixed-scrollbar-container').each(function() {
-                    var $container = $(this);
-                    var $bar = $container.children('.fixed-scrollbar');
-
-                    if ($bar.length) {
-                        var containerOffset = { top: $container.offset().top, bottom: $container.offset().top + $container.height() };
-                        var windowOffset = { top: $(window).scrollTop(), bottom: $(window).scrollTop() + $(window).height() };
-
-                        if ((containerOffset.top > windowOffset.bottom) || (windowOffset.bottom > containerOffset.bottom)) {
-                            if ($bar.data("status") == "on") {
-                                $bar.hide().data("status", "off");
-                            }
-                        } else {
-                            if ($bar.data("status") == "off") {
-                                $bar.show().data("status", "on");
-                                $bar.scrollLeft($container.scrollLeft());
-                            }
-                        }
-                    }
-                });
-            }, 50);
-        });
-
-        $(window).trigger("scroll.fixedbar");
-    });
+    activateFixedScrollbarContainer();
 </script>
 
+{% block outline_go_back %}
+{{block.super}}
+{% endblock %}
 
 {% endblock %}

@@ -128,6 +128,21 @@ class TestArmy(TestCase):
     def test_off_army9_correct_int_return(self):
         self.assertEqual(self.army9.off, 15755)
 
+    def test_catapult_army1_correct_int_return(self):
+        self.assertEqual(self.army1.catapult, 10)
+
+    def test_catapult_army2_correct_int_return(self):
+        self.assertEqual(self.army2.catapult, 10)
+
+    def test_catapult_army3_correct_int_return(self):
+        self.assertEqual(self.army3.catapult, 10)
+
+    def test_catapult_army4_correct_int_return(self):
+        self.assertEqual(self.army4.catapult, 10)
+
+    def test_catapult_army9_correct_int_return(self):
+        self.assertEqual(self.army9.catapult, 75)
+
     
 
 

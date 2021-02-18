@@ -13,18 +13,18 @@ class SortAndPaginRequest:
         self.page = PAGE_request
         VALID = [
             "distance",
-            "avg_distance",
+            "random_distance",
             "-distance",
             "-off_left",
             "-nobleman_left",
             "closest_offs",
-            "avg_offs",
+            "random_offs",
             "farthest_offs",
             "closest_noblemans",
-            "avg_noblemans",
+            "random_noblemans",
             "farthest_noblemans",
             "closest_noble_offs",
-            "avg_noble_offs",
+            "random_noble_offs",
             "farthest_noble_offs",
         ]
         if GET_request is None:
@@ -76,7 +76,7 @@ class SortAndPaginRequest:
 
             return self.__pagin(query)
 
-        elif self.sort == "avg_distance":
+        elif self.sort == "random_distance":
             query = (
                 query.annotate(
                     distance=ExpressionWrapper(
@@ -89,9 +89,7 @@ class SortAndPaginRequest:
                     )
                 )
             )
-            avg = query.aggregate(avg_distance=Avg("distance"))["avg_distance"]
-            query = query.order_by((F("distance") - avg) ** 2)
-            
+            query = query.order_by("?")
             return self.__pagin(query)
 
         elif self.sort in {"-off_left", "-nobleman_left"}:
@@ -139,7 +137,7 @@ class SortAndPaginRequest:
 
             return self.__pagin(query)
 
-        elif self.sort == "avg_offs":
+        elif self.sort == "random_offs":
             query = (
                 query.filter(off_left__gte=self.outline.initial_outline_min_off)
                 .annotate(
@@ -153,8 +151,7 @@ class SortAndPaginRequest:
                     )
                 )
             )
-            avg = query.aggregate(avg_distance=Avg("distance"))["avg_distance"]
-            query = query.order_by((F("distance") - avg) ** 2)
+            query = query.order_by("?")
             return self.__pagin(query)
 
         elif self.sort == "farthest_offs":
@@ -192,7 +189,7 @@ class SortAndPaginRequest:
             )
             return self.__pagin(query)
 
-        elif self.sort == "avg_noblemans":
+        elif self.sort == "random_noblemans":
             query = (
                 query.filter(nobleman_left__gte=1)
                 .annotate(
@@ -206,8 +203,7 @@ class SortAndPaginRequest:
                     )
                 )
             )
-            avg = query.aggregate(avg_distance=Avg("distance"))["avg_distance"]
-            query = query.order_by((F("distance") - avg) ** 2)
+            query = query.order_by("?")
             return self.__pagin(query)
 
         elif self.sort == "farthest_noblemans":
@@ -249,7 +245,7 @@ class SortAndPaginRequest:
 
             return self.__pagin(query)
 
-        elif self.sort == "avg_noble_offs":
+        elif self.sort == "random_noble_offs":
             query = (
                 query.filter(
                     nobleman_left__gte=1,
@@ -266,8 +262,7 @@ class SortAndPaginRequest:
                     )
                 )
             )
-            avg = query.aggregate(avg_distance=Avg("distance"))["avg_distance"]
-            query = query.order_by((F("distance") - avg) ** 2)
+            query = query.order_by("?")
 
             return self.__pagin(query)
 

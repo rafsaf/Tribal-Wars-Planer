@@ -1,8 +1,10 @@
 from collections import Counter
+from django.contrib.auth.models import User
 
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import Http404
+from django.http import Http404, HttpRequest, HttpResponse
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -21,7 +23,7 @@ from base import models, forms
 
 
 @login_required
-def initial_form(request, _id):
+def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     """
     view with table with created outline,
 
@@ -36,6 +38,12 @@ def initial_form(request, _id):
         return redirect("base:planer_detail", _id)
     if instance.written == "active":
         return redirect("base:planer_initial", _id)
+    premium_error: bool
+    if request.session.get("premium_error") is True:
+        premium_error = True
+        del request.session["premium_error"]
+    else:
+        premium_error = False
 
     language_code = get_language()
 
@@ -45,6 +53,7 @@ def initial_form(request, _id):
         defaults={"main_page": ""},
     )[0].main_page
     info = markdownify(info)
+
     example = models.Documentation.objects.get_or_create(
         title="planer_form_example",
         language=language_code,
@@ -54,25 +63,53 @@ def initial_form(request, _id):
 
     if models.WeightMaximum.objects.filter(outline=instance).count() == 0:
 
-        off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+        off_form = forms.OffTroopsForm(
+            {"off_troops": instance.off_troops}, outline=instance
+        )
         if off_form.is_valid():
-            initial.make_outline(instance, make_targets=False)
+            initial.make_outline(instance, target_mode=None)
         else:
-            request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
+            request.session["error"] = gettext(
+                "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+            )
 
             return redirect("base:planer_detail", _id)
 
-    form1 = forms.InitialOutlineForm(None, outline=instance)
+    target_mode = basic.TargetMode(request.GET.get("t"))
 
+    form1 = forms.InitialOutlineForm(None, outline=instance, target_mode=target_mode)
     form2 = forms.AvailableTroopsForm(None)
     form3 = forms.SettingDateForm(None)
     form4 = forms.ModeOutlineForm(None)
     form5 = forms.NightBonusSetForm(None)
+    form6 = forms.RuiningOutlineForm(None)
     targets = models.TargetVertex.objects.filter(outline=instance).order_by("id")
     len_targets = len(targets)
+    len_fake = len([target for target in targets if target.fake])
+    len_ruin = len([target for target in targets if target.ruin])
+    len_real = len_targets - len_fake - len_ruin
 
-    target_dups = [(coord, nums) for coord, nums in Counter([target.target for target in targets if not target.fake]).items() if nums > 1]
-    fake_dups = [(coord, nums) for coord, nums in Counter([target.target for target in targets if target.fake]).items() if nums > 1]
+    target_dups = [
+        (coord, nums)
+        for coord, nums in Counter(
+            [target.target for target in targets if not target.fake and not target.ruin]
+        ).items()
+        if nums > 1
+    ]
+    fake_dups = [
+        (coord, nums)
+        for coord, nums in Counter(
+            [target.target for target in targets if target.fake]
+        ).items()
+        if nums > 1
+    ]
+    ruin_dups = [
+        (coord, nums)
+        for coord, nums in Counter(
+            [target.target for target in targets if target.ruin]
+        ).items()
+        if nums > 1
+    ]
 
     if len_targets <= 100:
         formset_select = formset_factory(
@@ -81,7 +118,13 @@ def initial_form(request, _id):
     else:
         formset_select = None
 
-    form1.fields["target"].initial = instance.initial_outline_targets
+    if target_mode.is_real:
+        form1.fields["target"].initial = instance.initial_outline_targets
+    elif target_mode.is_fake:
+        form1.fields["target"].initial = instance.initial_outline_fakes
+    else:
+        form1.fields["target"].initial = instance.initial_outline_ruins
+
     form2.fields[
         "initial_outline_front_dist"
     ].initial = instance.initial_outline_front_dist
@@ -101,21 +144,48 @@ def initial_form(request, _id):
     form4.fields[
         "initial_outline_fake_limit"
     ].initial = instance.initial_outline_fake_limit
+    form4.fields[
+        "initial_outline_fake_mode"
+    ].initial = instance.initial_outline_fake_mode
+
     form5.fields["night_bonus"].initial = instance.night_bonus
     form5.fields["enter_t1"].initial = instance.enter_t1
     form5.fields["enter_t2"].initial = instance.enter_t2
+
+    form6.fields[
+        "initial_outline_off_left_catapult"
+    ].initial = instance.initial_outline_off_left_catapult
+    form6.fields[
+        "initial_outline_catapult_default"
+    ].initial = instance.initial_outline_catapult_default
+    form6.fields[
+        "initial_outline_ruining_order"
+    ].initial = instance.initial_outline_ruining_order
+    form6.fields[
+        "initial_outline_average_ruining_points"
+    ].initial = instance.initial_outline_average_ruining_points
+
     if request.method == "POST":
         if "form1" in request.POST:
-            form1 = forms.InitialOutlineForm(request.POST, outline=instance)
+            form1 = forms.InitialOutlineForm(
+                request.POST, outline=instance, target_mode=target_mode
+            )
             if form1.is_valid():
-                off_form1 = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+                off_form1 = forms.OffTroopsForm(
+                    {"off_troops": instance.off_troops}, outline=instance
+                )
                 if off_form1.is_valid():
-                    initial.make_outline(instance, make_targets=True)
+                    initial.make_outline(instance, target_mode=target_mode)
                 else:
-                    request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
+                    request.session["error"] = gettext(
+                        "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+                    )
                     return redirect("base:planer_detail", _id)
                 instance.save()
-                return redirect("base:planer_initial_form", _id)
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "form2" in request.POST:
             form2 = forms.AvailableTroopsForm(request.POST)
@@ -131,7 +201,11 @@ def initial_form(request, _id):
                 instance.save()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.legal_coords_near_targets(outline=instance)
-                return redirect("base:planer_initial_form", _id)
+                avaiable_troops.update_available_ruins(outline=instance)
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "form3" in request.POST:
             form3 = forms.SettingDateForm(request.POST)
@@ -139,7 +213,10 @@ def initial_form(request, _id):
                 date = request.POST.get("date")
                 instance.date = date
                 instance.save()
-                return redirect("base:planer_initial_form", _id)
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "form4" in request.POST:
             form4 = forms.ModeOutlineForm(request.POST)
@@ -150,12 +227,16 @@ def initial_form(request, _id):
                 mode_guide = request.POST.get("mode_guide")
                 fake_limit = request.POST.get("initial_outline_fake_limit")
                 mode_split = request.POST.get("mode_split")
+                initial_outline_fake_mode = request.POST.get("initial_outline_fake_mode")
+
                 instance.mode_off = mode_off
                 instance.mode_noble = mode_noble
                 instance.mode_division = mode_division
                 instance.mode_guide = mode_guide
                 instance.mode_split = mode_split
                 instance.initial_outline_fake_limit = fake_limit
+                instance.initial_outline_fake_mode = initial_outline_fake_mode
+
                 instance.save()
 
                 models.TargetVertex.objects.filter(outline=instance).update(
@@ -168,7 +249,10 @@ def initial_form(request, _id):
                     fake_limit=fake_limit
                 )
 
-                return redirect("base:planer_initial_form", _id)
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "form5" in request.POST:
             form5 = forms.NightBonusSetForm(request.POST)
@@ -185,11 +269,39 @@ def initial_form(request, _id):
                 instance.enter_t2 = enter_t2
                 instance.save()
                 models.TargetVertex.objects.filter(outline=instance).update(
-                    night_bonus = night_bonus,
-                    enter_t1 = enter_t1,
-                    enter_t2 = enter_t2,
+                    night_bonus=night_bonus,
+                    enter_t1=enter_t1,
+                    enter_t2=enter_t2,
                 )
-                return redirect("base:planer_initial_form", _id)
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
+
+        if "form6" in request.POST:
+            form6 = forms.RuiningOutlineForm(request.POST)
+            if form6.is_valid():
+                catapult_default: str = request.POST.get("initial_outline_catapult_default")
+                catapult_left: str = request.POST.get("initial_outline_off_left_catapult")
+                initial_outline_ruining_order: str = request.POST.get(
+                    "initial_outline_ruining_order"
+                )
+                initial_outline_average_ruining_points: str = request.POST.get(
+                    "initial_outline_average_ruining_points"
+                )
+
+                instance.initial_outline_catapult_default = catapult_default
+                instance.initial_outline_off_left_catapult = catapult_left
+                instance.initial_outline_ruining_order = initial_outline_ruining_order
+                instance.initial_outline_average_ruining_points = (
+                    initial_outline_average_ruining_points
+                )
+
+                instance.save()
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
 
         if "formset" in request.POST and formset_select is not None:
             formset_select = formset_select(request.POST)
@@ -212,7 +324,10 @@ def initial_form(request, _id):
                         "mode_guide",
                     ],
                 )
-                return redirect("base:planer_initial_form", _id)
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
+                )
         else:
             if formset_select is not None:
                 formset_select = formset_select(None)
@@ -236,36 +351,79 @@ def initial_form(request, _id):
         "form3": form3,
         "form4": form4,
         "form5": form5,
+        "form6": form6,
         "formset": formset_select,
         "fake_dups": fake_dups,
         "target_dups": target_dups,
+        "ruin_dups": ruin_dups,
+        "mode": target_mode.mode,
+        "len_real": len_real,
+        "len_fake": len_fake,
+        "len_ruin": len_ruin,
+        "premium_error": premium_error,
     }
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
 
 @login_required
-def initial_planer(request, _id):
+def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
     """ view with form for initial period outline """
-    instance = get_object_or_404(
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
     if instance.written == "inactive":
         return Http404()
+
+    filter_form = forms.SetTargetsMenuFilters(None)
+    filter_form.fields["filter_targets_number"].initial = instance.filter_targets_number
+
+    mode = basic.Mode(request.GET.get("mode"))
     if request.method == "POST":
         if "form1" in request.POST:
             instance.remove_user_outline()
             return redirect("base:planer_initial_form", _id)
 
-    mode = basic.Mode(request.GET.get("mode"))
+        if "form-filter-targets" in request.POST:
+            filter_form = forms.SetTargetsMenuFilters(request.POST)
+            if filter_form.is_valid():
+                page_number = request.GET.get("page") or 1
+                cards = request.POST.get("filter_targets_number")
+                instance.filter_targets_number = cards
+
+                instance.save()
+
+                return redirect(
+                    reverse("base:planer_initial", args=[_id])
+                    + f"?page={page_number}&mode={str(mode)}"
+                )
 
     if mode.is_menu:
-        queries = basic.TargetWeightQueries(outline=instance, fake=False)
+        queries = basic.TargetWeightQueries(outline=instance, fake=False, ruin=False)
         target_dict = queries.target_dict_with_weights_read()
-        paginator = Paginator(list(target_dict.items()), 12)
+        paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
 
-        context = {"instance": instance, "query": page_obj, "mode": str(mode)}
+        context = {
+            "instance": instance,
+            "query": page_obj,
+            "mode": str(mode),
+            "filter_form": filter_form,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
+        }
 
         return render(
             request,
@@ -274,13 +432,32 @@ def initial_planer(request, _id):
         )
 
     elif mode.is_fake:
-        queries = basic.TargetWeightQueries(outline=instance, fake=True)
+        queries = basic.TargetWeightQueries(outline=instance, fake=True, ruin=False)
         target_dict = queries.target_dict_with_weights_read()
-        paginator = Paginator(list(target_dict.items()), 12)
+        paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
 
-        context = {"instance": instance, "query": page_obj, "mode": str(mode)}
+        context = {
+            "instance": instance,
+            "query": page_obj,
+            "mode": str(mode),
+            "filter_form": filter_form,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
+        }
 
         return render(
             request,
@@ -288,44 +465,98 @@ def initial_planer(request, _id):
             context,
         )
 
-    elif mode.is_add_and_remove:
-        queries = basic.TargetWeightQueries(outline=instance, every=True)
+    elif mode.is_ruin:
+        queries = basic.TargetWeightQueries(outline=instance, fake=False, ruin=True)
         target_dict = queries.target_dict_with_weights_read()
-        for target, lst in target_dict.items():
-            number = len(lst)
-            target_dict[target] = number
-        reals = len([target for target in target_dict if target.fake == False])
-        fakes = len([target for target in target_dict if target.fake == True])
-
-        paginator = Paginator(list(target_dict.items()), 20)
+        paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
         page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
+
+        context = {
+            "instance": instance,
+            "query": page_obj,
+            "mode": str(mode),
+            "filter_form": filter_form,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
+        }
+
+        return render(
+            request,
+            "base/new_outline/new_outline_initial_period2_4.html",
+            context,
+        )
+
+    elif mode.is_add_and_remove:
+        player = request.GET.get("player") or ""
+        coord = request.GET.get("coord") or ""
+
+        queries = basic.TargetWeightQueries(
+            outline=instance, every=True, filtr=[player, coord]
+        )
+        target_dict = queries.target_dict_with_weights_read()
+        paginator = Paginator(list(target_dict.items()), instance.filter_targets_number)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
+
         message = request.session.get("success")
         if message:
             del request.session["success"]
-        page_obj = paginator.get_page(page_number)
 
         if request.method == "POST":
             if "create" in request.POST:
+                user: User = request.user
+                profile: models.Profile = models.Profile.objects.get(user=user)
+                is_premium: bool = profile.is_premium()
+
                 target_form = forms.CreateNewInitialTarget(
-                    request.POST, outline=instance
+                    request.POST, outline=instance, is_premium=is_premium
                 )
                 if target_form.is_valid():
-                    fake = request.POST.get("fake")
-                    if fake == "on":
-                        fake = True
-                    if fake is None:
+                    target_type = request.POST.get("type-form")
+                    if target_type == "real":
                         fake = False
+                        ruin = False
+                    elif target_type == "fake":
+                        fake = True
+                        ruin = False
+                    elif target_type == "ruin":
+                        fake = False
+                        ruin = True
+                    else:
+                        return Http404()
                     coord = request.POST.get("target")
-
                     village = models.VillageModel.objects.select_related().get(
                         coord=coord, world=instance.world
                     )
-
                     models.TargetVertex.objects.create(
                         outline=instance,
                         player=village.player.name,
                         target=coord,
                         fake=fake,
+                        ruin=ruin,
                     )
                     request.session["success"] = "success"
                     return redirect(
@@ -333,9 +564,13 @@ def initial_planer(request, _id):
                         + f"?page={page_obj.number}&mode={str(mode)}"
                     )
             else:
-                target_form = forms.CreateNewInitialTarget(None, outline=instance)
+                target_form = forms.CreateNewInitialTarget(
+                    None, outline=instance, is_premium=True
+                )
         else:
-            target_form = forms.CreateNewInitialTarget(None, outline=instance)
+            target_form = forms.CreateNewInitialTarget(
+                None, outline=instance, is_premium=True
+            )
 
         context = {
             "message": message,
@@ -343,8 +578,14 @@ def initial_planer(request, _id):
             "instance": instance,
             "query": page_obj,
             "mode": str(mode),
-            "fakes": fakes,
-            "reals": reals,
+            "filter_form": filter_form,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
+            "player": player,
+            "coord": coord,
         }
 
         return render(
@@ -354,7 +595,9 @@ def initial_planer(request, _id):
         )
 
     elif mode.is_time:
-        queries = basic.TargetWeightQueries(outline=instance, every=True)
+        queries = basic.TargetWeightQueries(
+            outline=instance, every=True, only_with_weights=True
+        )
         try:
             error = request.session["outline_error"]
         except KeyError:
@@ -363,17 +606,23 @@ def initial_planer(request, _id):
             del request.session["outline_error"]
         time_id_and_periods = queries.time_period_dictionary()
 
-        dict_order_to_time_obj = time_id_and_periods[0]
         dict_time_obj_to_periods = time_id_and_periods[1]
         dict_target_to_weights = queries.target_dict_with_weights_read()
 
-        paginator = Paginator(list(dict_target_to_weights.items()), 12)
+        paginator = Paginator(
+            list(dict_target_to_weights.items()), instance.filter_targets_number
+        )
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
-
-        choices = [
-            (f"{time.order}", f"{time.order}") for time in dict_time_obj_to_periods
-        ]
+        targets = models.TargetVertex.objects.filter(outline=instance)
+        count_targets = targets.filter(fake=False, ruin=False).count()
+        count_fake = targets.filter(fake=True, ruin=False).count()
+        count_ruin = targets.filter(fake=False, ruin=True).count()
+        weights = models.WeightMaximum.objects.filter(outline=instance)
+        count_off = weights.filter(
+            off_left__gte=instance.initial_outline_min_off
+        ).count()
+        count_noble = weights.aggregate(sum=Sum("nobleman_left"))["sum"]
 
         select_formset = formset_factory(
             form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
@@ -389,9 +638,17 @@ def initial_planer(request, _id):
 
         if request.method == "POST":
             if "form-finish" in request.POST:
+                with_weight_targets = (
+                    models.WeightModel.objects.select_related("target")
+                    .filter(target__outline=instance)
+                    .distinct("target")
+                    .values_list("target", flat=True)
+                )
+
                 target_with_no_time = (
                     models.TargetVertex.objects.filter(outline=instance)
                     .filter(outline_time=None)
+                    .filter(id__in=with_weight_targets)
                     .exists()
                 )
                 if target_with_no_time:
@@ -438,48 +695,23 @@ def initial_planer(request, _id):
                         for err in form.errors:
                             form.fields[err].widget.attrs["class"] += " border-invalid"
 
-            if "choice-formset" in request.POST:
-                select_formset = select_formset(request.POST)
-                for form in select_formset.forms:
-                    form.fields["choice"].choices = choices
-                create_formset = create_formset()
-                if select_formset.is_valid():
-                    update_list = []
-                    for data, tup in zip(select_formset.cleaned_data, page_obj):
-                        try:
-                            index = int(data["choice"])
-                        except KeyError:
-                            continue
-                        else:
-                            outline_time = dict_order_to_time_obj[index]
-
-                        if tup[0].outline_time != outline_time:
-                            tup[0].outline_time = outline_time
-                            update_list.append(tup[0])
-                    models.TargetVertex.objects.bulk_update(
-                        update_list, ["outline_time"]
-                    )
-                    return redirect(
-                        reverse("base:planer_initial", args=[_id])
-                        + f"?page={page_obj.number + 1}&mode={str(mode)}"
-                    )
-
         else:
             create_formset = create_formset()
-            select_formset = select_formset()
-
-        for form, target_lst in zip(select_formset.forms, page_obj):
-            form.fields["choice"].choices = choices
-            target_lst[0].form = form
 
         context = {
             "instance": instance,
             "outline_time": dict_time_obj_to_periods,
             "query": page_obj,
             "mode": str(mode),
+            "filter_form": filter_form,
             "formset": create_formset,
             "choice_formset": select_formset,
             "error": error,
+            "count_targets": count_targets,
+            "count_fake": count_fake,
+            "count_ruin": count_ruin,
+            "count_off": count_off,
+            "count_noble": count_noble,
         }
 
         return render(
@@ -490,7 +722,7 @@ def initial_planer(request, _id):
 
 
 @login_required
-def initial_target(request, id1, id2):
+def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     """ view with form for initial period outline detail """
     instance = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
@@ -505,7 +737,11 @@ def initial_target(request, id1, id2):
 
     link_to_tw = instance.world.tw_stats_link_to_village(village_id)
 
-    result_lst = models.WeightModel.objects.filter(target=target).order_by("order")
+    result_lst = (
+        models.WeightModel.objects.select_related("state")
+        .filter(target=target)
+        .order_by("order")
+    )
     for weight in result_lst:
         weight.distance = round(weight.distance, 1)
     # sort
@@ -549,26 +785,51 @@ def initial_target(request, id1, id2):
                 weight_id = request.POST.get("weight_id")
                 off = int(request.POST.get("off"))
                 nobleman = int(request.POST.get("nobleman"))
+                weight: models.WeightModel = models.WeightModel.objects.select_related(
+                    "state"
+                ).filter(pk=weight_id)[0]
+                state: models.WeightMaximum = weight.state
+                off_diffrence = off - weight.off
+                noble_diffrence = nobleman - weight.nobleman
 
-                weight = models.WeightModel.objects.select_related("state").filter(
-                    id=weight_id
-                )[0]
-                state = weight.state
+                state.off_state += off_diffrence
+                state.off_left -= off_diffrence
+                state.nobleman_state += noble_diffrence
+                state.nobleman_left -= noble_diffrence
 
+                off_additional = 0
                 if off > weight.off:
-                    state.off_max += off - weight.off
+                    if off > weight.off + state.off_left - state.catapult_left * 8:
+                        off_from_catapults = weight.off + state.off_left - off
+                        catapults_up = min(
+                            (off_from_catapults // 8) + 1, state.catapult_left
+                        )
+                        state.catapult_state += catapults_up
+                        state.catapult_left -= catapults_up
+                        state.off_state += catapults_up * 8 - off_from_catapults
+                        state.off_left -= catapults_up * 8 - off_from_catapults
+                        off_additional = catapults_up * 8 - off_from_catapults
+                    else:
+                        catapults_up = 0
+                    catapults = weight.catapult + catapults_up
+                else:
+                    if weight.catapult * 8 > off:
+                        off_from_catapults = weight.catapult * 8 - off
+                        catapults_down = min(
+                            (off_from_catapults // 8) + 1, weight.catapult
+                        )
+                        state.catapult_state -= catapults_down
+                        state.catapult_left += catapults_down
+                        state.off_state -= catapults_down * 8 - off_from_catapults
+                        state.off_left += catapults_down * 8 - off_from_catapults
+                        off_additional = off_from_catapults - catapults_down * 8
+                    else:
+                        catapults_down = 0
+                    catapults = weight.catapult - catapults_down
 
-                if nobleman > weight.nobleman:
-                    state.nobleman_max += nobleman - weight.nobleman
-
-                state.off_state = state.off_state - weight.off + off
-                state.nobleman_state = state.nobleman_state - weight.nobleman + nobleman
-
-                state.off_left = state.off_max - state.off_state
-                state.nobleman_left = state.nobleman_max - state.nobleman_state
-
-                weight.off = off
+                weight.off = off + off_additional
                 weight.nobleman = nobleman
+                weight.catapult = catapults
 
                 weight.save()
                 state.save()
@@ -604,45 +865,69 @@ def initial_target(request, id1, id2):
         "sort": sort,
         "paint": paint,
     }
-    if target.fake:
-        return render(
-            request,
-            "base/new_outline/new_outline_initial_period3_1.html",
-            context,
-        )
-    else:
-        return render(
-            request,
-            "base/new_outline/new_outline_initial_period3.html",
-            context,
-        )
+
+    return render(
+        request,
+        "base/new_outline/new_outline_initial_period3.html",
+        context,
+    )
 
 
 @require_POST
 @login_required
-def initial_delete_time(request, pk):
-    outline_time = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
-    outline = get_object_or_404(
+def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
+    outline_time: models.OutlineTime = get_object_or_404(
+        models.OutlineTime.objects.select_related(), pk=pk
+    )
+    outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
-    mode = request.GET.get("mode")
-    page = request.GET.get("page")
+    mode: str = request.GET.get("mode")
+    page: str = request.GET.get("page")
+    if outline.default_off_time_id == outline_time.pk:
+        outline.default_off_time_id = None
+    if outline.default_fake_time_id == outline_time.pk:
+        outline.default_fake_time_id = None
+    if outline.default_ruin_time_id == outline_time.pk:
+        outline.default_ruin_time_id = None
+
+    outline.save()
     outline_time.delete()
     return redirect(
         reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
     )
 
+
 @require_POST
 @login_required
-def initial_set_all_time(request, pk):
-    outline_time = get_object_or_404(models.OutlineTime.objects.select_related(), pk=pk)
-    outline = get_object_or_404(
+def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
+    outline_time: models.OutlineTime = get_object_or_404(
+        models.OutlineTime.objects.select_related(), pk=pk
+    )
+    outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
-    mode = request.GET.get("mode")
-    page = request.GET.get("page")
-    targets = models.TargetVertex.objects.filter(outline=outline)
+    mode: str = request.GET.get("mode")
+    page: str = request.GET.get("page")
+    fake: str = request.GET.get("fake")
+    ruin: str = request.GET.get("ruin")
+
+    if fake == "true":
+        fake = True
+        ruin = False
+        outline.default_fake_time_id = outline_time.pk
+    elif ruin == "true":
+        fake = False
+        ruin = True
+        outline.default_ruin_time_id = outline_time.pk
+    else:
+        fake = False
+        ruin = False
+        outline.default_off_time_id = outline_time.pk
+
+    targets = models.TargetVertex.objects.filter(outline=outline, fake=fake, ruin=ruin)
     targets.update(outline_time=outline_time)
+    outline.save()
 
     return redirect(
         reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
@@ -650,9 +935,11 @@ def initial_set_all_time(request, pk):
 
 
 @login_required
-def create_final_outline(request, id1):
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
-    target_with_no_time = (
+def create_final_outline(request: HttpRequest, id1: int) -> HttpResponse:
+    instance: models.Outline = get_object_or_404(
+        models.Outline.objects.select_related(), id=id1, owner=request.user
+    )
+    target_with_no_time: bool = (
         models.TargetVertex.objects.filter(outline=instance)
         .filter(outline_time=None)
         .exists()
@@ -662,14 +949,28 @@ def create_final_outline(request, id1):
         return redirect(
             reverse("base:planer_initial", args=[id1]) + "?page=1&mode=time"
         )
+
     models.Overview.objects.filter(outline=instance).update(removed=True)
     finish.make_final_outline(instance)
     return redirect("base:planer_detail_results", id1)
 
 
 @login_required
-def complete_outline(request, id1):
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
+def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
+    instance: models.Outline = get_object_or_404(
+        models.Outline.objects.select_related(), id=id1, owner=request.user
+    )
+    user: User = request.user
+    profile: models.Profile = models.Profile.objects.get(user=user)
+    if not profile.is_premium():
+        target_mode = request.GET.get("t")
+        target_count = models.TargetVertex.objects.filter(outline=instance).count()
+        if target_count > 25:
+            request.session["premium_error"] = True
+            return redirect(
+                reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}"
+            )
+
     initial.complete_outline(outline=instance)
     instance.written = "active"
     instance.save()
@@ -677,19 +978,29 @@ def complete_outline(request, id1):
 
 
 @login_required
-def update_outline_troops(request, id1):
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=id1, owner=request.user)
+def update_outline_troops(request: HttpRequest, id1: int) -> HttpResponse:
+    instance: models.Outline = get_object_or_404(
+        models.Outline.objects.select_related(), id=id1, owner=request.user
+    )
     models.WeightMaximum.objects.filter(outline=instance).delete()
-    off_form = forms.OffTroopsForm({"off_troops": instance.off_troops}, outline=instance)
+    off_form: forms.OffTroopsForm = forms.OffTroopsForm(
+        {"off_troops": instance.off_troops}, outline=instance
+    )
     if off_form.is_valid():
-        initial.make_outline(instance, make_targets=False)
+        initial.make_outline(instance, target_mode=None)
     else:
-        request.session["error"] = gettext("<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>")
+        request.session["error"] = gettext(
+            "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+        )
 
         return redirect("base:planer_detail", id1)
+    target_mode = basic.TargetMode(request.GET.get("t"))
     instance.avaiable_offs = []
     instance.avaiable_offs_near = []
     instance.avaiable_nobles = []
     instance.avaiable_nobles_near = []
+    instance.avaiable_ruins = None
     instance.save()
-    return redirect("base:planer_initial_form", id1)
+    return redirect(
+        reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode.mode}"
+    )
