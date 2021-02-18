@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-18 01:55+0100\n"
+"POT-Creation-Date: 2021-02-18 14:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1824,7 +1824,7 @@ msgstr "Aktywne do dnia"
 
 #: base/templates/base/user/premium.html:18
 msgid "Not active"
-msgstr "Nie aktywne"
+msgstr "Nieaktywne"
 
 #: base/templates/base/user/premium.html:24
 msgid "Payment can be made to the number below:"
@@ -1869,8 +1869,8 @@ msgid "30 zł"
 msgstr "30 zł"
 
 #: base/templates/base/user/premium.html:52
-msgid "50 zł"
-msgstr "50 zł"
+msgid "55 zł"
+msgstr "55 zł"
 
 #: base/templates/base/user/premium.html:53
 msgid "70 zł"
@@ -1946,7 +1946,7 @@ msgstr "Aktywne"
 
 #: base/templates/base/user/profile_settings.html:36
 msgid "Not activated"
-msgstr "Nie aktywne"
+msgstr "Nieaktywne"
 
 #: base/templates/base/user/profile_settings.html:42
 msgid "Premium validity"
@@ -2362,6 +2362,9 @@ msgstr "Znak"
 #: tribal_wars/basic/village.py:90
 msgid "Is not equal to '|'!"
 msgstr "Nie jest równy '|'!"
+
+#~ msgid "50 zł"
+#~ msgstr "50 zł"
 
 #~ msgid "Send <b>OFF</b> (Off-"
 #~ msgstr "Wyślij <b>OFF</b> (Off-"
