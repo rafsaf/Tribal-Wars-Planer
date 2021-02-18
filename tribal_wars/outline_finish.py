@@ -53,7 +53,7 @@ def make_final_outline(outline: models.Outline):
             json_weights[target.pk] = list()
             lst = models.WeightModel.objects.filter(target=target).select_related(
                 "target", "state"
-            )
+            ).order_by("order")
             info_line = info_generatation.TargetCount(target, lst)
             outline_info.add_target_info(info_line.line, info_line.target_type)
 
