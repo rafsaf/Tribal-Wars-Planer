@@ -2,6 +2,7 @@ import datetime
 import random
 from collections import deque
 from math import inf
+from typing import List
 
 from django.utils.translation import gettext
 
@@ -11,13 +12,13 @@ from tribal_wars import basic
 
 class FromPeriods:
     def __init__(
-        self, periods: list(), world: int, date: datetime.date
+        self, periods: List[models.PeriodModel], world: models.World, date: datetime.date
     ):
-        self.date_time = datetime.datetime(
+        self.date_time: datetime.datetime = datetime.datetime(
             year=date.year, month=date.month, day=date.day
         )
-        self.world = world
-        self.periods = periods
+        self.world: models.World = world
+        self.periods: List[models.PeriodModel] = periods
         self.nob_periods = deque(
             [period for period in periods if period.unit == "noble"]
         )
@@ -31,7 +32,7 @@ class FromPeriods:
     def next(self, weight: models.WeightModel) -> models.WeightModel:
         if weight.nobleman == 0 and not weight.ruin:
             if self.ram_period is None:
-                period = self.ram_periods.popleft()
+                period: models.PeriodModel = self.ram_periods.popleft()
                 period.attack_number = self.attack_number(period)
                 self.ram_period = period
 
@@ -54,7 +55,7 @@ class FromPeriods:
 
         return result
 
-    def attack_number(self, period: models.PeriodModel)-> int:
+    def attack_number(self, period: models.PeriodModel)-> float:
         n1 = period.from_number
         n2 = period.to_number
         if n2 is None:

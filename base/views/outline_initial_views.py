@@ -1,4 +1,5 @@
 from collections import Counter
+from typing import Dict, Set
 from django.contrib.auth.models import User
 
 from django.db.models import Sum
@@ -659,7 +660,9 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
                         reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
                     )
                 models.Overview.objects.filter(outline=instance).update(removed=True)
-                finish.make_final_outline(instance)
+                error_messages = finish.make_final_outline(instance)
+                if len(error_messages) > 0:
+                    request.session["error_messages"] = ",".join(error_messages)
                 return redirect("base:planer_detail_results", _id)
 
             if "formset" in request.POST:
@@ -952,6 +955,7 @@ def create_final_outline(request: HttpRequest, id1: int) -> HttpResponse:
 
     models.Overview.objects.filter(outline=instance).update(removed=True)
     finish.make_final_outline(instance)
+
     return redirect("base:planer_detail_results", id1)
 
 

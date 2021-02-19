@@ -1,5 +1,7 @@
+from django.utils.translation import gettext as _
 import secrets
 import json
+from typing import Dict, Set
 from tribal_wars.basic import info_generatation
 from tribal_wars import period_utils
 from base import models
@@ -8,7 +10,13 @@ from django.forms.models import model_to_dict
 from django.core.serializers.json import DjangoJSONEncoder
 
 
-def make_final_outline(outline: models.Outline):
+def make_final_outline(outline: models.Outline) -> Set[str]:
+    target_msg: str = _("Target")
+    village_msg: str = _("Village")
+    player_msg: str = _("Player")
+    not_exist_msg: str = _("does not exists")
+    error_messages_set: Set[str] = set()
+
     distinct_player_names = list(
         models.WeightMaximum.objects.filter(outline=outline)
         .distinct("player")
@@ -43,10 +51,9 @@ def make_final_outline(outline: models.Outline):
     target_period_dict = queries.target_period_dictionary()
     # target - lst[weight1, weight2, ...]
     json_weights = {}
-
     outline_info = basic.OutlineInfo(outline=outline)
-
     text = basic.TableText(world=outline.world)
+
     with text:
         target: models.TargetVertex
         for target in queries.targets:
@@ -64,15 +71,30 @@ def make_final_outline(outline: models.Outline):
             weight: models.WeightModel
             for weight in lst:
                 weight = from_period.next(weight=weight)
+                try:
+                    ally_id = village_id[weight.start]
+                except KeyError:
+                    error_messages_set.add(f"{village_msg} {weight.start} {not_exist_msg}")
+                    continue
+                try:
+                    enemy_id = village_id[weight.target.target]
+                except KeyError:
+                    error_messages_set.add(f"{target_msg} {weight.target.target} {not_exist_msg}")
+                    continue
+                try:
+                    deputy_id = player_id[weight.player]
+                except KeyError:
+                    error_messages_set.add(f"{player_msg} {weight.player} {not_exist_msg}")
+                    continue
 
                 text.add_weight(
                     weight=weight,
-                    ally_id=village_id[weight.start],
-                    enemy_id=village_id[weight.target.target],
+                    ally_id=ally_id,
+                    enemy_id=enemy_id,
                     fake=target.fake,
-                    deputy=player_id[weight.player],
+                    deputy=deputy_id,
                 )
-
+                
                 weight.t1 = weight.t1.time()
                 weight.t2 = weight.t2.time()
 
@@ -125,3 +147,5 @@ def make_final_outline(outline: models.Outline):
             )
         )
     models.Overview.objects.bulk_create(overviews)
+
+    return error_messages_set
