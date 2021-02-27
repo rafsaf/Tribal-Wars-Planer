@@ -1,5 +1,8 @@
+from typing import Optional
+
+
 class Mode:
-    def __init__(self, request_GET_mode: str):
+    def __init__(self, request_GET_mode: Optional[str]):
         VALID = [
             "menu",
             "time",
@@ -39,8 +42,9 @@ class Mode:
     def __str__(self):
         return self.mode
 
+
 class TargetMode:
-    def __init__(self, request_GET_mode: str):
+    def __init__(self, request_GET_mode: Optional[str]):
         VALID = [
             "real",
             "fake",
@@ -54,6 +58,7 @@ class TargetMode:
                 self.mode = request_GET_mode
             else:
                 self.mode = "real"
+
     @property
     def is_real(self):
         return self.mode == "real"
@@ -71,7 +76,7 @@ class TargetMode:
         if self.is_fake:
             return True
         return False
-    
+
     @property
     def ruin(self):
         if self.is_ruin:

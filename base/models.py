@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta
 
 import django
 from django.db.models.fields import BooleanField
+from django.utils import timezone
 from django.utils.translation import gettext_lazy, gettext
 from django.db import models
 from django.contrib.auth.models import User
@@ -12,7 +13,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.utils import timezone
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
@@ -32,13 +32,15 @@ class Profile(models.Model):
     server = models.ForeignKey(
         Server, on_delete=models.SET_NULL, null=True, default=None
     )
-    validity_date = models.DateField(default=datetime.date(year=2021, month=2, day=25), blank=True, null=True)
+    validity_date = models.DateField(
+        default=datetime.date(year=2021, month=2, day=25), blank=True, null=True
+    )
 
     def is_premium(self) -> bool:
         if self.validity_date is None:
             return False
-        today = timezone.now()
-        if today.date() > self.validity_date:
+        today = timezone.localdate()
+        if today > self.validity_date:
             return False
         return True
 
@@ -292,8 +294,9 @@ class Outline(models.Model):
     initial_outline_fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )
-    initial_outline_fake_mode = models.CharField(max_length=60, choices=FAKE_MIN_OFF_CHOICES, default="off")
-
+    initial_outline_fake_mode = models.CharField(
+        max_length=60, choices=FAKE_MIN_OFF_CHOICES, default="off"
+    )
     off_troops = models.TextField(
         blank=True,
         default="",
@@ -675,7 +678,7 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
         user: User = instance.user
         user_profile: Profile = Profile.objects.get(user=user)
 
-        current_date: datetime.date = instance.payment_date
+        current_date: datetime.date = timezone.localdate()
         relative_months: relativedelta = relativedelta(months=instance.months)
         day: relativedelta = relativedelta(days=1)
         if user_profile.validity_date is None:
