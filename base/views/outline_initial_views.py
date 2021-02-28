@@ -1,9 +1,7 @@
-from collections import Counter
-from typing import Dict, List, Optional, Set, Union
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import AnonymousUser, User
-from django.db.models.aggregates import Count
+from typing import Optional, Union
 
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404, HttpRequest, HttpResponse
@@ -85,41 +83,24 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     form4 = forms.ModeOutlineForm(None)
     form5 = forms.NightBonusSetForm(None)
     form6 = forms.RuiningOutlineForm(None)
-    targets = models.TargetVertex.objects.filter(outline=instance)
-    len_targets: int = len(targets)
-    len_fake: int = len([target for target in targets if target.fake])
-    len_ruin: int = len([target for target in targets if target.ruin])
-    len_real: int = len_targets - len_fake - len_ruin
-    duplicated_reals = targets.filter(fake=False, ruin=False)
-    duplicate_dict: Dict[str, List[int]] = {}
-    for i, target in enumerate(targets.order_by("pk")):
-        if target.target in duplicate_dict:
-            duplicate_dict[target.target].append(i + 1)
-        else:
-            duplicate_dict[target.target] = [i + 1]
-    print(duplicate_dict)
-    target_dups = (
-        targets.filter(fake=False, ruin=False)
-        .values("target")
-        .annotate(duplicate=Count("target"))
-        .values("target", "duplicate")
-    )
-    fake_dups = (
-        targets.filter(fake=True, ruin=False)
-        .values("target")
-        .annotate(duplicate=Count("target"))
-        .values_list("target", "duplicate")
-    )
-    ruin_dups = (
-        targets.filter(fake=False, ruin=True)
-        .values("target")
-        .annotate(duplicate=Count("target"))
-        .values_list("target", "duplicate")
+
+    calculations: basic.CalcultateDuplicates = basic.CalcultateDuplicates(
+        outline=instance, target_mode=target_mode
     )
 
-    if targets.count() <= 100:
+    len_fake = calculations.len_fake
+    len_ruin = calculations.len_ruin
+    len_real = calculations.len_real
+
+    real_dups = calculations.real_duplicates()
+    fake_dups = calculations.fake_duplicates()
+    ruin_dups = calculations.ruin_duplicates()
+
+    if type(calculations.actual_len) is int and calculations.actual_len <= 100:
         formset_select = formset_factory(
-            form=forms.ModeTargetSetForm, extra=len_targets, max_num=len_targets
+            form=forms.ModeTargetSetForm,
+            extra=calculations.actual_len,
+            max_num=calculations.actual_len,
         )
     else:
         formset_select = None
@@ -270,8 +251,8 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     night_bonus = True
                 else:
                     night_bonus = False
-                enter_t1 = request.POST.get("enter_t1")
-                enter_t2 = request.POST.get("enter_t2")
+                enter_t1: Optional[str] = request.POST.get("enter_t1")
+                enter_t2: Optional[str] = request.POST.get("enter_t2")
                 instance.night_bonus = night_bonus
                 instance.enter_t1 = enter_t1
                 instance.enter_t2 = enter_t2
@@ -318,10 +299,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if "formset" in request.POST and formset_select is not None:
             formset_select = formset_select(request.POST)
             if formset_select.is_valid():
+                targets = calculations.actual_targets()
                 targets_to_update = []
-                for data, target in zip(
-                    formset_select.cleaned_data, targets.order_by("pk")
-                ):
+                for data, target in zip(formset_select.cleaned_data, targets):
                     if data == {}:
                         continue
                     target.mode_off = data["mode_off"]
@@ -349,7 +329,8 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if formset_select is not None:
             formset_select = formset_select(None)
     if formset_select is not None:
-        for form, target in zip(formset_select, targets.order_by("pk")):
+        targets = calculations.actual_targets()
+        for form, target in zip(formset_select, targets):
             form.target = target
             form.fields["mode_off"].initial = target.mode_off
             form.fields["mode_noble"].initial = target.mode_noble
@@ -368,7 +349,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "form6": form6,
         "formset": formset_select,
         "fake_dups": fake_dups,
-        "target_dups": target_dups,
+        "real_dups": real_dups,
         "ruin_dups": ruin_dups,
         "mode": target_mode.mode,
         "len_real": len_real,

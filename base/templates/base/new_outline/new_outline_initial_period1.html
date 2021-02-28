@@ -44,6 +44,13 @@
             .t-tab-teal.t-tab-teal-active {
               box-shadow: 0 -5px 0 0 teal;
             }
+
+            .lines-wrapper {
+              color: #999;
+              font-family: monospace;
+              background-color: #f7f7f7;
+              border: 1px solid #ddd!important
+            }
           </style>
           <div class="mb-4 mt-2">
             {% if mode == "real" %}
@@ -88,22 +95,37 @@
                 <div class="collapse mb-3 mt-1" id="collapseRepeat">
                   <div class="card card-body">
                     <div class="row">
-                      <div class="col-4">
+                      <div class="col-auto my-1">
                         <h5>{% trans 'Targets-Duplicated' %}</h5>
-                        {% for coord, dup in target_dups %}
-                        <p class="my-0">{{coord}} - {{dup}}</p>
+                        {% for dict in real_dups %}
+                        <p class="my-0">
+                          {{dict.target}} - {{dict.duplicate}} &nbsp; 
+                          <span class="lines-wrapper">
+                            {{dict.lines}}
+                          </span> 
+                        </p>
                         {% endfor %}
                       </div>
-                      <div class="col-4">
+                      <div class="col-auto my-1">
                         <h5>{% trans 'Fakes-Duplicated' %}</h5>
-                        {% for coord, dup in fake_dups %}
-                        <p class="my-0">{{coord}} - {{dup}}</p>
+                        {% for dict in fake_dups %}
+                        <p class="my-0">
+                          {{dict.target}} - {{dict.duplicate}} &nbsp; 
+                          <span class="lines-wrapper">
+                            {{dict.lines}}
+                          </span> 
+                        </p>
                         {% endfor %}
                       </div>
-                      <div class="col-4">
+                      <div class="col-auto my-1">
                         <h5>{% trans 'Ruin-Duplicated' %}</h5>
-                        {% for coord, dup in ruin_dups %}
-                        <p class="my-0">{{coord}} - {{dup}}</p>
+                        {% for dict in ruin_dups %}
+                        <p class="my-0">
+                          {{dict.target}} - {{dict.duplicate}} &nbsp; 
+                          <span class="lines-wrapper">
+                            {{dict.lines}}
+                          </span> 
+                        </p>
                         {% endfor %}
                       </div>
                     </div>
