@@ -12,3 +12,4 @@ from .sort_detail_view import *
 from .off_text import *
 from .info_generatation import *
 from .target_line import *
+from .calculate_duplicates import *

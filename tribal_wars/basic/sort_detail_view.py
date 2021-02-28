@@ -1,3 +1,4 @@
+from typing import Optional
 from django.core.paginator import Paginator
 from django.db.models import F, ExpressionWrapper, FloatField, Avg, Max
 
@@ -5,7 +6,7 @@ from base import models
 
 
 class SortAndPaginRequest:
-    def __init__(self, outline, GET_request: str, PAGE_request, target):
+    def __init__(self, outline, GET_request: Optional[str], PAGE_request, target):
         self.outline = outline
         self.target = target.target
         self.x_coord = target.coord_tuple()[0]
@@ -77,16 +78,14 @@ class SortAndPaginRequest:
             return self.__pagin(query)
 
         elif self.sort == "random_distance":
-            query = (
-                query.annotate(
-                    distance=ExpressionWrapper(
-                        (
-                            (F("x_coord") - self.x_coord) ** 2
-                            + (F("y_coord") - self.y_coord) ** 2
-                        )
-                        ** (1 / 2),
-                        output_field=FloatField(max_length=5),
+            query = query.annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
                     )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
                 )
             )
             query = query.order_by("?")
@@ -138,17 +137,16 @@ class SortAndPaginRequest:
             return self.__pagin(query)
 
         elif self.sort == "random_offs":
-            query = (
-                query.filter(off_left__gte=self.outline.initial_outline_min_off)
-                .annotate(
-                    distance=ExpressionWrapper(
-                        (
-                            (F("x_coord") - self.x_coord) ** 2
-                            + (F("y_coord") - self.y_coord) ** 2
-                        )
-                        ** (1 / 2),
-                        output_field=FloatField(max_length=5),
+            query = query.filter(
+                off_left__gte=self.outline.initial_outline_min_off
+            ).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
                     )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
                 )
             )
             query = query.order_by("?")
@@ -190,17 +188,14 @@ class SortAndPaginRequest:
             return self.__pagin(query)
 
         elif self.sort == "random_noblemans":
-            query = (
-                query.filter(nobleman_left__gte=1)
-                .annotate(
-                    distance=ExpressionWrapper(
-                        (
-                            (F("x_coord") - self.x_coord) ** 2
-                            + (F("y_coord") - self.y_coord) ** 2
-                        )
-                        ** (1 / 2),
-                        output_field=FloatField(max_length=5),
+            query = query.filter(nobleman_left__gte=1).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
                     )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
                 )
             )
             query = query.order_by("?")
@@ -246,20 +241,17 @@ class SortAndPaginRequest:
             return self.__pagin(query)
 
         elif self.sort == "random_noble_offs":
-            query = (
-                query.filter(
-                    nobleman_left__gte=1,
-                    off_left__gte=self.outline.initial_outline_min_off,
-                )
-                .annotate(
-                    distance=ExpressionWrapper(
-                        (
-                            (F("x_coord") - self.x_coord) ** 2
-                            + (F("y_coord") - self.y_coord) ** 2
-                        )
-                        ** (1 / 2),
-                        output_field=FloatField(max_length=5),
+            query = query.filter(
+                nobleman_left__gte=1,
+                off_left__gte=self.outline.initial_outline_min_off,
+            ).annotate(
+                distance=ExpressionWrapper(
+                    (
+                        (F("x_coord") - self.x_coord) ** 2
+                        + (F("y_coord") - self.y_coord) ** 2
                     )
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
                 )
             )
             query = query.order_by("?")

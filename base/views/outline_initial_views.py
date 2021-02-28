@@ -1,7 +1,7 @@
-from collections import Counter
-from django.contrib.auth.models import User
+from typing import Optional, Union
 
-from django.db.models import Sum
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import Http404, HttpRequest, HttpResponse
@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.forms import formset_factory
 from django.utils.translation import gettext
-from django.db.models import Max
+from django.db.models import Max, Sum
 from django.utils.translation import get_language
 from markdownx.utils import markdownify
 
@@ -83,37 +83,24 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     form4 = forms.ModeOutlineForm(None)
     form5 = forms.NightBonusSetForm(None)
     form6 = forms.RuiningOutlineForm(None)
-    targets = models.TargetVertex.objects.filter(outline=instance).order_by("id")
-    len_targets = len(targets)
-    len_fake = len([target for target in targets if target.fake])
-    len_ruin = len([target for target in targets if target.ruin])
-    len_real = len_targets - len_fake - len_ruin
 
-    target_dups = [
-        (coord, nums)
-        for coord, nums in Counter(
-            [target.target for target in targets if not target.fake and not target.ruin]
-        ).items()
-        if nums > 1
-    ]
-    fake_dups = [
-        (coord, nums)
-        for coord, nums in Counter(
-            [target.target for target in targets if target.fake]
-        ).items()
-        if nums > 1
-    ]
-    ruin_dups = [
-        (coord, nums)
-        for coord, nums in Counter(
-            [target.target for target in targets if target.ruin]
-        ).items()
-        if nums > 1
-    ]
+    calculations: basic.CalcultateDuplicates = basic.CalcultateDuplicates(
+        outline=instance, target_mode=target_mode
+    )
 
-    if len_targets <= 100:
+    len_fake = calculations.len_fake
+    len_ruin = calculations.len_ruin
+    len_real = calculations.len_real
+
+    real_dups = calculations.real_duplicates()
+    fake_dups = calculations.fake_duplicates()
+    ruin_dups = calculations.ruin_duplicates()
+
+    if type(calculations.actual_len) is int and calculations.actual_len <= 100:
         formset_select = formset_factory(
-            form=forms.ModeTargetSetForm, extra=len_targets, max_num=len_targets
+            form=forms.ModeTargetSetForm,
+            extra=calculations.actual_len,
+            max_num=calculations.actual_len,
         )
     else:
         formset_select = None
@@ -227,7 +214,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 mode_guide = request.POST.get("mode_guide")
                 fake_limit = request.POST.get("initial_outline_fake_limit")
                 mode_split = request.POST.get("mode_split")
-                initial_outline_fake_mode = request.POST.get("initial_outline_fake_mode")
+                initial_outline_fake_mode = request.POST.get(
+                    "initial_outline_fake_mode"
+                )
 
                 instance.mode_off = mode_off
                 instance.mode_noble = mode_noble
@@ -262,8 +251,8 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     night_bonus = True
                 else:
                     night_bonus = False
-                enter_t1 = request.POST.get("enter_t1")
-                enter_t2 = request.POST.get("enter_t2")
+                enter_t1: Optional[str] = request.POST.get("enter_t1")
+                enter_t2: Optional[str] = request.POST.get("enter_t2")
                 instance.night_bonus = night_bonus
                 instance.enter_t1 = enter_t1
                 instance.enter_t2 = enter_t2
@@ -281,14 +270,18 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if "form6" in request.POST:
             form6 = forms.RuiningOutlineForm(request.POST)
             if form6.is_valid():
-                catapult_default: str = request.POST.get("initial_outline_catapult_default")
-                catapult_left: str = request.POST.get("initial_outline_off_left_catapult")
-                initial_outline_ruining_order: str = request.POST.get(
+                catapult_default: Optional[str] = request.POST.get(
+                    "initial_outline_catapult_default"
+                )
+                catapult_left: Optional[str] = request.POST.get(
+                    "initial_outline_off_left_catapult"
+                )
+                initial_outline_ruining_order: Optional[str] = request.POST.get(
                     "initial_outline_ruining_order"
                 )
-                initial_outline_average_ruining_points: str = request.POST.get(
-                    "initial_outline_average_ruining_points"
-                )
+                initial_outline_average_ruining_points: Optional[
+                    str
+                ] = request.POST.get("initial_outline_average_ruining_points")
 
                 instance.initial_outline_catapult_default = catapult_default
                 instance.initial_outline_off_left_catapult = catapult_left
@@ -306,6 +299,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if "formset" in request.POST and formset_select is not None:
             formset_select = formset_select(request.POST)
             if formset_select.is_valid():
+                targets = calculations.actual_targets()
                 targets_to_update = []
                 for data, target in zip(formset_select.cleaned_data, targets):
                     if data == {}:
@@ -335,6 +329,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if formset_select is not None:
             formset_select = formset_select(None)
     if formset_select is not None:
+        targets = calculations.actual_targets()
         for form, target in zip(formset_select, targets):
             form.target = target
             form.fields["mode_off"].initial = target.mode_off
@@ -354,7 +349,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "form6": form6,
         "formset": formset_select,
         "fake_dups": fake_dups,
-        "target_dups": target_dups,
+        "real_dups": real_dups,
         "ruin_dups": ruin_dups,
         "mode": target_mode.mode,
         "len_real": len_real,
@@ -372,7 +367,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
     if instance.written == "inactive":
-        return Http404()
+        raise Http404()
 
     filter_form = forms.SetTargetsMenuFilters(None)
     filter_form.fields["filter_targets_number"].initial = instance.filter_targets_number
@@ -527,7 +522,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
 
         if request.method == "POST":
             if "create" in request.POST:
-                user: User = request.user
+                user: Union[AbstractBaseUser, AnonymousUser] = request.user
                 profile: models.Profile = models.Profile.objects.get(user=user)
                 is_premium: bool = profile.is_premium()
 
@@ -546,7 +541,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
                         fake = False
                         ruin = True
                     else:
-                        return Http404()
+                        raise Http404()
                     coord = request.POST.get("target")
                     village = models.VillageModel.objects.select_related().get(
                         coord=coord, world=instance.world
@@ -659,7 +654,9 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
                         reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
                     )
                 models.Overview.objects.filter(outline=instance).update(removed=True)
-                finish.make_final_outline(instance)
+                error_messages = finish.make_final_outline(instance)
+                if len(error_messages) > 0:
+                    request.session["error_messages"] = ",".join(error_messages)
                 return redirect("base:planer_detail_results", _id)
 
             if "formset" in request.POST:
@@ -724,11 +721,11 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
 @login_required
 def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     """ view with form for initial period outline detail """
-    instance = get_object_or_404(
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
     if instance.written == "inactive":
-        return Http404()
+        raise Http404()
 
     target = get_object_or_404(models.TargetVertex, pk=id2)
     village_id = models.VillageModel.objects.get(
@@ -782,26 +779,31 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
         if "form" in request.POST:
             form = forms.WeightForm(request.POST)
             if form.is_valid():
-                weight_id = request.POST.get("weight_id")
-                off = int(request.POST.get("off"))
-                nobleman = int(request.POST.get("nobleman"))
-                weight: models.WeightModel = models.WeightModel.objects.select_related(
-                    "state"
-                ).filter(pk=weight_id)[0]
+                weight_id: Optional[str] = request.POST.get("weight_id")
+                off_post: Optional[str] = request.POST.get("off")
+                nobleman_post: Optional[str] = request.POST.get("nobleman")
+                if nobleman_post is not None and off_post is not None:
+                    nobleman = int(nobleman_post)
+                    off = int(off_post)
+                else:
+                    raise Http404()
+                weight: models.WeightModel = get_object_or_404(
+                    models.WeightModel.objects.select_related("state"), pk=weight_id
+                )
                 state: models.WeightMaximum = weight.state
-                off_diffrence = off - weight.off
-                noble_diffrence = nobleman - weight.nobleman
+                off_diffrence: int = off - weight.off
+                noble_diffrence: int = nobleman - weight.nobleman
 
                 state.off_state += off_diffrence
                 state.off_left -= off_diffrence
                 state.nobleman_state += noble_diffrence
                 state.nobleman_left -= noble_diffrence
 
-                off_additional = 0
+                off_additional: int = 0
                 if off > weight.off:
                     if off > weight.off + state.off_left - state.catapult_left * 8:
-                        off_from_catapults = weight.off + state.off_left - off
-                        catapults_up = min(
+                        off_from_catapults: int = weight.off + state.off_left - off
+                        catapults_up: int = min(
                             (off_from_catapults // 8) + 1, state.catapult_left
                         )
                         state.catapult_state += catapults_up
@@ -814,8 +816,8 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
                     catapults = weight.catapult + catapults_up
                 else:
                     if weight.catapult * 8 > off:
-                        off_from_catapults = weight.catapult * 8 - off
-                        catapults_down = min(
+                        off_from_catapults: int = weight.catapult * 8 - off
+                        catapults_down: int = min(
                             (off_from_catapults // 8) + 1, weight.catapult
                         )
                         state.catapult_state -= catapults_down
@@ -824,7 +826,7 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
                         state.off_left += catapults_down * 8 - off_from_catapults
                         off_additional = off_from_catapults - catapults_down * 8
                     else:
-                        catapults_down = 0
+                        catapults_down: int = 0
                     catapults = weight.catapult - catapults_down
 
                 weight.off = off + off_additional
@@ -843,17 +845,20 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     else:
         form = forms.WeightForm(None)
 
-    try:
-        paint = int(request.session["weight"])
-        del [request.session["weight"]]
-    except KeyError:
-        paint = None
-
+    paint: Optional[str] = request.session.get("weight")
     if paint is not None:
-        for model in result_lst:
-            if model.id == paint:
-                model.paint = "paint"
-                break
+        try:
+            paint_id: int = int(paint)
+        except ValueError:
+            pass
+        else:
+            for model in result_lst:
+                if model.id == paint_id:
+                    model.paint = "paint"
+                    break
+        finally:
+            del request.session["weight"]
+
     context = {
         "filter_form": filter_form,
         "link": link_to_tw,
@@ -882,8 +887,8 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
-    mode: str = request.GET.get("mode")
-    page: str = request.GET.get("page")
+    mode: Optional[str] = request.GET.get("mode")
+    page: Optional[str] = request.GET.get("page")
     if outline.default_off_time_id == outline_time.pk:
         outline.default_off_time_id = None
     if outline.default_fake_time_id == outline_time.pk:
@@ -894,7 +899,7 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline.save()
     outline_time.delete()
     return redirect(
-        reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
+        reverse("base:planer_initial", args=[outline.pk]) + f"?page={page}&mode={mode}"
     )
 
 
@@ -907,30 +912,32 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
-    mode: str = request.GET.get("mode")
-    page: str = request.GET.get("page")
-    fake: str = request.GET.get("fake")
-    ruin: str = request.GET.get("ruin")
+    mode: Optional[str] = request.GET.get("mode")
+    page: Optional[str] = request.GET.get("page")
+    fake: Optional[str] = request.GET.get("fake")
+    ruin: Optional[str] = request.GET.get("ruin")
 
     if fake == "true":
-        fake = True
-        ruin = False
+        fake_state: bool = True
+        ruin_state: bool = False
         outline.default_fake_time_id = outline_time.pk
     elif ruin == "true":
-        fake = False
-        ruin = True
+        fake_state: bool = False
+        ruin_state: bool = True
         outline.default_ruin_time_id = outline_time.pk
     else:
-        fake = False
-        ruin = False
+        fake_state: bool = False
+        ruin_state: bool = False
         outline.default_off_time_id = outline_time.pk
 
-    targets = models.TargetVertex.objects.filter(outline=outline, fake=fake, ruin=ruin)
+    targets = models.TargetVertex.objects.filter(
+        outline=outline, fake=fake_state, ruin=ruin_state
+    )
     targets.update(outline_time=outline_time)
     outline.save()
 
     return redirect(
-        reverse("base:planer_initial", args=[outline.id]) + f"?page={page}&mode={mode}"
+        reverse("base:planer_initial", args=[outline.pk]) + f"?page={page}&mode={mode}"
     )
 
 
@@ -952,6 +959,7 @@ def create_final_outline(request: HttpRequest, id1: int) -> HttpResponse:
 
     models.Overview.objects.filter(outline=instance).update(removed=True)
     finish.make_final_outline(instance)
+
     return redirect("base:planer_detail_results", id1)
 
 
@@ -960,11 +968,11 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
-    user: User = request.user
+    user: Union[AbstractBaseUser, AnonymousUser] = request.user
     profile: models.Profile = models.Profile.objects.get(user=user)
     if not profile.is_premium():
-        target_mode = request.GET.get("t")
-        target_count = models.TargetVertex.objects.filter(outline=instance).count()
+        target_mode: Optional[str] = request.GET.get("t")
+        target_count: int = models.TargetVertex.objects.filter(outline=instance).count()
         if target_count > 25:
             request.session["premium_error"] = True
             return redirect(

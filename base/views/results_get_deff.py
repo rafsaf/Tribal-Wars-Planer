@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
@@ -71,7 +72,7 @@ def outline_detail_get_deff(request, _id):
 
 
 @login_required
-def outline_detail_results(request, _id):
+def outline_detail_results(request: HttpRequest, _id):
     """ view for results """
     instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
     overviews = models.Overview.objects.filter(outline=instance, removed=False).order_by(
@@ -127,6 +128,12 @@ def outline_detail_results(request, _id):
     tab = request.GET.get("tab")
     if tab == "deff":
         context["go_deff_tab"] = True
+
+    error_messages = request.session.get("error_messages")
+    if error_messages is not None:
+        errors = error_messages.split(",")
+        context["error"] = errors
+        del request.session["error_messages"]
 
     return render(
         request, "base/new_outline/new_outline_results.html", context
