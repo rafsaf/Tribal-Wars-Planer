@@ -87,7 +87,7 @@
           <input type="hidden" name="form1" value=""/>
             {% csrf_token %}
 
-                {% if target_dups or fake_dups or ruin_dups %}
+                {% if real_dups or fake_dups or ruin_dups %}
                 <div class="mb-2">
                 <a class="md-correct2 mt-0" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;">
                   {% trans 'Duplicates detected, click to view them' %}
