@@ -18,7 +18,6 @@ urlpatterns = [
     path("planer/<int:_id>", views.outline_detail_1, name="planer_detail"),
     path("planer/<int:_id>/planer-form", views.initial_form, name="planer_initial_form",),
     path("planer/<int:_id>/planer-menu", views.initial_planer, name="planer_initial",),
-    path("planer/<int:id1>/create_output", views.create_final_outline, name="planer_output",),
     path("planer/<int:id1>/complete", views.complete_outline, name="planer_complete",),
     path("planer/<int:id1>/update_troops", views.update_outline_troops, name="planer_update_troops",),
     path("planer/planer-menu/delete-time/<int:pk>", views.initial_delete_time, name="planer_delete_time",),

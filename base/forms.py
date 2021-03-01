@@ -129,7 +129,9 @@ class GetDeffForm(forms.Form):
         max_value=45,
         label=gettext_lazy("Radius"),
         widget=forms.NumberInput,
-        help_text=gettext_lazy("Greater than or equal to 0 and less than or equal to 45."),
+        help_text=gettext_lazy(
+            "Greater than or equal to 0 and less than or equal to 45."
+        ),
         initial=10,
     )
 
@@ -164,7 +166,7 @@ class InitialOutlineForm(forms.Form):
         widget=forms.Textarea,
         label=gettext_lazy("Targets"),
         required=False,
-        strip=False
+        strip=False,
     )
 
     def __init__(self, *args, **kwargs):
@@ -174,7 +176,7 @@ class InitialOutlineForm(forms.Form):
 
     def clean_target(self):
         """ User's input Targets """
-        
+
         data = self.cleaned_data["target"]
         data_lines = basic.TargetsData(data=data, world=self.outline.world)
         if data == "":
@@ -184,11 +186,17 @@ class InitialOutlineForm(forms.Form):
 
         if len(data_lines.errors_ids) == 0:
             if self.target_mode.is_real:
-                self.outline.initial_outline_targets = data_lines.new_validated_data.strip()
+                self.outline.initial_outline_targets = (
+                    data_lines.new_validated_data.strip()
+                )
             elif self.target_mode.is_fake:
-                self.outline.initial_outline_fakes = data_lines.new_validated_data.strip()
+                self.outline.initial_outline_fakes = (
+                    data_lines.new_validated_data.strip()
+                )
             else:
-                self.outline.initial_outline_ruins = data_lines.new_validated_data.strip()
+                self.outline.initial_outline_ruins = (
+                    data_lines.new_validated_data.strip()
+                )
             self.outline.save()
 
         for error_id in data_lines.errors_ids:
@@ -298,6 +306,7 @@ class SetNewOutlineFilters(forms.ModelForm):
         self.fields["filter_card_number"].widget.attrs["class"] = "form-control"
         self.fields["filter_hide_front"].widget.attrs["class"] = "form-control"
 
+
 class SetTargetsMenuFilters(forms.ModelForm):
     class Meta:
         model = models.Outline
@@ -347,6 +356,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide": forms.RadioSelect,
         }
 
+
 class RuiningOutlineForm(forms.ModelForm):
     class Meta:
         model = models.Outline
@@ -372,7 +382,6 @@ class RuiningOutlineForm(forms.ModelForm):
         }
 
 
-
 class ModeTargetSetForm(forms.ModelForm):
     class Meta:
         model = models.TargetVertex
@@ -395,6 +404,7 @@ class ModeTargetSetForm(forms.ModelForm):
             "mode_guide": "",
         }
 
+
 class NightBonusSetForm(forms.Form):
     night_bonus = forms.BooleanField(
         required=False,
@@ -415,13 +425,17 @@ class NightBonusSetForm(forms.Form):
         widget=forms.NumberInput,
         initial=12,
     )
+
     def clean(self):
         super().clean()
         t1 = self.cleaned_data.get("enter_t1")
         t2 = self.cleaned_data.get("enter_t2")
         if t1 and t2:
             if t1 > t2:
-                self.add_error("enter_t1", gettext_lazy("First value must be less or equal to second!"))
+                self.add_error(
+                    "enter_t1",
+                    gettext_lazy("First value must be less or equal to second!"),
+                )
 
 
 class WeightForm(forms.Form):
@@ -434,6 +448,7 @@ class WeightForm(forms.Form):
     nobleman = forms.IntegerField(
         widget=forms.NumberInput, label=gettext_lazy("Noble"), min_value=0
     )
+
 
 class PeriodForm(forms.ModelForm):
     """ One Period for OutlineTime """
@@ -593,7 +608,7 @@ class CreateNewInitialTarget(forms.Form):
         max_length=7,
         label="",
     )
-    
+
     def __init__(self, *args, **kwargs):
         self.outline: models.Outline = kwargs.pop("outline")
         self.is_premium: bool = kwargs.pop("is_premium")
@@ -602,8 +617,12 @@ class CreateNewInitialTarget(forms.Form):
 
     def clean_target(self):
         coord: str = self.cleaned_data["target"].strip()
-        if not self.is_premium:
-            self.add_error("target", gettext_lazy("You need a premium account to add more targets here."))
+        count: int = models.TargetVertex.objects.filter(outline=self.outline).count()
+        if not self.is_premium and count >= 24:
+            self.add_error(
+                "target",
+                gettext_lazy("You need a premium account to add more targets here."),
+            )
             return
 
         if models.TargetVertex.objects.filter(
@@ -612,7 +631,9 @@ class CreateNewInitialTarget(forms.Form):
             self.add_error("target", gettext_lazy("This village is already a target!"))
             return
 
-        if not models.VillageModel.objects.filter(coord=coord, world=self.outline.world).exists():
+        if not models.VillageModel.objects.filter(
+            coord=coord, world=self.outline.world
+        ).exists():
             self.add_error(
                 "target",
                 gettext_lazy("Village with that coords did not found."),

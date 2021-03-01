@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-28 18:06+0100\n"
+"POT-Creation-Date: 2021-03-01 22:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,236 +62,236 @@ msgstr "Przeciwne plemiona"
 msgid "Radius"
 msgstr "Promień"
 
-#: base/forms.py:132 base/forms.py:218
+#: base/forms.py:133 base/forms.py:226
 msgid "Greater than or equal to 0 and less than or equal to 45."
 msgstr "Większa lub równa 0 i mniejsza lub równa 45."
 
-#: base/forms.py:139
+#: base/forms.py:141
 msgid "Excluded enemy secluded villages"
 msgstr "Wykluczone wysunięte wioski wroga"
 
-#: base/forms.py:141
+#: base/forms.py:143
 msgid "Exact coords separated by a space or an entry."
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:165
+#: base/forms.py:167 base/templates/base/base.html:195
 #: base/templates/base/new_outline/new_outline_initial_period2.html:52
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:31
 msgid "Targets"
 msgstr "Cele"
 
-#: base/forms.py:209
+#: base/forms.py:217
 msgid "Min. off units number"
 msgstr "Minimalna liczba jednostek w offie"
 
-#: base/forms.py:210
+#: base/forms.py:218
 msgid "Distance from front line"
 msgstr "Odległość od linii frontu"
 
-#: base/forms.py:211
+#: base/forms.py:219
 msgid "Max Distance for nobles"
 msgstr "Maksymalna odległość dla szlachciców"
 
-#: base/forms.py:215
+#: base/forms.py:223
 msgid "Greater than or equal to 1 and less than or equal to 28000."
 msgstr "Większa lub równa 1 i mniejsza lub równa 28000."
 
-#: base/forms.py:221
+#: base/forms.py:229
 msgid "Greater than or equal to 0 and less than or equal to 150."
 msgstr "Większa lub równa 0 i mniejsza lub równa 150."
 
-#: base/forms.py:226
+#: base/forms.py:234
 msgid "Excluded enemy villages coords (secluded villages)"
 msgstr ""
 "Nieuwzględniane przy liczeniu frontowych offów wioski wroga (diody itp.)"
 
-#: base/forms.py:229
+#: base/forms.py:237
 msgid "Exact coords separated by a space or an entry"
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:251
+#: base/forms.py:259
 msgid "Show all hidden"
 msgstr "Pokaż wszystkie ukryte"
 
-#: base/forms.py:252
+#: base/forms.py:260
 msgid "Title of message:"
 msgstr "Tytuł wiadomości"
 
-#: base/forms.py:253
+#: base/forms.py:261
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:256
+#: base/forms.py:264
 msgid "Maximum length: 50"
 msgstr "Maksymalna długość: 50"
 
-#: base/forms.py:257
+#: base/forms.py:265
 msgid "Maximum length: 500"
 msgstr "Maksymalna długość: 500"
 
-#: base/forms.py:268
+#: base/forms.py:276
 msgid "Ensure this value has at most 500 characters (it has "
 msgstr "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
 
-#: base/forms.py:280
+#: base/forms.py:288
 msgid "Set new date"
 msgstr "Wybierz nową datę"
 
-#: base/forms.py:326
+#: base/forms.py:335
 msgid "Choose the distance of the written offs:"
 msgstr "Wybierz dystans dla rozpisywanych offów:"
 
-#: base/forms.py:327
+#: base/forms.py:336
 msgid "Choose the distance of the written nobles:"
 msgstr "Wybierz dystans dla rozpisywanych szlachciców:"
 
-#: base/forms.py:328
+#: base/forms.py:337
 msgid "Choose how to split offs with nobles:"
 msgstr "Wybierz jak powinny być dzielone offy z szlachciami:"
 
-#: base/forms.py:330
+#: base/forms.py:339
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Wybierz preferowany sposób rozpisywania wymaganych szlachiców:"
 
-#: base/forms.py:333
+#: base/forms.py:342
 msgid "Choose how noble commands should be written out:"
 msgstr "Wybierz jak komendy z wiosek z szlachtą powinny być rozpisane:"
 
-#: base/forms.py:336
+#: base/forms.py:345
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 
-#: base/forms.py:339
+#: base/forms.py:348
 msgid "Determine which villages to write fake attacks from:"
 msgstr "Wybierz z jakich wiosek rozpisywać fejki:"
 
-#: base/forms.py:361
+#: base/forms.py:371
 msgid "Number of catapults in one ruin attack:"
 msgstr "Liczba katapult w każdym burzaku:"
 
-#: base/forms.py:364
+#: base/forms.py:374
 msgid "Number of catapults that will always be left in full offs:"
 msgstr "Liczba katapult, która zawsze pozostanie w pełnych offach:"
 
-#: base/forms.py:367
+#: base/forms.py:377
 msgid "Order of demolition of buildings:"
 msgstr "Kolejność burzenia budynków:"
 
-#: base/forms.py:370
+#: base/forms.py:380
 msgid "How many points on average do demolished targets have:"
 msgstr "Jak dużo punktów mają średnio burzone cele:"
 
-#: base/forms.py:401
+#: base/forms.py:411
 msgid "Choose whether to avoid the night bonus"
 msgstr "Wybierz czy wysyłki powinny omijać bonus nocny"
 
-#: base/forms.py:407
+#: base/forms.py:417
 msgid "Approximate hours of entry"
 msgstr "Przybliżone czasy wejścia akcji"
 
-#: base/forms.py:414
+#: base/forms.py:424
 msgid "Approximate hours of the last entry"
 msgstr "Przybliżone ostatnie czasy wejścia akcji"
 
-#: base/forms.py:424
+#: base/forms.py:437
 msgid "First value must be less or equal to second!"
 msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 
-#: base/forms.py:432 base/templates/base/overview.html:238
+#: base/forms.py:446 base/templates/base/overview.html:238
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:435 base/models.py:477
+#: base/forms.py:449 base/models.py:477
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:442 base/forms.py:453
+#: base/forms.py:457 base/forms.py:468
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:134
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:199
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:238
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:445 base/forms.py:454
+#: base/forms.py:460 base/forms.py:469
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:135
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:200
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:239
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:452
+#: base/forms.py:467
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:130
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:194
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:236
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:455
+#: base/forms.py:470
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:131
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:237
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:456
+#: base/forms.py:471
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:201
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:240
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:457
+#: base/forms.py:472
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:133
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:202
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:241
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:528 base/forms.py:538
+#: base/forms.py:543 base/forms.py:553
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:546
+#: base/forms.py:561
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:558 base/forms.py:564
+#: base/forms.py:573 base/forms.py:579
 msgid "The All mode time frame MUST always be last for off and for noble."
 msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:572 base/forms.py:579
+#: base/forms.py:587 base/forms.py:594
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/forms.py:606
+#: base/forms.py:624
 msgid "You need a premium account to add more targets here."
 msgstr "Potrzebujesz konta premium by dodawać cele w tym miejscu."
 
-#: base/forms.py:612
+#: base/forms.py:631
 msgid "This village is already a target!"
 msgstr "Ta wioska już jest celem !"
 
-#: base/forms.py:618
+#: base/forms.py:639
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:629
+#: base/forms.py:650
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:630
+#: base/forms.py:651
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:649
+#: base/forms.py:670
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:652
+#: base/forms.py:673
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:663
+#: base/forms.py:684
 msgid "You can set your server:"
 msgstr "Możesz ustawić swój serwer:"
 
@@ -553,13 +553,13 @@ msgstr "Moje Konto"
 msgid "Sign out"
 msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:109 base/templates/base/base.html:154
-#: base/templates/base/base.html:163
+#: base/templates/base/base.html:109 base/templates/base/base.html:151
+#: base/templates/base/base.html:161
 msgid "Sign in"
 msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:111 base/templates/base/base.html:157
-#: base/templates/base/base.html:166 templates/registration/login.html:24
+#: base/templates/base/base.html:111 base/templates/base/base.html:154
+#: base/templates/base/base.html:164 templates/registration/login.html:24
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
@@ -567,57 +567,89 @@ msgstr "Zarejestruj się"
 msgid "Language"
 msgstr "Język"
 
-#: base/templates/base/base.html:152 base/templates/base/base.html:161
+#: base/templates/base/base.html:144
+msgid "01.03.2021 New version of"
+msgstr "01.03.2021 Nowa wersja"
+
+#: base/templates/base/base.html:144
+msgid "script"
+msgstr "skryptu"
+
+#: base/templates/base/base.html:149 base/templates/base/base.html:159
 msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:156 base/templates/base/base.html:165
+#: base/templates/base/base.html:154 base/templates/base/base.html:164
 #: templates/registration/login.html:24
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:178
-msgid "Whole playlist on YouTube"
-msgstr "Cała playlista na YouTube"
+#: base/templates/base/base.html:171
+msgid "Planer in numbers"
+msgstr "Planer w liczbach"
 
-#: base/templates/base/base.html:186
-msgid "Show more videos"
-msgstr "Pokaż więcej filmów"
+#: base/templates/base/base.html:179
+msgid "Project days"
+msgstr "Dni projektu"
 
-#: base/templates/base/base.html:208
+#: base/templates/base/base.html:184
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: base/templates/base/base.html:190
+msgid "Outlines"
+msgstr "Rozpiski"
+
+#: base/templates/base/base.html:200
+msgid "Orders"
+msgstr "Rozkazy"
+
+#: base/templates/base/base.html:210
+msgid "PL version"
+msgstr "wersja PL"
+
+#: base/templates/base/base.html:220
+msgid "ENG version"
+msgstr "wersja ENG"
+
+#: base/templates/base/base.html:230
+msgid "Code tests"
+msgstr "Testy kodu"
+
+#: base/templates/base/base.html:238
 msgid "Benefits"
 msgstr "Korzyści"
 
-#: base/templates/base/base.html:211
+#: base/templates/base/base.html:241
 msgid "Security"
 msgstr "Bezpieczeństwo"
 
-#: base/templates/base/base.html:214
+#: base/templates/base/base.html:244
 msgid "Author"
 msgstr "O Twórcy"
 
-#: base/templates/base/base.html:225
+#: base/templates/base/base.html:255
 msgid "You save a tons of time and have all outlines in one place."
 msgstr ""
 "Oszczędzisz mnóstwo czasu i będziesz mieć wszystkie rozpiski w jednym "
 "miejscu."
 
-#: base/templates/base/base.html:233
+#: base/templates/base/base.html:263
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
 msgstr ""
 "Gracze otrzymają końcowe cele jako tekst gotowy do wklejenia do notatek i "
 "wysłania."
 
-#: base/templates/base/base.html:241
+#: base/templates/base/base.html:271
 msgid "Instantly distribute created objectives to players."
 msgstr "Natychmiastowe wysyłanie do graczy utworzonych dla nich wytycznych."
 
-#: base/templates/base/base.html:249
+#: base/templates/base/base.html:279
 msgid "Friendly and easy-to-use interface."
 msgstr "Przyjazny i łatwy w obsłudze interfejs."
 
-#: base/templates/base/base.html:257
+#: base/templates/base/base.html:287
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
@@ -625,33 +657,33 @@ msgstr ""
 "Możliwość rozpisania każdego topornika własnoręcznie albo pozostawienia "
 "ciężaru rozpisywania celi Planerowi, wybierając spośród dziesiątek opcji."
 
-#: base/templates/base/base.html:265
+#: base/templates/base/base.html:295
 msgid "Growing number of users."
 msgstr "Coraz więcej zaangażowanych w projekt użytkowników."
 
-#: base/templates/base/base.html:273
+#: base/templates/base/base.html:303
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Ciągłe dodawanie nowych opcji i naprawianie błędów."
 
-#: base/templates/base/base.html:281
+#: base/templates/base/base.html:311
 msgid "The scripts used are reported and approved by the game support."
 msgstr ""
 "Skrypty używane w grze wykorzystywane na stronie są zgłoszone i uznane za "
 "legalne przez Support."
 
-#: base/templates/base/base.html:289
+#: base/templates/base/base.html:319
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "Wyrzucisz wszystkie notatniki, kartki i arkusze excela do kosza."
 
-#: base/templates/base/base.html:297
+#: base/templates/base/base.html:327
 msgid "You will avoid common problems like doubled commands."
 msgstr "Pozbędziesz się typowych problemów jak podwojone komendy."
 
-#: base/templates/base/base.html:305
+#: base/templates/base/base.html:335
 msgid "No more mistakes when sending messages to players."
 msgstr "Nigdy więcej pomyłek przy rozsyłaniu celów graczom w wiadomościach."
 
-#: base/templates/base/base.html:314
+#: base/templates/base/base.html:344
 msgid ""
 "The application is written in the modern and very secure <a target=\"_blank"
 "\" href=\"https://www.djangoproject.com/\">Django</a> framework. Therefore "
@@ -666,7 +698,7 @@ msgstr ""
 "site request forgery czy clickjacking, zapewniając jednocześnie w bezpieczny "
 "sposób utrzymywanie kont użytkowników."
 
-#: base/templates/base/base.html:322
+#: base/templates/base/base.html:352
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
@@ -676,7 +708,7 @@ msgstr ""
 "bezpieczeństwa kont użytkowników, uniemożliwiając jakikolwiek dostęp do "
 "danych użytkowników innym użytkownikom strony oraz osobom trzecim."
 
-#: base/templates/base/base.html:330
+#: base/templates/base/base.html:360
 msgid ""
 "Both the web server and the database server are located in the <a href="
 "\"https://aws.amazon.com/\">Amazon Web Services</a> cloud, with special "
@@ -687,7 +719,7 @@ msgstr ""
 "Services</a>, ze specjalnym naciskiem położonym na ich rekomendacje w "
 "kwestiach bezpieczeństwa."
 
-#: base/templates/base/base.html:338
+#: base/templates/base/base.html:368
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
@@ -697,7 +729,7 @@ msgstr ""
 "od początku do dnia dzisiejszego, oznacza relatywnie małą szansę na "
 "przypadkowe, nagłe narażenie danych użytkowników na ekspozycję."
 
-#: base/templates/base/base.html:346
+#: base/templates/base/base.html:376
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
@@ -708,7 +740,7 @@ msgstr ""
 "innym użytkownikom, graczom gry, osobom trzecim a także komukolwiek innemu, "
 "z jakiegokolwiek powodu."
 
-#: base/templates/base/base.html:350
+#: base/templates/base/base.html:380
 msgid ""
 "My name is Rafał, I am a student of the Faculty of Mathematics and Computer "
 "Science at the University of Wroclaw. For over a year I have been interested "
@@ -722,7 +754,7 @@ msgstr ""
 "bezpieczeństwem w sieci. Piszę głównie w Pythonie i JS, ale mam w planach "
 "także naukę innych języków i technologii :)"
 
-#: base/templates/base/base.html:353
+#: base/templates/base/base.html:383
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
@@ -736,7 +768,7 @@ msgstr ""
 "(największe osiągnięcie to występ na zawodach na szczeblu wojewódzkim), "
 "lubię szachy i pokera a także dobry film."
 
-#: base/templates/base/base.html:369
+#: base/templates/base/base.html:399
 msgid ""
 "Note, all announcements, proposals, reported bugs will be placed on the "
 "discord."
@@ -744,11 +776,11 @@ msgstr ""
 "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być "
 "zamieszczane na kanale na discordzie."
 
-#: base/templates/base/base.html:411
+#: base/templates/base/base.html:421
 msgid "Galery"
 msgstr "Galeria"
 
-#: base/templates/base/base.html:442
+#: base/templates/base/base.html:452
 msgid ""
 "Dear User, we inform you that by using the website you agree to our <a "
 "target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy and "
@@ -1198,7 +1230,7 @@ msgstr "Zakładka jest dostępna tylko poniżej 100 celów."
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:278
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:93
 #: base/templates/base/new_outline/new_outline_initial_period3.html:138
-#: base/templates/base/overview.html:196 tribal_wars/outline_finish.py:14
+#: base/templates/base/overview.html:196 tribal_wars/outline_finish.py:32
 msgid "Target"
 msgstr "Cel"
 
@@ -1476,7 +1508,7 @@ msgstr "Podziel na 4"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
 #: base/templates/base/new_outline/new_outline_results.html:84
 #: base/templates/base/new_outline/new_outline_results.html:124
-#: tribal_wars/outline_finish.py:16
+#: tribal_wars/outline_finish.py:34
 msgid "Player"
 msgstr "Gracz"
 
@@ -1662,7 +1694,9 @@ msgstr "Nie masz dostępu do niewykorzystanych wojsk bez konta premium."
 #: base/templates/base/new_outline/new_outline_results.html:227
 msgid ""
 "Some of the written orders have been omitted due to the following problems"
-msgstr "Niektóre z rozpisanych rozkazów zostały pominięte w związku z następującymi problemami"
+msgstr ""
+"Niektóre z rozpisanych rozkazów zostały pominięte w związku z następującymi "
+"problemami"
 
 #: base/templates/base/overview.html:27
 msgid "Copy"
@@ -1980,7 +2014,7 @@ msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
 #: base/views/outline_initial_views.py:73
 #: base/views/outline_initial_views.py:168
-#: base/views/outline_initial_views.py:1001
+#: base/views/outline_initial_views.py:980
 msgid ""
 "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use "
 "the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> "
@@ -1999,10 +2033,6 @@ msgstr ""
 #: base/views/outline_initial_views.py:651
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
-
-#: base/views/outline_initial_views.py:955
-msgid "All targets must have Times"
-msgstr "Wszystkie cele muszą mieć przypisany czas."
 
 #: base/views/results_get_deff.py:22
 msgid "<h5>Deff collection is empty!</h5>"
@@ -2369,13 +2399,22 @@ msgstr "Znak"
 msgid "Is not equal to '|'!"
 msgstr "Nie jest równy '|'!"
 
-#: tribal_wars/outline_finish.py:15
+#: tribal_wars/outline_finish.py:33
 msgid "Village"
 msgstr "Wioska"
 
-#: tribal_wars/outline_finish.py:17
+#: tribal_wars/outline_finish.py:35
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "Whole playlist on YouTube"
+#~ msgstr "Cała playlista na YouTube"
+
+#~ msgid "Show more videos"
+#~ msgstr "Pokaż więcej filmów"
+
+#~ msgid "All targets must have Times"
+#~ msgstr "Wszystkie cele muszą mieć przypisany czas."
 
 #~ msgid "50 zł"
 #~ msgstr "50 zł"

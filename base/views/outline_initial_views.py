@@ -654,7 +654,8 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
                         reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
                     )
                 models.Overview.objects.filter(outline=instance).update(removed=True)
-                error_messages = finish.make_final_outline(instance)
+                make_final_outline = finish.MakeFinalOutline(instance)
+                error_messages = make_final_outline()
                 if len(error_messages) > 0:
                     request.session["error_messages"] = ",".join(error_messages)
                 return redirect("base:planer_detail_results", _id)
@@ -939,28 +940,6 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     return redirect(
         reverse("base:planer_initial", args=[outline.pk]) + f"?page={page}&mode={mode}"
     )
-
-
-@login_required
-def create_final_outline(request: HttpRequest, id1: int) -> HttpResponse:
-    instance: models.Outline = get_object_or_404(
-        models.Outline.objects.select_related(), id=id1, owner=request.user
-    )
-    target_with_no_time: bool = (
-        models.TargetVertex.objects.filter(outline=instance)
-        .filter(outline_time=None)
-        .exists()
-    )
-    if target_with_no_time:
-        request.session["outline_error"] = gettext("All targets must have Times")
-        return redirect(
-            reverse("base:planer_initial", args=[id1]) + "?page=1&mode=time"
-        )
-
-    models.Overview.objects.filter(outline=instance).update(removed=True)
-    finish.make_final_outline(instance)
-
-    return redirect("base:planer_detail_results", id1)
 
 
 @login_required
