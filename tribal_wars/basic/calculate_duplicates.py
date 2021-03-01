@@ -73,7 +73,7 @@ class CalcultateDuplicates:
 
         target_dict: Dict[str, str]
         for target_dict in duplicates:
-            line_lst = targets_context[target_dict["target"]]
+            line_lst: List[str] = targets_context[target_dict["target"]]
             if len(line_lst) <= 3:
                 target_dict["lines"] = ",".join(line_lst)
             else:
