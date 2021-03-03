@@ -42,7 +42,7 @@ class MakeFinalOutline:
         )
 
     def _add_target_error(self, target: str) -> None:
-        self.error_messages_set.add(f"{self.player_msg} {target} {self.not_exist_msg}")
+        self.error_messages_set.add(f"{self.target_msg} {target} {self.not_exist_msg}")
 
     def _add_village_error(self, village: str) -> None:
         self.error_messages_set.add(
@@ -50,7 +50,7 @@ class MakeFinalOutline:
         )
 
     def _add_player_error(self, player: str) -> None:
-        self.error_messages_set.add(f"{self.village_msg} {player} {self.not_exist_msg}")
+        self.error_messages_set.add(f"{self.player_msg} {player} {self.not_exist_msg}")
 
     def _enemy_id(self, target: str) -> str:
         enemy_id: Optional[str] = self.village_id_dictionary.get(target)
@@ -85,7 +85,7 @@ class MakeFinalOutline:
 
         player: Dict[str, str]
         for player in players:
-            self.player_id_dictionary[player["name"]] = player["player_id"]
+            self.player_id_dictionary[player["name"]] = str(player["player_id"])
 
     def _calculate_villages_id_dictionary(self) -> None:
         distinct_weight_coords = list(
@@ -101,7 +101,7 @@ class MakeFinalOutline:
 
         village: Dict[str, str]
         for village in villages.iterator():
-            self.village_id_dictionary[village["coord"]] = village["village_id"]
+            self.village_id_dictionary[village["coord"]] = str(village["village_id"])
 
     @staticmethod
     def _weights_list(target: TargetVertex):
@@ -135,7 +135,7 @@ class MakeFinalOutline:
             ],
         )
 
-    def _outline_overview(self, json_weight_dict, json_targets):
+    def _outline_overview(self, json_weight_dict: str, json_targets: str):
         outline_overview = OutlineOverview.objects.create(
             outline=self.outline,
             weights_json=json_weight_dict,
@@ -143,11 +143,14 @@ class MakeFinalOutline:
         )
         return outline_overview
 
+    def _calculate_period_dictionary(self) -> None:
+        # target - lst[period1, period2, ...]
+        self.target_period_dict = self.queries.target_period_dictionary()
+
     def __call__(self) -> Set[str]:
         self._calculate_player_id_dictionary()
         self._calculate_villages_id_dictionary()
-        # target - lst[period1, period2, ...]
-        self.target_period_dict = self.queries.target_period_dictionary()
+        self._calculate_period_dictionary()
 
         json_weights = {}
         outline_info = basic.OutlineInfo(outline=self.outline)

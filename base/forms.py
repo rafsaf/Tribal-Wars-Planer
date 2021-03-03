@@ -618,7 +618,7 @@ class CreateNewInitialTarget(forms.Form):
     def clean_target(self):
         coord: str = self.cleaned_data["target"].strip()
         count: int = models.TargetVertex.objects.filter(outline=self.outline).count()
-        if not self.is_premium and count >= 24:
+        if not self.is_premium and count >= 25:
             self.add_error(
                 "target",
                 gettext_lazy("You need a premium account to add more targets here."),

@@ -108,19 +108,28 @@ class Army:
             + int(self.text_army[10]) * 8
         )
 
+    def __off_scout(self):
+        if self.world_evidence[1] == 0:
+            scouts = int(self.text_army[4])
+        else:
+            scouts = int(self.text_army[5])
+        if scouts >= 200:
+            return 400
+        return scouts * 2
+
     def __raw_off(self):
         # no heavy cavalery
         if self.world_evidence[1] == 0:  # no archers
             return (
                 int(self.text_army[3])
-                + int(self.text_army[4]) * 2
+                + self.__off_scout()
                 + int(self.text_army[5]) * 4
                 + int(self.text_army[7]) * 5
                 + int(self.text_army[8]) * 8
             )
         return (  # with archers
             int(self.text_army[3])
-            + int(self.text_army[5]) * 2
+            + self.__off_scout()
             + int(self.text_army[6]) * 4
             + int(self.text_army[7]) * 5
             + int(self.text_army[9]) * 5
@@ -137,9 +146,7 @@ class Army:
             if self.world_evidence[1] == 0:  # no archers
                 return raw_off + int(self.text_army[6]) * 6
             return raw_off + int(self.text_army[8]) * 6  # with archers
-        if self.world_evidence[1] == 0:  # no archers
-            return raw_off - 2 * int(self.text_army[4])
-        return raw_off - 2 * int(self.text_army[5])
+        return raw_off - self.__off_scout()
 
     @cached_property
     def deff(self):

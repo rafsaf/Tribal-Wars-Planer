@@ -5,6 +5,60 @@ from django.contrib.auth.models import User
 from base import models
 
 
+"""
+### Users ###
+user1 username "user1" password "user1"
+user2 username "user1" password "user1"
+
+### Server ###
+server dns "testserver" prefix "te"
+
+### World ###
+world1 postfix "1"
+
+### Outline ###
+outline1 id "1"
+outline2 id "2"
+
+### Tribes ###
+ally_tribe tag "pl1"
+enemy_tribe tag "pl2"
+
+### Players ###
+player0 name "player0" tribe "ally_tribe"
+player1 name "player1" tribe "enemy_tribe"
+
+### Village ###
+ally_village1 coord "500|500" id "0"
+ally_village2 coord "500|501" id "1"
+ally_village3 coord "500|502" id "2"
+ally_village4 coord "500|503" id "3"
+ally_village5 coord "500|504" id "4"
+ally_village6 coord "500|505" id "5"
+enemy_village1 coord "500|499" id "6"
+enemy_village2 coord "500|498" id "7"
+enemy_village3 coord "500|497" id "8"
+
+### WeightMaximum ###
+weight_max1 start "500|500" off_max "10000" player "player0"
+weight_max2 start "500|501" off_max "190" player "player0"
+weight_max3 start "500|502" off_max "19500" player "player0"
+weight_max4 start "500|503" off_max "21000" player "player0"
+weight_max5 start "500|504" off_max "20000" player "player0"
+weight_max6 start "500|505" off_max "20000" player "player0"
+
+### Targets ###
+target1 target "500|499" player "player1" required_off "1" required_noble "1"
+target2 target "500|497" player "player1" required_off "[1, 0, 0, 1]" required_noble "[2, 0, 0, 2]"
+target3 target "500|498" player "player1" required_off "1" required_noble "2"
+
+### Weights ###
+weight1 start "500|500" target "500|499" off 5000 noble 1
+weight2 start "500|501" target "500|499" off 100 noble 0
+weight3 start "500|502" target "500|499" off 19000 noble 0
+"""
+
+
 def create_initial_data():
     user1 = User.objects.create_user(username="user1", password="user1")
     user2 = User.objects.create_user(username="user2", password="user2")
@@ -47,6 +101,8 @@ def create_initial_data():
         initial_outline_front_dist=3,
         off_troops=TEXT,
     )
+
+    result = models.Result.objects.create(outline=outline1)
 
     outline2 = models.Outline.objects.create(
         id=2,
@@ -348,4 +404,3 @@ def create_initial_data():
     weight1.save()
     weight2.save()
     weight3.save()
-
