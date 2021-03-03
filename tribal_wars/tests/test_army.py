@@ -55,12 +55,19 @@ class TestArmy(TestCase):
         self.text_world3 = "500|500,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,"
         self.text_world4 = "500|500,1,2,3,4,5,6,7,8,9,10,11,12,14,15,"
 
-        self.text_world5 = "537|535,0,0,6135,56,2743,100,276,243,2,3,0,"
+        self.text_world5 = "537|535,0,0,6135,50,2743,100,276,243,2,3,0,"
         self.text_world6 = "537|534,1,0,6205,8,2778,100,309,231,0,3,0,"
         self.text_world7 = "402|277,2794,1898,5000,50,0,580,200,100,0,4,0,"
         self.text_world8 = "407|277,2825,1892,3000,91,0,608,0,51,0,0,0,"
         self.text_world9 = "407|277,0,0,4613,20,2313,0,250,75,0,0,0,"
-                            
+        self.text_world10 = "537|535,0,0,6135,500,2743,100,276,243,2,3,0,"
+        self.text_world11 = "537|535,0,0,6135,200,2743,100,276,243,2,3,0,"
+        self.text_world12 = "537|535,0,0,6135,100,2743,100,276,243,2,3,0,"
+        self.text_world13 = "500|500,1,2,3,4,100,6,7,8,9,10,11,12,13,14,15,"
+        self.text_world14 = "500|500,1,2,3,4,200,6,7,8,9,10,11,12,13,14,15,"
+        self.text_world15 = "500|500,1,2,3,4,300,6,7,8,9,10,11,12,13,14,15,"
+        self.text_world16 = "500|500,1,2,3003,4,300,6,7,8,9,10,11,12,13,14,15,"
+
         self.army1 = basic.Army(self.text_world1, self.world1_evidence)
         self.army2 = basic.Army(self.text_world2, self.world2_evidence)
         self.army3 = basic.Army(self.text_world3, self.world3_evidence)
@@ -70,6 +77,13 @@ class TestArmy(TestCase):
         self.army7 = basic.Army(self.text_world7, self.world2_evidence)
         self.army8 = basic.Army(self.text_world8, self.world2_evidence)
         self.army9 = basic.Army(self.text_world9, self.world2_evidence)
+        self.army10 = basic.Army(self.text_world10, self.world2_evidence)
+        self.army11 = basic.Army(self.text_world11, self.world2_evidence)
+        self.army12 = basic.Army(self.text_world12, self.world2_evidence)
+        self.army13 = basic.Army(self.text_world13, self.world3_evidence)
+        self.army14 = basic.Army(self.text_world14, self.world3_evidence)
+        self.army15 = basic.Army(self.text_world15, self.world3_evidence)
+        self.army16 = basic.Army(self.text_world16, self.world3_evidence)
 
     def test_army1_coord_is_correct(self):
         self.assertEqual(self.army1.coord, "500|500")
@@ -114,7 +128,7 @@ class TestArmy(TestCase):
         self.assertEqual(self.army4.off, 245)
 
     def test_off_army5_correct_int_return(self):
-        self.assertEqual(self.army5.off, 21143)
+        self.assertEqual(self.army5.off, 21131)
 
     def test_off_army6_correct_int_return(self):
         self.assertEqual(self.army6.off, 21326)
@@ -127,6 +141,27 @@ class TestArmy(TestCase):
 
     def test_off_army9_correct_int_return(self):
         self.assertEqual(self.army9.off, 15755)
+
+    def test_off_army10_correct_int_return(self):
+        self.assertEqual(self.army10.off, 21431)
+
+    def test_off_army11_correct_int_return(self):
+        self.assertEqual(self.army11.off, 21431)
+
+    def test_off_army12_correct_int_return(self):
+        self.assertEqual(self.army12.off, 21231)
+
+    def test_off_army13_correct_int_return(self):
+        self.assertEqual(self.army13.off, 435)
+
+    def test_off_army14_correct_int_return(self):
+        self.assertEqual(self.army14.off, 635)
+
+    def test_off_army15_correct_int_return(self):
+        self.assertEqual(self.army15.off, 187)
+
+    def test_off_army16_correct_int_return(self):
+        self.assertEqual(self.army16.off, 3635)
 
     def test_catapult_army1_correct_int_return(self):
         self.assertEqual(self.army1.catapult, 10)
@@ -142,8 +177,6 @@ class TestArmy(TestCase):
 
     def test_catapult_army9_correct_int_return(self):
         self.assertEqual(self.army9.catapult, 75)
-
-    
 
 
 class TestDefence(TestCase):
