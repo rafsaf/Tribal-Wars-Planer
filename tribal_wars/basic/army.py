@@ -62,12 +62,12 @@ class Army:
         if self.text_army[-1] != "":
             raise ArmyError(f"Błąd w składni {self.text_army[-1]}")
 
-    @cached_property
-    def coord(self):
+    @property
+    def coord(self) -> str:
         """ return kordy of village """
         return self.text_army[0]
 
-    @cached_property
+    @property
     def village(self):
         """ return Village instance of text[0] """
         return basic.Village(self.text_army[0])

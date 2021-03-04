@@ -2,6 +2,15 @@ import tribal_wars.basic as basic
 import base.models as models
 
 
+class ExtendedArmy(basic.Army):
+    def __init__(self, text_army: str, evidence):
+        super().__init__(text_army, evidence)
+        self.player: str = "player_name"
+
+    def set_player(self, player: str) -> None:
+        self.player = player
+
+
 class OffTroops:
     """
     Helps iterating over user's off_troops from script
@@ -16,8 +25,7 @@ class OffTroops:
 
     def __iter__(self):
         for line in self.off_troops:
-            army = basic.Army(line, self.evidence)
-            army.player = self.village_dictionary[army.coord]
-            army.first_line = False
+            army = ExtendedArmy(line, self.evidence)
+            player = self.village_dictionary[army.coord]
+            army.set_player(player=player)
             yield army
-

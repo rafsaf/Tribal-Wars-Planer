@@ -17,7 +17,7 @@ def make_outline(outline: models.Outline, target_mode: basic.TargetMode = None):
         for army in weight_utils.OffTroops(outline=outline):
             weight_max_create_list.append(
                 models.WeightMaximum(
-                    outline_id=outline.id,
+                    outline_id=outline.pk,
                     player=army.player,
                     start=army.coord,
                     x_coord=int(army.coord[0:3]),
@@ -28,7 +28,7 @@ def make_outline(outline: models.Outline, target_mode: basic.TargetMode = None):
                     catapult_left=army.catapult,
                     nobleman_max=army.nobleman,
                     nobleman_left=army.nobleman,
-                    first_line=army.first_line,
+                    first_line=False,
                     fake_limit=outline.initial_outline_fake_limit,
                 )
             )
@@ -122,16 +122,12 @@ def create_weights(
                         target.required_off = required_off
                         target.mode_off = mode
 
-                        parsed = write_out_outline.WriteTarget(
-                            target, outline, world
-                        )
+                        parsed = write_out_outline.WriteTarget(target, outline, world)
                         parsed.write_ram()
                         if parsed.end_up_offs:
                             return
             else:
-                parsed = write_out_outline.WriteTarget(
-                    target, outline, world
-                )
+                parsed = write_out_outline.WriteTarget(target, outline, world)
                 parsed.write_ram()
                 if parsed.end_up_offs:
                     break
@@ -167,9 +163,7 @@ def create_weights_ruin(
                     if parsed.end_up_offs:
                         return
         else:
-            parsed = write_out_outline.WriteTarget(
-                target, outline, world, ruin=True
-            )
+            parsed = write_out_outline.WriteTarget(target, outline, world, ruin=True)
             parsed.write_ram()
             if parsed.end_up_offs:
                 break
