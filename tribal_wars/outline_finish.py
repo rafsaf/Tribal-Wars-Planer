@@ -3,7 +3,6 @@ import secrets
 import json
 from typing import Dict, List, Optional, Set
 from tribal_wars.basic import info_generatation
-from tribal_wars import period_utils
 from base.models import (
     Outline,
     OutlineOverview,
@@ -23,10 +22,29 @@ from django.db.models.query import QuerySet
 
 
 class OutdatedData(Exception):
-    pass
+    """ Raised when village or player are delted permanently from db """
 
 
 class MakeFinalOutline:
+    """
+    The final step in creating outline, returns set with error messages (if any occured)
+
+    After calculating usefull dicts, (for village_id, player_id, periods)
+
+    Main loop iterates over TARGETS
+
+    1. take list of WeightModel for that Target
+    2. add any info about weights and target to json data and "text" object
+
+    Creating outline_overview model with json long content with all data about outline
+     Update "Result" (one-to-one to outline) with usefull collected statistics
+
+    Then we create unique links for each player which appeared earlier
+     using secretes library with content from "text" for that player
+
+    Finally return set with errors if any occured
+    """
+
     def __init__(self, outline: Outline) -> None:
         self.outline: Outline = outline
         self.target_msg: str = _("Target")
@@ -104,16 +122,16 @@ class MakeFinalOutline:
             self.village_id_dictionary[village["coord"]] = str(village["village_id"])
 
     @staticmethod
-    def _weights_list(target: TargetVertex):
+    def _weights_list(target: TargetVertex) -> "QuerySet[WeightModel]":
         return (
             WeightModel.objects.filter(target=target)
             .select_related("target", "state")
             .order_by("order")
         )
 
-    def _time_periods(self, target: TargetVertex) -> period_utils.FromPeriods:
+    def _time_periods(self, target: TargetVertex) -> basic.FromPeriods:
         periods_list = self.target_period_dict[target]
-        time_periods = period_utils.FromPeriods(
+        time_periods = basic.FromPeriods(
             periods=periods_list, world=self.outline.world, date=self.outline.date
         )
         return time_periods
@@ -135,7 +153,9 @@ class MakeFinalOutline:
             ],
         )
 
-    def _outline_overview(self, json_weight_dict: str, json_targets: str):
+    def _outline_overview(
+        self, json_weight_dict: str, json_targets: str
+    ) -> OutlineOverview:
         outline_overview = OutlineOverview.objects.create(
             outline=self.outline,
             weights_json=json_weight_dict,

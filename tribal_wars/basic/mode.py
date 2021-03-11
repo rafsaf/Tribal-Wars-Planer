@@ -44,7 +44,7 @@ class Mode:
 
 
 class TargetMode:
-    def __init__(self, request_GET_mode: Optional[str]):
+    def __init__(self, request_GET_mode: Optional[str]) -> None:
         VALID = [
             "real",
             "fake",
@@ -60,15 +60,15 @@ class TargetMode:
                 self.mode = "real"
 
     @property
-    def is_real(self):
+    def is_real(self) -> bool:
         return self.mode == "real"
 
     @property
-    def is_fake(self):
+    def is_fake(self) -> bool:
         return self.mode == "fake"
 
     @property
-    def is_ruin(self):
+    def is_ruin(self) -> bool:
         return self.mode == "ruin"
 
     @property

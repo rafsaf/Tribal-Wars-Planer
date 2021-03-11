@@ -617,9 +617,11 @@ class Overview(models.Model):
     string = models.TextField()
     extended = models.TextField(default="")
     deputy = models.TextField(default="")
-    targets = models.TextField(default="")
     show_hidden = models.BooleanField(default=False)
     removed = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ("-created",)
 
     def get_absolute_url(self):
         return reverse("base:overview", args=[self.token])

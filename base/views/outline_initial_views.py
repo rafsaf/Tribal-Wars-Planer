@@ -15,10 +15,14 @@ from django.db.models import Max, Sum
 from django.utils.translation import get_language
 from markdownx.utils import markdownify
 
-import tribal_wars.outline_initial as initial
-import tribal_wars.outline_finish as finish
+from tribal_wars.outline_initial import MakeOutline
+from tribal_wars.outline_finish import MakeFinalOutline
+from tribal_wars.outline_create_targets import OutlineCreateTargets
+from tribal_wars.outline_complete import complete_outline_write
 import tribal_wars.basic as basic
 import tribal_wars.avaiable_troops as avaiable_troops
+
+
 from base import models, forms
 
 
@@ -67,7 +71,8 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
             {"off_troops": instance.off_troops}, outline=instance
         )
         if off_form.is_valid():
-            initial.make_outline(instance, target_mode=None)
+            make_outline = MakeOutline(outline=instance)
+            make_outline()
         else:
             request.session["error"] = gettext(
                 "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
@@ -158,17 +163,19 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 request.POST, outline=instance, target_mode=target_mode
             )
             if form1.is_valid():
-                off_form1 = forms.OffTroopsForm(
+                off_form = forms.OffTroopsForm(
                     {"off_troops": instance.off_troops}, outline=instance
                 )
-                if off_form1.is_valid():
-                    initial.make_outline(instance, target_mode=target_mode)
+                if off_form.is_valid():
+                    instance.save()
+                    create_targets = OutlineCreateTargets(instance, target_mode)
+                    create_targets()
                 else:
                     request.session["error"] = gettext(
                         "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
                     )
                     return redirect("base:planer_detail", _id)
-                instance.save()
+
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
@@ -361,7 +368,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
 
 
 @login_required
-def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
+def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ignore
     """ view with form for initial period outline """
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
@@ -654,7 +661,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:
                         reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
                     )
                 models.Overview.objects.filter(outline=instance).update(removed=True)
-                make_final_outline = finish.MakeFinalOutline(instance)
+                make_final_outline = MakeFinalOutline(instance)
                 error_messages = make_final_outline()
                 if len(error_messages) > 0:
                     request.session["error_messages"] = ",".join(error_messages)
@@ -958,7 +965,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
                 reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}"
             )
 
-    initial.complete_outline(outline=instance)
+    complete_outline_write(outline=instance)
     instance.written = "active"
     instance.save()
     return redirect(reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu")
@@ -969,12 +976,12 @@ def update_outline_troops(request: HttpRequest, id1: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
-    models.WeightMaximum.objects.filter(outline=instance).delete()
     off_form: forms.OffTroopsForm = forms.OffTroopsForm(
         {"off_troops": instance.off_troops}, outline=instance
     )
     if off_form.is_valid():
-        initial.make_outline(instance, target_mode=None)
+        make_outline = MakeOutline(instance)
+        make_outline()
     else:
         request.session["error"] = gettext(
             "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"

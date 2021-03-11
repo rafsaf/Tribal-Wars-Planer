@@ -1,10 +1,11 @@
 """ Army and Defence """
+from typing import Tuple
 from .cached_property import cached_property
 from base import models
 from tribal_wars import basic
 
 
-def world_evidence(world: models.World):
+def world_evidence(world: models.World) -> Tuple[int, int, int]:
     """ For world return [T/F, .. , ..] [paladin, archer, militia]"""
     result = []
     if world.paladin == "active":
