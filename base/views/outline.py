@@ -1,3 +1,5 @@
+from urllib.request import Request
+from django.http import HttpRequest
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
@@ -85,7 +87,7 @@ def outline_delete(request, _id):
 
 
 @login_required
-def outline_detail_1(request, _id):
+def outline_detail_1(request: HttpRequest, _id):
     """details user's outline , login required"""
     models.Outline.objects.filter(editable="active", owner=request.user).delete()
     instance: models.Outline = get_object_or_404(
@@ -111,22 +113,18 @@ def outline_detail_1(request, _id):
     form2.fields["deff_troops"].initial = instance.deff_troops
 
     if request.method == "POST":
-        if "form-1" in request.POST:
-            post = request.POST.copy()
-            post["off_troops"] = post["off_troops"].strip()
-            form1 = forms.OffTroopsForm(post, outline=instance)
+        if "form-1" in request.POST: 
+            form1 = forms.OffTroopsForm(request.POST, outline=instance)
             if form1.is_valid():
-                instance.off_troops = post["off_troops"]
+                instance.off_troops = request.POST.get("off_troops")
                 instance.save()
                 request.session["message-off-troops"] = "true"
                 return redirect("base:planer_detail", _id)
 
         elif "form-2" in request.POST:
-            post = request.POST.copy()
-            post["deff_troops"] = post["deff_troops"].strip()
-            form2 = forms.DeffTroopsForm(post, outline=instance)
+            form2 = forms.DeffTroopsForm(request.POST, outline=instance)
             if form2.is_valid():
-                instance.deff_troops = post["deff_troops"]
+                instance.deff_troops = request.POST.get("deff_troops")
                 instance.save()
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)

@@ -1,4 +1,5 @@
 """ App forms """
+from typing import Dict
 from django.forms import BaseFormSet
 from django import forms
 from tribal_wars import basic, database_update
@@ -29,10 +30,11 @@ class OffTroopsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
         super(OffTroopsForm, self).__init__(*args, **kwargs)
+        self.fields["off_troops"].strip = False
 
     def clean_off_troops(self):
         """ User's input from script """
-        text = self.cleaned_data["off_troops"].rstrip()
+        text = self.cleaned_data["off_troops"]
         if text == "":
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
@@ -44,16 +46,18 @@ class OffTroopsForm(forms.ModelForm):
 
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Army(text_army=text_line, evidence=evidence)
+            try:
+                army.clean_init(player_dictionary)
+            except basic.ArmyError:
+                self.add_error("off_troops", i)
+
             if army.coord in already_used_villages:
                 self.add_error("off_troops", i)
                 continue
             else:
                 already_used_villages.add(army.coord)
 
-            try:
-                army.clean_init(player_dictionary)
-            except basic.ArmyError:
-                self.add_error("off_troops", i)
+
 
         return text
 
@@ -69,15 +73,19 @@ class DeffTroopsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
         super(DeffTroopsForm, self).__init__(*args, **kwargs)
+        self.fields["deff_troops"].strip = False
 
     def clean_deff_troops(self):
         """ User's input from script """
-        text = self.cleaned_data["deff_troops"].rstrip()
+        text = self.cleaned_data["deff_troops"]
         if text == "":
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
+
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
+
+        already_used_villages = dict()
 
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Defence(text_army=text_line, evidence=evidence)
@@ -85,6 +93,12 @@ class DeffTroopsForm(forms.ModelForm):
                 army.clean_init(player_dictionary)
             except basic.DefenceError:
                 self.add_error("deff_troops", i)
+            if army.coord in already_used_villages:
+                already_used_villages[army.coord] += 1
+                if already_used_villages[army.coord] > 2:
+                    self.add_error("deff_troops", i)
+            else:
+                already_used_villages[army.coord] = 1
 
         return text
 
