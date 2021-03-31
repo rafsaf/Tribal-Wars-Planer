@@ -333,6 +333,7 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
         self.text_off2 = "500|500,1000,1000,0,0,0,1000,0,0,0,0,"
         self.text_deff1 = "500|500,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
         self.text_deff2 = "500|500,w drodze,1000,1000,0,0,0,1000,0,0,0,0,"
+        self.text_deff3 = "500|500,w wiosce,1000,1000,0,0,0,1000,0,0,0,"
 
         self.text_off_bad1 = "500|50,1000,1000,0,0,0,1000,0,0,0,0,0,"
         self.text_off_bad2 = "500|500,1000,1000,0,0,0,1000,0,0,0,0,0"
@@ -347,6 +348,10 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             "500|500,1000,1000,0,0,0,1000,0,0,"
             "0,0,500|0,1000,1000,0,0,0,1000,0,0,0,0,0,"
         )
+        self.text_off_bad11 = " 500|500,1000,1000,0,0,0,1000,0,0,0,0,"
+        self.text_off_bad12 = "500|500,1000,1000,0,0,0,1000,0,0,0,0, "
+        self.text_off_bad13 = "500|500 ,1000,1000,0,0,0,1000,0,0,0,0, "
+        self.text_off_bad14 = " 500|500,1000,1000,0,0,0,1000,0,0,0,0, "
         self.text_deff_bad1 = "500|50,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
         self.text_deff_bad2 = "500|500,w drodze,1000,1000,0,0,0,1000,0,0,0,0"
         self.text_deff_bad3 = "500|500,1000,1000,0,0,0,1000,0,0,0,,"
@@ -360,6 +365,10 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             "500|500,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
             "500|0,1000,1000,0,0,0,1000,0,0,0,0,0,"
         )
+        self.text_deff_bad11 = " 500|500,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
+        self.text_deff_bad12 = " 500|500,w wiosce,1000,1000,0,0,0,1000,0,0,0,0, "
+        self.text_deff_bad13 = "500|500,w wiosce,1000,1000,0,0,0,1000,0,0,0,0, "
+        self.text_deff_bad14 = " 500|500 ,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
         self.server = models.Server.objects.create(
             dns="testserver",
             prefix="te",
@@ -371,7 +380,7 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             archer="inactive",
             militia="inactive",
         )
-        self.admin = User.objects.create_user("admin", None, None)
+        self.admin = User.objects.create_user("admin", None, None) #type: ignore
         self.outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
@@ -539,6 +548,16 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             else:
                 raise Exception
 
+    def test_clean_army_text_deff3_pass(self):
+        with self.assertRaises(Exception):
+            try:
+                army = basic.Defence(self.text_deff3, evidence=self.evidence)
+                army.clean_init(self.player_dict)
+            except basic.DefenceError as error:
+                print(error)
+            else:
+                raise Exception
+
     def test_clean_init_army_text_off_bad1_raise_exception(self):
         with self.assertRaises(Exception):
             army = basic.Army(self.text_off_bad1, evidence=self.evidence)
@@ -587,6 +606,26 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
     def test_clean_init_army_text_off_bad10_raise_exception(self):
         with self.assertRaises(Exception):
             army = basic.Army(self.text_off_bad10, evidence=self.evidence)
+            army.clean_init(self.player_dict)
+
+    def test_clean_init_army_text_off_bad11_raise_exception(self):
+        with self.assertRaises(Exception):
+            army = basic.Army(self.text_off_bad11, evidence=self.evidence)
+            army.clean_init(self.player_dict)
+
+    def test_clean_init_army_text_off_bad12_raise_exception(self):
+        with self.assertRaises(Exception):
+            army = basic.Army(self.text_off_bad12, evidence=self.evidence)
+            army.clean_init(self.player_dict)
+
+    def test_clean_init_army_text_off_bad13_raise_exception(self):
+        with self.assertRaises(Exception):
+            army = basic.Army(self.text_off_bad13, evidence=self.evidence)
+            army.clean_init(self.player_dict)
+
+    def test_clean_init_army_text_off_bad14_raise_exception(self):
+        with self.assertRaises(Exception):
+            army = basic.Army(self.text_off_bad14, evidence=self.evidence)
             army.clean_init(self.player_dict)
 
     def test_clean_init_army_text_deff_bad1_raise_exception(self):
@@ -639,6 +678,26 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             army = basic.Defence(self.text_deff_bad10, evidence=self.evidence)
             army.clean_init(self.player_dict)
 
+    def test_clean_init_army_text_deff_bad11_raise_exception(self):
+        with self.assertRaises(Exception):
+            army = basic.Defence(self.text_deff_bad11, evidence=self.evidence)
+            army.clean_init(self.player_dict)
+
+    def test_clean_init_army_text_deff_bad12_raise_exception(self):
+        with self.assertRaises(Exception):
+            army = basic.Defence(self.text_deff_bad12, evidence=self.evidence)
+            army.clean_init(self.player_dict)
+
+    def test_clean_init_army_text_deff_bad13_raise_exception(self):
+        with self.assertRaises(Exception):
+            army = basic.Defence(self.text_deff_bad13, evidence=self.evidence)
+            army.clean_init(self.player_dict)
+
+    def test_clean_init_army_text_deff_bad14_raise_exception(self):
+        with self.assertRaises(Exception):
+            army = basic.Defence(self.text_deff_bad14, evidence=self.evidence)
+            army.clean_init(self.player_dict)
+
     def test_off_form_correct_one_line_correct(self):
         off_form = forms.OffTroopsForm(
             {"off_troops": self.text_off1}, outline=self.outline
@@ -654,9 +713,51 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
         )
         self.assertFalse(off_form.is_valid())
 
-    def test_off_form_is_not_correct_one_line_bad(self):
+    def test_off_form_is_not_correct_one_line_with_empty_line_first(self):
+        off_form = forms.OffTroopsForm(
+            {"off_troops": "\r\n" + self.text_off1}, outline=self.outline
+        )
+        self.assertFalse(off_form.is_valid())
+
+    def test_off_form_is_not_correct_one_line_with_empty_line_last(self):
+        off_form = forms.OffTroopsForm(
+            {"off_troops": self.text_off1 + "\r\n"}, outline=self.outline
+        )
+        self.assertFalse(off_form.is_valid())
+
+    def test_off_form_is_not_correct_one_line_bad1(self):
         off_form = forms.OffTroopsForm(
             {"off_troops": self.text_off_bad1}, outline=self.outline
+        )
+        self.assertFalse(off_form.is_valid())
+
+    def test_off_form_is_not_correct_one_line_bad11(self):
+        off_form = forms.OffTroopsForm(
+            {"off_troops": self.text_off_bad11}, outline=self.outline
+        )
+        self.assertFalse(off_form.is_valid())
+
+    def test_off_form_is_not_correct_one_line_bad12(self):
+        off_form = forms.OffTroopsForm(
+            {"off_troops": self.text_off_bad12}, outline=self.outline
+        )
+        self.assertFalse(off_form.is_valid())
+
+    def test_off_form_is_not_correct_one_line_bad13(self):
+        off_form = forms.OffTroopsForm(
+            {"off_troops": self.text_off_bad13}, outline=self.outline
+        )
+        self.assertFalse(off_form.is_valid())
+
+    def test_off_form_is_not_correct_one_line_bad14(self):
+        off_form = forms.OffTroopsForm(
+            {"off_troops": self.text_off_bad14}, outline=self.outline
+        )
+        self.assertFalse(off_form.is_valid())
+
+    def test_off_form_is_not_correct_with_only_second_line_bad11(self):
+        off_form = forms.OffTroopsForm(
+            {"off_troops": self.text_off1 + "\r\n" + self.text_off_bad11}, outline=self.outline
         )
         self.assertFalse(off_form.is_valid())
 
@@ -682,8 +783,51 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
         )
         self.assertFalse(deff_form.is_valid())
 
-    def test_deff_form_is_not_correct_one_line_bad(self):
+    def test_deff_form_is_not_correct_one_line_bad1(self):
         deff_form = forms.DeffTroopsForm(
             {"deff_troops": self.text_deff_bad1}, outline=self.outline
         )
         self.assertFalse(deff_form.is_valid())
+
+    def test_deff_form_is_not_correct_one_line_with_empty_line_first(self):
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": "\r\n" + self.text_deff1}, outline=self.outline
+        )
+        self.assertFalse(deff_form.is_valid())
+
+    def test_deff_form_is_not_correct_one_line_with_empty_line_last(self):
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": self.text_deff1 + "\r\n"}, outline=self.outline
+        )
+        self.assertFalse(deff_form.is_valid())
+
+    def test_deff_form_is_not_correct_one_line_bad11(self):
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": self.text_deff_bad11}, outline=self.outline
+        )
+        self.assertFalse(deff_form.is_valid())
+
+    def test_deff_form_is_not_correct_one_line_bad12(self):
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": self.text_deff_bad12}, outline=self.outline
+        )
+        self.assertFalse(deff_form.is_valid())
+
+    def test_deff_form_is_not_correct_one_line_bad13(self):
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": self.text_deff_bad13}, outline=self.outline
+        )
+        self.assertFalse(deff_form.is_valid())
+
+    def test_deff_form_is_not_correct_one_line_bad14(self):
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": self.text_deff_bad14}, outline=self.outline
+        )
+        self.assertFalse(deff_form.is_valid())
+
+    def test_deff_form_correct_is_not_correct_with_doubled_correct_lines(self):
+        off_form = forms.OffTroopsForm(
+            {"off_troops": self.text_deff1+ "\r\n" + self.text_deff2 + "\r\n" + self.text_deff1},
+            outline=self.outline,
+        )
+        self.assertFalse(off_form.is_valid())
