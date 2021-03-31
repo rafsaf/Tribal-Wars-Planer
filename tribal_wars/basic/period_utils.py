@@ -12,7 +12,10 @@ from tribal_wars import basic
 
 class FromPeriods:
     def __init__(
-        self, periods: List[models.PeriodModel], world: models.World, date: datetime.date
+        self,
+        periods: List[models.PeriodModel],
+        world: models.World,
+        date: datetime.date,
     ):
         self.date_time: datetime.datetime = datetime.datetime(
             year=date.year, month=date.month, day=date.day
@@ -22,10 +25,8 @@ class FromPeriods:
         self.nob_periods = deque(
             [period for period in periods if period.unit == "noble"]
         )
-        self.ram_periods = deque(
-            [period for period in periods if period.unit == "ram"]
-        )
-        
+        self.ram_periods = deque([period for period in periods if period.unit == "ram"])
+
         self.nob_period = None
         self.ram_period = None
 
@@ -55,7 +56,7 @@ class FromPeriods:
 
         return result
 
-    def attack_number(self, period: models.PeriodModel)-> float:
+    def attack_number(self, period: models.PeriodModel) -> float:
         n1 = period.from_number
         n2 = period.to_number
         if n2 is None:
@@ -66,7 +67,7 @@ class FromPeriods:
 
     def overwrite_weight(
         self, period: models.PeriodModel, weight: models.WeightModel
-    )-> models.WeightModel:
+    ) -> models.WeightModel:
 
         t1 = period.from_time
         t2 = period.to_time
@@ -88,9 +89,7 @@ class FromPeriods:
         else:
             desc = "ram"
         time_distance = datetime.timedelta(
-            seconds=village1.time_distance(
-                other=village2, unit=desc, world=self.world
-            )
+            seconds=village1.time_distance(other=village2, unit=desc, world=self.world)
         )
         t1_shipment = t1 - time_distance
         t2_shipment = t2 - time_distance

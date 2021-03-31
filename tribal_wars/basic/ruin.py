@@ -67,7 +67,7 @@ class RuinHandle:
                 "barracks",
                 "stable",
             ]
-    
+
     def next_level(self, level: int) -> int:
         return self.catapult_destroy_levels.level_after_destroy(self.catapult, level)
 
@@ -87,7 +87,7 @@ class RuinHandle:
 
 class CatapultDestroyLevels:
     def __init__(self) -> None:
-        self.main_level_dictionary: Dict[Tuple[int, int]] = {
+        self.main_level_dictionary: Dict[Tuple[int, int], int] = {
             (50, 30): 29,
             (50, 29): 28,
             (50, 28): 27,

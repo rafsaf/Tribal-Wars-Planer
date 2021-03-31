@@ -4,10 +4,10 @@ from . import models
 
 # Register your models here.
 
-
+admin.site.register(models.PeriodModel)
 admin.site.register(models.Result)
 admin.site.register(models.Server)
-admin.site.register(models.PeriodModel)
+
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
 
@@ -16,34 +16,49 @@ class AdminPaymentModel(admin.ModelAdmin):
     list_display = ["user", "amount", "payment_date", "new_date"]
     search_fields = ["user__username"]
 
+
 @admin.register(models.Profile)
 class AdminProfileModel(admin.ModelAdmin):
     list_display = ["user", "server", "validity_date"]
     search_fields = ["user__username"]
 
+
 @admin.register(models.OutlineOverview)
 class AdminOutlineOverview(admin.ModelAdmin):
-    list_display = ["pk", "outline",]
+    list_display = [
+        "pk",
+        "outline",
+    ]
     search_fields = ["outline__owner__username", "outline__name"]
+
 
 @admin.register(models.WeightMaximum)
 class AdminWeightMaximumModel(admin.ModelAdmin):
     list_display = ["start", "outline", "player", "off_max", "nobleman_max"]
     search_fields = ["start"]
+    readonly_fields = ["outline"]
+
 
 @admin.register(models.WeightModel)
 class AdminWeightModel(admin.ModelAdmin):
     list_display = ["target", "start", "player", "state", "off"]
     search_fields = ["start"]
+    readonly_fields = ["target", "state"]
 
-@admin.register(models.WeightModelOverview)
-class AdminWeightModel(admin.ModelAdmin):
-    list_display = ["target", "start", "player", "off"]
 
 @admin.register(models.TargetVertex)
 class AdminTargetVertex(admin.ModelAdmin):
-    list_display = ["outline", "target", "player", "outline_time", "exact_off", "exact_noble"]
+    list_display = [
+        "outline",
+        "target",
+        "player",
+        "outline_time",
+        "exact_off",
+        "exact_noble",
+    ]
     search_fields = ["target"]
+    readonly_fields = ["outline"]
+
 
 @admin.register(models.TargetVertexOverview)
 class AdminTargetVertexOverview(admin.ModelAdmin):
@@ -62,9 +77,11 @@ class AdminOutlineTime(admin.ModelAdmin):
 class AdminOverview(admin.ModelAdmin):
     list_display = [
         "outline",
+        "created",
         "player",
         "token",
     ]
+    search_fields = ["player", "outline__ally_tribe_tag", "outline__name"]
 
 
 @admin.register(models.World)
@@ -100,6 +117,7 @@ class AdminVillage(admin.ModelAdmin):
     ]
     search_fields = ["coord", "world__postfix", "village_id"]
 
+
 @admin.register(models.Tribe)
 class AdminTribe(admin.ModelAdmin):
     list_display = [
@@ -120,13 +138,13 @@ class AdminPlayer(admin.ModelAdmin):
     ]
     search_fields = ["name", "world__postfix"]
 
+
 @admin.register(models.Outline)
 class AdminNewOutline(admin.ModelAdmin):
     list_display = [
         "name",
         "created",
         "world",
-        "owner",
         "ally_tribe_tag",
         "enemy_tribe_tag",
     ]

@@ -1,10 +1,11 @@
 """ Army and Defence """
+from typing import Tuple
 from .cached_property import cached_property
 from base import models
 from tribal_wars import basic
 
 
-def world_evidence(world: models.World):
+def world_evidence(world: models.World) -> Tuple[int, int, int]:
     """ For world return [T/F, .. , ..] [paladin, archer, militia]"""
     result = []
     if world.paladin == "active":
@@ -64,12 +65,12 @@ class Army:
         if self.text_army[-1] != "":
             raise ArmyError(f"Błąd w składni {self.text_army[-1]}")
 
-    @cached_property
-    def coord(self):
+    @property
+    def coord(self) -> str:
         """ return kordy of village """
         return self.text_army[0]
 
-    @cached_property
+    @property
     def village(self):
         """ return Village instance of text[0] """
         return basic.Village(self.text_army[0])

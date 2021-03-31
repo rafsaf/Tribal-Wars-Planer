@@ -101,9 +101,16 @@ class WorldQuery:
         self.world.last_update = timezone.now()
 
     def update_villages(self):
-        dupl_ids = list(VillageModel.objects.filter(world=self.world).values_list("village_id", flat=True).annotate(num_id=Count('village_id')).filter(num_id__gt=1))
+        dupl_ids = list(
+            VillageModel.objects.filter(world=self.world)
+            .values_list("village_id", flat=True)
+            .annotate(num_id=Count("village_id"))
+            .filter(num_id__gt=1)
+        )
         if len(dupl_ids) > 0:
-            VillageModel.objects.filter(world=self.world, village_id__in=dupl_ids).delete()
+            VillageModel.objects.filter(
+                world=self.world, village_id__in=dupl_ids
+            ).delete()
 
         create_list = list()
 
@@ -204,7 +211,9 @@ class WorldQuery:
                     tribe = Tribe(tribe_id=tribe_id, tag=tag, world=self.world)
                     create_list.append(tribe)
 
-            Tribe.objects.filter(tribe_id__in=[item[0] for item in tribe_set], world=self.world).delete()
+            Tribe.objects.filter(
+                tribe_id__in=[item[0] for item in tribe_set], world=self.world
+            ).delete()
             Tribe.objects.bulk_create(create_list)
 
     def update_players(self):
