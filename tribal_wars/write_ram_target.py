@@ -100,6 +100,8 @@ class WriteRamTarget:
         weight_max: WeightMaximum
         for i, weight_max in enumerate(self.sorted_weights_offs()):
             building: Optional[str] = self._building()
+            if building == "stop":
+                break
             off: int = self._off(weight_max)
             catapult: int = self._catapult(weight_max)
             fake_limit: int = self._fake_limit()
@@ -130,7 +132,7 @@ class WriteRamTarget:
 
     def _building(self) -> Optional[str]:
         if self.building_generator is not None:
-            building: Optional[str] = next(self.building_generator, None)
+            building: Optional[str] = next(self.building_generator, "stop")
             return building
         return None
 

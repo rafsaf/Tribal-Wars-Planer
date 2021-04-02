@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from api import serializers
 
 from base.models import (
     TargetVertex,
@@ -106,3 +107,24 @@ class OverwiewStateHideUpdate(APIView):
         overview.show_hidden = new_state
         overview.save()
         return Response({"name": name, "class": new_class}, status=status.HTTP_200_OK)
+
+
+class ChangeBuildingsArray(APIView):
+    """
+    For given outline updates array with buildings.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def put(
+        self, request, outline_id: int, format=None
+    ) -> Response:
+        outline: Outline = get_object_or_404(Outline, id=outline_id, owner=request.user)
+
+        buildings_serializer = serializers.ChangeBuildingsArraySerializer(data=request.data)
+        if buildings_serializer.is_valid():
+            outline.initial_outline_buildings = buildings_serializer.validated_data["buildings"]
+            outline.save()
+            return Response(status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_404_NOT_FOUND)

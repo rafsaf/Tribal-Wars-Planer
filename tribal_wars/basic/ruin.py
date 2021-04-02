@@ -43,30 +43,8 @@ class RuinHandle:
             }
 
         self.catapult_destroy_levels: CatapultDestroyLevels = CatapultDestroyLevels()
-        if self.outline.initial_outline_ruining_order == "first":
-            self.destroying_order: List[str] = [
-                "farm",
-                "headquarters",
-                "smithy",
-                "barracks",
-                "clay_pit",
-                "timber_camp",
-                "iron_mine",
-                "warehouse",
-                "stable",
-            ]
-        elif self.outline.initial_outline_ruining_order == "second":
-            self.destroying_order: List[str] = [
-                "farm",
-                "headquarters",
-                "warehouse",
-                "smithy",
-                "clay_pit",
-                "timber_camp",
-                "iron_mine",
-                "barracks",
-                "stable",
-            ]
+        self.destroying_order: List[str] = self.outline.initial_outline_buildings
+
 
     def next_level(self, level: int) -> int:
         return self.catapult_destroy_levels.level_after_destroy(self.catapult, level)

@@ -377,7 +377,6 @@ class RuiningOutlineForm(forms.ModelForm):
         fields = [
             "initial_outline_catapult_default",
             "initial_outline_off_left_catapult",
-            "initial_outline_ruining_order",
             "initial_outline_average_ruining_points",
         ]
         labels = {
@@ -386,9 +385,6 @@ class RuiningOutlineForm(forms.ModelForm):
             ),
             "initial_outline_off_left_catapult": gettext_lazy(
                 "Number of catapults that will always be left in full offs:"
-            ),
-            "initial_outline_ruining_order": gettext_lazy(
-                "Order of demolition of buildings:"
             ),
             "initial_outline_average_ruining_points": gettext_lazy(
                 "How many points on average do demolished targets have:"

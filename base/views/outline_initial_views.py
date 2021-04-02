@@ -151,9 +151,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "initial_outline_catapult_default"
     ].initial = instance.initial_outline_catapult_default
     form6.fields[
-        "initial_outline_ruining_order"
-    ].initial = instance.initial_outline_ruining_order
-    form6.fields[
         "initial_outline_average_ruining_points"
     ].initial = instance.initial_outline_average_ruining_points
 
@@ -283,16 +280,12 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 catapult_left: Optional[str] = request.POST.get(
                     "initial_outline_off_left_catapult"
                 )
-                initial_outline_ruining_order: Optional[str] = request.POST.get(
-                    "initial_outline_ruining_order"
-                )
                 initial_outline_average_ruining_points: Optional[
                     str
                 ] = request.POST.get("initial_outline_average_ruining_points")
 
                 instance.initial_outline_catapult_default = catapult_default
                 instance.initial_outline_off_left_catapult = catapult_left
-                instance.initial_outline_ruining_order = initial_outline_ruining_order
                 instance.initial_outline_average_ruining_points = (
                     initial_outline_average_ruining_points
                 )

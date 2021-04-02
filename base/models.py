@@ -1,5 +1,6 @@
 """ Database models """
 import datetime
+from typing import List
 from dateutil.relativedelta import relativedelta
 
 import django
@@ -186,6 +187,12 @@ def new_server_create_test_world(sender, instance, created, **kwargs):
     if created:
         create_test_world(server=instance)
 
+def building_default_list() -> List[str]:
+    return [
+        "farm",
+        "headquarters",
+        "smithy",
+    ]
 
 class Outline(models.Model):
     """ Outline with all informations about it"""
@@ -233,12 +240,23 @@ class Outline(models.Model):
         ("hidden", gettext_lazy("Hidden")),
     ]
 
-    ORDER_RUINING = [
-        ("first", gettext_lazy("Farm -> Headquarters -> Smithy -> Barracks -> EKO...")),
-        (
-            "second",
-            gettext_lazy("Farm -> Headquarters -> Warehouse -> Smithy -> EKO..."),
-        ),
+    BUILDINGS = [
+        ("headquarters", gettext_lazy("Headquarters")),
+        ("barracks", gettext_lazy("Barracks")),
+        ("stable", gettext_lazy("Stable")),
+        ("workshop", gettext_lazy("Workshop")),
+        ("church", gettext_lazy("Church")),
+        ("academy", gettext_lazy("Academy")),
+        ("smithy", gettext_lazy("Smithy")),
+        ("rally_point", gettext_lazy("Rally point")),
+        ("statue", gettext_lazy("Statue")),
+        ("market", gettext_lazy("Market")),
+        ("timber_camp", gettext_lazy("Timber camp")),
+        ("clay_pit", gettext_lazy("Clay pit")),
+        ("iron_mine", gettext_lazy("Iron mine")),
+        ("farm", gettext_lazy("Farm")),
+        ("warehouse", gettext_lazy("Warehouse")),
+        ("wall", gettext_lazy("wall")),
     ]
 
     RUINED_VILLAGES_POINTS = [
@@ -277,8 +295,8 @@ class Outline(models.Model):
     initial_outline_average_ruining_points = models.CharField(
         max_length=150, choices=RUINED_VILLAGES_POINTS, default="big"
     )
-    initial_outline_ruining_order = models.CharField(
-        max_length=150, choices=ORDER_RUINING, default="first"
+    initial_outline_buildings = ArrayField(
+        models.CharField(max_length=100, choices=BUILDINGS), default=building_default_list
     )
     initial_outline_min_off = models.IntegerField(
         default=19000,
@@ -362,7 +380,7 @@ class Outline(models.Model):
         ordering = ("-created",)
 
     def __str__(self):
-        return "ID:" + str(self.id) + ", Nazwa: " + str(self.name)
+        return "ID:" + str(self.pk) + ", Nazwa: " + str(self.name)
 
     def remove_user_outline(self):
         self.written = "inactive"
