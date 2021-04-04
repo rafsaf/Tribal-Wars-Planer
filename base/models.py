@@ -4,6 +4,8 @@ from typing import List
 from dateutil.relativedelta import relativedelta
 
 import django
+from django.db.models.query import QuerySet
+from django.db.models import F
 from django.db.models.fields import BooleanField
 from django.utils import timezone
 from django.utils.translation import gettext_lazy, gettext
@@ -27,6 +29,16 @@ class Server(models.Model):
     def __str__(self):
         return self.dns
 
+class Message(models.Model):
+    date = models.DateField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=20, default="bug fix")
+    text = models.TextField(default="")
+
+@receiver(post_save, sender=Message)
+def created_message(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.all().update(messages=F("messages") + 1)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -36,7 +48,7 @@ class Profile(models.Model):
     validity_date = models.DateField(
         default=datetime.date(year=2021, month=2, day=25), blank=True, null=True
     )
-
+    messages = models.IntegerField(default=0)
     def is_premium(self) -> bool:
         if self.validity_date is None:
             return False
@@ -44,6 +56,9 @@ class Profile(models.Model):
         if today > self.validity_date:
             return False
         return True
+
+    def latest_messages(self) -> "QuerySet[Message]":
+        return Message.objects.order_by("-created")[:6]
 
 
 @receiver(post_save, sender=User)
@@ -245,7 +260,6 @@ class Outline(models.Model):
         ("barracks", gettext_lazy("Barracks")),
         ("stable", gettext_lazy("Stable")),
         ("workshop", gettext_lazy("Workshop")),
-        ("church", gettext_lazy("Church")),
         ("academy", gettext_lazy("Academy")),
         ("smithy", gettext_lazy("Smithy")),
         ("rally_point", gettext_lazy("Rally point")),
@@ -272,7 +286,7 @@ class Outline(models.Model):
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(default=django.utils.timezone.now)
+    date = models.DateField(default=django.utils.timezone.now) #type: ignore
     name = models.TextField()
     world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
@@ -287,7 +301,7 @@ class Outline(models.Model):
     initial_outline_ruins = models.TextField(blank=True, default="")
 
     initial_outline_catapult_default = models.IntegerField(
-        default=100, choices=CATAPULTS_NUMBER
+        default=150, choices=CATAPULTS_NUMBER
     )
     initial_outline_off_left_catapult = models.IntegerField(
         default=50, validators=[MinValueValidator(0), MaxValueValidator(400)]
@@ -308,7 +322,7 @@ class Outline(models.Model):
     initial_outline_target_dist = models.IntegerField(
         default=50, validators=[MinValueValidator(0), MaxValueValidator(150)]
     )
-    initial_outline_excluded_coords = models.TextField(default="")
+    initial_outline_excluded_coords = models.TextField(default="", blank=True)
     initial_outline_fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )
@@ -324,10 +338,10 @@ class Outline(models.Model):
         default="",
     )
 
-    avaiable_offs = ArrayField(models.IntegerField(), default=list)
-    avaiable_nobles = ArrayField(models.IntegerField(), default=list)
-    avaiable_offs_near = ArrayField(models.IntegerField(), default=list)
-    avaiable_nobles_near = ArrayField(models.IntegerField(), default=list)
+    avaiable_offs = ArrayField(models.IntegerField(), default=list, blank=True)
+    avaiable_nobles = ArrayField(models.IntegerField(), default=list, blank=True)
+    avaiable_offs_near = ArrayField(models.IntegerField(), default=list, blank=True)
+    avaiable_nobles_near = ArrayField(models.IntegerField(), default=list, blank=True)
     avaiable_ruins = models.IntegerField(default=None, null=True, blank=True)
 
     mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
@@ -402,7 +416,7 @@ class Outline(models.Model):
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
         Overview.objects.filter(outline=self, removed=False).update(removed=True)
-        result = self.result
+        result = self.result #type: ignore
         result.results_outline = ""
         result.results_players = ""
         result.results_sum_up = ""
@@ -564,7 +578,7 @@ class TargetVertex(models.Model):
         return self.target
 
     def get_absolute_url(self):
-        return reverse("base:planer_initial_detail", args=[self.outline_id, self.id])
+        return reverse("base:planer_initial_detail", args=[self.outline.pk, self.pk])
 
     def coord_tuple(self):
         return (int(self.target[0:3]), int(self.target[4:7]))
@@ -578,7 +592,6 @@ class WeightModel(models.Model):
         ("barracks", gettext_lazy("Barracks")),
         ("stable", gettext_lazy("Stable")),
         ("workshop", gettext_lazy("Workshop")),
-        ("church", gettext_lazy("Church")),
         ("academy", gettext_lazy("Academy")),
         ("smithy", gettext_lazy("Smithy")),
         ("rally_point", gettext_lazy("Rally point")),

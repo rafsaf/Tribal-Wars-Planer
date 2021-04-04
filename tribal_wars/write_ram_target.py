@@ -52,13 +52,14 @@ class WriteRamTarget:
             outline=self.outline
         )
         self.ruin: bool = ruin
+        self.ruin_handle: Optional[RuinHandle] = None 
         self.building_generator: Optional[Generator] = None
 
-    def sorted_weights_offs(self) -> List[WeightMaximum]:
+    def sorted_weights_offs(self, catapults: int=50) -> List[WeightMaximum]:
         if self.target.fake:
             self._set_fake_query()
         elif self.ruin:
-            self._set_ruin_query()
+            self._set_ruin_query(catapults=catapults)
         else:
             self._set_off_query()
 
@@ -95,15 +96,21 @@ class WriteRamTarget:
         weights_max_update_lst: List[WeightMaximum] = []
         weights_create_lst: List[WeightModel] = []
         self._set_building_generator()
-
+        if self.ruin:
+            off_lst: List[WeightMaximum] = list(set(self.sorted_weights_offs(50) + self.sorted_weights_offs(100)))
+            off_lst.sort(key=lambda weight: -weight.catapult_left)
+            off_lst = off_lst[:self.target.required_off]
+        else:
+            off_lst: List[WeightMaximum] = self.sorted_weights_offs()
         i: int
         weight_max: WeightMaximum
-        for i, weight_max in enumerate(self.sorted_weights_offs()):
-            building: Optional[str] = self._building()
-            if building == "stop":
+        for i, weight_max in enumerate(off_lst):
+            try:
+                catapult: int = self._catapult(weight_max)
+            except StopIteration:
                 break
-            off: int = self._off(weight_max)
-            catapult: int = self._catapult(weight_max)
+            off: int = self._off(weight_max, catapult)
+            building: Optional[str] = self._building()
             fake_limit: int = self._fake_limit()
 
             weight = self._weight_model(weight_max, off, catapult, building, i)
@@ -126,23 +133,24 @@ class WriteRamTarget:
         return weights_create_lst
 
     def _set_building_generator(self) -> None:
-        if self.ruin:
+        if self.ruin and len(self.outline.initial_outline_buildings) > 0:
             ruin_handle: RuinHandle = RuinHandle(outline=self.outline)
-            self.building_generator = ruin_handle.yield_building()
+            self.ruin_handle = ruin_handle
+
 
     def _building(self) -> Optional[str]:
-        if self.building_generator is not None:
-            building: Optional[str] = next(self.building_generator, "stop")
+        if self.ruin_handle is not None:
+            building: str = self.ruin_handle.building()
             return building
         return None
 
-    def _off(self, weight_max: WeightMaximum) -> int:
+    def _off(self, weight_max: WeightMaximum, catapult: int) -> int:
         if self.target.fake:
             return 100
         elif self.ruin:
-            return self.outline.initial_outline_catapult_default * 8
+            return catapult * 8
         else:  # real
-            return weight_max.off_max
+            return weight_max.off_left
 
     def _fake_limit(self) -> int:
         if self.target.fake:
@@ -154,7 +162,7 @@ class WriteRamTarget:
         if self.target.fake:
             return 0
         elif self.ruin:
-            return self.outline.initial_outline_catapult_default
+            return self.ruin_handle.best_catapult(weight_max)
         else:  # real
             return weight_max.catapult_left
 
@@ -206,15 +214,14 @@ class WriteRamTarget:
                 off_left__gte=100 + F("catapult_left") * 8,
             )
 
-    def _set_ruin_query(self) -> None:
+    def _set_ruin_query(self, catapults=50) -> None:
         self.default_query = self.default_query.filter(
             Q(
-                catapult_left__gte=self.outline.initial_outline_catapult_default,
+                catapult_left__gte=catapults,
                 off_left__lt=self.outline.initial_outline_min_off,
             )
             | Q(
-                catapult_left__gte=self.outline.initial_outline_catapult_default
-                + self.outline.initial_outline_off_left_catapult,
+                catapult_left__gte=catapults + self.outline.initial_outline_off_left_catapult,
                 off_left__gte=self.outline.initial_outline_min_off,
             )
         )
@@ -282,6 +289,7 @@ class WriteRamTarget:
         weight_list: List[WeightMaximum] = list(
             self.default_query.order_by("distance")[: 1 * self.target.required_off]
         )
+        weight_list.sort(key=lambda weight: -weight.distance) #type: ignore
         return weight_list
 
     def _close_weight_lst(self) -> List[WeightMaximum]:
@@ -373,7 +381,6 @@ class WriteRamTarget:
         weight_list: List[WeightMaximum] = list(
             self.default_query[: 3 * self.target.required_off]
         )
-
         if len(weight_list) < self.target.required_off:
             required: int = len(weight_list)
         else:

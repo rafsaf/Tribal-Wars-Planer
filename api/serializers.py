@@ -9,7 +9,6 @@ class ChangeBuildingsArraySerializer(serializers.Serializer):
             "barracks",
             "stable",
             "workshop",
-            "church",
             "academy",
             "smithy",
             "rally_point",

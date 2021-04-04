@@ -160,29 +160,29 @@
           <div class="mb-4 mt-2">
             {% if mode == "real" %}
             <a class="t-tab-teal t-tab-teal-active" href="?t=real">
-              Cele &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
+              {% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
             </a>
             {% else %}
             <a class="t-tab-teal" href="?t=real">
-              Cele &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
+              {% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
             </a>
             {% endif %}
             {% if mode == "fake" %}
             <a class="t-tab-teal t-tab-teal-active" href="?t=fake">
-              Fejki &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
+              {% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
             </a>
             {% else %}
             <a class="t-tab-teal" href="?t=fake">
-              Fejki &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
+              {% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
             </a>
             {% endif %}
             {% if mode == "ruin" %}
             <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">
-              Burzaki &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
+              {% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
             </a>
             {% else %}
             <a class="t-tab-teal" href="?t=ruin">
-              Burzaki &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
+              {% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
             </a>
             {% endif %}
 
@@ -348,7 +348,7 @@
                     {% endfor %}
                   </tr>
                   <tr>
-                    <th>{% trans 'The approximate number of ruin attacks to write out' %}</th>
+                    <th>{% trans 'The number of available catapults' %}</th>
                     <th > 
                       {% if instance.avaiable_ruins %}
                       {{instance.avaiable_ruins}}
@@ -828,10 +828,6 @@
                               {
                                 label: `{% trans "Workshop" %}`,
                                 value: "workshop",
-                              },
-                              {
-                                label: `{% trans "Church" %}`,
-                                value: "church",
                               },
                               {
                                 label: `{% trans "Academy" %}`,

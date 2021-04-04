@@ -1,14 +1,16 @@
-from typing import Dict, List, Tuple
-from base import models
-
-BuildingCount = Tuple[str, int]
+from typing import Dict, Iterator, List, Optional, Tuple
+from base.models import WeightMaximum, Outline
 
 
 class RuinHandle:
-    def __init__(self, outline: models.Outline) -> None:
-        self.outline: models.Outline = outline
-        self.catapult: int = outline.initial_outline_catapult_default
-        self.buildings: List[BuildingCount] = []
+    def __init__(self, outline: Outline) -> None:
+        self.outline: Outline = outline
+        self.building_is_not_set = True
+        self.current_level: Optional[int] = None
+        self.current_building: Optional[str] = None
+        self.destroying_order: Iterator[str] = iter(self.outline.initial_outline_buildings)
+        self.catapult_destroy_levels: CatapultDestroyLevels = CatapultDestroyLevels()
+        
         if self.outline.initial_outline_average_ruining_points == "big":
             self.levels: Dict[str, int] = {
                 "headquarters": 20,
@@ -23,7 +25,7 @@ class RuinHandle:
                 "iron_mine": 30,
                 "farm": 30,
                 "warehouse": 30,
-                "wall": 0,
+                "wall": 20,
             }
         else:
             self.levels: Dict[str, int] = {
@@ -39,28 +41,57 @@ class RuinHandle:
                 "iron_mine": 25,
                 "farm": 25,
                 "warehouse": 24,
-                "wall": 0,
+                "wall": 20,
             }
 
-        self.catapult_destroy_levels: CatapultDestroyLevels = CatapultDestroyLevels()
-        self.destroying_order: List[str] = self.outline.initial_outline_buildings
+        
 
 
-    def next_level(self, level: int) -> int:
-        return self.catapult_destroy_levels.level_after_destroy(self.catapult, level)
+    def _next_level(self, catapults: int) -> int:
+        if self.current_level is None:
+            raise ValueError("Current level cannot be none")
+        return self.catapult_destroy_levels.level_after_destroy(catapults, self.current_level)
 
-    def yield_building(self):
-        building: str
-        for building in self.destroying_order:
-            level: int = self.levels[building]
-            while True:
-                next_level: int = self.next_level(level)
-                if next_level <= 5:
-                    yield building
-                    break
-                else:
-                    yield building
-                    level = next_level
+    def best_catapult(self, weight_max: WeightMaximum) -> int:
+        """ 
+        For given weight_max match best catapult number possible
+        Also take care about current levels and building name
+        """
+        if self.building_is_not_set:
+            self.current_building = next(self.destroying_order)
+            self.building_is_not_set = False
+            self.current_level = self.levels[self.current_building]
+
+        best: int
+        available_cats: int = weight_max.catapult_left
+        if self.current_level == 1:
+            best = 20
+        elif self.current_level <= 8 or available_cats < 75:
+            best = 50
+        elif self.current_level <= 11 or available_cats < 100:
+            best = 75
+        elif self.current_level <= 13 or available_cats < 150:
+            best = 100
+        elif self.current_level <= 16 or available_cats < 200:
+            best = 150
+        else:
+            best = 200
+        if best > self.outline.initial_outline_catapult_default:
+            best = self.outline.initial_outline_catapult_default
+
+        next_level: int = self._next_level(best)
+        if next_level <= 3:
+            self.building_is_not_set = True
+        else:
+            self.current_level = next_level
+        
+        return best
+
+    def building(self) -> str:
+        """ For cats number return building name, always actual """
+        if self.current_building is None:
+            raise ValueError("Building cannot be None")
+        return self.current_building
 
 
 class CatapultDestroyLevels:

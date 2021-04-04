@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from api import serializers
 
 from base.models import (
+    Profile,
     TargetVertex,
     OutlineTime,
     Outline,
@@ -128,3 +129,20 @@ class ChangeBuildingsArray(APIView):
             return Response(status=status.HTTP_200_OK)
 
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+class ResetUserMessages(APIView):
+    """
+    For given outline updates array with buildings.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def put(
+        self, request: HttpRequest, format=None
+    ) -> Response:
+        profile: Profile = get_object_or_404(Profile, user=request.user)
+        profile.messages = 0
+        profile.save()
+        return Response(status=status.HTTP_200_OK)
+
+

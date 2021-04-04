@@ -381,7 +381,7 @@ class RuiningOutlineForm(forms.ModelForm):
         ]
         labels = {
             "initial_outline_catapult_default": gettext_lazy(
-                "Number of catapults in one ruin attack:"
+                "MAX number of catapults in one ruin attack:"
             ),
             "initial_outline_off_left_catapult": gettext_lazy(
                 "Number of catapults that will always be left in full offs:"

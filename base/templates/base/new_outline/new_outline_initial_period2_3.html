@@ -75,7 +75,7 @@
                     <input name="mode" type="hidden" value="{{mode}}">
                     <th style="min-width: 25vh;" class="text-nowrap"><input name="player" class="form-control" type="search" value="{{player}}"></th>
                     <th style="min-width: 25vh;" class="text-nowrap"><input name="coord" class="form-control" type="search" value="{{coord}}"></th>
-                    <th style="min-width: 25vh;" class="text-nowrap"><button class="btn btn-info">Filter</button></th>
+                    <th style="min-width: 25vh;" class="text-nowrap"><button class="btn btn-info">{% trans 'Filter' %}</button></th>
                 </form>
 
 
@@ -116,7 +116,7 @@
                 </th>
                 <th style="min-width: 15vh !important;" class="text-center">
                     <button id="target-btn-{{target.pk}}" onclick="deleteTarget(`{{target.pk}}`);" class="btn btn-outline-danger">
-                        Delete
+                        {% trans 'Delete' %}
                     </button>
 
                 </th>

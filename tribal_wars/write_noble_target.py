@@ -114,7 +114,7 @@ class WriteNobleTarget:
             first_catapult: int = self._first_catapult(weight_max, catapult)
             off_to_left: int = self._off_to_left(weight_max, off, noble_number)
             catapult_to_left: int = self._catapult_to_left(
-                weight_max, off, noble_number
+                weight_max, catapult, noble_number
             )
 
             if self.outline.mode_split == "split":
@@ -239,11 +239,12 @@ class WriteNobleTarget:
         Then we use weight_max with (required nobles -1) nobles and so on (-2, -3...)
         """
 
-        def sort_func(weight_max: WeightMaximum) -> Tuple[int, int, int]:
+        def sort_func(weight_max: WeightMaximum) -> Tuple[int, float, int, int]:
             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)
+            distance: float = float(weight_max.distance) #type: ignore
             off: int = -int(weight_max.off_left)
             number: int = -int(weight_max.nobleman_left)
-            return (fit, off, number)
+            return (fit, distance, off, number)
 
         sorted_weight_max_lst: List[WeightMaximum] = sorted(
             weight_max_list, key=sort_func
@@ -257,10 +258,10 @@ class WriteNobleTarget:
         This case represents OPTIMAL FIT, depend of off troops and distance
         """
 
-        def sort_func(weight_max: WeightMaximum) -> Tuple[int, int]:
+        def sort_func(weight_max: WeightMaximum) -> Tuple[float, int]:
             off: int = -int(weight_max.off_left)
-            distance: int = -int(weight_max.distance)  # type: ignore
-            return (off, distance)
+            distance: float = float(weight_max.distance)  # type: ignore
+            return (distance, off)
 
         sorted_weight_max_lst: List[WeightMaximum] = sorted(
             weight_max_list, key=sort_func
@@ -275,10 +276,10 @@ class WriteNobleTarget:
         Later we decide to use only one noble from every village by using single=True
         """
 
-        def sort_func(weight_max: WeightMaximum) -> Tuple[int, int]:
+        def sort_func(weight_max: WeightMaximum) -> Tuple[float, int]:
             off: int = -int(weight_max.off_left)
-            distance: int = -int(weight_max.distance)  # type: ignore
-            return (off, distance)
+            distance: float = float(weight_max.distance)  # type: ignore
+            return (distance, off)
 
         sorted_weight_max_lst: List[WeightMaximum] = sorted(
             weight_max_list, key=sort_func

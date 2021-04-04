@@ -141,11 +141,10 @@ def update_available_ruins(outline: models.Outline) -> None:
         models.WeightMaximum.objects.filter(
             first_line=False,
             outline=outline,
-            catapult_left__gte=outline.initial_outline_catapult_default,
             off_left__lt=outline.initial_outline_min_off,
         )
         .annotate(
-            ruin_number=(F("catapult_left") / outline.initial_outline_catapult_default)
+            ruin_number=(F("catapult_left"))
         )
         .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
         or 0
@@ -155,13 +154,11 @@ def update_available_ruins(outline: models.Outline) -> None:
         models.WeightMaximum.objects.filter(
             outline=outline,
             first_line=False,
-            catapult_left__gte=outline.initial_outline_catapult_default
-            + outline.initial_outline_off_left_catapult,
+            catapult_left__gte=outline.initial_outline_off_left_catapult,
             off_left__gte=outline.initial_outline_min_off,
         )
         .annotate(
             ruin_number=(F("catapult_left") - outline.initial_outline_off_left_catapult)
-            / outline.initial_outline_catapult_default
         )
         .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
         or 0
