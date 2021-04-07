@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-07 15:03+0200\n"
+"POT-Creation-Date: 2021-04-07 16:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1314,6 +1314,12 @@ msgstr "6. Burzenie"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:799
 msgid "Order of demolition of buildings:"
 msgstr "Kolejność burzenia budynków:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:800
+msgid ""
+"Only the buildings listed below will be included in the demolition! (in that "
+"order)"
+msgstr "Tylko budynki wymienione poniżej będą uwzględnione w burzeniu (w takiej kolejności)"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:939
 msgid ""
