@@ -5,7 +5,10 @@
 {% load crispy_forms_tags %}
 
 <script src="{% static 'codemirror-min.js' %}"></script>
+<script src="{% static 'multi-select-min.js' %}"></script>
 <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
+<script src="https://kit.fontawesome.com/dc3f7108e7.js" crossorigin="anonymous"></script>
+
 <div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
     <div class="col-12 col-lg-7">
         <div class=" w-100">
@@ -51,33 +54,135 @@
               background-color: #f7f7f7;
               border: 1px solid #ddd!important
             }
+
+            .select-wrapper {
+              margin: auto;
+              max-width: 600px;
+              width: calc(100% - 40px);
+            }
+            
+            .select-pure__select {
+              align-items: center;
+              background: #f9f9f8;
+              border-radius: 4px;
+              border: 1px solid rgba(0, 0, 0, 0.15);
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+              box-sizing: border-box;
+              color: #363b3e;
+              cursor: pointer;
+              display: flex;
+              font-size: 16px;
+              font-weight: 500;
+              justify-content: left;
+              min-height: 44px;
+              padding: 5px 10px;
+              position: relative;
+              transition: 0.2s;
+              width: 100%;
+            }
+            
+            .select-pure__options {
+              border-radius: 4px;
+              border: 1px solid rgba(0, 0, 0, 0.15);
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+              box-sizing: border-box;
+              color: #363b3e;
+              display: none;
+              left: 0;
+              max-height: 221px;
+              overflow-y: scroll;
+              position: absolute;
+              top: 50px;
+              width: 100%;
+              z-index: 5;
+            }
+            
+            .select-pure__select--opened .select-pure__options {
+              display: block;
+            }
+            
+            .select-pure__option {
+              background: #fff;
+              border-bottom: 1px solid #e4e4e4;
+              box-sizing: border-box;
+              height: 44px;
+              line-height: 25px;
+              padding: 10px;
+            }
+            
+            .select-pure__option--selected {
+              color: #e4e4e4;
+              cursor: initial;
+              pointer-events: none;
+            }
+            
+            .select-pure__option--hidden {
+              display: none;
+            }
+            
+            .select-pure__selected-label {
+              background: #5e6264;
+              border-radius: 4px;
+              color: #fff;
+              cursor: initial;
+              display: inline-block;
+              margin: 5px 10px 5px 0;
+              padding: 3px 7px;
+            }
+            
+            .select-pure__selected-label:last-of-type {
+              margin-right: 0;
+            }
+            
+            .select-pure__selected-label i {
+              cursor: pointer;
+              display: inline-block;
+              margin-left: 7px;
+            }
+            
+            .select-pure__selected-label i:hover {
+              color: #e4e4e4;
+            }
+            
+            .select-pure__autocomplete {
+              background: #f9f9f8;
+              border-bottom: 1px solid #e4e4e4;
+              border-left: none;
+              border-right: none;
+              border-top: none;
+              box-sizing: border-box;
+              font-size: 16px;
+              outline: none;
+              padding: 10px;
+              width: 100%;
+            }
           </style>
           <div class="mb-4 mt-2">
             {% if mode == "real" %}
             <a class="t-tab-teal t-tab-teal-active" href="?t=real">
-              Cele &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
+              {% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
             </a>
             {% else %}
             <a class="t-tab-teal" href="?t=real">
-              Cele &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
+              {% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{len_real}}</span>
             </a>
             {% endif %}
             {% if mode == "fake" %}
             <a class="t-tab-teal t-tab-teal-active" href="?t=fake">
-              Fejki &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
+              {% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
             </a>
             {% else %}
             <a class="t-tab-teal" href="?t=fake">
-              Fejki &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
+              {% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{len_fake}}</span>
             </a>
             {% endif %}
             {% if mode == "ruin" %}
             <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">
-              Burzaki &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
+              {% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
             </a>
             {% else %}
             <a class="t-tab-teal" href="?t=ruin">
-              Burzaki &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
+              {% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span>
             </a>
             {% endif %}
 
@@ -243,7 +348,7 @@
                     {% endfor %}
                   </tr>
                   <tr>
-                    <th>{% trans 'The approximate number of ruin attacks to write out' %}</th>
+                    <th>{% trans 'The number of available catapults' %}</th>
                     <th > 
                       {% if instance.avaiable_ruins %}
                       {{instance.avaiable_ruins}}
@@ -690,10 +795,14 @@
                       </div>
                       <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
                         <div class="card-body">
-                          <div class="mb-5">
-
-                          </div>
+                          <div class="my-2">
+                          <p class="mb-0">{% trans 'Order of demolition of buildings:' %}</p>
+                          <p style="font-size:0.9rem;" class="mt-0 md-correct2">Only the buildings listed below will be included in the demolition! (in that order)</p>
                           
+                          
+                            <span class="multi-select"></span>
+                            <p style="height: 0.8rem;" id="multi-select-spinner"></p>
+                          </div>
                           <form id="form6-form" method='POST' autocomplete="off">
                             <input type="hidden" name="form6" value="">
                             {% csrf_token %}
@@ -701,6 +810,84 @@
                           <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-sm btn-ocean" id="form6-btn" >{% trans 'Save' %}</button>
                           </form>
 
+                          
+                          <script>
+                            const myOptions = [
+                              {
+                                label: `{% trans "Headquarters" %}`,
+                                value: "headquarters",
+                              },
+                              {
+                                label: `{% trans "Barracks" %}`,
+                                value: "barracks",
+                              },
+                              {
+                                label: `{% trans "Stable" %}`,
+                                value: "stable",
+                              },
+                              {
+                                label: `{% trans "Workshop" %}`,
+                                value: "workshop",
+                              },
+                              {
+                                label: `{% trans "Academy" %}`,
+                                value: "academy",
+                              },
+                              {
+                                label: `{% trans "Smithy" %}`,
+                                value: "smithy",
+                              },
+                              {
+                                label: `{% trans "Rally point" %}`,
+                                value: "rally_point",
+                              },
+                              {
+                                label: `{% trans "Statue" %}`,
+                                value: "statue",
+                              },
+                              {
+                                label: `{% trans "Market" %}`,
+                                value: "market",
+                              },
+                              {
+                                label: `{% trans "Timber camp" %}`,
+                                value: "timber_camp",
+                              },
+                              {
+                                label: `{% trans "Clay pit" %}`,
+                                value: "clay_pit",
+                              },
+                              {
+                                label: `{% trans "Iron mine" %}`,
+                                value: "iron_mine",
+                              },
+                              {
+                                label: `{% trans "Farm" %}`,
+                                value: "farm",
+                              },
+                              {
+                                label: `{% trans "Warehouse" %}`,
+                                value: "warehouse",
+                              },
+                              {
+                                label: `{% trans "wall" %}`,
+                                value: "wall",
+                              },
+
+                            ]
+                            var instance = new SelectPure(".multi-select", {
+                              options: myOptions,
+                              multiple: true,
+                              value: [
+                                {% for building in instance.initial_outline_buildings %}
+                                  `{{building}}`,
+                                {% endfor %}
+                              ],
+                              icon: "fa fa-times",
+                              onChange: value => { changeBuildingsArray(`{{instance.pk}}`,instance.value()); }
+                            });
+
+                          </script>
                         </div>
                       </div>
                     </div>

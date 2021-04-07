@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 
 from base import models
-from tribal_wars import basic
+from tribal_wars.basic import TargetWeightQueries
 
 
 class TestTargetWeightQueries(TestCase):
@@ -20,7 +20,7 @@ class TestTargetWeightQueries(TestCase):
             archer="inactive",
             militia="active",
         )
-        self.admin = User.objects.create_user("admin", None, None)
+        self.admin = User.objects.create_user("admin", None, None) #type: ignore
         self.outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
@@ -67,7 +67,7 @@ class TestTargetWeightQueries(TestCase):
             nobleman=1,
             order=1,
         )
-        self.target_query = basic.TargetWeightQueries(self.outline)
+        self.target_query: TargetWeightQueries = TargetWeightQueries(self.outline)
         self.targets = list(self.target_query.targets)
 
     def test____weights(self):

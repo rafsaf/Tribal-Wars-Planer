@@ -87,6 +87,8 @@ class CreateWeights:
             yield (required, mode)
 
     def _create_weights_or_pass(self, weight_lst: List[WeightModel]) -> None:
+        # note that we hit database only when have a lot of data
+        
         weight: WeightModel
         for weight in weight_lst:
             self.weight_create_lst.append(weight)
@@ -164,6 +166,9 @@ class CreateWeights:
                 self._create_weights_or_pass(weight_ram.weight_create_list())
 
     def __call__(self) -> None:
+        # note that .iterator() prevents from caching querysets
+        # which can possibly cause overwriting some targets attributes
+
         target: Target
         for target in self.targets.iterator():
             if self.noble:

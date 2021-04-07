@@ -104,6 +104,10 @@ class TestWriteNobleTarget(TestCase):
     def test_mode_guide_is_one1(self):
         target: Target = self.target()
         target.required_noble = 2
+        self.weight4.distance = 10
+        self.weight0.distance = 10
+        self.weight5.distance = 10
+        self.weight3.distance = 10
         write_noble = WriteNobleTarget(target=target, outline=self.outline)
         fill_list = [self.weight4, self.weight0, self.weight5, self.weight3]
         write_noble._mode_guide_is_one(fill_list)
@@ -116,6 +120,10 @@ class TestWriteNobleTarget(TestCase):
     def test_mode_guide_is_one2(self):
         target: Target = self.target()
         target.required_noble = 4
+        self.weight4.distance = 10
+        self.weight0.distance = 10
+        self.weight5.distance = 10
+        self.weight3.distance = 10
         write_noble = WriteNobleTarget(target=target, outline=self.outline)
         fill_list = [self.weight4, self.weight0, self.weight5, self.weight3]
         write_noble._mode_guide_is_one(fill_list)

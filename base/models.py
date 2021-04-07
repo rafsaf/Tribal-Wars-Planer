@@ -1,8 +1,11 @@
 """ Database models """
 import datetime
+from typing import List
 from dateutil.relativedelta import relativedelta
 
 import django
+from django.db.models.query import QuerySet
+from django.db.models import F
 from django.db.models.fields import BooleanField
 from django.utils import timezone
 from django.utils.translation import gettext_lazy, gettext
@@ -26,6 +29,16 @@ class Server(models.Model):
     def __str__(self):
         return self.dns
 
+class Message(models.Model):
+    date = models.DateField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=20, default="bug fix")
+    text = models.TextField(default="")
+
+@receiver(post_save, sender=Message)
+def created_message(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.all().update(messages=F("messages") + 1)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -35,7 +48,7 @@ class Profile(models.Model):
     validity_date = models.DateField(
         default=datetime.date(year=2021, month=2, day=25), blank=True, null=True
     )
-
+    messages = models.IntegerField(default=0)
     def is_premium(self) -> bool:
         if self.validity_date is None:
             return False
@@ -43,6 +56,9 @@ class Profile(models.Model):
         if today > self.validity_date:
             return False
         return True
+
+    def latest_messages(self) -> "QuerySet[Message]":
+        return Message.objects.order_by("-created")[:6]
 
 
 @receiver(post_save, sender=User)
@@ -186,6 +202,12 @@ def new_server_create_test_world(sender, instance, created, **kwargs):
     if created:
         create_test_world(server=instance)
 
+def building_default_list() -> List[str]:
+    return [
+        "farm",
+        "headquarters",
+        "smithy",
+    ]
 
 class Outline(models.Model):
     """ Outline with all informations about it"""
@@ -233,12 +255,22 @@ class Outline(models.Model):
         ("hidden", gettext_lazy("Hidden")),
     ]
 
-    ORDER_RUINING = [
-        ("first", gettext_lazy("Farm -> Headquarters -> Smithy -> Barracks -> EKO...")),
-        (
-            "second",
-            gettext_lazy("Farm -> Headquarters -> Warehouse -> Smithy -> EKO..."),
-        ),
+    BUILDINGS = [
+        ("headquarters", gettext_lazy("Headquarters")),
+        ("barracks", gettext_lazy("Barracks")),
+        ("stable", gettext_lazy("Stable")),
+        ("workshop", gettext_lazy("Workshop")),
+        ("academy", gettext_lazy("Academy")),
+        ("smithy", gettext_lazy("Smithy")),
+        ("rally_point", gettext_lazy("Rally point")),
+        ("statue", gettext_lazy("Statue")),
+        ("market", gettext_lazy("Market")),
+        ("timber_camp", gettext_lazy("Timber camp")),
+        ("clay_pit", gettext_lazy("Clay pit")),
+        ("iron_mine", gettext_lazy("Iron mine")),
+        ("farm", gettext_lazy("Farm")),
+        ("warehouse", gettext_lazy("Warehouse")),
+        ("wall", gettext_lazy("wall")),
     ]
 
     RUINED_VILLAGES_POINTS = [
@@ -254,7 +286,7 @@ class Outline(models.Model):
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(default=django.utils.timezone.now)
+    date = models.DateField(default=django.utils.timezone.now) #type: ignore
     name = models.TextField()
     world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
@@ -269,7 +301,7 @@ class Outline(models.Model):
     initial_outline_ruins = models.TextField(blank=True, default="")
 
     initial_outline_catapult_default = models.IntegerField(
-        default=100, choices=CATAPULTS_NUMBER
+        default=150, choices=CATAPULTS_NUMBER
     )
     initial_outline_off_left_catapult = models.IntegerField(
         default=50, validators=[MinValueValidator(0), MaxValueValidator(400)]
@@ -277,8 +309,8 @@ class Outline(models.Model):
     initial_outline_average_ruining_points = models.CharField(
         max_length=150, choices=RUINED_VILLAGES_POINTS, default="big"
     )
-    initial_outline_ruining_order = models.CharField(
-        max_length=150, choices=ORDER_RUINING, default="first"
+    initial_outline_buildings = ArrayField(
+        models.CharField(max_length=100, choices=BUILDINGS), default=building_default_list
     )
     initial_outline_min_off = models.IntegerField(
         default=19000,
@@ -290,7 +322,7 @@ class Outline(models.Model):
     initial_outline_target_dist = models.IntegerField(
         default=50, validators=[MinValueValidator(0), MaxValueValidator(150)]
     )
-    initial_outline_excluded_coords = models.TextField(default="")
+    initial_outline_excluded_coords = models.TextField(default="", blank=True)
     initial_outline_fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )
@@ -306,10 +338,10 @@ class Outline(models.Model):
         default="",
     )
 
-    avaiable_offs = ArrayField(models.IntegerField(), default=list)
-    avaiable_nobles = ArrayField(models.IntegerField(), default=list)
-    avaiable_offs_near = ArrayField(models.IntegerField(), default=list)
-    avaiable_nobles_near = ArrayField(models.IntegerField(), default=list)
+    avaiable_offs = ArrayField(models.IntegerField(), default=list, blank=True)
+    avaiable_nobles = ArrayField(models.IntegerField(), default=list, blank=True)
+    avaiable_offs_near = ArrayField(models.IntegerField(), default=list, blank=True)
+    avaiable_nobles_near = ArrayField(models.IntegerField(), default=list, blank=True)
     avaiable_ruins = models.IntegerField(default=None, null=True, blank=True)
 
     mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
@@ -362,7 +394,7 @@ class Outline(models.Model):
         ordering = ("-created",)
 
     def __str__(self):
-        return "ID:" + str(self.id) + ", Nazwa: " + str(self.name)
+        return "ID:" + str(self.pk) + ", Nazwa: " + str(self.name)
 
     def remove_user_outline(self):
         self.written = "inactive"
@@ -384,7 +416,7 @@ class Outline(models.Model):
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
         Overview.objects.filter(outline=self, removed=False).update(removed=True)
-        result = self.result
+        result = self.result #type: ignore
         result.results_outline = ""
         result.results_players = ""
         result.results_sum_up = ""
@@ -546,7 +578,7 @@ class TargetVertex(models.Model):
         return self.target
 
     def get_absolute_url(self):
-        return reverse("base:planer_initial_detail", args=[self.outline_id, self.id])
+        return reverse("base:planer_initial_detail", args=[self.outline.pk, self.pk])
 
     def coord_tuple(self):
         return (int(self.target[0:3]), int(self.target[4:7]))
@@ -560,7 +592,6 @@ class WeightModel(models.Model):
         ("barracks", gettext_lazy("Barracks")),
         ("stable", gettext_lazy("Stable")),
         ("workshop", gettext_lazy("Workshop")),
-        ("church", gettext_lazy("Church")),
         ("academy", gettext_lazy("Academy")),
         ("smithy", gettext_lazy("Smithy")),
         ("rally_point", gettext_lazy("Rally point")),
