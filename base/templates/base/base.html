@@ -11,8 +11,8 @@
     <title>{% trans 'Tribal Wars Planer' %}</title>
     {% block meta-content %}<meta name="description" content="{% trans 'Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}" />{% endblock %}
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
-    <link rel="stylesheet" href="{% static 'base-min.css' %}">
-    <script type="text/javascript" src="{% static 'base.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'base-min-1.css' %}">
+    <script type="text/javascript" src="{% static 'base-min-1.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <style>.background-image-lg {background-image: url("{% static 'images/background.jpg' %}");background-size: cover;min-height: 250px;border-bottom: 1px solid teal;}.background-image-sm {background-image: url("{% static 'images/background.jpg' %}");background-size: cover;min-height: 325px;border-bottom: 1px solid teal;}</style>
 </head>
@@ -479,16 +479,12 @@
                     {% endblock %}
                 </div>
                 {% block footer %}
-                <div style="margin-left:-15px !important;margin-right:-15px !important;margin-top:100px;">
-                <footer class="text-center w-100" id='page-end'>
-                    <div style="font-size:larger;" class="py-2">
-                        {% trans 'Dear User, we inform you that by using the website you agree to our <a target="_blank" href="/static/privacy-policy.pdf">privacy policy and regulations</a>.' %}
-                        <br>
-                        &copy; 2020 <a href='https://www.rafsaf.pl'>rafsaf.pl</a>
-
+                <footer class="footer-center">
+                    <div>
+                        <p>{% trans 'Dear User, we inform you that by using the website you agree to our <a target="_blank" href="/static/privacy-policy.pdf">privacy policy and regulations</a>.' %}</p>
+                        <p class="footer-link">&copy; 2020 <a href='https://www.rafsaf.pl'>rafsaf.pl</a></p>
                     </div>
                 </footer>
-                </div>
                 {% endblock %}
             </div>
         </div>
