@@ -261,7 +261,9 @@ W zakładce <span class="md-error">Planer</span> należy umieszczać cele akcji 
 
 Cała zakładka służy głównie dwóm celom, jest to wpisywanie celów, oraz automatyczne ustawienia dotyczące rozpisywania akcji. Dla celów zapoznawczych <span class="md-correct2">Świata Testowego</span>, uzupełnimy jedynie tabelę z wioskami frontowymi i zapleczowymi, widoczną pod przyciskami do zapisywania celów i rozpisywania akcji. Jeśli ciekawią Cię pozostałe zakładki, możesz dowiedzieć się o nich więcej z innych części dokumentacji.
 
-#### Zakładka 1. Dostępne Jednostki
+<br>
+
+### Ustawianie dostępnych jednostek
 
 Rozwiń pierwszą zakładkę <span class="md-correct2">1. Dostępne jednostki</span>. W polach formularza możesz pozostawić domyślne wartości, zmieniając jedynie <span class="md-correct2">Maksymalna odległość dla szlachciców</span> na 120. Celem jest podzielenie wszystkich naszych wiosek na dwie grupy, <span class="md-error">Frontowe</span> oraz <span class="md-error">Zapleczowe</span> w zależności od wpisanych wrogich plemion (liczona jest odległość od najbliższych wrogów dla każdej naszej wioski). Dla <span class="md-correct2">Świata Testowego</span> wszystkie wioski są na zapleczu, czyli daleko od wroga. Zatwierdź formularz klikając <span class="md-correct2">Zapisz i odśwież dostępne</span>.
 
@@ -272,12 +274,12 @@ Rozwiń pierwszą zakładkę <span class="md-correct2">1. Dostępne jednostki</s
  
 <div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Dla różnych akcji, ich rozypisywanie będzie się nieco różnić. Dla mniejszych akcji np. w początkowym etapie światów, warto dopracowywać każdy cel z osobna w wygodnej edycji, ale dla ogromnych akcji to oczywiście niemożliwe, wtedy należy bardziej skupić się na zakładce <span class="md-error">Planer</span> i dostepnych tam ustawieniach.</div>
 
----
-
-#### Cztery zakładki w Menu akcji
-
-<p class="md-error">W następnej zakładce zobaczysz Menu z 4 zakładkami zaznaczonymi na obrazku poniżej (2,3,4,5), przyciskiem Powrotu do poprzedniej zakładki (1), edycji każdego celu (7,8,9) oraz nawigacja między stronami (10).</p>
 <br>
+
+### Zakładki w menu akcji
+
+W następnej zakładce zobaczysz Menu z 5 zakładkami zaznaczonymi na obrazku poniżej (2,3,4,5), przyciskiem Powrotu do poprzedniej zakładki (1), edycji każdego celu (7,8,9) oraz nawigacja między stronami (10).
+
 <img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/test-menu.png" alt="test world example menu">
 <br>
 <p class="md-error">2. DODAJ LUB USUŃ CELE</p>
@@ -348,11 +350,9 @@ Co oznacza:
 
 5. Rozpisać _pozostałe szlachcice_ na 12:30
 
-<div class="p-3 mb-2 bg-info text-white">Uwaga! Podany czas musi mieć sens, godzina maksymalnego wejścia późniejsza lub taka sama co minimalnego wejścia. Poza tym tryb <span class="md-error">WSZYSTKIE</span> - szlachcic oraz tryb <span class="md-error">WSZYSTKIE</span> - taran musi się pojawić chociaż raz. Po kolei (czasowo od najwcześniejszej godziny do najpóźniejszej) są rozpisywane offy i grube aż się skończą więc korzystanie z trybów <span class="md-error">LOSOWO</span> i <span class="md-error">DOKŁADNIE</span> wygląda tak, że gdy chcemy mieć dokładnie 2 offy na 7:00 i dalej <span class="md-error">WSZYSTKIE</span> offy od 8:00 do 9:00 to ustawiamy (<span class="md-error">DOKŁADNIE</span> - TARAN - 7:00 - 7:00 - 2) oraz (<span class="md-error">WSZYSTKIE</span> - TARAN - 8:00 - 9:00). Gdyby zdarzyło się np. <span class="md-error">DOKŁADNIE</span> 20 offów a gracz ma tylko 5, to nic nie szkodzi, zostanie rozpisane 5 offów na ten przedział czasu. W przypadku trudności, warto obejrzeć materiał w którym o tym opowiadam, bardziej skomplikowane czasy nie są intuicyjne, ułatwieniem może być rozumienie trybu <span class="md-error">WSZYSTKIE</span> jako <span class="md-error">WSZYSTKIE POZOSTAŁE</span>, stąd musi on występować choć raz (czyli dwa razy, dla taranów i szlachty).</div>
+<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga! Podany czas musi mieć sens, godzina maksymalnego wejścia musi być późniejsza lub taka sama co minimalnego wejścia. Poza tym tryb <span class="md-correct2">wszystkie - szlachcic</span> oraz <span class="md-correct2">wszystkie - taran</span>  muszą się pojawić chociaż raz, są one podstawą każdego wymyślonego czasu i w większości przypadków będą wystarczające tylko te dwa (w końcu większość akcji to np. offy 7-10 a szlachta 10-11 lub podobnie). Ułatwieniem może być rozumienie <span class="md-error">WSZYSTKIE</span> jako <span class="md-error">WSZYSTKIE POZOSTAŁE</span>, stąd musi on występować choć raz (czyli dwa razy, dla taranów i szlachty) oraz na końcu reszty trybów, rozłącznie z nimi. Jego specyfika prowadzi do częstego niezrozumienia działania pozostałych trybów, czyli  <span class="md-error">DOKŁADNIE</span> i <span class="md-error">LOSOWO</span>, warto pamiętać że w przypadku ich użycia (np. chcemy dokładnie 2 offy na 10:50:50-10:50:50), tryb wszystkie zawsze musi wystąpić <span class="md-correct2">po nich</span>, reprezentując wszystkie pozostałe offy.</div>
 
 <br>
-
----
 
 <div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Dla celów świata testowego, możesz utworzyć prosty, poniższy czas i kliknąć <span class="md-correct2">Ustaw dla wszystkich celów</span> by zatwierdzić go dla każdego celu. Następnie zakończ rozpiskę klikając na <span class="md-error">Potwierdź całą rozpiskę i zakończ</span>.</div>
 
@@ -387,7 +387,7 @@ Rozwijając zakładkę <span class="md-correct2">Wybierz tytuł, zawartość i "
 <br>
 <br>
 
-<div class="p-3 mb-2 bg-info text-white">Uwaga! Z biegiem czasu i rozwojem aplikacji, zmieniono (i już tak pozostanie) <span class="md-error">usuwalne</span> linki na <span class="md-error">nieusuwalne</span> linki, których użytkownik nie ma możliwości zmiany ani zablokowania dostępu np. po wysłaniu nieodpowiedniej osobie. Konwencja ta gwarantuje, że rozpisujący nie usunie przypadkowo rozesłanych już linków, co spowodowałoby ogromne nieporozumienia. <span class="md-error">Linki są aktywne przez 21 dni</span>, niezależnie czy rozpiska nadal istnieje czy też rozpisujący ją usunął.</div>
+<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga! Z biegiem czasu i rozwojem aplikacji, zmieniono (i już tak pozostanie) <span class="md-error">usuwalne</span> linki na <span class="md-error">nieusuwalne</span> linki, których użytkownik nie ma możliwości zmiany ani zablokowania dostępu np. po wysłaniu nieodpowiedniej osobie. Konwencja ta gwarantuje, że rozpisujący nie usunie przypadkowo rozesłanych już linków, co spowodowałoby ogromne nieporozumienia. <span class="md-error">Linki są aktywne przez 30 dni</span>, niezależnie czy rozpiska nadal istnieje, czy też została usunięta.</div>
 
 <br>
 
@@ -450,7 +450,7 @@ void 0;</pre></div>
 
 <br>
 
-## Instalacja skryptów do przelądarki
+## Instalacja skryptów do przeglądarki
 
 Aby korzystać ze skryptów należy zainstalować najpierw dodatek do przeglądarki:
 
@@ -1054,106 +1054,65 @@ Prawdopodobnie powinieneś też włączyć w zakładce **5.** unikanie wysyłek 
 
 <div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> W tym poradniku zobaczysz jak rozpisywać akcje burzące, docelowo w późniejszym etapie świata. <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem</b></a>! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich uniwersalnych poradników w tym dziale, czyli <a target="_blank" href="#jak-wpisywac-i-zapisac-cele-akcji"><b>Jak wpisywać i zapisać cele akcji</b></a> i <a target="_blank" href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze"><b>Dwa rejony plemienia czyli co to front i zaplecze</b></a>.</div><br>
 
-Akcja będzie całkowicie tworzona w polu **Burzaki** obok Celów. Ustawienia w zakładce **6. Burzaki** są bardzo proste i prawdopodobnie domyślne będę wystarczająco dobre (czyli 100 katapult na atak burzący, 50 pozostawione w każdym offie, domyślna kolejność burzenia i rozwinięte wrogie wioski).
+Akcja będzie całkowicie tworzona w polu **Burzaki** obok Celów. Ustawienia w zakładce **6. Burzaki** są bardzo proste, ustalamy tam przede wszystkim kolejność burzonych budynków oraz max ilość katapult w atakach burzących (minimalna to 50).
 
-<h5>Przykład celów burzących, po 3 offy i 15 burzaków:</h5>
-<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/outline_ruin1.png" alt="Outline ruin1">
+<h5>Przykład celów burzących i wyników tabeli, po 3 offy i *50 burzaków:</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/ruin-targets.png" alt="Outline ruin1">
 
-<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Szacunkową liczbę dostępnych burzaków możesz uzyskać korzystając z poznanej zakładki <b>1. Dostępne jednostki</b>. Po każdym odświeżeniu, w tabeli pod nazwą <b>Przybliżona liczba możliwych do rozpisania burzaków</b> znaleźć można szacunkową liczbę burzaków gotowych do rozpisania (szacunkową, bo w przypadku pełnych offów nie zawsze da się dokładnie określić w tym miejscu ile katapult można puścić do burzenia. W zależności od ilości katapult na burzaka i ilości wiosek w plemieniu, prawdziwy wynik może być sporo mniejszy niż podany). Po każdej zmianie ilość katapult w <b>Zakładce 6.</b> należy ponownie skorzystać z <b>Zakładki 1</b>. </div><br>
+<h5>Przykład ustawień akcji burzącej, celujemy w 3 widoczne budynki w tej kolejności</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/ruin-panel.png" alt="Outline ruin1">
 
-Nasuwa się pytanie jak określić ile burzaków na jedną wioskę dla danej ilości katapult (50, 75, 100, 150, 200) powinniśmy rozpisać (Np. czym dokładnie powyższe 15 różni się od 10). Pomóc w tym może poniższa tabela, w której dla danej ilości katapult i ilości burzaków określono jakie budynki zostaną zniszczone.<br>
+- Uwaga, 50 burzaków nie oznacza że tyle koniecznie zostanie rozpisane!
+
+<div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Szacunkową liczbę dostępnych burzaków możesz uzyskać korzystając z poznanej zakładki <b>1. Dostępne jednostki</b> przy użyciu prostej matematyki. Po każdym odświeżeniu, w tabeli pod nazwą <b>Liczba wszystkich dostępnych katapult</b> znaleźć można całkowitą liczbę katapult gotowych do rozpisania, wystarczy zdecydować na ile celów tyle "wystarczy". </div><br>
+
+<h5>Przykład rozpisanej mini akcji, różne ilości katapult od 200 do 50</h5>
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/ruin-show.png" alt="Outline ruin1">
+
+#### 1. Optymalny wybów katapult do burzenia
+
+Zwróćmy uwagę jak dla **MAX katapult** ustawionych na **200**, zachowuje się Planer. Jeśli są tego typu wioski z taką ilością, zostaną one wzięte w pierwszej kolejności (powyżej 100 katapult), natomiast gdy się skończą, cała reszta zostaje wypełniona mniejszymi ilościami - 150, 100, 75, 50.
+Dodatkowo, co ważne, w przypadku gdy po kilku atakach zostaje np. 10 poziom budynku, Planer rozpisze tam ostatni atak 50 katapult zamiast większej ilości (choćby była dostępna), aby oszczędzać katapulty.
+
+#### 2. Uwaga pierwsza - offy przed burzakami
+
+Jeśli chodzi o offy, których liczbę można określić wchodzących przed atakami burzącymi, ich rola ogranicza się jedynie jak w przypadku standardowych offów, nie są one częścią algorytmu, który przypisuje im konkretną ilość katapult oraz budynek do burzenia - choć teoretycznie może dojść do sytuacji, gdzie z tej samej wioski zostanie wzięty off **przed burzakami** oraz sam **burzak** wśród rozpisanych ataków. Są to oddzielne procesy i w obecnej wersji nie ma możliwości, aby offy "działały" jak jedne z burzaków.
+
+#### 3. Uwaga druga - kolejność burzenia bydynków
+
+W ustawieniach **6. Burzenie** dokonujemy zmian w kolejności burzonych budynków. Trzeba pamiętać, że budynki nieuwzględnione w tym spisie, zostaną pominięte, a algorytm zatrzymuje się w dwóch przypadkach - albo zabrakło katapult do rozpisania, albo zostały już zburzone wszystkie wymienione budynki. To oznacza, że nawet jeśli zdecydujemy się napisać **000|000:0:1000**, to prawdopodobnie nie zostanie rozpisane 1000 burzaków - po prostu po zburzeniu wymienionych budynków, Planer przejdzie do kolejnych etapów rozpisywania (np. do kolejnego celu itp.).
+
+#### 4. Mam pokazane 10000 dostępnych katapult, ile to celów???????
+
+Odpowiedź brzmi: to zależy. Głównie od wybranej kolejności budynków. Załóżmy że wybrano jedynie jeden budynek, **[ kuźnia ]**. Wówczas wystarczy 200-250 katapult (np. 200 i 50 lub 100, 100 lub 50, 50, 50, 50 itp.) na zburzenie jednej wioski więc można rozpisać 40-50 celów. Gdyby to były dwa budynki, **[ kuźnia, zagroda]**, trzeba znowu 200-250 katapult na kuźnię, ale też 500-700 katapult na zniszczenie zagrody (np. 14x 50, ale też 5x 100, 4x 150, 3x 200 katapult lub wiele, wiele innych kombinacji) czyli 700-950 katapult na wioskę, czyli 10-14 celów. Poniżej zamieszczam prostą tabelę dla budynków 30 poziomowych (czyli zagród, spichlerzy, wszystkich eko) i 20 poziomowych (ratusz, kuźnia) co wystarczy na policzenie ile to celów.
+
+Oczywiście można też zwyczajnie wymyślić obojętną liczbę celów i "sprawdzić" empirycznie :P czy jest ok rozpisując akcję, potem w razie pomyłki cofnięcie i rozpisanie mniej/więcej celów akcji.
+
+<br>
 
 <div class="table-responsive">
 <table class="table table-bordered">
   <thead>
     <tr style="border-bottom: 3px solid black;">
-      <th class="md-correct2" scope="col">Ilość katapult w burzaku</th>
-      <th class="md-correct2" scope="col">50</th>
-      <th class="md-correct2" scope="col">75</th>
-      <th class="md-correct2" scope="col">100</th>
-      <th class="md-correct2" scope="col">150</th>
-      <th class="md-correct2" scope="col">200</th>
+      <th class="md-correct2" scope="col"></th>
+      <th class="md-correct2" scope="col">Budynki 20 lvl</th>
+      <th class="md-correct2" scope="col">Budynki 30lvl</th>
+
     </tr>
+
   </thead>
   <tbody>
     <tr>
-      <th scope="col">Zagroda (do 0)</th>
-      <th scope="col">14 </th>
-      <th scope="col">7 </th>
-      <th scope="col">5 </th>
-      <th scope="col">4 </th>
-      <th scope="col">3 </th>
-    </tr>
-    <tr>
-      <th scope="col">Zagroda + Ratusz (do 0)</th>
-      <th scope="col">18 </th>
-      <th scope="col">10 </th>
-      <th scope="col">7 </th>
-      <th scope="col">6 </th>
-      <th scope="col">5 </th>
-    </tr>
-    <tr>
-      <th scope="col">Zagroda + Ratusz + Kuźnia  (do 0)</th>
-      <th scope="col">24 </th>
-      <th scope="col">13 </th>
-      <th scope="col">9 </th>
-      <th scope="col">8 </th>
-      <th scope="col">7 </th>
-    </tr>
-    <tr>
-      <th scope="col">Zagroda + Ratusz + Kuźnia + Koszary  (do 0)</th>
-      <th scope="col">34 </th>
-      <th scope="col">17 </th>
-      <th scope="col">13 </th>
-      <th scope="col">11 </th>
-      <th scope="col">9 </th>
-    </tr>
-    <tr>
-      <th scope="col">... + Koszary + Cegielnia  (do 0)</th>
-      <th scope="col">... </th>
-      <th scope="col">24 </th>
-      <th scope="col">18 </th>
-      <th scope="col">15 </th>
-      <th scope="col">12 </th>
-    </tr>
-    <tr>
-      <th scope="col">... + Koszary + Cegielnia + Tartak  (do 0)</th>
-      <th scope="col">... </th>
-      <th scope="col">31 </th>
-      <th scope="col">23 </th>
-      <th scope="col">19 </th>
-      <th scope="col">15 </th>
-    </tr>
-    <tr>
-      <th scope="col">... + Cegielnia + Tartak + Huta żelaza  (do 0)</th>
-      <th scope="col">... </th>
-      <th scope="col">... </th>
-      <th scope="col">28 </th>
-      <th scope="col">23 </th>
-      <th scope="col">18 </th>
-    </tr>
-    <tr>
-      <th scope="col">... + EKO + spichlerz  (do 0)</th>
-      <th scope="col">... </th>
-      <th scope="col">... </th>
-      <th scope="col">33 </th>
-      <th scope="col">27 </th>
-      <th scope="col">21 </th>
-    </tr>
-    <tr>
-      <th scope="col">... + EKO + spichlerz + stajnia  (do 0)</th>
-      <th scope="col">... </th>
-      <th scope="col">... </th>
-      <th scope="col">35 </th>
-      <th scope="col">29 </th>
-      <th scope="col">23 </th>
+      <th scope="col">Ilość katapult do zburzenia</th>
+      <th scope="col">200-250</th>
+      <th scope="col">500-700</th>
     </tr>
   </tbody>
 
 </table>
 </div>
 
-Wystarczy wybrać stałą ilość katapult dla akcji (domyślnie 100 - mniejsze ilości czyli 50 i 75 nie są zbyt skuteczne jak widać powyżej, choć też mogą mieć jakieś zastosowania), a następnie ustalić ile budynków powinno zostać zniszczone i dobrać w danej linijce taką ilość burzaków, np. dla **100** katapult oznaczenie **437|668:3:13** powinno wyzerować **Zagrodę + Ratusz + Kuźnię + Koszary** w tej wiosce, podczas gdy już **11** wyzeruje je dla **150** katapult a potrzeba aż **34**(!!!) burzaków by zburzyć to atakami po **50** katapult.
+<br>
 
 <div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Pamiętaj, że u podstaw rozpisywania leży prosty algrytm zachłanny i stąd Planer ZAWSZE rozpisuje czy burzaki, czy fejki czy offy <b>LOSOWO</b> w bardzo podobny sposób, więc jeśli chcesz by offy czy burzaki były zupełnie nieodróżnialne od fejków, musisz rozpisać mnóstwo fejków. W przypadku burzenia warto zaznaczyć opcję <span class="md-error">Fejki ze wszystkich wiosek</span> z Zakładki <b>3. Domyślne ustawienia akcji</b>, która w przeciwieństwie do domyślnego ustawienia, fejki rozpisuje z wszystkich zapleczowych wiosek.</div><br>
 
@@ -1349,11 +1308,11 @@ Domyślnie opcja ta jest **wyłączona**, zaznacz pierwszy kwadracik by ją usta
 <div class="p-3 mb-2 bg-light text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Zakładka zawiera kilka ustawień dotyczących akcji burzących. </div>
 
 <h5>Wygląd zakładki:</h5>
-<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/ruin1.png" alt="Ruin settings">
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="/static/docs/ruin-panel.png" alt="Ruin settings">
 
 <br>
 
-Do wyboru w pod numerem **1.** jest liczba katpult w każdym burzącym ataku. Aby burzak wyszedł z wioski naszego gracza, musi być tam co najmniej tyle katapult ile tutaj zdefiniowane. Pod numerem **2.** ustalamy ilość katapult w pełnych offach, która powinna zawsze zostać w wioskach celem puszczenia wraz z offem. W kolejnym ustawieniu możemy zmieniać domyślną kolejność burzenia budynków. Planer dobiera tyle burzaków ile trzeba i "leci" po kolejnych budynkach aż do skończenia rozpisywanych na tą wioskę ataków burzących w kolejności tutaj zdefiniowanej. W ostatnim polu możemy wybrać wielkość burzonych wiosek, domyślnie są to duże, pełne wioski z maksymalnymi budynkami ok. 9k punktów (stąd i więcej katapult trzeba do zburzenia zagrody, kuźni itp. niż gdy jest to wioska 5k pkt.). Wybieramy wedle specyfiki naszej akcji.
+W opcji pod numerem <span class="md-error">1.</span> ustalana jest kolejność burzonych budynków. Planer rozpisze na nie ataki w podanej kolejności, **nie uwzględniając pominiętych budynków**. Pod numerem <span class="md-error">2.</span> ustalamy maksymalną ilość katapult, która będzie rozpisywana (a potem kolejno coraz mniejsze ilości aż do 50 katapult). W <span class="md-error">3.</span> wybieramy ilość katapult w pełnych offach, która powinna zawsze zostać w wioskach (celem puszczenia wraz z offem). W ostatnim polu <span class="md-error">4.</span> możemy wybrać wielkość burzonych wiosek, domyślnie są to duże, pełne wioski z maksymalnymi budynkami ok. 9k punktów (stąd i więcej katapult trzeba do zburzenia zagrody, kuźni itp. niż gdy jest to wioska 5k pkt.). Wybieramy wedle specyfiki naszej akcji.
 
 <br>
 
