@@ -52,10 +52,10 @@ class WriteRamTarget:
             outline=self.outline
         )
         self.ruin: bool = ruin
-        self.ruin_handle: Optional[RuinHandle] = None 
+        self.ruin_handle: Optional[RuinHandle] = None
         self.building_generator: Optional[Generator] = None
 
-    def sorted_weights_offs(self, catapults: int=50) -> List[WeightMaximum]:
+    def sorted_weights_offs(self, catapults: int = 50) -> List[WeightMaximum]:
         if self.target.fake:
             self._set_fake_query()
         elif self.ruin:
@@ -97,9 +97,12 @@ class WriteRamTarget:
         weights_create_lst: List[WeightModel] = []
         self._set_building_generator()
         if self.ruin:
-            off_lst: List[WeightMaximum] = list(set(self.sorted_weights_offs(50) + self.sorted_weights_offs(100)))
+            off_lst: List[WeightMaximum] = list(
+                set(self.sorted_weights_offs(50) + self.sorted_weights_offs(100))
+            )
             off_lst.sort(key=lambda weight: -weight.catapult_left)
-            off_lst = off_lst[:self.target.required_off]
+            off_lst = off_lst[: self.target.required_off]
+            off_lst.sort(key=lambda weight: -weight.distance)
         else:
             off_lst: List[WeightMaximum] = self.sorted_weights_offs()
         i: int
@@ -136,7 +139,6 @@ class WriteRamTarget:
         if self.ruin and len(self.outline.initial_outline_buildings) > 0:
             ruin_handle: RuinHandle = RuinHandle(outline=self.outline)
             self.ruin_handle = ruin_handle
-
 
     def _building(self) -> Optional[str]:
         if self.ruin_handle is not None:
@@ -221,7 +223,8 @@ class WriteRamTarget:
                 off_left__lt=self.outline.initial_outline_min_off,
             )
             | Q(
-                catapult_left__gte=catapults + self.outline.initial_outline_off_left_catapult,
+                catapult_left__gte=catapults
+                + self.outline.initial_outline_off_left_catapult,
                 off_left__gte=self.outline.initial_outline_min_off,
             )
         )
@@ -289,7 +292,7 @@ class WriteRamTarget:
         weight_list: List[WeightMaximum] = list(
             self.default_query.order_by("distance")[: 1 * self.target.required_off]
         )
-        weight_list.sort(key=lambda weight: -weight.distance) #type: ignore
+        weight_list.sort(key=lambda weight: -weight.distance)  # type: ignore
         return weight_list
 
     def _close_weight_lst(self) -> List[WeightMaximum]:
