@@ -291,11 +291,6 @@ body {
   min-height: 100vh;
 }
 
-footer {
-  border-top: 1px solid #ddd;
-  font-size: x-small;
-}
-
 .font-nav {
   font-family: "Raleway", sans-serif;
   outline: none;
@@ -304,7 +299,6 @@ footer {
 .font-teal {
   color: teal;
 }
-
 
 .font-teal:hover {
   color: rgb(7, 92, 92);
@@ -547,7 +541,6 @@ table.vis.tribalwarsbg {
   padding: 0;
   margin: 0;
   background: #e3d5b3;
-
 }
 .content-border-head {
   padding: 0;
@@ -555,4 +548,51 @@ table.vis.tribalwarsbg {
   background: #c1a264;
 }
 
-
+.overview-card {
+  margin-bottom: 1.6rem;
+}
+.overview-card h1 span {
+  display: block;
+}
+.overview-btn {
+  font-size: large;
+  margin-top: 0.6rem;
+}
+.overview-card small {
+  margin-bottom: 0.3rem;
+}
+@media screen and (min-width: 768px) {
+  .overview-card h1 span {
+    display: inline;
+  }
+  .overview-btn {
+    margin-top: 0;
+  }
+  .overview-card {
+    border-left: 5px solid teal;
+    padding-left: 0.6rem;
+  }
+  .overview-card {
+    margin-bottom: 3rem;
+  }
+}
+.footer-center {
+  font-size: 0.9rem;
+  margin: 0 -15px !important;
+  margin-top: 100px !important;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 60px;
+  border-top: 1px solid #ddd;
+}
+.footer-center p {
+  padding: 0.25rem 0;
+  margin: 0;
+}
+.footer-center .footer-link {
+  letter-spacing: 0.15rem;
+}
