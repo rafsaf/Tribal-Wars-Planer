@@ -8,6 +8,9 @@ Pipfile*
 *.so
 *settings.py
 
+# docker
+data
+
 # Distribution / packaging
 .Python
 env/

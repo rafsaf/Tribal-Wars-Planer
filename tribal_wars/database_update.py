@@ -130,14 +130,14 @@ class WorldQuery:
 
             village_set1 = set(
                 VillageModel.objects.filter(player=None, world=self.world).values_list(
-                    "village_id",
+                    "village_id", "x_coord", "y_coord"
                 )
             )
             village_set2 = set(
                 VillageModel.objects.select_related()
                 .exclude(player=None)
                 .filter(world=self.world)
-                .values_list("village_id", "player__player_id")
+                .values_list("village_id", "player__player_id", "x_coord", "y_coord")
             )
 
             for line in [i.split(",") for i in req.text.split("\n")]:
@@ -146,28 +146,29 @@ class WorldQuery:
 
                 village_id = int(line[0])
                 player_id = int(line[4])
+                x = int(line[2])
+                y = int(line[3])
 
-                if (village_id,) in village_set1 and player_id == 0:
-                    village_set1.remove((village_id,))
+                if (village_id, x, y) in village_set1 and player_id == 0:
+                    village_set1.remove((village_id, x, y))
                     continue
 
-                if (village_id, player_id) in village_set2:
-                    village_set2.remove((village_id, player_id))
+                if (village_id, player_id, x, y) in village_set2:
+                    village_set2.remove((village_id, player_id, x, y))
                     continue
-
+ 
                 if player_id == 0:
                     player = None
                 elif player_id not in player_context:
-
                     continue
                 else:
                     player = player_context[player_id]
 
                 village = VillageModel(
                     village_id=village_id,
-                    x_coord=line[2],
-                    y_coord=line[3],
-                    coord=f"{line[2]}|{line[3]}",
+                    x_coord=x,
+                    y_coord=y,
+                    coord=f"{x}|{y}",
                     player=player,
                     world=self.world,
                 )
