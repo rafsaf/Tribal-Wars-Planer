@@ -14,7 +14,7 @@ Najlepiej korzystać z dockera, w razie gdyby go nie było, wystarczy w settings
 2. Pobrać repozytorium, najlepiej na wybranym branchu, np. dla v1.05
 
 ```bash
-git clone https://github.com/rafsaf/Plemiona_Planer.git -b 1.05
+git clone https://github.com/rafsaf/Plemiona_Planer.git -b v1.05
 ```
 
 2. Utworzyć plik `settings.py` pod ścieżką `django_plemiona/settings.py` i skopiować tam wzór z `django_plemiona/settings.txt` a następnie ewentualnie pozmieniać SECRET_KEY (i jak na początku wspomniane, ewentualnie ustawienia bazy danych - domyślnie pointują one w host który zrobi docker, poniżej zamieszczam obecne ustawienia pod lokalną instalację z racji że od dziś w settings.txt są ustawienia pod dockera).
