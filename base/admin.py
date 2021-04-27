@@ -117,6 +117,7 @@ class AdminVillage(admin.ModelAdmin):
         "player",
     ]
     search_fields = ["coord", "world__postfix", "village_id"]
+    readonly_fields = ["player"]
 
 
 @admin.register(models.Tribe)
