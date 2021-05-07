@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy
 
 
 class OutlineForm(forms.Form):
-    """ New Outline Form """
+    """New Outline Form"""
 
     name = forms.CharField(
         max_length=20,
@@ -20,7 +20,7 @@ class OutlineForm(forms.Form):
 
 
 class OffTroopsForm(forms.ModelForm):
-    """ Pasted data from army script """
+    """Pasted data from army script"""
 
     class Meta:
         model = models.Outline
@@ -33,7 +33,7 @@ class OffTroopsForm(forms.ModelForm):
         self.fields["off_troops"].strip = False
 
     def clean_off_troops(self):
-        """ User's input from script """
+        """User's input from script"""
         text = self.cleaned_data["off_troops"]
         if text == "":
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
@@ -49,21 +49,19 @@ class OffTroopsForm(forms.ModelForm):
             try:
                 army.clean_init(player_dictionary)
             except basic.ArmyError:
-                self.add_error("off_troops", i)
+                self.add_error("off_troops", i)  # type: ignore
 
             if army.coord in already_used_villages:
-                self.add_error("off_troops", i)
+                self.add_error("off_troops", i)  # type: ignore
                 continue
             else:
                 already_used_villages.add(army.coord)
-
-
 
         return text
 
 
 class DeffTroopsForm(forms.ModelForm):
-    """ Pasted data from defence script """
+    """Pasted data from defence script"""
 
     class Meta:
         model = models.Outline
@@ -76,7 +74,7 @@ class DeffTroopsForm(forms.ModelForm):
         self.fields["deff_troops"].strip = False
 
     def clean_deff_troops(self):
-        """ User's input from script """
+        """User's input from script"""
         text = self.cleaned_data["deff_troops"]
         if text == "":
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
@@ -92,11 +90,11 @@ class DeffTroopsForm(forms.ModelForm):
             try:
                 army.clean_init(player_dictionary)
             except basic.DefenceError:
-                self.add_error("deff_troops", i)
+                self.add_error("deff_troops", i)  # type: ignore
             if army.coord in already_used_villages:
                 already_used_villages[army.coord] += 1
                 if already_used_villages[army.coord] > 2:
-                    self.add_error("deff_troops", i)
+                    self.add_error("deff_troops", i)  # type: ignore
             else:
                 already_used_villages[army.coord] = 1
 
@@ -104,14 +102,14 @@ class DeffTroopsForm(forms.ModelForm):
 
 
 class MyTribeTagForm(forms.Form):
-    """ Add ally tribes to outline """
+    """Add ally tribes to outline"""
 
     plemie1 = forms.ChoiceField(
         choices=[], label=gettext_lazy("Ally tribe"), required=False
     )
 
     def clean_plemie1(self):
-        """ User's tags input """
+        """User's tags input"""
         plemie = self.cleaned_data["plemie1"]
         if plemie == "banned":
             self.add_error("plemie1", gettext_lazy("Select tribe from list"))
@@ -120,14 +118,14 @@ class MyTribeTagForm(forms.Form):
 
 
 class EnemyTribeTagForm(forms.Form):
-    """ Add enemy tribes to outline """
+    """Add enemy tribes to outline"""
 
     plemie2 = forms.ChoiceField(
         choices=[], label=gettext_lazy("Enemy tribe"), required=False
     )
 
     def clean_plemie2(self):
-        """ User's tag input """
+        """User's tag input"""
         plemie = self.cleaned_data["plemie2"]
         if plemie == "banned":
             self.add_error("plemie2", gettext_lazy("Select tribe from list"))
@@ -136,7 +134,7 @@ class EnemyTribeTagForm(forms.Form):
 
 
 class GetDeffForm(forms.Form):
-    """ GetDeff function """
+    """GetDeff function"""
 
     radius = forms.IntegerField(
         min_value=0,
@@ -162,7 +160,7 @@ class GetDeffForm(forms.Form):
         super(GetDeffForm, self).__init__(*args, **kwargs)
 
     def clean_excluded(self):
-        """ Excluded Villages """
+        """Excluded Villages"""
         villages = self.cleaned_data["excluded"]
         try:
             village_list = basic.many_villages(self.cleaned_data["excluded"])
@@ -173,7 +171,7 @@ class GetDeffForm(forms.Form):
 
 
 class InitialOutlineForm(forms.Form):
-    """ New Initial Outline """
+    """New Initial Outline"""
 
     target = forms.CharField(
         max_length=50000,
@@ -189,7 +187,7 @@ class InitialOutlineForm(forms.Form):
         super(InitialOutlineForm, self).__init__(*args, **kwargs)
 
     def clean_target(self):
-        """ User's input Targets """
+        """User's input Targets"""
 
         data = self.cleaned_data["target"]
         data_lines = basic.TargetsData(data=data, world=self.outline.world)
@@ -253,7 +251,7 @@ class AvailableTroopsForm(forms.ModelForm):
     )
 
     def clean_initial_outline_excluded_coords(self):
-        """ Excluded Villages """
+        """Excluded Villages"""
         coords = self.cleaned_data["initial_outline_excluded_coords"]
         try:
             village_list = basic.many_villages(coords)
@@ -449,7 +447,7 @@ class NightBonusSetForm(forms.Form):
 
 
 class WeightForm(forms.Form):
-    """ Change weight model """
+    """Change weight model"""
 
     weight_id = forms.IntegerField(widget=forms.HiddenInput)
     off = forms.IntegerField(
@@ -461,7 +459,7 @@ class WeightForm(forms.Form):
 
 
 class PeriodForm(forms.ModelForm):
-    """ One Period for OutlineTime """
+    """One Period for OutlineTime"""
 
     from_number = forms.IntegerField(
         min_value=0, label=gettext_lazy("From"), required=False

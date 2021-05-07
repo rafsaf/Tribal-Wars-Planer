@@ -34,6 +34,6 @@ urlpatterns = i18n_patterns(
 
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns = [
+    urlpatterns = [ #type: ignore
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns

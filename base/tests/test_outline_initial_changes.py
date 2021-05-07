@@ -327,7 +327,8 @@ class InitialAddFirstTest(TestCase):
         self.client.login(username="user1", password="user1")
         response = self.client.post(
             reverse(
-                "base:planer_add_last_fake_noble", args=[outline.id, target.id, weight_max.id]
+                "base:planer_add_last_fake_noble",
+                args=[outline.id, target.id, weight_max.id],
             )
             + "?page=2&sort=nobleman_left"
         )
@@ -378,7 +379,8 @@ class InitialAddFirstTest(TestCase):
         self.client.login(username="user2", password="user2")
         response = self.client.post(
             reverse(
-                "base:planer_add_last_fake_noble", args=[outline.id, target.id, weight_max.id]
+                "base:planer_add_last_fake_noble",
+                args=[outline.id, target.id, weight_max.id],
             )
             + "?page=2&sort=nobleman_left"
         )
@@ -599,7 +601,7 @@ class InitialAddFirstTest(TestCase):
         )
         self.assertEqual(response.status_code, 404)
 
-    def test_initial_divide_view_correct_behaviour(self):
+    def test_initial_divide_view_correct_behaviour2(self):
 
         outline = models.Outline.objects.get(pk=1)
         target = models.TargetVertex.objects.get(target="500|499", outline=outline)
@@ -624,7 +626,7 @@ class InitialAddFirstTest(TestCase):
 
         self.assertEqual(models.WeightModel.objects.filter(target=target).count(), 6)
 
-    def test_initial_divide_view_prevent_access_from_other_user(self):
+    def test_initial_divide_view_prevent_access_from_other_user2(self):
 
         outline = models.Outline.objects.get(pk=1)
         target = models.TargetVertex.objects.get(target="500|499", outline=outline)

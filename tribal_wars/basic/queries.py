@@ -7,7 +7,15 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 
 class TargetWeightQueries:
-    def __init__(self, outline, ruin=False, fake=False, every=False, only_with_weights=False, filtr=None):
+    def __init__(
+        self,
+        outline,
+        ruin=False,
+        fake=False,
+        every=False,
+        only_with_weights=False,
+        filtr=None,
+    ):
         self.outline = outline
         targets = (
             models.TargetVertex.objects.select_related("outline_time")
@@ -18,9 +26,12 @@ class TargetWeightQueries:
             self.targets = targets.filter(fake=fake, ruin=ruin)
         else:
             if only_with_weights:
-                with_weight_targets = models.WeightModel.objects.select_related("target").filter(
-                    target__outline=outline
-                ).distinct("target").values_list("target", flat=True)
+                with_weight_targets = (
+                    models.WeightModel.objects.select_related("target")
+                    .filter(target__outline=outline)
+                    .distinct("target")
+                    .values_list("target", flat=True)
+                )
 
                 self.targets = targets.filter(id__in=with_weight_targets)
             else:
@@ -28,8 +39,9 @@ class TargetWeightQueries:
         if filtr is not None:
             player = filtr[0]
             coord = filtr[1]
-            self.targets = self.targets.filter(target__icontains=coord, player__icontains=player)
-
+            self.targets = self.targets.filter(
+                target__icontains=coord, player__icontains=player
+            )
 
     def targets_json_format(self):
         context = {}
@@ -62,7 +74,7 @@ class TargetWeightQueries:
         )
 
     def target_dict_with_weights_read(self):
-        """ Create dict key-target, value-lst with weights, add dist """
+        """Create dict key-target, value-lst with weights, add dist"""
         context = self.__create_target_dict()
         for weight in self.__weights():
             weight.distance = round(basic.dist(weight.start, weight.target.target), 1)
@@ -133,7 +145,7 @@ class TargetWeightQueries:
     def __all_outline_times(self):
         try:
             outline_times = self.outline_times
-        except AttributeError:
+        except:
             outline_times = list(
                 (models.OutlineTime.objects.filter(outline=self.outline)).order_by(
                     "order"

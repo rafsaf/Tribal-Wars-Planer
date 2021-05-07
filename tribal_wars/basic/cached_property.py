@@ -1,4 +1,4 @@
-from _thread import RLock
+from _thread import RLock #type: ignore
 
 _NOT_FOUND = object()
 

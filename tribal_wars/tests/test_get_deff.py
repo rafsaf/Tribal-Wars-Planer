@@ -9,7 +9,7 @@ from tribal_wars import get_deff as deff
 
 
 class GetDeffFunctionTest(TestCase):
-    """ Test for get_deff_text file SHOULD be very exact """
+    """Test for get_deff_text file SHOULD be very exact"""
 
     def setUp(self):
         activate("en")
@@ -36,7 +36,6 @@ class GetDeffFunctionTest(TestCase):
             "500|499,w drodze,0,0,0,0,0,0,0,0,0,0,0,"
         )
 
-
         self.server = models.Server.objects.create(
             dns="testserver",
             prefix="te",
@@ -48,7 +47,7 @@ class GetDeffFunctionTest(TestCase):
             archer="inactive",
             militia="inactive",
         )
-        self.admin = User.objects.create_user("admin", None, None)
+        self.admin = User.objects.create_user("admin", None, None)  # type: ignore
         self.outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
@@ -60,18 +59,10 @@ class GetDeffFunctionTest(TestCase):
             off_troops=ARMY_TEXT,
         )
         models.Result.objects.create(outline=self.outline)
-        self.ally_tribe1 = models.Tribe(
-            tribe_id=1, tag="pl1", world=self.world1
-        )
-        self.ally_tribe2 = models.Tribe(
-            tribe_id=2, tag="pl2", world=self.world1
-        )
-        self.enemy_tribe1 = models.Tribe(
-            tribe_id=3, tag="pl3", world=self.world1
-        )
-        self.enemy_tribe2 = models.Tribe(
-            tribe_id=4, tag="pl4", world=self.world1
-        )
+        self.ally_tribe1 = models.Tribe(tribe_id=1, tag="pl1", world=self.world1)
+        self.ally_tribe2 = models.Tribe(tribe_id=2, tag="pl2", world=self.world1)
+        self.enemy_tribe1 = models.Tribe(tribe_id=3, tag="pl3", world=self.world1)
+        self.enemy_tribe2 = models.Tribe(tribe_id=4, tag="pl4", world=self.world1)
 
         self.ally_player1 = models.Player(
             player_id=1,
@@ -156,8 +147,6 @@ class GetDeffFunctionTest(TestCase):
             world=self.world1,
         )
 
-
-
         self.ally_tribe1.save()
         self.ally_tribe2.save()
         self.enemy_tribe1.save()
@@ -175,12 +164,12 @@ class GetDeffFunctionTest(TestCase):
         self.enemy_village1.save()
         self.enemy_village2.save()
 
-
-
         self.maxDiff = None
 
     def test_get_deff_all_excluded_is_correct(self):
-        result = deff.get_deff(outline=self.outline, radius=3, excluded_villages="503|500 500|506")
+        result = deff.get_deff(
+            outline=self.outline, radius=3, excluded_villages="503|500 500|506"
+        )
 
         expected = (
             "Tested. LEGEND: \r\n"
@@ -211,15 +200,13 @@ class GetDeffFunctionTest(TestCase):
             "---------FRONT---------\r\n"
             "---------BACK---------\r\n"
             "499|500- In village- 6000  (All deff [ 7000 ])\r\n"
-
-
         )
 
         self.assertEqual(result, expected)
 
     def test_get_deff_general_test_is_output_correct(self):
         result = deff.get_deff(outline=self.outline, radius=3)
-        
+
         # expected = (
         #     '\r\n'
         #     'player1\r\n'
@@ -280,9 +267,7 @@ class GetDeffFunctionTest(TestCase):
         ]
         list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk).values()
         list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk).values()
-        self.assertEqual(
-            deff.get_legal_coords(list_ally, list_enemy, 4), set()
-        )
+        self.assertEqual(deff.get_legal_coords(list_ally, list_enemy, 4), set())
 
     def test_get_legal_coords_is_map_correct2(self):
         list_ally_pk = [village.pk for village in [self.enemy_village2]]
@@ -291,6 +276,4 @@ class GetDeffFunctionTest(TestCase):
         ]
         list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk).values()
         list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk).values()
-        self.assertEqual(
-            deff.get_legal_coords(list_ally, list_enemy, 4), {(500, 506)}
-        )
+        self.assertEqual(deff.get_legal_coords(list_ally, list_enemy, 4), {(500, 506)})

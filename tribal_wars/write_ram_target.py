@@ -102,7 +102,7 @@ class WriteRamTarget:
             )
             off_lst.sort(key=lambda weight: -weight.catapult_left)
             off_lst = off_lst[: self.target.required_off]
-            off_lst.sort(key=lambda weight: -weight.distance)
+            off_lst.sort(key=lambda weight: -weight.distance)  # type: ignore
         else:
             off_lst: List[WeightMaximum] = self.sorted_weights_offs()
         i: int
