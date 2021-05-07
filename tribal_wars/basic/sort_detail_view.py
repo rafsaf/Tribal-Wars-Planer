@@ -1,17 +1,23 @@
 from typing import Optional
 from django.core.paginator import Paginator
 from django.db.models import F, ExpressionWrapper, FloatField, Avg, Max
-
+from base.models import Outline, TargetVertex
 from base import models
 
 
 class SortAndPaginRequest:
-    def __init__(self, outline, GET_request: Optional[str], PAGE_request, target):
-        self.outline = outline
-        self.target = target.target
-        self.x_coord = target.coord_tuple()[0]
-        self.y_coord = target.coord_tuple()[1]
-        self.page = PAGE_request
+    def __init__(
+        self,
+        outline: Outline,
+        GET_request: Optional[str],
+        PAGE_request: Optional[str],
+        target: TargetVertex,
+    ):
+        self.outline: Outline = outline
+        self.target: str = target.target
+        self.x_coord: int = target.coord_tuple()[0]
+        self.y_coord: int = target.coord_tuple()[1]
+        self.page: Optional[str] = PAGE_request
         VALID = [
             "distance",
             "random_distance",
@@ -34,6 +40,10 @@ class SortAndPaginRequest:
             self.sort = GET_request
         else:
             self.sort = "distance"
+
+        if self.sort != self.outline.choice_sort:
+            self.outline.choice_sort = self.sort
+            self.outline.save()
 
     def __nonused(self):
         nonused_vertices = (

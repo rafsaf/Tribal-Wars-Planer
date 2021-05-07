@@ -29,16 +29,19 @@ class Server(models.Model):
     def __str__(self):
         return self.dns
 
+
 class Message(models.Model):
     date = models.DateField(auto_now_add=True)
     created = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=20, default="bug fix")
     text = models.TextField(default="")
 
+
 @receiver(post_save, sender=Message)
 def created_message(sender, instance, created, **kwargs):
     if created:
         Profile.objects.all().update(messages=F("messages") + 1)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -49,6 +52,7 @@ class Profile(models.Model):
         default=datetime.date(year=2021, month=2, day=25), blank=True, null=True
     )
     messages = models.IntegerField(default=0)
+
     def is_premium(self) -> bool:
         if self.validity_date is None:
             return False
@@ -74,7 +78,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class World(models.Model):
-    """ World in the game """
+    """World in the game"""
 
     STATUS_CHOICES = [
         ("active", "Active"),
@@ -113,7 +117,7 @@ class World(models.Model):
 
 
 class Tribe(models.Model):
-    """ Tribe in game """
+    """Tribe in game"""
 
     tribe_id = models.IntegerField()
     tag = models.TextField(db_index=True)
@@ -124,7 +128,7 @@ class Tribe(models.Model):
 
 
 class Player(models.Model):
-    """ Player in the game """
+    """Player in the game"""
 
     player_id = models.IntegerField()
     name = models.TextField(db_index=True)
@@ -136,7 +140,7 @@ class Player(models.Model):
 
 
 class VillageModel(models.Model):
-    """ Village in the game """
+    """Village in the game"""
 
     village_id = models.IntegerField()
     x_coord = models.IntegerField()
@@ -202,6 +206,7 @@ def new_server_create_test_world(sender, instance, created, **kwargs):
     if created:
         create_test_world(server=instance)
 
+
 def building_default_list() -> List[str]:
     return [
         "farm",
@@ -209,8 +214,26 @@ def building_default_list() -> List[str]:
         "smithy",
     ]
 
+
 class Outline(models.Model):
-    """ Outline with all informations about it"""
+    """Outline with all informations about it"""
+
+    VALID_SORT_CHOICES = [
+        ("distance", "distance"),
+        ("random_distance", "random_distance"),
+        ("-distance", "-distance"),
+        ("-off_left", "-off_left"),
+        ("-nobleman_left", "-nobleman_left"),
+        ("closest_offs", "closest_offs"),
+        ("random_offs", "random_offs"),
+        ("farthest_offs", "farthest_offs"),
+        ("closest_noblemans", "closest_noblemans"),
+        ("random_noblemans", "random_noblemans"),
+        ("farthest_noblemans", "farthest_noblemans"),
+        ("closest_noble_offs", "closest_noble_offs"),
+        ("random_noble_offs", "random_noble_offs"),
+        ("farthest_noble_offs", "farthest_noble_offs"),
+    ]
 
     STATUS_CHOICES = [
         ("active", "Active"),
@@ -286,7 +309,7 @@ class Outline(models.Model):
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(default=django.utils.timezone.now) #type: ignore
+    date = models.DateField(default=django.utils.timezone.now)  # type: ignore
     name = models.TextField()
     world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
@@ -296,6 +319,9 @@ class Outline(models.Model):
     ally_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
     enemy_tribe_tag = ArrayField(models.CharField(max_length=6), default=list)
 
+    choice_sort = models.CharField(
+        max_length=50, choices=VALID_SORT_CHOICES, default="distance"
+    )
     initial_outline_targets = models.TextField(blank=True, default="")
     initial_outline_fakes = models.TextField(blank=True, default="")
     initial_outline_ruins = models.TextField(blank=True, default="")
@@ -310,7 +336,8 @@ class Outline(models.Model):
         max_length=150, choices=RUINED_VILLAGES_POINTS, default="big"
     )
     initial_outline_buildings = ArrayField(
-        models.CharField(max_length=100, choices=BUILDINGS), default=building_default_list
+        models.CharField(max_length=100, choices=BUILDINGS),
+        default=building_default_list,
     )
     initial_outline_min_off = models.IntegerField(
         default=19000,
@@ -408,6 +435,7 @@ class Outline(models.Model):
         self.filter_card_number = 12
         self.filter_targets_number = 12
         self.filter_hide_front = "all"
+        self.choice_sort = "distance"
         self.default_off_time_id = None
         self.default_fake_time_id = None
         self.default_ruin_time_id = None
@@ -416,7 +444,7 @@ class Outline(models.Model):
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
         Overview.objects.filter(outline=self, removed=False).update(removed=True)
-        result = self.result #type: ignore
+        result = self.result  # type: ignore
         result.results_outline = ""
         result.results_players = ""
         result.results_sum_up = ""
@@ -426,7 +454,7 @@ class Outline(models.Model):
 
 
 class Result(models.Model):
-    """ Presents Outline and Deff results """
+    """Presents Outline and Deff results"""
 
     outline = models.OneToOneField(Outline, on_delete=models.CASCADE, primary_key=True)
     results_get_deff = models.TextField(default="")
@@ -440,7 +468,7 @@ class Result(models.Model):
 
 
 class Documentation(models.Model):
-    """ Docs page """
+    """Docs page"""
 
     title = models.CharField(max_length=30)
     main_page = MarkdownxField()
@@ -457,7 +485,7 @@ class Documentation(models.Model):
 
 
 class WeightMaximum(models.Model):
-    """ Control state smaller than maximum """
+    """Control state smaller than maximum"""
 
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
     start = models.CharField(max_length=7, db_index=True)
@@ -491,14 +519,14 @@ class WeightMaximum(models.Model):
 
 
 class OutlineTime(models.Model):
-    """ Handle Time for Target """
+    """Handle Time for Target"""
 
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
 
 
 class PeriodModel(models.Model):
-    """ Handle one period of time in outline specification """
+    """Handle one period of time in outline specification"""
 
     STATUS = [
         ("all", gettext_lazy("All")),
@@ -519,7 +547,7 @@ class PeriodModel(models.Model):
 
 
 class TargetVertex(models.Model):
-    """ Target Village """
+    """Target Village"""
 
     MODE_OFF = [
         ("closest", gettext_lazy("Closest Front")),
@@ -585,7 +613,7 @@ class TargetVertex(models.Model):
 
 
 class WeightModel(models.Model):
-    """ Command between start and target """
+    """Command between start and target"""
 
     BUILDINGS = [
         ("headquarters", gettext_lazy("Headquarters")),
@@ -635,7 +663,7 @@ class OutlineOverview(models.Model):
 
 
 class Overview(models.Model):
-    """ Present results for tribe members using unique urls """
+    """Present results for tribe members using unique urls"""
 
     outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
     token = models.CharField(max_length=100, primary_key=True, db_index=True)
@@ -659,7 +687,7 @@ class Overview(models.Model):
 
 
 class TargetVertexOverview(models.Model):
-    """ Copied Target Village """
+    """Copied Target Village"""
 
     outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
     target = models.CharField(max_length=7)
@@ -674,7 +702,7 @@ class TargetVertexOverview(models.Model):
 
 
 class WeightModelOverview(models.Model):
-    """ Copied Command between start and target """
+    """Copied Command between start and target"""
 
     target = models.ForeignKey(TargetVertexOverview, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
@@ -691,7 +719,7 @@ class WeightModelOverview(models.Model):
 
 
 class Payment(models.Model):
-    """ Represents real payment, only superuser access """
+    """Represents real payment, only superuser access"""
 
     STATUS = [
         ("finished", gettext_lazy("Finished")),
