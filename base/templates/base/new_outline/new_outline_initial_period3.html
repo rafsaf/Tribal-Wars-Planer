@@ -290,18 +290,20 @@
                                 </form>
                                 
                             </div>
+                            {% if forloop.first %}
                             {% if target.fake %}
                             <div data-trigger="hover" data-toggle="tooltip" data-placement="right" title="{% trans 'On the left adding Fake, on the right 1 Noble' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
-                                <img src="{% static 'images/help.svg' %}">
+                                <img src="{% static 'images/help-big.svg' %}">
                             </div>
                             {% elif target.ruin %}
                             <div data-trigger="hover" data-toggle="tooltip" data-placement="right" title="{% trans 'On the left adding Offs, on the right Ruin attack' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
-                                <img src="{% static 'images/help.svg' %}">
+                                <img src="{% static 'images/help-big.svg' %}">
                             </div>
                             {% else %}
                             <div data-trigger="hover" data-toggle="tooltip" data-placement="right" title="{% trans 'On the left adding Offs, on the right Offs with the Nobles' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
-                                <img src="{% static 'images/help.svg' %}">
+                                <img src="{% static 'images/help-big.svg' %}">
                             </div>
+                            {% endif %}
                             {% endif %}
                             <div style="padding-top:1px ;" class="d-flex row justify-content-center">
                                 <h5>
