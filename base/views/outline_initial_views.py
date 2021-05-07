@@ -362,7 +362,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
 
 @login_required
 def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ignore
-    """ view with form for initial period outline """
+    """view with form for initial period outline"""
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
@@ -721,7 +721,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
 
 @login_required
 def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
-    """ view with form for initial period outline detail """
+    """view with form for initial period outline detail"""
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )

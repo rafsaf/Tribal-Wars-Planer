@@ -624,19 +624,14 @@ class CreateNewInitialTarget(forms.Form):
         self.fields["target"].widget.attrs["class"] = "form-control"
 
     def clean_target(self):
-        coord: str = self.cleaned_data["target"].strip()
+        coord: str = self.cleaned_data["target"]
+        coord = coord.strip()
         count: int = models.TargetVertex.objects.filter(outline=self.outline).count()
         if not self.is_premium and count >= 25:
             self.add_error(
                 "target",
                 gettext_lazy("You need a premium account to add more targets here."),
             )
-            return
-
-        if models.TargetVertex.objects.filter(
-            target=coord, outline=self.outline
-        ).exists():
-            self.add_error("target", gettext_lazy("This village is already a target!"))
             return
 
         if not models.VillageModel.objects.filter(
