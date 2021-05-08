@@ -17,7 +17,7 @@ def ti(lst=[], result=False, clear=False):
 
 
 def timing(function):
-    """ Time for a given function """
+    """Time for a given function"""
 
     @wraps(function)
     def wrap(*args, **kwargs):
@@ -42,9 +42,9 @@ def timing(function):
         print(f"  Took: {time3} sec")
         print(f"  Number of Queries: {end_queries - start_queries}")
         print("  Line by line time: ")
-        for i, actual in enumerate(ti(result=True)):
+        for i, actual in enumerate(ti(result=True)):  # type: ignore
             try:
-                print("   ", i, " Period: ", round(actual - previous, 5))
+                print("   ", i, " Period: ", round(actual - previous, 5))  # type: ignore
             except UnboundLocalError:
                 pass
             previous = actual
@@ -52,5 +52,3 @@ def timing(function):
         return result
 
     return wrap
-
-

@@ -30,7 +30,7 @@ class TestCoordToPlayerAndFromCoordFunctions(TestCase):
             militia="active",
         )
 
-        self.admin = User.objects.create_user("admin", None, None)
+        self.admin = User.objects.create_user("admin", None, None)  # type: ignore
 
         self.outline = models.Outline.objects.create(
             owner=self.admin,

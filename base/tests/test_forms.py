@@ -10,7 +10,7 @@ from tribal_wars import basic
 
 class TestInitialOutlineForm(TestCase):
     def setUp(self):
-        
+
         self.server = models.Server.objects.create(
             dns="testserver",
             prefix="te",
@@ -22,7 +22,7 @@ class TestInitialOutlineForm(TestCase):
             archer="inactive",
             militia="inactive",
         )
-        self.admin = User.objects.create_user("admin", None, None)
+        self.admin = User.objects.create_user("admin", None, None)  # type: ignore
 
         self.real_target_mode: basic.TargetMode = basic.TargetMode("real")
 
@@ -52,7 +52,6 @@ class TestInitialOutlineForm(TestCase):
         self.ally_tribe1.save()
         self.ally_player1.save()
         self.ally_village1.save()
-
 
     def test_input1_correct_target_should_be_valid(self):
         off_form = forms.InitialOutlineForm(

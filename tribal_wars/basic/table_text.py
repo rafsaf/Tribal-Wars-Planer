@@ -24,7 +24,15 @@ class TableText:
 
         self.world = world
 
-    def __link(self, ally_village_id, enemy_village_id, fake, ruin=False, deputy=None, noble=False):
+    def __link(
+        self,
+        ally_village_id,
+        enemy_village_id,
+        fake,
+        ruin=False,
+        deputy=None,
+        noble=False,
+    ):
         if deputy is not None:
             t = f"&t={deputy}"
         else:
@@ -63,12 +71,16 @@ class TableText:
         t2_part = datetime2.time()
 
         return (
-            f"\r\n[b]{date_part} [color=#ff0000]{t1_part} "
-            f"- {t2_part}[/color][/b]"
+            f"\r\n[b]{date_part} [color=#ff0000]{t1_part} " f"- {t2_part}[/color][/b]"
         )
 
     def __weight_table(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None,
+        self,
+        weight: models.WeightModel,
+        ally_id,
+        enemy_id,
+        fake,
+        deputy=None,
     ):
         if fake and weight.nobleman > 0:
             send = _("fake noble")
@@ -77,7 +89,7 @@ class TableText:
         elif weight.ruin:
             send = _("Catapults-")
             if weight.building is not None:
-                building = "- " + weight.get_building_display()
+                building = "- " + weight.get_building_display()  # type: ignore
             else:
                 building = ""
             send = f"{send}{weight.catapult}{building}"
@@ -87,13 +99,19 @@ class TableText:
         return (
             f"[|]{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
             f"[|]{send}[|]{weight.nobleman}"
-            f"[|]{self.__date_table(weight.sh_t1, weight.sh_t2)}"
+            f"[|]{self.__date_table(weight.sh_t1, weight.sh_t2)}"  # type: ignore
             f"[|]{self.__date_table(weight.t1, weight.t2)}"
             f"[|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord]"
         )
 
     def __weight_string(
-        self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None, simple=False,
+        self,
+        weight: models.WeightModel,
+        ally_id,
+        enemy_id,
+        fake,
+        deputy=None,
+        simple=False,
     ):
         nobles = _("Nobles-")
         from_village = _("from village")
@@ -107,10 +125,10 @@ class TableText:
         elif weight.ruin:
             text = _("[color=#0e0eff][b]Ruin[/b][/color] (Catapults-")
             if weight.building is not None:
-                building = "[b]" + weight.get_building_display() + "[/b]"
+                building = "[b]" + weight.get_building_display() + "[/b]"  # type: ignore
             else:
                 building = ""
-            send = f"{text}{weight.catapult} {building})"            
+            send = f"{text}{weight.catapult} {building})"
         else:
             if weight.nobleman == 0:
                 text = _("[size=12][b]OFF[/b][/size] (Off-")
@@ -118,16 +136,17 @@ class TableText:
             else:
                 text = _("[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]")
                 send = f"{text} (Off-{weight.off}, {nobles}{weight.nobleman}) "
-            
 
         if simple:
             own_and_enemy_villages = ""
         else:
-            own_and_enemy_villages = f" {from_village} {weight.start} {to}{weight.target.target}"
+            own_and_enemy_villages = (
+                f" {from_village} {weight.start} {to}{weight.target.target}"
+            )
         return (
             f"{send}"
             f"{own_and_enemy_villages}"
-            f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"
+            f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"  # type: ignore
             f"{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
         )
 

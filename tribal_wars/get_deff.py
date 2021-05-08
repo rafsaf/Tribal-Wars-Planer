@@ -44,7 +44,7 @@ def get_deff(
 
 
 def get_legal_coords(ally_villages, enemy_villages, radius):
-    """ Create set with ally_vill without enemy_vill closer than radius """
+    """Create set with ally_vill without enemy_vill closer than radius"""
     ally_set = set()
     for village in ally_villages.iterator(chunk_size=1000):
         ally_set.add((int(village["x_coord"]), int(village["y_coord"])))
@@ -58,7 +58,7 @@ def get_legal_coords(ally_villages, enemy_villages, radius):
 
 
 def get_set_of_villages(ally_villages, enemy_villages, radius):
-    """ get list of legal villages from ally villages"""
+    """get list of legal villages from ally villages"""
     result_villages = set()
     legal_cords = get_legal_coords(ally_villages, enemy_villages, radius)
     for i in ally_villages:
@@ -94,7 +94,7 @@ def deff_text(
 
         deff_instance = basic.Defence(text_army=line, evidence=world_evidence)
         try:
-            owner = village_dictionary[deff_instance.coord]
+            owner = village_dictionary[deff_instance.coord]  # type: ignore
         except KeyError:
             raise basic.DeffException()
 

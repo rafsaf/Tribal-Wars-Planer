@@ -20,7 +20,7 @@ class TestTargetWeightQueries(TestCase):
             archer="inactive",
             militia="active",
         )
-        self.admin = User.objects.create_user("admin", None, None) #type: ignore
+        self.admin = User.objects.create_user("admin", None, None)  # type: ignore
         self.outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
@@ -41,14 +41,12 @@ class TestTargetWeightQueries(TestCase):
             nobleman_state=2,
             nobleman_left=2,
         )
-        self.outline_time = models.OutlineTime.objects.create(
-            outline=self.outline
-        )
+        self.outline_time = models.OutlineTime.objects.create(outline=self.outline)
 
         self.period = models.PeriodModel.objects.create(
-            status='all',
+            status="all",
             outline_time=self.outline_time,
-            unit='ram',
+            unit="ram",
         )
 
         self.target = models.TargetVertex.objects.create(
@@ -72,11 +70,11 @@ class TestTargetWeightQueries(TestCase):
 
     def test____weights(self):
         with self.assertNumQueries(1):
-            list(self.target_query._TargetWeightQueries__weights())
+            list(self.target_query._TargetWeightQueries__weights())  # type: ignore
 
     def test___time_periods(self):
         with self.assertNumQueries(1):
-            list(self.target_query._TargetWeightQueries__time_periods())
+            list(self.target_query._TargetWeightQueries__time_periods())  # type: ignore
 
     def test_target_period_dictionary(self):
         with self.assertNumQueries(1):
@@ -84,7 +82,7 @@ class TestTargetWeightQueries(TestCase):
 
     def test___dict_with_village_ids(self):
         with self.assertNumQueries(1):
-            self.target_query._TargetWeightQueries__dict_with_village_ids([0])
+            self.target_query._TargetWeightQueries__dict_with_village_ids([0])  # type: ignore
 
     def test___target_dict_with_weights_extendeds(self):
         with self.assertNumQueries(1):
@@ -95,9 +93,7 @@ class TestTargetWeightQueries(TestCase):
         weight = self.weight
         weight.distance = "0.0"
         dict_true[self.target] = [weight]
-        self.assertEqual(
-            self.target_query.target_dict_with_weights_read(), dict_true
-        )
+        self.assertEqual(self.target_query.target_dict_with_weights_read(), dict_true)
 
     def test_target_dict_read_correct_number_of_queries(self):
         with self.assertNumQueries(1):
@@ -108,7 +104,5 @@ class TestTargetWeightQueries(TestCase):
         dict_result[self.target] = []
         self.assertEqual(
             dict_result,
-            self.target_query._TargetWeightQueries__create_target_dict(),
+            self.target_query._TargetWeightQueries__create_target_dict(),  # type: ignore
         )
-
-

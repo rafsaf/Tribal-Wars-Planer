@@ -16,7 +16,7 @@ def dist(coord1, coord2):
 
 
 class Unit:
-    """ Unit in the game with its speed """
+    """Unit in the game with its speed"""
 
     def __init__(self, name):
         self.dictionary_with_units_speed = {
@@ -39,7 +39,7 @@ class Unit:
 
     @property
     def speed(self):
-        """ Speed of unit """
+        """Speed of unit"""
         return self.dictionary_with_units_speed[self.name]
 
     def __str__(self):
@@ -47,11 +47,11 @@ class Unit:
 
 
 class VillageError(Exception):
-    """ Village Exception """
+    """Village Exception"""
 
 
 class Village:
-    """ Represent village in game """
+    """Represent village in game"""
 
     def __init__(self, coord: str, validate=True, x_coord=None, y_coord=None):
         self.coord = coord
@@ -64,7 +64,7 @@ class Village:
             self.y_coord = int(coord[4:7])
 
     def coord_validation(self):
-        """ Validate coord """
+        """Validate coord"""
         coord = self.coord
         if not coord:
             raise VillageError(_("Coords are empty!"))
@@ -95,7 +95,7 @@ class Village:
 
     @classmethod
     def from_coordinates(cls, x_coord: int, y_coord: int):
-        """ From x_coord and y_coord """
+        """From x_coord and y_coord"""
         return cls(
             coord=f"{x_coord}|{y_coord}",
             validate=False,
@@ -105,20 +105,19 @@ class Village:
 
     @staticmethod
     def from_village_model(village_model: models.VillageModel):
-        """ From VillageModel """
+        """From VillageModel"""
         return Village.from_coordinates(
             x_coord=village_model.x_coord, y_coord=village_model.y_coord
         )
 
     def distance(self, other):
-        """ Distance between two villages """
+        """Distance between two villages"""
         return sqrt(
-            (self.x_coord - other.x_coord) ** 2
-            + (self.y_coord - other.y_coord) ** 2
+            (self.x_coord - other.x_coord) ** 2 + (self.y_coord - other.y_coord) ** 2
         )
 
     def time_distance(self, other, unit: str, world: models.World):
-        """ Time in seconds for given unit between two villages """
+        """Time in seconds for given unit between two villages"""
         unit_speed = Unit(name=unit).speed
         return round(
             self.distance(other)
@@ -136,13 +135,13 @@ class Village:
 
 
 def many_villages(coord_many: str):
-    """ List of Villages """
-    coord_many = coord_many.strip().split()
-    return [Village(i) for i in coord_many]
+    """List of Villages"""
+    coords = coord_many.strip().split()
+    return [Village(i) for i in coords]
 
 
 def yield_circle(radius, center):
-    """ Return circle with r and center """
+    """Return circle with r and center"""
     for x_coord in range(-radius, radius + 1):
         y_max = ceil(sqrt(radius ** 2 - x_coord ** 2))
         for y_coord in range(-y_max, y_max + 1):

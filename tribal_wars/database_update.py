@@ -9,7 +9,7 @@ from base.models import VillageModel, Tribe, Player, World
 
 
 def cron_schedule_data_update():
-    """ Update all Tribe, VillageModel, Player instances """
+    """Update all Tribe, VillageModel, Player instances"""
     worlds = []
     for world in World.objects.select_related("server").exclude(postfix="Test"):
         instance = WorldQuery(world=world)
@@ -43,19 +43,19 @@ class WorldQuery:
             return (None, "error")
 
         tree = ElementTree.fromstring(req.content)
-        self.world.speed_world = float(tree[0].text)  # world speed
-        self.world.speed_units = float(tree[1].text)  # unit speed
-        if bool(int(tree[7][1].text)):  # knights
+        self.world.speed_world = float(tree[0].text)  # type: ignore
+        self.world.speed_units = float(tree[1].text)  # type: ignore
+        if bool(int(tree[7][1].text)):  # type: ignore
             self.world.paladin = "active"
         else:
             self.world.paladin = "inactive"
 
-        if bool(int(tree[7][3].text)):  # archer
+        if bool(int(tree[7][3].text)):  # type: ignore
             self.world.archer = "active"
         else:
             self.world.archer = "inactive"
 
-        self.world.max_noble_distance = int(tree[9][3].text)  # max dist
+        self.world.max_noble_distance = int(tree[9][3].text)  # type: ignore
 
         try:
             req_units = requests.get(
@@ -156,7 +156,7 @@ class WorldQuery:
                 if (village_id, player_id, x, y) in village_set2:
                     village_set2.remove((village_id, player_id, x, y))
                     continue
- 
+
                 if player_id == 0:
                     player = None
                 elif player_id not in player_context:

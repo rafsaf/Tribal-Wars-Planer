@@ -34,24 +34,24 @@ class FromPeriods:
         if weight.nobleman == 0 and not weight.ruin:
             if self.ram_period is None:
                 period: models.PeriodModel = self.ram_periods.popleft()
-                period.attack_number = self.attack_number(period)
+                period.attack_number = self.attack_number(period)  # type: ignore
                 self.ram_period = period
 
             result = self.overwrite_weight(self.ram_period, weight)
-            self.ram_period.attack_number -= 1
-            if self.ram_period.attack_number <= 0:
+            self.ram_period.attack_number -= 1  # type: ignore
+            if self.ram_period.attack_number <= 0:  # type: ignore
                 self.ram_period = None
 
             return result
 
         if self.nob_period is None:
             period = self.nob_periods.popleft()
-            period.attack_number = self.attack_number(period)
+            period.attack_number = self.attack_number(period)  # type: ignore
             self.nob_period = period
         result = self.overwrite_weight(self.nob_period, weight)
 
-        self.nob_period.attack_number -= 1
-        if self.nob_period.attack_number <= 0:
+        self.nob_period.attack_number -= 1  # type: ignore
+        if self.nob_period.attack_number <= 0:  # type: ignore
             self.nob_period = None
 
         return result
@@ -95,6 +95,6 @@ class FromPeriods:
         t2_shipment = t2 - time_distance
         weight.t1 = t1
         weight.t2 = t2
-        weight.sh_t1 = t1_shipment
-        weight.sh_t2 = t2_shipment
+        weight.sh_t1 = t1_shipment  # type: ignore
+        weight.sh_t2 = t2_shipment  # type: ignore
         return weight

@@ -1,17 +1,25 @@
 from typing import Optional
 from django.core.paginator import Paginator
-from django.db.models import F, ExpressionWrapper, FloatField, Avg, Max
-
+from django.db.models import F, Q, ExpressionWrapper, FloatField
+from base.models import Outline, TargetVertex
 from base import models
 
 
 class SortAndPaginRequest:
-    def __init__(self, outline, GET_request: Optional[str], PAGE_request, target):
-        self.outline = outline
-        self.target = target.target
-        self.x_coord = target.coord_tuple()[0]
-        self.y_coord = target.coord_tuple()[1]
-        self.page = PAGE_request
+    def __init__(
+        self,
+        outline: Outline,
+        request_GET_sort: Optional[str],
+        request_GET_page: Optional[str],
+        request_GET_filtr: Optional[str],
+        target: TargetVertex,
+    ):
+        self.outline: Outline = outline
+        self.target: str = target.target
+        self.x_coord: int = target.coord_tuple()[0]
+        self.y_coord: int = target.coord_tuple()[1]
+        self.page: Optional[str] = request_GET_page
+        self.filtr: str = request_GET_filtr or ""
         VALID = [
             "distance",
             "random_distance",
@@ -28,15 +36,19 @@ class SortAndPaginRequest:
             "random_noble_offs",
             "farthest_noble_offs",
         ]
-        if GET_request is None:
+        if request_GET_sort is None:
             self.sort = "distance"
-        if GET_request in VALID:
-            self.sort = GET_request
+        if request_GET_sort in VALID:
+            self.sort = request_GET_sort
         else:
             self.sort = "distance"
 
-    def __nonused(self):
-        nonused_vertices = (
+        if self.sort != self.outline.choice_sort:
+            self.outline.choice_sort = self.sort
+            self.outline.save()
+
+    def _nonused(self):
+        query = (
             models.WeightMaximum.objects.filter(outline=self.outline)
             .exclude(off_left=0, nobleman_left=0)
             .filter(
@@ -44,24 +56,33 @@ class SortAndPaginRequest:
                 off_left__lte=self.outline.filter_weights_max,
             )
         )
+        if self.filtr != "":
+            if "|" in self.filtr:
+                query = query.filter(start__icontains=self.filtr)
+            elif self.filtr.isnumeric() and len(self.filtr) <= 3:
+                query = query.filter(
+                    Q(start__icontains=self.filtr) | Q(player__icontains=self.filtr)
+                )
+            else:
+                query = query.filter(player__icontains=self.filtr)
         if self.outline.filter_hide_front == "back":
-            nonused_vertices = nonused_vertices.filter(first_line=False)
+            query = query.filter(first_line=False)
         if self.outline.filter_hide_front == "front":
-            nonused_vertices = nonused_vertices.filter(first_line=True)
+            query = query.filter(first_line=True)
         if self.outline.filter_hide_front == "hidden":
-            nonused_vertices = nonused_vertices.filter(hidden=True)
+            query = query.filter(hidden=True)
         else:
-            nonused_vertices = nonused_vertices.filter(hidden=False)
+            query = query.filter(hidden=False)
 
-        return nonused_vertices
+        return query
 
-    def __pagin(self, lst_or_query):
+    def _pagin(self, lst_or_query):
         paginator = Paginator(lst_or_query, int(self.outline.filter_card_number))
         page_obj = paginator.get_page(self.page)
         return page_obj
 
     def sorted_query(self):
-        query = self.__nonused()
+        query = self._nonused()
 
         if self.sort == "distance":
             query = query.annotate(
@@ -75,7 +96,7 @@ class SortAndPaginRequest:
                 )
             ).order_by("distance")
 
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "random_distance":
             query = query.annotate(
@@ -89,7 +110,7 @@ class SortAndPaginRequest:
                 )
             )
             query = query.order_by("?")
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort in {"-off_left", "-nobleman_left"}:
             query = query.order_by(self.sort).annotate(
@@ -102,7 +123,7 @@ class SortAndPaginRequest:
                     output_field=FloatField(max_length=5),
                 )
             )
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "-distance":
             query = query.annotate(
@@ -116,7 +137,7 @@ class SortAndPaginRequest:
                 )
             ).order_by("-distance")
 
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "closest_offs":
             query = (
@@ -134,7 +155,7 @@ class SortAndPaginRequest:
                 .order_by("distance")
             )
 
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "random_offs":
             query = query.filter(
@@ -150,7 +171,7 @@ class SortAndPaginRequest:
                 )
             )
             query = query.order_by("?")
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "farthest_offs":
             query = (
@@ -168,7 +189,7 @@ class SortAndPaginRequest:
                 .order_by("-distance")
             )
 
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "closest_noblemans":
             query = (
@@ -185,7 +206,7 @@ class SortAndPaginRequest:
                 )
                 .order_by("distance")
             )
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "random_noblemans":
             query = query.filter(nobleman_left__gte=1).annotate(
@@ -199,7 +220,7 @@ class SortAndPaginRequest:
                 )
             )
             query = query.order_by("?")
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "farthest_noblemans":
             query = (
@@ -217,7 +238,7 @@ class SortAndPaginRequest:
                 .order_by("-distance")
             )
 
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "closest_noble_offs":
             query = (
@@ -238,7 +259,7 @@ class SortAndPaginRequest:
                 .order_by("distance")
             )
 
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "random_noble_offs":
             query = query.filter(
@@ -256,7 +277,7 @@ class SortAndPaginRequest:
             )
             query = query.order_by("?")
 
-            return self.__pagin(query)
+            return self._pagin(query)
 
         elif self.sort == "farthest_noble_offs":
             query = (
@@ -277,4 +298,4 @@ class SortAndPaginRequest:
                 .order_by("-distance")
             )
 
-            return self.__pagin(query)
+            return self._pagin(query)
