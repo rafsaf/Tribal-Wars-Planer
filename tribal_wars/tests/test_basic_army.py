@@ -9,7 +9,7 @@ from tribal_wars import basic
 
 
 class TestArmy(TestCase):
-    """ Test for Army"""
+    """Test for Army"""
 
     def setUp(self):
         self.server = models.Server.objects.create(
@@ -180,7 +180,7 @@ class TestArmy(TestCase):
 
 
 class TestDefence(TestCase):
-    """ Test for Defence """
+    """Test for Defence"""
 
     def setUp(self):
         self.server = models.Server.objects.create(
@@ -275,7 +275,7 @@ class TestDefence(TestCase):
 
 
 class TestWorldEvidence(TestCase):
-    """ Test for world_evidence function """
+    """Test for world_evidence function"""
 
     def setUp(self):
 
@@ -380,7 +380,7 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             archer="inactive",
             militia="inactive",
         )
-        self.admin = User.objects.create_user("admin", None, None) #type: ignore
+        self.admin = User.objects.create_user("admin", None, None)  # type: ignore
         self.outline = models.Outline.objects.create(
             owner=self.admin,
             date=datetime.date.today(),
@@ -757,7 +757,8 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
 
     def test_off_form_is_not_correct_with_only_second_line_bad11(self):
         off_form = forms.OffTroopsForm(
-            {"off_troops": self.text_off1 + "\r\n" + self.text_off_bad11}, outline=self.outline
+            {"off_troops": self.text_off1 + "\r\n" + self.text_off_bad11},
+            outline=self.outline,
         )
         self.assertFalse(off_form.is_valid())
 
@@ -827,7 +828,13 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
 
     def test_deff_form_correct_is_not_correct_with_doubled_correct_lines(self):
         off_form = forms.OffTroopsForm(
-            {"off_troops": self.text_deff1+ "\r\n" + self.text_deff2 + "\r\n" + self.text_deff1},
+            {
+                "off_troops": self.text_deff1
+                + "\r\n"
+                + self.text_deff2
+                + "\r\n"
+                + self.text_deff1
+            },
             outline=self.outline,
         )
         self.assertFalse(off_form.is_valid())

@@ -33,7 +33,7 @@ class OutlineCreateTargets:
         self.target_text = text.split("\r\n")
 
     def _player(self, coord: str) -> str:
-        """ Return player name  """
+        """Return player name"""
         return self.village_dict[coord]
 
     def __call__(self) -> None:
@@ -109,7 +109,7 @@ class OutlineCreateTargets:
         return target
 
     def _fill_village_dict(self) -> None:
-        """ Create a dictionary with player names """
+        """Create a dictionary with player names"""
 
         coords: List[str] = [line.split(":")[0] for line in self.target_text]
         village_long_str: str = " ".join(coords)

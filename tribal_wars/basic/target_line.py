@@ -33,9 +33,12 @@ class TargetsData:
 
         self.validate_villages_database()
 
-
     def validate_villages_database(self):
-        village_models = models.VillageModel.objects.select_related().filter(world=self.world, coord__in=self.villages_coord).exclude(player=None)
+        village_models = (
+            models.VillageModel.objects.select_related()
+            .filter(world=self.world, coord__in=self.villages_coord)
+            .exclude(player=None)
+        )
 
         if len(set(self.villages_coord)) != village_models.count():
             villages_ids_set = set([village.coord for village in village_models])
@@ -46,16 +49,17 @@ class TargetsData:
 
 
 class LineError(Exception):
-    """ Represents an error in line like '000|000:5:5' """
+    """Represents an error in line like '000|000:5:5'"""
+
 
 class TargetsOneLine:
-    """ Represent one target line like '000|000:5:5' or '000|000' """
+    """Represent one target line like '000|000:5:5' or '000|000'"""
 
     def __init__(self, line: str):
         self.line = line
 
     def validate_line(self):
-        """ Raise exception when line is incorrect, None when line is a separator, (coord, line) else """
+        """Raise exception when line is incorrect, None when line is a separator, (coord, line) else"""
         split_line = self.line.split(":")
 
         # too much data
@@ -73,18 +77,20 @@ class TargetsOneLine:
 
         # rest two matches are not integers
         if len(split_line) == 3:
-            if not self.split_is_valid(split_line[1]) or not self.split_is_valid(split_line[2]):
+            if not self.split_is_valid(split_line[1]) or not self.split_is_valid(
+                split_line[2]
+            ):
                 raise LineError()
 
         # only one match after coord
         if len(split_line) == 2:
             if not self.split_is_valid(split_line[1]):
                 raise LineError()
-            self.line += ':0'
+            self.line += ":0"
 
         # only coord
         if len(split_line) == 1:
-            self.line += ':0:0'
+            self.line += ":0:0"
 
         return (coord, self.line)
 
@@ -100,4 +106,3 @@ class TargetsOneLine:
             if not item.isnumeric():
                 return False
         return True
-

@@ -8,7 +8,7 @@ from tribal_wars import basic
 
 
 class VillageTest(TestCase):
-    """ test for Village class """
+    """test for Village class"""
 
     def setUp(self) -> None:
         self.wioska1 = basic.Village("345|555")
@@ -44,8 +44,6 @@ class VillageTest(TestCase):
         )
         self.village1.save()
 
-
-
     def test_are_x_and_y_coordinates_correct(self):
         self.assertEqual(self.wioska1.coord, "345|555")
         self.assertEqual(345, self.wioska1.x_coord)
@@ -58,12 +56,8 @@ class VillageTest(TestCase):
     def test_time_distance(self):
         village = basic.Village("523|426")
         village2 = basic.Village("522|425")
-        self.assertEqual(
-            3094, village.time_distance(village2, "nobleman", self.world1)
-        )
-        self.assertEqual(
-            2652, village.time_distance(village2, "ram", self.world1)
-        )
+        self.assertEqual(3094, village.time_distance(village2, "nobleman", self.world1))
+        self.assertEqual(2652, village.time_distance(village2, "ram", self.world1))
 
     def test_eq(self):
         self.assertTrue(self.wioska1, basic.Village("345|555"))

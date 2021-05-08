@@ -241,7 +241,7 @@ class WriteNobleTarget:
 
         def sort_func(weight_max: WeightMaximum) -> Tuple[int, float, int, int]:
             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)
-            distance: float = float(weight_max.distance) #type: ignore
+            distance: float = float(weight_max.distance)  # type: ignore
             off: int = -int(weight_max.off_left)
             number: int = -int(weight_max.nobleman_left)
             return (fit, distance, off, number)

@@ -4,7 +4,7 @@ from base.models import VillageModel, Outline, World
 
 
 def coord_to_player(outline: Outline) -> Dict[str, str]:
-    """ Dictionary coord : player name for tribes in outline """
+    """Dictionary coord : player name for tribes in outline"""
     ally_villages = (
         VillageModel.objects.select_related()
         .filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world)
@@ -20,7 +20,7 @@ def coord_to_player(outline: Outline) -> Dict[str, str]:
 def coord_to_player_from_string(
     village_coord_list: str, world: World
 ) -> Dict[str, str]:
-    """ Dictionary coord : player name for villages in coord_list """
+    """Dictionary coord : player name for villages in coord_list"""
     village_dictionary: Dict[str, str] = {}
     village_list: List[str] = village_coord_list.split()
 

@@ -13,7 +13,7 @@ from markdownx.utils import markdownify
 
 @login_required
 def outline_detail_get_deff(request, _id):
-    """ details user outline, get deff page """
+    """details user outline, get deff page"""
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
     result = get_object_or_404(models.Result, pk=instance)
 
@@ -57,7 +57,9 @@ def outline_detail_get_deff(request, _id):
 
             result.save()
 
-            return redirect(reverse("base:planer_detail_results", args=[_id])+"?tab=deff")
+            return redirect(
+                reverse("base:planer_detail_results", args=[_id]) + "?tab=deff"
+            )
 
     context = {
         "instance": instance,
@@ -66,34 +68,34 @@ def outline_detail_get_deff(request, _id):
         "example": example,
     }
 
-    return render(
-        request, "base/new_outline/new_outline_get_deff.html", context
-    )
+    return render(request, "base/new_outline/new_outline_get_deff.html", context)
 
 
 @login_required
 def outline_detail_results(request: HttpRequest, _id):
-    """ view for results """
-    instance = get_object_or_404(models.Outline.objects.select_related(), id=_id, owner=request.user)
-    overviews = models.Overview.objects.filter(outline=instance, removed=False).order_by(
-        "player"
+    """view for results"""
+    instance = get_object_or_404(
+        models.Outline.objects.select_related(), id=_id, owner=request.user
     )
-    removed_overviews = models.Overview.objects.filter(outline=instance, removed=True).order_by("-created", "player")
+    overviews = models.Overview.objects.filter(
+        outline=instance, removed=False
+    ).order_by("player")
+    removed_overviews = models.Overview.objects.filter(
+        outline=instance, removed=True
+    ).order_by("-created", "player")
     world = instance.world
     name_prefix = world.link_to_game()
 
     form1 = forms.SettingMessageForm(request.POST or None)
     form1.fields["default_show_hidden"].initial = instance.default_show_hidden
     form1.fields["title_message"].initial = instance.title_message
-    form1.fields["text_message"].initial = instance.text_message.replace(
-        "%0A", "\r\n"
-    )
+    form1.fields["text_message"].initial = instance.text_message.replace("%0A", "\r\n")
 
     if request.method == "POST":
         if "form1" in request.POST:
             if form1.is_valid():
                 default_show_hidden = request.POST.get("default_show_hidden")
-                
+
                 if default_show_hidden == "on":
                     default_show_hidden = True
                 else:
@@ -103,9 +105,7 @@ def outline_detail_results(request: HttpRequest, _id):
                 text_message = request.POST.get("text_message").strip()
                 instance.default_show_hidden = default_show_hidden
                 instance.title_message = title_message
-                instance.text_message = text_message.replace(
-                    "\r\n", "%0A"
-                )
+                instance.text_message = text_message.replace("\r\n", "%0A")
                 instance.save()
 
                 overviews_update_lst = []
@@ -117,7 +117,6 @@ def outline_detail_results(request: HttpRequest, _id):
                 )
                 return redirect("base:planer_detail_results", _id)
 
-    
     context = {
         "instance": instance,
         "overviews": overviews,
@@ -135,6 +134,4 @@ def outline_detail_results(request: HttpRequest, _id):
         context["error"] = errors
         del request.session["error_messages"]
 
-    return render(
-        request, "base/new_outline/new_outline_results.html", context
-    )
+    return render(request, "base/new_outline/new_outline_results.html", context)

@@ -16,7 +16,7 @@ from base import models, forms
 
 
 class OutlineList(LoginRequiredMixin, ListView):
-    """ login required view /planer """
+    """login required view /planer"""
 
     template_name = "base/base_planer.html"
 
@@ -38,7 +38,7 @@ class OutlineList(LoginRequiredMixin, ListView):
 
 
 class OutlineListShowAll(LoginRequiredMixin, ListView):
-    """ login required view which shows hidden instances /planer/show_all """
+    """login required view which shows hidden instances /planer/show_all"""
 
     template_name = "base/base_planer.html"
 
@@ -65,7 +65,7 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
 @login_required
 @require_POST
 def inactive_outline(request, _id):
-    """ class based view makeing outline with id=id inavtive/active, post and login required """
+    """class based view makeing outline with id=id inavtive/active, post and login required"""
 
     outline = get_object_or_404(models.Outline, id=_id, owner=request.user)
     if outline.status == "active":
@@ -113,7 +113,7 @@ def outline_detail_1(request: HttpRequest, _id):
     form2.fields["deff_troops"].initial = instance.deff_troops
 
     if request.method == "POST":
-        if "form-1" in request.POST: 
+        if "form-1" in request.POST:
             form1 = forms.OffTroopsForm(request.POST, outline=instance)
             if form1.is_valid():
                 instance.off_troops = request.POST.get("off_troops")
@@ -130,7 +130,7 @@ def outline_detail_1(request: HttpRequest, _id):
                 return redirect("base:planer_detail", _id)
 
     if instance.world.postfix == "Test":
-        instance.world.update = gettext("Never")+"."
+        instance.world.update = gettext("Never") + "."
     else:
         _timedelta = timezone.now() - instance.world.last_update
         instance.world.update = str(_timedelta.seconds // 60) + gettext(

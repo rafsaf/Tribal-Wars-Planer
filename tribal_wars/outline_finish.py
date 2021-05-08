@@ -22,7 +22,7 @@ from django.db.models.query import QuerySet
 
 
 class OutdatedData(Exception):
-    """ Raised when village or player are delted permanently from db """
+    """Raised when village or player are delted permanently from db"""
 
 
 class MakeFinalOutline:
