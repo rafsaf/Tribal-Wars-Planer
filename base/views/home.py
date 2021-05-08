@@ -96,8 +96,3 @@ def overview_view(request, token):
 
     context = {"query": query, "overview": overview}
     return render(request, "base/overview.html", context=context)
-
-
-def overview_fail(request):
-    """Redirected from overview with fail token"""
-    return render(request, "base/overview_fail.html")

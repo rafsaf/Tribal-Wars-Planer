@@ -9,7 +9,6 @@ urlpatterns = [
     path("profile/add-world", views.add_world, name="add_world"),
     path("profile/premium", views.premium_view, name="premium"),
     path("overview/<str:token>", views.overview_view, name="overview"),
-    path("overview-fail", views.overview_fail, name="overview_fail"),
     path("planer/", views.OutlineList.as_view(), name="planer"),
     path("planer/show-all", views.OutlineListShowAll.as_view(), name="planer_all"),
     path("planer/create/", views.new_outline_create, name="planer_create"),

@@ -1,14 +1,14 @@
 import datetime
 
 from django.contrib.auth.models import User
-
+from django.contrib.auth.hashers import make_password
 from base import models
 
 
 """
 ### Users ###
 user1 username "user1" password "user1"
-user2 username "user1" password "user1"
+user1 username "user2" password "user2"
 
 ### Server ###
 server dns "testserver" prefix "te"
@@ -60,8 +60,26 @@ weight3 start "500|502" target "500|499" off 19000 noble 0
 
 
 def create_initial_data():
-    user1 = User.objects.create_user(username="user1", password="user1")  # type: ignore
-    user2 = User.objects.create_user(username="user2", password="user2")  # type: ignore
+    User.objects.bulk_create(
+        [
+            User(
+                username="user1",
+                email="user1@email.com",
+                password=make_password("user1"),
+                is_active=True,
+            ),
+            User(
+                username="user2",
+                email="user2@email.com",
+                password=make_password("user2"),
+                is_active=True,
+            ),
+        ]
+    )
+    user1 = User.objects.get(username="user1")
+    models.Profile.objects.create(user=user1)
+    user2 = User.objects.get(username="user2")
+    models.Profile.objects.create(user=user2)
 
     tribes = []
     villages = []
@@ -76,10 +94,12 @@ def create_initial_data():
         "500|505,0,0,20000,0,0,0,0,0,2,0,0,"
     )
 
-    server = models.Server.objects.create(
+    server_in = models.Server(
         dns="testserver",
         prefix="te",
     )
+    models.Server.objects.bulk_create([server_in])
+    server = models.Server.objects.get(dns="testserver")
     world1 = models.World.objects.create(
         server=server,
         postfix="1",
