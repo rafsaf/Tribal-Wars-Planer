@@ -6,17 +6,20 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404
 from django.db.models import Max, Min
-
+from django.http import HttpRequest, HttpResponse
 from base import models
 from tribal_wars import basic
 
 
 @require_POST
 @login_required
-def initial_add_first(request, id1, id2, id3):
+def initial_add_first(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -52,16 +55,19 @@ def initial_add_first(request, id1, id2, id3):
     weight.save()
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_first_off(request, id1, id2, id3):
+def initial_add_first_off(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -95,16 +101,19 @@ def initial_add_first_off(request, id1, id2, id3):
     weight.save()
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_first_ruin(request, id1, id2, id3):
+def initial_add_first_ruin(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -145,16 +154,19 @@ def initial_add_first_ruin(request, id1, id2, id3):
         weight.save()
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_first_fake(request, id1, id2, id3):
+def initial_add_first_fake(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -209,16 +221,19 @@ def initial_add_first_fake(request, id1, id2, id3):
     weight.save()
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_first_fake_noble(request, id1, id2, id3):
+def initial_add_first_fake_noble(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -256,16 +271,19 @@ def initial_add_first_fake_noble(request, id1, id2, id3):
 
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_last_fake(request, id1, id2, id3):
+def initial_add_last_fake(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -320,16 +338,19 @@ def initial_add_last_fake(request, id1, id2, id3):
     weight.save()
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_last_fake_noble(request, id1, id2, id3):
+def initial_add_last_fake_noble(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -367,16 +388,19 @@ def initial_add_last_fake_noble(request, id1, id2, id3):
 
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_last_ruin(request, id1, id2, id3):
+def initial_add_last_ruin(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -418,16 +442,19 @@ def initial_add_last_ruin(request, id1, id2, id3):
 
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_last_off(request, id1, id2, id3):
+def initial_add_last_off(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -462,16 +489,19 @@ def initial_add_last_off(request, id1, id2, id3):
 
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_add_last(request, id1, id2, id3):
+def initial_add_last(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     target = get_object_or_404(models.TargetVertex, pk=id2)
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
@@ -508,16 +538,19 @@ def initial_add_last(request, id1, id2, id3):
 
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_move_down(request, id1, id2, id4):
+def initial_move_down(
+    request: HttpRequest, id1: int, id2: int, id4: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     weight_model = models.WeightModel.objects.get(pk=id4)
     target = get_object_or_404(models.TargetVertex, pk=id2)
     order1 = weight_model.order
@@ -537,16 +570,17 @@ def initial_move_down(request, id1, id2, id4):
     request.session["weight"] = weight_model.id
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @login_required
-def initial_move_up(request, id1, id2, id4):
+def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
 
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     weight_model = models.WeightModel.objects.get(pk=id4)
     target = get_object_or_404(models.TargetVertex, pk=id2)
     order1 = weight_model.order
@@ -566,16 +600,19 @@ def initial_move_up(request, id1, id2, id4):
     request.session["weight"] = weight_model.id
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_weight_delete(request, id1, id2, id4):
+def initial_weight_delete(
+    request: HttpRequest, id1: int, id2: int, id4: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     weight_model: models.WeightModel = models.WeightModel.objects.select_related(
         "state"
     ).filter(pk=id4)[0]
@@ -592,16 +629,19 @@ def initial_weight_delete(request, id1, id2, id4):
 
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def initial_divide(request, id1, id2, id4, n):
+def initial_divide(
+    request: HttpRequest, id1: int, id2: int, id4: int, n: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     weight: models.WeightModel = models.WeightModel.objects.select_related(
         "state"
     ).filter(pk=id4)[0]
@@ -657,16 +697,17 @@ def initial_divide(request, id1, id2, id4, n):
 
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )
 
 
 @require_POST
 @login_required
-def delete_target(request, id1, id2):
+def delete_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     page = request.GET.get("page")
     mode = request.GET.get("mode")
+    filtr = request.GET.get("filtr")
 
     target: models.TargetVertex = models.TargetVertex.objects.get(pk=id2)
     weights = models.WeightModel.objects.select_related("state").filter(target=target)
@@ -693,15 +734,18 @@ def delete_target(request, id1, id2):
 
 @require_POST
 @login_required
-def initial_hide_weight(request, id1, id2, id3):
+def initial_hide_weight(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     target = get_object_or_404(models.TargetVertex, pk=id2)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
     weight = get_object_or_404(models.WeightMaximum, pk=id3)
     weight.hidden = not weight.hidden
     weight.save()
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
-        + f"?page={page}&sort={sort}"
+        + f"?page={page}&sort={sort}&filtr={filtr}"
     )

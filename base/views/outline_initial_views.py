@@ -745,14 +745,16 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     # sort
     sort_obj = basic.SortAndPaginRequest(
         outline=instance,
-        GET_request=request.GET.get("sort"),
-        PAGE_request=request.GET.get("page"),
+        request_GET_sort=request.GET.get("sort"),
+        request_GET_page=request.GET.get("page"),
+        request_GET_filtr=request.GET.get("filtr"),
         target=target,
     )
     page_obj = sort_obj.sorted_query()
 
     sort = sort_obj.sort
-    # forms
+    filtr = sort_obj.filtr
+    # Forms
     filter_form = forms.SetNewOutlineFilters(request.POST or None)
     filter_form.fields["filter_weights_min"].initial = instance.filter_weights_min
     filter_form.fields["filter_weights_max"].initial = instance.filter_weights_max
@@ -774,7 +776,7 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
                 instance.save()
                 return redirect(
                     reverse("base:planer_initial_detail", args=[id1, id2])
-                    + f"?page={page_obj.number}&sort={sort}"
+                    + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"
                 )
 
         if "form" in request.POST:
@@ -838,7 +840,7 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
                 state.save()
                 return redirect(
                     reverse("base:planer_initial_detail", args=[id1, id2])
-                    + f"?page={page_obj.number}&sort={sort}"
+                    + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"
                 )
         else:
             form = forms.WeightForm(None)
@@ -870,6 +872,7 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
         "page_obj": page_obj,
         "sort": sort,
         "paint": paint,
+        "filtr": filtr,
     }
 
     return render(

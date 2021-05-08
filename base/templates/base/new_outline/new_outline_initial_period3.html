@@ -81,18 +81,18 @@
                             </div>
 
                             <div class="row justify-content-center" style="border:0;">
-                                <form method="POST" action="{% url 'base:planer_move_down' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">{% csrf_token %}
+                                <form method="POST" action="{% url 'base:planer_move_down' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">{% csrf_token %}
                                     <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" /></svg>
                                     </button>
                                 </form>
 
-                                <form method="POST" action="{% url 'base:planer_move_up' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                <form method="POST" action="{% url 'base:planer_move_up' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                     {% csrf_token %}
                                     <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default"><svg name="{{weight.start}}" width="1.8em" height="1.8em" viewBox="0 0 16 16"class="bi bi-arrow-up-circle-fill" fill="rgba(133, 221, 32, 0.938)"xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-10.646.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z" /></svg>
                                     </button>
                                 </form>
 
-                                <form method="POST" action="{% url 'base:planer_initial_delete' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">{% csrf_token %}
+                                <form method="POST" action="{% url 'base:planer_initial_delete' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">{% csrf_token %}
                                     <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-x-circle-fill " fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" /></svg>
                                     </button>
                                 </form>
@@ -106,15 +106,15 @@
                                 <div class="btn-group">
                                     <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Divide' %}</button>
                                     <div class="dropdown-menu">
-                                        <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 2 %}?page={{ page_obj.number }}&sort={{ sort }}">
+                                        <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 2 %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                             {% csrf_token %}
                                             <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 2' %}</button>
                                         </form>
-                                        <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 3 %}?page={{ page_obj.number }}&sort={{ sort }}">
+                                        <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 3 %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                             {% csrf_token %}
                                             <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 3' %}</button>
                                         </form>
-                                        <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 4 %}?page={{ page_obj.number }}&sort={{ sort }}">
+                                        <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 4 %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                             {% csrf_token %}
                                             <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 4' %}</button>
                                         </form>
@@ -204,43 +204,43 @@
         
                             <div class="dropdown-menu my-0 py-0" style="font-size: small;max-height:65vh" aria-labelledby="dropdownMenuButton">
                                 <div style="overflow-y: auto;">
-                                <a id='distance2' class="dropdown-item" href="?page=1&sort=distance">{% trans 'Ascending by distance' %}</a> 
-                                <a id='random_distance2' class="dropdown-item" href="?page=1&sort=random_distance">{% trans 'Random by distance' %}</a> 
-                                <a id='-distance2' class="dropdown-item" href="?page=1&sort=-distance">{% trans 'Descending by distance' %}</a> 
-                                <a id='-off_left2' class="dropdown-item" href="?page=1&sort=-off_left">{% trans 'Descending by number of units' %}</a> 
-                                <a id='-nobleman_left2' class="dropdown-item" href="?page=1&sort=-nobleman_left">{% trans 'Descending by number of noble' %}</a>
+                                <a id='distance2' class="dropdown-item" href="?page=1&sort=distance&filtr={{filtr}}">{% trans 'Ascending by distance' %}</a> 
+                                <a id='random_distance2' class="dropdown-item" href="?page=1&sort=random_distance&filtr={{filtr}}">{% trans 'Random by distance' %}</a> 
+                                <a id='-distance2' class="dropdown-item" href="?page=1&sort=-distance&filtr={{filtr}}">{% trans 'Descending by distance' %}</a> 
+                                <a id='-off_left2' class="dropdown-item" href="?page=1&sort=-off_left&filtr={{filtr}}">{% trans 'Descending by number of units' %}</a> 
+                                <a id='-nobleman_left2' class="dropdown-item" href="?page=1&sort=-nobleman_left&filtr={{filtr}}">{% trans 'Descending by number of noble' %}</a>
         
                                 <div class="dropdown-divider mb-0 mt-1"></div>
         
-                                <a id='closest_offs2' class="dropdown-item" href="?page=1&sort=closest_offs">{% trans 'Closest full offs' %}</a>
-                                <a id='closest_noblemans2' class="dropdown-item" href="?page=1&sort=closest_noblemans">{% trans 'Closest noblemans' %}</a>
-                                <a id='closest_noble_offs2' class="dropdown-item" href="?page=1&sort=closest_noble_offs">{% trans 'Closest offs with noblemans' %}</a>
+                                <a id='closest_offs2' class="dropdown-item" href="?page=1&sort=closest_offs&filtr={{filtr}}">{% trans 'Closest full offs' %}</a>
+                                <a id='closest_noblemans2' class="dropdown-item" href="?page=1&sort=closest_noblemans&filtr={{filtr}}">{% trans 'Closest noblemans' %}</a>
+                                <a id='closest_noble_offs2' class="dropdown-item" href="?page=1&sort=closest_noble_offs&filtr={{filtr}}">{% trans 'Closest offs with noblemans' %}</a>
         
                                 <div class="dropdown-divider mb-0 mt-1"></div>
         
-                                <a id='random_offs2' class="dropdown-item" href="?page=1&sort=random_offs">{% trans 'Random full offs' %}</a>
-                                <a id='random_noblemans2' class="dropdown-item" href="?page=1&sort=random_noblemans">{% trans 'Random noblemans' %}</a>
-                                <a id='random_noble_offs2' class="dropdown-item" href="?page=1&sort=random_noble_offs">{% trans 'Random offs with noblemans' %}</a>
+                                <a id='random_offs2' class="dropdown-item" href="?page=1&sort=random_offs&filtr={{filtr}}">{% trans 'Random full offs' %}</a>
+                                <a id='random_noblemans2' class="dropdown-item" href="?page=1&sort=random_noblemans&filtr={{filtr}}">{% trans 'Random noblemans' %}</a>
+                                <a id='random_noble_offs2' class="dropdown-item" href="?page=1&sort=random_noble_offs&filtr={{filtr}}">{% trans 'Random offs with noblemans' %}</a>
         
                                 <div class="dropdown-divider mb-0 mt-1"></div>
         
-                                <a id='farthest_offs2' class="dropdown-item" href="?page=1&sort=farthest_offs">{% trans 'Farthest full offs' %}</a>
-                                <a id='farthest_noblemans2' class="dropdown-item" href="?page=1&sort=farthest_noblemans">{% trans 'Farthest noblemans' %}</a>
-                                <a id='farthest_noble_offs2' class="dropdown-item" href="?page=1&sort=farthest_noble_offs">{% trans 'Farthest offs with noblemans' %}</a>
+                                <a id='farthest_offs2' class="dropdown-item" href="?page=1&sort=farthest_offs&filtr={{filtr}}">{% trans 'Farthest full offs' %}</a>
+                                <a id='farthest_noblemans2' class="dropdown-item" href="?page=1&sort=farthest_noblemans&filtr={{filtr}}">{% trans 'Farthest noblemans' %}</a>
+                                <a id='farthest_noble_offs2' class="dropdown-item" href="?page=1&sort=farthest_noble_offs&filtr={{filtr}}">{% trans 'Farthest offs with noblemans' %}</a>
                                 </div>
                             </div>
                         </div>
                     </li>
                     {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page=1&sort={{sort}}">1</a>
+                        <a class="page-link" href="?page=1&sort={{sort}}&filtr={{filtr}}">1</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}">{% trans 'Previous' %}</a>
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}&filtr={{filtr}}">{% trans 'Previous' %}</a>
                     </li>
                     {% else %}
                     <li class="page-item disabled">
-                        <a class="page-link" href="?page=1&sort={{sort}}">1</a>
+                        <a class="page-link" href="?page=1&sort={{sort}}&filtr={{filtr}}">1</a>
                     </li>
                     <li class="page-item disabled">
                         <a class="page-link">{% trans 'Previous' %}</a>
@@ -251,30 +251,44 @@
                     </li>
                     {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" id="submit" href="?page={{ page_obj.next_page_number }}&sort={{sort}}">{% trans 'Next' %}</a>
+                        <a class="page-link" id="submit" href="?page={{ page_obj.next_page_number }}&sort={{sort}}&filtr={{filtr}}">{% trans 'Next' %}</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a> 
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}&filtr={{filtr}}">{{page_obj.paginator.num_pages}}</a> 
                     {% else %}
                     <li class="page-item disabled">
                         <a class="page-link">{% trans 'Next' %}</a>
                     </li>
                     <li class="page-item disabled">
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}">{{page_obj.paginator.num_pages}}</a> 
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}&filtr={{filtr}}">{{page_obj.paginator.num_pages}}</a> 
                     </li>
                     {% endif %}
+                    <li class="page-item ml-3" >
+                        <form style="display: flex;" method="GET">
+                            <button style="padding: 5px;" class="btn btn-default mr-1" type="submit">
+                                <svg style="display: inline-block;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                            </button>
+                            <input name="page" type="hidden" value="{{page_obj.number}}">
+                            <input name="sort" type="hidden" value="{{sort}}">
+                            <input type="submit" hidden>
 
+                            <input name="filtr" type="search" class="form-control" maxlength="50" placeholder="{% trans 'coord or nick...' %}" value="{{filtr}}" >
+                            
+                        </form>
+                    </li>
                 </ul>
+                
             </nav>
  
-            <div class="container-fluid" style="overflow-y: auto;height:calc(67vh) !important;">
+            <div class="container-fluid" style="overflow-y: auto;height:calc(67vh) !important;border-top:1px solid rgb(228, 225, 225);border-radius: 8px;">
                 <div class="row">
                     {% for weight in page_obj %}
                     <div class="card col-12 col-md-6 col-lg-6 col-xl-4 front-{{weight.first_line}}">
                         <div class="card-body py-0 px-0">
                             <div style="position: absolute; top:0;right:0;padding-top:0">
     
-                                <form action="{% url 'base:planer_hide_weight' instance.id target.id weight.id %}?page={{ page_obj.number }}&sort={{ sort }}" method="POST">
+                                <form action="{% url 'base:planer_hide_weight' instance.id target.id weight.id %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}" method="POST">
                                     {% csrf_token %}
                                     <button style="padding: 0;" class="btn btn-default" onclick="this.disabled=true;this.form.submit();">
                                         {% if weight.hidden == False %}
@@ -321,39 +335,39 @@
 
                                 <div class="col-auto">
                                     {% if target.ruin %}
-                                    <form method="POST" action="{% url 'base:planer_add_first_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_first_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/green-up-btn.svg' %}" alt="up">
                                         </button>
                                     </form>
-                                    <form method="POST" action="{% url 'base:planer_add_last_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_last_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/green-down-btn.svg' %}" alt="down">
                                         </button>
                                     </form>
                                     {% elif target.fake %}
-                                    <form method="POST" action="{% url 'base:planer_add_first_fake' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_first_fake' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/green-up-btn.svg' %}" alt="up">
                                         </button>
                                     </form>
-                                    <form method="POST" action="{% url 'base:planer_add_last_fake' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_last_fake' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/green-down-btn.svg' %}" alt="down">
                                         </button>
                                     </form>
                                     {% else %}
-                                    <form method="POST" action="{% url 'base:planer_add_first_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_first_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/green-up-btn.svg' %}" alt="up">
                                         </button>
                                     </form>
-                                    <form method="POST" action="{% url 'base:planer_add_last_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_last_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/green-down-btn.svg' %}" alt="down">
@@ -396,39 +410,39 @@
                                 <div class="col-auto">
 
                                     {% if target.ruin %}
-                                    <form method="POST" action="{% url 'base:planer_add_first_ruin' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_first_ruin' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/teal-up-btn.svg' %}" alt="up">
                                         </button>
                                     </form>
-                                    <form method="POST" action="{% url 'base:planer_add_last_ruin' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_last_ruin' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/teal-down-btn.svg' %}" alt="down">
                                         </button>
                                     </form>
                                     {% elif target.fake %}
-                                    <form method="POST" action="{% url 'base:planer_add_first_fake_noble' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_first_fake_noble' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/teal-up-btn.svg' %}" alt="up">
                                         </button>
                                     </form>
-                                    <form method="POST" action="{% url 'base:planer_add_last_fake_noble' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_last_fake_noble' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/teal-down-btn.svg' %}" alt="down">
                                         </button>
                                     </form>
                                     {% else %}
-                                    <form method="POST" action="{% url 'base:planer_add_first' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_first' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/teal-up-btn.svg' %}" alt="up">
                                         </button>
                                     </form>
-                                    <form method="POST" action="{% url 'base:planer_add_last' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}">
+                                    <form method="POST" action="{% url 'base:planer_add_last' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                         {% csrf_token %}
                                         <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
                                             <img src="{% static 'images/teal-down-btn.svg' %}" alt="down">
