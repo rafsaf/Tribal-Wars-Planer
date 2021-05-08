@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from base.tests.choices_initial import ChoicesInitial
+from base.tests.test_views.outline_initial_changes.choices_initial import ChoicesInitial
 from base.models import WeightModel
 
 

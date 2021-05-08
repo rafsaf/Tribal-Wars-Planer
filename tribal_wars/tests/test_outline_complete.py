@@ -1,7 +1,7 @@
 from typing import List
 from django.test import TestCase
 from django.utils.translation import activate
-from base.tests.initial_setup import create_initial_data_write_outline
+from base.tests.utils.initial_setup import create_initial_data_write_outline
 from base.models import (
     Outline,
     TargetVertex as Target,

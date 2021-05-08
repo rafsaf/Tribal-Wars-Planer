@@ -2,7 +2,7 @@ from django.urls import reverse
 
 from base import models
 from base.models import Outline, TargetVertex, WeightMaximum, WeightModel
-from base.tests.choices_initial import ChoicesInitial
+from base.tests.test_views.outline_initial_changes.choices_initial import ChoicesInitial
 
 
 class ChoicesRealAdding(ChoicesInitial):

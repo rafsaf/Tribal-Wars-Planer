@@ -3,13 +3,13 @@ import random
 
 from django.test import TestCase
 
-from base.tests import initial_setup
+from base.tests.utils.initial_setup import create_initial_data
 from base.models import Outline, TargetVertex, WeightMaximum, WeightModel
 
 
 class ChoicesInitial(TestCase):
     def setUp(self):
-        initial_setup.create_initial_data()
+        create_initial_data()
 
     def get_outline(self) -> Outline:
         return Outline.objects.get(pk=1)

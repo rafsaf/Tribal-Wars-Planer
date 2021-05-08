@@ -3,7 +3,7 @@ from django.utils.translation import activate
 
 from tribal_wars.outline_initial import MakeOutline
 from tribal_wars.write_noble_target import WriteNobleTarget
-from base.tests.initial_setup import create_initial_data_write_outline
+from base.tests.utils.initial_setup import create_initial_data_write_outline
 from base.models import (
     Outline,
     TargetVertex as Target,
