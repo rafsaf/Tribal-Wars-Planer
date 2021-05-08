@@ -7,7 +7,7 @@ from base.tests.utils.initial_setup import create_initial_data
 from base.models import Outline, TargetVertex, WeightMaximum, WeightModel
 
 
-class ChoicesInitial(TestCase):
+class ChangesViewSetup(TestCase):
     def setUp(self):
         create_initial_data()
 

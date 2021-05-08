@@ -68,7 +68,7 @@ def create_initial_data():
     players = []
 
     TEXT = (
-        "500|500,0,0,10000,0,0,0,0,0,2,0,0,\r\n"
+        "500|500,0,0,8400,0,0,0,0,200,2,0,0,\r\n"
         "500|501,0,0,190,0,0,0,0,0,0,0,0,\r\n"
         "500|502,0,0,19500,0,0,0,0,0,0,0,0,\r\n"
         "500|503,0,0,20100,0,0,0,0,0,0,0,0,\r\n"
@@ -225,13 +225,15 @@ def create_initial_data():
     villages.append(enemy_village3)
     models.VillageModel.objects.bulk_create(villages)
 
-    weight_max1 = models.WeightMaximum.objects.create(
+    weight_max1: models.WeightMaximum = models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=500,
         player="player0",
         outline=outline1,
         start="500|500",
         off_max=10000,
+        catapult_max=200,
+        catapult_left=200,
         off_left=5000,
         off_state=5000,
         nobleman_max=2,

@@ -574,6 +574,7 @@ def initial_move_down(
     )
 
 
+@require_POST
 @login_required
 def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpResponse:
     outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
@@ -698,37 +699,6 @@ def initial_divide(
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}&filtr={filtr}"
-    )
-
-
-@require_POST
-@login_required
-def delete_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
-    page = request.GET.get("page")
-    mode = request.GET.get("mode")
-    filtr = request.GET.get("filtr")
-
-    target: models.TargetVertex = models.TargetVertex.objects.get(pk=id2)
-    weights = models.WeightModel.objects.select_related("state").filter(target=target)
-    # deletes weights related to this target and updates weight state
-
-    weight_model: models.WeightModel
-    for weight_model in weights:
-        state: models.WeightMaximum = weight_model.state
-        state.off_left += weight_model.off + weight_model.catapult * 8
-        state.off_state -= weight_model.off - weight_model.catapult * 8
-        state.nobleman_left += weight_model.nobleman
-        state.nobleman_state -= weight_model.nobleman
-        state.catapult_left -= weight_model.catapult
-        state.catapult_state += weight_model.catapult
-        state.save()
-
-    weights.delete()
-    target.delete()
-
-    return redirect(
-        reverse("base:planer_initial", args=[id1]) + f"?page={page}&mode={mode}"
     )
 
 

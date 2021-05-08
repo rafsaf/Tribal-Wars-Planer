@@ -51,11 +51,6 @@ urlpatterns = [
         name="planer_set_all_time",
     ),
     path(
-        "planer/<int:id1>/delete_target/<int:id2>",
-        views.delete_target,
-        name="planer_delete_target",
-    ),
-    path(
         "planer/<int:id1>/planer-target/<int:id2>",
         views.initial_target,
         name="planer_initial_detail",
