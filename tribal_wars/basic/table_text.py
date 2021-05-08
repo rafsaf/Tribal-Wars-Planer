@@ -186,7 +186,7 @@ class TableText:
             table = str(self.__next_line + self.__next_line + self.__prefix)
             for i, weight in enumerate(lst):
                 table += f"[*]{i+1}" + self.weight_table[weight]
-                if i % 32 == 0 and i != 0:
+                if i % 31 == 0 and i != 0:
                     table += (
                         self.__postfix
                         + self.__next_line_double

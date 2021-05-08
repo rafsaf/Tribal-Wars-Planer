@@ -52,7 +52,7 @@
                     {% for weight in lst %}
                     <th class="front-{{weight.first_line}}">
                         <div class="popoverData" data-html="true"
-                            data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>"
+                            data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>{% if weight.ruin %}<h5 style='text-align:center'>{{weight.get_building_display}}</h5>{% endif %}"
                             rel="popover" data-placement="top" data-trigger="hover">
                             <table class="table table-sm">
                                     <tr>
