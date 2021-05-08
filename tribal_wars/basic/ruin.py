@@ -8,9 +8,11 @@ class RuinHandle:
         self.building_is_not_set = True
         self.current_level: Optional[int] = None
         self.current_building: Optional[str] = None
-        self.destroying_order: Iterator[str] = iter(self.outline.initial_outline_buildings)
+        self.destroying_order: Iterator[str] = iter(
+            self.outline.initial_outline_buildings
+        )
         self.catapult_destroy_levels: CatapultDestroyLevels = CatapultDestroyLevels()
-        
+
         if self.outline.initial_outline_average_ruining_points == "big":
             self.levels: Dict[str, int] = {
                 "headquarters": 20,
@@ -44,16 +46,15 @@ class RuinHandle:
                 "wall": 20,
             }
 
-        
-
-
     def _next_level(self, catapults: int) -> int:
         if self.current_level is None:
             raise ValueError("Current level cannot be none")
-        return self.catapult_destroy_levels.level_after_destroy(catapults, self.current_level)
+        return self.catapult_destroy_levels.level_after_destroy(
+            catapults, self.current_level
+        )
 
     def best_catapult(self, weight_max: WeightMaximum) -> int:
-        """ 
+        """
         For given weight_max match best catapult number possible
         Also take care about current levels and building name
         """
@@ -84,11 +85,11 @@ class RuinHandle:
             self.building_is_not_set = True
         else:
             self.current_level = next_level
-        
+
         return best
 
     def building(self) -> str:
-        """ For cats number return building name, always actual """
+        """For cats number return building name, always actual"""
         if self.current_building is None:
             raise ValueError("Building cannot be None")
         return self.current_building

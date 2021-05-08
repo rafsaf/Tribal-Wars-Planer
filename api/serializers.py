@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 class ChangeBuildingsArraySerializer(serializers.Serializer):
     buildings = serializers.ListField(child=serializers.CharField(max_length=100))
 

@@ -88,7 +88,7 @@ class CreateWeights:
 
     def _create_weights_or_pass(self, weight_lst: List[WeightModel]) -> None:
         # note that we hit database only when have a lot of data
-        
+
         weight: WeightModel
         for weight in weight_lst:
             self.weight_create_lst.append(weight)

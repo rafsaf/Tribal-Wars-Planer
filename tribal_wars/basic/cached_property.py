@@ -1,4 +1,4 @@
-from _thread import RLock #type: ignore
+from _thread import RLock  # type: ignore
 
 _NOT_FOUND = object()
 
@@ -50,4 +50,3 @@ class cached_property:
                         )
                         raise TypeError(msg) from None
         return val
-

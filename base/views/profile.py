@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from tribal_wars.database_update import WorldQuery
 from base import models, forms
 
+
 @login_required
 def add_world(request):
     user = request.user
@@ -21,7 +22,7 @@ def add_world(request):
 
     context = {"user": user, "form1": form1, "message": success}
     if success is not None:
-        del request.session['world_created']
+        del request.session["world_created"]
     return render(request, "base/user/add_world.html", context=context)
 
 
@@ -40,6 +41,7 @@ def profile_settings(request):
                 return redirect("base:settings")
     context = {"user": user, "form1": form1}
     return render(request, "base/user/profile_settings.html", context=context)
+
 
 @login_required
 def premium_view(request):

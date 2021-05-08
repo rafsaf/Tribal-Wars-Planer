@@ -13,7 +13,7 @@ from base import models
 
 
 def base_view(request):
-    """ base view """
+    """base view"""
     stats = {}
     INITIAL_DATE = date(year=2020, month=9, day=1)
     days: int = (timezone.localdate() - INITIAL_DATE).days
@@ -51,7 +51,7 @@ def base_view(request):
 
 
 def base_documentation(request):
-    """ base documentation view"""
+    """base documentation view"""
     language_code = get_language()
 
     doc = models.Documentation.objects.get_or_create(
@@ -64,7 +64,7 @@ def base_documentation(request):
 
 
 def overview_view(request, token):
-    """ Safe url for member of tribe """
+    """Safe url for member of tribe"""
     overview = get_object_or_404(
         models.Overview.objects.select_related().filter(pk=token)
     )
@@ -99,5 +99,5 @@ def overview_view(request, token):
 
 
 def overview_fail(request):
-    """ Redirected from overview with fail token """
+    """Redirected from overview with fail token"""
     return render(request, "base/overview_fail.html")

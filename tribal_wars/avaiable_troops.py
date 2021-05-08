@@ -9,7 +9,7 @@ from tribal_wars import get_deff
 
 
 def legal_coords_near_targets(outline: models.Outline):
-    """ Create set with ally_vill without enemy_vill closer than radius """
+    """Create set with ally_vill without enemy_vill closer than radius"""
     excluded_coords = outline.initial_outline_excluded_coords.split()
 
     radius = int(outline.initial_outline_target_dist)
@@ -21,9 +21,9 @@ def legal_coords_near_targets(outline: models.Outline):
     ]
     enemy_villages = [
         target["target"]
-        for target in models.TargetVertex.objects.filter(outline=outline, fake=False, ruin=False).values(
-            "target"
-        )
+        for target in models.TargetVertex.objects.filter(
+            outline=outline, fake=False, ruin=False
+        ).values("target")
     ]
 
     my_villages = models.VillageModel.objects.filter(
@@ -69,7 +69,7 @@ def legal_coords_near_targets(outline: models.Outline):
 
 
 def get_legal_coords_outline(outline: models.Outline):
-    """ Create set with ally_vill without enemy_vill closer than radius """
+    """Create set with ally_vill without enemy_vill closer than radius"""
     excluded_coords = outline.initial_outline_excluded_coords.split()
 
     radius = int(outline.initial_outline_front_dist)
@@ -143,13 +143,11 @@ def update_available_ruins(outline: models.Outline) -> None:
             outline=outline,
             off_left__lt=outline.initial_outline_min_off,
         )
-        .annotate(
-            ruin_number=(F("catapult_left"))
-        )
+        .annotate(ruin_number=(F("catapult_left")))
         .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
         or 0
     )
-    
+
     ruins_from_offs: int = (
         models.WeightMaximum.objects.filter(
             outline=outline,

@@ -117,18 +117,21 @@ class ChangeBuildingsArray(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def put(
-        self, request, outline_id: int, format=None
-    ) -> Response:
+    def put(self, request, outline_id: int, format=None) -> Response:
         outline: Outline = get_object_or_404(Outline, id=outline_id, owner=request.user)
 
-        buildings_serializer = serializers.ChangeBuildingsArraySerializer(data=request.data)
+        buildings_serializer = serializers.ChangeBuildingsArraySerializer(
+            data=request.data
+        )
         if buildings_serializer.is_valid():
-            outline.initial_outline_buildings = buildings_serializer.validated_data["buildings"]
+            outline.initial_outline_buildings = buildings_serializer.validated_data[
+                "buildings"
+            ]
             outline.save()
             return Response(status=status.HTTP_200_OK)
 
         return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 class ResetUserMessages(APIView):
     """
@@ -137,12 +140,8 @@ class ResetUserMessages(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def put(
-        self, request: HttpRequest, format=None
-    ) -> Response:
+    def put(self, request: HttpRequest, format=None) -> Response:
         profile: Profile = get_object_or_404(Profile, user=request.user)
         profile.messages = 0
         profile.save()
         return Response(status=status.HTTP_200_OK)
-
-

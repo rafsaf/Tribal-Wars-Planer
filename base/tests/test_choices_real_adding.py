@@ -179,7 +179,9 @@ class ChoicesRealAdding(ChoicesInitial):
 
         self.client.login(username="user1", password="user1")
         response = self.client.post(
-            reverse("base:planer_add_last_off", args=[outline.pk, target.pk, weight_max.pk])
+            reverse(
+                "base:planer_add_last_off", args=[outline.pk, target.pk, weight_max.pk]
+            )
             + f"?page=2&sort=nobleman_left&filtr={filtr}"
         )
 
@@ -210,7 +212,9 @@ class ChoicesRealAdding(ChoicesInitial):
 
         self.client.login(username="user2", password="user2")
         response = self.client.post(
-            reverse("base:planer_add_last_off", args=[outline.pk, target.pk, weight_max.pk])
+            reverse(
+                "base:planer_add_last_off", args=[outline.pk, target.pk, weight_max.pk]
+            )
             + "?page=2&sort=nobleman_left"
         )
         self.assertEqual(response.status_code, 404)

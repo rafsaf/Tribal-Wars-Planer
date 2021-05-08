@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class BaseConfig(AppConfig):
-    name = 'tribal_wars'
+    name = "tribal_wars"
