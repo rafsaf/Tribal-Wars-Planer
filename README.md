@@ -66,6 +66,7 @@ docker-compose up
 6. Baza już działa, wystarczyć powinno uruchomienie projektu na localhost:8000 po wcześniejszym utworzeniu superusera admin-admin i migracjach
 
 ```bash
+python manage.py test
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
