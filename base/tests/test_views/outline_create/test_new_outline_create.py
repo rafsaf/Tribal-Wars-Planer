@@ -2,10 +2,10 @@ from base.forms import OutlineForm
 from base.models import Outline
 from django.urls import reverse
 import datetime
-from base.tests.test_views.outline_create.outline_create_setup import OutlineCreateSetup
+from base.tests.utils.mini_setup import MiniSetup
 
 
-class NewOutlineCreate(OutlineCreateSetup):
+class NewOutlineCreate(MiniSetup):
     def test_planer_create___302_not_auth_redirect_login(self):
         PATH = reverse("base:planer_create")
 

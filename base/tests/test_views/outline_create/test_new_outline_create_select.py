@@ -1,9 +1,9 @@
 from base.forms import MyTribeTagForm, EnemyTribeTagForm
 from django.urls import reverse
-from base.tests.test_views.outline_create.outline_create_setup import OutlineCreateSetup
+from base.tests.utils.mini_setup import MiniSetup
 
 
-class NewOutlineCreateSelect(OutlineCreateSetup):
+class NewOutlineCreateSelect(MiniSetup):
     def test_planer_create_select___302_not_auth_redirect_login(self):
         PATH = reverse("base:planer_create_select", args=[1])
 

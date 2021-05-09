@@ -1,8 +1,8 @@
 from django.urls import reverse
-from base.tests.test_views.outline_create.outline_create_setup import OutlineCreateSetup
+from base.tests.utils.mini_setup import MiniSetup
 
 
-class OutlinePlanerDisableEditable(OutlineCreateSetup):
+class OutlinePlanerDisableEditable(MiniSetup):
     def test_planer_disable_editable___302_not_auth_redirect_login(self):
         PATH = reverse("base:planer_disable_editable", args=[1])
 

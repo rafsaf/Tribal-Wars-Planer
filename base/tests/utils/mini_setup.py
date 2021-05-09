@@ -10,7 +10,7 @@ from django.urls import reverse
 from base.tests.utils.create_user import create_user
 
 
-class OutlineCreateSetup(TestCase):
+class MiniSetup(TestCase):
     def __init__(self, methodName: str) -> None:
         super().__init__(methodName=methodName)
 
