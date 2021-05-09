@@ -46,6 +46,6 @@ jobs:
           cp ./django_plemiona/settings.txt ./django_plemiona/settings.py
       - name: Run migrations and then tests
         run: |
-          python manage.py makemigrations
-          python manage.py migrate
+          python manage.py makemigrations --settings=django_plemiona.test_setting
+          python manage.py migrate --settings=django_plemiona.test_setting
           python manage.py test --settings=django_plemiona.test_setting
