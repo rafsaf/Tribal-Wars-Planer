@@ -75,4 +75,4 @@ python manage.py runserver
 
 ```
 
-Raczej działa xd
+Raczej działa :)
