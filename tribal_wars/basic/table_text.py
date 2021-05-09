@@ -1,4 +1,4 @@
-import datetime
+import re
 from base import models
 from django.utils.translation import gettext as _
 
@@ -229,7 +229,14 @@ class TableText:
             self.extended_result[player] = text
 
     def get_full_result(self):
-        return self.__next_line_double.join(self.string_result.values())
+        result = ""
+        for player in self.string_result:
+            result += player
+            result += self.__next_line
+            result += self.string_result[player]
+            result += self.__next_line_double
+            result = re.sub(r"\[size=12\]|\[/size\]", "", result)
+        return result
 
     def __enter__(self):
         pass

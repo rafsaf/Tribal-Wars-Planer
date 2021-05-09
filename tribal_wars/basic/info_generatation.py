@@ -122,7 +122,10 @@ class TargetCount:
             fakes: int = len(
                 [weight for weight in self.weight_lst if weight.nobleman == 0]
             )
-            fake_nobles: int = len(self.weight_lst) - fakes
+            fake_nobles: int = 0
+            weight: models.WeightModel
+            for weight in self.weight_lst:
+                fake_nobles += weight.nobleman
             return f"\r\n{self.target.target} - {fakes} {fakes_string} - {fake_nobles} {fake_nobles_string}"
 
         if self.target.ruin:
@@ -140,7 +143,11 @@ class TargetCount:
             offs: int = len(
                 [weight for weight in self.weight_lst if weight.nobleman == 0]
             )
-            nobles: int = len(self.weight_lst) - offs
+            nobles: int = 0
+            weight: models.WeightModel
+            for weight in self.weight_lst:
+                nobles += weight.nobleman
+
             return f"\r\n{self.target.target} - {offs} {offs_string} - {nobles} {nobles_string}"
 
     @property
