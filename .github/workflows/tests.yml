@@ -16,12 +16,14 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: postgres_github
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.6
@@ -42,6 +44,6 @@ jobs:
       - name: Create settings.py
         run: |
           cp ./django_plemiona/settings.txt ./django_plemiona/settings.py
-      - name: Create settings.py
+      - name: Run tests
         run: |
           python manage.py test --settings=django_plemiona.test_setting
