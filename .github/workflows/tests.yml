@@ -5,7 +5,7 @@ name: tests
 
 on:
   push:
-    branches: [v1.6]
+    branches: [new]
   pull_request:
     branches: [new]
 
