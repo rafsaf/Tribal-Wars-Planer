@@ -1,9 +1,6 @@
-from urllib.request import Request
-from django.http import HttpRequest
-from django.urls import reverse_lazy
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from django.views.generic.edit import DeleteView
 from django.shortcuts import get_object_or_404
 from django.utils.translation import get_language, gettext
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -64,7 +61,7 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
 
 @login_required
 @require_POST
-def inactive_outline(request, _id):
+def inactive_outline(request: HttpRequest, _id: int) -> HttpResponse:
     """class based view makeing outline with id=id inavtive/active, post and login required"""
 
     outline = get_object_or_404(models.Outline, id=_id, owner=request.user)
@@ -78,16 +75,16 @@ def inactive_outline(request, _id):
         return redirect("base:planer_all")
 
 
-@require_POST
 @login_required
-def outline_delete(request, _id):
+@require_POST
+def outline_delete(request: HttpRequest, _id: int) -> HttpResponse:
     outline = get_object_or_404(models.Outline, id=_id, owner=request.user)
     outline.delete()
     return redirect("base:planer")
 
 
 @login_required
-def outline_detail_1(request: HttpRequest, _id):
+def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     """details user's outline , login required"""
     models.Outline.objects.filter(editable="active", owner=request.user).delete()
     instance: models.Outline = get_object_or_404(

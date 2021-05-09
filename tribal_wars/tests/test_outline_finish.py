@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.utils.translation import activate
 
 from tribal_wars.outline_finish import MakeFinalOutline, OutdatedData
-from base.tests.initial_setup import create_initial_data
+from base.tests.utils.initial_setup import create_initial_data
 from base.models import (
     Outline,
     OutlineOverview,

@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from base import views
 
 app_name = "base"
 
@@ -9,17 +9,33 @@ urlpatterns = [
     path("profile/add-world", views.add_world, name="add_world"),
     path("profile/premium", views.premium_view, name="premium"),
     path("overview/<str:token>", views.overview_view, name="overview"),
-    path("overview-fail", views.overview_fail, name="overview_fail"),
     path("planer/", views.OutlineList.as_view(), name="planer"),
     path("planer/show-all", views.OutlineListShowAll.as_view(), name="planer_all"),
     path("planer/create/", views.new_outline_create, name="planer_create"),
     path("planer/<int:_id>/status", views.inactive_outline, name="planer_status"),
+    path("planer/<int:_id>", views.outline_detail, name="planer_detail"),
+    path("planer/<int:_id>/delete", views.outline_delete, name="planer_delete"),
+    path("documentation", views.base_documentation, name="documentation"),
+    path(
+        "planer/<int:_id>/delete/ally-tags",
+        views.outline_delete_ally_tags,
+        name="planer_delete_ally_tags",
+    ),
+    path(
+        "planer/<int:_id>/delete/enemy-tags",
+        views.outline_delete_enemy_tags,
+        name="planer_delete_enemy_tags",
+    ),
+    path(
+        "planer/<int:_id>/disable_editable",
+        views.outline_disable_editable,
+        name="planer_disable_editable",
+    ),
     path(
         "planer/<int:_id>/results",
         views.outline_detail_results,
         name="planer_detail_results",
     ),
-    path("planer/<int:_id>", views.outline_detail_1, name="planer_detail"),
     path(
         "planer/<int:_id>/planer-form",
         views.initial_form,
@@ -49,11 +65,6 @@ urlpatterns = [
         "planer/planer-menu/set-all-time/<int:pk>",
         views.initial_set_all_time,
         name="planer_set_all_time",
-    ),
-    path(
-        "planer/<int:id1>/delete_target/<int:id2>",
-        views.delete_target,
-        name="planer_delete_target",
     ),
     path(
         "planer/<int:id1>/planer-target/<int:id2>",
@@ -145,9 +156,4 @@ urlpatterns = [
         views.new_outline_create_select,
         name="planer_create_select",
     ),
-    path("planer/<int:_id>/delete/ally-tags", views.outline_delete_ally_tags, name="planer_delete_ally_tags"),  # type: ignore
-    path("planer/<int:_id>/delete/enemy-tags", views.outline_delete_enemy_tags, name="planer_delete_enemy_tags"),  # type: ignore
-    path("planer/<int:_id>/disable_editable", views.outline_disable_editable, name="planer_disable_editable"),  # type: ignore
-    path("planer/<int:_id>/delete", views.outline_delete, name="planer_delete"),
-    path("documentation", views.base_documentation, name="documentation"),
 ]

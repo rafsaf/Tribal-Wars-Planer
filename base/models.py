@@ -70,11 +70,8 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         default_server = Server.objects.get_or_create(dns="plemiona.pl", prefix="pl")[0]
         Profile.objects.create(user=instance, server=default_server)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    else:
+        instance.profile.save()
 
 
 class World(models.Model):

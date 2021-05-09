@@ -104,15 +104,15 @@ class DeffTroopsForm(forms.ModelForm):
 class MyTribeTagForm(forms.Form):
     """Add ally tribes to outline"""
 
-    plemie1 = forms.ChoiceField(
+    tribe1 = forms.ChoiceField(
         choices=[], label=gettext_lazy("Ally tribe"), required=False
     )
 
-    def clean_plemie1(self):
+    def clean_tribe1(self):
         """User's tags input"""
-        plemie = self.cleaned_data["plemie1"]
+        plemie = self.cleaned_data["tribe1"]
         if plemie == "banned":
-            self.add_error("plemie1", gettext_lazy("Select tribe from list"))
+            self.add_error("tribe1", gettext_lazy("Select tribe from list"))
             return None
         return plemie
 
@@ -120,15 +120,15 @@ class MyTribeTagForm(forms.Form):
 class EnemyTribeTagForm(forms.Form):
     """Add enemy tribes to outline"""
 
-    plemie2 = forms.ChoiceField(
+    tribe2 = forms.ChoiceField(
         choices=[], label=gettext_lazy("Enemy tribe"), required=False
     )
 
-    def clean_plemie2(self):
+    def clean_tribe2(self):
         """User's tag input"""
-        plemie = self.cleaned_data["plemie2"]
+        plemie = self.cleaned_data["tribe2"]
         if plemie == "banned":
-            self.add_error("plemie2", gettext_lazy("Select tribe from list"))
+            self.add_error("tribe2", gettext_lazy("Select tribe from list"))
             return None
         return plemie
 
