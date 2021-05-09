@@ -44,4 +44,4 @@ jobs:
           cp ./django_plemiona/settings.txt ./django_plemiona/settings.py
       - name: Create settings.py
         run: |
-          python manage.py test --settings=django_plemiona.test_settings
+          python manage.py test --settings=django_plemiona.test_setting
