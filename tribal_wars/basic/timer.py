@@ -6,16 +6,6 @@ from functools import wraps
 from django.db import connection, reset_queries
 
 
-def ti(lst=[], result=False, clear=False):
-    if result:
-        return lst
-    if clear:
-        lst.clear()
-        return lst
-    lst.append(time())
-    return None
-
-
 def timing(function):
     """Time for a given function"""
 
@@ -42,13 +32,6 @@ def timing(function):
         print(f"  Took: {time3} sec")
         print(f"  Number of Queries: {end_queries - start_queries}")
         print("  Line by line time: ")
-        for i, actual in enumerate(ti(result=True)):  # type: ignore
-            try:
-                print("   ", i, " Period: ", round(actual - previous, 5))  # type: ignore
-            except UnboundLocalError:
-                pass
-            previous = actual
-        ti(clear=True)
         return result
 
     return wrap
