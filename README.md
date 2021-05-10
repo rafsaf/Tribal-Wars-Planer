@@ -76,3 +76,13 @@ python manage.py runserver
 ```
 
 Raczej działa :)
+
+7. Test coverage
+
+```bash
+pip install coverage
+
+coverage run --source='.' --omit 'venv/*,*tests*' manage.py test
+
+coverage report
+```
