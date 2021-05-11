@@ -17,14 +17,14 @@ Najlepiej korzystać z dockera, w razie gdyby go nie było, wystarczy w settings
 git clone https://github.com/rafsaf/Plemiona_Planer.git -b v1.05
 ```
 
-2. Utworzyć plik `settings.py` pod ścieżką `django_plemiona/settings.py` i skopiować tam wzór z `django_plemiona/settings.txt` a następnie ewentualnie pozmieniać SECRET_KEY (i jak na początku wspomniane, ewentualnie ustawienia bazy danych - domyślnie pointują one w host który zrobi docker, poniżej zamieszczam obecne ustawienia pod lokalną instalację z racji że od dziś w settings.txt są ustawienia pod dockera).
+2. Utworzyć plik `settings.py` pod ścieżką `tribal_wars_planer/settings.py` i skopiować tam wzór z `tribal_wars_planer/settings.txt` a następnie ewentualnie pozmieniać SECRET_KEY (i jak na początku wspomniane, ewentualnie ustawienia bazy danych - domyślnie pointują one w host który zrobi docker, poniżej zamieszczam obecne ustawienia pod lokalną instalację z racji że od dziś w settings.txt są ustawienia pod dockera).
 
 ```python
 # Stare ustawienia domyślne
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django_plemionav05",
+        "NAME": "tribal_wars_planerv05",
         "USER": "rafsaf",
         "PASSWORD": "123",
         "HOST": "127.0.0.1",
@@ -88,6 +88,7 @@ coverage report
 ```
 
 8. .env for production
+
 ```
 DEBUG="false"
 ALLOWED_HOSTS="plemiona-planer.pl,www.plemiona-planer.pl"

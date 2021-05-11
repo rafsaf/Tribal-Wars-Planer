@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_plemiona.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tribal_wars_planer.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

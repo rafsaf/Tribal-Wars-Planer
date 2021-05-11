@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from django.utils.timezone import now
 
-from tribal_wars.database_update import cron_schedule_data_update
+from utils.database_update import cron_schedule_data_update
 from . import models
 
 

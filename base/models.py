@@ -6,9 +6,8 @@ from dateutil.relativedelta import relativedelta
 import django
 from django.db.models.query import QuerySet
 from django.db.models import F
-from django.db.models.fields import BooleanField
 from django.utils import timezone
-from django.utils.translation import gettext_lazy, gettext
+from django.utils.translation import gettext_lazy
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse

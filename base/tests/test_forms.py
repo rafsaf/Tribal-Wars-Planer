@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 
 from base import models, forms
-from tribal_wars import basic
+from utils import basic
 
 
 class TestInitialOutlineForm(TestCase):

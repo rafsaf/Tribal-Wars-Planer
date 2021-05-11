@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Max, Min
 from django.http import HttpRequest, HttpResponse
 from base import models
-from tribal_wars import basic
+from utils import basic
 
 
 @require_POST

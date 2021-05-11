@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "plemiona_planer"
-version = "0.1.0"
+name = "tribal_wars_planer"
+version = "2.0.0"
 description = ""
 authors = ["rafsaf <rafal.safin12@gmail.com>"]
 

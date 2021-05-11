@@ -1249,7 +1249,7 @@ msgstr "Zakładka jest dostępna tylko poniżej 100 celów."
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:278
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:93
 #: base/templates/base/new_outline/new_outline_initial_period3.html:138
-#: base/templates/base/overview.html:189 tribal_wars/outline_finish.py:50
+#: base/templates/base/overview.html:189 utils/outline_finish.py:50
 msgid "Target"
 msgstr "Cel"
 
@@ -1540,7 +1540,7 @@ msgstr "Podziel na 4"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
 #: base/templates/base/new_outline/new_outline_results.html:84
 #: base/templates/base/new_outline/new_outline_results.html:124
-#: tribal_wars/outline_finish.py:52
+#: utils/outline_finish.py:52
 msgid "Player"
 msgstr "Gracz"
 
@@ -1776,7 +1776,7 @@ msgstr "Ten typ rozkazów tak będzie wyglądał po wklejeniu do notatek w grze"
 
 #: base/templates/base/overview.html:60 base/templates/base/overview.html:85
 #: base/templates/base/overview.html:119 base/templates/base/overview.html:163
-#: tribal_wars/basic/table_text.py:45
+#: utils/basic/table_text.py:45
 msgid "Send OFF"
 msgstr "Wyślij OFF"
 
@@ -1790,7 +1790,7 @@ msgid "Text extended"
 msgstr "Tekst rozszerzony"
 
 #: base/templates/base/overview.html:81 base/templates/base/overview.html:159
-#: tribal_wars/basic/table_text.py:117
+#: utils/basic/table_text.py:117
 msgid "from village"
 msgstr "z wioski"
 
@@ -1800,7 +1800,7 @@ msgid "Remember this is only the example"
 msgstr "Pamiętaj, że to tylko przykład"
 
 #: base/templates/base/overview.html:81 base/templates/base/overview.html:159
-#: tribal_wars/basic/table_text.py:118
+#: utils/basic/table_text.py:118
 msgid "to "
 msgstr "na "
 
@@ -2266,96 +2266,96 @@ msgstr ""
 msgid "Reset password"
 msgstr "Zresetuj hasło"
 
-#: tribal_wars/basic/info_generatation.py:17
+#: utils/basic/info_generatation.py:17
 msgid "Targets:"
 msgstr "Cele:"
 
-#: tribal_wars/basic/info_generatation.py:18
+#: utils/basic/info_generatation.py:18
 msgid "Fakes:"
 msgstr "Fejk Cele:"
 
-#: tribal_wars/basic/info_generatation.py:19
+#: utils/basic/info_generatation.py:19
 msgid "Ruins:"
 msgstr "Burzone Cele:"
 
-#: tribal_wars/basic/info_generatation.py:25
+#: utils/basic/info_generatation.py:25
 msgid "Nicknames: "
 msgstr "Nazwy graczy: "
 
-#: tribal_wars/basic/info_generatation.py:121
+#: utils/basic/info_generatation.py:121
 msgid "fakes"
 msgstr "fejków"
 
-#: tribal_wars/basic/info_generatation.py:122
+#: utils/basic/info_generatation.py:122
 msgid "fake nobles"
 msgstr "fake grubych"
 
-#: tribal_wars/basic/info_generatation.py:134
-#: tribal_wars/basic/info_generatation.py:142
+#: utils/basic/info_generatation.py:134
+#: utils/basic/info_generatation.py:142
 msgid "offs"
 msgstr "offów"
 
-#: tribal_wars/basic/info_generatation.py:135
+#: utils/basic/info_generatation.py:135
 msgid "ruins"
 msgstr "burzaków"
 
-#: tribal_wars/basic/info_generatation.py:143
+#: utils/basic/info_generatation.py:143
 msgid "nobles"
 msgstr "szlachciców"
 
-#: tribal_wars/basic/off_text.py:96
+#: utils/basic/off_text.py:96
 msgid "Tested. LEGEND: "
 msgstr "Przetestowano. LEGENDA: "
 
-#: tribal_wars/basic/off_text.py:98
+#: utils/basic/off_text.py:98
 msgid "HEAVY counted as x4 and not x6, scouts are NOT counted."
 msgstr "CK liczone jako x4 a nie x6, zwiad NIE jest liczony."
 
-#: tribal_wars/basic/off_text.py:100
+#: utils/basic/off_text.py:100
 msgid "IN VILLAGES = troops in the village + everyone else's troops."
 msgstr "W WIOSCE = wojska w wiosce + wojska od innych graczy."
 
-#: tribal_wars/basic/off_text.py:102
+#: utils/basic/off_text.py:102
 msgid "ALL OWN = troops in the village + troops outside the village."
 msgstr "WSZYSTKIE WŁASNE = wojska w wiosce + wojska poza wioską."
 
-#: tribal_wars/basic/off_text.py:128
+#: utils/basic/off_text.py:128
 msgid "On front"
 msgstr "Na froncie"
 
-#: tribal_wars/basic/off_text.py:129
+#: utils/basic/off_text.py:129
 msgid "villages,"
 msgstr "wiosek,"
 
-#: tribal_wars/basic/off_text.py:130
+#: utils/basic/off_text.py:130
 msgid "deff IN VILLAGE and"
 msgstr "deffa W WIOSCE i"
 
-#: tribal_wars/basic/off_text.py:131
+#: utils/basic/off_text.py:131
 msgid "ALL OWN"
 msgstr "WSZYSTKICH WŁASNYCH"
 
-#: tribal_wars/basic/off_text.py:132
+#: utils/basic/off_text.py:132
 msgid "On back"
 msgstr "Na zapleczu"
 
-#: tribal_wars/basic/off_text.py:155 tribal_wars/basic/off_text.py:169
+#: utils/basic/off_text.py:155 utils/basic/off_text.py:169
 msgid "No preview"
 msgstr "brak podglądu"
 
-#: tribal_wars/basic/off_text.py:179
+#: utils/basic/off_text.py:179
 msgid "---------BACK---------"
 msgstr "---------ZAPLECZE---------"
 
-#: tribal_wars/basic/off_text.py:192
+#: utils/basic/off_text.py:192
 msgid "- In village- "
 msgstr "- W wiosce- "
 
-#: tribal_wars/basic/off_text.py:193
+#: utils/basic/off_text.py:193
 msgid "(All deff"
 msgstr "(Cały deff"
 
-#: tribal_wars/basic/table_text.py:11
+#: utils/basic/table_text.py:11
 msgid ""
 "[table][**][||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/"
 "**]"
@@ -2363,83 +2363,83 @@ msgstr ""
 "[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z "
 "WIOSKI[||]CEL[/**]"
 
-#: tribal_wars/basic/table_text.py:41
+#: utils/basic/table_text.py:41
 msgid "Send fake"
 msgstr "Wyślij fejk"
 
-#: tribal_wars/basic/table_text.py:43
+#: utils/basic/table_text.py:43
 msgid "Send ruin"
 msgstr "Wyślij burzak"
 
-#: tribal_wars/basic/table_text.py:47
+#: utils/basic/table_text.py:47
 msgid "Send NOBLE"
 msgstr "Wyślij SZLACHCIC"
 
-#: tribal_wars/basic/table_text.py:86
+#: utils/basic/table_text.py:86
 msgid "fake noble"
 msgstr "fake gruby"
 
-#: tribal_wars/basic/table_text.py:88
+#: utils/basic/table_text.py:88
 msgid "fake"
 msgstr "fake"
 
-#: tribal_wars/basic/table_text.py:90
+#: utils/basic/table_text.py:90
 msgid "Catapults-"
 msgstr "Katapulty-"
 
-#: tribal_wars/basic/table_text.py:116
+#: utils/basic/table_text.py:116
 msgid "Nobles-"
 msgstr "Szlachcice-"
 
-#: tribal_wars/basic/table_text.py:120
+#: utils/basic/table_text.py:120
 msgid "[color=#00a500][b]Send fake noble[/b][/color] (1 noble)"
 msgstr "[color=#00a500][b]Wyślij fejk szlachcic[/b][/color] (1 szlachcic)"
 
-#: tribal_wars/basic/table_text.py:123
+#: utils/basic/table_text.py:123
 msgid "[color=#00a500][b]Send fake[/b][/color]"
 msgstr "[color=#00a500][b]Wyślij fejk[/b][/color]"
 
-#: tribal_wars/basic/table_text.py:126
+#: utils/basic/table_text.py:126
 msgid "[color=#0e0eff][b]Ruin[/b][/color] (Catapults-"
 msgstr "[color=#0e0eff][b]Burzak[/b][/color] (Katapulty-"
 
-#: tribal_wars/basic/table_text.py:134
+#: utils/basic/table_text.py:134
 msgid "[size=12][b]OFF[/b][/size] (Off-"
 msgstr "[size=12][b]OFF[/b][/size] (Off-"
 
-#: tribal_wars/basic/table_text.py:137
+#: utils/basic/table_text.py:137
 msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
 msgstr "[color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color]"
 
-#: tribal_wars/basic/village.py:70
+#: utils/basic/village.py:70
 msgid "Coords are empty!"
 msgstr "Kordy są puste!"
 
-#: tribal_wars/basic/village.py:74
+#: utils/basic/village.py:74
 msgid ": Is not string type!"
 msgstr ": Nie jest tekstem"
 
-#: tribal_wars/basic/village.py:80
+#: utils/basic/village.py:80
 msgid ": Is not the correct length!"
 msgstr ": Nie jest prawidłowej długości!"
 
-#: tribal_wars/basic/village.py:83 tribal_wars/basic/village.py:86
+#: utils/basic/village.py:83 utils/basic/village.py:86
 msgid "Is not a number"
 msgstr ": Nie jest liczbą"
 
-#: tribal_wars/basic/village.py:89
+#: utils/basic/village.py:89
 msgid "Symbol"
 msgstr "Znak"
 
-#: tribal_wars/basic/village.py:90
+#: utils/basic/village.py:90
 msgid "Is not equal to '|'!"
 msgstr "Nie jest równy '|'!"
 
-#: tribal_wars/outline_finish.py:51
+#: utils/outline_finish.py:51
 msgid "Village"
 msgstr "Wioska"
 
-#: tribal_wars/outline_finish.py:53
+#: utils/outline_finish.py:53
 msgid "does not exists"
 msgstr "nie istnieje"
 
