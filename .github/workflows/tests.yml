@@ -20,9 +20,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          - POSTGRES_DB=${POSTGRES_DB}
-          - POSTGRES_USER=${POSTGRES_USER}
-          - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+          - POSTGRES_DB=postgres
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
         env_file:
           - .env
         options: >-
@@ -31,7 +31,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - ${POSTGRES_PORT}:5432
+          - 5000:5432
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
