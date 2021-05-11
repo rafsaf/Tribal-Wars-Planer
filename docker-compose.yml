@@ -13,6 +13,11 @@ services:
       - .env
     ports:
       - ${POSTGRES_PORT}:5432
+    options: >-
+      --health-cmd pg_isready
+      --health-interval 10s
+      --health-timeout 5s
+      --health-retries 5
   web:
     depends_on:
       - postgres
