@@ -23,8 +23,6 @@ jobs:
           - POSTGRES_DB=postgres
           - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=postgres
-        env_file:
-          - .env
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
