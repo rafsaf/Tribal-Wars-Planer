@@ -1,6 +1,6 @@
 """ Army and Defence """
+from functools import cached_property
 from typing import List, Tuple
-from .cached_property import cached_property
 from base import models
 from tribal_wars import basic
 

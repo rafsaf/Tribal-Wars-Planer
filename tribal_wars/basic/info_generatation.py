@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 from django.db.models.query import QuerySet
 from django.utils.translation import gettext as _
 
@@ -17,7 +17,9 @@ class OutlineInfo:
         self.target_message: str = _("Targets:") + "\r\n"
         self.fake_message: str = _("Fakes:") + "\r\n"
         self.ruin_message: str = _("Ruins:") + "\r\n"
-        self.world_evidence: tuple = basic.world_evidence(self.outline.world)
+        self.world_evidence: Tuple[int, int, int] = basic.world_evidence(
+            self.outline.world
+        )
 
     def generate_nicks(self) -> str:
         result: str = _("Nicknames: ") + "\r\n\r\n"
@@ -68,7 +70,7 @@ class OutlineInfo:
 
     def show_export_troops(self) -> str:
         sum_text: str = ""
-        evidence_dictionary: dict = {
+        evidence_dictionary: Dict[Tuple[int, int, int], int] = {
             (1, 1, 1): 16,
             (1, 1, 0): 15,
             (0, 1, 1): 15,
