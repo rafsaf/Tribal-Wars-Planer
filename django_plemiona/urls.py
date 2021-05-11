@@ -34,10 +34,3 @@ urlpatterns = i18n_patterns(
     path("", include("django_registration.backends.one_step.urls")),
     path("", include("django.contrib.auth.urls")),
 )
-
-if settings.DEBUG:
-    import debug_toolbar
-
-    urlpatterns = [  # type: ignore
-        path("__debug__/", include(debug_toolbar.urls)),
-    ] + urlpatterns
