@@ -1,9 +1,8 @@
 import datetime
-from base.models import Outline, Profile, Server, Tribe, VillageModel, World
+from base.models import Outline, Profile, Server, Tribe, World
 import string
 import random
-from typing_extensions import Literal
-from typing import Optional
+from typing import Optional, Literal
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse

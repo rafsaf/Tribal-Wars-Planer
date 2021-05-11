@@ -2,7 +2,7 @@
 from typing import Dict
 from django.forms import BaseFormSet
 from django import forms
-from tribal_wars import basic, database_update
+from utils import basic, database_update
 from . import models
 from django.utils.translation import gettext_lazy
 

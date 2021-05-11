@@ -5,31 +5,35 @@ name: tests
 
 on:
   push:
-    branches: [new]
+    branches: [new, v2.0]
   pull_request:
     branches: [new]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9]
+
     services:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: postgres_github
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 5432:5432
+          - 5000:5432
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.6
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: 3.6
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -41,11 +45,10 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      - name: Create settings.py
+      - name: Create .env file
         run: |
-          cp ./django_plemiona/settings.txt ./django_plemiona/settings.py
-      - name: Run migrations and then tests
+          cp ./.env.example ./.env
+      - name: Migrate and then run tests
         run: |
-          python manage.py makemigrations --settings=django_plemiona.test_setting
-          python manage.py migrate --settings=django_plemiona.test_setting
-          python manage.py test --settings=django_plemiona.test_setting
+          python manage.py migrate
+          python manage.py test

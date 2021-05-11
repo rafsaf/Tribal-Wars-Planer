@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from tribal_wars.get_deff import get_deff
-from tribal_wars import basic
+from utils.get_deff import get_deff
+from utils import basic
 from base import models, forms
 from django.utils.translation import gettext
 from django.utils.translation import get_language

@@ -6,9 +6,8 @@ Pipfile*
 .idea*
 # C extensions
 *.so
-*settings.py
 
-# docker
+# Docker
 data
 
 # Distribution / packaging
@@ -56,7 +55,6 @@ coverage.xml
 
 # Django stuff:
 *.log
-local_settings.py
 
 # Flask stuff:
 instance/
@@ -110,10 +108,6 @@ media/
 *.pyc
 *.db
 *.pid
-# django migrations 
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
 
 # Visual Studio Code # 
 .vscode/* 

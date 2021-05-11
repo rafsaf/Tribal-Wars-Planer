@@ -17,14 +17,14 @@ Najlepiej korzystać z dockera, w razie gdyby go nie było, wystarczy w settings
 git clone https://github.com/rafsaf/Plemiona_Planer.git -b v1.05
 ```
 
-2. Utworzyć plik `settings.py` pod ścieżką `django_plemiona/settings.py` i skopiować tam wzór z `django_plemiona/settings.txt` a następnie ewentualnie pozmieniać SECRET_KEY (i jak na początku wspomniane, ewentualnie ustawienia bazy danych - domyślnie pointują one w host który zrobi docker, poniżej zamieszczam obecne ustawienia pod lokalną instalację z racji że od dziś w settings.txt są ustawienia pod dockera).
+2. Utworzyć plik `settings.py` pod ścieżką `tribal_wars_planer/settings.py` i skopiować tam wzór z `tribal_wars_planer/settings.txt` a następnie ewentualnie pozmieniać SECRET_KEY (i jak na początku wspomniane, ewentualnie ustawienia bazy danych - domyślnie pointują one w host który zrobi docker, poniżej zamieszczam obecne ustawienia pod lokalną instalację z racji że od dziś w settings.txt są ustawienia pod dockera).
 
 ```python
 # Stare ustawienia domyślne
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django_plemionav05",
+        "NAME": "tribal_wars_planerv05",
         "USER": "rafsaf",
         "PASSWORD": "123",
         "HOST": "127.0.0.1",
@@ -76,3 +76,34 @@ python manage.py runserver
 ```
 
 Raczej działa :)
+
+7. Test coverage
+
+```bash
+pip install coverage
+
+coverage run --source='.' --omit 'venv/*,*tests*' manage.py test
+
+coverage report
+```
+
+8. .env for production
+
+```
+DEBUG="false"
+ALLOWED_HOSTS="plemiona-planer.pl,www.plemiona-planer.pl"
+SECRET_KEY="secret_key_here"
+POSTGRES_NAME="postgres"
+POSTGRES_USER="postgres"
+POSTGRES_PASSWORD="postgres"
+POSTGRES_HOST="localhost"
+POSTGRES_PORT="5432"
+EMAIL_BACKEND="django_ses.SESBackend"
+AWS_ACCESS_KEY_ID="AKIAU5MB5PQDND3JDQMH"
+AWS_SECRET_ACCESS_KEY="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"
+AWS_SES_REGION_NAME="eu-central-1"
+AWS_SES_REGION_ENDPOINT="email.eu-central-1.amazonaws.com"
+DEFAULT_FROM_EMAIL="plemionaplaner.pl@gmail.com"
+RECAPTCHA_PUBLIC_KEY="6LfTofUZAAAAAIFiXfroDC4NtxnHlXqMMHx4jiQJ"
+RECAPTCHA_PRIVATE_KEY="6LfTofUZAAAAAOPybWlY4WLU4G0v2YwcLvwLRfIH"
+```

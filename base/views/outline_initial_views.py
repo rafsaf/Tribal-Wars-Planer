@@ -15,12 +15,12 @@ from django.db.models import Max, Sum
 from django.utils.translation import get_language
 from markdownx.utils import markdownify
 
-from tribal_wars.outline_initial import MakeOutline
-from tribal_wars.outline_finish import MakeFinalOutline
-from tribal_wars.outline_create_targets import OutlineCreateTargets
-from tribal_wars.outline_complete import complete_outline_write
-import tribal_wars.basic as basic
-import tribal_wars.avaiable_troops as avaiable_troops
+from utils.outline_initial import MakeOutline
+from utils.outline_finish import MakeFinalOutline
+from utils.outline_create_targets import OutlineCreateTargets
+from utils.outline_complete import complete_outline_write
+import utils.basic as basic
+import utils.avaiable_troops as avaiable_troops
 
 
 from base import models, forms

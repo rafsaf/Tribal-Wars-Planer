@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "tribal_wars_planer"
+version = "2.0.0"
+description = ""
+authors = ["rafsaf <rafal.safin12@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.0.8"
+django-crispy-forms = "^1.11.2"
+django-crontab = "^0.7.1"
+djangorestframework = "^3.12.4"
+Pillow = "^8.2.0"
+psycopg2 = "^2.8.6"
+requests = "^2.25.1"
+django-registration = "^3.1.2"
+django-recaptcha = "^2.0.6"
+django-markdownx = "^3.0.1"
+python-dateutil = "^2.8.1"
+django-ses = "^2.0.0"
+python-dotenv = "^0.17.1"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^21.5b1", allow-prereleases = true}
+django-debug-toolbar = "^3.2.1"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
