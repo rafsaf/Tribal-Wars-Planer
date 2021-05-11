@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-08 03:13+0200\n"
+"POT-Creation-Date: 2021-05-11 17:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,7 +74,7 @@ msgstr "Wykluczone wysunięte wioski wroga"
 msgid "Exact coords separated by a space or an entry."
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:179 base/templates/base/base.html:228
+#: base/forms.py:179 base/templates/base/base.html:229
 #: base/templates/base/new_outline/new_outline_initial_period2.html:52
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:31
 msgid "Targets"
@@ -197,7 +197,7 @@ msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:457 base/models.py:537
+#: base/forms.py:457 base/models.py:534
 msgid "Noble"
 msgstr "Szlachcic"
 
@@ -287,197 +287,197 @@ msgstr "Ten świat już został dodany!"
 msgid "You can set your server:"
 msgstr "Możesz ustawić swój serwer:"
 
-#: base/models.py:107
+#: base/models.py:104
 msgid "World "
 msgstr "Świat "
 
-#: base/models.py:244 base/models.py:251 base/models.py:553 base/models.py:560
+#: base/models.py:241 base/models.py:248 base/models.py:550 base/models.py:557
 #: base/templates/base/new_outline/new_outline_initial_period1.html:568
 #: base/templates/base/new_outline/new_outline_initial_period1.html:608
 msgid "Closest Front"
 msgstr "Front Najbliżej"
 
-#: base/models.py:245 base/models.py:252 base/models.py:554 base/models.py:561
+#: base/models.py:242 base/models.py:249 base/models.py:551 base/models.py:558
 #: base/templates/base/new_outline/new_outline_initial_period1.html:578
 #: base/templates/base/new_outline/new_outline_initial_period1.html:618
 msgid "Close Back"
 msgstr "Zaplecze Blisko"
 
-#: base/models.py:246 base/models.py:253 base/models.py:555 base/models.py:562
+#: base/models.py:243 base/models.py:250 base/models.py:552 base/models.py:559
 #: base/templates/base/new_outline/new_outline_initial_period1.html:588
 #: base/templates/base/new_outline/new_outline_initial_period1.html:628
 msgid "Random Back"
 msgstr "Zaplecze Losowo"
 
-#: base/models.py:247 base/models.py:254 base/models.py:556 base/models.py:563
+#: base/models.py:244 base/models.py:251 base/models.py:553 base/models.py:560
 #: base/templates/base/new_outline/new_outline_initial_period1.html:598
 #: base/templates/base/new_outline/new_outline_initial_period1.html:638
 msgid "Far Back"
 msgstr "Zaplecze Daleko"
 
-#: base/models.py:258 base/models.py:567
+#: base/models.py:255 base/models.py:564
 msgid "Divide off with nobles"
 msgstr "Dziel offy z szlachtą"
 
-#: base/models.py:259 base/models.py:568
+#: base/models.py:256 base/models.py:565
 msgid "Dont't divide off"
 msgstr "Nie dziel offów z szlachtą"
 
-#: base/models.py:260 base/models.py:569
+#: base/models.py:257 base/models.py:566
 msgid "Off and nobles separatly"
 msgstr "Offy i szlachta osobno"
 
-#: base/models.py:264
+#: base/models.py:261
 msgid "Nobles from one village as one command"
 msgstr "Szlachta z jednej wioski jako jeden rozkaz"
 
-#: base/models.py:265
+#: base/models.py:262
 msgid "Nobles from one village as many commands"
 msgstr "Szlachta z jednej wioski jako wiele rozkazów"
 
-#: base/models.py:269 base/models.py:573
+#: base/models.py:266 base/models.py:570
 msgid "Try send all nobles to one target"
 msgstr "Rozpisuj szlachtę możliwie na jedną wioskę"
 
-#: base/models.py:270 base/models.py:574
+#: base/models.py:267 base/models.py:571
 msgid "Nobles to one or many targets"
 msgstr "Szlachta na jedną lub wiele wiosek (optymalnie)"
 
-#: base/models.py:271 base/models.py:575
+#: base/models.py:268 base/models.py:572
 msgid "Try single nobles from many villages"
 msgstr "Rozpisuj szlachtę na cel możliwie z pojedynczych wiosek"
 
-#: base/models.py:275 base/models.py:532
+#: base/models.py:272 base/models.py:529
 #: base/templates/base/new_outline/new_outline_initial_period1.html:298
 msgid "All"
 msgstr "Wszystkie"
 
-#: base/models.py:276
+#: base/models.py:273
 #: base/templates/base/new_outline/new_outline_initial_period1.html:299
 msgid "Front"
 msgstr "Front"
 
-#: base/models.py:277
+#: base/models.py:274
 #: base/templates/base/new_outline/new_outline_initial_period1.html:300
 msgid "Back"
 msgstr "Zaplecze"
 
-#: base/models.py:278
+#: base/models.py:275
 msgid "Hidden"
 msgstr "Ukryte"
 
-#: base/models.py:282 base/models.py:619
+#: base/models.py:279 base/models.py:616
 #: base/templates/base/new_outline/new_outline_initial_period1.html:817
 msgid "Headquarters"
 msgstr "Ratusz"
 
-#: base/models.py:283 base/models.py:620
+#: base/models.py:280 base/models.py:617
 #: base/templates/base/new_outline/new_outline_initial_period1.html:821
 msgid "Barracks"
 msgstr "Koszary"
 
-#: base/models.py:284 base/models.py:621
+#: base/models.py:281 base/models.py:618
 #: base/templates/base/new_outline/new_outline_initial_period1.html:825
 msgid "Stable"
 msgstr "Stajnia"
 
-#: base/models.py:285 base/models.py:622
+#: base/models.py:282 base/models.py:619
 #: base/templates/base/new_outline/new_outline_initial_period1.html:829
 msgid "Workshop"
 msgstr "Warsztat"
 
-#: base/models.py:286 base/models.py:623
+#: base/models.py:283 base/models.py:620
 #: base/templates/base/new_outline/new_outline_initial_period1.html:833
 msgid "Academy"
 msgstr "Pałac"
 
-#: base/models.py:287 base/models.py:624
+#: base/models.py:284 base/models.py:621
 #: base/templates/base/new_outline/new_outline_initial_period1.html:837
 msgid "Smithy"
 msgstr "Kuźnia"
 
-#: base/models.py:288 base/models.py:625
+#: base/models.py:285 base/models.py:622
 #: base/templates/base/new_outline/new_outline_initial_period1.html:841
 msgid "Rally point"
 msgstr "Plac"
 
-#: base/models.py:289 base/models.py:626
+#: base/models.py:286 base/models.py:623
 #: base/templates/base/new_outline/new_outline_initial_period1.html:845
 msgid "Statue"
 msgstr "Piedestał"
 
-#: base/models.py:290 base/models.py:627
+#: base/models.py:287 base/models.py:624
 #: base/templates/base/new_outline/new_outline_initial_period1.html:849
 msgid "Market"
 msgstr "Rynek"
 
-#: base/models.py:291 base/models.py:628
+#: base/models.py:288 base/models.py:625
 #: base/templates/base/new_outline/new_outline_initial_period1.html:853
 msgid "Timber camp"
 msgstr "Tartak"
 
-#: base/models.py:292 base/models.py:629
+#: base/models.py:289 base/models.py:626
 #: base/templates/base/new_outline/new_outline_initial_period1.html:857
 msgid "Clay pit"
 msgstr "Cegielnia"
 
-#: base/models.py:293 base/models.py:630
+#: base/models.py:290 base/models.py:627
 #: base/templates/base/new_outline/new_outline_initial_period1.html:861
 msgid "Iron mine"
 msgstr "Huta żelaza"
 
-#: base/models.py:294 base/models.py:631
+#: base/models.py:291 base/models.py:628
 #: base/templates/base/new_outline/new_outline_initial_period1.html:865
 msgid "Farm"
 msgstr "Zagroda"
 
-#: base/models.py:295 base/models.py:632
+#: base/models.py:292 base/models.py:629
 #: base/templates/base/new_outline/new_outline_initial_period1.html:869
 msgid "Warehouse"
 msgstr "Spichlerz"
 
-#: base/models.py:296 base/models.py:633
+#: base/models.py:293 base/models.py:630
 #: base/templates/base/new_outline/new_outline_initial_period1.html:873
 msgid "wall"
 msgstr "Mur"
 
-#: base/models.py:300
+#: base/models.py:297
 msgid "Average greater than 8k"
 msgstr "Średnio powyżej 8k"
 
-#: base/models.py:301
+#: base/models.py:298
 msgid "Average 5-8k"
 msgstr "Średnio 5-8k"
 
-#: base/models.py:307
+#: base/models.py:304
 msgid "Fakes only from off villages"
 msgstr "Fejki tylko z wiosek z pełnym offem"
 
-#: base/models.py:308
+#: base/models.py:305
 msgid "Fakes from all villages"
 msgstr "Fejki z wszystkich wiosek"
 
-#: base/models.py:410
+#: base/models.py:407
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models.py:533
+#: base/models.py:530
 msgid "Random"
 msgstr "Losowo"
 
-#: base/models.py:534
+#: base/models.py:531
 msgid "Exact"
 msgstr "Dokładnie"
 
-#: base/models.py:538
+#: base/models.py:535
 msgid "Ram"
 msgstr "Taran"
 
-#: base/models.py:725
+#: base/models.py:722
 msgid "Finished"
 msgstr "Zakończono"
 
-#: base/models.py:726
+#: base/models.py:723
 msgid "Returned"
 msgstr "Zwrócono"
 
@@ -493,29 +493,29 @@ msgstr ""
 "Plemiona Planer, profesjonalne narzędzie do tworzenia rozpisek dla "
 "koordynatorów offa w grze."
 
-#: base/templates/base/base.html:25 base/templates/base/base.html:50
+#: base/templates/base/base.html:26 base/templates/base/base.html:51
 #: base/templates/base/new_outline/new_outline_initial_period2.html:8
 #: base/templates/base/overview.html:7
 msgid "User Panel"
 msgstr "Panel Użytkownika"
 
-#: base/templates/base/base.html:28 base/templates/base/base.html:54
+#: base/templates/base/base.html:29 base/templates/base/base.html:55
 #: base/templates/base/new_outline/new_outline_initial_period2.html:11
 #: base/templates/base/overview.html:9
 msgid "My outlines"
 msgstr "Moje rozpiski"
 
-#: base/templates/base/base.html:30 base/templates/base/base.html:56
+#: base/templates/base/base.html:31 base/templates/base/base.html:57
 #: base/templates/base/new_outline/new_outline_initial_period2.html:13
 #: base/templates/base/overview.html:10
 msgid "Create new outline"
 msgstr "Stwórz nową rozpiskę"
 
-#: base/templates/base/base.html:72
+#: base/templates/base/base.html:73
 msgid "Home"
 msgstr "Strona Główna"
 
-#: base/templates/base/base.html:75
+#: base/templates/base/base.html:76
 #: base/templates/base/new_outline/new_outline.html:14
 #: base/templates/base/new_outline/new_outline.html:26
 #: base/templates/base/new_outline/new_outline_initial_period2.html:23
@@ -523,128 +523,136 @@ msgstr "Strona Główna"
 msgid "Planer"
 msgstr "Planer"
 
-#: base/templates/base/base.html:79
+#: base/templates/base/base.html:80
 msgid "Documentation"
 msgstr "Dokumentacja"
 
-#: base/templates/base/base.html:83 base/templates/base/user/premium.html:13
+#: base/templates/base/base.html:84 base/templates/base/user/premium.html:13
 #: base/templates/base/user/profile_settings.html:31
 msgid "Premium"
 msgstr "Premium"
 
-#: base/templates/base/base.html:88
+#: base/templates/base/base.html:89
 msgid "Admin Site"
 msgstr "Administracja"
 
-#: base/templates/base/base.html:97
+#: base/templates/base/base.html:98
 msgid "Account"
 msgstr "Konto"
 
-#: base/templates/base/base.html:104
+#: base/templates/base/base.html:105
 msgid "My account"
 msgstr "Moje Konto"
 
-#: base/templates/base/base.html:106
+#: base/templates/base/base.html:107
 msgid "Sign out"
 msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:109 base/templates/base/base.html:184
-#: base/templates/base/base.html:194
+#: base/templates/base/base.html:110 base/templates/base/base.html:185
+#: base/templates/base/base.html:195
 msgid "Sign in"
 msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:111 base/templates/base/base.html:187
-#: base/templates/base/base.html:197 templates/registration/login.html:20
+#: base/templates/base/base.html:112 base/templates/base/base.html:188
+#: base/templates/base/base.html:198 templates/registration/login.html:20
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
-#: base/templates/base/base.html:114
+#: base/templates/base/base.html:115
 msgid "Language"
 msgstr "Język"
 
-#: base/templates/base/base.html:176
+#: base/templates/base/base.html:177
 msgid "01.03.2021 New version of"
 msgstr "01.03.2021 Nowa wersja"
 
-#: base/templates/base/base.html:176
+#: base/templates/base/base.html:177
 msgid "script"
 msgstr "skryptu"
 
-#: base/templates/base/base.html:182 base/templates/base/base.html:192
+#: base/templates/base/base.html:183 base/templates/base/base.html:193
 msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:187 base/templates/base/base.html:197
+#: base/templates/base/base.html:188 base/templates/base/base.html:198
 #: templates/registration/login.html:20
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:204
+#: base/templates/base/base.html:205
 msgid "Planer in numbers"
 msgstr "Planer w liczbach"
 
-#: base/templates/base/base.html:212
+#: base/templates/base/base.html:213
 msgid "Project days"
 msgstr "Dni projektu"
 
-#: base/templates/base/base.html:217
+#: base/templates/base/base.html:218
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: base/templates/base/base.html:223
+#: base/templates/base/base.html:224
 msgid "Outlines"
 msgstr "Rozpiski"
 
-#: base/templates/base/base.html:233
+#: base/templates/base/base.html:234
 msgid "Orders"
 msgstr "Rozkazy"
 
-#: base/templates/base/base.html:243
+#: base/templates/base/base.html:244
 msgid "PL version"
 msgstr "wersja PL"
 
-#: base/templates/base/base.html:253
+#: base/templates/base/base.html:254
 msgid "ENG version"
 msgstr "wersja ENG"
 
-#: base/templates/base/base.html:263
+#: base/templates/base/base.html:254
+msgid "Documentation is not yet available in English."
+msgstr "Dokumentacja nie jest obecnie dostępna po angielsku."
+
+#: base/templates/base/base.html:266
 msgid "Code tests"
 msgstr "Testy kodu"
 
-#: base/templates/base/base.html:271
+#: base/templates/base/base.html:266
+msgid "Report generated by Coverage.py."
+msgstr "Na podstawie raportu Coverage.py"
+
+#: base/templates/base/base.html:279
 msgid "Benefits"
 msgstr "Korzyści"
 
-#: base/templates/base/base.html:274
+#: base/templates/base/base.html:282
 msgid "Security"
 msgstr "Bezpieczeństwo"
 
-#: base/templates/base/base.html:277
+#: base/templates/base/base.html:285
 msgid "Author"
 msgstr "O Twórcy"
 
-#: base/templates/base/base.html:288
+#: base/templates/base/base.html:296
 msgid "You save a tons of time and have all outlines in one place."
 msgstr ""
 "Oszczędzisz mnóstwo czasu i będziesz mieć wszystkie rozpiski w jednym "
 "miejscu."
 
-#: base/templates/base/base.html:296
+#: base/templates/base/base.html:304
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
 msgstr ""
 "Gracze otrzymają końcowe cele jako tekst gotowy do wklejenia do notatek i "
 "wysłania."
 
-#: base/templates/base/base.html:304
+#: base/templates/base/base.html:312
 msgid "Instantly distribute created objectives to players."
 msgstr "Natychmiastowe wysyłanie do graczy utworzonych dla nich wytycznych."
 
-#: base/templates/base/base.html:312
+#: base/templates/base/base.html:320
 msgid "Friendly and easy-to-use interface."
 msgstr "Przyjazny i łatwy w obsłudze interfejs."
 
-#: base/templates/base/base.html:320
+#: base/templates/base/base.html:328
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
@@ -652,33 +660,33 @@ msgstr ""
 "Możliwość rozpisania każdego topornika własnoręcznie albo pozostawienia "
 "ciężaru rozpisywania celi Planerowi, wybierając spośród dziesiątek opcji."
 
-#: base/templates/base/base.html:328
+#: base/templates/base/base.html:336
 msgid "Growing number of users."
 msgstr "Coraz więcej zaangażowanych w projekt użytkowników."
 
-#: base/templates/base/base.html:336
+#: base/templates/base/base.html:344
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Ciągłe dodawanie nowych opcji i naprawianie błędów."
 
-#: base/templates/base/base.html:344
+#: base/templates/base/base.html:352
 msgid "The scripts used are reported and approved by the game support."
 msgstr ""
 "Skrypty używane w grze wykorzystywane na stronie są zgłoszone i uznane za "
 "legalne przez Support."
 
-#: base/templates/base/base.html:352
+#: base/templates/base/base.html:360
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "Wyrzucisz wszystkie notatniki, kartki i arkusze excela do kosza."
 
-#: base/templates/base/base.html:360
+#: base/templates/base/base.html:368
 msgid "You will avoid common problems like doubled commands."
 msgstr "Pozbędziesz się typowych problemów jak podwojone komendy."
 
-#: base/templates/base/base.html:368
+#: base/templates/base/base.html:376
 msgid "No more mistakes when sending messages to players."
 msgstr "Nigdy więcej pomyłek przy rozsyłaniu celów graczom w wiadomościach."
 
-#: base/templates/base/base.html:377
+#: base/templates/base/base.html:385
 msgid ""
 "The application is written in the modern and very secure <a target=\"_blank"
 "\" href=\"https://www.djangoproject.com/\">Django</a> framework. Therefore "
@@ -693,7 +701,7 @@ msgstr ""
 "site request forgery czy clickjacking, zapewniając jednocześnie w bezpieczny "
 "sposób utrzymywanie kont użytkowników."
 
-#: base/templates/base/base.html:385
+#: base/templates/base/base.html:393
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
@@ -703,7 +711,7 @@ msgstr ""
 "bezpieczeństwa kont użytkowników, uniemożliwiając jakikolwiek dostęp do "
 "danych użytkowników innym użytkownikom strony oraz osobom trzecim."
 
-#: base/templates/base/base.html:393
+#: base/templates/base/base.html:401
 msgid ""
 "Both the web server and the database server are located in the <a href="
 "\"https://aws.amazon.com/\">Amazon Web Services</a> cloud, with special "
@@ -714,7 +722,7 @@ msgstr ""
 "Services</a>, ze specjalnym naciskiem położonym na ich rekomendacje w "
 "kwestiach bezpieczeństwa."
 
-#: base/templates/base/base.html:401
+#: base/templates/base/base.html:409
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
@@ -724,7 +732,7 @@ msgstr ""
 "od początku do dnia dzisiejszego, oznacza relatywnie małą szansę na "
 "przypadkowe, nagłe narażenie danych użytkowników na ekspozycję."
 
-#: base/templates/base/base.html:409
+#: base/templates/base/base.html:417
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
@@ -735,7 +743,7 @@ msgstr ""
 "innym użytkownikom, graczom gry, osobom trzecim a także komukolwiek innemu, "
 "z jakiegokolwiek powodu."
 
-#: base/templates/base/base.html:413
+#: base/templates/base/base.html:421
 msgid ""
 "My name is Rafał, I am a student of the Faculty of Mathematics and Computer "
 "Science at the University of Wroclaw. For over a year I have been interested "
@@ -749,7 +757,7 @@ msgstr ""
 "bezpieczeństwem w sieci. Piszę głównie w Pythonie i JS, ale mam w planach "
 "także naukę innych języków i technologii :)"
 
-#: base/templates/base/base.html:416
+#: base/templates/base/base.html:424
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
@@ -763,7 +771,7 @@ msgstr ""
 "(największe osiągnięcie to występ na zawodach na szczeblu wojewódzkim), "
 "lubię szachy i pokera a także dobry film."
 
-#: base/templates/base/base.html:432
+#: base/templates/base/base.html:440
 msgid ""
 "Note, all announcements, proposals, reported bugs will be placed on the "
 "discord."
@@ -771,11 +779,11 @@ msgstr ""
 "Uwaga, wszystkie ogłoszenia, propozycje, zgłoszone błędy powinny być "
 "zamieszczane na kanale na discordzie."
 
-#: base/templates/base/base.html:454
+#: base/templates/base/base.html:462
 msgid "Galery"
 msgstr "Galeria"
 
-#: base/templates/base/base.html:484
+#: base/templates/base/base.html:492
 msgid ""
 "Dear User, we inform you that by using the website you agree to our <a "
 "target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy and "
@@ -812,7 +820,6 @@ msgstr "Ukryj"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:264
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:94
 #: base/templates/base/new_outline/new_outline_initial_period2_3.html:119
-#: venv/lib/python3.6/site-packages/django/forms/formsets.py:391
 msgid "Delete"
 msgstr "Usuń"
 
@@ -1627,19 +1634,19 @@ msgstr "z"
 msgid "Next"
 msgstr "Następna"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:276
+#: base/templates/base/new_outline/new_outline_initial_period3.html:271
 msgid "coord or nick..."
 msgstr "kordy lub nick..."
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:309
+#: base/templates/base/new_outline/new_outline_initial_period3.html:311
 msgid "On the left adding Fake, on the right 1 Noble"
 msgstr "Po lewej dodawaj zwykłe Fejki, na prawo 1 Szlachcic"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:313
+#: base/templates/base/new_outline/new_outline_initial_period3.html:315
 msgid "On the left adding Offs, on the right Ruin attack"
 msgstr "Po lewej dodawaj Offy, po prawej Burzaki"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:317
+#: base/templates/base/new_outline/new_outline_initial_period3.html:319
 msgid "On the left adding Offs, on the right Offs with the Nobles"
 msgstr "Po lewej dodawaj Offy, po prawej Offy z całą szlachtą"
 
@@ -1994,7 +2001,6 @@ msgid "Username"
 msgstr "Nazwa Użytkownika"
 
 #: base/templates/base/user/profile_settings.html:18
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1587
 msgid "Email address"
 msgstr "Adres e-mail"
 
@@ -2030,11 +2036,11 @@ msgstr "Skontaktuj się z administratorem by zmienić swój adres e-mail. "
 msgid "Set server"
 msgstr "Ustaw serwer"
 
-#: base/views/outline.py:133
+#: base/views/outline.py:130
 msgid "Never"
 msgstr "Nigdy"
 
-#: base/views/outline.py:137
+#: base/views/outline.py:134
 msgid " minute(s) ago."
 msgstr " minut temu."
 
@@ -2272,28 +2278,28 @@ msgstr "Fejk Cele:"
 msgid "Ruins:"
 msgstr "Burzone Cele:"
 
-#: tribal_wars/basic/info_generatation.py:23
+#: tribal_wars/basic/info_generatation.py:25
 msgid "Nicknames: "
 msgstr "Nazwy graczy: "
 
-#: tribal_wars/basic/info_generatation.py:119
+#: tribal_wars/basic/info_generatation.py:121
 msgid "fakes"
 msgstr "fejków"
 
-#: tribal_wars/basic/info_generatation.py:120
+#: tribal_wars/basic/info_generatation.py:122
 msgid "fake nobles"
 msgstr "fake grubych"
 
-#: tribal_wars/basic/info_generatation.py:129
-#: tribal_wars/basic/info_generatation.py:137
+#: tribal_wars/basic/info_generatation.py:134
+#: tribal_wars/basic/info_generatation.py:142
 msgid "offs"
 msgstr "offów"
 
-#: tribal_wars/basic/info_generatation.py:130
+#: tribal_wars/basic/info_generatation.py:135
 msgid "ruins"
 msgstr "burzaków"
 
-#: tribal_wars/basic/info_generatation.py:138
+#: tribal_wars/basic/info_generatation.py:143
 msgid "nobles"
 msgstr "szlachciców"
 
@@ -2437,1338 +2443,198 @@ msgstr "Wioska"
 msgid "does not exists"
 msgstr "nie istnieje"
 
-#: venv/lib/python3.6/site-packages/captcha/fields.py:26
-#: venv/lib/python3.6/site-packages/captcha/fields.py:27
-msgid "Error verifying reCAPTCHA, please try again."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/crispy_forms/tests/test_form_helper.py:129
-#: venv/lib/python3.6/site-packages/crispy_forms/tests/test_form_helper.py:139
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:53
-msgid "This field is required."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/crispy_forms/tests/test_layout.py:361
-msgid "i18n text"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/crispy_forms/tests/test_layout.py:361
-msgid "i18n legend"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/crispy_forms/tests/test_layout_objects.py:129
-#: venv/lib/python3.6/site-packages/django/core/validators.py:32
-msgid "Enter a valid value."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/contrib/messages/apps.py:7
 #, fuzzy
-#| msgid "Send message"
-msgid "Messages"
-msgstr "Wyślij wiadomość"
+#~| msgid "Send message"
+#~ msgid "Messages"
+#~ msgstr "Wyślij wiadomość"
 
-#: venv/lib/python3.6/site-packages/django/contrib/sitemaps/apps.py:7
-msgid "Site Maps"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/contrib/staticfiles/apps.py:9
-msgid "Static Files"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/contrib/syndication/apps.py:7
-msgid "Syndication"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/paginator.py:45
-msgid "That page number is not an integer"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/paginator.py:47
-msgid "That page number is less than 1"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/paginator.py:52
-msgid "That page contains no results"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:103
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:659
-msgid "Enter a valid URL."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:155
-msgid "Enter a valid integer."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:166
 #, fuzzy
-#| msgid "Email address"
-msgid "Enter a valid email address."
-msgstr "Adres e-mail"
+#~| msgid "Email address"
+#~ msgid "Enter a valid email address."
+#~ msgstr "Adres e-mail"
 
-#. Translators: "letters" means latin letters: a-z and A-Z.
-#: venv/lib/python3.6/site-packages/django/core/validators.py:240
-msgid ""
-"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:247
-msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
-"hyphens."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:256
-#: venv/lib/python3.6/site-packages/django/core/validators.py:276
-msgid "Enter a valid IPv4 address."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:261
-#: venv/lib/python3.6/site-packages/django/core/validators.py:277
-msgid "Enter a valid IPv6 address."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:271
-#: venv/lib/python3.6/site-packages/django/core/validators.py:275
-msgid "Enter a valid IPv4 or IPv6 address."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:305
-msgid "Enter only digits separated by commas."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:311
-#, python-format
-msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:343
-#, python-format
-msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:352
-#, fuzzy, python-format
-#| msgid "Ensure this value has at most 500 characters (it has "
-msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:362
-#, fuzzy, python-format
-#| msgid "Ensure this value has at most 500 characters (it has "
-msgid ""
-"Ensure this value has at least %(limit_value)d character (it has "
-"%(show_value)d)."
-msgid_plural ""
-"Ensure this value has at least %(limit_value)d characters (it has "
-"%(show_value)d)."
-msgstr[0] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[1] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[2] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[3] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:377
-#, fuzzy, python-format
-#| msgid "Ensure this value has at most 500 characters (it has "
-msgid ""
-"Ensure this value has at most %(limit_value)d character (it has "
-"%(show_value)d)."
-msgid_plural ""
-"Ensure this value has at most %(limit_value)d characters (it has "
-"%(show_value)d)."
-msgstr[0] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[1] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[2] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[3] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:396
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:291
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:326
 #, fuzzy
-#| msgid "Is not a number"
-msgid "Enter a number."
-msgstr ": Nie jest liczbą"
+#~| msgid "Ensure this value has at most 500 characters (it has "
+#~ msgid "Ensure this value is greater than or equal to %(limit_value)s."
+#~ msgstr "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
 
-#: venv/lib/python3.6/site-packages/django/core/validators.py:398
-#, python-format
-msgid "Ensure that there are no more than %(max)s digit in total."
-msgid_plural "Ensure that there are no more than %(max)s digits in total."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:403
-#, python-format
-msgid "Ensure that there are no more than %(max)s decimal place."
-msgid_plural "Ensure that there are no more than %(max)s decimal places."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:408
-#, python-format
-msgid ""
-"Ensure that there are no more than %(max)s digit before the decimal point."
-msgid_plural ""
-"Ensure that there are no more than %(max)s digits before the decimal point."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:470
-#, python-format
-msgid ""
-"File extension “%(extension)s” is not allowed. Allowed extensions are: "
-"%(allowed_extensions)s."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/core/validators.py:522
-msgid "Null characters are not allowed."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/base.py:1181
-#: venv/lib/python3.6/site-packages/django/forms/models.py:759
 #, fuzzy
-#| msgid "Random"
-msgid "and"
-msgstr "Losowo"
+#~| msgid "Ensure this value has at most 500 characters (it has "
+#~ msgid ""
+#~ "Ensure this value has at least %(limit_value)d character (it has "
+#~ "%(show_value)d)."
+#~ msgid_plural ""
+#~ "Ensure this value has at least %(limit_value)d characters (it has "
+#~ "%(show_value)d)."
+#~ msgstr[0] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[1] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[2] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[3] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
 
-#: venv/lib/python3.6/site-packages/django/db/models/base.py:1183
-#, python-format
-msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:104
-#, python-format
-msgid "Value %(value)r is not a valid choice."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:105
 #, fuzzy
-#| msgid "This operation cannot be undone!"
-msgid "This field cannot be null."
-msgstr "Tej operacji nie można cofnąć!"
+#~| msgid "Ensure this value has at most 500 characters (it has "
+#~ msgid ""
+#~ "Ensure this value has at most %(limit_value)d character (it has "
+#~ "%(show_value)d)."
+#~ msgid_plural ""
+#~ "Ensure this value has at most %(limit_value)d characters (it has "
+#~ "%(show_value)d)."
+#~ msgstr[0] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[1] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[2] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[3] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
 
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:106
 #, fuzzy
-#| msgid "This operation cannot be undone!"
-msgid "This field cannot be blank."
-msgstr "Tej operacji nie można cofnąć!"
+#~| msgid "Is not a number"
+#~ msgid "Enter a number."
+#~ msgstr ": Nie jest liczbą"
 
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:107
-#, python-format
-msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
-
-#. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
-#. Eg: "Title must be unique for pub_date year"
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:111
-#, python-format
-msgid ""
-"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:130
-#, python-format
-msgid "Field of type: %(field_type)s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:937
-#, python-format
-msgid "“%(value)s” value must be either True or False."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:938
-#, python-format
-msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:940
-msgid "Boolean (Either True or False)"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:981
-#, python-format
-msgid "String (up to %(max_length)s)"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1045
-msgid "Comma-separated integers"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1094
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
-"format."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1096
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1239
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
-"date."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1099
-msgid "Date (without time)"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1237
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
-"uuuuuu]][TZ] format."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1241
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
-"[TZ]) but it is an invalid date/time."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1245
-msgid "Date (with time)"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1393
-#, python-format
-msgid "“%(value)s” value must be a decimal number."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1395
-msgid "Decimal number"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1534
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
-"uuuuuu] format."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1537
 #, fuzzy
-#| msgid "Documentation"
-msgid "Duration"
-msgstr "Dokumentacja"
+#~| msgid "Random"
+#~ msgid "and"
+#~ msgstr "Losowo"
 
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1610
-msgid "File path"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1676
-#, python-format
-msgid "“%(value)s” value must be a float."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1678
 #, fuzzy
-#| msgid "Planer in numbers"
-msgid "Floating point number"
-msgstr "Planer w liczbach"
+#~| msgid "This operation cannot be undone!"
+#~ msgid "This field cannot be null."
+#~ msgstr "Tej operacji nie można cofnąć!"
 
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1716
-#, python-format
-msgid "“%(value)s” value must be an integer."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1718
-msgid "Integer"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1801
-msgid "Big (8 byte) integer"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1817
 #, fuzzy
-#| msgid "Email address"
-msgid "IPv4 address"
-msgstr "Adres e-mail"
+#~| msgid "This operation cannot be undone!"
+#~ msgid "This field cannot be blank."
+#~ msgstr "Tej operacji nie można cofnąć!"
 
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1848
 #, fuzzy
-#| msgid "Email address"
-msgid "IP address"
-msgstr "Adres e-mail"
+#~| msgid "Documentation"
+#~ msgid "Duration"
+#~ msgstr "Dokumentacja"
 
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1928
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1929
-#, python-format
-msgid "“%(value)s” value must be either None, True or False."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1931
-msgid "Boolean (Either True, False or None)"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1966
-msgid "Positive integer"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1979
-msgid "Positive small integer"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:1993
-#, python-format
-msgid "Slug (up to %(max_length)s)"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2025
-msgid "Small integer"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2032
-msgid "Text"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2060
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
-"format."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2062
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
-"invalid time."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2065
 #, fuzzy
-#| msgid "Time 1: "
-msgid "Time"
-msgstr "Czas wejścia 1:"
+#~| msgid "Planer in numbers"
+#~ msgid "Floating point number"
+#~ msgstr "Planer w liczbach"
 
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2191
-msgid "URL"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2213
-msgid "Raw binary data"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2278
-#, python-format
-msgid "“%(value)s” is not a valid UUID."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/__init__.py:2280
-msgid "Universally unique identifier"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/files.py:221
-msgid "File"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/files.py:360
-msgid "Image"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/related.py:778
-#, python-format
-msgid "%(model)s instance with %(field)s %(value)r does not exist."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/related.py:780
-msgid "Foreign Key (type determined by related field)"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/related.py:1012
-msgid "One-to-one relationship"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/related.py:1066
-#, python-format
-msgid "%(from)s-%(to)s relationship"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/related.py:1067
-#, python-format
-msgid "%(from)s-%(to)s relationships"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/db/models/fields/related.py:1109
-msgid "Many-to-many relationship"
-msgstr ""
-
-#. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the label
-#: venv/lib/python3.6/site-packages/django/forms/boundfield.py:149
-msgid ":?.!"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:246
 #, fuzzy
-#| msgid "Is not a number"
-msgid "Enter a whole number."
-msgstr ": Nie jest liczbą"
+#~| msgid "Email address"
+#~ msgid "IPv4 address"
+#~ msgstr "Adres e-mail"
 
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:397
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:1127
-msgid "Enter a valid date."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:421
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:1128
-msgid "Enter a valid time."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:443
-msgid "Enter a valid date/time."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:472
-msgid "Enter a valid duration."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:473
-#, python-brace-format
-msgid "The number of days must be between {min_days} and {max_days}."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:533
-msgid "No file was submitted. Check the encoding type on the form."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:534
-msgid "No file was submitted."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:535
-msgid "The submitted file is empty."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:537
-#, fuzzy, python-format
-#| msgid "Ensure this value has at most 500 characters (it has "
-msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
-msgid_plural ""
-"Ensure this filename has at most %(max)d characters (it has %(length)d)."
-msgstr[0] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[1] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[2] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-msgstr[3] "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:540
-msgid "Please either submit a file or check the clear checkbox, not both."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:601
-msgid ""
-"Upload a valid image. The file you uploaded was either not an image or a "
-"corrupted image."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:763
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:853
-#: venv/lib/python3.6/site-packages/django/forms/models.py:1275
-#, python-format
-msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:854
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:969
-#: venv/lib/python3.6/site-packages/django/forms/models.py:1274
-msgid "Enter a list of values."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:970
-msgid "Enter a complete value."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/fields.py:1186
-msgid "Enter a valid UUID."
-msgstr ""
-
-#. Translators: This is the default suffix added to form field labels
-#: venv/lib/python3.6/site-packages/django/forms/forms.py:81
-msgid ":"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/forms.py:207
-#, python-format
-msgid "(Hidden field %(name)s) %(error)s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/formsets.py:93
-msgid "ManagementForm data is missing or has been tampered with"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/formsets.py:345
-#, python-format
-msgid "Please submit %d or fewer forms."
-msgid_plural "Please submit %d or fewer forms."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/forms/formsets.py:352
-#, python-format
-msgid "Please submit %d or more forms."
-msgid_plural "Please submit %d or more forms."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/forms/formsets.py:379
-#: venv/lib/python3.6/site-packages/django/forms/formsets.py:386
 #, fuzzy
-#| msgid "Orders"
-msgid "Order"
-msgstr "Rozkazy"
+#~| msgid "Email address"
+#~ msgid "IP address"
+#~ msgstr "Adres e-mail"
 
-#: venv/lib/python3.6/site-packages/django/forms/models.py:754
-#, python-format
-msgid "Please correct the duplicate data for %(field)s."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/models.py:758
-#, python-format
-msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/models.py:764
-#, python-format
-msgid ""
-"Please correct the duplicate data for %(field_name)s which must be unique "
-"for the %(lookup)s in %(date_field)s."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/models.py:773
-msgid "Please correct the duplicate values below."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/models.py:1094
-msgid "The inline value did not match the parent instance."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/models.py:1161
-msgid "Select a valid choice. That choice is not one of the available choices."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/models.py:1277
-#, python-format
-msgid "“%(pk)s” is not a valid value."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/utils.py:162
-#, python-format
-msgid ""
-"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
-"may be ambiguous or it may not exist."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/widgets.py:395
-msgid "Clear"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/widgets.py:396
 #, fuzzy
-#| msgid "Current date:"
-msgid "Currently"
-msgstr "Aktualna data:"
+#~| msgid "Time 1: "
+#~ msgid "Time"
+#~ msgstr "Czas wejścia 1:"
 
-#: venv/lib/python3.6/site-packages/django/forms/widgets.py:397
-msgid "Change"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/widgets.py:709
-msgid "Unknown"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/widgets.py:710
-msgid "Yes"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/forms/widgets.py:711
-msgid "No"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/template/defaultfilters.py:788
-msgid "yes,no,maybe"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/template/defaultfilters.py:817
-#: venv/lib/python3.6/site-packages/django/template/defaultfilters.py:834
-#, python-format
-msgid "%(size)d byte"
-msgid_plural "%(size)d bytes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/template/defaultfilters.py:836
-#, python-format
-msgid "%s KB"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/template/defaultfilters.py:838
-#, python-format
-msgid "%s MB"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/template/defaultfilters.py:840
-#, python-format
-msgid "%s GB"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/template/defaultfilters.py:842
-#, python-format
-msgid "%s TB"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/template/defaultfilters.py:844
-#, python-format
-msgid "%s PB"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dateformat.py:62
-msgid "p.m."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dateformat.py:63
-msgid "a.m."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dateformat.py:68
-msgid "PM"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dateformat.py:69
-msgid "AM"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dateformat.py:150
-msgid "midnight"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dateformat.py:152
-msgid "noon"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:6
-msgid "Monday"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:6
-msgid "Tuesday"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:6
-msgid "Wednesday"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:6
-msgid "Thursday"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:6
-msgid "Friday"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:7
-msgid "Saturday"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:7
-msgid "Sunday"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:10
-msgid "Mon"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:10
 #, fuzzy
-#| msgid "True"
-msgid "Tue"
-msgstr "Tak"
+#~| msgid "Is not a number"
+#~ msgid "Enter a whole number."
+#~ msgstr ": Nie jest liczbą"
 
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:10
-msgid "Wed"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:10
-msgid "Thu"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:10
-msgid "Fri"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:11
 #, fuzzy
-#| msgid "Statue"
-msgid "Sat"
-msgstr "Piedestał"
+#~| msgid "Ensure this value has at most 500 characters (it has "
+#~ msgid ""
+#~ "Ensure this filename has at most %(max)d character (it has %(length)d)."
+#~ msgid_plural ""
+#~ "Ensure this filename has at most %(max)d characters (it has %(length)d)."
+#~ msgstr[0] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[1] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[2] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
+#~ msgstr[3] ""
+#~ "Upewnij się, że ta wartość ma co najwyżej 500 znaków (obecnie ma "
 
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:11
-msgid "Sun"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:14
-msgid "January"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:14
-msgid "February"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:14
-msgid "March"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:14
-msgid "April"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:14
-msgid "May"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:14
-msgid "June"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:15
-msgid "July"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:15
-msgid "August"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:15
-msgid "September"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:15
-msgid "October"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:15
-msgid "November"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:16
-msgid "December"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:19
-msgid "jan"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:19
-msgid "feb"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:19
 #, fuzzy
-#| msgid "Summary"
-msgid "mar"
-msgstr "Podsumowanie"
+#~| msgid "Orders"
+#~ msgid "Order"
+#~ msgstr "Rozkazy"
 
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:19
-msgid "apr"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:19
 #, fuzzy
-#| msgid "Summary"
-msgid "may"
-msgstr "Podsumowanie"
+#~| msgid "Current date:"
+#~ msgid "Currently"
+#~ msgstr "Aktualna data:"
 
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:19
-msgid "jun"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:20
-msgid "jul"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:20
-msgid "aug"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:20
-msgid "sep"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:20
-msgid "oct"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:20
-msgid "nov"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:20
-msgid "dec"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:23
-msgctxt "abbrev. month"
-msgid "Jan."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:24
-msgctxt "abbrev. month"
-msgid "Feb."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:25
-msgctxt "abbrev. month"
-msgid "March"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:26
-msgctxt "abbrev. month"
-msgid "April"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:27
-msgctxt "abbrev. month"
-msgid "May"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:28
-msgctxt "abbrev. month"
-msgid "June"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:29
-msgctxt "abbrev. month"
-msgid "July"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:30
-msgctxt "abbrev. month"
-msgid "Aug."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:31
-msgctxt "abbrev. month"
-msgid "Sept."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:32
-msgctxt "abbrev. month"
-msgid "Oct."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:33
-msgctxt "abbrev. month"
-msgid "Nov."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:34
-msgctxt "abbrev. month"
-msgid "Dec."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:37
-msgctxt "alt. month"
-msgid "January"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:38
-msgctxt "alt. month"
-msgid "February"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:39
-msgctxt "alt. month"
-msgid "March"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:40
-msgctxt "alt. month"
-msgid "April"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:41
-msgctxt "alt. month"
-msgid "May"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:42
-msgctxt "alt. month"
-msgid "June"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:43
-msgctxt "alt. month"
-msgid "July"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:44
-msgctxt "alt. month"
-msgid "August"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:45
-msgctxt "alt. month"
-msgid "September"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:46
-msgctxt "alt. month"
-msgid "October"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:47
-msgctxt "alt. month"
-msgid "November"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/dates.py:48
-msgctxt "alt. month"
-msgid "December"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/ipv6.py:8
-msgid "This is not a valid IPv6 address."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/text.py:69
-#, python-format
-msgctxt "String to return when truncating text"
-msgid "%(truncated_text)s…"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/text.py:235
 #, fuzzy
-#| msgid "Sort"
-msgid "or"
-msgstr "Sortuj"
+#~| msgid "True"
+#~ msgid "Tue"
+#~ msgstr "Tak"
 
-#. Translators: This string is used as a separator between list elements
-#: venv/lib/python3.6/site-packages/django/utils/text.py:254
-#: venv/lib/python3.6/site-packages/django/utils/timesince.py:83
-msgid ", "
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/utils/timesince.py:9
-#, python-format
-msgid "%d year"
-msgid_plural "%d years"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/utils/timesince.py:10
-#, fuzzy, python-format
-#| msgid "1 month"
-msgid "%d month"
-msgid_plural "%d months"
-msgstr[0] "1 miesiąc"
-msgstr[1] "1 miesiąc"
-msgstr[2] "1 miesiąc"
-msgstr[3] "1 miesiąc"
-
-#: venv/lib/python3.6/site-packages/django/utils/timesince.py:11
-#, python-format
-msgid "%d week"
-msgid_plural "%d weeks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/utils/timesince.py:12
-#, python-format
-msgid "%d day"
-msgid_plural "%d days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/utils/timesince.py:13
-#, python-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/utils/timesince.py:14
-#, python-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-#: venv/lib/python3.6/site-packages/django/utils/timesince.py:72
 #, fuzzy
-#| msgid " minute(s) ago."
-msgid "0 minutes"
-msgstr " minut temu."
+#~| msgid "Statue"
+#~ msgid "Sat"
+#~ msgstr "Piedestał"
 
-#: venv/lib/python3.6/site-packages/django/views/csrf.py:110
 #, fuzzy
-#| msgid "Hidden"
-msgid "Forbidden"
-msgstr "Ukryte"
+#~| msgid "Summary"
+#~ msgid "mar"
+#~ msgstr "Podsumowanie"
 
-#: venv/lib/python3.6/site-packages/django/views/csrf.py:111
-msgid "CSRF verification failed. Request aborted."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/csrf.py:115
-msgid ""
-"You are seeing this message because this HTTPS site requires a “Referer "
-"header” to be sent by your Web browser, but none was sent. This header is "
-"required for security reasons, to ensure that your browser is not being "
-"hijacked by third parties."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/csrf.py:120
-msgid ""
-"If you have configured your browser to disable “Referer” headers, please re-"
-"enable them, at least for this site, or for HTTPS connections, or for “same-"
-"origin” requests."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/csrf.py:124
-msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
-"including the “Referrer-Policy: no-referrer” header, please remove them. The "
-"CSRF protection requires the “Referer” header to do strict referer checking. "
-"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
-"\" …> for links to third-party sites."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/csrf.py:132
-msgid ""
-"You are seeing this message because this site requires a CSRF cookie when "
-"submitting forms. This cookie is required for security reasons, to ensure "
-"that your browser is not being hijacked by third parties."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/csrf.py:137
-msgid ""
-"If you have configured your browser to disable cookies, please re-enable "
-"them, at least for this site, or for “same-origin” requests."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/csrf.py:142
-msgid "More information is available with DEBUG=True."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:41
-msgid "No year specified"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:61
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:111
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:208
-msgid "Date out of range"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:90
-msgid "No month specified"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:142
-msgid "No day specified"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:188
-msgid "No week specified"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:338
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:367
-#, python-format
-msgid "No %(verbose_name_plural)s available"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:589
-#, python-format
-msgid ""
-"Future %(verbose_name_plural)s not available because %(class_name)s."
-"allow_future is False."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/dates.py:623
-#, python-format
-msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/detail.py:54
-#, python-format
-msgid "No %(verbose_name)s found matching the query"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/list.py:67
-msgid "Page is not “last”, nor can it be converted to an int."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/list.py:72
-#, python-format
-msgid "Invalid page (%(page_number)s): %(message)s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/generic/list.py:154
-#, python-format
-msgid "Empty list and “%(class_name)s.allow_empty” is False."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/static.py:40
-msgid "Directory indexes are not allowed here."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/static.py:42
-#, fuzzy, python-format
-#| msgid "does not exists"
-msgid "“%(path)s” does not exist"
-msgstr "nie istnieje"
-
-#: venv/lib/python3.6/site-packages/django/views/static.py:80
-#, python-format
-msgid "Index of %(directory)s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:7
-msgid "Django: the Web framework for perfectionists with deadlines."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:346
-#, python-format
-msgid ""
-"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
-"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:368
-msgid "The install worked successfully! Congratulations!"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:369
-#, python-format
-msgid ""
-"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
-"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
-"\">DEBUG=True</a> is in your settings file and you have not configured any "
-"URLs."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:384
 #, fuzzy
-#| msgid "Documentation"
-msgid "Django Documentation"
-msgstr "Dokumentacja"
+#~| msgid "Summary"
+#~ msgid "may"
+#~ msgstr "Podsumowanie"
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:385
-msgid "Topics, references, &amp; how-to’s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:396
-msgid "Tutorial: A Polling App"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:397
-msgid "Get started with Django"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:408
-msgid "Django Community"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:409
-msgid "Connect, get help, or contribute"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django_common/admin.py:196
-#, python-format
-msgid "Add %s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django_common/admin.py:222
-#, python-format
-msgid "%(name)s object with primary key %(key)r does not exist."
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django_common/admin.py:323
-#, fuzzy, python-format
-#| msgid "Change and save"
-msgid "Change %s"
-msgstr "Zmień i zapisz"
-
-#: venv/lib/python3.6/site-packages/django_common/management/commands/generate_secret_key.py:11
-msgid "This command generates SECRET_KEY"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django_common/management/commands/generate_secret_key.py:24
-#, python-format
-msgid "SECRET_KEY length default=%d"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django_common/management/commands/generate_secret_key.py:27
-#, python-format
-msgid "alphabet to use default=%s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django_common/templates/common/admin/nested_tabular.html:44
 #, fuzzy
-#| msgid "Delete"
-msgid "Delete?"
-msgstr "Usuń"
+#~| msgid "Sort"
+#~ msgid "or"
+#~ msgstr "Sortuj"
 
-#: venv/lib/python3.6/site-packages/django_common/templates/common/admin/nested_tabular.html:58
-msgid "View on site"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django_common/templates/common/admin/nested_tabular.html:478
-#, python-format
-msgid "Add another %(verbose_name)s"
-msgstr ""
-
-#: venv/lib/python3.6/site-packages/django_common/templates/common/admin/nested_tabular.html:481
-#: venv/lib/python3.6/site-packages/django_common/templates/common/admin/nested_tabular.html:495
 #, fuzzy
-#| msgid "Removed links"
-msgid "Remove"
-msgstr "Stare linki"
+#~| msgid "1 month"
+#~ msgid "%d month"
+#~ msgid_plural "%d months"
+#~ msgstr[0] "1 miesiąc"
+#~ msgstr[1] "1 miesiąc"
+#~ msgstr[2] "1 miesiąc"
+#~ msgstr[3] "1 miesiąc"
 
-#: venv/lib/python3.6/site-packages/kombu/transport/qpid.py:1301
-#, python-format
-msgid "Attempting to connect to qpid with SASL mechanism %s"
-msgstr ""
+#, fuzzy
+#~| msgid " minute(s) ago."
+#~ msgid "0 minutes"
+#~ msgstr " minut temu."
 
-#: venv/lib/python3.6/site-packages/kombu/transport/qpid.py:1306
-#, python-format
-msgid "Connected to qpid with SASL mechanism %s"
-msgstr ""
+#, fuzzy
+#~| msgid "Hidden"
+#~ msgid "Forbidden"
+#~ msgstr "Ukryte"
 
-#: venv/lib/python3.6/site-packages/kombu/transport/qpid.py:1324
-#, python-format
-msgid "Unable to connect to qpid with SASL mechanism %s"
-msgstr ""
+#, fuzzy
+#~| msgid "does not exists"
+#~ msgid "“%(path)s” does not exist"
+#~ msgstr "nie istnieje"
 
-#: venv/lib/python3.6/site-packages/pylint_django/tests/input/func_noerror_gettext_lazy_format.py:7
-#: venv/lib/python3.6/site-packages/pylint_django/tests/input/func_noerror_ugettext_lazy_format.py:7
-#, python-brace-format
-msgid "{something}"
-msgstr ""
+#, fuzzy
+#~| msgid "Documentation"
+#~ msgid "Django Documentation"
+#~ msgstr "Dokumentacja"
+
+#, fuzzy
+#~| msgid "Change and save"
+#~ msgid "Change %s"
+#~ msgstr "Zmień i zapisz"
+
+#, fuzzy
+#~| msgid "Delete"
+#~ msgid "Delete?"
+#~ msgstr "Usuń"
+
+#, fuzzy
+#~| msgid "Removed links"
+#~ msgid "Remove"
+#~ msgstr "Stare linki"
 
 #~ msgid "This village is already a target!"
 #~ msgstr "Ta wioska już jest celem !"

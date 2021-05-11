@@ -6,7 +6,7 @@ Pipfile*
 .idea*
 # C extensions
 *.so
-*settings.py
+
 
 # docker
 data
@@ -111,9 +111,6 @@ media/
 *.db
 *.pid
 # django migrations 
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
 
 # Visual Studio Code # 
 .vscode/* 
