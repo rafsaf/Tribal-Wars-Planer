@@ -1,14 +1,11 @@
 .github
 .venv
 .vscode
-config
 data
 docs
 .env.example
 docker-compose.prod.yml
 docker-compose.yml
-Dockerfile.prod
-initial.prod.sh
 poetry.lock
 pyproject.toml
 README.md
