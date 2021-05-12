@@ -8,8 +8,7 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 DEBUG = os.environ["DEBUG"]
 
-ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
-# Should be string with commas, like "localhost:8000,localhost:3000"
+ALLOWED_HOSTS = [os.environ["MAIN_DOMAIN"], os.environ["SUB_DOMAIN"]]
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 

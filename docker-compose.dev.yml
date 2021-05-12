@@ -18,14 +18,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  web:
-    depends_on:
-      - postgres
-    restart: always
-    build:
-      context: ./
-      dockerfile: Dockerfile.prod
-    ports:
-      - "80:80"
-    env_file:
-      - .env
