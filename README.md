@@ -1,109 +1,146 @@
-## Link do strony
+![plemiona-planer](https://plemiona-planer.pl/static/images/background.jpg)
 
-- [www.plemiona-planer.pl](https://www.plemiona-planer.pl/pl/)
+# Official Site and Discord
 
-## Link do discorda
+[plemiona-planer.pl](https://plemiona-planer.pl/en/)
 
-- [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
+[discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
 
-Opis instalacji
+# Table of contents
+[How to use this repo](#how-to-use-this-repo)
+  -  [Quickstart](#quickstart)
+  -  [Development](#development)
+  -  [Test server](#test-server)
 
-Najlepiej korzystać z dockera, w razie gdyby go nie było, wystarczy w settings.py zmienić host, nazwę czy cokolwiek postgresa na wybrane - lokalne.
 
-1. Używać python 3.6.8 lub 3.6.9, tutaj instalacja https://www.python.org/downloads/release/python-368/
-2. Pobrać repozytorium, najlepiej na wybranym branchu, np. dla v1.05
+# How to use this repo
 
-```bash
-git clone https://github.com/rafsaf/Plemiona_Planer.git -b v1.05
-```
+**Just need to have up and running [Docker](https://www.docker.com/get-started)**
 
-2. Utworzyć plik `settings.py` pod ścieżką `tribal_wars_planer/settings.py` i skopiować tam wzór z `tribal_wars_planer/settings.txt` a następnie ewentualnie pozmieniać SECRET_KEY (i jak na początku wspomniane, ewentualnie ustawienia bazy danych - domyślnie pointują one w host który zrobi docker, poniżej zamieszczam obecne ustawienia pod lokalną instalację z racji że od dziś w settings.txt są ustawienia pod dockera).
+If you want to run it in development and make use of `localhost:8000` (the quickstart app runs on `localhost:80`, you would need also:
+- [python](https://www.python.org/downloads/) >= 3.9
+- [poetry](https://python-poetry.org/)
 
-```python
-# Stare ustawienia domyślne
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "tribal_wars_planerv05",
-        "USER": "rafsaf",
-        "PASSWORD": "123",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    }
-}
-```
+## Quickstart
 
-3. Wybranym sposobem utworzyć virtualenv w głównym folderze projektu, koniecznie dla 3.6, dla konwencji najlepiej korzystać z czegoś takiego i nazywać to jak poniżej
+In your favourite folder e.g. Desktop:
 
 ```bash
-py -3.6 -m venv venv
-python -3.6 -m venv venv
-```
-
-4. Uruchomić virtualenv, VS Code robi to autmatycznie więc najlepiej w ten sposób ale można też
+git clone https://github.com/rafsaf/Tribal-Wars-Planer.git
+cd Tribal-Wars-Planer 
 
 ```
-# windows
-.\venv\Scripts\activate
+Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
+Run
+```bash
+docker-compose up -d
 
+```
+Go to the browser tab and write out `localhost`, enter
 
-# linux
-source venv/bin/activate
+## Development
 
+> :warning: **No cron jobs will run in dev environment**!
 
-# nastepnie zainstalować cały syf
+In your favourite folder e.g. Desktop:
 
-pip install -r requirements.txt
+```bash
+git clone https://github.com/rafsaf/Tribal-Wars-Planer.git
+cd Tribal-Wars-Planer 
+
+```
+Then create file `.env` in Tribal-Wars-Planer (you may overwrite defaults values for admin/secret keys) from template file `.env.example`
+
+> :warning: Change `POSTGRES_HOST` to `localhost`.
+
+Create venv inside root folder (for better linting in vs code) and install dependencies
+
+```bash
+# poetry config --list
+# if virtualenvs.in-project = None or false, run
+# poetry config virtualenvs.in-project true
+
+poetry install
 
 ```
 
-5. następnie ożywić postgresa z dockera (chodzi na nieużywanym często porcie 5000 więc nie powinno być problemów z czymś innym, w szczególności z zwykłą instlacją postgresa zwyczajowo na porcie 5432)
+Run database with docker and then python
 
-```
-docker-compose up
+```bash
+docker-compose -f docker-compose.dev.yml up -d
+python mange.py migrate
+python manage.py createsuperuser --no-input
+python manage.py runserver
 ```
 
-6. Baza już działa, wystarczyć powinno uruchomienie projektu na localhost:8000 po wcześniejszym utworzeniu superusera admin-admin i migracjach
+To run tests
 
 ```bash
 python manage.py test
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser
-# potem admin / admin itd.
-python manage.py runserver
-
+# python manage.py test base
+# python manage.py test base.tests.test_views
 ```
 
-Raczej działa :)
-
-7. Test coverage
+Test coverage
 
 ```bash
-pip install coverage
-
 coverage run --source='.' --omit 'venv/*,*tests*' manage.py test
 
 coverage report
 ```
 
-8. .env for production
+## Test server
+
+**Install Docker, docker-compose** eg.
+
+```bash
+sudo apt update 
+sudo apt upgrade
+sudo apt install docker.io
+sudo apt install docker-compose
+sudo usermod -a -G docker ubuntu
+# or other username than ubuntu
+sudo reboot
+# then log in again
+docker info 
+# if ok, proceed
+```
 
 ```
-DEBUG="false"
-ALLOWED_HOSTS="plemiona-planer.pl,www.plemiona-planer.pl"
-SECRET_KEY="secret_key_here"
-POSTGRES_NAME="postgres"
-POSTGRES_USER="postgres"
-POSTGRES_PASSWORD="postgres"
-POSTGRES_HOST="localhost"
-POSTGRES_PORT="5432"
-EMAIL_BACKEND="django_ses.SESBackend"
-AWS_ACCESS_KEY_ID="AKIAU5MB5PQDND3JDQMH"
-AWS_SECRET_ACCESS_KEY="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"
-AWS_SES_REGION_NAME="eu-central-1"
-AWS_SES_REGION_ENDPOINT="email.eu-central-1.amazonaws.com"
-DEFAULT_FROM_EMAIL="plemionaplaner.pl@gmail.com"
-RECAPTCHA_PUBLIC_KEY="6LfTofUZAAAAAIFiXfroDC4NtxnHlXqMMHx4jiQJ"
-RECAPTCHA_PRIVATE_KEY="6LfTofUZAAAAAOPybWlY4WLU4G0v2YwcLvwLRfIH"
+sudo ssh-keygen -t ed25519 -C "email@example.com"
+sudo cat ~/.ssh/id_ed25519.pub
+
+```bash
+Copy and add to the:
+
+Github.com -> Settings -> SSH and GPG keys
+
+https://github.com/settings/keys
+
 ```
+
+Finally clone repo
+
+```bash
+git clone git@github.com:rafsaf/Tribal-Wars-Planer.git
+cd Tribal-Wars-Planer 
+cp .env.example .env
+```
+> :warning: SET DIFFRENT VALUES FOR:
+```
+DEBUG
+MAIN_DOMAIN
+SUB_DOMAIN
+SECRET_KEY !!!!!!!!!!!!!
+DEFAULT_FROM_EMAIL
+POSTGRES_PASSWORD
+DJANGO_SUPERUSER_PASSWORD !!!!!!!!!!!!!!!!!!!!!!! !!! !!! !!!!!!
+```
+
+**DO NOT LEAVE DJANGO_SUPERUSER_PASSWORD AS "ADMIN", SO ANYONE CAN LOGIN TO THE DASHBOARD**
+
+```
+docker-compose -f docker-compose.test.yml
+```
+
+
