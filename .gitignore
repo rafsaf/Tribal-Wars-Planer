@@ -6,7 +6,8 @@ Pipfile*
 .idea*
 # C extensions
 *.so
-
+# Traefik
+letsencrypt
 # Docker
 data
 

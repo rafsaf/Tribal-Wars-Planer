@@ -1,0 +1,32 @@
+{
+    "listeners": {
+        "*:80": {
+            "pass": "routes"
+        }
+    },
+
+    "routes": [
+        {
+            "match": {
+                "uri": "/static/*"
+            },
+
+            "action": {
+                "share": "/build"
+            }
+        },
+        {
+            "action": {
+                "pass": "applications/django"
+            }
+        }
+    ],
+
+    "applications": {
+        "django": {
+            "type": "python 3.9",
+            "path": "/build/",
+            "module": "tribal_wars_planer.wsgi"
+        }
+    }
+}
