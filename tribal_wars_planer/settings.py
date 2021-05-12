@@ -88,7 +88,7 @@ DATABASES = {
 }
 
 CRONJOBS = [
-    ("* */2 * * *", "base.cron.db_update"),
+    ("*/10 * * * *", "base.cron.db_update"),
     ("0 3 * * *", "base.cron.outdate_overviews_delete"),
 ]
 

@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.3"
 
 services:
   postgres:
@@ -11,8 +11,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     env_file:
       - .env
-    ports:
-      - ${POSTGRES_PORT}:5432
 
   web:
     depends_on:
@@ -23,9 +21,10 @@ services:
       dockerfile: Dockerfile.prod
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`test.plemiona-planer.pl`)"
-      - "traefik.http.routers.whoami.entrypoints=websecure"
-      - "traefik.http.routers.whoami.tls.certresolver=myresolver"
+      - "traefik.http.routers.web.rule=Host(`test.plemiona-planer.pl`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=myresolver"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
     env_file:
       - .env
 
@@ -39,9 +38,11 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.myresolver.acme.email=rafal.safin12@gmail.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
