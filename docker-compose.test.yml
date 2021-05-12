@@ -25,9 +25,7 @@ services:
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=myresolver"
       - "traefik.http.services.web.loadbalancer.server.port=80"
-      - "traefik.http.middlewares.web.redirectregex.regex=^https://test2.plemiona-planer.pl/(.*)$"
-      - "traefik.http.middlewares.web.redirectregex.replacement=^https://test.plemiona-planer.pl/${1}"
-      - "traefik.http.middlewares.web.redirectregex.permanent=true"
+
     env_file:
       - .env
 
@@ -41,6 +39,11 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      # 3 lines redirect
+      - "--entrypoints.web.https.redirect.regex=^https://test2.plemiona-planer.pl/(.*)"
+      - "--entrypoints.web.https.web.redirect.replacement=https://test.plemiona-planer.pl/$${1}"
+      - "--entrypoints.web.https.web.redirect.permanent=true"
+
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
