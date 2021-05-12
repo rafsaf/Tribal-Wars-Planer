@@ -50,5 +50,6 @@ jobs:
           cp ./.env.example ./.env
       - name: Migrate and then run tests
         run: |
+          export POSTGRES_HOST=localhost
           python manage.py migrate
           python manage.py test

@@ -23,6 +23,7 @@ python-dotenv = "^0.17.1"
 [tool.poetry.dev-dependencies]
 black = {version = "^21.5b1", allow-prereleases = true}
 django-debug-toolbar = "^3.2.1"
+coverage = "^5.5"
 
 
 [build-system]
