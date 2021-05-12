@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile.prod
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.web.rule=Host(`test.plemiona-planer.pl`)"
+      - "traefik.http.routers.web.rule=Host(`test.plemiona-planer.pl`, `test2.plemiona-planer.pl`)"
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=myresolver"
       - "traefik.http.services.web.loadbalancer.server.port=80"
