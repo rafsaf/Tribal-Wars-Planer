@@ -25,7 +25,11 @@ services:
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=myresolver"
       - "traefik.http.services.web.loadbalancer.server.port=80"
-
+      # redirect domain to other
+      - "traefik.http.middlewares.redirect-web.redirectregex.regex=^(https?://)test2.plemiona-planer.pl/(.*)"
+      - "traefik.http.middlewares.redirect-web.redirectregex.replacement=$${1}test.plemiona-planer.pl/$${2}"
+      - "traefik.http.middlewares.redirect-web.redirectregex.permanent=true"
+      - "traefik.http.routers.web.middlewares=redirect-web"
     env_file:
       - .env
 
@@ -39,15 +43,11 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      # 3 lines redirect
-      - "--entrypoints.web.https.redirect.regex=^https://test2.plemiona-planer.pl/(.*)"
-      - "--entrypoints.web.https.web.redirect.replacement=https://test.plemiona-planer.pl/$${1}"
-      - "--entrypoints.web.https.web.redirect.permanent=true"
-
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      # test certificates
       # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.myresolver.acme.email=rafal.safin12@gmail.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
