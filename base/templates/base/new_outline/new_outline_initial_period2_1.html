@@ -19,7 +19,7 @@
 <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
 <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 
-<div class="fixed-scrollbar-container">
+<div>
     {% block outline_navbar %}
     {{block.super}}
     {% endblock %}
@@ -384,7 +384,6 @@
 <script>
     activateTooltips();
     handleAllFormsetSelect();
-    activateFixedScrollbarContainer();
 </script>
 
 {% block outline_go_back %}
