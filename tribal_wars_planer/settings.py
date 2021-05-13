@@ -6,7 +6,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
-DEBUG = os.environ["DEBUG"]
+env_debug = os.environ["DEBUG"]
+if env_debug in ["True", "true"]:
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = [os.environ["MAIN_DOMAIN"], os.environ["SUB_DOMAIN"]]
 
