@@ -42,8 +42,30 @@
     {% block content %}
     <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
     <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
-    <div class="fixed-scrollbar-container">
+    <div>
     {% block outline_navbar %}
+    <style>
+        body {
+            width: calc(100% - 15px);
+        }
+        .navbar {
+            width: calc(100%);
+        }
+        @media screen and (min-width:992px) {
+            .navbar {
+                width: calc(100vw - 15px);
+            }     
+        }
+
+    </style>
+    <script>        
+        const calcNavbar = () => {
+            const navbar = document.getElementsByClassName("navbar")[0];
+            navbar.style.marginLeft = `${window.scrollX}px`;
+        };
+        window.ontouchmove = calcNavbar;
+        window.onscroll = calcNavbar;
+    </script>
     <table class="table table-sm table-bordered mb-2" style="width: min-content;">
         <thead>
           <tr>
@@ -197,27 +219,27 @@
     {% block outline_navigation %}
     <div class="container-fluid" style="margin-left: -15px;margin-right:-15px;">
     <div class="row mt-2 mb-0">
-    <div class="col-0 col-md-6 col-xl-7"></div>
+    <div class="col-0 col-md-5 col-xl-6"></div>
     <div class="col-auto">
     <nav aria-label="pagination_nav" id="pagination_nav">
-        <ul class="pagination" >
+        <ul class="pagination text-center" >
             {% with query.number as page_num %}
             {% with query.paginator.num_pages as num_pages %}
             {% for n in query.paginator.page_range %}
               {% if page_num|add:'-3' == n %}
-                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page=1&mode={{mode}}"><h4>1</h4></a></li>
+                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page=1&mode={{mode}}"><h4>1</h4></a></li>
                 {% if n != 1 %}
-                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:45px"><h4>&#8943;</h4></a></li>
+                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:60px;"><h4>&#8943;</h4></a></li>
                 {% endif %}
               {% elif page_num == n %}
-                <li class="page-item"><a class="page-link" style="height:48px;width:45px;background-color: teal!important;color: white !important;" href="?page={{page_num}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
+                <li class="page-item"><a class="page-link" style="height:48px;width:60px;;background-color: teal!important;color: white !important;" href="?page={{page_num}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
               {% elif page_num|add:'-3' < n and n < page_num|add:'3' %}
-                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page={{n}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
+                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page={{n}}&mode={{mode}}"><h4>{{n}}</h4></a></li>
               {% elif page_num|add:'3' == n %}
                 {% if n != num_pages %}
-                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:45px"><h4>&#8943;</h4></a></li>
+                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:60px;"><h4>&#8943;</h4></a></li>
                 {% endif %}
-                <li class="page-item"><a class="page-link" style="height:48px;width:45px" href="?page={{num_pages}}&mode={{mode}}"><h4>{{ num_pages }}</h4></a></li>
+                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page={{num_pages}}&mode={{mode}}"><h4>{{ num_pages }}</h4></a></li>
               {% endif %}
             {% endfor %}
             {% endwith %}
@@ -308,7 +330,6 @@
 </div>
 <script>
     activateTooltips();
-    activateFixedScrollbarContainer();
 </script>
 
 {% block outline_go_back %}
