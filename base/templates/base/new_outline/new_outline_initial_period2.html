@@ -46,17 +46,25 @@
     {% block outline_navbar %}
     <style>
         body {
-            width: calc(100vw - 15px);
+            width: calc(100% - 15px);
         }
         .navbar {
-            width: calc(100vw - 15px);
+            width: calc(100%);
         }
+        @media screen and (min-width:992px) {
+            .navbar {
+                width: calc(100vw - 15px);
+            }     
+        }
+
     </style>
     <script>        
-        window.onscroll = () => {
+        const calcNavbar = () => {
             const navbar = document.getElementsByClassName("navbar")[0];
             navbar.style.marginLeft = `${window.scrollX}px`;
         };
+        window.ontouchmove = calcNavbar;
+        window.onscroll = calcNavbar;
     </script>
     <table class="table table-sm table-bordered mb-2" style="width: min-content;">
         <thead>
