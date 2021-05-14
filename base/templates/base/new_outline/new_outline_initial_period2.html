@@ -56,17 +56,9 @@
                 width: calc(100vw - 15px);
             }     
         }
-
     </style>
-    <script>        
-        const calcNavbar = () => {
-            const navbar = document.getElementsByClassName("navbar")[0];
-            navbar.style.marginLeft = `${window.scrollX}px`;
-        };
-        window.ontouchmove = calcNavbar;
-        window.onscroll = calcNavbar;
-    </script>
-    <table class="table table-sm table-bordered mb-2" style="width: min-content;">
+
+    <table class="table table-sm table-bordered mb-2" style="width: min-content">
         <thead>
           <tr>
             <th class="text-nowrap">{% trans 'Summary' %}</th>
