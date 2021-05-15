@@ -1,11 +1,14 @@
 """ Database models """
 import datetime
-from typing import List
+from math import sqrt
+from typing import Dict, List, Optional
 from dateutil.relativedelta import relativedelta
 
 import django
+from django.core.paginator import Paginator
+from django.db.models import Sum
 from django.db.models.query import QuerySet
-from django.db.models import F
+from django.db.models import F, Q, Count
 from django.utils import timezone
 from django.utils.translation import gettext_lazy
 from django.db import models
@@ -400,7 +403,7 @@ class Outline(models.Model):
         default=12,
         validators=[MinValueValidator(1), MaxValueValidator(50)],
     )
-
+    simple_textures = models.BooleanField(default=False)
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(
         max_length=50, default=gettext_lazy("Outline Targets")
@@ -440,13 +443,152 @@ class Outline(models.Model):
         OutlineTime.objects.filter(outline=self).delete()
         TargetVertex.objects.filter(outline=self).delete()
         Overview.objects.filter(outline=self, removed=False).update(removed=True)
-        result = self.result  # type: ignore
+        result: Result = Result.objects.get(outline=self)
         result.results_outline = ""
         result.results_players = ""
         result.results_sum_up = ""
         result.save()
-
         self.save()
+
+    def count_targets(self) -> int:
+        targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(outline=self)
+        return targets.filter(fake=False, ruin=False).count()
+
+    def count_fake(self) -> int:
+        targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(outline=self)
+        return targets.filter(fake=True, ruin=False).count()
+
+    def count_ruin(self) -> int:
+        targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(outline=self)
+        return targets.filter(fake=False, ruin=True).count()
+
+    def count_off(self) -> int:
+        weights: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(outline=self)
+        return weights.filter(off_left__gte=self.initial_outline_min_off).count()
+
+    def count_noble(self) -> int:
+        weights: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(outline=self)
+        return weights.aggregate(sum=Sum("nobleman_left"))["sum"] or 0
+
+    def pagin_targets(
+        self,
+        page: Optional[str],
+        fake: bool = False,
+        ruin: bool = False,
+        every: bool = False,
+        filtr: str = "",
+        not_empty_only: bool = False,
+        related: bool = False,
+    ):
+        all_targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(
+            outline=self
+        ).order_by("pk")
+
+        if not every:
+            targets = all_targets.filter(fake=fake, ruin=ruin)
+        else:
+            targets = all_targets
+
+        if not_empty_only:
+            targets = targets.annotate(num_of_weights=Count("weightmodel")).filter(
+                num_of_weights__gt=0
+            )
+
+        if related:
+            targets = targets.select_related("outline_time")
+
+        if filtr != "":
+            if "|" in filtr:
+                targets = targets.filter(target__icontains=filtr)
+            elif filtr.isnumeric() and len(filtr) <= 3:
+                targets = targets.filter(
+                    Q(target__icontains=filtr) | Q(player__icontains=filtr)
+                )
+            elif (
+                filtr.startswith("command")
+                and filtr[7] in [">", "<", "="]
+                and filtr[8:].isnumeric()
+            ):
+                if not not_empty_only:
+                    targets = targets.annotate(num_of_weights=Count("weightmodel"))
+                if filtr[7] == ">":
+                    targets = targets.filter(num_of_weights__gt=int(filtr[8:]))
+                elif filtr[7] == "=":
+                    targets = targets.filter(num_of_weights=int(filtr[8:]))
+                else:
+                    targets = targets.filter(num_of_weights__lt=int(filtr[8:]))
+
+            else:
+                targets = targets.filter(player__icontains=filtr)
+
+        pagin = Paginator(targets, self.filter_targets_number)
+        return pagin.get_page(page)
+
+    def targets_query(self, target_lst):
+        result: Dict[TargetVertex, List[WeightModel]] = {}
+        for target in target_lst:
+            result[target] = list()
+        weights: "QuerySet[WeightModel]" = (
+            WeightModel.objects.select_related("target")
+            .filter(target__in=target_lst)
+            .order_by("order")
+        )
+        weight: WeightModel
+        for weight in weights:
+            weight.distance = round(weight.distance_to_village(weight.target.target), 1)
+            weight.off = f"{round(weight.off / 1000, 1)}k"
+            result[weight.target].append(weight)
+        return result.items()
+
+    def create_target(self, target_type: Optional[str], coord: Optional[str]) -> None:
+        if target_type == "real":
+            fake = False
+            ruin = False
+        elif target_type == "fake":
+            fake = True
+            ruin = False
+        else:
+            fake = False
+            ruin = True
+        village: VillageModel = VillageModel.objects.select_related().get(
+            coord=coord, world=self.world
+        )
+        TargetVertex.objects.create(
+            outline=self,
+            player=village.player.name,
+            target=coord,
+            fake=fake,
+            ruin=ruin,
+        )
+
+    def is_target_with_no_time(self) -> bool:
+        return (
+            TargetVertex.objects.filter(outline=self)
+            .filter(outline_time=None)
+            .annotate(num_of_weights=Count("weightmodel"))
+            .filter(num_of_weights__gt=0)
+            .exists()
+        )
+
+    def get_outline_times(self, with_periods: bool):
+        outline_time_lst = OutlineTime.objects.filter(outline=self).order_by("order")
+        if not with_periods:
+            return outline_time_lst
+
+        period_model_lst = (
+            PeriodModel.objects.select_related("outline_time")
+            .filter(outline_time__in=outline_time_lst)
+            .order_by("from_time", "-unit")
+        )
+
+        result: Dict[OutlineTime, List[PeriodModel]] = {}
+        period: PeriodModel
+        for period in period_model_lst:
+            if period.outline_time in result:
+                result[period.outline_time].append(period)
+            else:
+                result[period.outline_time] = [period]
+        return result
 
 
 class Result(models.Model):
@@ -648,6 +790,12 @@ class WeightModel(models.Model):
 
     def __str__(self):
         return self.start
+
+    def distance_to_village(self, coord: str) -> float:
+        return sqrt(
+            (int(self.start[0:3]) - int(self.start[4:7])) ** 2
+            + (int(coord[0:3]) - int(coord[4:7])) ** 2
+        )
 
 
 class OutlineOverview(models.Model):

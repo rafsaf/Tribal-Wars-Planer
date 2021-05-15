@@ -163,16 +163,16 @@
 
         <div class="tab-pane fade" id="pills-outline-sum-up" role="tabpanel" aria-labelledby="pills-outline-sum-up">
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="8">{{instance.result.results_players}}</textarea>
+                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="8">{{instance.result.results_players}}</textarea>
             </div>
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="24">{{instance.result.results_sum_up}}</textarea>
+                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="24">{{instance.result.results_sum_up}}</textarea>
             </div>
         </div>
 
         <div class="tab-pane fade" id="pills-outline-copy1" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="26">
+                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">
 {% for item in overviews %}
 [b]{{item.player}}[/b]
 [url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]
@@ -183,7 +183,7 @@
 
         <div class="tab-pane fade" id="pills-outline-copy2" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_outline}}</textarea>
+                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_outline}}</textarea>
             </div>
         </div>
 
@@ -193,7 +193,7 @@
               {% trans 'Below you will find all the unused troops left after the roster. Paste them into the Army Collection in order to start a new action.' %}
             </div>
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_export}}</textarea>
+                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_export}}</textarea>
             </div>
             {% else %}
             <div class="my-3">{% trans 'You have no access to unused troops without premium account.' %}</div>
@@ -203,7 +203,7 @@
 
         <div class="tab-pane fade" id="pills-deff" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="form-group" contenteditable="true">
-                <textarea class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_get_deff}}</textarea>
+                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_get_deff}}</textarea>
             </div>
         </div>
 

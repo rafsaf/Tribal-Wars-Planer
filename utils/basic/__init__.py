@@ -2,6 +2,7 @@
 
 from .dictionary import *
 from .army import *
+from .troops import *
 from .timer import *
 from .village import *
 from .queries import *

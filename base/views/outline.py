@@ -8,8 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from markdownx.utils import markdownify
-
+import json
 from base import models, forms
+from utils.basic import Troops
 
 
 class OutlineList(LoginRequiredMixin, ListView):
@@ -106,25 +107,31 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     form1 = forms.OffTroopsForm(None, outline=instance)
     form2 = forms.DeffTroopsForm(None, outline=instance)
 
-    form1.fields["off_troops"].initial = instance.off_troops
-    form2.fields["deff_troops"].initial = instance.deff_troops
+    off_troops = Troops(instance, "off_troops")
+    deff_troops = Troops(instance, "deff_troops")
 
     if request.method == "POST":
         if "form-1" in request.POST:
-            form1 = forms.OffTroopsForm(request.POST, outline=instance)
-            if form1.is_valid():
+            form10 = forms.OffTroopsForm(request.POST, outline=instance)
+            if form10.is_valid():
                 instance.off_troops = request.POST.get("off_troops")
                 instance.save()
                 request.session["message-off-troops"] = "true"
                 return redirect("base:planer_detail", _id)
+            else:
+                off_troops.set_troops(request.POST.get("off_troops"))
+                off_troops.set_errors(form10.errors)
 
         elif "form-2" in request.POST:
-            form2 = forms.DeffTroopsForm(request.POST, outline=instance)
-            if form2.is_valid():
+            form20 = forms.DeffTroopsForm(request.POST, outline=instance)
+            if form20.is_valid():
                 instance.deff_troops = request.POST.get("deff_troops")
                 instance.save()
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)
+            else:
+                deff_troops.set_troops(request.POST.get("deff_troops"))
+                deff_troops.set_errors(form20.errors)
 
     if instance.world.postfix == "Test":
         instance.world.update = gettext("Never") + "."
@@ -137,6 +144,8 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     context = {
         "instance": instance,
         "form1": form1,
+        "off_troops": off_troops,
+        "deff_troops": deff_troops,
         "form2": form2,
         "example": example,
         "info": info,

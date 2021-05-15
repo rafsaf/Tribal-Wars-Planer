@@ -62,17 +62,16 @@
                         </div> 
 
                         {{ form1.off_troops }} 
-                        {% if form1.off_troops.errors %} 
-                        <script>codemirrorValidation(`{{form1.off_troops.errors.as_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
+                        {% if off_troops.errors %} 
+                        <script>codemirrorValidation(`{{off_troops.get_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
 
                         <div class="error-text">
-                            <p class="mb-0">{% trans 'Incorrect data in' %} {{form1.off_troops.errors|length}} {% trans 'lines.' %}</p>
+                            <p class="mb-0">{% trans 'Incorrect data in' %} {{off_troops.errors|length}} {% trans 'lines.' %}</p>
                             <p class="mt-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
                         </div>
         
                         {% endif %} 
-                        {% if form1.off_troops.errors|length == 0 %} 
-                        {% for error in form1.errors %}
+                        {% if off_troops.empty %} 
                         <div class="error-text mb-3">
                             {% trans 'The text cannot be empty' %}.
                         </div>
@@ -80,8 +79,7 @@
                             document.addEventListener("DOMContentLoaded", function(event) {
                                 $('.cm-s-off-troops-codemirror').addClass('CodeMirror-Invalid');
                             });
-                        </script>
-                        {% endfor %} 
+                        </script> 
                         {% endif %}
                     </div>
                     <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}
@@ -89,10 +87,11 @@
                 </form>
             </div>
             <script>
-                var editor = CodeMirror.fromTextArea(document.getElementById("id_off_troops"), {
+                var editor1 = CodeMirror.fromTextArea(document.getElementById("id_off_troops"), {
                     theme: 'off-troops-codemirror',
                     lineNumbers: true,
                 });
+                editor1.replaceSelection(`{{off_troops.troops}}`)
             </script>
         
             <div class="col-12">
@@ -119,12 +118,10 @@
                             {% endif %}
                         </div>
                         {{ form2.deff_troops }} 
-                        {% if form2.errors %}
 
-                        {% endif %}
-                        {% if form2.deff_troops.errors %}
+                        {% if deff_troops.errors %}
                         
-                        <script>codemirrorValidation(`{{form2.deff_troops.errors.as_json|safe}}`, `.cm-s-deff-troops-codemirror`);</script>
+                        <script>codemirrorValidation(`{{deff_troops.get_json|safe}}`, `.cm-s-deff-troops-codemirror`);</script>
                         <script>
                             document.addEventListener("DOMContentLoaded", function(event) {
                                 document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
@@ -132,13 +129,12 @@
                         </script>
                     
                         <div class="error-text mb-3">
-                            <p class="mb-0">{% trans 'Incorrect data in' %} {{form2.deff_troops.errors|length}} {% trans 'lines.' %}</p>
+                            <p class="mb-0">{% trans 'Incorrect data in' %} {{deff_troops.errors|length}} {% trans 'lines.' %}</p>
                             <p class="mt-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
                         </div>
         
                         {% endif %} 
-                        {% if form2.deff_troops.errors|length == 0 %} 
-                        {% for error in form2.errors %}
+                        {% if deff_troops.empty %} 
                         <div class="error-text mb-3">
                             {% trans 'The text cannot be empty' %}.
                         </div>
@@ -147,7 +143,6 @@
                                 $('.cm-s-deff-troops-codemirror').addClass('CodeMirror-Invalid');
                             });
                         </script>
-                        {% endfor %} 
                         {% endif %}
                     </div>
                     <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}
@@ -155,11 +150,17 @@
                 </form>
             </div>
             <script>
-                var editor = CodeMirror.fromTextArea(document.getElementById("id_deff_troops"), {
+                var editor2 = CodeMirror.fromTextArea(document.getElementById("id_deff_troops"), {
                     theme: 'deff-troops-codemirror',
                     lineNumbers: true,
                 });
+                editor2.replaceSelection(`{{deff_troops.troops}}`)
             </script>
+            {% if not deff_troops.errors and not message_deff %}
+            <script>
+                window.scrollTo(0,0)
+            </script>
+            {% endif %}
         </div>
     </div>
     <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
