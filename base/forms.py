@@ -55,6 +55,7 @@ class OffTroopsForm(forms.ModelForm):
                 army.clean_init(player_dictionary)
             except basic.ArmyError:
                 self.add_error("off_troops", i)  # type: ignore
+                continue
 
             if army.coord in already_used_villages:
                 self.add_error("off_troops", i)  # type: ignore
@@ -101,6 +102,7 @@ class DeffTroopsForm(forms.ModelForm):
                 army.clean_init(player_dictionary)
             except basic.DefenceError:
                 self.add_error("deff_troops", i)  # type: ignore
+                continue
             if army.coord in already_used_villages:
                 already_used_villages[army.coord] += 1
                 if already_used_villages[army.coord] > 2:
