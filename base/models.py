@@ -793,8 +793,8 @@ class WeightModel(models.Model):
 
     def distance_to_village(self, coord: str) -> float:
         return sqrt(
-            (int(self.start[0:3]) - int(self.start[4:7])) ** 2
-            + (int(coord[0:3]) - int(coord[4:7])) ** 2
+            (int(self.start[0:3]) - int(coord[0:3])) ** 2
+            + (int(self.start[4:7]) - int(coord[4:7])) ** 2
         )
 
 
