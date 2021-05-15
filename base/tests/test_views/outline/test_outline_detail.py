@@ -93,8 +93,8 @@ class InactiveOutline(MiniSetup):
             },
         )
         assert response.status_code == 200
-        form2 = response.context["form2"]
-        assert len(form2.errors) == 1
+        deff_troops = response.context["deff_troops"]
+        assert len(deff_troops.errors) == 1
 
         outline.refresh_from_db()
         assert outline.deff_troops == ""
