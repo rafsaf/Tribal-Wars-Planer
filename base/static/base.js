@@ -409,7 +409,7 @@ const changeTargetTime = async (target_id, time_id) => {
   if (response.status !== 200) {
     newTime.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
     const oldClassName = newTime.className;
-    newTime.className = "btn btn-lg btn-danger my-1 py-0 px-1";
+    newTime.className = "btn btn-lg btn-danger my-1 py-0 px-1 mr-1";
 
     setTimeout(() => {
       newTime.className = oldClassName;
@@ -418,12 +418,12 @@ const changeTargetTime = async (target_id, time_id) => {
     }, 2000);
   } else {
     const data = await response.json();
-    newTime.className = "btn btn-lg btn-primary my-1 py-0 px-1";
+    newTime.className = "btn btn-lg btn-primary my-1 py-0 px-1 mr-1";
     newTime.innerHTML = actualInnerHTML;
     newTime.blur();
     if (data.old !== "none" && data.old !== data.new) {
       const oldTime = document.getElementById(data.old);
-      oldTime.className = "btn btn-lg btn-light my-1 py-0 px-1";
+      oldTime.className = "btn btn-lg btn-light my-1 py-0 px-1 mr-1";
     }
   }
 };
@@ -586,59 +586,54 @@ const changeIsHiddenState = async (outline_id, token) => {
 const changeBuildingsArray = async (outline_id, list) => {
   const overview = document.getElementById("multi-select-spinner");
   overview.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
-  const buildings = {buildings: list}
-  await fetch(
-    `/api/change-buildings-array/${outline_id}/`,
-    {
-      method: "PUT",
-      credentials: "same-origin",
-      headers: {
-        "X-CSRFToken": getCookie("csrftoken"),
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(buildings)
-    }
-  ).then((response) => {
-    if (response.status === 200) {
-      overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>`;
-      setTimeout(() => {
-        overview.innerHTML = "";
-      }, 400);
-    } else {
+  const buildings = { buildings: list };
+  await fetch(`/api/change-buildings-array/${outline_id}/`, {
+    method: "PUT",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(buildings),
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>`;
+        setTimeout(() => {
+          overview.innerHTML = "";
+        }, 400);
+      } else {
+        overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg> <span class="md-error">(Error in connection!)</span>`;
+        setTimeout(() => {
+          overview.innerHTML = "";
+        }, 2000);
+      }
+    })
+    .catch(() => {
       overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg> <span class="md-error">(Error in connection!)</span>`;
       setTimeout(() => {
         overview.innerHTML = "";
       }, 2000);
-    }
-  }).catch(() => {
-    overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg> <span class="md-error">(Error in connection!)</span>`;
-    setTimeout(() => {
-      overview.innerHTML = "";
-    }, 2000);
-  });
-
+    });
 };
 const resetUserMessages = async () => {
   const svg = document.getElementById("reset-svg");
   const span = document.getElementById("reset-span");
-  await fetch(
-    `/api/reset-user-messages/`,
-    {
-      method: "PUT",
-      credentials: "same-origin",
-      headers: {
-        "X-CSRFToken": getCookie("csrftoken"),
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  ).then((response) => {
+  await fetch(`/api/reset-user-messages/`, {
+    method: "PUT",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
     if (response.status === 200) {
-      svg.style.fill = "black"
-      span.style.color = "black"
-      span.innerHTML = "0"
-    } 
+      svg.style.fill = "black";
+      span.style.color = "black";
+      span.innerHTML = "0";
+    }
   });
 };
 

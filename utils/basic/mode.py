@@ -1,4 +1,5 @@
 from typing import Optional
+from django.utils.translation import gettext as _
 
 
 class Mode:
@@ -38,6 +39,20 @@ class Mode:
     @property
     def is_add_and_remove(self):
         return self.mode == "add_and_remove"
+
+    def trans_target(self) -> str:
+        if self.is_menu:
+            return _("Target")
+        elif self.is_fake:
+            return _("Fake Target")
+        return _("Ruin Target")
+
+    def trans_outline(self) -> str:
+        if self.is_menu:
+            return _("Outline")
+        elif self.is_fake:
+            return _("Fake Outline")
+        return _("Ruin Outline")
 
     def __str__(self):
         return self.mode

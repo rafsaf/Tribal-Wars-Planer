@@ -26,6 +26,11 @@ class OffTroopsForm(forms.ModelForm):
         model = models.Outline
         fields = ["off_troops"]
         labels = {"off_troops": gettext_lazy("Army collection")}
+        widgets = {
+            "off_troops": forms.Textarea(
+                attrs={"spellcheck": "false", "autocomplete": "off"}
+            )
+        }
 
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
@@ -67,6 +72,11 @@ class DeffTroopsForm(forms.ModelForm):
         model = models.Outline
         fields = {"deff_troops"}
         labels = {"deff_troops": gettext_lazy("Deff collection")}
+        widgets = {
+            "deff_troops": forms.Textarea(
+                attrs={"spellcheck": "false", "autocomplete": "off"}
+            )
+        }
 
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
@@ -324,11 +334,13 @@ class SetTargetsMenuFilters(forms.ModelForm):
         model = models.Outline
         fields = [
             "filter_targets_number",
+            "simple_textures",
         ]
 
     def __init__(self, *args, **kwargs):
         super(SetTargetsMenuFilters, self).__init__(*args, **kwargs)
         self.fields["filter_targets_number"].widget.attrs["class"] = "form-control"
+        self.fields["simple_textures"].widget.attrs["class"] = "form-check-input"
 
 
 class ModeOutlineForm(forms.ModelForm):
@@ -612,10 +624,13 @@ class ChooseOutlineTimeForm(forms.Form):
 
 
 class CreateNewInitialTarget(forms.Form):
+    CHOICES = [("real", "real"), ("fake", "fake"), ("ruin", "ruin")]
+
     target = forms.CharField(
         max_length=7,
         label="",
     )
+    target_type = forms.ChoiceField(widget=forms.HiddenInput, choices=CHOICES)
 
     def __init__(self, *args, **kwargs):
         self.outline: models.Outline = kwargs.pop("outline")
