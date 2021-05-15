@@ -145,6 +145,7 @@ class AdminPlayer(admin.ModelAdmin):
 class AdminNewOutline(admin.ModelAdmin):
     list_display = [
         "name",
+        "owner",
         "created",
         "world",
         "ally_tribe_tag",
