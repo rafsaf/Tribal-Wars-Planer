@@ -1,8 +1,14 @@
+import datetime
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
-
+from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib.auth.models import User
+from paypal.standard.forms import PayPalPaymentsForm
 from base import forms
 from base.models import Server, Profile, Payment
 
@@ -46,7 +52,27 @@ def profile_settings(request: HttpRequest) -> HttpResponse:
 
 @login_required
 def premium_view(request: HttpRequest) -> HttpResponse:
-    user = request.user
+    user: User = request.user  # type: ignore
+    host = request.get_host()
+    current_date: datetime.date = timezone.localdate()
+    form = PayPalPaymentsForm(
+        initial={
+            "business": settings.PAYPAL_RECEIVER_EMAIL,
+            "item_name": f"Premium {user.username} {current_date}",
+            "invoice": f"{user.username}|{current_date}",
+            "currency_code": "PLN",
+            "item_number": 1,
+            "amount": 30,
+            "notify_url": f"http://{host}{reverse('paypal-ipn')}",
+            "return_url": f"http://{host}{reverse('base:payment_done')}",
+        }
+    )
+
     payments = Payment.objects.filter(user=user).order_by("-payment_date")
-    context = {"user": user, "payments": payments}
+    context = {"user": user, "payments": payments, "form": form}
     return render(request, "base/user/premium.html", context=context)
+
+
+@csrf_exempt
+def payment_done(request):
+    return render(request, "base/user/payment_done.html")

@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "django_registration",
     "django_crontab",
     "captcha",
+    "paypal.standard.ipn",
     "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -78,6 +79,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "tribal_wars_planer.wsgi.application"
+
+env_paypal_test = os.environ["PAYPAL_TEST"]
+if env_paypal_test in ["true", "True"]:
+    PAYPAL_TEST = True
+else:
+    PAYPAL_TEST = False
+
+PAYPAL_RECEIVER_EMAIL = os.environ["PAYPAL_RECEIVER_EMAIL"]
 
 DATABASES = {
     "default": {

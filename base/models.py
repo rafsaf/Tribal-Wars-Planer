@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 from dateutil.relativedelta import relativedelta
 
 import django
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.db.models.query import QuerySet
@@ -21,6 +22,8 @@ from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
+from paypal.standard.models import ST_PP_COMPLETED
+from paypal.standard.ipn.signals import valid_ipn_received
 from markdownx.models import MarkdownxField
 
 
@@ -872,11 +875,15 @@ class Payment(models.Model):
     status = models.CharField(max_length=30, choices=STATUS, default="finished")
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     send_mail = models.BooleanField(default=True)
-    amount = models.IntegerField()
+    amount = models.FloatField()
+    currency = models.CharField(max_length=3, default="PLN")
     payment_date = models.DateField()
     months = models.IntegerField(default=1)
     comment = models.CharField(max_length=150, default="", blank=True)
     new_date = models.DateField(default=None, null=True, blank=True)
+
+    def value(self) -> str:
+        return f"{self.amount} {self.currency}"
 
 
 @receiver(post_save, sender=Payment)
@@ -918,3 +925,41 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
         instance.new_date = user_profile.validity_date
         user_profile.save()
         instance.save()
+
+
+def ipn_paypal_payment_signal(sender, **kwargs):
+    ipn_obj = sender
+    if ipn_obj.payment_status == ST_PP_COMPLETED:
+        if ipn_obj.receiver_email != settings.PAYPAL_RECEIVER_EMAIL:
+            return
+        username: str = str(ipn_obj.invoice).split("|")[0]
+        user: User = User.objects.get(username=username)
+        current_date: datetime.date = timezone.localdate()
+        months: int = 0
+        currency: str = str(ipn_obj.mc_currency)
+        amount = float(ipn_obj.mc_gross)
+
+        if amount == 70 and currency == "PLN":
+            months = 3
+        elif amount == 55 and currency == "PLN":
+            months = 2
+        elif amount == 30 and currency == "PLN":
+            months = 1
+        elif amount == 15.5 and currency == "EUR":
+            months = 3
+        elif amount == 12.5 and currency == "EUR":
+            months = 2
+        elif amount == 7 and currency == "EUR":
+            months = 1
+        else:
+            return
+        Payment.objects.create(
+            user=user,
+            amount=amount,
+            months=months,
+            payment_date=current_date,
+            currency=currency,
+        )
+
+
+valid_ipn_received.connect(ipn_paypal_payment_signal)

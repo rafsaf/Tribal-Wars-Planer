@@ -19,6 +19,7 @@ django-markdownx = "^3.0.1"
 python-dateutil = "^2.8.1"
 django-ses = "^2.0.0"
 python-dotenv = "^0.17.1"
+django-paypal = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^21.5b1", allow-prereleases = true}
