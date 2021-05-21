@@ -1,5 +1,6 @@
 from random import sample
 from statistics import mean
+from time import time
 from typing import Generator, List, Optional
 from utils.basic.ruin import RuinHandle
 from django.db.models.query import QuerySet
@@ -93,6 +94,7 @@ class WriteRamTarget:
             return self._far_weight_lst()
 
     def weight_create_list(self) -> List[WeightModel]:
+
         weights_max_update_lst: List[WeightMaximum] = []
         weights_create_lst: List[WeightModel] = []
         self._set_building_generator()
@@ -123,16 +125,33 @@ class WriteRamTarget:
                 self._updated_weight_max(weight_max, off, catapult, fake_limit)
             )
 
-        WeightMaximum.objects.bulk_update(
-            weights_max_update_lst,
-            fields=[
-                "off_state",
-                "off_left",
-                "fake_limit",
-                "catapult_state",
-                "catapult_left",
-            ],
-        )
+        if self.ruin:
+            WeightMaximum.objects.bulk_update(
+                weights_max_update_lst,
+                fields=[
+                    "off_state",
+                    "off_left",
+                    "catapult_state",
+                    "catapult_left",
+                ],
+            )
+        elif self.target.fake and len(weights_max_update_lst) > 0:
+            WeightMaximum.objects.filter(
+                pk__in=[i.pk for i in weights_max_update_lst]
+            ).update(
+                fake_limit=F("fake_limit") - 1,
+                off_state=F("off_state") + 100,
+                off_left=F("off_left") - 100,
+            )
+        else:
+            if len(weights_max_update_lst) > 0:
+                WeightMaximum.objects.filter(
+                    pk__in=[i.pk for i in weights_max_update_lst]
+                ).update(
+                    off_state=F("off_left"),
+                    off_left=0,
+                )
+
         return weights_create_lst
 
     def _set_building_generator(self) -> None:
