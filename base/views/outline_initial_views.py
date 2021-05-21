@@ -101,15 +101,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     fake_dups = calculations.fake_duplicates()
     ruin_dups = calculations.ruin_duplicates()
 
-    if type(calculations.actual_len) is int and calculations.actual_len <= 100:
-        formset_select = formset_factory(
-            form=forms.ModeTargetSetForm,
-            extra=calculations.actual_len,
-            max_num=calculations.actual_len,
-        )
-    else:
-        formset_select = None
-
     if target_mode.is_real:
         form1.fields["target"].initial = instance.initial_outline_targets
     elif target_mode.is_fake:
@@ -296,47 +287,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     + f"?t={target_mode.mode}"
                 )
 
-        if "formset" in request.POST and formset_select is not None:
-            formset_select = formset_select(request.POST)
-            if formset_select.is_valid():
-                targets = calculations.actual_targets()
-                targets_to_update = []
-                for data, target in zip(formset_select.cleaned_data, targets):
-                    if data == {}:
-                        continue
-                    target.mode_off = data["mode_off"]
-                    target.mode_noble = data["mode_noble"]
-                    target.mode_division = data["mode_division"]
-                    target.mode_guide = data["mode_guide"]
-                    targets_to_update.append(target)
-                models.TargetVertex.objects.bulk_update(
-                    targets_to_update,
-                    fields=[
-                        "mode_off",
-                        "mode_noble",
-                        "mode_division",
-                        "mode_guide",
-                    ],
-                )
-                return redirect(
-                    reverse("base:planer_initial_form", args=[_id])
-                    + f"?t={target_mode.mode}"
-                )
-        else:
-            if formset_select is not None:
-                formset_select = formset_select(None)
-    else:
-        if formset_select is not None:
-            formset_select = formset_select(None)
-    if formset_select is not None:
-        targets = calculations.actual_targets()
-        for form, target in zip(formset_select, targets):
-            form.target = target
-            form.fields["mode_off"].initial = target.mode_off
-            form.fields["mode_noble"].initial = target.mode_noble
-            form.fields["mode_division"].initial = target.mode_division
-            form.fields["mode_guide"].initial = target.mode_guide
-
     context = {
         "instance": instance,
         "form1": form1,
@@ -347,7 +297,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "form4": form4,
         "form5": form5,
         "form6": form6,
-        "formset": formset_select,
         "fake_dups": fake_dups,
         "real_dups": real_dups,
         "ruin_dups": ruin_dups,
