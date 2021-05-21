@@ -426,6 +426,9 @@ class Outline(models.Model):
         return "ID:" + str(self.pk) + ", Nazwa: " + str(self.name)
 
     def remove_user_outline(self):
+        from utils.basic import TargetMode
+        from base import forms
+
         self.written = "inactive"
         self.avaiable_offs = []
         self.avaiable_offs_near = []
@@ -442,9 +445,42 @@ class Outline(models.Model):
         self.default_fake_time_id = None
         self.default_ruin_time_id = None
 
-        WeightMaximum.objects.filter(outline=self).delete()
+        WeightModel.objects.select_related("target").filter(
+            target__outline=self
+        ).delete()
+
+        off_form = forms.OffTroopsForm({"off_troops": self.off_troops}, outline=self)
+        if not off_form.is_valid():
+            WeightMaximum.objects.filter(outline=self).delete()
+            TargetVertex.objects.filter(outline=self).delete()
+        else:
+            WeightMaximum.objects.filter(outline=self).update(
+                off_left=F("off_max"),
+                off_state=0,
+                nobleman_left=F("nobleman_max"),
+                nobleman_state=0,
+                catapult_left=F("catapult_max"),
+                catapult_state=0,
+                hidden=False,
+                first_line=False,
+                fake_limit=self.initial_outline_fake_limit,
+            )
+            target_text = ""
+            if self.initial_outline_targets != "":
+                target_text += self.initial_outline_targets + "\r\n"
+            if self.initial_outline_fakes != "":
+                target_text += self.initial_outline_fakes + "\r\n"
+            if self.initial_outline_ruins != "":
+                target_text += self.initial_outline_ruins + "\r\n"
+            form_targets = forms.InitialOutlineForm(
+                {"target": target_text.removesuffix("\r\n")},
+                outline=self,
+                target_mode=TargetMode("real"),
+            )
+            if not form_targets.is_valid():
+                TargetVertex.objects.filter(outline=self).delete()
+
         OutlineTime.objects.filter(outline=self).delete()
-        TargetVertex.objects.filter(outline=self).delete()
         Overview.objects.filter(outline=self, removed=False).update(removed=True)
         result: Result = Result.objects.get(outline=self)
         result.results_outline = ""
