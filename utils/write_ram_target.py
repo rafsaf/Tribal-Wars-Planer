@@ -148,7 +148,9 @@ class WriteRamTarget:
                 WeightMaximum.objects.filter(
                     pk__in=[i.pk for i in weights_max_update_lst]
                 ).update(
-                    off_state=F("off_left"),
+                    off_state=F("off_left") + F("off_state"),
+                    catapult_state=F("catapult_left") + F("catapult_state"),
+                    catapult_left=0,
                     off_left=0,
                 )
 

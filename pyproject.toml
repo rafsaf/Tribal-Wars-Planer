@@ -5,7 +5,7 @@ description = ""
 authors = ["rafsaf <rafal.safin12@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.10"
 Django = "^3.0.8"
 django-crispy-forms = "^1.11.2"
 django-crontab = "^0.7.1"
@@ -20,6 +20,7 @@ python-dateutil = "^2.8.1"
 django-ses = "^2.0.0"
 python-dotenv = "^0.17.1"
 django-paypal = "^1.1.1"
+tw-complex = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^21.5b1", allow-prereleases = true}
