@@ -2,7 +2,7 @@
 {% load static %} 
 {% load i18n %} 
 {% block content %}
-<style>.selected{background-color: rgb(106, 196, 196) !important;}</style>
+
 <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
 <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 
@@ -463,7 +463,6 @@
 </div>
 <script>
     scroll_content_outline();
-    activateTooltips();
     modal();
     $("#{{sort}}").addClass("selected")
     $("#{{sort}}2").addClass("selected")

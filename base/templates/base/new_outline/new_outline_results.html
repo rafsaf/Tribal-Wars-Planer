@@ -2,11 +2,6 @@
 {% block content %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-<style>
-  a.btn-light {
-      border: 1px solid rgb(136, 135, 135);
-  }
-</style>
 <div class="table-responsive">
 <div class="mt-2 mb-5" id='leftscroll'>
     <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
@@ -96,20 +91,16 @@
                                 </th>
                                 <th>
                                   {% if item.show_hidden %}
-                                  <button id="{{item.token}}" class="btn btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                  <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
                                   </button>
                                   {% else %}
-                                  <button id="{{item.token}}" class="btn btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                  <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
                                   </button>                          
                                   {% endif %}
                                 </th>
-                                <th><a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
+                                <th><a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
                                 </th>
                             </tr>
-                            <script>
-                                $('.send').click(function() {
-                                    $(this).text("{% trans 'Sent!' %}");})
-                            </script>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -138,22 +129,18 @@
                         </th>
                         <th>
                           {% if item.show_hidden %}
-                          <button id="{{item.token}}" class="btn btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                          <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
                           </button>
                           {% else %}
-                          <button id="{{item.token}}" class="btn btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                          <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
                           </button>                          
                           {% endif %}
                         </th>
                         <th>
-                          <a class="send" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}
+                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}
                           </a>
                         </th>
                     </tr>
-                    <script>
-                        $('.send').click(function() {
-                            $(this).text("{% trans 'Sent!' %}");})
-                    </script>
                     {% endfor %}
                 </tbody>
             </table>
@@ -244,8 +231,6 @@
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
         $('.bd-example-modal-lg').modal('show');
-
-
     });
 </script>
 

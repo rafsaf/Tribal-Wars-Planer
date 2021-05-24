@@ -346,10 +346,13 @@ class Outline(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(28000)],
     )
     initial_outline_front_dist = models.IntegerField(
-        default=10, validators=[MinValueValidator(0), MaxValueValidator(45)]
+        default=10, validators=[MinValueValidator(0), MaxValueValidator(500)]
+    )
+    initial_outline_maximum_front_dist = models.IntegerField(
+        default=120, validators=[MinValueValidator(0), MaxValueValidator(1000)]
     )
     initial_outline_target_dist = models.IntegerField(
-        default=50, validators=[MinValueValidator(0), MaxValueValidator(150)]
+        default=50, validators=[MinValueValidator(0), MaxValueValidator(1000)]
     )
     initial_outline_excluded_coords = models.TextField(default="", blank=True)
     initial_outline_fake_limit = models.IntegerField(
@@ -463,21 +466,25 @@ class Outline(models.Model):
                 catapult_state=0,
                 hidden=False,
                 first_line=False,
+                too_far_away=False,
                 fake_limit=self.initial_outline_fake_limit,
             )
-            target_text = ""
-            if self.initial_outline_targets != "":
-                target_text += self.initial_outline_targets + "\r\n"
-            if self.initial_outline_fakes != "":
-                target_text += self.initial_outline_fakes + "\r\n"
-            if self.initial_outline_ruins != "":
-                target_text += self.initial_outline_ruins + "\r\n"
-            form_targets = forms.InitialOutlineForm(
-                {"target": target_text.removesuffix("\r\n")},
+            form1 = forms.InitialOutlineForm(
+                {"target": self.initial_outline_targets},
                 outline=self,
                 target_mode=TargetMode("real"),
             )
-            if not form_targets.is_valid():
+            form2 = forms.InitialOutlineForm(
+                {"target": self.initial_outline_fakes},
+                outline=self,
+                target_mode=TargetMode("fake"),
+            )
+            form3 = forms.InitialOutlineForm(
+                {"target": self.initial_outline_ruins},
+                outline=self,
+                target_mode=TargetMode("ruin"),
+            )
+            if not form1.is_valid() or not form2.is_valid() or not form3.is_valid():
                 TargetVertex.objects.filter(outline=self).delete()
 
         OutlineTime.objects.filter(outline=self).delete()
@@ -684,6 +691,7 @@ class WeightMaximum(models.Model):
 
     hidden = models.BooleanField(default=False)
     first_line = models.BooleanField(default=False)
+    too_far_away = models.BooleanField(default=False)
     fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )

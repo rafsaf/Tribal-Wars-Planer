@@ -50,7 +50,7 @@ class WriteRamTarget:
         self.outline: Outline = outline
         self.index: int = 0
         self.default_query: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(
-            outline=self.outline
+            outline=self.outline, too_far_away=False
         )
         self.ruin: bool = ruin
         self.ruin_handle: Optional[RuinHandle] = None

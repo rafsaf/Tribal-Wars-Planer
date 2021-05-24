@@ -1,3 +1,4 @@
+from time import time
 from typing import Optional, Union
 
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -75,7 +76,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
             make_outline()
         else:
             request.session["error"] = gettext(
-                "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+                "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p><p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
             )
 
             return redirect("base:planer_detail", _id)
@@ -97,6 +98,8 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     len_ruin = calculations.len_ruin
     len_real = calculations.len_real
 
+    estimated_time = 12 * (len_real + len_fake) + 50 * len_ruin  # type: ignore
+
     real_dups = calculations.real_duplicates()
     fake_dups = calculations.fake_duplicates()
     ruin_dups = calculations.ruin_duplicates()
@@ -111,6 +114,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     form2.fields[
         "initial_outline_front_dist"
     ].initial = instance.initial_outline_front_dist
+    form2.fields[
+        "initial_outline_maximum_front_dist"
+    ].initial = instance.initial_outline_maximum_front_dist
     form2.fields[
         "initial_outline_target_dist"
     ].initial = instance.initial_outline_target_dist
@@ -160,7 +166,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     create_targets()
                 else:
                     request.session["error"] = gettext(
-                        "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+                        "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p><p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
                     )
                     return redirect("base:planer_detail", _id)
 
@@ -173,16 +179,18 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
             form2 = forms.AvailableTroopsForm(request.POST)
             if form2.is_valid():
                 min_off = request.POST.get("initial_outline_min_off")
-                radius = request.POST.get("initial_outline_front_dist")
+                radius_min = request.POST.get("initial_outline_front_dist")
+                radius_max = request.POST.get("initial_outline_maximum_front_dist")
+
                 radius_target = request.POST.get("initial_outline_target_dist")
                 excluded_coords = request.POST.get("initial_outline_excluded_coords")
                 instance.initial_outline_min_off = min_off
-                instance.initial_outline_front_dist = radius
+                instance.initial_outline_front_dist = radius_min
+                instance.initial_outline_maximum_front_dist = radius_max
                 instance.initial_outline_target_dist = radius_target
                 instance.initial_outline_excluded_coords = excluded_coords
                 instance.save()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
-                avaiable_troops.legal_coords_near_targets(outline=instance)
                 avaiable_troops.update_available_ruins(outline=instance)
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
@@ -304,6 +312,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "len_real": len_real,
         "len_fake": len_fake,
         "len_ruin": len_ruin,
+        "estimated_time": estimated_time,
         "premium_error": premium_error,
     }
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
@@ -770,7 +779,7 @@ def update_outline_troops(request: HttpRequest, id1: int) -> HttpResponse:
         make_outline()
     else:
         request.session["error"] = gettext(
-            "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Expand first tab <span class='md-correct2'>1. Available Troops</span>.</p> <p>4. Click the button <span class='md-correct2'>Click here to update if u have changed Army troops</span>.</p>"
+            "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p><p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
         )
 
         return redirect("base:planer_detail", id1)

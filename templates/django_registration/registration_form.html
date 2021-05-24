@@ -7,18 +7,6 @@
 {% endblock %}
  
 {% block content %}
-
-<style>
-    .no-ind-ul ul {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        list-style: none;
-        padding-left: 0;
-    }​
-    .no-ind-ul {
-        font-size: larger;
-    }
-</style>
 <div class="container-md py-3" style="min-height: 70vh; max-width:900px !important;">
     <div style="margin-left:-15px;margin-right:-15px;">
     <form class="no-ind-ul" autocomplete="off" method='POST'>{% csrf_token %} {{ form|crispy }}

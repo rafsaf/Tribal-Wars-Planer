@@ -12,151 +12,6 @@
 <div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
     <div class="col-12 col-lg-7">
         <div class=" w-100">
-          <style>
-            a.t-tab-teal {
-              font-size: 1.05rem;
-              box-shadow: 0 -4px 0 0 white;
-              font-weight: 450;
-              padding: 0.3em 0.9em 0.5em;
-              border: 1px solid hsl(219, 1%, 72%);
-              background: hsl(220, 20%, 94%);
-            }
-
-            @media (max-width: 700px) {
-              .t-tab-teal {
-                font-size: 0.8rem;
-              }
-            }
-
-            a.t-tab-teal {
-              color: black !important;
-            }
-            a.t-tab-teal:hover {
-              color: black !important;
-              text-decoration: none;
-            }
-            
-            .t-tab-teal:hover {
-              box-shadow: 0 -3px 0 0 hsl(219, 1%, 72%);;
-            }
-            
-            .t-tab-teal.t-tab-teal.t-tab-teal-active {
-              background: hsl(220, 43%, 99%);
-            }
-            
-            .t-tab-teal.t-tab-teal-active {
-              box-shadow: 0 -5px 0 0 teal;
-            }
-
-            .lines-wrapper {
-              color: #999;
-              font-family: monospace;
-              background-color: #f7f7f7;
-              border: 1px solid #ddd!important
-            }
-
-            .select-wrapper {
-              margin: auto;
-              max-width: 600px;
-              width: calc(100% - 40px);
-            }
-            
-            .select-pure__select {
-              align-items: center;
-              background: #f9f9f8;
-              border-radius: 4px;
-              border: 1px solid rgba(0, 0, 0, 0.15);
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-              box-sizing: border-box;
-              color: #363b3e;
-              cursor: pointer;
-              display: flex;
-              font-size: 16px;
-              font-weight: 500;
-              justify-content: left;
-              min-height: 44px;
-              padding: 5px 10px;
-              position: relative;
-              transition: 0.2s;
-              width: 100%;
-            }
-            
-            .select-pure__options {
-              border-radius: 4px;
-              border: 1px solid rgba(0, 0, 0, 0.15);
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-              box-sizing: border-box;
-              color: #363b3e;
-              display: none;
-              left: 0;
-              max-height: 221px;
-              overflow-y: scroll;
-              position: absolute;
-              top: 50px;
-              width: 100%;
-              z-index: 5;
-            }
-            
-            .select-pure__select--opened .select-pure__options {
-              display: block;
-            }
-            
-            .select-pure__option {
-              background: #fff;
-              border-bottom: 1px solid #e4e4e4;
-              box-sizing: border-box;
-              height: 44px;
-              line-height: 25px;
-              padding: 10px;
-            }
-            
-            .select-pure__option--selected {
-              color: #e4e4e4;
-              cursor: initial;
-              pointer-events: none;
-            }
-            
-            .select-pure__option--hidden {
-              display: none;
-            }
-            
-            .select-pure__selected-label {
-              background: #5e6264;
-              border-radius: 4px;
-              color: #fff;
-              cursor: initial;
-              display: inline-block;
-              margin: 5px 10px 5px 0;
-              padding: 3px 7px;
-            }
-            
-            .select-pure__selected-label:last-of-type {
-              margin-right: 0;
-            }
-            
-            .select-pure__selected-label i {
-              cursor: pointer;
-              display: inline-block;
-              margin-left: 7px;
-            }
-            
-            .select-pure__selected-label i:hover {
-              color: #e4e4e4;
-            }
-            
-            .select-pure__autocomplete {
-              background: #f9f9f8;
-              border-bottom: 1px solid #e4e4e4;
-              border-left: none;
-              border-right: none;
-              border-top: none;
-              box-sizing: border-box;
-              font-size: 16px;
-              outline: none;
-              padding: 10px;
-              width: 100%;
-            }
-          </style>
           <div class="mb-4 mt-2">
             {% if mode == "real" %}
             <a class="t-tab-teal t-tab-teal-active" href="?t=real">
@@ -278,14 +133,12 @@
                 <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`);" id="form1-btn" class="btn btn-ocean"> {% trans 'Save targets' %}</button>
 
                 
-                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`);" id="form-complete-btn" class="btn btn-outline-ocean">
+                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`);updateAfterClick(this,`{{estimated_time}}`, `{% trans 'Processing...' %}`)" id="form-complete-btn" class="btn btn-outline-ocean">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
                     </svg>
                     {% trans 'Write an outline' %}
-                  </button>
-               
-                
+                  </button>       
               </div>
             
 
@@ -298,6 +151,7 @@
                     <th scope="col">{% trans 'All' %}</th>
                     <th scope="col">{% trans 'Front' %}</th>
                     <th scope="col">{% trans 'Back' %}</th>
+                    <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs further than maximum distance from front line (equals to' %} {{instance.initial_outline_maximum_front_dist}} {% trans 'now), which will be completely skipped now.' %}" class="text-nowrap"  scope="col">{% trans 'Away' %} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" style="margin-bottom: 3px;" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -306,6 +160,7 @@
                     {% for item in instance.avaiable_offs %}
                     <th style="cursor: default;"> {{ item }} </th>
                     {% empty %}
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -319,11 +174,12 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
                     {% endfor %}
                   </tr>
                   <tr>
-                    <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles' %}" class="text-nowrap" scope="col">
-                      {% trans 'Offs closer than' %} {{instance.initial_outline_target_dist}}  {% trans 'squares from real targets' %} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                    <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">
+                      {% trans 'Offs close to real targets' %} <svg style="margin-bottom: 3px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
                       
                     </th>
                     {% for item in instance.avaiable_offs_near %}
@@ -335,8 +191,8 @@
                     {% endfor %}
                   </tr>
                   <tr>
-                    <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Nobles around real targets at maximum distance for nobles' %}" class="text-nowrap" scope="col">
-                      {% trans 'Nobles closer than' %} {{instance.initial_outline_target_dist}}  {% trans 'squares from real targets' %} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                    <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Nobles around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">
+                      {% trans 'Nobles close to real targets' %} <svg style="margin-bottom: 3px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
                       
                     </th>
                     {% for item in instance.avaiable_nobles_near %}
@@ -358,12 +214,14 @@
 
                 </tbody>
               </table>
-              <h4 class="my-4"> 
-                <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
-                  <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
-                </svg>
-                {% trans 'Advanced settings:' %} 
+              <h4 class="my-4">
+              <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+                <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+              </svg>
+               
+                {% trans 'Advanced settings:' %}
+                 
               
               </h4>
                 <div class="accordion" id="outline-options">
@@ -386,23 +244,9 @@
                       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">
 
-                          <form id="form-update" action="{% url 'base:planer_update_troops' instance.id %}">
-                            <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-update`);" id="form-update-btn" class="btn btn-outline-ocean mb-3">
-                              <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
-                              <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
-                            </svg>
-                            {% trans 'Click here to update if you have changed Army troops' %}
-                            </button>
-                          </form>
-
-                        <h5 class="my-3">
-                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-wide-connected" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434L8.932.727zM8 12.997a4.998 4.998 0 1 0 0-9.995 4.998 4.998 0 0 0 0 9.996z"/>
-                            <path fill-rule="evenodd" d="M7.375 8L4.602 4.302l.8-.6L8.25 7.5h4.748v1H8.25L5.4 12.298l-.8-.6L7.376 8z"/>
-                          </svg>
+                        <h4 class="mb-3">
                           {% trans 'Available troops settings:' %}
-                        </h5>
+                        </h4>
                           <div class="mt-1">
                           <form id="form2-form" method='POST' autocomplete="off">
                             <input type="hidden" name="form2" value=""/>
@@ -610,88 +454,23 @@
                           <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-ocean" id="form6-btn" >{% trans 'Save' %}</button>
                           </form>
 
-                          
-                          <script>
-                            const myOptions = [
-                              {
-                                label: `{% trans "Headquarters" %}`,
-                                value: "headquarters",
-                              },
-                              {
-                                label: `{% trans "Barracks" %}`,
-                                value: "barracks",
-                              },
-                              {
-                                label: `{% trans "Stable" %}`,
-                                value: "stable",
-                              },
-                              {
-                                label: `{% trans "Workshop" %}`,
-                                value: "workshop",
-                              },
-                              {
-                                label: `{% trans "Academy" %}`,
-                                value: "academy",
-                              },
-                              {
-                                label: `{% trans "Smithy" %}`,
-                                value: "smithy",
-                              },
-                              {
-                                label: `{% trans "Rally point" %}`,
-                                value: "rally_point",
-                              },
-                              {
-                                label: `{% trans "Statue" %}`,
-                                value: "statue",
-                              },
-                              {
-                                label: `{% trans "Market" %}`,
-                                value: "market",
-                              },
-                              {
-                                label: `{% trans "Timber camp" %}`,
-                                value: "timber_camp",
-                              },
-                              {
-                                label: `{% trans "Clay pit" %}`,
-                                value: "clay_pit",
-                              },
-                              {
-                                label: `{% trans "Iron mine" %}`,
-                                value: "iron_mine",
-                              },
-                              {
-                                label: `{% trans "Farm" %}`,
-                                value: "farm",
-                              },
-                              {
-                                label: `{% trans "Warehouse" %}`,
-                                value: "warehouse",
-                              },
-                              {
-                                label: `{% trans "wall" %}`,
-                                value: "wall",
-                              },
-
-                            ]
-                            var instance = new SelectPure(".multi-select", {
-                              options: myOptions,
-                              multiple: true,
-                              value: [
-                                {% for building in instance.initial_outline_buildings %}
-                                  `{{building}}`,
-                                {% endfor %}
-                              ],
-                              icon: "fa fa-times",
-                              onChange: value => { changeBuildingsArray(`{{instance.pk}}`,instance.value()); }
-                            });
-
-                          </script>
                         </div>
                       </div>
                     </div>
 
+                    <h3><span class="badge badge-dark my-1 mt-5"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16">
+                      <path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242-2.532-4.431zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24l2.552-4.467zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.498.498 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244l-1.716-3.004z"/>
+                    </svg> {% trans 'Updating off troops:' %}</span></h3>
+                    <p>{% trans "After pasting the data from the tribe into the Army collection in the previous tab, equivalents models are created in the database for each village (the entered line). This process only takes place once, the first time you enter this tab. If you changed (e.g. you added a new 100 lines of data) the Army collection, use the button below." %}</p>
+                    <form id="form-update" action="{% url 'base:planer_update_troops' instance.id %}">
+                      <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-update`);" id="form-update-btn" class="btn btn-outline-ocean mb-3">
+                        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                      </svg>
+                      {% trans 'Recreate Models' %}
+                      </button>
+                    </form>
                   </div>
         <div class="d-block d-lg-none mb-4"></div>
     </div>
@@ -718,10 +497,17 @@
             </div>
         </div>
     </div>
-    
-    <script>var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});</script>
+    {{ instance.initial_outline_buildings|json_script:"initial-buildings" }}
     <script>
-      activateTooltips();
+      var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});
+      var instance = new SelectPure(".multi-select", {
+        options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "wall" %}`),
+        multiple: true,
+        value: JSON.parse(document.getElementById('initial-buildings').textContent),
+        icon: "fa fa-times",
+        onChange: value => { changeBuildingsArray(`{{instance.pk}}`,instance.value()); }
+      });
+    
     </script>
 </div>
 {% if premium_error %}

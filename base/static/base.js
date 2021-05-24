@@ -93,44 +93,6 @@ const calculate_distance = (element) => {
     element.clicked = true;
   }
 };
-/*
- * Light YouTube Embeds by @labnol
- * Credit: https://www.labnol.org/
- */
-
-function labnolIframe(div) {
-  var iframe = document.createElement("iframe");
-  iframe.setAttribute(
-    "src",
-    "https://www.youtube.com/embed/" + div.dataset.id + "?autoplay=1&rel=0"
-  );
-  iframe.setAttribute("frameborder", "0");
-  iframe.setAttribute("allowfullscreen", "1");
-  iframe.setAttribute(
-    "allow",
-    "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-  );
-  div.parentNode.replaceChild(iframe, div);
-}
-
-function initYouTubeVideos() {
-  var playerElements = document.getElementsByClassName("youtube-player");
-  for (var n = 0; n < playerElements.length; n++) {
-    var videoId = playerElements[n].dataset.id;
-    var div = document.createElement("div");
-    div.setAttribute("data-id", videoId);
-    var thumbNode = document.createElement("img");
-    thumbNode.src = "//i.ytimg.com/vi/ID/hqdefault.jpg".replace("ID", videoId);
-    div.appendChild(thumbNode);
-    var playButton = document.createElement("div");
-    playButton.setAttribute("class", "play");
-    div.appendChild(playButton);
-    div.onclick = function () {
-      labnolIframe(this);
-    };
-    playerElements[n].appendChild(div);
-  }
-}
 
 const activateTooltips = () => {
   document.addEventListener("DOMContentLoaded", function (event) {
@@ -369,7 +331,7 @@ const handleAllFormsetSelect = () => {
 
 const handleClickButton = (element, message, formId) => {
   element.disabled = true;
-  element.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${message}`;
+  element.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span> ${message}`;
   const form = document.getElementById(formId);
   form.submit();
 };
@@ -593,4 +555,281 @@ const handleButtonClipboardUpdate = (
     element.innerHTML = `<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>${updatedText}`;
     element.blur();
   }, 1800);
+};
+const copyDataToClipboard = (element, id, form) => {
+  const newClip = form
+    ? document.getElementById(id).value
+    : document.getElementById(id).textContent;
+  navigator.clipboard.writeText(newClip);
+  element.blur();
+  const buttonContent = element.innerHTML;
+  element.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-check2-all" viewBox="0 0 16 16"><path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7l-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/><path d="M5.354 7.146l.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/></svg>`;
+  setTimeout(() => {
+    element.innerHTML = buttonContent;
+  }, 600);
+};
+const changeAmount = (value) => {
+  const amount = document.getElementById("id_amount");
+  amount.value = value;
+};
+const changeCurrency = (value) => {
+  const amount = document.getElementById("id_amount");
+  const currency = document.getElementById("id_currency_code");
+  const option1 = document.getElementById("option-1");
+  const option2 = document.getElementById("option-2");
+  const option3 = document.getElementById("option-3");
+  const currency1 = document.getElementById("cur-1");
+  const currency2 = document.getElementById("cur-2");
+  const currency3 = document.getElementById("cur-3");
+  currency.value = value;
+  if (value === "EUR") {
+    currency1.innerText = `7 EUR`;
+    currency2.innerText = `12.5 EUR`;
+    currency3.innerText = `15.5 EUR`;
+    option1.innerText = `7 EUR`;
+    option2.innerText = `12.5 EUR`;
+    option3.innerText = `15.5 EUR`;
+    option1.value = 7;
+    option2.value = 12.5;
+    option3.value = 15.5;
+    if (amount.value === "30") amount.value = 7;
+    if (amount.value === "55") amount.value = 12.5;
+    if (amount.value === "70") amount.value = 15.5;
+  } else {
+    currency1.innerText = `30 PLN`;
+    currency2.innerText = `55 PLN`;
+    currency3.innerText = `70 PLN`;
+    option1.innerText = `30 PLN`;
+    option2.innerText = `55 PLN`;
+    option3.innerText = `70 PLN`;
+    option1.value = 30;
+    option2.value = 55;
+    option3.value = 70;
+    if (amount.value === "7") amount.value = 30;
+    if (amount.value === "12.5") amount.value = 55;
+    if (amount.value === "15.5") amount.value = 70;
+  }
+};
+const removeOutline = (btn, dismissBtn, form, msg) => {
+  const buttonDismiss = document.getElementById(dismissBtn);
+  const submitForm = document.getElementById(form);
+  btn.disabled = true;
+  btn.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span> ${msg}`;
+  buttonDismiss.disabled = true;
+  submitForm.submit();
+};
+const imagePopupActivate = () => {
+  window.onload = function () {
+    var crtdv_img_box = document.createElement("div");
+    crtdv_img_box.id = "img_box";
+    document.getElementsByTagName("body")[0].appendChild(crtdv_img_box);
+    idpopup_img_box = document.getElementById("img_box");
+    idpopup_img_box.style.top = 0;
+    idpopup_img_box.style.left = 0;
+    idpopup_img_box.style.opacity = 0;
+    idpopup_img_box.style.width = "100%";
+    idpopup_img_box.style.height = "100%";
+    idpopup_img_box.style.display = "none";
+    idpopup_img_box.style.position = "fixed";
+    idpopup_img_box.style.cursor = "pointer";
+    idpopup_img_box.style.textAlign = "center";
+    idpopup_img_box.style.zIndex = z_index_dv_img_box;
+    idpopup_img_box.style.backgroundColor = bg_color_img_box;
+  };
+};
+const img_box = (self) => {
+  var namepic_img_box = typeof self === "string" ? self : self.src;
+  vopa_img_box = 0;
+  var hwin_img_box = window.innerHeight;
+  var wwin_img_box = window.innerWidth;
+  var himg_img_box, padtop_img_box, idfadein_img_box;
+  var img_img_box = new Image();
+  img_img_box.src = namepic_img_box;
+  img_img_box.onload = function () {
+    himg_img_box = img_img_box.height;
+    wimg_img_box = img_img_box.width;
+    idpopup_img_box.innerHTML = "<img src=" + namepic_img_box + ">";
+
+    if (wimg_img_box > wwin_img_box) {
+      idpopup_img_box.getElementsByTagName("img")[0].style.width = "90%";
+    } else if (himg_img_box > hwin_img_box) {
+      idpopup_img_box.getElementsByTagName("img")[0].style.height = "90%";
+      himg_img_box = (hwin_img_box * 90) / 100;
+    }
+
+    if (himg_img_box < hwin_img_box) {
+      padtop_img_box = hwin_img_box / 2 - himg_img_box / 2;
+      idpopup_img_box.style.paddingTop = padtop_img_box + "px";
+    } else {
+      idpopup_img_box.style.paddingTop = "0px";
+    }
+
+    if (allow_hide_scroll_img_box == "yes") {
+      document.body.style.overflow = "hidden";
+    }
+    idpopup_img_box.style.display = "block";
+  };
+
+  if (use_fade_inout_img_box == "yes") {
+    idfadein_img_box = setInterval(function () {
+      if (vopa_img_box <= 1.1) {
+        idpopup_img_box.style.opacity = vopa_img_box;
+        vopa_img_box += speed_img_box;
+      } else {
+        idpopup_img_box.style.opacity = 1;
+        clearInterval(idfadein_img_box);
+      }
+    }, 10);
+  } else {
+    idpopup_img_box.style.opacity = 1;
+  }
+  window.onkeyup = function (event) {
+    if (event.keyCode == 27) {
+      if (use_fade_inout_img_box == "yes") {
+        var idfadeout_img_box = setInterval(function () {
+          if (vopa_img_box >= 0) {
+            idpopup_img_box.style.opacity = vopa_img_box;
+            vopa_img_box -= speed_img_box;
+          } else {
+            idpopup_img_box.style.opacity = 0;
+            clearInterval(idfadeout_img_box);
+            idpopup_img_box.style.display = "none";
+            idpopup_img_box.innerHTML = "";
+            document.body.style.overflow = "visible";
+            vopa_img_box = 0;
+          }
+        }, 10);
+      } else {
+        idpopup_img_box.style.opacity = 0;
+        idpopup_img_box.style.display = "none";
+        idpopup_img_box.innerHTML = "";
+        document.body.style.overflow = "visible";
+      }
+    }
+  };
+
+  idpopup_img_box.onclick = function () {
+    if (use_fade_inout_img_box == "yes") {
+      var idfadeout_img_box = setInterval(function () {
+        if (vopa_img_box >= 0) {
+          idpopup_img_box.style.opacity = vopa_img_box;
+          vopa_img_box -= speed_img_box;
+        } else {
+          idpopup_img_box.style.opacity = 0;
+          clearInterval(idfadeout_img_box);
+          idpopup_img_box.style.display = "none";
+          idpopup_img_box.innerHTML = "";
+          document.body.style.overflow = "visible";
+          vopa_img_box = 0;
+        }
+      }, 10);
+    } else {
+      idpopup_img_box.style.opacity = 0;
+      idpopup_img_box.style.display = "none";
+      idpopup_img_box.innerHTML = "";
+      document.body.style.overflow = "visible";
+    }
+  };
+};
+const updateClipboard = (id) => {
+  const newClip = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(newClip);
+};
+const updateAfterClick = async (element, ms, message) => {
+  const timeout = Number.parseFloat(ms) / 100;
+  let it = 0;
+  const update = setInterval(() => {
+    it += 1;
+    element.innerHTML = message + ` ${it}%`;
+    if (it === 99) clearInterval(update);
+  }, timeout);
+};
+const createBuildingsOptions = (
+  headquarters,
+  barracks,
+  stable,
+  workshop,
+  academy,
+  smithy,
+  rally_point,
+  statue,
+  market,
+  timber_camp,
+  clay_pit,
+  iron_mine,
+  farm,
+  warehouse,
+  wall
+) => {
+  return [
+    {
+      label: headquarters,
+      value: "headquarters",
+    },
+    {
+      label: barracks,
+      value: "barracks",
+    },
+    {
+      label: stable,
+      value: "stable",
+    },
+    {
+      label: workshop,
+      value: "workshop",
+    },
+    {
+      label: academy,
+      value: "academy",
+    },
+    {
+      label: smithy,
+      value: "smithy",
+    },
+    {
+      label: rally_point,
+      value: "rally_point",
+    },
+    {
+      label: statue,
+      value: "statue",
+    },
+    {
+      label: market,
+      value: "market",
+    },
+    {
+      label: timber_camp,
+      value: "timber_camp",
+    },
+    {
+      label: clay_pit,
+      value: "clay_pit",
+    },
+    {
+      label: iron_mine,
+      value: "iron_mine",
+    },
+    {
+      label: farm,
+      value: "farm",
+    },
+    {
+      label: warehouse,
+      value: "warehouse",
+    },
+    {
+      label: wall,
+      value: "wall",
+    },
+  ];
+};
+const changeTextToSent = (element, msg) => {
+  element.innerHTML = `${msg}`;
+};
+const fillAndSubmit = (value) => {
+  const form = document.getElementById("create-form");
+  const inputField = document.getElementsByName("target_type")[0];
+  inputField.value = value;
+  form.submit();
 };

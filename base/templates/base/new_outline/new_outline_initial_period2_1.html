@@ -2,20 +2,6 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-<style>
-    button.btn-light {
-        border: 1px solid rgb(136, 135, 135);
-    }
-    a.nav-link.nav-link-pills {
-        border: 1px solid rgb(136, 135, 135);
-        border-right: 0px;
-        border-radius: 0px !important;
-    }
-    a.nav-link.nav-link-pills.last-nav-link {
-        border: 1px solid rgb(136, 135, 135);
-        border-radius: 0px !important;
-    }
-</style>
 <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
 <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 
@@ -363,10 +349,7 @@
 <script>document.addEventListener("DOMContentLoaded", function (event) {$('.bd-example-modal-lg').modal('show');});</script>
 {% endif %}
 
-<script>
-    activateTooltips();
-    handleAllFormsetSelect();
-</script>
+<script>handleAllFormsetSelect();</script>
 
 {% block outline_go_back %}
 {{block.super}}

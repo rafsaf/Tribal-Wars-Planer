@@ -150,13 +150,13 @@ class GetDeffForm(forms.Form):
 
     radius = forms.IntegerField(
         min_value=0,
-        max_value=45,
+        max_value=1000,
         label=gettext_lazy("Radius"),
         widget=forms.NumberInput,
         help_text=gettext_lazy(
-            "Greater than or equal to 0 and less than or equal to 45."
+            "Greater than or equal to 0 and less than or equal to 1000."
         ),
-        initial=10,
+        initial=15,
     )
 
     excluded = forms.CharField(
@@ -234,20 +234,29 @@ class AvailableTroopsForm(forms.ModelForm):
         fields = [
             "initial_outline_min_off",
             "initial_outline_front_dist",
-            "initial_outline_excluded_coords",
+            "initial_outline_maximum_front_dist",
             "initial_outline_target_dist",
+            "initial_outline_excluded_coords",
         ]
         labels = {
             "initial_outline_min_off": gettext_lazy("Min. off units number"),
-            "initial_outline_front_dist": gettext_lazy("Distance from front line"),
+            "initial_outline_front_dist": gettext_lazy(
+                "Minimum distance from front line"
+            ),
+            "initial_outline_maximum_front_dist": gettext_lazy(
+                "Maximum distance from front line"
+            ),
             "initial_outline_target_dist": gettext_lazy("Max Distance for nobles"),
         }
         help_texts = {
             "initial_outline_min_off": gettext_lazy(
-                "Greater than or equal to 1 and less than or equal to 28000."
+                "Greater than or equal to 1 and less than or equal to 28000. Only offs above this value will be considered full offs and will be written out."
             ),
             "initial_outline_front_dist": gettext_lazy(
-                "Greater than or equal to 0 and less than or equal to 45."
+                "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
+            ),
+            "initial_outline_maximum_front_dist": gettext_lazy(
+                "Greater than or equal to 0 and less than or equal to 1000. Villages farther from the enemy than this value will be considered too far from the front and completely skipped."
             ),
             "initial_outline_target_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 150."
@@ -269,6 +278,21 @@ class AvailableTroopsForm(forms.ModelForm):
             village_list = basic.many_villages(coords)
         except basic.VillageError as error:
             self.add_error("initial_outline_excluded_coords", str(error))
+
+    def clean(self):
+        radius_min: int = self.cleaned_data["initial_outline_front_dist"]
+        radius_max: int = self.cleaned_data["initial_outline_maximum_front_dist"]
+        if radius_min > radius_max:
+            self.add_error(
+                "initial_outline_front_dist",
+                f"It cannot be grater than maximum! Change this value to less than {radius_max} or increase the maximum.",
+            )
+            self.add_error(
+                "initial_outline_maximum_front_dist",
+                f"It cannot be less than minimum! Change this value to greater than {radius_min} or reduce the minimum.",
+            )
+
+        return super().clean()
 
 
 class SettingMessageForm(forms.ModelForm):
@@ -509,8 +533,13 @@ class PeriodForm(forms.ModelForm):
         time2 = self.cleaned_data.get("to_time")
         number1 = self.cleaned_data.get("from_number")
         number2 = self.cleaned_data.get("to_number")
-        if time2 < time1:
+        if time1 is None:
+            self.add_error("from_time", "None")
+        if time2 is None:
+            self.add_error("to_time", "None")
+        if time1 is not None and time2 is not None and time2 < time1:
             self.add_error("from_time", "time2<time1")
+            self.add_error("to_time", "time2<time1")
         if status in {"random", None}:
             if number1 is None:
                 self.add_error("from_number", "None")

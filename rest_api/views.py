@@ -100,10 +100,10 @@ class OverwiewStateHideUpdate(APIView):
         new_class: str
         if new_state:
             name = "True"
-            new_class = "btn btn-light md-blue"
+            new_class = "btn btn-light btn-light-no-border md-blue"
         else:
             name = "False"
-            new_class = "btn btn-light md-error"
+            new_class = "btn btn-light btn-light-no-border md-error"
 
         overview.show_hidden = new_state
         overview.save()

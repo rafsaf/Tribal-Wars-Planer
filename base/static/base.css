@@ -449,61 +449,6 @@ body {
   }
 }
 
-.youtube-player {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  max-width: 100%;
-  background: #000;
-  margin: 5px;
-}
-
-.youtube-player iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  background: transparent;
-}
-
-.youtube-player img {
-  object-fit: cover;
-  display: block;
-  left: 0;
-  bottom: 0;
-  margin: auto;
-  max-width: 100%;
-  width: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  border: none;
-  height: auto;
-  cursor: pointer;
-  -webkit-transition: 0.4s all;
-  -moz-transition: 0.4s all;
-  transition: 0.4s all;
-}
-
-.youtube-player img:hover {
-  -webkit-filter: brightness(75%);
-}
-
-.youtube-player .play {
-  height: 72px;
-  width: 72px;
-  left: 50%;
-  top: 50%;
-  margin-left: -36px;
-  margin-top: -36px;
-  position: absolute;
-  background: url("//i.imgur.com/TxzC70f.png") no-repeat;
-  cursor: pointer;
-}
-
 .fixed-scrollbar-container {
   overflow: auto;
 }
@@ -595,4 +540,94 @@ table.vis.tribalwarsbg {
 }
 .footer-center .footer-link {
   letter-spacing: 0.15rem;
+}
+a.t-tab-teal {
+  font-size: 1.05rem;
+  box-shadow: 0 -4px 0 0 white;
+  font-weight: 450;
+  padding: 0.3em 0.9em 0.5em;
+  border: 1px solid hsl(219, 1%, 72%);
+  background: hsl(220, 20%, 94%);
+}
+
+@media (max-width: 700px) {
+  .t-tab-teal {
+    font-size: 0.8rem;
+  }
+}
+
+a.t-tab-teal {
+  color: black !important;
+}
+a.t-tab-teal:hover {
+  color: black !important;
+  text-decoration: none;
+}
+
+.t-tab-teal:hover {
+  box-shadow: 0 -3px 0 0 hsl(219, 1%, 72%);
+}
+
+.t-tab-teal.t-tab-teal.t-tab-teal-active {
+  background: hsl(220, 43%, 99%);
+}
+
+.t-tab-teal.t-tab-teal-active {
+  box-shadow: 0 -5px 0 0 teal;
+}
+
+.lines-wrapper {
+  color: #999;
+  font-family: monospace;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd !important;
+}
+
+.select-wrapper {
+  margin: auto;
+  max-width: 600px;
+  width: calc(100% - 40px);
+}
+.st0 {
+  fill: #7289da;
+}
+img#large {
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+button.btn-light {
+  border: 1px solid rgb(136, 135, 135);
+}
+button.btn-light-no-border {
+  border: 1px solid #f8f9fa;
+}
+
+a.nav-link.nav-link-pills {
+  border: 1px solid rgb(136, 135, 135);
+  border-right: 0px;
+  border-radius: 0px !important;
+}
+a.nav-link.nav-link-pills.last-nav-link {
+  border: 1px solid rgb(136, 135, 135);
+  border-radius: 0px !important;
+}
+.selected {
+  background-color: rgb(106, 196, 196) !important;
+}
+.copy-button {
+  border: 0;
+  background-color: white;
+}
+.border-row {
+  font-weight: 500;
+}
+.no-ind-ul ul {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  list-style: none;
+  padding-left: 0;
+}
+​ .no-ind-ul {
+  font-size: larger;
 }
