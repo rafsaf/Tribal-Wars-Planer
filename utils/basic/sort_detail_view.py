@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Set
 
 from django.core.paginator import Paginator
 from django.db.models import ExpressionWrapper, F, FloatField, Q
@@ -8,6 +8,23 @@ from base.models import Outline, TargetVertex
 
 
 class SortAndPaginRequest:
+    VALID_SORT_LIST: Set[str] = {
+        "distance",
+        "random_distance",
+        "-distance",
+        "-off_left",
+        "-nobleman_left",
+        "closest_offs",
+        "random_offs",
+        "farthest_offs",
+        "closest_noblemans",
+        "random_noblemans",
+        "farthest_noblemans",
+        "closest_noble_offs",
+        "random_noble_offs",
+        "farthest_noble_offs",
+    }
+
     def __init__(
         self,
         outline: Outline,
@@ -22,25 +39,10 @@ class SortAndPaginRequest:
         self.y_coord: int = target.coord_tuple()[1]
         self.page: Optional[str] = request_GET_page
         self.filtr: str = request_GET_filtr or ""
-        VALID = [
-            "distance",
-            "random_distance",
-            "-distance",
-            "-off_left",
-            "-nobleman_left",
-            "closest_offs",
-            "random_offs",
-            "farthest_offs",
-            "closest_noblemans",
-            "random_noblemans",
-            "farthest_noblemans",
-            "closest_noble_offs",
-            "random_noble_offs",
-            "farthest_noble_offs",
-        ]
+
         if request_GET_sort is None:
             self.sort = "distance"
-        if request_GET_sort in VALID:
+        if request_GET_sort in self.VALID_SORT_LIST:
             self.sort = request_GET_sort
         else:
             self.sort = "distance"

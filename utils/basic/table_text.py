@@ -6,13 +6,14 @@ from base import models
 
 
 class TableText:
+    NEXT_LINE = "\r\n"
+    NEXT_LINE_DOUBLE = "\r\n\r\n"
+    POSTFIX = "[/table]"
+
     def __init__(self, world: models.World):
-        self.__next_line = "\r\n"
-        self.__next_line_double = "\r\n\r\n"
-        self.__prefix = _(
+        self.PREFIX = _(
             "[table][**][||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
         )
-        self.__postfix = "[/table]"
         self.result = {}
         self.table_result = {}
         self.string_result = {}
@@ -185,47 +186,43 @@ class TableText:
 
     def __create_table(self):
         for player, lst in self.result.items():
-            table = str(self.__next_line + self.__next_line + self.__prefix)
+            table = str(self.NEXT_LINE + self.NEXT_LINE + self.PREFIX)
             for i, weight in enumerate(lst):
                 table += f"[*]{i+1}" + self.weight_table[weight]
                 if i % 31 == 0 and i != 0:
                     table += (
-                        self.__postfix
-                        + self.__next_line_double
-                        + self.__next_line_double
-                        + self.__next_line_double
-                        + self.__prefix
+                        self.POSTFIX
+                        + self.NEXT_LINE_DOUBLE
+                        + self.NEXT_LINE_DOUBLE
+                        + self.NEXT_LINE_DOUBLE
+                        + self.PREFIX
                     )
 
-            table += self.__postfix
+            table += self.POSTFIX
             self.table_result[player] = table
 
     def __create_string(self):
         for player, lst in self.result.items():
-            text = str(self.__next_line + self.__next_line)
+            text = str(self.NEXT_LINE + self.NEXT_LINE)
             for i, weight in enumerate(lst):
-                text += (
-                    f"{i+1}. " + self.weight_string[weight] + self.__next_line_double
-                )
+                text += f"{i+1}. " + self.weight_string[weight] + self.NEXT_LINE_DOUBLE
 
             self.string_result[player] = text
 
     def __create_deputy(self):
         for player, lst in self.result.items():
-            text = str(self.__next_line + self.__next_line)
+            text = str(self.NEXT_LINE + self.NEXT_LINE)
             for i, weight in enumerate(lst):
-                text += (
-                    f"{i+1}. " + self.weight_deputy[weight] + self.__next_line_double
-                )
+                text += f"{i+1}. " + self.weight_deputy[weight] + self.NEXT_LINE_DOUBLE
 
             self.deputy_result[player] = text
 
     def __create_extended(self):
         for player, lst in self.result.items():
-            text = str(self.__next_line + self.__next_line)
+            text = str(self.NEXT_LINE + self.NEXT_LINE)
             for i, weight in enumerate(lst):
                 text += (
-                    f"{i+1}. " + self.weight_extended[weight] + self.__next_line_double
+                    f"{i+1}. " + self.weight_extended[weight] + self.NEXT_LINE_DOUBLE
                 )
 
             self.extended_result[player] = text
@@ -234,9 +231,9 @@ class TableText:
         result = ""
         for player in self.string_result:
             result += player
-            result += self.__next_line
+            result += self.NEXT_LINE
             result += self.string_result[player]
-            result += self.__next_line_double
+            result += self.NEXT_LINE_DOUBLE
             result = re.sub(r"\[size=12\]|\[/size\]", "", result)
         return result
 
