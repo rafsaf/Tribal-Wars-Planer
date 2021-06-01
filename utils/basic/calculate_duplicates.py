@@ -1,4 +1,4 @@
-from functools import lru_cache
+from functools import cached_property
 from typing import Dict, List
 
 from django.db.models.aggregates import Count
@@ -7,13 +7,13 @@ from django.db.models.query import QuerySet
 from base.models import Outline
 from base.models import TargetVertex as Target
 
-from . import basic
+from utils.basic.mode import TargetMode
 
 
 class CalcultateDuplicates:
-    def __init__(self, outline: Outline, target_mode: basic.TargetMode) -> None:
+    def __init__(self, outline: Outline, target_mode: TargetMode) -> None:
         self.outline: Outline = outline
-        self.target_mode: basic.TargetMode = target_mode
+        self.target_mode: TargetMode = target_mode
         self.all_targets: "QuerySet[Target]" = Target.objects.filter(outline=outline)
 
     def _real_targets(self) -> "QuerySet[Target]":
@@ -33,23 +33,19 @@ class CalcultateDuplicates:
         else:
             return self._ruin_targets().order_by("pk")
 
-    @property
-    @lru_cache()
+    @cached_property
     def len_real(self) -> int:
         return self._real_targets().count()
 
-    @property
-    @lru_cache()
+    @cached_property
     def len_fake(self) -> int:
         return self._fake_targets().count()
 
-    @property
-    @lru_cache()
+    @cached_property
     def len_ruin(self) -> int:
         return self._ruin_targets().count()
 
-    @property
-    @lru_cache()
+    @cached_property
     def actual_len(self):
         if self.target_mode.is_real:
             return self.len_real

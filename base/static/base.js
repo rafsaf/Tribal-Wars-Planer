@@ -329,9 +329,9 @@ const handleAllFormsetSelect = () => {
   });
 };
 
-const handleClickButton = (element, message, formId) => {
+const handleClickButton = (element, message, formId, percentId = "") => {
   element.disabled = true;
-  element.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span> ${message}`;
+  element.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span> ${message} <span id=${percentId}></span>`;
   const form = document.getElementById(formId);
   form.submit();
 };
