@@ -1,12 +1,13 @@
 import datetime
-from base.models import Outline, Profile, Server, Tribe, World
-import string
 import random
-from typing import Optional, Literal
+import string
+from typing import Literal, Optional
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
+from base.models import Outline, Profile, Server, Tribe, World
 from base.tests.utils.create_user import create_user
 
 

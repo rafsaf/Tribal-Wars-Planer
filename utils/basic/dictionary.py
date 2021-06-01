@@ -1,6 +1,7 @@
 """ functions to generate coord-to-player dictionaries """
 from typing import Dict, List
-from base.models import VillageModel, Outline, World
+
+from base.models import Outline, VillageModel, World
 
 
 def coord_to_player(outline: Outline) -> Dict[str, str]:

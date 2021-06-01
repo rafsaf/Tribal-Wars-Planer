@@ -1,6 +1,6 @@
-from django_registration.forms import RegistrationForm
-from captcha.fields import ReCaptchaField
 from captcha import widgets
+from captcha.fields import ReCaptchaField
+from django_registration.forms import RegistrationForm
 
 
 class RecaptchaRegistrationForm(RegistrationForm):

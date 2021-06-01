@@ -1,10 +1,10 @@
-import string
 import random
+import string
 
 from django.test import TestCase
 
-from base.tests.utils.initial_setup import create_initial_data
 from base.models import Outline, TargetVertex, WeightMaximum, WeightModel
+from base.tests.utils.initial_setup import create_initial_data
 
 
 class ChangesViewSetup(TestCase):

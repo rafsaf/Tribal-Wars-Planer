@@ -1,12 +1,12 @@
 from itertools import zip_longest
 
-from django.urls import reverse
-from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.shortcuts import get_object_or_404
 from django.db.models import Max, Min
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from django.views.decorators.http import require_POST
+
 from base import models
 from utils import basic
 

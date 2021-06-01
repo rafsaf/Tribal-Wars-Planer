@@ -1,16 +1,17 @@
 import datetime
+
 from django.conf import settings
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
+
 from base import forms
-from base.models import Server, Profile, Payment
+from base.models import Payment, Profile, Server
 
 
 @login_required

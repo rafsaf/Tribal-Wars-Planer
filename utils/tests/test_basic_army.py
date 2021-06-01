@@ -1,10 +1,10 @@
 """ Tests for basic.army.py, later tests for init and fiew test for off form """
 import datetime
 
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 
-from base import models, forms
+from base import forms, models
 from utils import basic
 
 

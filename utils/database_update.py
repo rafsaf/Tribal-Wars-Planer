@@ -1,11 +1,11 @@
-from xml.etree import ElementTree
 from urllib.parse import unquote, unquote_plus
-import requests
+from xml.etree import ElementTree
 
+import requests
 from django.db.models import Count
 from django.utils import timezone
 
-from base.models import VillageModel, Tribe, Player, World
+from base.models import Player, Tribe, VillageModel, World
 
 
 def cron_schedule_data_update():

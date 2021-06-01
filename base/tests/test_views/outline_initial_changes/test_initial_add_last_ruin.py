@@ -1,9 +1,8 @@
 from django.urls import reverse
 
-from base.tests.test_views.outline_initial_changes.changes_view_setup import (
-    ChangesViewSetup,
-)
 from base.models import WeightModel
+from base.tests.test_views.outline_initial_changes.changes_view_setup import \
+    ChangesViewSetup
 
 
 class InitialAddLastRuin(ChangesViewSetup):

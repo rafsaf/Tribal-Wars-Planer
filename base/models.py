@@ -2,29 +2,27 @@
 import datetime
 from math import sqrt
 from typing import Dict, List, Optional
-from dateutil.relativedelta import relativedelta
 
 import django
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
-from django.core.paginator import Paginator
-from django.db.models import Sum
-from django.db.models.query import QuerySet
-from django.db.models import F, Q, Count
-from django.utils import timezone
-from django.utils.translation import gettext_lazy
-from django.db import models
 from django.contrib.auth.models import User
-from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
+from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from django.db.models import Count, F, Q, Sum
+from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
-
-from paypal.standard.models import ST_PP_COMPLETED
-from paypal.standard.ipn.signals import valid_ipn_received
+from django.urls import reverse
+from django.utils import timezone
+from django.utils.translation import gettext_lazy
 from markdownx.models import MarkdownxField
+from paypal.standard.ipn.signals import valid_ipn_received
+from paypal.standard.models import ST_PP_COMPLETED
 
 
 class Server(models.Model):
@@ -429,8 +427,8 @@ class Outline(models.Model):
         return "ID:" + str(self.pk) + ", Nazwa: " + str(self.name)
 
     def remove_user_outline(self):
-        from utils.basic import TargetMode
         from base import forms
+        from utils.basic import TargetMode
 
         self.written = "inactive"
         self.avaiable_offs = []

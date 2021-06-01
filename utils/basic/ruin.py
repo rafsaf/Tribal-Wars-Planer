@@ -1,5 +1,6 @@
 from typing import Dict, Iterator, List, Optional, Tuple
-from base.models import WeightMaximum, Outline
+
+from base.models import Outline, WeightMaximum
 
 
 class RuinHandle:

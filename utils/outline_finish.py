@@ -1,24 +1,17 @@
-from django.utils.translation import gettext as _
-import secrets
 import json
+import secrets
 from typing import Dict, List, Optional, Set
-from utils.basic import info_generatation
-from base.models import (
-    Outline,
-    OutlineOverview,
-    Overview,
-    PeriodModel,
-    Result,
-    TargetVertex,
-    WeightMaximum,
-    WeightModel,
-    Player,
-    VillageModel,
-)
-from utils import basic
-from django.forms.models import model_to_dict
+
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.query import QuerySet
+from django.forms.models import model_to_dict
+from django.utils.translation import gettext as _
+
+from base.models import (Outline, OutlineOverview, Overview, PeriodModel,
+                         Player, Result, TargetVertex, VillageModel,
+                         WeightMaximum, WeightModel)
+from utils import basic
+from utils.basic import info_generatation
 
 
 class OutdatedData(Exception):

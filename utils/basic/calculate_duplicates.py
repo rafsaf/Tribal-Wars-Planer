@@ -1,9 +1,13 @@
-from typing import Dict, List
-from . import basic
-from base.models import Outline, TargetVertex as Target
 from functools import lru_cache
-from django.db.models.query import QuerySet
+from typing import Dict, List
+
 from django.db.models.aggregates import Count
+from django.db.models.query import QuerySet
+
+from base.models import Outline
+from base.models import TargetVertex as Target
+
+from . import basic
 
 
 class CalcultateDuplicates:

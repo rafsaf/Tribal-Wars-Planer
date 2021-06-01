@@ -1,5 +1,6 @@
-from base.models import Outline
 from django.urls import reverse
+
+from base.models import Outline
 from base.tests.utils.mini_setup import MiniSetup
 
 

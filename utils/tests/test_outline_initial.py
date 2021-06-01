@@ -1,12 +1,11 @@
 from typing import List
+
 from django.test import TestCase
 from django.utils.translation import activate
-from utils.outline_initial import MakeOutline
+
+from base.models import Outline, WeightMaximum
 from base.tests.utils.initial_setup import create_initial_data_write_outline
-from base.models import (
-    Outline,
-    WeightMaximum,
-)
+from utils.outline_initial import MakeOutline
 
 # TEXT = (
 #     "500|500,0,0,10000,0,0,0,0,100,2,0,0,\r\n"

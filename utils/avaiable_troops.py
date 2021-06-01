@@ -1,15 +1,16 @@
 from math import ceil
+from time import time
 from typing import List
 
-from django.db.models import Sum, F
-from django.db.models.query import QuerySet
-
-from time import time
-from base import models
-from . import basic
-from utils import get_deff
 import numpy as np
+from django.db.models import F, Sum
+from django.db.models.query import QuerySet
 from tw_complex.brute import CDistBrute
+
+from base import models
+from utils import get_deff
+
+from . import basic
 
 
 def get_legal_coords_outline(outline: models.Outline):

@@ -1,16 +1,11 @@
 from typing import List, Tuple
+
+from django.db.models import DecimalField, ExpressionWrapper, F
 from django.db.models.query import QuerySet
-from django.db.models import (
-    F,
-    DecimalField,
-    ExpressionWrapper,
-)
-from base.models import (
-    Outline,
-    TargetVertex as Target,
-    WeightMaximum,
-    WeightModel,
-)
+
+from base.models import Outline
+from base.models import TargetVertex as Target
+from base.models import WeightMaximum, WeightModel
 
 
 class WriteNobleTarget:

@@ -1,7 +1,8 @@
 import string
+
 from django.urls import reverse
 
-from base.models import Overview, OutlineOverview
+from base.models import OutlineOverview, Overview
 from base.tests.test_views.home.home_view_setup import HomeViewSetup
 
 

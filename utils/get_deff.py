@@ -7,10 +7,12 @@ Also prining only villages in center
 
 """
 from time import time
-from tw_complex.brute import CDistBrute
+
 import numpy as np
+from tw_complex.brute import CDistBrute
 
 from base import models
+
 from . import basic
 
 

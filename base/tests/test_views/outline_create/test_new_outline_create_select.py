@@ -1,5 +1,6 @@
-from base.forms import MyTribeTagForm, EnemyTribeTagForm
 from django.urls import reverse
+
+from base.forms import EnemyTribeTagForm, MyTribeTagForm
 from base.tests.utils.mini_setup import MiniSetup
 
 

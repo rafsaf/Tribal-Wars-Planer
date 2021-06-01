@@ -1,4 +1,4 @@
-from django.db.models import F, ExpressionWrapper, CharField
+from django.db.models import CharField, ExpressionWrapper, F
 from django.db.models.functions import Cast, Concat
 
 from base import models

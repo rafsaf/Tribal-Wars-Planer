@@ -1,14 +1,13 @@
-from django.http import HttpRequest
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from utils.get_deff import get_deff
-from utils import basic
-from base import models, forms
-from django.utils.translation import gettext
-from django.utils.translation import get_language
+from django.http import HttpRequest
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils.translation import get_language, gettext
 from markdownx.utils import markdownify
+
+from base import forms, models
+from utils import basic
+from utils.get_deff import get_deff
 
 
 @login_required

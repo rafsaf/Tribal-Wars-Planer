@@ -1,7 +1,8 @@
-from base.models import Profile
 from django.urls import reverse
-from base.tests.utils.mini_setup import MiniSetup
+
 from base.forms import ChangeServerForm
+from base.models import Profile
+from base.tests.utils.mini_setup import MiniSetup
 
 
 class OutlineProfileSettings(MiniSetup):

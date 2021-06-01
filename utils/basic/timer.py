@@ -1,7 +1,7 @@
 """ File with decorator to measure function time """
 
-from time import time
 from functools import wraps
+from time import time
 
 from django.db import connection, reset_queries
 

@@ -1,6 +1,7 @@
 """ Army and Defence """
 from functools import cached_property
 from typing import List, Tuple
+
 from base import models
 from utils import basic
 

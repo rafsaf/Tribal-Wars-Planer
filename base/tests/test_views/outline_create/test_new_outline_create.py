@@ -1,7 +1,9 @@
+import datetime
+
+from django.urls import reverse
+
 from base.forms import OutlineForm
 from base.models import Outline
-from django.urls import reverse
-import datetime
 from base.tests.utils.mini_setup import MiniSetup
 
 

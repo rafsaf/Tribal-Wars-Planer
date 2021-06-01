@@ -1,10 +1,13 @@
 """ App forms """
 from typing import Dict
-from django.forms import BaseFormSet
+
 from django import forms
-from utils import basic, database_update
-from . import models
+from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
+
+from utils import basic, database_update
+
+from . import models
 
 
 class OutlineForm(forms.Form):

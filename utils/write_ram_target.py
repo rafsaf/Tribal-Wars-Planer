@@ -2,27 +2,16 @@ from random import sample
 from statistics import mean
 from time import time
 from typing import Generator, List, Optional
-from utils.basic.ruin import RuinHandle
+
+from django.db.models import (Case, DecimalField, ExpressionWrapper, F,
+                              FloatField, IntegerField, Q, Value, When)
+from django.db.models.functions import Mod
 from django.db.models.query import QuerySet
 
-from django.db.models import (
-    F,
-    Q,
-    DecimalField,
-    ExpressionWrapper,
-    IntegerField,
-    Value,
-    FloatField,
-    Case,
-    When,
-)
-from django.db.models.functions import Mod
-from base.models import (
-    Outline,
-    TargetVertex as Target,
-    WeightMaximum,
-    WeightModel,
-)
+from base.models import Outline
+from base.models import TargetVertex as Target
+from base.models import WeightMaximum, WeightModel
+from utils.basic.ruin import RuinHandle
 
 
 class WriteRamTarget:

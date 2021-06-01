@@ -1,6 +1,8 @@
 import re
-from base import models
+
 from django.utils.translation import gettext as _
+
+from base import models
 
 
 class TableText:

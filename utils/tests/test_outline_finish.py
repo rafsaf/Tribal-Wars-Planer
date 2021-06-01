@@ -1,17 +1,13 @@
 import datetime
+
 from django.test import TestCase
 from django.utils.translation import activate
 
-from utils.outline_finish import MakeFinalOutline, OutdatedData
+from base.models import Outline, OutlineOverview, Overview, PeriodModel
+from base.models import TargetVertex as Target
+from base.models import WeightModel
 from base.tests.utils.initial_setup import create_initial_data
-from base.models import (
-    Outline,
-    OutlineOverview,
-    Overview,
-    PeriodModel,
-    TargetVertex as Target,
-    WeightModel,
-)
+from utils.outline_finish import MakeFinalOutline, OutdatedData
 
 
 class TestMakeFinalOutline(TestCase):

@@ -1,8 +1,10 @@
 from typing import Optional
+
 from django.core.paginator import Paginator
-from django.db.models import F, Q, ExpressionWrapper, FloatField
-from base.models import Outline, TargetVertex
+from django.db.models import ExpressionWrapper, F, FloatField, Q
+
 from base import models
+from base.models import Outline, TargetVertex
 
 
 class SortAndPaginRequest:

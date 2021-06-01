@@ -1,20 +1,13 @@
-from django.shortcuts import get_object_or_404
 from django.http import HttpRequest
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from rest_api import serializers
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from base.models import (
-    Profile,
-    TargetVertex,
-    OutlineTime,
-    Outline,
-    WeightModel,
-    WeightMaximum,
-    Overview,
-)
+from base.models import (Outline, OutlineTime, Overview, Profile, TargetVertex,
+                         WeightMaximum, WeightModel)
+from rest_api import serializers
 
 
 class TargetTimeUpdate(APIView):

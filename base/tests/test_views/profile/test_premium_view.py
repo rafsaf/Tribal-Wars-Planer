@@ -1,4 +1,5 @@
 from django.urls import reverse
+
 from base.tests.utils.mini_setup import MiniSetup
 
 

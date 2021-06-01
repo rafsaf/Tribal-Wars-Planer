@@ -26,6 +26,7 @@ tw-complex = "^0.1.1"
 black = {version = "^21.5b1", allow-prereleases = true}
 django-debug-toolbar = "^3.2.1"
 coverage = "^5.5"
+isort = "^5.8.0"
 
 
 [build-system]

@@ -1,6 +1,8 @@
 from typing import Dict, List
-from base.models import Outline, TargetVertex as Target
+
 import utils.basic as basic
+from base.models import Outline
+from base.models import TargetVertex as Target
 
 
 class OutlineCreateTargets:
