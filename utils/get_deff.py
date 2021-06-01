@@ -51,7 +51,7 @@ def get_deff(
 def get_legal_coords(ally_villages, enemy_villages, radius):
     """Create set with ally_vill without enemy_vill closer than radius"""
     ### DEPRECATED DO NOT USE
-    print("THIS FUNCTION IS DEPRECATED!!!")
+    print("\nWARN: function get_legal_coords is deprecated")
     ally_set = set()
     for village in ally_villages.iterator(chunk_size=1000):
         ally_set.add((int(village["x_coord"]), int(village["y_coord"])))
