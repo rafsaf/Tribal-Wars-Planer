@@ -1,0 +1,15 @@
+{% extends "base/base.html" %} 
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="fixed-scrollbar-container">
+<div class="container py-1" style="min-height: 70vh; max-width:1000px !important;font-size: larger;">
+<div style="margin-right:-15px;margin-left:-15px;">
+    <h2><span class="badge badge-dark my-3">{% trans 'Your payment was cancelled!' %}</span></h2>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

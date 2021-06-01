@@ -87,23 +87,8 @@ coverage run --source='.' --omit 'venv/*,*tests*' manage.py test
 coverage report
 ```
 
-8. .env for production
+8. Stripe docker cli running
 
-```
-DEBUG="false"
-ALLOWED_HOSTS="plemiona-planer.pl,www.plemiona-planer.pl"
-SECRET_KEY="secret_key_here"
-POSTGRES_NAME="postgres"
-POSTGRES_USER="postgres"
-POSTGRES_PASSWORD="postgres"
-POSTGRES_HOST="localhost"
-POSTGRES_PORT="5432"
-EMAIL_BACKEND="django_ses.SESBackend"
-AWS_ACCESS_KEY_ID="AKIAU5MB5PQDND3JDQMH"
-AWS_SECRET_ACCESS_KEY="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"
-AWS_SES_REGION_NAME="eu-central-1"
-AWS_SES_REGION_ENDPOINT="email.eu-central-1.amazonaws.com"
-DEFAULT_FROM_EMAIL="plemionaplaner.pl@gmail.com"
-RECAPTCHA_PUBLIC_KEY="6LfTofUZAAAAAIFiXfroDC4NtxnHlXqMMHx4jiQJ"
-RECAPTCHA_PRIVATE_KEY="6LfTofUZAAAAAOPybWlY4WLU4G0v2YwcLvwLRfIH"
+```bash
+docker run --rm -it stripe/stripe-cli:latest listen --forward-to host.docker.internal:8000/en/api/stripe-webhook/ --skip-verify --api-key sk_test_51IunwoIUoiUFYBGtpnRVBVro4iqXG8pndlUlpeBd1qbMNC9U7I0u6eQuCVjJdWMQoOpJhpyrztp2kUZSHMfi29Zh00TT5Q8yyL
 ```

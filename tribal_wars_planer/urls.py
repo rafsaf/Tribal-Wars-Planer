@@ -33,5 +33,4 @@ urlpatterns = i18n_patterns(
     ),
     path("", include("django_registration.backends.one_step.urls")),
     path("", include("django.contrib.auth.urls")),
-    path("paypal/", include("paypal.standard.ipn.urls")),
 )

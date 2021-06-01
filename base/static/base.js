@@ -833,3 +833,33 @@ const fillAndSubmit = (value) => {
   inputField.value = value;
   form.submit();
 };
+
+const initialize_payment_process = (amount) => {
+  const paymentButton = document.getElementById("payment-button");
+  paymentButton.disabled = true;
+  fetch(`/api/stripe-key/`, {
+    method: "GET",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      const stripe = Stripe(data.publicKey);
+      paymentButton.onclick = () => {
+        fetch(`/api/stripe-session/${amount}`)
+          .then((result) => {
+            return result.json();
+          })
+          .then((data) => {
+            return stripe.redirectToCheckout({ sessionId: data.sessionId });
+          });
+      };
+      paymentButton.disabled = false;
+    });
+};

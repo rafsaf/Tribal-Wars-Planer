@@ -187,20 +187,6 @@ Markdown = "*"
 Pillow = "*"
 
 [[package]]
-name = "django-paypal"
-version = "1.1.1"
-description = "A pluggable Django application for integrating PayPal Payments Standard or Payments Pro"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-Django = ">=1.11"
-pytz = ">=2015.4"
-requests = ">=2.5.3"
-six = ">=1.4.1"
-
-[[package]]
 name = "django-recaptcha"
 version = "2.0.6"
 description = "Django recaptcha form field/widget app."
@@ -466,6 +452,17 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "stripe"
+version = "2.57.0"
+description = "Python bindings for the Stripe API"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[package.dependencies]
+requests = {version = ">=2.20", markers = "python_version >= \"3.0\""}
+
+[[package]]
 name = "threadpoolctl"
 version = "2.1.0"
 description = "threadpoolctl"
@@ -510,7 +507,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.10"
-content-hash = "4d7715aa880dfcf7e3576149895d556182847359e06829b6e10dc3512aeabad5"
+content-hash = "fade993da52dbfe47c8abb1d1a141f5ae2dc9962202b48e34c85e983da395161"
 
 [metadata.files]
 appdirs = [
@@ -625,10 +622,6 @@ django-debug-toolbar = [
 django-markdownx = [
     {file = "django-markdownx-3.0.1.tar.gz", hash = "sha256:e18e395cad0ade96afbb250a81cad15618e417ac3c0d9c37d964be3d8fd57bcf"},
     {file = "django_markdownx-3.0.1-py2.py3-none-any.whl", hash = "sha256:f4d8998618c0548bf5349713d805e7440684d70116de0f10413932286c4e375f"},
-]
-django-paypal = [
-    {file = "django-paypal-1.1.1.tar.gz", hash = "sha256:d2b63af6ed46407df0dcc6aa84de668a665ce5d91741750db8f66385ebc3f835"},
-    {file = "django_paypal-1.1.1-py2.py3-none-any.whl", hash = "sha256:25c303e0ff8c9625fe7ee8e6cfc0e1b39e1a3ca65f3f56b0d30c166af3adfefa"},
 ]
 django-recaptcha = [
     {file = "django_recaptcha-2.0.6-py2.py3-none-any.whl", hash = "sha256:567784963fd5400feaf92e8951d8dbbbdb4b4c48a76e225d4baa63a2c9d2cd8c"},
@@ -880,6 +873,10 @@ six = [
 sqlparse = [
     {file = "sqlparse-0.4.1-py3-none-any.whl", hash = "sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0"},
     {file = "sqlparse-0.4.1.tar.gz", hash = "sha256:0f91fd2e829c44362cbcfab3e9ae12e22badaa8a29ad5ff599f9ec109f0454e8"},
+]
+stripe = [
+    {file = "stripe-2.57.0-py2.py3-none-any.whl", hash = "sha256:178d15444d1364bca1a91f3d167409aedeb21a01835a5f9968a88bba3f79b606"},
+    {file = "stripe-2.57.0.tar.gz", hash = "sha256:965a7531c1e64253f0efbd4b31d028a66bb6e5b9352504fbcfdc72a7ba745aff"},
 ]
 threadpoolctl = [
     {file = "threadpoolctl-2.1.0-py3-none-any.whl", hash = "sha256:38b74ca20ff3bb42caca8b00055111d74159ee95c4370882bbff2b93d24da725"},

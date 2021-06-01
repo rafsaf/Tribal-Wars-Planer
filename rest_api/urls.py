@@ -3,6 +3,9 @@ from django.urls import path
 from rest_api import views
 
 urlpatterns = [
+    path("stripe-key/", views.StripeConfig.as_view()),
+    path("stripe-session/<int:amount>", views.StripeCheckoutSession.as_view()),
+    path("stripe-webhook/", views.StripeWebhook.as_view()),
     path(
         "target-time-update/<int:target_id>/<int:time_id>/",
         views.TargetTimeUpdate.as_view(),
