@@ -21,6 +21,7 @@ class MiniSetup(TestCase):
         self.username_foreign: str = self.random_lower_string()
         self.password_foreign: str = self.random_lower_string()
         create_user(self.username, self.password)
+        self.session = self.client.session
 
     def login_me(self) -> None:
         login = self.client.login(username=self.username, password=self.password)
@@ -90,7 +91,10 @@ class MiniSetup(TestCase):
             return world1
 
     def get_outline(
-        self, test_world=False, editable: Literal["active", "inactive"] = "active"
+        self,
+        test_world=False,
+        editable: Literal["active", "inactive"] = "active",
+        written: Literal["active", "inactive"] = "inactive",
     ) -> Outline:
         world = self.get_world(test_world=test_world)
         try:
@@ -102,15 +106,20 @@ class MiniSetup(TestCase):
                 world=world,
                 owner=self.me(),
                 editable=editable,
+                written=written,
             )
             if test_world:
                 outline.ally_tribe_tag = ["ALLY"]
+                outline.enemy_tribe_tag = ["ENEMY"]
                 outline.save()
                 outline.refresh_from_db()
             return outline
 
     def create_foreign_outline(
-        self, test_world=False, editable: Literal["active", "inactive"] = "active"
+        self,
+        test_world=False,
+        editable: Literal["active", "inactive"] = "active",
+        written: Literal["active", "inactive"] = "inactive",
     ) -> Outline:
         world = self.get_world(test_world=test_world)
         try:
@@ -122,6 +131,7 @@ class MiniSetup(TestCase):
                 world=world,
                 owner=self.foreign_user(),
                 editable=editable,
+                written=written,
             )
             return outline
 
