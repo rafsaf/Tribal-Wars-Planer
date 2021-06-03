@@ -702,8 +702,8 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
     )
 
 
-@require_POST
 @login_required
+@require_POST
 def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline_time: models.OutlineTime = get_object_or_404(
         models.OutlineTime.objects.select_related(), pk=pk
@@ -741,6 +741,7 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
 
 
 @login_required
+@require_POST
 def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
@@ -763,6 +764,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
 
 
 @login_required
+@require_POST
 def update_outline_troops(request: HttpRequest, id1: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user

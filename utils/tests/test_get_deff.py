@@ -1,4 +1,5 @@
 import datetime
+import numpy as np
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -253,7 +254,7 @@ class GetDeffFunctionTest(TestCase):
 
         self.assertEqual(result, expected)
 
-    def test_get_legal_coords_is_map_correct1(self):
+    def test_get_set_of_villages_is_map_correct1(self):
         list_enemy_pk = [village.pk for village in [self.ally_village1]]
         list_ally_pk = [
             village.pk
@@ -265,15 +266,33 @@ class GetDeffFunctionTest(TestCase):
                 self.ally_village6,
             ]
         ]
-        list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk).values()
-        list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk).values()
-        self.assertEqual(deff.get_legal_coords(list_ally, list_enemy, 4), set())
+        list_ally = np.array(
+            models.VillageModel.objects.filter(pk__in=list_ally_pk).values_list(
+                "x_coord", "y_coord"
+            )
+        )
+        list_enemy = np.array(
+            models.VillageModel.objects.filter(pk__in=list_enemy_pk).values_list(
+                "x_coord", "y_coord"
+            )
+        )
+        self.assertEqual(deff.get_set_of_villages(list_ally, list_enemy, 4), set())
 
-    def test_get_legal_coords_is_map_correct2(self):
+    def test_get_set_of_villages_is_map_correct2(self):
         list_ally_pk = [village.pk for village in [self.enemy_village2]]
         list_enemy_pk = [
             village.pk for village in [self.ally_village2, self.ally_village6]
         ]
-        list_ally = models.VillageModel.objects.filter(pk__in=list_ally_pk).values()
-        list_enemy = models.VillageModel.objects.filter(pk__in=list_enemy_pk).values()
-        self.assertEqual(deff.get_legal_coords(list_ally, list_enemy, 4), {(500, 506)})
+        list_ally = np.array(
+            models.VillageModel.objects.filter(pk__in=list_ally_pk).values_list(
+                "x_coord", "y_coord"
+            )
+        )
+        list_enemy = np.array(
+            models.VillageModel.objects.filter(pk__in=list_enemy_pk).values_list(
+                "x_coord", "y_coord"
+            )
+        )
+        self.assertEqual(
+            deff.get_set_of_villages(list_ally, list_enemy, 4), {"500|506"}
+        )

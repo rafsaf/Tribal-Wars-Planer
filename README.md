@@ -90,7 +90,7 @@ python manage.py test
 Test coverage
 
 ```bash
-coverage run --source='.' --omit 'venv/*,*tests*' manage.py test
+coverage run --source='.' --omit '.venv/*,*tests*,venv/*' manage.py test
 
 coverage report
 ```

@@ -6,8 +6,7 @@ From script Obrona to nice good looking version
 Also prining only villages in center
 
 """
-from time import time
-
+from logging import getLogger
 import numpy as np
 from tw_complex.brute import CDistBrute
 
@@ -46,22 +45,6 @@ def get_deff(
         radius,
         outline,
     )
-
-
-def get_legal_coords(ally_villages, enemy_villages, radius):
-    """Create set with ally_vill without enemy_vill closer than radius"""
-    ### DEPRECATED DO NOT USE
-    print("\nWARN: function get_legal_coords is deprecated")
-    ally_set = set()
-    for village in ally_villages.iterator(chunk_size=1000):
-        ally_set.add((int(village["x_coord"]), int(village["y_coord"])))
-    for village in enemy_villages.iterator(chunk_size=1000):
-        for coord in basic.yield_circle(
-            radius, (village["x_coord"], village["y_coord"])
-        ):
-            ally_set.discard(coord)
-
-    return ally_set
 
 
 def get_set_of_villages(

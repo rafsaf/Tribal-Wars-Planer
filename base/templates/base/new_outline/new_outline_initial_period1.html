@@ -125,7 +125,8 @@
                 {% endif %}
               </form>
 
-              <form id="form-complete" action="{% url 'base:planer_complete' instance.id %}">
+              <form id="form-complete" method="POST" action="{% url 'base:planer_complete' instance.id %}">
+                {% csrf_token %}
               </form>
 
                 <div class="btn-group my-3">
@@ -463,7 +464,8 @@
                       <path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242-2.532-4.431zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24l2.552-4.467zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.498.498 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244l-1.716-3.004z"/>
                     </svg> {% trans 'Updating off troops:' %}</span></h3>
                     <p>{% trans "After pasting the data from the tribe into the Army collection in the previous tab, equivalents models are created in the database for each village (the entered line). This process only takes place once, the first time you enter this tab. If you changed (e.g. you added a new 100 lines of data) the Army collection, use the button below." %}</p>
-                    <form id="form-update" action="{% url 'base:planer_update_troops' instance.id %}">
+                    <form method="POST" id="form-update" action="{% url 'base:planer_update_troops' instance.id %}">
+                      {% csrf_token %}
                       <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-update`);" id="form-update-btn" class="btn btn-outline-ocean mb-3">
                         <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
