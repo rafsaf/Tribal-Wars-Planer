@@ -1,9 +1,7 @@
-from base import forms
 from django.urls import reverse
 
-from base.models import TargetVertex, WeightMaximum
+from base.models import WeightMaximum
 from base.tests.utils.mini_setup import MiniSetup
-from django.utils import timezone
 
 
 class UpdateOutlineTroops(MiniSetup):
@@ -12,6 +10,8 @@ class UpdateOutlineTroops(MiniSetup):
         PATH = reverse("base:planer_update_troops", args=[outline.pk])
 
         response = self.client.get(PATH)
+        assert response.status_code == 302
+        response = self.client.post(PATH)
         assert response.status_code == 302
         assert response.url == self.login_page_path(next=PATH)
 
@@ -34,6 +34,8 @@ class UpdateOutlineTroops(MiniSetup):
         PATH = reverse("base:planer_update_troops", args=[outline.pk])
         REDIRECT = reverse("base:planer_detail", args=[outline.pk])
         self.login_me()
+        response = self.client.get(PATH)
+        assert response.status_code == 405
         response = self.client.post(PATH)
         assert response.status_code == 302
         assert response.url == REDIRECT

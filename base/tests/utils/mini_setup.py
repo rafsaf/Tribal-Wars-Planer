@@ -209,8 +209,9 @@ class MiniSetup(TestCase):
         player: str = "AllyPlayer3",
         off: int = 0,
         noble: int = 0,
+        many: int = 1,
     ):
-        TargetVertex.objects.create(
+        target: TargetVertex = TargetVertex(
             outline=outline,
             target=coord,
             player=player,
@@ -219,3 +220,7 @@ class MiniSetup(TestCase):
             required_off=off,
             required_noble=noble,
         )
+        if many > 1:
+            TargetVertex.objects.bulk_create([target for _ in range(many)])
+        else:
+            target.save()
