@@ -1,4 +1,4 @@
-from typing import Set, Literal, Optional
+from typing import Literal, Optional, Set
 
 from django.utils.translation import gettext as _
 

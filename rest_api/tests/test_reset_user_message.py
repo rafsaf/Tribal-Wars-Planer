@@ -1,6 +1,6 @@
-import json
 from django.urls import reverse
-from base.models import OutlineTime, Profile, TargetVertex, WeightMaximum, WeightModel
+
+from base.models import Profile
 from base.tests.utils.mini_setup import MiniSetup
 
 

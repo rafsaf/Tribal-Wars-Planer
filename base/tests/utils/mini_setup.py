@@ -7,17 +7,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from base.models import (
-    Outline,
-    OutlineOverview,
-    OutlineTime,
-    Overview,
-    Profile,
-    Server,
-    TargetVertex,
-    Tribe,
-    World,
-)
+from base.models import (Outline, OutlineOverview, OutlineTime, Overview,
+                         Profile, Server, TargetVertex, Tribe, World)
 from base.tests.utils.create_user import create_user
 
 

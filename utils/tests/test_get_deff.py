@@ -1,6 +1,6 @@
 import datetime
-import numpy as np
 
+import numpy as np
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils.translation import activate

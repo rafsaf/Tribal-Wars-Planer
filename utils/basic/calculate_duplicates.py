@@ -6,7 +6,6 @@ from django.db.models.query import QuerySet
 
 from base.models import Outline
 from base.models import TargetVertex as Target
-
 from utils.basic.mode import TargetMode
 
 

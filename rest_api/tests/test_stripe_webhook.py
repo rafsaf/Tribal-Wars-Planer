@@ -1,6 +1,5 @@
 from django.urls import reverse
-from django.conf import settings
-from base.models import OutlineTime, Profile, TargetVertex, WeightMaximum, WeightModel
+
 from base.tests.utils.mini_setup import MiniSetup
 
 

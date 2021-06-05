@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import get_language, gettext
@@ -11,7 +11,7 @@ from utils.get_deff import get_deff
 
 
 @login_required
-def outline_detail_get_deff(request, _id):
+def outline_detail_get_deff(request: HttpRequest, _id: int) -> HttpResponse:
     """details user outline, get deff page"""
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
     result = get_object_or_404(models.Result, pk=instance)
@@ -45,7 +45,7 @@ def outline_detail_get_deff(request, _id):
             try:
                 result.results_get_deff = get_deff(
                     outline=instance,
-                    radius=int(request.POST.get("radius")),
+                    radius=int(request.POST.get("radius") or 0),
                     excluded_villages=request.POST.get("excluded"),
                 )
             except basic.DeffException:
@@ -71,9 +71,9 @@ def outline_detail_get_deff(request, _id):
 
 
 @login_required
-def outline_detail_results(request: HttpRequest, _id):
+def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
     """view for results"""
-    instance = get_object_or_404(
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
     overviews = models.Overview.objects.filter(
@@ -82,7 +82,7 @@ def outline_detail_results(request: HttpRequest, _id):
     removed_overviews = models.Overview.objects.filter(
         outline=instance, removed=True
     ).order_by("-created", "player")
-    world = instance.world
+    world: models.World = instance.world
     name_prefix = world.link_to_game()
 
     form1 = forms.SettingMessageForm(request.POST or None)
@@ -108,6 +108,8 @@ def outline_detail_results(request: HttpRequest, _id):
                 instance.save()
 
                 overviews_update_lst = []
+
+                overview: models.Overview
                 for overview in overviews:
                     overview.show_hidden = default_show_hidden
                     overviews_update_lst.append(overview)

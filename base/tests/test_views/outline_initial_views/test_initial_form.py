@@ -1,9 +1,9 @@
-from base import forms
 from django.urls import reverse
+from django.utils import timezone
 
+from base import forms
 from base.models import TargetVertex, WeightMaximum
 from base.tests.utils.mini_setup import MiniSetup
-from django.utils import timezone
 
 
 class InitialForm(MiniSetup):
