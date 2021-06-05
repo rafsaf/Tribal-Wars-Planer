@@ -20,9 +20,9 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 ADMINS = [("admin", os.environ["DEFAULT_FROM_EMAIL"])]
 
 INSTALLED_APPS = [
-    "base.apps.BaseConfig",
+    "base",
+    "rest_api",
     "utils",
-    "rest_api.apps.ApiConfig",
     "crispy_forms",
     "markdownx",
     "django_registration",

@@ -208,7 +208,9 @@ class StripeWebhook(APIView):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
         payload = request.body
-        sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
+        sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+        if sig_header is None:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         event = None
 
         try:

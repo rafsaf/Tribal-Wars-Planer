@@ -1,0 +1,61 @@
+from django.urls import reverse
+from django.conf import settings
+from base.models import OutlineTime, Profile, TargetVertex, WeightMaximum, WeightModel
+from base.tests.utils.mini_setup import MiniSetup
+
+
+class StripeCheckoutSession(MiniSetup):
+    def test_stripe_session___403_not_auth(self):
+
+        PATH = reverse("rest_api:stripe_session", args=[30])
+
+        response = self.client.get(PATH)
+        assert response.status_code == 403
+        response = self.client.post(PATH)
+        assert response.status_code == 403
+        response = self.client.delete(PATH)
+        assert response.status_code == 403
+        response = self.client.put(PATH)
+        assert response.status_code == 403
+
+    def test_stripe_session___200_works_properly(self):
+        self.login_me()
+        PATH = reverse("rest_api:stripe_session", args=[33])
+
+        response = self.client.get(PATH)
+        assert response.status_code == 400
+
+        PATH = reverse("rest_api:stripe_session", args=[30])
+
+        response = self.client.get(PATH)
+        assert response.status_code == 200
+        result = response.json()
+        assert result["sessionId"] is not None
+
+        PATH = reverse("rest_api:stripe_session", args=[55])
+
+        response = self.client.get(PATH)
+        assert response.status_code == 200
+        result = response.json()
+        assert result["sessionId"] is not None
+
+        PATH = reverse("rest_api:stripe_session", args=[70])
+
+        response = self.client.get(PATH)
+        assert response.status_code == 200
+        result = response.json()
+        assert result["sessionId"] is not None
+
+        PATH = reverse("rest_api:stripe_session", args=[80])
+
+        response = self.client.get(PATH)
+        assert response.status_code == 400
+
+        response = self.client.post(PATH)
+        assert response.status_code == 405
+
+        response = self.client.delete(PATH)
+        assert response.status_code == 405
+
+        response = self.client.put(PATH)
+        assert response.status_code == 405

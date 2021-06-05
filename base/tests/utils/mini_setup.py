@@ -9,7 +9,9 @@ from django.urls import reverse
 
 from base.models import (
     Outline,
+    OutlineOverview,
     OutlineTime,
+    Overview,
     Profile,
     Server,
     TargetVertex,
@@ -235,3 +237,13 @@ class MiniSetup(TestCase):
 
     def create_outline_time(self, outline: Outline) -> OutlineTime:
         return OutlineTime.objects.create(outline=outline)
+
+    def create_overview(self, outline: Outline) -> Overview:
+        outline_overview = OutlineOverview.objects.create(outline=outline)
+        return Overview.objects.create(
+            outline_overview=outline_overview,
+            player=self.random_lower_string(),
+            token=self.random_lower_string(),
+            table=self.random_lower_string(),
+            string=self.random_lower_string(),
+        )
