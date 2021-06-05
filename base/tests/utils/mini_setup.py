@@ -7,7 +7,15 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from base.models import Outline, Profile, Server, TargetVertex, Tribe, World
+from base.models import (
+    Outline,
+    OutlineTime,
+    Profile,
+    Server,
+    TargetVertex,
+    Tribe,
+    World,
+)
 from base.tests.utils.create_user import create_user
 
 
@@ -110,7 +118,7 @@ class MiniSetup(TestCase):
     def random_lower_string(self, length=20) -> str:
         return "".join(random.choices(string.ascii_lowercase, k=length))
 
-    def random_integer(self, minimum: int = 0, maximum: int = 50):
+    def random_integer(self, minimum: int = 0, maximum: int = 50) -> int:
         return random.randint(minimum, maximum)
 
     def get_world(self, test_world=False) -> World:
@@ -210,7 +218,7 @@ class MiniSetup(TestCase):
         off: int = 0,
         noble: int = 0,
         many: int = 1,
-    ):
+    ) -> None:
         target: TargetVertex = TargetVertex(
             outline=outline,
             target=coord,
@@ -224,3 +232,6 @@ class MiniSetup(TestCase):
             TargetVertex.objects.bulk_create([target for _ in range(many)])
         else:
             target.save()
+
+    def create_outline_time(self, outline: Outline) -> OutlineTime:
+        return OutlineTime.objects.create(outline=outline)

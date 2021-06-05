@@ -677,8 +677,8 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     )
 
 
-@require_POST
 @login_required
+@require_POST
 def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline_time: models.OutlineTime = get_object_or_404(
         models.OutlineTime.objects.select_related(), pk=pk
