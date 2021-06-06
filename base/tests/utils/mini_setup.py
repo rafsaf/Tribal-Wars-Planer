@@ -7,8 +7,18 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from base.models import (Outline, OutlineOverview, OutlineTime, Overview,
-                         Profile, Server, TargetVertex, Tribe, World)
+from base.models import (
+    Outline,
+    OutlineOverview,
+    OutlineTime,
+    Overview,
+    Profile,
+    Result,
+    Server,
+    TargetVertex,
+    Tribe,
+    World,
+)
 from base.tests.utils.create_user import create_user
 
 
@@ -152,6 +162,7 @@ class MiniSetup(TestCase):
         test_world=False,
         editable: Literal["active", "inactive"] = "active",
         written: Literal["active", "inactive"] = "inactive",
+        add_result: bool = False,
     ) -> Outline:
         world = self.get_world(test_world=test_world)
         try:
@@ -170,6 +181,8 @@ class MiniSetup(TestCase):
                 outline.enemy_tribe_tag = ["ENEMY"]
                 outline.save()
                 outline.refresh_from_db()
+            if add_result:
+                Result.objects.create(outline=outline)
             return outline
 
     def create_foreign_outline(
@@ -233,8 +246,10 @@ class MiniSetup(TestCase):
         outline_overview = OutlineOverview.objects.create(outline=outline)
         return Overview.objects.create(
             outline_overview=outline_overview,
+            outline=outline,
             player=self.random_lower_string(),
             token=self.random_lower_string(),
             table=self.random_lower_string(),
             string=self.random_lower_string(),
+            removed=False,
         )

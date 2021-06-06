@@ -107,15 +107,8 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
                 instance.text_message = text_message.replace("\r\n", "%0A")
                 instance.save()
 
-                overviews_update_lst = []
+                overviews.update(show_hidden=default_show_hidden)
 
-                overview: models.Overview
-                for overview in overviews:
-                    overview.show_hidden = default_show_hidden
-                    overviews_update_lst.append(overview)
-                models.Overview.objects.bulk_update(
-                    overviews_update_lst, fields=["show_hidden"]
-                )
                 return redirect("base:planer_detail_results", _id)
 
     context = {

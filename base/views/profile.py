@@ -1,12 +1,7 @@
-import datetime
-
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
-from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from base import forms
@@ -60,5 +55,5 @@ def premium_view(request: HttpRequest) -> HttpResponse:
 
 @login_required
 @csrf_exempt
-def payment_done(request):
+def payment_done(request: HttpRequest) -> HttpResponse:
     return render(request, "base/user/payment_done.html")
