@@ -1,7 +1,7 @@
 from django.urls import reverse
 
 from base.models import WeightMaximum, WeightModel
-from base.tests.utils.mini_setup import MiniSetup
+from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class CompleteOutline(MiniSetup):

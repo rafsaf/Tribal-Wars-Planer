@@ -6,7 +6,7 @@ from django.utils.translation import activate
 from base.models import Outline, OutlineOverview, Overview, PeriodModel
 from base.models import TargetVertex as Target
 from base.models import WeightModel
-from base.tests.utils.initial_setup import create_initial_data
+from base.tests.test_utils.initial_setup import create_initial_data
 from utils.outline_finish import MakeFinalOutline, OutdatedData
 
 

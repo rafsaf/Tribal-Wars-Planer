@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from base import forms
 from base.models import TargetVertex, WeightMaximum
-from base.tests.utils.mini_setup import MiniSetup
+from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class InitialForm(MiniSetup):
