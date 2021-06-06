@@ -17,6 +17,8 @@ from base.models import (
     Server,
     TargetVertex,
     Tribe,
+    WeightMaximum,
+    WeightModel,
     World,
 )
 from base.tests.test_utils.create_user import create_user
@@ -252,4 +254,28 @@ class MiniSetup(TestCase):
             table=self.random_lower_string(),
             string=self.random_lower_string(),
             removed=False,
+        )
+
+    def create_weight_maximum(self, outline: Outline, start="110|110") -> WeightMaximum:
+        return WeightMaximum.objects.create(
+            outline=outline,
+            start=start,
+            player="player",
+            off_max=15000,
+            off_left=1500,
+            nobleman_max=5,
+            nobleman_left=5,
+        )
+
+    def create_weight(
+        self, target: TargetVertex, weight_max: WeightMaximum, start="500|500"
+    ) -> WeightModel:
+        return WeightModel.objects.create(
+            target=target,
+            state=weight_max,
+            start=start,
+            off=self.random_integer(),
+            distance=self.random_integer(),
+            nobleman=self.random_integer(),
+            order=1,
         )

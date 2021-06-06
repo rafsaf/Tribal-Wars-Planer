@@ -489,6 +489,7 @@ class Outline(models.Model):
         result.results_outline = ""
         result.results_players = ""
         result.results_sum_up = ""
+        result.results_export = ""
         result.save()
         self.save()
 
