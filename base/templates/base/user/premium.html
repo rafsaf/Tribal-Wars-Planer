@@ -46,7 +46,7 @@
     <p>{% trans 'Note, payments in currencies other than PLN are already supported on the Stripe website (which will take care of any currency conversion)!' %}</p>
     <h2><span class="badge badge-dark my-3">{% trans '1. Buy now with Stripe:' %}</span></h2>
 
-    <select onchange="initialize_payment_process(value)" name="amount" style="width: 200px; font-size: 20px; margin-top: 5px; margin-bottom: 1rem;">
+    <select onchange="initialize_payment_process(value)" id="amount-select" style="width: 200px; font-size: 20px; margin-top: 5px; margin-bottom: 1rem;">
         <option id="option-1" value="30">{% trans '1 month' %}</option>
         <option id="option-2" value="55">{% trans '2 months' %}</option>
         <option id="option-3" value="70">{% trans '3 months' %}</option>

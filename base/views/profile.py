@@ -58,11 +58,7 @@ def premium_view(request: HttpRequest) -> HttpResponse:
     return render(request, "base/user/premium.html", context=context)
 
 
+@login_required
 @csrf_exempt
 def payment_done(request):
     return render(request, "base/user/payment_done.html")
-
-
-@csrf_exempt
-def payment_cancelled(request):
-    return render(request, "base/user/payment_cancelled.html")

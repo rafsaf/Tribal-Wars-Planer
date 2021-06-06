@@ -12,8 +12,16 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from base.models import (Outline, OutlineTime, Overview, Payment, Profile,
-                         TargetVertex, WeightMaximum, WeightModel)
+from base.models import (
+    Outline,
+    OutlineTime,
+    Overview,
+    Payment,
+    Profile,
+    TargetVertex,
+    WeightMaximum,
+    WeightModel,
+)
 from rest_api import serializers
 
 
@@ -171,7 +179,7 @@ class StripeCheckoutSession(APIView):
         user_pk: int = request.user.pk
         http = "http://"
         success = reverse("base:payment_done")
-        cancel = reverse("base:payment_cancelled")
+        cancel = reverse("base:premium")
         try:
             checkout_session = stripe.checkout.Session.create(
                 success_url=f"{http}{host}{success}",
