@@ -514,8 +514,8 @@ class InitialForm(MiniSetup):
         # also table is filled correctly
         assert outline.avaiable_offs == [50, 13, 18, 19]
         assert outline.avaiable_nobles == [60, 46, 14, 0]
-        assert outline.avaiable_offs_near == [20, 13, 7]
-        assert outline.avaiable_nobles_near == [60, 46, 14]
+        assert outline.avaiable_offs_near == [20, 13, 7, 0]
+        assert outline.avaiable_nobles_near == [60, 46, 14, 0]
         assert outline.avaiable_ruins == 1850
 
         assert WeightMaximum.objects.filter(too_far_away=True).count() == 19
