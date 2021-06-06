@@ -8,9 +8,6 @@ from django.db.models.query import QuerySet
 from tw_complex.brute import CDistBrute
 
 from base import models
-from utils import get_deff
-
-from . import basic
 
 
 def get_legal_coords_outline(outline: models.Outline):
@@ -126,12 +123,12 @@ def get_legal_coords_outline(outline: models.Outline):
     all_weights: "QuerySet[models.WeightMaximum]" = models.WeightMaximum.objects.filter(
         outline=outline,
         off_max__gte=outline.initial_outline_min_off,
-        too_far_away=False,
     ).filter(start__in=close_starts)
 
     all_off: int = all_weights.count()
     front_off: int = all_weights.filter(first_line=True).count()
-    back_off: int = all_off - front_off
+    too_far_off: int = all_weights.filter(too_far_away=True).count()
+    back_off: int = all_off - front_off - too_far_off
 
     snob_weights = models.WeightMaximum.objects.filter(
         outline=outline, nobleman_max__gte=1, too_far_away=False
@@ -141,10 +138,14 @@ def get_legal_coords_outline(outline: models.Outline):
     front_noble: int = (
         snob_weights.filter(first_line=True).aggregate(n=Sum("nobleman_max"))["n"] or 0
     )
-    back_noble: int = all_noble - front_noble
+    too_far_noble: int = (
+        snob_weights.filter(too_far_away=True).aggregate(n=Sum("nobleman_max"))["n"]
+        or 0
+    )
+    back_noble: int = all_noble - front_noble - too_far_noble
 
-    outline.avaiable_nobles_near = [all_noble, front_noble, back_noble]
-    outline.avaiable_offs_near = [all_off, front_off, back_off]
+    outline.avaiable_nobles_near = [all_noble, front_noble, back_noble, too_far_off]
+    outline.avaiable_offs_near = [all_off, front_off, back_off, too_far_noble]
     outline.save()
 
 

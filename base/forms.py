@@ -262,7 +262,7 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Greater than or equal to 0 and less than or equal to 1000. Villages farther from the enemy than this value will be considered too far from the front and completely skipped."
             ),
             "initial_outline_target_dist": gettext_lazy(
-                "Greater than or equal to 0 and less than or equal to 150."
+                "Greater than or equal to 0 and less than or equal to 1000."
             ),
         }
 
