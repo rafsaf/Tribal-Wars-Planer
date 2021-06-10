@@ -524,9 +524,12 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
         raise Http404()
 
     target = get_object_or_404(models.TargetVertex, pk=id2)
-    village_id = models.VillageModel.objects.get(
-        world=instance.world, coord=target.target
-    ).village_id
+    try:
+        village_id = models.VillageModel.objects.get(
+            world=instance.world, coord=target.target
+        ).village_id
+    except models.VillageModel.DoesNotExist:
+        raise Http404()
 
     link_to_tw = instance.world.tw_stats_link_to_village(village_id)
 

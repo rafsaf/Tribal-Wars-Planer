@@ -70,9 +70,12 @@ class SortAndPaginRequest:
             else:
                 query = query.filter(player__icontains=self.filtr)
         if self.outline.filter_hide_front == "back":
-            query = query.filter(first_line=False)
+            query = query.filter(first_line=False, too_far_away=False)
         if self.outline.filter_hide_front == "front":
             query = query.filter(first_line=True)
+        if self.outline.filter_hide_front == "away":
+            query = query.filter(too_far_away=True)
+
         if self.outline.filter_hide_front == "hidden":
             query = query.filter(hidden=True)
         else:

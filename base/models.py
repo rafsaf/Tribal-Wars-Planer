@@ -273,6 +273,7 @@ class Outline(models.Model):
         ("all", gettext_lazy("All")),
         ("front", gettext_lazy("Front")),
         ("back", gettext_lazy("Back")),
+        ("away", gettext_lazy("Away")),
         ("hidden", gettext_lazy("Hidden")),
     ]
 
