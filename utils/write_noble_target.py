@@ -409,7 +409,7 @@ class WriteNobleTarget:
                 ** (1 / 2),
                 output_field=DecimalField(max_digits=2),
             )
-        )
+        ).filter(distance__lte=self.outline.initial_outline_maximum_front_dist)
 
     def _only_closer_than_target_dist(self) -> None:
         self.default_query = self.default_query.filter(

@@ -1,10 +1,18 @@
 from random import sample
 from statistics import mean
-from time import time
 from typing import Generator, List, Optional
 
-from django.db.models import (Case, DecimalField, ExpressionWrapper, F,
-                              FloatField, IntegerField, Q, Value, When)
+from django.db.models import (
+    Case,
+    DecimalField,
+    ExpressionWrapper,
+    F,
+    FloatField,
+    IntegerField,
+    Q,
+    Value,
+    When,
+)
 from django.db.models.functions import Mod
 from django.db.models.query import QuerySet
 
@@ -254,7 +262,7 @@ class WriteRamTarget:
                 ** (1 / 2),
                 output_field=DecimalField(max_digits=2),
             )
-        )
+        ).filter(distance__lte=self.outline.initial_outline_maximum_front_dist)
 
     def _add_night_bonus_annotations(self) -> None:
         avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
