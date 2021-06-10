@@ -513,8 +513,8 @@ const resetUserMessages = async () => {
     },
   }).then((response) => {
     if (response.status === 200) {
-      svg.style.fill = "black";
-      span.style.color = "black";
+      svg.style.fill = "rgba(0,0,0,.5)";
+      span.style.color = "rgba(0,0,0,.5)";
       span.innerHTML = "0";
     }
   });
@@ -568,48 +568,7 @@ const copyDataToClipboard = (element, id, form) => {
     element.innerHTML = buttonContent;
   }, 600);
 };
-const changeAmount = (value) => {
-  const amount = document.getElementById("id_amount");
-  amount.value = value;
-};
-const changeCurrency = (value) => {
-  const amount = document.getElementById("id_amount");
-  const currency = document.getElementById("id_currency_code");
-  const option1 = document.getElementById("option-1");
-  const option2 = document.getElementById("option-2");
-  const option3 = document.getElementById("option-3");
-  const currency1 = document.getElementById("cur-1");
-  const currency2 = document.getElementById("cur-2");
-  const currency3 = document.getElementById("cur-3");
-  currency.value = value;
-  if (value === "EUR") {
-    currency1.innerText = `7 EUR`;
-    currency2.innerText = `12.5 EUR`;
-    currency3.innerText = `15.5 EUR`;
-    option1.innerText = `7 EUR`;
-    option2.innerText = `12.5 EUR`;
-    option3.innerText = `15.5 EUR`;
-    option1.value = 7;
-    option2.value = 12.5;
-    option3.value = 15.5;
-    if (amount.value === "30") amount.value = 7;
-    if (amount.value === "55") amount.value = 12.5;
-    if (amount.value === "70") amount.value = 15.5;
-  } else {
-    currency1.innerText = `30 PLN`;
-    currency2.innerText = `55 PLN`;
-    currency3.innerText = `70 PLN`;
-    option1.innerText = `30 PLN`;
-    option2.innerText = `55 PLN`;
-    option3.innerText = `70 PLN`;
-    option1.value = 30;
-    option2.value = 55;
-    option3.value = 70;
-    if (amount.value === "7") amount.value = 30;
-    if (amount.value === "12.5") amount.value = 55;
-    if (amount.value === "15.5") amount.value = 70;
-  }
-};
+
 const removeOutline = (btn, dismissBtn, form, msg) => {
   const buttonDismiss = document.getElementById(dismissBtn);
   const submitForm = document.getElementById(form);

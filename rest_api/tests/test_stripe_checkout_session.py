@@ -24,27 +24,6 @@ class StripeCheckoutSession(MiniSetup):
         response = self.client.get(PATH)
         assert response.status_code == 400
 
-        PATH = reverse("rest_api:stripe_session", args=[30])
-
-        response = self.client.get(PATH)
-        assert response.status_code == 200
-        result = response.json()
-        assert result["sessionId"] is not None
-
-        PATH = reverse("rest_api:stripe_session", args=[55])
-
-        response = self.client.get(PATH)
-        assert response.status_code == 200
-        result = response.json()
-        assert result["sessionId"] is not None
-
-        PATH = reverse("rest_api:stripe_session", args=[70])
-
-        response = self.client.get(PATH)
-        assert response.status_code == 200
-        result = response.json()
-        assert result["sessionId"] is not None
-
         PATH = reverse("rest_api:stripe_session", args=[80])
 
         response = self.client.get(PATH)
