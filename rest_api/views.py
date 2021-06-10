@@ -247,6 +247,7 @@ class StripeWebhook(APIView):
                 Payment.objects.create(
                     user=user,
                     amount=amount,
+                    from_stripe=True,
                     months=months,
                     payment_date=current_date,
                     event_id=evt_id,

@@ -919,6 +919,7 @@ class Payment(models.Model):
     send_mail = models.BooleanField(default=True)
     amount = models.FloatField()
     event_id = models.CharField(max_length=300, null=True, default=None, blank=True)
+    from_stripe = models.BooleanField(default=False)
     payment_date = models.DateField()
     months = models.IntegerField(default=1)
     comment = models.CharField(max_length=150, default="", blank=True)
