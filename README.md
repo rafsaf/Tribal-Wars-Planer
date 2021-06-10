@@ -87,6 +87,15 @@ python manage.py test
 # python manage.py test base.tests.test_views
 ```
 
+To run makemessages/compilemessages
+
+```bash
+# linux only
+python manage.py makemessages --all --ignore .venv
+
+python manage.py compilemessages --ignore .venv
+```
+
 Test coverage
 
 ```bash
