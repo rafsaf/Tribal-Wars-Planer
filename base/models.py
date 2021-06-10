@@ -309,7 +309,7 @@ class Outline(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=django.utils.timezone.now)  # type: ignore
-    name = models.TextField()
+    name = models.CharField(max_length=20)
     world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")

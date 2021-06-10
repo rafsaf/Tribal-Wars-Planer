@@ -2,6 +2,7 @@
 from typing import Dict
 
 from django import forms
+from django.db.models.query import QuerySet
 from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
 
@@ -18,7 +19,7 @@ class OutlineForm(forms.Form):
         label=gettext_lazy("Outline Name"),
         widget=forms.Textarea,
     )
-    date = forms.DateField(label=gettext_lazy("Date"))
+    date = forms.DateField(label=gettext_lazy("Date"), input_formats=["%Y-%m-%d"])
     world = forms.ChoiceField(choices=[], label=gettext_lazy("World"))
 
 
@@ -683,13 +684,26 @@ class CreateNewInitialTarget(forms.Form):
             )
             return
 
-        if not models.VillageModel.objects.filter(
-            coord=coord, world=self.outline.world
-        ).exists():
+        village_query: "QuerySet[models.VillageModel]" = (
+            models.VillageModel.objects.filter(coord=coord, world=self.outline.world)
+        )
+        if not village_query.exists():
             self.add_error(
                 "target",
                 gettext_lazy("Village with that coords did not found."),
             )
+            return
+        if not len(village_query) == 1:
+            self.add_error(
+                "target",
+                gettext_lazy(
+                    "Found more than one village in database, this is the bug. Write me: <rafal.safin@rafsaf.pl>"
+                ),
+            )
+            return
+        village: models.VillageModel = village_query[0]
+        if village.player is None:
+            self.add_error("target", gettext_lazy("Village must not be barbarian."))
             return
 
 
