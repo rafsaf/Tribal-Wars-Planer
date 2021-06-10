@@ -20,6 +20,7 @@
 
 If you want to run it in development and make use of `localhost:8000` (the quickstart app runs on `localhost:80`, you would need also:
 
+
 - [python](https://www.python.org/downloads/) >= 3.9
 - [poetry](https://python-poetry.org/)
 
@@ -32,6 +33,8 @@ git clone https://github.com/rafsaf/Tribal-Wars-Planer.git
 cd Tribal-Wars-Planer
 
 ```
+Go to the browser tab and write out `localhost`, enter
+
 
 Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
 Run
@@ -165,6 +168,9 @@ DJANGO_SUPERUSER_PASSWORD !!!!!!!!!!!!!!!!!!!!!!! !!! !!! !!!!!!
 
 **DO NOT LEAVE DJANGO_SUPERUSER_PASSWORD AS "ADMIN", SO ANYONE CAN LOGIN TO THE DASHBOARD**
 
+
 ```
 docker-compose -f docker-compose.test.yml
 ```
+
+
