@@ -98,7 +98,7 @@
                                   </button>                          
                                   {% endif %}
                                 </th>
-                                <th><a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}</a>
+                                <th><a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player|urlencode:';:,?' }}&subject={{instance.title_message|urlencode:';:,?'}}&message=[b]{{item.player|urlencode:';:,?'}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message|urlencode:';:,?'}}">{% trans 'Send' %}</a>
                                 </th>
                             </tr>
                             {% endfor %}
@@ -137,7 +137,7 @@
                           {% endif %}
                         </th>
                         <th>
-                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player }}&subject={{instance.title_message}}&message=[b]{{item.player}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message}}">{% trans 'Send' %}
+                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player|urlencode:';:,?' }}&subject={{instance.title_message|urlencode:';:,?'}}&message=[b]{{item.player|urlencode:';:,?'}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message|urlencode:';:,?'}}">{% trans 'Send' %}
                           </a>
                         </th>
                     </tr>

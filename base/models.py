@@ -409,9 +409,9 @@ class Outline(models.Model):
     simple_textures = models.BooleanField(default=False)
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(
-        max_length=50, default=gettext_lazy("Outline Targets")
+        max_length=100, default=gettext_lazy("Outline Targets")
     )
-    text_message = models.CharField(max_length=500, default="", blank=True)
+    text_message = models.CharField(max_length=1000, default="", blank=True)
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)

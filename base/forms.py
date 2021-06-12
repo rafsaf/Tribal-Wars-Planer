@@ -300,6 +300,9 @@ class AvailableTroopsForm(forms.ModelForm):
 
 
 class SettingMessageForm(forms.ModelForm):
+    BANNED_SYMBOLS: str = "@#$&+=/"
+    SAFE_SYMBOLS: str = ";:,?"
+
     class Meta:
         model = models.Outline
         fields = [
@@ -313,21 +316,28 @@ class SettingMessageForm(forms.ModelForm):
             "text_message": gettext_lazy("Content of message:"),
         }
         help_texts = {
-            "title_message": gettext_lazy("Maximum length: 50"),
-            "text_message": gettext_lazy("Maximum length: 500"),
+            "default_show_hidden": gettext_lazy(
+                "By checking this option, players will see the commands of all other players for their own targets. By default, it's not turned on and players only see their commands."
+            ),
+            "title_message": gettext_lazy("Maximum length: 100."),
+            "text_message": gettext_lazy(
+                "Maximum length: 1000, do not use @#$&+=/ symbols."
+            ),
         }
         widgets = {
             "text_message": forms.Textarea,
         }
 
     def clean_text_message(self):
-        text = self.cleaned_data.get("text_message")
-        length = len(text.replace("\r\n", "%0A"))
-        if length > 500:
-            raise forms.ValidationError(
-                gettext_lazy("Ensure this value has at most 500 characters (it has ")
-                + f" {length})."
-            )
+        text: str = self.cleaned_data["text_message"]
+        banned_symbol: str
+        for banned_symbol in self.BANNED_SYMBOLS:
+            if banned_symbol in text:
+                self.add_error(
+                    "text_message",
+                    gettext_lazy("Please remove all forbidden symbols: @#$&+=/"),
+                )
+                return
 
 
 class SettingDateForm(forms.ModelForm):
