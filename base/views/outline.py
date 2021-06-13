@@ -114,6 +114,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     if request.method == "POST":
         if "form-1" in request.POST:
             form10 = forms.OffTroopsForm(request.POST, outline=instance)
+            instance.actions.save_off_troops(instance)
             if form10.is_valid():
                 instance.off_troops = request.POST.get("off_troops")
                 instance.save()
@@ -125,6 +126,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
 
         elif "form-2" in request.POST:
             form20 = forms.DeffTroopsForm(request.POST, outline=instance)
+            instance.actions.save_deff_troops(instance)
             if form20.is_valid():
                 instance.deff_troops = request.POST.get("deff_troops")
                 instance.save()

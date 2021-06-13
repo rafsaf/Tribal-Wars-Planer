@@ -1,3 +1,4 @@
+from utils import basic
 from base import models
 
 from base.tests.test_utils.mini_setup import MiniSetup
@@ -222,3 +223,20 @@ class RemoveUserOutline(MiniSetup):
 
         assert models.WeightMaximum.objects.count() == 1
         assert models.TargetVertex.objects.count() == 0
+
+    def test_create_stats(self):
+        outline = self.get_outline()
+        outline.create_stats()
+
+        assert models.Stats.objects.count() == 1
+
+        stats: models.Stats = models.Stats.objects.get(outline=outline)
+        assert stats.outline_pk == outline.pk
+        assert stats.premium_user == False
+        assert stats.owner_name == self.me().username
+        assert stats.world == str(outline.world)
+
+    def test_actions(self):
+        outline = self.get_outline()
+        action = outline.actions
+        assert isinstance(action, basic.Action)

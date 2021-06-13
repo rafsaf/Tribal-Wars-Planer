@@ -160,6 +160,12 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     instance.save()
                     create_targets = OutlineCreateTargets(instance, target_mode)
                     create_targets()
+                    if target_mode.is_real:
+                        instance.actions.save_real_targets(instance)
+                    elif target_mode.is_fake:
+                        instance.actions.save_fake_targets(instance)
+                    else:
+                        instance.actions.save_ruin_targets(instance)
                 else:
                     request.session["error"] = gettext(
                         "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p><p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
@@ -174,6 +180,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if "form2" in request.POST:
             form2 = forms.AvailableTroopsForm(request.POST)
             if form2.is_valid():
+                instance.actions.form_available_troops(instance)
                 min_off = request.POST.get("initial_outline_min_off")
                 radius_min = request.POST.get("initial_outline_front_dist")
                 radius_max = request.POST.get("initial_outline_maximum_front_dist")
@@ -196,6 +203,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if "form3" in request.POST:
             form3 = forms.SettingDateForm(request.POST)
             if form3.is_valid():
+                instance.actions.form_date_change(instance)
                 date = request.POST.get("date")
                 instance.date = date
                 instance.save()
@@ -207,6 +215,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if "form4" in request.POST:
             form4 = forms.ModeOutlineForm(request.POST)
             if form4.is_valid():
+                instance.actions.form_settings_change(instance)
                 mode_off = request.POST.get("mode_off")
                 mode_noble = request.POST.get("mode_noble")
                 mode_division = request.POST.get("mode_division")
@@ -245,6 +254,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if "form5" in request.POST:
             form5 = forms.NightBonusSetForm(request.POST)
             if form5.is_valid():
+                instance.actions.form_night_change(instance)
                 night_bonus = request.POST.get("night_bonus")
                 if night_bonus == "on":
                     night_bonus = True
@@ -269,6 +279,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         if "form6" in request.POST:
             form6 = forms.RuiningOutlineForm(request.POST)
             if form6.is_valid():
+                instance.actions.form_ruin_change(instance)
                 catapult_default: Optional[str] = request.POST.get(
                     "initial_outline_catapult_default"
                 )
@@ -332,6 +343,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
 
     if request.method == "POST":
         if "form1" in request.POST:
+            instance.actions.click_go_back(instance)
             instance.remove_user_outline()
             return redirect("base:planer_initial_form", _id)
 
@@ -455,6 +467,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
                 error_messages = make_final_outline()
                 if len(error_messages) > 0:
                     request.session["error_messages"] = ",".join(error_messages)
+                instance.actions.click_outline_finish(instance)
 
                 return redirect("base:planer_detail_results", _id)
 
@@ -462,6 +475,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
                 create_formset = create_formset(request.POST)
                 select_formset = select_formset()
                 if create_formset.is_valid():
+                    instance.actions.save_time_created(instance)
                     outline_times_Q = models.OutlineTime.objects.filter(
                         outline=instance
                     )
@@ -761,6 +775,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
             )
 
     complete_outline_write(outline=instance)
+    instance.actions.click_outline_write(instance)
     instance.written = "active"
     instance.save()
     return redirect(reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu")
@@ -784,6 +799,7 @@ def update_outline_troops(request: HttpRequest, id1: int) -> HttpResponse:
         )
 
         return redirect("base:planer_detail", id1)
+    instance.actions.click_troops_refresh(instance)
     target_mode = basic.TargetMode(request.GET.get("t"))
     instance.avaiable_offs = []
     instance.avaiable_offs_near = []

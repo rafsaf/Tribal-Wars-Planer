@@ -341,14 +341,13 @@ class SettingMessageForm(forms.ModelForm):
 
 
 class SettingDateForm(forms.ModelForm):
+    date = forms.DateField(
+        label=gettext_lazy("Set new date"), input_formats=["%Y-%m-%d"]
+    )
+
     class Meta:
         model = models.Outline
-        fields = [
-            "date",
-        ]
-        labels = {
-            "date": gettext_lazy("Set new date"),
-        }
+        fields = []
 
 
 class SetNewOutlineFilters(forms.ModelForm):

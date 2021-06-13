@@ -14,3 +14,4 @@ from .target_line import *
 from .timer import *
 from .troops import *
 from .village import *
+from .outline_stats import *

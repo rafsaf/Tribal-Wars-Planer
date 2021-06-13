@@ -55,6 +55,19 @@ class AdminWeightModel(admin.ModelAdmin):
     readonly_fields = ["target", "state"]
 
 
+@admin.register(models.Stats)
+class AdminStatsModel(admin.ModelAdmin):
+    list_display = [
+        "owner_name",
+        "outline_pk",
+        "created",
+        "world",
+        "premium_user",
+        "overview_visited",
+    ]
+    search_fields = ["owner_name", "world", "outline_pk"]
+
+
 @admin.register(models.TargetVertex)
 class AdminTargetVertex(admin.ModelAdmin):
     list_display = [

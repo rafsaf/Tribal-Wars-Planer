@@ -135,6 +135,7 @@ class ChangeBuildingsArray(APIView):
             outline.initial_outline_buildings = buildings_serializer.validated_data[
                 "buildings"
             ]
+            outline.actions.form_building_order_change(outline)
             outline.save()
             return Response(status=status.HTTP_200_OK)
 
