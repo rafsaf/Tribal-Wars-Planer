@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-12 23:36+0200\n"
+"POT-Creation-Date: 2021-06-13 19:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,8 +151,9 @@ msgid ""
 "for their own targets. By default, it's not turned on and players only see "
 "their commands."
 msgstr ""
-"Zaznaczając tą opcję, gracze zobaczą komendy wszystkich innych graczy na swoich celach. "
-"Domyślnie jest wyłączona, czyli gracze widzą tylko swoje komendy."
+"Zaznaczając tą opcję, gracze zobaczą komendy wszystkich innych graczy na "
+"swoich celach. Domyślnie jest wyłączona, czyli gracze widzą tylko swoje "
+"komendy."
 
 #: base/forms.py:322
 msgid "Maximum length: 100."
@@ -166,167 +167,167 @@ msgstr "Maksymalna długość: 1000, nie używaj symbolów @#$&+=/"
 msgid "Please remove all forbidden symbols: @#$&+=/"
 msgstr "Usuń wszystkie zakazane symbole: @#$&+=/"
 
-#: base/forms.py:350
+#: base/forms.py:345
 msgid "Set new date"
 msgstr "Wybierz nową datę"
 
-#: base/forms.py:399
+#: base/forms.py:398
 msgid "Choose the distance of the written offs:"
 msgstr "Wybierz dystans dla rozpisywanych offów:"
 
-#: base/forms.py:400
+#: base/forms.py:399
 msgid "Choose the distance of the written nobles:"
 msgstr "Wybierz dystans dla rozpisywanych szlachciców:"
 
-#: base/forms.py:401
+#: base/forms.py:400
 msgid "Choose how to split offs with nobles:"
 msgstr "Wybierz jak powinny być dzielone offy z szlachciami:"
 
-#: base/forms.py:403
+#: base/forms.py:402
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Wybierz preferowany sposób rozpisywania wymaganych szlachiców:"
 
-#: base/forms.py:406
+#: base/forms.py:405
 msgid "Choose how noble commands should be written out:"
 msgstr "Wybierz jak komendy z wiosek z szlachtą powinny być rozpisane:"
 
-#: base/forms.py:409
+#: base/forms.py:408
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 
-#: base/forms.py:412
+#: base/forms.py:411
 msgid "Determine which villages to write fake attacks from:"
 msgstr "Wybierz z jakich wiosek rozpisywać fejki:"
 
-#: base/forms.py:434
+#: base/forms.py:433
 msgid "MAX number of catapults in one ruin attack:"
 msgstr "MAX liczba katapult w każdym burzaku:"
 
-#: base/forms.py:437
+#: base/forms.py:436
 msgid "Number of catapults that will always be left in full offs:"
 msgstr "Liczba katapult, która zawsze pozostanie w pełnych offach:"
 
-#: base/forms.py:440
+#: base/forms.py:439
 msgid "How many points on average do demolished targets have:"
 msgstr "Jak dużo punktów mają średnio burzone cele:"
 
-#: base/forms.py:471
+#: base/forms.py:470
 msgid "Choose whether to avoid the night bonus"
 msgstr "Wybierz czy wysyłki powinny omijać bonus nocny"
 
-#: base/forms.py:477
+#: base/forms.py:476
 msgid "Approximate hours of entry"
 msgstr "Przybliżone czasy wejścia akcji"
 
-#: base/forms.py:484
+#: base/forms.py:483
 msgid "Approximate hours of the last entry"
 msgstr "Przybliżone ostatnie czasy wejścia akcji"
 
-#: base/forms.py:497
+#: base/forms.py:496
 msgid "First value must be less or equal to second!"
 msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 
-#: base/forms.py:506 base/templates/base/overview.html:192
+#: base/forms.py:505 base/templates/base/overview.html:192
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:509 base/models.py:720
+#: base/forms.py:508 base/models.py:763
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:517 base/forms.py:528
+#: base/forms.py:516 base/forms.py:527
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:120
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:183
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:222
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:520 base/forms.py:529
+#: base/forms.py:519 base/forms.py:528
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:121
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:184
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:223
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:527
+#: base/forms.py:526
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:116
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:178
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:220
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:530
+#: base/forms.py:529
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:117
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:180
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:221
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:531
+#: base/forms.py:530
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:118
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:185
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:224
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:532
+#: base/forms.py:531
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:119
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:186
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:225
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:608 base/forms.py:618
+#: base/forms.py:607 base/forms.py:617
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:626
+#: base/forms.py:625
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:638 base/forms.py:644
+#: base/forms.py:637 base/forms.py:643
 msgid "The All mode time frame MUST always be last for off and for noble."
 msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:652 base/forms.py:659
+#: base/forms.py:651 base/forms.py:658
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/forms.py:693
+#: base/forms.py:692
 msgid "You need a premium account to add more targets here."
 msgstr "Potrzebujesz konta premium by dodawać cele w tym miejscu."
 
-#: base/forms.py:703
+#: base/forms.py:702
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:710
+#: base/forms.py:709
 msgid ""
 "Found more than one village in database, this is the bug. Write me: <rafal."
 "safin@rafsaf.pl>"
 msgstr ""
 
-#: base/forms.py:716
+#: base/forms.py:715
 msgid "Village must not be barbarian."
 msgstr "Wioska nie może być barbarzyńska."
 
-#: base/forms.py:726
+#: base/forms.py:725
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:727
+#: base/forms.py:726
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:746
+#: base/forms.py:745
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:749
+#: base/forms.py:748
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:760
+#: base/forms.py:759
 msgid "You can set your server:"
 msgstr "Możesz ustawić swój serwer:"
 
@@ -334,31 +335,31 @@ msgstr "Możesz ustawić swój serwer:"
 msgid "World "
 msgstr "Świat "
 
-#: base/models.py:242 base/models.py:249 base/models.py:736 base/models.py:743
+#: base/models.py:242 base/models.py:249 base/models.py:779 base/models.py:786
 msgid "Closest Front"
 msgstr "Front Najbliżej"
 
-#: base/models.py:243 base/models.py:250 base/models.py:737 base/models.py:744
+#: base/models.py:243 base/models.py:250 base/models.py:780 base/models.py:787
 msgid "Close Back"
 msgstr "Zaplecze Blisko"
 
-#: base/models.py:244 base/models.py:251 base/models.py:738 base/models.py:745
+#: base/models.py:244 base/models.py:251 base/models.py:781 base/models.py:788
 msgid "Random Back"
 msgstr "Zaplecze Losowo"
 
-#: base/models.py:245 base/models.py:252 base/models.py:739 base/models.py:746
+#: base/models.py:245 base/models.py:252 base/models.py:782 base/models.py:789
 msgid "Far Back"
 msgstr "Zaplecze Daleko"
 
-#: base/models.py:256 base/models.py:750
+#: base/models.py:256 base/models.py:793
 msgid "Divide off with nobles"
 msgstr "Dziel offy z szlachtą"
 
-#: base/models.py:257 base/models.py:751
+#: base/models.py:257 base/models.py:794
 msgid "Dont't divide off"
 msgstr "Nie dziel offów z szlachtą"
 
-#: base/models.py:258 base/models.py:752
+#: base/models.py:258 base/models.py:795
 msgid "Off and nobles separatly"
 msgstr "Offy i szlachta osobno"
 
@@ -370,19 +371,19 @@ msgstr "Szlachta z jednej wioski jako jeden rozkaz"
 msgid "Nobles from one village as many commands"
 msgstr "Szlachta z jednej wioski jako wiele rozkazów"
 
-#: base/models.py:267 base/models.py:756
+#: base/models.py:267 base/models.py:799
 msgid "Try send all nobles to one target"
 msgstr "Rozpisuj szlachtę możliwie na jedną wioskę"
 
-#: base/models.py:268 base/models.py:757
+#: base/models.py:268 base/models.py:800
 msgid "Nobles to one or many targets"
 msgstr "Szlachta na jedną lub wiele wiosek (optymalnie)"
 
-#: base/models.py:269 base/models.py:758
+#: base/models.py:269 base/models.py:801
 msgid "Try single nobles from many villages"
 msgstr "Rozpisuj szlachtę na cel możliwie z pojedynczych wiosek"
 
-#: base/models.py:273 base/models.py:715
+#: base/models.py:273 base/models.py:758
 #: base/templates/base/new_outline/new_outline_initial_period1.html:153
 msgid "All"
 msgstr "Wszystkie"
@@ -406,77 +407,77 @@ msgstr "Poza"
 msgid "Hidden"
 msgstr "Ukryte"
 
-#: base/models.py:281 base/models.py:802
+#: base/models.py:281 base/models.py:845
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Headquarters"
 msgstr "Ratusz"
 
-#: base/models.py:282 base/models.py:803
+#: base/models.py:282 base/models.py:846
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Barracks"
 msgstr "Koszary"
 
-#: base/models.py:283 base/models.py:804
+#: base/models.py:283 base/models.py:847
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Stable"
 msgstr "Stajnia"
 
-#: base/models.py:284 base/models.py:805
+#: base/models.py:284 base/models.py:848
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Workshop"
 msgstr "Warsztat"
 
-#: base/models.py:285 base/models.py:806
+#: base/models.py:285 base/models.py:849
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Academy"
 msgstr "Pałac"
 
-#: base/models.py:286 base/models.py:807
+#: base/models.py:286 base/models.py:850
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Smithy"
 msgstr "Kuźnia"
 
-#: base/models.py:287 base/models.py:808
+#: base/models.py:287 base/models.py:851
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Rally point"
 msgstr "Plac"
 
-#: base/models.py:288 base/models.py:809
+#: base/models.py:288 base/models.py:852
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Statue"
 msgstr "Piedestał"
 
-#: base/models.py:289 base/models.py:810
+#: base/models.py:289 base/models.py:853
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Market"
 msgstr "Rynek"
 
-#: base/models.py:290 base/models.py:811
+#: base/models.py:290 base/models.py:854
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Timber camp"
 msgstr "Tartak"
 
-#: base/models.py:291 base/models.py:812
+#: base/models.py:291 base/models.py:855
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Clay pit"
 msgstr "Cegielnia"
 
-#: base/models.py:292 base/models.py:813
+#: base/models.py:292 base/models.py:856
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Iron mine"
 msgstr "Huta żelaza"
 
-#: base/models.py:293 base/models.py:814
+#: base/models.py:293 base/models.py:857
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Farm"
 msgstr "Zagroda"
 
-#: base/models.py:294 base/models.py:815
+#: base/models.py:294 base/models.py:858
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "Warehouse"
 msgstr "Spichlerz"
 
-#: base/models.py:295 base/models.py:816
+#: base/models.py:295 base/models.py:859
 #: base/templates/base/new_outline/new_outline_initial_period1.html:509
 msgid "wall"
 msgstr "Mur"
@@ -501,23 +502,23 @@ msgstr "Fejki z wszystkich wiosek"
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models.py:716
+#: base/models.py:759
 msgid "Random"
 msgstr "Losowo"
 
-#: base/models.py:717
+#: base/models.py:760
 msgid "Exact"
 msgstr "Dokładnie"
 
-#: base/models.py:721
+#: base/models.py:764
 msgid "Ram"
 msgstr "Taran"
 
-#: base/models.py:914
+#: base/models.py:957
 msgid "Finished"
 msgstr "Zakończono"
 
-#: base/models.py:915
+#: base/models.py:958
 msgid "Returned"
 msgstr "Zwrócono"
 
@@ -815,13 +816,13 @@ msgstr ""
 
 #: base/templates/base/base.html:373
 msgid ""
-"Dear User, we inform you that by using the website you agree to our <a "
-"target=\"_blank\" href=\"/static/privacy-policy.pdf\">privacy policy and "
+"This site is free of 3rd party trackers, we belive in privacy, refer to <a "
+"target=\"_blank\" href=\"/static/privacy-policy.pdf\">our privacy policy and "
 "regulations</a>."
 msgstr ""
-"Drogi Użytkowniku, uprzejmie informujemy, że korzystając ze strony zgadzasz "
-"się z naszą <a target=\"_blank\" href=\"/static/privacy-policy.pdf"
-"\">polityką prywatności i regulaminem</a>."
+"Ta strona jest strefą wolną od skryptów śledzących, "
+"dbamy o anonimowość w sieci, zobacz <a target=\"_blank\" href=\"/static/privacy-policy.pdf"
+"\">naszą politykę prywatności i regulamin</a>."
 
 #: base/templates/base/base_planer.html:10
 #: base/templates/base/new_outline/new_outline_results.html:78
@@ -2121,11 +2122,11 @@ msgstr "Skontaktuj się z administratorem by zmienić swój adres e-mail. "
 msgid "Set server"
 msgstr "Ustaw serwer"
 
-#: base/views/outline.py:138
+#: base/views/outline.py:140
 msgid "Never"
 msgstr "Nigdy"
 
-#: base/views/outline.py:142
+#: base/views/outline.py:144
 msgid " minute(s) ago."
 msgstr " minut temu."
 
@@ -2134,8 +2135,8 @@ msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
 #: base/views/outline_initial_views.py:75
-#: base/views/outline_initial_views.py:165
-#: base/views/outline_initial_views.py:783
+#: base/views/outline_initial_views.py:171
+#: base/views/outline_initial_views.py:798
 msgid ""
 "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use "
 "the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> "
@@ -2151,7 +2152,7 @@ msgstr ""
 "span>.</p> <p>4. Naciśnij przycisk <span class='md-correct2'> Zresetuj "
 "modele</span>.</p>"
 
-#: base/views/outline_initial_views.py:447
+#: base/views/outline_initial_views.py:459
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
