@@ -59,4 +59,4 @@ class OverviewView(MiniSetup):
         response = self.client.get(reverse("base:overview", args=[token]))
         self.assertEqual(response.status_code, 200)
         stats: Stats = Stats.objects.get(outline=outline)
-        assert stats.overview_visited == 1
+        assert stats.overview_visited == 0
