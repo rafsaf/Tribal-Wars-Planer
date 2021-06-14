@@ -1,6 +1,3 @@
-<p class="mb-0 text-center">#2 TWORZENIE ROZPISKI</p>
-<div class="youtube-player mb-3" data-id="-JjWdeSQJxI"></div>
-
 <div>
 <pre class="md-pre">
 <span class="md-correct2">Przykład 1</span>
