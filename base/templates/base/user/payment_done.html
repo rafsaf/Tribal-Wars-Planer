@@ -1,0 +1,38 @@
+{% extends "base/base.html" %} 
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="fixed-scrollbar-container">
+<div class="container py-1" style="min-height: 70vh; max-width:1000px !important;font-size: larger;">
+<div style="margin-right:-15px;margin-left:-15px;">
+    <h2><span class="badge badge-dark my-3">{% trans 'Payment completed!' %}</span></h2>
+    {% if user.profile.is_premium %}
+    <div class="alert alert-success" role="alert">
+        {% trans 'Premium account active until' %} <b>{{user.profile.validity_date}}</b>
+    </div>
+    {% else %}
+    <div class="alert alert-secondary" role="alert">
+        {% trans 'Premium account is inactive' %}
+    </div>
+    {% endif %}
+    <div>
+        <button class="btn btn-ocean mb-3" onClick="window.location.reload();"><i class="bi bi-arrow-repeat"></i> {% trans 'Refresh' %}</button>
+    </div>
+    <p>{% trans 'If everything went well, you should also get a message on the e-mail address provided during registration.' %}</p>
+    <h2><span class="badge badge-dark my-3">FAQ</span></h2>
+    <p>{% trans 'If the premium account is inactive, wait a moment and try to refresh this card (the whole process may take up to a few minutes). It may be related to the temporary unavailability of one of the parties, but in such cases connection attempts are repeated from time to time in short intervals.' %}</p>
+    <p>{% trans "If your account is still inactive despite some patience, don't panic! This may happen eventually, remember that after making a payment, the administration receives a notification about a new transaction made and the account can always be activated manually in case of problems." %}</p> 
+    
+    <p>{% trans 'As a last resort you will be forced to contact me:' %}</p>
+    <h3><span class="badge badge-dark my-3">1. Discord</span></h3>
+    <p>{% trans 'Join a Discord channel and write to' %} <span style="font-size: large;" class="badge badge-secondary">Rafsaf</span>.</p>
+    <h3><span class="badge badge-dark my-3">2. Email</span></h3>
+    {% trans 'Write to' %} <span style="font-size: large;" class="badge badge-secondary">rafal.safin@rafsaf.pl</span>.
+
+</div>
+</div>
+</div>
+
+
+{% endblock %}

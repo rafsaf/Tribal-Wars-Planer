@@ -1,21 +1,23 @@
-from typing import Optional
+from typing import Literal, Optional, Set
+
 from django.utils.translation import gettext as _
 
 
 class Mode:
+    VALID_MODE_TYPE: Set[str] = {
+        "menu",
+        "time",
+        "fake",
+        "ruin",
+        "add_and_remove",
+    }
+
     def __init__(self, request_GET_mode: Optional[str]):
-        VALID = [
-            "menu",
-            "time",
-            "fake",
-            "ruin",
-            "add_and_remove",
-        ]
 
         if request_GET_mode is None:
             self.mode = "menu"
         else:
-            if request_GET_mode in VALID:
+            if request_GET_mode in self.VALID_MODE_TYPE:
                 self.mode = request_GET_mode
             else:
                 self.mode = "menu"
@@ -59,17 +61,18 @@ class Mode:
 
 
 class TargetMode:
+    VALID_MODE_LIST: Set[Literal["real", "fake", "ruin"]] = {
+        "real",
+        "fake",
+        "ruin",
+    }
+
     def __init__(self, request_GET_mode: Optional[str]) -> None:
-        VALID = [
-            "real",
-            "fake",
-            "ruin",
-        ]
 
         if request_GET_mode is None:
             self.mode = "real"
         else:
-            if request_GET_mode in VALID:
+            if request_GET_mode in self.VALID_MODE_LIST:
                 self.mode = request_GET_mode
             else:
                 self.mode = "real"

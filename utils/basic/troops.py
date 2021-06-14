@@ -1,8 +1,9 @@
+import json
 from typing import Dict, List, Literal, Optional
 
 from django.forms.utils import ErrorDict
+
 from base.models import Outline
-import json
 
 
 class Troops:

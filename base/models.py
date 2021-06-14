@@ -2,25 +2,24 @@
 import datetime
 from math import sqrt
 from typing import Dict, List, Optional
-from dateutil.relativedelta import relativedelta
 
 import django
-from django.core.paginator import Paginator
-from django.db.models import Sum
-from django.db.models.query import QuerySet
-from django.db.models import F, Q, Count
-from django.utils import timezone
-from django.utils.translation import gettext_lazy
-from django.db import models
+from dateutil.relativedelta import relativedelta
+from django.conf import settings
 from django.contrib.auth.models import User
-from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
+from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from django.db.models import Count, F, Q, Sum
+from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
-
+from django.urls import reverse
+from django.utils import timezone
+from django.utils.translation import gettext_lazy
 from markdownx.models import MarkdownxField
 
 
@@ -274,6 +273,7 @@ class Outline(models.Model):
         ("all", gettext_lazy("All")),
         ("front", gettext_lazy("Front")),
         ("back", gettext_lazy("Back")),
+        ("away", gettext_lazy("Away")),
         ("hidden", gettext_lazy("Hidden")),
     ]
 
@@ -309,7 +309,7 @@ class Outline(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=django.utils.timezone.now)  # type: ignore
-    name = models.TextField()
+    name = models.CharField(max_length=20)
     world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
@@ -343,10 +343,13 @@ class Outline(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(28000)],
     )
     initial_outline_front_dist = models.IntegerField(
-        default=10, validators=[MinValueValidator(0), MaxValueValidator(45)]
+        default=10, validators=[MinValueValidator(0), MaxValueValidator(500)]
+    )
+    initial_outline_maximum_front_dist = models.IntegerField(
+        default=120, validators=[MinValueValidator(0), MaxValueValidator(1000)]
     )
     initial_outline_target_dist = models.IntegerField(
-        default=50, validators=[MinValueValidator(0), MaxValueValidator(150)]
+        default=50, validators=[MinValueValidator(0), MaxValueValidator(1000)]
     )
     initial_outline_excluded_coords = models.TextField(default="", blank=True)
     initial_outline_fake_limit = models.IntegerField(
@@ -406,9 +409,9 @@ class Outline(models.Model):
     simple_textures = models.BooleanField(default=False)
     default_show_hidden = models.BooleanField(default=False)
     title_message = models.CharField(
-        max_length=50, default=gettext_lazy("Outline Targets")
+        max_length=100, default=gettext_lazy("Outline Targets")
     )
-    text_message = models.CharField(max_length=500, default="", blank=True)
+    text_message = models.CharField(max_length=1000, default="", blank=True)
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)
@@ -423,6 +426,9 @@ class Outline(models.Model):
         return "ID:" + str(self.pk) + ", Nazwa: " + str(self.name)
 
     def remove_user_outline(self):
+        from base import forms
+        from utils.basic import TargetMode
+
         self.written = "inactive"
         self.avaiable_offs = []
         self.avaiable_offs_near = []
@@ -439,14 +445,52 @@ class Outline(models.Model):
         self.default_fake_time_id = None
         self.default_ruin_time_id = None
 
-        WeightMaximum.objects.filter(outline=self).delete()
+        WeightModel.objects.select_related("target").filter(
+            target__outline=self
+        ).delete()
+
+        off_form = forms.OffTroopsForm({"off_troops": self.off_troops}, outline=self)
+        if not off_form.is_valid():
+            WeightMaximum.objects.filter(outline=self).delete()
+            TargetVertex.objects.filter(outline=self).delete()
+        else:
+            WeightMaximum.objects.filter(outline=self).update(
+                off_left=F("off_max"),
+                off_state=0,
+                nobleman_left=F("nobleman_max"),
+                nobleman_state=0,
+                catapult_left=F("catapult_max"),
+                catapult_state=0,
+                hidden=False,
+                first_line=False,
+                too_far_away=False,
+                fake_limit=self.initial_outline_fake_limit,
+            )
+            form1 = forms.InitialOutlineForm(
+                {"target": self.initial_outline_targets},
+                outline=self,
+                target_mode=TargetMode("real"),
+            )
+            form2 = forms.InitialOutlineForm(
+                {"target": self.initial_outline_fakes},
+                outline=self,
+                target_mode=TargetMode("fake"),
+            )
+            form3 = forms.InitialOutlineForm(
+                {"target": self.initial_outline_ruins},
+                outline=self,
+                target_mode=TargetMode("ruin"),
+            )
+            if not form1.is_valid() or not form2.is_valid() or not form3.is_valid():
+                TargetVertex.objects.filter(outline=self).delete()
+
         OutlineTime.objects.filter(outline=self).delete()
-        TargetVertex.objects.filter(outline=self).delete()
         Overview.objects.filter(outline=self, removed=False).update(removed=True)
         result: Result = Result.objects.get(outline=self)
         result.results_outline = ""
         result.results_players = ""
         result.results_sum_up = ""
+        result.results_export = ""
         result.save()
         self.save()
 
@@ -590,6 +634,49 @@ class Outline(models.Model):
                 result[period.outline_time] = [period]
         return result
 
+    def create_stats(self):
+        Stats.objects.create(
+            outline=self,
+            outline_pk=self.pk,
+            owner_name=self.owner.username,
+            world=str(self.world),
+            premium_user=self.owner.profile.is_premium(),
+        )
+
+    @property
+    def actions(self):
+        from utils.basic.outline_stats import action
+
+        return action
+
+
+class Stats(models.Model):
+    outline = models.ForeignKey(
+        Outline, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    outline_pk = models.IntegerField()
+    owner_name = models.CharField(max_length=300)
+    created = models.DateTimeField(auto_now_add=True)
+    world = models.CharField(max_length=50)
+    premium_user = models.BooleanField()
+    off_troops = models.IntegerField(default=0)
+    deff_troops = models.IntegerField(default=0)
+    real_targets = models.IntegerField(default=0)
+    fake_targets = models.IntegerField(default=0)
+    ruin_targets = models.IntegerField(default=0)
+    troops_refreshed = models.IntegerField(default=0)
+    outline_written = models.IntegerField(default=0)
+    available_troops = models.IntegerField(default=0)
+    date_change = models.IntegerField(default=0)
+    settings_change = models.IntegerField(default=0)
+    night_change = models.IntegerField(default=0)
+    ruin_change = models.IntegerField(default=0)
+    building_order_change = models.IntegerField(default=0)
+    time_created = models.IntegerField(default=0)
+    go_back_clicked = models.IntegerField(default=0)
+    finish_outline_clicked = models.IntegerField(default=0)
+    overview_visited = models.IntegerField(default=0)
+
 
 class Result(models.Model):
     """Presents Outline and Deff results"""
@@ -645,6 +732,7 @@ class WeightMaximum(models.Model):
 
     hidden = models.BooleanField(default=False)
     first_line = models.BooleanField(default=False)
+    too_far_away = models.BooleanField(default=False)
     fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )
@@ -872,11 +960,16 @@ class Payment(models.Model):
     status = models.CharField(max_length=30, choices=STATUS, default="finished")
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     send_mail = models.BooleanField(default=True)
-    amount = models.IntegerField()
+    amount = models.FloatField()
+    event_id = models.CharField(max_length=300, null=True, default=None, blank=True)
+    from_stripe = models.BooleanField(default=False)
     payment_date = models.DateField()
     months = models.IntegerField(default=1)
     comment = models.CharField(max_length=150, default="", blank=True)
     new_date = models.DateField(default=None, null=True, blank=True)
+
+    def value(self) -> str:
+        return f"{self.amount} PLN"
 
 
 @receiver(post_save, sender=Payment)
@@ -918,3 +1011,41 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
         instance.new_date = user_profile.validity_date
         user_profile.save()
         instance.save()
+
+
+# def ipn_paypal_payment_signal(sender, **kwargs):
+#    ipn_obj = sender
+#    if ipn_obj.payment_status == ST_PP_COMPLETED:
+#        if ipn_obj.receiver_email != settings.PAYPAL_RECEIVER_EMAIL:
+#            return
+#        username: str = str(ipn_obj.invoice).split("|")[0]
+#        user: User = User.objects.get(username=username)
+#        current_date: datetime.date = timezone.localdate()
+#        months: int = 0
+#        currency: str = str(ipn_obj.mc_currency)
+#        amount = float(ipn_obj.mc_gross)
+#
+#        if amount == 70 and currency == "PLN":
+#            months = 3
+#        elif amount == 55 and currency == "PLN":
+#            months = 2
+#        elif amount == 30 and currency == "PLN":
+#            months = 1
+#        elif amount == 15.5 and currency == "EUR":
+#            months = 3
+#        elif amount == 12.5 and currency == "EUR":
+#            months = 2
+#        elif amount == 7 and currency == "EUR":
+#            months = 1
+#        else:
+#            return
+#        Payment.objects.create(
+#            user=user,
+#            amount=amount,
+#            months=months,
+#            payment_date=current_date,
+#            currency=currency,
+#        )
+#
+#
+# valid_ipn_received.connect(ipn_paypal_payment_signal)

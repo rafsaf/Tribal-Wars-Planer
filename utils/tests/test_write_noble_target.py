@@ -1,15 +1,12 @@
 from django.test import TestCase
 from django.utils.translation import activate
 
+from base.models import Outline
+from base.models import TargetVertex as Target
+from base.models import WeightMaximum, WeightModel
+from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.outline_initial import MakeOutline
 from utils.write_noble_target import WriteNobleTarget
-from base.tests.utils.initial_setup import create_initial_data_write_outline
-from base.models import (
-    Outline,
-    TargetVertex as Target,
-    WeightMaximum,
-    WeightModel,
-)
 
 
 class TestWriteNobleTarget(TestCase):

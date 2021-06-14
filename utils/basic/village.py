@@ -1,6 +1,6 @@
 """ Village, Unit, Map classes """
 
-from math import sqrt, ceil
+from math import ceil, sqrt
 
 from django.utils.translation import gettext as _
 

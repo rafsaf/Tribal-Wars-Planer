@@ -1,6 +1,7 @@
-from base.models import Outline
 from django.urls import reverse
-from base.tests.utils.mini_setup import MiniSetup
+
+from base.models import Outline, Stats
+from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class InactiveOutline(MiniSetup):
@@ -43,6 +44,9 @@ class InactiveOutline(MiniSetup):
     def test_planer_detail___302_auth_works_ok_on_Test_world_army_troops(self):
         outline = self.get_outline(editable="inactive", test_world=True)
         assert outline.ally_tribe_tag == ["ALLY"]
+        outline.create_stats()
+        stats: Stats = Stats.objects.get(outline=outline)
+        assert stats.off_troops == 0
 
         PATH = reverse("base:planer_detail", args=[outline.pk])
         TROOPS = "100|100,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,"
@@ -58,11 +62,15 @@ class InactiveOutline(MiniSetup):
         assert response.url == PATH
 
         outline.refresh_from_db()
+        stats.refresh_from_db()
+        assert stats.off_troops == 1
         assert outline.off_troops == TROOPS
 
     def test_planer_detail___302_auth_works_ok_on_Test_world_deff_troops(self):
         outline = self.get_outline(editable="inactive", test_world=True)
-
+        outline.create_stats()
+        stats: Stats = Stats.objects.get(outline=outline)
+        assert stats.deff_troops == 0
         PATH = reverse("base:planer_detail", args=[outline.pk])
         DEFF = "101|101,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,"
         self.login_me()
@@ -77,6 +85,8 @@ class InactiveOutline(MiniSetup):
         assert response.url == PATH
 
         outline.refresh_from_db()
+        stats.refresh_from_db()
+        assert stats.deff_troops == 1
         assert outline.deff_troops == DEFF
 
     def test_planer_detail___200_auth_form_error_when_nonsense(self):

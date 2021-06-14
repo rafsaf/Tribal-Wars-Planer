@@ -1,27 +1,25 @@
 from random import sample
 from statistics import mean
 from typing import Generator, List, Optional
-from utils.basic.ruin import RuinHandle
-from django.db.models.query import QuerySet
 
 from django.db.models import (
-    F,
-    Q,
+    Case,
     DecimalField,
     ExpressionWrapper,
-    IntegerField,
-    Value,
+    F,
     FloatField,
-    Case,
+    IntegerField,
+    Q,
+    Value,
     When,
 )
 from django.db.models.functions import Mod
-from base.models import (
-    Outline,
-    TargetVertex as Target,
-    WeightMaximum,
-    WeightModel,
-)
+from django.db.models.query import QuerySet
+
+from base.models import Outline
+from base.models import TargetVertex as Target
+from base.models import WeightMaximum, WeightModel
+from utils.basic.ruin import RuinHandle
 
 
 class WriteRamTarget:
@@ -49,7 +47,7 @@ class WriteRamTarget:
         self.outline: Outline = outline
         self.index: int = 0
         self.default_query: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(
-            outline=self.outline
+            outline=self.outline, too_far_away=False
         )
         self.ruin: bool = ruin
         self.ruin_handle: Optional[RuinHandle] = None
@@ -93,6 +91,7 @@ class WriteRamTarget:
             return self._far_weight_lst()
 
     def weight_create_list(self) -> List[WeightModel]:
+
         weights_max_update_lst: List[WeightMaximum] = []
         weights_create_lst: List[WeightModel] = []
         self._set_building_generator()
@@ -123,16 +122,35 @@ class WriteRamTarget:
                 self._updated_weight_max(weight_max, off, catapult, fake_limit)
             )
 
-        WeightMaximum.objects.bulk_update(
-            weights_max_update_lst,
-            fields=[
-                "off_state",
-                "off_left",
-                "fake_limit",
-                "catapult_state",
-                "catapult_left",
-            ],
-        )
+        if self.ruin:
+            WeightMaximum.objects.bulk_update(
+                weights_max_update_lst,
+                fields=[
+                    "off_state",
+                    "off_left",
+                    "catapult_state",
+                    "catapult_left",
+                ],
+            )
+        elif self.target.fake and len(weights_max_update_lst) > 0:
+            WeightMaximum.objects.filter(
+                pk__in=[i.pk for i in weights_max_update_lst]
+            ).update(
+                fake_limit=F("fake_limit") - 1,
+                off_state=F("off_state") + 100,
+                off_left=F("off_left") - 100,
+            )
+        else:
+            if len(weights_max_update_lst) > 0:
+                WeightMaximum.objects.filter(
+                    pk__in=[i.pk for i in weights_max_update_lst]
+                ).update(
+                    off_state=F("off_left") + F("off_state"),
+                    catapult_state=F("catapult_left") + F("catapult_state"),
+                    catapult_left=0,
+                    off_left=0,
+                )
+
         return weights_create_lst
 
     def _set_building_generator(self) -> None:
@@ -244,7 +262,7 @@ class WriteRamTarget:
                 ** (1 / 2),
                 output_field=DecimalField(max_digits=2),
             )
-        )
+        ).filter(distance__lte=self.outline.initial_outline_maximum_front_dist)
 
     def _add_night_bonus_annotations(self) -> None:
         avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))

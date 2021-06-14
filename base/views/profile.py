@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.csrf import csrf_exempt
 
 from base import forms
-from base.models import Server, Profile, Payment
+from base.models import Payment, Profile, Server
 
 
 @login_required
@@ -46,7 +47,13 @@ def profile_settings(request: HttpRequest) -> HttpResponse:
 
 @login_required
 def premium_view(request: HttpRequest) -> HttpResponse:
-    user = request.user
-    payments = Payment.objects.filter(user=user).order_by("-payment_date")
+    user: User = request.user  # type: ignore
+    payments = Payment.objects.filter(user=user).order_by("-payment_date", "-new_date")
     context = {"user": user, "payments": payments}
     return render(request, "base/user/premium.html", context=context)
+
+
+@login_required
+@csrf_exempt
+def payment_done(request: HttpRequest) -> HttpResponse:
+    return render(request, "base/user/payment_done.html")

@@ -1,12 +1,13 @@
 from typing import List
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
-from django.http import HttpRequest, HttpResponse
+
 from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import get_language
 from django.views.decorators.http import require_POST
-from base import models, forms
 from markdownx.utils import markdownify
+
+from base import forms, models
 
 
 @login_required
@@ -45,8 +46,11 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                 world=world_instance,
             )
             new_instance.save()
+            new_instance.refresh_from_db()
             result = models.Result(outline=new_instance)
             result.save()
+            new_instance.create_stats()
+
             return redirect("base:planer_create_select", new_instance.pk)
     else:
         form1 = forms.OutlineForm(None)

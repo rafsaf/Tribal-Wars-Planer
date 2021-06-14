@@ -1,13 +1,12 @@
-from datetime import date
 import json
+from datetime import date
 from typing import Optional
 
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.utils.translation import get_language
 from markdownx.utils import markdownify
-from django.utils import timezone
-from django.contrib.auth.models import User
 
 from base import models
 
@@ -65,10 +64,13 @@ def base_documentation(request):
 
 def overview_view(request, token):
     """Safe url for member of tribe"""
-    overview = get_object_or_404(
+    overview: models.Overview = get_object_or_404(
         models.Overview.objects.select_related().filter(pk=token)
     )
-    outline_overview = overview.outline_overview
+    outline_overview: models.OutlineOverview = overview.outline_overview
+    if not overview.outline is None:
+        outline: models.Outline = overview.outline
+        outline.actions.visit_overview_visited(outline)
 
     query = []
     targets = json.loads(outline_overview.targets_json)

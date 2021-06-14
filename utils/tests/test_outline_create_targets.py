@@ -1,13 +1,13 @@
 from typing import List
+
 from django.test import TestCase
 from django.utils.translation import activate
-from utils.outline_create_targets import OutlineCreateTargets
-from base.tests.utils.initial_setup import create_initial_data_write_outline
-from base.models import (
-    Outline,
-    TargetVertex as Target,
-)
+
+from base.models import Outline
+from base.models import TargetVertex as Target
+from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.basic import TargetMode
+from utils.outline_create_targets import OutlineCreateTargets
 
 
 class TestOutlineCreateTargets(TestCase):

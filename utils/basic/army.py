@@ -1,6 +1,7 @@
 """ Army and Defence """
 from functools import cached_property
-from typing import List, Tuple
+from typing import Dict, Set, Tuple
+
 from base import models
 from utils import basic
 
@@ -30,6 +31,17 @@ class ArmyError(Exception):
 class Army:
     """Off line in off troops"""
 
+    EVIDENCE_DICTIONARY: Dict[Tuple[int, int, int], Set[int]] = {
+        (1, 1, 1): {16, 17},
+        (1, 1, 0): {15, 16},
+        (0, 1, 1): {15, 16},
+        (1, 0, 1): {14, 15},
+        (1, 0, 0): {13, 14},
+        (0, 0, 1): {13, 14},
+        (0, 1, 0): {14, 15},
+        (0, 0, 0): {12, 13},
+    }
+
     def __init__(self, text_army: str, evidence):
         self.text_army = text_army.split(",")
         self.world_evidence = evidence
@@ -38,17 +50,8 @@ class Army:
         """Text army validation"""
 
         text_army_length = len(self.text_army)
-        evidence_dictionary = {
-            (1, 1, 1): {16, 17},
-            (1, 1, 0): {15, 16},
-            (0, 1, 1): {15, 16},
-            (1, 0, 1): {14, 15},
-            (1, 0, 0): {13, 14},
-            (0, 0, 1): {13, 14},
-            (0, 1, 0): {14, 15},
-            (0, 0, 0): {12, 13},
-        }
-        if text_army_length not in evidence_dictionary[self.world_evidence]:
+
+        if text_army_length not in Army.EVIDENCE_DICTIONARY[self.world_evidence]:
             raise ArmyError(f"Długość: {text_army_length} nie jest poprawna")
         if len(self.text_army[0]) != 7:
             raise ArmyError(
@@ -177,6 +180,17 @@ class DefenceError(Exception):
 class Defence:
     """Deff line in deff troops"""
 
+    EVIDENCE_DICTIONARY: Dict[Tuple[int, int, int], Set[int]] = {
+        (1, 1, 1): {16, 17},
+        (1, 1, 0): {15, 16},
+        (0, 1, 1): {15, 16},
+        (1, 0, 1): {14, 15},
+        (1, 0, 0): {13, 14},
+        (0, 0, 1): {13, 14},
+        (0, 1, 0): {14, 15},
+        (0, 0, 0): {12, 13},
+    }
+
     def __init__(self, text_army: str, evidence):
         self.text_army = text_army.split(",")
         self.world_evidence = evidence
@@ -185,17 +199,8 @@ class Defence:
         """Text army validation"""
 
         text_army_length = len(self.text_army)
-        evidence_dictionary = {
-            (1, 1, 1): {17, 16},
-            (1, 1, 0): {16, 15},
-            (0, 1, 1): {16, 15},
-            (1, 0, 1): {15, 14},
-            (1, 0, 0): {14, 13},
-            (0, 0, 1): {14, 13},
-            (0, 1, 0): {15, 14},
-            (0, 0, 0): {13, 12},
-        }
-        if text_army_length not in evidence_dictionary[self.world_evidence]:
+
+        if text_army_length not in Defence.EVIDENCE_DICTIONARY[self.world_evidence]:
             raise DefenceError(f"Długość: {text_army_length} nie jest poprawna")
         if len(self.text_army[0]) != 7:
             raise DefenceError(

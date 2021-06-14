@@ -1,11 +1,30 @@
-from typing import Optional
+from typing import Optional, Set
+
 from django.core.paginator import Paginator
-from django.db.models import F, Q, ExpressionWrapper, FloatField
-from base.models import Outline, TargetVertex
+from django.db.models import ExpressionWrapper, F, FloatField, Q
+
 from base import models
+from base.models import Outline, TargetVertex
 
 
 class SortAndPaginRequest:
+    VALID_SORT_LIST: Set[str] = {
+        "distance",
+        "random_distance",
+        "-distance",
+        "-off_left",
+        "-nobleman_left",
+        "closest_offs",
+        "random_offs",
+        "farthest_offs",
+        "closest_noblemans",
+        "random_noblemans",
+        "farthest_noblemans",
+        "closest_noble_offs",
+        "random_noble_offs",
+        "farthest_noble_offs",
+    }
+
     def __init__(
         self,
         outline: Outline,
@@ -20,25 +39,10 @@ class SortAndPaginRequest:
         self.y_coord: int = target.coord_tuple()[1]
         self.page: Optional[str] = request_GET_page
         self.filtr: str = request_GET_filtr or ""
-        VALID = [
-            "distance",
-            "random_distance",
-            "-distance",
-            "-off_left",
-            "-nobleman_left",
-            "closest_offs",
-            "random_offs",
-            "farthest_offs",
-            "closest_noblemans",
-            "random_noblemans",
-            "farthest_noblemans",
-            "closest_noble_offs",
-            "random_noble_offs",
-            "farthest_noble_offs",
-        ]
+
         if request_GET_sort is None:
             self.sort = "distance"
-        if request_GET_sort in VALID:
+        if request_GET_sort in self.VALID_SORT_LIST:
             self.sort = request_GET_sort
         else:
             self.sort = "distance"
@@ -66,9 +70,12 @@ class SortAndPaginRequest:
             else:
                 query = query.filter(player__icontains=self.filtr)
         if self.outline.filter_hide_front == "back":
-            query = query.filter(first_line=False)
+            query = query.filter(first_line=False, too_far_away=False)
         if self.outline.filter_hide_front == "front":
             query = query.filter(first_line=True)
+        if self.outline.filter_hide_front == "away":
+            query = query.filter(too_far_away=True)
+
         if self.outline.filter_hide_front == "hidden":
             query = query.filter(hidden=True)
         else:

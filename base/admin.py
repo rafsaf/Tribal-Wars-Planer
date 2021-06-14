@@ -1,5 +1,6 @@
 from django.contrib import admin
 from markdownx.admin import MarkdownxModelAdmin
+
 from . import models
 
 # Register your models here.
@@ -14,7 +15,14 @@ admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
 @admin.register(models.Payment)
 class AdminPaymentModel(admin.ModelAdmin):
-    list_display = ["user", "status", "amount", "payment_date", "new_date"]
+    list_display = [
+        "user",
+        "status",
+        "from_stripe",
+        "amount",
+        "payment_date",
+        "new_date",
+    ]
     search_fields = ["user__username"]
 
 
@@ -45,6 +53,19 @@ class AdminWeightModel(admin.ModelAdmin):
     list_display = ["target", "start", "player", "state", "off"]
     search_fields = ["start"]
     readonly_fields = ["target", "state"]
+
+
+@admin.register(models.Stats)
+class AdminStatsModel(admin.ModelAdmin):
+    list_display = [
+        "owner_name",
+        "outline_pk",
+        "created",
+        "world",
+        "premium_user",
+        "overview_visited",
+    ]
+    search_fields = ["owner_name", "world", "outline_pk"]
 
 
 @admin.register(models.TargetVertex)

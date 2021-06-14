@@ -1,9 +1,13 @@
 from typing import Generator, List, Tuple
+
 from django.db.models.query import QuerySet
+
 from base import models
-from utils.write_ram_target import WriteRamTarget
+from base.models import Outline
+from base.models import TargetVertex as Target
+from base.models import WeightModel
 from utils.write_noble_target import WriteNobleTarget
-from base.models import TargetVertex as Target, Outline, WeightModel
+from utils.write_ram_target import WriteRamTarget
 
 
 def complete_outline_write(outline: models.Outline):

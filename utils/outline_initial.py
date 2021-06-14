@@ -1,10 +1,10 @@
 from typing import Dict, List, Tuple
-from base import models
-from utils.basic import Army
-from base.models import Outline, WeightMaximum
 
-import utils.basic as basic
 import base.models as models
+import utils.basic as basic
+from base import models
+from base.models import Outline, WeightMaximum
+from utils.basic import Army
 
 
 class MakeOutline:

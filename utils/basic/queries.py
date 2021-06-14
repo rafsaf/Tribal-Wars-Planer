@@ -1,9 +1,10 @@
 import json
 
+from django.core.serializers.json import DjangoJSONEncoder
+from django.forms.models import model_to_dict
+
 from base import models
 from utils import basic
-from django.forms.models import model_to_dict
-from django.core.serializers.json import DjangoJSONEncoder
 
 
 class TargetWeightQueries:

@@ -1,16 +1,11 @@
 from typing import List, Tuple
+
+from django.db.models import DecimalField, ExpressionWrapper, F
 from django.db.models.query import QuerySet
-from django.db.models import (
-    F,
-    DecimalField,
-    ExpressionWrapper,
-)
-from base.models import (
-    Outline,
-    TargetVertex as Target,
-    WeightMaximum,
-    WeightModel,
-)
+
+from base.models import Outline
+from base.models import TargetVertex as Target
+from base.models import WeightMaximum, WeightModel
 
 
 class WriteNobleTarget:
@@ -61,7 +56,7 @@ class WriteNobleTarget:
         self.outline: Outline = outline
         self.index: int = 0
         self.default_query: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(
-            outline=self.outline
+            outline=self.outline, too_far_away=False
         )
         self.default_create_list: List[Tuple[WeightMaximum, int]] = []
 
@@ -414,7 +409,7 @@ class WriteNobleTarget:
                 ** (1 / 2),
                 output_field=DecimalField(max_digits=2),
             )
-        )
+        ).filter(distance__lte=self.outline.initial_outline_maximum_front_dist)
 
     def _only_closer_than_target_dist(self) -> None:
         self.default_query = self.default_query.filter(

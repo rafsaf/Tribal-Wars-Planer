@@ -1,4 +1,5 @@
 from typing import Dict, List, Tuple
+
 from django.db.models.query import QuerySet
 from django.utils.translation import gettext as _
 

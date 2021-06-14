@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,9 +20,9 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 ADMINS = [("admin", os.environ["DEFAULT_FROM_EMAIL"])]
 
 INSTALLED_APPS = [
-    "base.apps.BaseConfig",
+    "base",
+    "rest_api",
     "utils",
-    "rest_api.apps.ApiConfig",
     "crispy_forms",
     "markdownx",
     "django_registration",
@@ -78,6 +79,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "tribal_wars_planer.wsgi.application"
+
+STRIPE_PUBLISHABLE_KEY = os.environ["STRIPE_PUBLISHABLE_KEY"]
+STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"]
+STRIPE_ENDPOINT_SECRET = os.environ["STRIPE_ENDPOINT_SECRET"]
+STRIPE_PAYMENTS = {
+    30: os.environ["ONE_MONTH"],
+    55: os.environ["TWO_MONTHS"],
+    70: os.environ["THREE_MONTHS"],
+}
 
 DATABASES = {
     "default": {

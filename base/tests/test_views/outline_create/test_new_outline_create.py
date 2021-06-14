@@ -1,8 +1,11 @@
-from base.forms import OutlineForm
-from base.models import Outline
-from django.urls import reverse
 import datetime
-from base.tests.utils.mini_setup import MiniSetup
+from django.core.mail import outbox
+
+from django.urls import reverse
+
+from base.forms import OutlineForm
+from base.models import Outline, Result, Stats
+from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class NewOutlineCreate(MiniSetup):
@@ -58,7 +61,9 @@ class NewOutlineCreate(MiniSetup):
         )
 
         assert response.status_code == 302
-        assert Outline.objects.filter(name="name").exists()
+        assert Outline.objects.filter(name="name").count() == 1
+        assert Result.objects.all().count() == 1
+        assert Stats.objects.all().count() == 1
 
         outline: Outline = Outline.objects.get(name="name")
         REDIRECT = reverse("base:planer_create_select", args=[outline.pk])
@@ -68,3 +73,18 @@ class NewOutlineCreate(MiniSetup):
         assert outline.date == datetime.date.today()
         assert outline.world == world
         assert outline.owner == self.me()
+
+        result: Result = Result.objects.get(outline=outline)
+
+        assert result.results_export == ""
+        assert result.results_get_deff == ""
+        assert result.results_players == ""
+        assert result.results_outline == ""
+        assert result.results_sum_up == ""
+
+        stats: Stats = Stats.objects.get(outline=outline)
+
+        assert stats.outline_pk == outline.pk
+        assert stats.premium_user == False
+        assert stats.owner_name == self.me().username
+        assert stats.world == str(outline.world)

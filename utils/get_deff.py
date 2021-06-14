@@ -6,8 +6,13 @@ From script Obrona to nice good looking version
 Also prining only villages in center
 
 """
+from logging import getLogger
+
+import numpy as np
+from tw_complex.brute import CDistBrute
 
 from base import models
+
 from . import basic
 
 
@@ -22,17 +27,17 @@ def get_deff(
     """
     excluded_coords = excluded_villages.split()
 
-    my_tribe_villages = (
+    my_tribe_villages: np.ndarray = np.array(
         models.VillageModel.objects.select_related()
         .filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world)
-        .values("x_coord", "y_coord", "coord")
+        .values_list("x_coord", "y_coord")
     )
 
-    enemy_tribe_villages = (
+    enemy_tribe_villages: np.ndarray = np.array(
         models.VillageModel.objects.select_related()
         .filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world)
         .exclude(coord__in=excluded_coords)
-        .values("x_coord", "y_coord")
+        .values_list("x_coord", "y_coord")
     )
 
     return deff_text(
@@ -43,29 +48,22 @@ def get_deff(
     )
 
 
-def get_legal_coords(ally_villages, enemy_villages, radius):
-    """Create set with ally_vill without enemy_vill closer than radius"""
-    ally_set = set()
-    for village in ally_villages.iterator(chunk_size=1000):
-        ally_set.add((int(village["x_coord"]), int(village["y_coord"])))
-    for village in enemy_villages.iterator(chunk_size=1000):
-        for coord in basic.yield_circle(
-            radius, (village["x_coord"], village["y_coord"])
-        ):
-            ally_set.discard(coord)
-
-    return ally_set
-
-
-def get_set_of_villages(ally_villages, enemy_villages, radius):
+def get_set_of_villages(
+    ally_villages: np.ndarray, enemy_villages: np.ndarray, radius: int
+):
     """get list of legal villages from ally villages"""
-    result_villages = set()
-    legal_cords = get_legal_coords(ally_villages, enemy_villages, radius)
-    for i in ally_villages:
-        if (i["x_coord"], i["y_coord"]) in legal_cords:
-            result_villages.add(i["coord"])
+    if enemy_villages.size > 0:
+        _, back_array = CDistBrute(
+            ally_villages=ally_villages,
+            enemy_villages=enemy_villages,
+            min_radius=radius,
+            max_radius=1000,
+            _precision=1,
+        ).result()
+    else:
+        back_array = ally_villages
 
-    return result_villages
+    return set(f"{coord[0]}|{coord[1]}" for coord in back_array)
 
 
 def deff_text(

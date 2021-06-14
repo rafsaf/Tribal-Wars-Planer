@@ -9,22 +9,9 @@
             <input type="hidden" name="form" value="">
             {% csrf_token %} 
             {{ form|crispy }}
-
-            <button class="btn btn-ocean mb-5" id="form-btn">{% trans 'Submit' %}</button>
-
+            <button onclick="handleClickButton(this, `{% trans 'Processing...' %}`, `form-form`)" class="btn btn-ocean mb-5" id="form-btn">{% trans 'Submit' %}</button>
         </form>
     </div>
-    <script>
-        const buttonForm = document.getElementById("form-btn")
-
-        buttonForm.onclick = () => {
-          buttonForm.disabled = true
-          buttonForm.innerHTML = "<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>{% trans 'Processing...' %}"
-          const form = document.getElementById("form-form")
-          form.submit()
-        }
-    </script>
-
 
     <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
         <div class="h-100">

@@ -1,10 +1,14 @@
 """ App forms """
 from typing import Dict
-from django.forms import BaseFormSet
+
 from django import forms
-from utils import basic, database_update
-from . import models
+from django.db.models.query import QuerySet
+from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
+
+from utils import basic, database_update
+
+from . import models
 
 
 class OutlineForm(forms.Form):
@@ -15,7 +19,7 @@ class OutlineForm(forms.Form):
         label=gettext_lazy("Outline Name"),
         widget=forms.Textarea,
     )
-    date = forms.DateField(label=gettext_lazy("Date"))
+    date = forms.DateField(label=gettext_lazy("Date"), input_formats=["%Y-%m-%d"])
     world = forms.ChoiceField(choices=[], label=gettext_lazy("World"))
 
 
@@ -150,13 +154,13 @@ class GetDeffForm(forms.Form):
 
     radius = forms.IntegerField(
         min_value=0,
-        max_value=45,
+        max_value=1000,
         label=gettext_lazy("Radius"),
         widget=forms.NumberInput,
         help_text=gettext_lazy(
-            "Greater than or equal to 0 and less than or equal to 45."
+            "Greater than or equal to 0 and less than or equal to 1000."
         ),
-        initial=10,
+        initial=15,
     )
 
     excluded = forms.CharField(
@@ -234,23 +238,32 @@ class AvailableTroopsForm(forms.ModelForm):
         fields = [
             "initial_outline_min_off",
             "initial_outline_front_dist",
-            "initial_outline_excluded_coords",
+            "initial_outline_maximum_front_dist",
             "initial_outline_target_dist",
+            "initial_outline_excluded_coords",
         ]
         labels = {
             "initial_outline_min_off": gettext_lazy("Min. off units number"),
-            "initial_outline_front_dist": gettext_lazy("Distance from front line"),
+            "initial_outline_front_dist": gettext_lazy(
+                "Minimum distance from front line"
+            ),
+            "initial_outline_maximum_front_dist": gettext_lazy(
+                "Maximum distance from front line"
+            ),
             "initial_outline_target_dist": gettext_lazy("Max Distance for nobles"),
         }
         help_texts = {
             "initial_outline_min_off": gettext_lazy(
-                "Greater than or equal to 1 and less than or equal to 28000."
+                "Greater than or equal to 1 and less than or equal to 28000. Only offs above this value will be considered full offs and will be written out."
             ),
             "initial_outline_front_dist": gettext_lazy(
-                "Greater than or equal to 0 and less than or equal to 45."
+                "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
+            ),
+            "initial_outline_maximum_front_dist": gettext_lazy(
+                "Greater than or equal to 0 and less than or equal to 1000. Villages farther from the enemy than this value will be considered too far from the front and completely skipped."
             ),
             "initial_outline_target_dist": gettext_lazy(
-                "Greater than or equal to 0 and less than or equal to 150."
+                "Greater than or equal to 0 and less than or equal to 1000."
             ),
         }
 
@@ -270,8 +283,26 @@ class AvailableTroopsForm(forms.ModelForm):
         except basic.VillageError as error:
             self.add_error("initial_outline_excluded_coords", str(error))
 
+    def clean(self):
+        radius_min: int = self.cleaned_data["initial_outline_front_dist"]
+        radius_max: int = self.cleaned_data["initial_outline_maximum_front_dist"]
+        if radius_min > radius_max:
+            self.add_error(
+                "initial_outline_front_dist",
+                f"It cannot be grater than maximum! Change this value to less than {radius_max} or increase the maximum.",
+            )
+            self.add_error(
+                "initial_outline_maximum_front_dist",
+                f"It cannot be less than minimum! Change this value to greater than {radius_min} or reduce the minimum.",
+            )
+
+        return super().clean()
+
 
 class SettingMessageForm(forms.ModelForm):
+    BANNED_SYMBOLS: str = "@#$&+=/"
+    SAFE_SYMBOLS: str = ";:,?"
+
     class Meta:
         model = models.Outline
         fields = [
@@ -285,32 +316,38 @@ class SettingMessageForm(forms.ModelForm):
             "text_message": gettext_lazy("Content of message:"),
         }
         help_texts = {
-            "title_message": gettext_lazy("Maximum length: 50"),
-            "text_message": gettext_lazy("Maximum length: 500"),
+            "default_show_hidden": gettext_lazy(
+                "By checking this option, players will see the commands of all other players for their own targets. By default, it's not turned on and players only see their commands."
+            ),
+            "title_message": gettext_lazy("Maximum length: 100."),
+            "text_message": gettext_lazy(
+                "Maximum length: 1000, do not use @#$&+=/ symbols."
+            ),
         }
         widgets = {
             "text_message": forms.Textarea,
         }
 
     def clean_text_message(self):
-        text = self.cleaned_data.get("text_message")
-        length = len(text.replace("\r\n", "%0A"))
-        if length > 500:
-            raise forms.ValidationError(
-                gettext_lazy("Ensure this value has at most 500 characters (it has ")
-                + f" {length})."
-            )
+        text: str = self.cleaned_data["text_message"]
+        banned_symbol: str
+        for banned_symbol in self.BANNED_SYMBOLS:
+            if banned_symbol in text:
+                self.add_error(
+                    "text_message",
+                    gettext_lazy("Please remove all forbidden symbols: @#$&+=/"),
+                )
+                return
 
 
 class SettingDateForm(forms.ModelForm):
+    date = forms.DateField(
+        label=gettext_lazy("Set new date"), input_formats=["%Y-%m-%d"]
+    )
+
     class Meta:
         model = models.Outline
-        fields = [
-            "date",
-        ]
-        labels = {
-            "date": gettext_lazy("Set new date"),
-        }
+        fields = []
 
 
 class SetNewOutlineFilters(forms.ModelForm):
@@ -509,8 +546,13 @@ class PeriodForm(forms.ModelForm):
         time2 = self.cleaned_data.get("to_time")
         number1 = self.cleaned_data.get("from_number")
         number2 = self.cleaned_data.get("to_number")
-        if time2 < time1:
+        if time1 is None:
+            self.add_error("from_time", "None")
+        if time2 is None:
+            self.add_error("to_time", "None")
+        if time1 is not None and time2 is not None and time2 < time1:
             self.add_error("from_time", "time2<time1")
+            self.add_error("to_time", "time2<time1")
         if status in {"random", None}:
             if number1 is None:
                 self.add_error("from_number", "None")
@@ -651,13 +693,26 @@ class CreateNewInitialTarget(forms.Form):
             )
             return
 
-        if not models.VillageModel.objects.filter(
-            coord=coord, world=self.outline.world
-        ).exists():
+        village_query: "QuerySet[models.VillageModel]" = (
+            models.VillageModel.objects.filter(coord=coord, world=self.outline.world)
+        )
+        if not village_query.exists():
             self.add_error(
                 "target",
                 gettext_lazy("Village with that coords did not found."),
             )
+            return
+        if not len(village_query) == 1:
+            self.add_error(
+                "target",
+                gettext_lazy(
+                    "Found more than one village in database, this is the bug. Write me: <rafal.safin@rafsaf.pl>"
+                ),
+            )
+            return
+        village: models.VillageModel = village_query[0]
+        if village.player is None:
+            self.add_error("target", gettext_lazy("Village must not be barbarian."))
             return
 
 

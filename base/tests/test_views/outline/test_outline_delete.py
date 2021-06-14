@@ -1,6 +1,7 @@
-from base.models import Outline
 from django.urls import reverse
-from base.tests.utils.mini_setup import MiniSetup
+
+from base.models import Outline
+from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class OutlineDelete(MiniSetup):

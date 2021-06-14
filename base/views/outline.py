@@ -1,15 +1,16 @@
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
-from django.views.generic import ListView
-from django.shortcuts import get_object_or_404
-from django.utils.translation import get_language, gettext
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.utils import timezone
-from markdownx.utils import markdownify
 import json
-from base import models, forms
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
+from django.utils.translation import get_language, gettext
+from django.views.decorators.http import require_POST
+from django.views.generic import ListView
+from markdownx.utils import markdownify
+
+from base import forms, models
 from utils.basic import Troops
 
 
@@ -113,6 +114,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     if request.method == "POST":
         if "form-1" in request.POST:
             form10 = forms.OffTroopsForm(request.POST, outline=instance)
+            instance.actions.save_off_troops(instance)
             if form10.is_valid():
                 instance.off_troops = request.POST.get("off_troops")
                 instance.save()
@@ -124,6 +126,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
 
         elif "form-2" in request.POST:
             form20 = forms.DeffTroopsForm(request.POST, outline=instance)
+            instance.actions.save_deff_troops(instance)
             if form20.is_valid():
                 instance.deff_troops = request.POST.get("deff_troops")
                 instance.save()

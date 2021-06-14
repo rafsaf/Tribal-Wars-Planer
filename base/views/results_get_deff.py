@@ -1,18 +1,17 @@
-from django.http import HttpRequest
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from utils.get_deff import get_deff
-from utils import basic
-from base import models, forms
-from django.utils.translation import gettext
-from django.utils.translation import get_language
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils.translation import get_language, gettext
 from markdownx.utils import markdownify
+
+from base import forms, models
+from utils import basic
+from utils.get_deff import get_deff
 
 
 @login_required
-def outline_detail_get_deff(request, _id):
+def outline_detail_get_deff(request: HttpRequest, _id: int) -> HttpResponse:
     """details user outline, get deff page"""
     instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
     result = get_object_or_404(models.Result, pk=instance)
@@ -46,7 +45,7 @@ def outline_detail_get_deff(request, _id):
             try:
                 result.results_get_deff = get_deff(
                     outline=instance,
-                    radius=int(request.POST.get("radius")),
+                    radius=int(request.POST.get("radius") or 0),
                     excluded_villages=request.POST.get("excluded"),
                 )
             except basic.DeffException:
@@ -72,9 +71,9 @@ def outline_detail_get_deff(request, _id):
 
 
 @login_required
-def outline_detail_results(request: HttpRequest, _id):
+def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
     """view for results"""
-    instance = get_object_or_404(
+    instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
     overviews = models.Overview.objects.filter(
@@ -83,13 +82,13 @@ def outline_detail_results(request: HttpRequest, _id):
     removed_overviews = models.Overview.objects.filter(
         outline=instance, removed=True
     ).order_by("-created", "player")
-    world = instance.world
+    world: models.World = instance.world
     name_prefix = world.link_to_game()
 
     form1 = forms.SettingMessageForm(request.POST or None)
     form1.fields["default_show_hidden"].initial = instance.default_show_hidden
     form1.fields["title_message"].initial = instance.title_message
-    form1.fields["text_message"].initial = instance.text_message.replace("%0A", "\r\n")
+    form1.fields["text_message"].initial = instance.text_message
 
     if request.method == "POST":
         if "form1" in request.POST:
@@ -102,19 +101,14 @@ def outline_detail_results(request: HttpRequest, _id):
                     default_show_hidden = False
 
                 title_message = request.POST.get("title_message")
-                text_message = request.POST.get("text_message").strip()
+                text_message = request.POST.get("text_message")
                 instance.default_show_hidden = default_show_hidden
                 instance.title_message = title_message
-                instance.text_message = text_message.replace("\r\n", "%0A")
+                instance.text_message = text_message
                 instance.save()
 
-                overviews_update_lst = []
-                for overview in overviews:
-                    overview.show_hidden = default_show_hidden
-                    overviews_update_lst.append(overview)
-                models.Overview.objects.bulk_update(
-                    overviews_update_lst, fields=["show_hidden"]
-                )
+                overviews.update(show_hidden=default_show_hidden)
+
                 return redirect("base:planer_detail_results", _id)
 
     context = {
