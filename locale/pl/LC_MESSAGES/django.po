@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-13 19:04+0200\n"
+"POT-Creation-Date: 2021-06-15 02:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,44 +236,44 @@ msgid "Noble"
 msgstr "Szlachcic"
 
 #: base/forms.py:516 base/forms.py:527
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:120
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:183
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:222
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:111
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:174
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
 msgid "From"
 msgstr "Od"
 
 #: base/forms.py:519 base/forms.py:528
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:121
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:184
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:223
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:112
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:175
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:214
 msgid "To"
 msgstr "Do"
 
 #: base/forms.py:526
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:116
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:178
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:220
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:107
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
 msgid "Mode"
 msgstr "Tryb"
 
 #: base/forms.py:529
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:117
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:180
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:221
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:108
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
 msgid "Unit"
 msgstr "Jednostka"
 
 #: base/forms.py:530
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:118
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:185
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:224
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:109
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:176
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:215
 msgid "Min. time"
 msgstr "Min. czas"
 
 #: base/forms.py:531
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:119
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:186
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:225
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:110
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:177
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:216
 msgid "Max. time"
 msgstr "Max. czas"
 
@@ -817,11 +817,11 @@ msgstr ""
 #: base/templates/base/base.html:373
 msgid ""
 "This site is free of 3rd party trackers, we belive in privacy, refer to <a "
-"target=\"_blank\" href=\"/static/privacy-policy.pdf\">our privacy policy and "
-"regulations</a>."
+"target=\"_blank\" href=\"/static/privacy-policy-08.06.2021.pdf\">our privacy "
+"policy and regulations</a>."
 msgstr ""
-"Ta strona jest strefą wolną od skryptów śledzących, "
-"dbamy o anonimowość w sieci, zobacz <a target=\"_blank\" href=\"/static/privacy-policy.pdf"
+"Ta strona jest strefą wolną od skryptów śledzących, dbamy o anonimowość w "
+"sieci, zobacz <a target=\"_blank\" href=\"/static/privacy-policy-08.06.2021.pdf"
 "\">naszą politykę prywatności i regulamin</a>."
 
 #: base/templates/base/base_planer.html:10
@@ -847,8 +847,8 @@ msgstr "Ukryj"
 #: base/templates/base/base_planer.html:15
 #: base/templates/base/base_planer.html:50
 #: base/templates/base/new_outline/new_outline_initial_period2.html:315
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:248
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:202
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:239
 msgid "Delete"
 msgstr "Usuń"
 
@@ -986,7 +986,7 @@ msgstr "Przykłady"
 
 #: base/templates/base/new_outline/new_outline.html:195
 #: base/templates/base/new_outline/new_outline_initial_period1.html:524
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:338
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:326
 msgid "An error occured"
 msgstr "Uwaga, wystąpił błąd"
 
@@ -1007,7 +1007,7 @@ msgid "docs"
 msgstr "dokumentację"
 
 #: base/templates/base/new_outline/new_outline_create.html:15
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:147
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:138
 msgid "Create"
 msgstr "Utwórz"
 
@@ -1467,7 +1467,7 @@ msgid "Type of order"
 msgstr "Typ celu"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:19
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:179
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
 msgid ""
 "For ruins, the Ram Unit means Off and the Noble Unit represents later ruins"
 msgstr ""
@@ -1479,28 +1479,28 @@ msgid "Default Time"
 msgstr "Domyślny Czas"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:41
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:64
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:86
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:61
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:80
 msgid "Create at least one Time below"
 msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:262
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:253
 #: base/templates/base/new_outline/new_outline_initial_period3.html:138
 #: base/templates/base/overview.html:173 utils/basic/mode.py:47
 #: utils/outline_finish.py:43
 msgid "Target"
 msgstr "Cel"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:263
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:254
 msgid "Select Time"
 msgstr "Wybierz Czas"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:264
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:255
 #: base/templates/base/overview.html:174 utils/basic/mode.py:54
 msgid "Outline"
 msgstr "Rozpiska"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:282
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:273
 msgid "Create at least one Time above"
 msgstr "Utwórz najpierw co najmniej jeden Czas powyżej"
 
