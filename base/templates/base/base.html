@@ -165,22 +165,27 @@
                     <div class='text-center' >
                         <div class='background-image-lg d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
                             <h2 class="font-nav pt-2">{% trans 'Create simple and fast outlines' %}</h2>
-                            <a href="{% url 'login' %}" style="width: 32%" class="btn btn-ocean mt-3">
+                            <a href="{% url 'login' %}" style="width: 32%" class="btn btn-ocean mt-2">
                                 <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
                             </a>
                             <p style="font-size: normal;" class="mt-1">
-                                {% trans "Don't have an account? "  %}<a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
+                                <span style="width: 100%; background:rgba(255, 255, 255, 0.986)">{% trans "Don't have an account? "  %}</span><span style="width: 100%; background:rgba(255, 255, 255, 0.986)"><a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a></span>
                             </p>
                         </div>
 
                         <div class='background-image-sm d-block d-lg-none' style="margin-left:-15px !important;margin-right:-15px !important">
-                            <h2 class="font-nav pt-4">{% trans 'Create simple and fast outlines' %}</h2>
-                            <a href="{% url 'login' %}" style="width: 70%" class="btn btn-ocean mt-5">
-                                <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
-                            </a>
-                            <p style="font-size: normal;" class="mt-1">
-                                {% trans "Don't have an account? "  %}<a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.
-                            </p>
+                            <div class="px-3">
+                                <h2 class="font-nav pt-4">{% trans 'Create simple and fast outlines' %}</h2>
+                                <a href="{% url 'login' %}" style="width: 75%" class="btn btn-ocean mt-1">
+                                    <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
+                                </a>
+                                <p style="font-size: normal;" class="mt-2 mb-0">
+                                    {% trans "Don't have an account? "  %}
+                                </p>
+                                <p style="font-size: normal;" class="mt-0">
+                                    <a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
+                                </p>
+                            </div>
                         </div>
                         <div>
                             <div class="row mt-3">
