@@ -58,6 +58,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tribal_wars_planer.middlewares.StatsMiddleware",
 ]
 
 ROOT_URLCONF = "tribal_wars_planer.urls"

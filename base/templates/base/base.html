@@ -1,21 +1,25 @@
-{% load static %} {% load i18n %}
+{% load static %}{% load i18n %}
 <!doctype html>
-<html lang="en">
+<html lang="{{ request.get_full_path|slice:'1:3' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
     <title>{% trans 'Tribal Wars Planer' %}</title>
+
     {% block meta-content %}<meta name="description" content="{% trans 'Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}" />{% endblock %}
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'base-min-10062021-1300.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
+
     <script type="text/javascript" src="{% static 'base-min-10062021-1259.js' %}"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <style>.background-image-lg {background-image: url("{% static 'images/background.jpg' %}");background-size: cover;min-height: 250px;border-bottom: 1px solid teal;}.background-image-sm {background-image: url("{% static 'images/background.jpg' %}");background-size: cover;min-height: 325px;border-bottom: 1px solid teal;}</style>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 </head>
+
 {% spaceless %}
 <body>
     <div class="d-flex" id="wrapper">
@@ -179,9 +183,7 @@
                                 <a href="{% url 'login' %}" style="width: 75%" class="btn btn-ocean mt-1">
                                     <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
                                 </a>
-                                <p style="font-size: normal;" class="mt-2 mb-0">
-                                    {% trans "Don't have an account? "  %}
-                                </p>
+                                <p style="font-size: normal;" class="mt-2 mb-0">{% trans "Don't have an account? "  %}</p>
                                 <p style="font-size: normal;" class="mt-0">
                                     <a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
                                 </p>
@@ -226,8 +228,7 @@
                                             <th><img src="{% static 'images/pl_version.svg' %}"></th>
                                             <th>
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%
-                                                    </div>
+                                                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
                                                 </div>
                                             </th>
                                             <th>{% trans 'PL version' %}</th>
@@ -236,8 +237,7 @@
                                             <th><img src="{% static 'images/eng_version.svg' %}"></th>
                                             <th>
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%
-                                                    </div>
+                                                    <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
                                                 </div>
                                             </th>
                                             <th>{% trans 'ENG version' %}</th>
@@ -246,8 +246,7 @@
                                             <th><img src="{% static 'images/tests.svg' %}"></th>
                                             <th>
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 79%;" aria-valuenow="79" aria-valuemin="0" aria-valuemax="100">79%
-                                                    </div>
+                                                    <div class="progress-bar" role="progressbar" style="width: 79%;" aria-valuenow="79" aria-valuemin="0" aria-valuemax="100">79%</div>
                                                 </div>
                                             </th>
                                             <th>{% trans 'Code tests' %}</th>
@@ -273,98 +272,53 @@
                                             <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab" >
                                                 
                                                 <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i>
-                                                    {% trans 'You save a tons of time and have all outlines in one place.' %}
-                                                </p>
+                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'You save a tons of time and have all outlines in one place.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i>
-                                                    {% trans 'Players receive final orders ready to paste in the in-game notes and send.' %}
-                                                </p>
+                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Players receive final orders ready to paste in the in-game notes and send.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i>
-                                                    {% trans 'Instantly distribute created objectives to players.' %}
-                                                </p>
+                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Instantly distribute created objectives to players.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i>
-                                                    {% trans 'Friendly and easy-to-use interface.' %}
-                                                </p>
+                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Friendly and easy-to-use interface.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i>
-                                                    {% trans 'The ability to accurately describe each axeman yourself or leave it to the Planer, choosing from dozens of options.' %}
-                                                </p>
+                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'The ability to accurately describe each axeman yourself or leave it to the Planer, choosing from dozens of options.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i>
-                                                    {% trans 'Growing number of users.' %}
-                                                </p>
+                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Growing number of users.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i>
-                                                    {% trans 'Constantly adding new options and fixing bugs.' %}
-                                                </p>
+                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Constantly adding new options and fixing bugs.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i>
-                                                    {% trans 'The scripts used are reported and approved by the game support.' %}
-                                                </p>
+                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'The scripts used are reported and approved by the game support.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-x-circle xcircle-red"></i>
-                                                    {% trans 'Putting away notebooks, sheets and excel sheets in the trash.' %}
-                                                </p>
+                                                    <i class="bi bi-x-circle xcircle-red"></i> {% trans 'Putting away notebooks, sheets and excel sheets in the trash.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-x-circle xcircle-red"></i>
-                                                    {% trans 'You will avoid common problems like doubled commands.' %}
-                                                </p>
+                                                    <i class="bi bi-x-circle xcircle-red"></i> {% trans 'You will avoid common problems like doubled commands.' %}</p>
                                                 <p class="mb-2">
-                                                    <i class="bi bi-x-circle xcircle-red"></i>
-                                                    {% trans 'No more mistakes when sending messages to players.' %}
-                                                </p>
+                                                    <i class="bi bi-x-circle xcircle-red"></i> {% trans 'No more mistakes when sending messages to players.' %}</p>
                                             </div>
                                             <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">
                                                 <p class="mt-4">
-                                                    <i class="bi bi-lock-fill lock-green"></i>
-                                                    {% trans 'The application is written in the modern and very secure <a target="_blank" href="https://www.djangoproject.com/">Django</a> framework. Therefore it solves COMPLETELY most of the seciurity mistakes of smaller applications like SQL injection, cross-site scripting, cross-site request forgery and clickjacking also providing a safe way to manage user accounts.' %}
-                                                    
-                                                </p>
+                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'The application is written in the modern and very secure <a target="_blank" href="https://www.djangoproject.com/">Django</a> framework. Therefore it solves COMPLETELY most of the seciurity mistakes of smaller applications like SQL injection, cross-site scripting, cross-site request forgery and clickjacking also providing a safe way to manage user accounts.' %}</p>
                                                 <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i>
-                                                    {% trans 'When designing the application, special emphasis was placed on the security of user accounts, preventing access to the data entered by them for other users and third parties.' %}
-                                                    
-                                                </p>
+                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'When designing the application, special emphasis was placed on the security of user accounts, preventing access to the data entered by them for other users and third parties.' %}</p>
                                                 <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i>
-                                                    {% trans 'Both the web server and the database server are located in the <a href="https://aws.amazon.com/">Amazon Web Services</a> cloud, with special attention to all their safety recommendations.' %}
-                                                    
-                                                </p>
+                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'Both the web server and the database server are located in the <a href="https://aws.amazon.com/">Amazon Web Services</a> cloud, with special attention to all their safety recommendations.' %}</p>
                                                 <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i>
-                                                    {% trans 'The only one person involved in code writing and project maintenance from the beginning to date, means little risk of accidental sudden exposure of user data.' %}
-                                                    
-                                                </p>
+                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'The only one person involved in code writing and project maintenance from the beginning to date, means little risk of accidental sudden exposure of user data.' %}</p>
                                                 <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i>
-                                                    {% trans 'Ensuring the privacy of users is the most important task of this project, your data will never be passed on to other users, game players or third parties or anyone else for any purpose.' %}
-                                                </p>    
+                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'Ensuring the privacy of users is the most important task of this project, your data will never be passed on to other users, game players or third parties or anyone else for any purpose.' %}</p>    
                                             </div>
-                                            <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                                {% trans 'My name is Rafał, I am a Python developer at Nokia and a student of the Faculty of Mathematics and Computer Science at the University of Wroclaw. I am interested in web applications, both backend and frontend, cloud technologies and security in the web. I write mainly in Python and JS/TS.' %}
-                                                
-                                                <br> <br>
-                                                {% trans 'In addition to the above, I am a fan of fantasy, I have been reading series more or less regularly since childhood, my favourite author is Ursula Le Guin and her series Earthsea. I am a seasonal runner (my greatest achievement is participation in provincial competitions), I love chess and poker and a good movie too.' %}
-                                                <br> <br>
-
+                                            <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">{% trans 'My name is Rafał, I am a Python developer at Nokia and a student of the Faculty of Mathematics and Computer Science at the University of Wroclaw. I am interested in web applications, both backend and frontend, cloud technologies and security in the web. I write mainly in Python and JS/TS.' %}<br><br>{% trans 'In addition to the above, I am a fan of fantasy, I have been reading series more or less regularly since childhood, my favourite author is Ursula Le Guin and her series Earthsea. I am a seasonal runner (my greatest achievement is participation in provincial competitions), I love chess and poker and a good movie too.' %}<br><br>
                                             </div>
                                         </div>
                                 </div>
                             </div>
                             <div class="mb-2 mt-0" style="font-size: larger; max-width: 100%;">
-                            <p class="mb-3 mt-5 py-4" style="border-top: 1px solid teal;">
-                                {% trans 'Join the discord to be up to date with news, ask about what is unclear, report bugs and propose changes.' %}
-                            </p>
+                            <p class="mb-3 mt-5 py-4" style="border-top: 1px solid teal;">{% trans 'Join the discord to be up to date with news, ask about what is unclear, report bugs and propose changes.' %}</p>
                             </div>
                             <div class="row mt-4 justify-content-center">
                                 <div class="col-auto mb-4">
                                     <a target="_blank" href='https://discord.gg/g5pcsCteCT'>
                                         <img height="80" src="{% static 'images/discord-logo-light.svg'%}" alt="Discord">
                                     </a>
-                                    
                                 </div>
                             </div>                  
  
@@ -389,4 +343,5 @@
     <script>activateTooltips();menu_toggle();</script>
 </body>
 {% endspaceless %}
+
 </html>
