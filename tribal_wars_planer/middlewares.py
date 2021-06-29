@@ -1,6 +1,7 @@
 from django.db import connection
 from functools import reduce
 from time import time
+from django.http import HttpRequest
 from django.http.response import HttpResponse
 from django.template.response import TemplateResponse
 from operator import add
@@ -9,18 +10,14 @@ from operator import add
 class StatsMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-        self.total_time: float = 0.0
-        self.python_time: float = 0.0
-        self.db_time: float = 0.0
-        self.db_queries: int = 0
 
-    def __call__(self, request):
+    def __call__(self, request: HttpRequest) -> HttpResponse:
 
         before_queries: int = len(connection.queries)
         start: float = time()
 
         response: HttpResponse = self.get_response(request)
-        if response.headers["Content-Type"] == "text/html; charset=utf-8":
+        if response.headers.get("Content-Type") == "text/html; charset=utf-8":
             total_time: float = time() - start
 
             db_queries: int = len(connection.queries) - before_queries
@@ -39,14 +36,4 @@ class StatsMiddleware:
                 )
                 + response.content
             )
-        return response
-
-    def process_template_response(self, request, response: TemplateResponse):
-        if response.context_data is None:
-            response.context_data = {}
-        print(response.context_data)
-        response.context_data["stats_total_time"] = self.total_time
-        response.context_data["stats_python_time"] = self.python_time
-        response.context_data["stats_db_time"] = self.db_time
-        response.context_data["stats_db_queries"] = self.db_queries
         return response

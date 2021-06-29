@@ -1,8 +1,9 @@
 from django.urls import reverse
 
 from base.models import WeightModel
-from base.tests.test_views.outline_initial_changes.changes_view_setup import \
-    ChangesViewSetup
+from base.tests.test_views.outline_initial_changes.changes_view_setup import (
+    ChangesViewSetup,
+)
 
 
 class InitialAddFirst(ChangesViewSetup):
@@ -42,10 +43,10 @@ class InitialAddFirst(ChangesViewSetup):
         self.assertEqual(weight_max.catapult_state, 200)
 
         new_weight = WeightModel.objects.filter(start="500|500", target=target).last()
-        self.assertEqual(new_weight.off, 5000)
-        self.assertEqual(new_weight.nobleman, 1)
-        self.assertEqual(new_weight.order, -1)
-        self.assertEqual(new_weight.catapult, 200)
+        self.assertEqual(new_weight.off, 5000)  # type: ignore
+        self.assertEqual(new_weight.nobleman, 1)  # type: ignore
+        self.assertEqual(new_weight.order, -1)  # type: ignore
+        self.assertEqual(new_weight.catapult, 200)  # type: ignore
 
     def test_planer_add_first___prevent_access_from_other_user(self):
 

@@ -228,6 +228,8 @@ class RuinHandle:
 
         best: int
         available_cats: int = weight_max.catapult_left
+        if self.current_level is None:
+            raise ValueError("current level is None")
         if self.current_level == 1:
             best = 20
         elif self.current_level <= 8 or available_cats < 75:

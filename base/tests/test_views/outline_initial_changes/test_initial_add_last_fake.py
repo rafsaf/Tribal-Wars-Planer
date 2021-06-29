@@ -1,8 +1,9 @@
 from django.urls import reverse
 
 from base.models import WeightModel
-from base.tests.test_views.outline_initial_changes.changes_view_setup import \
-    ChangesViewSetup
+from base.tests.test_views.outline_initial_changes.changes_view_setup import (
+    ChangesViewSetup,
+)
 
 
 class InitialAddLastFake(ChangesViewSetup):
@@ -43,10 +44,10 @@ class InitialAddLastFake(ChangesViewSetup):
         self.assertEqual(weight_max.catapult_state, 0)
 
         new_weight = WeightModel.objects.filter(start="500|500", target=target).last()
-        self.assertEqual(new_weight.off, 100)
-        self.assertEqual(new_weight.nobleman, 0)
-        self.assertEqual(new_weight.order, 3)
-        self.assertEqual(new_weight.catapult, 0)
+        self.assertEqual(new_weight.off, 100)  # type: ignore
+        self.assertEqual(new_weight.nobleman, 0)  # type: ignore
+        self.assertEqual(new_weight.order, 3)  # type: ignore
+        self.assertEqual(new_weight.catapult, 0)  # type: ignore
 
     def test_planer_add_last_fake___prevent_access_from_other_user(self):
 

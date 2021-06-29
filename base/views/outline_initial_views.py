@@ -588,7 +588,7 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
                 instance.save()
                 return redirect(
                     reverse("base:planer_initial_detail", args=[id1, id2])
-                    + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"
+                    + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"  # type: ignore
                 )
 
         if "form" in request.POST:
@@ -652,7 +652,7 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
                 state.save()
                 return redirect(
                     reverse("base:planer_initial_detail", args=[id1, id2])
-                    + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"
+                    + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"  # type: ignore
                 )
         else:
             form = forms.WeightForm(None)

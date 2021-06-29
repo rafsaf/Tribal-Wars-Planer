@@ -182,6 +182,8 @@ class WriteRamTarget:
         if self.target.fake:
             return 0
         elif self.ruin:
+            if self.ruin_handle is None:
+                raise ValueError("ruin handle var is none")
             return self.ruin_handle.best_catapult(weight_max)
         else:  # real
             return weight_max.catapult_left
