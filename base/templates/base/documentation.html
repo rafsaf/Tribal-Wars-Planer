@@ -1,31 +1,14 @@
 {% extends 'base/base.html' %} 
 {% load i18n %} {% load static %} 
-{% block meta-content %}
+{% block meta-content %}<meta name="description" content="{% trans 'Documentation of Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}"/>{% endblock %}
+{% block content %}{% autoescape off %} 
 
-<meta name="description" content="{% trans 'Documentation of Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}"/>
-
-{% endblock %}
-
-{% block content %}
-{% autoescape off %} 
-<style>
-    .jumbotron{
-        font-family:unset;
-        background-color: teal !important;
-        color: white;
-    }
-    .jumbotron a{
-        color: white;
-    }
-</style>
 <div id='docs' class="container" style="font-size: larger;max-width:900px;">
     <article style="margin-left:-15px!important;margin-right:-15px;">
         {{doc}}
     </article>
 </div>
-
 {% endautoescape %}
-
 <script>
     var bg_color_img_box = 'rgba(0,0,0,0.9)';
     var allow_hide_scroll_img_box = 'yes';

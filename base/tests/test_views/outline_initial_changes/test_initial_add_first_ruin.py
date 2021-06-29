@@ -1,8 +1,9 @@
 from django.urls import reverse
 
 from base.models import WeightMaximum, WeightModel
-from base.tests.test_views.outline_initial_changes.changes_view_setup import \
-    ChangesViewSetup
+from base.tests.test_views.outline_initial_changes.changes_view_setup import (
+    ChangesViewSetup,
+)
 
 
 class InitialAddFirstRuin(ChangesViewSetup):
@@ -43,10 +44,10 @@ class InitialAddFirstRuin(ChangesViewSetup):
         self.assertEqual(weight_max.nobleman_state, 1)
 
         new_weight = WeightModel.objects.filter(start="500|500", target=target).last()
-        self.assertEqual(new_weight.off, 1200)
-        self.assertEqual(new_weight.catapult, 150)
-        self.assertEqual(new_weight.nobleman, 0)
-        self.assertEqual(new_weight.order, -1)
+        self.assertEqual(new_weight.off, 1200)  # type: ignore
+        self.assertEqual(new_weight.catapult, 150)  # type: ignore
+        self.assertEqual(new_weight.nobleman, 0)  # type: ignore
+        self.assertEqual(new_weight.order, -1)  # type: ignore
 
     def test_planer_add_first_ruin___prevent_access_from_other_user(self):
 

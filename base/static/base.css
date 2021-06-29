@@ -732,3 +732,23 @@ a.nav-link.nav-link-pills.last-nav-link {
   top: 0.125em;
   position: relative;
 }
+.background-image-lg {
+  background-image: url("/static/images/background.jpg");
+  background-size: cover;
+  min-height: 250px;
+  border-bottom: 1px solid teal;
+}
+.background-image-sm {
+  background-image: url("/static/images/background.jpg");
+  background-size: cover;
+  min-height: 325px;
+  border-bottom: 1px solid teal;
+}
+.jumbotron {
+  font-family: unset;
+  background-color: teal !important;
+  color: white;
+}
+.jumbotron a {
+  color: white;
+}

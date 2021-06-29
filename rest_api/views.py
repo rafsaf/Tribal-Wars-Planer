@@ -128,11 +128,11 @@ class ChangeBuildingsArray(APIView):
     def put(self, request, outline_id: int, format=None) -> Response:
         outline: Outline = get_object_or_404(Outline, id=outline_id, owner=request.user)
 
-        buildings_serializer = serializers.ChangeBuildingsArraySerializer(
-            data=request.data
+        buildings_serializer: serializers.ChangeBuildingsArraySerializer = (
+            serializers.ChangeBuildingsArraySerializer(data=request.data)
         )
         if buildings_serializer.is_valid():
-            outline.initial_outline_buildings = buildings_serializer.validated_data[
+            outline.initial_outline_buildings = buildings_serializer.validated_data[  # type: ignore
                 "buildings"
             ]
             outline.actions.form_building_order_change(outline)
