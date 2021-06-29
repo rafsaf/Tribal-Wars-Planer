@@ -1,9 +1,6 @@
-from django.db import connection
-from functools import reduce
 from time import time
 from django.http import HttpRequest
 from django.http.response import HttpResponse
-from operator import add
 
 
 class StatsMiddleware:
