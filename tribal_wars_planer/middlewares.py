@@ -3,7 +3,6 @@ from functools import reduce
 from time import time
 from django.http import HttpRequest
 from django.http.response import HttpResponse
-from django.template.response import TemplateResponse
 from operator import add
 
 
@@ -31,7 +30,7 @@ class StatsMiddleware:
             python_time: float = total_time - db_time
 
             response.content = (
-                f"<!--\r\n Total time: {total_time}s\r\n Python time: {python_time}s\r\n DB time: {db_time}s\r\n-->".encode(
+                f"<!--\r\n Rendered with Django 3.2.4\r\n Total time: {total_time}s\r\n Python time: {python_time}s\r\n DB time: {db_time}s\r\n-->".encode(
                     "utf-8"
                 )
                 + response.content
