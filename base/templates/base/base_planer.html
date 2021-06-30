@@ -22,24 +22,24 @@
             <td>
                 <a class="btn btn-secondary my-2" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
             </td>
-            <td>{{instance.date}}</td>
-            <td>{{instance.created}}</td>
-            <td>{{instance.world_human}}</td>
-            <td>{{instance.ally_tribe_tag}}</td>
-            <td>{{instance.enemy_tribe_tag}}</td>
+            <td><p class="my-2 mt-3">{{instance.date}}</p></td>
+            <td><p class="my-2 mt-3">{{instance.created}}</p></td>
+            <td><p class="my-2 mt-3">{{instance.world_human}}</p></td>
+            <td><p class="my-2 mt-3">{{instance.ally_tribe_tag}}</p></td>
+            <td><p class="my-2 mt-3">{{instance.enemy_tribe_tag}}</p></td>
             <td>
                 {% if instance.status == 'active' %}
 
                 <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary mb-2">{% trans 'Hide' %}</button>
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2">{% trans 'Hide' %}</button>
                 </form>
 
                 {% else %}
 
                 <form action="{% url 'base:planer_status' instance.id %}" method="POST">
                     {% csrf_token %}
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary mb-2">{% trans 'Show' %}</button>
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2">{% trans 'Show' %}</button>
                 </form>
 
                 {% endif %}
@@ -47,7 +47,7 @@
             </td>
             <td>
                 <div>
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ValidationModal-{{instance.id}}">{% trans 'Delete' %}</button>
+                    <button type="button" class="btn btn-secondary my-2" data-toggle="modal" data-target="#ValidationModal-{{instance.id}}">{% trans 'Delete' %}</button>
                 </div>
 
                 <div class="modal fade" id="ValidationModal-{{instance.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
