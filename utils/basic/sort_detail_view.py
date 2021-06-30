@@ -58,6 +58,7 @@ class SortAndPaginRequest:
             .filter(
                 off_left__gte=self.outline.filter_weights_min,
                 off_left__lte=self.outline.filter_weights_max,
+                catapult_left__gte=self.outline.filter_weights_catapults_min,
             )
         )
         if self.filtr != "":

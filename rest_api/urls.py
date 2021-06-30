@@ -33,6 +33,11 @@ urlpatterns = [
         name="change_buildings_array",
     ),
     path(
+        "change-weight-building/<int:outline_id>/<int:weight_id>/",
+        views.ChangeWeightModelBuilding.as_view(),
+        name="change_weight_building",
+    ),
+    path(
         "reset-user-messages/",
         views.ResetUserMessages.as_view(),
         name="reset_user_messages",

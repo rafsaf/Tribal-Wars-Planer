@@ -318,7 +318,7 @@
                     {% endif %}
                     {% for weight in lst %}
                     <th class="front-{{weight.first_line}}">
-                        <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>{% if weight.ruin %}<h5 style='text-align:center'>{{weight.get_building_display}}</h5>{% endif %}" rel="popover" data-placement="top" data-trigger="hover">
+                        <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>" rel="popover" data-placement="top" data-trigger="hover">
                         {% if instance.simple_textures %}
                             <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.off}}</p>
                             {% if weight.ruin %}
@@ -331,38 +331,38 @@
                             <table class="table table-sm">
                                 <tr>
                                     <th><img src='{% static "images/ax.png" %}' alt="ax"></th>
-                                    <th style="font-size: small;cursor:default;">{{weight.off}}</th>
+                                    <th colspan="2" style="font-size: small;cursor:default;">{{weight.off}}</th>
                                 </tr>
                                 <tr>
                                     {% if weight.ruin %}
                                     <th><img src='{% static "images/catapult.png" %}' alt="cat"></th>
-                                    <th style="font-size: small;cursor:default;">{{weight.catapult}}</th>
+                                    <th colspan="2" style="font-size: small;cursor:default;">{{weight.catapult}}</th>
                                     {% else %}
                                     <th><img src='{% static "images/nobleman.png" %}' alt="ax"></th>
-                                    <th style="font-size: small;cursor:default;">{{weight.nobleman}}</th>
+                                    <th colspan="2" style="font-size: small;cursor:default;">{{weight.nobleman}}</th>
                                     {% endif %}
                                 </tr>
                                 <tr>
                                     <th><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg></th>
-                                    <th style="font-size: small;cursor:pointer;" onclick="calculate_distance(this);">{{weight.distance}}</th>
+                                    <th colspan="2" style="font-size: small;cursor:pointer;" onclick="calculate_distance(this);">{{weight.distance}}</th>
                                 </tr>
                                 {% if weight.ruin %}
                                 <tr>
-                                    <th><button data-toggle="tooltip" data-placement="top" title="{% trans 'Add and remove targets' %}" class="btn btn-sm btn-default">1</button></th>
-                                    <th><button class="btn btn-sm btn-default">2</button></th>
-                                    
+                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'headquarters' %}fancy-building-True{% endif %}" id="headquarters-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Headquarters"|slice:":2" %}</button></th>
+                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'smithy' %}fancy-building-True{% endif %}" id="smithy-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Smithy"|slice:":2" %}</button></th>
+                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'timber_camp' %}fancy-building-True{% endif %}" id="timber_camp-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Timber camp"|slice:":2" %}</button></th>
                                 </tr>
-                                <tr >
-                                    <th><button class="btn btn-sm btn-default">3</button></th>
-                                    <th><button class="btn btn-sm btn-default">4</button></th>
+                                <tr>
+                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'clay_pit' %}fancy-building-True{% endif %}" id="clay_pit-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Clay pit"|slice:":2" %}</button></th>
+                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'farm' %}fancy-building-True{% endif %}" id="farm-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Farm"|slice:":2" %}</button></th>
+                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'warehouse' %}fancy-building-True{% endif %}" id="warehouse-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Warehouse"|slice:":2" %}</button></th>
                                 </tr>
-                                <tr >
-                                    <th colspan="2"><small><b>{{weight.get_building_display}}</b></small></th>
+
+                                <tr>
+                                    <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
                                 </tr>
                                 {% endif %}
-                                <style>
-
-                                </style>
+                                
                             </table>
                         {% endif %}
                         </div>

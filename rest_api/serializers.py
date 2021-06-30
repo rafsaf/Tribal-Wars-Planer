@@ -28,3 +28,29 @@ class ChangeBuildingsArraySerializer(serializers.Serializer):
             else:
                 BUILDINGS.discard(item)
         return value
+
+
+class ChangeWeightBuildingSerializer(serializers.Serializer):
+    BUILDINGS = {
+        "headquarters",
+        "barracks",
+        "stable",
+        "workshop",
+        "academy",
+        "smithy",
+        "rally_point",
+        "statue",
+        "market",
+        "timber_camp",
+        "clay_pit",
+        "iron_mine",
+        "farm",
+        "warehouse",
+        "wall",
+    }
+    building = serializers.CharField(max_length=100)
+
+    def validate_building(self, value):
+        if not value in self.BUILDINGS:
+            raise serializers.ValidationError("")
+        return value

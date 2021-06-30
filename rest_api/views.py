@@ -118,6 +118,32 @@ class OverwiewStateHideUpdate(APIView):
         return Response({"name": name, "class": new_class}, status=status.HTTP_200_OK)
 
 
+class ChangeWeightModelBuilding(APIView):
+    """
+    For given weight model updates its building.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, outline_id: int, weight_id: int, format=None) -> Response:
+        get_object_or_404(Outline, pk=outline_id, owner=request.user)
+        weight: WeightModel = get_object_or_404(WeightModel, pk=weight_id)
+
+        building_serializer: serializers.ChangeWeightBuildingSerializer = (
+            serializers.ChangeWeightBuildingSerializer(data=request.data)
+        )
+        if building_serializer.is_valid():
+            building: str = building_serializer.validated_data[  # type: ignore
+                "building"
+            ]
+            weight.building = building
+            weight.save()
+            weight.refresh_from_db()
+            new_building: str = weight.get_building_display()  # type: ignore
+            return Response({"name": new_building}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 class ChangeBuildingsArray(APIView):
     """
     For given outline updates array with buildings.
