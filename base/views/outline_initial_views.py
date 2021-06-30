@@ -569,6 +569,9 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     # Forms
     filter_form = forms.SetNewOutlineFilters(request.POST or None)
     filter_form.fields["filter_weights_min"].initial = instance.filter_weights_min
+    filter_form.fields[
+        "filter_weights_catapults_min"
+    ].initial = instance.filter_weights_catapults_min
     filter_form.fields["filter_weights_max"].initial = instance.filter_weights_max
     filter_form.fields["filter_card_number"].initial = instance.filter_card_number
     filter_form.fields["filter_hide_front"].initial = instance.filter_hide_front
@@ -577,11 +580,13 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
         if "form-filter" in request.POST:
             if filter_form.is_valid():
                 minimum = request.POST.get("filter_weights_min")
+                minimum_catapult = request.POST.get("filter_weights_catapults_min")
                 maximum = request.POST.get("filter_weights_max")
                 cards = request.POST.get("filter_card_number")
                 hide_front = request.POST.get("filter_hide_front")
 
                 instance.filter_weights_min = minimum
+                instance.filter_weights_catapults_min = minimum_catapult
                 instance.filter_weights_max = maximum
                 instance.filter_card_number = cards
                 instance.filter_hide_front = hide_front

@@ -139,6 +139,7 @@
                         <th scope="col" class="text-nowrap">{% trans 'TW Stats' %}</th>
                         <th scope="col" class="text-nowrap">{% trans 'Troops from' %}</th>
                         <th scope="col" class="text-nowrap">{% trans 'Troops to' %}</th>
+                        <th scope="col" class="text-nowrap">{% trans 'Catapults from' %}</th>
                         <th style="min-width: 130px;" scope="col" class="text-nowrap">{% trans 'Show' %}</th>
                         <th class="text-nowrap" scope="col">{% trans 'Cards on page' %}</th>
                         <th scope="col">{% trans 'Save' %}</th>
@@ -164,6 +165,14 @@
                         <th>
                             {{filter_form.filter_weights_max}}
                             {% for error in filter_form.filter_weights_max.errors %}
+                            <div class="md-error">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </th>
+                        <th>
+                            {{filter_form.filter_weights_catapults_min}}
+                            {% for error in filter_form.filter_weights_catapults_min.errors %}
                             <div class="md-error">
                                 {{ error }}
                             </div>

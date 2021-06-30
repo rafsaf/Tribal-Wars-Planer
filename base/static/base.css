@@ -751,3 +751,23 @@ a.nav-link.nav-link-pills.last-nav-link {
 .jumbotron a {
   color: white;
 }
+.fancy-th-btn {
+  padding: 0 !important;
+}
+.fancy-building-btn {
+  width: 100%;
+  margin: 0;
+  outline: 0;
+  border-radius: 0px;
+  padding: 5px;
+}
+.fancy-building-btn:hover {
+  background: #cbe4dfa4;
+}
+.fancy-building-btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+.fancy-building-True {
+  background: #dbe7e5a4;
+}
