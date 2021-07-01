@@ -2,6 +2,7 @@ version: "3.3"
 
 services:
   postgres:
+    restart: always
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
@@ -42,6 +43,7 @@ services:
 
   traefik:
     image: "traefik:v2.4"
+    restart: always
     container_name: "traefik"
     command:
       # - "--log.level=DEBUG"
