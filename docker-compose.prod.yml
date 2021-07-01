@@ -22,6 +22,7 @@ services:
 
   traefik:
     image: "traefik:v2.4"
+    restart: always
     container_name: "traefik"
     command:
       # - "--log.level=DEBUG"
