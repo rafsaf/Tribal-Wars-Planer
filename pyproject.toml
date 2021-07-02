@@ -6,27 +6,29 @@ authors = ["rafsaf <rafal.safin12@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.10"
-Django = "^3.0.8"
-django-crispy-forms = "^1.11.2"
-django-crontab = "^0.7.1"
-djangorestframework = "^3.12.4"
-Pillow = "^8.2.0"
-psycopg2 = "^2.8.6"
-requests = "^2.25.1"
-django-registration = "^3.1.2"
-django-recaptcha = "^2.0.6"
-django-markdownx = "^3.0.1"
-python-dateutil = "^2.8.1"
-django-ses = "^2.0.0"
-python-dotenv = "^0.17.1"
-tw-complex = "^0.1.1"
-stripe = "^2.57.0"
+
+Django = "3.2.5"
+django-crispy-forms = "1.12.0"
+django-crontab = "0.7.1"
+django-markdownx = "3.0.1"
+django-recaptcha = "2.0.6"
+django-registration = "3.2"
+djangorestframework = "3.12.4"
+django-ses = "2.0.0"
+
+Pillow = "8.2.0"
+python-dateutil = "2.8.1"
+python-dotenv = "0.17.1"
+psycopg2 = "2.9.1"
+requests = "2.25.1"
+stripe = "2.58.0"
+tw-complex = "0.2.0"
+
 
 [tool.poetry.dev-dependencies]
 black = {version = "^21.5b1", allow-prereleases = true}
-django-debug-toolbar = "^3.2.1"
-coverage = "^5.5"
-isort = "^5.8.0"
+coverage = "5.5"
+isort = "5.8.0"
 
 
 [build-system]
