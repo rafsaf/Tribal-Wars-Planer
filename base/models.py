@@ -19,7 +19,7 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy, gettext as _
 from markdownx.models import MarkdownxField
 
 
@@ -497,6 +497,16 @@ class Outline(models.Model):
         result.results_export = ""
         result.save()
         self.save()
+
+    def expires_in(self) -> str:
+        base: str = gettext_lazy("Expires ")
+        if self.world.postfix == "Test":
+            return base + gettext_lazy("never")
+        minus_35_days = timezone.now() - datetime.timedelta(days=35)
+        expire: datetime.timedelta = self.created - minus_35_days
+        return (
+            base + " " + gettext_lazy("in") + f" {expire.days} " + gettext_lazy("days")
+        )
 
     def count_targets(self) -> int:
         targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(outline=self)
