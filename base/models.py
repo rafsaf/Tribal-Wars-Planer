@@ -19,7 +19,7 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy, gettext as _
 from markdownx.models import MarkdownxField
 
 
@@ -498,6 +498,16 @@ class Outline(models.Model):
         result.save()
         self.save()
 
+    def expires_in(self) -> str:
+        base: str = gettext_lazy("Expires ")
+        if self.world.postfix == "Test":
+            return base + gettext_lazy("never")
+        minus_35_days = timezone.now() - datetime.timedelta(days=35)
+        expire: datetime.timedelta = self.created - minus_35_days
+        return (
+            base + " " + gettext_lazy("in") + f" {expire.days} " + gettext_lazy("days")
+        )
+
     def count_targets(self) -> int:
         targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(outline=self)
         return targets.filter(fake=False, ruin=False).count()
@@ -716,8 +726,8 @@ class Documentation(models.Model):
 class WeightMaximum(models.Model):
     """Control state smaller than maximum"""
 
-    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
-    start = models.CharField(max_length=7, db_index=True)
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=False)
+    start = models.CharField(max_length=7)
     x_coord = models.IntegerField(default=0)
     y_coord = models.IntegerField(default=0)
     player = models.CharField(max_length=30)
