@@ -1,5 +1,6 @@
 """ Cronjobs """
 from datetime import timedelta
+from time import sleep
 
 from django.utils.timezone import now
 from django.db.models.query import QuerySet
@@ -28,4 +29,7 @@ def outdate_outline_delete(days: int = 35) -> None:
         .filter(created__lt=expiration_date)
         .exclude(world__postfix="Test")
     )
-    expired.delete()
+    outline: models.Outline
+    for outline in expired:
+        outline.delete()
+        sleep(0.2)
