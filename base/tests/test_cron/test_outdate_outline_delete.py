@@ -28,9 +28,9 @@ class OutDateOutlineDelete(MiniSetup):
         count2: int = Outline.objects.count()
         self.assertEqual(count2, 1)
 
-    def test_does_not_delete_outline_from_35_days(self):
+    def test_does_not_delete_outline_from_34_days(self):
         outline = self.get_outline()
-        outline.created = outline.created - timedelta(days=35)
+        outline.created = outline.created - timedelta(days=34)
         outline.save()
 
         count1: int = Outline.objects.count()
