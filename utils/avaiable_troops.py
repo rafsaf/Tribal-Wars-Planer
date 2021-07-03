@@ -12,7 +12,6 @@ from base import models
 
 def get_legal_coords_outline(outline: models.Outline):
     """Create set with ally_vill without enemy_vill closer than radius"""
-    t1 = time()
     excluded_coords_text: str = outline.initial_outline_excluded_coords
     excluded_coords: List[str] = excluded_coords_text.split()
 
@@ -120,7 +119,7 @@ def get_legal_coords_outline(outline: models.Outline):
     outline.avaiable_nobles = [all_noble, front_noble, back_noble, too_far_noble]
     outline.avaiable_offs = [all_off, front_off, back_off, too_far_off]
     outline.save()
-    print(time() - t1)
+
     # #
     # #
     # AROUND TARGETS
@@ -188,7 +187,6 @@ def get_legal_coords_outline(outline: models.Outline):
     outline.avaiable_nobles_near = [all_noble, front_noble, back_noble, too_far_off]
     outline.avaiable_offs_near = [all_off, front_off, back_off, too_far_noble]
     outline.save()
-    print(time() - t1)
 
 
 def update_available_ruins(outline: models.Outline) -> None:
