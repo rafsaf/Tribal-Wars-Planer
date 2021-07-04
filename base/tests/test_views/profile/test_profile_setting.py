@@ -47,7 +47,7 @@ class OutlineProfileSettings(MiniSetup):
         profile.save()
 
         self.login_me()
-        response = self.client.post(PATH, data={"server": "testserver", "form1": ""})
+        response = self.client.post(PATH, data={"server": "nottestserver", "form1": ""})
         assert response.status_code == 302
         assert response.url == PATH
 
