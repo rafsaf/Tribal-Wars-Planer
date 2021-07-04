@@ -1,3 +1,5 @@
+from datetime import timedelta
+from os import name
 from utils import basic
 from base import models
 
@@ -240,3 +242,36 @@ class RemoveUserOutline(MiniSetup):
         outline = self.get_outline()
         action = outline.actions
         assert isinstance(action, basic.Action)
+
+
+class ExpiresIn(MiniSetup):
+    def test_expires_in(self):
+        outline1 = self.get_outline(name="o1")
+        outline2 = self.get_outline(name="o2")
+        outline3 = self.get_outline(name="o3")
+        outline4 = self.get_outline(test_world=True, name="o4")
+
+        outline1.created = outline1.created - timedelta(days=2)
+        outline1.save()
+        outline1.refresh_from_db()
+        outline2.created = outline2.created - timedelta(days=15)
+        outline2.save()
+        outline2.refresh_from_db()
+        outline3.created = outline3.created - timedelta(days=31)
+        outline3.save()
+        outline3.refresh_from_db()
+        outline4.created = outline4.created - timedelta(days=131)
+        outline4.save()
+        outline4.refresh_from_db()
+
+        res1 = "<small class='md-correct2'>Wygasa za 32 dni</small>"
+        self.assertEqual(outline1.expires_in(), res1)
+
+        res2 = "<small class='md-correct2'>Wygasa za 19 dni</small>"
+        self.assertEqual(outline2.expires_in(), res2)
+
+        res3 = "<small class='md-error'>Wygasa za 3 dni</small>"
+        self.assertEqual(outline3.expires_in(), res3)
+
+        res4 = "<small class='md-correct2'>Wygasa nigdy</small>"
+        self.assertEqual(outline4.expires_in(), res4)

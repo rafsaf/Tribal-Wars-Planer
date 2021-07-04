@@ -141,11 +141,11 @@ class MiniSetup(TestCase):
                 world1 = World.objects.get(postfix="Test")
             else:
                 server_in = Server(
-                    dns="testserver",
-                    prefix="te",
+                    dns="nottestserver",
+                    prefix="nt",
                 )
                 Server.objects.bulk_create([server_in])
-                server = Server.objects.get(dns="testserver")
+                server = Server.objects.get(dns="nottestserver")
                 world1: World = World.objects.create(
                     server=server,
                     postfix="1",
@@ -161,17 +161,18 @@ class MiniSetup(TestCase):
 
     def get_outline(
         self,
-        test_world=False,
+        test_world: bool = False,
+        name: str = "name",
         editable: Literal["active", "inactive"] = "active",
         written: Literal["active", "inactive"] = "inactive",
         add_result: bool = False,
     ) -> Outline:
         world = self.get_world(test_world=test_world)
         try:
-            return Outline.objects.get(name="name")
+            return Outline.objects.get(name=name)
         except Outline.DoesNotExist:
             outline: Outline = Outline.objects.create(
-                name="name",
+                name=name,
                 date=datetime.date.today(),
                 world=world,
                 owner=self.me(),
