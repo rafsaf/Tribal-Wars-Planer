@@ -500,12 +500,26 @@ class Outline(models.Model):
 
     def expires_in(self) -> str:
         base: str = gettext_lazy("Expires ")
+        postfix: str = "</small>"
+
         if self.world.postfix == "Test":
-            return base + gettext_lazy("never")
+            prefix: str = "<small class='md-correct2'>"
+            return prefix + base + gettext_lazy("never") + postfix
         minus_35_days = timezone.now() - datetime.timedelta(days=35)
         expire: datetime.timedelta = self.created - minus_35_days
+
+        if expire.days > 7:
+            prefix: str = "<small class='md-correct2'>"
+        else:
+            prefix: str = "<small class='md-error'>"
+
         return (
-            base + " " + gettext_lazy("in") + f" {expire.days} " + gettext_lazy("days")
+            prefix
+            + base
+            + gettext_lazy("in")
+            + f" {expire.days} "
+            + gettext_lazy("days")
+            + postfix
         )
 
     def count_targets(self) -> int:
