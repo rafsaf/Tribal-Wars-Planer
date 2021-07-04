@@ -3,34 +3,22 @@
 {% load static %} 
 {% load i18n %} 
 {% block sidebar %}
-    <a class=" list-group-item list-group-item-action
-    bg-secondary" style="color: rgb(243, 243, 243);" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
-    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
-    bg-light">{% trans 'Results' %}</a>
-    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
-    bg-light">{% trans 'Deff collection' %}</a>
-    <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
-    bg-light">
-    {% trans 'Planer' %}
-    </a>
+    <a class=" list-group-item list-group-item-action bg-secondary" style="color: rgb(243, 243, 243);" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Results' %}</a>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Deff collection' %}</a>
+    <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Planer' %}</a>
 {% endblock %} 
 {% block phonesidebar %}
-    <a class=" list-group-item list-group-item-action
-    bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
-    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action
-    bg-light">{% trans 'Results' %}</a>
-    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action
-    bg-light">{% trans 'Deff collection' %}</a>
-    <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action
-    bg-light">
-    {% trans 'Planer' %}
-    </a> 
+    <a class=" list-group-item list-group-item-action bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Results' %}</a>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Deff collection' %}</a>
+    <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Planer' %}</a> 
 {% endblock %} 
 {% block content %}
 <div class="row mt-3 mb-4">
     <div class="col-12 col-lg-7">
         <div>
-            <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'Last world update: ' %} {{instance.world.update}}</div>
+            <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'Last world update: ' %}{{instance.world.update}}</div>
         </div>
         
         <script src="{% static 'codemirror-min.js' %}"></script>
@@ -82,8 +70,7 @@
                         </script> 
                         {% endif %}
                     </div>
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}
-                    </button>
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}</button>
                 </form>
             </div>
             <script>
@@ -145,8 +132,7 @@
                         </script>
                         {% endif %}
                     </div>
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}
-                    </button>
+                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}</button>
                 </form>
             </div>
             <script>
@@ -157,9 +143,7 @@
                 editor2.replaceSelection(`{{deff_troops.troops}}`)
             </script>
             {% if not deff_troops.errors and not message_deff %}
-            <script>
-                window.scrollTo(0,0)
-            </script>
+            <script>window.scrollTo(0,0)</script>
             {% endif %}
         </div>
     </div>
