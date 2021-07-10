@@ -70,7 +70,7 @@
                         <li class="nav-item" id="li-doc">
                             <a class="nav-link ml-1" href="{% url 'base:documentation' %}">{% trans 'Documentation' %}</a>
                         </li>
-                        {% if user.is_authenticated and user.profile.server.dns == "plemiona.pl" %}
+                        {% if user.is_authenticated %}
                         <li class="nav-item" id="li-planer">
                             <a class="nav-link ml-1" href="{% url 'base:premium' %}">{% trans 'Premium' %}</a>
                         </li>
@@ -341,5 +341,4 @@
     <script>activateTooltips();menu_toggle();</script>
 {% endspaceless %}
 </body>
-
 </html>
