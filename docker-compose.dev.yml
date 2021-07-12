@@ -18,3 +18,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  webhook:
+    image: thecatlady/webhook
+    container_name: webhook
+    command: -verbose -hooks=hooks.json -hotreload
+    volumes:
+      - ./webhook/:/config/
+    ports:
+      - 9000:9000

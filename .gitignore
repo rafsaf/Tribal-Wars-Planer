@@ -10,6 +10,8 @@ Pipfile*
 letsencrypt
 # Docker
 data
+# Webhook
+/webhook/hooks.json
 
 # Distribution / packaging
 .Python
