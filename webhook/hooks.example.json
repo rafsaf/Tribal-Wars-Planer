@@ -1,0 +1,22 @@
+[
+    {
+        "id": "redeploy-standard",
+        "execute-command": "/home/ubuntu/Tribal-Wars-Planer/redeploy-standard.sh",
+        "command-working-directory": "/home/ubuntu/Tribal-Wars-Planer",
+        "include-command-output-in-response": true,
+        "include-command-output-in-response-on-error": true,
+        "trigger-rule":
+        {
+            "match":
+            {
+                "type": "payload-hmac-sha1",
+                "secret": "secret",
+                "parameter":
+                {
+                    "source": "header",
+                    "name": "X-Hub-Signature"
+                }
+            }
+        }
+    }
+]
