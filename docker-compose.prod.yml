@@ -1,16 +1,6 @@
 version: "3.3"
 
 services:
-  webhook:
-    image: thecatlady/webhook
-    restart: always
-    container_name: webhook
-    command: -verbose -hooks=hooks.json -hotreload
-    volumes:
-      - ./webhook/:/config:ro
-    ports:
-      - 9000:9000
-
   web:
     restart: always
     build:
