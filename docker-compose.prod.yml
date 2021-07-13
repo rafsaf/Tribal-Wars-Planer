@@ -7,7 +7,7 @@ services:
     container_name: webhook
     command: -verbose -hooks=hooks.json -hotreload
     volumes:
-      - ./webhook/:/config/
+      - ./webhook/:/config:ro
     ports:
       - 9000:9000
 

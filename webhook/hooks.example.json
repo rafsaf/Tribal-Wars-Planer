@@ -1,7 +1,7 @@
 [
     {
         "id": "redeploy-standard",
-        "execute-command": "/home/ubuntu/Tribal-Wars-Planer/redeploy-standard.sh",
+        "execute-command": "/home/ubuntu/Tribal-Wars-Planer/webhook/redeploy-standard.sh",
         "command-working-directory": "/home/ubuntu/Tribal-Wars-Planer",
         "include-command-output-in-response": true,
         "include-command-output-in-response-on-error": true,
