@@ -14,7 +14,5 @@ COPY . .
 RUN apt update && apt install -y python3-pip                                  \
     && apt install cron -y                                                    \
     && service cron start                                                     \
-    && pip3 install -r requirements.txt                                       \
-    && apt remove -y python3-pip                                                                                            \
-    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list             
+    && pip3 install -r requirements.txt             
 
