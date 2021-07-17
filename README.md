@@ -174,3 +174,42 @@ docker-compose -f docker-compose.test.yml
 ```
 
 
+## Webhook
+
+on fresh ubuntu
+
+```bash
+sudo apt-get install -y webhook
+# test
+webhook -hooks /home/ubuntu/Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload
+
+# prod
+# article
+https://willbrowning.me/setting-up-automatic-deployment-and-builds-using-webhooks/
+
+# commands
+
+sudo apt install supervisor
+cd /etc/supervisor/conf.d
+sudo nano webhooks.conf
+
+edit
+
+[program:webhooks]
+command=bash -c "/home/johndoe/go/bin/webhook -hooks /home/johndoe/hooks/hooks.json -ip '<YOUR-SERVER-IP>' -verbose"
+redirect_stderr=true
+autostart=true
+autorestart=true
+user=johndoe
+numprocs=1
+process_name=%(program_name)s_%(process_num)s
+stdout_logfile=/home/johndoe/hooks/supervisor.log
+environment=HOME="/home/johndoe",USER="johndoe"
+
+save and
+
+touch ~/hooks/supervisor.log
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start webhooks:*
+```
