@@ -1,5 +1,6 @@
 {% extends "base/new_outline/new_outline.html" %} 
-{% load i18n %} 
+{% load i18n %}
+{% block title %}{% trans 'Deff collection' %} - {{instance.name|capfirst}}{% endblock %}
 {% block content %} 
 {% load crispy_forms_tags %}
 

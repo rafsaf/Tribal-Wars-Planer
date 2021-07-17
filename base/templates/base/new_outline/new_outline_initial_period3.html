@@ -1,6 +1,7 @@
 {% extends "base/new_outline/new_outline_initial_period2.html" %} 
 {% load static %} 
-{% load i18n %} 
+{% load i18n %}
+{% block title %}{{target.target}} - {{target.player}} - {{instance.name|capfirst}}{% endblock %}
 {% block content %}
 
 <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">

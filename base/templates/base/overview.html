@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load static %} 
-{% load i18n %} 
+{% load i18n %}
+{% block title %}{{overview.player}} | {% trans 'Tribal Wars Planer' %}{% endblock %}
 {% block showsidebar %}
 {% if user.is_authenticated %}
 <div class="bg-light border-right toggled" id="sidebar-wrapper">

@@ -1,7 +1,19 @@
 {% extends "base/base.html" %} 
 {% load static %} 
 {% load i18n %} 
-
+{% block title %}
+{% if mode.is_menu %}
+{% trans 'Real targets' %} - {{instance.name|capfirst}}
+{% elif mode.is_fake %}
+{% trans 'Fake targets' %} - {{instance.name|capfirst}}
+{% elif mode.is_ruin %}
+{% trans 'Ruin targets' %} - {{instance.name|capfirst}}
+{% elif mode.is_time %}
+{% trans 'Set time' %} - {{instance.name|capfirst}}
+{% elif mode.is_add_and_remove %}
+{% trans 'Add and remove' %} - {{instance.name|capfirst}}
+{% endif %}
+{% endblock %}
 {% block showsidebar %}
     {% if user.is_authenticated %}
     <div class="bg-light border-right toggled" id="sidebar-wrapper">
@@ -346,7 +358,7 @@
                                     <th><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg></th>
                                     <th colspan="2" style="font-size: small;cursor:pointer;" onclick="calculate_distance(this);">{{weight.distance}}</th>
                                 </tr>
-                                {% if weight.ruin %}
+                                {% if weight.ruin and not mode.is_add_and_remove %}
                                 <tr>
                                     <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'headquarters' %}fancy-building-True{% endif %}" id="headquarters-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Headquarters"|slice:":2" %}</button></th>
                                     <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'smithy' %}fancy-building-True{% endif %}" id="smithy-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Smithy"|slice:":2" %}</button></th>
@@ -358,6 +370,10 @@
                                     <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'warehouse' %}fancy-building-True{% endif %}" id="warehouse-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Warehouse"|slice:":2" %}</button></th>
                                 </tr>
 
+                                <tr>
+                                    <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
+                                </tr>
+                                {% elif weight.ruin and mode.is_add_and_remove %}
                                 <tr>
                                     <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
                                 </tr>

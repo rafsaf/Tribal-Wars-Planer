@@ -1,9 +1,9 @@
-{% extends "base/new_outline/new_outline.html" %} 
-{% block content %} 
+{% extends "base/new_outline/new_outline.html" %}
 {% load static %} 
 {% load i18n %}
+{% block title %}{% trans 'Planer' %} - {{instance.name|capfirst}}{% endblock %}
+{% block content %} 
 {% load crispy_forms_tags %}
-
 <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
 <script src="{% static 'codemirror-min.js' %}"></script>
 <script src="{% static 'multi-select-min.js' %}"></script>

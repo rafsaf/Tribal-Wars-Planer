@@ -1,4 +1,9 @@
- {% extends 'base/base.html' %} {% load i18n %} {% block content %} {% load crispy_forms_tags %}
+{% extends 'base/base.html' %} 
+{% load i18n %}
+{% block title %}{% trans 'Select tribes' %} - {{instance.name|capfirst}} | {{instance.world.human}}{% endblock %}
+{% block content %} 
+{% load crispy_forms_tags %}
+
 <div class="container-fluid md-pre mt-3">
     <div class="row">
         <div class="col-12 col-lg-4">
