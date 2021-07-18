@@ -5,14 +5,28 @@
         "command-working-directory": "/home/ubuntu/Tribal-Wars-Planer/",
         "response-message": "Alive!",
         "trigger-rule": {
-            "match": {
-                "type": "payload-hash-sha1",
-                "secret": "secret",
-                "parameter": {
-                    "source": "header",
-                    "name": "X-Hub-Signature"
+            "and": [
+                {
+                    "match": {
+                        "type": "payload-hash-sha1",
+                        "secret": "mysecret",
+                        "parameter": {
+                            "source": "header",
+                            "name": "X-Hub-Signature"
+                        }
+                    }
+                },
+                {
+                    "match": {
+                        "type": "value",
+                        "value": "published",
+                        "parameter": {
+                            "source": "payload",
+                            "name": "action"
+                        }
+                    }
                 }
-            }
+            ]
         }
     }
 ]
