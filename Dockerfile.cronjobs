@@ -1,7 +1,7 @@
 FROM python:3.9.6-buster
 
 RUN apt-get update
-RUN apt-get install gettext -y
+RUN apt-get install cron -y
 
 RUN mkdir app
 WORKDIR /app
@@ -12,5 +12,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD python manage.py makemessages --all --ignore .venv &&  \
-    python manage.py compilemessages --ignore .venv
+RUN python manage.py crontab add  && \
+    python manage.py crontab show && \
+    service cron restart
+
+CMD cron -f

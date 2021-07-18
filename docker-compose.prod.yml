@@ -45,3 +45,11 @@ services:
     volumes:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  cronjobs:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile.cronjobs
+    env_file:
+      - .env
