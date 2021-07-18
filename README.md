@@ -93,6 +93,12 @@ python manage.py test
 To run makemessages/compilemessages
 
 ```bash
+# every machine - using dockerfiles
+docker compose -f docker-compose.translation.yml run --rm trans
+
+```
+
+```bash
 # linux only
 python manage.py makemessages --all --ignore .venv
 

@@ -1,0 +1,16 @@
+version: "3.3"
+
+# docker-compose -f docker-compose.translation run trans
+
+services:
+  trans:
+    build:
+      context: ./
+      dockerfile: Dockerfile.translation
+    env_file:
+      - .env.example
+    volumes: 
+      - ./:/app
+    build: 
+      context: ./
+      dockerfile: Dockerfile.translation
