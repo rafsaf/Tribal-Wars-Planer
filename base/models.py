@@ -307,6 +307,17 @@ class Outline(models.Model):
         ("all", gettext_lazy("Fakes from all villages")),
     ]
 
+    SENDING_OPTIONS = [
+        (
+            "default",
+            gettext_lazy("(Default) Auto generated, fully equipped safe links"),
+        ),
+        ("string", gettext_lazy("Text simple directly in message")),
+        ("extended", gettext_lazy("Text extended directly in message")),
+        ("table", gettext_lazy("Table in directly message")),
+        ("deputy", gettext_lazy("Text for deputy directly in message")),
+    ]
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=django.utils.timezone.now)  # type: ignore
     name = models.CharField(max_length=20)
@@ -411,10 +422,13 @@ class Outline(models.Model):
     )
     simple_textures = models.BooleanField(default=False)
     default_show_hidden = models.BooleanField(default=False)
-    title_message = models.CharField(
-        max_length=100, default=gettext_lazy("Outline Targets")
+    sending_option = models.CharField(
+        default="default", choices=SENDING_OPTIONS, max_length=50
     )
-    text_message = models.CharField(max_length=1000, default="", blank=True)
+    title_message = models.CharField(
+        max_length=200, default=gettext_lazy("Outline Targets")
+    )
+    text_message = models.CharField(max_length=2000, default="", blank=True)
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)

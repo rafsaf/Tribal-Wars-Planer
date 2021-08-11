@@ -89,6 +89,7 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
     form1.fields["default_show_hidden"].initial = instance.default_show_hidden
     form1.fields["title_message"].initial = instance.title_message
     form1.fields["text_message"].initial = instance.text_message
+    form1.fields["sending_option"].initial = instance.sending_option
 
     if request.method == "POST":
         if "form1" in request.POST:
@@ -102,6 +103,8 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
 
                 title_message = request.POST.get("title_message")
                 text_message = request.POST.get("text_message")
+                sending_option = request.POST.get("sending_option")
+                instance.sending_option = sending_option
                 instance.default_show_hidden = default_show_hidden
                 instance.title_message = title_message
                 instance.text_message = text_message
@@ -127,5 +130,27 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
         errors = error_messages.split(",")
         context["error"] = errors
         del request.session["error_messages"]
+
+    if instance.sending_option != "default":
+        item: models.Overview
+        for item in overviews:
+            if instance.sending_option == "string":
+                setattr(item, "additional_text", item.string)
+            elif instance.sending_option == "extended":
+                setattr(item, "additional_text", item.extended)
+            elif instance.sending_option == "table":
+                setattr(item, "additional_text", item.table)
+            elif instance.sending_option == "deputy":
+                setattr(item, "additional_text", item.deputy)
+        item: models.Overview
+        for item in removed_overviews:
+            if instance.sending_option == "string":
+                setattr(item, "additional_text", item.string)
+            elif instance.sending_option == "extended":
+                setattr(item, "additional_text", item.extended)
+            elif instance.sending_option == "table":
+                setattr(item, "additional_text", item.table)
+            elif instance.sending_option == "deputy":
+                setattr(item, "additional_text", item.deputy)
 
     return render(request, "base/new_outline/new_outline_results.html", context)
