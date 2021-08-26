@@ -4,14 +4,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import get_language, gettext
 from markdownx.utils import markdownify
-import js2py
 from base import forms, models
 from utils import basic
 from utils.get_deff import get_deff
-
-encode_component = js2py.eval_js(
-    "function encode(arg) {return encodeURIComponent(arg);}"
-)
+from utils.basic import encode_component
 
 
 @login_required
@@ -118,12 +114,14 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
 
                 return redirect("base:planer_detail_results", _id)
 
+    subject = encode_component(instance.title_message)
     context = {
         "instance": instance,
         "overviews": overviews,
         "removed_overviews": removed_overviews,
         "name_prefix": name_prefix,
         "form1": form1,
+        "subject": subject,
     }
     tab = request.GET.get("tab")
     if tab == "deff":
@@ -135,27 +133,8 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
         context["error"] = errors
         del request.session["error_messages"]
 
-    all_overviews = [i for i in overviews] + [i for i in removed_overviews]
-
     item: models.Overview
-    for item in all_overviews:
-        setattr(item, "to", encode_component(item.player))
-        setattr(item, "subject", encode_component(instance.title_message))
+    for item in [i for i in overviews] + [i for i in removed_overviews]:
+        item.extend_with_encodeURIComponent(instance, request)
 
-        f1 = f"[b]{item.player}[/b]\n\n"
-        f2 = f"[url]{request.scheme}://{request.get_host()}{item.get_absolute_url()}[/url]\n\n"
-
-        if instance.sending_option == "string":
-            message: str = f1 + instance.text_message + item.string
-        elif instance.sending_option == "extended":
-            message = f1 + instance.text_message + item.extended
-        elif instance.sending_option == "table":
-            message = f1 + instance.text_message + item.table
-        elif instance.sending_option == "deputy":
-            message = f1 + instance.text_message + item.deputy
-        else:
-            message = f1 + f2 + instance.text_message
-
-        message = message.replace("[size=12]", "").replace("[/size]", "")
-        setattr(item, "message", encode_component(message))
     return render(request, "base/new_outline/new_outline_results.html", context)

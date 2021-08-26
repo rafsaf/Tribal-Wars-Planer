@@ -312,6 +312,7 @@ class SettingMessageForm(forms.ModelForm):
             "default_show_hidden": gettext_lazy("Show all hidden"),
             "title_message": gettext_lazy("Title of message:"),
             "text_message": gettext_lazy("Content of message:"),
+            "sending_option": gettext_lazy("Sending Options:"),
         }
         help_texts = {
             "default_show_hidden": gettext_lazy(
@@ -319,6 +320,9 @@ class SettingMessageForm(forms.ModelForm):
             ),
             "title_message": gettext_lazy("Maximum length: 200."),
             "text_message": gettext_lazy("Maximum length: 2000."),
+            "sending_option": gettext_lazy(
+                "Directly messages will bahave poorly with many (more than 80-100) commands"
+            ),
         }
         widgets = {
             "sending_option": forms.RadioSelect,

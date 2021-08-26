@@ -245,15 +245,26 @@ class MiniSetup(TestCase):
     def create_outline_time(self, outline: Outline) -> OutlineTime:
         return OutlineTime.objects.create(outline=outline)
 
-    def create_overview(self, outline: Outline) -> Overview:
+    def create_overview(
+        self,
+        outline: Outline,
+        player: Optional[str] = None,
+        token: Optional[str] = None,
+        table: Optional[str] = None,
+        string: Optional[str] = None,
+        deputy: Optional[str] = None,
+        extended: Optional[str] = None,
+    ) -> Overview:
         outline_overview = OutlineOverview.objects.create(outline=outline)
         return Overview.objects.create(
             outline_overview=outline_overview,
             outline=outline,
-            player=self.random_lower_string(),
-            token=self.random_lower_string(),
-            table=self.random_lower_string(),
-            string=self.random_lower_string(),
+            player=player if player else self.random_lower_string(),
+            token=token if token else self.random_lower_string(),
+            table=table if table else self.random_lower_string(),
+            string=string if string else self.random_lower_string(),
+            deputy=deputy if deputy else self.random_lower_string(),
+            extended=extended if extended else self.random_lower_string(),
             removed=False,
         )
 
