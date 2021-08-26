@@ -23,6 +23,7 @@ psycopg2 = "2.9.1"
 requests = "2.25.1"
 stripe = "2.58.0"
 tw-complex = "0.2.0"
+Js2Py = "^0.71"
 
 
 [tool.poetry.dev-dependencies]

@@ -101,9 +101,9 @@
                                 </th>
                                 <th>
                                   {% if instance.sending_option == "default" %}
-                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player|urlencode:'' }}&subject={{instance.title_message|urlencode:''}}&message=[b]{{item.player|urlencode:''}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message|urlencode:''}}">{% trans 'Send' %}</a>
+                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to }}&subject={{ item.subject }}&message={{ item.message }}">{% trans 'Send' %}</a>
                                   {% else %}
-                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player|urlencode:'' }}&subject={{instance.title_message|urlencode:''}}&message=[b]{{item.player|urlencode:''}}[/b]%0A%0A{{instance.text_message|urlencode:''}}%0A%{{item.additional_text|urlencode:''}}">{% trans 'Send' %}</a>
+                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to }}&subject={{ instance.subject }}&message={{ item.message }}">{% trans 'Send' %}</a>
                                   {% endif %}
                                 </th>
                             </tr>
@@ -144,9 +144,9 @@
                         </th>
                         <th>
                           {% if instance.sending_option == "default" %}
-                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player|urlencode:'' }}&subject={{instance.title_message|urlencode:''}}&message=[b]{{item.player|urlencode:''}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message|urlencode:''}}">{% trans 'Send' %}</a>
+                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to }}&subject={{ item.subject }}&message={{ item.message }}">{% trans 'Send' %}</a>
                           {% else %}
-                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player|urlencode:'' }}&subject={{instance.title_message|urlencode:''}}&message=[b]{{item.player|urlencode:''}}[/b]%0A%0A{{instance.text_message|urlencode:''}}%0A{{item.additional_text|urlencode:''}}">{% trans 'Send' %}</a>
+                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to }}&subject={{ item.subject }}&message={{ item.message }}">{% trans 'Send' %}</a>
                           {% endif %}
                         </th>
                     </tr>
