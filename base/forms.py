@@ -300,13 +300,11 @@ class AvailableTroopsForm(forms.ModelForm):
 
 
 class SettingMessageForm(forms.ModelForm):
-    BANNED_SYMBOLS: str = "@#$&+=/"
-    SAFE_SYMBOLS: str = ";:,?"
-
     class Meta:
         model = models.Outline
         fields = [
             "default_show_hidden",
+            "sending_option",
             "title_message",
             "text_message",
         ]
@@ -314,30 +312,22 @@ class SettingMessageForm(forms.ModelForm):
             "default_show_hidden": gettext_lazy("Show all hidden"),
             "title_message": gettext_lazy("Title of message:"),
             "text_message": gettext_lazy("Content of message:"),
+            "sending_option": gettext_lazy("Sending Options:"),
         }
         help_texts = {
             "default_show_hidden": gettext_lazy(
                 "By checking this option, players will see the commands of all other players for their own targets. By default, it's not turned on and players only see their commands."
             ),
-            "title_message": gettext_lazy("Maximum length: 100."),
-            "text_message": gettext_lazy(
-                "Maximum length: 1000, do not use @#$&+=/ symbols."
+            "title_message": gettext_lazy("Maximum length: 200."),
+            "text_message": gettext_lazy("Maximum length: 2000."),
+            "sending_option": gettext_lazy(
+                "Directly messages will bahave poorly with many (more than 80-100) commands"
             ),
         }
         widgets = {
+            "sending_option": forms.RadioSelect,
             "text_message": forms.Textarea,
         }
-
-    def clean_text_message(self):
-        text: str = self.cleaned_data["text_message"]
-        banned_symbol: str
-        for banned_symbol in self.BANNED_SYMBOLS:
-            if banned_symbol in text:
-                self.add_error(
-                    "text_message",
-                    gettext_lazy("Please remove all forbidden symbols: @#$&+=/"),
-                )
-                return
 
 
 class SettingDateForm(forms.ModelForm):

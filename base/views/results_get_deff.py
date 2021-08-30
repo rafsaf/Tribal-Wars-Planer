@@ -4,10 +4,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import get_language, gettext
 from markdownx.utils import markdownify
-
 from base import forms, models
 from utils import basic
 from utils.get_deff import get_deff
+from utils.basic import encode_component
 
 
 @login_required
@@ -89,6 +89,7 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
     form1.fields["default_show_hidden"].initial = instance.default_show_hidden
     form1.fields["title_message"].initial = instance.title_message
     form1.fields["text_message"].initial = instance.text_message
+    form1.fields["sending_option"].initial = instance.sending_option
 
     if request.method == "POST":
         if "form1" in request.POST:
@@ -102,6 +103,8 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
 
                 title_message = request.POST.get("title_message")
                 text_message = request.POST.get("text_message")
+                sending_option = request.POST.get("sending_option")
+                instance.sending_option = sending_option
                 instance.default_show_hidden = default_show_hidden
                 instance.title_message = title_message
                 instance.text_message = text_message
@@ -111,12 +114,14 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
 
                 return redirect("base:planer_detail_results", _id)
 
+    subject = encode_component(instance.title_message)
     context = {
         "instance": instance,
         "overviews": overviews,
         "removed_overviews": removed_overviews,
         "name_prefix": name_prefix,
         "form1": form1,
+        "subject": subject,
     }
     tab = request.GET.get("tab")
     if tab == "deff":
@@ -127,5 +132,9 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
         errors = error_messages.split(",")
         context["error"] = errors
         del request.session["error_messages"]
+
+    item: models.Overview
+    for item in [i for i in overviews] + [i for i in removed_overviews]:
+        item.extend_with_encodeURIComponent(instance, request)
 
     return render(request, "base/new_outline/new_outline_results.html", context)

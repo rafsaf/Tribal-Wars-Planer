@@ -1,7 +1,7 @@
 """ Database models """
 import datetime
 from math import sqrt
-from typing import Dict, List, Optional
+from typing import Callable, Dict, List, Optional
 
 import django
 from dateutil.relativedelta import relativedelta
@@ -16,6 +16,7 @@ from django.db.models import Count, F, Q, Sum
 from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
@@ -307,6 +308,16 @@ class Outline(models.Model):
         ("all", gettext_lazy("Fakes from all villages")),
     ]
 
+    SENDING_OPTIONS = [
+        (
+            "default",
+            gettext_lazy("(Default) Auto generated, fully equipped safe links"),
+        ),
+        ("string", gettext_lazy("Text simple directly in message")),
+        ("extended", gettext_lazy("Text extended directly in message")),
+        ("deputy", gettext_lazy("Text for deputy directly in message")),
+    ]
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=django.utils.timezone.now)  # type: ignore
     name = models.CharField(max_length=20)
@@ -411,10 +422,13 @@ class Outline(models.Model):
     )
     simple_textures = models.BooleanField(default=False)
     default_show_hidden = models.BooleanField(default=False)
-    title_message = models.CharField(
-        max_length=100, default=gettext_lazy("Outline Targets")
+    sending_option = models.CharField(
+        default="default", choices=SENDING_OPTIONS, max_length=50
     )
-    text_message = models.CharField(max_length=1000, default="", blank=True)
+    title_message = models.CharField(
+        max_length=200, default=gettext_lazy("Outline Targets")
+    )
+    text_message = models.CharField(max_length=2000, default="", blank=True)
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)
@@ -945,6 +959,31 @@ class Overview(models.Model):
     def get_absolute_url(self):
         return reverse("base:overview", args=[self.token])
 
+    def extend_with_encodeURIComponent(
+        self, instance: Outline, request: HttpRequest
+    ) -> None:
+        from utils.basic import encode_component
+
+        setattr(self, "to", encode_component(self.player))
+
+        message: str = f"[b]{self.player}[/b]\n\n"
+        f2 = f"[url]{request.scheme}://{request.get_host()}{self.get_absolute_url()}[/url]\n\n"
+
+        if instance.sending_option == "string":
+            message += instance.text_message + self.string
+        elif instance.sending_option == "extended":
+            message += instance.text_message + self.extended
+        elif instance.sending_option == "deputy":
+            message += instance.text_message + self.deputy
+        else:
+            message += f2 + instance.text_message
+
+        setattr(
+            self,
+            "message",
+            encode_component(message.replace("[size=12]", "").replace("[/size]", "")),
+        )
+
 
 class TargetVertexOverview(models.Model):
     """Copied Target Village"""
@@ -1039,41 +1078,3 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
         instance.new_date = user_profile.validity_date
         user_profile.save()
         instance.save()
-
-
-# def ipn_paypal_payment_signal(sender, **kwargs):
-#    ipn_obj = sender
-#    if ipn_obj.payment_status == ST_PP_COMPLETED:
-#        if ipn_obj.receiver_email != settings.PAYPAL_RECEIVER_EMAIL:
-#            return
-#        username: str = str(ipn_obj.invoice).split("|")[0]
-#        user: User = User.objects.get(username=username)
-#        current_date: datetime.date = timezone.localdate()
-#        months: int = 0
-#        currency: str = str(ipn_obj.mc_currency)
-#        amount = float(ipn_obj.mc_gross)
-#
-#        if amount == 70 and currency == "PLN":
-#            months = 3
-#        elif amount == 55 and currency == "PLN":
-#            months = 2
-#        elif amount == 30 and currency == "PLN":
-#            months = 1
-#        elif amount == 15.5 and currency == "EUR":
-#            months = 3
-#        elif amount == 12.5 and currency == "EUR":
-#            months = 2
-#        elif amount == 7 and currency == "EUR":
-#            months = 1
-#        else:
-#            return
-#        Payment.objects.create(
-#            user=user,
-#            amount=amount,
-#            months=months,
-#            payment_date=current_date,
-#            currency=currency,
-#        )
-#
-#
-# valid_ipn_received.connect(ipn_paypal_payment_signal)

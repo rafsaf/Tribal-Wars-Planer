@@ -25,3 +25,5 @@ services:
       dockerfile: Dockerfile.cronjobs
     env_file:
       - .env
+    environment: 
+      - POSTGRES_HOST=postgres

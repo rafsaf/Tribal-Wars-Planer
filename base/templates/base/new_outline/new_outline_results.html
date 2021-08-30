@@ -28,7 +28,8 @@
     </ul>
     <div class="tab-content pt-1" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
-          <div class="p-2 my-2 mb-3  bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="{% url 'base:documentation' %}#send-script"> {% trans 'here' %}</a>.</div>
+          <div class="p-2 my-2 mb-3  bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="{% url 'base:documentation' %}#send-script"> {% trans 'here' %}</a>.
+          <br>{% trans '<b>Warning!</b> New version of script released 30.08.2021. No backward compability!!!' %}<a target="_blank" href="{% url 'base:documentation' %}#send-script"> {% trans 'Check out here.' %}</a></div>
             <div class="card">
                 <div class="card-header" id="headingTwo">
                   <h5 class="mb-0">
@@ -99,7 +100,12 @@
                                   </button>                          
                                   {% endif %}
                                 </th>
-                                <th><a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player|urlencode:';:,?' }}&subject={{instance.title_message|urlencode:';:,?'}}&message=[b]{{item.player|urlencode:';:,?'}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message|urlencode:';:,?'}}">{% trans 'Send' %}</a>
+                                <th>
+                                  {% if instance.sending_option == "default" %}
+                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
+                                  {% else %}
+                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
+                                  {% endif %}
                                 </th>
                             </tr>
                             {% endfor %}
@@ -138,8 +144,11 @@
                           {% endif %}
                         </th>
                         <th>
-                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.player|urlencode:';:,?' }}&subject={{instance.title_message|urlencode:';:,?'}}&message=[b]{{item.player|urlencode:';:,?'}}[/b]%0A[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]%0A%0A{{instance.text_message|urlencode:';:,?'}}">{% trans 'Send' %}
-                          </a>
+                          {% if instance.sending_option == "default" %}
+                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
+                          {% else %}
+                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
+                          {% endif %}
                         </th>
                     </tr>
                     {% endfor %}
