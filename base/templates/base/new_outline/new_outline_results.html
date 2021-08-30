@@ -102,9 +102,9 @@
                                 </th>
                                 <th>
                                   {% if instance.sending_option == "default" %}
-                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to }}&subject={{ item.subject }}&message={{ item.message }}">{% trans 'Send' %}</a>
+                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
                                   {% else %}
-                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to }}&subject={{ instance.subject }}&message={{ item.message }}">{% trans 'Send' %}</a>
+                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
                                   {% endif %}
                                 </th>
                             </tr>
@@ -145,9 +145,9 @@
                         </th>
                         <th>
                           {% if instance.sending_option == "default" %}
-                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to }}&subject={{ item.subject }}&message={{ item.message }}">{% trans 'Send' %}</a>
+                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
                           {% else %}
-                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to }}&subject={{ item.subject }}&message={{ item.message }}">{% trans 'Send' %}</a>
+                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
                           {% endif %}
                         </th>
                     </tr>

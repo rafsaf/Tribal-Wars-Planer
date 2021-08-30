@@ -15,3 +15,4 @@ from .timer import *
 from .troops import *
 from .village import *
 from .outline_stats import *
+from .encode_component import *

@@ -68,7 +68,7 @@ class OutlineDetailResults(MiniSetup):
                 "default_show_hidden": "on",
                 "title_message": TITLE,
                 "text_message": TEXT,
-                "sending_option": "table",
+                "sending_option": "string",
             },
         )
         assert response.status_code == 302
@@ -79,7 +79,7 @@ class OutlineDetailResults(MiniSetup):
         assert outline.default_show_hidden == True
         assert outline.title_message == TITLE
         assert outline.text_message == TEXT
-        assert outline.sending_option == "table"
+        assert outline.sending_option == "string"
 
         overview.refresh_from_db()
         assert overview.show_hidden == True
