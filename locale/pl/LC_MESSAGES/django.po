@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 17:49+0200\n"
+"POT-Creation-Date: 2021-08-30 18:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1592,8 +1592,8 @@ msgid "Divide into 4"
 msgstr "Podziel na 4"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:138
-#: base/templates/base/new_outline/new_outline_results.html:80
-#: base/templates/base/new_outline/new_outline_results.html:121
+#: base/templates/base/new_outline/new_outline_results.html:81
+#: base/templates/base/new_outline/new_outline_results.html:122
 #: utils/outline_finish.py:45
 msgid "Player"
 msgstr "Gracz"
@@ -1755,41 +1755,41 @@ msgstr "Wybierz tytuł, zawartość i wartość \"Pokaż ukryte\" "
 msgid "Removed links"
 msgstr "Stare linki"
 
-#: base/templates/base/new_outline/new_outline_results.html:81
-#: base/templates/base/new_outline/new_outline_results.html:122
+#: base/templates/base/new_outline/new_outline_results.html:82
+#: base/templates/base/new_outline/new_outline_results.html:123
 msgid "Link to member Page"
 msgstr "Link do strony gracza"
 
-#: base/templates/base/new_outline/new_outline_results.html:82
-#: base/templates/base/new_outline/new_outline_results.html:123
+#: base/templates/base/new_outline/new_outline_results.html:83
+#: base/templates/base/new_outline/new_outline_results.html:124
 msgid "Show Hidden"
 msgstr "Pokaż ukryte cele"
 
-#: base/templates/base/new_outline/new_outline_results.html:83
-#: base/templates/base/new_outline/new_outline_results.html:124
+#: base/templates/base/new_outline/new_outline_results.html:84
+#: base/templates/base/new_outline/new_outline_results.html:125
 msgid "Send message"
 msgstr "Wyślij wiadomość"
 
-#: base/templates/base/new_outline/new_outline_results.html:91
-#: base/templates/base/new_outline/new_outline_results.html:133
+#: base/templates/base/new_outline/new_outline_results.html:92
+#: base/templates/base/new_outline/new_outline_results.html:134
 msgid "Go to member Page"
 msgstr "Idź do strony gracza"
 
-#: base/templates/base/new_outline/new_outline_results.html:104
-#: base/templates/base/new_outline/new_outline_results.html:106
-#: base/templates/base/new_outline/new_outline_results.html:147
-#: base/templates/base/new_outline/new_outline_results.html:149
+#: base/templates/base/new_outline/new_outline_results.html:105
+#: base/templates/base/new_outline/new_outline_results.html:107
+#: base/templates/base/new_outline/new_outline_results.html:148
+#: base/templates/base/new_outline/new_outline_results.html:150
 msgid "Sent!"
 msgstr "Wysłano!"
 
-#: base/templates/base/new_outline/new_outline_results.html:104
-#: base/templates/base/new_outline/new_outline_results.html:106
-#: base/templates/base/new_outline/new_outline_results.html:147
-#: base/templates/base/new_outline/new_outline_results.html:149
+#: base/templates/base/new_outline/new_outline_results.html:105
+#: base/templates/base/new_outline/new_outline_results.html:107
+#: base/templates/base/new_outline/new_outline_results.html:148
+#: base/templates/base/new_outline/new_outline_results.html:150
 msgid "Send"
 msgstr "Wyślij"
 
-#: base/templates/base/new_outline/new_outline_results.html:189
+#: base/templates/base/new_outline/new_outline_results.html:190
 msgid ""
 "Below you will find all the unused troops left after the roster. Paste them "
 "into the Army Collection in order to start a new action."
@@ -1797,11 +1797,11 @@ msgstr ""
 "Poniżej znajdziesz wszystkie niewykorzystane wojska pozostałe po zakończonej "
 "rozpisce. Wklej je do Zbiórki Wojska by wykorzystać w kolejnej akcji."
 
-#: base/templates/base/new_outline/new_outline_results.html:195
+#: base/templates/base/new_outline/new_outline_results.html:196
 msgid "You have no access to unused troops without premium account."
 msgstr "Nie masz dostępu do niewykorzystanych wojsk bez konta premium."
 
-#: base/templates/base/new_outline/new_outline_results.html:223
+#: base/templates/base/new_outline/new_outline_results.html:224
 msgid ""
 "Some of the written orders have been omitted due to the following problems"
 msgstr ""
@@ -2219,7 +2219,7 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:38 base/views/results_get_deff.py:28
+#: base/views/outline_initial_views.py:38 base/views/results_get_deff.py:24
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
@@ -2245,11 +2245,11 @@ msgstr ""
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
-#: base/views/results_get_deff.py:25
+#: base/views/results_get_deff.py:21
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Deffa jest pusta!</h5>"
 
-#: base/views/results_get_deff.py:57
+#: base/views/results_get_deff.py:53
 msgid ""
 "<h5>It looks like your Army or Deff collections are no longer actual!</h5> "
 "<p>To use the Deff collection:</p> <p>1. Paste the current data in the "
