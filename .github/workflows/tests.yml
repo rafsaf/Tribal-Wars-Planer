@@ -70,5 +70,5 @@ jobs:
         run: |
           source venv-dev/bin/activate
           export POSTGRES_HOST=localhost
-          coverage run manage.py test
+          coverage run -m pytest
           coverage report
