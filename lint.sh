@@ -1,7 +1,15 @@
 #!/bin/bash
-
-poetry export -o requirements.txt \
-&& poetry run autoflake --remove-unused-variables --remove-all-unused-imports -r -i --ignore-init-module-imports base rest_api tribal_wars_planer utils \
-&& poetry run black base rest_api tribal_wars_planer utils \
-&& poetry run isort base rest_api tribal_wars_planer utils \
-&& poetry run flake8 base rest_api tribal_wars_planer utils
+echo "export requirements.txt"
+poetry export -o requirements.txt
+echo "autoflake"
+autoflake --recursive --in-place  \
+        --remove-unused-variables \
+        --remove-all-unused-imports  \
+        --ignore-init-module-imports \
+        base rest_api tribal_wars_planer utils
+echo "black"
+black base rest_api tribal_wars_planer utils
+echo "isort"
+isort base rest_api tribal_wars_planer utils
+echo "flake8"
+flake8 base rest_api tribal_wars_planer utils
