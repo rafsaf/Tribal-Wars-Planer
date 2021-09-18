@@ -51,6 +51,6 @@ class ChangeWeightBuildingSerializer(serializers.Serializer):
     building = serializers.CharField(max_length=100)
 
     def validate_building(self, value):
-        if not value in self.BUILDINGS:
+        if value not in self.BUILDINGS:
             raise serializers.ValidationError("")
         return value

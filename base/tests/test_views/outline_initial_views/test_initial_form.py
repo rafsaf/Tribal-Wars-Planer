@@ -73,7 +73,7 @@ class InitialForm(MiniSetup):
         assert (
             WeightMaximum.objects.filter(outline=outline, start="102|102").count() == 1
         )
-        assert response.context.get("premium_error") == False
+        assert response.context.get("premium_error") is False
         assert response.context.get("real_dups") == []
         assert response.context.get("fake_dups") == []
         assert response.context.get("ruin_dups") == []
@@ -93,7 +93,7 @@ class InitialForm(MiniSetup):
         session["premium_error"] = True
         session.save()
         response = self.client.get(PATH)
-        assert response.context.get("premium_error") == True
+        assert response.context.get("premium_error") is True
 
     def test_planer_initial_form___200_show_lens_and_duplicates_correct(self):
         outline = self.get_outline(test_world=True)
@@ -111,7 +111,7 @@ class InitialForm(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 200
-        assert response.context.get("premium_error") == False
+        assert response.context.get("premium_error") is False
         assert response.context.get("real_dups") == []
         assert response.context.get("fake_dups") == [
             {"target": "200|200", "duplicate": 2, "lines": "1,2"}
@@ -617,7 +617,7 @@ class InitialForm(MiniSetup):
         assert response.status_code == 302
         assert response.url == PATH + "?t=real"
         outline.refresh_from_db()
-        assert outline.night_bonus == True
+        assert outline.night_bonus is True
         assert outline.enter_t1 == enter_t1
         assert outline.enter_t2 == enter_t2
 

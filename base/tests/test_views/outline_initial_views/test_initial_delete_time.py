@@ -78,7 +78,7 @@ class InitialDeleteTime(MiniSetup):
 
         assert not OutlineTime.objects.filter(pk=outline_time1.pk).exists()
         outline.refresh_from_db()
-        assert outline.default_off_time_id == None
+        assert outline.default_off_time_id is None
 
         PATH = (
             reverse("base:planer_delete_time", args=[outline_time2.pk])
@@ -91,7 +91,7 @@ class InitialDeleteTime(MiniSetup):
 
         assert not OutlineTime.objects.filter(pk=outline_time2.pk).exists()
         outline.refresh_from_db()
-        assert outline.default_fake_time_id == None
+        assert outline.default_fake_time_id is None
 
         PATH = (
             reverse("base:planer_delete_time", args=[outline_time3.pk])
@@ -104,4 +104,4 @@ class InitialDeleteTime(MiniSetup):
 
         assert not OutlineTime.objects.filter(pk=outline_time3.pk).exists()
         outline.refresh_from_db()
-        assert outline.default_ruin_time_id == None
+        assert outline.default_ruin_time_id is None

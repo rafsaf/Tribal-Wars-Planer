@@ -68,9 +68,7 @@ class TargetDelete(APIView):
         target: TargetVertex = get_object_or_404(
             TargetVertex.objects.select_related("outline"), pk=target_id
         )
-        outline: Outline = get_object_or_404(
-            Outline, owner=request.user, pk=target.outline.pk
-        )
+        get_object_or_404(Outline, owner=request.user, pk=target.outline.pk)
 
         weights = WeightModel.objects.filter(target=target)
         # deletes weights related to this target and updates weight state
@@ -100,7 +98,7 @@ class OverwiewStateHideUpdate(APIView):
     def put(
         self, request: HttpRequest, outline_id: int, token: str, format=None
     ) -> Response:
-        outline: Outline = get_object_or_404(Outline, id=outline_id, owner=request.user)
+        get_object_or_404(Outline, id=outline_id, owner=request.user)
         overview: Overview = get_object_or_404(Overview, token=token)
 
         new_state: bool = not bool(overview.show_hidden)
@@ -199,7 +197,7 @@ class StripeCheckoutSession(APIView):
 
     def get(self, request: HttpRequest, amount: int, format=None) -> Response:
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        if not amount in [30, 55, 70]:
+        if amount not in [30, 55, 70]:
             return Response(status=400)
         price_id: str = settings.STRIPE_PAYMENTS[amount]
         host = request.get_host()
@@ -249,7 +247,7 @@ class StripeWebhook(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         except stripe.error.SignatureVerificationError as e:  # type: ignore
             # Invalid signature
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 

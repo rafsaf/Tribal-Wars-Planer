@@ -72,4 +72,4 @@ class UpdateOutlineTroops(MiniSetup):
         assert outline.avaiable_offs_near == []
         assert outline.avaiable_nobles == []
         assert outline.avaiable_nobles_near == []
-        assert outline.avaiable_ruins == None
+        assert outline.avaiable_ruins is None

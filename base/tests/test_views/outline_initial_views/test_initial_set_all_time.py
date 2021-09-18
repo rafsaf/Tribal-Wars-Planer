@@ -54,9 +54,9 @@ class InitialSetAllTime(MiniSetup):
         real_target: TargetVertex = TargetVertex.objects.get(target="200|200")
         assert real_target.outline_time == outline_time
         fake_target: TargetVertex = TargetVertex.objects.get(target="201|200")
-        assert fake_target.outline_time == None
+        assert fake_target.outline_time is None
         ruin_target: TargetVertex = TargetVertex.objects.get(target="202|200")
-        assert ruin_target.outline_time == None
+        assert ruin_target.outline_time is None
 
         outline.refresh_from_db()
         assert outline.default_off_time_id == outline_time.pk
@@ -85,11 +85,11 @@ class InitialSetAllTime(MiniSetup):
         assert response.url == REDIRECT
 
         real_target: TargetVertex = TargetVertex.objects.get(target="200|200")
-        assert real_target.outline_time == None
+        assert real_target.outline_time is None
         fake_target: TargetVertex = TargetVertex.objects.get(target="201|200")
         assert fake_target.outline_time == outline_time
         ruin_target: TargetVertex = TargetVertex.objects.get(target="202|200")
-        assert ruin_target.outline_time == None
+        assert ruin_target.outline_time is None
 
         outline.refresh_from_db()
         assert outline.default_fake_time_id == outline_time.pk
@@ -118,9 +118,9 @@ class InitialSetAllTime(MiniSetup):
         assert response.url == REDIRECT
 
         real_target: TargetVertex = TargetVertex.objects.get(target="200|200")
-        assert real_target.outline_time == None
+        assert real_target.outline_time is None
         fake_target: TargetVertex = TargetVertex.objects.get(target="201|200")
-        assert fake_target.outline_time == None
+        assert fake_target.outline_time is None
         ruin_target: TargetVertex = TargetVertex.objects.get(target="202|200")
         assert ruin_target.outline_time == outline_time
 

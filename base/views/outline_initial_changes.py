@@ -16,7 +16,7 @@ from utils import basic
 def initial_add_first(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -64,7 +64,7 @@ def initial_add_first(
 def initial_add_first_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -163,7 +163,7 @@ def initial_add_first_ruin(
 def initial_add_first_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -230,7 +230,7 @@ def initial_add_first_fake(
 def initial_add_first_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -280,7 +280,7 @@ def initial_add_first_fake_noble(
 def initial_add_last_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -347,7 +347,7 @@ def initial_add_last_fake(
 def initial_add_last_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -451,7 +451,7 @@ def initial_add_last_ruin(
 def initial_add_last_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -498,7 +498,7 @@ def initial_add_last_off(
 def initial_add_last(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -547,7 +547,7 @@ def initial_add_last(
 def initial_move_down(
     request: HttpRequest, id1: int, id2: int, id4: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -577,7 +577,7 @@ def initial_move_down(
 @require_POST
 @login_required
 def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
 
     sort = request.GET.get("sort")
     page = request.GET.get("page")
@@ -610,7 +610,7 @@ def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpR
 def initial_weight_delete(
     request: HttpRequest, id1: int, id2: int, id4: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -639,7 +639,7 @@ def initial_weight_delete(
 def initial_divide(
     request: HttpRequest, id1: int, id2: int, id4: int, n: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -707,8 +707,8 @@ def initial_divide(
 def initial_hide_weight(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
-    target = get_object_or_404(models.TargetVertex, pk=id2)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.TargetVertex, pk=id2)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")

@@ -58,7 +58,7 @@ class OverviewStateHideUpdate(MiniSetup):
         assert response.status_code == 200
 
         overview.refresh_from_db()
-        assert overview.show_hidden == True
+        assert overview.show_hidden is True
         result = response.json()
         assert result["name"] == "True"
         assert result["class"] == "btn btn-light btn-light-no-border md-blue"
@@ -67,7 +67,7 @@ class OverviewStateHideUpdate(MiniSetup):
         assert response.status_code == 200
 
         overview.refresh_from_db()
-        assert overview.show_hidden == False
+        assert overview.show_hidden is False
         result = response.json()
         assert result["name"] == "False"
         assert result["class"] == "btn btn-light btn-light-no-border md-error"

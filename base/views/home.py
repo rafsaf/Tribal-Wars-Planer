@@ -68,7 +68,7 @@ def overview_view(request, token):
         models.Overview.objects.select_related().filter(pk=token)
     )
     outline_overview: models.OutlineOverview = overview.outline_overview
-    if not overview.outline is None:
+    if overview.outline is not None:
         outline: models.Outline = overview.outline
         outline.actions.visit_overview_visited(outline)
 

@@ -31,8 +31,8 @@ class OverviewTest(MiniSetup):
             string=string,
         )
 
-        assert getattr(overview, "to", None) == None
-        assert getattr(overview, "message", None) == None
+        assert getattr(overview, "to", None) is None
+        assert getattr(overview, "message", None) is None
 
         outline.sending_option = "default"
         outline.save()

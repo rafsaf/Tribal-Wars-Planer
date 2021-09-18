@@ -76,10 +76,10 @@ class OutlineDetailResults(MiniSetup):
 
         outline.refresh_from_db()
 
-        assert outline.default_show_hidden == True
+        assert outline.default_show_hidden is True
         assert outline.title_message == TITLE
         assert outline.text_message == TEXT
         assert outline.sending_option == "string"
 
         overview.refresh_from_db()
-        assert overview.show_hidden == True
+        assert overview.show_hidden is True

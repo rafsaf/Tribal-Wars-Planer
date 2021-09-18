@@ -84,6 +84,6 @@ class NewOutlineCreate(MiniSetup):
         stats: Stats = Stats.objects.get(outline=outline)
 
         assert stats.outline_pk == outline.pk
-        assert stats.premium_user == False
+        assert stats.premium_user is False
         assert stats.owner_name == self.me().username
         assert stats.world == str(outline.world)

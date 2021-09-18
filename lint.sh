@@ -2,7 +2,7 @@
 echo "export requirements.txt"
 poetry export -o requirements.txt
 echo "autoflake"
-autoflake --recursive --in-place  \
+autoflake --recursive --in-place --check  \
         --remove-unused-variables \
         --remove-all-unused-imports  \
         --ignore-init-module-imports \
@@ -12,4 +12,5 @@ black base rest_api tribal_wars_planer utils
 echo "isort"
 isort base rest_api tribal_wars_planer utils
 echo "flake8"
-flake8 base rest_api tribal_wars_planer utils
+flake8 base rest_api tribal_wars_planer utils --count --statistics
+echo "OK"

@@ -57,7 +57,7 @@ class InitialPlaner(MiniSetup):
         assert response.status_code == 200
         filter_form: forms.SetTargetsMenuFilters = response.context["filter_form"]
         assert filter_form.fields["filter_targets_number"].initial == 15
-        assert filter_form.fields["simple_textures"].initial == True
+        assert filter_form.fields["simple_textures"].initial is True
 
     def test_planer_initial___200_correct_GET_params(self):
         outline = self.get_outline(written="active")
@@ -135,16 +135,16 @@ class InitialPlaner(MiniSetup):
         assert outline.avaiable_offs_near == []
         assert outline.avaiable_nobles == []
         assert outline.avaiable_nobles_near == []
-        assert outline.avaiable_ruins == None
+        assert outline.avaiable_ruins is None
         assert outline.filter_weights_min == 0
         assert outline.filter_weights_max == 30000
         assert outline.filter_card_number == 12
         assert outline.filter_targets_number == 12
         assert outline.filter_hide_front == "all"
         assert outline.choice_sort == "distance"
-        assert outline.default_off_time_id == None
-        assert outline.default_fake_time_id == None
-        assert outline.default_ruin_time_id == None
+        assert outline.default_off_time_id is None
+        assert outline.default_fake_time_id is None
+        assert outline.default_ruin_time_id is None
 
     def test_planer_initial___filter_form_works_ok(self):
         outline = self.get_outline(written="active")
@@ -166,7 +166,7 @@ class InitialPlaner(MiniSetup):
         assert response.status_code == 302
         assert response.url == PATH + "?page=None&mode=menu&filtr="
         outline.refresh_from_db()
-        assert outline.simple_textures == True
+        assert outline.simple_textures is True
         assert outline.filter_targets_number == 15
 
     def test_planer_initial___create_form_works_ok(self):

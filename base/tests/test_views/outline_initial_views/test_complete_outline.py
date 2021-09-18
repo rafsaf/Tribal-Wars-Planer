@@ -32,8 +32,8 @@ class CompleteOutline(MiniSetup):
         outline.save()
         self.create_target_on_test_world(outline=outline, many=26)
 
-        PATH = reverse("base:planer_complete", args=[outline.pk]) + f"?t=ruin"
-        REDIRECT = reverse("base:planer_initial_form", args=[outline.pk]) + f"?t=ruin"
+        PATH = reverse("base:planer_complete", args=[outline.pk]) + "?t=ruin"
+        REDIRECT = reverse("base:planer_initial_form", args=[outline.pk]) + "?t=ruin"
 
         self.login_me()
         response = self.client.get(PATH)
@@ -50,7 +50,7 @@ class CompleteOutline(MiniSetup):
         self.create_target_on_test_world(outline=outline, off=5)
 
         FORM = reverse("base:planer_initial_form", args=[outline.pk])
-        PATH = reverse("base:planer_complete", args=[outline.pk]) + f"?t=ruin"
+        PATH = reverse("base:planer_complete", args=[outline.pk]) + "?t=ruin"
         REDIRECT = (
             reverse("base:planer_initial", args=[outline.pk]) + "?page=1&mode=menu"
         )

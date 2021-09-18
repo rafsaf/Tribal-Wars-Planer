@@ -31,16 +31,16 @@ class RemoveUserOutline(MiniSetup):
         assert outline.avaiable_offs_near == []
         assert outline.avaiable_nobles == []
         assert outline.avaiable_nobles_near == []
-        assert outline.avaiable_ruins == None
+        assert outline.avaiable_ruins is None
         assert outline.filter_weights_min == 0
         assert outline.filter_weights_max == 30000
         assert outline.filter_card_number == 12
         assert outline.filter_targets_number == 12
         assert outline.filter_hide_front == "all"
         assert outline.choice_sort == "distance"
-        assert outline.default_off_time_id == None
-        assert outline.default_fake_time_id == None
-        assert outline.default_ruin_time_id == None
+        assert outline.default_off_time_id is None
+        assert outline.default_fake_time_id is None
+        assert outline.default_ruin_time_id is None
 
     def test_reset_results_to_defaults(self):
         outline = self.get_outline(add_result=True)
@@ -68,7 +68,7 @@ class RemoveUserOutline(MiniSetup):
         self.create_weight(target, weight_max)
         overview = self.create_overview(outline)
 
-        assert overview.removed == False
+        assert overview.removed is False
         assert models.WeightMaximum.objects.count() == 1
         assert models.TargetVertex.objects.count() == 1
         assert models.WeightModel.objects.count() == 1
@@ -77,7 +77,7 @@ class RemoveUserOutline(MiniSetup):
         outline.remove_user_outline()
         overview.refresh_from_db()
 
-        assert overview.removed == True
+        assert overview.removed is True
         assert models.WeightModel.objects.count() == 0
         assert models.OutlineTime.objects.count() == 0
         assert models.WeightMaximum.objects.count() == 0
@@ -133,9 +133,9 @@ class RemoveUserOutline(MiniSetup):
         assert weight_max.x_coord == 102
         assert weight_max.y_coord == 102
         assert weight_max.player == "some-player"
-        assert weight_max.hidden == False
-        assert weight_max.first_line == False
-        assert weight_max.too_far_away == False
+        assert weight_max.hidden is False
+        assert weight_max.first_line is False
+        assert weight_max.too_far_away is False
         assert weight_max.fake_limit == 10
 
     def test_weight_max_ok_real_target_bad(self):
@@ -233,7 +233,7 @@ class RemoveUserOutline(MiniSetup):
 
         stats: models.Stats = models.Stats.objects.get(outline=outline)
         assert stats.outline_pk == outline.pk
-        assert stats.premium_user == False
+        assert stats.premium_user is False
         assert stats.owner_name == self.me().username
         assert stats.world == str(outline.world)
 

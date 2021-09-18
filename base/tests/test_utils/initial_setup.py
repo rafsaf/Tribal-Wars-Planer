@@ -122,9 +122,9 @@ def create_initial_data():
         off_troops=TEXT,
     )
 
-    result = models.Result.objects.create(outline=outline1)
+    models.Result.objects.create(outline=outline1)
 
-    outline2 = models.Outline.objects.create(
+    models.Outline.objects.create(
         id=2,
         owner=user1,
         date=datetime.date(year=2021, day=3, month=3),
@@ -293,7 +293,7 @@ def create_initial_data():
         fake_limit=2,
     )
 
-    weight_max4 = models.WeightMaximum.objects.create(
+    models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=503,
         player="player0",
@@ -308,7 +308,7 @@ def create_initial_data():
         fake_limit=2,
     )
 
-    weight_max5 = models.WeightMaximum.objects.create(
+    models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=504,
         player="player0",
@@ -323,7 +323,7 @@ def create_initial_data():
         fake_limit=2,
     )
 
-    weight_max6 = models.WeightMaximum.objects.create(
+    models.WeightMaximum.objects.create(
         x_coord=500,
         y_coord=505,
         player="player0",
@@ -456,7 +456,7 @@ def create_initial_data_write_outline():
         militia="active",
     )
 
-    outline1 = models.Outline.objects.create(
+    models.Outline.objects.create(
         id=1,
         owner=user1,
         date=datetime.date(year=2021, day=3, month=3),
