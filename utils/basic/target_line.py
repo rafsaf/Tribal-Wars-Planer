@@ -41,7 +41,7 @@ class TargetsData:
             villages_ids_set = set([village.coord for village in village_models])
 
             for village in self.villages_coord:
-                if not village in villages_ids_set:
+                if village not in villages_ids_set:
                     self.errors_ids.add(self.vill_id_line[village])
 
 

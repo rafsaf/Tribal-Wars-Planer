@@ -1,6 +1,5 @@
 from typing import Dict, List, Tuple
 
-import base.models as models
 import utils.basic as basic
 from base import models
 from base.models import Outline, WeightMaximum

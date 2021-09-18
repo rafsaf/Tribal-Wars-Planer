@@ -55,7 +55,7 @@ class Army:
             raise ArmyError(f"Długość: {text_army_length} nie jest poprawna")
         if len(self.text_army[0]) != 7:
             raise ArmyError(
-                f"28.03.21, Długość kordów musi być równa 7 ~poniżej nie jest sprawdzane"
+                "28.03.21, Długość kordów musi być równa 7 ~poniżej nie jest sprawdzane"
             )
         try:
             village = basic.Village(self.text_army[0])
@@ -204,7 +204,7 @@ class Defence:
             raise DefenceError(f"Długość: {text_army_length} nie jest poprawna")
         if len(self.text_army[0]) != 7:
             raise DefenceError(
-                f"28.03.21, Długość kordów musi być równa 7 ~poniżej nie jest sprawdzane"
+                "28.03.21, Długość kordów musi być równa 7 ~poniżej nie jest sprawdzane"
             )
         try:
             village = basic.Village(self.text_army[0])

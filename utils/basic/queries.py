@@ -146,15 +146,14 @@ class TargetWeightQueries:
     def __all_outline_times(self):
         try:
             outline_times = self.outline_times
-        except:
+        except AttributeError:
             outline_times = list(
                 (models.OutlineTime.objects.filter(outline=self.outline)).order_by(
                     "order"
                 )
             )
             self.outline_times = outline_times
-        finally:
-            return outline_times
+        return outline_times
 
     def __time_periods(self):
         periods = (
