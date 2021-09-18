@@ -1,4 +1,4 @@
-from typing import Dict, Iterator, List, Optional, Tuple
+from typing import Dict, Iterator, Optional, Tuple
 
 from base.models import Outline, WeightMaximum
 

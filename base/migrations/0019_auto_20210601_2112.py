@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0018_alter_outline_initial_outline_target_dist'),
+        ("base", "0018_alter_outline_initial_outline_target_dist"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='payment',
-            name='currency',
+            model_name="payment",
+            name="currency",
         ),
         migrations.AddField(
-            model_name='payment',
-            name='event_id',
+            model_name="payment",
+            name="event_id",
             field=models.CharField(blank=True, default=None, max_length=300, null=True),
         ),
     ]

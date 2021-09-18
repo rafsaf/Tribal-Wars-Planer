@@ -1,9 +1,4 @@
-from datetime import timedelta
-from os import name
-
 from django.http import HttpRequest
-from utils import basic
-from base import models
 
 from base.tests.test_utils.mini_setup import MiniSetup
 

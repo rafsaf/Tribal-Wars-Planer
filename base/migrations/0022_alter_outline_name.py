@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0021_payment_from_stripe'),
+        ("base", "0021_payment_from_stripe"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='outline',
-            name='name',
+            model_name="outline",
+            name="name",
             field=models.CharField(max_length=20),
         ),
     ]

@@ -1,8 +1,8 @@
 from django.urls import reverse
 
-from base.models import WeightModel
-from base.tests.test_views.outline_initial_changes.changes_view_setup import \
-    ChangesViewSetup
+from base.tests.test_views.outline_initial_changes.changes_view_setup import (
+    ChangesViewSetup,
+)
 
 
 class InitialHideWeight(ChangesViewSetup):
@@ -11,7 +11,7 @@ class InitialHideWeight(ChangesViewSetup):
         outline = self.get_outline()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)
-        weight = self.get_weight(target)
+        self.get_weight(target)
         filtr = self.random_lower_string()
 
         expected_path = (
@@ -53,7 +53,7 @@ class InitialHideWeight(ChangesViewSetup):
         outline = self.get_outline()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)
-        weight = self.get_weight(target)
+        self.get_weight(target)
 
         self.client.login(username="user2", password="user2")
         response = self.client.post(

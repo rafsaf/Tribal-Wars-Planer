@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0024_stats'),
+        ("base", "0024_stats"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='outline',
-            name='filter_weights_catapults_min',
-            field=models.IntegerField(default=0, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(3000)]),
+            model_name="outline",
+            name="filter_weights_catapults_min",
+            field=models.IntegerField(
+                default=0,
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(3000),
+                ],
+            ),
         ),
     ]

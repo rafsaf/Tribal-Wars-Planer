@@ -1,5 +1,3 @@
-from math import ceil
-from time import time
 from typing import List
 
 import numpy as np
@@ -60,7 +58,6 @@ def get_legal_coords_outline(outline: models.Outline):
         ).triple_result()
     else:
         front_array = np.array([])
-        back_array = all_ally
         away_array = np.array([])
 
     front_starts: List[str] = [f"{coord[0]}|{coord[1]}" for coord in front_array]

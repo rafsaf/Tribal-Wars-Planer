@@ -1,9 +1,7 @@
-from django.db import models
-from base.tests.test_utils.mini_setup import MiniSetup
-
 from django.urls import reverse
 
 from base.models import OutlineOverview, Overview, Stats
+from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class OverviewView(MiniSetup):

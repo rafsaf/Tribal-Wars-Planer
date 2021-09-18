@@ -1,7 +1,8 @@
-from base.models import Outline
 from datetime import timedelta
-from base.tests.test_utils.mini_setup import MiniSetup
+
 from base.cron import outdate_outline_delete
+from base.models import Outline
+from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class OutDateOutlineDelete(MiniSetup):

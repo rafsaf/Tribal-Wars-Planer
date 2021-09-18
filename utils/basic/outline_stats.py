@@ -1,6 +1,6 @@
-from time import time
-from base.models import Outline, Stats
 from django.db.models import F
+
+from base.models import Outline, Stats
 
 
 class Action:

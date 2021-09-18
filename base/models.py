@@ -1,11 +1,10 @@
 """ Database models """
 import datetime
 from math import sqrt
-from typing import Callable, Dict, List, Optional
+from typing import Dict, List, Optional
 
 import django
 from dateutil.relativedelta import relativedelta
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.core.mail import send_mail
@@ -20,7 +19,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import gettext_lazy, gettext as _
+from django.utils.translation import gettext_lazy
 from markdownx.models import MarkdownxField
 
 

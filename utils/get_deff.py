@@ -6,7 +6,6 @@ From script Obrona to nice good looking version
 Also prining only villages in center
 
 """
-from logging import getLogger
 
 import numpy as np
 from tw_complex.brute import CDistBrute

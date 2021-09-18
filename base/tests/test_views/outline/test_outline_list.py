@@ -28,8 +28,8 @@ class OutlineList(MiniSetup):
 
     def test_planer___200_auth_remove_editable_outline_leave_foreign_outline(self):
         PATH = reverse("base:planer")
-        foreign_outline = self.create_foreign_outline()
-        outline = self.get_outline()
+        self.create_foreign_outline()
+        self.get_outline()
         self.login_me()
         assert Outline.objects.count() == 2
         response = self.client.get(PATH)

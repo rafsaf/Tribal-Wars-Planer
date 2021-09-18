@@ -1,8 +1,7 @@
 from django.urls import reverse
-from django.utils import timezone
 
 from base import forms
-from base.models import TargetVertex, WeightMaximum
+from base.models import TargetVertex
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils import basic
 

@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0017_auto_20210524_0118'),
+        ("base", "0017_auto_20210524_0118"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='outline',
-            name='initial_outline_target_dist',
-            field=models.IntegerField(default=50, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(1000)]),
+            model_name="outline",
+            name="initial_outline_target_dist",
+            field=models.IntegerField(
+                default=50,
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(1000),
+                ],
+            ),
         ),
     ]

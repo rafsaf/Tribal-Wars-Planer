@@ -1,6 +1,5 @@
 from base import models
 from base.forms import CreateNewInitialTarget
-
 from base.tests.test_utils.mini_setup import MiniSetup
 
 

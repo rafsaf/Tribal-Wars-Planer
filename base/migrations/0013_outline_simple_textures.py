@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0012_outline_choice_sort'),
+        ("base", "0012_outline_choice_sort"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='outline',
-            name='simple_textures',
+            model_name="outline",
+            name="simple_textures",
             field=models.BooleanField(default=False),
         ),
     ]

@@ -1,6 +1,3 @@
-from django.db.models import CharField, ExpressionWrapper, F
-from django.db.models.functions import Cast, Concat
-
 from base import models
 from utils import basic
 
@@ -71,7 +68,7 @@ class TargetsOneLine:
             coord = split_line[0]
             if len(coord) != 7:
                 raise basic.VillageError()
-            village = basic.Village(coord)
+            basic.Village(coord)
         except basic.VillageError:
             raise LineError()
 

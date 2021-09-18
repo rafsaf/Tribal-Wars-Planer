@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0013_outline_simple_textures'),
+        ("base", "0013_outline_simple_textures"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='payment',
-            name='currency',
-            field=models.CharField(default='PLN', max_length=3),
+            model_name="payment",
+            name="currency",
+            field=models.CharField(default="PLN", max_length=3),
         ),
         migrations.AlterField(
-            model_name='payment',
-            name='amount',
+            model_name="payment",
+            name="amount",
             field=models.FloatField(),
         ),
     ]

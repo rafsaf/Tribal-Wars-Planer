@@ -1,9 +1,8 @@
 from datetime import timedelta
-from os import name
-from utils import basic
-from base import models
 
+from base import models
 from base.tests.test_utils.mini_setup import MiniSetup
+from utils import basic
 
 
 class RemoveUserOutline(MiniSetup):

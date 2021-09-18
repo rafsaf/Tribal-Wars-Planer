@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0019_auto_20210601_2112'),
+        ("base", "0019_auto_20210601_2112"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='outline',
-            name='filter_hide_front',
-            field=models.CharField(choices=[('all', 'All'), ('front', 'Front'), ('back', 'Back'), ('away', 'Away'), ('hidden', 'Hidden')], default='all', max_length=20),
+            model_name="outline",
+            name="filter_hide_front",
+            field=models.CharField(
+                choices=[
+                    ("all", "All"),
+                    ("front", "Front"),
+                    ("back", "Back"),
+                    ("away", "Away"),
+                    ("hidden", "Hidden"),
+                ],
+                default="all",
+                max_length=20,
+            ),
         ),
     ]

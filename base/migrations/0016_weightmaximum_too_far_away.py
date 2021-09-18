@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0015_auto_20210522_1245'),
+        ("base", "0015_auto_20210522_1245"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='weightmaximum',
-            name='too_far_away',
+            model_name="weightmaximum",
+            name="too_far_away",
             field=models.BooleanField(default=False),
         ),
     ]

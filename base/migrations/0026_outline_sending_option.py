@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0025_outline_filter_weights_catapults_min'),
+        ("base", "0025_outline_filter_weights_catapults_min"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='outline',
-            name='sending_option',
-            field=models.CharField(choices=[('default', 'Auto generated, fully equipped safe links'), ('string', 'Text simple in message'), ('extended', 'Text extended in message'), ('table', 'Table in message'), ('deputy', 'Text for deputy in message')], default='default', max_length=50),
+            model_name="outline",
+            name="sending_option",
+            field=models.CharField(
+                choices=[
+                    ("default", "Auto generated, fully equipped safe links"),
+                    ("string", "Text simple in message"),
+                    ("extended", "Text extended in message"),
+                    ("table", "Table in message"),
+                    ("deputy", "Text for deputy in message"),
+                ],
+                default="default",
+                max_length=50,
+            ),
         ),
     ]

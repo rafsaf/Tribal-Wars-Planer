@@ -30,7 +30,7 @@ class OutlineDelete(MiniSetup):
 
     def test_planer_delete___302_auth_works_ok_and_do_not_touch_others(self):
         outline = self.get_outline()
-        foreign_outline = self.create_foreign_outline()
+        self.create_foreign_outline()
         PATH = reverse("base:planer_delete", args=[outline.pk])
         REDIRECT = reverse("base:planer")
 

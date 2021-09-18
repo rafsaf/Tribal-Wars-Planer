@@ -6,23 +6,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0026_outline_sending_option'),
+        ("base", "0026_outline_sending_option"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='outline',
-            name='sending_option',
-            field=models.CharField(choices=[('default', '(Default) Auto generated, fully equipped safe links'), ('string', 'Text simple directly in message'), ('extended', 'Text extended directly in message'), ('deputy', 'Text for deputy directly in message')], default='default', max_length=50),
+            model_name="outline",
+            name="sending_option",
+            field=models.CharField(
+                choices=[
+                    ("default", "(Default) Auto generated, fully equipped safe links"),
+                    ("string", "Text simple directly in message"),
+                    ("extended", "Text extended directly in message"),
+                    ("deputy", "Text for deputy directly in message"),
+                ],
+                default="default",
+                max_length=50,
+            ),
         ),
         migrations.AlterField(
-            model_name='outline',
-            name='text_message',
-            field=models.CharField(blank=True, default='', max_length=2000),
+            model_name="outline",
+            name="text_message",
+            field=models.CharField(blank=True, default="", max_length=2000),
         ),
         migrations.AlterField(
-            model_name='outline',
-            name='title_message',
-            field=models.CharField(default='Outline Targets', max_length=200),
+            model_name="outline",
+            name="title_message",
+            field=models.CharField(default="Outline Targets", max_length=200),
         ),
     ]

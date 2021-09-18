@@ -23,7 +23,7 @@ class InactiveOutline(MiniSetup):
 
     def test_planer_detail___404_auth_editable_is_removed_do_not_touch_others(self):
         outline = self.get_outline()
-        foreign_outline = self.create_foreign_outline()
+        self.create_foreign_outline()
         PATH = reverse("base:planer_detail", args=[outline.pk])
 
         self.login_me()

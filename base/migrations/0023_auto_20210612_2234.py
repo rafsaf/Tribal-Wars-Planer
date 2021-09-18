@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0022_alter_outline_name'),
+        ("base", "0022_alter_outline_name"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='outline',
-            name='text_message',
-            field=models.CharField(blank=True, default='', max_length=1000),
+            model_name="outline",
+            name="text_message",
+            field=models.CharField(blank=True, default="", max_length=1000),
         ),
         migrations.AlterField(
-            model_name='outline',
-            name='title_message',
-            field=models.CharField(default='Outline Targets', max_length=100),
+            model_name="outline",
+            name="title_message",
+            field=models.CharField(default="Outline Targets", max_length=100),
         ),
     ]

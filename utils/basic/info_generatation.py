@@ -112,9 +112,11 @@ class OutlineInfo:
 
 
 class TargetCount:
-    def __init__(self, target: models.TargetVertex, weight_lst: QuerySet) -> None:
+    def __init__(
+        self, target: models.TargetVertex, weight_lst: QuerySet["models.WeightModel"]
+    ) -> None:
         self.target: models.TargetVertex = target
-        self.weight_lst: QuerySet = weight_lst
+        self.weight_lst: QuerySet["models.WeightModel"] = weight_lst
 
     @property
     def line(self) -> str:

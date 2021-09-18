@@ -1,8 +1,8 @@
-from base.models import TargetVertex
 import json
 
 from django.urls import reverse
 
+from base.models import TargetVertex
 from base.tests.test_utils.mini_setup import MiniSetup
 
 

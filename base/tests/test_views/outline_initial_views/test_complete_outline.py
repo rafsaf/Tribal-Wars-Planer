@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from base.models import WeightMaximum, WeightModel
+from base.models import WeightModel
 from base.tests.test_utils.mini_setup import MiniSetup
 
 

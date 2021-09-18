@@ -4,8 +4,6 @@ from collections import deque
 from math import inf
 from typing import List
 
-from django.utils.translation import gettext
-
 from base import models
 from utils import basic
 

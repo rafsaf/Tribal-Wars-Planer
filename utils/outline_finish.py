@@ -7,9 +7,18 @@ from django.db.models.query import QuerySet
 from django.forms.models import model_to_dict
 from django.utils.translation import gettext as _
 
-from base.models import (Outline, OutlineOverview, Overview, PeriodModel,
-                         Player, Result, TargetVertex, VillageModel,
-                         WeightMaximum, WeightModel)
+from base.models import (
+    Outline,
+    OutlineOverview,
+    Overview,
+    PeriodModel,
+    Player,
+    Result,
+    TargetVertex,
+    VillageModel,
+    WeightMaximum,
+    WeightModel,
+)
 from utils import basic
 from utils.basic import info_generatation
 

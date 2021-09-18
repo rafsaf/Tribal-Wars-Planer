@@ -39,7 +39,7 @@ class OutlineProfileSettings(MiniSetup):
 
     def test_settings___302_form_works_correct(self):
         PATH = reverse("base:settings")
-        world = self.get_world()
+        self.get_world()
 
         me = self.me()
         profile: Profile = Profile.objects.get(user=me)

@@ -1,5 +1,4 @@
 import datetime
-from django.core.mail import outbox
 
 from django.urls import reverse
 

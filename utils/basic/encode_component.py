@@ -1,4 +1,5 @@
 from typing import Callable
+
 from js2py import eval_js
 
 __encode_component_using_javascript: Callable[[str], str] = eval_js(

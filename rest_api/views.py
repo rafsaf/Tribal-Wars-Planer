@@ -244,7 +244,7 @@ class StripeWebhook(APIView):
 
         try:
             event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
-        except ValueError as e:
+        except ValueError:
             # Invalid payload
             return Response(status=status.HTTP_400_BAD_REQUEST)
         except stripe.error.SignatureVerificationError as e:  # type: ignore

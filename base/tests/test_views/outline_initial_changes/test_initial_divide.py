@@ -1,8 +1,9 @@
 from django.urls import reverse
 
 from base.models import WeightModel
-from base.tests.test_views.outline_initial_changes.changes_view_setup import \
-    ChangesViewSetup
+from base.tests.test_views.outline_initial_changes.changes_view_setup import (
+    ChangesViewSetup,
+)
 
 
 class InitialDivide(ChangesViewSetup):
@@ -10,7 +11,7 @@ class InitialDivide(ChangesViewSetup):
 
         outline = self.get_outline()
         target = self.get_target(outline)
-        weight_max = self.get_weight_max(outline)
+        self.get_weight_max(outline)
         weight = self.get_weight(target)
         filtr = self.random_lower_string()
 
@@ -36,7 +37,7 @@ class InitialDivide(ChangesViewSetup):
 
         outline = self.get_outline()
         target = self.get_target(outline)
-        weight_max = self.get_weight_max(outline)
+        self.get_weight_max(outline)
         weight = self.get_weight(target)
 
         self.client.login(username="user2", password="user2")

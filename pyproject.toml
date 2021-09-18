@@ -7,29 +7,47 @@ authors = ["rafsaf <rafal.safin12@gmail.com>"]
 [tool.poetry.dependencies]
 python = ">=3.9,<3.10"
 
-Django = "3.2.5"
+Django = "3.2.7"
 django-crispy-forms = "1.12.0"
 django-crontab = "0.7.1"
 django-markdownx = "3.0.1"
 django-recaptcha = "2.0.6"
 django-registration = "3.2"
 djangorestframework = "3.12.4"
-django-ses = "2.0.0"
+django-ses = "2.2.1"
 
-Pillow = "8.2.0"
-python-dateutil = "2.8.1"
-python-dotenv = "0.17.1"
+Pillow = "8.3.2"
+python-dateutil = "2.8.2"
+python-dotenv = "0.19.0"
 psycopg2 = "2.9.1"
-requests = "2.25.1"
-stripe = "2.58.0"
+requests = "2.26.0"
+stripe = "2.60.0"
 tw-complex = "0.2.0"
-Js2Py = "^0.71"
+Js2Py = "0.71"
 
 
 [tool.poetry.dev-dependencies]
 black = {version = "^21.5b1", allow-prereleases = true}
-coverage = "5.5"
-isort = "5.8.0"
+coverage = {extras = ["toml"], version = "^5.5"}
+isort = "^5.9.3"
+flake8 = "^3.9.2"
+autoflake = "^1.4"
+
+[tool.coverage.run]
+source = [   
+    "base",
+    "rest_api",
+    "tribal_wars_planer",
+    "utils",
+]
+omit = [
+    "*__init__.py*",
+    "*/migrations/*",
+    "*/tests/*",
+]
+
+[tool.isort]
+profile = "black"
 
 
 [build-system]

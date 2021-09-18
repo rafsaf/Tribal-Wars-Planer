@@ -50,7 +50,7 @@ class NewOutlineCreateSelect(MiniSetup):
     def test_planer_create_select___302_correct_create_ally_tribe(self):
         self.login_me()
         outline = self.get_outline()
-        tribe = self.create_tribe("ally")
+        self.create_tribe("ally")
         PATH = reverse("base:planer_create_select", args=[outline.pk])
 
         response = self.client.post(PATH, data={"tribe1": "ally"})
@@ -75,7 +75,7 @@ class NewOutlineCreateSelect(MiniSetup):
     def test_planer_create_select___302_correct_create_enemy_tribe(self):
         self.login_me()
         outline = self.get_outline()
-        tribe = self.create_tribe("enemy")
+        self.create_tribe("enemy")
         PATH = reverse("base:planer_create_select", args=[outline.pk])
 
         response = self.client.post(PATH, data={"tribe2": "enemy"})

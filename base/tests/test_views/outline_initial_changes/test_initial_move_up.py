@@ -1,8 +1,9 @@
 from django.urls import reverse
 
 from base.models import WeightModel
-from base.tests.test_views.outline_initial_changes.changes_view_setup import \
-    ChangesViewSetup
+from base.tests.test_views.outline_initial_changes.changes_view_setup import (
+    ChangesViewSetup,
+)
 
 
 class InitialMoveUp(ChangesViewSetup):
@@ -10,7 +11,7 @@ class InitialMoveUp(ChangesViewSetup):
 
         outline = self.get_outline()
         target = self.get_target(outline)
-        weight_max = self.get_weight_max(outline)
+        self.get_weight_max(outline)
         weight0: WeightModel = WeightModel.objects.get(target=target, start="500|500")
         weight1: WeightModel = WeightModel.objects.get(target=target, start="500|501")
         filtr = self.random_lower_string()
@@ -53,7 +54,7 @@ class InitialMoveUp(ChangesViewSetup):
 
         outline = self.get_outline()
         target = self.get_target(outline)
-        weight_max = self.get_weight_max(outline)
+        self.get_weight_max(outline)
         weight = self.get_weight(target)
 
         self.client.login(username="user2", password="user2")

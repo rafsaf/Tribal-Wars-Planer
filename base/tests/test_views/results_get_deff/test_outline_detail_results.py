@@ -1,6 +1,6 @@
-from base import forms
 from django.urls import reverse
 
+from base import forms
 from base.tests.test_utils.mini_setup import MiniSetup
 
 

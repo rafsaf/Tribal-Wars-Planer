@@ -1,5 +1,4 @@
 """ App forms """
-from typing import Dict
 
 from django import forms
 from django.db.models.query import QuerySet
@@ -179,7 +178,7 @@ class GetDeffForm(forms.Form):
         """Excluded Villages"""
         villages = self.cleaned_data["excluded"]
         try:
-            village_list = basic.many_villages(self.cleaned_data["excluded"])
+            basic.many_villages(self.cleaned_data["excluded"])
         except basic.VillageError as error:
             self.add_error("excluded", str(error))
             return None
@@ -279,7 +278,7 @@ class AvailableTroopsForm(forms.ModelForm):
         """Excluded Villages"""
         coords = self.cleaned_data["initial_outline_excluded_coords"]
         try:
-            village_list = basic.many_villages(coords)
+            basic.many_villages(coords)
         except basic.VillageError as error:
             self.add_error("initial_outline_excluded_coords", str(error))
 

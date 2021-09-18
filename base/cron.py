@@ -2,8 +2,9 @@
 from datetime import timedelta
 from time import sleep
 
-from django.utils.timezone import now
 from django.db.models.query import QuerySet
+from django.utils.timezone import now
+
 from utils.database_update import cron_schedule_data_update
 
 from . import models

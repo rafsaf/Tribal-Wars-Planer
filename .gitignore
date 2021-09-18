@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 Pipfile*
 .idea*
+static
 # C extensions
 *.so
 # Traefik
