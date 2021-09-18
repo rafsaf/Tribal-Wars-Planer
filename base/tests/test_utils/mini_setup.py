@@ -126,7 +126,7 @@ class MiniSetup(TestCase):
     def random_integer(self, minimum: int = 0, maximum: int = 50) -> int:
         return random.randint(minimum, maximum)
 
-    def get_world(self, test_world=False) -> World:
+    def get_world(self, test_world: bool = False, save: bool = True) -> World:
         try:
             if test_world:
                 return World.objects.get(postfix="Test")
@@ -146,7 +146,7 @@ class MiniSetup(TestCase):
                 )
                 Server.objects.bulk_create([server_in])
                 server = Server.objects.get(dns="nottestserver")
-                world1: World = World.objects.create(
+                world1: World = World(
                     server=server,
                     postfix="1",
                     paladin="inactive",
@@ -157,6 +157,9 @@ class MiniSetup(TestCase):
             my_profile: Profile = Profile.objects.get(user=me)
             my_profile.server = server
             my_profile.save()
+            if save:
+                world1.save()
+                world1.refresh_from_db()
             return world1
 
     def get_outline(

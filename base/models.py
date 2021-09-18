@@ -1,7 +1,7 @@
 """ Database models """
 import datetime
 from math import sqrt
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 import django
 from dateutil.relativedelta import relativedelta
@@ -95,19 +95,22 @@ class World(models.Model):
     max_noble_distance = models.IntegerField(default=50)
 
     def __str__(self):
-        return self.server.prefix + self.postfix
+        server: Server = self.server
+        return server.prefix + self.postfix
 
-    def human(self, prefix=False):
+    def human(self, prefix: bool = False):
+        server: Server = self.server
         if prefix:
-            last = " " + self.server.prefix.upper()
+            server_prefix: str = server.prefix
+            last = " " + server_prefix.upper()
         else:
             last = ""
         return gettext_lazy("World ") + self.postfix + last
 
-    def link_to_game(self, addition=""):
+    def link_to_game(self, addition: str = ""):
         return f"https://{str(self)}." f"{self.server.dns}" f"{addition}"
 
-    def tw_stats_link_to_village(self, village_id):
+    def tw_stats_link_to_village(self, village_id: Union[str, int]):
         return (
             f"https://{self.server.prefix}.twstats.com/{str(self)}/index.php?"
             f"page=village&id={village_id}"

@@ -3,7 +3,7 @@ echo "export requirements.txt"
 poetry export -o requirements.txt
 poetry export -o requirements-dev.txt --dev
 echo "autoflake"
-autoflake --recursive --in-place --check  \
+autoflake --recursive --in-place  \
         --remove-unused-variables \
         --remove-all-unused-imports  \
         --ignore-init-module-imports \

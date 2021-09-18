@@ -1,3 +1,4 @@
+from typing import Optional, Tuple
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
 
@@ -22,7 +23,7 @@ class WorldQuery:
     def __init__(self, world: World):
         self.world = world
 
-    def check_if_world_exist_and_try_create(self):
+    def check_if_world_exist_and_try_create(self) -> Tuple[Optional[World], str]:
         """
         Check if world exists in game
         if world is already added, return tuple None, 'added'
@@ -40,6 +41,8 @@ class WorldQuery:
         except requests.exceptions.RequestException:
             return (None, "error")
         if req.history:
+            return (None, "error")
+        if req.status_code != 200:
             return (None, "error")
 
         tree = ElementTree.fromstring(req.content)
@@ -64,6 +67,8 @@ class WorldQuery:
         except requests.exceptions.RequestException:
             return (None, "error")
         if req_units.history:
+            return (None, "error")
+        if req_units.status_code != 200:
             return (None, "error")
 
         tree_units = ElementTree.fromstring(req_units.content)
