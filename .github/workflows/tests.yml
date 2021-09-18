@@ -30,13 +30,25 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Load cached venv
+      - name: Load cached venv dev
+        id: cached-poetry-dependencies-dev
+        uses: actions/cache@v2
+        with:
+          path: venv-dev
+          key: venv-dev-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('requirements-dev.txt') }}
+      - name: Install dependencies and actiavte virtualenv dev
+        if: steps.cached-poetry-dependencies-dev.outputs.cache-hit != 'true'
+        run: |
+          python -m venv venv-dev
+          source venv-dev/bin/activate
+          pip install -r requirements-dev.txt
+      - name: Load cached venv prod
         id: cached-poetry-dependencies
         uses: actions/cache@v2
         with:
           path: venv
           key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('requirements.txt') }}
-      - name: Install dependencies and actiavte virtualenv
+      - name: Install dependencies and actiavte virtualenv prod
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
           python -m venv venv
@@ -44,15 +56,20 @@ jobs:
           pip install -r requirements.txt
       - name: Lint with flake8
         run: |
-          source venv/bin/activate
+          source venv-dev/bin/activate
           flake8 base rest_api tribal_wars_planer utils --count --statistics
       - name: Create .env file
         run: |
           cp ./.env.example ./.env
-      - name: Migrate and then run tests
+      - name: Migrate and then run localserver - precheck requirements.txt are ok
         run: |
           source venv/bin/activate
           export POSTGRES_HOST=localhost
           python manage.py migrate
+          python manage.py runserver
+      - name: Coverage full tests
+        run: |
+          source venv-dev/bin/activate
+          export POSTGRES_HOST=localhost
           coverage run manage.py test
           coverage report
