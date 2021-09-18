@@ -1,12 +1,12 @@
-from base.models import Player, Tribe, VillageModel, World
 from pathlib import Path
 
+import requests
 import requests_mock
 
+from base.cron import db_update
+from base.models import Player, Tribe, VillageModel, World
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils.database_update import WorldQuery
-import requests
-from base.cron import db_update
 
 GET_CONFIG = Path("utils/tests/database_update/get_config.xml").read_text()
 GET_UNIT_INFO = Path("utils/tests/database_update/get_unit_info.xml").read_text()
