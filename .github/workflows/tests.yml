@@ -61,12 +61,11 @@ jobs:
       - name: Create .env file
         run: |
           cp ./.env.example ./.env
-      - name: Migrate and then run localserver - precheck requirements.txt are ok
+      - name: Migrate
         run: |
           source venv/bin/activate
           export POSTGRES_HOST=localhost
           python manage.py migrate
-          python manage.py runserver
       - name: Coverage full tests
         run: |
           source venv-dev/bin/activate
