@@ -30,18 +30,28 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: venv
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('requirements.txt') }}
+      - name: Install dependencies and actiavte virtualenv
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
       - name: Lint with flake8
         run: |
+          source venv/bin/activate
           flake8 base rest_api tribal_wars_planer utils --count --statistics
       - name: Create .env file
         run: |
           cp ./.env.example ./.env
       - name: Migrate and then run tests
         run: |
+          source venv/bin/activate
           export POSTGRES_HOST=localhost
           python manage.py migrate
           coverage run manage.py test
