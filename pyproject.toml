@@ -56,6 +56,8 @@ omit = [
     "*__init__.py*",
     "*/migrations/*",
     "*/tests/*",
+    "tribal_wars_planer/wsgi.py",
+    "tribal_wars_planer/asgi.py",
 ]
 
 [tool.isort]
