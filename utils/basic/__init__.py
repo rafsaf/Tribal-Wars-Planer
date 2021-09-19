@@ -2,6 +2,7 @@
 
 from .army import *
 from .calculate_duplicates import *
+from .create_test_world import *
 from .dictionary import *
 from .encode_component import *
 from .info_generatation import *

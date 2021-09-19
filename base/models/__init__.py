@@ -22,57 +22,10 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy
 from markdownx.models import MarkdownxField
 
-
-class Server(models.Model):
-    dns = models.CharField(max_length=50, primary_key=True)
-    prefix = models.CharField(max_length=2)
-
-    def __str__(self):
-        return self.dns
-
-
-class Message(models.Model):
-    date = models.DateField(auto_now_add=True)
-    created = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=20, default="bug fix")
-    text = models.TextField(default="")
-
-
-@receiver(post_save, sender=Message)
-def created_message(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.all().update(messages=F("messages") + 1)
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    server = models.ForeignKey(
-        Server, on_delete=models.SET_NULL, null=True, default=None
-    )
-    validity_date = models.DateField(
-        default=datetime.date(year=2021, month=2, day=25), blank=True, null=True
-    )
-    messages = models.IntegerField(default=0)
-
-    def is_premium(self) -> bool:
-        if self.validity_date is None:
-            return False
-        today = timezone.localdate()
-        if today > self.validity_date:
-            return False
-        return True
-
-    def latest_messages(self) -> "QuerySet[Message]":
-        return Message.objects.order_by("-created")[:6]
-
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        default_server = Server.objects.get_or_create(dns="plemiona.pl", prefix="pl")[0]
-        Profile.objects.create(user=instance, server=default_server)
-    else:
-        instance.profile.save()
+from .message import Message
+from .profile import Profile
+from .server import Server
+from .stats import Stats
 
 
 class World(models.Model):
@@ -152,60 +105,6 @@ class VillageModel(models.Model):
 
     def __str__(self):
         return self.coord
-
-
-def create_test_world(server: Server):
-    test_world = World.objects.create(server=server, postfix="Test")
-    tribe1 = Tribe.objects.create(tribe_id=0, tag="ALLY", world=test_world)
-    tribe2 = Tribe.objects.create(tribe_id=1, tag="ENEMY", world=test_world)
-    ally_villages = []
-    ally_players = []
-    enemy_players = []
-    enemy_villages = []
-    for i in range(5):
-        ally_players.append(
-            Player(tribe=tribe1, world=test_world, player_id=i, name=f"AllyPlayer{i}")
-        )
-        enemy_players.append(
-            Player(
-                tribe=tribe2, world=test_world, player_id=i + 5, name=f"EnemyPlayer{i}"
-            )
-        )
-    Player.objects.bulk_create(enemy_players)
-    Player.objects.bulk_create(ally_players)
-    ally_players = list(Player.objects.filter(world=test_world, player_id__lte=4))
-    enemy_players = list(Player.objects.filter(world=test_world, player_id__gte=5))
-    for i in range(50):
-        ids = i // 10
-        ally_villages.append(
-            VillageModel(
-                world=test_world,
-                x_coord=100 + i,
-                y_coord=100 + i,
-                coord=f"{100+i}|{100+i}",
-                village_id=i,
-                player=ally_players[ids],
-            )
-        )
-        enemy_villages.append(
-            VillageModel(
-                world=test_world,
-                x_coord=200 + i,
-                y_coord=200 + i,
-                coord=f"{200+i}|{200+i}",
-                village_id=i + 50,
-                player=enemy_players[ids],
-            )
-        )
-
-    VillageModel.objects.bulk_create(enemy_villages)
-    VillageModel.objects.bulk_create(ally_villages)
-
-
-@receiver(post_save, sender=Server)
-def new_server_create_test_world(sender, instance, created, **kwargs):
-    if created:
-        create_test_world(server=instance)
 
 
 def building_default_list() -> List[str]:
@@ -692,34 +591,6 @@ class Outline(models.Model):
         from utils.basic.outline_stats import action
 
         return action
-
-
-class Stats(models.Model):
-    outline = models.ForeignKey(
-        Outline, on_delete=models.SET_NULL, null=True, blank=True
-    )
-    outline_pk = models.IntegerField()
-    owner_name = models.CharField(max_length=300)
-    created = models.DateTimeField(auto_now_add=True)
-    world = models.CharField(max_length=50)
-    premium_user = models.BooleanField()
-    off_troops = models.IntegerField(default=0)
-    deff_troops = models.IntegerField(default=0)
-    real_targets = models.IntegerField(default=0)
-    fake_targets = models.IntegerField(default=0)
-    ruin_targets = models.IntegerField(default=0)
-    troops_refreshed = models.IntegerField(default=0)
-    outline_written = models.IntegerField(default=0)
-    available_troops = models.IntegerField(default=0)
-    date_change = models.IntegerField(default=0)
-    settings_change = models.IntegerField(default=0)
-    night_change = models.IntegerField(default=0)
-    ruin_change = models.IntegerField(default=0)
-    building_order_change = models.IntegerField(default=0)
-    time_created = models.IntegerField(default=0)
-    go_back_clicked = models.IntegerField(default=0)
-    finish_outline_clicked = models.IntegerField(default=0)
-    overview_visited = models.IntegerField(default=0)
 
 
 class Result(models.Model):
