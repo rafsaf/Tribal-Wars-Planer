@@ -5,6 +5,6 @@ class BaseConfig(AppConfig):
     name = "base"
 
     def ready(self) -> None:
-        from base import signals
+        import base.signals  # noqa: F401
 
         return super().ready()

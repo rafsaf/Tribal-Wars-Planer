@@ -1,7 +1,8 @@
+from django.contrib.auth.models import User
+
+from base.models import Server, World
 from base.models.message import Message
 from base.models.profile import Profile
-from base.models import Server, World
-from django.contrib.auth.models import User
 
 
 def test_server_signal_post_create_new_test_world():
