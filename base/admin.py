@@ -82,11 +82,6 @@ class AdminTargetVertex(admin.ModelAdmin):
     readonly_fields = ["outline"]
 
 
-@admin.register(models.TargetVertexOverview)
-class AdminTargetVertexOverview(admin.ModelAdmin):
-    list_display = ["outline_overview", "target", "player"]
-
-
 @admin.register(models.OutlineTime)
 class AdminOutlineTime(admin.ModelAdmin):
     list_display = [
