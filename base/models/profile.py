@@ -1,11 +1,13 @@
 import datetime
+from typing import TYPE_CHECKING
 
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.query import QuerySet
 from django.utils import timezone
 
-from base.models.message import Message
+if TYPE_CHECKING:
+    from base.models import Message
 
 
 class Profile(models.Model):
@@ -27,4 +29,6 @@ class Profile(models.Model):
         return True
 
     def latest_messages(self) -> "QuerySet[Message]":
+        from base.models.message import Message
+
         return Message.objects.order_by("-created")[:6]

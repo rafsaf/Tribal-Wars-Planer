@@ -5,6 +5,6 @@ class BaseConfig(AppConfig):
     name = "base"
 
     def ready(self) -> None:
-        pass
+        from base import signals
 
         return super().ready()
