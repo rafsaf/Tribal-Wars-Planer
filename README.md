@@ -7,6 +7,8 @@
 
 [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
 
+> :warning: Please note, this is open repository since 23.09.2021 (it was private all the time), some notes below are NOT up-to-date (some of them were made long ago) and many important topics, including general deployment flow, is not covered at all. You may use this code however you want under LICENSE, but remember the full support for self-hosting this project or even development guide is not planned ever, although this README file will be probably more helpful in the future. 
+
 # Table of contents
 
 [How to use this repo](#how-to-use-this-repo)
@@ -27,6 +29,8 @@ If you want to run it in development and make use of `localhost:8000` (the quick
 
 ## Quickstart
 
+> :warning: Warning this was not used for a long time, only production ;) and development flow should work fine.
+
 In your favourite folder e.g. Desktop:
 
 ```bash
@@ -34,13 +38,11 @@ git clone https://github.com/rafsaf/Tribal-Wars-Planer.git
 cd Tribal-Wars-Planer
 
 ```
-Go to the browser tab and write out `localhost`, enter
 
-
-Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
-Run
+Then create file `.env` in Tribal-Wars-Planer from template file `.env.example` and run docker-compose.
 
 ```bash
+cp .env.example
 docker-compose up -d
 
 ```
@@ -59,19 +61,12 @@ cd Tribal-Wars-Planer
 
 ```
 
-Then create file `.env` in Tribal-Wars-Planer (you may overwrite defaults values for admin/secret keys) from template file `.env.example`
+Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
 
 > :warning: Change `POSTGRES_HOST` to `localhost`.
 
-Create venv inside root folder (for better linting in vs code) and install dependencies
-
 ```bash
-# poetry config --list
-# if virtualenvs.in-project = None or false, run
-# poetry config virtualenvs.in-project true
-
 poetry install
-
 ```
 
 Run database with docker and then python
@@ -86,7 +81,8 @@ python manage.py runserver
 To run tests
 
 ```bash
-python manage.py test
+pytest
+# old: python manage.py test
 # python manage.py test base
 # python manage.py test base.tests.test_views
 ```

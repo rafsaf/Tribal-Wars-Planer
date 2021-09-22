@@ -21,18 +21,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0027_auto_20210827_0005'),
+        ("base", "0027_auto_20210827_0005"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='weightmodeloverview',
-            name='target',
+            model_name="weightmodeloverview",
+            name="target",
         ),
         migrations.DeleteModel(
-            name='TargetVertexOverview',
+            name="TargetVertexOverview",
         ),
         migrations.DeleteModel(
-            name='WeightModelOverview',
+            name="WeightModelOverview",
         ),
     ]
