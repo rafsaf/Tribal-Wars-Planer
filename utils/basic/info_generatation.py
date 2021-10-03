@@ -171,6 +171,25 @@ class TargetCount:
             return f"\r\n{self.target.target} - {offs} {offs_string} - {nobles} {nobles_string}"
 
     @property
+    def line_with_ally_nick(self):
+        player_to_commands: Dict[str, int] = {}
+        weight: models.WeightModel
+        for weight in self.weight_lst:
+            if not weight.player in player_to_commands:
+                player_to_commands[weight.player] = 1
+            else:
+                player_to_commands[weight.player] += 1
+
+        def sort_by_most_commands(tup: Tuple[str, int]) -> int:
+            return -tup[1]
+
+        unique_tuples: List[Tuple[str, int]] = sorted(
+            list(player_to_commands.items()), key=sort_by_most_commands
+        )
+        unique_ally_players = [unique_tuple[0] for unique_tuple in unique_tuples]
+        return f"{self.line} ({', '.join(unique_ally_players)})"
+
+    @property
     def target_type(self) -> str:
         if self.target.fake:
             return "fake"
