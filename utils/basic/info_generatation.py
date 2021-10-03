@@ -175,7 +175,7 @@ class TargetCount:
         player_to_commands: Dict[str, int] = {}
         weight: models.WeightModel
         for weight in self.weight_lst:
-            if not weight.player in player_to_commands:
+            if weight.player not in player_to_commands:
                 player_to_commands[weight.player] = 1
             else:
                 player_to_commands[weight.player] += 1
