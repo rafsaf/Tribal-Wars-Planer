@@ -114,11 +114,11 @@ DATABASES = {
     }
 }
 
-CRONJOBS = [
-    ("*/10 * * * *", "base.cron.db_update"),
-    ("0 3 * * *", "base.cron.outdate_overviews_delete"),
-    ("0 2 * * *", "base.cron.outdate_outline_delete"),
-]
+# CRONJOBS = [
+#     ("*/10 * * * *", "base.cron.db_update"),
+#     ("0 3 * * *", "base.cron.outdate_overviews_delete"),
+#     ("0 2 * * *", "base.cron.outdate_outline_delete"),
+# ]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
