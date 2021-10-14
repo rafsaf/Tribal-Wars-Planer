@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "crispy_forms",
     "markdownx",
     "django_registration",
-    "django_crontab",
     "captcha",
     "rest_framework",
     "django.contrib.admin",

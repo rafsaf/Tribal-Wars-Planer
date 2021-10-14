@@ -10,7 +10,8 @@ static
 # Traefik
 letsencrypt
 # Docker
-data
+data/*
+data_postgres/*
 # Webhook
 /webhook/hooks.json
 

@@ -89,8 +89,6 @@ coverage==5.5; (python_version >= "2.7" and python_full_version < "3.0.0") or (p
 django-crispy-forms==1.12.0; python_version >= "3.6" \
     --hash=sha256:d196db62ee8b4fc32d1f9583d0e4be1bb17328b662682c1ecb9fb77bbc0fcf77 \
     --hash=sha256:a3320356c84d0cdc631e1ec7b8908aa0117bc2a5f0ab1d053d33eba08f584808
-django-crontab==0.7.1 \
-    --hash=sha256:1201810a212460aaaa48eb6a766738740daf42c1a4f6aafecfb1525036929236
 django-markdownx==3.0.1 \
     --hash=sha256:e18e395cad0ade96afbb250a81cad15618e417ac3c0d9c37d964be3d8fd57bcf \
     --hash=sha256:f4d8998618c0548bf5349713d805e7440684d70116de0f10413932286c4e375f
@@ -328,6 +326,9 @@ requests==2.26.0; (python_version >= "2.7" and python_full_version < "3.0.0") or
 s3transfer==0.5.0; python_version >= "3.6" \
     --hash=sha256:9c1dc369814391a6bda20ebbf4b70a0f34630592c9aa520856bf384916af2803 \
     --hash=sha256:50ed823e1dc5868ad40c8dc92072f757aa0e653a192845c94a3b676f4a62da4c
+schedule==1.1.0; python_version >= "3.6" \
+    --hash=sha256:617adce8b4bf38c360b781297d59918fbebfb2878f1671d189f4f4af5d0567a4 \
+    --hash=sha256:e6ca13585e62c810e13a08682e0a6a8ad245372e376ba2b8679294f377dfc8e4
 scikit-learn==0.24.2; python_version >= "3.8" and python_version < "3.10" \
     --hash=sha256:d14701a12417930392cd3898e9646cf5670c190b933625ebe7511b1f7d7b8736 \
     --hash=sha256:d5bf9c863ba4717b3917b5227463ee06860fc43931dc9026747de416c0a10fee \

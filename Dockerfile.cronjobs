@@ -1,7 +1,6 @@
-FROM python:3.9.6-buster
+FROM python:3.9
 
 RUN apt-get update
-RUN apt-get install cron -y
 
 RUN mkdir app
 WORKDIR /app
@@ -12,8 +11,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN python manage.py crontab add  && \
-    python manage.py crontab show && \
-    service cron restart
-
-CMD cron -f
+CMD python -m base.run_cron

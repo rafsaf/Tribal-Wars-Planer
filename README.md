@@ -2,36 +2,30 @@
 
 # Official Site and Discord
 
+Production server: [plemiona-planer.pl](https://plemiona-planer.pl/en/)
 
-[plemiona-planer.pl](https://plemiona-planer.pl/en/)
+Discord: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
 
-[discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
+> :warning: Please note, this repository is ment to be open since 23.09.2021 (it was private all the time before that date), some notes below are NOT up-to-date (some of them were made long ago) and many important topics, including general deployment flow, is not covered at all. You may use this code however you want under LICENSE, but remember the full support for self-hosting this project or even development guide is not planned ever, although this README file will be probably more helpful in the future. 
 
-> :warning: Please note, this is open repository since 23.09.2021 (it was private all the time), some notes below are NOT up-to-date (some of them were made long ago) and many important topics, including general deployment flow, is not covered at all. You may use this code however you want under LICENSE, but remember the full support for self-hosting this project or even development guide is not planned ever, although this README file will be probably more helpful in the future. 
+Feel free to create issues. This README is not yet finished, but first section (Quickstart) should work just fine if you want to test the app locally under `localhost:7999`.
 
 # Table of contents
 
-[How to use this repo](#how-to-use-this-repo)
-
-- [Quickstart](#quickstart)
+- [Quickstart: local usage](#quickstart)
 - [Development](#development)
 - [Test server](#test-server)
 
-# How to use this repo
-
-**Just need to have up and running [Docker](https://www.docker.com/get-started)**
-
-If you want to run it in development and make use of `localhost:8000` (the quickstart app runs on `localhost:80`, you would need also:
-
-
-- [python](https://www.python.org/downloads/) >= 3.9
-- [poetry](https://python-poetry.org/)
 
 ## Quickstart
 
-> :warning: Warning this was not used for a long time, only production ;) and development flow should work fine.
+**STEP 1**
 
-In your favourite folder e.g. Desktop:
+Install [Docker](https://www.docker.com/get-started) and [Git](https://git-scm.com/) on whatever system you work (On linux additionaly install docker-compose, on Windows and Mac it is included in docker installation)
+
+**STEP 2**
+
+In your favourite folder (using Terminal in Linux/Mac, Powershell or CMD on Windows):
 
 ```bash
 git clone https://github.com/rafsaf/Tribal-Wars-Planer.git
@@ -39,19 +33,42 @@ cd Tribal-Wars-Planer
 
 ```
 
-Then create file `.env` in Tribal-Wars-Planer from template file `.env.example` and run docker-compose.
-
 ```bash
-cp .env.example
 docker-compose up -d
-
+# it may take up to few minutes
 ```
 
-Go to the browser tab and write out `localhost`, enter
+**STEP 3**
+
+Go to the browser tab and write out `localhost:7999`, fresh instance of site should be up and running.
+
+**STEP 4** (Login `admin`, Passwd `admin`)
+
+You may see all declared variables in `.env.example` but login and password is `admin`, `admin`. The data will not be losed after reboot, it is docker volume (`data_postgres` folder in repository).
+
+**STEP 5**
+
+Activate premium account for admin (default) user you just logged in.
+
+Go to `Administration` tab, then `Profiles` and choose `admin`, change "Validity date" to someting like 01.01.2100, just in case ;)
+
+![image](./images/admin_profile.png)
+
+**STEP 6**
+
+Now you are free to create new worlds, and outlines just like in production server!
+
+GL;)
+
+
 
 ## Development
 
-> :warning: **No cron jobs will run in dev environment**!
+If you want to run it in development and make use of `localhost:8000` (the quickstart app runs on `localhost:7999`, you would need also:
+
+
+- [python](https://www.python.org/downloads/) >= 3.9
+- [poetry](https://python-poetry.org/)
 
 In your favourite folder e.g. Desktop:
 
@@ -63,17 +80,19 @@ cd Tribal-Wars-Planer
 
 Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
 
-> :warning: Change `POSTGRES_HOST` to `localhost`.
+> :warning: Change `POSTGRES_HOST` to `localhost`
+
+Then run
 
 ```bash
 poetry install
 ```
 
-Run database with docker and then python
+Run database with docker and then python dev server
 
 ```bash
 docker-compose -f docker-compose.dev.yml up -d
-python mange.py migrate
+python manage.py migrate
 python manage.py createsuperuser --no-input
 python manage.py runserver
 ```
@@ -91,15 +110,8 @@ To run makemessages/compilemessages
 
 ```bash
 # every machine - using dockerfiles
-docker compose -f docker-compose.translation.yml run --rm trans
+docker compose -f docker-compose.translation.yml up -d
 
-```
-
-```bash
-# linux only
-python manage.py makemessages --all --ignore .venv
-
-python manage.py compilemessages --ignore .venv
 ```
 
 Test coverage
