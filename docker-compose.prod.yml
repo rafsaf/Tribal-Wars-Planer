@@ -51,5 +51,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.cronjobs
+    command: python -m base.run_cronjobs
     env_file:
       - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings

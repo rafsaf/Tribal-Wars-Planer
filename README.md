@@ -52,7 +52,7 @@ Activate premium account for admin (default) user you just logged in.
 
 Go to `Administration` tab, then `Profiles` and choose `admin`, change "Validity date" to someting like 01.01.2100, just in case ;)
 
-![image](./images/admin_profile.png)
+![image](./img/admin_profile.png)
 
 **STEP 6**
 
@@ -86,27 +86,34 @@ Then run
 
 ```bash
 poetry install
+
+# it will be default create virtualenv in ~.cache/pypoetry/virutalenvs/tribal-wars-planer-asod(some random signs)
+# You need to activate it.
+# Honestly, you can also use just python3.9 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
 ```
 
 Run database with docker and then python dev server
 
 ```bash
 docker-compose -f docker-compose.dev.yml up -d
+# This set up db and cronjobs container
 python manage.py migrate
 python manage.py createsuperuser --no-input
+# Default user will be admin (password admin), you may change this in .env file
 python manage.py runserver
+# Runs development server at localhost:8000
 ```
 
 To run tests
 
 ```bash
 pytest
-# old: python manage.py test
+# old way: python manage.py test
 # python manage.py test base
 # python manage.py test base.tests.test_views
 ```
 
-To run makemessages/compilemessages
+To run makemessages/compilemessages (the project is in English, every string is then translated to Polish)
 
 ```bash
 # every machine - using dockerfiles
@@ -117,9 +124,9 @@ docker compose -f docker-compose.translation.yml up -d
 Test coverage
 
 ```bash
-coverage run --source='.' --omit '.venv/*,*tests*,venv/*' manage.py test
-
-coverage report
+coverage run -m pytest
+coverage report --show-missing
+# Settings for coverage (also for other tools lives in pyproject.toml)
 ```
 
 Running Stripe CLI on Windows (docker image)
