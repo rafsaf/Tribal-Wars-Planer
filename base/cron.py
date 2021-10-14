@@ -21,17 +21,20 @@ from django.db.models.query import QuerySet
 from django.utils.timezone import now
 
 from utils.database_update import cron_schedule_data_update
+from utils.logger import cron_log
 
 from . import models
 
 
 def db_update():
     """Database update"""
+    cron_log.info("Start db_update")
     cron_schedule_data_update()
 
 
 def outdate_overviews_delete():
     """Delete expired links"""
+    cron_log.info("Start outdate_overviews_delete")
     expiration_date = now() - timedelta(days=30)
     expired = models.Overview.objects.filter(created__lt=expiration_date)
     expired.delete()
@@ -39,6 +42,7 @@ def outdate_overviews_delete():
 
 def outdate_outline_delete(days: int = 35) -> None:
     """Delete outlines older than 35 days except test World"""
+    cron_log.info("Start outdate_outline_delete")
     expiration_date = now() - timedelta(days=days)
     expired: "QuerySet[models.Outline]" = (
         models.Outline.objects.select_related("world")

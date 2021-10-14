@@ -4,13 +4,14 @@ __pycache__/
 *$py.class
 Pipfile*
 .idea*
-static
+/static
 # C extensions
 *.so
 # Traefik
 letsencrypt
 # Docker
-data
+/data/*
+/data_postgres/*
 # Webhook
 /webhook/hooks.json
 
