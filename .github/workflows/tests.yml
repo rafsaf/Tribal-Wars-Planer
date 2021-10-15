@@ -71,4 +71,11 @@ jobs:
           source venv-dev/bin/activate
           export POSTGRES_HOST=localhost
           coverage run -m pytest
+          coverage xml
           coverage report --show-missing
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          flags: unittests
+          file: coverage.xml
+          fail_ci_if_error: true

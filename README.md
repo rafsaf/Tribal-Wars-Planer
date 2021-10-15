@@ -10,6 +10,8 @@ Discord: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
 
 Feel free to create issues. This README is not yet finished, but first section (Quickstart) should work just fine if you want to test the app locally under `localhost:7999`.
 
+Test coverage 83%, see [Codecov](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
+
 # Table of contents
 
 - [Quickstart: local usage](#quickstart)
