@@ -20,7 +20,7 @@ services:
     env_file:
       - .env
     volumes:
-      - "~/access_nginx_unit.log:/var/log/access.log"
+      - "~/unit_log:/var/log"
 
   traefik:
     image: "traefik:v2.4"
