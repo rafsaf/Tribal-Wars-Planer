@@ -140,10 +140,14 @@ class MakeFinalOutline:
 
     @staticmethod
     def _weights_list(target: TargetVertex) -> "QuerySet[WeightModel]":
-        return (
-            WeightModel.objects.filter(target=target)
-            .select_related("target", "state")
-            .order_by("order")
+        # return (
+        #     WeightModel.objects.filter(target=target)
+        #     .select_related("target", "state")
+        #     .order_by("order")
+        # )
+        return sorted(
+            [target for target in target.weightmodel_set.all()],  # type: ignore
+            key=lambda target: target.order,
         )
 
     def _time_periods(self, target: TargetVertex) -> basic.FromPeriods:

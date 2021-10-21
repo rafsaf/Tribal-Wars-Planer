@@ -21,11 +21,15 @@ from . import models
 # Register your models here.
 
 admin.site.register(models.PeriodModel)
-admin.site.register(models.Result)
 admin.site.register(models.Server)
 admin.site.register(models.Message)
 
 admin.site.register(models.Documentation, MarkdownxModelAdmin)
+
+
+@admin.register(models.Result)
+class AdminResult(admin.ModelAdmin):
+    readonly_fields = ["outline"]
 
 
 @admin.register(models.Payment)
@@ -54,6 +58,7 @@ class AdminOutlineOverview(admin.ModelAdmin):
         "outline",
     ]
     search_fields = ["outline__owner__username", "outline__name"]
+    readonly_fields = ["outline", "targets_json", "weights_json"]
 
 
 @admin.register(models.WeightMaximum)
@@ -81,6 +86,7 @@ class AdminStatsModel(admin.ModelAdmin):
         "overview_visited",
     ]
     search_fields = ["owner_name", "world", "outline_pk"]
+    readonly_fields = ["outline"]
 
 
 @admin.register(models.TargetVertex)
@@ -94,7 +100,7 @@ class AdminTargetVertex(admin.ModelAdmin):
         "exact_noble",
     ]
     search_fields = ["target"]
-    readonly_fields = ["outline"]
+    readonly_fields = ["outline", "outline_time"]
 
 
 @admin.register(models.OutlineTime)
@@ -103,17 +109,18 @@ class AdminOutlineTime(admin.ModelAdmin):
         "outline",
         "pk",
     ]
+    readonly_fields = ["outline"]
 
 
 @admin.register(models.Overview)
 class AdminOverview(admin.ModelAdmin):
     list_display = [
         "outline",
-        "created",
         "player",
-        "token",
+        "created",
     ]
     search_fields = ["player", "outline__ally_tribe_tag", "outline__name"]
+    readonly_fields = ["outline_overview", "outline"]
 
 
 @admin.register(models.World)
@@ -148,7 +155,7 @@ class AdminVillage(admin.ModelAdmin):
         "player",
     ]
     search_fields = ["coord", "world__postfix", "village_id"]
-    readonly_fields = ["player"]
+    readonly_fields = ["player", "world"]
 
 
 @admin.register(models.Tribe)
@@ -159,6 +166,7 @@ class AdminTribe(admin.ModelAdmin):
         "world",
     ]
     search_fields = ["tag", "world__postfix"]
+    readonly_fields = ["world"]
 
 
 @admin.register(models.Player)
@@ -170,6 +178,7 @@ class AdminPlayer(admin.ModelAdmin):
         "tribe",
     ]
     search_fields = ["name", "world__postfix"]
+    readonly_fields = ["world", "tribe"]
 
 
 @admin.register(models.Outline)

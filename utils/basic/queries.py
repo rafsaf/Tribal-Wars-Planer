@@ -16,6 +16,7 @@
 import json
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Count
 from django.forms.models import model_to_dict
 
 from base import models
@@ -35,6 +36,9 @@ class TargetWeightQueries:
         self.outline = outline
         targets = (
             models.TargetVertex.objects.select_related("outline_time")
+            .prefetch_related(
+                "weightmodel_set",
+            )
             .filter(outline=outline)
             .order_by("id")
         )
@@ -42,14 +46,9 @@ class TargetWeightQueries:
             self.targets = targets.filter(fake=fake, ruin=ruin)
         else:
             if only_with_weights:
-                with_weight_targets = (
-                    models.WeightModel.objects.select_related("target")
-                    .filter(target__outline=outline)
-                    .distinct("target")
-                    .values_list("target", flat=True)
-                )
-
-                self.targets = targets.filter(id__in=with_weight_targets)
+                self.targets = targets.annotate(
+                    num_of_weights=Count("weightmodel")
+                ).filter(num_of_weights__gt=0)
             else:
                 self.targets = targets
         if filtr is not None:
