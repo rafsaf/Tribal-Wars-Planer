@@ -1,8 +1,12 @@
 #!/bin/bash
 
 cd /home/ubuntu/Tribal-Wars-Planer
-git pull
+
+git fetch
+git reset --hard HEAD
+git merge origin/master
+
 docker image prune --force
 set +e
-docker-compose -f docker-compose.prod.yml up -d --build --scale web=2
+docker-compose -f docker-compose.prod.yml up -d --build
 docker image prune --force

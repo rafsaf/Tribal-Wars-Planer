@@ -19,6 +19,8 @@ services:
       - "traefik.http.routers.web.middlewares=redirect-web"
     env_file:
       - .env
+    volumes:
+      - "~/access_nginx_unit.log:/var/log/access.log"
 
   traefik:
     image: "traefik:v2.4"
