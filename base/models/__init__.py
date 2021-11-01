@@ -32,3 +32,4 @@ from .village_model import VillageModel
 from .weight_maximum import WeightMaximum
 from .weight_model import WeightModel
 from .world import World
+from .pdf_summary import PDFPaymentSummary

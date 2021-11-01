@@ -35,8 +35,10 @@ from base.models import (
     WeightMaximum,
     WeightModel,
     World,
+    Payment,
 )
 from base.tests.test_utils.create_user import create_user
+from random import randint
 
 
 class MiniSetup(TestCase):
@@ -308,4 +310,19 @@ class MiniSetup(TestCase):
             distance=self.random_integer(),
             nobleman=self.random_integer(),
             order=1,
+        )
+
+    def create_random_payment(self) -> Payment:
+        stripe = randint(0, 1)
+        random_months = randint(1, 3)
+        random_month = randint(1, 12)
+        random_day = randint(10, 25)
+        map1 = {1: 30, 2: 55, 3: 70}
+
+        return Payment.objects.create(
+            from_stripe=stripe,
+            amount=map1[random_months],
+            user=self.me(),
+            payment_date=f"2021-{random_month}-{random_day}",
+            months=random_months,
         )

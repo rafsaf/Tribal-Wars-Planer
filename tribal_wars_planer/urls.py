@@ -34,6 +34,8 @@ from django.urls import include, path
 from django_registration.backends.one_step.views import RegistrationView
 
 from tribal_wars_planer import forms
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
@@ -49,3 +51,5 @@ urlpatterns = i18n_patterns(
     path("", include("django_registration.backends.one_step.urls")),
     path("", include("django.contrib.auth.urls")),
 )
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # type: ignore
