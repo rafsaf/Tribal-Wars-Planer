@@ -21,6 +21,7 @@ services:
       - .env
     volumes:
       - "~/unit_log:/var/log"
+      - "media/:/build/media/"
 
   traefik:
     image: "traefik:v2.4"
