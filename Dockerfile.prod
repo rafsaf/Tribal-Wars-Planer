@@ -18,5 +18,5 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-RUN mkdir media
+RUN mkdir media || true
 RUN chmod +w media
