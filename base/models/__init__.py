@@ -20,6 +20,7 @@ from .outline_overview import OutlineOverview
 from .outline_time import OutlineTime
 from .overview import Overview
 from .payment import Payment
+from .pdf_summary import PDFPaymentSummary
 from .period_model import PeriodModel
 from .player import Player
 from .profile import Profile
@@ -32,4 +33,3 @@ from .village_model import VillageModel
 from .weight_maximum import WeightMaximum
 from .weight_model import WeightModel
 from .world import World
-from .pdf_summary import PDFPaymentSummary

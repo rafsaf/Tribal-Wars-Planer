@@ -14,8 +14,8 @@
 # ==============================================================================
 
 from django.urls import reverse
+
 from base.tests.test_utils.create_user import create_user
-from random import randint
 from base.tests.test_utils.mini_setup import MiniSetup
 
 

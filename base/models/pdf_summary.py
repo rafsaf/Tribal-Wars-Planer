@@ -1,7 +1,7 @@
-from typing import Any, Dict, Tuple
-from django.db import models
-from django.core.files.storage import FileSystemStorage
 import os
+from typing import Dict, Tuple
+
+from django.db import models
 
 
 class PDFPaymentSummary(models.Model):
@@ -11,7 +11,7 @@ class PDFPaymentSummary(models.Model):
     def delete(self) -> Tuple[int, Dict[str, int]]:
         try:
             os.remove(f"media/{self.path}")
-        except:
+        except Exception:
             pass
         return super().delete()
 

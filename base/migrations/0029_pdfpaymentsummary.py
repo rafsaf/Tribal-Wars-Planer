@@ -6,15 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0028_auto_20210919_2030'),
+        ("base", "0028_auto_20210919_2030"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PDFPaymentSummary',
+            name="PDFPaymentSummary",
             fields=[
-                ('period', models.CharField(max_length=7, primary_key=True, serialize=False)),
-                ('path', models.CharField(max_length=300)),
+                (
+                    "period",
+                    models.CharField(max_length=7, primary_key=True, serialize=False),
+                ),
+                ("path", models.CharField(max_length=300)),
             ],
         ),
     ]

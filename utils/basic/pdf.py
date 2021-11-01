@@ -1,14 +1,14 @@
-from django.db.models.query import QuerySet
-from fpdf import FPDF
-from base.models import PDFPaymentSummary, Payment
 import os
-from django.db.models import Max, Min
-
-from datetime import date, datetime
-from django.utils import timezone
-from dateutil.relativedelta import relativedelta
-import pytz
 import secrets
+from datetime import datetime
+
+import pytz
+from dateutil.relativedelta import relativedelta
+from django.db.models.query import QuerySet
+from django.utils import timezone
+from fpdf import FPDF
+
+from base.models import Payment, PDFPaymentSummary
 
 
 class PDFPaymentsSummary(FPDF):
@@ -93,7 +93,7 @@ def generate_pdf_summary():
         pdf.cell(0, 10, f"TOTAL BRUTTO: {total_brutto} PLN", 0, 5)
         pdf.cell(0, 10, f"TOTAL NETTO: {total_netto} PLN", 0, 5)
         pdf.cell(0, 10, f"GENERATED AT: {now}", 0, 5)
-        pdf.cell(0, 10, f"PLEMIONA-PLANER.PL", 0, 5)
+        pdf.cell(0, 10, "PLEMIONA-PLANER.PL", 0, 5)
 
         name = str(start_month)[:7] + "-" + secrets.token_urlsafe() + ".pdf"
 

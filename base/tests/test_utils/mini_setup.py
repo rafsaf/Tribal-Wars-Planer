@@ -16,6 +16,7 @@
 import datetime
 import random
 import string
+from random import randint
 from typing import Literal, Optional
 
 from django.contrib.auth.models import User
@@ -27,6 +28,7 @@ from base.models import (
     OutlineOverview,
     OutlineTime,
     Overview,
+    Payment,
     Profile,
     Result,
     Server,
@@ -35,10 +37,8 @@ from base.models import (
     WeightMaximum,
     WeightModel,
     World,
-    Payment,
 )
 from base.tests.test_utils.create_user import create_user
-from random import randint
 
 
 class MiniSetup(TestCase):
