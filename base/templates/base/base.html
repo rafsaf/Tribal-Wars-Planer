@@ -93,11 +93,16 @@
                                 {% if user.is_authenticated %}
                                 <a class="dropdown-item font-teal py-2" href="{% url 'base:settings' %}">{% trans 'My account' %}</a>
                                 <a class="dropdown-item font-teal py-2" href="{% url 'base:add_world' %}">{% trans 'Add world' %}</a>
+                                {% if user.is_superuser and user.username == "admin" %}
+                                <a class="dropdown-item font-teal py-2" href="{% url 'base:payment_summary' %}">{% trans 'Payments summary' %}</a>
+                                {% endif %}
                                 <a class="dropdown-item font-red py-2" href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
+                                
                                 {% else %}
                                 <a class="dropdown-item font-teal py-2" href="{% url 'login' %}">{% trans 'Sign in' %}</a>
                                 <a class="dropdown-item font-teal py-2" href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
                                 {% endif %}
+
                                 <div class="dropdown-divider" style="margin-top:0;"></div>
                                 <div class='small text-center'>{% trans 'Language' %}</div>
                                 <div class="dropdown-divider" style="margin-bottom:0;"></div>

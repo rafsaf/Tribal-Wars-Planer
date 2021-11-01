@@ -21,6 +21,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.utils.translation import get_language
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from markdownx.utils import markdownify
 
 from base import models
@@ -113,3 +116,13 @@ def overview_view(request, token):
 
     context = {"query": query, "overview": overview}
     return render(request, "base/overview.html", context=context)
+
+
+@login_required
+def payment_sum_up_view(request: HttpRequest) -> HttpResponse:
+    user: User = request.user  # type: ignore
+    if not user.is_superuser and user.username == "admin":
+        return HttpResponseForbidden()
+    context = {}
+
+    return render(request, "base/user/payments_summary.html", context=context)

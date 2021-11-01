@@ -25,6 +25,11 @@ urlpatterns = [
     path("profile/add-world", views.add_world, name="add_world"),
     path("profile/premium", views.premium_view, name="premium"),
     path("profile/payment-done", views.payment_done, name="payment_done"),
+    path(
+        "profile/auth/payments-summary",
+        views.payment_sum_up_view,
+        name="payment_summary",
+    ),
     path("overview/<str:token>", views.overview_view, name="overview"),
     path("planer/", views.OutlineList.as_view(), name="planer"),
     path("planer/show-all", views.OutlineListShowAll.as_view(), name="planer_all"),
