@@ -36,6 +36,10 @@ django==3.2.7; python_version >= "3.6" \
 djangorestframework==3.12.4; python_version >= "3.5" \
     --hash=sha256:6d1d59f623a5ad0509fe0d6bfe93cbdfe17b8116ebc8eda86d45f6e16e819aaf \
     --hash=sha256:f747949a8ddac876e879190df194b925c177cdeb725a099db1460872f7c0a7f2
+fpdf==1.7.2 \
+    --hash=sha256:125840783289e7d12552b1e86ab692c37322e7a65b96a99e0ea86cca041b6779 \
+    --hash=sha256:9542f6ad0791d673955da954a0cf3554a0affac79deab87bee06b9b4d4e60990 \
+    --hash=sha256:0a94eb783ee933e32a44ad949a1aa6c3ca6fb35b608db53f8b216aec52fc1fb5
 future==0.18.2; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.3.0" and python_version >= "3.5" \
     --hash=sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d
 idna==3.2; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.5" \

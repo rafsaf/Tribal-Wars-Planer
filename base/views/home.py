@@ -17,13 +17,18 @@ import json
 from datetime import date
 from typing import Optional
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpRequest, HttpResponse
+from django.http.response import Http404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.translation import get_language
 from markdownx.utils import markdownify
 
 from base import models
+from base.models import PDFPaymentSummary
+from utils.basic.pdf import generate_pdf_summary
 
 
 def base_view(request):
@@ -113,3 +118,17 @@ def overview_view(request, token):
 
     context = {"query": query, "overview": overview}
     return render(request, "base/overview.html", context=context)
+
+
+@login_required
+def payment_sum_up_view(request: HttpRequest) -> HttpResponse:
+    user: User = request.user  # type: ignore
+    if user.is_superuser and user.username == "admin":
+        if request.method == "POST" and "form" in request.POST:
+            generate_pdf_summary()
+            return redirect("base:payment_summary")
+        summary = PDFPaymentSummary.objects.all()
+        context = {"summary": summary}
+        return render(request, "base/user/payments_summary.html", context=context)
+    else:
+        raise Http404()

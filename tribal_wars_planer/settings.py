@@ -163,6 +163,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 MARKDOWNX_MARKDOWNIFY_FUNCTION = "markdownx.utils.markdownify"
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     "markdown.extensions.extra",

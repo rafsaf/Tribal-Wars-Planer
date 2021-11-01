@@ -16,6 +16,7 @@
 import datetime
 import random
 import string
+from random import randint
 from typing import Literal, Optional
 
 from django.contrib.auth.models import User
@@ -27,6 +28,7 @@ from base.models import (
     OutlineOverview,
     OutlineTime,
     Overview,
+    Payment,
     Profile,
     Result,
     Server,
@@ -308,4 +310,19 @@ class MiniSetup(TestCase):
             distance=self.random_integer(),
             nobleman=self.random_integer(),
             order=1,
+        )
+
+    def create_random_payment(self) -> Payment:
+        stripe = randint(0, 1)
+        random_months = randint(1, 3)
+        random_month = randint(1, 12)
+        random_day = randint(10, 25)
+        map1 = {1: 30, 2: 55, 3: 70}
+
+        return Payment.objects.create(
+            from_stripe=stripe,
+            amount=map1[random_months],
+            user=self.me(),
+            payment_date=f"2021-{random_month}-{random_day}",
+            months=random_months,
         )
