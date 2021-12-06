@@ -15,6 +15,8 @@
 
 """ App forms """
 
+from typing import Optional
+
 from django import forms
 from django.db.models.query import QuerySet
 from django.forms import BaseFormSet
@@ -298,17 +300,20 @@ class AvailableTroopsForm(forms.ModelForm):
             self.add_error("initial_outline_excluded_coords", str(error))
 
     def clean(self):
-        radius_min: int = self.cleaned_data["initial_outline_front_dist"]
-        radius_max: int = self.cleaned_data["initial_outline_maximum_front_dist"]
-        if radius_min > radius_max:
-            self.add_error(
-                "initial_outline_front_dist",
-                f"It cannot be grater than maximum! Change this value to less than {radius_max} or increase the maximum.",
-            )
-            self.add_error(
-                "initial_outline_maximum_front_dist",
-                f"It cannot be less than minimum! Change this value to greater than {radius_min} or reduce the minimum.",
-            )
+        radius_min: Optional[int] = self.cleaned_data.get("initial_outline_front_dist")
+        radius_max: Optional[int] = self.cleaned_data.get(
+            "initial_outline_maximum_front_dist"
+        )
+        if radius_min is not None and radius_max is not None:
+            if radius_min > radius_max:
+                self.add_error(
+                    "initial_outline_front_dist",
+                    f"It cannot be grater than maximum! Change this value to less than {radius_max} or increase the maximum.",
+                )
+                self.add_error(
+                    "initial_outline_maximum_front_dist",
+                    f"It cannot be less than minimum! Change this value to greater than {radius_min} or reduce the minimum.",
+                )
 
         return super().clean()
 
