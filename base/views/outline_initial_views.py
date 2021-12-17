@@ -23,7 +23,7 @@ from django.forms import formset_factory
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import get_language, gettext
+from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 
 import utils.avaiable_troops as avaiable_troops

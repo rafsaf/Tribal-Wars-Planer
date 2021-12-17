@@ -18,7 +18,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from django.utils.translation import get_language, gettext
+from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
