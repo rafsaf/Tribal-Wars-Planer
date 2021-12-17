@@ -3,7 +3,8 @@
 {% block title %}{% trans 'Create new outline' %}{% endblock %}
 {% block content %} 
 {% load crispy_forms_tags %}
-
+{% get_current_language as LANG %}
+{% load static %}
 <div class="row mt-3 mb-4">
     <div class="col-12 col-lg-7">
 
@@ -34,15 +35,19 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
-                    {{info|safe}}
+                    <div id="planer-docs-info"></div>
                 </div>
                 <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    {{example|safe}}
+                    <div id="planer-docs-example"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    loadDocsPage("planer-docs-info", "docs-planer-create-info", "{% static 'markdown/'|add:LANG|add:'/planer_create_info.md' %}", "{{LANG}}", true);
+    loadDocsPage("planer-docs-example", "docs-planer-create-example", "{% static 'markdown/'|add:LANG|add:'/planer_create_example.md' %}", "{{LANG}}", true);
+</script>
 
 
 {% endblock %}

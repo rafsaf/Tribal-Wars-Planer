@@ -23,8 +23,6 @@ from django.http import HttpRequest, HttpResponse
 from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from django.utils.translation import get_language
-from markdownx.utils import markdownify
 
 from base import models
 from base.models import PDFPaymentSummary
@@ -71,15 +69,7 @@ def base_view(request):
 
 def base_documentation(request):
     """base documentation view"""
-    language_code = get_language()
-
-    doc = models.Documentation.objects.get_or_create(
-        title="documentation", language=language_code, defaults={"main_page": ""}
-    )[0].main_page
-    doc = markdownify(doc)
-
-    context = {"doc": doc}
-    return render(request, "base/documentation.html", context)
+    return render(request, "base/documentation.html")
 
 
 def overview_view(request, token):

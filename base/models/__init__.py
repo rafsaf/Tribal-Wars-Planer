@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from .documentation import Documentation
 from .message import Message
 from .outline import Outline, building_default_list
 from .outline_overview import OutlineOverview

@@ -89,9 +89,6 @@ coverage==5.5; (python_version >= "2.7" and python_full_version < "3.0.0") or (p
 django-crispy-forms==1.12.0; python_version >= "3.6" \
     --hash=sha256:d196db62ee8b4fc32d1f9583d0e4be1bb17328b662682c1ecb9fb77bbc0fcf77 \
     --hash=sha256:a3320356c84d0cdc631e1ec7b8908aa0117bc2a5f0ab1d053d33eba08f584808
-django-markdownx==3.0.1 \
-    --hash=sha256:e18e395cad0ade96afbb250a81cad15618e417ac3c0d9c37d964be3d8fd57bcf \
-    --hash=sha256:f4d8998618c0548bf5349713d805e7440684d70116de0f10413932286c4e375f
 django-recaptcha==2.0.6 \
     --hash=sha256:567784963fd5400feaf92e8951d8dbbbdb4b4c48a76e225d4baa63a2c9d2cd8c
 django-registration==3.2; python_version >= "3.6" \
@@ -133,9 +130,6 @@ joblib==1.0.1; python_version >= "3.8" and python_version < "3.10" \
 js2py==0.71 \
     --hash=sha256:7f3dfa30c4b8e3ac3edd64c361c950a8c2587a30a86854aeb8c1ffb6f4dd24b4 \
     --hash=sha256:a41b1009dd1498ae7d436bfa5ac952a08ca92a4bb9e31dca6e8bb966b49f7fce
-markdown==3.3.4; python_version >= "3.6" \
-    --hash=sha256:96c3ba1261de2f7547b46a00ea8463832c921d3f9d6aba3f255a6f71386db20c \
-    --hash=sha256:31b5b491868dcc87d6c24b7e3d19a0d730d59d3e46f4eea6430a321bed387a49
 mccabe==0.6.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
     --hash=sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42 \
     --hash=sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f

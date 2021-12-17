@@ -24,6 +24,40 @@ const modal = () => {
   });
 };
 
+const loadDocsPage = (
+  elementId,
+  keyName,
+  staticPath,
+  language,
+  handleScrollTop = false
+) => {
+  const element = document.getElementById(elementId);
+  if (localStorage.getItem(`${keyName}-${language}`) != null) {
+    element.innerHTML = marked.parse(
+      localStorage.getItem(`${keyName}-${language}`)
+    );
+  } else {
+    fetch(staticPath)
+      .then((res) => res.text())
+      .then((codeText) => {
+        document.getElementById(elementId).innerHTML = marked.parse(codeText);
+        localStorage.setItem(`${keyName}-${language}`, codeText);
+        if (handleScrollTop) {
+          wholePageContentScroll(`${keyName}-${language}-scroll-id`);
+        }
+      });
+  }
+};
+
+const wholePageContentScroll = (key) => {
+  if (localStorage.getItem(key) != null) {
+    $(window).scrollTop(localStorage.getItem(key));
+  }
+  $(window).on("scroll", function () {
+    localStorage.setItem(key, $(window).scrollTop());
+  });
+};
+
 const scroll_content_outline = () => {
   $(window).on("load", function () {
     if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {

@@ -38,6 +38,7 @@ from base.models import (
     WeightModel,
 )
 from rest_api import serializers
+from rest_api.permissions import StripeWebhookSafeListPermission
 
 
 class TargetTimeUpdate(APIView):
@@ -244,7 +245,7 @@ class StripeCheckoutSession(APIView):
 class StripeWebhook(APIView):
     """Stripe checkout session endpoint"""
 
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny, StripeWebhookSafeListPermission]
 
     def post(self, request: HttpRequest, format=None) -> Response:
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -292,5 +293,5 @@ class StripeWebhook(APIView):
                     payment_date=current_date,
                     event_id=evt_id,
                 )
-
-        return Response(status=200)
+            return Response(status=200)
+        return Response(status=404)

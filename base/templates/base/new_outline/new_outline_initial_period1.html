@@ -4,6 +4,8 @@
 {% block title %}{% trans 'Planer' %} - {{instance.name|capfirst}}{% endblock %}
 {% block content %} 
 {% load crispy_forms_tags %}
+{% get_current_language as LANG %}
+
 <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
 <script src="{% static 'codemirror-min.js' %}"></script>
 <script src="{% static 'multi-select-min.js' %}"></script>
@@ -390,9 +392,11 @@
       </ul>
       <div class="tab-content" id="pills-tabContent">
 
-        <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">{{info|safe}}</div>
+        <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
+          <div id="planer-docs-form-info"></div>
+        </div>
 
-        <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">{{example|safe}}</div>
+        <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab"><div id="planer-docs-form-example"></div></div>
 
       </div>
     </div>
@@ -428,6 +432,10 @@
 </div>
 
 <script>document.addEventListener("DOMContentLoaded", function(event) {$('.bd-example-modal-lg').modal('show');});</script>
-{% endif %}
 
+{% endif %}
+<script>
+  loadDocsPage("planer-docs-form-info", "docs-planer-form-info", "{% static 'markdown/'|add:LANG|add:'/planer_form_info.md' %}", "{{LANG}}", true);
+  loadDocsPage("planer-docs-form-example", "docs-planer-form-example", "{% static 'markdown/'|add:LANG|add:'/planer_form_example.md' %}", "{{LANG}}", true);
+</script>
 {% endblock %}

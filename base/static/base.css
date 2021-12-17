@@ -577,11 +577,7 @@ a.t-tab-teal:hover {
 .st0 {
   fill: #7289da;
 }
-img#large {
-  cursor: -moz-zoom-in;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
-}
+
 button.btn-light {
   border: 1px solid rgb(136, 135, 135);
 }

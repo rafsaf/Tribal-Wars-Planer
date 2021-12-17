@@ -5,15 +5,13 @@ services:
     restart: always
     image: postgres
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ./data_test/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     env_file:
       - .env
-    ports:
-      - ${POSTGRES_PORT}:5432
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -29,17 +27,25 @@ services:
       dockerfile: Dockerfile.prod
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.web.rule=Host(`${MAIN_DOMAIN}`, `${SUB_DOMAIN}`)"
+      # static
+      - "traefik.http.routers.web-static.rule=Host(`${MAIN_DOMAIN}`) && PathPrefix(`/static/`)"
+      - "traefik.http.routers.web-static.entrypoints=websecure"
+      - "traefik.http.routers.web-static.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control=public,max-age=2592000"
+      - "traefik.http.routers.web-static.middlewares=cache-headers"
+      # default
+      - "traefik.http.routers.web.rule=Host(`${MAIN_DOMAIN}`)"
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=myresolver"
       - "traefik.http.services.web.loadbalancer.server.port=80"
-      # redirect domain to other
-      - "traefik.http.middlewares.redirect-web.redirectregex.regex=^(https?://)${SUB_DOMAIN}/(.*)"
-      - "traefik.http.middlewares.redirect-web.redirectregex.replacement=$${1}${MAIN_DOMAIN}/$${2}"
-      - "traefik.http.middlewares.redirect-web.redirectregex.permanent=true"
-      - "traefik.http.routers.web.middlewares=redirect-web"
     env_file:
       - .env
+    environment:
+      - DEBUG=false
+      - POSTGRES_HOST=postgres
+    volumes:
+      - "./media/:/build/media/"
+      - "./static/:/build/static/"
 
   traefik:
     image: "traefik:v2.4"
@@ -57,7 +63,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
       # test certificates
-      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.myresolver.acme.email=${DEFAULT_FROM_EMAIL}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:

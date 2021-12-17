@@ -25,7 +25,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import get_language, gettext
 from django.views.decorators.http import require_POST
-from markdownx.utils import markdownify
 
 import utils.avaiable_troops as avaiable_troops
 import utils.basic as basic
@@ -58,22 +57,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         del request.session["premium_error"]
     else:
         premium_error = False
-
-    language_code = get_language()
-
-    info = models.Documentation.objects.get_or_create(
-        title="planer_form_info",
-        language=language_code,
-        defaults={"main_page": ""},
-    )[0].main_page
-    info = markdownify(info)
-
-    example = models.Documentation.objects.get_or_create(
-        title="planer_form_example",
-        language=language_code,
-        defaults={"main_page": ""},
-    )[0].main_page
-    example = markdownify(example)
 
     if models.WeightMaximum.objects.filter(outline=instance).count() == 0:
 
@@ -318,8 +301,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     context = {
         "instance": instance,
         "form1": form1,
-        "example": example,
-        "info": info,
         "form2": form2,
         "form3": form3,
         "form4": form4,

@@ -11,6 +11,3 @@ services:
       - .env.example
     volumes: 
       - ./:/app
-    build: 
-      context: ./
-      dockerfile: Dockerfile.translation

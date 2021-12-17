@@ -20,7 +20,6 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import get_language
 from django.views.decorators.http import require_POST
-from markdownx.utils import markdownify
 
 from base import forms, models
 
@@ -28,18 +27,6 @@ from base import forms, models
 @login_required
 def new_outline_create(request: HttpRequest) -> HttpResponse:
     """creates new user's outline login required"""
-    language_code = get_language()
-
-    info = models.Documentation.objects.get_or_create(
-        title="planer_create_info", language=language_code, defaults={"main_page": ""}
-    )[0].main_page
-    info = markdownify(info)
-    example = models.Documentation.objects.get_or_create(
-        title="planer_create_example",
-        language=language_code,
-        defaults={"main_page": ""},
-    )[0].main_page
-    example = markdownify(example)
     profile = models.Profile.objects.select_related().get(user=request.user)
 
     if request.method == "POST":
@@ -76,7 +63,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
             )
         ]
 
-    context = {"form1": form1, "info": info, "example": example, "profile": profile}
+    context = {"form1": form1, "profile": profile}
     return render(request, "base/new_outline/new_outline_create.html", context)
 
 
