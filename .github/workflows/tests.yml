@@ -61,11 +61,11 @@ jobs:
       - name: Create .env file
         run: |
           cp ./.env.example ./.env
-      - name: Migrate
+      - name: Initial script
         run: |
           source venv/bin/activate
           export POSTGRES_HOST=localhost
-          python manage.py migrate
+          bash initial.sh
       - name: Coverage full tests
         run: |
           source venv-dev/bin/activate
