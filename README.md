@@ -209,7 +209,6 @@ webhook -hooks /Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload -secur
 https://willbrowning.me/setting-up-automatic-deployment-and-builds-using-webhooks/
 
 # commands
-
 sudo apt install supervisor
 cd /etc/supervisor/conf.d
 sudo nano webhooks.conf
