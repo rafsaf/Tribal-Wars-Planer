@@ -182,7 +182,7 @@ class GetDeffForm(forms.Form):
     excluded = forms.CharField(
         max_length=3000,
         widget=forms.Textarea,
-        label=gettext_lazy("Excluded enemy secluded villages"),
+        label=gettext_lazy("Excluded enemy villages"),
         required=False,
         help_text=gettext_lazy("Exact coords separated by a space or an entry."),
     )

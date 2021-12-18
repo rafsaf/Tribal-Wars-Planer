@@ -14,21 +14,21 @@
   <a href="#instalacja-niezbednych-skryptow" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h4 class="mb-1 md-correct2">Instalacja niezbędnych skryptów</h4>
-      <small class="text-muted">5min</small>
+      <small>5min</small>
     </div>
     <p class="mb-1">Aby korzystać ze strony i rozpisywać akcje, musisz zbierać stan wojsk w swoim plemieniu a to można zrobić szybko i bezpiecznie legalnymi, dopuszczonymi przez Support gry, skryptami.</p>
   </a>
   <a href="#podstawowe-poradniki-zakladki-planer" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h4 class="mb-1 md-correct2">Podstawowe poradniki zakładki Planer</h4>
-      <small class="text-muted">10min</small>
+      <small>10min</small>
     </div>
     <p class="mb-1">Znajdziesz tu opisy jak wpisywać i zapisywać swoje cele w zakładce Planer oraz kompletne poradniki rozpisywania małych, średnich i dużych akcji, zalecana jest znajomość Świata Testowego.</p>
   </a>
   <a href="#opisy-zaawansowanych-ustawien-akcji" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h4 class="mb-1 md-correct2">Opisy zaawansowanych ustawień akcji</h4>
-      <small class="text-muted">7min</small>
+      <small>7min</small>
     </div>
     <p class="mb-1">Szczegółowe opisy kolejno wszystkich ustawień zakładki Planer wraz z przykładami, zakładana jest znajomość Świata Testowego.</p>
   </a>

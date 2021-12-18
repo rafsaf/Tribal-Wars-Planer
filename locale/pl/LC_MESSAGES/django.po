@@ -68,7 +68,7 @@ msgid "Greater than or equal to 0 and less than or equal to 1000."
 msgstr "Większa lub równa 0 i mniejsza lub równa 1000."
 
 #: base/forms.py:185
-msgid "Excluded enemy secluded villages"
+msgid "Excluded enemy villages"
 msgstr "Wykluczone wysunięte wioski wroga"
 
 #: base/forms.py:187

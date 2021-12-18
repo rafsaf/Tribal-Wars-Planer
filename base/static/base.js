@@ -35,7 +35,10 @@ const loadDocsPage = (
   // if staticPath for specific document is changed (and it must be refetched),
   // we remove old cached markdown, fetch new and save, alongside with path
   const element = document.getElementById(elementId);
-  if (localStorage.getItem(staticPath) != null) {
+  if (
+    localStorage.getItem(staticPath) !== null &&
+    window.location.hostname !== "localhost"
+  ) {
     element.innerHTML = marked.parse(localStorage.getItem(staticPath));
   } else {
     fetch(staticPath)
