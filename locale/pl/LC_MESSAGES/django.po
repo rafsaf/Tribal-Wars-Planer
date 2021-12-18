@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-18 19:23+0100\n"
+"POT-Creation-Date: 2021-12-18 19:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -328,15 +328,19 @@ msgstr "Wybierz serwer"
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:758
+#: base/forms.py:750
+msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
+msgstr "Niedozwolone znaki w podanym przedrostku, sprwadź jego poprawność"
+
+#: base/forms.py:770
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:761
+#: base/forms.py:773
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:772
+#: base/forms.py:784
 msgid "You can set your server:"
 msgstr "Możesz ustawić swój serwer:"
 

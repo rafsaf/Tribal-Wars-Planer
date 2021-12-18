@@ -750,6 +750,7 @@ class AddNewWorldForm(forms.ModelForm):
                         "Unallowed symbols in postfix field! Are you sure it is valid?"
                     )
                 )
+        return postfix
 
     def clean(self):
 
