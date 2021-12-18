@@ -25,25 +25,30 @@ const modal = () => {
 };
 
 const loadDocsPage = (
+  uniqueNumber,
   elementId,
-  keyName,
   staticPath,
-  language,
   handleScrollTop = false
 ) => {
+  // tries to load cached markdown file from localStorage
+  // if not exists, fetch and save it
+  // if staticPath for specific document is changed (and it must be refetched),
+  // we remove old cached markdown, fetch new and save, alongside with path
   const element = document.getElementById(elementId);
-  if (localStorage.getItem(`${keyName}-${language}`) != null) {
-    element.innerHTML = marked.parse(
-      localStorage.getItem(`${keyName}-${language}`)
-    );
+  if (localStorage.getItem(staticPath) != null) {
+    element.innerHTML = marked.parse(localStorage.getItem(staticPath));
   } else {
     fetch(staticPath)
       .then((res) => res.text())
       .then((codeText) => {
+        if (localStorage.getItem(String(uniqueNumber)) != null) {
+          localStorage.removeItem(localStorage.getItem(String(uniqueNumber)));
+        }
         document.getElementById(elementId).innerHTML = marked.parse(codeText);
-        localStorage.setItem(`${keyName}-${language}`, codeText);
+        localStorage.setItem(staticPath, codeText);
+        localStorage.setItem(String(uniqueNumber), staticPath);
         if (handleScrollTop) {
-          wholePageContentScroll(`${keyName}-${language}-scroll-id`);
+          wholePageContentScroll(`${uniqueNumber}-scroll-id`);
         }
       });
   }

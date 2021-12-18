@@ -87,11 +87,12 @@ img#large {
     var z_index_dv_img_box = 999;
     var vopa_img_box, idpopup_img_box;
     imagePopupActivate();
-    loadDocsPage("docs", "docs-documentation-md", "{% static 'markdown/'|add:LANG|add:'/documentation.md' %}", "{{LANG}}", true);
+    loadDocsPage(1, "docs", "{% static 'markdown/'|add:LANG|add:'/documentation.md' %}", true);
 
     const asyncLoadImages = async () => {
         let imagesCreated = false;
-        while (imagesCreated !== true) {
+        let retry = 0;
+        while (imagesCreated !== true && retry <= 9) {
             try {
                 for (let key in IMAGES) {
                     const image = document.createElement("img");
@@ -106,6 +107,7 @@ img#large {
                 imagesCreated = true;
             } catch {
                 console.log("Page not ready, retrying images src appending in 100ms...")
+                retry += 1;
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
         }
