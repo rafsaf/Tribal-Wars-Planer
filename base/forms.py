@@ -23,7 +23,7 @@ from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
 
 from utils import basic, database_update
-
+import re
 from . import models
 
 
@@ -738,6 +738,19 @@ class AddNewWorldForm(forms.ModelForm):
             "server": gettext_lazy("Choose server"),
             "postfix": gettext_lazy("World prefix"),
         }
+
+    def clean_postfix(self):
+        postfix: Optional[str] = self.cleaned_data.get("postfix")
+        if postfix:
+            re_pattern = re.compile(r"[\w]*")
+            match = re_pattern.fullmatch(postfix)
+            if match is None:
+                raise forms.ValidationError(
+                    gettext_lazy(
+                        "Unallowed symbols in postfix field! Are you sure it is valid?"
+                    )
+                )
+        return postfix
 
     def clean(self):
 
