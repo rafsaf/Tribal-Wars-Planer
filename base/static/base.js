@@ -47,10 +47,10 @@ const loadDocsPage = (
         document.getElementById(elementId).innerHTML = marked.parse(codeText);
         localStorage.setItem(staticPath, codeText);
         localStorage.setItem(String(uniqueNumber), staticPath);
-        if (handleScrollTop) {
-          wholePageContentScroll(`${uniqueNumber}-scroll-id`);
-        }
       });
+  }
+  if (handleScrollTop) {
+    wholePageContentScroll(`${uniqueNumber}-scroll-id`);
   }
 };
 

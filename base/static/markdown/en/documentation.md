@@ -6,4 +6,4 @@
 
 To change to Polish, expand the Menu list in the top bar and under the _Language_tab_, select **Polski**.
 
-:)
+:))
