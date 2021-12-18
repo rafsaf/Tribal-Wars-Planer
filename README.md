@@ -201,8 +201,8 @@ sudo apt-get install -y webhook
 # test http
 webhook -hooks /home/ubuntu/Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload
 # test https
-sudo openssl req -newkey rsa:4096 -keyout webhook.key -x509 -days 3650 -out webhook.crt
-webhook -hooks /Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload -secure -cert /webhook.crt -key webhook.key
+sudo openssl req -newkey rsa:4096 -keyout webhook.key -x509 -days 3650 -out webhook.crt -nodes
+webhook -hooks /Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload -secure -cert /webhook.crt -key /webhook.key
 
 # prod
 # article
@@ -217,7 +217,7 @@ sudo nano webhooks.conf
 edit
 
 [program:webhooks]
-command=bash -c "/home/johndoe/go/bin/webhook -hooks /home/johndoe/hooks/hooks.json -ip '<YOUR-SERVER-IP>' -verbose"
+command=bash -c "/home/johndoe/go/bin/webhook -hooks /home/johndoe/hooks/hooks.json -verbose"
 redirect_stderr=true
 autostart=true
 autorestart=true
