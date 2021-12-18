@@ -103,9 +103,6 @@ class TestArmy(TestCase):
     def test_army1_coord_is_correct(self):
         self.assertEqual(self.army1.coord, "500|500")
 
-    def test_army1_village_is_correct(self):
-        self.assertEqual(self.army1.village, basic.Village("500|500"))
-
     def test_nobleman_army1_correct_int_return(self):
         self.assertEqual(self.army1.nobleman, 12)
 
@@ -248,9 +245,6 @@ class TestDefence(TestCase):
 
     def test_army1_coord_is_correct(self):
         self.assertEqual(self.army1.coord, "500|500")
-
-    def test_army1_village_is_correct(self):
-        self.assertEqual(self.army1.village, basic.Village("500|500"))
 
     def test_nobleman_army1_correct_int_return(self):
         self.assertEqual(self.army1.nobleman, 12)

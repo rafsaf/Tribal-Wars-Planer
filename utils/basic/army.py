@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-""" Army and Defence """
+""" Army and Defence tools"""
 from functools import cached_property
 from typing import Dict, Set, Tuple
 
@@ -67,33 +67,26 @@ class Army:
         text_army_length = len(self.text_army)
 
         if text_army_length not in Army.EVIDENCE_DICTIONARY[self.world_evidence]:
-            raise ArmyError(f"Długość: {text_army_length} nie jest poprawna")
+            raise ArmyError(f"Length: {text_army_length} is not correct")
         if len(self.text_army[0]) != 7:
-            raise ArmyError(
-                "28.03.21, Długość kordów musi być równa 7 ~poniżej nie jest sprawdzane"
-            )
+            raise ArmyError("Length must be equal to 7")
         try:
             village = basic.Village(self.text_army[0])
         except basic.VillageError as identifier:
             raise ArmyError(identifier)
         else:
             if village.coord not in player_dictionary:
-                raise ArmyError(f"{village.coord} nie należy do żadnego plemienia!")
+                raise ArmyError(f"{village.coord} is not in any valid tribe")
         for army_element in self.text_army[1:-1]:
             if not army_element.isnumeric():
-                raise ArmyError(f"{army_element} nie jest liczbą")
+                raise ArmyError(f"{army_element} is not a number")
         if self.text_army[-1] != "":
-            raise ArmyError(f"Błąd w składni {self.text_army[-1]}")
+            raise ArmyError(f"Syntax error in {self.text_army[-1]}")
 
     @property
     def coord(self) -> str:
-        """return kordy of village"""
+        """Coords of village"""
         return self.text_army[0]
-
-    @property
-    def village(self):
-        """return Village instance of text[0]"""
-        return basic.Village(self.text_army[0])
 
     @cached_property
     def nobleman(self):
@@ -114,7 +107,7 @@ class Army:
             return int(self.text_army[8])
         return int(self.text_army[10])
 
-    def __raw_deff(self):
+    def _raw_deff(self):
         # no heavy cavalery
         if self.world_evidence[1] == 0:  # no archers
             return (
@@ -131,7 +124,7 @@ class Army:
             + int(self.text_army[10]) * 8
         )
 
-    def __off_scout(self):
+    def _off_scout(self):
         if self.world_evidence[1] == 0:
             scouts = int(self.text_army[4])
         else:
@@ -140,19 +133,19 @@ class Army:
             return 400
         return scouts * 2
 
-    def __raw_off(self):
+    def _raw_off(self):
         # no heavy cavalery
         if self.world_evidence[1] == 0:  # no archers
             return (
                 int(self.text_army[3])
-                + self.__off_scout()
+                + self._off_scout()
                 + int(self.text_army[5]) * 4
                 + int(self.text_army[7]) * 5
                 + int(self.text_army[8]) * 8
             )
         return (  # with archers
             int(self.text_army[3])
-            + self.__off_scout()
+            + self._off_scout()
             + int(self.text_army[6]) * 4
             + int(self.text_army[7]) * 5
             + int(self.text_army[9]) * 5
@@ -162,14 +155,14 @@ class Army:
     @cached_property
     def off(self):
         """Number of off"""
-        raw_deff = self.__raw_deff()
-        raw_off = self.__raw_off()
+        raw_deff = self._raw_deff()
+        raw_off = self._raw_off()
 
         if raw_off > raw_deff:
             if self.world_evidence[1] == 0:  # no archers
                 return raw_off + int(self.text_army[6]) * 6
             return raw_off + int(self.text_army[8]) * 6  # with archers
-        return raw_off - self.__off_scout()
+        return raw_off - self._off_scout()
 
     @cached_property
     def deff(self):
@@ -216,35 +209,28 @@ class Defence:
         text_army_length = len(self.text_army)
 
         if text_army_length not in Defence.EVIDENCE_DICTIONARY[self.world_evidence]:
-            raise DefenceError(f"Długość: {text_army_length} nie jest poprawna")
+            raise DefenceError(f"Length: {text_army_length} is not correct")
         if len(self.text_army[0]) != 7:
-            raise DefenceError(
-                "28.03.21, Długość kordów musi być równa 7 ~poniżej nie jest sprawdzane"
-            )
+            raise DefenceError("Length must be equal to 7")
         try:
             village = basic.Village(self.text_army[0])
         except basic.VillageError as identifier:
             raise DefenceError(identifier)
         else:
             if village.coord not in player_dictionary:
-                raise DefenceError(f"{village.coord} nie należy do żadnego plemienia!")
+                raise DefenceError(f"{village.coord} is not in any valid tribe")
         for army_element in self.text_army[2:-1]:
             if not army_element.isnumeric():
-                raise DefenceError(f"{army_element} nie jest liczbą")
-        if self.text_army[1] not in {"w drodze", "w wiosce"}:
-            raise DefenceError("Drugi element nieprawidłowy")
+                raise DefenceError(f"{army_element} is not a number")
+        if not isinstance(self.text_army[1], str):
+            raise DefenceError("Second element must be a string")
         if self.text_army[-1] != "":
-            raise DefenceError(f"Błąd w składni {self.text_army[-1]}")
+            raise DefenceError(f"Invalid syntax in {self.text_army[-1]}")
 
     @cached_property
     def coord(self):
-        """return kordy of village"""
+        """Coords of village"""
         return self.text_army[0]
-
-    @cached_property
-    def village(self):
-        """return Village instance of text[0]"""
-        return basic.Village(self.text_army[0])
 
     @cached_property
     def nobleman(self):
@@ -260,7 +246,6 @@ class Defence:
     @cached_property
     def off(self):
         """Number of off"""
-
         if self.world_evidence[1] == 0:
             return (
                 int(self.text_army[4])
