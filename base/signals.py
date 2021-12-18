@@ -23,7 +23,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.utils import timezone
-
+from django.utils.translation import gettext
 from base.models import Message, Payment, Profile, Server
 from utils.basic import create_test_world
 
@@ -66,7 +66,7 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
             user_profile.validity_date = (
                 user_profile.validity_date + relative_months + day
             )
-
+        title = gettext("[Premium] Successful completion of the payment on")
         if instance.send_mail:
             msg_html = render_to_string(
                 "email_payment.html",
@@ -78,7 +78,7 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
                 },
             )
             send_mail(
-                "plemiona-planer.pl",
+                f"{title} {instance.payment_date}",
                 "",
                 "plemionaplaner.pl@gmail.com",
                 recipient_list=[user.email],

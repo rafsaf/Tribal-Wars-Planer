@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-18 18:49+0100\n"
+"POT-Creation-Date: 2021-12-18 19:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -572,6 +572,10 @@ msgstr "Taran"
 #: base/models/world.py:55
 msgid "World "
 msgstr "Świat "
+
+#: base/signals.py:69
+msgid "[Premium] Successful completion of the payment on"
+msgstr "[Premium] Pomyślne zakończenie płatności z dnia"
 
 #: base/templates/base/base.html:7 base/templates/base/overview.html:4
 msgid "Tribal Wars Planer"
@@ -2448,6 +2452,12 @@ msgstr ""
 #: templates/registration/password_reset_form.html:17
 msgid "Reset password"
 msgstr "Zresetuj hasło"
+
+#: templates/registration/password_reset_subject.txt:2
+msgid ""
+"Reset your plemiona-planer.pl account password - link to change your password"
+msgstr ""
+"Prośba o zmianę hasła do konta plemiona-planer.pl - link do zmiany hasła"
 
 #: utils/basic/info_generatation.py:33
 msgid "Targets:"
