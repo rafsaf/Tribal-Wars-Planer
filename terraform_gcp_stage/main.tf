@@ -27,7 +27,7 @@ resource "google_compute_firewall" "allow-http" {
   network = google_compute_network.vpc_network.name
   allow {
     protocol = "tcp"
-    ports    = ["80", "443", "22"]
+    ports    = ["80", "443", "22", "9000"]
   }
   allow {
     protocol = "icmp"
