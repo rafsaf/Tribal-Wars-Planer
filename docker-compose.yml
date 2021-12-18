@@ -29,6 +29,11 @@ services:
       - 7999:80
     env_file:
       - .env.example
+    environment:
+      - DEBUG=false
+    volumes:
+      - "./media/:/build/media/"
+      - "./static/:/build/static/"
 
   cronjobs:
     depends_on:

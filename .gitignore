@@ -12,6 +12,7 @@ letsencrypt
 # Docker
 /data/*
 /data_postgres/*
+/data_test/*
 # Webhook
 /webhook/hooks.json
 

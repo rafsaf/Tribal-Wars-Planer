@@ -17,8 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import get_language, gettext
-from markdownx.utils import markdownify
+from django.utils.translation import gettext
 
 from base import forms, models
 from utils import basic
@@ -39,21 +38,6 @@ def outline_detail_get_deff(request: HttpRequest, _id: int) -> HttpResponse:
     if instance.off_troops == "":
         request.session["error"] = gettext("<h5>Army collection is empty!</h5>")
         return redirect("base:planer_detail", _id)
-
-    language_code = get_language()
-
-    info = models.Documentation.objects.get_or_create(
-        title="planer_deff_info",
-        language=language_code,
-        defaults={"main_page": ""},
-    )[0].main_page
-    info = markdownify(info)
-    example = models.Documentation.objects.get_or_create(
-        title="planer_deff_example",
-        language=language_code,
-        defaults={"main_page": ""},
-    )[0].main_page
-    example = markdownify(example)
 
     form = forms.GetDeffForm(request.POST or None, world=instance.world)
     if "form" in request.POST:
@@ -79,8 +63,6 @@ def outline_detail_get_deff(request: HttpRequest, _id: int) -> HttpResponse:
     context = {
         "instance": instance,
         "form": form,
-        "info": info,
-        "example": example,
     }
 
     return render(request, "base/new_outline/new_outline_get_deff.html", context)

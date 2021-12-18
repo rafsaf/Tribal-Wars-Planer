@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "rest_api",
     "utils",
     "crispy_forms",
-    "markdownx",
     "django_registration",
     "captcha",
     "rest_framework",
@@ -114,12 +113,6 @@ DATABASES = {
     }
 }
 
-# CRONJOBS = [
-#     ("*/10 * * * *", "base.cron.db_update"),
-#     ("0 3 * * *", "base.cron.outdate_overviews_delete"),
-#     ("0 2 * * *", "base.cron.outdate_outline_delete"),
-# ]
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -146,7 +139,7 @@ LANGUAGES = [
 ]
 
 LANGUAGE_COOKIE_AGE = 31104000
-DATA_UPLOAD_MAX_MEMORY_SIZE = 13107200
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20107200
 TIME_ZONE = "Europe/Warsaw"
 
 USE_I18N = True
@@ -160,16 +153,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-MARKDOWNX_MARKDOWNIFY_FUNCTION = "markdownx.utils.markdownify"
-MARKDOWNX_MARKDOWN_EXTENSIONS = [
-    "markdown.extensions.extra",
-]
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_REDIRECT_URL = "base:base"
@@ -189,3 +179,20 @@ RECAPTCHA_PUBLIC_KEY = os.environ["RECAPTCHA_PUBLIC_KEY"]
 RECAPTCHA_PRIVATE_KEY = os.environ["RECAPTCHA_PRIVATE_KEY"]
 
 SILENCED_SYSTEM_CHECKS = os.environ["SILENCED_SYSTEM_CHECKS"].split(",")
+
+STRIPE_WEBHOOK_SAFE_LIST_IPS = [
+    "3.18.12.63",
+    "3.130.192.231",
+    "13.235.14.237",
+    "13.235.122.149",
+    "18.211.135.69",
+    "35.154.171.200",
+    "52.15.183.38",
+    "54.88.130.119",
+    "54.88.130.237",
+    "54.187.174.169",
+    "54.187.205.235",
+    "54.187.216.72",
+]
+if DEBUG:
+    STRIPE_WEBHOOK_SAFE_LIST_IPS.append("127.0.0.1")

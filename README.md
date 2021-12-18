@@ -6,7 +6,7 @@ Production server: [plemiona-planer.pl](https://plemiona-planer.pl/en/)
 
 Discord: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
 
-> :warning: Please note, this repository is ment to be open since 23.09.2021 (it was private all the time before that date), some notes below are NOT up-to-date (some of them were made long ago) and many important topics, including general deployment flow, is not covered at all. You may use this code however you want under LICENSE, but remember the full support for self-hosting this project or even development guide is not planned ever, although this README file will be probably more helpful in the future. 
+> :warning: Please note, this repository is ment to be open since 23.09.2021 (it was private all the time before that date), some notes below are NOT up-to-date (some of them were made long ago) and many important topics, including general deployment flow, is not covered at all. You may use this code however you want under LICENSE, but remember the full support for self-hosting this project or even development guide is not planned ever, although this README file will be probably more helpful in the future.
 
 Feel free to create issues. This README is not yet finished, but first section (Quickstart) should work just fine if you want to test the app locally under `localhost:7999`.
 
@@ -17,7 +17,6 @@ Test coverage 83%, see [Codecov](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Pl
 - [Quickstart: local usage](#quickstart)
 - [Development](#development)
 - [Test server](#test-server)
-
 
 ## Quickstart
 
@@ -62,12 +61,9 @@ Now you are free to create new worlds, and outlines just like in production serv
 
 GL;)
 
-
-
 ## Development
 
 If you want to run it in development and make use of `localhost:8000` (the quickstart app runs on `localhost:7999`, you would need also:
-
 
 - [python](https://www.python.org/downloads/) >= 3.9
 - [poetry](https://python-poetry.org/)
@@ -192,11 +188,9 @@ DJANGO_SUPERUSER_PASSWORD !!!!!!!!!!!!!!!!!!!!!!! !!! !!! !!!!!!
 
 **DO NOT LEAVE DJANGO_SUPERUSER_PASSWORD AS "ADMIN", SO ANYONE CAN LOGIN TO THE DASHBOARD**
 
-
 ```
-docker-compose -f docker-compose.test.yml
+docker-compose -f docker-compose.stg.yml up -d --build
 ```
-
 
 ## Webhook
 

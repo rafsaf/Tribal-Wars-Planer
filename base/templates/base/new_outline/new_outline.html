@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% load i18n %}
+
 {% block title %}{{instance.name|capfirst}} - {{instance.world.human}}{% endblock %}
 {% block sidebar %}
     <a class=" list-group-item list-group-item-action bg-secondary" style="color: rgb(243, 243, 243);" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
@@ -14,7 +15,9 @@
     <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Deff collection' %}</a>
     <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Planer' %}</a> 
 {% endblock %}
+
 {% block content %}
+{% get_current_language as LANG %}
 <div class="row mt-3 mb-4">
     <div class="col-12 col-lg-7">
         <div>
@@ -159,10 +162,10 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
-                    {{info|safe}}
+                    <div id="planer-docs-scripts-info"></div>
                 </div>
                 <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    {{example|safe}}
+                    <div id="planer-docs-scripts-example"></div>
                 </div>
             </div>
         </div>
@@ -198,4 +201,10 @@
     });
 </script>
 
-{% endif %} {% endblock %}
+{% endif %} 
+
+<script>
+    loadDocsPage("planer-docs-scripts-info", "docs-planer-scripts-info", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_info.md' %}", "{{LANG}}");
+    loadDocsPage("planer-docs-scripts-example", "docs-planer-scripts-example", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_example.md' %}", "{{LANG}}");
+</script>
+{% endblock %}

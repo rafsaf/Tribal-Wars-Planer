@@ -14,7 +14,6 @@
 # ==============================================================================
 
 from django.contrib import admin
-from markdownx.admin import MarkdownxModelAdmin
 
 from . import models
 
@@ -23,8 +22,6 @@ from . import models
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Server)
 admin.site.register(models.Message)
-
-admin.site.register(models.Documentation, MarkdownxModelAdmin)
 
 
 @admin.register(models.Result)

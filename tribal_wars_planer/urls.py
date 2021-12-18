@@ -33,6 +33,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic.base import TemplateView
 from django_registration.backends.one_step.views import RegistrationView
 
 from tribal_wars_planer import forms
@@ -41,14 +42,19 @@ urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
     path("", include("base.urls")),
     path("api/", include("rest_api.urls")),
-    path("markdownx/", include("markdownx.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
     path(
         "register/",
         RegistrationView.as_view(form_class=forms.RecaptchaRegistrationForm),
         name="django_registration_register",
     ),
-    path("", include("django_registration.backends.one_step.urls")),
+    path(
+        "register/complete/",
+        TemplateView.as_view(
+            template_name="django_registration/registration_complete.html"
+        ),
+        name="django_registration_complete",
+    ),
     path("", include("django.contrib.auth.urls")),
 )
 if settings.DEBUG:

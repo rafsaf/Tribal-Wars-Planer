@@ -18,10 +18,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from django.utils.translation import get_language, gettext
+from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
-from markdownx.utils import markdownify
 
 from base import forms, models
 from utils.basic import Troops
@@ -105,18 +104,6 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
-    language_code = get_language()
-
-    info = models.Documentation.objects.get_or_create(
-        title="planer_script_info", language=language_code, defaults={"main_page": ""}
-    )[0].main_page
-    info = markdownify(info)
-    example = models.Documentation.objects.get_or_create(
-        title="planer_script_example",
-        language=language_code,
-        defaults={"main_page": ""},
-    )[0].main_page
-    example = markdownify(example)
 
     form1 = forms.OffTroopsForm(None, outline=instance)
     form2 = forms.DeffTroopsForm(None, outline=instance)
@@ -163,8 +150,6 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
         "off_troops": off_troops,
         "deff_troops": deff_troops,
         "form2": form2,
-        "example": example,
-        "info": info,
     }
     message_off = request.session.get("message-off-troops")
     if message_off is not None:

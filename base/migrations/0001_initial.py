@@ -21,7 +21,6 @@ import django.contrib.postgres.fields
 import django.core.validators
 import django.db.models.deletion
 import django.utils.timezone
-import markdownx.models
 from django.conf import settings
 from django.db import migrations, models
 
@@ -48,7 +47,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("title", models.CharField(max_length=30)),
-                ("main_page", markdownx.models.MarkdownxField()),
+                ("main_page", models.TextField(default="")),
                 ("language", models.CharField(default="pl", max_length=2)),
             ],
             options={
