@@ -198,8 +198,11 @@ on fresh ubuntu
 
 ```bash
 sudo apt-get install -y webhook
-# test
+# test http
 webhook -hooks /home/ubuntu/Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload
+# test https
+sudo openssl req -newkey rsa:4096 -keyout webhook.key -x509 -days 3650 -out webhook.crt
+webhook -hooks /Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload -secure -cert /webhook.crt -key webhook.key
 
 # prod
 # article
