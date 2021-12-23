@@ -73,7 +73,7 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 
 </div>
 <div>
-<pre class="md-pre md-correct2" id="world-test-army" style="height:200px">100|100,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,
+<pre class="md-pre md-correct2 notranslate" id="world-test-army" style="height:200px">100|100,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,
 101|101,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,0,
 102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,
 103|103,100,100,7003,0,100,2803,0,0,350,100,0,0,0,0,0,
@@ -131,7 +131,7 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 
 </div>
 <div>
-<pre class="md-pre md-correct2" id="world-test-deff-troops" style="height:200px">100|100,w wiosce,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,
+<pre class="md-pre md-correct2 notranslate" id="world-test-deff-troops" style="height:200px">100|100,w wiosce,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,
 100|100,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 101|101,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,
 101|101,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -250,7 +250,7 @@ W zakładce <span class="md-error">Planer</span> należy umieszczać cele akcji 
 <button onclick="updateClipboard('world-test-targets');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>Skopiowano!`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>Kliknij by skopiować ponownie`;this.blur()},1800);" class="btn btn-outline-ocean my-2">Kliknij by skopiować do schowka</button>
 </div>
 <div>
-<pre id="world-test-targets" class="md-pre md-correct2">205|205:2:2
+<pre id="world-test-targets" class="md-pre md-correct2 notranslate">205|205:2:2
 210|210:4:4|0|0|0
 215|215:0|2|3|5:2
 220|220:0|0|3|3:2|0|2|0
