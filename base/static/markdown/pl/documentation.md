@@ -460,9 +460,9 @@ void 0;</pre></div>
 
 Aby korzystać ze skryptów należy zainstalować najpierw dodatek do przeglądarki:
 
-- [Pomocny dział w skryptotece Plemion](https://forum.plemiona.pl/index.php?forums/skrypty-do-przegl%C4%85darek.974/){:target="\_blank"}
-- [Tampermonkey (Chrome)](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en){:target="\_blank"}
-- [Greasmonkey (Firefox)](https://addons.mozilla.org/pl/firefox/addon/greasemonkey/){:target="\_blank"}
+- [Pomocny dział w skryptotece Plemion](https://forum.plemiona.pl/index.php?forums/skrypty-do-przegl%C4%85darek.974/)
+- [Tampermonkey (Chrome)](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en)
+- [Greasmonkey (Firefox)](https://addons.mozilla.org/pl/firefox/addon/greasemonkey/)
 
 Następnie trzeba dodać poniższe skrypty do własnych skryptów:
 
@@ -778,7 +778,7 @@ Skrypt jest zatwierdzony i dozwolony do użytku przez obsługę gry, dyskusję n
 <pre id="copy-button-3" class="md-pre prettyprint" style="height:250px;">
 // ==UserScript==
 // @name     GET message autocomplete
-// @version  1.0
+// @version  2.0
 // @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=mail&ast;mode=new&ast;
 // ==/UserScript==
 // By Rafsaf
@@ -790,13 +790,13 @@ res[parts[0]] = parts[1];
 return res;
 }, {});
 if ("to" in result) {
-document.getElementById('to').value = decodeURI(result.to);
+document.getElementById('to').value = decodeURIComponent(result.to);
 }
 if ("subject" in result) {
-document.getElementsByName('subject')[0].value = decodeURI(result.subject);
+document.getElementsByName('subject')[0].value = decodeURIComponent(result.subject);
 }
 if ("message" in result) {
-document.getElementById('message').value = decodeURI(result.message);
+document.getElementById('message').value = decodeURIComponent(result.message);
 }</pre></div>
 
 <br>
