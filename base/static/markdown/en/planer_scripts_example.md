@@ -1,7 +1,1 @@
-<br>
-
-### Caution
-
-<div class="p-3 mb-2 bg-warning text-dark">The documentation is not yet available in English.</div>
-
-To change to Polish, expand the Menu list in the top bar and under the _Language_ ​​tab, select **Polski**.
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> If you feel lost and you have no idea what to enter here, it is worth rewriting the guide on <span class = "md-correct2"> World Test </span>, which you can find in <b><a target="_blank" href="documentation#swiat-testowy-czyli-pierwsze-kroki-z-planerem"> project documentation</a></b>. In <b>Step 3</b> there is an example of pasted data.</div>
