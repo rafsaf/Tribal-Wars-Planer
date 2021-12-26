@@ -15,6 +15,7 @@
 
 import datetime
 
+import prometheus_client
 import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -38,7 +39,10 @@ from base.models import (
     WeightModel,
 )
 from rest_api import serializers
-from rest_api.permissions import StripeWebhookSafeListPermission
+from rest_api.permissions import (
+    MetricsExportSecretPermission,
+    StripeWebhookSafeListPermission,
+)
 
 
 class TargetTimeUpdate(APIView):
@@ -295,3 +299,14 @@ class StripeWebhook(APIView):
                 )
             return Response(status=200)
         return Response(status=404)
+
+
+class MetricsExport(APIView):
+
+    permission_classes = [AllowAny, MetricsExportSecretPermission]
+
+    def get(self, request: HttpRequest, format=None):
+        metrics_page = prometheus_client.generate_latest(prometheus_client.REGISTRY)
+        return Response(
+            metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST, status=200
+        )
