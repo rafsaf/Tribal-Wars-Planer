@@ -8,3 +8,11 @@ scrape_configs:
     static_configs:
       - targets:
           - "prometheus:9090"
+  - job_name: "dev"
+    scrape_interval: 10s
+    scheme: http
+    metrics_path: /en/api/metrics/
+    params:
+      token: ["secret"]
+    static_configs:
+      - targets: ["web:7999"]
