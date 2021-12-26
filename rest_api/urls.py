@@ -57,4 +57,9 @@ urlpatterns = [
         views.ResetUserMessages.as_view(),
         name="reset_user_messages",
     ),
+    path(
+        "metrics/",
+        views.MetricsExport.as_view(),
+        name="metrics_export",
+    ),
 ]

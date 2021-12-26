@@ -63,6 +63,7 @@ REST_FRAMEWORK = {
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 MIDDLEWARE = [
+    "tribal_wars_planer.middlewares.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -71,6 +72,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tribal_wars_planer.middlewares.PrometheusAfterMiddleware",
 ]
 
 ROOT_URLCONF = "tribal_wars_planer.urls"
@@ -179,6 +181,8 @@ RECAPTCHA_PUBLIC_KEY = os.environ["RECAPTCHA_PUBLIC_KEY"]
 RECAPTCHA_PRIVATE_KEY = os.environ["RECAPTCHA_PRIVATE_KEY"]
 
 SILENCED_SYSTEM_CHECKS = os.environ["SILENCED_SYSTEM_CHECKS"].split(",")
+
+METRICS_EXPORT_ENDPOINT_SECRET = os.environ["METRICS_EXPORT_ENDPOINT_SECRET"]
 
 STRIPE_WEBHOOK_SAFE_LIST_IPS = [
     "3.18.12.63",

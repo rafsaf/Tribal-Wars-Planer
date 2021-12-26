@@ -15,6 +15,7 @@
 
 """ App forms """
 
+import re
 from typing import Optional
 
 from django import forms
@@ -23,7 +24,7 @@ from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
 
 from utils import basic, database_update
-import re
+
 from . import models
 
 
