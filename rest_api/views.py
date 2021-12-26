@@ -20,6 +20,7 @@ import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import HttpRequest
+from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
@@ -307,6 +308,6 @@ class MetricsExport(APIView):
 
     def get(self, request: HttpRequest, format=None):
         metrics_page = prometheus_client.generate_latest(prometheus_client.REGISTRY)
-        return Response(
+        return HttpResponse(
             metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST, status=200
         )
