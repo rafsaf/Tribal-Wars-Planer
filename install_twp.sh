@@ -8,6 +8,7 @@ export NEW_SECRET=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n
 wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/webhook/redeploy.sh
 wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/webhook/webhooks.conf
 wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/webhook/hooks.example.json
+sudo chmod +x redeploy.sh
 sed 's/##secret##/'"${NEW_SECRET}"'/' hooks.example.json > hooks.json
 rm hooks.example.json
 sudo cp webhooks.conf /etc/supervisor/conf.d/webhooks.conf
