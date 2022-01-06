@@ -1,9 +1,9 @@
 name: Push images to dockerhub
 
 on:
-  release:
-    types:
-      - created
+  push:
+    branches:
+      - master
 
 jobs:
   push_image_to_registry:
@@ -13,15 +13,18 @@ jobs:
 
       - name: Build image
         run: |
-          docker build . -f Dockerfile.prod --tag rafsaf/twp-server:${{ github.event.release.tag_name }}
-          docker build . -f Dockerfile.cronjobs --tag rafsaf/twp-cronjobs:${{ github.event.release.tag_name }}
+          docker build . -f Dockerfile.prod --tag rafsaf/twp-server:latest
+          docker build . -f Dockerfile.cronjobs --tag rafsaf/twp-cronjobs:latest
       - name: Log into registry
         run: |
           echo "${{ secrets.DOCKER_PASS }}" | docker login \
            -u ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Push image
         run: |
-          docker image tag rafsaf/twp-server:${{ github.event.release.tag_name }} rafsaf/twp-server:${{ github.event.release.tag_name }}
-          docker image push rafsaf/twp-server:${{ github.event.release.tag_name }}
-          docker image tag rafsaf/twp-cronjobs:${{ github.event.release.tag_name }} rafsaf/twp-cronjobs:${{ github.event.release.tag_name }}
-          docker image push rafsaf/twp-cronjobs:${{ github.event.release.tag_name }}
+          docker image tag rafsaf/twp-server:latest rafsaf/twp-server:latest
+          docker image push rafsaf/twp-server:latest
+          docker image tag rafsaf/twp-cronjobs:latest rafsaf/twp-cronjobs:latest
+          docker image push rafsaf/twp-cronjobs:latest
+      - name: redeploy stage
+        run: |
+          curl -k -X POST https://34.116.138.194:9000/hooks/redeploy-stage -H "Content-Type: application/json" -d '{"secret": "${{ secrets.STAGE_HOOK_SECRET }}"}'

@@ -22,9 +22,7 @@ services:
     depends_on:
       - postgres
     restart: always
-    build:
-      context: ./
-      dockerfile: Dockerfile.prod
+    image: rafsaf/twp-server:latest
     ports:
       - 7999:80
     env_file:
@@ -39,9 +37,7 @@ services:
     depends_on:
       - postgres
     restart: always
-    build:
-      context: ./
-      dockerfile: Dockerfile.cronjobs
+    image: rafsaf/twp-cronjobs:latest
     env_file:
       - .env.example
     command: python -m base.run_cronjobs
