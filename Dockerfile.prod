@@ -22,4 +22,4 @@ COPY . .
 
 RUN mkdir media || true
 RUN mkdir prometheus_multi_proc_dir || true
-RUN chmod -R a+rwx media prometheus_multi_proc_dir
+RUN chmod -R a+rwx media prometheus_multi_proc_dir static
