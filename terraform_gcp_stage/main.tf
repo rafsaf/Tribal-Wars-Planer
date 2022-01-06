@@ -48,7 +48,7 @@ resource "google_compute_instance" "default-stage" {
 
   boot_disk {
     initialize_params {
-      size  = 20
+      size  = 15
       image = "ubuntu-2004-lts"
     }
   }
