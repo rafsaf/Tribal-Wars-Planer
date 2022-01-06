@@ -1,32 +1,18 @@
 [
-    {
-        "id": "redeploy-standard",
-        "execute-command": "/home/ubuntu/Tribal-Wars-Planer/webhook/redeploy-standard.sh",
-        "command-working-directory": "/home/ubuntu/Tribal-Wars-Planer/",
-        "response-message": "Alive!",
-        "trigger-rule": {
-            "and": [
-                {
-                    "match": {
-                        "type": "payload-hash-sha1",
-                        "secret": "mysecret",
-                        "parameter": {
-                            "source": "header",
-                            "name": "X-Hub-Signature"
-                        }
-                    }
-                },
-                {
-                    "match": {
-                        "type": "value",
-                        "value": "published",
-                        "parameter": {
-                            "source": "payload",
-                            "name": "action"
-                        }
-                    }
-                }
-            ]
+  {
+    "id": "redeploy-stage",
+    "execute-command": "~/Tribal-Wars-Planer/redeploy.sh",
+    "command-working-directory": "~/Tribal-Wars-Planer/",
+    "response-message": "Alive!",
+    "trigger-rule": {
+      "match": {
+        "type": "value",
+        "value": "##secret##",
+        "parameter": {
+          "source": "payload",
+          "name": "secret"
         }
+      }
     }
+  }
 ]
