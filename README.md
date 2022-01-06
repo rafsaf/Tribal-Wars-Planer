@@ -136,63 +136,233 @@ Running Stripe CLI on Windows (docker image)
 docker run --rm -it stripe/stripe-cli:latest listen --forward-to host.docker.internal:8000/en/api/stripe-webhook/ --skip-verify --api-key sk_test_51IunwoIUoiUFYBGtpnRVBVro4iqXG8pndlUlpeBd1qbMNC9U7I0u6eQuCVjJdWMQoOpJhpyrztp2kUZSHMfi29Zh00TT5Q8yyL
 ```
 
-## Test server
+## Server
 
-**Install Docker, docker-compose** eg.
-
-```bash
-sudo apt update
-sudo apt upgrade
-sudo apt install docker.io
-sudo apt install docker-compose
-sudo usermod -a -G docker ubuntu
-# or other username than ubuntu
-sudo reboot
-# then log in again
-docker info
-# if ok, proceed
-```
-
-````
-sudo ssh-keygen -t ed25519 -C "email@example.com"
-sudo cat ~/.ssh/id_ed25519.pub
+On fresh ubuntu 20 webserver instance with enabled ports 9000, 443, 80 and sudo ports enabled:
 
 ```bash
-Copy and add to the:
+sudo su && cd
 
-Github.com -> Settings -> SSH and GPG keys
+wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/install_twp.sh && bash install_twp.sh
+# it will install all the boring stuff, refer to installation file
+```
 
-https://github.com/settings/keys
+You can use printed webhook secret to trigger images pull and docker-compose up from anywhere:
 
-````
+```
+curl -k -X POST https://$INSTANCE_IP:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "$SECRET"}'
+```
 
-Finally clone repo
+Now in `/root/Tribal-Wars-Planer` folder, create `.env` and `docker-compose.yml` files:
+Every environment variable is required!
 
 ```bash
-git clone git@github.com:rafsaf/Tribal-Wars-Planer.git
-cd Tribal-Wars-Planer
-cp .env.example .env
+# .env
+DEBUG=false
+MAIN_DOMAIN=example.com
+SUB_DOMAIN=
+SECRET_KEY=your_secret_key
+POSTGRES_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres_password
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+# Set Email Backend to django_ses.SESBackend in production
+# Above Development EMAIL_BACKEND would use terminal to send emails!
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_SES_REGION_NAME=
+AWS_SES_REGION_ENDPOINT=
+DEFAULT_FROM_EMAIL=example@example.com
+# Below testing keys (always passing), do not use in production
+RECAPTCHA_PUBLIC_KEY=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+RECAPTCHA_PRIVATE_KEY=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+# Set to empty in production
+SILENCED_SYSTEM_CHECKS=captcha.recaptcha_test_key_error
+# Default superuser
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_PASSWORD=admin
+DJANGO_SUPERUSER_EMAIL=admin@admin.com
+STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_ENDPOINT_SECRET=
+# Below put price_id for 30,55,70 PLN from Stripe account
+ONE_MONTH=
+TWO_MONTHS=
+THREE_MONTHS=
+METRICS_EXPORT_ENDPOINT_SECRET=secret
+PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
 ```
 
-> :warning: SET DIFFRENT VALUES FOR:
+```yml
+# two domains, external database
+version: "3.3"
+
+services:
+  web:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    labels:
+      - "traefik.enable=true"
+      # static
+      - "traefik.http.routers.web-static.rule=Host(`${MAIN_DOMAIN}`) && PathPrefix(`/static/`)"
+      - "traefik.http.routers.web-static.entrypoints=websecure"
+      - "traefik.http.routers.web-static.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control=public,max-age=2592000"
+      - "traefik.http.routers.web-static.middlewares=cache-headers"
+      # default
+      - "traefik.http.routers.web.rule=Host(`${MAIN_DOMAIN}`, `${SUB_DOMAIN}`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=myresolver"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
+      # redirect domain to other
+      - "traefik.http.middlewares.redirect-web.redirectregex.regex=^(https?://)${SUB_DOMAIN}/(.*)"
+      - "traefik.http.middlewares.redirect-web.redirectregex.replacement=$${1}${MAIN_DOMAIN}/$${2}"
+      - "traefik.http.middlewares.redirect-web.redirectregex.permanent=true"
+      - "traefik.http.routers.web.middlewares=redirect-web"
+    env_file:
+      - .env
+    environment:
+      - DEBUG=false
+    volumes:
+      - "~/unit_log:/var/log"
+      - "./media/:/build/media/"
+      - "./static/:/build/static/"
+
+  traefik:
+    image: "traefik:v2.4"
+    restart: always
+    container_name: "traefik"
+    command:
+      # - "--log.level=DEBUG"
+      - "--api.dashboard=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      # test certificates
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=${DEFAULT_FROM_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  cronjobs:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile.cronjobs
+    command: python -m base.run_cronjobs
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
+```
+
+```yml
+# one domain, internal database
+
+version: "3.3"
+
+services:
+  postgres:
+    restart: always
+    image: postgres
+    volumes:
+      - ./data_test/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    depends_on:
+      - postgres
+    restart: always
+    image: rafsaf/twp-server:latest
+    labels:
+      - "traefik.enable=true"
+      # static
+      - "traefik.http.routers.web-static.rule=Host(`${MAIN_DOMAIN}`) && PathPrefix(`/static/`)"
+      - "traefik.http.routers.web-static.entrypoints=websecure"
+      - "traefik.http.routers.web-static.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control=public,max-age=2592000"
+      - "traefik.http.routers.web-static.middlewares=cache-headers"
+      # default
+      - "traefik.http.routers.web.rule=Host(`${MAIN_DOMAIN}`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=myresolver"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
+    env_file:
+      - .env
+    environment:
+      - DEBUG=false
+      - POSTGRES_HOST=postgres
+    volumes:
+      - "./media/:/build/media/"
+      - "./static/:/build/static/"
+
+  traefik:
+    image: "traefik:v2.4"
+    restart: always
+    container_name: "traefik"
+    command:
+      # - "--log.level=DEBUG"
+      - "--api.dashboard=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      # test certificates
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=${DEFAULT_FROM_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  cronjobs:
+    restart: always
+    image: rafsaf/twp-cronjobs:latest
+    command: python -m base.run_cronjobs
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
+```
+
+Just run
 
 ```
-DEBUG
-MAIN_DOMAIN
-SUB_DOMAIN
-SECRET_KEY !!!!!!!!!!!!!
-DEFAULT_FROM_EMAIL
-POSTGRES_PASSWORD
-DJANGO_SUPERUSER_PASSWORD !!!!!!!!!!!!!!!!!!!!!!! !!! !!! !!!!!!
+sudo docker-compose up -d
 ```
 
-**DO NOT LEAVE DJANGO_SUPERUSER_PASSWORD AS "ADMIN", SO ANYONE CAN LOGIN TO THE DASHBOARD**
-
-```
-docker-compose -f docker-compose.stg.yml up -d --build
-```
-
-## Webhook
+## Webhook playground
 
 on fresh ubuntu
 

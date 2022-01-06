@@ -1,6 +1,6 @@
 [
   {
-    "id": "redeploy-stage",
+    "id": "redeploy",
     "execute-command": "~/Tribal-Wars-Planer/redeploy.sh",
     "command-working-directory": "~/Tribal-Wars-Planer/",
     "response-message": "Alive!",
