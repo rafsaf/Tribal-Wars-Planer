@@ -205,9 +205,7 @@ version: "3.3"
 services:
   web:
     restart: always
-    build:
-      context: ./
-      dockerfile: Dockerfile.prod
+    image: rafsaf/twp-server:latest
     labels:
       - "traefik.enable=true"
       # static
@@ -263,9 +261,7 @@ services:
 
   cronjobs:
     restart: always
-    build:
-      context: ./
-      dockerfile: Dockerfile.cronjobs
+    image: rafsaf/twp-cronjobs:latest
     command: python -m base.run_cronjobs
     env_file:
       - .env
