@@ -1,0 +1,30 @@
+name: Push images to dockerhub
+
+on:
+  push:
+    branches:
+      - master
+  release:
+    types:
+      - created
+
+jobs:
+  push_image_to_registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build image
+        run: |
+          docker build . -f Dockerfile.prod --tag rafsaf/twp-server:${{ github.event.release.tag_name }}
+          docker build . -f Dockerfile.cronjobs --tag rafsaf/twp-cronjobs:${{ github.event.release.tag_name }}
+      - name: Log into registry
+        run: |
+          echo "${{ secrets.DOCKER_PASS }}" | docker login \
+           -u ${{ secrets.DOCKER_USER }} --password-stdin
+      - name: Push image
+        run: |
+          docker image tag rafsaf/twp-server:${{ github.event.release.tag_name }} rafsaf/twp-server:${{ github.event.release.tag_name }}
+          docker image push rafsaf/twp-server:${{ github.event.release.tag_name }}
+          docker image tag rafsaf/twp-cronjobs:${{ github.event.release.tag_name }} rafsaf/twp-cronjobs:${{ github.event.release.tag_name }}
+          docker image push rafsaf/twp-cronjobs:${{ github.event.release.tag_name }}
