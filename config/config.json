@@ -1,40 +1,40 @@
 {
-    "listeners": {
-        "*:80": {
-            "pass": "routes"
-        }
+  "listeners": {
+    "*:80": {
+      "pass": "routes"
+    }
+  },
+  "routes": [
+    {
+      "match": {
+        "uri": "/static/*"
+      },
+      "action": {
+        "share": "/build$uri"
+      }
     },
-    "routes": [
-        {
-            "match": {
-                "uri": "/static/*"
-            },
-            "action": {
-                "share": "/build$uri"
-            }
-        },
-        {
-            "match": {
-                "uri": "/media/*"
-            },
-            "action": {
-                "share": "/build$uri"
-            }
-        },
-        {
-            "action": {
-                "pass": "applications/django"
-            }
-        }
-    ],
-    "applications": {
-        "django": {
-            "type": "python 3.9",
-            "processes": 4,
-            "threads": 1,
-            "path": "/build/",
-            "module": "tribal_wars_planer.wsgi"
-        }
+    {
+      "match": {
+        "uri": "/media/*"
+      },
+      "action": {
+        "share": "/build$uri"
+      }
     },
-    "access_log": "/var/log/access.log"
+    {
+      "action": {
+        "pass": "applications/django"
+      }
+    }
+  ],
+  "applications": {
+    "django": {
+      "type": "python 3.9",
+      "processes": 5,
+      "threads": 2,
+      "path": "/build/",
+      "module": "tribal_wars_planer.wsgi"
+    }
+  },
+  "access_log": "/var/log/access.log"
 }

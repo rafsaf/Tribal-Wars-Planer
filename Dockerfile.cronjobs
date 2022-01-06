@@ -1,6 +1,6 @@
 FROM python:3.9
 
-RUN apt-get update
+RUN apt update
 
 RUN mkdir app
 WORKDIR /app
@@ -10,3 +10,6 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 COPY . .
+
+RUN apt autoremove --purge -y        \
+    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
