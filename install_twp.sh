@@ -1,5 +1,5 @@
 # /bin/bash
-cd ~
+cd /root
 mkdir Tribal-Wars-Planer || true
 cd Tribal-Wars-Planer
 sudo apt update -y && sudo apt upgrade -y

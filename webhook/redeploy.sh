@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/Tribal-Wars-Planer
+cd /root/Tribal-Wars-Planer
 
 sudo docker image prune --force
 set +e
