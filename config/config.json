@@ -30,7 +30,7 @@
     "applications": {
         "django": {
             "type": "python 3.9",
-            "processes": 5,
+            "processes": 4,
             "threads": 1,
             "path": "/build/",
             "module": "tribal_wars_planer.wsgi"
