@@ -1,0 +1,78 @@
+version: "3.3"
+
+services:
+  postgres:
+    restart: "unless-stopped"
+    image: postgres
+    volumes:
+      - ./data_richdev_postgres/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .env.example
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    volumes:
+      - ./metrics:/etc/prometheus
+      - prometheus-data:/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus-dev.yml
+
+  web:
+    depends_on:
+      - postgres
+    restart: "unless-stopped"
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    ports:
+      - 7998:80
+    env_file:
+      - .env.example
+    environment:
+      - DEBUG=false
+      - SUB_DOMAIN=web
+    volumes:
+      - "./media/:/build/media/"
+      - "./static/:/build/static/"
+
+  cronjobs:
+    depends_on:
+      - postgres
+    restart: "unless-stopped"
+    build:
+      context: ./
+      dockerfile: Dockerfile.cronjobs
+    env_file:
+      - .env.example
+    command: python -m base.run_cronjobs
+    environment:
+      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
+
+  master_locust:
+    restart: "unless-stopped"
+    image: locustio/locust
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./perf:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --master -H http://web:80
+  
+  worker_locust:
+    restart: "unless-stopped"
+    image: locustio/locust
+    volumes:
+      - ./perf:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host master_locust
+
+volumes:
+  prometheus-data:

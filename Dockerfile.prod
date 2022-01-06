@@ -1,4 +1,4 @@
-FROM nginx/unit:1.23.0-python3.9
+FROM nginx/unit:1.26.0-python3.9
 
 ENV PYTHONUNBUFFERED 1
 
@@ -9,14 +9,17 @@ RUN mkdir build
 
 WORKDIR /build
 
-RUN apt-get update                        \
-    && apt-get install -y python3-pip
+RUN apt update && apt install -y python3-pip                                    
 
 COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
 
+RUN apt remove -y python3-pip && apt autoremove --purge -y        \
+    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+
 COPY . .
 
 RUN mkdir media || true
-RUN chmod +w media
+RUN mkdir prometheus_multi_proc_dir || true
+RUN chmod -R a+rwx media prometheus_multi_proc_dir

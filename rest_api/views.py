@@ -28,7 +28,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from prometheus_client import multiprocess
 from base.models import (
     Outline,
     OutlineTime,
@@ -304,7 +304,9 @@ class MetricsExport(APIView):
     permission_classes = [AllowAny, MetricsExportSecretPermission]
 
     def get(self, request: HttpRequest, format=None):
-        metrics_page = prometheus_client.generate_latest(prometheus_client.REGISTRY)
+        registry = prometheus_client.CollectorRegistry()
+        multiprocess.MultiProcessCollector(registry)
+        metrics_page = prometheus_client.generate_latest(registry)
         return HttpResponse(
             metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST, status=200
         )

@@ -5,6 +5,7 @@ __pycache__/
 Pipfile*
 .idea*
 /static
+prometheus_multi_proc_dir
 # C extensions
 *.so
 # Traefik
@@ -13,6 +14,7 @@ letsencrypt
 /data/*
 /data_postgres/*
 /data_test/*
+/data_richdev_postgres/*
 # Webhook
 /webhook/hooks.json
 
