@@ -141,16 +141,19 @@ docker run --rm -it stripe/stripe-cli:latest listen --forward-to host.docker.int
 On fresh ubuntu 20 webserver instance with enabled ports 9000, 443, 80 and sudo ports enabled:
 
 ```bash
-sudo su && cd
+sudo su && cd ~
 
-wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/install_twp.sh && bash install_twp.sh
+wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/install_twp.sh \
+  && bash install_twp.sh
 # it will install all the boring stuff, refer to installation file
+
 ```
 
 You can use printed webhook secret to trigger images pull and docker-compose up from anywhere:
 
-```
-curl -k -X POST https://$INSTANCE_IP:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "$SECRET"}'
+```bash
+curl -k -X POST https://$INSTANCE_IP:9000/hooks/redeploy \
+  -H "Content-Type: application/json" -d '{"secret": "$SECRET"}'
 ```
 
 Now in `/root/Tribal-Wars-Planer` folder, create `.env` and `docker-compose.yml` files:
