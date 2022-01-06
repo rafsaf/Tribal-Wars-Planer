@@ -1,9 +1,6 @@
 name: Push images to dockerhub
 
 on:
-  push:
-    branches:
-      - master
   release:
     types:
       - created
