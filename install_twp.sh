@@ -16,6 +16,7 @@ sudo openssl req -newkey rsa:4096 -keyout webhook.key -x509 -days 3650 -out webh
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start webhooks:*
+sudo supervisorctl restart webhooks:*
 touch .env
 touch docker-compose.yml
 echo "Your webhook secret: $NEW_SECRET"
