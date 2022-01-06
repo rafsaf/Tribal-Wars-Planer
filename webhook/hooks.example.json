@@ -1,7 +1,17 @@
 [
   {
     "id": "redeploy",
-    "execute-command": "sudo bash ~/Tribal-Wars-Planer/redeploy.sh",
+    "execute-command": "sudo",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "bash"
+      },
+      {
+        "source": "string",
+        "name": "~/Tribal-Wars-Planer/redeploy.sh"
+      }
+    ],
     "command-working-directory": "~/Tribal-Wars-Planer/",
     "response-message": "Alive!",
     "trigger-rule": {
