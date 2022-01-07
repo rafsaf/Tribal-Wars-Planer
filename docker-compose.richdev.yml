@@ -7,11 +7,7 @@ services:
     volumes:
       - ./data_richdev_postgres/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    env_file:
-      - .env.example
+      - POSTGRES_PASSWORD=postgres
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -36,14 +32,9 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 7998:80
-    env_file:
-      - .env.example
     environment:
-      - DEBUG=false
+      - SECRET_KEY=askldjasd0987123987
       - SUB_DOMAIN=web
-    volumes:
-      - "./media/:/build/media/"
-      - "./static/:/build/static/"
 
   cronjobs:
     depends_on:
@@ -52,11 +43,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.cronjobs
-    env_file:
-      - .env.example
     command: python -m base.run_cronjobs
-    environment:
-      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
 
   master_locust:
     restart: "unless-stopped"

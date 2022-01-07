@@ -12,9 +12,10 @@ Test coverage 83%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-
 
 # Table of contents
 
-- [Quickstart: local usage](#quickstart)
+- [Quickstart](#quickstart)
+- [Docker images reference](#dockerfile-reference)
 - [Development](#development)
-- [Test server](#test-server)
+- [Server](#server)
 
 ## Quickstart
 
@@ -24,7 +25,7 @@ Install [Docker](https://www.docker.com/get-started) on whatever system you work
 
 **STEP 2**
 
-In your favourite folder create file `docker-compose.yml`:
+In your favourite folder create file `docker-compose.yml`. Too see every possible environemnt variables, see [Docker images reference](#dockerfile-reference):
 
 ```yml
 # docker-compose.yml
@@ -37,11 +38,7 @@ services:
     volumes:
       - ./data_postgres/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    env_file:
-      - .env
+      - POSTGRES_PASSWORD=postgres
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -55,62 +52,18 @@ services:
     image: rafsaf/twp-server:latest
     ports:
       - 7999:80
-    env_file:
-      - .env
     environment:
-      - DEBUG=false
+      - SECRET_KEY=zaq12wsx3edc
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@admin.com
 
   cronjobs:
     depends_on:
       - postgres
     restart: always
     image: rafsaf/twp-cronjobs:latest
-    env_file:
-      - .env
     command: python -m base.run_cronjobs
-    environment:
-      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
-```
-
-Next step is to create `.env` file in the same folder with secrets. You can leave below settings "AS IS":
-
-```bash
-DEBUG=false
-MAIN_DOMAIN=localhost
-SUB_DOMAIN=
-SECRET_KEY=your_secret_key
-POSTGRES_NAME=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
-# Set Email Backend to django_ses.SESBackend in production
-# Above Development EMAIL_BACKEND would use terminal to send emails!
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_SES_REGION_NAME=
-AWS_SES_REGION_ENDPOINT=
-DEFAULT_FROM_EMAIL=example@example.com
-# Below testing keys (always passing), do not use in production
-RECAPTCHA_PUBLIC_KEY=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
-RECAPTCHA_PRIVATE_KEY=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
-# Set to empty in production
-SILENCED_SYSTEM_CHECKS=captcha.recaptcha_test_key_error
-# Default superuser
-DJANGO_SUPERUSER_USERNAME=admin
-DJANGO_SUPERUSER_PASSWORD=admin
-DJANGO_SUPERUSER_EMAIL=admin@admin.com
-STRIPE_PUBLISHABLE_KEY=
-STRIPE_SECRET_KEY=
-STRIPE_ENDPOINT_SECRET=
-# Below put price_id for 30,55,70 PLN from Stripe account
-ONE_MONTH=
-TWO_MONTHS=
-THREE_MONTHS=
-METRICS_EXPORT_ENDPOINT_SECRET=secret
-PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
-
 ```
 
 Then run, (using Terminal in Linux/Mac, Powershell or CMD on Windows):
@@ -124,9 +77,9 @@ docker-compose up -d
 
 Go to the browser tab and write out `localhost:7999`, fresh instance of site should be up and running.
 
-**STEP 4** (Login `admin`, Passwd `admin`)
+**STEP 4** (Login by default `admin` and password `admin`)
 
-You may see all declared variables in `.env.example` but login and password is `admin`, `admin`. The data will not be losed after reboot, it is docker volume (`data_postgres` folder in repository).
+The data will not be losed after reboot, it is docker volume (`data_postgres` folder in folder).
 
 **STEP 5**
 
@@ -142,12 +95,101 @@ Now you are free to create new worlds, and outlines just like in production serv
 
 GL;)
 
+## Dockerfile reference
+
+[TWP server image](https://hub.docker.com/r/rafsaf/twp-server)
+
+`rafsaf/twp-server:latest`
+
+Contains TWP Django server based on Nginx Unit and Python3.9
+
+Environment variables:
+
+**SECRET_KEY** - _required_ - app secret key
+
+**DEBUG** - _optional_ - debug boolean, defaults to `False`
+
+**DJANGO_SUPERUSER_USERNAME** - _optional_ - first superuser username, defaults to `admin`
+
+**DJANGO_SUPERUSER_PASSWORD** - _optional_ - first superuser password, defaults to `admin`
+
+**DJANGO_SUPERUSER_EMAIL** - _optional_ - first superuser email, defaults to `admin@admin.com`
+
+**MAIN_DOMAIN** - _optional_ - main domain used, defaults to `localhost`
+
+**SUB_DOMAIN** - _optional_ - sub domain used, defaults to empty string
+
+**POSTGRES_NAME** - _optional_ - postgres database name, defaults to `postgres`
+
+**POSTGRES_USER** - _optional_ - postgres database user, defaults to `postgres`
+
+**POSTGRES_PASSWORD** - _optional_ - postgres database password, defaults to `postgres`
+
+**POSTGRES_HOST** - _optional_ - postgres database host, defaults to `postgres`
+
+**POSTGRES_PORT** - _optional_ - postgres database host, defaults to `5432`
+
+**DEFAULT_FROM_EMAIL** - _optional_ - email of site owner, used to send emails on errors and certs expiration, defaults to `example@example.com`
+
+**STRIPE_PUBLISHABLE_KEY** - _optional_ - stripe public key, defaults to empty string
+
+**STRIPE_SECRET_KEY** - _optional_ - stripe secret key, defaults to empty string
+
+**STRIPE_ENDPOINT_SECRET** - _optional_ - stripe endpoint, defaults to empty string
+
+**ONE_MONTH** - _optional_ - stripe payment id for 1 month premium, defaults to empty string
+
+**TWO_MONTHS** - _optional_ - stripe payment id for 2 months premium, defaults to empty string
+
+**THREE_MONTHS** - _optional_ - stripe payment id for 3 months premium, defaults to empty string
+
+**EMAIL_BACKEND** - _optional_ - postgres database host, defaults to `django.core.mail.backends.console.EmailBackend`
+
+**AWS_ACCESS_KEY_ID** - _optional_ - AWS SES account key id, defaults to empty string
+
+**AWS_SECRET_ACCESS_KEY** - _optional_ - AWS SES account secret, defaults to empty string
+
+**AWS_SES_REGION_NAME** - _optional_ - AWS SES region, defaults to empty string
+
+**AWS_SES_REGION_ENDPOINT** - _optional_ - AWS SES region endpoint, defaults to empty string
+
+**RECAPTCHA_PUBLIC_KEY** - _optional_ - recaptcha public key, defaults to always passing `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI`
+
+**RECAPTCHA_PRIVATE_KEY** - _optional_ - recaptcha secret key, defaults to always passing `6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe`
+
+**SILENCED_SYSTEM_CHECKS** - _optional_ - silenced errors, defaults to `captcha.recaptcha_test_key_error`
+
+**METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/en/api/metric?secret=...`, defaults to `secret`
+
+[TWP cronjobs image](https://hub.docker.com/r/rafsaf/twp-cronjobs)
+
+`rafsaf/twp-cronjobs`
+
+Contains TWP Cronjobs scheduler based on Python3.9-slim image
+
+Environment variables:
+
+**POSTGRES_NAME** - _optional_ - postgres database name, defaults to `postgres`
+
+**POSTGRES_USER** - _optional_ - postgres database user, defaults to `postgres`
+
+**POSTGRES_PASSWORD** - _optional_ - postgres database password, defaults to `postgres`
+
+**POSTGRES_HOST** - _optional_ - postgres database host, defaults to `postgres`
+
+**POSTGRES_PORT** - _optional_ - postgres database host, defaults to `5432`
+
+**JOB_MIN_INTERVAL** - _optional_ - minimal time when database info about villages, players, worlds will be updated in minutes, defaults to `10`
+
+**JOB_MAX_INTERVAL** - _optional_ - minimal time when database info about villages, players, worlds will be updated in minutes, defautls to `15`
+
 ## Development
 
-If you want to run it in development and make use of `localhost:8000` (the quickstart app runs on `localhost:7999`, you would need also:
+If you want to run it in development you will need
 
 - [python](https://www.python.org/downloads/) >= 3.9
 - [poetry](https://python-poetry.org/)
+- [docker](https://www.docker.com/get-started)
 
 In your favourite folder e.g. Desktop:
 
@@ -238,45 +280,10 @@ curl -k -X POST https://$INSTANCE_IP:9000/hooks/redeploy \
 ```
 
 Now in `/root/Tribal-Wars-Planer` folder, create `.env` and `docker-compose.yml` files:
-Every environment variable is required!
 
 ```bash
 # .env
-DEBUG=false
-MAIN_DOMAIN=example.com
-SUB_DOMAIN=
-SECRET_KEY=your_secret_key
-POSTGRES_NAME=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres_password
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
-# Set Email Backend to django_ses.SESBackend in production
-# Above Development EMAIL_BACKEND would use terminal to send emails!
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_SES_REGION_NAME=
-AWS_SES_REGION_ENDPOINT=
-DEFAULT_FROM_EMAIL=example@example.com
-# Below testing keys (always passing), do not use in production
-RECAPTCHA_PUBLIC_KEY=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
-RECAPTCHA_PRIVATE_KEY=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
-# Set to empty in production
-SILENCED_SYSTEM_CHECKS=captcha.recaptcha_test_key_error
-# Default superuser
-DJANGO_SUPERUSER_USERNAME=admin
-DJANGO_SUPERUSER_PASSWORD=admin
-DJANGO_SUPERUSER_EMAIL=admin@admin.com
-STRIPE_PUBLISHABLE_KEY=
-STRIPE_SECRET_KEY=
-STRIPE_ENDPOINT_SECRET=
-# Below put price_id for 30,55,70 PLN from Stripe account
-ONE_MONTH=
-TWO_MONTHS=
-THREE_MONTHS=
-METRICS_EXPORT_ENDPOINT_SECRET=secret
-PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
+# ...see  Dockerfile reference
 ```
 
 ```yml

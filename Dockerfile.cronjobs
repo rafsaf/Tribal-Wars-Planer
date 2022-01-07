@@ -1,15 +1,17 @@
-FROM python:3.9
-
-RUN apt update
+FROM python:3.9-slim-buster
 
 RUN mkdir app
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
+COPY requirements-cronjobs.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY base/models /app/base/models
+COPY base/run_cronjobs.py /app/base/run_cronjobs.py
+COPY base/cron.py /app/base/cron.py
+COPY utils/logger.py /app/utils/logger.py
+COPY utils/database_update.py /app/utils/database_update.py
+COPY tribal_wars_planer/settings_cronjobs.py /app/tribal_wars_planer/settings.py
 
-RUN apt autoremove --purge -y        \
-    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+ENV DJANGO_SETTINGS_MODULE=tribal-wars-planer.settings

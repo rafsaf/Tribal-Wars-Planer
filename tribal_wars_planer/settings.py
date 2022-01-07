@@ -22,17 +22,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
-env_debug = os.environ["DEBUG"]
+env_debug = os.environ.get("DEBUG", False)
 if env_debug in ["True", "true"]:
     DEBUG = True
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = [os.environ["MAIN_DOMAIN"], os.environ["SUB_DOMAIN"]]
+ALLOWED_HOSTS = [
+    os.environ.get("MAIN_DOMAIN", "localhost"),
+    os.environ.get("SUB_DOMAIN", ""),
+]
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 
-ADMINS = [("admin", os.environ["DEFAULT_FROM_EMAIL"])]
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "example@example.com")
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+ADMINS = [("admin", DEFAULT_FROM_EMAIL)]
 
 INSTALLED_APPS = [
     "base",
@@ -95,23 +101,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "tribal_wars_planer.wsgi.application"
 
-STRIPE_PUBLISHABLE_KEY = os.environ["STRIPE_PUBLISHABLE_KEY"]
-STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"]
-STRIPE_ENDPOINT_SECRET = os.environ["STRIPE_ENDPOINT_SECRET"]
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
+STRIPE_ENDPOINT_SECRET = os.environ.get("STRIPE_ENDPOINT_SECRET", "")
 STRIPE_PAYMENTS = {
-    30: os.environ["ONE_MONTH"],
-    55: os.environ["TWO_MONTHS"],
-    70: os.environ["THREE_MONTHS"],
+    30: os.environ.get("ONE_MONTH", ""),
+    55: os.environ.get("TWO_MONTHS", ""),
+    70: os.environ.get("THREE_MONTHS", ""),
 }
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["POSTGRES_NAME"],
-        "USER": os.environ["POSTGRES_USER"],
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
-        "HOST": os.environ["POSTGRES_HOST"],
-        "PORT": os.environ["POSTGRES_PORT"],
+        "NAME": os.environ.get("POSTGRES_NAME", "postgres"),
+        "USER": os.environ.get("POSTGRES_USER", "postgres"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
+        "HOST": os.environ.get("POSTGRES_HOST", "postgres"),
+        "PORT": os.environ.get("POSTGRES_PORT", 5432),
     }
 }
 
@@ -168,18 +174,25 @@ LOGIN_REDIRECT_URL = "base:base"
 LOGIN_URL = "login"
 LOGOUT_REDIRECT_URL = "base:base"
 
-EMAIL_BACKEND = os.environ["EMAIL_BACKEND"]
-AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
-AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
-AWS_SES_REGION_NAME = os.environ["AWS_SES_REGION_NAME"]
-AWS_SES_REGION_ENDPOINT = os.environ["AWS_SES_REGION_ENDPOINT"]
+EMAIL_BACKEND = os.environ.get(
+    "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
+)
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
+AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "")
+AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT", "")
 
-DEFAULT_FROM_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
-SERVER_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
+RECAPTCHA_PUBLIC_KEY = os.environ.get(
+    "RECAPTCHA_PUBLIC_KEY", "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+)
+RECAPTCHA_PRIVATE_KEY = os.environ.get(
+    "RECAPTCHA_PRIVATE_KEY", "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+)
 
-RECAPTCHA_PUBLIC_KEY = os.environ["RECAPTCHA_PUBLIC_KEY"]
-RECAPTCHA_PRIVATE_KEY = os.environ["RECAPTCHA_PRIVATE_KEY"]
+SILENCED_SYSTEM_CHECKS = os.environ.get(
+    "SILENCED_SYSTEM_CHECKS", "captcha.recaptcha_test_key_error"
+).split(",")
 
-SILENCED_SYSTEM_CHECKS = os.environ["SILENCED_SYSTEM_CHECKS"].split(",")
-
-METRICS_EXPORT_ENDPOINT_SECRET = os.environ["METRICS_EXPORT_ENDPOINT_SECRET"]
+METRICS_EXPORT_ENDPOINT_SECRET = os.environ.get(
+    "METRICS_EXPORT_ENDPOINT_SECRET", "secret"
+)
