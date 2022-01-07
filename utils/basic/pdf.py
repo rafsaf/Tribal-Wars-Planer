@@ -1,6 +1,7 @@
 import os
 import secrets
 from datetime import datetime
+from typing import Dict
 
 import pytz
 from dateutil.relativedelta import relativedelta
@@ -20,9 +21,9 @@ class PDFPaymentsSummary(FPDF):
         # Arial bold 15
         self.set_font("Arial", "B", 15)
         # Move to the right
-        self.cell(80)
+        self.cell(40)
         # Title
-        self.cell(50, 10, self.own_title, 1, 0, "C")
+        self.cell(90, 10, self.own_title, 1, 0, "C")
         # Line break
         self.ln(20)
 
@@ -37,18 +38,28 @@ class PDFPaymentsSummary(FPDF):
 
 
 def generate_pdf_summary():
-    start_month = datetime(2021, 1, 1).replace(tzinfo=pytz.UTC)
+    if not os.path.exists("media"):
+        os.makedirs("media")
+
+    years_result: Dict[int, Dict[str, float]] = {}
+
+    current_datetime = datetime(2021, 1, 1).replace(tzinfo=pytz.UTC)
     delta = relativedelta(months=1)
     now = timezone.now()
     for summary in PDFPaymentSummary.objects.all():
         summary.delete()
-    while start_month < now:
+    while current_datetime < now:
+        if current_datetime.year not in years_result:
+            years_result[current_datetime.year] = {"brutto": 0, "netto": 0}
+
         payments: QuerySet["Payment"] = Payment.objects.filter(
             status="finished",
-            payment_date__year=start_month.year,
-            payment_date__month=start_month.month,
+            payment_date__year=current_datetime.year,
+            payment_date__month=current_datetime.month,
         ).select_related("user")
-        pdf = PDFPaymentsSummary(f"Summary {start_month.year}-{start_month.month}")
+        pdf = PDFPaymentsSummary(
+            f"Summary {current_datetime.year}-{current_datetime.month}"
+        )
         pdf.alias_nb_pages()
         pdf.add_page()
         pdf.set_font("Times", "", 12)
@@ -82,12 +93,16 @@ def generate_pdf_summary():
             pdf.cell(
                 0,
                 10,
-                f"{brutto} PLN : {netto} PLN : {payment.user.username} : {payment.payment_date} : {payment.event_id}",
+                (
+                    f"{brutto} PLN : {netto} PLN : "
+                    f"{str(payment.user.username).encode('latin-1', 'replace').decode('latin-1')} : "
+                    f"{payment.payment_date} : {payment.event_id}"
+                ),
                 0,
                 5,
             )
-        if not os.path.exists("media"):
-            os.makedirs("media")
+        years_result[current_datetime.year]["brutto"] += total_brutto
+        years_result[current_datetime.year]["netto"] += total_netto
 
         pdf.cell(0, 10, "", 0, 5)
         pdf.cell(0, 10, f"TOTAL BRUTTO: {total_brutto} PLN", 0, 5)
@@ -95,11 +110,31 @@ def generate_pdf_summary():
         pdf.cell(0, 10, f"GENERATED AT: {now}", 0, 5)
         pdf.cell(0, 10, "PLEMIONA-PLANER.PL", 0, 5)
 
-        name = str(start_month)[:7] + "-" + secrets.token_urlsafe() + ".pdf"
+        name = str(current_datetime)[:7] + "-" + secrets.token_urlsafe(80) + ".pdf"
 
-        pdf.output(f"media/{name}", "F")
+        pdf.output(f"media/{name}", "F")  # type: ignore
 
         summary = PDFPaymentSummary.objects.create(
-            path=name, period=f"{start_month.year}-{start_month.month}"
+            path=name, period=f"{current_datetime.year}-{current_datetime.month}"
         )
-        start_month = start_month + delta
+        current_datetime = current_datetime + delta
+
+    for yearly_result in years_result:
+        pdf = PDFPaymentsSummary(f"Summary for year {yearly_result}")
+        pdf.alias_nb_pages()
+        pdf.add_page()
+        pdf.set_font("Times", "", 12)
+        pdf.cell(0, 10, "", 0, 5)
+        pdf.cell(
+            0, 10, f"TOTAL BRUTTO: {years_result[yearly_result]['brutto']} PLN", 0, 5
+        )
+        pdf.cell(
+            0, 10, f"TOTAL NETTO: {years_result[yearly_result]['netto']} PLN", 0, 5
+        )
+        pdf.cell(0, 10, f"GENERATED AT: {now}", 0, 5)
+        pdf.cell(0, 10, "PLEMIONA-PLANER.PL", 0, 5)
+        name = str(current_datetime)[:7] + "-" + secrets.token_urlsafe(80) + ".pdf"
+        pdf.output(f"media/{name}", "F")  # type: ignore
+        summary = PDFPaymentSummary.objects.create(
+            path=name, period=f"{yearly_result}all"
+        )
