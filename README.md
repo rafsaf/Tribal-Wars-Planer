@@ -2,11 +2,13 @@
 
 # Official Site and Discord
 
-Production server: [plemiona-planer.pl](https://plemiona-planer.pl/en/)
+## Discord channel: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
+
+## Production server: [plemiona-planer.pl](https://plemiona-planer.pl/en/)
+
 Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl/en/)
 
-Discord channel: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
-Test coverage 83%, see [Codecov](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
+Test coverage 83%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
 
 # Table of contents
 
@@ -18,17 +20,102 @@ Test coverage 83%, see [Codecov](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Pl
 
 **STEP 1**
 
-Install [Docker](https://www.docker.com/get-started) and [Git](https://git-scm.com/) on whatever system you work (On linux additionaly install docker-compose, on Windows and Mac it is included in docker installation)
+Install [Docker](https://www.docker.com/get-started) on whatever system you work (On linux additionaly install docker-compose, on Windows and Mac it is included in docker installation)
 
 **STEP 2**
 
-In your favourite folder (using Terminal in Linux/Mac, Powershell or CMD on Windows):
+In your favourite folder create file `docker-compose.yml`:
+
+```yml
+# docker-compose.yml
+version: "3.3"
+
+services:
+  postgres:
+    restart: always
+    image: postgres
+    volumes:
+      - ./data_postgres/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    depends_on:
+      - postgres
+    restart: always
+    image: rafsaf/twp-server:latest
+    ports:
+      - 7999:80
+    env_file:
+      - .env
+    environment:
+      - DEBUG=false
+    volumes:
+      - "./static/:/build/static/"
+
+  cronjobs:
+    depends_on:
+      - postgres
+    restart: always
+    image: rafsaf/twp-cronjobs:latest
+    env_file:
+      - .env.example
+    command: python -m base.run_cronjobs
+    environment:
+      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
+```
+
+Next step is to create `.env` file in the same folder with secrets. You can leave below settings "AS IS":
 
 ```bash
-git clone https://github.com/rafsaf/Tribal-Wars-Planer.git
-cd Tribal-Wars-Planer
+DEBUG=false
+MAIN_DOMAIN=localhost
+SUB_DOMAIN=
+SECRET_KEY=your_secret_key
+POSTGRES_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+# Set Email Backend to django_ses.SESBackend in production
+# Above Development EMAIL_BACKEND would use terminal to send emails!
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_SES_REGION_NAME=
+AWS_SES_REGION_ENDPOINT=
+DEFAULT_FROM_EMAIL=example@example.com
+# Below testing keys (always passing), do not use in production
+RECAPTCHA_PUBLIC_KEY=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+RECAPTCHA_PRIVATE_KEY=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+# Set to empty in production
+SILENCED_SYSTEM_CHECKS=captcha.recaptcha_test_key_error
+# Default superuser
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_PASSWORD=admin
+DJANGO_SUPERUSER_EMAIL=admin@admin.com
+STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_ENDPOINT_SECRET=
+# Below put price_id for 30,55,70 PLN from Stripe account
+ONE_MONTH=
+TWO_MONTHS=
+THREE_MONTHS=
+METRICS_EXPORT_ENDPOINT_SECRET=secret
+PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
 
 ```
+
+Then run, (using Terminal in Linux/Mac, Powershell or CMD on Windows):
 
 ```bash
 docker-compose up -d
