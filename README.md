@@ -68,7 +68,7 @@ services:
     restart: always
     image: rafsaf/twp-cronjobs:latest
     env_file:
-      - .env.example
+      - .env
     command: python -m base.run_cronjobs
     environment:
       - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
