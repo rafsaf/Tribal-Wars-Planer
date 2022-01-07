@@ -59,8 +59,6 @@ services:
       - .env
     environment:
       - DEBUG=false
-    volumes:
-      - "./static/:/build/static/"
 
   cronjobs:
     depends_on:
