@@ -2,9 +2,9 @@
 
 # Official Site and Discord
 
-## Discord channel: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
+### Discord channel: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
 
-## Production server: [plemiona-planer.pl](https://plemiona-planer.pl/en/)
+### Production server: [plemiona-planer.pl](https://plemiona-planer.pl/en/)
 
 Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl/en/)
 
