@@ -425,7 +425,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <h5>{% trans "Premium account is required to complete outlines greater than 25 targets. Buy it" %} <b><a style='color:white;text-decoration:underline' href="{% url 'base:premium' %}">{% trans 'here' %}</a></b> {% trans "or reduce the number of outline targets." %}</h5>
+            <h5>{% trans "Premium account is required to complete outlines greater than " %} {{premium_account_max_targets_free}} {% trans " targets. Buy it" %} <b><a style='color:white;text-decoration:underline' href="{% url 'base:premium' %}">{% trans 'here' %}</a></b> {% trans "or reduce the number of outline targets." %}</h5>
         </div>
     </div>
   </div>

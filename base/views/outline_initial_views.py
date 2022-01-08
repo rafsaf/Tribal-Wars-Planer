@@ -14,6 +14,7 @@
 # ==============================================================================
 
 from typing import Optional, Union
+from django.conf import settings
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.decorators import login_required
@@ -315,6 +316,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "len_ruin": len_ruin,
         "estimated_time": estimated_time,
         "premium_error": premium_error,
+        "premium_account_max_targets_free": settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE,
     }
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
@@ -767,7 +769,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     if not profile.is_premium():
         target_mode: Optional[str] = request.GET.get("t")
         target_count: int = models.TargetVertex.objects.filter(outline=instance).count()
-        if target_count > 25:
+        if target_count > settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE:
             request.session["premium_error"] = True
             return redirect(
                 reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}"

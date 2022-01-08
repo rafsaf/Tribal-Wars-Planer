@@ -19,6 +19,7 @@ from django.urls import reverse
 
 from base.forms import OutlineForm
 from base.models import Outline, Result, Stats
+from base.models.profile import Profile
 from base.tests.test_utils.mini_setup import MiniSetup
 
 
@@ -48,6 +49,7 @@ class NewOutlineCreate(MiniSetup):
         response = self.client.post(
             PATH,
             data={
+                "form1": "",
                 "name": "name",
                 "date": datetime.date.today(),
                 "world": "xxxx",
@@ -68,6 +70,7 @@ class NewOutlineCreate(MiniSetup):
         response = self.client.post(
             PATH,
             data={
+                "form1": "",
                 "name": "name",
                 "date": datetime.date.today(),
                 "world": world.pk,
@@ -99,6 +102,28 @@ class NewOutlineCreate(MiniSetup):
         stats: Stats = Stats.objects.get(outline=outline)
 
         assert stats.outline_pk == outline.pk
-        assert stats.premium_user is False
+        assert stats.premium_user is True
         assert stats.owner_name == self.me().username
         assert stats.world == str(outline.world)
+
+    def test_planer_create___200_auth_form_modal_works_fine(self):
+        PATH = reverse("base:planer_create")
+
+        world = self.get_world()
+        me = self.me()
+        profile: Profile = Profile.objects.get(user=me)
+        profile.server = None
+        profile.save()
+        self.login_me()
+        assert profile.server_bind is False
+
+        response = self.client.post(
+            PATH,
+            data={"form2": "", "server": world.server.dns},
+        )
+
+        assert response.status_code == 302
+        assert response.url == PATH
+        profile.refresh_from_db()
+        assert profile.server == world.server
+        assert profile.server_bind is True

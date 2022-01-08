@@ -17,6 +17,7 @@ from django.urls import reverse
 
 from base.models import WeightModel
 from base.tests.test_utils.mini_setup import MiniSetup
+from django.conf import settings
 
 
 class CompleteOutline(MiniSetup):
@@ -42,6 +43,7 @@ class CompleteOutline(MiniSetup):
         assert response.status_code == 404
 
     def test_planer_complete___302_redirect_when_no_premium_and_25_targets(self):
+        settings.PREMIUM_ACCOUNT_VALIDATION_ON = True
         outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()

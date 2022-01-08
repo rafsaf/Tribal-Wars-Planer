@@ -1,5 +1,10 @@
 ![plemiona-planer](https://plemiona-planer.pl/static/images/background.jpg)
 
+![Codecov](https://img.shields.io/codecov/c/github/rafsaf/Tribal-Wars-Planer)
+![GitHub](https://img.shields.io/github/license/rafsaf/Tribal-Wars-Planer)
+![tests](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/tests.yml/badge.svg)
+![push_dockerhub.yml](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/push_dockerhub.yml/badge.svg)
+
 # Official Site and Discord
 
 ### Discord channel: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
@@ -8,16 +13,18 @@
 
 Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl/en/)
 
-Test coverage 83%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
+Test coverage ~84%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
 
 # Table of contents
 
 - [Quickstart](#quickstart)
 - [Docker images reference](#dockerfile-reference)
+  - [twp-server image](#twp-server-image)
+  - [twp-cronjobs image](#twp-cronjobs-image)
 - [Development](#development)
 - [Server](#server)
 
-## Quickstart
+# Quickstart
 
 **STEP 1**
 
@@ -85,7 +92,7 @@ The data will not be losed after reboot, it is docker volume (`data_postgres` fo
 
 Activate premium account for admin (default) user you just logged in.
 
-Go to `Administration` tab, then `Profiles` and choose `admin`, change "Validity date" to someting like 01.01.2100, just in case ;)
+Go to `Admin Site` tab, then `Profiles` and choose `admin`, change "Validity date" to someting like 01.01.2100, just in case ;)
 
 ![image](./img/admin_profile.png)
 
@@ -95,9 +102,11 @@ Now you are free to create new worlds, and outlines just like in production serv
 
 GL;)
 
-## Dockerfile reference
+# Dockerfile reference
 
-[TWP server image](https://hub.docker.com/r/rafsaf/twp-server)
+## TWP-server image
+
+[dockerhub](https://hub.docker.com/r/rafsaf/twp-server)
 
 `rafsaf/twp-server:latest`
 
@@ -161,7 +170,15 @@ Environment variables:
 
 **METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/en/api/metric?secret=...`, defaults to `secret`
 
-[TWP cronjobs image](https://hub.docker.com/r/rafsaf/twp-cronjobs)
+**PREMIUM_ACCOUNT_VALIDATION_ON** - _optional_ - is premium account required to create more targets, defaults to `False`
+
+**PREMIUM_ACCOUNT_MAX_TARGETS_FREE** - _optional_ - max targets allowed without premium account, defaults to `25`
+
+**REGISTRATION_OPEN** - _optional_ - is registration on site allowed, defaults to `True`
+
+## TWP-cronjobs image
+
+[dockerhub](https://hub.docker.com/r/rafsaf/twp-cronjobs)
 
 `rafsaf/twp-cronjobs`
 
@@ -183,7 +200,7 @@ Environment variables:
 
 **JOB_MAX_INTERVAL** - _optional_ - minimal time when database info about villages, players, worlds will be updated in minutes, defautls to `15`
 
-## Development
+# Development
 
 If you want to run it in development you will need
 
@@ -201,8 +218,6 @@ cd Tribal-Wars-Planer
 
 Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
 
-> :warning: Change `POSTGRES_HOST` to `localhost`
-
 Then run
 
 ```bash
@@ -218,9 +233,10 @@ Run database with docker and then python dev server
 ```bash
 docker-compose -f docker-compose.dev.yml up -d
 # This set up db and cronjobs container
-python manage.py migrate
-python manage.py createsuperuser --no-input
-# Default user will be admin (password admin), you may change this in .env file
+
+bash initial.sh
+# migrations, creates admin/admin superuser, creates media and prometheus dirs, creates game servers
+
 python manage.py runserver
 # Runs development server at localhost:8000
 ```
@@ -259,9 +275,9 @@ Running Stripe CLI on Windows (docker image)
 docker run --rm -it stripe/stripe-cli:latest listen --forward-to host.docker.internal:8000/en/api/stripe-webhook/ --skip-verify --api-key sk_test_51IunwoIUoiUFYBGtpnRVBVro4iqXG8pndlUlpeBd1qbMNC9U7I0u6eQuCVjJdWMQoOpJhpyrztp2kUZSHMfi29Zh00TT5Q8yyL
 ```
 
-## Server
+# Server
 
-On fresh ubuntu 20 webserver instance with enabled ports 9000, 443, 80 and sudo ports enabled:
+On fresh ubuntu 20 webserver instance with enabled ports 9000, 443, 80 ports enabled and sudo access:
 
 ```bash
 sudo su && cd ~
@@ -287,206 +303,13 @@ Now in `/root/Tribal-Wars-Planer` folder, create `.env` and `docker-compose.yml`
 ```
 
 ```yml
-# two domains, external database
-version: "3.3"
-
-services:
-  web:
-    restart: always
-    image: rafsaf/twp-server:latest
-    labels:
-      - "traefik.enable=true"
-      # static
-      - "traefik.http.routers.web-static.rule=Host(`${MAIN_DOMAIN}`) && PathPrefix(`/static/`)"
-      - "traefik.http.routers.web-static.entrypoints=websecure"
-      - "traefik.http.routers.web-static.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control=public,max-age=2592000"
-      - "traefik.http.routers.web-static.middlewares=cache-headers"
-      # default
-      - "traefik.http.routers.web.rule=Host(`${MAIN_DOMAIN}`, `${SUB_DOMAIN}`)"
-      - "traefik.http.routers.web.entrypoints=websecure"
-      - "traefik.http.routers.web.tls.certresolver=myresolver"
-      - "traefik.http.services.web.loadbalancer.server.port=80"
-      # redirect domain to other
-      - "traefik.http.middlewares.redirect-web.redirectregex.regex=^(https?://)${SUB_DOMAIN}/(.*)"
-      - "traefik.http.middlewares.redirect-web.redirectregex.replacement=$${1}${MAIN_DOMAIN}/$${2}"
-      - "traefik.http.middlewares.redirect-web.redirectregex.permanent=true"
-      - "traefik.http.routers.web.middlewares=redirect-web"
-    env_file:
-      - .env
-    environment:
-      - DEBUG=false
-    volumes:
-      - "~/unit_log:/var/log"
-      - "./media/:/build/media/"
-      - "./static/:/build/static/"
-
-  traefik:
-    image: "traefik:v2.4"
-    restart: always
-    container_name: "traefik"
-    command:
-      # - "--log.level=DEBUG"
-      - "--api.dashboard=false"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      # test certificates
-      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=${DEFAULT_FROM_EMAIL}"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - "./letsencrypt:/letsencrypt"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
-  cronjobs:
-    restart: always
-    image: rafsaf/twp-cronjobs:latest
-    command: python -m base.run_cronjobs
-    env_file:
-      - .env
-    environment:
-      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
+# two domains, external database or single domain with internal database
+# ...see docker-compose.stg.yml or docker-compose.prod.yml
 ```
 
-```yml
-# one domain, internal database
-
-version: "3.3"
-
-services:
-  postgres:
-    restart: always
-    image: postgres
-    volumes:
-      - ./data_test/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    env_file:
-      - .env
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  web:
-    depends_on:
-      - postgres
-    restart: always
-    image: rafsaf/twp-server:latest
-    labels:
-      - "traefik.enable=true"
-      # static
-      - "traefik.http.routers.web-static.rule=Host(`${MAIN_DOMAIN}`) && PathPrefix(`/static/`)"
-      - "traefik.http.routers.web-static.entrypoints=websecure"
-      - "traefik.http.routers.web-static.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control=public,max-age=2592000"
-      - "traefik.http.routers.web-static.middlewares=cache-headers"
-      # default
-      - "traefik.http.routers.web.rule=Host(`${MAIN_DOMAIN}`)"
-      - "traefik.http.routers.web.entrypoints=websecure"
-      - "traefik.http.routers.web.tls.certresolver=myresolver"
-      - "traefik.http.services.web.loadbalancer.server.port=80"
-    env_file:
-      - .env
-    environment:
-      - DEBUG=false
-      - POSTGRES_HOST=postgres
-    volumes:
-      - "./media/:/build/media/"
-      - "./static/:/build/static/"
-
-  traefik:
-    image: "traefik:v2.4"
-    restart: always
-    container_name: "traefik"
-    command:
-      # - "--log.level=DEBUG"
-      - "--api.dashboard=false"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      # test certificates
-      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=${DEFAULT_FROM_EMAIL}"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - "./letsencrypt:/letsencrypt"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
-  cronjobs:
-    restart: always
-    image: rafsaf/twp-cronjobs:latest
-    command: python -m base.run_cronjobs
-    env_file:
-      - .env
-    environment:
-      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
-```
-
-Just run
+Then just run
 
 ```
 sudo docker-compose up -d
-```
 
-## Webhook playground
-
-on fresh ubuntu
-
-```bash
-sudo apt-get install -y webhook
-# test http
-webhook -hooks /home/ubuntu/Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload
-# test https
-sudo openssl req -newkey rsa:4096 -keyout webhook.key -x509 -days 3650 -out webhook.crt -nodes
-webhook -hooks /Tribal-Wars-Planer/webhook/hooks.json -verbose -hotreload -secure -cert /webhook.crt -key /webhook.key
-
-# prod
-# article
-https://willbrowning.me/setting-up-automatic-deployment-and-builds-using-webhooks/
-
-# commands
-sudo apt install supervisor
-cd /etc/supervisor/conf.d
-sudo nano webhooks.conf
-
-edit
-
-[program:webhooks]
-command=bash -c "/home/johndoe/go/bin/webhook -hooks /home/johndoe/hooks/hooks.json -verbose"
-redirect_stderr=true
-autostart=true
-autorestart=true
-user=johndoe
-numprocs=1
-process_name=%(program_name)s_%(process_num)s
-stdout_logfile=/home/johndoe/hooks/supervisor.log
-environment=HOME="/home/johndoe",USER="johndoe"
-
-save and
-
-touch ~/hooks/supervisor.log
-sudo supervisorctl reread
-sudo supervisorctl update
-sudo supervisorctl start webhooks:*
 ```

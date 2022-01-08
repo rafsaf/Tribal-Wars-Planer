@@ -196,3 +196,44 @@ SILENCED_SYSTEM_CHECKS = os.environ.get(
 METRICS_EXPORT_ENDPOINT_SECRET = os.environ.get(
     "METRICS_EXPORT_ENDPOINT_SECRET", "secret"
 )
+
+env_premium_acount_validation_on = os.environ.get(
+    "PREMIUM_ACCOUNT_VALIDATION_ON", False
+)
+if env_premium_acount_validation_on in ["True", "true"]:
+    PREMIUM_ACCOUNT_VALIDATION_ON = True
+else:
+    PREMIUM_ACCOUNT_VALIDATION_ON = False
+
+PREMIUM_ACCOUNT_MAX_TARGETS_FREE = int(
+    os.environ.get("PREMIUM_ACCOUNT_MAX_TARGETS_FREE", 25)
+)
+
+TRIBAL_WARS_SUPPORTED_SERVERS = [
+    ("plemiona.pl", "pl"),
+    ("tribalwars.net", "en"),
+    ("die-staemme.de", "de"),
+    ("staemme.ch", "ch"),
+    ("tribalwars.nl", "nl"),
+    ("tribalwars.com.br", "br"),
+    ("tribalwars.com.pt", "pt"),
+    ("divokekmeny.cz", "cz"),
+    ("triburile.ro", "ro"),
+    ("voyna-plemyon.ru", "ru"),
+    ("fyletikesmaxes.gr", "gr"),
+    ("divoke-kmene.sk", "sk"),
+    ("klanhaboru.hu", "hu"),
+    ("tribals.it", "it"),
+    ("klanlar.org", "tr"),
+    ("guerretribale.fr", "fr"),
+    ("guerrastribales.es", "es"),
+    ("tribalwars.ae", "ae"),
+    ("tribalwars.co.uk", "uk"),
+    ("tribalwars.us", "us"),
+]
+
+env_registration_open = os.environ.get("REGISTRATION_OPEN", True)
+if env_registration_open in ["False", "false"]:
+    REGISTRATION_OPEN = False
+else:
+    REGISTRATION_OPEN = True

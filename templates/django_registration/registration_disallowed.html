@@ -1,0 +1,13 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-md py-5" style="min-height: 70vh; max-width:900px !important; font-size:larger;">
+    <div style="margin-left:-15px;margin-right:-15px;">
+        <h2>{% trans 'This is test environment, registration is not allowed. Go to' %} <a href="https://plemiona-planer.pl">plemiona-planer.pl</a></h2>
+        <br>
+        <p>{% trans 'Please investigate full domain url, the only environment with registration allowed is production under' %} <a href="https://plemiona-planer.pl">https://plemiona-planer.pl</a></p>
+
+    </div>
+</div>
+{% endblock %}

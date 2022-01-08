@@ -3,8 +3,8 @@ version: "3.3"
 # docker-compose -f docker-compose.translation run trans
 
 services:
-  restart: "no"
   trans:
+    restart: "no"
     build:
       context: ./
       dockerfile: Dockerfile.translation

@@ -71,7 +71,7 @@ jobs:
         run: |
           source venv-dev/bin/activate
           export POSTGRES_HOST=localhost
-          mkdir prometheus_multi_proc_dir
+          bash initial.sh
           coverage run -m pytest
           coverage xml
           coverage report --show-missing

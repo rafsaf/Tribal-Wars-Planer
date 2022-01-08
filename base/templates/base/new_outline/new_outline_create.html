@@ -14,6 +14,7 @@
         <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'First time? You can choose a special <span class="md-correct2">World Test</span> created for testing purposes, see ' %}<a target="_blank" class="font-teal" style="text-decoration: underline;" href="{% url 'base:documentation' %}#swiat-testowy-czyli-pierwsze-kroki-z-planerem">{% trans 'docs' %}</a>.</div>
 
         <form method='POST' autocomplete="off">
+            <input type="hidden" value="" name="form1">
             {% csrf_token %} 
             {{ form1|crispy }}
             <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mb-5 mt-2">
@@ -44,6 +45,34 @@
         </div>
     </div>
 </div>
+
+{% if not profile.server_bind %}
+<div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Please select game server' %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" style="padding: 2.5rem;padding-top:1rem;">
+                {% trans 'There are 20 game servers to choose from. <br><br>Please select one, it will be assigned to your account. You can always choose another later, just visit tab' %} <span class="md-correct2">{% trans 'My account' %}</span>.
+                <form method="POST" autocomplete="off" class="mt-4">
+                    <input type="hidden" value="" name="form2">
+                    {% csrf_token %}
+                    {{form2|crispy}}
+                    <button class="btn btn-ocean" onclick="this.disabled=true;this.form.submit();">
+                        {% trans 'Set server' %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>document.addEventListener("DOMContentLoaded", function(event) {$('#ValidationModal').modal('show');});</script>
+{% endif %}
+
 <script>
     loadDocsPage(2, "planer-docs-info", "{% static 'markdown/'|add:LANG|add:'/planer_create_info.md' %}");
     loadDocsPage(3, "planer-docs-example", "{% static 'markdown/'|add:LANG|add:'/planer_create_example.md' %}");
