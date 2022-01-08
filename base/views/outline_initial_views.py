@@ -14,8 +14,8 @@
 # ==============================================================================
 
 from typing import Optional, Union
-from django.conf import settings
 
+from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser

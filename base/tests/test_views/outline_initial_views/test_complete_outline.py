@@ -13,11 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
+from django.conf import settings
 from django.urls import reverse
 
 from base.models import WeightModel
 from base.tests.test_utils.mini_setup import MiniSetup
-from django.conf import settings
 
 
 class CompleteOutline(MiniSetup):

@@ -14,9 +14,11 @@
 # ==============================================================================
 
 from typing import List
-from django.core.management import call_command
-from base.models import World, Server
+
 from django.conf import settings
+from django.core.management import call_command
+
+from base.models import Server, World
 
 
 def test_create_servers_command():

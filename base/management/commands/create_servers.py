@@ -14,9 +14,11 @@
 # ==============================================================================
 
 from typing import Tuple
-from django.core.management.base import BaseCommand, CommandError
-from base.models import Server
+
 from django.conf import settings
+from django.core.management.base import BaseCommand
+
+from base.models import Server
 
 
 class Command(BaseCommand):
