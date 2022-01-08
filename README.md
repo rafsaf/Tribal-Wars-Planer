@@ -78,6 +78,11 @@ Then run, (using Terminal in Linux/Mac, Powershell or CMD on Windows):
 ```bash
 docker-compose up -d
 # it may take up to few minutes
+
+# Note, if you see "ERROR 500" in app, it means that postgres containers wasn't ready when web server started. If this is the case, run:
+docker-compose down
+# and again
+docker-compose up -d
 ```
 
 **STEP 3**
