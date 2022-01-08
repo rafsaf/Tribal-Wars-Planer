@@ -96,9 +96,13 @@ GL;)
 
 # Dockerfile reference
 
-## TWP-server image
+This project maintains two docker images, one for server and one for scheduling tasks. Both are hosted via dockerhub, refer to
 
-[dockerhub](https://hub.docker.com/r/rafsaf/twp-server)
+[dockerhub twp-server](https://hub.docker.com/r/rafsaf/twp-server)
+
+[dockerhub twp-cronjobs](https://hub.docker.com/r/rafsaf/twp-cronjobs)
+
+## TWP-server image
 
 `rafsaf/twp-server:latest`
 
@@ -169,8 +173,6 @@ Environment variables:
 **REGISTRATION_OPEN** - _optional_ - is registration on site allowed, defaults to `True`
 
 ## TWP-cronjobs image
-
-[dockerhub](https://hub.docker.com/r/rafsaf/twp-cronjobs)
 
 `rafsaf/twp-cronjobs`
 
