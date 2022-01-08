@@ -19,6 +19,7 @@ import re
 from typing import Optional
 
 from django import forms
+from django.conf import settings
 from django.db.models.query import QuerySet
 from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
@@ -700,7 +701,7 @@ class CreateNewInitialTarget(forms.Form):
         coord: str = self.cleaned_data["target"]
         coord = coord.strip()
         count: int = models.TargetVertex.objects.filter(outline=self.outline).count()
-        if not self.is_premium and count >= 25:
+        if not self.is_premium and count >= settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE:
             self.add_error(
                 "target",
                 gettext_lazy("You need a premium account to add more targets here."),
@@ -783,4 +784,4 @@ class ChangeServerForm(forms.ModelForm):
     class Meta:
         model = models.Profile
         fields = ["server"]
-        labels = {"server": gettext_lazy("You can set your server:")}
+        labels = {"server": gettext_lazy("Please select your server:")}

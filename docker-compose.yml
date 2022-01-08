@@ -7,11 +7,7 @@ services:
     volumes:
       - ./data_postgres/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    env_file:
-      - .env.example
+      - POSTGRES_PASSWORD=postgres
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -25,21 +21,15 @@ services:
     image: rafsaf/twp-server:latest
     ports:
       - 7999:80
-    env_file:
-      - .env.example
     environment:
-      - DEBUG=false
-    volumes:
-      - "./media/:/build/media/"
-      - "./static/:/build/static/"
+      - SECRET_KEY=zaq12wsx3edc
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@admin.com
 
   cronjobs:
     depends_on:
       - postgres
     restart: always
     image: rafsaf/twp-cronjobs:latest
-    env_file:
-      - .env.example
     command: python -m base.run_cronjobs
-    environment:
-      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings

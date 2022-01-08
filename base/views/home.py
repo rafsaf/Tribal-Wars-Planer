@@ -17,6 +17,7 @@ import json
 from datetime import date
 from typing import Optional
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse
@@ -63,7 +64,7 @@ def base_view(request):
 
     stats["orders"] = orders
 
-    context = {"stats": stats}
+    context = {"stats": stats, "registration_open": settings.REGISTRATION_OPEN}
     return render(request, "base/base.html", context)
 
 

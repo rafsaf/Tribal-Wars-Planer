@@ -24,3 +24,4 @@ RUN mkdir media || true
 RUN mkdir static || true
 RUN mkdir prometheus_multi_proc_dir || true
 RUN chmod -R a+rwx media prometheus_multi_proc_dir static
+ENV METRICS_EXPORT_ENDPOINT_SECRET=prometheus_multi_proc_dir

@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse
@@ -64,7 +65,11 @@ def profile_settings(request: HttpRequest) -> HttpResponse:
 def premium_view(request: HttpRequest) -> HttpResponse:
     user: User = request.user  # type: ignore
     payments = Payment.objects.filter(user=user).order_by("-payment_date", "-new_date")
-    context = {"user": user, "payments": payments}
+    context = {
+        "user": user,
+        "payments": payments,
+        "premium_account_max_targets_free": settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE,
+    }
     return render(request, "base/user/premium.html", context=context)
 
 

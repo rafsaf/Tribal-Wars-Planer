@@ -27,42 +27,52 @@ from base import forms, models
 def new_outline_create(request: HttpRequest) -> HttpResponse:
     """creates new user's outline login required"""
     profile = models.Profile.objects.select_related().get(user=request.user)
+    form1 = forms.OutlineForm(None)
+    form2 = forms.ChangeServerForm(None)
 
+    form1.fields["world"].choices = [
+        (f"{world.pk}", f"{world.human()}")
+        for world in models.World.objects.filter(server=profile.server).order_by(
+            "postfix"
+        )
+    ]
     if request.method == "POST":
+        if "form1" in request.POST:
+            form1 = forms.OutlineForm(request.POST)
+            form1.fields["world"].choices = [
+                (f"{world.pk}", world.human())
+                for world in models.World.objects.filter(
+                    server=profile.server
+                ).order_by("postfix")
+            ]
+            if form1.is_valid():
+                world = request.POST["world"]
+                world_instance = get_object_or_404(models.World, pk=int(world))
+                new_instance = models.Outline(
+                    owner=request.user,
+                    date=request.POST["date"],
+                    name=request.POST["name"],
+                    world=world_instance,
+                )
+                new_instance.save()
+                new_instance.refresh_from_db()
+                result = models.Result(outline=new_instance)
+                result.save()
+                new_instance.create_stats()
 
-        form1 = forms.OutlineForm(request.POST)
-        form1.fields["world"].choices = [
-            (f"{world.pk}", world.human())
-            for world in models.World.objects.filter(server=profile.server).order_by(
-                "postfix"
-            )
-        ]
-        if form1.is_valid():
-            world = request.POST["world"]
-            world_instance = get_object_or_404(models.World, pk=int(world))
-            new_instance = models.Outline(
-                owner=request.user,
-                date=request.POST["date"],
-                name=request.POST["name"],
-                world=world_instance,
-            )
-            new_instance.save()
-            new_instance.refresh_from_db()
-            result = models.Result(outline=new_instance)
-            result.save()
-            new_instance.create_stats()
+                return redirect("base:planer_create_select", new_instance.pk)
+        if "form2" in request.POST:
+            form2 = forms.ChangeServerForm(request.POST)
+            if form2.is_valid():
+                new_server = request.POST.get("server")
+                new_server = get_object_or_404(models.Server, dns=new_server)
+                profile: models.Profile = models.Profile.objects.get(user=request.user)
+                profile.server = new_server
+                profile.server_bind = True
+                profile.save()
+                return redirect("base:planer_create")
 
-            return redirect("base:planer_create_select", new_instance.pk)
-    else:
-        form1 = forms.OutlineForm(None)
-        form1.fields["world"].choices = [
-            (f"{world.pk}", f"{world.human()}")
-            for world in models.World.objects.filter(server=profile.server).order_by(
-                "postfix"
-            )
-        ]
-
-    context = {"form1": form1, "profile": profile}
+    context = {"form1": form1, "profile": profile, "form2": form2}
     return render(request, "base/new_outline/new_outline_create.html", context)
 
 

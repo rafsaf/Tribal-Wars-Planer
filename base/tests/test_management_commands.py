@@ -13,18 +13,22 @@
 # limitations under the License.
 # ==============================================================================
 
+from typing import List
+
 from django.conf import settings
-from django.http.request import HttpRequest
-from rest_framework import permissions
+from django.core.management import call_command
+
+from base.models import Server, World
 
 
-class MetricsExportSecretPermission(permissions.BasePermission):
-    """
-    Ensure the request's IP address is on the safe list configured in Django settings.
-    """
+def test_create_servers_command():
+    args = []
+    opts = {}
+    call_command("create_servers", *args, **opts)
 
-    def has_permission(self, request: HttpRequest, view):
-        if request.GET.get("token") == settings.METRICS_EXPORT_ENDPOINT_SECRET:
-            return True
+    assert Server.objects.all().count() == len(settings.TRIBAL_WARS_SUPPORTED_SERVERS)
 
-        return False
+    for server in Server.objects.all():
+        worlds: List[World] = list(World.objects.filter(server=server))
+        assert len(worlds) == 1
+        assert worlds[0].postfix == "Test"

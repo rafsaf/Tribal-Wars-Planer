@@ -7,7 +7,7 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_DB=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     env_file:
@@ -28,6 +28,3 @@ services:
     command: python -m base.run_cronjobs
     env_file:
       - .env
-    environment: 
-      - POSTGRES_HOST=postgres_dev
-      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings

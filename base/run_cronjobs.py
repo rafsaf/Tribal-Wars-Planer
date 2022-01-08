@@ -21,6 +21,7 @@ from typing import Callable
 
 import schedule
 from django import setup
+from django.conf import settings
 
 
 def run_threaded(job_func: Callable):
@@ -32,7 +33,9 @@ if __name__ == "__main__":
     setup()
     from base.cron import db_update, outdate_outline_delete, outdate_overviews_delete
 
-    schedule.every(10).to(15).minutes.do(run_threaded, db_update)
+    schedule.every(settings.JOB_MIN_INTERVAL).to(settings.JOB_MAX_INTERVAL).minutes.do(
+        run_threaded, db_update
+    )
     schedule.every().hour.do(run_threaded, outdate_overviews_delete)
     schedule.every().hour.do(run_threaded, outdate_outline_delete)
     while True:

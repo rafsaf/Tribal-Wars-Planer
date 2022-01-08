@@ -56,6 +56,13 @@ urlpatterns = i18n_patterns(
         name="django_registration_complete",
     ),
     path("", include("django.contrib.auth.urls")),
+    path(
+        "register/disallowed/",
+        TemplateView.as_view(
+            template_name="django_registration/registration_disallowed.html"
+        ),
+        name="django_registration_disallowed",
+    ),
 )
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # type: ignore

@@ -41,6 +41,10 @@ locust = "^2.5.1"
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
 minversion = "6.0"
 addopts = ""
+filterwarnings = [
+    "ignore::django.utils.deprecation.RemovedInDjango40Warning",
+    "ignore::django.utils.deprecation.RemovedInDjango41Warning",
+]
 testpaths = [
     "base",
     "rest_api",

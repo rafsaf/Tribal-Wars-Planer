@@ -16,6 +16,7 @@
 import datetime
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.query import QuerySet
@@ -34,13 +35,16 @@ class Profile(models.Model):
         default=datetime.date(year=2021, month=2, day=25), blank=True, null=True
     )
     messages = models.IntegerField(default=0)
+    server_bind = models.BooleanField(default=False)
 
     def is_premium(self) -> bool:
-        if self.validity_date is None:
-            return False
-        today = timezone.localdate()
-        if today > self.validity_date:
-            return False
+        if settings.PREMIUM_ACCOUNT_VALIDATION_ON:
+            if self.validity_date is None:
+                return False
+            today = timezone.localdate()
+            if today > self.validity_date:
+                return False
+            return True
         return True
 
     def latest_messages(self) -> "QuerySet[Message]":
