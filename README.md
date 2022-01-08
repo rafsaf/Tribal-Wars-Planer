@@ -90,14 +90,6 @@ The data will not be losed after reboot, it is docker volume (`data_postgres` fo
 
 **STEP 5**
 
-Activate premium account for admin (default) user you just logged in.
-
-Go to `Admin Site` tab, then `Profiles` and choose `admin`, change "Validity date" to someting like 01.01.2100, just in case ;)
-
-![image](./img/admin_profile.png)
-
-**STEP 6**
-
 Now you are free to create new worlds, and outlines just like in production server!
 
 GL;)
