@@ -329,10 +329,14 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
     )
     if instance.written == "inactive":
         raise Http404()
-
+    profile: models.Profile = models.Profile.objects.get(user=request.user)
+    is_premium: bool = profile.is_premium()
     filter_form = forms.SetTargetsMenuFilters(None)
     filter_form.fields["filter_targets_number"].initial = instance.filter_targets_number
     filter_form.fields["simple_textures"].initial = instance.simple_textures
+    target_form = forms.CreateNewInitialTarget(
+        None, outline=instance, is_premium=is_premium
+    )
     mode: basic.Mode = basic.Mode(request.GET.get("mode"))
     page_number = request.GET.get("page")
     filtr = request.GET.get("filtr") or ""
@@ -361,13 +365,11 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
         if "create" in request.POST:
             # add_and_remove tab only
 
-            profile: models.Profile = models.Profile.objects.get(user=request.user)
-            is_premium: bool = profile.is_premium()
-
             target_form = forms.CreateNewInitialTarget(
                 request.POST, outline=instance, is_premium=is_premium
             )
             if target_form.is_valid():
+                print("valid")
                 target_type = request.POST.get("target_type")
                 target_coord = request.POST.get("target")
                 instance.create_target(target_type=target_type, coord=target_coord)
@@ -402,15 +404,6 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
             message: Optional[str] = request.session.get("success")
             if message is not None:
                 del request.session["success"]
-
-            if request.method == "POST":
-                target_form = forms.CreateNewInitialTarget(
-                    request.POST, outline=instance, is_premium=True
-                )
-            else:
-                target_form = forms.CreateNewInitialTarget(
-                    None, outline=instance, is_premium=True
-                )
 
             context["target_form"] = target_form
             context["message"] = message
