@@ -90,26 +90,28 @@ img#large {
     loadDocsPage(1, "docs", "{% static 'markdown/'|add:LANG|add:'/documentation.md' %}", true);
 
     const asyncLoadImages = async () => {
-        let imagesCreated = false;
         let retry = 0;
-        while (imagesCreated !== true && retry <= 9) {
-            try {
-                for (let key in IMAGES) {
-                    const image = document.createElement("img");
-                    const imageParent = document.getElementById(key);
-                    image.id = "large";
-                    image.style = "height: 250px";
-                    image.className = "img-thumbnail";
-                    imageParent.addEventListener("click", () => {img_box(image)})
-                    image.src = IMAGES[key];
-                    imageParent.appendChild(image); 
+        let loadedImages = {};
+        while (Object.keys(loadedImages).length !== Object.keys(IMAGES).length && retry <= 5) {
+            for (let key in IMAGES) {
+                if (!(key in loadedImages)) {
+                    try {
+                        const image = document.createElement("img");
+                        const imageParent = document.getElementById(key);
+                        image.id = "large";
+                        image.style = "height: 250px";
+                        image.className = "img-thumbnail";
+                        imageParent.addEventListener("click", () => { img_box(image) })
+                        image.src = IMAGES[key];
+                        imageParent.appendChild(image);
+                        loadedImages[key] = undefined;
+                    } catch {
+                        console.debug(`${key} element not found, retrying image src appending in 100ms...`)
+                    }
                 }
-                imagesCreated = true;
-            } catch {
-                console.log("Page not ready, retrying images src appending in 100ms...")
-                retry += 1;
-                await new Promise(resolve => setTimeout(resolve, 100));
             }
+            retry += 1;
+            await new Promise(resolve => setTimeout(resolve, 100));
         }
     }
     asyncLoadImages();

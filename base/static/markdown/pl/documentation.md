@@ -439,7 +439,7 @@ Opis ustawień zamieszczony został na Forum Plemion <a href="https://forum.plem
 </div>
 
 <div>
-<pre id="copy-button-4" class="md-pre prettyprint" style="height:250px;">
+<pre id="copy-button-4" class="md-pre prettyprint notranslate" style="height:250px;">
 javascript: var Data = {
     cache: true,
     cacheTime: 5,
@@ -505,7 +505,7 @@ Skrypt jest zatwierdzony i dozwolony do użytku przez obsługę gry, dyskusję n
 
 <div>
 
-<pre id="copy-button-2" class="md-pre prettyprint" style="height:250px;">// ==UserScript==
+<pre id="copy-button-2" class="md-pre prettyprint notranslate" style="height:250px;">// ==UserScript==
 // @name     Zbiórka przegląd Wojska.
 // @version  3
 // @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=ally&ast;&mode=members_troops
@@ -635,7 +635,7 @@ Skrypt jest zatwierdzony i dozwolony do użytku przez obsługę gry, dyskusję n
 </div>
 
 <div>
-<pre id="copy-button-1" class="md-pre prettyprint" style="height:250px;">// ==UserScript==
+<pre id="copy-button-1" class="md-pre prettyprint notranslate" style="height:250px;">// ==UserScript==
 // @name     Zbiórka przegląd Obrona.
 // @version  3
 // @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=ally&ast;&mode=members_defense
@@ -775,7 +775,7 @@ Skrypt jest zatwierdzony i dozwolony do użytku przez obsługę gry, dyskusję n
 </div>
 
 <div>
-<pre id="copy-button-3" class="md-pre prettyprint" style="height:250px;">
+<pre id="copy-button-3" class="md-pre prettyprint notranslate" style="height:250px;">
 // ==UserScript==
 // @name     GET message autocomplete
 // @version  2.0

@@ -1,5 +1,3 @@
-<div class="p-3 mb-2 bg-warning text-dark">Some more advanced parts of docs are not covered yet in English</div>
-
 <div id="spis-tresci" style="margin-bottom:300px">
 <div class="jumbotron mt-3 py-4">
   <h1 class="display-4 py-0">Project documentation</h1>
@@ -428,25 +426,38 @@ By expanding the tab <span class = "md-correct2"> Set title, text and show hidde
 <br>
 
 <div class="jumbotron mt-3 py-4">
-  <h1 id='instalacja-niezbednych-skryptow' class="display-4 py-0">Instalacja niezbędnych skryptów</h1>
+  <h1 id='instalacja-niezbednych-skryptow' class="display-4 py-0">Installing the necessary scripts</h1>
 </div>
-<a href="#spis-tresci"><i class="bi bi-arrow-left"></i> Powrót do spisu treści.</a>
+<a href="#spis-tresci"> <i class = "bi-bi-arrow-left"> </i> Click to return to the table of contents </a>. </div>
 
-## Opis skryptów
+## Scripts description
 
-Korzystanie ze skryptów jest **konieczne** by korzystać z wszystkich funkcji Planera. Zbierają one jednym kliknięciem cały stan wojsk od wszystkich członków plemienia, co pozwala rozpisywać akcję lub zebrać deff plemienny mając aktualne dane. Mając stan wojsk wraz z odpowiadającymi im koordynatami wiosek, można (choć to wcale nie takie proste do zaprogramowania <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-upside-down" viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0-1a8 8 0 1 1 0 16A8 8 0 0 1 8 0z"/><path d="M4.285 6.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 4.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 3.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 9.5C7 8.672 6.552 8 6 8s-1 .672-1 1.5.448 1.5 1 1.5 1-.672 1-1.5zm4 0c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5.448 1.5 1 1.5 1-.672 1-1.5z"/></svg>) tworzyć akcję i rozsyłać cele odpowiednim graczom korzystając z wygodnych opcji i zakładek. Skrypty są całkowicie legalne, **do paska i do przeglądarki**, w szczególności temat w skryptotece poświęcony dopuszczonym skryptom do przeglądarki możesz znaleźć <a href="https://forum.plemiona.pl/index.php?threads/lista-dopuszczonych-skrypt%C3%B3w-do-przegl%C4%85darek.125325/" target="_blank">tutaj</a> a dopuszczonemu do paska <a href="https://forum.plemiona.pl/index.php?threads/lista-dopuszczonych-skrypt%C3%B3w-do-paska.125293/#post-2467115" target="_blank">tutaj</a>.
+Using script is **necessary** to use all Planer functions. They collect the entire troops informations from all tribe members with one click, which allows you to create an outline or collect tribal deff with up-to-date data. Having the state of troops and the corresponding village coordinates, you can (although it's not that easy to program <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-upside-down" viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0-1a8 8 0 1 1 0 16A8 8 0 0 1 8 0z"/><path d="M4.285 6.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 4.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 3.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 9.5C7 8.672 6.552 8 6 8s-1 .672-1 1.5.448 1.5 1 1.5 1-.672 1-1.5zm4 0c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5.448 1.5 1 1.5 1-.672 1-1.5z"/></svg>) create an action and send targets to the right players using convenient options and tabs. The scripts are completely legal on the Polish version of the game, in particular, the topic in the script file about approved scripts for the browser can be found <a href="https://forum.plemiona.pl/index.php?threads/lista-dopuszczonych-skrypt%C3%B3w-do-przegl%C4%85darek.125325/" target="_blank"> here </a> and approved for the bar <a href = "https://forum.plemiona.pl/index.php?threads/lista-dopuszczonych-skrypt%C3%B3w-do-paska.125293/#post-2467115" target="_blank" > here </a>. For other language versions, the process of reporting them to the game staff is still ongoing.
+
+Note, all scripts also lives here https://github.com/rafsaf/scripts_tribal_wars on my GitHub.
+
+<br>
+<br>
+
+---
+
+<h2 id="skrypt-zbiorka-wojska-i-obrony">Army and defense collection script (to the bar)</h2>
 
 <br>
 
-## Instalacja nowego skryptu do paska
+#### Installation
 
-Przebiega identycznie jak w przypadku wszystkich skryptów do paska, należy przekleić zawartość do nowo utworzonego skryptu do paska.
+It is the same as for all scripts to the bar, you should paste the content to the newly created script (Link) to the bar. See this <a href="https://forum.tribalwars.net/index.php?threads/how-to-add-a-script-on-the-quick-bar.288000/" target="_blank">manual</a>.
 
 <br>
 
-<h2 id="skrypt-zbiorka-wojska-i-obrony">Skrypt zbiórka wojska i obrony (do paska)</h2>
+#### Usage
 
-Opis ustawień zamieszczony został na Forum Plemion <a href="https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/" target="_blank">w tym temacie</a>.
+For Polish version of script, a description of the settings is available on the Tribal Wars Forum <b><a href="https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/" target="_blank">in this topic</a></b>.
+
+<div class="alert alert-danger my-3" role="alert">
+The script is approved and allowed for use by the game support only for the Polish version of the game, its acceptance for other versions has not ended yet. If you do not want to use the unofficial version, replace the link <b> https://rafsaf.github.io/scripts_tribal_wars/collect_troops_en.js </b> with <b> https://media.innogamescdn.com/com_DS_PL/skrypty/Zbiorka_wojska_i_obrony.js </b> (in Polish).
+</div>
 
 <div>
 <button onclick="updateClipboard('copy-button-4');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>Copied!`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>Click to copy again`;this.blur()},1800);" class="btn btn-outline-ocean my-2">Click here to copy to clipboard</button>
@@ -454,334 +465,63 @@ Opis ustawień zamieszczony został na Forum Plemion <a href="https://forum.plem
 
 <div>
 <pre id="copy-button-4" class="md-pre prettyprint notranslate" style="height:250px;">
-javascript: var Data = {
-    cache: true,
-    cacheTime: 5,
-    removedPlayers: "",
-    firstLineTroops: "Wioska,pik,miecz,topór,itp...,",
-    showFirstLineTroops: false,
-    showNicknamesTroops: false,
-    firstLineDeff: "Wioska,miejsce,pik,miecz,topór,itp...,",
-    showFirstLineDeff: false,
-    showNicknamesDeff: false,
+javascript: var DATA_COLLECT_TROOPS = {
+  cache: true,
+  cacheTime: 5,
+  removedPlayers: "",
+  firstLineTroops: "Village,spear,swordsman,axeman,etc...,",
+  showFirstLineTroops: false,
+  showNicknamesTroops: false,
+  firstLineDeff: "Village,place,spear,swordsman,axeman,etc...,",
+  showFirstLineDeff: false,
+  showNicknamesDeff: false,
 };
-$.getScript("https://media.innogamescdn.com/com_DS_PL/skrypty/Zbiorka_wojska_i_obrony.js");
+$.getScript(
+  "https://rafsaf.github.io/scripts_tribal_wars/collect_troops_en.js"
+);
 void 0;</pre></div>
 
 <br>
 
-## Instalacja skryptów do przeglądarki
+When you click in the center of the screen, a "counter" with the progress appears, then the result in the window. It works in both the Troops and Defense tabs. The default settings for copying are set to cache true and cacheTime to 5 minutes, during this time the script spits the result saved in the browser instead of flying around all members and collecting data again. When in doubt as to whether the result is new or old, the date of the collection appears at the bottom. Below are some notes about the options:
 
-Aby korzystać ze skryptów należy zainstalować najpierw dodatek do przeglądarki:
+- **cache** is responsible for storing the result in the browser so as not to accidentally click several times in a row and load the game servers, setting **cache: false** does not store the result (e.g. when we intend to collect data from two tribes, jumping directly to the other one)
 
-- [Pomocny dział w skryptotece Plemion](https://forum.plemiona.pl/index.php?forums/skrypty-do-przegl%C4%85darek.974/)
+- **cacheTime** is the time the result is stored in the browser, in minutes
+
+- **removedPlayers: ""** here we enter the nicknames of players from whom we do not want to collect troops data, separating with a semicolon as in the messages, eg **"Rafsaf;kmic"**
+
+- **showFirstLineDeff** and **showFirstLineTroops** optionally attach the header (the first line) to the results of the Defense and Troops collection, respectively, I did not want to decide on the convention, so you can decide what to be in the line, set it to true and the content of the lines in **firstLineDeff** and **firstLineTroops** according to your taste .
+
+- **showNicknamesDeff** and **showNicknamesTroops**, when set to true, cause that at the beginning of each line, the nickname of the player (owner of the village) appears at the beginning
+
+<br>
+
+---
+
+<br>
+
+<h2 id="send-script">Script for sending messages</h2>
+
+<br>
+
+#### Installation
+
+To use the script, you must first install the browser plugins:
+
 - [Tampermonkey (Chrome)](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en)
 - [Greasmonkey (Firefox)](https://addons.mozilla.org/pl/firefox/addon/greasemonkey/)
 
-Następnie trzeba dodać poniższe skrypty do własnych skryptów:
-
-- [Skrypt zbiórka wojska](#army-script) (archiwum, zalecany skrypt do paska)
-- [Skrypt zbiórka obrona](#deff-script) (archiwum, zalecany skrypt do paska)
-- [Skrypt wysyłka celi](#send-script)
-
-<area id="2_010_tamper1.png" class="docs-image"></area>
-<area id="2_020_tamper2.png" class="docs-image"></area>
-
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po instalacji wybranego dodatku, w prawym górnym rogu przeglądarki, gdzie znajdują się zainstalowane dodatki, kliknij na dodatek i <span class="md-correct2">Dodaj nowy skrypt...</span>, patrz zdjęcia wyżej.</div>
-
-## Użycie
-
-Po pomyślnej instalacji dodatku oraz dodaniu do niego skryptów, w grze, w zakładce **Plemię -> Członkowie -> Wojsko/Obrona** pojawią się przyciski uruchamiające skrypty.
-
-<area id="2_021_off-troops.png" class="docs-image"></area>
-<area id="2_022_deff-troops.png" class="docs-image"></area>
-
-## Wyniki
-
-Po kliknięciu na powyższe przyciski, wyniki prezentowane są w czerownym okienku dialogowym, wystarczy skopiować (ctrl+c) zawartość i wkleić ją na stronie do danej rozpiski.
-
-<area id="2_023_result-off-troops.png" class="docs-image"></area>
-<area id="2_024_result-deff-troops.png" class="docs-image"></area>
-
----
-
-<h2 id="army-script">1. Skrypt zbiórka wojska</h2>
-
-#### (Archiwum, zalecany [Skrypt do paska](#skrypt-zbiorka-wojska-i-obrony))
-
-<div class="alert alert-success my-3" role="alert">
-Skrypt jest zatwierdzony i dozwolony do użytku przez obsługę gry, dyskusję na Forum na jego temat można znaleźć <a rel="noopener" target="_blank" href="https://forum.plemiona.pl/index.php?threads/128227/">tutaj</a> zaś post dopuszczający do użytku <a href="https://forum.plemiona.pl/index.php?threads/lista-dopuszczonych-skrypt%C3%B3w-do-przegl%C4%85darek.125325/post-2412172" rel="noopener" target="_blank">tutaj</a>.
-</div>
-
-<div>
-<button onclick="updateClipboard('copy-button-2');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>Copied!`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>Click to copy again`;this.blur()},1800);" class="btn btn-outline-ocean my-2">Click here to copy to clipboard</button>
-</div>
-
-<div>
-
-<pre id="copy-button-2" class="md-pre prettyprint notranslate" style="height:250px;">// ==UserScript==
-// @name     Zbiórka przegląd Wojska.
-// @version  3
-// @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=ally&ast;&mode=members_troops
-// ==/UserScript==
-// By Rafsaf
-var output = "";
-var players = [];
-// Adds players from current html to get array with players nicknames and ids
-function get_all_players_list(){
-  Array.from(document.querySelector('#ally_content .input-nicer').options).forEach(function(option_element) {
-    var option_text = option_element.text.trim();
-    var option_value = option_element.value;
-    if (option_text != 'Wybierz członka') {
-      players.push({
-        id: option_value,
-        nick: option_text
-      });
-    }
-  });
-}
-// Uses some methods to get all stuff from table with units from current html site
-function add_current_player_info_to_output(doc){
-  var trs = doc.querySelectorAll('.table-responsive .vis tr');
-  for (var i = 1; i < trs.length; i++) {
-    output += "&lt;br&gt;";
-    var tds = trs[i].querySelectorAll('td');
-    for (var j = 0; j < tds.length; j++) {
-      var value = String(tds[j].innerHTML).trim();
-      if (j == 0) {
-      value = value.slice(-17,-10);
-      }
-      output += value+",";
-    }
-  }
-}
-// To add player_id to current path
-function getURL(id){
-  var params = new URLSearchParams(window.location.search);
-  params.set('player_id', id);
-  return "".concat(window.location.origin).concat(window.location.pathname, "?").concat(params.toString());
-}
-// Used to parse string from fetch func to html
-function convertToHTML(str) {
-  var parser = new DOMParser();
-  var doc = parser.parseFromString(str, 'text/html');
-  return doc.body;
-}
-// Most important async function, after confirmation waits 2s then uses get_all_players_list.
-// Then starts to fetch response from first player's page, then converts it.
-// Then uses 'add current player info to output' on it, and so on, in the end prints some dialog with results.
-async function renderPlayerTroops() {
-  var con = window.confirm("Czy chcesz zebrać wojska?(może to chwilkę potrwać ;) )");
-  if (con == false){
-    return;
-  }
-  // added today + 5h and output to local storage, in this term function uses 'ouput' from local storage
-  var today = (new Date()).getTime();
-  var after_5_hours = today + 1800000;
-  var storage_date = localStorage.getItem('storage_date');
-  var now = (new Date()).getTime();
-  if (now < storage_date) {
-    output = localStorage.getItem('output');
-  } else {
-    get_all_players_list();
-    for (var i = 0; i < players.length; i++){
-      if (i == 0){
-        await new Promise(function (resolve) {
-          return setTimeout(resolve, 2000);
-        });
-      }
-      var id = players[i].id;
-      var response = await fetch(getURL(id));
-      var html = await response.text();
-      var doc = convertToHTML(html);
-      add_current_player_info_to_output(doc);
-    }
-    localStorage.setItem('storage_date', after_5_hours);
-    localStorage.setItem('output', output);
-  }
-  var div = document.createElement("div");
-  div.contentEditable = "true";
-  div.style.width = "600px";
-  div.style.height = "auto";
-  div.style.border = "2px solid black";
-  div.style.left = "25%";
-  div.style.top = "40%";
-  div.style.position = "absolute";
-  div.style.background = "red";
-  div.style.margin = "0px 0px 100px 0px";
-  div.style.color = "white";
-  div.innerHTML = output;
-  document.body.appendChild(div);
-}
-// creates button
-function create_button(){
-  var td_place = document.querySelector('#menu_row2');
-  var td = document.createElement('td');
-  td.setAttribute('id', 'new_button');
-  td_place.appendChild(td);
-  var button_place = document.querySelector('#new_button');
-  var btn = document.createElement('btn');
-  btn.setAttribute('class', 'btn btn-default');
-  btn.innerHTML = 'Zbierz wojska';
-  button_place.appendChild(btn);
-  btn.addEventListener ("click", function() {
-    renderPlayerTroops();
-  });
-}
-create_button();</pre>
-</div>
-
----
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> After installing the selected plugin, in the upper right corner of the browser where the installed plugins are located, click on it and <span class = "md-correct2"> Add new script ... </span>, then paste there script text.</div>
 
 <br>
-<br>
 
-<h2 id="deff-script">2. Skrypt zbiórka obrona</h2>
+#### Usage
 
-#### (Archiwum, zalecany [Skrypt do paska](#skrypt-zbiorka-wojska-i-obrony))
+For Polish version of script, a description of the settings is available on the Tribal Wars Forum <b><a rel="noopener" target="_blank" href="https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/">in this topic</a></b>.
 
-<div class="alert alert-success my-3" role="alert">
-Skrypt jest zatwierdzony i dozwolony do użytku przez obsługę gry, dyskusję na Forum na jego temat można znaleźć <a rel="noopener" target="_blank" href="https://forum.plemiona.pl/index.php?threads/128228/">tutaj</a> zaś post dopuszczający do użytku <a href="https://forum.plemiona.pl/index.php?threads/lista-dopuszczonych-skrypt%C3%B3w-do-przegl%C4%85darek.125325/post-2412172" rel="noopener" target="_blank">tutaj</a>.
-</div>
-
-<div>
-<button onclick="updateClipboard('copy-button-1');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>Copied!`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>Click to copy again`;this.blur()},1800);" class="btn btn-outline-ocean my-2">Click here to copy to clipboard</button>
-</div>
-
-<div>
-<pre id="copy-button-1" class="md-pre prettyprint notranslate" style="height:250px;">// ==UserScript==
-// @name     Zbiórka przegląd Obrona.
-// @version  3
-// @match    &ast;://&ast;.plemiona.pl/game.php&ast;screen=ally&ast;&mode=members_defense
-// ==/UserScript==
-// By Rafsaf
-var output = "";
-var players = [];
-// Adds players from current html to get array with players nicknames and ids
-function get_all_players_list(){
-  Array.from(document.querySelector('#ally_content .input-nicer').options).forEach(function(option_element) {
-    var option_text = option_element.text.trim();
-    var option_value = option_element.value;
-    if (option_text != 'Wybierz członka') {
-      players.push({
-        id: option_value,
-        nick: option_text
-      });
-    }
-  });
-}
-// Uses some methods to get all stuff from table with units from current html site
-function add_current_player_info_to_output(doc){
-  var trs = doc.querySelectorAll('.table-responsive .vis tr');
-  var attacks = 0;
-  var coordinates;
-  for (var i = 1; i < trs.length; i++) {
-    output += "&lt;br&gt;";
-    var tds = trs[i].querySelectorAll('td');
-    if (i % 2 == 1){
-      for (var j = 0; j < tds.length; j++) {
-      var value = String(tds[j].innerHTML).trim();
-      if (j == 0) {
-        value = value.slice(-17,-10);
-        coordinates = value;
-      }
-      if (j == 12){
-        attacks = value;
-      }
-      output += value+",";
-      }
-    } else {
-      output += coordinates+",";
-      for (j = 0; j < tds.length; j++) {
-      value = String(tds[j].innerHTML).trim();
-      output += value + ",";
-      }
-      output += attacks+",";
-      }
-  }
-}
-// To add player_id to current path
-function getURL(id){
-  var params = new URLSearchParams(window.location.search);
-  params.set('player_id', id);
-  return "".concat(window.location.origin).concat(window.location.pathname, "?").concat(params.toString());
-}
-// Used to parse string from fetch func to html
-function convertToHTML(str) {
-  var parser = new DOMParser();
-  var doc = parser.parseFromString(str, 'text/html');
-  return doc.body;
-}
-// Most important async function, after confirmation waits 2s then uses get_all_players_list.
-// Then starts to fetch response from first player's page, then converts it.
-// Then uses 'add current player info to output' on it, and so on, in the end prints some dialog with results.
-async function renderPlayerTroops() {
-  var con = window.confirm("Czy chcesz zebrać wojska?(może to chwilkę potrwać ;) )");
-  if (con == false){
-    return;
-  }
-  var today = (new Date()).getTime();
-  var after_5_hours = today + 1800000;
-  var storage_date = localStorage.getItem('storage_date_obrona');
-  var now = (new Date()).getTime();
-  if (now < storage_date) {
-    output = localStorage.getItem('output_obrona');
-  } else {
-  get_all_players_list();
-  for (var i = 0; i < players.length; i++){
-    if (i == 0){
-      await new Promise(function (resolve) {
-        return setTimeout(resolve, 2000);
-      });
-  }
-    var id = players[i].id;
-    var response = await fetch(getURL(id));
-    var html = await response.text();
-    var doc = convertToHTML(html);
-    add_current_player_info_to_output(doc);
-    }
-    localStorage.setItem('storage_date_obrona', after_5_hours);
-    localStorage.setItem('output_obrona', output);
-  }
-  var div = document.createElement("div");
-  div.contentEditable = "true";
-  div.style.width = "600px";
-  div.style.height = "auto";
-  div.style.border = "2px solid black";
-  div.style.left = "25%";
-  div.style.top = "40%";
-  div.style.position = "absolute";
-  div.style.background = "red";
-  div.style.margin = "0px 0px 100px 0px";
-  div.style.color = "white";
-  div.innerHTML = output;
-  document.body.appendChild(div);
-}
-function create_button(){
-  var td_place = document.querySelector('#menu_row2');
-  var td = document.createElement('td');
-  td.setAttribute('id', 'new_button');
-  td_place.appendChild(td);
-  var button_place = document.querySelector('#new_button');
-  var btn = document.createElement('btn');
-  btn.setAttribute('class', 'btn btn-default');
-  btn.innerHTML = 'Zbierz Obronę';
-  button_place.appendChild(btn);
-  btn.addEventListener ("click", function() {
-    renderPlayerTroops();
-  });
-}
-create_button();</pre></div>
-
----
-
-<br>
-<br>
-
-<h2 id="send-script">3. Skrypt wysyłka celi</h2>
-
-<div class="alert alert-success my-3" role="alert">
-Skrypt jest zatwierdzony i dozwolony do użytku przez obsługę gry, dyskusję na Forum na jego temat można znaleźć <a rel="noopener" target="_blank" href="https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/">tutaj</a> zaś post dopuszczający do użytku <a href="https://forum.plemiona.pl/index.php?threads/lista-dopuszczonych-skrypt%C3%B3w-do-przegl%C4%85darek.125325/post-2479098" rel="noopener" target="_blank">tutaj</a>.
+<div class="alert alert-danger my-3" role="alert">
+The script is approved and allowed for use by the game support only for the Polish version of the game. Its acceptance for other versions has not ended yet, there are some like tribalwars.net where every browser scripts are illegal. Please check your server details to be sure you can install it or proceed at your own risk.</b>
 </div>
 
 <div>
@@ -815,7 +555,7 @@ document.getElementById('message').value = decodeURIComponent(result.message);
 
 <br>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> To już wszystko w tym artykule dotyczącym Instalacji niezbędnych skryptów.
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> That's it for this Installing the necessary scripts article.
 <br>
 <a href="#spis-tresci"> <i class = "bi-bi-arrow-left"> </i> Click to return to the table of contents </a>. </div>
 <br>
@@ -834,7 +574,11 @@ document.getElementById('message').value = decodeURIComponent(result.message);
 <div class="jumbotron mt-3 py-4">
   <h1 id='podstawowe-poradniki-zakladki-planer' class="display-4 py-0">Podstawowe poradniki zakładki Planer</h1>
 </div>
-<a href="#spis-tresci"><i class="bi bi-arrow-left"></i> Powrót do spisu treści.</a>
+
+<div class="p-3 mb-2 bg-warning text-dark">This part of docs are is not yet covered in English</div>
+
+<a href="#spis-tresci"> <i class = "bi-bi-arrow-left"> </i> Click to return to the table of contents </a>. </div>
+
 <p class="mb-0"><b><a href="#jak-wpisywac-i-zapisac-cele-akcji">1. Jak wpisywać i zapisać cele akcji</a></b></p>
 <p class="my-0"><b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">2. Dwa rejony plemienia czyli co to Front i Zaplecze</a></b></p>
 <p class="my-0"><b><a href="#male-akcje-kompletny-poradnik">3. Małe akcje - kompletny poradnik</a></b></p>
@@ -1176,7 +920,11 @@ Podsumowując warto zastanowić się nad ilością katapult (i ile budynków war
 <div class="jumbotron mt-3 py-4">
   <h1 id='opisy-zaawansowanych-ustawien-akcji' class="display-4 py-0">Opisy zaawansowanych ustawień akcji</h1>
 </div>
-<a href="#spis-tresci"><i class="bi bi-arrow-left"></i> Powrót do spisu treści.</a>
+
+<div class="p-3 mb-2 bg-warning text-dark">This part of docs are is not yet covered in English</div>
+
+<a href="#spis-tresci"> <i class = "bi-bi-arrow-left"> </i> Click to return to the table of contents </a>. </div>
+
 <p class="mb-0"><b><a href="#dostepne-jednostki-i-opis-tabeli">1. Dostępne jednostki i opis Tabeli.</a></b></p>
 <p class="my-0"><b><a href="#zmiana-daty-akcji">2. Zmiana daty akcji.</a></b></p>
 <p class="my-0"><b><a href="#domyslne-ustawienia-trybu-akcji">3. Domyślne ustawienia trybu akcji</a></b></p>
