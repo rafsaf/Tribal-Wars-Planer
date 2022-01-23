@@ -255,6 +255,7 @@ class AvailableTroopsForm(forms.ModelForm):
         model = models.Outline
         fields = [
             "initial_outline_min_off",
+            "initial_outline_max_off",
             "initial_outline_front_dist",
             "initial_outline_maximum_front_dist",
             "initial_outline_target_dist",
@@ -262,6 +263,7 @@ class AvailableTroopsForm(forms.ModelForm):
         ]
         labels = {
             "initial_outline_min_off": gettext_lazy("Min. off units number"),
+            "initial_outline_max_off": gettext_lazy("Max. off units number"),
             "initial_outline_front_dist": gettext_lazy(
                 "Minimum distance from front line"
             ),
@@ -273,6 +275,9 @@ class AvailableTroopsForm(forms.ModelForm):
         help_texts = {
             "initial_outline_min_off": gettext_lazy(
                 "Greater than or equal to 1 and less than or equal to 28000. Only offs above this value will be considered full offs and will be written out."
+            ),
+            "initial_outline_max_off": gettext_lazy(
+                "Defaults to 28000. Similar to minimum off number, must be greater than it."
             ),
             "initial_outline_front_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
