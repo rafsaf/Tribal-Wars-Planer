@@ -13,10 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
+from django.conf import settings
+
 from base import models
 from base.forms import CreateNewInitialTarget
 from base.tests.test_utils.mini_setup import MiniSetup
-from django.conf import settings
 
 
 class CreateNewInitialTargetTest(MiniSetup):

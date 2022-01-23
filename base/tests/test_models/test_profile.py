@@ -13,11 +13,13 @@
 # limitations under the License.
 # ==============================================================================
 
-from base.tests.test_utils.mini_setup import MiniSetup
-from base.models import Profile
+from datetime import timedelta
+
 from django.conf import settings
 from django.utils.timezone import now
-from datetime import timedelta
+
+from base.models import Profile
+from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class ProfileTest(MiniSetup):
@@ -25,22 +27,22 @@ class ProfileTest(MiniSetup):
         settings.PREMIUM_ACCOUNT_VALIDATION_ON = True
         user_profile: Profile = Profile.objects.get(user=self.me())
         user_profile.validity_date = None
-        assert user_profile.is_premium() == False
+        assert user_profile.is_premium() is False
         user_profile.validity_date = (now() - timedelta(hours=24)).date()
-        assert user_profile.is_premium() == False
+        assert user_profile.is_premium() is False
 
     def test_is_premium__premium_on_validity_future_is_true(self):
         settings.PREMIUM_ACCOUNT_VALIDATION_ON = True
         user_profile: Profile = Profile.objects.get(user=self.me())
         user_profile.validity_date = (now() + timedelta(hours=24)).date()
-        assert user_profile.is_premium() == True
+        assert user_profile.is_premium() is True
 
     def test_is_premium__premium_false_returns_true(self):
         settings.PREMIUM_ACCOUNT_VALIDATION_ON = False
         user_profile: Profile = Profile.objects.get(user=self.me())
         user_profile.validity_date = None
-        assert user_profile.is_premium() == True
+        assert user_profile.is_premium() is True
         user_profile.validity_date = (now() - timedelta(hours=24)).date()
-        assert user_profile.is_premium() == True
+        assert user_profile.is_premium() is True
         user_profile.validity_date = (now() + timedelta(hours=24)).date()
-        assert user_profile.is_premium() == True
+        assert user_profile.is_premium() is True
