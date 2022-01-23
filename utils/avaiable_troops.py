@@ -108,6 +108,7 @@ def get_legal_coords_outline(outline: models.Outline):
     all_weights: "QuerySet[models.WeightMaximum]" = models.WeightMaximum.objects.filter(
         outline=outline,
         off_max__gte=outline.initial_outline_min_off,
+        off_max__lte=outline.initial_outline_max_off,
     )
 
     all_off: int = all_weights.count()
@@ -163,6 +164,7 @@ def get_legal_coords_outline(outline: models.Outline):
                 models.WeightMaximum.objects.filter(
                     outline=outline,
                     off_max__gte=outline.initial_outline_min_off,
+                    off_max__lte=outline.initial_outline_max_off,
                 ).filter(start__in=close_batch)
             )
             all_off += batch_weights.count()
@@ -174,6 +176,7 @@ def get_legal_coords_outline(outline: models.Outline):
             models.WeightMaximum.objects.filter(
                 outline=outline,
                 off_max__gte=outline.initial_outline_min_off,
+                off_max__lte=outline.initial_outline_max_off,
             ).filter(start__in=close_starts)
         )
         all_off += all_weights.count()
@@ -217,6 +220,7 @@ def update_available_ruins(outline: models.Outline) -> None:
             first_line=False,
             catapult_left__gte=outline.initial_outline_off_left_catapult,
             off_left__gte=outline.initial_outline_min_off,
+            off_left__lte=outline.initial_outline_max_off,
         )
         .annotate(
             ruin_number=(F("catapult_left") - outline.initial_outline_off_left_catapult)

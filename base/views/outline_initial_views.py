@@ -114,6 +114,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "initial_outline_target_dist"
     ].initial = instance.initial_outline_target_dist
     form2.fields["initial_outline_min_off"].initial = instance.initial_outline_min_off
+    form2.fields["initial_outline_max_off"].initial = instance.initial_outline_max_off
     form2.fields[
         "initial_outline_excluded_coords"
     ].initial = instance.initial_outline_excluded_coords
@@ -179,12 +180,14 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
             if form2.is_valid():
                 instance.actions.form_available_troops(instance)
                 min_off = request.POST.get("initial_outline_min_off")
+                max_off = request.POST.get("initial_outline_max_off")
                 radius_min = request.POST.get("initial_outline_front_dist")
                 radius_max = request.POST.get("initial_outline_maximum_front_dist")
 
                 radius_target = request.POST.get("initial_outline_target_dist")
                 excluded_coords = request.POST.get("initial_outline_excluded_coords")
                 instance.initial_outline_min_off = min_off
+                instance.initial_outline_max_off = max_off
                 instance.initial_outline_front_dist = radius_min
                 instance.initial_outline_maximum_front_dist = radius_max
                 instance.initial_outline_target_dist = radius_target

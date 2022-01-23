@@ -922,3 +922,51 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[2].state.nobleman_left, 0)
         self.assertEqual(created[2].state.nobleman_state, 0)
         self.assertEqual(created[2].state.fake_limit, 4)
+
+    def test_real_type_outline_defuault_settings_initial_outline_max_off_used_no_targets_created(
+        self,
+    ):
+        self.outline.initial_outline_min_off = 10000
+        self.outline.initial_outline_max_off = 20300
+        self.outline.mode_split = "together"
+        self.outline.save()
+        target = self.target()
+        target.mode_division = "divide"
+        target.mode_guide = "many"
+        target.exact_off = [0, 0, 5, 0]
+        target.save()
+        complete_outline_write(self.outline)
+        created = self.weights()
+        assert len(created) == 0
+
+    def test_real_type_outline_defuault_settings_initial_outline_max_off_used_good_offs_taken(
+        self,
+    ):
+        self.outline.initial_outline_min_off = 10000
+        self.outline.initial_outline_max_off = 20800
+        self.outline.mode_split = "together"
+        self.outline.save()
+        target = self.target()
+        target.mode_division = "divide"
+        target.mode_guide = "many"
+        target.exact_off = [10, 0, 0, 0]
+        target.save()
+        complete_outline_write(self.outline)
+        created = self.weights()
+        assert len(created) == 4
+
+        assert created[0].order == 30000
+        assert created[0].start == "500|505"
+        assert created[0].off == 20800
+
+        assert created[1].order == 30001
+        assert created[1].start == "500|504"
+        assert created[1].off == 20800
+
+        assert created[2].order == 30002
+        assert created[2].start == "500|502"
+        assert created[2].off == 20300
+
+        assert created[3].order == 30003
+        assert created[3].start == "500|500"
+        assert created[3].off == 10800

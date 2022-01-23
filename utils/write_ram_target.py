@@ -244,6 +244,7 @@ class WriteRamTarget:
             self.default_query = self.default_query.filter(
                 fake_limit__gte=1,
                 off_left__gte=self.outline.initial_outline_min_off,
+                off_left__lte=self.outline.initial_outline_max_off,
             )
         else:
             self.default_query = self.default_query.filter(
@@ -261,12 +262,14 @@ class WriteRamTarget:
                 catapult_left__gte=catapults
                 + self.outline.initial_outline_off_left_catapult,
                 off_left__gte=self.outline.initial_outline_min_off,
+                off_left__lte=self.outline.initial_outline_max_off,
             )
         )
 
     def _set_off_query(self) -> None:
         self.default_query = self.default_query.filter(
             off_left__gte=self.outline.initial_outline_min_off,
+            off_left__lte=self.outline.initial_outline_max_off,
         )
 
     def _annotate_distance_on_query(self) -> None:

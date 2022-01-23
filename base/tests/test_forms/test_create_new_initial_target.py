@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+from django.conf import settings
+
 from base import models
 from base.forms import CreateNewInitialTarget
 from base.tests.test_utils.mini_setup import MiniSetup
@@ -30,7 +32,10 @@ class CreateNewInitialTargetTest(MiniSetup):
 
     def test_form_not_pass_when_25_targets_not_premium(self):
         outline = self.get_outline(test_world=True)
-        self.create_target_on_test_world(outline, many=25)
+        settings.PREMIUM_ACCOUNT_VALIDATION_ON = True
+        self.create_target_on_test_world(
+            outline, many=settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE
+        )
         form: CreateNewInitialTarget = CreateNewInitialTarget(
             {"target": "200|200", "target_type": "real"},
             outline=outline,
@@ -40,7 +45,10 @@ class CreateNewInitialTargetTest(MiniSetup):
 
     def test_form_pass_when_25_targets_premium(self):
         outline = self.get_outline(test_world=True)
-        self.create_target_on_test_world(outline, many=25)
+        settings.PREMIUM_ACCOUNT_VALIDATION_ON = True
+        self.create_target_on_test_world(
+            outline, many=settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE
+        )
         form: CreateNewInitialTarget = CreateNewInitialTarget(
             {"target": "200|200", "target_type": "real"},
             outline=outline,

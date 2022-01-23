@@ -255,6 +255,7 @@ class AvailableTroopsForm(forms.ModelForm):
         model = models.Outline
         fields = [
             "initial_outline_min_off",
+            "initial_outline_max_off",
             "initial_outline_front_dist",
             "initial_outline_maximum_front_dist",
             "initial_outline_target_dist",
@@ -262,6 +263,7 @@ class AvailableTroopsForm(forms.ModelForm):
         ]
         labels = {
             "initial_outline_min_off": gettext_lazy("Min. off units number"),
+            "initial_outline_max_off": gettext_lazy("Max. off units number"),
             "initial_outline_front_dist": gettext_lazy(
                 "Minimum distance from front line"
             ),
@@ -273,6 +275,9 @@ class AvailableTroopsForm(forms.ModelForm):
         help_texts = {
             "initial_outline_min_off": gettext_lazy(
                 "Greater than or equal to 1 and less than or equal to 28000. Only offs above this value will be considered full offs and will be written out."
+            ),
+            "initial_outline_max_off": gettext_lazy(
+                "Defaults to 28000. Similar to minimum off units number, must be greater than it."
             ),
             "initial_outline_front_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
@@ -306,6 +311,8 @@ class AvailableTroopsForm(forms.ModelForm):
         radius_max: Optional[int] = self.cleaned_data.get(
             "initial_outline_maximum_front_dist"
         )
+        off_min: Optional[int] = self.cleaned_data.get("initial_outline_min_off")
+        off_max: Optional[int] = self.cleaned_data.get("initial_outline_max_off")
         if radius_min is not None and radius_max is not None:
             if radius_min > radius_max:
                 self.add_error(
@@ -315,6 +322,16 @@ class AvailableTroopsForm(forms.ModelForm):
                 self.add_error(
                     "initial_outline_maximum_front_dist",
                     f"It cannot be less than minimum! Change this value to greater than {radius_min} or reduce the minimum.",
+                )
+        if off_min is not None and off_max is not None:
+            if off_min > off_max:
+                self.add_error(
+                    "initial_outline_min_off",
+                    f"It cannot be grater than maximum! Change this value to less than {off_max} or increase the maximum.",
+                )
+                self.add_error(
+                    "initial_outline_max_off",
+                    f"It cannot be less than minimum! Change this value to greater than {off_min} or reduce the minimum.",
                 )
 
         return super().clean()

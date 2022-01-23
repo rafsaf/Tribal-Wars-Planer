@@ -175,6 +175,10 @@ class Outline(models.Model):
         default=19000,
         validators=[MinValueValidator(1), MaxValueValidator(28000)],
     )
+    initial_outline_max_off = models.IntegerField(
+        default=28000,
+        validators=[MinValueValidator(1), MaxValueValidator(28000)],
+    )
     initial_outline_front_dist = models.IntegerField(
         default=10, validators=[MinValueValidator(0), MaxValueValidator(500)]
     )
