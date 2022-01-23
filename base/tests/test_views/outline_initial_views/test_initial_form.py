@@ -512,6 +512,7 @@ class InitialForm(MiniSetup):
             data={
                 "form2": "",
                 "initial_outline_min_off": 15000,
+                "initial_outline_max_off": 28000,
                 "initial_outline_front_dist": 90,
                 "initial_outline_maximum_front_dist": 115,
                 "initial_outline_target_dist": 100,
