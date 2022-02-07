@@ -14,7 +14,7 @@
 # ==============================================================================
 
 import json
-from typing import Dict, List, Literal, Optional
+from typing import Literal
 
 from django.forms.utils import ErrorDict
 
@@ -27,11 +27,11 @@ class Troops:
     ) -> None:
         self.troops: str = outline.__getattribute__(name)
         self.name = name
-        self.errors: Optional[List[Dict[str, str]]] = None
+        self.errors: list[dict[str, str]] | None = None
         self.empty: bool = False
         self.get_json = ""
 
-    def set_troops(self, troops: Optional[str]):
+    def set_troops(self, troops: str | None):
         if troops is None:
             self.troops = ""
         else:

@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Dict, List
 
 import utils.basic as basic
 from base.models import Outline
@@ -37,8 +36,8 @@ class OutlineCreateTargets:
     def __init__(self, outline: Outline, target_mode: basic.TargetMode) -> None:
         self.outline: Outline = outline
         self.target_mode: basic.TargetMode = target_mode
-        self.target_text: List[str] = []
-        self.village_dict: Dict[str, str] = {}
+        self.target_text: list[str] = []
+        self.village_dict: dict[str, str] = {}
 
     def _fill_target_text(self) -> None:
         if self.target_mode.is_fake:
@@ -65,25 +64,25 @@ class OutlineCreateTargets:
             return None
 
         self._fill_village_dict()
-        targets: List[Target] = []
+        targets: list[Target] = []
 
         line: str
         for line in self.target_text:
-            line_list: List[str] = line.split(":")
+            line_list: list[str] = line.split(":")
 
             if line_list[1].isnumeric():
                 required_off: str = line_list[1]
-                exact_off: List[str] = list()
+                exact_off: list[str] = list()
             else:
                 required_off: str = "0"
-                exact_off: List[str] = line_list[1].split("|")
+                exact_off: list[str] = line_list[1].split("|")
 
             if line_list[2].isnumeric():
                 required_noble: str = line_list[2]
-                exact_noble: List[str] = list()
+                exact_noble: list[str] = list()
             else:
                 required_noble: str = "0"
-                exact_noble: List[str] = line_list[2].split("|")
+                exact_noble: list[str] = line_list[2].split("|")
 
             targets.append(
                 self._target(
@@ -101,8 +100,8 @@ class OutlineCreateTargets:
         coord: str,
         off: str,
         noble: str,
-        exact_off: List[str],
-        exact_noble: List[str],
+        exact_off: list[str],
+        exact_noble: list[str],
     ) -> Target:
 
         target: Target = Target(
@@ -128,7 +127,7 @@ class OutlineCreateTargets:
     def _fill_village_dict(self) -> None:
         """Create a dictionary with player names"""
 
-        coords: List[str] = [line.split(":")[0] for line in self.target_text]
+        coords: list[str] = [line.split(":")[0] for line in self.target_text]
         village_long_str: str = " ".join(coords)
 
         self.village_dict = basic.coord_to_player_from_string(

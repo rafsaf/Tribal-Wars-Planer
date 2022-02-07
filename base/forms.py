@@ -16,7 +16,6 @@
 """ App forms """
 
 import re
-from typing import Optional
 
 from django import forms
 from django.conf import settings
@@ -307,12 +306,12 @@ class AvailableTroopsForm(forms.ModelForm):
             self.add_error("initial_outline_excluded_coords", str(error))
 
     def clean(self):
-        radius_min: Optional[int] = self.cleaned_data.get("initial_outline_front_dist")
-        radius_max: Optional[int] = self.cleaned_data.get(
+        radius_min: int | None = self.cleaned_data.get("initial_outline_front_dist")
+        radius_max: int | None = self.cleaned_data.get(
             "initial_outline_maximum_front_dist"
         )
-        off_min: Optional[int] = self.cleaned_data.get("initial_outline_min_off")
-        off_max: Optional[int] = self.cleaned_data.get("initial_outline_max_off")
+        off_min: int | None = self.cleaned_data.get("initial_outline_min_off")
+        off_max: int | None = self.cleaned_data.get("initial_outline_max_off")
         if radius_min is not None and radius_max is not None:
             if radius_min > radius_max:
                 self.add_error(
@@ -725,9 +724,9 @@ class CreateNewInitialTarget(forms.Form):
             )
             return
 
-        village_query: "QuerySet[models.VillageModel]" = (
-            models.VillageModel.objects.filter(coord=coord, world=self.outline.world)
-        )
+        village_query: QuerySet[
+            models.VillageModel
+        ] = models.VillageModel.objects.filter(coord=coord, world=self.outline.world)
         if not village_query.exists():
             self.add_error(
                 "target",
@@ -759,7 +758,7 @@ class AddNewWorldForm(forms.ModelForm):
         }
 
     def clean_postfix(self):
-        postfix: Optional[str] = self.cleaned_data.get("postfix")
+        postfix: str | None = self.cleaned_data.get("postfix")
         if postfix:
             re_pattern = re.compile(r"[\w]*")
             match = re_pattern.fullmatch(postfix)

@@ -13,7 +13,7 @@
 
 Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl/en/)
 
-Test coverage ~84%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
+Test coverage ~83%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
 
 # Table of contents
 
@@ -162,10 +162,6 @@ Environment variables:
 **AWS_SES_REGION_NAME** - _optional_ - AWS SES region, defaults to empty string
 
 **AWS_SES_REGION_ENDPOINT** - _optional_ - AWS SES region endpoint, defaults to empty string
-
-**RECAPTCHA_PUBLIC_KEY** - _optional_ - recaptcha public key, defaults to always passing `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI`
-
-**RECAPTCHA_PRIVATE_KEY** - _optional_ - recaptcha secret key, defaults to always passing `6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe`
 
 **SILENCED_SYSTEM_CHECKS** - _optional_ - silenced errors, defaults to `captcha.recaptcha_test_key_error`
 

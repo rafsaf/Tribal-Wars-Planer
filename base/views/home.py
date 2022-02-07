@@ -15,7 +15,6 @@
 
 import json
 from datetime import date
-from typing import Optional
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -37,7 +36,7 @@ def base_view(request):
     days: int = (timezone.localdate() - INITIAL_DATE).days
     stats["days"] = days
     try:
-        users: Optional[int] = User.objects.latest("pk").pk
+        users: int | None = User.objects.latest("pk").pk
     except User.DoesNotExist:
         users = 0
 

@@ -13,12 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import List
 
 import numpy as np
 from django.db.models import F, Sum
 from django.db.models.query import QuerySet
-from tw_complex.brute import CDistBrute
+from tw_complex.cdist_brute import CDistBrute
 
 from base import models
 
@@ -26,18 +25,18 @@ from base import models
 def get_legal_coords_outline(outline: models.Outline):
     """Create set with ally_vill without enemy_vill closer than radius"""
     excluded_coords_text: str = outline.initial_outline_excluded_coords
-    excluded_coords: List[str] = excluded_coords_text.split()
+    excluded_coords: list[str] = excluded_coords_text.split()
 
     min_radius: float = float(outline.initial_outline_front_dist)
     max_radius: float = float(outline.initial_outline_maximum_front_dist)
 
-    ally_villages: List[str] = [
+    ally_villages: list[str] = [
         start
         for start in models.WeightMaximum.objects.filter(outline=outline).values_list(
             "start", flat=True
         )
     ]
-    target_villages: List[str] = [
+    target_villages: list[str] = [
         target
         for target in models.TargetVertex.objects.filter(
             outline=outline, fake=False, ruin=False
@@ -75,8 +74,8 @@ def get_legal_coords_outline(outline: models.Outline):
         front_array = np.array([])
         away_array = np.array([])
 
-    front_starts: List[str] = [f"{coord[0]}|{coord[1]}" for coord in front_array]
-    away_starts: List[str] = [f"{coord[0]}|{coord[1]}" for coord in away_array]
+    front_starts: list[str] = [f"{coord[0]}|{coord[1]}" for coord in front_array]
+    away_starts: list[str] = [f"{coord[0]}|{coord[1]}" for coord in away_array]
 
     models.WeightMaximum.objects.filter(outline=outline).update(
         first_line=False, too_far_away=False
@@ -105,7 +104,7 @@ def get_legal_coords_outline(outline: models.Outline):
             outline=outline, start__in=away_starts
         ).update(too_far_away=True)
 
-    all_weights: "QuerySet[models.WeightMaximum]" = models.WeightMaximum.objects.filter(
+    all_weights: QuerySet[models.WeightMaximum] = models.WeightMaximum.objects.filter(
         outline=outline,
         off_max__gte=outline.initial_outline_min_off,
         off_max__lte=outline.initial_outline_max_off,
@@ -116,7 +115,7 @@ def get_legal_coords_outline(outline: models.Outline):
     too_far_off: int = all_weights.filter(too_far_away=True).count()
     back_off: int = all_off - front_off - too_far_off
 
-    n_query: "QuerySet[models.WeightMaximum]" = models.WeightMaximum.objects.filter(
+    n_query: QuerySet[models.WeightMaximum] = models.WeightMaximum.objects.filter(
         outline=outline, nobleman_max__gte=1
     )
 
@@ -149,7 +148,7 @@ def get_legal_coords_outline(outline: models.Outline):
         outline.save()
         return
 
-    close_starts: List[str] = [f"{coord[0]}|{coord[1]}" for coord in close_array]
+    close_starts: list[str] = [f"{coord[0]}|{coord[1]}" for coord in close_array]
 
     all_off: int = 0
     front_off: int = 0
@@ -160,24 +159,28 @@ def get_legal_coords_outline(outline: models.Outline):
         close_iterations = len(close_starts) // 1000 + 1
         for i in range(close_iterations):
             close_batch = close_starts[i * 1000 : (i + 1) * 1000]
-            batch_weights: "QuerySet[models.WeightMaximum]" = (
-                models.WeightMaximum.objects.filter(
-                    outline=outline,
-                    off_max__gte=outline.initial_outline_min_off,
-                    off_max__lte=outline.initial_outline_max_off,
-                ).filter(start__in=close_batch)
+            batch_weights: QuerySet[
+                models.WeightMaximum
+            ] = models.WeightMaximum.objects.filter(
+                outline=outline,
+                off_max__gte=outline.initial_outline_min_off,
+                off_max__lte=outline.initial_outline_max_off,
+            ).filter(
+                start__in=close_batch
             )
             all_off += batch_weights.count()
             front_off += batch_weights.filter(first_line=True).count()
             too_far_off += batch_weights.filter(too_far_away=True).count()
 
     else:
-        all_weights: "QuerySet[models.WeightMaximum]" = (
-            models.WeightMaximum.objects.filter(
-                outline=outline,
-                off_max__gte=outline.initial_outline_min_off,
-                off_max__lte=outline.initial_outline_max_off,
-            ).filter(start__in=close_starts)
+        all_weights: QuerySet[
+            models.WeightMaximum
+        ] = models.WeightMaximum.objects.filter(
+            outline=outline,
+            off_max__gte=outline.initial_outline_min_off,
+            off_max__lte=outline.initial_outline_max_off,
+        ).filter(
+            start__in=close_starts
         )
         all_off += all_weights.count()
         front_off += all_weights.filter(first_line=True).count()

@@ -15,7 +15,6 @@
 
 import secrets
 from datetime import datetime
-from typing import Dict
 
 import pytz
 from dateutil.relativedelta import relativedelta
@@ -52,7 +51,7 @@ class PDFPaymentsSummary(FPDF):
 
 
 def generate_pdf_summary():
-    years_result: Dict[int, Dict[str, float]] = {}
+    years_result: dict[int, dict[str, float]] = {}
 
     current_datetime = datetime(2021, 1, 1).replace(tzinfo=pytz.UTC)
     delta = relativedelta(months=1)
@@ -63,7 +62,7 @@ def generate_pdf_summary():
         if current_datetime.year not in years_result:
             years_result[current_datetime.year] = {"brutto": 0, "netto": 0}
 
-        payments: QuerySet["Payment"] = Payment.objects.filter(
+        payments: QuerySet[Payment] = Payment.objects.filter(
             status="finished",
             payment_date__year=current_datetime.year,
             payment_date__month=current_datetime.month,

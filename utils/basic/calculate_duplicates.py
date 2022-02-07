@@ -14,7 +14,7 @@
 # ==============================================================================
 
 from functools import cached_property
-from typing import Dict, List, Literal, Union
+from typing import Literal
 
 from django.db.models.aggregates import Count
 from django.db.models.query import QuerySet
@@ -28,18 +28,18 @@ class CalcultateDuplicates:
     def __init__(self, outline: Outline, target_mode: TargetMode) -> None:
         self.outline: Outline = outline
         self.target_mode: TargetMode = target_mode
-        self.all_targets: "QuerySet[Target]" = Target.objects.filter(outline=outline)
+        self.all_targets = Target.objects.filter(outline=outline)
 
-    def _real_targets(self) -> "QuerySet[Target]":
+    def _real_targets(self):
         return self.all_targets.filter(fake=False, ruin=False)
 
-    def _fake_targets(self) -> "QuerySet[Target]":
+    def _fake_targets(self):
         return self.all_targets.filter(fake=True, ruin=False)
 
-    def _ruin_targets(self) -> "QuerySet[Target]":
+    def _ruin_targets(self):
         return self.all_targets.filter(fake=False, ruin=True)
 
-    def actual_targets(self) -> "QuerySet[Target]":
+    def actual_targets(self):
         if self.target_mode.is_real:
             return self._real_targets().order_by("pk")
         elif self.target_mode.is_fake:
@@ -70,8 +70,8 @@ class CalcultateDuplicates:
 
     @staticmethod
     def _targets_duplicates(
-        queryset: "QuerySet[Target]",
-    ) -> List[Dict[Literal["target", "duplicate", "lines"], Union[int, str]]]:
+        queryset: QuerySet[Target],
+    ) -> list[dict[Literal["target", "duplicate", "lines"], int | str]]:
         """
         Example result:
         ===============
@@ -83,12 +83,10 @@ class CalcultateDuplicates:
 
         """
 
-        targets_context: Dict[str, List[str]] = {}
+        targets_context: dict[str, list[str]] = {}
         # example {"500|500": [1, 2, 3]}
         # where 1,2,3 represent line numbers in target input
-        result_list: List[
-            Dict[Literal["target", "duplicate", "lines"], Union[int, str]]
-        ] = []
+        result_list: list[dict[Literal["target", "duplicate", "lines"], int | str]] = []
 
         for i, coord in enumerate(
             queryset.order_by("pk").values_list("target", flat=True)
@@ -106,9 +104,9 @@ class CalcultateDuplicates:
             .values("target", "duplicate")
         )
 
-        target_dict: Dict[str, str]
+        target_dict: dict[str, str]
         for target_dict in duplicates.iterator():
-            line_lst: List[str] = targets_context[target_dict["target"]]
+            line_lst: list[str] = targets_context[target_dict["target"]]
             if len(line_lst) <= 3:
                 lines: str = ",".join(line_lst)
             else:

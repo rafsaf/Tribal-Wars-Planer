@@ -15,7 +15,6 @@
 
 import json
 import secrets
-from typing import Dict, List, Optional, Set
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.query import QuerySet
@@ -68,10 +67,10 @@ class MakeFinalOutline:
         self.village_msg: str = _("Village")
         self.player_msg: str = _("Player")
         self.not_exist_msg: str = _("does not exists")
-        self.error_messages_set: Set[str] = set()
-        self.player_id_dictionary: Dict[str, str] = dict()
-        self.village_id_dictionary: Dict[str, str] = dict()
-        self.target_period_dict: Dict[TargetVertex, List[PeriodModel]] = dict()
+        self.error_messages_set: set[str] = set()
+        self.player_id_dictionary: dict[str, str] = dict()
+        self.village_id_dictionary: dict[str, str] = dict()
+        self.target_period_dict: dict[TargetVertex, list[PeriodModel]] = dict()
         self.queries: basic.TargetWeightQueries = basic.TargetWeightQueries(
             outline=outline, every=True, only_with_weights=True
         )
@@ -88,21 +87,21 @@ class MakeFinalOutline:
         self.error_messages_set.add(f"{self.player_msg} {player} {self.not_exist_msg}")
 
     def _enemy_id(self, target: str) -> str:
-        enemy_id: Optional[str] = self.village_id_dictionary.get(target)
+        enemy_id: str | None = self.village_id_dictionary.get(target)
         if enemy_id is None:
             self._add_target_error(target)
             raise OutdatedData
         return enemy_id
 
     def _ally_id(self, village: str) -> str:
-        ally_id: Optional[str] = self.village_id_dictionary.get(village)
+        ally_id: str | None = self.village_id_dictionary.get(village)
         if ally_id is None:
             self._add_village_error(village)
             raise OutdatedData
         return ally_id
 
     def _player_id(self, player: str) -> str:
-        player_id: Optional[str] = self.player_id_dictionary.get(player)
+        player_id: str | None = self.player_id_dictionary.get(player)
         if player_id is None:
             self._add_player_error(player)
             raise OutdatedData
@@ -118,7 +117,7 @@ class MakeFinalOutline:
             name__in=distinct_player_names, world=self.outline.world
         ).values("name", "player_id")
 
-        player: Dict[str, str]
+        player: dict[str, str]
         for player in players:
             self.player_id_dictionary[player["name"]] = str(player["player_id"])
 
@@ -134,12 +133,12 @@ class MakeFinalOutline:
             coord__in=distinct_weight_coords, world=self.outline.world
         ).values("coord", "village_id")
 
-        village: Dict[str, str]
+        village: dict[str, str]
         for village in villages.iterator():
             self.village_id_dictionary[village["coord"]] = str(village["village_id"])
 
     @staticmethod
-    def _weights_list(target: TargetVertex) -> "QuerySet[WeightModel]":
+    def _weights_list(target: TargetVertex) -> QuerySet[WeightModel]:
         # return (
         #     WeightModel.objects.filter(target=target)
         #     .select_related("target", "state")
@@ -188,7 +187,7 @@ class MakeFinalOutline:
         # target - lst[period1, period2, ...]
         self.target_period_dict = self.queries.target_period_dictionary()
 
-    def __call__(self) -> Set[str]:
+    def __call__(self) -> set[str]:
         self._calculate_player_id_dictionary()
         self._calculate_villages_id_dictionary()
         self._calculate_period_dictionary()

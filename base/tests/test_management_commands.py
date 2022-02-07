@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import List
 
 from django.conf import settings
 from django.core.management import call_command
@@ -29,6 +28,6 @@ def test_create_servers_command():
     assert Server.objects.all().count() == len(settings.TRIBAL_WARS_SUPPORTED_SERVERS)
 
     for server in Server.objects.all():
-        worlds: List[World] = list(World.objects.filter(server=server))
+        worlds: list[World] = list(World.objects.filter(server=server))
         assert len(worlds) == 1
         assert worlds[0].postfix == "Test"

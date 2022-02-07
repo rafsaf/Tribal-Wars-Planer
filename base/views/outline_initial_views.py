@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Optional, Union
 
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -260,8 +259,8 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     night_bonus = True
                 else:
                     night_bonus = False
-                enter_t1: Optional[str] = request.POST.get("enter_t1")
-                enter_t2: Optional[str] = request.POST.get("enter_t2")
+                enter_t1: str | None = request.POST.get("enter_t1")
+                enter_t2: str | None = request.POST.get("enter_t2")
                 instance.night_bonus = night_bonus
                 instance.enter_t1 = enter_t1
                 instance.enter_t2 = enter_t2
@@ -280,15 +279,15 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
             form6 = forms.RuiningOutlineForm(request.POST)
             if form6.is_valid():
                 instance.actions.form_ruin_change(instance)
-                catapult_default: Optional[str] = request.POST.get(
+                catapult_default: str | None = request.POST.get(
                     "initial_outline_catapult_default"
                 )
-                catapult_left: Optional[str] = request.POST.get(
+                catapult_left: str | None = request.POST.get(
                     "initial_outline_off_left_catapult"
                 )
-                initial_outline_average_ruining_points: Optional[
-                    str
-                ] = request.POST.get("initial_outline_average_ruining_points")
+                initial_outline_average_ruining_points: str | None = request.POST.get(
+                    "initial_outline_average_ruining_points"
+                )
 
                 instance.initial_outline_catapult_default = catapult_default
                 instance.initial_outline_off_left_catapult = catapult_left
@@ -404,7 +403,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
             "filtr": filtr,
         }
         if mode.is_add_and_remove:
-            message: Optional[str] = request.session.get("success")
+            message: str | None = request.session.get("success")
             if message is not None:
                 del request.session["success"]
 
@@ -418,7 +417,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
         )
 
     elif mode.is_time:
-        error: Optional[str] = request.session.get("outline_error")
+        error: str | None = request.session.get("outline_error")
         if error is not None:
             del request.session["outline_error"]
 
@@ -591,9 +590,9 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
         if "form" in request.POST:
             form = forms.WeightForm(request.POST)
             if form.is_valid():
-                weight_id: Optional[str] = request.POST.get("weight_id")
-                off_post: Optional[str] = request.POST.get("off")
-                nobleman_post: Optional[str] = request.POST.get("nobleman")
+                weight_id: str | None = request.POST.get("weight_id")
+                off_post: str | None = request.POST.get("off")
+                nobleman_post: str | None = request.POST.get("nobleman")
                 if nobleman_post is not None and off_post is not None:
                     nobleman = int(nobleman_post)
                     off = int(off_post)
@@ -657,7 +656,7 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     else:
         form = forms.WeightForm(None)
 
-    paint: Optional[str] = request.session.get("weight")
+    paint: str | None = request.session.get("weight")
     if paint is not None:
         try:
             paint_id: int = int(paint)
@@ -700,8 +699,8 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
-    mode: Optional[str] = request.GET.get("mode")
-    page: Optional[str] = request.GET.get("page")
+    mode: str | None = request.GET.get("mode")
+    page: str | None = request.GET.get("page")
     if outline.default_off_time_id == outline_time.pk:
         outline.default_off_time_id = None
     if outline.default_fake_time_id == outline_time.pk:
@@ -725,10 +724,10 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.id
     )
-    mode: Optional[str] = request.GET.get("mode")
-    page: Optional[str] = request.GET.get("page")
-    fake: Optional[str] = request.GET.get("fake")
-    ruin: Optional[str] = request.GET.get("ruin")
+    mode: str | None = request.GET.get("mode")
+    page: str | None = request.GET.get("page")
+    fake: str | None = request.GET.get("fake")
+    ruin: str | None = request.GET.get("ruin")
 
     if fake == "true":
         fake_state: bool = True
@@ -760,10 +759,10 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
-    user: Union[AbstractBaseUser, AnonymousUser] = request.user
+    user: AbstractBaseUser | AnonymousUser = request.user
     profile: models.Profile = models.Profile.objects.get(user=user)
     if not profile.is_premium():
-        target_mode: Optional[str] = request.GET.get("t")
+        target_mode: str | None = request.GET.get("t")
         target_count: int = models.TargetVertex.objects.filter(outline=instance).count()
         if target_count > settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE:
             request.session["premium_error"] = True

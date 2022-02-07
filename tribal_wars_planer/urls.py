@@ -35,8 +35,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
 from django_registration.backends.one_step.views import RegistrationView
-
-from tribal_wars_planer import forms
+from django_registration.forms import RegistrationFormUniqueEmail
 
 urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
@@ -45,7 +44,7 @@ urlpatterns = i18n_patterns(
     path("i18n/", include("django.conf.urls.i18n")),
     path(
         "register/",
-        RegistrationView.as_view(form_class=forms.RecaptchaRegistrationForm),
+        RegistrationView.as_view(form_class=RegistrationFormUniqueEmail),
         name="django_registration_register",
     ),
     path(

@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import List
 
 from django.test import TestCase
 from django.utils.translation import activate
@@ -42,7 +41,7 @@ class TestOutlineCreateTargets(TestCase):
         make_outline = MakeOutline(self.outline)
         make_outline()
 
-        lst: List[WeightMaximum] = list(
+        lst: list[WeightMaximum] = list(
             WeightMaximum.objects.filter(outline=self.outline).order_by("pk")
         )
         self.assertEqual(len(lst), 6)

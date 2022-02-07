@@ -23,7 +23,7 @@ Also prining only villages in center
 """
 
 import numpy as np
-from tw_complex.brute import CDistBrute
+from tw_complex import CDistBrute
 
 from base import models
 

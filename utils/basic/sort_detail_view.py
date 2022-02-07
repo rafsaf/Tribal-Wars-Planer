@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Optional, Set
 
 from django.core.paginator import Paginator
 from django.db.models import ExpressionWrapper, F, FloatField, Q
@@ -23,7 +22,7 @@ from base.models import Outline, TargetVertex
 
 
 class SortAndPaginRequest:
-    VALID_SORT_LIST: Set[str] = {
+    VALID_SORT_LIST: set[str] = {
         "distance",
         "random_distance",
         "-distance",
@@ -43,16 +42,16 @@ class SortAndPaginRequest:
     def __init__(
         self,
         outline: Outline,
-        request_GET_sort: Optional[str],
-        request_GET_page: Optional[str],
-        request_GET_filtr: Optional[str],
+        request_GET_sort: str | None,
+        request_GET_page: str | None,
+        request_GET_filtr: str | None,
         target: TargetVertex,
     ):
         self.outline: Outline = outline
         self.target: str = target.target
         self.x_coord: int = target.coord_tuple()[0]
         self.y_coord: int = target.coord_tuple()[1]
-        self.page: Optional[str] = request_GET_page
+        self.page: str | None = request_GET_page
         self.filtr: str = request_GET_filtr or ""
 
         if request_GET_sort is None:

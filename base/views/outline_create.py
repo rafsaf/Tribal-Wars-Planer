@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import List
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
@@ -83,13 +82,13 @@ def new_outline_create_select(request: HttpRequest, _id: int) -> HttpResponse:
         models.Outline, pk=_id, owner=request.user, editable="active"
     )
 
-    ally_tribe: List[models.Tribe] = [
+    ally_tribe: list[models.Tribe] = [
         tribe
         for tribe in models.Tribe.objects.filter(
             world=instance.world, tag__in=instance.ally_tribe_tag
         )
     ]
-    enemy_tribe: List[models.Tribe] = [
+    enemy_tribe: list[models.Tribe] = [
         tribe
         for tribe in models.Tribe.objects.filter(
             world=instance.world, tag__in=instance.enemy_tribe_tag

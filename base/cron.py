@@ -44,12 +44,11 @@ def outdate_outline_delete(days: int = 35) -> None:
     """Delete outlines older than 35 days except test World"""
     cron_log.info("Start outdate_outline_delete")
     expiration_date = now() - timedelta(days=days)
-    expired: "QuerySet[models.Outline]" = (
+    expired: QuerySet[models.Outline] = (
         models.Outline.objects.select_related("world")
         .filter(created__lt=expiration_date)
         .exclude(world__postfix="Test")
     )
-    outline: models.Outline
     for outline in expired:
         outline.delete()
         sleep(0.2)
