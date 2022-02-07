@@ -13,7 +13,7 @@
 
 Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl/en/)
 
-Test coverage ~84%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
+Test coverage ~83%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
 
 # Table of contents
 
