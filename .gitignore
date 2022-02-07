@@ -8,6 +8,7 @@ Pipfile*
 prometheus_multi_proc_dir
 # C extensions
 *.so
+/logs
 # Traefik
 letsencrypt
 # Docker

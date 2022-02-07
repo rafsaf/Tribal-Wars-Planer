@@ -25,8 +25,8 @@ services:
     env_file:
       - .env
     volumes:
-      - "~/unit.log:/var/log:ro"
-      - "~/django.log:/build/django.log:ro"
+      - "~/unit_log:/var/log:ro"
+      - "~/django_log:/build/logs:ro"
 
 
   traefik:

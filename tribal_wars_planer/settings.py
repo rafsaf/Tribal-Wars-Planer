@@ -229,6 +229,7 @@ else:
     REGISTRATION_OPEN = True
 
 DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "WARNING")
+os.makedirs("logs", exist_ok=True)
 
 LOGGING = {
     "version": 1,
@@ -246,7 +247,7 @@ LOGGING = {
     "handlers": {
         "file": {
             "class": "logging.FileHandler",
-            "filename": "django.log",
+            "filename": "logs/django.log",
             "formatter": "verbose",
             "level": DJANGO_LOG_LEVEL,
         },
