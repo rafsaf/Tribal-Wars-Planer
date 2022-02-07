@@ -33,6 +33,10 @@ ALLOWED_HOSTS = [
     os.environ.get("SUB_DOMAIN", ""),
 ]
 
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "CSRF_TRUSTED_ORIGINS", "http://localhost:8000,http://localhost:7999"
+).split(",")
+
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "example@example.com")
