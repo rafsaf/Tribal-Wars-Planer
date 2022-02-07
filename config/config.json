@@ -29,7 +29,7 @@
   ],
   "applications": {
     "django": {
-      "type": "python 3.9",
+      "type": "python 3.10",
       "processes": 4,
       "threads": 1,
       "path": "/build/",
