@@ -111,7 +111,7 @@ This project maintains two docker images, one for server and one for scheduling 
 
 `rafsaf/twp-server:latest`
 
-Contains TWP Django server based on Nginx Unit and Python3.9
+Contains TWP Django server based on `nginx/unit:1.26.1-python3.10` docker image, [Nginx Unit](https://unit.nginx.org/) on Python 3.10.
 
 Environment variables:
 
@@ -163,9 +163,7 @@ Environment variables:
 
 **AWS_SES_REGION_ENDPOINT** - _optional_ - AWS SES region endpoint, defaults to empty string
 
-**SILENCED_SYSTEM_CHECKS** - _optional_ - silenced errors, defaults to `captcha.recaptcha_test_key_error`
-
-**METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/en/api/metric?secret=...`, defaults to `secret`
+**METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/en/api/metrics?secret=...`, defaults to `secret`
 
 **PREMIUM_ACCOUNT_VALIDATION_ON** - _optional_ - is premium account required to create more targets, defaults to `False`
 
@@ -177,7 +175,7 @@ Environment variables:
 
 `rafsaf/twp-cronjobs`
 
-Contains TWP Cronjobs scheduler based on Python3.9-slim image
+Contains TWP Cronjobs scheduler based on Python 3.10 `python:3.10-slim-buster` docker image.
 
 Environment variables:
 

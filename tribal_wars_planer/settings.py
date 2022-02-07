@@ -179,10 +179,6 @@ AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "")
 AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT", "")
 
-SILENCED_SYSTEM_CHECKS = os.environ.get(
-    "SILENCED_SYSTEM_CHECKS", "captcha.recaptcha_test_key_error"
-).split(",")
-
 METRICS_EXPORT_ENDPOINT_SECRET = os.environ.get(
     "METRICS_EXPORT_ENDPOINT_SECRET", "secret"
 )
