@@ -131,6 +131,8 @@ Environment variables:
 
 **CSRF_TRUSTED_ORIGINS** - _optional_ - list of domain that can perform POST and other unsafe requests to the app, defaults to empty string eg. `https://domain1,https://domain2,http://domain3`, see [django docs](https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-CSRF_TRUSTED_ORIGINS) defaults to `http://localhost:8000,http://localhost:7999`
 
+**DJANGO_LOG_LEVEL** - _optional_ - Python logs file `django.log` level, defaults to `WARNING`
+
 **POSTGRES_NAME** - _optional_ - postgres database name, defaults to `postgres`
 
 **POSTGRES_USER** - _optional_ - postgres database user, defaults to `postgres`

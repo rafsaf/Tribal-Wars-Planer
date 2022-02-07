@@ -38,12 +38,9 @@ services:
       - "traefik.http.services.web.loadbalancer.server.port=80"
     env_file:
       - .env
-    environment:
-      - DEBUG=false
-      - POSTGRES_HOST=postgres
     volumes:
-      - "./media/:/build/media/"
-      - "./static/:/build/static/"
+      - "~/unit.log:/var/log:ro"
+      - "~/django.log:/build/django.log:ro"
 
   traefik:
     image: "traefik:v2.4"

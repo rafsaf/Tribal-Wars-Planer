@@ -24,12 +24,10 @@ services:
       - "traefik.http.routers.web.middlewares=redirect-web"
     env_file:
       - .env
-    environment:
-      - DEBUG=false
     volumes:
-      - "~/unit_log:/var/log"
-      - "./media/:/build/media/"
-      - "./static/:/build/static/"
+      - "~/unit.log:/var/log:ro"
+      - "~/django.log:/build/django.log:ro"
+
 
   traefik:
     image: "traefik:v2.4"

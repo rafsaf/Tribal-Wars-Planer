@@ -227,3 +227,34 @@ if env_registration_open in ["False", "false"]:
     REGISTRATION_OPEN = False
 else:
     REGISTRATION_OPEN = True
+
+DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "WARNING")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "django.log",
+            "formatter": "verbose",
+            "level": DJANGO_LOG_LEVEL,
+        },
+    },
+    "loggers": {
+        "": {
+            "level": DJANGO_LOG_LEVEL,
+            "handlers": ["file"],
+        },
+    },
+}
