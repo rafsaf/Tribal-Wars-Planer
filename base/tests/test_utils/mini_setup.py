@@ -17,7 +17,7 @@ import datetime
 import random
 import string
 from random import randint
-from typing import Literal, Optional
+from typing import Literal
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -131,7 +131,7 @@ class MiniSetup(TestCase):
                 username=self.username_foreign, password=self.password_foreign
             )
 
-    def login_page_path(self, next: Optional[str]) -> str:
+    def login_page_path(self, next: str | None) -> str:
         main_path = reverse("login")
         if next is not None:
             return main_path + f"?next={next}"
@@ -268,12 +268,12 @@ class MiniSetup(TestCase):
     def create_overview(
         self,
         outline: Outline,
-        player: Optional[str] = None,
-        token: Optional[str] = None,
-        table: Optional[str] = None,
-        string: Optional[str] = None,
-        deputy: Optional[str] = None,
-        extended: Optional[str] = None,
+        player: str | None = None,
+        token: str | None = None,
+        table: str | None = None,
+        string: str | None = None,
+        deputy: str | None = None,
+        extended: str | None = None,
     ) -> Overview:
         outline_overview = OutlineOverview.objects.create(outline=outline)
         return Overview.objects.create(

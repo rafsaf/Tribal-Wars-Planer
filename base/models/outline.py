@@ -14,7 +14,6 @@
 # ==============================================================================
 
 import datetime
-from typing import Dict, List, Optional
 
 import django
 from django.contrib.auth.models import User
@@ -28,7 +27,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy
 
 
-def building_default_list() -> List[str]:
+def building_default_list() -> list[str]:
     return [
         "farm",
         "headquarters",
@@ -373,36 +372,36 @@ class Outline(models.Model):
     def count_targets(self) -> int:
         from base.models import TargetVertex
 
-        targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(outline=self)
+        targets: QuerySet[TargetVertex] = TargetVertex.objects.filter(outline=self)
         return targets.filter(fake=False, ruin=False).count()
 
     def count_fake(self) -> int:
         from base.models import TargetVertex
 
-        targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(outline=self)
+        targets: QuerySet[TargetVertex] = TargetVertex.objects.filter(outline=self)
         return targets.filter(fake=True, ruin=False).count()
 
     def count_ruin(self) -> int:
         from base.models import TargetVertex
 
-        targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(outline=self)
+        targets: QuerySet[TargetVertex] = TargetVertex.objects.filter(outline=self)
         return targets.filter(fake=False, ruin=True).count()
 
     def count_off(self) -> int:
         from base.models import WeightMaximum
 
-        weights: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(outline=self)
+        weights: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(outline=self)
         return weights.filter(off_left__gte=self.initial_outline_min_off).count()
 
     def count_noble(self) -> int:
         from base.models import WeightMaximum
 
-        weights: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(outline=self)
+        weights: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(outline=self)
         return weights.aggregate(sum=Sum("nobleman_left"))["sum"] or 0
 
     def pagin_targets(
         self,
-        page: Optional[str],
+        page: str | None,
         fake: bool = False,
         ruin: bool = False,
         every: bool = False,
@@ -412,7 +411,7 @@ class Outline(models.Model):
     ):
         from base.models import TargetVertex
 
-        all_targets: "QuerySet[TargetVertex]" = TargetVertex.objects.filter(
+        all_targets: QuerySet[TargetVertex] = TargetVertex.objects.filter(
             outline=self
         ).order_by("pk")
 
@@ -459,22 +458,21 @@ class Outline(models.Model):
     def targets_query(self, target_lst):
         from base.models import TargetVertex, WeightModel
 
-        result: Dict[TargetVertex, List[WeightModel]] = {}
+        result: dict[TargetVertex, list[WeightModel]] = {}
         for target in target_lst:
             result[target] = list()
-        weights: "QuerySet[WeightModel]" = (
+        weights: QuerySet[WeightModel] = (
             WeightModel.objects.select_related("target")
             .filter(target__in=target_lst)
             .order_by("order")
         )
-        weight: WeightModel
         for weight in weights:
             weight.distance = round(weight.distance_to_village(weight.target.target), 1)
             weight.off = f"{round(weight.off / 1000, 1)}k"
             result[weight.target].append(weight)
         return result.items()
 
-    def create_target(self, target_type: Optional[str], coord: Optional[str]) -> None:
+    def create_target(self, target_type: str | None, coord: str | None) -> None:
         from base.models import TargetVertex, VillageModel
 
         if target_type == "real":
@@ -521,7 +519,7 @@ class Outline(models.Model):
             .order_by("from_time", "-unit")
         )
 
-        result: Dict[OutlineTime, List[PeriodModel]] = {}
+        result: dict[OutlineTime, list[PeriodModel]] = {}
         period: PeriodModel
         for period in period_model_lst:
             if period.outline_time in result:

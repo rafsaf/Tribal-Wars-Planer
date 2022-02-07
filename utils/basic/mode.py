@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Literal, Optional, Set
+from typing import Literal, Set
 
 from django.utils.translation import gettext as _
 
@@ -27,7 +27,7 @@ class Mode:
         "add_and_remove",
     }
 
-    def __init__(self, request_GET_mode: Optional[str]):
+    def __init__(self, request_GET_mode: str | None):
 
         if request_GET_mode is None:
             self.mode = "menu"
@@ -82,7 +82,7 @@ class TargetMode:
         "ruin",
     }
 
-    def __init__(self, request_GET_mode: Optional[str]) -> None:
+    def __init__(self, request_GET_mode: str | None) -> None:
 
         if request_GET_mode is None:
             self.mode = "real"

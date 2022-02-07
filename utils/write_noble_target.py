@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import List, Tuple
 
 from django.db.models import DecimalField, ExpressionWrapper, F
 from django.db.models.query import QuerySet
@@ -58,7 +57,7 @@ class WriteNobleTarget:
         "single", "Try single nobles from many villages",
     ]
 
-    3. Finally return List[WeightModel] ready to create orders
+    3. Finally return list[WeightModel] ready to create orders
 
     """
 
@@ -70,12 +69,12 @@ class WriteNobleTarget:
         self.target: Target = target
         self.outline: Outline = outline
         self.index: int = 0
-        self.default_query: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(
+        self.default_query: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(
             outline=self.outline, too_far_away=False
         )
-        self.default_create_list: List[Tuple[WeightMaximum, int]] = []
+        self.default_create_list: list[tuple[WeightMaximum, int]] = []
 
-    def sorted_weights_nobles(self) -> List[WeightMaximum]:
+    def sorted_weights_nobles(self) -> list[WeightMaximum]:
         self._set_noble_query()
         self._annotate_distance_on_query()
         self._only_closer_than_target_dist()
@@ -96,9 +95,9 @@ class WriteNobleTarget:
             self.index = 80000
             return self._far_weight_lst()
 
-    def weight_create_list(self) -> List[WeightModel]:
-        weights_max_update_lst: List[WeightMaximum] = []
-        weights_create_lst: List[WeightModel] = []
+    def weight_create_list(self) -> list[WeightModel]:
+        weights_max_update_lst: list[WeightMaximum] = []
+        weights_create_lst: list[WeightModel] = []
 
         weight_max_list = self.sorted_weights_nobles()
 
@@ -213,14 +212,14 @@ class WriteNobleTarget:
         return weight_max
 
     def _order_distance_default_list(self) -> None:
-        def order_func(weight_tuple: Tuple[WeightMaximum, int]) -> int:
+        def order_func(weight_tuple: tuple[WeightMaximum, int]) -> int:
             weight_max: WeightMaximum = weight_tuple[0]
             return -weight_max.distance  # type: ignore
 
         self.default_create_list.sort(key=order_func)
 
     def _fill_default_list(
-        self, sorted_list: List[WeightMaximum], single: bool = False
+        self, sorted_list: list[WeightMaximum], single: bool = False
     ) -> None:
         weight_max: WeightMaximum
         for weight_max in sorted_list:
@@ -239,7 +238,7 @@ class WriteNobleTarget:
                     self.default_create_list.append((weight_max, nobles))
                     self.target.required_noble -= nobles
 
-    def _mode_guide_is_one(self, weight_max_list: List[WeightMaximum]) -> None:
+    def _mode_guide_is_one(self, weight_max_list: list[WeightMaximum]) -> None:
         """
         Updates self.default_create_list attribute
 
@@ -249,36 +248,36 @@ class WriteNobleTarget:
         Then we use weight_max with (required nobles -1) nobles and so on (-2, -3...)
         """
 
-        def sort_func(weight_max: WeightMaximum) -> Tuple[int, float, int, int]:
+        def sort_func(weight_max: WeightMaximum) -> tuple[int, float, int, int]:
             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)
             distance: float = float(weight_max.distance)  # type: ignore
             off: int = -int(weight_max.off_left)
             number: int = -int(weight_max.nobleman_left)
             return (fit, distance, off, number)
 
-        sorted_weight_max_lst: List[WeightMaximum] = sorted(
+        sorted_weight_max_lst: list[WeightMaximum] = sorted(
             weight_max_list, key=sort_func
         )
         self._fill_default_list(sorted_weight_max_lst)
 
-    def _mode_guide_is_many(self, weight_max_list: List[WeightMaximum]) -> None:
+    def _mode_guide_is_many(self, weight_max_list: list[WeightMaximum]) -> None:
         """
         Updates self.default_create_list attribute
 
         This case represents OPTIMAL FIT, depend of off troops and distance
         """
 
-        def sort_func(weight_max: WeightMaximum) -> Tuple[float, int]:
+        def sort_func(weight_max: WeightMaximum) -> tuple[float, int]:
             off: int = -int(weight_max.off_left)
             distance: float = float(weight_max.distance)  # type: ignore
             return (distance, off)
 
-        sorted_weight_max_lst: List[WeightMaximum] = sorted(
+        sorted_weight_max_lst: list[WeightMaximum] = sorted(
             weight_max_list, key=sort_func
         )
         self._fill_default_list(sorted_weight_max_lst)
 
-    def _mode_guide_is_single(self, weight_max_list: List[WeightMaximum]) -> None:
+    def _mode_guide_is_single(self, weight_max_list: list[WeightMaximum]) -> None:
         """
         Updates self.default_create_list attribute
 
@@ -286,12 +285,12 @@ class WriteNobleTarget:
         Later we decide to use only one noble from every village by using single=True
         """
 
-        def sort_func(weight_max: WeightMaximum) -> Tuple[float, int]:
+        def sort_func(weight_max: WeightMaximum) -> tuple[float, int]:
             off: int = -int(weight_max.off_left)
             distance: float = float(weight_max.distance)  # type: ignore
             return (distance, off)
 
-        sorted_weight_max_lst: List[WeightMaximum] = sorted(
+        sorted_weight_max_lst: list[WeightMaximum] = sorted(
             weight_max_list, key=sort_func
         )
         self._fill_default_list(sorted_weight_max_lst, single=True)
@@ -431,40 +430,40 @@ class WriteNobleTarget:
             distance__lte=self.outline.initial_outline_target_dist
         )
 
-    def _closest_weight_lst(self) -> List[WeightMaximum]:
+    def _closest_weight_lst(self) -> list[WeightMaximum]:
         self.default_query = self.default_query.order_by("distance")
 
-        weight_list: List[WeightMaximum] = list(self.default_query[:15])
+        weight_list: list[WeightMaximum] = list(self.default_query[:15])
         return weight_list
 
-    def _close_weight_lst(self) -> List[WeightMaximum]:
+    def _close_weight_lst(self) -> list[WeightMaximum]:
         self.default_query = self.default_query.filter(
             first_line=False,
             distance__gte=self.outline.initial_outline_front_dist,
         ).order_by("distance")
 
-        weight_list: List[WeightMaximum] = list(self.default_query[:15])
+        weight_list: list[WeightMaximum] = list(self.default_query[:15])
         return weight_list
 
-    def _random_weight_lst(self) -> List[WeightMaximum]:
+    def _random_weight_lst(self) -> list[WeightMaximum]:
         self.default_query = self.default_query.filter(
             first_line=False,
             distance__gte=self.outline.initial_outline_front_dist,
         ).order_by("?")
 
-        weight_list: List[WeightMaximum] = list(self.default_query[:15])
+        weight_list: list[WeightMaximum] = list(self.default_query[:15])
         return sorted(
             weight_list,
             key=lambda item: item.distance,  # type: ignore
         )
 
-    def _far_weight_lst(self) -> List[WeightMaximum]:
+    def _far_weight_lst(self) -> list[WeightMaximum]:
         self.default_query = self.default_query.filter(
             first_line=False,
             distance__gte=self.outline.initial_outline_front_dist,
         ).order_by("-distance")
 
-        weight_list: List[WeightMaximum] = list(self.default_query[:15])
+        weight_list: list[WeightMaximum] = list(self.default_query[:15])
         return sorted(
             weight_list,
             key=lambda item: item.distance,  # type: ignore

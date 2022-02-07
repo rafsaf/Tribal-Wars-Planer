@@ -163,10 +163,6 @@ Environment variables:
 
 **AWS_SES_REGION_ENDPOINT** - _optional_ - AWS SES region endpoint, defaults to empty string
 
-**RECAPTCHA_PUBLIC_KEY** - _optional_ - recaptcha public key, defaults to always passing `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI`
-
-**RECAPTCHA_PRIVATE_KEY** - _optional_ - recaptcha secret key, defaults to always passing `6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe`
-
 **SILENCED_SYSTEM_CHECKS** - _optional_ - silenced errors, defaults to `captcha.recaptcha_test_key_error`
 
 **METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/en/api/metric?secret=...`, defaults to `secret`

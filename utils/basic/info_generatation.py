@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Dict, List, Tuple
 
 from django.db.models.query import QuerySet
 from django.utils.translation import gettext as _
@@ -23,6 +22,18 @@ from utils import basic
 
 
 class OutlineInfo:
+
+    evidence_dictionary: dict[tuple[int, int, int], int] = {
+        (1, 1, 1): 16,
+        (1, 1, 0): 15,
+        (0, 1, 1): 15,
+        (1, 0, 1): 14,
+        (1, 0, 0): 13,
+        (0, 0, 1): 13,
+        (0, 1, 0): 14,
+        (0, 0, 0): 12,
+    }
+
     def __init__(self, outline: models.Outline) -> None:
         """
         Generate basic informations about outline like targets coords
@@ -33,7 +44,7 @@ class OutlineInfo:
         self.target_message: str = _("Targets:") + "\r\n"
         self.fake_message: str = _("Fakes:") + "\r\n"
         self.ruin_message: str = _("Ruins:") + "\r\n"
-        self.world_evidence: Tuple[int, int, int] = basic.world_evidence(
+        self.world_evidence: tuple[int, int, int] = basic.world_evidence(
             self.outline.world
         )
 
@@ -74,7 +85,7 @@ class OutlineInfo:
     @staticmethod
     def parse_weight_to_army_line(
         weight_max: models.WeightMaximum,
-        line_lst: List[str],
+        line_lst: list[str],
         noble_index: int,
         catapult_index: int,
     ) -> str:
@@ -86,19 +97,9 @@ class OutlineInfo:
 
     def show_export_troops(self) -> str:
         sum_text: str = ""
-        evidence_dictionary: Dict[Tuple[int, int, int], int] = {
-            (1, 1, 1): 16,
-            (1, 1, 0): 15,
-            (0, 1, 1): 15,
-            (1, 0, 1): 14,
-            (1, 0, 0): 13,
-            (0, 0, 1): 13,
-            (0, 1, 0): 14,
-            (0, 0, 0): 12,
-        }
-        line_length: int = evidence_dictionary[self.world_evidence]
+        line_length: int = self.evidence_dictionary[self.world_evidence]
 
-        line_lst: List[str] = ["0," for _ in range(line_length)]
+        line_lst: list[str] = ["0," for _ in range(line_length)]
 
         catapult_index: int
         noble_index: int
@@ -128,10 +129,10 @@ class OutlineInfo:
 
 class TargetCount:
     def __init__(
-        self, target: models.TargetVertex, weight_lst: QuerySet["models.WeightModel"]
+        self, target: models.TargetVertex, weight_lst: QuerySet[models.WeightModel]
     ) -> None:
         self.target: models.TargetVertex = target
-        self.weight_lst: QuerySet["models.WeightModel"] = weight_lst
+        self.weight_lst: QuerySet[models.WeightModel] = weight_lst
 
     @property
     def line(self) -> str:

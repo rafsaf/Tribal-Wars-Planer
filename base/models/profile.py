@@ -47,7 +47,7 @@ class Profile(models.Model):
             return True
         return True
 
-    def latest_messages(self) -> "QuerySet[Message]":
+    def latest_messages(self) -> QuerySet["Message"]:
         from base.models.message import Message
 
         return Message.objects.order_by("-created")[:6]

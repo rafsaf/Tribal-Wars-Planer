@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import List
 
 from django.test import TestCase
 from django.utils.translation import activate
@@ -121,7 +120,7 @@ class TestOutlineCreateTargets(TestCase):
         self.outline.initial_outline_targets = input
         create_targets = OutlineCreateTargets(self.outline, target_mode)
         create_targets()
-        targets: List[Target] = list(
+        targets: list[Target] = list(
             Target.objects.filter(outline=self.outline).order_by("pk")
         )
 
@@ -159,7 +158,7 @@ class TestOutlineCreateTargets(TestCase):
         self.outline.initial_outline_ruins = input
         create_targets = OutlineCreateTargets(self.outline, target_mode)
         create_targets()
-        targets: List[Target] = list(
+        targets: list[Target] = list(
             Target.objects.filter(outline=self.outline).order_by("pk")
         )
 
@@ -197,7 +196,7 @@ class TestOutlineCreateTargets(TestCase):
         self.outline.initial_outline_fakes = input
         create_targets = OutlineCreateTargets(self.outline, target_mode)
         create_targets()
-        targets: List[Target] = list(
+        targets: list[Target] = list(
             Target.objects.filter(outline=self.outline).order_by("pk")
         )
 

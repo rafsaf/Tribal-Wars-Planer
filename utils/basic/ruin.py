@@ -13,13 +13,13 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Dict, Iterator, Optional, Tuple
+from typing import Iterator
 
 from base.models import Outline, WeightMaximum
 
 
 class RuinHandle:
-    BIG_LEVELS: Dict[str, int] = {
+    BIG_LEVELS: dict[str, int] = {
         "headquarters": 20,
         "barracks": 25,
         "stable": 20,
@@ -36,7 +36,7 @@ class RuinHandle:
         "warehouse": 30,
         "wall": 20,
     }
-    SMALL_LEVELS: Dict[str, int] = {
+    SMALL_LEVELS: dict[str, int] = {
         "headquarters": 20,
         "barracks": 18,
         "stable": 10,
@@ -53,7 +53,7 @@ class RuinHandle:
         "warehouse": 24,
         "wall": 20,
     }
-    LEVEL_DICTIONARY: Dict[Tuple[int, int], int] = {
+    LEVEL_DICTIONARY: dict[tuple[int, int], int] = {
         (50, 30): 29,
         (50, 29): 28,
         (50, 28): 27,
@@ -215,8 +215,8 @@ class RuinHandle:
     def __init__(self, outline: Outline) -> None:
         self.outline: Outline = outline
         self.building_is_not_set = True
-        self.current_level: Optional[int] = None
-        self.current_building: Optional[str] = None
+        self.current_level: int | None = None
+        self.current_building: str | None = None
         self.destroying_order: Iterator[str] = iter(
             self.outline.initial_outline_buildings
         )

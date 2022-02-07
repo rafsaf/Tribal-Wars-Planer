@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "utils",
     "crispy_forms",
     "django_registration",
-    "captcha",
     "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -152,8 +151,6 @@ TIME_ZONE = "Europe/Warsaw"
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
@@ -181,13 +178,6 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "")
 AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT", "")
-
-RECAPTCHA_PUBLIC_KEY = os.environ.get(
-    "RECAPTCHA_PUBLIC_KEY", "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-)
-RECAPTCHA_PRIVATE_KEY = os.environ.get(
-    "RECAPTCHA_PRIVATE_KEY", "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
-)
 
 SILENCED_SYSTEM_CHECKS = os.environ.get(
     "SILENCED_SYSTEM_CHECKS", "captcha.recaptcha_test_key_error"

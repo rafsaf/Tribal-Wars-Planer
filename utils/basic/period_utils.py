@@ -17,7 +17,6 @@ import datetime
 import random
 from collections import deque
 from math import inf
-from typing import List
 
 from base import models
 from utils import basic
@@ -26,7 +25,7 @@ from utils import basic
 class FromPeriods:
     def __init__(
         self,
-        periods: List[models.PeriodModel],
+        periods: list[models.PeriodModel],
         world: models.World,
         date: datetime.date,
     ):
@@ -34,7 +33,7 @@ class FromPeriods:
             year=date.year, month=date.month, day=date.day
         )
         self.world: models.World = world
-        self.periods: List[models.PeriodModel] = periods
+        self.periods: list[models.PeriodModel] = periods
         self.nob_periods = deque(
             [period for period in periods if period.unit == "noble"]
         )

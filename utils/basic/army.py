@@ -15,13 +15,12 @@
 
 """ Army and Defence tools"""
 from functools import cached_property
-from typing import Dict, Set, Tuple
 
 from base import models
 from utils import basic
 
 
-def world_evidence(world: models.World) -> Tuple[int, int, int]:
+def world_evidence(world: models.World) -> tuple[int, int, int]:
     """For world return [T/F, .. , ..] [paladin, archer, militia]"""
     if world.paladin == "active":
         paladin = 1
@@ -46,7 +45,7 @@ class ArmyError(Exception):
 class Army:
     """Off line in off troops"""
 
-    EVIDENCE_DICTIONARY: Dict[Tuple[int, int, int], Set[int]] = {
+    EVIDENCE_DICTIONARY: dict[tuple[int, int, int], set[int]] = {
         (1, 1, 1): {16, 17},
         (1, 1, 0): {15, 16},
         (0, 1, 1): {15, 16},
@@ -188,7 +187,7 @@ class DefenceError(Exception):
 class Defence:
     """Deff line in deff troops"""
 
-    EVIDENCE_DICTIONARY: Dict[Tuple[int, int, int], Set[int]] = {
+    EVIDENCE_DICTIONARY: dict[tuple[int, int, int], set[int]] = {
         (1, 1, 1): {16, 17},
         (1, 1, 0): {15, 16},
         (0, 1, 1): {15, 16},

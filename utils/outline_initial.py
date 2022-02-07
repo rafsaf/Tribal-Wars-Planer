@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Dict, List, Tuple
 
 import utils.basic as basic
 from base import models
@@ -35,10 +34,10 @@ class MakeOutline:
 
     def __init__(self, outline: models.Outline) -> None:
         self.outline: Outline = outline
-        self.evidence: Tuple[int, int, int] = basic.world_evidence(world=outline.world)
-        self.village_dictionary: Dict[str, str] = basic.coord_to_player(outline=outline)
-        self.off_troops: List[str] = self.outline.off_troops.split("\r\n")
-        self.weight_max_create_list: List[WeightMaximum] = []
+        self.evidence: tuple[int, int, int] = basic.world_evidence(world=outline.world)
+        self.village_dictionary: dict[str, str] = basic.coord_to_player(outline=outline)
+        self.off_troops: list[str] = self.outline.off_troops.split("\r\n")
+        self.weight_max_create_list: list[WeightMaximum] = []
 
     def __call__(self) -> None:
         WeightMaximum.objects.filter(outline=self.outline).delete()

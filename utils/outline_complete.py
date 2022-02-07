@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Generator, List, Tuple
+from typing import Generator
 
 from django.db.models.query import QuerySet
 
@@ -70,17 +70,17 @@ def complete_outline_write(outline: models.Outline):
 class CreateWeights:
     def __init__(
         self,
-        targets: "QuerySet[Target]",
+        targets: QuerySet[Target],
         outline: Outline,
         noble: bool = False,
         ruin: bool = False,
     ) -> None:
-        self.targets: "QuerySet[Target]" = targets
+        self.targets: QuerySet[Target] = targets
         self.outline: Outline = outline
         self.noble: bool = noble
         self.ruin: bool = ruin
         self.modes_list = ["closest", "close", "random", "far"]
-        self.weight_create_lst: List[WeightModel] = []
+        self.weight_create_lst: list[WeightModel] = []
 
     @staticmethod
     def _is_syntax_extended(target: Target, noble_or_ruin: bool = False) -> bool:
@@ -94,7 +94,7 @@ class CreateWeights:
 
     def _extended_syntax(
         self, target: Target, noble_or_ruin: bool = False
-    ) -> Generator[Tuple[int, str], None, None]:
+    ) -> Generator[tuple[int, str], None, None]:
         # closest, close, random, far
 
         if noble_or_ruin:
@@ -105,7 +105,7 @@ class CreateWeights:
         for required, mode in iterator:
             yield (required, mode)
 
-    def _create_weights_or_pass(self, weight_lst: List[WeightModel]) -> None:
+    def _create_weights_or_pass(self, weight_lst: list[WeightModel]) -> None:
         # note that we hit database only when have a lot of data
 
         weight: WeightModel

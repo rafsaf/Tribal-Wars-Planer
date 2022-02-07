@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import List
 
 from django.test import TestCase
 from django.utils.translation import activate
@@ -60,7 +59,7 @@ class TestOutlineCreateTargets(TestCase):
         )
         return target
 
-    def weights(self) -> List[WeightModel]:
+    def weights(self) -> list[WeightModel]:
         return list(WeightModel.objects.all().select_related("state").order_by("order"))
 
     def test_indexes_are_correct_in_every_distance_real_target(self):

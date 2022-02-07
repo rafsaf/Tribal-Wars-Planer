@@ -5,26 +5,22 @@ description = ""
 authors = ["rafsaf <rafal.safin12@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.10"
+python = ">3.10,<3.11"
 
-Django = "3.2.11"
-django-crispy-forms = "1.13.0"
-django-recaptcha = "2.0.6"
+Django = "4.0.2"
+django-crispy-forms = "1.14.0"
 django-registration = "3.2"
 djangorestframework = "3.13.1"
-django-ses = "2.3.1"
+django-ses = "2.4.0"
 
-Pillow = "^9.0.0"
 python-dateutil = "2.8.2"
 python-dotenv = "0.19.2"
 psycopg2 = "2.9.3"
-requests = "2.27.1"
-stripe = "2.64.0"
-tw-complex = "0.3.0"
+stripe = "2.65.0"
+tw-complex = "1.0.3"
 Js2Py = "0.71"
-schedule = "1.1.0"
 fpdf = "1.7.2"
-prometheus-client = "0.12.0"
+prometheus-client = "0.13.1"
 
 
 [tool.poetry.dev-dependencies]
@@ -36,15 +32,12 @@ autoflake = "^1.4"
 pytest-django = "^4.4.0"
 requests-mock = "^1.9.3"
 locust = "^2.5.1"
+schedule = "^1.1.0"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
 minversion = "6.0"
 addopts = ""
-filterwarnings = [
-    "ignore::django.utils.deprecation.RemovedInDjango40Warning",
-    "ignore::django.utils.deprecation.RemovedInDjango41Warning",
-]
 testpaths = [
     "base",
     "rest_api",

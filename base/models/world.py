@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 from django.db import models
 from django.utils.translation import gettext_lazy
@@ -57,7 +57,7 @@ class World(models.Model):
     def link_to_game(self, addition: str = ""):
         return f"https://{str(self)}." f"{self.server.dns}" f"{addition}"
 
-    def tw_stats_link_to_village(self, village_id: Union[str, int]):
+    def tw_stats_link_to_village(self, village_id: str | int):
         return (
             f"https://{self.server.prefix}.twstats.com/{str(self)}/index.php?"
             f"page=village&id={village_id}"

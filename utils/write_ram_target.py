@@ -15,7 +15,7 @@
 
 from random import sample
 from statistics import mean
-from typing import Generator, List, Optional
+from typing import Generator
 
 from django.db.models import (
     Case,
@@ -49,7 +49,7 @@ class WriteRamTarget:
 
     2. Then update states (update WeightMaximum, second query)
 
-    3. Finally return List[WeightModel] ready to create orders
+    3. Finally return list[WeightModel] ready to create orders
     """
 
     def __init__(
@@ -61,14 +61,14 @@ class WriteRamTarget:
         self.target: Target = target
         self.outline: Outline = outline
         self.index: int = 0
-        self.default_query: "QuerySet[WeightMaximum]" = WeightMaximum.objects.filter(
+        self.default_query: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(
             outline=self.outline, too_far_away=False
         )
         self.ruin: bool = ruin
-        self.ruin_handle: Optional[RuinHandle] = None
-        self.building_generator: Optional[Generator] = None
+        self.ruin_handle: RuinHandle | None = None
+        self.building_generator: Generator | None = None
 
-    def sorted_weights_offs(self, catapults: int = 50) -> List[WeightMaximum]:
+    def sorted_weights_offs(self, catapults: int = 50) -> list[WeightMaximum]:
         if self.target.fake:
             self._set_fake_query()
         elif self.ruin:
@@ -105,20 +105,20 @@ class WriteRamTarget:
                 self.index += 40000
             return self._far_weight_lst()
 
-    def weight_create_list(self) -> List[WeightModel]:
+    def weight_create_list(self) -> list[WeightModel]:
 
-        weights_max_update_lst: List[WeightMaximum] = []
-        weights_create_lst: List[WeightModel] = []
+        weights_max_update_lst: list[WeightMaximum] = []
+        weights_create_lst: list[WeightModel] = []
         self._set_building_generator()
         if self.ruin:
-            off_lst: List[WeightMaximum] = list(
+            off_lst: list[WeightMaximum] = list(
                 set(self.sorted_weights_offs(50) + self.sorted_weights_offs(100))
             )
             off_lst.sort(key=lambda weight: -weight.catapult_left)
             off_lst = off_lst[: self.target.required_off]
             off_lst.sort(key=lambda weight: -weight.distance)  # type: ignore
         else:
-            off_lst: List[WeightMaximum] = self.sorted_weights_offs()
+            off_lst: list[WeightMaximum] = self.sorted_weights_offs()
         i: int
         weight_max: WeightMaximum
         for i, weight_max in enumerate(off_lst):
@@ -127,7 +127,7 @@ class WriteRamTarget:
             except StopIteration:
                 break
             off: int = self._off(weight_max, catapult)
-            building: Optional[str] = self._building()
+            building: str | None = self._building()
             fake_limit: int = self._fake_limit()
 
             weight = self._weight_model(weight_max, off, catapult, building, i)
@@ -173,7 +173,7 @@ class WriteRamTarget:
             ruin_handle: RuinHandle = RuinHandle(outline=self.outline)
             self.ruin_handle = ruin_handle
 
-    def _building(self) -> Optional[str]:
+    def _building(self) -> str | None:
         if self.ruin_handle is not None:
             building: str = self.ruin_handle.building()
             return building
@@ -208,7 +208,7 @@ class WriteRamTarget:
         weight_max: WeightMaximum,
         off: int,
         catapult: int,
-        building: Optional[str],
+        building: str | None,
         order: int,
     ) -> WeightModel:
 
@@ -326,14 +326,14 @@ class WriteRamTarget:
             )
         )
 
-    def _closest_weight_lst(self) -> List[WeightMaximum]:
-        weight_list: List[WeightMaximum] = list(
+    def _closest_weight_lst(self) -> list[WeightMaximum]:
+        weight_list: list[WeightMaximum] = list(
             self.default_query.order_by("distance")[: 1 * self.target.required_off]
         )
         weight_list.sort(key=lambda weight: -weight.distance)  # type: ignore
         return weight_list
 
-    def _close_weight_lst(self) -> List[WeightMaximum]:
+    def _close_weight_lst(self) -> list[WeightMaximum]:
         self.default_query = self.default_query.filter(
             first_line=False,
             distance__gte=self.outline.initial_outline_front_dist,
@@ -342,7 +342,7 @@ class WriteRamTarget:
             self.default_query = self.default_query.order_by("-night_bool", "distance")
         else:
             self.default_query = self.default_query.order_by("distance")
-        weight_list: List[WeightMaximum] = list(
+        weight_list: list[WeightMaximum] = list(
             self.default_query[: 2 * self.target.required_off]
         )
 
@@ -351,7 +351,7 @@ class WriteRamTarget:
         else:
             required: int = self.target.required_off
 
-        sampled_weight_lst: List[WeightMaximum] = sample(weight_list, required)
+        sampled_weight_lst: list[WeightMaximum] = sample(weight_list, required)
 
         return sorted(
             sampled_weight_lst,
@@ -359,8 +359,8 @@ class WriteRamTarget:
             reverse=True,
         )
 
-    def _random_query(self, night_bool: Optional[int]) -> "QuerySet[WeightMaximum]":
-        queryset: "QuerySet[WeightMaximum]" = self.default_query.filter(
+    def _random_query(self, night_bool: int | None) -> QuerySet[WeightMaximum]:
+        queryset: QuerySet[WeightMaximum] = self.default_query.filter(
             first_line=False,
             distance__gte=self.outline.initial_outline_front_dist,
         )
@@ -368,12 +368,12 @@ class WriteRamTarget:
             queryset = queryset.filter(night_bool=night_bool)
         return queryset.order_by("?")
 
-    def _random_weight_lst(self) -> List[WeightMaximum]:
+    def _random_weight_lst(self) -> list[WeightMaximum]:
         if self.target.night_bonus:
-            result_lst: List[WeightMaximum] = []
+            result_lst: list[WeightMaximum] = []
             left_offs: int = self.target.required_off
 
-            weight_list_3: List[WeightMaximum] = list(
+            weight_list_3: list[WeightMaximum] = list(
                 self._random_query(night_bool=3)[:left_offs]
             )
 
@@ -382,7 +382,7 @@ class WriteRamTarget:
 
             if left_offs > 0:
 
-                weight_list_2: List[WeightMaximum] = list(
+                weight_list_2: list[WeightMaximum] = list(
                     self._random_query(night_bool=2)[:left_offs]
                 )
 
@@ -391,7 +391,7 @@ class WriteRamTarget:
 
                 if left_offs > 0:
 
-                    weight_list_1: List[WeightMaximum] = list(
+                    weight_list_1: list[WeightMaximum] = list(
                         self._random_query(night_bool=1)[:left_offs]
                     )
 
@@ -399,7 +399,7 @@ class WriteRamTarget:
                     left_offs -= len(weight_list_1)
 
         else:
-            result_lst: List[WeightMaximum] = list(
+            result_lst: list[WeightMaximum] = list(
                 self._random_query(night_bool=None)[: self.target.required_off]
             )
 
@@ -409,7 +409,7 @@ class WriteRamTarget:
             reverse=True,
         )
 
-    def _far_weight_lst(self) -> List[WeightMaximum]:
+    def _far_weight_lst(self) -> list[WeightMaximum]:
         self.default_query = self.default_query.filter(
             first_line=False,
             distance__gte=self.outline.initial_outline_front_dist,
@@ -419,7 +419,7 @@ class WriteRamTarget:
         else:
             self.default_query = self.default_query.order_by("-distance")
 
-        weight_list: List[WeightMaximum] = list(
+        weight_list: list[WeightMaximum] = list(
             self.default_query[: 3 * self.target.required_off]
         )
         if len(weight_list) < self.target.required_off:
@@ -427,7 +427,7 @@ class WriteRamTarget:
         else:
             required: int = self.target.required_off
 
-        sampled_weight_lst: List[WeightMaximum] = sample(weight_list, required)
+        sampled_weight_lst: list[WeightMaximum] = sample(weight_list, required)
 
         return sorted(
             sampled_weight_lst,

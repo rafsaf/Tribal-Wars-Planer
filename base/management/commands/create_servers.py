@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Tuple
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -25,7 +24,7 @@ class Command(BaseCommand):
     help = "Closes the specified poll for voting"
 
     def handle(self, *args, **options):
-        server_info: Tuple[str, str]
+        server_info: tuple[str, str]
         for server_info in settings.TRIBAL_WARS_SUPPORTED_SERVERS:
             _, created = Server.objects.get_or_create(
                 dns=server_info[0], prefix=server_info[1]
