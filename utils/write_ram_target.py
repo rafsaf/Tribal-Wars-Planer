@@ -272,7 +272,7 @@ class WriteRamTarget:
         return filter_off
 
     def _annotate_distance_on_query(self) -> None:
-        target_coord = np.array(self.target.coord_tuple())
+        target_coord = np.array([self.target.coord_tuple()])
 
         C = cdist(
             target_coord,
