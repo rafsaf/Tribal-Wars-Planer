@@ -769,11 +769,14 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
             return redirect(
                 reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}"
             )
+    from time import time
 
+    t1 = time()
     complete_outline_write(outline=instance)
     instance.actions.click_outline_write(instance)
     instance.written = "active"
     instance.save()
+    print(time() - t1)
     return redirect(reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu")
 
 

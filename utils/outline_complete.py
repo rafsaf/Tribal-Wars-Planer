@@ -21,6 +21,7 @@ from base import models
 from base.models import Outline
 from base.models import TargetVertex as Target
 from base.models import WeightModel
+from base.models.weight_maximum import WeightMaximum
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
 
@@ -81,6 +82,7 @@ class CreateWeights:
         self.ruin: bool = ruin
         self.modes_list = ["closest", "close", "random", "far"]
         self.weight_create_lst: list[WeightModel] = []
+        self.weight_max_list = list(WeightMaximum.objects.filter(outline=outline))
 
     @staticmethod
     def _is_syntax_extended(target: Target, noble_or_ruin: bool = False) -> bool:
@@ -105,11 +107,13 @@ class CreateWeights:
         for required, mode in iterator:
             yield (required, mode)
 
-    def _create_weights_or_pass(self, weight_lst: list[WeightModel]) -> None:
+    def _create_weights_or_pass(self, weight_lst: tuple[list[WeightModel], list[WeightMaximum]]) -> None:
         # note that we hit database only when have a lot of data
+        for weight_max in weight_lst[1]
+
 
         weight: WeightModel
-        for weight in weight_lst:
+        for weight in weight_lst[0]:
             self.weight_create_lst.append(weight)
 
         if len(self.weight_create_lst) >= 500:
@@ -147,6 +151,7 @@ class CreateWeights:
                 weight_ram: WriteRamTarget = WriteRamTarget(
                     target=target,
                     outline=self.outline,
+                    weight_max_list=self.weight_max_list
                     ruin=True,
                 )
                 self._create_weights_or_pass(weight_ram.weight_create_list())
