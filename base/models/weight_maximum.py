@@ -13,8 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from copy import deepcopy
-
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -47,30 +45,8 @@ class WeightMaximum(models.Model):
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )
 
-    CHANGES_TRACKED_FIELDS = [
-        "off_left",
-        "off_state",
-        "nobleman_left",
-        "nobleman_state",
-        "catapult_left",
-        "catapult_state",
-        "fake_limit",
-    ]
-
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        for field in self.CHANGES_TRACKED_FIELDS:
-            setattr(self, f"_original_{field}", deepcopy(getattr(self, field)))
-
     def __str__(self):
         return self.start
 
     def coord_tuple(self):
-        return (self.x_coord, self.y_coord)
-
-    @property
-    def has_changed(self):
-        for field in self.CHANGES_TRACKED_FIELDS:
-            if getattr(self, f"_original_{field}") != getattr(self, field):
-                return True
-        return False
+        return (int(self.start[0:3]), int(self.start[4:7]))

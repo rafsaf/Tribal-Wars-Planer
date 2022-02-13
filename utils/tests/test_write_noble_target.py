@@ -46,12 +46,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_weight(self):
         target = self.target()
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         write_noble.index = 999
         self.weight4.distance = 10  # type: ignore
         weight = write_noble._weight_model(
@@ -66,12 +61,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_updated_weight_max(self):
         target = self.target()
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
 
         updated_weight = write_noble._updated_weight_max(
             weight_max=self.weight4,
@@ -88,12 +78,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_order_distance_default_list(self):
         target = self.target()
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         self.weight1.distance = 10
         self.weight2.distance = 5
         self.weight3.distance = 15
@@ -108,12 +93,7 @@ class TestWriteNobleTarget(TestCase):
     def test_fill_default_list_not_single(self):
         target: Target = self.target()
         target.required_noble = 8
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         fill_list = [self.weight4, self.weight0]
         write_noble._fill_default_list(fill_list, single=False)
         expected1 = [(self.weight4, 4), (self.weight0, 2)]
@@ -123,12 +103,7 @@ class TestWriteNobleTarget(TestCase):
     def test_fill_default_list_single(self):
         target: Target = self.target()
         target.required_noble = 8
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         fill_list = [self.weight4, self.weight0]
         write_noble._fill_default_list(fill_list, single=True)
         expected1 = [
@@ -145,12 +120,7 @@ class TestWriteNobleTarget(TestCase):
         self.weight0.distance = 10
         self.weight5.distance = 10
         self.weight3.distance = 10
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         fill_list = [self.weight4, self.weight0, self.weight5, self.weight3]
         write_noble._mode_guide_is_one(fill_list)
         expected1 = [
@@ -166,12 +136,7 @@ class TestWriteNobleTarget(TestCase):
         self.weight0.distance = 10
         self.weight5.distance = 10
         self.weight3.distance = 10
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         fill_list = [self.weight4, self.weight0, self.weight5, self.weight3]
         write_noble._mode_guide_is_one(fill_list)
         expected1 = [
@@ -183,12 +148,7 @@ class TestWriteNobleTarget(TestCase):
     def test_mode_guide_is_many(self):
         target: Target = self.target()
         target.required_noble = 4
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         self.weight0.distance = 10
         self.weight4.distance = 10
         self.weight5.distance = 10
@@ -204,12 +164,7 @@ class TestWriteNobleTarget(TestCase):
     def test_mode_guide_is_single(self):
         target: Target = self.target()
         target.required_noble = 4
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         self.weight0.distance = 10
         self.weight4.distance = 10
         self.weight5.distance = 10
@@ -226,12 +181,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_off_and_first_off_divide(self):
         target: Target = self.target()
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
@@ -243,12 +193,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_off_and_first_off_not_divide(self):
         target: Target = self.target()
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
@@ -261,12 +206,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_off_and_first_off_separatly(self):
         target: Target = self.target()
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
@@ -279,12 +219,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_off_and_first_off_low_off_is_divide_for_every_mode_division(self):
         target: Target = self.target()
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 500
@@ -308,12 +243,7 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_fake_target(self):
         target: Target = self.target()
         target.fake = True
-        weight_max_lst = list(
-            WeightMaximum.objects.filter(outline=self.outline, too_far_away=False)
-        )
-        write_noble = WriteNobleTarget(
-            target=target, outline=self.outline, weight_max_list=weight_max_lst
-        )
+        write_noble = WriteNobleTarget(target=target, outline=self.outline)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 500
