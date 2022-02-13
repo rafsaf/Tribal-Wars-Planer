@@ -12,27 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-
-import random
+from random import Random
 from statistics import mean
 from typing import Callable, Generator
-import numpy as np
-from scipy.spatial.distance import cdist
 import secrets
-from django.db.models import (
-    Case,
-    DecimalField,
-    ExpressionWrapper,
-    F,
-    FloatField,
-    IntegerField,
-    Q,
-    Value,
-    When,
-)
-from django.db.models.functions import Mod
-from django.db.models.query import QuerySet
-
 from base.models import Outline
 from base.models import TargetVertex as Target
 from base.models import WeightMaximum, WeightModel
@@ -70,6 +53,9 @@ class WriteRamTarget:
         self.ruin_handle: RuinHandle | None = None
         self.building_generator: Generator | None = None
 
+        salt = secrets.token_bytes(16)
+        self.random = Random(salt)
+
     def sorted_weights_offs(self, catapults: int = 50) -> list[WeightMaximum]:
         if self.target.fake:
             self.filters.append(self._fake_query())
@@ -77,8 +63,6 @@ class WriteRamTarget:
             self.filters.append(self._ruin_query(catapults=catapults))
         else:
             self.filters.append(self._off_query())
-
-        self._annotate_distance_on_query()
 
         if not self.target.mode_off == "closest" and self.target.night_bonus:
             self._add_night_bonus_annotations()
@@ -271,17 +255,6 @@ class WriteRamTarget:
 
         return filter_off
 
-    def _annotate_distance_on_query(self) -> None:
-        target_coord = np.array([self.target.coord_tuple()])
-
-        C = cdist(
-            target_coord,
-            np.array([np.array(i.coord_tuple()) for i in self.weight_max_list]),
-            "euclidean",
-        )
-        for index, distance in enumerate(C[0]):
-            setattr(self.weight_max_list[index], "distance", distance)
-
     def _add_night_bonus_annotations(self):
         avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
         interval_dist: int = self.target.enter_t2 - avg_dist
@@ -337,7 +310,9 @@ class WriteRamTarget:
         else:
             required: int = self.target.required_off
 
-        sampled_weight_lst: list[WeightMaximum] = random.sample(weight_list, required)
+        sampled_weight_lst: list[WeightMaximum] = self.random.sample(
+            weight_list, required
+        )
 
         return sorted(
             sampled_weight_lst,
@@ -357,7 +332,7 @@ class WriteRamTarget:
             filtered_list = [i for i in weight_max_lst if filter_night_bool(i) is True]
         else:
             filtered_list = weight_max_lst
-        random.shuffle(filtered_list)
+        self.random.shuffle(filtered_list)
         return filtered_list
 
     def _random_weight_lst(self) -> list[WeightMaximum]:
@@ -424,7 +399,9 @@ class WriteRamTarget:
         else:
             required: int = self.target.required_off
 
-        sampled_weight_lst: list[WeightMaximum] = random.sample(weight_list, required)
+        sampled_weight_lst: list[WeightMaximum] = self.random.sample(
+            weight_list, required
+        )
 
         return sorted(
             sampled_weight_lst,

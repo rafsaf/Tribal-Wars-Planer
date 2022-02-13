@@ -13,9 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 
+from copy import deepcopy
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from copy import deepcopy
 
 
 class WeightMaximum(models.Model):
@@ -65,7 +66,7 @@ class WeightMaximum(models.Model):
         return self.start
 
     def coord_tuple(self):
-        return (int(self.start[0:3]), int(self.start[4:7]))
+        return (self.x_coord, self.y_coord)
 
     @property
     def has_changed(self):
