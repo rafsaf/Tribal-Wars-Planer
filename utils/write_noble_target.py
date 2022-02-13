@@ -13,9 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 
-from random import Random
-from typing import Callable
-import secrets
+
+from django.db.models import DecimalField, ExpressionWrapper, F
+from django.db.models.query import QuerySet
+
 from base.models import Outline
 from base.models import TargetVertex as Target
 from base.models import WeightMaximum, WeightModel
@@ -64,42 +65,37 @@ class WriteNobleTarget:
         self,
         target: Target,
         outline: Outline,
-        weight_max_list: list[WeightMaximum],
     ):
         self.target: Target = target
         self.outline: Outline = outline
         self.index: int = 0
-        self.weight_max_list: list[WeightMaximum] = weight_max_list
-        self.filters: list[Callable[[WeightMaximum], bool]] = []
+        self.default_query: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(
+            outline=self.outline, too_far_away=False
+        )
         self.default_create_list: list[tuple[WeightMaximum, int]] = []
 
-        salt = secrets.token_bytes(16)
-        self.random = Random(salt)
-
     def sorted_weights_nobles(self) -> list[WeightMaximum]:
-        self.filters.append(self._noble_query())
-        self.filters.append(self._only_closer_than_target_dist())
+        self._set_noble_query()
+        self._annotate_distance_on_query()
+        self._only_closer_than_target_dist()
 
         if self.target.mode_noble == "closest":
             self.index = 110000
             return self._closest_weight_lst()
 
         elif self.target.mode_noble == "close":
-            self.filters.append(self._first_line_false_query())
             self.index = 100000
             return self._close_weight_lst()
 
         elif self.target.mode_noble == "random":
-            self.filters.append(self._first_line_false_query())
             self.index = 90000
             return self._random_weight_lst()
 
         else:  # self.target.mode_off == "far":
-            self.filters.append(self._first_line_false_query())
             self.index = 80000
             return self._far_weight_lst()
 
-    def weight_create_list(self) -> tuple[list[WeightModel], list[WeightMaximum]]:
+    def weight_create_list(self) -> list[WeightModel]:
         weights_max_update_lst: list[WeightMaximum] = []
         weights_create_lst: list[WeightModel] = []
 
@@ -164,7 +160,18 @@ class WriteNobleTarget:
                 )
             )
 
-        return weights_create_lst, weights_max_update_lst
+        WeightMaximum.objects.bulk_update(
+            weights_max_update_lst,
+            fields=[
+                "off_state",
+                "off_left",
+                "nobleman_state",
+                "nobleman_left",
+                "catapult_state",
+                "catapult_left",
+            ],
+        )
+        return weights_create_lst
 
     def _weight_model(
         self,
@@ -400,80 +407,63 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return weight_max.catapult_left
 
-    def _noble_query(self):
-        def filter_noble(weight_max: WeightMaximum):
-            if (
-                weight_max.nobleman_left >= 1
-                and weight_max.off_left >= 200 + weight_max.catapult_left * 8
-            ):
-                return True
-            return False
+    def _set_noble_query(self) -> None:
+        self.default_query = self.default_query.filter(
+            nobleman_left__gte=1,
+            off_left__gte=200 + F("catapult_left") * 8,
+        )
 
-        return filter_noble
+    def _annotate_distance_on_query(self) -> None:
+        x_coord: int = self.target.coord_tuple()[0]
+        y_coord: int = self.target.coord_tuple()[1]
 
-    def _only_closer_than_target_dist(self):
-        def filter_close_than_target_dist(weight_max: WeightMaximum) -> bool:
-            return (
-                getattr(weight_max, "distance")
-                <= self.outline.initial_outline_target_dist
+        self.default_query = self.default_query.annotate(
+            distance=ExpressionWrapper(
+                ((F("x_coord") - x_coord) ** 2 + (F("y_coord") - y_coord) ** 2)
+                ** (1 / 2),
+                output_field=DecimalField(max_digits=2),
             )
+        ).filter(distance__lte=self.outline.initial_outline_maximum_front_dist)
 
-        return filter_close_than_target_dist
-
-    def _get_filtered_weight_max_list(self):
-        def all_filters_match(weight_max: WeightMaximum):
-            for filter_func in self.filters:
-                if filter_func(weight_max) is False:
-                    return False
-            return True
-
-        return [
-            weight
-            for weight in self.weight_max_list
-            if all_filters_match(weight) is True
-        ]
-
-    def _first_line_false_query(self):
-        def filter_first_line_false(weight_max: WeightMaximum):
-            if (
-                weight_max.first_line is False
-                and getattr(weight_max, "distance")
-                >= self.outline.initial_outline_front_dist
-            ):
-                return True
-            return False
-
-        return filter_first_line_false
+    def _only_closer_than_target_dist(self) -> None:
+        self.default_query = self.default_query.filter(
+            distance__lte=self.outline.initial_outline_target_dist
+        )
 
     def _closest_weight_lst(self) -> list[WeightMaximum]:
-        filtered_weight_max = self._get_filtered_weight_max_list()
-        filtered_weight_max.sort(key=lambda weight: getattr(weight, "distance"))
+        self.default_query = self.default_query.order_by("distance")
 
-        weight_list: list[WeightMaximum] = filtered_weight_max[:15]
+        weight_list: list[WeightMaximum] = list(self.default_query[:15])
         return weight_list
 
     def _close_weight_lst(self) -> list[WeightMaximum]:
-        filtered_weight_max = self._get_filtered_weight_max_list()
-        filtered_weight_max.sort(key=lambda weight: getattr(weight, "distance"))
+        self.default_query = self.default_query.filter(
+            first_line=False,
+            distance__gte=self.outline.initial_outline_front_dist,
+        ).order_by("distance")
 
-        weight_list: list[WeightMaximum] = filtered_weight_max[:15]
+        weight_list: list[WeightMaximum] = list(self.default_query[:15])
         return weight_list
 
     def _random_weight_lst(self) -> list[WeightMaximum]:
-        filtered_weight_max = self._get_filtered_weight_max_list()
-        self.random.shuffle(filtered_weight_max)
+        self.default_query = self.default_query.filter(
+            first_line=False,
+            distance__gte=self.outline.initial_outline_front_dist,
+        ).order_by("?")
 
-        weight_list: list[WeightMaximum] = filtered_weight_max[:15]
+        weight_list: list[WeightMaximum] = list(self.default_query[:15])
         return sorted(
             weight_list,
             key=lambda item: item.distance,  # type: ignore
         )
 
     def _far_weight_lst(self) -> list[WeightMaximum]:
-        filtered_weight_max = self._get_filtered_weight_max_list()
-        filtered_weight_max.sort(key=lambda weight: -getattr(weight, "distance"))
+        self.default_query = self.default_query.filter(
+            first_line=False,
+            distance__gte=self.outline.initial_outline_front_dist,
+        ).order_by("-distance")
 
-        weight_list: list[WeightMaximum] = filtered_weight_max[:15]
+        weight_list: list[WeightMaximum] = list(self.default_query[:15])
         return sorted(
             weight_list,
             key=lambda item: item.distance,  # type: ignore

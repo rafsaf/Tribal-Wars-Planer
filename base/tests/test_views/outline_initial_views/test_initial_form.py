@@ -137,7 +137,7 @@ class InitialForm(MiniSetup):
         assert response.context.get("len_real") == 1
         assert response.context.get("len_fake") == 2
         assert response.context.get("len_ruin") == 4
-        assert response.context.get("estimated_time") == 102
+        assert response.context.get("estimated_time") == 236
         assert response.context.get("mode") == "real"
 
     def test_planer_initial_form___200_initial_values_for_forms_works_well_1(self):
