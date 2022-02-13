@@ -15,6 +15,7 @@
 
 """ File with decorator to measure function time """
 
+import logging
 from functools import wraps
 from time import time
 
@@ -41,12 +42,12 @@ def timing(function):
             new_kwargs = kwargs
         end_queries = len(connection.queries)
         time3 = round(time2 - time1, 5)
-        print(f"\r\n Func: {function.__name__}")
-        print(f"  Args:[{new_args}]")
-        print(f"  Kwargs:[{new_kwargs}]")
-        print(f"  Took: {time3} sec")
-        print(f"  Number of Queries: {end_queries - start_queries}")
-        print("  Line by line time: ")
+        logging.debug(f"\r\n Func: {function.__name__}")
+        logging.debug(f"  Args:[{new_args}]")
+        logging.debug(f"  Kwargs:[{new_kwargs}]")
+        logging.debug(f"  Took: {time3} sec")
+        logging.debug(f"  Number of Queries: {end_queries - start_queries}")
+        logging.debug("  Line by line time: ")
         return result
 
     return wrap

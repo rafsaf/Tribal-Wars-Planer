@@ -13,16 +13,63 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Generator
+import logging
+from typing import Any, Generator
 
+import numpy as np
 from django.db.models.query import QuerySet
+from numpy.typing import NDArray
+from scipy.spatial.distance import cdist
 
 from base import models
 from base.models import Outline
 from base.models import TargetVertex as Target
 from base.models import WeightModel
+from base.models.weight_maximum import WeightMaximum
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
+
+
+def generate_distance_matrix(
+    outline: models.Outline, weight_max_lst: list[WeightMaximum]
+):
+    """
+    Generates and returns matrix with distances between all targets and (available weight max villages) at once.
+    For example for targets: [T1, T2], weights_max (W1, W2, W3)
+
+    dist matrix would be
+    [X11, X12, X13]
+    [X21, X22, X23]
+
+    and coord_to_id
+    {(coord of T2 - tuple): 0, (coord of T2 - tuple) 1}
+
+    and then having tuple of coords for target, we can get all distances to weights by
+
+    dist_matrix[coord_to_id[coord of target]]
+    """
+    targets: QuerySet["Target"] = models.TargetVertex.objects.filter(
+        outline=outline
+    ).order_by("id")
+
+    coord_to_id = {}
+    list_of_coords = []
+    for target in targets.only("target"):
+        coord = target.coord_tuple()
+        if coord in coord_to_id:
+            continue
+        list_coords_len = len(list_of_coords)
+        coord_to_id[coord] = list_coords_len
+        list_of_coords.append(np.array(coord))
+
+    dist_matrix = cdist(
+        np.array(list_of_coords),
+        np.array([np.array(i.coord_tuple()) for i in weight_max_lst]),
+        "euclidean",
+    )
+
+    logging.debug(dist_matrix.shape)
+    return dist_matrix, coord_to_id
 
 
 def complete_outline_write(outline: models.Outline):
@@ -35,36 +82,130 @@ def complete_outline_write(outline: models.Outline):
     5. Fake Nobles
 
     For every queryset, forLoop over its targets and
-    in each step writting the step's target
+    in each step writting the step's target and updating weights max
     """
 
-    targets = models.TargetVertex.objects.filter(
-        outline=outline, fake=False, ruin=False
-    ).order_by("id")
-    fakes = models.TargetVertex.objects.filter(
-        outline=outline, fake=True, ruin=False
-    ).order_by("id")
-    ruins = models.TargetVertex.objects.filter(
-        outline=outline, fake=False, ruin=True
-    ).order_by("id")
+    def get_targets(fake: bool, ruin: bool) -> QuerySet[Target]:
+        return (
+            Target.objects.filter(outline=outline, fake=fake, ruin=ruin)
+            .only(
+                "target",
+                "player",
+                "fake",
+                "ruin",
+                "required_off",
+                "required_noble",
+                "exact_off",
+                "exact_noble",
+                "mode_off",
+                "mode_noble",
+                "mode_division",
+                "mode_guide",
+                "night_bonus",
+            )
+            .order_by("id")
+        )
 
-    create_fakes = CreateWeights(fakes, outline, noble=False, ruin=False)
-    create_fakes()
+    targets = get_targets(False, False)
+    fakes = get_targets(True, False)
+    ruins = get_targets(False, True)
+    weight_max_lst = list(
+        WeightMaximum.objects.filter(outline=outline, too_far_away=False).only(
+            "start",
+            "x_coord",
+            "y_coord",
+            "player",
+            "off_state",
+            "off_left",
+            "nobleman_state",
+            "nobleman_left",
+            "catapult_state",
+            "catapult_left",
+            "first_line",
+            "fake_limit",
+        )
+    )
+    dist_matrix, coord_to_id_in_matrix = generate_distance_matrix(
+        outline=outline, weight_max_lst=weight_max_lst
+    )
+    create_fakes = CreateWeights(
+        fakes,
+        outline,
+        weight_max_lst,
+        dist_matrix,
+        coord_to_id_in_matrix,
+        noble=False,
+        ruin=False,
+    )
+    weight_max_lst = create_fakes()
 
-    create_ruins = CreateWeights(ruins, outline, noble=False, ruin=True)
-    create_ruins()
+    create_ruins = CreateWeights(
+        ruins,
+        outline,
+        weight_max_lst,
+        dist_matrix,
+        coord_to_id_in_matrix,
+        noble=False,
+        ruin=True,
+    )
+    weight_max_lst = create_ruins()
 
-    create_nobles = CreateWeights(targets, outline, noble=True, ruin=False)
-    create_nobles()
+    create_nobles = CreateWeights(
+        targets,
+        outline,
+        weight_max_lst,
+        dist_matrix,
+        coord_to_id_in_matrix,
+        noble=True,
+        ruin=False,
+    )
+    weight_max_lst = create_nobles()
 
-    create_offs = CreateWeights(targets, outline, noble=False, ruin=False)
-    create_offs()
+    create_offs = CreateWeights(
+        targets,
+        outline,
+        weight_max_lst,
+        dist_matrix,
+        coord_to_id_in_matrix,
+        noble=False,
+        ruin=False,
+    )
+    weight_max_lst = create_offs()
 
-    create_ruin_offs = CreateWeights(ruins, outline, noble=False, ruin=False)
-    create_ruin_offs()
+    create_ruin_offs = CreateWeights(
+        ruins,
+        outline,
+        weight_max_lst,
+        dist_matrix,
+        coord_to_id_in_matrix,
+        noble=False,
+        ruin=False,
+    )
+    weight_max_lst = create_ruin_offs()
 
-    create_fake_nobles = CreateWeights(fakes, outline, noble=True, ruin=False)
-    create_fake_nobles()
+    create_fake_nobles = CreateWeights(
+        fakes,
+        outline,
+        weight_max_lst,
+        dist_matrix,
+        coord_to_id_in_matrix,
+        noble=True,
+        ruin=False,
+    )
+    weight_max_lst = create_fake_nobles()
+    WeightMaximum.objects.bulk_update(
+        [weight for weight in weight_max_lst if weight.has_changed is True],
+        fields=[
+            "off_state",
+            "off_left",
+            "catapult_state",
+            "catapult_left",
+            "nobleman_state",
+            "nobleman_left",
+            "fake_limit",
+        ],
+        batch_size=1000,
+    )
 
 
 class CreateWeights:
@@ -72,6 +213,9 @@ class CreateWeights:
         self,
         targets: QuerySet[Target],
         outline: Outline,
+        weight_max_list: list[WeightMaximum],
+        dist_matrix: NDArray[np.floating[Any]],
+        coord_to_id_in_matrix: dict[tuple[int, int], int],
         noble: bool = False,
         ruin: bool = False,
     ) -> None:
@@ -79,8 +223,11 @@ class CreateWeights:
         self.outline: Outline = outline
         self.noble: bool = noble
         self.ruin: bool = ruin
+        self.dist_matrix = dist_matrix
+        self.coord_to_id_in_matrix = coord_to_id_in_matrix
         self.modes_list = ["closest", "close", "random", "far"]
         self.weight_create_lst: list[WeightModel] = []
+        self.weight_max_list = weight_max_list
 
     @staticmethod
     def _is_syntax_extended(target: Target, noble_or_ruin: bool = False) -> bool:
@@ -105,9 +252,25 @@ class CreateWeights:
         for required, mode in iterator:
             yield (required, mode)
 
-    def _create_weights_or_pass(self, weight_lst: list[WeightModel]) -> None:
+    def _create_weights_or_pass_update_max_list(
+        self, weights_lsts: tuple[list[WeightModel], list[WeightMaximum]]
+    ) -> None:
         # note that we hit database only when have a lot of data
+        temp_to_update_dict = {}
+        weight_max: WeightMaximum
+        for weight_max in weights_lsts[1]:
+            temp_to_update_dict[weight_max.pk] = weight_max
 
+        for i, weight_max in enumerate(self.weight_max_list):
+
+            if weight_max.pk in temp_to_update_dict:
+                self.weight_max_list[i] = temp_to_update_dict[weight_max.pk]
+
+        weight: WeightModel
+        for weight in weights_lsts[0]:
+            self.weight_create_lst.append(weight)
+
+    def _create_weights_or_pass(self, weight_lst: list[WeightModel]):
         weight: WeightModel
         for weight in weight_lst:
             self.weight_create_lst.append(weight)
@@ -118,6 +281,7 @@ class CreateWeights:
 
     def _noble_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
+            self._annotate_distances_for_target(target)
             for (required, mode) in self._extended_syntax(target, noble_or_ruin=True):
                 if required == 0:
                     continue
@@ -126,19 +290,27 @@ class CreateWeights:
                 weight_noble: WriteNobleTarget = WriteNobleTarget(
                     target=target,
                     outline=self.outline,
+                    weight_max_list=self.weight_max_list,
                 )
-                self._create_weights_or_pass(weight_noble.weight_create_list())
+                self._create_weights_or_pass_update_max_list(
+                    weight_noble.weight_create_list()
+                )
 
         else:
             if target.required_noble > 0:
+                self._annotate_distances_for_target(target)
                 weight_noble: WriteNobleTarget = WriteNobleTarget(
                     target=target,
                     outline=self.outline,
+                    weight_max_list=self.weight_max_list,
                 )
-                self._create_weights_or_pass(weight_noble.weight_create_list())
+                self._create_weights_or_pass_update_max_list(
+                    weight_noble.weight_create_list()
+                )
 
     def _ruin_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
+            self._annotate_distances_for_target(target)
             for (required, mode) in self._extended_syntax(target, noble_or_ruin=True):
                 if required == 0:
                     continue
@@ -147,22 +319,30 @@ class CreateWeights:
                 weight_ram: WriteRamTarget = WriteRamTarget(
                     target=target,
                     outline=self.outline,
+                    weight_max_list=self.weight_max_list,
                     ruin=True,
                 )
-                self._create_weights_or_pass(weight_ram.weight_create_list())
+                self._create_weights_or_pass_update_max_list(
+                    weight_ram.weight_create_list()
+                )
 
         else:
             target.required_off = target.required_noble
             if target.required_off > 0:
+                self._annotate_distances_for_target(target)
                 weight_ram: WriteRamTarget = WriteRamTarget(
                     target=target,
                     outline=self.outline,
+                    weight_max_list=self.weight_max_list,
                     ruin=True,
                 )
-                self._create_weights_or_pass(weight_ram.weight_create_list())
+                self._create_weights_or_pass_update_max_list(
+                    weight_ram.weight_create_list()
+                )
 
     def _ram_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=False):
+            self._annotate_distances_for_target(target)
             for (required, mode) in self._extended_syntax(target, noble_or_ruin=False):
                 if required == 0:
                     continue
@@ -171,20 +351,33 @@ class CreateWeights:
                 weight_ram: WriteRamTarget = WriteRamTarget(
                     target=target,
                     outline=self.outline,
+                    weight_max_list=self.weight_max_list,
                     ruin=False,
                 )
-                self._create_weights_or_pass(weight_ram.weight_create_list())
+                self._create_weights_or_pass_update_max_list(
+                    weight_ram.weight_create_list()
+                )
 
         else:
             if target.required_off > 0:
+                self._annotate_distances_for_target(target)
                 weight_ram: WriteRamTarget = WriteRamTarget(
                     target=target,
                     outline=self.outline,
+                    weight_max_list=self.weight_max_list,
                     ruin=False,
                 )
-                self._create_weights_or_pass(weight_ram.weight_create_list())
+                self._create_weights_or_pass_update_max_list(
+                    weight_ram.weight_create_list()
+                )
 
-    def __call__(self) -> None:
+    def _annotate_distances_for_target(self, target: Target) -> None:
+        target_coord = target.coord_tuple()
+        target_row_in_C = self.coord_to_id_in_matrix[target_coord]
+        for index, distance in enumerate(self.dist_matrix[target_row_in_C]):
+            setattr(self.weight_max_list[index], "distance", distance)
+
+    def __call__(self) -> list[WeightMaximum]:
         # note that .iterator() prevents from caching querysets
         # which can possibly cause overwriting some targets attributes
 
@@ -196,4 +389,6 @@ class CreateWeights:
                 self._ruin_write(target)
             else:
                 self._ram_write(target)
-        WeightModel.objects.bulk_create(self.weight_create_lst)
+
+        WeightModel.objects.bulk_create(self.weight_create_lst, batch_size=2000)
+        return self.weight_max_list

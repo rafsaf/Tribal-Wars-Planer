@@ -522,8 +522,8 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             try:
                 army = basic.Army(self.text_off1, evidence=self.evidence)
                 army.clean_init(self.player_dict)
-            except basic.ArmyError as error:
-                print(error)
+            except basic.ArmyError:
+                pass
             else:
                 raise Exception
 
@@ -532,8 +532,8 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             try:
                 army = basic.Army(self.text_off2, evidence=self.evidence)
                 army.clean_init(self.player_dict)
-            except basic.ArmyError as error:
-                print(error)
+            except basic.ArmyError:
+                pass
             else:
                 raise Exception
 
@@ -542,8 +542,8 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             try:
                 army = basic.Defence(self.text_deff1, evidence=self.evidence)
                 army.clean_init(self.player_dict)
-            except basic.DefenceError as error:
-                print(error)
+            except basic.DefenceError:
+                pass
             else:
                 raise Exception
 
@@ -552,8 +552,8 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             try:
                 army = basic.Defence(self.text_deff2, evidence=self.evidence)
                 army.clean_init(self.player_dict)
-            except basic.DefenceError as error:
-                print(error)
+            except basic.DefenceError:
+                pass
             else:
                 raise Exception
 
@@ -562,8 +562,8 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             try:
                 army = basic.Defence(self.text_deff3, evidence=self.evidence)
                 army.clean_init(self.player_dict)
-            except basic.DefenceError as error:
-                print(error)
+            except basic.DefenceError:
+                pass
             else:
                 raise Exception
 
