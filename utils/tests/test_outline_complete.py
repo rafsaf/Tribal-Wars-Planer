@@ -15,7 +15,7 @@
 
 
 import itertools
-import logging
+
 from django.test import TestCase
 from django.utils.translation import activate
 
@@ -27,7 +27,6 @@ from base.tests.test_utils.initial_setup import create_initial_data_write_outlin
 from utils.avaiable_troops import get_legal_coords_outline
 from utils.outline_complete import complete_outline_write
 from utils.outline_initial import MakeOutline
-import pytest
 
 # Please note that only extended syntax for the targets should be used.
 # The tests should cover many diffrent outline ideas and available modes.

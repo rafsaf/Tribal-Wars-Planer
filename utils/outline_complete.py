@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-import logging
 from secrets import SystemRandom
 from typing import Any, Generator
 
