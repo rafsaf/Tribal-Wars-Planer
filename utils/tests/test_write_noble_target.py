@@ -13,12 +13,16 @@
 # limitations under the License.
 # ==============================================================================
 
+from secrets import SystemRandom
+
+from django.db.models import ExpressionWrapper, F, FloatField
 from django.test import TestCase
 from django.utils.translation import activate
 
 from base.models import Outline
 from base.models import TargetVertex as Target
 from base.models import WeightMaximum, WeightModel
+from base.models.target_vertex import TargetVertex
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.outline_initial import MakeOutline
 from utils.write_noble_target import WriteNobleTarget
@@ -31,22 +35,87 @@ class TestWriteNobleTarget(TestCase):
         self.outline: Outline = Outline.objects.get(id=1)
         make_outline: MakeOutline = MakeOutline(self.outline)
         make_outline()
-        self.weight0 = WeightMaximum.objects.get(start="500|500")
-        self.weight1 = WeightMaximum.objects.get(start="500|501")
-        self.weight2 = WeightMaximum.objects.get(start="500|502")
-        self.weight3 = WeightMaximum.objects.get(start="500|503")
-        self.weight4 = WeightMaximum.objects.get(start="500|504")
-        self.weight5 = WeightMaximum.objects.get(start="500|505")
+        self.weight0: WeightMaximum = WeightMaximum.objects.get(start="500|500")
+        self.weight1: WeightMaximum = WeightMaximum.objects.get(start="500|501")
+        self.weight2: WeightMaximum = WeightMaximum.objects.get(start="500|502")
+        self.weight3: WeightMaximum = WeightMaximum.objects.get(start="500|503")
+        self.weight4: WeightMaximum = WeightMaximum.objects.get(start="500|504")
+        self.weight5: WeightMaximum = WeightMaximum.objects.get(start="500|505")
+        self.random = SystemRandom("test_write_noble")
 
-    def target(self):
+    def target(self, coord: str = "500|499") -> TargetVertex:
         target = Target.objects.create(
-            outline=self.outline, target="500|499", player="player1"
+            outline=self.outline, target=coord, player="player1"
         )
         return target
 
+    def get_weight_max_lst(self, target: TargetVertex) -> list[WeightMaximum]:
+        coord = target.coord_tuple()
+        return list(
+            WeightMaximum.objects.filter(
+                outline=self.outline, too_far_away=False
+            ).annotate(
+                distance=ExpressionWrapper(
+                    ((F("x_coord") - coord[0]) ** 2 + (F("y_coord") - coord[1]) ** 2)
+                    ** (1 / 2),
+                    output_field=FloatField(max_length=5),
+                )
+            )
+        )
+
+    def get_write_noble(self, target: TargetVertex) -> WriteNobleTarget:
+        write_noble = WriteNobleTarget(
+            target=target,
+            outline=self.outline,
+            weight_max_list=self.get_weight_max_lst(target),
+            random=self.random,
+        )
+        return write_noble
+
+    def test__only_closer_than_target_dist_small_initial_outline_target_dist(self):
+        target = self.target()
+        write_noble = self.get_write_noble(target)
+
+        write_noble.filters.append(write_noble._only_closer_than_target_dist())
+        result = [
+            self.weight0.start,
+            self.weight1.start,
+            self.weight2.start,
+            self.weight3.start,
+            self.weight4.start,
+            self.weight5.start,
+        ]
+        assert [
+            weight.start for weight in write_noble._get_filtered_weight_max_list()
+        ] == result
+
+    def test__only_closer_than_target_dist_big_initial_outline_target_dist(self):
+        target = self.target("600|500")
+        self.outline.initial_outline_target_dist = 99
+        write_noble = self.get_write_noble(target)
+
+        write_noble.filters.append(write_noble._only_closer_than_target_dist())
+        assert [
+            weight.start for weight in write_noble._get_filtered_weight_max_list()
+        ] == []
+
+    def test_random_sorted_weights_nobles(self):
+        target = self.target()
+        self.outline.initial_outline_target_dist = 10
+        self.outline.initial_outline_front_dist = 0
+        self.outline.initial_outline_min_off = 15000
+        target.required_noble = 10
+        target.mode_noble = "random"
+        write_noble = self.get_write_noble(target)
+
+        result = [self.weight0.start, self.weight4.start, self.weight5.start]
+        assert [
+            weight.start for weight in write_noble.sorted_weights_nobles()
+        ] == result
+
     def test_weight(self):
         target = self.target()
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         write_noble.index = 999
         self.weight4.distance = 10  # type: ignore
         weight = write_noble._weight_model(
@@ -61,7 +130,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_updated_weight_max(self):
         target = self.target()
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
 
         updated_weight = write_noble._updated_weight_max(
             weight_max=self.weight4,
@@ -78,7 +147,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_order_distance_default_list(self):
         target = self.target()
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         self.weight1.distance = 10
         self.weight2.distance = 5
         self.weight3.distance = 15
@@ -93,7 +162,7 @@ class TestWriteNobleTarget(TestCase):
     def test_fill_default_list_not_single(self):
         target: Target = self.target()
         target.required_noble = 8
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         fill_list = [self.weight4, self.weight0]
         write_noble._fill_default_list(fill_list, single=False)
         expected1 = [(self.weight4, 4), (self.weight0, 2)]
@@ -103,7 +172,7 @@ class TestWriteNobleTarget(TestCase):
     def test_fill_default_list_single(self):
         target: Target = self.target()
         target.required_noble = 8
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         fill_list = [self.weight4, self.weight0]
         write_noble._fill_default_list(fill_list, single=True)
         expected1 = [
@@ -120,7 +189,7 @@ class TestWriteNobleTarget(TestCase):
         self.weight0.distance = 10
         self.weight5.distance = 10
         self.weight3.distance = 10
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         fill_list = [self.weight4, self.weight0, self.weight5, self.weight3]
         write_noble._mode_guide_is_one(fill_list)
         expected1 = [
@@ -136,7 +205,7 @@ class TestWriteNobleTarget(TestCase):
         self.weight0.distance = 10
         self.weight5.distance = 10
         self.weight3.distance = 10
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         fill_list = [self.weight4, self.weight0, self.weight5, self.weight3]
         write_noble._mode_guide_is_one(fill_list)
         expected1 = [
@@ -148,7 +217,7 @@ class TestWriteNobleTarget(TestCase):
     def test_mode_guide_is_many(self):
         target: Target = self.target()
         target.required_noble = 4
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         self.weight0.distance = 10
         self.weight4.distance = 10
         self.weight5.distance = 10
@@ -164,7 +233,7 @@ class TestWriteNobleTarget(TestCase):
     def test_mode_guide_is_single(self):
         target: Target = self.target()
         target.required_noble = 4
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         self.weight0.distance = 10
         self.weight4.distance = 10
         self.weight5.distance = 10
@@ -181,7 +250,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_off_and_first_off_divide(self):
         target: Target = self.target()
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
@@ -193,7 +262,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_off_and_first_off_not_divide(self):
         target: Target = self.target()
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
@@ -206,7 +275,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_off_and_first_off_separatly(self):
         target: Target = self.target()
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
@@ -219,7 +288,7 @@ class TestWriteNobleTarget(TestCase):
 
     def test_off_and_first_off_low_off_is_divide_for_every_mode_division(self):
         target: Target = self.target()
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 500
@@ -243,7 +312,7 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_fake_target(self):
         target: Target = self.target()
         target.fake = True
-        write_noble = WriteNobleTarget(target=target, outline=self.outline)
+        write_noble = self.get_write_noble(target)
         weight: WeightMaximum = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 500

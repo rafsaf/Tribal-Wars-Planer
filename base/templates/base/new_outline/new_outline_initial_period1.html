@@ -92,8 +92,8 @@
 
         {% if form1.target.errors|length == 0 %} 
                 
-        {% for error in form1.errors %}
-        <div class="error-text mb-3">{% trans 'The text cannot be empty' %}</div>
+        {% for error in form1.non_field_errors %}
+        <div class="error-text mb-3">{{error|safe}}</div>
 
           <script>document.addEventListener("DOMContentLoaded", function(event) {$('.CodeMirror').addClass('CodeMirror-Invalid');});</script>
 

@@ -29,6 +29,7 @@ from django.views.decorators.http import require_POST
 import utils.avaiable_troops as avaiable_troops
 import utils.basic as basic
 from base import forms, models
+from utils.basic.timer import timing
 from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
 from utils.outline_finish import MakeFinalOutline
@@ -90,7 +91,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     len_ruin = calculations.len_ruin
     len_real = calculations.len_real
 
-    estimated_time = 12 * (len_real + len_fake) + 50 * len_ruin  # type: ignore
+    estimated_time = 10 * (len_real + len_fake) + 18 * len_ruin  # type: ignore
 
     real_dups = calculations.real_duplicates()
     fake_dups = calculations.fake_duplicates()
@@ -146,8 +147,18 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
 
     if request.method == "POST":
         if "form1" in request.POST:
+            max_to_add = (
+                settings.INPUT_OUTLINE_MAX_TARGETS
+                - calculations.len_fake
+                - calculations.len_real
+                - calculations.len_ruin
+                + calculations.actual_len
+            )
             form1 = forms.InitialOutlineForm(
-                request.POST, outline=instance, target_mode=target_mode
+                request.POST,
+                outline=instance,
+                target_mode=target_mode,
+                max_to_add=max_to_add,
             )
             if form1.is_valid():
                 off_form = forms.OffTroopsForm(
@@ -371,7 +382,6 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
                 request.POST, outline=instance, is_premium=is_premium
             )
             if target_form.is_valid():
-                print("valid")
                 target_type = request.POST.get("target_type")
                 target_coord = request.POST.get("target")
                 instance.create_target(target_type=target_type, coord=target_coord)
@@ -753,6 +763,7 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     )
 
 
+@timing
 @login_required
 @require_POST
 def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:

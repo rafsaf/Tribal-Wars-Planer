@@ -207,7 +207,7 @@ class InitialOutlineForm(forms.Form):
     """New Initial Outline"""
 
     target = forms.CharField(
-        max_length=50000,
+        max_length=130000,
         widget=forms.Textarea,
         label=gettext_lazy("Targets"),
         required=False,
@@ -217,6 +217,9 @@ class InitialOutlineForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.outline: models.Outline = kwargs.pop("outline")
         self.target_mode: basic.TargetMode = kwargs.pop("target_mode")
+        self.max_to_add: int = kwargs.pop(
+            "max_to_add", settings.INPUT_OUTLINE_MAX_TARGETS
+        )
         super(InitialOutlineForm, self).__init__(*args, **kwargs)
 
     def clean_target(self):
@@ -243,6 +246,15 @@ class InitialOutlineForm(forms.Form):
                     data_lines.new_validated_data.strip()
                 )
             self.outline.save()
+        if len(data_lines.lines) > self.max_to_add:
+            self.add_error(
+                None,
+                gettext_lazy(
+                    "You are trying to mantain more than %s targets in total - that is global limit for targets number.<br> Please decrease the total number of targets."
+                )
+                % settings.INPUT_OUTLINE_MAX_TARGETS,
+            )
+            return data
 
         for error_id in data_lines.errors_ids:
             self.add_error("target", error_id)
