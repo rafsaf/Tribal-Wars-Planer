@@ -68,8 +68,6 @@ def generate_distance_matrix(
         np.array([np.array(i.coord_tuple()) for i in weight_max_lst]),
         "euclidean",
     )
-
-    logging.debug(dist_matrix.shape)
     return dist_matrix, coord_to_id
 
 
