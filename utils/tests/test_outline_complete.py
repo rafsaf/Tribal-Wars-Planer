@@ -14,12 +14,15 @@
 # ==============================================================================
 
 
+import itertools
+
 from django.test import TestCase
 from django.utils.translation import activate
 
 from base.models import Outline
 from base.models import TargetVertex as Target
 from base.models import WeightMaximum, WeightModel
+from base.models.result import Result
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.avaiable_troops import get_legal_coords_outline
 from utils.outline_complete import complete_outline_write
@@ -52,6 +55,7 @@ class TestOutlineCreateTargets(TestCase):
         make_outline = MakeOutline(self.outline)
         make_outline()
         get_legal_coords_outline(self.outline)
+        self.salt = "test_outline_complete"
 
     def target(self) -> Target:
         target = Target.objects.create(
@@ -70,7 +74,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [1, 1, 1, 1]
         target.exact_noble = [1, 1, 1, 1]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
 
         # there should be correct indexes
@@ -90,7 +94,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_noble = [1, 1, 1, 1]
         target.save()
         # we don't care about modes here
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
 
         self.assertEqual(len(created), 8)
@@ -114,7 +118,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_noble = [1, 1, 1, 1]
         target.save()
         # we don't care about modes here
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
 
         self.assertEqual(len(created), 8)
@@ -138,7 +142,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [0, 0, 3, 0]
         target.exact_noble = [2, 0, 0, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 5)
         self.assertEqual(created[0].order, 10000)
@@ -221,7 +225,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [0, 0, 3, 0]
         target.exact_noble = [2, 0, 0, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 4)
         self.assertEqual(created[0].order, 10000)
@@ -290,7 +294,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [0, 1, 0, 0]
         target.exact_noble = [0, 0, 6, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 7)
         self.assertEqual(created[0].order, 20000)
@@ -401,7 +405,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [0, 1, 0, 0]
         target.exact_noble = [0, 0, 6, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 3)
         self.assertEqual(created[0].order, 20000)
@@ -456,7 +460,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [2, 0, 0, 0]
         target.exact_noble = [3, 0, 0, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 5)
 
@@ -554,7 +558,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [2, 0, 0, 0]
         target.exact_noble = [3, 0, 0, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 5)
 
@@ -653,7 +657,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [0, 0, 3, 0]
         target.exact_noble = [2, 0, 0, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 5)
         self.assertEqual(created[0].order, 10000)
@@ -737,7 +741,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [0, 0, 3, 0]
         target.exact_noble = [2, 0, 0, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 4)
         self.assertEqual(created[0].order, 10000)
@@ -808,7 +812,7 @@ class TestOutlineCreateTargets(TestCase):
         target.exact_off = [0, 0, 0, 0]
         target.exact_noble = [0, 0, 3, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 3)
         self.assertEqual(created[0].order, 50000)
@@ -874,7 +878,7 @@ class TestOutlineCreateTargets(TestCase):
         weight.off_left += 800
         weight.off_max += 800
         weight.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         self.assertEqual(len(created), 3)
         self.assertEqual(created[0].order, 50000)
@@ -934,7 +938,7 @@ class TestOutlineCreateTargets(TestCase):
         target.mode_guide = "many"
         target.exact_off = [0, 0, 5, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         assert len(created) == 0
 
@@ -950,7 +954,7 @@ class TestOutlineCreateTargets(TestCase):
         target.mode_guide = "many"
         target.exact_off = [10, 0, 0, 0]
         target.save()
-        complete_outline_write(self.outline)
+        complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
         assert len(created) == 4
 
@@ -969,3 +973,50 @@ class TestOutlineCreateTargets(TestCase):
         assert created[3].order == 30003
         assert created[3].start == "500|500"
         assert created[3].off == 10800
+
+    def test_all_possible_2304_combionations_of_outline_complete(self):
+        MODE_OFF = [mode[0] for mode in Target.MODE_OFF]
+        MODE_NOBLE = [mode[0] for mode in Target.MODE_NOBLE]
+        MODE_DIVISION = [mode[0] for mode in Target.MODE_DIVISION]
+        NOBLE_GUIDELINES = [mode[0] for mode in Target.NOBLE_GUIDELINES]
+        MODE_SPLIT = [mode[0] for mode in Outline.MODE_SPLIT]
+        RUINED_VILLAGES_POINTS = [mode[0] for mode in Outline.RUINED_VILLAGES_POINTS]
+        FAKE_MIN_OFF_CHOICES = [mode[0] for mode in Outline.FAKE_MIN_OFF_CHOICES]
+        NIGHT_BONUS = [True, False]
+
+        cases = itertools.product(
+            *[
+                MODE_OFF,
+                MODE_NOBLE,
+                MODE_DIVISION,
+                NOBLE_GUIDELINES,
+                MODE_SPLIT,
+                RUINED_VILLAGES_POINTS,
+                FAKE_MIN_OFF_CHOICES,
+                NIGHT_BONUS,
+            ]
+        )
+
+        Result.objects.create(outline=self.outline)
+        self.outline.initial_outline_min_off = 10000
+        self.outline.initial_outline_max_off = 28000
+        self.outline.save()
+        target = self.target()
+
+        for test_input in cases:
+            target.mode_off = test_input[0]
+            target.mode_noble = test_input[1]
+            target.mode_division = test_input[2]
+            target.mode_guide = test_input[3]
+            target.required_off = 1
+            target.required_noble = 1
+            target.night_bonus = test_input[7]
+            target.save()
+            self.outline.mode_split = test_input[4]
+            self.outline.initial_outline_average_ruining_points = test_input[5]
+            self.outline.initial_outline_fake_mode = test_input[6]
+            self.outline.night_bonus = test_input[7]
+            self.outline.save()
+            complete_outline_write(self.outline, salt="test_outline_complete")
+            assert len(self.weights()) == 2
+            self.outline.remove_user_outline()

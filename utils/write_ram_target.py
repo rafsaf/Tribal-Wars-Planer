@@ -294,7 +294,7 @@ class WriteRamTarget:
         if self.target.night_bonus:
             self._add_night_bonus_annotations(filtered_weight_max)
             filtered_weight_max.sort(
-                key=lambda i: (-getattr(i, "nigh_bool"), getattr(i, "distance"))
+                key=lambda i: (-getattr(i, "night_bool"), getattr(i, "distance"))
             )
         else:
             filtered_weight_max.sort(key=lambda i: getattr(i, "distance"))
@@ -386,7 +386,7 @@ class WriteRamTarget:
         if self.target.night_bonus:
             self._add_night_bonus_annotations(filtered_weight_max)
             filtered_weight_max.sort(
-                key=lambda i: (-getattr(i, "nigh_bool"), -getattr(i, "distance"))
+                key=lambda i: (-getattr(i, "night_bool"), -getattr(i, "distance"))
             )
         else:
             filtered_weight_max.sort(key=lambda i: -getattr(i, "distance"))

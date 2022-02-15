@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-import logging
 from secrets import SystemRandom
 from typing import Any, Generator
 
@@ -68,31 +67,11 @@ def generate_distance_matrix(
         np.array([np.array(i.coord_tuple()) for i in weight_max_lst]),
         "euclidean",
     )
-
-    logging.debug(dist_matrix.shape)
     return dist_matrix, coord_to_id
 
 
 def get_targets(outline: Outline, fake: bool, ruin: bool) -> QuerySet[Target]:
-    return (
-        Target.objects.filter(outline=outline, fake=fake, ruin=ruin)
-        .only(
-            "target",
-            "player",
-            "fake",
-            "ruin",
-            "required_off",
-            "required_noble",
-            "exact_off",
-            "exact_noble",
-            "mode_off",
-            "mode_noble",
-            "mode_division",
-            "mode_guide",
-            "night_bonus",
-        )
-        .order_by("id")
-    )
+    return Target.objects.filter(outline=outline, fake=fake, ruin=ruin).order_by("id")
 
 
 def complete_outline_write(outline: models.Outline, salt: bytes | str | None = None):
@@ -113,20 +92,7 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
     fakes = get_targets(outline, True, False)
     ruins = get_targets(outline, False, True)
     weight_max_lst = list(
-        WeightMaximum.objects.filter(outline=outline, too_far_away=False).only(
-            "start",
-            "x_coord",
-            "y_coord",
-            "player",
-            "off_state",
-            "off_left",
-            "nobleman_state",
-            "nobleman_left",
-            "catapult_state",
-            "catapult_left",
-            "first_line",
-            "fake_limit",
-        )
+        WeightMaximum.objects.filter(outline=outline, too_far_away=False)
     )
     dist_matrix, coord_to_id_in_matrix = generate_distance_matrix(
         outline=outline, weight_max_lst=weight_max_lst

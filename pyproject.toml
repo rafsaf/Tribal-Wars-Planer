@@ -37,7 +37,7 @@ schedule = "^1.1.0"
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
 minversion = "6.0"
-addopts = ""
+addopts = "-v"
 testpaths = [
     "base",
     "rest_api",
