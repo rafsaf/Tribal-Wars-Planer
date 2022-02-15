@@ -27,6 +27,8 @@ class VillageModel(models.Model):
         "Player", on_delete=models.CASCADE, null=True, blank=True
     )
     world = models.ForeignKey("World", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.coord

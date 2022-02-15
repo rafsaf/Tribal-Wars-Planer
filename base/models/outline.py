@@ -240,7 +240,9 @@ class Outline(models.Model):
     filter_hide_front = models.CharField(
         max_length=20, choices=HIDE_CHOICES, default="all"
     )
-
+    morale_on_targets_greater_than = models.IntegerField(
+        default=100, validators=[MinValueValidator(25), MaxValueValidator(100)]
+    )
     filter_targets_number = models.IntegerField(
         default=12,
         validators=[MinValueValidator(1), MaxValueValidator(50)],

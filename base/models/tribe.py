@@ -22,6 +22,8 @@ class Tribe(models.Model):
     tribe_id = models.IntegerField()
     tag = models.TextField(db_index=True)
     world = models.ForeignKey("World", on_delete=models.CASCADE, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.tag

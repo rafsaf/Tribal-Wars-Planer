@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from copy import deepcopy
 from secrets import SystemRandom
 from typing import Any, Generator
 
@@ -28,7 +29,6 @@ from base.models import WeightModel
 from base.models.weight_maximum import WeightMaximum
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
-from copy import deepcopy
 
 
 def generate_distance_matrix(

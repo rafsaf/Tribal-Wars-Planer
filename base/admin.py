@@ -173,6 +173,8 @@ class AdminPlayer(admin.ModelAdmin):
         "name",
         "world",
         "tribe",
+        "created_at",
+        "updated_at",
     ]
     search_fields = ["name", "world__postfix"]
     readonly_fields = ["world", "tribe"]

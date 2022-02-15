@@ -13,11 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
-
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
+from django.db import transaction
 from django.db.models import Max
 from django.forms import formset_factory
 from django.http import Http404, HttpRequest, HttpResponse
@@ -780,11 +780,11 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
             return redirect(
                 reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}"
             )
-
-    complete_outline_write(outline=instance)
-    instance.actions.click_outline_write(instance)
-    instance.written = "active"
-    instance.save()
+    with transaction.atomic():
+        complete_outline_write(outline=instance)
+        instance.actions.click_outline_write(instance)
+        instance.written = "active"
+        instance.save()
     return redirect(reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu")
 
 

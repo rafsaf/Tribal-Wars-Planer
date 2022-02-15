@@ -19,6 +19,7 @@ from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
 
 import requests
+from django.db import transaction
 from django.db.models import Count
 from django.utils import timezone
 
@@ -216,10 +217,11 @@ class WorldQuery:
             village_ids_to_remove = [int(village[0]) for village in village_set1] + [
                 int(village[0]) for village in village_set2
             ]
-            VillageModel.objects.filter(
-                village_id__in=village_ids_to_remove, world=self.world
-            ).delete()
-            VillageModel.objects.bulk_create(create_list)
+            with transaction.atomic():
+                VillageModel.objects.filter(
+                    village_id__in=village_ids_to_remove, world=self.world
+                ).delete()
+                VillageModel.objects.bulk_create(create_list)
 
     def update_tribes(self):
         create_list = list()
@@ -255,11 +257,11 @@ class WorldQuery:
                 else:
                     tribe = Tribe(tribe_id=tribe_id, tag=tag, world=self.world)
                     create_list.append(tribe)
-
-            Tribe.objects.filter(
-                tribe_id__in=[item[0] for item in tribe_set], world=self.world
-            ).delete()
-            Tribe.objects.bulk_create(create_list)
+            with transaction.atomic():
+                Tribe.objects.filter(
+                    tribe_id__in=[item[0] for item in tribe_set], world=self.world
+                ).delete()
+                Tribe.objects.bulk_create(create_list)
 
     def update_players(self):
         create_list = list()
@@ -288,7 +290,7 @@ class WorldQuery:
 
             player_set1 = set(
                 Player.objects.filter(tribe=None, world=self.world).values_list(
-                    "player_id", "name"
+                    "player_id", "name", "villages", "points"
                 )
             )
 
@@ -297,7 +299,9 @@ class WorldQuery:
                 .filter(world=self.world)
                 .select_related("tribe")
                 .filter(world=self.world)
-                .values_list("player_id", "name", "tribe__tribe_id")
+                .values_list(
+                    "player_id", "name", "tribe__tribe_id", "villages", "points"
+                )
             )
 
             for line in [i.split(",") for i in text.split("\n")]:
@@ -307,14 +311,15 @@ class WorldQuery:
                 player_id = int(line[0])
                 name = unquote(unquote_plus(line[1]))
                 tribe_id = int(line[2])
+                villages = int(line[3])
+                points = int(line[4])
 
-                if (player_id, name) in player_set1 and tribe_id == 0:
-                    player_set1.remove((player_id, name))
-
+                if (player_id, name, villages, points) in player_set1 and tribe_id == 0:
+                    player_set1.remove((player_id, name, villages, points))
                     continue
 
-                if (player_id, name, tribe_id) in player_set2:
-                    player_set2.remove((player_id, name, tribe_id))
+                if (player_id, name, tribe_id, villages, points) in player_set2:
+                    player_set2.remove((player_id, name, tribe_id, villages, points))
                     continue
 
                 # else create
@@ -326,14 +331,20 @@ class WorldQuery:
                     tribe = tribe_context[tribe_id]
 
                 player = Player(
-                    player_id=player_id, name=name, tribe=tribe, world=self.world
+                    player_id=player_id,
+                    name=name,
+                    tribe=tribe,
+                    world=self.world,
+                    villages=villages,
+                    points=points,
                 )
                 create_list.append(player)
 
             players_ids_to_remove = [player[0] for player in player_set1] + [
                 player[0] for player in player_set2
             ]
-            Player.objects.filter(
-                world=self.world, player_id__in=players_ids_to_remove
-            ).delete()
-            Player.objects.bulk_create(create_list)
+            with transaction.atomic():
+                Player.objects.filter(
+                    world=self.world, player_id__in=players_ids_to_remove
+                ).delete()
+                Player.objects.bulk_create(create_list)
