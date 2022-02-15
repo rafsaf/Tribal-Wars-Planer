@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from copy import deepcopy
 from typing import TYPE_CHECKING
 
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -60,11 +59,6 @@ class WeightMaximum(models.Model):
         "catapult_state",
         "fake_limit",
     ]
-
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        for field in self.CHANGES_TRACKED_FIELDS:
-            setattr(self, f"_original_{field}", deepcopy(getattr(self, field)))
 
     def __str__(self):
         return self.start

@@ -974,6 +974,10 @@ class TestOutlineCreateTargets(TestCase):
         assert created[3].start == "500|500"
         assert created[3].off == 10800
 
+    def test_no_targets_outline_complete(self):
+        Target.objects.all().delete()
+        complete_outline_write(self.outline, salt=self.salt)
+
     def test_all_possible_2304_combionations_of_outline_complete(self):
         MODE_OFF = [mode[0] for mode in Target.MODE_OFF]
         MODE_NOBLE = [mode[0] for mode in Target.MODE_NOBLE]

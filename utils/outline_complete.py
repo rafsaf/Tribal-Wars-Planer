@@ -28,6 +28,7 @@ from base.models import WeightModel
 from base.models.weight_maximum import WeightMaximum
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
+from copy import deepcopy
 
 
 def generate_distance_matrix(
@@ -62,6 +63,9 @@ def generate_distance_matrix(
         coord_to_id[coord] = list_coords_len
         list_of_coords.append(np.array(coord))
 
+    if not len(list_of_coords):
+        return None, {}
+
     dist_matrix = cdist(
         np.array(list_of_coords),
         np.array([np.array(i.coord_tuple()) for i in weight_max_lst]),
@@ -94,6 +98,13 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
     weight_max_lst = list(
         WeightMaximum.objects.filter(outline=outline, too_far_away=False)
     )
+
+    for weight_max in weight_max_lst:
+        for field in WeightMaximum.CHANGES_TRACKED_FIELDS:
+            setattr(
+                weight_max, f"_original_{field}", deepcopy(getattr(weight_max, field))
+            )
+
     dist_matrix, coord_to_id_in_matrix = generate_distance_matrix(
         outline=outline, weight_max_lst=weight_max_lst
     )
@@ -190,7 +201,7 @@ class CreateWeights:
         targets: QuerySet[Target],
         outline: Outline,
         weight_max_list: list[WeightMaximum],
-        dist_matrix: NDArray[np.floating[Any]],
+        dist_matrix: NDArray[np.floating[Any]] | None,
         coord_to_id_in_matrix: dict[tuple[int, int], int],
         noble: bool = False,
         ruin: bool = False,
@@ -346,10 +357,11 @@ class CreateWeights:
                 )
 
     def _annotate_distances_for_target(self, target: Target) -> None:
-        target_coord = target.coord_tuple()
-        target_row_in_C = self.coord_to_id_in_matrix[target_coord]
-        for index, distance in enumerate(self.dist_matrix[target_row_in_C]):
-            setattr(self.weight_max_list[index], "distance", distance)
+        if self.dist_matrix is not None:
+            target_coord = target.coord_tuple()
+            target_row_in_C = self.coord_to_id_in_matrix[target_coord]
+            for index, distance in enumerate(self.dist_matrix[target_row_in_C]):
+                setattr(self.weight_max_list[index], "distance", distance)
 
     def __call__(self) -> list[WeightMaximum]:
         # note that .iterator() prevents from caching querysets
