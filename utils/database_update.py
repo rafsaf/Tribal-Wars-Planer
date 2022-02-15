@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+import gzip
+import logging
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
 
@@ -30,12 +32,22 @@ def cron_schedule_data_update():
         instance = WorldQuery(world=world)
         instance.update_all()
         worlds.append(world)
-    World.objects.bulk_update(worlds, ["last_update"])
+        logging.info(
+            f"{str(world)} | tribe_updated: {instance.tribe_update} |"
+            f" village_update: {instance.village_update} |"
+            f" player_update: {instance.player_update}"
+        )
+    World.objects.bulk_update(
+        worlds, ["last_update", "etag_player", "etag_tribe", "etag_village"]
+    )
 
 
 class WorldQuery:
     def __init__(self, world: World):
         self.world = world
+        self.player_update: bool = False
+        self.tribe_update: bool = False
+        self.village_update: bool = False
 
     def check_if_world_exist_and_try_create(self) -> tuple[World | None, str]:
         """
@@ -134,13 +146,21 @@ class WorldQuery:
         create_list = list()
 
         try:
-            req = requests.get(self.world.link_to_game("/map/village.txt"))
+            req = requests.get(
+                self.world.link_to_game("/map/village.txt.gz"), stream=True
+            )
         except requests.exceptions.RequestException:
             self.handle_connection_error()
 
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
+            elif req.headers["etag"] == self.world.etag_village:
+                return
+            else:
+                text = gzip.decompress(req.content).decode()
+                self.world.etag_village = req.headers["etag"]
+                self.village_update = True
             player_context = {}
 
             players = Player.objects.filter(world=self.world)
@@ -159,7 +179,7 @@ class WorldQuery:
                 .values_list("village_id", "player__player_id", "x_coord", "y_coord")
             )
 
-            for line in [i.split(",") for i in req.text.split("\n")]:
+            for line in [i.split(",") for i in text.split("\n")]:
                 if line == [""]:
                     continue
 
@@ -205,19 +225,24 @@ class WorldQuery:
         create_list = list()
 
         try:
-            req = requests.get(self.world.link_to_game("/map/ally.txt"))
+            req = requests.get(self.world.link_to_game("/map/ally.txt.gz"), stream=True)
         except requests.exceptions.RequestException:
             self.handle_connection_error()
 
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
-
+            elif req.headers["etag"] == self.world.etag_tribe:
+                return
+            else:
+                text = gzip.decompress(req.content).decode()
+                self.world.etag_tribe = req.headers["etag"]
+                self.tribe_update = True
             tribe_set = set(
                 Tribe.objects.filter(world=self.world).values_list("tribe_id", "tag")
             )
 
-            for line in [i.split(",") for i in req.text.split("\n")]:
+            for line in [i.split(",") for i in text.split("\n")]:
                 if line == [""]:
                     continue
 
@@ -240,13 +265,21 @@ class WorldQuery:
         create_list = list()
 
         try:
-            req = requests.get(self.world.link_to_game("/map/player.txt"))
+            req = requests.get(
+                self.world.link_to_game("/map/player.txt.gz"), stream=True
+            )
         except requests.exceptions.RequestException:
             self.handle_connection_error()
 
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
+            elif req.headers["etag"] == self.world.etag_player:
+                return
+            else:
+                text = gzip.decompress(req.content).decode()
+                self.world.etag_player = req.headers["etag"]
+                self.player_update = True
             tribe_context = {}
 
             tribes = Tribe.objects.filter(world=self.world)
@@ -267,7 +300,7 @@ class WorldQuery:
                 .values_list("player_id", "name", "tribe__tribe_id")
             )
 
-            for line in [i.split(",") for i in req.text.split("\n")]:
+            for line in [i.split(",") for i in text.split("\n")]:
                 if line == [""]:
                     continue
 

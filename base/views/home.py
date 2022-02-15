@@ -27,6 +27,7 @@ from django.utils import timezone
 from base import models
 from base.models import PDFPaymentSummary
 from utils.basic.pdf import generate_pdf_summary
+from utils.database_update import cron_schedule_data_update
 
 
 def base_view(request):
@@ -64,6 +65,8 @@ def base_view(request):
     stats["orders"] = orders
 
     context = {"stats": stats, "registration_open": settings.REGISTRATION_OPEN}
+
+    cron_schedule_data_update()
     return render(request, "base/base.html", context)
 
 
