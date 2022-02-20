@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from collections import defaultdict
 from copy import deepcopy
 from secrets import SystemRandom
 from typing import Any, Generator
@@ -22,18 +23,15 @@ from django.db.models.query import QuerySet
 from numpy.typing import NDArray
 from scipy.spatial.distance import cdist
 
-from base import models
 from base.models import Outline
 from base.models import TargetVertex as Target
-from base.models import WeightModel
-from base.models.weight_maximum import WeightMaximum
+from base.models import WeightMaximum, WeightModel
+from utils.basic import generate_morale_dict
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
 
 
-def generate_distance_matrix(
-    outline: models.Outline, weight_max_lst: list[WeightMaximum]
-):
+def generate_distance_matrix(outline: Outline, weight_max_lst: list[WeightMaximum]):
     """
     Generates and returns matrix with distances between all targets and (available weight max villages) at once.
     For example for targets: [T1, T2], weights_max (W1, W2, W3)
@@ -49,9 +47,10 @@ def generate_distance_matrix(
 
     dist_matrix[coord_to_id[coord of target]]
     """
-    targets: QuerySet["Target"] = models.TargetVertex.objects.filter(
-        outline=outline
-    ).order_by("id")
+    if not len(weight_max_lst):
+        return None, {}
+
+    targets: QuerySet["Target"] = Target.objects.filter(outline=outline).order_by("id")
 
     coord_to_id = {}
     list_of_coords = []
@@ -78,7 +77,7 @@ def get_targets(outline: Outline, fake: bool, ruin: bool) -> QuerySet[Target]:
     return Target.objects.filter(outline=outline, fake=fake, ruin=ruin).order_by("id")
 
 
-def complete_outline_write(outline: models.Outline, salt: bytes | str | None = None):
+def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
     """
     Auto write out given outline
     1. Fake Rams
@@ -108,6 +107,10 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
     dist_matrix, coord_to_id_in_matrix = generate_distance_matrix(
         outline=outline, weight_max_lst=weight_max_lst
     )
+    if outline.morale_on:
+        morale_dict = generate_morale_dict(outline)
+    else:
+        morale_dict = None
     create_fakes = CreateWeights(
         random,
         fakes,
@@ -115,6 +118,7 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
         weight_max_lst,
         dist_matrix,
         coord_to_id_in_matrix,
+        morale_dict,
         noble=False,
         ruin=False,
     )
@@ -127,6 +131,7 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
         weight_max_lst,
         dist_matrix,
         coord_to_id_in_matrix,
+        morale_dict,
         noble=False,
         ruin=True,
     )
@@ -139,6 +144,7 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
         weight_max_lst,
         dist_matrix,
         coord_to_id_in_matrix,
+        morale_dict,
         noble=True,
         ruin=False,
     )
@@ -151,6 +157,7 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
         weight_max_lst,
         dist_matrix,
         coord_to_id_in_matrix,
+        morale_dict,
         noble=False,
         ruin=False,
     )
@@ -163,6 +170,7 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
         weight_max_lst,
         dist_matrix,
         coord_to_id_in_matrix,
+        morale_dict,
         noble=False,
         ruin=False,
     )
@@ -175,6 +183,7 @@ def complete_outline_write(outline: models.Outline, salt: bytes | str | None = N
         weight_max_lst,
         dist_matrix,
         coord_to_id_in_matrix,
+        morale_dict,
         noble=True,
         ruin=False,
     )
@@ -203,6 +212,7 @@ class CreateWeights:
         weight_max_list: list[WeightMaximum],
         dist_matrix: NDArray[np.floating[Any]] | None,
         coord_to_id_in_matrix: dict[tuple[int, int], int],
+        morale_dict: defaultdict[tuple[str, str], int] | None,
         noble: bool = False,
         ruin: bool = False,
     ) -> None:
@@ -211,6 +221,7 @@ class CreateWeights:
         self.outline: Outline = outline
         self.noble: bool = noble
         self.ruin: bool = ruin
+        self.morale_dict = morale_dict
         self.dist_matrix = dist_matrix
         self.coord_to_id_in_matrix = coord_to_id_in_matrix
         self.modes_list = ["closest", "close", "random", "far"]
@@ -243,7 +254,7 @@ class CreateWeights:
     def _create_weights_or_pass_update_max_list(
         self, weights_lsts: tuple[list[WeightModel], list[WeightMaximum]]
     ) -> None:
-        # note that we hit database only when have a lot of data
+
         temp_to_update_dict = {}
         weight_max: WeightMaximum
         for weight_max in weights_lsts[1]:
@@ -260,7 +271,7 @@ class CreateWeights:
 
     def _noble_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
-            self._annotate_distances_for_target(target)
+            self._annotate_distances_and_morale_for_target(target)
             for (required, mode) in self._extended_syntax(target, noble_or_ruin=True):
                 if required == 0:
                     continue
@@ -278,7 +289,7 @@ class CreateWeights:
 
         else:
             if target.required_noble > 0:
-                self._annotate_distances_for_target(target)
+                self._annotate_distances_and_morale_for_target(target)
                 weight_noble: WriteNobleTarget = WriteNobleTarget(
                     random=self.random,
                     target=target,
@@ -291,7 +302,7 @@ class CreateWeights:
 
     def _ruin_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
-            self._annotate_distances_for_target(target)
+            self._annotate_distances_and_morale_for_target(target)
             for (required, mode) in self._extended_syntax(target, noble_or_ruin=True):
                 if required == 0:
                     continue
@@ -311,7 +322,7 @@ class CreateWeights:
         else:
             target.required_off = target.required_noble
             if target.required_off > 0:
-                self._annotate_distances_for_target(target)
+                self._annotate_distances_and_morale_for_target(target)
                 weight_ram: WriteRamTarget = WriteRamTarget(
                     random=self.random,
                     target=target,
@@ -325,7 +336,7 @@ class CreateWeights:
 
     def _ram_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=False):
-            self._annotate_distances_for_target(target)
+            self._annotate_distances_and_morale_for_target(target)
             for (required, mode) in self._extended_syntax(target, noble_or_ruin=False):
                 if required == 0:
                     continue
@@ -344,7 +355,7 @@ class CreateWeights:
 
         else:
             if target.required_off > 0:
-                self._annotate_distances_for_target(target)
+                self._annotate_distances_and_morale_for_target(target)
                 weight_ram: WriteRamTarget = WriteRamTarget(
                     random=self.random,
                     target=target,
@@ -356,12 +367,17 @@ class CreateWeights:
                     weight_ram.weight_create_list()
                 )
 
-    def _annotate_distances_for_target(self, target: Target) -> None:
+    def _annotate_distances_and_morale_for_target(self, target: Target) -> None:
         if self.dist_matrix is not None:
             target_coord = target.coord_tuple()
             target_row_in_C = self.coord_to_id_in_matrix[target_coord]
             for index, distance in enumerate(self.dist_matrix[target_row_in_C]):
                 setattr(self.weight_max_list[index], "distance", distance)
+                if self.morale_dict is not None:
+                    morale = self.morale_dict[
+                        (target.player, self.weight_max_list[index].player)
+                    ]
+                    setattr(self.weight_max_list[index], "morale", morale)
 
     def __call__(self) -> list[WeightMaximum]:
         # note that .iterator() prevents from caching querysets

@@ -243,6 +243,7 @@ class Outline(models.Model):
     morale_on_targets_greater_than = models.IntegerField(
         default=100, validators=[MinValueValidator(25), MaxValueValidator(100)]
     )
+    morale_on = models.BooleanField(default=True)
     filter_targets_number = models.IntegerField(
         default=12,
         validators=[MinValueValidator(1), MaxValueValidator(50)],

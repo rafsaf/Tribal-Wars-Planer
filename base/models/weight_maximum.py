@@ -49,6 +49,7 @@ class WeightMaximum(models.Model):
     if TYPE_CHECKING:
         distance: int
         night_bool: bool
+        morale: int
 
     CHANGES_TRACKED_FIELDS = [
         "off_left",
