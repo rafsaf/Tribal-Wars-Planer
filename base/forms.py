@@ -305,6 +305,7 @@ class AvailableTroopsForm(forms.ModelForm):
         label=gettext_lazy("Excluded enemy villages coords (secluded villages)"),
         required=False,
         max_length=100000,
+        initial="",
         help_text=gettext_lazy("Exact coords separated by a space or an entry"),
         widget=forms.Textarea,
     )
@@ -316,6 +317,7 @@ class AvailableTroopsForm(forms.ModelForm):
             basic.many_villages(coords)
         except basic.VillageError as error:
             self.add_error("initial_outline_excluded_coords", str(error))
+        return coords
 
     def clean(self):
         radius_min: int | None = self.cleaned_data.get("initial_outline_front_dist")
@@ -484,6 +486,21 @@ class RuiningOutlineForm(forms.ModelForm):
         }
 
 
+class MoraleOutlineForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "morale_on_targets_greater_than",
+            "morale_on",
+        ]
+        labels = {
+            "morale_on_targets_greater_than": gettext_lazy(
+                "Only attackers ABOVE this morale value can be used:"
+            ),
+            "morale_on": gettext_lazy("Is morale calculation active in this outline:"),
+        }
+
+
 class ModeTargetSetForm(forms.ModelForm):
     class Meta:
         model = models.TargetVertex
@@ -507,7 +524,15 @@ class ModeTargetSetForm(forms.ModelForm):
         }
 
 
-class NightBonusSetForm(forms.Form):
+class NightBonusSetForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "night_bonus",
+            "enter_t1",
+            "enter_t2",
+        ]
+
     night_bonus = forms.BooleanField(
         required=False,
         label=gettext_lazy("Choose whether to avoid the night bonus"),

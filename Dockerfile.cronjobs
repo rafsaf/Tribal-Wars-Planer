@@ -10,8 +10,8 @@ RUN pip install -r requirements.txt
 COPY base/models /app/base/models
 COPY base/run_cronjobs.py /app/base/run_cronjobs.py
 COPY base/cron.py /app/base/cron.py
-COPY utils/logger.py /app/utils/logger.py
 COPY utils/database_update.py /app/utils/database_update.py
 COPY tribal_wars_planer/settings_cronjobs.py /app/tribal_wars_planer/settings.py
 
 ENV DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
+RUN mkdir /app/logs

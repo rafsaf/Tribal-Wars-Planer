@@ -77,11 +77,12 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     target_mode = basic.TargetMode(request.GET.get("t"))
 
     form1 = forms.InitialOutlineForm(None, outline=instance, target_mode=target_mode)
-    form2 = forms.AvailableTroopsForm(None)
-    form3 = forms.SettingDateForm(None)
-    form4 = forms.ModeOutlineForm(None)
-    form5 = forms.NightBonusSetForm(None)
-    form6 = forms.RuiningOutlineForm(None)
+    form2 = forms.AvailableTroopsForm(None, instance=instance)
+    form3 = forms.SettingDateForm(None, instance=instance)
+    form4 = forms.ModeOutlineForm(None, instance=instance)
+    form5 = forms.NightBonusSetForm(None, instance=instance)
+    form6 = forms.RuiningOutlineForm(None, instance=instance)
+    form7 = forms.MoraleOutlineForm(None, instance=instance)
 
     calculations: basic.CalcultateDuplicates = basic.CalcultateDuplicates(
         outline=instance, target_mode=target_mode
@@ -103,47 +104,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         form1.fields["target"].initial = instance.initial_outline_fakes
     else:
         form1.fields["target"].initial = instance.initial_outline_ruins
-
-    form2.fields[
-        "initial_outline_front_dist"
-    ].initial = instance.initial_outline_front_dist
-    form2.fields[
-        "initial_outline_maximum_front_dist"
-    ].initial = instance.initial_outline_maximum_front_dist
-    form2.fields[
-        "initial_outline_target_dist"
-    ].initial = instance.initial_outline_target_dist
-    form2.fields["initial_outline_min_off"].initial = instance.initial_outline_min_off
-    form2.fields["initial_outline_max_off"].initial = instance.initial_outline_max_off
-    form2.fields[
-        "initial_outline_excluded_coords"
-    ].initial = instance.initial_outline_excluded_coords
-    form3.fields["date"].initial = ""
-    form4.fields["mode_off"].initial = instance.mode_off
-    form4.fields["mode_noble"].initial = instance.mode_noble
-    form4.fields["mode_division"].initial = instance.mode_division
-    form4.fields["mode_guide"].initial = instance.mode_guide
-    form4.fields["mode_split"].initial = instance.mode_split
-    form4.fields[
-        "initial_outline_fake_limit"
-    ].initial = instance.initial_outline_fake_limit
-    form4.fields[
-        "initial_outline_fake_mode"
-    ].initial = instance.initial_outline_fake_mode
-
-    form5.fields["night_bonus"].initial = instance.night_bonus
-    form5.fields["enter_t1"].initial = instance.enter_t1
-    form5.fields["enter_t2"].initial = instance.enter_t2
-
-    form6.fields[
-        "initial_outline_off_left_catapult"
-    ].initial = instance.initial_outline_off_left_catapult
-    form6.fields[
-        "initial_outline_catapult_default"
-    ].initial = instance.initial_outline_catapult_default
-    form6.fields[
-        "initial_outline_average_ruining_points"
-    ].initial = instance.initial_outline_average_ruining_points
 
     if request.method == "POST":
         if "form1" in request.POST:
@@ -186,23 +146,11 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 )
 
         if "form2" in request.POST:
-            form2 = forms.AvailableTroopsForm(request.POST)
+            form2 = forms.AvailableTroopsForm(request.POST, instance=instance)
             if form2.is_valid():
                 instance.actions.form_available_troops(instance)
-                min_off = request.POST.get("initial_outline_min_off")
-                max_off = request.POST.get("initial_outline_max_off")
-                radius_min = request.POST.get("initial_outline_front_dist")
-                radius_max = request.POST.get("initial_outline_maximum_front_dist")
-
-                radius_target = request.POST.get("initial_outline_target_dist")
-                excluded_coords = request.POST.get("initial_outline_excluded_coords")
-                instance.initial_outline_min_off = min_off
-                instance.initial_outline_max_off = max_off
-                instance.initial_outline_front_dist = radius_min
-                instance.initial_outline_maximum_front_dist = radius_max
-                instance.initial_outline_target_dist = radius_target
-                instance.initial_outline_excluded_coords = excluded_coords
-                instance.save()
+                form2.save()
+                instance.refresh_from_db()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.update_available_ruins(outline=instance)
                 return redirect(
@@ -211,49 +159,29 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 )
 
         if "form3" in request.POST:
-            form3 = forms.SettingDateForm(request.POST)
+            form3 = forms.SettingDateForm(request.POST, instance=instance)
             if form3.is_valid():
                 instance.actions.form_date_change(instance)
-                date = request.POST.get("date")
-                instance.date = date
-                instance.save()
+                form3.save()
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
                 )
 
         if "form4" in request.POST:
-            form4 = forms.ModeOutlineForm(request.POST)
+            form4 = forms.ModeOutlineForm(request.POST, instance=instance)
             if form4.is_valid():
                 instance.actions.form_settings_change(instance)
-                mode_off = request.POST.get("mode_off")
-                mode_noble = request.POST.get("mode_noble")
-                mode_division = request.POST.get("mode_division")
-                mode_guide = request.POST.get("mode_guide")
-                fake_limit = request.POST.get("initial_outline_fake_limit")
-                mode_split = request.POST.get("mode_split")
-                initial_outline_fake_mode = request.POST.get(
-                    "initial_outline_fake_mode"
-                )
-
-                instance.mode_off = mode_off
-                instance.mode_noble = mode_noble
-                instance.mode_division = mode_division
-                instance.mode_guide = mode_guide
-                instance.mode_split = mode_split
-                instance.initial_outline_fake_limit = fake_limit
-                instance.initial_outline_fake_mode = initial_outline_fake_mode
-
-                instance.save()
-
+                form4.save()
+                instance.refresh_from_db()
                 models.TargetVertex.objects.filter(outline=instance).update(
-                    mode_off=mode_off,
-                    mode_noble=mode_noble,
-                    mode_division=mode_division,
-                    mode_guide=mode_guide,
+                    mode_off=instance.mode_off,
+                    mode_noble=instance.mode_noble,
+                    mode_division=instance.mode_division,
+                    mode_guide=instance.mode_guide,
                 )
                 models.WeightMaximum.objects.filter(outline=instance).update(
-                    fake_limit=fake_limit
+                    fake_limit=instance.initial_outline_fake_limit
                 )
 
                 return redirect(
@@ -262,24 +190,15 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 )
 
         if "form5" in request.POST:
-            form5 = forms.NightBonusSetForm(request.POST)
+            form5 = forms.NightBonusSetForm(request.POST, instance=instance)
             if form5.is_valid():
                 instance.actions.form_night_change(instance)
-                night_bonus = request.POST.get("night_bonus")
-                if night_bonus == "on":
-                    night_bonus = True
-                else:
-                    night_bonus = False
-                enter_t1: str | None = request.POST.get("enter_t1")
-                enter_t2: str | None = request.POST.get("enter_t2")
-                instance.night_bonus = night_bonus
-                instance.enter_t1 = enter_t1
-                instance.enter_t2 = enter_t2
-                instance.save()
+                form5.save()
+                instance.refresh_from_db()
                 models.TargetVertex.objects.filter(outline=instance).update(
-                    night_bonus=night_bonus,
-                    enter_t1=enter_t1,
-                    enter_t2=enter_t2,
+                    night_bonus=instance.night_bonus,
+                    enter_t1=instance.enter_t1,
+                    enter_t2=instance.enter_t2,
                 )
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
@@ -287,25 +206,19 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 )
 
         if "form6" in request.POST:
-            form6 = forms.RuiningOutlineForm(request.POST)
+            form6 = forms.RuiningOutlineForm(request.POST, instance=instance)
             if form6.is_valid():
                 instance.actions.form_ruin_change(instance)
-                catapult_default: str | None = request.POST.get(
-                    "initial_outline_catapult_default"
-                )
-                catapult_left: str | None = request.POST.get(
-                    "initial_outline_off_left_catapult"
-                )
-                initial_outline_average_ruining_points: str | None = request.POST.get(
-                    "initial_outline_average_ruining_points"
+                form6.save()
+                return redirect(
+                    reverse("base:planer_initial_form", args=[_id])
+                    + f"?t={target_mode.mode}"
                 )
 
-                instance.initial_outline_catapult_default = catapult_default
-                instance.initial_outline_off_left_catapult = catapult_left
-                instance.initial_outline_average_ruining_points = (
-                    initial_outline_average_ruining_points
-                )
-
+        if "form7" in request.POST:
+            form7 = forms.MoraleOutlineForm(request.POST, instance=instance)
+            if form7.is_valid():
+                instance = form7.save(commit=False)
                 instance.save()
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
@@ -320,6 +233,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "form4": form4,
         "form5": form5,
         "form6": form6,
+        "form7": form7,
         "fake_dups": fake_dups,
         "real_dups": real_dups,
         "ruin_dups": ruin_dups,

@@ -14,7 +14,7 @@
 # ==============================================================================
 
 """ Cronjobs runner"""
-
+import logging
 import threading
 from time import sleep
 from typing import Callable
@@ -30,14 +30,23 @@ def run_threaded(job_func: Callable):
 
 
 if __name__ == "__main__":
-    setup()
-    from base.cron import db_update, outdate_outline_delete, outdate_overviews_delete
+    try:
+        setup()
+        from base.cron import (
+            db_update,
+            outdate_outline_delete,
+            outdate_overviews_delete,
+        )
 
-    schedule.every(settings.JOB_MIN_INTERVAL).to(settings.JOB_MAX_INTERVAL).minutes.do(
-        run_threaded, db_update
-    )
-    schedule.every().hour.do(run_threaded, outdate_overviews_delete)
-    schedule.every().hour.do(run_threaded, outdate_outline_delete)
+        schedule.every(settings.JOB_MIN_INTERVAL).to(
+            settings.JOB_MAX_INTERVAL
+        ).minutes.do(run_threaded, db_update)
+        schedule.every().hour.do(run_threaded, outdate_overviews_delete)
+        schedule.every().hour.do(run_threaded, outdate_outline_delete)
+    except Exception as err:
+        logging.error(err)
+        raise Exception(err)
+
     while True:
         schedule.run_pending()
         sleep(5)

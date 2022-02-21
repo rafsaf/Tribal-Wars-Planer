@@ -293,12 +293,28 @@
       <div class="card">
         <div class="card-header" id="headingFour">
 
-          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% trans '4. Writing free noblemans' %}</button></h5>
+          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% if form7.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '4. Morale' %}</button></h5>
 
         </div>
 
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-          <div class="card-body">{% trans 'This functionality is still planned and is not yet available.' %}</div>
+          <div class="card-body">
+            <div class="mb-3">
+              {% if instance.world.morale == 0 %}
+              <h4>{{instance.world}} <span class="md-error">{% trans 'has no morale turned off and thus it is pointless to use this option.' %}</span> </span></h4>
+              {% elif instance.world.morale == 2 %}
+              <h4>{{instance.world}} <span class="md-error">{% trans 'has morale based on points and time. This is not perfectly handled by Planer. See this topic' %}</span> </span></h4>
+              {% endif %}
+            </div>
+            {% if instance.world.morale != 0 %}
+            <form id="form7-form" method='POST' autocomplete="off">
+              <input type="hidden" name="form7" value="">
+              {% csrf_token %}
+              {{form7|crispy}}
+              <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean" id="form7-btn" >{% trans 'Save' %}</button>
+            </form>
+            {% endif %}
+          </div>
 
         </div>
       </div>

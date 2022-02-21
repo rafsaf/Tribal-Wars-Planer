@@ -73,19 +73,34 @@ class WorldQuery:
             return (None, "error")
 
         tree = ElementTree.fromstring(req.content)
-        self.world.speed_world = float(tree[0].text)  # type: ignore
-        self.world.speed_units = float(tree[1].text)  # type: ignore
-        if bool(int(tree[7][1].text)):  # type: ignore
+
+        speed_world = tree[0].text
+        assert speed_world is not None
+        speed_units = tree[1].text
+        assert speed_units is not None
+        morale = tree[2].text
+        assert morale is not None
+        paladin = tree[7][1].text
+        assert paladin is not None
+        archer = tree[7][3].text
+        assert archer is not None
+        max_noble_distance = tree[9][3].text
+        assert max_noble_distance is not None
+
+        self.world.speed_world = float(speed_world)
+        self.world.speed_units = float(speed_units)
+        self.world.morale = int(morale)
+        if bool(int(paladin)):
             self.world.paladin = "active"
         else:
             self.world.paladin = "inactive"
 
-        if bool(int(tree[7][3].text)):  # type: ignore
+        if bool(int(archer)):
             self.world.archer = "active"
         else:
             self.world.archer = "inactive"
 
-        self.world.max_noble_distance = int(tree[9][3].text)  # type: ignore
+        self.world.max_noble_distance = int(max_noble_distance)
 
         try:
             req_units = requests.get(

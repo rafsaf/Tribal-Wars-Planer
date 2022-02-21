@@ -40,6 +40,7 @@ class World(models.Model):
     archer = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     militia = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     max_noble_distance = models.IntegerField(default=50)
+    morale = models.IntegerField(default=1)
     etag_player = models.CharField(max_length=200, default="")
     etag_tribe = models.CharField(max_length=200, default="")
     etag_village = models.CharField(max_length=200, default="")

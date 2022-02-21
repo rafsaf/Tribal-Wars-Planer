@@ -28,3 +28,5 @@ services:
     command: python -m base.run_cronjobs
     env_file:
       - .env
+    volumes:
+      - "./logs:/app/logs"

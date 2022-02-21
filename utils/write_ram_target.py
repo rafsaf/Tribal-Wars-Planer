@@ -70,7 +70,7 @@ class WriteRamTarget:
         else:
             self.filters.append(self._off_query())
 
-        if self.outline.morale_on:
+        if self.outline.morale_on and self.outline.world.morale > 0:
             self.filters.append(self._morale_query())
 
         if self.target.mode_off == "closest":

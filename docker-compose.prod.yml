@@ -63,3 +63,5 @@ services:
       - .env
     environment:
       - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
+    volumes:
+      - "~/django_log:/app/logs"

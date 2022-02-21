@@ -79,7 +79,7 @@ class WriteNobleTarget:
         self.filters.append(self._noble_query())
         self.filters.append(self._only_closer_than_target_dist())
 
-        if self.outline.morale_on:
+        if self.outline.morale_on and self.outline.world.morale > 0:
             self.filters.append(self._morale_query())
 
         if self.target.mode_noble == "closest":
