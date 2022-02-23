@@ -152,7 +152,7 @@ class InitialForm(MiniSetup):
         initial_outline_min_off = self.random_integer()
         initial_outline_excluded_coords = self.random_lower_string()
         # form3
-        date = ""
+        date = timezone.now().date()
         # form4
         mode_off = "far"
         mode_noble = "far"
@@ -273,7 +273,7 @@ class InitialForm(MiniSetup):
         initial_outline_min_off = self.random_integer()
         initial_outline_excluded_coords = self.random_lower_string()
         # form3
-        date = ""
+        date = timezone.now().date()
         # form4
         mode_off = "closest"
         mode_noble = "random"

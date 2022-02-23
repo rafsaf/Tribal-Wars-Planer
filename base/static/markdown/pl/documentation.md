@@ -1166,7 +1166,7 @@ Podsumowując warto zastanowić się nad ilością katapult (i ile budynków war
 <p class="mb-0"><b><a href="#dostepne-jednostki-i-opis-tabeli">1. Dostępne jednostki i opis Tabeli.</a></b></p>
 <p class="my-0"><b><a href="#zmiana-daty-akcji">2. Zmiana daty akcji.</a></b></p>
 <p class="my-0"><b><a href="#domyslne-ustawienia-trybu-akcji">3. Domyślne ustawienia trybu akcji</a></b></p>
-<p class="my-0"><b><a href="#rozpisywanie-wolnej-szlachty">4. Rozpisywanie wolnej szlachty</a></b></p>
+<p class="my-0"><b><a href="#morale">4. Morale</a></b></p>
 <p class="my-0"><b><a href="#unikanie-bonusu-nocnego">5. Unikanie bonusu nocnego.</a></b></p>
 <p class="my-0"><b><a href="#burzenie">6. Burzenie.</a></b></p>
 
@@ -1265,9 +1265,33 @@ Najbardziej sensowna opcja szczególnie dla większych akcji to raczej **dzielen
 <br>
 <br>
 
-<h2 id="rozpisywanie-wolnej-szlachty">4. Rozpisywanie wolnej szlachty</h2>
+<h2 id="morale">4. Morale</h2>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zakładka służyć będzie uwzględnianiu w akcji wolnej szlachty tak by gracze dostali w celach gdzie mają je wybudować i potem wysłać. Optymistyczny termin- do końca wakacji, pesymistyczny- roku :)</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zakładka służy do kontrolowania wartości morale morale przy rozpisywaniu akcji.</div>
+
+<h5>Ustawienia:</h5>
+<area id="4_045_morale_photo.png" class="docs-image"></area>
+
+Pierwsze pole <span class="md-correct2">Tylko atakujący POWYŻEJ tej wartości morale mogą zostać rozpisani</span> służy do decydowania jaka **najniższa** dopuszczalna wartość morale jest w porządku dla akcji. Często będzie to wartość 90-100 w zależności od tego na jakim etapie jest świat, na jakie cele rozpisujemy akcje itd. Wpływ na wynik akcji wygląda tak, że dla danego celu (każdego z osobna!) listę wszystkich dopuszczalnych wiosek z których mogłyby być na niego rozpisane ataki, <span class="md-correct2">filtrujemy, pomniejszamy</span> o te wszystkie, które nie spełniają naszych wymagań dotyczących morale.
+
+Czyli w teorii mając wśród wielu celów kilka czy kilkanaście **graczy z małą ilością punktów**, na nich rozpisane zostaną ataki z graczy z plemienia również z mniejszą ilością punktów.
+
+W skrajnych sytuacjach można odznaczyć drugą opcję <span class="md-correct2">Bierz pod uwagę morale w tej rozpisce</span> co skutkuje **nie braniem** pod uwagę morali.
+
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga w plemionach występują w kolejności popularności trzy ustawienia morale: oparte na punktach, oparte na punktach i czasie oraz brak morali.</div>
+
+
+1. Morale bazujące na punktach
+
+    Dla najbardziej popularnej morale opierają się tylko na punktach gracza atakującego i obrońcy, co Planer implementuje dokładnie, choć nie brane są pod uwage początkowe ochrony występujące na niektórych światach!
+
+2. Morale bazujące na punktach i czasie
+
+    W tym przypadku oprócz punktów, morale są zwiększane proporcjonalnie do czasu gry obrońcy na świecie, aż do maksymalnej wartości 50%. Planer **nie przelicza** tego dodatku czasowego, z racji braku technicznej możliwości, gra nie udostępnia tego typu danych. Wynik będzie niedokładny i skrajnych przypadkach zamiast np. morale 30% na celu, w rzeczywistości nasz gracz będzie miał 50% (ale nie więcej).
+
+3. Brak morale
+
+    W tym przypadku zakładka jest nieaktywna zaś kwestia morali pomijana.
 
 <br>
 

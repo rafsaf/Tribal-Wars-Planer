@@ -29,7 +29,6 @@ from django.views.decorators.http import require_POST
 import utils.avaiable_troops as avaiable_troops
 import utils.basic as basic
 from base import forms, models
-from utils.basic.timer import timing
 from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
 from utils.outline_finish import MakeFinalOutline
@@ -97,6 +96,11 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     real_dups = calculations.real_duplicates()
     fake_dups = calculations.fake_duplicates()
     ruin_dups = calculations.ruin_duplicates()
+
+    if instance.morale_on and instance.world.morale > 0:
+        morale_dict = basic.generate_morale_dict(instance)
+    else:
+        morale_dict = None
 
     if target_mode.is_real:
         form1.fields["target"].initial = instance.initial_outline_targets
@@ -241,6 +245,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "len_real": len_real,
         "len_fake": len_fake,
         "len_ruin": len_ruin,
+        "morale_dict": morale_dict.items() if morale_dict else None,
         "estimated_time": estimated_time,
         "premium_error": premium_error,
         "premium_account_max_targets_free": settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE,
@@ -677,7 +682,7 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     )
 
 
-@timing
+@basic.timing
 @login_required
 @require_POST
 def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:

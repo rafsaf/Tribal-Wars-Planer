@@ -15,7 +15,7 @@
 
 import datetime
 
-import django
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.core.paginator import Paginator
@@ -23,7 +23,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Count, F, Q, Sum
 from django.db.models.query import QuerySet
-from django.utils import timezone
 from django.utils.translation import gettext_lazy
 
 
@@ -140,7 +139,7 @@ class Outline(models.Model):
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(default=django.utils.timezone.now)  # type: ignore
+    date = models.DateField(default=timezone.now)
     name = models.CharField(max_length=20)
     world = models.ForeignKey("World", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)

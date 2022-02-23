@@ -104,6 +104,7 @@ class TestWriteNobleTarget(TestCase):
         self.outline.initial_outline_target_dist = 10
         self.outline.initial_outline_front_dist = 0
         self.outline.initial_outline_min_off = 15000
+        self.outline.morale_on = False
         target.required_noble = 10
         target.mode_noble = "random"
         write_noble = self.get_write_noble(target)
