@@ -65,6 +65,7 @@ class NewOutlineCreate(MiniSetup):
         PATH = reverse("base:planer_create")
         profile: Profile = Profile.objects.get(user=self.me())
         profile.default_morale_on = True
+        profile.save()
         world = self.get_world()
 
         self.login_me()
