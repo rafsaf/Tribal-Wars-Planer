@@ -1034,6 +1034,8 @@ Najbardziej sensowna opcja szczególnie dla większych akcji to raczej **dzielen
 <h5>Ustawienia:</h5>
 <area id="4_045_morale_photo.png" class="docs-image"></area>
 
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga. Domyślnie opcja jest <span class="md-error">wyłączona</span> w każdej akcji, ale możesz zmienić to zachowanie przechodząc do <span class="md-correct2">Menu -> Moje konto</span>.</div>
+
 Pierwsze pole <span class="md-correct2">Tylko atakujący POWYŻEJ tej wartości morale mogą zostać rozpisani</span> służy do decydowania jaka **najniższa** dopuszczalna wartość morale jest w porządku dla akcji. Często będzie to wartość 90-100 w zależności od tego na jakim etapie jest świat, na jakie cele rozpisujemy akcje itd. Wpływ na wynik akcji wygląda tak, że dla danego celu (każdego z osobna!) listę wszystkich dopuszczalnych wiosek z których mogłyby być na niego rozpisane ataki, <span class="md-correct2">filtrujemy, pomniejszamy</span> o te wszystkie, które nie spełniają naszych wymagań dotyczących morale.
 
 Czyli w teorii mając wśród wielu celów kilka czy kilkanaście **graczy z małą ilością punktów**, na nich rozpisane zostaną ataki z graczy z plemienia również z mniejszą ilością punktów.

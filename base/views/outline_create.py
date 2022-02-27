@@ -20,12 +20,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from base import forms, models
+from base.models.profile import Profile
 
 
 @login_required
 def new_outline_create(request: HttpRequest) -> HttpResponse:
     """creates new user's outline login required"""
-    profile = models.Profile.objects.select_related().get(user=request.user)
+    profile: Profile = models.Profile.objects.select_related().get(user=request.user)
     form1 = forms.OutlineForm(None)
     form2 = forms.ChangeServerForm(None)
 
@@ -52,6 +53,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                     date=request.POST["date"],
                     name=request.POST["name"],
                     world=world_instance,
+                    morale_on=profile.default_morale_on,
                 )
                 new_instance.save()
                 new_instance.refresh_from_db()

@@ -22,6 +22,7 @@ from django.utils.translation import activate
 from base.models import Outline
 from base.models import TargetVertex as Target
 from base.models import WeightMaximum, WeightModel
+from base.models.player import Player
 from base.models.result import Result
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.avaiable_troops import get_legal_coords_outline
@@ -1024,3 +1025,27 @@ class TestOutlineCreateTargets(TestCase):
             complete_outline_write(self.outline, salt="test_outline_complete")
             assert len(self.weights()) == 2
             self.outline.remove_user_outline()
+
+    def test_morale_on_leads_to_skip_all_villages_for_low_morale_value(
+        self,
+    ):
+        self.outline.initial_outline_min_off = 0
+        self.outline.initial_outline_max_off = 28000
+        self.outline.morale_on = True
+        self.outline.morale_on_targets_greater_than = 95
+        self.outline.save()
+
+        ally_player: Player = Player.objects.get(name="player0")
+        enemy_player: Player = Player.objects.get(name="player1")
+        ally_player.points = 1200
+        enemy_player.points = 250  # morale 93%
+        ally_player.save()
+        enemy_player.save()
+
+        target = self.target()
+        target.exact_off = [10, 0, 0, 0]
+        target.exact_noble = [10, 0, 0, 0]
+        target.save()
+        complete_outline_write(self.outline, salt=self.salt)
+        created = self.weights()
+        assert len(created) == 0

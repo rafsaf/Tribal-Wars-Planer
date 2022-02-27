@@ -836,5 +836,10 @@ class AddNewWorldForm(forms.ModelForm):
 class ChangeServerForm(forms.ModelForm):
     class Meta:
         model = models.Profile
-        fields = ["server"]
-        labels = {"server": gettext_lazy("Please select your server:")}
+        fields = ["server", "default_morale_on"]
+        labels = {
+            "server": gettext_lazy("Please select your server:"),
+            "default_morale_on": gettext_lazy(
+                "Turn on morale calculations in every outline by default:"
+            ),
+        }

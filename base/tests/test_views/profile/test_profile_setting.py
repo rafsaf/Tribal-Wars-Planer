@@ -46,7 +46,9 @@ class OutlineProfileSettings(MiniSetup):
         PATH = reverse("base:settings")
 
         self.login_me()
-        response = self.client.post(PATH, data={"server": "xaxaxa", "form1": ""})
+        response = self.client.post(
+            PATH, data={"server": "xaxaxa", "form1": "", "default_morale_on": True}
+        )
         assert response.status_code == 200
         form1: ChangeServerForm = response.context["form1"]
         assert len(form1.errors) == 1
@@ -58,13 +60,18 @@ class OutlineProfileSettings(MiniSetup):
 
         me = self.me()
         profile: Profile = Profile.objects.get(user=me)
+        profile.default_morale_on = True
         profile.server = None
         profile.save()
 
         self.login_me()
-        response = self.client.post(PATH, data={"server": "nottestserver", "form1": ""})
+        response = self.client.post(
+            PATH,
+            data={"server": "nottestserver", "default_morale_on": False, "form1": ""},
+        )
         assert response.status_code == 302
         assert response.url == PATH
 
         profile.refresh_from_db()
-        assert profile.server is not None
+        assert profile.server.dns == "nottestserver"  # type: ignore
+        assert not profile.default_morale_on

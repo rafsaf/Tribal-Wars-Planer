@@ -36,6 +36,7 @@ class Profile(models.Model):
     )
     messages = models.IntegerField(default=0)
     server_bind = models.BooleanField(default=False)
+    default_morale_on = models.BooleanField(default=False)
 
     def is_premium(self) -> bool:
         if settings.PREMIUM_ACCOUNT_VALIDATION_ON:

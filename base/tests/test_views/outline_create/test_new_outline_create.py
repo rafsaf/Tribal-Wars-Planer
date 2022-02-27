@@ -63,7 +63,8 @@ class NewOutlineCreate(MiniSetup):
 
     def test_planer_create___200_auth_form_create_outline_and_redirect(self):
         PATH = reverse("base:planer_create")
-
+        profile: Profile = Profile.objects.get(user=self.me())
+        profile.default_morale_on = True
         world = self.get_world()
 
         self.login_me()
@@ -88,6 +89,7 @@ class NewOutlineCreate(MiniSetup):
         assert response.url == REDIRECT
         assert outline.name == "name"
         assert outline.date == datetime.date.today()
+        assert outline.morale_on
         assert outline.world == world
         assert outline.owner == self.me()
 
@@ -109,8 +111,7 @@ class NewOutlineCreate(MiniSetup):
         PATH = reverse("base:planer_create")
 
         world = self.get_world()
-        me = self.me()
-        profile: Profile = Profile.objects.get(user=me)
+        profile: Profile = Profile.objects.get(user=self.me())
         profile.server = None
         profile.save()
         self.login_me()

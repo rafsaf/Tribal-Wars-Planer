@@ -43,18 +43,17 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
     ):
         dict_player_to_points[player.name] = player.points
     for target_player in unique_target_players:
-        target_player_morale = dict_player_to_points[target_player]
+        target_player_points = dict_player_to_points[target_player]
         for weight_player in unique_weight_max_players:
-            weight_player_morale = dict_player_to_points[weight_player]
-            if weight_player_morale == 0:
+            weight_player_points = dict_player_to_points[weight_player]
+            if weight_player_points == 0:
                 continue
             morale = round(
-                ((3 * target_player_morale / weight_player_morale) + 0.3) * 100
+                ((3 * target_player_points / weight_player_points) + 0.3) * 100
             )
             if morale >= 100:
                 continue
             elif morale < 25:
                 morale = 25
             dict_player_tuple_to_morale[(target_player, weight_player)] = morale
-
     return dict_player_tuple_to_morale

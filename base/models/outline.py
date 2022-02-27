@@ -15,7 +15,6 @@
 
 import datetime
 
-from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.core.paginator import Paginator
@@ -23,6 +22,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Count, F, Q, Sum
 from django.db.models.query import QuerySet
+from django.utils import timezone
 from django.utils.translation import gettext_lazy
 
 
@@ -242,7 +242,7 @@ class Outline(models.Model):
     morale_on_targets_greater_than = models.IntegerField(
         default=100, validators=[MinValueValidator(25), MaxValueValidator(100)]
     )
-    morale_on = models.BooleanField(default=True)
+    morale_on = models.BooleanField(default=False)
     filter_targets_number = models.IntegerField(
         default=12,
         validators=[MinValueValidator(1), MaxValueValidator(50)],

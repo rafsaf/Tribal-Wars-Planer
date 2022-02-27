@@ -303,6 +303,11 @@
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
           <div class="card-body">
             <div class="mb-3">
+              {% if instance.morale_on %}
+              <h4>{% trans 'ACTIVE: ' %} <span class="md-correct2"> {%trans 'True' %}</span></h4>
+              {% else %}
+              <h4>{% trans 'ACTIVE: ' %} <span class="md-error">{% trans 'False' %}</span></h4>
+              {% endif %}
               {% if instance.world.morale == 0 %}
               <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i>&nbsp;<b>{{instance.world}}</b>&nbsp;<span class="md-error">{% trans 'has no morale turned off and thus it is pointless to use this option.' %}</span></div>
               {% elif instance.world.morale == 2 %}
