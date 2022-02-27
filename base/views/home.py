@@ -64,6 +64,7 @@ def base_view(request):
     stats["orders"] = orders
 
     context = {"stats": stats, "registration_open": settings.REGISTRATION_OPEN}
+
     return render(request, "base/base.html", context)
 
 

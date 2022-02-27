@@ -6,10 +6,13 @@
 {% load crispy_forms_tags %}
 {% get_current_language as LANG %}
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
 <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
 <script src="{% static 'codemirror-min.js' %}"></script>
 <script src="{% static 'multi-select-min.js' %}"></script>
 <script src="https://kit.fontawesome.com/dc3f7108e7.js" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
 
 <div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
   <div class="col-12 col-lg-7">
@@ -293,12 +296,56 @@
       <div class="card">
         <div class="card-header" id="headingFour">
 
-          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% trans '4. Writing free noblemans' %}</button></h5>
+          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% if form7.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '4. Morale' %}</button></h5>
 
         </div>
 
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-          <div class="card-body">{% trans 'This functionality is still planned and is not yet available.' %}</div>
+          <div class="card-body">
+            <div class="mb-3">
+              {% if instance.morale_on %}
+              <h4>{% trans 'ACTIVE: ' %} <span class="md-correct2"> {%trans 'True' %}</span></h4>
+              {% else %}
+              <h4>{% trans 'ACTIVE: ' %} <span class="md-error">{% trans 'False' %}</span></h4>
+              {% endif %}
+              {% if instance.world.morale == 0 %}
+              <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i>&nbsp;<b>{{instance.world}}</b>&nbsp;<span class="md-error">{% trans 'has no morale turned off and thus it is pointless to use this option.' %}</span></div>
+              {% elif instance.world.morale == 2 %}
+              <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> &nbsp;<b>{{instance.world}}</b>&nbsp;  <span class="md-error">{% trans 'has morale based on points and time. This is not perfectly handled by Planer. See topic "4. Morale" in the docs on the right side.' %}</span></div>
+              {% endif %}
+            </div>
+            <style>input[type=checkbox] {width:1rem; height:1rem;}</style>
+            {% if instance.world.morale != 0 %}
+            <form id="form7-form" method='POST' autocomplete="off">
+              <input type="hidden" name="form7" value="">
+              {% csrf_token %}
+              {{form7|crispy}}
+              <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean" id="form7-btn" >{% trans 'Save' %}</button>
+            </form>
+            {% endif %}
+            {% if morale_dict %}
+            <div class="my-3 mt-5">
+              <table id="morale-table">
+                <thead>
+                  <tr>
+                    <th scope="col">{% trans 'Attacker' %}</th>
+                    <th scope="col">{% trans 'Defender' %}</th>
+                    <th scope="col">{% trans 'Morale value' %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for players, morale in morale_dict %}
+                    <tr>
+                      <th>{{players.1}}</th>
+                      <th>{{players.0}}</th>
+                      <th>{{morale}}</th>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% endif %}
+          </div>
 
         </div>
       </div>
@@ -437,5 +484,8 @@
 <script>
   loadDocsPage(6, "planer-docs-form-info", "{% static 'markdown/'|add:LANG|add:'/planer_form_info.md' %}");
   loadDocsPage(7, "planer-docs-form-example", "{% static 'markdown/'|add:LANG|add:'/planer_form_example.md' %}");
+  $(document).ready( function () {
+    $('#morale-table').DataTable();
+} );
 </script>
 {% endblock %}

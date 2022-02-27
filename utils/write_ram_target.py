@@ -70,6 +70,9 @@ class WriteRamTarget:
         else:
             self.filters.append(self._off_query())
 
+        if self.outline.morale_on and self.outline.world.morale > 0:
+            self.filters.append(self._morale_query())
+
         if self.target.mode_off == "closest":
             self.index = 30000
             if self.ruin:
@@ -242,6 +245,14 @@ class WriteRamTarget:
             return False
 
         return filter_ruin
+
+    def _morale_query(self):
+        def filter_morale(weight_max: WeightMaximum):
+            if weight_max.morale >= self.outline.morale_on_targets_greater_than:
+                return True
+            return False
+
+        return filter_morale
 
     def _off_query(self):
         def filter_off(weight_max: WeightMaximum):

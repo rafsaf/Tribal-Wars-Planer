@@ -15,7 +15,7 @@
 
 <p class="my-0"><b><a target="_blank" href="/documentation#zmiana-daty-akcji">2. Changing the date of the otuline.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation#domyslne-ustawienia-trybu-akcji">3. Default outline mode settings.</a></b></p>
-<p class="my-0"><b><a target="_blank" href="/documentation#rozpisywanie-wolnej-szlachty">4. Writing out free noblemans.</a></b></p>
+<p class="my-0"><b><a target="_blank" href="/documentation#morale">4. Morale.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation#unikanie-bonusu-nocnego">5. Avoidance of night shipments.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation#burzenie">6. Ruin outlines.</a></b></p>
 

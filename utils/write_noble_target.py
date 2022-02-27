@@ -79,6 +79,9 @@ class WriteNobleTarget:
         self.filters.append(self._noble_query())
         self.filters.append(self._only_closer_than_target_dist())
 
+        if self.outline.morale_on and self.outline.world.morale > 0:
+            self.filters.append(self._morale_query())
+
         if self.target.mode_noble == "closest":
             self.index = 110000
             return self._closest_weight_lst()
@@ -398,6 +401,14 @@ class WriteNobleTarget:
 
         else:  # self.target.mode_division == "separatly"
             return weight_max.catapult_left
+
+    def _morale_query(self):
+        def filter_morale(weight_max: WeightMaximum):
+            if weight_max.morale >= self.outline.morale_on_targets_greater_than:
+                return True
+            return False
+
+        return filter_morale
 
     def _noble_query(self):
         def filter_noble(weight_max: WeightMaximum):

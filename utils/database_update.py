@@ -13,10 +13,13 @@
 # limitations under the License.
 # ==============================================================================
 
+import gzip
+import logging
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
 
 import requests
+from django.db import transaction
 from django.db.models import Count
 from django.utils import timezone
 
@@ -30,12 +33,22 @@ def cron_schedule_data_update():
         instance = WorldQuery(world=world)
         instance.update_all()
         worlds.append(world)
-    World.objects.bulk_update(worlds, ["last_update"])
+        logging.info(
+            f"{str(world)} | tribe_updated: {instance.tribe_update} |"
+            f" village_update: {instance.village_update} |"
+            f" player_update: {instance.player_update}"
+        )
+    World.objects.bulk_update(
+        worlds, ["last_update", "etag_player", "etag_tribe", "etag_village"]
+    )
 
 
 class WorldQuery:
     def __init__(self, world: World):
         self.world = world
+        self.player_update: bool = False
+        self.tribe_update: bool = False
+        self.village_update: bool = False
 
     def check_if_world_exist_and_try_create(self) -> tuple[World | None, str]:
         """
@@ -60,19 +73,34 @@ class WorldQuery:
             return (None, "error")
 
         tree = ElementTree.fromstring(req.content)
-        self.world.speed_world = float(tree[0].text)  # type: ignore
-        self.world.speed_units = float(tree[1].text)  # type: ignore
-        if bool(int(tree[7][1].text)):  # type: ignore
+
+        speed_world = tree[0].text
+        assert speed_world is not None
+        speed_units = tree[1].text
+        assert speed_units is not None
+        morale = tree[2].text
+        assert morale is not None
+        paladin = tree[7][1].text
+        assert paladin is not None
+        archer = tree[7][3].text
+        assert archer is not None
+        max_noble_distance = tree[9][3].text
+        assert max_noble_distance is not None
+
+        self.world.speed_world = float(speed_world)
+        self.world.speed_units = float(speed_units)
+        self.world.morale = int(morale)
+        if bool(int(paladin)):
             self.world.paladin = "active"
         else:
             self.world.paladin = "inactive"
 
-        if bool(int(tree[7][3].text)):  # type: ignore
+        if bool(int(archer)):
             self.world.archer = "active"
         else:
             self.world.archer = "inactive"
 
-        self.world.max_noble_distance = int(tree[9][3].text)  # type: ignore
+        self.world.max_noble_distance = int(max_noble_distance)
 
         try:
             req_units = requests.get(
@@ -134,13 +162,21 @@ class WorldQuery:
         create_list = list()
 
         try:
-            req = requests.get(self.world.link_to_game("/map/village.txt"))
+            req = requests.get(
+                self.world.link_to_game("/map/village.txt.gz"), stream=True
+            )
         except requests.exceptions.RequestException:
             self.handle_connection_error()
 
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
+            elif req.headers["etag"] == self.world.etag_village:
+                return
+            else:
+                text = gzip.decompress(req.content).decode()
+                self.world.etag_village = req.headers["etag"]
+                self.village_update = True
             player_context = {}
 
             players = Player.objects.filter(world=self.world)
@@ -159,7 +195,7 @@ class WorldQuery:
                 .values_list("village_id", "player__player_id", "x_coord", "y_coord")
             )
 
-            for line in [i.split(",") for i in req.text.split("\n")]:
+            for line in [i.split(",") for i in text.split("\n")]:
                 if line == [""]:
                     continue
 
@@ -196,28 +232,34 @@ class WorldQuery:
             village_ids_to_remove = [int(village[0]) for village in village_set1] + [
                 int(village[0]) for village in village_set2
             ]
-            VillageModel.objects.filter(
-                village_id__in=village_ids_to_remove, world=self.world
-            ).delete()
-            VillageModel.objects.bulk_create(create_list)
+            with transaction.atomic():
+                VillageModel.objects.filter(
+                    village_id__in=village_ids_to_remove, world=self.world
+                ).delete()
+                VillageModel.objects.bulk_create(create_list)
 
     def update_tribes(self):
         create_list = list()
 
         try:
-            req = requests.get(self.world.link_to_game("/map/ally.txt"))
+            req = requests.get(self.world.link_to_game("/map/ally.txt.gz"), stream=True)
         except requests.exceptions.RequestException:
             self.handle_connection_error()
 
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
-
+            elif req.headers["etag"] == self.world.etag_tribe:
+                return
+            else:
+                text = gzip.decompress(req.content).decode()
+                self.world.etag_tribe = req.headers["etag"]
+                self.tribe_update = True
             tribe_set = set(
                 Tribe.objects.filter(world=self.world).values_list("tribe_id", "tag")
             )
 
-            for line in [i.split(",") for i in req.text.split("\n")]:
+            for line in [i.split(",") for i in text.split("\n")]:
                 if line == [""]:
                     continue
 
@@ -230,23 +272,31 @@ class WorldQuery:
                 else:
                     tribe = Tribe(tribe_id=tribe_id, tag=tag, world=self.world)
                     create_list.append(tribe)
-
-            Tribe.objects.filter(
-                tribe_id__in=[item[0] for item in tribe_set], world=self.world
-            ).delete()
-            Tribe.objects.bulk_create(create_list)
+            with transaction.atomic():
+                Tribe.objects.filter(
+                    tribe_id__in=[item[0] for item in tribe_set], world=self.world
+                ).delete()
+                Tribe.objects.bulk_create(create_list)
 
     def update_players(self):
         create_list = list()
 
         try:
-            req = requests.get(self.world.link_to_game("/map/player.txt"))
+            req = requests.get(
+                self.world.link_to_game("/map/player.txt.gz"), stream=True
+            )
         except requests.exceptions.RequestException:
             self.handle_connection_error()
 
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
+            elif req.headers["etag"] == self.world.etag_player:
+                return
+            else:
+                text = gzip.decompress(req.content).decode()
+                self.world.etag_player = req.headers["etag"]
+                self.player_update = True
             tribe_context = {}
 
             tribes = Tribe.objects.filter(world=self.world)
@@ -255,7 +305,7 @@ class WorldQuery:
 
             player_set1 = set(
                 Player.objects.filter(tribe=None, world=self.world).values_list(
-                    "player_id", "name"
+                    "player_id", "name", "villages", "points"
                 )
             )
 
@@ -264,24 +314,27 @@ class WorldQuery:
                 .filter(world=self.world)
                 .select_related("tribe")
                 .filter(world=self.world)
-                .values_list("player_id", "name", "tribe__tribe_id")
+                .values_list(
+                    "player_id", "name", "tribe__tribe_id", "villages", "points"
+                )
             )
 
-            for line in [i.split(",") for i in req.text.split("\n")]:
+            for line in [i.split(",") for i in text.split("\n")]:
                 if line == [""]:
                     continue
 
                 player_id = int(line[0])
                 name = unquote(unquote_plus(line[1]))
                 tribe_id = int(line[2])
+                villages = int(line[3])
+                points = int(line[4])
 
-                if (player_id, name) in player_set1 and tribe_id == 0:
-                    player_set1.remove((player_id, name))
-
+                if (player_id, name, villages, points) in player_set1 and tribe_id == 0:
+                    player_set1.remove((player_id, name, villages, points))
                     continue
 
-                if (player_id, name, tribe_id) in player_set2:
-                    player_set2.remove((player_id, name, tribe_id))
+                if (player_id, name, tribe_id, villages, points) in player_set2:
+                    player_set2.remove((player_id, name, tribe_id, villages, points))
                     continue
 
                 # else create
@@ -293,14 +346,20 @@ class WorldQuery:
                     tribe = tribe_context[tribe_id]
 
                 player = Player(
-                    player_id=player_id, name=name, tribe=tribe, world=self.world
+                    player_id=player_id,
+                    name=name,
+                    tribe=tribe,
+                    world=self.world,
+                    villages=villages,
+                    points=points,
                 )
                 create_list.append(player)
 
             players_ids_to_remove = [player[0] for player in player_set1] + [
                 player[0] for player in player_set2
             ]
-            Player.objects.filter(
-                world=self.world, player_id__in=players_ids_to_remove
-            ).delete()
-            Player.objects.bulk_create(create_list)
+            with transaction.atomic():
+                Player.objects.filter(
+                    world=self.world, player_id__in=players_ids_to_remove
+                ).delete()
+                Player.objects.bulk_create(create_list)

@@ -44,6 +44,8 @@ services:
       context: ./
       dockerfile: Dockerfile.cronjobs
     command: python -m base.run_cronjobs
+    volumes:
+      - "./logs:/app/logs"
 
   master_locust:
     restart: "unless-stopped"

@@ -201,15 +201,28 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
         assert world_query.world.connection_errors == 1
 
     def test_db_update_cron_job(self):
-        TRIBES = Path("utils/tests/database_update/ally.txt").read_text()
-        PLAYERS = Path("utils/tests/database_update/player.txt").read_text()
-        VILLAGES = Path("utils/tests/database_update/village.txt").read_text()
+        TRIBES = Path("utils/tests/database_update/ally.txt.gz").read_bytes()
+        PLAYERS = Path("utils/tests/database_update/player.txt.gz").read_bytes()
+        VILLAGES = Path("utils/tests/database_update/village.txt.gz").read_bytes()
+
         self.world.save()
         world_query = WorldQuery(world=self.world)
         with requests_mock.Mocker() as mock:
-            mock.get(world_query.world.link_to_game("/map/player.txt"), text=PLAYERS)
-            mock.get(world_query.world.link_to_game("/map/ally.txt"), text=TRIBES)
-            mock.get(world_query.world.link_to_game("/map/village.txt"), text=VILLAGES)
+            mock.get(
+                world_query.world.link_to_game("/map/player.txt.gz"),
+                content=PLAYERS,
+                headers={"etag": "12345"},
+            )
+            mock.get(
+                world_query.world.link_to_game("/map/ally.txt.gz"),
+                content=TRIBES,
+                headers={"etag": "12345"},
+            )
+            mock.get(
+                world_query.world.link_to_game("/map/village.txt.gz"),
+                content=VILLAGES,
+                headers={"etag": "12345"},
+            )
             db_update()
             self.world.refresh_from_db()
             date1 = self.world.last_update

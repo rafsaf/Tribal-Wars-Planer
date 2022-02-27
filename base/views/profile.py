@@ -49,13 +49,12 @@ def profile_settings(request: HttpRequest) -> HttpResponse:
     form1 = forms.ChangeServerForm(None)
     if request.method == "POST":
         if "form1" in request.POST:
-            form1 = forms.ChangeServerForm(request.POST)
+            profile: Profile = Profile.objects.get(user=user)
+            form1 = forms.ChangeServerForm(request.POST, instance=profile)
             if form1.is_valid():
-                new_server = request.POST.get("server")
-                new_server = get_object_or_404(Server, dns=new_server)
-                profile: Profile = Profile.objects.get(user=user)
-                profile.server = new_server
-                profile.save()
+                updated_profile: Profile = form1.save(commit=False)
+                get_object_or_404(Server, dns=updated_profile.server)
+                updated_profile.save()
                 return redirect("base:settings")
     context = {"user": user, "form1": form1}
     return render(request, "base/user/profile_settings.html", context=context)

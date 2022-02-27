@@ -152,7 +152,7 @@ class InitialForm(MiniSetup):
         initial_outline_min_off = self.random_integer()
         initial_outline_excluded_coords = self.random_lower_string()
         # form3
-        date = ""
+        date = timezone.now().date()
         # form4
         mode_off = "far"
         mode_noble = "far"
@@ -169,9 +169,13 @@ class InitialForm(MiniSetup):
         initial_outline_off_left_catapult = 200
         initial_outline_catapult_default = 300
         initial_outline_average_ruining_points = "medium"
-
+        # form7
+        morale_on_targets_greater_than = 85
+        morale_on = True
         # outline
         outline = self.get_outline(test_world=True)
+        outline.morale_on_targets_greater_than = morale_on_targets_greater_than
+        outline.morale_on = morale_on
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = initial_outline_targets
         outline.initial_outline_fakes = initial_outline_fakes
@@ -208,6 +212,7 @@ class InitialForm(MiniSetup):
         form4: forms.ModeOutlineForm = response.context["form4"]
         form5: forms.NightBonusSetForm = response.context["form5"]
         form6: forms.RuiningOutlineForm = response.context["form6"]
+        form7: forms.MoraleOutlineForm = response.context["form7"]
         assert form1["target"].initial == initial_outline_targets
 
         assert form2["initial_outline_front_dist"].initial == initial_outline_front_dist
@@ -250,6 +255,11 @@ class InitialForm(MiniSetup):
             form6["initial_outline_average_ruining_points"].initial
             == initial_outline_average_ruining_points
         )
+        assert (
+            form7["morale_on_targets_greater_than"].initial
+            == morale_on_targets_greater_than
+        )
+        assert form7["morale_on"].initial == morale_on
 
         response = self.client.get(PATH + "?t=fake")
         assert response.status_code == 200
@@ -273,7 +283,7 @@ class InitialForm(MiniSetup):
         initial_outline_min_off = self.random_integer()
         initial_outline_excluded_coords = self.random_lower_string()
         # form3
-        date = ""
+        date = timezone.now().date()
         # form4
         mode_off = "closest"
         mode_noble = "random"
@@ -290,9 +300,13 @@ class InitialForm(MiniSetup):
         initial_outline_off_left_catapult = 75
         initial_outline_catapult_default = 99
         initial_outline_average_ruining_points = "big"
-
+        # form7
+        morale_on_targets_greater_than = 75
+        morale_on = False
         # outline
         outline = self.get_outline(test_world=True)
+        outline.morale_on_targets_greater_than = morale_on_targets_greater_than
+        outline.morale_on = morale_on
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = initial_outline_targets
         outline.initial_outline_fakes = initial_outline_fakes
@@ -329,6 +343,7 @@ class InitialForm(MiniSetup):
         form4: forms.ModeOutlineForm = response.context["form4"]
         form5: forms.NightBonusSetForm = response.context["form5"]
         form6: forms.RuiningOutlineForm = response.context["form6"]
+        form7: forms.MoraleOutlineForm = response.context["form7"]
         assert form1["target"].initial == initial_outline_targets
 
         assert form2["initial_outline_front_dist"].initial == initial_outline_front_dist
@@ -371,6 +386,11 @@ class InitialForm(MiniSetup):
             form6["initial_outline_average_ruining_points"].initial
             == initial_outline_average_ruining_points
         )
+        assert (
+            form7["morale_on_targets_greater_than"].initial
+            == morale_on_targets_greater_than
+        )
+        assert form7["morale_on"].initial == morale_on
 
         response = self.client.get(PATH + "?t=fake")
         assert response.status_code == 200
@@ -673,3 +693,31 @@ class InitialForm(MiniSetup):
             outline.initial_outline_average_ruining_points
             == initial_outline_average_ruining_points
         )
+
+    def test_planer_initial_form___200_test_form7(self):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.morale_on_targets_greater_than = 50
+        outline.morale_on = True
+        outline.save()
+        self.create_target_on_test_world(outline)
+
+        PATH = reverse("base:planer_initial_form", args=[outline.pk])
+        self.login_me()
+
+        morale_on_targets_greater_than = 90
+        morale_on = False
+
+        response = self.client.post(
+            PATH,
+            data={
+                "form7": "",
+                "morale_on_targets_greater_than": morale_on_targets_greater_than,
+                "morale_on": morale_on,
+            },
+        )
+        assert response.status_code == 302
+        assert response.url == PATH + "?t=real"
+        outline.refresh_from_db()
+        assert outline.morale_on == morale_on
+        assert outline.morale_on_targets_greater_than == morale_on_targets_greater_than
