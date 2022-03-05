@@ -22,7 +22,7 @@ from .dictionary import coord_to_player, coord_to_player_from_string
 from .encode_component import encode_component
 from .info_generatation import OutlineInfo, TargetCount
 from .mode import Mode, TargetMode
-from .morale import generate_morale_dict
+from .morale import UpdateOutlineDataError, generate_morale_dict
 from .off_text import (
     DeffException,
     NewDeffText,

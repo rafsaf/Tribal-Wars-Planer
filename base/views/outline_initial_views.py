@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+import logging
+
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.decorators import login_required
@@ -20,7 +22,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.db import transaction
 from django.db.models import Max
 from django.forms import formset_factory
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse, HttpResponseServerError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext
@@ -33,6 +35,21 @@ from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
 from utils.outline_finish import MakeFinalOutline
 from utils.outline_initial import MakeOutline
+
+
+def trigger_off_troops_update_redirect(request: HttpRequest, outline_id: int):
+    request.session["error"] = gettext(
+        (
+            "<h5>It looks like your Army collection is no longer actual!</h5> "
+            "<p>To use the Planer:</p> "
+            "<p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> "
+            "<p>2. Return to the <b>Planer</b> tab.</p> "
+            "<p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p>"
+            "<p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
+        )
+    )
+
+    return redirect("base:planer_detail", outline_id)
 
 
 @login_required
@@ -67,11 +84,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
             make_outline = MakeOutline(outline=instance)
             make_outline()
         else:
-            request.session["error"] = gettext(
-                "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p><p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
-            )
-
-            return redirect("base:planer_detail", _id)
+            return trigger_off_troops_update_redirect(request=request, outline_id=_id)
 
     target_mode = basic.TargetMode(request.GET.get("t"))
 
@@ -98,7 +111,10 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     ruin_dups = calculations.ruin_duplicates()
 
     if instance.morale_on and instance.world.morale > 0:
-        morale_dict = basic.generate_morale_dict(instance)
+        try:
+            morale_dict = basic.generate_morale_dict(instance)
+        except basic.UpdateOutlineDataError:
+            return trigger_off_troops_update_redirect(request=request, outline_id=_id)
     else:
         morale_dict = None
 
@@ -139,10 +155,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     else:
                         instance.actions.save_ruin_targets(instance)
                 else:
-                    request.session["error"] = gettext(
-                        "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p><p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
+                    return trigger_off_troops_update_redirect(
+                        request=request, outline_id=_id
                     )
-                    return redirect("base:planer_detail", _id)
 
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
@@ -700,7 +715,14 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
                 reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}"
             )
     with transaction.atomic():
-        complete_outline_write(outline=instance)
+        try:
+            complete_outline_write(outline=instance)
+        except basic.UpdateOutlineDataError:
+            return trigger_off_troops_update_redirect(request=request, outline_id=id1)
+        except Exception as error:
+            logging.error(f"outline_complete_write unknown error: {error}")
+            return HttpResponseServerError()
+
         instance.actions.click_outline_write(instance)
         instance.written = "active"
         instance.save()
@@ -720,11 +742,8 @@ def update_outline_troops(request: HttpRequest, id1: int) -> HttpResponse:
         make_outline = MakeOutline(instance)
         make_outline()
     else:
-        request.session["error"] = gettext(
-            "<h5>It looks like your Army collection is no longer actual!</h5> <p>To use the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> <p>2. Return to the <b>Planer</b> tab.</p> <p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p><p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
-        )
+        return trigger_off_troops_update_redirect(request=request, outline_id=id1)
 
-        return redirect("base:planer_detail", id1)
     instance.actions.click_troops_refresh(instance)
     target_mode = basic.TargetMode(request.GET.get("t"))
     instance.avaiable_offs = []

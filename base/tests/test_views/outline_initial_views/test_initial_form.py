@@ -18,6 +18,7 @@ from django.utils import timezone
 
 from base import forms
 from base.models import TargetVertex, WeightMaximum
+from base.models.player import Player
 from base.tests.test_utils.mini_setup import MiniSetup
 
 
@@ -176,6 +177,7 @@ class InitialForm(MiniSetup):
         outline = self.get_outline(test_world=True)
         outline.morale_on_targets_greater_than = morale_on_targets_greater_than
         outline.morale_on = morale_on
+        outline.date = date
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = initial_outline_targets
         outline.initial_outline_fakes = initial_outline_fakes
@@ -307,6 +309,7 @@ class InitialForm(MiniSetup):
         outline = self.get_outline(test_world=True)
         outline.morale_on_targets_greater_than = morale_on_targets_greater_than
         outline.morale_on = morale_on
+        outline.date = date
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = initial_outline_targets
         outline.initial_outline_fakes = initial_outline_fakes
@@ -721,3 +724,39 @@ class InitialForm(MiniSetup):
         outline.refresh_from_db()
         assert outline.morale_on == morale_on
         assert outline.morale_on_targets_greater_than == morale_on_targets_greater_than
+
+    def test_planer_initial_form___302_redirect_to_troops_tab_when_ally_player_not_updated(
+        self,
+    ):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.morale_on = True
+        outline.save()
+        self.create_target_on_test_world(outline=outline, many=1, off=5, noble=5)
+
+        PATH = reverse("base:planer_initial_form", args=[outline.pk])
+        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
+
+        Player.objects.filter(name="AllyPlayer0").delete()
+
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.url == REDIRECT
+
+    def test_planer_initial_form___302_redirect_to_troops_tab_when_target_player_not_updated(
+        self,
+    ):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.morale_on = True
+        outline.save()
+        self.create_target_on_test_world(outline=outline, many=1, off=5, noble=5)
+
+        PATH = reverse("base:planer_initial_form", args=[outline.pk])
+        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
+
+        Player.objects.filter(name="AllyPlayer3").delete()
+
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.url == REDIRECT

@@ -16,8 +16,9 @@
 from django.conf import settings
 from django.urls import reverse
 
-from base.models import WeightModel
+from base.models import Player, WeightModel
 from base.tests.test_utils.mini_setup import MiniSetup
+from utils.outline_initial import MakeOutline
 
 
 class CompleteOutline(MiniSetup):
@@ -86,3 +87,51 @@ class CompleteOutline(MiniSetup):
         outline.refresh_from_db()
         assert outline.written == "active"
         assert WeightModel.objects.all().count() == 5
+
+    def test_planer_complete___302_redirect_to_troops_tab_when_ally_player_not_updated(
+        self,
+    ):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.morale_on = True
+        outline.save()
+        self.create_target_on_test_world(outline=outline, many=1, off=5, noble=5)
+        make_outline = MakeOutline(outline=outline)
+        make_outline()
+
+        PATH = reverse("base:planer_complete", args=[outline.pk]) + "?t=ruin"
+        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
+
+        Player.objects.filter(name="AllyPlayer0").delete()
+
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.status_code == 405
+
+        response = self.client.post(PATH)
+        assert response.status_code == 302
+        assert response.url == REDIRECT
+
+    def test_planer_complete___302_redirect_to_troops_tab_when_target_player_not_updated(
+        self,
+    ):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.morale_on = True
+        outline.save()
+        self.create_target_on_test_world(outline=outline, many=1, off=5, noble=5)
+        make_outline = MakeOutline(outline=outline)
+        make_outline()
+
+        PATH = reverse("base:planer_complete", args=[outline.pk]) + "?t=ruin"
+        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
+
+        Player.objects.filter(name="AllyPlayer3").delete()
+
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.status_code == 405
+
+        response = self.client.post(PATH)
+        assert response.status_code == 302
+        assert response.url == REDIRECT

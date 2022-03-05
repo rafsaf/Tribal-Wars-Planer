@@ -11,6 +11,10 @@ def _return_100():
     return 100
 
 
+class UpdateOutlineDataError(Exception):
+    pass
+
+
 def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
     """
     For given outline function returns defaultdict where keys are
@@ -29,6 +33,7 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
         .order_by("player")
         .distinct("player")
     )
+    print(weight_max_players_queryset)
     unique_weight_max_players = [
         weight.player for weight in weight_max_players_queryset
     ]
@@ -42,10 +47,17 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
         name__in=unique_target_players + unique_weight_max_players, world=outline.world
     ):
         dict_player_to_points[player.name] = player.points
+    print(dict_player_to_points)
     for target_player in unique_target_players:
-        target_player_points = dict_player_to_points[target_player]
+        try:
+            target_player_points = dict_player_to_points[target_player]
+        except KeyError:
+            raise UpdateOutlineDataError
         for weight_player in unique_weight_max_players:
-            weight_player_points = dict_player_to_points[weight_player]
+            try:
+                weight_player_points = dict_player_to_points[weight_player]
+            except KeyError:
+                raise UpdateOutlineDataError
             if weight_player_points == 0:
                 continue
             morale = round(
