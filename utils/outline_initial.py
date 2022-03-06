@@ -36,6 +36,7 @@ class MakeOutline:
         self.outline: Outline = outline
         self.evidence: tuple[int, int, int] = basic.world_evidence(world=outline.world)
         self.village_dictionary: dict[str, str] = basic.coord_to_player(outline=outline)
+        self.village_points_dictionary = basic.coord_to_player_points(outline=outline)
         self.off_troops: list[str] = self.outline.off_troops.split("\r\n")
         self.weight_max_create_list: list[WeightMaximum] = []
 
@@ -45,10 +46,11 @@ class MakeOutline:
         for line in self.off_troops:
             army: Army = Army(line, self.evidence)
             player_name: str = self.village_dictionary[army.coord]
-            self._add_weight_max(army=army, player=player_name)
+            points: int = self.village_points_dictionary[army.coord]
+            self._add_weight_max(army=army, player=player_name, points=points)
         WeightMaximum.objects.bulk_create(self.weight_max_create_list)
 
-    def _add_weight_max(self, army: Army, player: str) -> None:
+    def _add_weight_max(self, army: Army, player: str, points: int) -> None:
         self.weight_max_create_list.append(
             WeightMaximum(
                 outline=self.outline,
@@ -64,5 +66,6 @@ class MakeOutline:
                 nobleman_left=army.nobleman,
                 first_line=False,
                 fake_limit=self.outline.initial_outline_fake_limit,
+                points=points,
             )
         )

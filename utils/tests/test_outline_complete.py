@@ -1042,6 +1042,10 @@ class TestOutlineCreateTargets(TestCase):
         ally_player.save()
         enemy_player.save()
 
+        # recreate weight maxs so points will not be default 0
+        make_outline = MakeOutline(self.outline)
+        make_outline()
+
         target = self.target()
         target.exact_off = [10, 0, 0, 0]
         target.exact_noble = [10, 0, 0, 0]

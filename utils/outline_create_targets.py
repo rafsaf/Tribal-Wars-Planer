@@ -15,7 +15,7 @@
 
 
 import utils.basic as basic
-from base.models import Outline
+from base.models import Outline, Player
 from base.models import TargetVertex as Target
 
 
@@ -37,7 +37,7 @@ class OutlineCreateTargets:
         self.outline: Outline = outline
         self.target_mode: basic.TargetMode = target_mode
         self.target_text: list[str] = []
-        self.village_dict: dict[str, str] = {}
+        self.village_dict: dict[str, Player] = {}
 
     def _fill_target_text(self) -> None:
         if self.target_mode.is_fake:
@@ -50,7 +50,11 @@ class OutlineCreateTargets:
 
     def _player(self, coord: str) -> str:
         """Return player name"""
-        return self.village_dict[coord]
+        return self.village_dict[coord].name
+
+    def _points(self, coord: str) -> int:
+        """Return player points"""
+        return self.village_dict[coord].points
 
     def __call__(self) -> None:
         Target.objects.filter(
@@ -109,7 +113,8 @@ class OutlineCreateTargets:
             target=coord,
             fake=self.target_mode.is_fake,
             ruin=self.target_mode.is_ruin,
-            player=self._player(coord),
+            player=self._player(coord=coord),
+            points=self._points(coord=coord),
             required_off=off,
             required_noble=noble,
             exact_off=exact_off,
@@ -125,11 +130,11 @@ class OutlineCreateTargets:
         return target
 
     def _fill_village_dict(self) -> None:
-        """Create a dictionary with player names"""
+        """Create a dictionary with player models"""
 
         coords: list[str] = [line.split(":")[0] for line in self.target_text]
         village_long_str: str = " ".join(coords)
 
-        self.village_dict = basic.coord_to_player_from_string(
+        self.village_dict = basic.coord_to_player_model_from_string(
             village_coord_list=village_long_str, world=self.outline.world
         )

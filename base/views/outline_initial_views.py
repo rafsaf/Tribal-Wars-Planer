@@ -111,10 +111,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     ruin_dups = calculations.ruin_duplicates()
 
     if instance.morale_on and instance.world.morale > 0:
-        try:
-            morale_dict = basic.generate_morale_dict(instance)
-        except basic.UpdateOutlineDataError:
-            return trigger_off_troops_update_redirect(request=request, outline_id=_id)
+        morale_dict = basic.generate_morale_dict(instance)
     else:
         morale_dict = None
 
@@ -717,8 +714,6 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     with transaction.atomic():
         try:
             complete_outline_write(outline=instance)
-        except basic.UpdateOutlineDataError:
-            return trigger_off_troops_update_redirect(request=request, outline_id=id1)
         except Exception as error:
             logging.error(f"outline_complete_write unknown error: {error}")
             return HttpResponseServerError()

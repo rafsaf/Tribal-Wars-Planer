@@ -88,9 +88,7 @@ class CompleteOutline(MiniSetup):
         assert outline.written == "active"
         assert WeightModel.objects.all().count() == 5
 
-    def test_planer_complete___302_redirect_to_troops_tab_when_ally_player_not_updated(
-        self,
-    ):
+    def test_planer_complete___302_ok_even_when_ally_player_not_updated(self):
         outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on = True
@@ -100,7 +98,9 @@ class CompleteOutline(MiniSetup):
         make_outline()
 
         PATH = reverse("base:planer_complete", args=[outline.pk]) + "?t=ruin"
-        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
+        REDIRECT = (
+            reverse("base:planer_initial", args=[outline.pk]) + "?page=1&mode=menu"
+        )
 
         Player.objects.filter(name="AllyPlayer0").delete()
 
@@ -112,9 +112,7 @@ class CompleteOutline(MiniSetup):
         assert response.status_code == 302
         assert response.url == REDIRECT
 
-    def test_planer_complete___302_redirect_to_troops_tab_when_target_player_not_updated(
-        self,
-    ):
+    def test_planer_complete___302_ok_even_when_target_player_not_updated(self):
         outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on = True
@@ -124,7 +122,9 @@ class CompleteOutline(MiniSetup):
         make_outline()
 
         PATH = reverse("base:planer_complete", args=[outline.pk]) + "?t=ruin"
-        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
+        REDIRECT = (
+            reverse("base:planer_initial", args=[outline.pk]) + "?page=1&mode=menu"
+        )
 
         Player.objects.filter(name="AllyPlayer3").delete()
 

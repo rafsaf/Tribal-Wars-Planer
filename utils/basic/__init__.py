@@ -18,11 +18,15 @@
 from .army import Army, ArmyError, Defence, DefenceError, world_evidence
 from .calculate_duplicates import CalcultateDuplicates
 from .create_test_world import create_test_world
-from .dictionary import coord_to_player, coord_to_player_from_string
+from .dictionary import (
+    coord_to_player,
+    coord_to_player_model_from_string,
+    coord_to_player_points,
+)
 from .encode_component import encode_component
 from .info_generatation import OutlineInfo, TargetCount
 from .mode import Mode, TargetMode
-from .morale import UpdateOutlineDataError, generate_morale_dict
+from .morale import generate_morale_dict
 from .off_text import (
     DeffException,
     NewDeffText,

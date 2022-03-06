@@ -17,7 +17,7 @@
 from django.test import TestCase
 from django.utils.translation import activate
 
-from base.models import Outline, WeightMaximum
+from base.models import Outline, WeightMaximum, Player
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.outline_initial import MakeOutline
 
@@ -38,6 +38,8 @@ class TestOutlineCreateTargets(TestCase):
         self.outline: Outline = Outline.objects.get(id=1)
 
     def test_make_outline_creates_weight_max_properly(self):
+        Player.objects.filter(name="player0").update(points=99999)
+
         make_outline = MakeOutline(self.outline)
         make_outline()
 
@@ -56,6 +58,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(lst[0].nobleman_left, 2)
         self.assertEqual(lst[0].nobleman_max, 2)
         self.assertEqual(lst[0].nobleman_state, 0)
+        assert lst[0].points == 99999
 
         self.assertEqual(lst[1].start, "500|501")
         self.assertEqual(lst[1].off_left, 990)
@@ -67,6 +70,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(lst[1].nobleman_left, 0)
         self.assertEqual(lst[1].nobleman_max, 0)
         self.assertEqual(lst[1].nobleman_state, 0)
+        assert lst[1].points == 99999
 
         self.assertEqual(lst[2].start, "500|502")
         self.assertEqual(lst[2].off_left, 20300)
@@ -78,6 +82,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(lst[2].nobleman_left, 0)
         self.assertEqual(lst[2].nobleman_max, 0)
         self.assertEqual(lst[2].nobleman_state, 0)
+        assert lst[2].points == 99999
 
         self.assertEqual(lst[3].start, "500|503")
         self.assertEqual(lst[3].off_left, 20900)
@@ -89,6 +94,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(lst[3].nobleman_left, 0)
         self.assertEqual(lst[3].nobleman_max, 0)
         self.assertEqual(lst[3].nobleman_state, 0)
+        assert lst[3].points == 99999
 
         self.assertEqual(lst[4].start, "500|504")
         self.assertEqual(lst[4].off_left, 20800)
@@ -100,6 +106,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(lst[4].nobleman_left, 4)
         self.assertEqual(lst[4].nobleman_max, 4)
         self.assertEqual(lst[4].nobleman_state, 0)
+        assert lst[4].points == 99999
 
         self.assertEqual(lst[5].start, "500|505")
         self.assertEqual(lst[5].off_left, 20800)
@@ -111,3 +118,4 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(lst[5].nobleman_left, 2)
         self.assertEqual(lst[5].nobleman_max, 2)
         self.assertEqual(lst[5].nobleman_state, 0)
+        assert lst[5].points == 99999

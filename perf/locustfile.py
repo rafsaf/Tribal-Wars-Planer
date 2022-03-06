@@ -17,7 +17,7 @@ from locust import HttpUser, task
 
 
 class HelloWorldUser(HttpUser):
-    @task
+    @task()
     def hello_world(self):
         self.client.get("/pl/")
         self.client.get("/pl/documentation")

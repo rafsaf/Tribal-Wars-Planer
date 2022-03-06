@@ -15,13 +15,15 @@
 
 """ functions to generate coord-to-player dictionaries """
 
-from base.models import Outline, VillageModel, World
+from django.db.models.query import QuerySet
+
+from base.models import Outline, Player, VillageModel, World
 
 
 def coord_to_player(outline: Outline) -> dict[str, str]:
     """Dictionary coord : player name for tribes in outline"""
     ally_villages = (
-        VillageModel.objects.select_related()
+        VillageModel.objects.select_related("player")
         .filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world)
         .values("coord", "player__name")
     )
@@ -32,20 +34,32 @@ def coord_to_player(outline: Outline) -> dict[str, str]:
     return village_dictionary
 
 
-def coord_to_player_from_string(
+def coord_to_player_points(outline: Outline) -> dict[str, int]:
+    """Dictionary coord : player points for tribes in outline"""
+    ally_villages = (
+        VillageModel.objects.select_related("player")
+        .filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world)
+        .values("coord", "player__points")
+    )
+    village_points_dictionary: dict[str, int] = {}
+    for village in ally_villages.iterator(chunk_size=10000):
+        village_points_dictionary[village["coord"]] = village["player__points"]
+
+    return village_points_dictionary
+
+
+def coord_to_player_model_from_string(
     village_coord_list: str, world: World
-) -> dict[str, str]:
-    """Dictionary coord : player name for villages in coord_list"""
-    village_dictionary: dict[str, str] = {}
+) -> dict[str, Player]:
+    """Dictionary coord : player model for villages in coord_list"""
+    village_dictionary: dict[str, Player] = {}
     village_list: list[str] = village_coord_list.split()
 
-    villages = (
-        VillageModel.objects.select_related()
-        .filter(world=world, coord__in=village_list)
-        .values("coord", "player__name")
-    )
+    villages: QuerySet[VillageModel] = VillageModel.objects.select_related(
+        "player"
+    ).filter(world=world, coord__in=village_list)
 
     for village in villages:
-        village_dictionary[village["coord"]] = village["player__name"]
+        village_dictionary[village.coord] = village.player
 
     return village_dictionary

@@ -151,7 +151,7 @@ class ChangeWeightModelBuilding(APIView):
         )
         if building_serializer.is_valid():
             building: str = building_serializer.validated_data[  # type: ignore
-                "building"
+                "building"  # type: ignore
             ]
             weight.building = building
             weight.save()
@@ -176,7 +176,7 @@ class ChangeBuildingsArray(APIView):
         )
         if buildings_serializer.is_valid():
             outline.initial_outline_buildings = buildings_serializer.validated_data[  # type: ignore
-                "buildings"
+                "buildings"  # type: ignore
             ]
             outline.actions.form_building_order_change(outline)
             outline.save()

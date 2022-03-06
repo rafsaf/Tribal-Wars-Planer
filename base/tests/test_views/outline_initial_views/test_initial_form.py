@@ -20,6 +20,7 @@ from base import forms
 from base.models import TargetVertex, WeightMaximum
 from base.models.player import Player
 from base.tests.test_utils.mini_setup import MiniSetup
+from utils.outline_initial import MakeOutline
 
 
 class InitialForm(MiniSetup):
@@ -725,38 +726,42 @@ class InitialForm(MiniSetup):
         assert outline.morale_on == morale_on
         assert outline.morale_on_targets_greater_than == morale_on_targets_greater_than
 
-    def test_planer_initial_form___302_redirect_to_troops_tab_when_ally_player_not_updated(
-        self,
-    ):
+    def test_planer_initial_form___200_ok_when_ally_player_not_updated(self):
         outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on = True
         outline.save()
+
+        # weight maxs must be created so there will be no redirect
+        make_outline = MakeOutline(outline=outline)
+        make_outline()
+
         self.create_target_on_test_world(outline=outline, many=1, off=5, noble=5)
 
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
-        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
 
         Player.objects.filter(name="AllyPlayer0").delete()
 
         self.login_me()
         response = self.client.get(PATH)
-        assert response.url == REDIRECT
+        assert response.status_code == 200
 
-    def test_planer_initial_form___302_redirect_to_troops_tab_when_target_player_not_updated(
-        self,
-    ):
+    def test_planer_initial_form___200_ok_tab_when_target_player_not_updated(self):
         outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on = True
         outline.save()
+
+        # weight maxs must be created so there will be no redirect
+        make_outline = MakeOutline(outline=outline)
+        make_outline()
+
         self.create_target_on_test_world(outline=outline, many=1, off=5, noble=5)
 
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
-        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
 
         Player.objects.filter(name="AllyPlayer3").delete()
 
         self.login_me()
         response = self.client.get(PATH)
-        assert response.url == REDIRECT
+        assert response.status_code == 200

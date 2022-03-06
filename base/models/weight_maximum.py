@@ -27,6 +27,7 @@ class WeightMaximum(models.Model):
     x_coord = models.IntegerField(default=0)
     y_coord = models.IntegerField(default=0)
     player = models.CharField(max_length=30)
+    points = models.IntegerField(default=0)
 
     off_max = models.IntegerField()
     off_state = models.IntegerField(default=0)
