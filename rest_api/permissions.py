@@ -20,7 +20,7 @@ from rest_framework import permissions
 
 class MetricsExportSecretPermission(permissions.BasePermission):
     """
-    Ensure the request's IP address is on the safe list configured in Django settings.
+    Ensure the request's GET token param equals to secret from settings.
     """
 
     def has_permission(self, request: HttpRequest, view):

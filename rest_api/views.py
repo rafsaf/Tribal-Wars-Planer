@@ -56,12 +56,14 @@ def target_time_update(request: Request):
     """
     For given target id match it with Time obj id.
     """
-    data = TargetTimeUpdateSerializer(data=request.data)
-    if data.is_valid():
-        target: TargetVertex = get_object_or_404(TargetVertex, pk=data.target_id)
+    req = TargetTimeUpdateSerializer(data=request.data)
+    if req.is_valid():
+        target: TargetVertex = get_object_or_404(
+            TargetVertex, pk=req.data.get("target_id")
+        )
         outline_time: OutlineTime = get_object_or_404(
             OutlineTime.objects.select_related("outline", "outline__owner"),
-            pk=data.time_id,
+            pk=req.data.get("time_id"),
             outline__owner=request.user,
         )
 
@@ -74,11 +76,11 @@ def target_time_update(request: Request):
         target.save()
 
         return Response(
-            {"new": f"{target.pk}-time-{data.time_id}", "old": old_id},
+            {"new": f"{target.pk}-time-{req.data.get('time_id')}", "old": old_id},
             status=status.HTTP_200_OK,
         )
 
-    return Response(data.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["DELETE"])
@@ -87,10 +89,10 @@ def delete_target(request: Request):
     """
     For given target id, delete obj.
     """
-    data = TargetDeleteSerializer(data=request.data)
-    if data.is_valid():
+    req = TargetDeleteSerializer(data=request.data)
+    if req.is_valid():
         target: TargetVertex = get_object_or_404(
-            TargetVertex.objects.select_related("outline"), pk=data.target_id
+            TargetVertex.objects.select_related("outline"), pk=req.data.get("target_id")
         )
         get_object_or_404(Outline, owner=request.user, pk=target.outline.pk)
 
@@ -111,16 +113,16 @@ def delete_target(request: Request):
         target.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    return Response(data.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def overview_state_update(request: Request):
-    data = OverwiewStateHideSerializer(data=request.data)
-    if data.is_valid():
-        get_object_or_404(Outline, id=data.outline_id, owner=request.user)
-        overview: Overview = get_object_or_404(Overview, token=data.token)
+    req = OverwiewStateHideSerializer(data=request.data)
+    if req.is_valid():
+        get_object_or_404(Outline, id=req.data.get("outline_id"), owner=request.user)
+        overview: Overview = get_object_or_404(Overview, token=req.data.get("token"))
 
         new_state: bool = not bool(overview.show_hidden)
         name: str
@@ -136,7 +138,7 @@ def overview_state_update(request: Request):
         overview.save()
         return Response({"name": name, "class": new_class}, status=status.HTTP_200_OK)
 
-    return Response(data.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
@@ -145,17 +147,19 @@ def change_weight_model_buildings(request: Request):
     """
     For given weight model updates its building.
     """
-    data = ChangeWeightBuildingSerializer(data=request.data)
-    if data.is_valid():
-        get_object_or_404(Outline, pk=data.outline_id, owner=request.user)
-        weight: WeightModel = get_object_or_404(WeightModel, pk=data.weight_id)
-        weight.building = data.building
+    req = ChangeWeightBuildingSerializer(data=request.data)
+    if req.is_valid():
+        get_object_or_404(Outline, pk=req.data.get("outline_id"), owner=request.user)
+        weight: WeightModel = get_object_or_404(
+            WeightModel, pk=req.data.get("weight_id")
+        )
+        weight.building = req.data.get("building")
         weight.save()
         weight.refresh_from_db()
         new_building: str = weight.get_building_display()  # type: ignore
         return Response({"name": new_building}, status=status.HTTP_200_OK)
 
-    return Response(data.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
@@ -164,17 +168,17 @@ def change_buildings_array(request: Request):
     """
     For given outline updates array with buildings.
     """
-    data = ChangeBuildingsArraySerializer(data=request.data)
-    if data.is_valid():
+    req = ChangeBuildingsArraySerializer(data=request.data)
+    if req.is_valid():
         outline: Outline = get_object_or_404(
-            Outline, id=data.outline_id, owner=request.user
+            Outline, id=req.data.get("outline_id"), owner=request.user
         )
-        outline.initial_outline_buildings = data.buildings
+        outline.initial_outline_buildings = req.data.get("buildings")
         outline.actions.form_building_order_change(outline)
         outline.save()
         return Response(status=status.HTTP_200_OK)
 
-    return Response(data.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
@@ -191,7 +195,7 @@ def reset_user_messages(request: Request):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def stripe_config():
+def stripe_config(request: Request):
     stripe_config = {"publicKey": settings.STRIPE_PUBLISHABLE_KEY}
     return Response(stripe_config, status=status.HTTP_200_OK)
 
@@ -287,7 +291,7 @@ def stripe_webhook(request: Request):
 
 @api_view(["GET"])
 @permission_classes([AllowAny, MetricsExportSecretPermission])
-def metrics_export():
+def metrics_export(request: Request):
     registry = prometheus_client.CollectorRegistry()
     multiprocess.MultiProcessCollector(registry)
     metrics_page = prometheus_client.generate_latest(registry)
