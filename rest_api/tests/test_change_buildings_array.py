@@ -80,3 +80,50 @@ class ChangeBuildingsArray(MiniSetup):
             "academy",
             "smithy",
         ]
+
+    def test_change_buildings_array___400_invalid_building_name(self):
+        outline = self.get_outline()
+        fake_building_name = self.random_lower_string()
+
+        PATH = reverse("rest_api:change_buildings_array")
+
+        self.login_me()
+
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "buildings": [fake_building_name],
+                    "outline_id": outline.pk,
+                }
+            ),
+            content_type="application/json",
+        )
+
+        assert response.status_code == 400
+        assert response.json() == {
+            "buildings": [f"Invalid building: {fake_building_name}"]
+        }
+
+    def test_change_buildings_array___400_double_building_name(self):
+        outline = self.get_outline()
+
+        PATH = reverse("rest_api:change_buildings_array")
+
+        self.login_me()
+
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "buildings": ["stable", "stable"],
+                    "outline_id": outline.pk,
+                }
+            ),
+            content_type="application/json",
+        )
+
+        assert response.status_code == 400
+        assert response.json() == {
+            "buildings": ["Building occured more than once: stable"]
+        }

@@ -24,12 +24,6 @@ class ResetUserMessage(MiniSetup):
 
         PATH = reverse("rest_api:reset_user_messages")
 
-        response = self.client.get(PATH)
-        assert response.status_code == 403
-        response = self.client.post(PATH)
-        assert response.status_code == 403
-        response = self.client.delete(PATH)
-        assert response.status_code == 403
         response = self.client.put(PATH)
         assert response.status_code == 403
 
@@ -42,14 +36,6 @@ class ResetUserMessage(MiniSetup):
         PATH = reverse("rest_api:reset_user_messages")
 
         self.login_me()
-        response = self.client.get(PATH)
-        assert response.status_code == 405
-
-        response = self.client.post(PATH)
-        assert response.status_code == 405
-
-        response = self.client.delete(PATH)
-        assert response.status_code == 405
 
         response = self.client.put(PATH)
         assert response.status_code == 200

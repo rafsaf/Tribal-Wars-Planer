@@ -22,6 +22,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
+from django.db import transaction
 from prometheus_client import multiprocess
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -80,7 +81,7 @@ def target_time_update(request: Request):
             status=status.HTTP_200_OK,
         )
 
-    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["DELETE"])
@@ -95,25 +96,31 @@ def delete_target(request: Request):
             TargetVertex.objects.select_related("outline"), pk=req.data.get("target_id")
         )
         get_object_or_404(Outline, owner=request.user, pk=target.outline.pk)
+        try:
+            with transaction.atomic():
+                weights = WeightModel.objects.filter(target=target)
+                # deletes weights related to this target and updates weight state
+                weight_model: WeightModel
+                for weight_model in weights:
+                    state: WeightMaximum = weight_model.state
+                    state.off_left += weight_model.off
+                    state.off_state -= weight_model.off
+                    state.nobleman_left += weight_model.nobleman
+                    state.nobleman_state -= weight_model.nobleman
+                    state.catapult_left += weight_model.catapult
+                    state.catapult_state -= weight_model.catapult
+                    state.save()
 
-        weights = WeightModel.objects.filter(target=target)
-        # deletes weights related to this target and updates weight state
-        weight_model: WeightModel
-        for weight_model in weights:
-            state: WeightMaximum = weight_model.state
-            state.off_left += weight_model.off
-            state.off_state -= weight_model.off
-            state.nobleman_left += weight_model.nobleman
-            state.nobleman_state -= weight_model.nobleman
-            state.catapult_left += weight_model.catapult
-            state.catapult_state -= weight_model.catapult
-            state.save()
+                deleted_weights, _ = weights.delete()
+                assert deleted_weights
+                deleted_target, _ = target.delete()
+                assert deleted_target
+        except AssertionError:  # pragma: no cover
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-        weights.delete()
-        target.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
@@ -137,8 +144,7 @@ def overview_state_update(request: Request):
         overview.show_hidden = new_state
         overview.save()
         return Response({"name": name, "class": new_class}, status=status.HTTP_200_OK)
-
-    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
@@ -159,7 +165,7 @@ def change_weight_model_buildings(request: Request):
         new_building: str = weight.get_building_display()  # type: ignore
         return Response({"name": new_building}, status=status.HTTP_200_OK)
 
-    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
@@ -178,7 +184,7 @@ def change_buildings_array(request: Request):
         outline.save()
         return Response(status=status.HTTP_200_OK)
 
-    return Response(req.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["PUT"])
@@ -202,7 +208,7 @@ def stripe_config(request: Request):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def stripe_checkout_session(request: Request, amount: int):
+def stripe_checkout_session(request: Request, amount: int):  # pragma: no cover
     """Stripe checkout session endpoint"""
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -237,7 +243,7 @@ def stripe_checkout_session(request: Request, amount: int):
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
-def stripe_webhook(request: Request):
+def stripe_webhook(request: Request):  # pragma: no cover
     """Stripe webhooks endpoint to verify payment success"""
 
     stripe.api_key = settings.STRIPE_SECRET_KEY

@@ -16,6 +16,7 @@
 from django.urls import reverse
 
 from base.tests.test_utils.mini_setup import MiniSetup
+import json
 
 
 class OverviewStateHideUpdate(MiniSetup):
@@ -23,53 +24,81 @@ class OverviewStateHideUpdate(MiniSetup):
         outline = self.get_outline()
         overview = self.create_overview(outline)
 
-        PATH = reverse("rest_api:hide_state_update", args=[outline.pk, overview.token])
+        PATH = reverse("rest_api:hide_state_update")
 
-        response = self.client.get(PATH)
-        assert response.status_code == 403
-        response = self.client.post(PATH)
-        assert response.status_code == 403
-        response = self.client.delete(PATH)
-        assert response.status_code == 403
-        response = self.client.put(PATH)
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "outline_id": outline.pk,
+                    "token": overview.token,
+                }
+            ),
+            content_type="application/json",
+        )
         assert response.status_code == 403
 
     def test_hide_state_update___404_foreign_user_has_no_access(self):
         outline = self.get_outline()
         overview = self.create_overview(outline)
 
-        PATH = reverse("rest_api:hide_state_update", args=[outline.pk, overview.token])
+        PATH = reverse("rest_api:hide_state_update")
 
         self.login_foreign_user()
-        response = self.client.get(PATH)
-        assert response.status_code == 405
 
-        response = self.client.post(PATH)
-        assert response.status_code == 405
-
-        response = self.client.delete(PATH)
-        assert response.status_code == 405
-
-        response = self.client.put(PATH)
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "outline_id": outline.pk,
+                    "token": overview.token,
+                }
+            ),
+            content_type="application/json",
+        )
         assert response.status_code == 404
 
-    def test_hide_state_update___200_target_is_deleted_properly(self):
+    def test_hide_state_update___400_invalid_payload_types(self):
         outline = self.get_outline()
         overview = self.create_overview(outline)
 
-        PATH = reverse("rest_api:hide_state_update", args=[outline.pk, overview.token])
+        PATH = reverse("rest_api:hide_state_update")
 
         self.login_me()
-        response = self.client.get(PATH)
-        assert response.status_code == 405
 
-        response = self.client.post(PATH)
-        assert response.status_code == 405
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "outline_id": "text",
+                    "token": overview.token,
+                }
+            ),
+            content_type="application/json",
+        )
+        assert response.status_code == 400
+        assert response.json() == {
+            "outline_id": ["Wymagana poprawna liczba całkowita."]
+        }
 
-        response = self.client.delete(PATH)
-        assert response.status_code == 405
+    def test_hide_state_update___200_overview_properly_state_changed(self):
+        outline = self.get_outline()
+        overview = self.create_overview(outline)
 
-        response = self.client.put(PATH)
+        PATH = reverse("rest_api:hide_state_update")
+
+        self.login_me()
+
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "outline_id": outline.pk,
+                    "token": overview.token,
+                }
+            ),
+            content_type="application/json",
+        )
         assert response.status_code == 200
 
         overview.refresh_from_db()
@@ -78,7 +107,16 @@ class OverviewStateHideUpdate(MiniSetup):
         assert result["name"] == "True"
         assert result["class"] == "btn btn-light btn-light-no-border md-blue"
 
-        response = self.client.put(PATH)
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "outline_id": outline.pk,
+                    "token": overview.token,
+                }
+            ),
+            content_type="application/json",
+        )
         assert response.status_code == 200
 
         overview.refresh_from_db()
