@@ -54,6 +54,7 @@ class TargetVertex(models.Model):
     )
     target = models.CharField(max_length=7, db_index=True)
     player = models.CharField(max_length=30)
+    points = models.IntegerField(default=0)
     fake = models.BooleanField(default=False)
     ruin = models.BooleanField(default=False)
 

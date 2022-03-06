@@ -2,17 +2,13 @@ from collections import defaultdict
 
 from django.db.models.query import QuerySet
 
-from base.models import Outline, Player
+from base.models import Outline
 from base.models import TargetVertex as Target
 from base.models import WeightMaximum
 
 
 def _return_100():
     return 100
-
-
-class UpdateOutlineDataError(Exception):
-    pass
 
 
 def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
@@ -33,7 +29,6 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
         .order_by("player")
         .distinct("player")
     )
-    print(weight_max_players_queryset)
     unique_weight_max_players = [
         weight.player for weight in weight_max_players_queryset
     ]
@@ -42,22 +37,15 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
     dict_player_tuple_to_morale: defaultdict[tuple[str, str], int] = defaultdict(
         _return_100
     )
-    player: Player
-    for player in Player.objects.filter(
-        name__in=unique_target_players + unique_weight_max_players, world=outline.world
-    ):
-        dict_player_to_points[player.name] = player.points
-    print(dict_player_to_points)
+    for target in target_players_queryset:
+        dict_player_to_points[target.player] = target.points
+    for weight_max in weight_max_players_queryset:
+        dict_player_to_points[weight_max.player] = weight_max.points
+
     for target_player in unique_target_players:
-        try:
-            target_player_points = dict_player_to_points[target_player]
-        except KeyError:
-            raise UpdateOutlineDataError
+        target_player_points = dict_player_to_points[target_player]
         for weight_player in unique_weight_max_players:
-            try:
-                weight_player_points = dict_player_to_points[weight_player]
-            except KeyError:
-                raise UpdateOutlineDataError
+            weight_player_points = dict_player_to_points[weight_player]
             if weight_player_points == 0:
                 continue
             morale = round(

@@ -18,7 +18,7 @@ from django.test import TestCase
 from django.utils.translation import activate
 
 from base.models import Outline
-from base.models import TargetVertex as Target
+from base.models import TargetVertex as Target, Player
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.basic import TargetMode
 from utils.outline_create_targets import OutlineCreateTargets
@@ -43,6 +43,16 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(target.required_noble, 5)
         self.assertEqual(target.exact_off, [])
         self.assertEqual(target.exact_noble, [])
+
+    def test_creates_real_targets_proper_points_number(self):
+        Player.objects.filter(name="player1").update(points=105000)
+        target_mode = TargetMode("real")
+        input: str = "500|499:2:5"
+        self.outline.initial_outline_targets = input
+        create_targets = OutlineCreateTargets(self.outline, target_mode)
+        create_targets()
+        target: Target = Target.objects.get(target="500|499", outline=self.outline)
+        assert target.points == 105000
 
     def test_creates_fake_targets_properly_standard_syntax(self):
         target_mode = TargetMode("fake")

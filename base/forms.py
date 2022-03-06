@@ -627,7 +627,7 @@ class PeriodForm(forms.ModelForm):
             if number2 is None:
                 self.add_error("to_number", "None")
             try:
-                greater_is_smaller = bool(number2 < number1)
+                greater_is_smaller = bool(number2 < number1)  # type: ignore
             except TypeError:
                 pass
             else:

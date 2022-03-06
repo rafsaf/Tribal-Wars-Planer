@@ -27,7 +27,7 @@ from base.models import Payment, PDFPaymentSummary
 
 class PDFPaymentsSummary(FPDF):
     def __init__(self, title: str, orientation="P", unit="mm", format="A4"):
-        super().__init__(orientation=orientation, unit=unit, format=format)
+        super().__init__(orientation=orientation, unit=unit, format=format)  # type: ignore
         self.own_title = title
 
     def header(self):
