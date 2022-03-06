@@ -79,7 +79,10 @@ Then run, (using Terminal in Linux/Mac, Powershell or CMD on Windows):
 docker-compose up -d
 # it may take up to few minutes
 
-# Note, if you see "ERROR 500" in app, it means that postgres containers wasn't ready when web server started. If this is the case, run:
+# Note, if you see "ERROR 500" in app,
+# it means that postgres containers wasn't ready when web server started.
+
+# If this is the case, run:
 docker-compose down
 # and again
 docker-compose up -d
@@ -91,7 +94,7 @@ Go to the browser tab and write out `localhost:7999`, fresh instance of site sho
 
 **STEP 4** (Login by default `admin` and password `admin`)
 
-The data will not be losed after reboot, it is docker volume (`data_postgres` folder in folder).
+The data will not be losed after reboot, it lives in docker volume (`data_postgres` folder with data is generated after docker-compose command).
 
 **STEP 5**
 
@@ -129,7 +132,7 @@ Environment variables:
 
 **SUB_DOMAIN** - _optional_ - sub domain used, defaults to empty string
 
-**CSRF_TRUSTED_ORIGINS** - _optional_ - list of domain that can perform POST and other unsafe requests to the app, defaults to empty string eg. `https://domain1,https://domain2,http://domain3`, see [django docs](https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-CSRF_TRUSTED_ORIGINS) defaults to `http://localhost:8000,http://localhost:7999`
+**CSRF_TRUSTED_ORIGINS** - _optional_ - list of domain that can perform POST and other unsafe requests to the app eg. `https://domain1,https://domain2,http://domain3`, see [django docs](https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-CSRF_TRUSTED_ORIGINS), defaults to `http://localhost:8000,http://localhost:7999`
 
 **DJANGO_LOG_LEVEL** - _optional_ - Python logs file `django.log` level, defaults to `WARNING`
 
@@ -141,7 +144,7 @@ Environment variables:
 
 **POSTGRES_HOST** - _optional_ - postgres database host, defaults to `postgres`
 
-**POSTGRES_PORT** - _optional_ - postgres database host, defaults to `5432`
+**POSTGRES_PORT** - _optional_ - postgres database port, defaults to `5432`
 
 **DEFAULT_FROM_EMAIL** - _optional_ - email of site owner, used to send emails on errors and certs expiration, defaults to `example@example.com`
 
@@ -167,7 +170,7 @@ Environment variables:
 
 **AWS_SES_REGION_ENDPOINT** - _optional_ - AWS SES region endpoint, defaults to empty string
 
-**METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/en/api/metrics?secret=...`, defaults to `secret`
+**METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/en/api/metrics/?token=...`, defaults to `secret`
 
 **PREMIUM_ACCOUNT_VALIDATION_ON** - _optional_ - is premium account required to create more targets, defaults to `False`
 
@@ -191,17 +194,17 @@ Environment variables:
 
 **POSTGRES_HOST** - _optional_ - postgres database host, defaults to `postgres`
 
-**POSTGRES_PORT** - _optional_ - postgres database host, defaults to `5432`
+**POSTGRES_PORT** - _optional_ - postgres database port, defaults to `5432`
 
 **JOB_MIN_INTERVAL** - _optional_ - minimal time when database info about villages, players, worlds will be updated in minutes, defaults to `10`
 
-**JOB_MAX_INTERVAL** - _optional_ - minimal time when database info about villages, players, worlds will be updated in minutes, defautls to `15`
+**JOB_MAX_INTERVAL** - _optional_ - maximal time when database info about villages, players, worlds will be updated in minutes, defautls to `15`
 
 # Development
 
 If you want to run it in development you will need
 
-- [python](https://www.python.org/downloads/) >= 3.9
+- [python](https://www.python.org/downloads/) == 3.10
 - [poetry](https://python-poetry.org/)
 - [docker](https://www.docker.com/get-started)
 
@@ -222,7 +225,7 @@ poetry install
 
 # it will be default create virtualenv in ~.cache/pypoetry/virutalenvs/tribal-wars-planer-asod(some random signs)
 # You need to activate it.
-# Honestly, you can also use just python3.9 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
+# Honestly, you can also use just python3.10 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
 ```
 
 Run database with docker and then python dev server
