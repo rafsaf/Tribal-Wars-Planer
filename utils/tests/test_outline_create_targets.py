@@ -17,8 +17,8 @@
 from django.test import TestCase
 from django.utils.translation import activate
 
-from base.models import Outline
-from base.models import TargetVertex as Target, Player
+from base.models import Outline, Player
+from base.models import TargetVertex as Target
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.basic import TargetMode
 from utils.outline_create_targets import OutlineCreateTargets

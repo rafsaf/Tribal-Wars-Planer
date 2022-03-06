@@ -15,57 +15,63 @@
 
 from rest_framework import serializers
 
+BUILDINGS = {
+    "headquarters",
+    "barracks",
+    "stable",
+    "workshop",
+    "academy",
+    "smithy",
+    "rally_point",
+    "statue",
+    "market",
+    "timber_camp",
+    "clay_pit",
+    "iron_mine",
+    "farm",
+    "warehouse",
+    "wall",
+}
+
+
+class TargetTimeUpdateSerializer(serializers.Serializer):
+    target_id = serializers.IntegerField()
+    time_id = serializers.IntegerField()
+
+
+class TargetDeleteSerializer(serializers.Serializer):
+    target_id = serializers.IntegerField()
+
+
+class OverwiewStateHideSerializer(serializers.Serializer):
+    outline_id = serializers.IntegerField()
+    token = serializers.CharField()
+
 
 class ChangeBuildingsArraySerializer(serializers.Serializer):
     buildings = serializers.ListField(child=serializers.CharField(max_length=100))
+    outline_id = serializers.IntegerField()
 
     def validate_buildings(self, value):
-        BUILDINGS = {
-            "headquarters",
-            "barracks",
-            "stable",
-            "workshop",
-            "academy",
-            "smithy",
-            "rally_point",
-            "statue",
-            "market",
-            "timber_camp",
-            "clay_pit",
-            "iron_mine",
-            "farm",
-            "warehouse",
-            "wall",
-        }
+        applied_buildings = []
         for item in value:
             if item not in BUILDINGS:
-                raise serializers.ValidationError("")
+                raise serializers.ValidationError(f"Invalid building: {item}")
+            elif item in applied_buildings:
+                raise serializers.ValidationError(
+                    f"Building occured more than once: {item}"
+                )
             else:
-                BUILDINGS.discard(item)
+                applied_buildings.append(item)
         return value
 
 
 class ChangeWeightBuildingSerializer(serializers.Serializer):
-    BUILDINGS = {
-        "headquarters",
-        "barracks",
-        "stable",
-        "workshop",
-        "academy",
-        "smithy",
-        "rally_point",
-        "statue",
-        "market",
-        "timber_camp",
-        "clay_pit",
-        "iron_mine",
-        "farm",
-        "warehouse",
-        "wall",
-    }
     building = serializers.CharField(max_length=100)
+    outline_id = serializers.IntegerField()
+    weight_id = serializers.IntegerField()
 
     def validate_building(self, value):
-        if value not in self.BUILDINGS:
-            raise serializers.ValidationError("")
+        if value not in BUILDINGS:
+            raise serializers.ValidationError(f"Invalid building: {value}")
         return value

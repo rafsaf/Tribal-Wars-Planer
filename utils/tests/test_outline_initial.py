@@ -17,7 +17,7 @@
 from django.test import TestCase
 from django.utils.translation import activate
 
-from base.models import Outline, WeightMaximum, Player
+from base.models import Outline, Player, WeightMaximum
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.outline_initial import MakeOutline
 

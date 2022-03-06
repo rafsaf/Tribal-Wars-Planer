@@ -401,9 +401,10 @@ const changeTargetTime = async (target_id, time_id) => {
   const actualInnerHTML = newTime.innerHTML;
   newTime.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
-  const response = await fetch(`/api/target-time-update/${id1}/${id2}/`, {
+  const response = await fetch(`/api/target-time-update/`, {
     method: "PUT",
     credentials: "same-origin",
+    body: JSON.stringify({target_id: id1, time_id: id2}),
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),
       Accept: "application/json",
@@ -443,9 +444,10 @@ const deleteTarget = async (target_id) => {
   targetButton.disabled = true;
   targetButton.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
-  const response = await fetch(`/api/target-delete/${id1}/`, {
+  const response = await fetch(`/api/target-delete/`, {
     method: "DELETE",
     credentials: "same-origin",
+    body: JSON.stringify({target_id: id1}),
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),
       Accept: "application/json",
@@ -482,10 +484,11 @@ const changeIsHiddenState = async (outline_id, token) => {
   overview.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
   const response = await fetch(
-    `/api/overview-hide-state-update/${outline_id}/${token}/`,
+    `/api/overview-hide-state-update/`,
     {
       method: "PUT",
       credentials: "same-origin",
+      body: JSON.stringify({outline_id: outline_id, token: token}),
       headers: {
         "X-CSRFToken": getCookie("csrftoken"),
         Accept: "application/json",
@@ -512,9 +515,10 @@ const changeBuildingsArray = async (outline_id, list) => {
   const overview = document.getElementById("multi-select-spinner");
   overview.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
   const buildings = { buildings: list };
-  await fetch(`/api/change-buildings-array/${outline_id}/`, {
+  await fetch(`/api/change-buildings-array/`, {
     method: "PUT",
     credentials: "same-origin",
+    body: JSON.stringify({outline_id: outline_id}),
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),
       Accept: "application/json",
@@ -893,7 +897,7 @@ const changeWeightBuildingDirect = async (changingElement, outline_id) => {
   nameOfBuilding.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
   const response = await fetch(
-    `/api/change-weight-building/${outline_id}/${weightPk}/`,
+    `/api/change-weight-building/`,
     {
       method: "PUT",
       credentials: "same-origin",
@@ -902,7 +906,7 @@ const changeWeightBuildingDirect = async (changingElement, outline_id) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ building: buildingName }),
+      body: JSON.stringify({ building: buildingName, outline_id: outline_id, weight_id: weightPk }),
     }
   );
   if (response.status !== 200) {
