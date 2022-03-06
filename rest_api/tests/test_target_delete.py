@@ -13,12 +13,13 @@
 # limitations under the License.
 # ==============================================================================
 
+import json
+
 from django.urls import reverse
 
 from base.models import TargetVertex
 from base.models.weight_model import WeightModel
 from base.tests.test_utils.mini_setup import MiniSetup
-import json
 
 
 class TargetTimeUpdate(MiniSetup):

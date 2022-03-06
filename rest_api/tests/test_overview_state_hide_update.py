@@ -13,10 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
+import json
+
 from django.urls import reverse
 
 from base.tests.test_utils.mini_setup import MiniSetup
-import json
 
 
 class OverviewStateHideUpdate(MiniSetup):

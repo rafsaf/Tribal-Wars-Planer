@@ -19,17 +19,17 @@ import prometheus_client
 import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.db import transaction
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
-from django.db import transaction
 from prometheus_client import multiprocess
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
-from django.http import HttpResponse
+from rest_framework.response import Response
 
 from base.models import (
     Outline,
@@ -41,14 +41,14 @@ from base.models import (
     WeightMaximum,
     WeightModel,
 )
+from rest_api.permissions import MetricsExportSecretPermission
 from rest_api.serializers import (
-    TargetDeleteSerializer,
-    TargetTimeUpdateSerializer,
     ChangeBuildingsArraySerializer,
     ChangeWeightBuildingSerializer,
     OverwiewStateHideSerializer,
+    TargetDeleteSerializer,
+    TargetTimeUpdateSerializer,
 )
-from rest_api.permissions import MetricsExportSecretPermission
 
 
 @api_view(["PUT"])

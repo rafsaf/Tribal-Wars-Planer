@@ -13,12 +13,12 @@
 # limitations under the License.
 # ==============================================================================
 
+import json
+
 from django.urls import reverse
 
 from base.models import TargetVertex
 from base.tests.test_utils.mini_setup import MiniSetup
-
-import json
 
 
 class TargetTimeUpdate(MiniSetup):
@@ -56,7 +56,7 @@ class TargetTimeUpdate(MiniSetup):
         outline = self.get_outline()
         self.create_target_on_test_world(outline)
         target: TargetVertex = TargetVertex.objects.get(target="200|200")
-        outline_time = self.create_outline_time(outline)
+        self.create_outline_time(outline)
         self.login_me()
         PATH = reverse("rest_api:target_time_update")
 
