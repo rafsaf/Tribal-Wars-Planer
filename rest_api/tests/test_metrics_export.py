@@ -26,11 +26,10 @@ class StripeConfig(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 403
-        response = self.client.post(PATH)
-        assert response.status_code == 403
-        response = self.client.delete(PATH)
-        assert response.status_code == 403
-        response = self.client.put(PATH)
+
+    def test_metrics_export___403_invalid_token(self):
+        PATH = reverse("rest_api:metrics_export")
+        response = self.client.get(f"{PATH}?token=wrong")
         assert response.status_code == 403
 
     def test_metrics_export___200_works_properly(self):

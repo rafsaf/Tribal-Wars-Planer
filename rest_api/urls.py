@@ -20,46 +20,30 @@ from rest_api import views
 app_name = "rest_api"
 
 urlpatterns = [
-    path("stripe-key/", views.StripeConfig.as_view(), name="stripe_key"),
+    path("stripe-key/", views.stripe_config, name="stripe_key"),
     path(
         "stripe-session/<int:amount>",
-        views.StripeCheckoutSession.as_view(),
+        views.stripe_checkout_session,
         name="stripe_session",
     ),
-    path("stripe-webhook/", views.StripeWebhook.as_view(), name="stripe_webhook"),
+    path("stripe-webhook/", views.stripe_webhook, name="stripe_webhook"),
+    path("target-time-update/", views.target_time_update, name="target_time_update"),
+    path("target-delete/", views.delete_target, name="target_delete"),
     path(
-        "target-time-update/<int:target_id>/<int:time_id>/",
-        views.TargetTimeUpdate.as_view(),
-        name="target_time_update",
-    ),
-    path(
-        "target-delete/<int:target_id>/",
-        views.TargetDelete.as_view(),
-        name="target_delete",
-    ),
-    path(
-        "overview-hide-state-update/<int:outline_id>/<str:token>/",
-        views.OverwiewStateHideUpdate.as_view(),
+        "overview-hide-state-update/",
+        views.overview_state_update,
         name="hide_state_update",
     ),
     path(
-        "change-buildings-array/<int:outline_id>/",
-        views.ChangeBuildingsArray.as_view(),
+        "change-buildings-array/",
+        views.change_buildings_array,
         name="change_buildings_array",
     ),
     path(
-        "change-weight-building/<int:outline_id>/<int:weight_id>/",
-        views.ChangeWeightModelBuilding.as_view(),
+        "change-weight-building/",
+        views.change_weight_model_buildings,
         name="change_weight_building",
     ),
-    path(
-        "reset-user-messages/",
-        views.ResetUserMessages.as_view(),
-        name="reset_user_messages",
-    ),
-    path(
-        "metrics/",
-        views.MetricsExport.as_view(),
-        name="metrics_export",
-    ),
+    path("reset-user-messages/", views.reset_user_messages, name="reset_user_messages"),
+    path("metrics/", views.metrics_export, name="metrics_export"),
 ]

@@ -26,12 +26,6 @@ class StripeConfig(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 403
-        response = self.client.post(PATH)
-        assert response.status_code == 403
-        response = self.client.delete(PATH)
-        assert response.status_code == 403
-        response = self.client.put(PATH)
-        assert response.status_code == 403
 
     def test_stripe_key___200_works_properly(self):
 
@@ -42,12 +36,3 @@ class StripeConfig(MiniSetup):
         assert response.status_code == 200
         result = response.json()
         assert result["publicKey"] == settings.STRIPE_PUBLISHABLE_KEY
-
-        response = self.client.post(PATH)
-        assert response.status_code == 405
-
-        response = self.client.delete(PATH)
-        assert response.status_code == 405
-
-        response = self.client.put(PATH)
-        assert response.status_code == 405

@@ -23,12 +23,5 @@ class StripeWebhook(MiniSetup):
 
         PATH = reverse("rest_api:stripe_webhook")
 
-        response = self.client.get(PATH)
-        assert response.status_code == 405
-        response = self.client.delete(PATH)
-        assert response.status_code == 405
-        response = self.client.put(PATH)
-        assert response.status_code == 405
-
         response = self.client.post(PATH)
         assert response.status_code == 400

@@ -19,16 +19,17 @@ import prometheus_client
 import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.http import HttpRequest
-from django.http.response import HttpResponse
+from django.db import transaction
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from prometheus_client import multiprocess
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from base.models import (
     Outline,
@@ -40,27 +41,32 @@ from base.models import (
     WeightMaximum,
     WeightModel,
 )
-from rest_api import serializers
 from rest_api.permissions import MetricsExportSecretPermission
+from rest_api.serializers import (
+    ChangeBuildingsArraySerializer,
+    ChangeWeightBuildingSerializer,
+    OverwiewStateHideSerializer,
+    TargetDeleteSerializer,
+    TargetTimeUpdateSerializer,
+)
 
 
-class TargetTimeUpdate(APIView):
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def target_time_update(request: Request):
     """
     For given target id match it with Time obj id.
     """
-
-    permission_classes = [IsAuthenticated]
-
-    def put(
-        self, request: HttpRequest, target_id: int, time_id: int, format=None
-    ) -> Response:
-        target: TargetVertex = get_object_or_404(TargetVertex, pk=target_id)
+    req = TargetTimeUpdateSerializer(data=request.data)
+    if req.is_valid():
+        target: TargetVertex = get_object_or_404(
+            TargetVertex, pk=req.data.get("target_id")
+        )
         outline_time: OutlineTime = get_object_or_404(
-            OutlineTime.objects.select_related("outline"),
-            pk=time_id,
+            OutlineTime.objects.select_related("outline", "outline__owner"),
+            pk=req.data.get("time_id"),
             outline__owner=request.user,
         )
-        old_id: str
 
         if target.outline_time is None:
             old_id = "none"
@@ -71,54 +77,59 @@ class TargetTimeUpdate(APIView):
         target.save()
 
         return Response(
-            {"new": f"{target.pk}-time-{time_id}", "old": old_id},
+            {"new": f"{target.pk}-time-{req.data.get('time_id')}", "old": old_id},
             status=status.HTTP_200_OK,
         )
 
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class TargetDelete(APIView):
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_target(request: Request):
     """
     For given target id, delete obj.
     """
-
-    permission_classes = [IsAuthenticated]
-
-    def delete(self, request: HttpRequest, target_id: int, format=None) -> Response:
+    req = TargetDeleteSerializer(data=request.data)
+    if req.is_valid():
         target: TargetVertex = get_object_or_404(
-            TargetVertex.objects.select_related("outline"), pk=target_id
+            TargetVertex.objects.select_related("outline"), pk=req.data.get("target_id")
         )
         get_object_or_404(Outline, owner=request.user, pk=target.outline.pk)
+        try:
+            with transaction.atomic():
+                weights = WeightModel.objects.filter(target=target)
+                # deletes weights related to this target and updates weight state
+                weight_model: WeightModel
+                for weight_model in weights:
+                    state: WeightMaximum = weight_model.state
+                    state.off_left += weight_model.off
+                    state.off_state -= weight_model.off
+                    state.nobleman_left += weight_model.nobleman
+                    state.nobleman_state -= weight_model.nobleman
+                    state.catapult_left += weight_model.catapult
+                    state.catapult_state -= weight_model.catapult
+                    state.save()
 
-        weights = WeightModel.objects.filter(target=target)
-        # deletes weights related to this target and updates weight state
-        weight_model: WeightModel
-        for weight_model in weights:
-            state: WeightMaximum = weight_model.state
-            state.off_left += weight_model.off
-            state.off_state -= weight_model.off
-            state.nobleman_left += weight_model.nobleman
-            state.nobleman_state -= weight_model.nobleman
-            state.catapult_left += weight_model.catapult
-            state.catapult_state -= weight_model.catapult
-            state.save()
+                deleted_weights, _ = weights.delete()
+                assert deleted_weights
+                deleted_target, _ = target.delete()
+                assert deleted_target
+        except AssertionError:  # pragma: no cover
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-        weights.delete()
-        target.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class OverwiewStateHideUpdate(APIView):
-    """
-    For given target id, delete obj.
-    """
 
-    permission_classes = [IsAuthenticated]
-
-    def put(
-        self, request: HttpRequest, outline_id: int, token: str, format=None
-    ) -> Response:
-        get_object_or_404(Outline, id=outline_id, owner=request.user)
-        overview: Overview = get_object_or_404(Overview, token=token)
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def overview_state_update(request: Request):
+    req = OverwiewStateHideSerializer(data=request.data)
+    if req.is_valid():
+        get_object_or_404(Outline, id=req.data.get("outline_id"), owner=request.user)
+        overview: Overview = get_object_or_404(Overview, token=req.data.get("token"))
 
         new_state: bool = not bool(overview.show_hidden)
         name: str
@@ -133,181 +144,163 @@ class OverwiewStateHideUpdate(APIView):
         overview.show_hidden = new_state
         overview.save()
         return Response({"name": name, "class": new_class}, status=status.HTTP_200_OK)
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ChangeWeightModelBuilding(APIView):
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def change_weight_model_buildings(request: Request):
     """
     For given weight model updates its building.
     """
-
-    permission_classes = [IsAuthenticated]
-
-    def put(self, request, outline_id: int, weight_id: int, format=None) -> Response:
-        get_object_or_404(Outline, pk=outline_id, owner=request.user)
-        weight: WeightModel = get_object_or_404(WeightModel, pk=weight_id)
-
-        building_serializer: serializers.ChangeWeightBuildingSerializer = (
-            serializers.ChangeWeightBuildingSerializer(data=request.data)
+    req = ChangeWeightBuildingSerializer(data=request.data)
+    if req.is_valid():
+        get_object_or_404(Outline, pk=req.data.get("outline_id"), owner=request.user)
+        weight: WeightModel = get_object_or_404(
+            WeightModel, pk=req.data.get("weight_id")
         )
-        if building_serializer.is_valid():
-            building: str = building_serializer.validated_data[  # type: ignore
-                "building"  # type: ignore
-            ]
-            weight.building = building
-            weight.save()
-            weight.refresh_from_db()
-            new_building: str = weight.get_building_display()  # type: ignore
-            return Response({"name": new_building}, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        weight.building = req.data.get("building")
+        weight.save()
+        weight.refresh_from_db()
+        new_building: str = weight.get_building_display()  # type: ignore
+        return Response({"name": new_building}, status=status.HTTP_200_OK)
+
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ChangeBuildingsArray(APIView):
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def change_buildings_array(request: Request):
     """
     For given outline updates array with buildings.
     """
-
-    permission_classes = [IsAuthenticated]
-
-    def put(self, request, outline_id: int, format=None) -> Response:
-        outline: Outline = get_object_or_404(Outline, id=outline_id, owner=request.user)
-
-        buildings_serializer: serializers.ChangeBuildingsArraySerializer = (
-            serializers.ChangeBuildingsArraySerializer(data=request.data)
+    req = ChangeBuildingsArraySerializer(data=request.data)
+    if req.is_valid():
+        outline: Outline = get_object_or_404(
+            Outline, id=req.data.get("outline_id"), owner=request.user
         )
-        if buildings_serializer.is_valid():
-            outline.initial_outline_buildings = buildings_serializer.validated_data[  # type: ignore
-                "buildings"  # type: ignore
-            ]
-            outline.actions.form_building_order_change(outline)
-            outline.save()
-            return Response(status=status.HTTP_200_OK)
-
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-class ResetUserMessages(APIView):
-    """
-    For given outline updates array with buildings.
-    """
-
-    permission_classes = [IsAuthenticated]
-
-    def put(self, request: HttpRequest, format=None) -> Response:
-        profile: Profile = get_object_or_404(Profile, user=request.user)
-        profile.messages = 0
-        profile.save()
+        outline.initial_outline_buildings = req.data.get("buildings")
+        outline.actions.form_building_order_change(outline)
+        outline.save()
         return Response(status=status.HTTP_200_OK)
 
-
-class StripeConfig(APIView):
-    """Stripe config endpoint"""
-
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request: HttpRequest, format=None) -> Response:
-        stripe_config = {"publicKey": settings.STRIPE_PUBLISHABLE_KEY}
-        return Response(stripe_config, status=status.HTTP_200_OK)
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class StripeCheckoutSession(APIView):
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def reset_user_messages(request: Request):
+    """
+    For given user reset his notifications.
+    """
+    profile: Profile = get_object_or_404(Profile, user=request.user)
+    profile.messages = 0
+    profile.save()
+    return Response(status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def stripe_config(request: Request):
+    stripe_config = {"publicKey": settings.STRIPE_PUBLISHABLE_KEY}
+    return Response(stripe_config, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def stripe_checkout_session(request: Request, amount: int):  # pragma: no cover
     """Stripe checkout session endpoint"""
 
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request: HttpRequest, amount: int, format=None) -> Response:
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        if amount not in [30, 55, 70]:
-            return Response(status=400)
-        price_id: str = settings.STRIPE_PAYMENTS[amount]
-        host = request.get_host()
-        user_pk: int = request.user.pk
-        http = "http://"
-        success = reverse("base:payment_done")
-        cancel = reverse("base:premium")
-        try:
-            checkout_session = stripe.checkout.Session.create(
-                success_url=f"{http}{host}{success}",
-                cancel_url=f"{http}{host}{cancel}",
-                client_reference_id=user_pk,
-                payment_method_types=["card", "p24"],
-                mode="payment",
-                line_items=[
-                    {
-                        "quantity": 1,
-                        "price": price_id,
-                    }
-                ],
-            )
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            session_id = checkout_session["id"]  # type: ignore
-            return Response({"sessionId": session_id}, status=status.HTTP_200_OK)
-
-
-class StripeWebhook(APIView):
-    """Stripe checkout session endpoint"""
-
-    permission_classes = [AllowAny]
-
-    def post(self, request: HttpRequest, format=None) -> Response:
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
-        payload = request.body
-        sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
-        if sig_header is None:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        event = None
-
-        try:
-            event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
-        except ValueError:
-            # Invalid payload
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        except stripe.error.SignatureVerificationError as e:  # type: ignore
-            # Invalid signature
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        # Handle the checkout.session.completed event
-        if event["type"] == "checkout.session.completed":
-            evt_id: str = event["id"]
-            if not Payment.objects.filter(event_id=evt_id).exists():
-                data: dict = event["data"]["object"]
-                user: User = User.objects.get(pk=data["client_reference_id"])
-                current_date: datetime.date = timezone.localdate()
-                months: int = 0
-                amount: int = int(data["amount_total"]) // 100
-
-                if amount == 70:
-                    months = 3
-                elif amount == 55:
-                    months = 2
-                elif amount == 30:
-                    months = 1
-                else:
-                    raise ValueError("Not known amount of money")
-                Payment.objects.create(
-                    user=user,
-                    amount=amount,
-                    from_stripe=True,
-                    months=months,
-                    payment_date=current_date,
-                    event_id=evt_id,
-                )
-            return Response(status=200)
-        return Response(status=404)
-
-
-class MetricsExport(APIView):
-
-    permission_classes = [AllowAny, MetricsExportSecretPermission]
-
-    def get(self, request: HttpRequest, format=None):
-        registry = prometheus_client.CollectorRegistry()
-        multiprocess.MultiProcessCollector(registry)
-        metrics_page = prometheus_client.generate_latest(registry)
-        return HttpResponse(
-            metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST, status=200
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    if amount not in [30, 55, 70]:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    price_id: str = settings.STRIPE_PAYMENTS[amount]
+    host = request.get_host()
+    user_pk: int = request.user.pk
+    http = "http://"
+    success = reverse("base:payment_done")
+    cancel = reverse("base:premium")
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            success_url=f"{http}{host}{success}",
+            cancel_url=f"{http}{host}{cancel}",
+            client_reference_id=user_pk,
+            payment_method_types=["card", "p24"],
+            mode="payment",
+            line_items=[
+                {
+                    "quantity": 1,
+                    "price": price_id,
+                }
+            ],
         )
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        session_id = checkout_session["id"]  # type: ignore
+        return Response({"sessionId": session_id}, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def stripe_webhook(request: Request):  # pragma: no cover
+    """Stripe webhooks endpoint to verify payment success"""
+
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
+    payload = request.body
+    sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+    if sig_header is None:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+    except ValueError:
+        # Invalid payload
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    except stripe.error.SignatureVerificationError as e:  # type: ignore
+        # Invalid signature
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    # Handle the checkout.session.completed event
+    if event["type"] == "checkout.session.completed":
+        evt_id: str = event["id"]
+        if not Payment.objects.filter(event_id=evt_id).exists():
+            data: dict = event["data"]["object"]
+            user: User = User.objects.get(pk=data["client_reference_id"])
+            current_date: datetime.date = timezone.localdate()
+            months: int = 0
+            amount: int = int(data["amount_total"]) // 100
+
+            if amount == 70:
+                months = 3
+            elif amount == 55:
+                months = 2
+            elif amount == 30:
+                months = 1
+            else:
+                raise ValueError("Not known amount of money")
+            Payment.objects.create(
+                user=user,
+                amount=amount,
+                from_stripe=True,
+                months=months,
+                payment_date=current_date,
+                event_id=evt_id,
+            )
+        return Response(status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny, MetricsExportSecretPermission])
+def metrics_export(request: Request):
+    registry = prometheus_client.CollectorRegistry()
+    multiprocess.MultiProcessCollector(registry)
+    metrics_page = prometheus_client.generate_latest(registry)
+    return HttpResponse(
+        metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST, status=200
+    )
