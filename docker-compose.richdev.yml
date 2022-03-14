@@ -8,11 +8,6 @@ services:
       - ./data_richdev_postgres/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   prometheus:
     image: prom/prometheus:latest
@@ -35,6 +30,12 @@ services:
     environment:
       - SECRET_KEY=askldjasd0987123987
       - SUB_DOMAIN=web
+    healthcheck:
+      test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
+      interval: 25s
+      retries: 2
+      start_period: 30s
+      timeout: 10
 
   cronjobs:
     depends_on:

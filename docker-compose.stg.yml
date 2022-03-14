@@ -12,11 +12,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     env_file:
       - .env
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   web:
     depends_on:
@@ -38,6 +33,12 @@ services:
       - "traefik.http.services.web.loadbalancer.server.port=80"
     env_file:
       - .env
+    healthcheck:
+      test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
+      interval: 25s
+      retries: 2
+      start_period: 30s
+      timeout: 10
     volumes:
       - "~/unit_log:/var/log"
       - "~/django_log:/build/logs"

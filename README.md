@@ -46,11 +46,6 @@ services:
       - ./data_postgres/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   web:
     depends_on:
@@ -59,6 +54,12 @@ services:
     image: rafsaf/twp-server:latest
     ports:
       - 7999:80
+    healthcheck:
+      test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
+      interval: 25s
+      retries: 2
+      start_period: 30s
+      timeout: 10
     environment:
       - SECRET_KEY=zaq12wsx3edc
       - DJANGO_SUPERUSER_USERNAME=admin
