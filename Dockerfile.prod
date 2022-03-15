@@ -1,28 +1,26 @@
 FROM nginx/unit:1.26.1-python3.10
 
 ENV PYTHONUNBUFFERED 1
-
-COPY ./initial.sh /docker-entrypoint.d/initial.sh
-COPY ./config/config.json /docker-entrypoint.d/config.json
+ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
 
 RUN mkdir build
-
 WORKDIR /build
 
-RUN apt update && apt install -y python3-pip                                    
+RUN apt-get update && apt-get install -y python3-pip                                    
 
 COPY requirements.txt requirements.txt
 
-RUN pip3 install -r requirements.txt
+RUN python -m venv venv
+RUN . venv/bin/activate && pip install -r requirements.txt
 
-RUN apt remove -y python3-pip && apt autoremove --purge -y        \
+RUN apt-get remove -y python3-pip && apt-get autoremove --purge -y        \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+
+COPY ./initial.sh /docker-entrypoint.d/initial.sh
+COPY ./config/config.json /docker-entrypoint.d/config.json
 
 COPY . .
 
 RUN mkdir media || true
 RUN mkdir logs || true
-RUN mkdir static || true
-RUN mkdir prometheus_multi_proc_dir || true
-RUN chmod -R a+rwx media logs static prometheus_multi_proc_dir
-ENV METRICS_EXPORT_ENDPOINT_SECRET=prometheus_multi_proc_dir
+RUN mkdir prometheus_multi_proc_dir || true 

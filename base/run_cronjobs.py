@@ -15,6 +15,7 @@
 
 """ Cronjobs runner"""
 import logging
+import sys
 import threading
 from time import sleep
 from typing import Callable
@@ -32,6 +33,7 @@ def run_threaded(job_func: Callable):
 if __name__ == "__main__":
     try:
         setup()
+        logging.info("Cronjobs starting")
         from base.cron import (
             db_update,
             outdate_outline_delete,
@@ -47,6 +49,14 @@ if __name__ == "__main__":
         logging.error(err)
         raise Exception(err)
 
-    while True:
+    db_update()  # extra db_update on startup
+
+    secs_lifetime = 60 * 60 * 6
+    while secs_lifetime > 0:
         schedule.run_pending()
         sleep(5)
+        secs_lifetime -= 5
+
+    logging.info("Cronjobs restarting in 60s...")
+    sleep(60)  # grace period 60s waiting for threads end
+    sys.exit(0)

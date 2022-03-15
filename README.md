@@ -56,10 +56,10 @@ services:
       - 7999:80
     healthcheck:
       test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
-      interval: 25s
+      interval: 15s
       retries: 2
       start_period: 30s
-      timeout: 10
+      timeout: "10"
     environment:
       - SECRET_KEY=zaq12wsx3edc
       - DJANGO_SUPERUSER_USERNAME=admin

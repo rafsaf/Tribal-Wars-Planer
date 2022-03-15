@@ -1,11 +1,11 @@
-version: "3.3"
+version: "3.4"
 
 services:
   postgres:
     restart: always
     image: postgres
     volumes:
-      - ./data_postgres/db:/var/lib/postgresql/data
+      - twp_local_postgresql/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
 
@@ -18,10 +18,10 @@ services:
       - 7999:80
     healthcheck:
       test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
-      interval: 25s
+      interval: 15s
       retries: 2
       start_period: 30s
-      timeout: 10
+      timeout: "10"
     environment:
       - SECRET_KEY=zaq12wsx3edc
       - DJANGO_SUPERUSER_USERNAME=admin
@@ -34,3 +34,6 @@ services:
     restart: always
     image: rafsaf/twp-cronjobs:latest
     command: python -m base.run_cronjobs
+
+volumes:
+  twp_local_postgresql:

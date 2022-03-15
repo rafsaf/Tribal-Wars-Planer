@@ -1,5 +1,14 @@
 #!/bin/bash
 
+echo "activate venv if exists (default for docker image)"
+source venv/bin/activate || true
+
+echo "prometheus multi proc directory, media creating and cleanup"
+mkdir prometheus_multi_proc_dir || true
+mkdir media || true
+mkdir logs || true
+rm -rf prometheus_multi_proc_dir/*
+
 echo "staticfiles collection"
 python manage.py collectstatic --no-input
 
@@ -15,8 +24,5 @@ python manage.py createsuperuser --no-input
 echo "initialize all supported servers"
 python manage.py create_servers
 
-echo "prometheus multi proc directory, media creating and cleanup"
-mkdir prometheus_multi_proc_dir || true
-rm -rf prometheus_multi_proc_dir/*
-mkdir media || true
+
 

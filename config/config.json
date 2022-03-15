@@ -30,10 +30,20 @@
   "applications": {
     "django": {
       "type": "python 3.10",
-      "processes": 4,
+      "user": "root",
+      "home": "/build/venv/",
+      "processes": {
+        "max": 5,
+        "spare": 3,
+        "idle_timeout": 20
+      },
       "threads": 1,
       "path": "/build/",
-      "module": "tribal_wars_planer.wsgi"
+      "module": "tribal_wars_planer.wsgi",
+      "limits": {
+        "timeout": 90,
+        "requests": 1000
+      }
     }
   },
   "access_log": "/var/log/access.log"

@@ -1,11 +1,11 @@
-version: "3.3"
+version: "3.4"
 
 services:
   postgres_dev:
     image: postgres
     restart: "unless-stopped"
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - twp_dev_postgresql:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -21,7 +21,12 @@ services:
       context: ./
       dockerfile: Dockerfile.cronjobs
     command: python -m base.run_cronjobs
+    environment:
+      - POSTGRES_HOST=postgres
     env_file:
       - .env
     volumes:
       - "./logs:/app/logs"
+
+volumes:
+  twp_dev_postgresql:

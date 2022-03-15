@@ -1,11 +1,11 @@
-version: "3.3"
+version: "3.4"
 
 services:
   postgres:
     restart: always
     image: postgres
     volumes:
-      - ./data_test/db:/var/lib/postgresql/data
+      - twp_stg_postgresql:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -35,13 +35,13 @@ services:
       - .env
     healthcheck:
       test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
-      interval: 25s
+      interval: 15s
       retries: 2
       start_period: 30s
-      timeout: 10
+      timeout: "10"
     volumes:
-      - "~/unit_log:/var/log"
-      - "~/django_log:/build/logs"
+      - "twp_stg_logs:/var/log"
+      - "twp_stg_logs:/build/logs"
 
   traefik:
     image: "traefik:v2.4"
@@ -66,7 +66,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - "./letsencrypt:/letsencrypt"
+      - "twp_stg_letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   cronjobs:
@@ -78,4 +78,9 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
     volumes:
-      - "~/django_log:/app/logs"
+      - "twp_stg_logs:/app/logs"
+
+volumes:
+  twp_stg_postgresql:
+  twp_stg_logs:
+  twp_stg_letsencrypt:
