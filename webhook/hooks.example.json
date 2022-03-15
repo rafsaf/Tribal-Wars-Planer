@@ -1,8 +1,8 @@
 [
   {
     "id": "redeploy",
-    "execute-command": "/root/Tribal-Wars-Planer/redeploy.sh",
-    "command-working-directory": "/root/Tribal-Wars-Planer/",
+    "execute-command": "~/redeploy.sh",
+    "command-working-directory": "~/",
     "response-message": "Alive!",
     "trigger-rule": {
       "match": {

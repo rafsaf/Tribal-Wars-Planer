@@ -1,26 +1,21 @@
-version: "3.3"
+version: "3.4"
 
 services:
   postgres:
     restart: "unless-stopped"
     image: postgres
     volumes:
-      - ./data_richdev_postgres/db:/var/lib/postgresql/data
+      - twp_richdev_postgresql:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   prometheus:
     image: prom/prometheus:latest
     ports:
       - 9090:9090
     volumes:
-      - ./metrics:/etc/prometheus
-      - prometheus-data:/prometheus
+      - twp_richdev_prometheus_metrics:/etc/prometheus
+      - twp_richdev_prometheus_data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus-dev.yml
 
   web:
@@ -35,6 +30,16 @@ services:
     environment:
       - SECRET_KEY=askldjasd0987123987
       - SUB_DOMAIN=web
+      - CSRF_TRUSTED_ORIGIN=http://localhost:7998
+      - POSTGRES_HOST=postgres
+    healthcheck:
+      test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
+      interval: 15s
+      retries: 2
+      timeout: "10"
+    volumes:
+      - "twp_richdev_logs:/var/log"
+      - "twp_richdev_logs:/build/logs"
 
   cronjobs:
     depends_on:
@@ -45,7 +50,7 @@ services:
       dockerfile: Dockerfile.cronjobs
     command: python -m base.run_cronjobs
     volumes:
-      - "./logs:/app/logs"
+      - "twp_richdev_logs:/app/logs"
 
   master_locust:
     restart: "unless-stopped"
@@ -64,4 +69,7 @@ services:
     command: -f /mnt/locust/locustfile.py --worker --master-host master_locust
 
 volumes:
-  prometheus-data:
+  twp_richdev_postgresql:
+  twp_richdev_prometheus_metrics:
+  twp_richdev_prometheus_data:
+  twp_richdev_logs:

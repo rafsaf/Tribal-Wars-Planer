@@ -1,11 +1,11 @@
-version: "3.3"
+version: "3.4"
 
 services:
   postgres_dev:
     image: postgres
     restart: "unless-stopped"
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - twp_dev_postgresql:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -14,11 +14,6 @@ services:
       - .env
     ports:
       - ${POSTGRES_PORT}:5432
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   cronjobs_dev:
     restart: "unless-stopped"
@@ -26,7 +21,12 @@ services:
       context: ./
       dockerfile: Dockerfile.cronjobs
     command: python -m base.run_cronjobs
+    environment:
+      - POSTGRES_HOST=postgres
     env_file:
       - .env
     volumes:
       - "./logs:/app/logs"
+
+volumes:
+  twp_dev_postgresql:

@@ -51,6 +51,12 @@ from rest_api.serializers import (
 )
 
 
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def healthcheck(request: Request):
+    return Response(status=status.HTTP_200_OK)
+
+
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def target_time_update(request: Request):

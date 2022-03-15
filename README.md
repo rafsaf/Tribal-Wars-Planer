@@ -36,21 +36,16 @@ In your favourite folder create file `docker-compose.yml`. Too see every possibl
 
 ```yml
 # docker-compose.yml
-version: "3.3"
+version: "3.4"
 
 services:
   postgres:
     restart: always
     image: postgres
     volumes:
-      - ./data_postgres/db:/var/lib/postgresql/data
+      - twp_local_postgresql/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   web:
     depends_on:
@@ -59,6 +54,12 @@ services:
     image: rafsaf/twp-server:latest
     ports:
       - 7999:80
+    healthcheck:
+      test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
+      interval: 15s
+      retries: 2
+      start_period: 30s
+      timeout: "10"
     environment:
       - SECRET_KEY=zaq12wsx3edc
       - DJANGO_SUPERUSER_USERNAME=admin
@@ -71,6 +72,9 @@ services:
     restart: always
     image: rafsaf/twp-cronjobs:latest
     command: python -m base.run_cronjobs
+
+volumes:
+  twp_local_postgresql:
 ```
 
 Then run, (using Terminal in Linux/Mac, Powershell or CMD on Windows):
@@ -80,12 +84,8 @@ docker-compose up -d
 # it may take up to few minutes
 
 # Note, if you see "ERROR 500" in app,
-# it means that postgres containers wasn't ready when web server started.
-
-# If this is the case, run:
-docker-compose down
-# and again
-docker-compose up -d
+# it means that web container wasn't ready yet
+# but should be good in another ~30 seconds
 ```
 
 **STEP 3**
@@ -94,7 +94,8 @@ Go to the browser tab and write out `localhost:7999`, fresh instance of site sho
 
 **STEP 4** (Login by default `admin` and password `admin`)
 
-The data will not be losed after reboot, it lives in docker volume (`data_postgres` folder with data is generated after docker-compose command).
+The database data will not be losed after reboot, it lives in docker volume folder.
+For more details what exactly it means refer to Docker volumes docs.
 
 **STEP 5**
 
@@ -280,7 +281,7 @@ docker run --rm -it stripe/stripe-cli:latest listen --forward-to host.docker.int
 On fresh ubuntu 20 webserver instance with enabled ports 9000, 443, 80 ports enabled and sudo access:
 
 ```bash
-sudo su && cd ~
+sudo su && cd
 
 wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/install_twp.sh \
   && bash install_twp.sh
@@ -295,7 +296,7 @@ curl -k -X POST https://$INSTANCE_IP:9000/hooks/redeploy \
   -H "Content-Type: application/json" -d '{"secret": "$SECRET"}'
 ```
 
-Now in `/root/Tribal-Wars-Planer` folder, create `.env` and `docker-compose.yml` files:
+Now in `~/` folder, create `.env` and `docker-compose.yml` files.
 
 ```bash
 # .env

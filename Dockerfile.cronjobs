@@ -1,7 +1,12 @@
 FROM python:3.10-slim-buster
 
-RUN mkdir app
 WORKDIR /app
+
+ENV DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
+ENV VIRTUAL_ENV=/apt/venv
+
+RUN python -m venv venv
+ENV PATH="venv/bin:$PATH"
 
 COPY requirements-cronjobs.txt requirements.txt
 
@@ -13,5 +18,4 @@ COPY base/cron.py /app/base/cron.py
 COPY utils/database_update.py /app/utils/database_update.py
 COPY tribal_wars_planer/settings_cronjobs.py /app/tribal_wars_planer/settings.py
 
-ENV DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
-RUN mkdir /app/logs
+RUN mkdir logs

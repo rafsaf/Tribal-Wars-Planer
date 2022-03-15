@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.4"
 
 services:
   web:
@@ -24,9 +24,15 @@ services:
       - "traefik.http.routers.web.middlewares=redirect-web"
     env_file:
       - .env
+    healthcheck:
+      test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
+      interval: 15s
+      retries: 2
+      start_period: 30s
+      timeout: "10"
     volumes:
-      - "~/unit_log:/var/log"
-      - "~/django_log:/build/logs"
+      - "twp_prd_logs:/var/log"
+      - "twp_prd_logs:/build/logs"
 
 
   traefik:
@@ -52,7 +58,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - "./letsencrypt:/letsencrypt"
+      - "twp_prd_letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   cronjobs:
@@ -64,4 +70,8 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
     volumes:
-      - "~/django_log:/app/logs"
+      - "twp_prd_logs:/app/logs"
+
+volumes:
+  twp_prd_logs:
+  twp_prd_letsencrypt:
