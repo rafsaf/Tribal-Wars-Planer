@@ -36,7 +36,7 @@ services:
 
 
   traefik:
-    image: "traefik:v2.4"
+    image: "traefik:v2.6"
     restart: always
     container_name: "traefik"
     command:
