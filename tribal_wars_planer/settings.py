@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     os.environ.get("MAIN_DOMAIN", "localhost"),
     os.environ.get("SUB_DOMAIN", ""),
 ]
-if not "localhost" in ALLOWED_HOSTS:
+if "localhost" not in ALLOWED_HOSTS:
     # docker image healthcheck require constantly requesting via localhost
     ALLOWED_HOSTS.append("localhost")
 
