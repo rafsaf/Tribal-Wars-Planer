@@ -373,7 +373,7 @@ class WorldQuery:
 
             Player.objects.bulk_update(update_list, ["points", "villages"])
             Player.objects.filter(
-                world=self.world, player_id__in=player_ids_map
+                world=self.world, player_id__in=player_ids_map.keys()
             ).delete()
             Player.objects.bulk_create(create_list)
             self.player_log_msg += (
