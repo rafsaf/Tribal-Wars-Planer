@@ -172,8 +172,6 @@ class WorldQuery:
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
-            elif req.headers["etag"] == self.world.etag_village:
-                return
             else:
                 text = gzip.decompress(req.content).decode()
                 self.world.etag_village = req.headers["etag"]
@@ -253,8 +251,6 @@ class WorldQuery:
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
-            elif req.headers["etag"] == self.world.etag_tribe:
-                return
             else:
                 text = gzip.decompress(req.content).decode()
                 self.world.etag_tribe = req.headers["etag"]
@@ -294,8 +290,6 @@ class WorldQuery:
         else:
             if req.history:
                 return self.check_if_world_is_archived(req.url)
-            elif req.headers["etag"] == self.world.etag_player:
-                return
             else:
                 text = gzip.decompress(req.content).decode()
                 self.world.etag_player = req.headers["etag"]
