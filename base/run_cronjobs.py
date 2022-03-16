@@ -51,11 +51,15 @@ if __name__ == "__main__":
 
     db_update()  # extra db_update on startup
 
-    secs_lifetime = 60 * 60 * 6
-    while secs_lifetime > 0:
+    secs_lifetime: int = settings.JOB_LIFETIME_MAX_SECS
+    rounds = secs_lifetime / 5
+    while True:
         schedule.run_pending()
         sleep(5)
-        secs_lifetime -= 5
+        if secs_lifetime:
+            if rounds < 0:
+                break
+            rounds -= 1
 
     logging.info("Cronjobs restarting in 60s...")
     sleep(60)  # grace period 60s waiting for threads end

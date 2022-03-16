@@ -34,9 +34,9 @@ def cron_schedule_data_update():
         instance.update_all()
         worlds.append(world)
         logging.info(
-            f"{str(world)} | tribe_updated: {instance.tribe_update} |"
-            f" village_update: {instance.village_update} |"
-            f" player_update: {instance.player_update}"
+            f"{str(world)} | tribe_updated: {instance.tribe_log_msg} |"
+            f" village_update: {instance.village_log_msg} |"
+            f" player_update: {instance.player_log_msg}"
         )
     World.objects.bulk_update(
         worlds, ["last_update", "etag_player", "etag_tribe", "etag_village"]
@@ -46,9 +46,9 @@ def cron_schedule_data_update():
 class WorldQuery:
     def __init__(self, world: World):
         self.world = world
-        self.player_update: bool = False
-        self.tribe_update: bool = False
-        self.village_update: bool = False
+        self.player_log_msg: str = "N/-"
+        self.tribe_log_msg: str = "N/-"
+        self.village_log_msg: str = "N/-"
 
     def check_if_world_exist_and_try_create(self) -> tuple[World | None, str]:
         """
@@ -176,7 +176,7 @@ class WorldQuery:
             else:
                 text = gzip.decompress(req.content).decode()
                 self.world.etag_village = req.headers["etag"]
-                self.village_update = True
+                self.village_log_msg = "T/"
             player_context = {}
 
             players = Player.objects.filter(world=self.world)
@@ -203,7 +203,7 @@ class WorldQuery:
                 player_id = int(line[4])
                 x = int(line[2])
                 y = int(line[3])
-
+                logging.warning(village_set2)
                 if (village_id, x, y) in village_set1 and player_id == 0:
                     village_set1.remove((village_id, x, y))
                     continue
@@ -218,7 +218,7 @@ class WorldQuery:
                     continue
                 else:
                     player = player_context[player_id]
-
+                logging.error((village_id, player_id, x, y))
                 village = VillageModel(
                     village_id=village_id,
                     x_coord=x,
@@ -237,6 +237,9 @@ class WorldQuery:
                     village_id__in=village_ids_to_remove, world=self.world
                 ).delete()
                 VillageModel.objects.bulk_create(create_list)
+            self.village_log_msg += (
+                f"C-{len(create_list)},D-{len(village_ids_to_remove)}"
+            )
 
     def update_tribes(self):
         create_list = list()
@@ -254,7 +257,7 @@ class WorldQuery:
             else:
                 text = gzip.decompress(req.content).decode()
                 self.world.etag_tribe = req.headers["etag"]
-                self.tribe_update = True
+                self.tribe_log_msg = "T/"
             tribe_set = set(
                 Tribe.objects.filter(world=self.world).values_list("tribe_id", "tag")
             )
@@ -277,6 +280,7 @@ class WorldQuery:
                     tribe_id__in=[item[0] for item in tribe_set], world=self.world
                 ).delete()
                 Tribe.objects.bulk_create(create_list)
+            self.tribe_log_msg += f"C-{len(create_list)},D-{len(tribe_set)}"
 
     def update_players(self):
         create_list = list()
@@ -296,7 +300,7 @@ class WorldQuery:
             else:
                 text = gzip.decompress(req.content).decode()
                 self.world.etag_player = req.headers["etag"]
-                self.player_update = True
+                self.player_log_msg = "T/"
             tribe_context = {}
 
             tribes = Tribe.objects.filter(world=self.world)
@@ -363,3 +367,6 @@ class WorldQuery:
                     world=self.world, player_id__in=players_ids_to_remove
                 ).delete()
                 Player.objects.bulk_create(create_list)
+            self.player_log_msg += (
+                f"C-{len(create_list)},D-{len(players_ids_to_remove)}"
+            )

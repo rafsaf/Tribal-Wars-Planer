@@ -127,6 +127,10 @@ DATABASES = {
     }
 }
 
+DATABASE_SSL_MODE_ON = os.environ.get("DATABASE_SSL_MODE_ON", "False")
+if DATABASE_SSL_MODE_ON in ["True", "true"]:
+    DATABASES["default"]["OPTIONS"] = {"sslmode": "require"}
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
