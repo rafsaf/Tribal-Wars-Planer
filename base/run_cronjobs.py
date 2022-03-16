@@ -31,31 +31,28 @@ def run_threaded(job_func: Callable):
 
 
 if __name__ == "__main__":
-    try:
-        setup()
-        logging.info("Cronjobs starting")
-        from base.cron import (
-            db_update,
-            outdate_outline_delete,
-            outdate_overviews_delete,
-        )
 
-        schedule.every(settings.JOB_MIN_INTERVAL).to(
-            settings.JOB_MAX_INTERVAL
-        ).minutes.do(run_threaded, db_update)
-        schedule.every().hour.do(run_threaded, outdate_overviews_delete)
-        schedule.every().hour.do(run_threaded, outdate_outline_delete)
-    except Exception as err:
-        logging.error(err)
-        raise Exception(err)
+    setup()
+    logging.info("Cronjobs starting")
+    from base.cron import db_update, outdate_outline_delete, outdate_overviews_delete
+
+    schedule.every(settings.JOB_MIN_INTERVAL).to(settings.JOB_MAX_INTERVAL).minutes.do(
+        run_threaded, db_update
+    )
+    schedule.every().hour.do(run_threaded, outdate_overviews_delete)
+    schedule.every().hour.do(run_threaded, outdate_outline_delete)
 
     db_update()  # extra db_update on startup
 
-    secs_lifetime = 60 * 60 * 6
-    while secs_lifetime > 0:
+    secs_lifetime: int = settings.JOB_LIFETIME_MAX_SECS
+    rounds = secs_lifetime / 5
+    while True:
         schedule.run_pending()
         sleep(5)
-        secs_lifetime -= 5
+        if secs_lifetime:
+            if rounds < 0:
+                break
+            rounds -= 1
 
     logging.info("Cronjobs restarting in 60s...")
     sleep(60)  # grace period 60s waiting for threads end

@@ -31,8 +31,9 @@ def db_update():
     logging.info("db_update")
     try:
         cron_schedule_data_update()
-    except Exception as e:
-        logging.error(e)
+    except Exception as error:
+        logging.error(f"cron_schedule_data_update error: {error}")
+        raise Exception(error)
 
 
 def outdate_overviews_delete():

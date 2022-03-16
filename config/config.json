@@ -32,7 +32,11 @@
       "type": "python 3.10",
       "user": "root",
       "home": "/build/venv/",
-      "processes": 3,
+      "processes": {
+        "max": 5,
+        "spare": 3,
+        "idle_timeout": 20
+      },
       "threads": 1,
       "path": "/build/",
       "module": "tribal_wars_planer.wsgi",

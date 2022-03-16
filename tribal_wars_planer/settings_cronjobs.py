@@ -23,6 +23,9 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 JOB_MIN_INTERVAL = int(os.environ.get("JOB_MIN_INTERVAL", 10))
 JOB_MAX_INTERVAL = int(os.environ.get("JOB_MAX_INTERVAL", 15))
 assert JOB_MAX_INTERVAL >= JOB_MIN_INTERVAL
+JOB_LIFETIME_MAX_SECS = int(os.environ.get("JOB_LIFETIME_MAX_SECS", 0))
+assert JOB_LIFETIME_MAX_SECS == 0 or JOB_LIFETIME_MAX_SECS >= 120
+
 DEBUG = False
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 DATABASES = {
@@ -32,9 +35,14 @@ DATABASES = {
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
         "HOST": os.environ.get("POSTGRES_HOST", "postgres"),
-        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
+        "PORT": os.environ.get("POSTGRES_PORT", 5432),
     }
 }
+
+DATABASE_SSL_MODE_ON = os.environ.get("DATABASE_SSL_MODE_ON", "False")
+if DATABASE_SSL_MODE_ON in ["True", "true"]:
+    DATABASES["default"]["OPTIONS"] = {"sslmode": "require"}
+
 INSTALLED_APPS = [
     "base",
     "django.contrib.auth",
