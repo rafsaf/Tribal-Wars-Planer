@@ -31,23 +31,16 @@ def run_threaded(job_func: Callable):
 
 
 if __name__ == "__main__":
-    try:
-        setup()
-        logging.info("Cronjobs starting")
-        from base.cron import (
-            db_update,
-            outdate_outline_delete,
-            outdate_overviews_delete,
-        )
 
-        schedule.every(settings.JOB_MIN_INTERVAL).to(
-            settings.JOB_MAX_INTERVAL
-        ).minutes.do(run_threaded, db_update)
-        schedule.every().hour.do(run_threaded, outdate_overviews_delete)
-        schedule.every().hour.do(run_threaded, outdate_outline_delete)
-    except Exception as err:
-        logging.error(err)
-        raise Exception(err)
+    setup()
+    logging.info("Cronjobs starting")
+    from base.cron import db_update, outdate_outline_delete, outdate_overviews_delete
+
+    schedule.every(settings.JOB_MIN_INTERVAL).to(settings.JOB_MAX_INTERVAL).minutes.do(
+        run_threaded, db_update
+    )
+    schedule.every().hour.do(run_threaded, outdate_overviews_delete)
+    schedule.every().hour.do(run_threaded, outdate_outline_delete)
 
     db_update()  # extra db_update on startup
 
