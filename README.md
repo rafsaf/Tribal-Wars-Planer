@@ -43,7 +43,7 @@ services:
     restart: always
     image: postgres
     volumes:
-      - twp_local_postgresql/db:/var/lib/postgresql/data
+      - twp_local_postgresql:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
 
