@@ -147,6 +147,8 @@ Environment variables:
 
 **POSTGRES_PORT** - _optional_ - postgres database port, defaults to `5432`
 
+**DATABASE_SSL_MODE_ON** - _optional_ - Require TLS/SSL when connecting to the database, defaults to `False`
+
 **DEFAULT_FROM_EMAIL** - _optional_ - email of site owner, used to send emails on errors and certs expiration, defaults to `example@example.com`
 
 **STRIPE_PUBLISHABLE_KEY** - _optional_ - stripe public key, defaults to empty string
@@ -196,6 +198,10 @@ Environment variables:
 **POSTGRES_HOST** - _optional_ - postgres database host, defaults to `postgres`
 
 **POSTGRES_PORT** - _optional_ - postgres database port, defaults to `5432`
+
+**DATABASE_SSL_MODE_ON** - _optional_ - Require TLS/SSL when connecting to the database, defaults to `False`
+
+**JOB_LIFETIME_MAX_SECS** - _optional_ - Stops cronjob function after JOB_LIFETIME_MAX_SECS seconds, defaults to `0` and that means it will not stop ever. If number is greater than `0`, it must be also greater or equal to `120` (2 min)
 
 **JOB_MIN_INTERVAL** - _optional_ - minimal time when database info about villages, players, worlds will be updated in minutes, defaults to `10`
 

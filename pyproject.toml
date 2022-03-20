@@ -1,69 +1,67 @@
 [tool.poetry]
-name = "tribal_wars_planer"
-version = "2.0.0"
-description = ""
 authors = ["rafsaf <rafal.safin12@gmail.com>"]
+description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
+name = "tribal_wars_planer"
+version = "2"
 
 [tool.poetry.dependencies]
 python = ">3.10,<3.11"
 
-Django = "4.0.2"
+Django = "4.0.3"
 django-crispy-forms = "1.14.0"
 django-registration = "3.2"
+django-ses = "2.6.1"
 djangorestframework = "3.13.1"
-django-ses = "2.4.0"
 
-python-dateutil = "2.8.2"
-python-dotenv = "0.19.2"
-psycopg2 = "2.9.3"
-stripe = "2.65.0"
-tw-complex = "1.0.3"
 Js2Py = "0.71"
 fpdf = "1.7.2"
 prometheus-client = "0.13.1"
-
+psycopg2 = "2.9.3"
+python-dateutil = "2.8.2"
+python-dotenv = "0.19.2"
+stripe = "2.65.0"
+tw-complex = "1.0.3"
 
 [tool.poetry.dev-dependencies]
-black = {version = "^21.5b1", allow-prereleases = true}
-coverage = {extras = ["toml"], version = "^5.5"}
-isort = "^5.9.3"
-flake8 = "^3.9.2"
-autoflake = "^1.4"
-pytest-django = "^4.4.0"
-requests-mock = "^1.9.3"
-locust = "^2.5.1"
-schedule = "^1.1.0"
+autoflake = "1.4"
+black = "22.1.0"
+coverage = {extras = ["toml"], version = "6.3.2"}
+flake8 = "4.0.1"
+isort = "5.10.1"
+locust = "2.8.4"
+pytest-django = "4.5.2"
+requests-mock = "1.9.3"
+schedule = "1.1.0"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
-minversion = "6.0"
 addopts = "-v"
+minversion = "6.0"
 testpaths = [
-    "base",
-    "rest_api",
-    "tribal_wars_planer",
-    "utils",
+  "base",
+  "rest_api",
+  "tribal_wars_planer",
+  "utils",
 ]
 
 [tool.coverage.run]
-source = [   
-    "base",
-    "rest_api",
-    "tribal_wars_planer",
-    "utils",
-]
 omit = [
-    "*__init__.py*",
-    "*/migrations/*",
-    "*/tests/*",
-    "tribal_wars_planer/wsgi.py",
-    "tribal_wars_planer/asgi.py",
+  "*__init__.py*",
+  "*/migrations/*",
+  "*/tests/*",
+  "tribal_wars_planer/wsgi.py",
+  "tribal_wars_planer/asgi.py",
+]
+source = [
+  "base",
+  "rest_api",
+  "tribal_wars_planer",
+  "utils",
 ]
 
 [tool.isort]
 profile = "black"
 
-
 [build-system]
-requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
