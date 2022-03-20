@@ -1,7 +1,9 @@
 #!/bin/bash
 
-echo "activate venv if exists (default for docker image)"
-source venv/bin/activate || true
+echo "activate venv if exists (default folder venv inside docker image)"
+if [ -d "venv" ]; then
+  source venv/bin/activate || true
+fi
 
 echo "prometheus multi proc directory, media creating and cleanup"
 mkdir prometheus_multi_proc_dir || true

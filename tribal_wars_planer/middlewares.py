@@ -7,14 +7,15 @@ from django.urls import resolve
 
 import metrics
 
+METRICS_SKIP_VIEWS = {
+    "rest_api:metrics_export",
+    "rest_api:healthcheck",
+}
+
 
 def PrometheusBeforeMiddleware(get_response: Callable):
     def middleware(request: HttpRequest):
-
-        if "/api/metrics/" not in request.path:
-            metrics.REQUEST_TOTAL.inc()
-            setattr(request, "_metrics_process_time_start", time())
-
+        setattr(request, "_metrics_process_time_start", time())
         response = get_response(request)
 
         return response
@@ -26,7 +27,7 @@ def PrometheusAfterMiddleware(get_response: Callable):
     def middleware(request: HttpRequest):
         match = resolve(request.path)
 
-        if "metrics_export" in match.view_name:
+        if match.view_name in METRICS_SKIP_VIEWS:
             response: HttpResponse = get_response(request)
 
         else:

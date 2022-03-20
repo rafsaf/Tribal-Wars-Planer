@@ -34,10 +34,10 @@
       "home": "/build/venv/",
       "processes": {
         "max": 5,
-        "spare": 3,
+        "spare": 1,
         "idle_timeout": 20
       },
-      "threads": 1,
+      "threads": 2,
       "path": "/build/",
       "module": "tribal_wars_planer.wsgi",
       "limits": {
