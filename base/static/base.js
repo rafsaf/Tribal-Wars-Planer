@@ -371,11 +371,40 @@ const handleAllFormsetSelect = () => {
   });
 };
 
-const handleClickButton = (element, message, formId, percentId = "") => {
+const handleClickButton = (
+  element,
+  message,
+  formId,
+  percentId = "",
+  disableAllButtons = false
+) => {
+  const buttons = document.getElementsByTagName("button");
+  const links = document.getElementsByTagName("a");
+  if (disableAllButtons) {
+    for (const i of buttons) {
+      i.disabled = true;
+    }
+    for (const i of links) {
+      i.classList.add("disabled-link");
+    }
+  }
   element.disabled = true;
   element.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span> ${message} <span id=${percentId}></span>`;
-  const form = document.getElementById(formId);
-  form.submit();
+  try {
+    const form = document.getElementById(formId);
+    form.submit();
+  } catch (error) {
+    console.error(error);
+    element.disabled = false;
+    if (disableAllButtons) {
+      for (const i of buttons) {
+        i.disabled = false;
+      }
+      for (const i of links) {
+        i.classList.remove("disabled-link");
+      }
+    }
+  }
 };
 
 function getCookie(name) {
@@ -404,7 +433,7 @@ const changeTargetTime = async (target_id, time_id) => {
   const response = await fetch(`/en/api/target-time-update/`, {
     method: "PUT",
     credentials: "same-origin",
-    body: JSON.stringify({target_id: id1, time_id: id2}),
+    body: JSON.stringify({ target_id: id1, time_id: id2 }),
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),
       Accept: "application/json",
@@ -447,7 +476,7 @@ const deleteTarget = async (target_id) => {
   const response = await fetch(`/en/api/target-delete/`, {
     method: "DELETE",
     credentials: "same-origin",
-    body: JSON.stringify({target_id: id1}),
+    body: JSON.stringify({ target_id: id1 }),
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),
       Accept: "application/json",
@@ -465,16 +494,14 @@ const deleteTarget = async (target_id) => {
   }
 };
 
-const submitGoBackButton = (text) => {
-  const buttonForm1 = document.getElementById("form1-btn");
-  const buttonDismiss = document.getElementById("dismiss-btn");
-  buttonForm1.onclick = () => {
-    buttonForm1.disabled = true;
-    buttonDismiss.disabled = true;
-    buttonForm1.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span>${text}`;
-    const form1 = document.getElementById("form1-form");
-    form1.submit();
-  };
+const handlePlanerMenuVisibilityChange = () => {
+  if (document.hidden) {
+    tabPlanerMenuHasBeenHidden = true;
+  } else {
+    if (tabPlanerMenuHasBeenHidden) {
+      window.location.reload();
+    }
+  }
 };
 
 const changeIsHiddenState = async (outline_id, token) => {
@@ -483,19 +510,16 @@ const changeIsHiddenState = async (outline_id, token) => {
   overview.disabled = true;
   overview.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
-  const response = await fetch(
-    `/en/api/overview-hide-state-update/`,
-    {
-      method: "PUT",
-      credentials: "same-origin",
-      body: JSON.stringify({outline_id: outline_id, token: token}),
-      headers: {
-        "X-CSRFToken": getCookie("csrftoken"),
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`/en/api/overview-hide-state-update/`, {
+    method: "PUT",
+    credentials: "same-origin",
+    body: JSON.stringify({ outline_id: outline_id, token: token }),
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
   if (response.status !== 200) {
     overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
     setTimeout(() => {
@@ -895,19 +919,20 @@ const changeWeightBuildingDirect = async (changingElement, outline_id) => {
   const nameOfBuilding = document.getElementById("building-name-" + weightPk);
   nameOfBuilding.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
-  const response = await fetch(
-    `/en/api/change-weight-building/`,
-    {
-      method: "PUT",
-      credentials: "same-origin",
-      headers: {
-        "X-CSRFToken": getCookie("csrftoken"),
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ building: buildingName, outline_id: outline_id, weight_id: weightPk }),
-    }
-  );
+  const response = await fetch(`/en/api/change-weight-building/`, {
+    method: "PUT",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      building: buildingName,
+      outline_id: outline_id,
+      weight_id: weightPk,
+    }),
+  });
   if (response.status !== 200) {
     nameOfBuilding.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
     setTimeout(() => {
