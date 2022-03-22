@@ -54,14 +54,14 @@
     {% block outline_navbar %}
     <style>
         body {
-            width: calc(100% - 15px);
+            width: calc(100% - 16px);
         }
         .navbar {
             width: calc(100%);
         }
         @media screen and (min-width:992px) {
             .navbar {
-                width: calc(100vw - 15px);
+                width: calc(100vw - 16px);
             }     
         }
     </style>
@@ -401,13 +401,16 @@
             <form id="form1-form" method="POST">
                 <input type="hidden" name="form1" value="">
                 {% csrf_token %}
-                <button id="form1-btn" class="btn btn-ocean">{% trans 'Continue' %}</button>
+                <button id="form1-btn" onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form1-form`,``,true);" class="btn btn-ocean">{% trans 'Continue' %}</button>
             </form>
         </div>
-        <script>submitGoBackButton(`{% trans 'Processing...' %}`);</script>
     </div>
 </div>
 </div>
 {% endblock %}
+<script>
+var tabPlanerMenuHasBeenHidden = false;
+document.addEventListener("visibilitychange", handleVisibilityChange, false);
+</script>
 
 {% endblock %}

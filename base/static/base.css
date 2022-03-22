@@ -1,5 +1,14 @@
-input[type=checkbox] {width:1rem; height:1rem;}
-input[type=radio] {width:1rem; height:1rem;}
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+}
+input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+}
+.disabled-link {
+  pointer-events: none;
+}
 button.btn.btn-secondary {
   border-radius: 0px !important;
 }
