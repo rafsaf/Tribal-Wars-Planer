@@ -1,6 +1,15 @@
 version: "3.4"
 
 services:
+  autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+      - AUTOHEAL_INTERVAL=25
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
   postgres:
     restart: "unless-stopped"
     image: postgres
