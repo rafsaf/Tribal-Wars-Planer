@@ -1,6 +1,15 @@
 version: "3.4"
 
 services:
+  autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+      - AUTOHEAL_INTERVAL=20
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
   web:
     restart: always
     image: rafsaf/twp-server:latest
@@ -34,7 +43,6 @@ services:
       - "twp_prd_logs:/var/log"
       - "twp_prd_logs:/build/logs"
 
-
   traefik:
     image: "traefik:v2.6"
     restart: always
@@ -67,8 +75,6 @@ services:
     command: python -m base.run_cronjobs
     env_file:
       - .env
-    environment:
-      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
     volumes:
       - "twp_prd_logs:/app/logs"
 

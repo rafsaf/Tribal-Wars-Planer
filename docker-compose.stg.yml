@@ -1,6 +1,15 @@
 version: "3.4"
 
 services:
+  autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+      - AUTOHEAL_INTERVAL=25
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
   postgres:
     restart: always
     image: postgres
@@ -35,7 +44,7 @@ services:
       - .env
     healthcheck:
       test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
-      interval: 15s
+      interval: 60s
       retries: 2
       start_period: 30s
       timeout: "10"
@@ -75,8 +84,6 @@ services:
     command: python -m base.run_cronjobs
     env_file:
       - .env
-    environment:
-      - DJANGO_SETTINGS_MODULE=tribal_wars_planer.settings
     volumes:
       - "twp_stg_logs:/app/logs"
 
