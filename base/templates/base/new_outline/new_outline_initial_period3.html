@@ -476,6 +476,9 @@
     modal();
     $("#{{sort}}").addClass("selected")
     $("#{{sort}}2").addClass("selected")
+    var tabPlanerMenuHasBeenHidden = false;
+    document.addEventListener("visibilitychange", handlePlanerMenuVisibilityChange, false);
+</script>
 </script>
 
 {% endblock %}
