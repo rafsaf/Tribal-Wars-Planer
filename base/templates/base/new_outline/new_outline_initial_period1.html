@@ -206,7 +206,7 @@
                 <input type="hidden" name="form2" value=""/>
                 {% csrf_token %}
                 {{form2|crispy}}
-                <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`);" class="btn btn-ocean" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`,``,true);" class="btn btn-ocean" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
               </form>
             </div>
           </div>
