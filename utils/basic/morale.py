@@ -21,13 +21,11 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
     they have 0 points.
     """
     target_players_queryset: QuerySet["Target"] = (
-        Target.objects.filter(outline=outline).order_by("player").distinct("player")
+        Target.objects.filter(outline=outline)
     )
     unique_target_players = [target.player for target in target_players_queryset]
     weight_max_players_queryset: QuerySet["WeightMaximum"] = (
         WeightMaximum.objects.filter(outline=outline)
-        .order_by("player")
-        .distinct("player")
     )
     unique_weight_max_players = [
         weight.player for weight in weight_max_players_queryset
