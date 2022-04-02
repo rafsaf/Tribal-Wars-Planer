@@ -13,4 +13,4 @@ jobs:
 
       - name: redeploy prod
         run: |
-          curl -k -X POST https://3.127.133.93:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.PROD_HOOK_SECRET }}"}'
+          curl -k -X POST https://${{ secrets.PROD_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.PROD_HOOK_SECRET }}"}'

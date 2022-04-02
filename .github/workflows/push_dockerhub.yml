@@ -32,4 +32,4 @@ jobs:
           docker image push rafsaf/twp-cronjobs:latest
       - name: redeploy stage
         run: |
-          curl -k -X POST https://34.116.138.194:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.STAGE_HOOK_SECRET }}"}'
+          curl -k -X POST https://${{ secrets.STAGE_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.STAGE_HOOK_SECRET }}"}'
