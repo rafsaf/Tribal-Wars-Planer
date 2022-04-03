@@ -230,6 +230,11 @@ TRIBAL_WARS_SUPPORTED_SERVERS = [
     ("tribalwars.us", "us"),
 ]
 
+SUPPORTED_CURRENCIES = [
+    "PLN",
+    "EUR",
+]
+
 env_registration_open = os.environ.get("REGISTRATION_OPEN", True)
 if env_registration_open in ["False", "false"]:
     REGISTRATION_OPEN = False

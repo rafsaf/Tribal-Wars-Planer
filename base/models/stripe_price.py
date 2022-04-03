@@ -23,3 +23,7 @@ class StripePrice(models.Model):
     created = models.IntegerField()
     amount = models.IntegerField()
     currency = models.CharField(max_length=3)
+
+    def get_amount(self) -> float:
+        """Return human readable amount"""
+        return self.amount / 100

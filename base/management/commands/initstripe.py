@@ -15,6 +15,7 @@
 
 
 import stripe
+import logging
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -22,6 +23,8 @@ from django.db import transaction
 from base.models import StripePrice, StripeProduct
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+log = logging.getLogger(__file__)
 
 
 class Command(BaseCommand):  # pragma: no cover
@@ -49,10 +52,16 @@ class Command(BaseCommand):  # pragma: no cover
             prices = 0
             for item in stripe.Price.list():
                 if not item["type"] == "one_time":
-                    self.stdout.write(
-                        self.style.ERROR(f"Not one time price: {item['id']}")
-                    )
+                    message = f"Not one time price: {item['id']}"
+                    self.stdout.write(self.style.ERROR(message))
+                    log.warning(message)
                     continue
+                if item["currency"] not in settings.SUPPORTED_CURRENCIES:
+                    message = f"Currency {item['currency']} not supported: {item['id']}"
+                    self.stdout.write(self.style.ERROR(message))
+                    log.warning(message)
+                    continue
+
                 price = StripePrice(
                     price_id=item["id"],
                     product_id=item["product"],

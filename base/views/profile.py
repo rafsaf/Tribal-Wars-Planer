@@ -46,11 +46,12 @@ def add_world(request: HttpRequest) -> HttpResponse:
 @login_required
 def profile_settings(request: HttpRequest) -> HttpResponse:
     user = request.user
-    form1 = forms.ChangeServerForm(None)
+    profile: Profile = Profile.objects.get(user=user)
+    form1 = forms.ChangeProfileForm(None, instance=profile)
     if request.method == "POST":
         if "form1" in request.POST:
             profile: Profile = Profile.objects.get(user=user)
-            form1 = forms.ChangeServerForm(request.POST, instance=profile)
+            form1 = forms.ChangeProfileForm(request.POST, instance=profile)
             if form1.is_valid():
                 updated_profile: Profile = form1.save(commit=False)
                 get_object_or_404(Server, dns=updated_profile.server)
