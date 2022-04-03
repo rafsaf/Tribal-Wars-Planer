@@ -14,6 +14,8 @@
 # ==============================================================================
 
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.translation import gettext as _
 
 
 class StripeProduct(models.Model):
@@ -21,5 +23,14 @@ class StripeProduct(models.Model):
     active = models.BooleanField()
     name = models.CharField(max_length=512)
     updated = models.IntegerField()
+    months = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(12)]
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        if self.months == 1:
+            return _("Premium 1 month")
+        else:
+            return _("Premium %s months" % self.months)

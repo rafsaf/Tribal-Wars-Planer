@@ -16,18 +16,17 @@
 
 import stripe
 from django.conf import settings
+from base.models import StripeProduct
 from django.core.management.base import BaseCommand
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-
 
 
 class Command(BaseCommand):
     help = "Fetch and update stripe products and prices"
 
     def handle(self, *args, **options):
-        print(stripe.Product.list())
+        # print(stripe.Product.list())
+        print(stripe.Price.list())
 
-        self.stdout.write(
-            self.style.SUCCESS("Success")
-        )
+        self.stdout.write(self.style.SUCCESS("Success"))
