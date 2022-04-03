@@ -16,6 +16,7 @@
 from django.http import HttpRequest
 
 from base.tests.test_utils.mini_setup import MiniSetup
+from django.utils import translation
 
 
 class OverviewTest(MiniSetup):
@@ -23,7 +24,8 @@ class OverviewTest(MiniSetup):
         self.request = HttpRequest()
         self.request.META["SERVER_NAME"] = "localhost"
         self.request.META["SERVER_PORT"] = 80
-        return super().setUp()
+        super().setUp()
+        translation.activate("pl")
 
     def test_extend_with_encodeURIComponent(self):
         outline = self.get_outline(add_result=True)

@@ -89,7 +89,7 @@ class ChangeWeightModelBuilding(MiniSetup):
             ),
             content_type="application/json",
         )
-        assert response.json() == {"name": "Ratusz"}
+        assert response.json() == {"name": "Headquarters"}
 
         assert response.status_code == 200
         weight.refresh_from_db()

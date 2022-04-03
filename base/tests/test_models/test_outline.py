@@ -18,6 +18,7 @@ from datetime import timedelta
 from base import models
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils import basic
+from django.utils import translation
 
 
 class RemoveUserOutline(MiniSetup):
@@ -259,6 +260,7 @@ class RemoveUserOutline(MiniSetup):
 
 class ExpiresIn(MiniSetup):
     def test_expires_in(self):
+        translation.activate("pl")
         outline1 = self.get_outline(name="o1")
         outline2 = self.get_outline(name="o2")
         outline3 = self.get_outline(name="o3")

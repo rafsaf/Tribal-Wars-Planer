@@ -75,7 +75,7 @@ class TargetTimeUpdate(MiniSetup):
             content_type="application/json",
         )
         assert response.status_code == 400
-        assert response.json() == {"target_id": ["Wymagana poprawna liczba całkowita."]}
+        assert response.json() == {"target_id": ["A valid integer is required."]}
 
     def test_target_delete___200_target_is_deleted_properly(self):
         outline = self.get_outline()
