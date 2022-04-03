@@ -29,38 +29,47 @@ class Command(BaseCommand):
 
     @transaction.atomic()
     def handle(self, *args, **options):
-        StripeProduct.objects.all().delete()
+        if settings.STRIPE_SECRET_KEY:
+            StripeProduct.objects.all().delete()
 
-        products = 0
-        for item in stripe.Product.list():
-            product = StripeProduct(
-                product_id=item["id"],
-                active=item["active"],
-                created=item["created"],
-                updated=item["updated"],
-                name=item["name"],
-                months=item["metadata"]["months"],
+            products = 0
+            for item in stripe.Product.list():
+                product = StripeProduct(
+                    product_id=item["id"],
+                    active=item["active"],
+                    created=item["created"],
+                    updated=item["updated"],
+                    name=item["name"],
+                    months=item["metadata"]["months"],
+                )
+
+                product.save()
+                products += 1
+
+            prices = 0
+            for item in stripe.Price.list():
+                if not item["type"] == "one_time":
+                    self.stdout.write(
+                        self.style.ERROR(f"Not one time price: {item['id']}")
+                    )
+                    continue
+                price = StripePrice(
+                    price_id=item["id"],
+                    product_id=item["product"],
+                    active=item["active"],
+                    created=item["created"],
+                    currency=item["currency"].upper(),
+                    amount=item["unit_amount"],
+                )
+                price.save()
+                prices += 1
+
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f"Success, added {prices} prices & {products} products."
+                )
             )
-
-            product.save()
-            products += 1
-
-        prices = 0
-        for item in stripe.Price.list():
-            if not item["type"] == "one_time":
-                self.stdout.write(self.style.ERROR(f"Not one time price: {item['id']}"))
-                continue
-            price = StripePrice(
-                price_id=item["id"],
-                product_id=item["product"],
-                active=item["active"],
-                created=item["created"],
-                currency=item["currency"].upper(),
-                amount=item["unit_amount"],
+        else:
+            self.stdout.write(
+                self.style.SUCCESS(f"Skipping, no STRIPE_SECRET_KEY setting found.")
             )
-            price.save()
-            prices += 1
-
-        self.stdout.write(
-            self.style.SUCCESS(f"Success, added {prices} prices & {products} products.")
-        )
