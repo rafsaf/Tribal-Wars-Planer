@@ -28,5 +28,12 @@ services:
     volumes:
       - "./logs:/app/logs"
 
+  stripe_cli:
+    image: stripe/stripe-cli
+    restart: "unless-stopped"
+    command: listen --forward-to http://host.docker.internal:8000/en/api/stripe-webhook/
+    environment:
+      - STRIPE_API_KEY=${STRIPE_SECRET_KEY}
+
 volumes:
   twp_dev_postgresql:
