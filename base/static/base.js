@@ -430,7 +430,7 @@ const changeTargetTime = async (target_id, time_id) => {
   const actualInnerHTML = newTime.innerHTML;
   newTime.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
-  const response = await fetch(`/en/api/target-time-update/`, {
+  const response = await fetch(`/api/target-time-update/`, {
     method: "PUT",
     credentials: "same-origin",
     body: JSON.stringify({ target_id: id1, time_id: id2 }),
@@ -473,7 +473,7 @@ const deleteTarget = async (target_id) => {
   targetButton.disabled = true;
   targetButton.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
-  const response = await fetch(`/en/api/target-delete/`, {
+  const response = await fetch(`/api/target-delete/`, {
     method: "DELETE",
     credentials: "same-origin",
     body: JSON.stringify({ target_id: id1 }),
@@ -510,7 +510,7 @@ const changeIsHiddenState = async (outline_id, token) => {
   overview.disabled = true;
   overview.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
-  const response = await fetch(`/en/api/overview-hide-state-update/`, {
+  const response = await fetch(`/api/overview-hide-state-update/`, {
     method: "PUT",
     credentials: "same-origin",
     body: JSON.stringify({ outline_id: outline_id, token: token }),
@@ -539,7 +539,7 @@ const changeBuildingsArray = async (outline_id, list) => {
   const overview = document.getElementById("multi-select-spinner");
   overview.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
   const body = { buildings: list, outline_id: outline_id };
-  await fetch(`/en/api/change-buildings-array/`, {
+  await fetch(`/api/change-buildings-array/`, {
     method: "PUT",
     credentials: "same-origin",
     headers: {
@@ -572,7 +572,7 @@ const changeBuildingsArray = async (outline_id, list) => {
 const resetUserMessages = async () => {
   const svg = document.getElementById("reset-svg");
   const span = document.getElementById("reset-span");
-  await fetch(`/en/api/reset-user-messages/`, {
+  await fetch(`/api/reset-user-messages/`, {
     method: "PUT",
     credentials: "same-origin",
     headers: {
@@ -865,7 +865,7 @@ const fillAndSubmit = (value) => {
 const initialize_payment_process = (amount) => {
   const paymentButton = document.getElementById("payment-button");
   paymentButton.disabled = true;
-  fetch(`/en/api/stripe-key/`, {
+  fetch(`/api/stripe-key/`, {
     method: "GET",
     credentials: "same-origin",
     headers: {
@@ -880,7 +880,7 @@ const initialize_payment_process = (amount) => {
     .then((data) => {
       const stripe = Stripe(data.publicKey);
       paymentButton.onclick = () => {
-        fetch(`/en/api/stripe-session/${amount}`)
+        fetch(`/api/stripe-session/${amount}`)
           .then((result) => {
             return result.json();
           })
@@ -919,7 +919,7 @@ const changeWeightBuildingDirect = async (changingElement, outline_id) => {
   const nameOfBuilding = document.getElementById("building-name-" + weightPk);
   nameOfBuilding.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
 
-  const response = await fetch(`/en/api/change-weight-building/`, {
+  const response = await fetch(`/api/change-weight-building/`, {
     method: "PUT",
     credentials: "same-origin",
     headers: {

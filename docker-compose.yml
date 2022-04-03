@@ -17,7 +17,7 @@ services:
     ports:
       - 7999:80
     healthcheck:
-      test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
+      test: curl --fail http://localhost/api/healthcheck/ || exit 1
       interval: 15s
       retries: 2
       start_period: 30s
