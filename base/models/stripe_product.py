@@ -23,11 +23,10 @@ class StripeProduct(models.Model):
     active = models.BooleanField()
     name = models.CharField(max_length=512)
     updated = models.IntegerField()
+    created = models.IntegerField()
     months = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(12)]
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
         if self.months == 1:

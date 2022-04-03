@@ -17,10 +17,9 @@ from django.db import models
 
 
 class StripePrice(models.Model):
+    price_id = models.CharField(max_length=128, primary_key=True)
     product = models.ForeignKey("StripeProduct", on_delete=models.CASCADE)
     active = models.BooleanField()
-    updated = models.IntegerField()
+    created = models.IntegerField()
     amount = models.IntegerField()
     currency = models.CharField(max_length=3)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
