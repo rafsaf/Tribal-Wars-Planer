@@ -16,15 +16,15 @@
 
 import stripe
 from django.conf import settings
-from base.models import StripeProduct
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from base.models.stripe_price import StripePrice
+
+from base.models import StripePrice, StripeProduct
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-class Command(BaseCommand):
+class Command(BaseCommand):  # pragma: no cover
     help = "Fetch and update stripe products and prices"
 
     @transaction.atomic()
@@ -71,5 +71,5 @@ class Command(BaseCommand):
             )
         else:
             self.stdout.write(
-                self.style.SUCCESS(f"Skipping, no STRIPE_SECRET_KEY setting found.")
+                self.style.SUCCESS("Skipping, no STRIPE_SECRET_KEY setting found.")
             )
