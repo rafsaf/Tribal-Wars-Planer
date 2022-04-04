@@ -31,7 +31,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-
+import metrics
 from base.models import (
     Outline,
     OutlineTime,
@@ -239,6 +239,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                 "stripe_checkout_session(), StripePrice not found:"
                 f" curr:{profile.currency},amount:{req.data.get('amount')}"
             )
+            metrics.ERRORS.labels("stripe_error").inc()
             return Response(
                 {"error": f"Could not found price for given user and amount."},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -265,6 +266,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
             )
         except Exception as e:
             log.error(f"stripe_checkout_session() {e}")
+            metrics.ERRORS.labels("stripe_error").inc()
             return Response(
                 {"error": "unknown error when creating stripe checkout session"},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -286,6 +288,7 @@ def stripe_webhook(request: Request):  # pragma: no cover
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
     if sig_header is None:
         log.error(f"stripe_webhook() sig_header is None")
+        metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     try:
@@ -293,13 +296,16 @@ def stripe_webhook(request: Request):  # pragma: no cover
     except ValueError as err:
         # Invalid payload
         log.error(f"stripe_webhook() invalid payload {err}")
+        metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
     except stripe.error.SignatureVerificationError as err:
         # Invalid signature
         log.error(f"stripe_webhook() invalid signature {err}")
+        metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
     except Exception as err:
         log.error(f"stripe_webhook() unknown error {err}")
+        metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     # Handle the checkout.session.completed event
