@@ -862,35 +862,52 @@ const fillAndSubmit = (value) => {
   form.submit();
 };
 
-const initialize_payment_process = (amount) => {
+const initializePaymentProcess = async (amount) => {
   const paymentButton = document.getElementById("payment-button");
   paymentButton.disabled = true;
-  fetch(`/api/stripe-key/`, {
-    method: "GET",
-    credentials: "same-origin",
-    headers: {
-      "X-CSRFToken": getCookie("csrftoken"),
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      return response.json();
+  const stripeKey = await (await fetch(`/api/stripe-key/`)).json();
+  const stripe = Stripe(stripeKey.publicKey);
+
+  paymentButton.onclick = () => {
+    const innerHtml = paymentButton.innerHTML;
+    paymentButton.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-info my-auto' role='status'></span>`;
+    fetch(`/api/stripe-session/`, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "X-CSRFToken": getCookie("csrftoken"),
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: parseInt(amount),
+      }),
     })
-    .then((data) => {
-      const stripe = Stripe(data.publicKey);
-      paymentButton.onclick = () => {
-        fetch(`/api/stripe-session/${amount}`)
-          .then((result) => {
-            return result.json();
-          })
-          .then((data) => {
-            return stripe.redirectToCheckout({ sessionId: data.sessionId });
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else if (res.status === 400) {
+          paymentButton.innerHTML = innerHtml;
+          res.json().then((res) => {
+            console.error(res);
+            alert(`Something went wrong. Message: ${res.error}`);
+            throw res.error;
           });
-      };
-      paymentButton.disabled = false;
-    });
+        } else {
+          paymentButton.innerHTML = innerHtml;
+          console.error(res);
+          alert(`Something went wrong. unknown error`);
+          throw "unknown error";
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        return stripe.redirectToCheckout({ sessionId: data.sessionId });
+      });
+  };
+  paymentButton.disabled = false;
 };
+
 const resetBackgroundBuildingsColors = (weightPk) => {
   document
     .getElementById("headquarters-" + weightPk)

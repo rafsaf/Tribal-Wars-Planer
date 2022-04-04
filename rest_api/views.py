@@ -17,6 +17,7 @@ import datetime
 
 import prometheus_client
 import stripe
+import stripe.error
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -40,15 +41,22 @@ from base.models import (
     TargetVertex,
     WeightMaximum,
     WeightModel,
+    StripePrice,
 )
+import logging
 from rest_api.permissions import MetricsExportSecretPermission
 from rest_api.serializers import (
     ChangeBuildingsArraySerializer,
     ChangeWeightBuildingSerializer,
+    StripeSessionAmount,
     OverwiewStateHideSerializer,
     TargetDeleteSerializer,
     TargetTimeUpdateSerializer,
 )
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+log = logging.getLogger(__file__)
 
 
 @api_view(["GET"])
@@ -212,39 +220,60 @@ def stripe_config(request: Request):
     return Response(stripe_config, status=status.HTTP_200_OK)
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @permission_classes([IsAuthenticated])
-def stripe_checkout_session(request: Request, amount: int):  # pragma: no cover
+def stripe_checkout_session(request: Request):  # pragma: no cover
     """Stripe checkout session endpoint"""
 
-    stripe.api_key = settings.STRIPE_SECRET_KEY
-    if amount not in [30, 55, 70]:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-    price_id: str = settings.STRIPE_PAYMENTS[amount]
-    host = request.get_host()
-    user_pk: int = request.user.pk
-    http = "http://"
-    success = reverse("base:payment_done")
-    cancel = reverse("base:premium")
-    try:
-        checkout_session = stripe.checkout.Session.create(
-            success_url=f"{http}{host}{success}",
-            cancel_url=f"{http}{host}{cancel}",
-            client_reference_id=user_pk,
-            payment_method_types=["card", "p24"],
-            mode="payment",
-            line_items=[
-                {
-                    "quantity": 1,
-                    "price": price_id,
-                }
-            ],
-        )
-    except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        session_id = checkout_session["id"]  # type: ignore
-        return Response({"sessionId": session_id}, status=status.HTTP_200_OK)
+    req = StripeSessionAmount(data=request.data)
+    if req.is_valid():
+        user_pk: int = request.user.pk
+        profile: Profile = Profile.objects.get(user_id=user_pk)
+        try:
+            price: StripePrice = StripePrice.objects.get(
+                amount=req.data.get("amount"), active=True, currency=profile.currency
+            )
+
+        except StripePrice.DoesNotExist:
+            log.error(
+                "stripe_checkout_session(), StripePrice not found:"
+                f" curr:{profile.currency},amount:{req.data.get('amount')}"
+            )
+            return Response(
+                {"error": f"Could not found price for given user and amount."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        host = request.get_host()
+        http = "http://"
+        success = reverse("base:payment_done")
+        cancel = reverse("base:premium")
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                success_url=f"{http}{host}{success}",
+                cancel_url=f"{http}{host}{cancel}",
+                client_reference_id=user_pk,
+                payment_method_types=["card", "p24", "blik"],
+                mode="payment",
+                metadata={"product_id": price.product.product_id},
+                line_items=[
+                    {
+                        "quantity": 1,
+                        "price": price.price_id,
+                    }
+                ],
+            )
+        except Exception as e:
+            log.error(f"stripe_checkout_session() {e}")
+            return Response(
+                {"error": "unknown error when creating stripe checkout session"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        else:
+            session_id = checkout_session["id"]  # type: ignore
+            return Response({"sessionId": session_id}, status=status.HTTP_200_OK)
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])
@@ -252,23 +281,25 @@ def stripe_checkout_session(request: Request, amount: int):  # pragma: no cover
 def stripe_webhook(request: Request):  # pragma: no cover
     """Stripe webhooks endpoint to verify payment success"""
 
-    stripe.api_key = settings.STRIPE_SECRET_KEY
     endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
     payload = request.body
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
     if sig_header is None:
+        log.error(f"stripe_webhook() sig_header is None")
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    event = None
 
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
-    except ValueError:
+    except ValueError as err:
         # Invalid payload
+        log.error(f"stripe_webhook() invalid payload {err}")
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    except stripe.error.SignatureVerificationError as e:  # type: ignore
+    except stripe.error.SignatureVerificationError as err:
         # Invalid signature
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    except Exception:
+        log.error(f"stripe_webhook() invalid signature {err}")
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    except Exception as err:
+        log.error(f"stripe_webhook() unknown error {err}")
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     # Handle the checkout.session.completed event

@@ -33,63 +33,31 @@
     <table class="table table-bordered" style="width: min-content;">
         <tbody>
             <tr>
-                <th style="min-width: 25vh;" class="text-nowrap">{% trans '1 month' %}</th>
-                <th style="min-width: 25vh;" class="text-nowrap">{% trans '2 months' %}</th>
-                <th style="min-width: 25vh;" class="text-nowrap">{% trans '3 months' %}</th>
+                {% for price in prices %}
+                <th style="min-width: 25vh;" class="text-nowrap">{{price.product}}</th>
+                {% endfor %}
             </tr>
             <tr>
-                <th id="cur-1" style="min-width: 25vh;" class="text-nowrap">30 PLN</th>
-                <th id="cur-2" style="min-width: 25vh;" class="text-nowrap">55 PLN</th>
-                <th id="cur-3" style="min-width: 25vh;" class="text-nowrap">70 PLN</th>
+                {% for price in prices %}
+                <th id="cur-1" style="min-width: 25vh;" class="text-nowrap">{{price.get_amount}} {{price.currency}}</th>
+                {% endfor %}
             </tr>
         </tbody>
     </table>
-    <p>{% trans 'Note, payments in currencies other than PLN are already supported on the Stripe website (which will take care of any currency conversion for example from EUR)!' %}</p>
-    <h2><span class="badge badge-dark my-3">{% trans '1. Buy now with Stripe:' %}</span></h2>
+    <p>{% trans 'Note, you can change your currency in' %} <b><a href="{% url 'base:settings' %}">{% trans "User Settings" %}</a></b>.</p>
+    <h2><span class="badge badge-dark my-3">{% trans 'Buy now with Stripe:' %}</span></h2>
 
-    <select onchange="initialize_payment_process(value)" id="amount-select" style="width: 200px; font-size: 20px; margin-top: 5px; margin-bottom: 1rem;">
-        <option id="option-1" value="30">{% trans '1 month' %}</option>
-        <option id="option-2" value="55">{% trans '2 months' %}</option>
-        <option id="option-3" value="70">{% trans '3 months' %}</option>
+    <select onchange="initializePaymentProcess(value)" id="amount-select" class="form-control" style="width: 30rem; font-size: 25px; margin-top: 0.5rem; margin-bottom: 1rem;">
+        {% for price in prices %}
+        <option id="{{price.price_id}}" value="{{price.amount}}">{{price.product}}</option>
+        {% endfor %}
     </select>
     <div>
-        <button class="btn btn-ocean btn-lg mb-5" id="payment-button"><i class="bi bi-wallet mr-2"></i>{% trans "Buy now"%}</button>
+        <button class="btn btn-ocean btn-lg mb-5 py-2 px-3" style="font-size: x-large;min-width: 11rem;" id="payment-button"><i class="bi bi-wallet mr-2"></i>{% trans "Buy now"%}</button>
     </div>
     <p>{% trans "Please note, this is a <b>one-time transaction</b>, your card or account will (never) be associated with this site and no fees will be ever charged when your premium account expires." %}</p>
     <p>{% trans "There are no obstacles to extend an active premium account." %}</p>
 
-    <h2><span class="badge badge-dark my-3 mt-5">{% trans '2. Transfer directly to the account:' %}</span></h2>
-    <div class="alert alert-danger" role="alert">
-        {% trans 'Note, in this case, activation is manual after receiving the transfer (it may take a while), if you are in a hurry, use the first option.' %}
-    </div>
-    <h3 class="my-4">{% trans 'Transfer details for your account:' %}</h3>
-    <div class="form-group row">
-        <label for="account" class="col-12 col-sm-auto mt-2 pt-1">{% trans 'Account number' %}</label>
-        <div class="col-12 col-md-9 col-lg-6 mt-2">
-          <input type="text" class="form-control" id="account" value="27 1020 4913 0000 9202 0149 7262" readonly>
-        </div>
-        <div class="col-auto mt-2">
-            <button class="copy-button" onclick="copyDataToClipboard(this,`account`,true)"><img onclick="" width="30px" height="30px" src="{% static 'images/copy-text.svg' %}"></button>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="receiver" class="col-12 col-sm-auto mt-2 pt-1">{% trans 'Recipient' %}</label>
-        <div class="col-12 col-md-9 col-lg-6 mt-2">
-          <input type="text" class="form-control" id="receiver" value="Rafał Safin" readonly>
-        </div>
-        <div class="col-auto mt-2">
-            <button class="copy-button" onclick="copyDataToClipboard(this,`receiver`,true)"><img onclick="" width="30px" height="30px" src="{% static 'images/copy-text.svg' %}"></button>
-        </div>
-    </div>
-    <div class="form-group row mb-4">
-        <label for="receiver" class="col-12 col-sm-auto mt-2 pt-1">{% trans 'Transfer title' %}</label>
-        <div class="col-12 col-md-9 col-lg-6 mt-2">
-          <input type="text" class="form-control" id="title" value="plemiona-planer:{{user.username}}" readonly>
-        </div>
-        <div class="col-auto mt-2">
-            <button class="copy-button" onclick="copyDataToClipboard(this,`title`,true)"><img onclick="" width="30px" height="30px" src="{% static 'images/copy-text.svg' %}"></button>
-        </div>
-    </div>
     <h2><span class="badge badge-dark my-3 mt-5">{% trans 'Payment history' %}:</span></h2>
 
     <table class="table table-bordered table-sm text-center">
@@ -119,5 +87,5 @@
 </div>
 </div>
 </div>
-<script>initialize_payment_process(30);</script>
+<script>initializePaymentProcess(`{{prices.0.amount}}`);</script>
 {% endblock %}
