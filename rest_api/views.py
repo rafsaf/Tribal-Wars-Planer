@@ -260,7 +260,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                     {
                         "quantity": 1,
                         "price": price.price_id,
-                        "description": f"plemiona-planer.pl: {price.product}",
+                        "description": f"plemiona-planer.pl - {price.product} - {profile.user.username}",
                     }
                 ],
             )
