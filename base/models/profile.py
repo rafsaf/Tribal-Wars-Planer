@@ -28,10 +28,6 @@ if TYPE_CHECKING:
 
 class Profile(models.Model):
 
-    SUPPORTED_CURRENCIES = [
-        (currency, currency) for currency in settings.SUPPORTED_CURRENCIES
-    ]
-
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     server = models.ForeignKey(
         "Server", on_delete=models.SET_NULL, null=True, default=None
@@ -40,7 +36,7 @@ class Profile(models.Model):
         default=datetime.date(year=2021, month=2, day=25), blank=True, null=True
     )
     currency = models.CharField(
-        max_length=3, default="PLN", choices=SUPPORTED_CURRENCIES
+        max_length=3, default="PLN", choices=settings.SUPPORTED_CURRENCIES_CHOICES
     )
     messages = models.IntegerField(default=0)
     server_bind = models.BooleanField(default=False)

@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from django.conf import settings
 from django.db import models
 
 
@@ -22,7 +23,9 @@ class StripePrice(models.Model):
     active = models.BooleanField()
     created = models.IntegerField()
     amount = models.IntegerField()
-    currency = models.CharField(max_length=3)
+    currency = models.CharField(
+        max_length=3, choices=settings.SUPPORTED_CURRENCIES_CHOICES
+    )
 
     class Meta:
         constraints = [

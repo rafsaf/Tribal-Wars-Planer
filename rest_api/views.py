@@ -242,7 +242,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
             )
             metrics.ERRORS.labels("stripe_error").inc()
             return Response(
-                {"error": f"Could not found price for given user and amount."},
+                {"error": "Could not found price for given user and amount."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -287,7 +287,7 @@ def stripe_webhook(request: Request):  # pragma: no cover
     payload = request.body
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
     if sig_header is None:
-        log.error(f"stripe_webhook() sig_header is None")
+        log.error("stripe_webhook() sig_header is None")
         metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -335,6 +335,7 @@ def stripe_webhook(request: Request):  # pragma: no cover
                 user=user,
                 amount=int(amount / 100),
                 from_stripe=True,
+                currency=currency,
                 months=price.product.months,
                 payment_date=current_date,
                 event_id=evt_id,

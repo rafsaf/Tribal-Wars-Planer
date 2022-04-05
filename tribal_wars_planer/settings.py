@@ -110,11 +110,6 @@ WSGI_APPLICATION = "tribal_wars_planer.wsgi.application"
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_ENDPOINT_SECRET = os.environ.get("STRIPE_ENDPOINT_SECRET", "")
-STRIPE_PAYMENTS = {
-    30: os.environ.get("ONE_MONTH", ""),
-    55: os.environ.get("TWO_MONTHS", ""),
-    70: os.environ.get("THREE_MONTHS", ""),
-}
 
 DATABASES = {
     "default": {
@@ -233,6 +228,10 @@ TRIBAL_WARS_SUPPORTED_SERVERS = [
 SUPPORTED_CURRENCIES = [
     "PLN",
     "EUR",
+]
+
+SUPPORTED_CURRENCIES_CHOICES = [
+    (currency, currency) for currency in SUPPORTED_CURRENCIES
 ]
 
 env_registration_open = os.environ.get("REGISTRATION_OPEN", True)

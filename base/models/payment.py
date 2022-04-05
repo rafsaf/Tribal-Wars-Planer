@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy
@@ -25,6 +26,9 @@ class Payment(models.Model):
         ("finished", gettext_lazy("Finished")),
         ("returned", gettext_lazy("Returned")),
     ]
+    currency = models.CharField(
+        max_length=3, default="PLN", choices=settings.SUPPORTED_CURRENCIES_CHOICES
+    )
     status = models.CharField(max_length=30, choices=STATUS, default="finished")
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     send_mail = models.BooleanField(default=True)
@@ -37,4 +41,4 @@ class Payment(models.Model):
     new_date = models.DateField(default=None, null=True, blank=True)
 
     def value(self) -> str:
-        return f"{self.amount} PLN"
+        return f"{self.amount} {self.currency}"

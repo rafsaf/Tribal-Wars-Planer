@@ -157,12 +157,6 @@ Environment variables:
 
 **STRIPE_ENDPOINT_SECRET** - _optional_ - stripe endpoint, defaults to empty string
 
-**ONE_MONTH** - _optional_ - stripe payment id for 1 month premium, defaults to empty string
-
-**TWO_MONTHS** - _optional_ - stripe payment id for 2 months premium, defaults to empty string
-
-**THREE_MONTHS** - _optional_ - stripe payment id for 3 months premium, defaults to empty string
-
 **EMAIL_BACKEND** - _optional_ - postgres database host, defaults to `django.core.mail.backends.console.EmailBackend`
 
 **AWS_ACCESS_KEY_ID** - _optional_ - AWS SES account key id, defaults to empty string
