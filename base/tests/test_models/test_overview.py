@@ -14,9 +14,9 @@
 # ==============================================================================
 
 from django.http import HttpRequest
+from django.utils import translation
 
 from base.tests.test_utils.mini_setup import MiniSetup
-from django.utils import translation
 
 
 class OverviewTest(MiniSetup):

@@ -24,6 +24,11 @@ class StripePrice(models.Model):
     amount = models.IntegerField()
     currency = models.CharField(max_length=3)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["amount", "currency"], name="unique price")
+        ]
+
     def get_amount(self) -> float:
         """Return human readable amount"""
         return self.amount / 100

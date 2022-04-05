@@ -158,7 +158,7 @@ def many_villages(coord_many: str):
 def yield_circle(radius, center):
     """Return circle with r and center"""
     for x_coord in range(-radius, radius + 1):
-        y_max = ceil(sqrt(radius**2 - x_coord**2))
+        y_max = ceil(sqrt(radius ** 2 - x_coord ** 2))
         for y_coord in range(-y_max, y_max + 1):
             yield (x_coord + center[0], y_coord + center[1])
 

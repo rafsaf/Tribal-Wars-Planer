@@ -15,10 +15,11 @@
 
 from datetime import timedelta
 
+from django.utils import translation
+
 from base import models
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils import basic
-from django.utils import translation
 
 
 class RemoveUserOutline(MiniSetup):

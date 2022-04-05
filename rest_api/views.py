@@ -14,6 +14,7 @@
 # ==============================================================================
 
 import datetime
+import logging
 
 import prometheus_client
 import stripe
@@ -31,6 +32,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+
 import metrics
 from base.models import (
     Outline,
@@ -38,18 +40,17 @@ from base.models import (
     Overview,
     Payment,
     Profile,
+    StripePrice,
     TargetVertex,
     WeightMaximum,
     WeightModel,
-    StripePrice,
 )
-import logging
 from rest_api.permissions import MetricsExportSecretPermission
 from rest_api.serializers import (
     ChangeBuildingsArraySerializer,
     ChangeWeightBuildingSerializer,
-    StripeSessionAmount,
     OverwiewStateHideSerializer,
+    StripeSessionAmount,
     TargetDeleteSerializer,
     TargetTimeUpdateSerializer,
 )
@@ -254,13 +255,12 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                 success_url=f"{http}{host}{success}",
                 cancel_url=f"{http}{host}{cancel}",
                 client_reference_id=user_pk,
-                payment_method_types=["card", "p24", "blik"],
                 mode="payment",
-                metadata={"product_id": price.product.product_id},
                 line_items=[
                     {
                         "quantity": 1,
                         "price": price.price_id,
+                        "description": f"plemiona-planer.pl: {price.product}",
                     }
                 ],
             )
@@ -273,7 +273,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
             )
 
         else:
-            session_id = checkout_session["id"]  # type: ignore
+            session_id = checkout_session["id"]
             return Response({"sessionId": session_id}, status=status.HTTP_200_OK)
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -312,25 +312,30 @@ def stripe_webhook(request: Request):  # pragma: no cover
     if event["type"] == "checkout.session.completed":
         evt_id: str = event["id"]
         if not Payment.objects.filter(event_id=evt_id).exists():
+            current_date: datetime.date = timezone.localdate()
             data: dict = event["data"]["object"]
             user: User = User.objects.get(pk=data["client_reference_id"])
-            current_date: datetime.date = timezone.localdate()
-            months: int = 0
-            amount: int = int(data["amount_total"]) // 100
+            amount: int = int(data["amount_total"])
+            currency: str = data["currency"].upper()
 
-            if amount == 70:
-                months = 3
-            elif amount == 55:
-                months = 2
-            elif amount == 30:
-                months = 1
-            else:
-                raise ValueError("Not known amount of money")
+            try:
+                price: StripePrice = StripePrice.objects.get(
+                    currency=currency,
+                    amount=amount,
+                )
+            except StripePrice.DoesNotExist:
+                metrics.ERRORS.labels("stripe_error").inc()
+                log.error(
+                    "stripe_webhook() checkout.session.completed "
+                    f"price does not exists: {amount} {currency}"
+                )
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
             Payment.objects.create(
                 user=user,
-                amount=amount,
+                amount=int(amount / 100),
                 from_stripe=True,
-                months=months,
+                months=price.product.months,
                 payment_date=current_date,
                 event_id=evt_id,
             )

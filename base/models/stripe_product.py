@@ -32,4 +32,4 @@ class StripeProduct(models.Model):
         if self.months == 1:
             return _("Premium 1 month")
         else:
-            return _("Premium %s months" % self.months)
+            return _("Premium %s months") % self.months

@@ -14,8 +14,9 @@
 # ==============================================================================
 
 
-import stripe
 import logging
+
+import stripe
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -51,12 +52,13 @@ class Command(BaseCommand):  # pragma: no cover
 
             prices = 0
             for item in stripe.Price.list():
+                currency = item["currency"].upper()
                 if not item["type"] == "one_time":
                     message = f"Not one time price: {item['id']}"
                     self.stdout.write(self.style.ERROR(message))
                     log.warning(message)
                     continue
-                if item["currency"] not in settings.SUPPORTED_CURRENCIES:
+                if currency not in settings.SUPPORTED_CURRENCIES:
                     message = f"Currency {item['currency']} not supported: {item['id']}"
                     self.stdout.write(self.style.ERROR(message))
                     log.warning(message)
@@ -67,7 +69,7 @@ class Command(BaseCommand):  # pragma: no cover
                     product_id=item["product"],
                     active=item["active"],
                     created=item["created"],
-                    currency=item["currency"].upper(),
+                    currency=currency,
                     amount=item["unit_amount"],
                 )
                 price.save()

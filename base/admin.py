@@ -22,6 +22,8 @@ from . import models
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Server)
 admin.site.register(models.Message)
+admin.site.register(models.StripePrice)
+admin.site.register(models.StripeProduct)
 
 
 @admin.register(models.Result)
