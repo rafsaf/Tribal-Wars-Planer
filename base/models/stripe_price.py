@@ -31,7 +31,7 @@ class StripePrice(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["amount", "currency"], name="unique price")
         ]
-        ordering = ["-active"]
+        ordering = ["currency", "-active", "amount"]
 
     def get_amount(self) -> float:
         """Return human readable amount"""

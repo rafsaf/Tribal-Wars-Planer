@@ -29,7 +29,7 @@ class StripeProduct(models.Model):
     )
 
     class Meta:
-        ordering = ["-active"]
+        ordering = ["-active", "months"]
 
     def __str__(self) -> str:
         if self.months == 1:

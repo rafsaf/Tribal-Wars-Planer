@@ -29,11 +29,14 @@ log = logging.getLogger(__file__)
 
 
 @transaction.atomic()
-def synchronize_stripe():
+def synchronize_stripe():  # pragma: no cover
     StripeProduct.objects.all().delete()
     log.info("Started synchonization of stripe")
     products = 0
     for item in stripe.Product.list():
+        if "months" not in item["metadata"]:
+            log.warning(f"No months in metadata, skipping product: {item['id']}")
+            continue
         product = StripeProduct(
             product_id=item["id"],
             active=item["active"],
@@ -50,12 +53,18 @@ def synchronize_stripe():
     for item in stripe.Price.list():
         currency = item["currency"].upper()
         if not item["type"] == "one_time":
-            message = f"Not one time price: {item['id']}"
-            log.warning(message)
+            log.warning(f"Not one time price: {item['id']}")
             continue
         if currency not in settings.SUPPORTED_CURRENCIES:
-            message = f"Currency {item['currency']} not supported: {item['id']}"
-            log.warning(message)
+            log.warning(f"Currency {item['currency']} not supported: {item['id']}")
+            continue
+
+        try:
+            product = StripeProduct.objects.get(product_id=item["product"])
+        except StripeProduct.DoesNotExist:
+            log.warning(
+                f"Product {item['product']} does not exists, skipping price: {item['id']}"
+            )
             continue
 
         price = StripePrice(

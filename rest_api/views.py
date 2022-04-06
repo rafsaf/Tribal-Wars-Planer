@@ -34,6 +34,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 import metrics
+from base.management.commands.initstripe import synchronize_stripe
 from base.models import (
     Outline,
     OutlineTime,
@@ -232,7 +233,10 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
         profile: Profile = Profile.objects.get(user_id=user_pk)
         try:
             price: StripePrice = StripePrice.objects.get(
-                amount=req.data.get("amount"), active=True, currency=profile.currency
+                amount=req.data.get("amount"),
+                active=True,
+                product__active=True,
+                currency=profile.currency,
             )
 
         except StripePrice.DoesNotExist:
@@ -340,6 +344,22 @@ def stripe_webhook(request: Request):  # pragma: no cover
                 payment_date=current_date,
                 event_id=evt_id,
             )
+        return Response(status=status.HTTP_200_OK)
+
+    if event["type"] in [
+        "price.created",
+        "price.deleted",
+        "price.updated",
+        "product.created",
+        "product.deleted",
+        "product.updated",
+    ]:
+        try:
+            synchronize_stripe()
+        except Exception as err:
+            metrics.ERRORS.labels("stripe_error").inc()
+            log.error(f"stripe_webhook() synchronize_stripe failed {err}")
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
