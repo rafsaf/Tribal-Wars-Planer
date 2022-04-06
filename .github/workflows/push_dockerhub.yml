@@ -8,6 +8,8 @@ on:
       - master
     types:
       - completed
+    tags-ignore:
+      - **
 
 jobs:
   push_image_to_registry:
