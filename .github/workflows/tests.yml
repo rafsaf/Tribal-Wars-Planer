@@ -5,8 +5,6 @@ name: tests
 
 on:
   push:
-    tags-ignore:
-      - "[1-9]+**"
 
 jobs:
   build:
