@@ -73,7 +73,12 @@ class OutlineProfileSettings(MiniSetup):
         self.login_me()
         response = self.client.post(
             PATH,
-            data={"server": "nottestserver", "default_morale_on": False, "form1": ""},
+            data={
+                "server": "nottestserver",
+                "currency": "EUR",
+                "default_morale_on": False,
+                "form1": "",
+            },
         )
         assert response.status_code == 302
         assert response.url == PATH

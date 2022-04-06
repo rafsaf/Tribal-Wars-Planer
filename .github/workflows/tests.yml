@@ -64,10 +64,10 @@ jobs:
         env:
           POSTGRES_HOST: localhost
         run: |
-          source .venv/bin/activate
-          coverage run -m pytest
-          coverage xml
-          run coverage report --show-missing
+          poetry run bash initial.sh
+          poetry run coverage run -m pytest
+          poetry run coverage xml
+          poetry run coverage report --show-missing
 
       - name: Upload coverage result to Codecov
         uses: codecov/codecov-action@v2
