@@ -22,8 +22,26 @@ from . import models
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Server)
 admin.site.register(models.Message)
-admin.site.register(models.StripePrice)
-admin.site.register(models.StripeProduct)
+
+
+@admin.register(models.StripePrice)
+class AdminStripePriceModel(admin.ModelAdmin):
+    list_display = [
+        "amount",
+        "currency",
+        "active",
+        "price_id",
+    ]
+
+
+@admin.register(models.StripeProduct)
+class AdminStripeProductModel(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "months",
+        "active",
+        "product_id",
+    ]
 
 
 @admin.register(models.Result)

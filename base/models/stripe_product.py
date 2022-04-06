@@ -28,6 +28,9 @@ class StripeProduct(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(12)]
     )
 
+    class Meta:
+        ordering = ["-active"]
+
     def __str__(self) -> str:
         if self.months == 1:
             return _("Premium 1 month")

@@ -28,52 +28,55 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 log = logging.getLogger(__file__)
 
 
+@transaction.atomic()
+def synchronize_stripe():
+    StripeProduct.objects.all().delete()
+    log.info("Started synchonization of stripe")
+    products = 0
+    for item in stripe.Product.list():
+        product = StripeProduct(
+            product_id=item["id"],
+            active=item["active"],
+            created=item["created"],
+            updated=item["updated"],
+            name=item["name"],
+            months=item["metadata"]["months"],
+        )
+
+        product.save()
+        products += 1
+
+    prices = 0
+    for item in stripe.Price.list():
+        currency = item["currency"].upper()
+        if not item["type"] == "one_time":
+            message = f"Not one time price: {item['id']}"
+            log.warning(message)
+            continue
+        if currency not in settings.SUPPORTED_CURRENCIES:
+            message = f"Currency {item['currency']} not supported: {item['id']}"
+            log.warning(message)
+            continue
+
+        price = StripePrice(
+            price_id=item["id"],
+            product_id=item["product"],
+            active=item["active"],
+            created=item["created"],
+            currency=currency,
+            amount=item["unit_amount"],
+        )
+        price.save()
+        prices += 1
+    return prices, products
+
+
 class Command(BaseCommand):  # pragma: no cover
     help = "Fetch and update stripe products and prices"
 
-    @transaction.atomic()
     def handle(self, *args, **options):
         if settings.STRIPE_SECRET_KEY:
-            StripeProduct.objects.all().delete()
-
-            products = 0
-            for item in stripe.Product.list():
-                product = StripeProduct(
-                    product_id=item["id"],
-                    active=item["active"],
-                    created=item["created"],
-                    updated=item["updated"],
-                    name=item["name"],
-                    months=item["metadata"]["months"],
-                )
-
-                product.save()
-                products += 1
-
-            prices = 0
-            for item in stripe.Price.list():
-                currency = item["currency"].upper()
-                if not item["type"] == "one_time":
-                    message = f"Not one time price: {item['id']}"
-                    self.stdout.write(self.style.ERROR(message))
-                    log.warning(message)
-                    continue
-                if currency not in settings.SUPPORTED_CURRENCIES:
-                    message = f"Currency {item['currency']} not supported: {item['id']}"
-                    self.stdout.write(self.style.ERROR(message))
-                    log.warning(message)
-                    continue
-
-                price = StripePrice(
-                    price_id=item["id"],
-                    product_id=item["product"],
-                    active=item["active"],
-                    created=item["created"],
-                    currency=currency,
-                    amount=item["unit_amount"],
-                )
-                price.save()
-                prices += 1
+            prices, products = synchronize_stripe()
 
             self.stdout.write(
                 self.style.SUCCESS(
