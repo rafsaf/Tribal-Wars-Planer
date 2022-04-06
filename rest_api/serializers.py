@@ -43,6 +43,10 @@ class TargetDeleteSerializer(serializers.Serializer):
     target_id = serializers.IntegerField()
 
 
+class StripeSessionAmount(serializers.Serializer):
+    amount = serializers.IntegerField()
+
+
 class OverwiewStateHideSerializer(serializers.Serializer):
     outline_id = serializers.IntegerField()
     token = serializers.CharField()

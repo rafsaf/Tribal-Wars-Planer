@@ -29,6 +29,14 @@
                 <th style="min-width: 45vh;" class="text-nowrap">{{user.profile.server.dns}}</th>
             </tr>
             <tr>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Currency' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">{{user.profile.currency}}</th>
+            </tr>
+            <tr>
+                <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Default morale on' %}</th>
+                <th style="min-width: 45vh;" class="text-nowrap">{{user.profile.default_morale_on}}</th>
+            </tr>
+            <tr>
                 <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Premium' %}</th>
                 <th style="min-width: 45vh;" class="text-nowrap">
                     {% if user.profile.is_premium %}
@@ -53,7 +61,7 @@
         <input type="hidden" value="" name="form1">
         {% csrf_token %}
         {{form1|crispy}}
-        <button class="btn btn-ocean" onclick="this.disabled=true;this.form.submit();">
+        <button class="btn btn-ocean mt-2" onclick="this.disabled=true;this.form.submit();">
             {% trans 'Save' %}
         </button>
     </form>

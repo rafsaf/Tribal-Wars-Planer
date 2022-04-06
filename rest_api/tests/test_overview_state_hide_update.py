@@ -78,9 +78,7 @@ class OverviewStateHideUpdate(MiniSetup):
             content_type="application/json",
         )
         assert response.status_code == 400
-        assert response.json() == {
-            "outline_id": ["Wymagana poprawna liczba całkowita."]
-        }
+        assert response.json() == {"outline_id": ["A valid integer is required."]}
 
     def test_hide_state_update___200_overview_properly_state_changed(self):
         outline = self.get_outline()

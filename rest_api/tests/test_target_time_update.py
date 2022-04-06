@@ -66,7 +66,7 @@ class TargetTimeUpdate(MiniSetup):
             content_type="application/json",
         )
         assert response.status_code == 400
-        assert response.json() == {"time_id": ["Wymagana poprawna liczba całkowita."]}
+        assert response.json() == {"time_id": ["A valid integer is required."]}
 
     def test_target_time_update___200_target_updated_correct_target_no_time(self):
         outline = self.get_outline()

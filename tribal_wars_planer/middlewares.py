@@ -26,7 +26,6 @@ def PrometheusBeforeMiddleware(get_response: Callable):
 def PrometheusAfterMiddleware(get_response: Callable):
     def middleware(request: HttpRequest):
         match = resolve(request.path)
-
         if match.view_name in METRICS_SKIP_VIEWS:
             response: HttpResponse = get_response(request)
 
@@ -38,6 +37,9 @@ def PrometheusAfterMiddleware(get_response: Callable):
             metrics.REQUEST_LATENCY.labels(
                 view_name=match.view_name, method=request.method
             ).observe(time() - getattr(request, "_metrics_process_time_start"))
+
+        if response.status_code != 200:
+            metrics.ERRORS.labels(f"{match.view_name} {response.status_code}").inc()
 
         return response
 

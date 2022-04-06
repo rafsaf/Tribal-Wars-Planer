@@ -9,4 +9,4 @@ REQUEST_COUNT = Counter(
     "request_count", "Number of requests for view", ["view_name", "method"]
 )
 
-REQUEST_TOTAL = Counter("request_total", "Total number of requests")
+ERRORS = Counter("errors", "App errors", ["error_messsage"])

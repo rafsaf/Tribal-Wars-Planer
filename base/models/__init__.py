@@ -26,6 +26,8 @@ from .profile import Profile
 from .result import Result
 from .server import Server
 from .stats import Stats
+from .stripe_price import StripePrice
+from .stripe_product import StripeProduct
 from .target_vertex import TargetVertex
 from .tribe import Tribe
 from .village_model import VillageModel

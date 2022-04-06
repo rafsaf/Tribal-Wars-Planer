@@ -37,10 +37,13 @@ from django.views.generic.base import TemplateView
 from django_registration.backends.one_step.views import RegistrationView
 from django_registration.forms import RegistrationFormUniqueEmail
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
+    path("api/", include("rest_api.urls")),
+]
+
+urlpatterns += i18n_patterns(  # type: ignore
     path("admin/", admin.site.urls),
     path("", include("base.urls")),
-    path("api/", include("rest_api.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
     path(
         "register/",
@@ -63,5 +66,6 @@ urlpatterns = i18n_patterns(
         name="django_registration_disallowed",
     ),
 )
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # type: ignore

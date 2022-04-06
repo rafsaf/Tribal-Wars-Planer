@@ -21,7 +21,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
 from base import forms
-from base.models import Payment, Profile, Server
+from base.models import Payment, Profile, Server, StripePrice
 
 
 @login_required
@@ -46,11 +46,12 @@ def add_world(request: HttpRequest) -> HttpResponse:
 @login_required
 def profile_settings(request: HttpRequest) -> HttpResponse:
     user = request.user
-    form1 = forms.ChangeServerForm(None)
+    profile: Profile = Profile.objects.get(user=user)
+    form1 = forms.ChangeProfileForm(None, instance=profile)
     if request.method == "POST":
         if "form1" in request.POST:
             profile: Profile = Profile.objects.get(user=user)
-            form1 = forms.ChangeServerForm(request.POST, instance=profile)
+            form1 = forms.ChangeProfileForm(request.POST, instance=profile)
             if form1.is_valid():
                 updated_profile: Profile = form1.save(commit=False)
                 get_object_or_404(Server, dns=updated_profile.server)
@@ -63,11 +64,16 @@ def profile_settings(request: HttpRequest) -> HttpResponse:
 @login_required
 def premium_view(request: HttpRequest) -> HttpResponse:
     user: User = request.user  # type: ignore
+    profile: Profile = Profile.objects.get(user=user)
     payments = Payment.objects.filter(user=user).order_by("-payment_date", "-new_date")
+    prices = StripePrice.objects.filter(
+        active=True, product__active=True, currency=profile.currency
+    ).order_by("amount")
     context = {
         "user": user,
         "payments": payments,
         "premium_account_max_targets_free": settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE,
+        "prices": prices,
     }
     return render(request, "base/user/premium.html", context=context)
 

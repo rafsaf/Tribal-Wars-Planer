@@ -21,11 +21,7 @@ app_name = "rest_api"
 
 urlpatterns = [
     path("stripe-key/", views.stripe_config, name="stripe_key"),
-    path(
-        "stripe-session/<int:amount>",
-        views.stripe_checkout_session,
-        name="stripe_session",
-    ),
+    path("stripe-session/", views.stripe_checkout_session, name="stripe_session"),
     path("stripe-webhook/", views.stripe_webhook, name="stripe_webhook"),
     path("target-time-update/", views.target_time_update, name="target_time_update"),
     path("target-delete/", views.delete_target, name="target_delete"),

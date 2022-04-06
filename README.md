@@ -9,9 +9,9 @@
 
 ### Discord channel: [discord.gg/g5pcsCteCT](https://discord.gg/g5pcsCteCT)
 
-### Production server: [plemiona-planer.pl](https://plemiona-planer.pl/en/)
+### Production server: [plemiona-planer.pl](https://plemiona-planer.pl)
 
-Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl/en/)
+Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl)
 
 Test coverage ~83%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
 
@@ -55,7 +55,7 @@ services:
     ports:
       - 7999:80
     healthcheck:
-      test: curl --fail http://localhost/en/api/healthcheck/ || exit 1
+      test: curl --fail http://localhost/api/healthcheck/ || exit 1
       interval: 15s
       retries: 2
       start_period: 30s
@@ -157,12 +157,6 @@ Environment variables:
 
 **STRIPE_ENDPOINT_SECRET** - _optional_ - stripe endpoint, defaults to empty string
 
-**ONE_MONTH** - _optional_ - stripe payment id for 1 month premium, defaults to empty string
-
-**TWO_MONTHS** - _optional_ - stripe payment id for 2 months premium, defaults to empty string
-
-**THREE_MONTHS** - _optional_ - stripe payment id for 3 months premium, defaults to empty string
-
 **EMAIL_BACKEND** - _optional_ - postgres database host, defaults to `django.core.mail.backends.console.EmailBackend`
 
 **AWS_ACCESS_KEY_ID** - _optional_ - AWS SES account key id, defaults to empty string
@@ -173,7 +167,7 @@ Environment variables:
 
 **AWS_SES_REGION_ENDPOINT** - _optional_ - AWS SES region endpoint, defaults to empty string
 
-**METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/en/api/metrics/?token=...`, defaults to `secret`
+**METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/api/metrics/?token=...`, defaults to `secret`
 
 **PREMIUM_ACCOUNT_VALIDATION_ON** - _optional_ - is premium account required to create more targets, defaults to `False`
 
@@ -271,15 +265,6 @@ Test coverage
 coverage run -m pytest
 coverage report --show-missing
 # Settings for coverage (also for other tools lives in pyproject.toml)
-```
-
-Running Stripe CLI on Windows (docker image)
-
-```bash
-# remember you need host.docker.internal as allowed host
-# api-key is should be secret key from Stripe
-
-docker run --rm -it stripe/stripe-cli:latest listen --forward-to host.docker.internal:8000/en/api/stripe-webhook/ --skip-verify --api-key sk_test_51IunwoIUoiUFYBGtpnRVBVro4iqXG8pndlUlpeBd1qbMNC9U7I0u6eQuCVjJdWMQoOpJhpyrztp2kUZSHMfi29Zh00TT5Q8yyL
 ```
 
 # Server

@@ -27,55 +27,49 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Load cached venv dev
-        id: cached-poetry-dependencies-dev
-        uses: actions/cache@v2
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
         with:
-          path: venv-dev
-          key: venv-dev-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('requirements-dev.txt') }}
-      - name: Install dependencies and actiavte virtualenv dev
-        if: steps.cached-poetry-dependencies-dev.outputs.cache-hit != 'true'
-        run: |
-          python -m venv venv-dev
-          source venv-dev/bin/activate
-          pip install -r requirements-dev.txt
-      - name: Load cached venv prod
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v2
         with:
-          path: venv
-          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('requirements.txt') }}
-      - name: Install dependencies and actiavte virtualenv prod
+          path: .venv
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}
+
+      - name: Install dependencies and actiavte virtualenv
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+          poetry install --no-interaction --no-root
+
       - name: Lint with flake8
         run: |
-          source venv-dev/bin/activate
-          flake8 base rest_api tribal_wars_planer utils --count --statistics
-      - name: Create .env file
+          # stop the build if there are Python syntax errors or undefined names
+          poetry run flake8 base rest_api tribal_wars_planer utils --count --statistics
+
+      - name: Create .env file from example env file
         run: |
-          cp ./.env.example ./.env
-      - name: Initial script
-        run: |
-          source venv/bin/activate
-          export POSTGRES_HOST=localhost
-          bash initial.sh
+          cp .env.example .env
+
       - name: Coverage full tests
+        env:
+          POSTGRES_HOST: localhost
         run: |
-          source venv-dev/bin/activate
-          export POSTGRES_HOST=localhost
-          bash initial.sh
-          coverage run -m pytest
-          coverage xml
-          coverage report --show-missing
-      - name: Upload coverage to Codecov
+          poetry run bash initial.sh
+          poetry run coverage run -m pytest
+          poetry run coverage xml
+          poetry run coverage report --show-missing
+
+      - name: Upload coverage result to Codecov
         uses: codecov/codecov-action@v2
         with:
           flags: unittests

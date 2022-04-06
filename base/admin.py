@@ -24,6 +24,26 @@ admin.site.register(models.Server)
 admin.site.register(models.Message)
 
 
+@admin.register(models.StripePrice)
+class AdminStripePriceModel(admin.ModelAdmin):
+    list_display = [
+        "amount",
+        "currency",
+        "active",
+        "price_id",
+    ]
+
+
+@admin.register(models.StripeProduct)
+class AdminStripeProductModel(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "months",
+        "active",
+        "product_id",
+    ]
+
+
 @admin.register(models.Result)
 class AdminResult(admin.ModelAdmin):
     readonly_fields = ["outline"]

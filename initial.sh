@@ -24,7 +24,8 @@ if [ -z ${var+DJANGO_SUPERUSER_EMAIL} ]; then export DJANGO_SUPERUSER_EMAIL=admi
 python manage.py createsuperuser --no-input
 
 echo "initialize all supported servers"
-python manage.py create_servers
+python manage.py createservers
 
-
+echo "init stripe products and prices"
+python manage.py initstripe
 

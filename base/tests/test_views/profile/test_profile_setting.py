@@ -15,7 +15,7 @@
 
 from django.urls import reverse
 
-from base.forms import ChangeServerForm
+from base.forms import ChangeProfileForm
 from base.models import Profile
 from base.tests.test_utils.mini_setup import MiniSetup
 
@@ -47,10 +47,16 @@ class OutlineProfileSettings(MiniSetup):
 
         self.login_me()
         response = self.client.post(
-            PATH, data={"server": "xaxaxa", "form1": "", "default_morale_on": True}
+            PATH,
+            data={
+                "server": "xaxaxa",
+                "form1": "",
+                "default_morale_on": True,
+                "currency": "PLN",
+            },
         )
         assert response.status_code == 200
-        form1: ChangeServerForm = response.context["form1"]
+        form1: ChangeProfileForm = response.context["form1"]
         assert len(form1.errors) == 1
         assert "server" in form1.errors
 
@@ -67,7 +73,12 @@ class OutlineProfileSettings(MiniSetup):
         self.login_me()
         response = self.client.post(
             PATH,
-            data={"server": "nottestserver", "default_morale_on": False, "form1": ""},
+            data={
+                "server": "nottestserver",
+                "currency": "EUR",
+                "default_morale_on": False,
+                "form1": "",
+            },
         )
         assert response.status_code == 302
         assert response.url == PATH
