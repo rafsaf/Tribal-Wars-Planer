@@ -15,24 +15,25 @@
 
 """ Cronjobs runner"""
 import logging
-import sys
+import os
 import threading
-from time import sleep
+import time
 from typing import Callable
 
 import schedule
 from django import setup
-from django.conf import settings
 
 
-def run_threaded(job_func: Callable):
+def run_threaded(job_func: Callable[[], None]):
     job_thread = threading.Thread(target=job_func)
     job_thread.start()
 
 
-if __name__ == "__main__":
-
+def main():
+    os.environ["DJANGO_SETTINGS_MODULE"] = "tribal_wars_planer.settings_cronjobs"
     setup()
+    from django.conf import settings
+
     logging.info("Cronjobs starting")
     from base.cron import db_update, outdate_outline_delete, outdate_overviews_delete
 
@@ -48,12 +49,15 @@ if __name__ == "__main__":
     rounds = secs_lifetime / 5
     while True:
         schedule.run_pending()
-        sleep(5)
+        time.sleep(5)
         if secs_lifetime:
             if rounds < 0:
                 break
             rounds -= 1
 
     logging.info("Cronjobs restarting in 60s...")
-    sleep(60)  # grace period 60s waiting for threads end
-    sys.exit(0)
+    time.sleep(60)  # grace period 60s waiting for threads end
+
+
+if __name__ == "__main__":
+    main()

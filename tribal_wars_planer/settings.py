@@ -263,11 +263,16 @@ LOGGING = {
             "formatter": "verbose",
             "level": DJANGO_LOG_LEVEL,
         },
+        "stream": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+            "level": "INFO",
+        },
     },
     "loggers": {
         "": {
             "level": DJANGO_LOG_LEVEL,
-            "handlers": ["file"],
+            "handlers": ["file", "stream"],
         },
     },
 }

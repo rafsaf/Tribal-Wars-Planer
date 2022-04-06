@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile.cronjobs
     command: python -m base.run_cronjobs
     environment:
-      - POSTGRES_HOST=postgres
+      - POSTGRES_HOST=postgres_dev
     env_file:
       - .env
     volumes:
