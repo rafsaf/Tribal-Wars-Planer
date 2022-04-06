@@ -9,7 +9,7 @@ on:
     types:
       - completed
     tags-ignore:
-      - "[1-9]*"
+      - "[1-9]+**"
 
 jobs:
   push_image_to_registry:
