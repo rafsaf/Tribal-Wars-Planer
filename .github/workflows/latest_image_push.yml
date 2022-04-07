@@ -1,0 +1,34 @@
+name: Push latest images to dockerhub and redeploy prod
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  push_latest_image_to_dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log into dockerhub
+        run: |
+          echo "${{ secrets.DOCKER_PASS }}" | docker login \
+           -u ${{ secrets.DOCKER_USER }} --password-stdin
+
+      - name: Build and push latest twp-server image
+        run: |
+          bash scripts/push_image_twp_server.sh latest
+
+      - name: Build and push latest twp-cronjobs image
+        run: |
+          bash scripts/push_image_twp_cronjobs.sh latest
+
+  redeploy_prod_server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Redeploy prod server
+        run: |
+          bash scripts/push_image_twp_cronjobs.sh ${{ secrets.PROD_HOOK_IP }} ${{ secrets.PROD_HOOK_SECRET }}
