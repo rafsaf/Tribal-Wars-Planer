@@ -169,6 +169,8 @@ Environment variables:
 
 **METRICS_EXPORT_ENDPOINT_SECRET** - _optional_ - secret that allow (prometheus scrapers) access to `domain.com/api/metrics/?token=...`, defaults to `secret`
 
+**UWSGI_PROCESSES** - _optional_ - number of uwsgi processes spawned in the container, defaults to 1
+
 **PREMIUM_ACCOUNT_VALIDATION_ON** - _optional_ - is premium account required to create more targets, defaults to `False`
 
 **PREMIUM_ACCOUNT_MAX_TARGETS_FREE** - _optional_ - max targets allowed without premium account, defaults to `25`
