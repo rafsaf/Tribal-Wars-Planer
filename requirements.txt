@@ -34,3 +34,4 @@ tw-complex==1.0.3; python_version >= "3.8" and python_version < "3.11"
 tzdata==2022.1; sys_platform == "win32" and python_version >= "3.8" and platform_system == "Windows" and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6")
 tzlocal==4.2; python_version >= "3.6"
 urllib3==1.26.9; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4" and python_version >= "3.6"
+uwsgi==2.0.20
