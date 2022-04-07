@@ -15,12 +15,6 @@ services:
     image: rafsaf/twp-server:latest
     labels:
       - "traefik.enable=true"
-      # static
-      - "traefik.http.routers.web-static.rule=Host(`${MAIN_DOMAIN}`) && PathPrefix(`/static/`)"
-      - "traefik.http.routers.web-static.entrypoints=websecure"
-      - "traefik.http.routers.web-static.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.cache-headers.headers.customresponseheaders.Cache-Control=public,max-age=2592000"
-      - "traefik.http.routers.web-static.middlewares=cache-headers"
       # default
       - "traefik.http.routers.web.rule=Host(`${MAIN_DOMAIN}`, `${SUB_DOMAIN}`)"
       - "traefik.http.routers.web.entrypoints=websecure"

@@ -1,0 +1,43 @@
+name: Push stage images to dockerhub and redeploy stage
+
+on:
+  workflow_run:
+    workflows:
+      - "tests"
+    branches:
+      - master
+    tags-ignore:
+      - "*.*"
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  push_stage_image_to_dockerhub:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log into dockerhub
+        run: |
+          echo "${{ secrets.DOCKER_PASS }}" | docker login \
+           -u ${{ secrets.DOCKER_USER }} --password-stdin
+
+      - name: Build and push stage twp-server image
+        run: |
+          bash scripts/push_image_twp_server.sh stage
+
+      - name: Build and push stage twp-cronjobs image
+        run: |
+          bash scripts/push_image_twp_cronjobs.sh stage
+
+  redeploy_stage_server:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Redeploy stage server
+        run: |
+          bash scripts/push_image_twp_cronjobs.sh ${{ secrets.STAGE_HOOK_IP }} ${{ secrets.STAGE_HOOK_SECRET }}

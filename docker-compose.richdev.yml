@@ -36,6 +36,8 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 7998:80
+    env_file:
+      - .env
     environment:
       - SECRET_KEY=askldjasd0987123987
       - SUB_DOMAIN=web
@@ -47,7 +49,6 @@ services:
       retries: 2
       timeout: "10"
     volumes:
-      - "twp_richdev_logs:/var/log"
       - "twp_richdev_logs:/build/logs"
 
   cronjobs:
@@ -58,6 +59,10 @@ services:
       context: ./
       dockerfile: Dockerfile.cronjobs
     command: python -m base.run_cronjobs
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_HOST=postgres
     volumes:
       - "twp_richdev_logs:/app/logs"
 

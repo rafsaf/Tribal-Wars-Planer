@@ -79,6 +79,7 @@ typing-extensions==4.1.1; python_version >= "3.6"
 tzdata==2022.1; sys_platform == "win32" and python_version >= "3.8" and platform_system == "Windows" and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6")
 tzlocal==4.2; python_version >= "3.6"
 urllib3==1.26.9; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4" and python_version >= "3.6"
+uwsgi==2.0.20
 werkzeug==2.1.1; python_version >= "3.7"
 zope.event==4.5.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_version >= "3.6"
 zope.interface==5.4.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"

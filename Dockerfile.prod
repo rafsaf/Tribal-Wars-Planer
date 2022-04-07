@@ -1,12 +1,13 @@
-FROM nginx/unit:1.26.1-python3.10
+FROM python:3.10
 
 ENV PYTHONUNBUFFERED 1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
+ENV UWSGI_PROCESSES=1
 
 RUN mkdir build
 WORKDIR /build
 
-RUN apt-get update && apt-get install -y python3-pip                                    
+RUN apt-get update && apt-get install -y python3-pip nginx
 
 COPY requirements.txt requirements.txt
 
@@ -16,11 +17,22 @@ RUN . venv/bin/activate && pip install -r requirements.txt
 RUN apt-get remove -y python3-pip && apt-get autoremove --purge -y        \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
-COPY ./initial.sh /docker-entrypoint.d/initial.sh
-COPY ./config/config.json /docker-entrypoint.d/config.json
+
+COPY ./config/twp_nginx.conf /etc/nginx/nginx.conf
 
 COPY . .
 
-RUN mkdir media || true
-RUN mkdir logs || true
-RUN mkdir prometheus_multi_proc_dir || true 
+CMD bash /build/initial.sh \
+    \
+    && /build/venv/bin/uwsgi --chdir=/build/ \
+    --module=tribal_wars_planer.wsgi:application \
+    --master --pidfile=/tmp/project-master.pid \
+    --socket=/tmp/uwsgi.sock \      
+    --processes=${UWSGI_PROCESSES} \                        
+    --harakiri=20 \                 
+    --max-requests=10000 \           
+    --vacuum \                      
+    --home=/build/venv/ \   
+    --daemonize=/build/logs/uwsgi.log \
+    \
+    && nginx -g "daemon off;"
