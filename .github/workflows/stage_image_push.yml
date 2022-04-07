@@ -6,8 +6,6 @@ on:
       - "tests"
     branches:
       - master
-    tags-ignore:
-      - "*.*"
     types:
       - completed
 
@@ -31,12 +29,6 @@ jobs:
         run: |
           bash scripts/push_image_twp_cronjobs.sh stage
 
-  redeploy_stage_server:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
       - name: Redeploy stage server
         run: |
-          bash scripts/push_image_twp_cronjobs.sh ${{ secrets.STAGE_HOOK_IP }} ${{ secrets.STAGE_HOOK_SECRET }}
+          bash scripts/redeploy_env_webhook.sh ${{ secrets.STAGE_HOOK_IP }} ${{ secrets.STAGE_HOOK_SECRET }}

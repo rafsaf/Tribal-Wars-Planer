@@ -26,7 +26,7 @@ services:
     depends_on:
       - postgres
     restart: always
-    image: rafsaf/twp-server:latest
+    image: rafsaf/twp-server:stage
     labels:
       - "traefik.enable=true"
       # default
@@ -74,7 +74,7 @@ services:
 
   cronjobs:
     restart: always
-    image: rafsaf/twp-cronjobs:latest
+    image: rafsaf/twp-cronjobs:stage
     command: python -m base.run_cronjobs
     env_file:
       - .env

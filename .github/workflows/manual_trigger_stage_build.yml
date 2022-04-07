@@ -22,11 +22,6 @@ jobs:
         run: |
           bash scripts/push_image_twp_cronjobs.sh stage
 
-  redeploy_stage_server:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
       - name: Redeploy stage server
         run: |
-          bash scripts/push_image_twp_cronjobs.sh ${{ secrets.STAGE_HOOK_IP }} ${{ secrets.STAGE_HOOK_SECRET }}
+          bash scripts/redeploy_env_webhook.sh ${{ secrets.STAGE_HOOK_IP }} ${{ secrets.STAGE_HOOK_SECRET }}

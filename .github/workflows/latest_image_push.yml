@@ -24,11 +24,6 @@ jobs:
         run: |
           bash scripts/push_image_twp_cronjobs.sh latest
 
-  redeploy_prod_server:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
       - name: Redeploy prod server
         run: |
-          bash scripts/push_image_twp_cronjobs.sh ${{ secrets.PROD_HOOK_IP }} ${{ secrets.PROD_HOOK_SECRET }}
+          bash scripts/redeploy_env_webhook.sh ${{ secrets.PROD_HOOK_IP }} ${{ secrets.PROD_HOOK_SECRET }}
