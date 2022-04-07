@@ -1,19 +1,10 @@
-name: Push stage images to dockerhub and redeploy stage
+name: Manual push stage images to dockerhub and redeploy stage
 
 on:
-  workflow_run:
-    workflows:
-      - "tests"
-    branches:
-      - master
-    tags-ignore:
-      - "*.*"
-    types:
-      - completed
+  workflow_dispatch:
 
 jobs:
   push_stage_image_to_dockerhub:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +23,6 @@ jobs:
           bash scripts/push_image_twp_cronjobs.sh stage
 
   redeploy_stage_server:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
