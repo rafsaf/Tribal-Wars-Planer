@@ -10,6 +10,7 @@ on:
       - "*.*"
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   push_stage_image_to_dockerhub:
