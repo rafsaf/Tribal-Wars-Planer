@@ -38,7 +38,7 @@ def PrometheusAfterMiddleware(get_response: Callable):
                 view_name=match.view_name, method=request.method
             ).observe(time() - getattr(request, "_metrics_process_time_start"))
 
-        if response.status_code != 200:
+        if response.status_code != 200 and response.status_code >= 400:
             metrics.ERRORS.labels(f"{match.view_name} {response.status_code}").inc()
 
         return response
