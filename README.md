@@ -3,7 +3,8 @@
 ![Codecov](https://img.shields.io/codecov/c/github/rafsaf/Tribal-Wars-Planer)
 ![GitHub](https://img.shields.io/github/license/rafsaf/Tribal-Wars-Planer)
 ![tests](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/tests.yml/badge.svg)
-![push_dockerhub.yml](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/push_dockerhub.yml/badge.svg)
+![stage_image_push.yml](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/stage_image_push.yml/badge.svg)
+![latest_image_push.yml](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/latest_image_push.yml/badge.svg)
 
 # Official Site and Discord
 
@@ -13,7 +14,7 @@
 
 Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl)
 
-Test coverage ~83%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
+Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
 
 # Table of contents
 
@@ -110,6 +111,8 @@ This project maintains two docker images, one for server and one for scheduling 
 [dockerhub twp-server](https://hub.docker.com/r/rafsaf/twp-server)
 
 [dockerhub twp-cronjobs](https://hub.docker.com/r/rafsaf/twp-cronjobs)
+
+**NOTE, from 3.0.0 images support both linux/amd64 and linux/arm64 architectures.**
 
 ## TWP-server image
 
@@ -285,8 +288,8 @@ wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/scripts/
 You can use printed webhook secret to trigger images pull and docker-compose up from anywhere:
 
 ```bash
-curl -k -X POST https://$INSTANCE_IP:9000/hooks/redeploy \
-  -H "Content-Type: application/json" -d '{"secret": "$SECRET"}'
+curl -v -k -X POST https://$INSTANCE_IP:9000/hooks/redeploy \
+  -H "Content-Type: application/json" -d "{\"secret\": \"${SECRET}\"}"
 ```
 
 Now in `~/` folder, create `.env` and `docker-compose.yml` files.

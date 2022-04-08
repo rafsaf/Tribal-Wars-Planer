@@ -43,7 +43,6 @@ services:
       start_period: 30s
       timeout: "10"
     volumes:
-      - "twp_stg_logs:/var/log"
       - "twp_stg_logs:/build/logs"
 
   traefik:
