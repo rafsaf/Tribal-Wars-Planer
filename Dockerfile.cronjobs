@@ -1,8 +1,6 @@
-FROM python:3.10-slim
+FROM python:3.10
 
 WORKDIR /app
-
-RUN apt-get update && apt-get install -y libpq
 
 ENV VIRTUAL_ENV=/apt/venv
 
