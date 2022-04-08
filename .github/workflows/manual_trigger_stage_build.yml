@@ -2,7 +2,11 @@ name: Manual push stage images to dockerhub and redeploy stage
 
 on:
   workflow_dispatch:
-
+    inputs:
+      tag:
+        description: "Docker image tag"
+        required: true
+        default: "stage"
 jobs:
   push_stage_image_to_dockerhub:
     runs-on: ubuntu-latest
@@ -31,7 +35,7 @@ jobs:
           file: Dockerfile.prod
           context: .
           push: true
-          tags: rafsaf/twp-server:stage
+          tags: rafsaf/twp-server:${{ github.event.inputs.tag }}
           platforms: linux/amd64,linux/arm64
 
       - name: Build and push stage twp-cronjobs image
@@ -40,9 +44,15 @@ jobs:
           file: Dockerfile.cronjobs
           context: .
           push: true
-          tags: rafsaf/twp-cronjobs:stage
+          tags: rafsaf/twp-cronjobs:${{ github.event.inputs.tag }}
           platforms: linux/amd64,linux/arm64
 
+  redeploy_stage:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.tag == 'stage' }}
+    needs: push_stage_image_to_dockerhub
+    steps:
+      - uses: actions/checkout@v2
       - name: Redeploy stage server
         run: |
           bash scripts/redeploy_env_webhook.sh ${{ secrets.STAGE_HOOK_IP }} ${{ secrets.STAGE_HOOK_SECRET }}
