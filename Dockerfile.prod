@@ -29,7 +29,7 @@ CMD bash /build/initial.sh \
     --master --pidfile=/tmp/project-master.pid \
     --socket=/tmp/uwsgi.sock \      
     --processes=${UWSGI_PROCESSES} \                        
-    --harakiri=20 \                 
+    --harakiri=150 \                 
     --max-requests=10000 \           
     --vacuum \                      
     --home=/build/venv/ \   

@@ -12,11 +12,12 @@ services:
 
   postgres:
     restart: "unless-stopped"
-    image: postgres
+    image: postgres:12
     volumes:
       - twp_richdev_postgresql:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
+      - DEBUG=false
 
   prometheus:
     image: prom/prometheus:latest
