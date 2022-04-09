@@ -52,4 +52,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: Redeploy prod server
         run: |
-          bash scripts/redeploy_env_webhook.sh ${{ secrets.PROD_HOOK_IP }} ${{ secrets.PROD_HOOK_SECRET }}
+          curl -k -X POST https://${{ secrets.PROD_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "{{ secrets.PROD_HOOK_SECRET }}"}'
