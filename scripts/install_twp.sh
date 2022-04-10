@@ -9,10 +9,14 @@ echo \
 sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
 
 export NEW_SECRET=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
-wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/webhook/redeploy.sh
+wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/webhook/redeploy.stage.sh
+wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/webhook/redeploy.prod.sh
 wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/webhook/webhooks.conf
 wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/webhook/hooks.example.json
-sudo chmod +x redeploy.sh
+wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/docker-compose.prod.yml
+wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/docker-compose.stg.yml
+sudo chmod +x redeploy.prod.sh
+sudo chmod +x redeploy.stage.sh
 sed 's/##secret##/'"${NEW_SECRET}"'/' hooks.example.json > hooks.json
 rm hooks.example.json
 sudo cp webhooks.conf /etc/supervisor/conf.d/webhooks.conf
@@ -23,6 +27,7 @@ sudo supervisorctl update
 sudo supervisorctl start webhooks:*
 sudo supervisorctl restart webhooks:*
 touch .env
-touch docker-compose.yml
-echo "Your webhook secret: $NEW_SECRET"
-echo "Please fill out .env and docker-compose.yml"
+echo "1. Your webhook secret: $NEW_SECRET"
+echo "2. Create redeploy.sh script from two possibles- stg/prod, give +x permission"
+echo "3. Create docker-compose.yml from two possibles- stg/prod"
+echo "4. Please fill out .env"

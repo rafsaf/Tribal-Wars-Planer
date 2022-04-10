@@ -36,6 +36,32 @@ services:
     volumes:
       - "twp_prd_logs:/build/logs"
 
+  web2:
+    restart: always
+    image: rafsaf/twp-server:latest
+    labels:
+      - "traefik.enable=true"
+      # default
+      - "traefik.http.routers.web.rule=Host(`${MAIN_DOMAIN}`, `${SUB_DOMAIN}`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=myresolver"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
+      # redirect domain to other
+      - "traefik.http.middlewares.redirect-web.redirectregex.regex=^(https?://)${SUB_DOMAIN}/(.*)"
+      - "traefik.http.middlewares.redirect-web.redirectregex.replacement=$${1}${MAIN_DOMAIN}/$${2}"
+      - "traefik.http.middlewares.redirect-web.redirectregex.permanent=true"
+      - "traefik.http.routers.web.middlewares=redirect-web"
+    env_file:
+      - .env
+    healthcheck:
+      test: curl --fail http://localhost/api/healthcheck/ || exit 1
+      interval: 15s
+      retries: 2
+      start_period: 30s
+      timeout: "10"
+    volumes:
+      - "twp_prd_logs:/build/logs"
+
   traefik:
     image: "traefik:v2.6"
     restart: always
