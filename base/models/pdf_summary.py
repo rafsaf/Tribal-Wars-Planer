@@ -1,6 +1,7 @@
 import os
 
 from django.db import models
+from django.conf import settings
 
 
 class PDFPaymentSummary(models.Model):
@@ -9,10 +10,11 @@ class PDFPaymentSummary(models.Model):
 
     def delete(self) -> tuple[int, dict[str, int]]:
         try:
-            os.remove(f"media/{self.path}")
-        except Exception:
+            os.remove(f"{settings.MEDIA_ROOT}/{self.path}")
+        except FileNotFoundError:
             pass
+
         return super().delete()
 
     def url(self) -> str:
-        return f"/media/{self.path}"
+        return f"{settings.MEDIA_URL}{self.path}"
