@@ -35,6 +35,7 @@ services:
       timeout: "10"
     volumes:
       - "twp_prd_logs:/build/logs"
+      - "twp_prd_media:/build/media"
 
   web2:
     restart: always
@@ -61,6 +62,7 @@ services:
       timeout: "10"
     volumes:
       - "twp_prd_logs:/build/logs"
+      - "twp_prd_media:/build/media"
 
   traefik:
     image: "traefik:v2.6"
@@ -100,3 +102,4 @@ services:
 volumes:
   twp_prd_logs:
   twp_prd_letsencrypt:
+  twp_prd_media:
