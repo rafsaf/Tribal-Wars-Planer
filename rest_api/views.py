@@ -58,7 +58,7 @@ from rest_api.serializers import (
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-log = logging.getLogger(__file__)
+log = logging.getLogger(__name__)
 
 
 @api_view(["GET"])

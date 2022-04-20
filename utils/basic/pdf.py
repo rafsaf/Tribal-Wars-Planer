@@ -77,24 +77,16 @@ def generate_pdf_summary():
         pdf.cell(
             0,
             10,
-            "AMOUNT BRUTTO : AMOUNT NETTO : USERNAME : DATE : (STRIPE ID)",
+            "AMOUNT BRUTTO : AMOUNT NETTO : USERNAME : DATE : (STRIPE INTENT)",
             0,
             5,
         )
-        exact_fees = {
-            30: 1.57,
-            55: 1.77,
-            70: 1.98,
-        }
         total_netto = 0
         total_brutto = 0
         for payment in payments:
-            brutto: float = float(payment.amount)
+            brutto: float = float(payment.amount_pln)
             if payment.from_stripe:
-                try:
-                    netto = brutto - exact_fees[payment.amount]
-                except KeyError:
-                    netto = brutto - brutto * 1.4 - 1
+                netto = payment.amount_pln - payment.fee_pln
             else:
                 netto = brutto
             total_netto += netto
@@ -106,7 +98,7 @@ def generate_pdf_summary():
                 (
                     f"{brutto} PLN : {netto} PLN : "
                     f"{str(payment.user.username).encode('latin-1', 'replace').decode('latin-1')} : "
-                    f"{payment.payment_date} : {payment.event_id}"
+                    f"{payment.payment_date} : {payment.payment_intent_id if payment.payment_intent_id else 'NO STRIPE'}"
                 ),
                 0,
                 5,

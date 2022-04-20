@@ -29,12 +29,11 @@ from base import models
 from base.models import PDFPaymentSummary
 from utils.basic.pdf import generate_pdf_summary
 
-log = logging.getLogger(__file__)
+log = logging.getLogger(__name__)
 
 
 def base_view(request):
     """base view"""
-    log.debug(request.LANGUAGE_CODE)
     stats = {}
     INITIAL_DATE = date(year=2020, month=9, day=1)
     days: int = (timezone.localdate() - INITIAL_DATE).days

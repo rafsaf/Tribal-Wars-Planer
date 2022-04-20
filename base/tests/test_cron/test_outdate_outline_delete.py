@@ -15,7 +15,8 @@
 
 from datetime import timedelta
 
-from base.cron import outdate_outline_delete
+from django.core.management import call_command
+
 from base.models import Outline
 from base.tests.test_utils.mini_setup import MiniSetup
 
@@ -26,7 +27,7 @@ class OutDateOutlineDelete(MiniSetup):
         count1: int = Outline.objects.count()
         self.assertEqual(count1, 1)
 
-        outdate_outline_delete()
+        call_command("outdateoutlinedelete")
 
         count2: int = Outline.objects.count()
         self.assertEqual(count2, 1)
@@ -39,7 +40,7 @@ class OutDateOutlineDelete(MiniSetup):
         count1: int = Outline.objects.count()
         self.assertEqual(count1, 1)
 
-        outdate_outline_delete()
+        call_command("outdateoutlinedelete")
 
         count2: int = Outline.objects.count()
         self.assertEqual(count2, 1)
@@ -52,7 +53,7 @@ class OutDateOutlineDelete(MiniSetup):
         count1: int = Outline.objects.count()
         self.assertEqual(count1, 1)
 
-        outdate_outline_delete()
+        call_command("outdateoutlinedelete")
 
         count2: int = Outline.objects.count()
         self.assertEqual(count2, 1)
@@ -65,7 +66,7 @@ class OutDateOutlineDelete(MiniSetup):
         count1: int = Outline.objects.count()
         self.assertEqual(count1, 1)
 
-        outdate_outline_delete()
+        call_command("outdateoutlinedelete")
 
         count2: int = Outline.objects.count()
         self.assertEqual(count2, 0)
@@ -78,7 +79,7 @@ class OutDateOutlineDelete(MiniSetup):
         count1: int = Outline.objects.count()
         self.assertEqual(count1, 1)
 
-        outdate_outline_delete()
+        call_command("outdateoutlinedelete")
 
         count2: int = Outline.objects.count()
         self.assertEqual(count2, 1)

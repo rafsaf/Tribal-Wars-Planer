@@ -14,7 +14,6 @@
 # ==============================================================================
 
 import gzip
-import logging
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
 
@@ -24,23 +23,6 @@ from django.db.models import Count
 from django.utils import timezone
 
 from base.models import Player, Tribe, VillageModel, World
-
-
-def cron_schedule_data_update():
-    """Update all Tribe, VillageModel, Player instances"""
-    worlds = []
-    for world in World.objects.select_related("server").exclude(postfix="Test"):
-        instance = WorldQuery(world=world)
-        instance.update_all()
-        worlds.append(world)
-        logging.info(
-            f"{str(world)} | tribe_updated: {instance.tribe_log_msg} |"
-            f" village_update: {instance.village_log_msg} |"
-            f" player_update: {instance.player_log_msg}"
-        )
-    World.objects.bulk_update(
-        worlds, ["last_update", "etag_player", "etag_tribe", "etag_village"]
-    )
 
 
 class WorldQuery:

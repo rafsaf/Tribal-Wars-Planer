@@ -31,10 +31,10 @@ services:
   stripe_cli:
     image: stripe/stripe-cli
     restart: "unless-stopped"
-    command: listen --forward-to http://localhost:8000/api/stripe-webhook/
+    command: listen --forward-to http://host.docker.internal:8000/api/stripe-webhook/
     environment:
       - STRIPE_API_KEY=${STRIPE_SECRET_KEY}
-    network_mode: "host"
+    #network_mode: "host"
 
 volumes:
   twp_dev_postgresql:
