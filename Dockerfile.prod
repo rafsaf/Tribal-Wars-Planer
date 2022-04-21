@@ -24,17 +24,4 @@ COPY ./config/twp_nginx.conf /etc/nginx/nginx.conf
 
 COPY . .
 
-CMD bash /build/initial.sh \
-    \
-    && uwsgi --chdir=/build/ \
-    --module=tribal_wars_planer.wsgi:application \
-    --master --pidfile=/tmp/project-master.pid \
-    --socket=/tmp/uwsgi.sock \      
-    --processes=${UWSGI_PROCESSES} \                        
-    --harakiri=150 \                 
-    --max-requests=10000 \           
-    --vacuum \                      
-    --home=/venv/ \   
-    --daemonize=/build/logs/uwsgi.log \
-    \
-    && nginx -g "daemon off;"
+CMD bash /build/scripts/init_webserver.sh

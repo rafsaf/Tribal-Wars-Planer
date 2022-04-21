@@ -27,7 +27,7 @@ services:
       - postgres
     restart: always
     image: rafsaf/twp-server:latest
-    command: python manage.py runcronjobs
+    command: bash /build/scripts/init_cronjobs.sh
 
 volumes:
   twp_local_postgresql:
