@@ -11,8 +11,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
 
   web:
-    depends_on:
-      - postgres
     restart: always
     image: rafsaf/twp-server:stage
     labels:
