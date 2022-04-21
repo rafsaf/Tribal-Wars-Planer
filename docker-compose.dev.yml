@@ -19,8 +19,8 @@ services:
     restart: "unless-stopped"
     build:
       context: ./
-      dockerfile: Dockerfile.cronjobs
-    command: python -m base.run_cronjobs
+      dockerfile: Dockerfile.prod
+    command: python manage.py runcronjobs
     environment:
       - POSTGRES_HOST=postgres_dev
     env_file:

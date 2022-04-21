@@ -10,18 +10,6 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
 
-  postgres:
-    restart: always
-    image: postgres
-    volumes:
-      - twp_stg_postgresql:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=${POSTGRES_NAME}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    env_file:
-      - .env
-
   web:
     depends_on:
       - postgres
@@ -73,12 +61,12 @@ services:
 
   cronjobs:
     restart: always
-    image: rafsaf/twp-cronjobs:stage
-    command: python -m base.run_cronjobs
+    image: rafsaf/twp-server:stage
+    command: python manage.py runcronjobs
     env_file:
       - .env
     volumes:
-      - "twp_stg_logs:/app/logs"
+      - "twp_stg_logs:/build/logs"
 
 volumes:
   twp_stg_postgresql:

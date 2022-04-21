@@ -58,14 +58,14 @@ services:
     restart: "unless-stopped"
     build:
       context: ./
-      dockerfile: Dockerfile.cronjobs
-    command: python -m base.run_cronjobs
+      dockerfile: Dockerfile.prod
+    command: python manage.py runcronjobs
     env_file:
       - .env
     environment:
       - POSTGRES_HOST=postgres
     volumes:
-      - "twp_richdev_logs:/app/logs"
+      - "twp_richdev_logs:/build/logs"
 
   master_locust:
     restart: "unless-stopped"

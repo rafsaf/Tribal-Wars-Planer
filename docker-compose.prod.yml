@@ -92,12 +92,12 @@ services:
 
   cronjobs:
     restart: always
-    image: rafsaf/twp-cronjobs:latest
-    command: python -m base.run_cronjobs
+    image: rafsaf/twp-server:latest
+    command: python manage.py runcronjobs
     env_file:
       - .env
     volumes:
-      - "twp_prd_logs:/app/logs"
+      - "twp_stg_logs:/build/logs"
 
 volumes:
   twp_prd_logs:

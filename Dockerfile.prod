@@ -7,12 +7,14 @@ ENV UWSGI_PROCESSES=1
 RUN mkdir build
 WORKDIR /build
 
+RUN python -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+
 RUN apt-get update && apt-get install -y python3-pip nginx
 
 COPY requirements.txt requirements.txt
 
-RUN python -m venv venv
-RUN . venv/bin/activate && pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 RUN apt-get remove -y python3-pip && apt-get autoremove --purge -y        \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
@@ -24,7 +26,7 @@ COPY . .
 
 CMD bash /build/initial.sh \
     \
-    && /build/venv/bin/uwsgi --chdir=/build/ \
+    && uwsgi --chdir=/build/ \
     --module=tribal_wars_planer.wsgi:application \
     --master --pidfile=/tmp/project-master.pid \
     --socket=/tmp/uwsgi.sock \      

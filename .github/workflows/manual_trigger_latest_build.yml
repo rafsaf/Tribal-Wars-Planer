@@ -34,15 +34,6 @@ jobs:
           tags: rafsaf/twp-server:latest
           platforms: linux/amd64,linux/arm64
 
-      - name: Build and push latest twp-cronjobs image
-        uses: docker/build-push-action@v2
-        with:
-          file: Dockerfile.cronjobs
-          context: .
-          push: true
-          tags: rafsaf/twp-cronjobs:latest
-          platforms: linux/amd64,linux/arm64
-
   redeploy_prod:
     runs-on: ubuntu-latest
     needs: push_latest_image_to_dockerhub

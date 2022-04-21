@@ -38,15 +38,6 @@ jobs:
           tags: rafsaf/twp-server:${{ github.event.inputs.tag }}
           platforms: linux/amd64,linux/arm64
 
-      - name: Build and push stage twp-cronjobs image
-        uses: docker/build-push-action@v2
-        with:
-          file: Dockerfile.cronjobs
-          context: .
-          push: true
-          tags: rafsaf/twp-cronjobs:${{ github.event.inputs.tag }}
-          platforms: linux/amd64,linux/arm64
-
   redeploy_stage:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.tag == 'stage' }}

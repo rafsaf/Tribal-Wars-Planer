@@ -16,12 +16,6 @@ services:
     image: rafsaf/twp-server:latest
     ports:
       - 7999:80
-    healthcheck:
-      test: curl --fail http://localhost/api/healthcheck/ || exit 1
-      interval: 15s
-      retries: 2
-      start_period: 30s
-      timeout: "10"
     environment:
       - SECRET_KEY=zaq12wsx3edc
       - DJANGO_SUPERUSER_USERNAME=admin
@@ -32,8 +26,8 @@ services:
     depends_on:
       - postgres
     restart: always
-    image: rafsaf/twp-cronjobs:latest
-    command: python -m base.run_cronjobs
+    image: rafsaf/twp-server:latest
+    command: python manage.py runcronjobs
 
 volumes:
   twp_local_postgresql:
