@@ -247,7 +247,10 @@ else:
     REGISTRATION_OPEN = True
 
 DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "WARNING")
+
 os.makedirs("logs", exist_ok=True)
+os.makedirs("prometheus_multi_proc_dir", exist_ok=True)
+os.makedirs("media", exist_ok=True)
 
 LOGGING = {
     "version": 1,

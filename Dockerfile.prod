@@ -34,7 +34,7 @@ CMD bash /build/initial.sh \
     --harakiri=150 \                 
     --max-requests=10000 \           
     --vacuum \                      
-    --home=/build/venv/ \   
+    --home=/venv/ \   
     --daemonize=/build/logs/uwsgi.log \
     \
     && nginx -g "daemon off;"
