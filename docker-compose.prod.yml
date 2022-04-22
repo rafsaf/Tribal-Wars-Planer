@@ -36,6 +36,7 @@ services:
     volumes:
       - "twp_prd_logs:/build/logs"
       - "twp_prd_media:/build/media"
+      - "twp_prd_prometheus:/build/prometheus_multi_proc_dir"
 
   web2:
     restart: always
@@ -63,6 +64,7 @@ services:
     volumes:
       - "twp_prd_logs:/build/logs"
       - "twp_prd_media:/build/media"
+      - "twp_prd_prometheus:/build/prometheus_multi_proc_dir"
 
   traefik:
     image: "traefik:v2.6"
@@ -97,9 +99,11 @@ services:
     env_file:
       - .env
     volumes:
-      - "twp_stg_logs:/build/logs"
+      - "twp_prd_logs:/build/logs"
+      - "twp_prd_prometheus:/build/prometheus_multi_proc_dir"
 
 volumes:
   twp_prd_logs:
   twp_prd_letsencrypt:
   twp_prd_media:
+  twp_prd_prometheus:

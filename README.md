@@ -21,7 +21,6 @@ Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal
 - [Quickstart](#quickstart)
 - [Docker images reference](#dockerfile-reference)
   - [twp-server image](#twp-server-image)
-  - [twp-cronjobs image](#twp-cronjobs-image)
 - [Development](#development)
 - [Server](#server)
 
@@ -55,12 +54,6 @@ services:
     image: rafsaf/twp-server:latest
     ports:
       - 7999:80
-    healthcheck:
-      test: curl --fail http://localhost/api/healthcheck/ || exit 1
-      interval: 15s
-      retries: 2
-      start_period: 30s
-      timeout: "10"
     environment:
       - SECRET_KEY=zaq12wsx3edc
       - DJANGO_SUPERUSER_USERNAME=admin
@@ -71,8 +64,8 @@ services:
     depends_on:
       - postgres
     restart: always
-    image: rafsaf/twp-cronjobs:latest
-    command: python -m base.run_cronjobs
+    image: rafsaf/twp-server:latest
+    command: bash /build/scripts/init_cronjobs.sh
 
 volumes:
   twp_local_postgresql:
@@ -106,19 +99,21 @@ GL;)
 
 # Dockerfile reference
 
-This project maintains two docker images, one for server and one for scheduling tasks. Both are hosted via dockerhub, refer to
-
-[dockerhub twp-server](https://hub.docker.com/r/rafsaf/twp-server)
-
-[dockerhub twp-cronjobs](https://hub.docker.com/r/rafsaf/twp-cronjobs)
+This project maintains one docker images, the same one for server and for scheduling tasks. It's hosted via dockerhub and supports arm64 and amd64 architectures.
 
 **NOTE, from 3.0.0 images support both linux/amd64 and linux/arm64 architectures.**
 
+**NOTE, from 4.0.0 image twp-cronjobs is deprecated, please update for support. Cronjobs tasks are now runned from the main image.**
+
 ## TWP-server image
+
+### [TWP-server image on dockerhub](https://hub.docker.com/r/rafsaf/twp-server)
 
 `rafsaf/twp-server:latest`
 
-Contains TWP Django server based on `nginx/unit:1.26.1-python3.10` docker image, [Nginx Unit](https://unit.nginx.org/) on Python 3.10.
+Note, there are also other tags like `stage` or `stable`, but **latest** should be prefered choice.
+
+Contains TWP Django server based on `python:3.10` docker image, [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks.
 
 Environment variables:
 
@@ -137,8 +132,6 @@ Environment variables:
 **SUB_DOMAIN** - _optional_ - sub domain used, defaults to empty string
 
 **CSRF_TRUSTED_ORIGINS** - _optional_ - list of domain that can perform POST and other unsafe requests to the app eg. `https://domain1,https://domain2,http://domain3`, see [django docs](https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-CSRF_TRUSTED_ORIGINS), defaults to `http://localhost:8000,http://localhost:7999`
-
-**DJANGO_LOG_LEVEL** - _optional_ - Python logs file `django.log` level, defaults to `WARNING`
 
 **POSTGRES_NAME** - _optional_ - postgres database name, defaults to `postgres`
 
@@ -180,27 +173,7 @@ Environment variables:
 
 **REGISTRATION_OPEN** - _optional_ - is registration on site allowed, defaults to `True`
 
-## TWP-cronjobs image
-
-`rafsaf/twp-cronjobs`
-
-Contains TWP Cronjobs scheduler based on Python 3.10 `python:3.10-slim-buster` docker image.
-
-Environment variables:
-
-**POSTGRES_NAME** - _optional_ - postgres database name, defaults to `postgres`
-
-**POSTGRES_USER** - _optional_ - postgres database user, defaults to `postgres`
-
-**POSTGRES_PASSWORD** - _optional_ - postgres database password, defaults to `postgres`
-
-**POSTGRES_HOST** - _optional_ - postgres database host, defaults to `postgres`
-
-**POSTGRES_PORT** - _optional_ - postgres database port, defaults to `5432`
-
-**DATABASE_SSL_MODE_ON** - _optional_ - Require TLS/SSL when connecting to the database, defaults to `False`
-
-**JOB_LIFETIME_MAX_SECS** - _optional_ - Stops cronjob function after JOB_LIFETIME_MAX_SECS seconds, defaults to `0` and that means it will not stop ever. If number is greater than `0`, it must be also greater or equal to `120` (2 min)
+**JOB_LIFETIME_MAX_SECS** - _optional_ - Stops cronjob function after JOB_LIFETIME_MAX_SECS seconds, defaults to `0` and that means it will not stop ever. If number is greater than `0`, it must be also greater or equal to `120` (2 min).
 
 **JOB_MIN_INTERVAL** - _optional_ - minimal time when database info about villages, players, worlds will be updated in minutes, defaults to `10`
 

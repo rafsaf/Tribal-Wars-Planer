@@ -51,6 +51,7 @@ services:
       timeout: "10"
     volumes:
       - "twp_richdev_logs:/build/logs"
+      - "twp_richdev_prometheus:/build/prometheus_multi_proc_dir"
 
   cronjobs:
     depends_on:
@@ -66,6 +67,7 @@ services:
       - POSTGRES_HOST=postgres
     volumes:
       - "twp_richdev_logs:/build/logs"
+      - "twp_richdev_prometheus:/build/prometheus_multi_proc_dir"
 
   master_locust:
     restart: "unless-stopped"
@@ -88,3 +90,4 @@ volumes:
   twp_richdev_prometheus_metrics:
   twp_richdev_prometheus_data:
   twp_richdev_logs:
+  twp_richdev_prometheus:

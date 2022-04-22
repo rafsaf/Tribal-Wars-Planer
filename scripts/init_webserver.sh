@@ -1,8 +1,8 @@
-# /bin/bash
+#! /bin/bash
 
 # Starts nginx + uwsgi server inside Dockerfile.prod
 
-### 1. Initial script, migrations etc. ###
+### 1. Initial script, migrations etc., cleanup ###
 bash /build/initial.sh
 
 ### 2. Start uwsgi processes ### 
