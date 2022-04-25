@@ -106,7 +106,7 @@ class TestTargetWeightQueries(TestCase):
     def test_target_dict_read_correct_dictionary(self):
         dict_true = {}
         weight = self.weight
-        weight.distance = "0.0"
+        weight.distance = 0.0
         dict_true[self.target] = [weight]
         self.assertEqual(self.target_query.target_dict_with_weights_read(), dict_true)
 

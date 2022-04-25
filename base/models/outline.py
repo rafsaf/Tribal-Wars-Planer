@@ -25,6 +25,8 @@ from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.utils.translation import gettext_lazy
 
+from base.models.world import World
+
 
 def building_default_list() -> list[str]:
     return [
@@ -121,7 +123,13 @@ class Outline(models.Model):
         ("medium", gettext_lazy("Average 5-8k")),
     ]
 
-    CATAPULTS_NUMBER = [(50, 50), (75, 75), (100, 100), (150, 150), (200, 200)]
+    CATAPULTS_NUMBER = [
+        (50, "50"),
+        (75, "75"),
+        (100, "100"),
+        (150, "150"),
+        (200, "200"),
+    ]
 
     FAKE_MIN_OFF_CHOICES = [
         ("off", gettext_lazy("Fakes only from off villages")),
@@ -141,7 +149,7 @@ class Outline(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=timezone.now)
     name = models.CharField(max_length=20)
-    world = models.ForeignKey("World", on_delete=models.CASCADE)
+    world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     written = models.CharField(choices=STATUS_CHOICES, max_length=8, default="inactive")
@@ -470,7 +478,7 @@ class Outline(models.Model):
         )
         for weight in weights:
             weight.distance = round(weight.distance_to_village(weight.target.target), 1)
-            weight.off = f"{round(weight.off / 1000, 1)}k"
+            weight.off = f"{round(weight.off / 1000, 1)}k"  # type: ignore
             result[weight.target].append(weight)
         return result.items()
 
@@ -491,7 +499,7 @@ class Outline(models.Model):
         )
         TargetVertex.objects.create(
             outline=self,
-            player=village.player.name,
+            player=village.player.name if village.player else "",
             target=coord,
             fake=fake,
             ruin=ruin,
@@ -538,7 +546,7 @@ class Outline(models.Model):
             outline_pk=self.pk,
             owner_name=self.owner.username,
             world=str(self.world),
-            premium_user=self.owner.profile.is_premium(),
+            premium_user=self.owner.profile.is_premium(),  # type: ignore
         )
 
     @property

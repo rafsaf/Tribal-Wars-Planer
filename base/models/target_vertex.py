@@ -18,6 +18,9 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
 
+from base.models.outline import Outline
+from base.models.outline_time import OutlineTime
+
 
 class TargetVertex(models.Model):
     """Target Village"""
@@ -48,9 +51,9 @@ class TargetVertex(models.Model):
         ("single", gettext_lazy("Try single nobles from many villages")),
     ]
 
-    outline = models.ForeignKey("Outline", on_delete=models.CASCADE, db_index=True)
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
     outline_time = models.ForeignKey(
-        "OutlineTime", on_delete=models.SET_NULL, null=True, default=None
+        OutlineTime, on_delete=models.SET_NULL, null=True, default=None
     )
     target = models.CharField(max_length=7, db_index=True)
     player = models.CharField(max_length=30)
@@ -75,6 +78,10 @@ class TargetVertex(models.Model):
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)
+
+    class Meta:
+        verbose_name = "Target"
+        verbose_name_plural = "Targets"
 
     def __str__(self):
         return self.target

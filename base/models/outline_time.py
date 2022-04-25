@@ -15,9 +15,11 @@
 
 from django.db import models
 
+from base.models.outline import Outline
+
 
 class OutlineTime(models.Model):
     """Handle Time for Target"""
 
-    outline = models.ForeignKey("Outline", on_delete=models.CASCADE)
+    outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)

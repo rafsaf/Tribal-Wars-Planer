@@ -18,6 +18,9 @@ from math import sqrt
 from django.db import models
 from django.utils.translation import gettext_lazy
 
+from base.models.target_vertex import TargetVertex
+from base.models.weight_maximum import WeightMaximum
+
 
 class WeightModel(models.Model):
     """Command between start and target"""
@@ -40,8 +43,8 @@ class WeightModel(models.Model):
         ("wall", gettext_lazy("wall")),
     ]
 
-    target = models.ForeignKey("TargetVertex", on_delete=models.CASCADE, db_index=True)
-    state = models.ForeignKey("WeightMaximum", on_delete=models.CASCADE)
+    target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE, db_index=True)
+    state = models.ForeignKey(WeightMaximum, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
     off = models.IntegerField()
     distance = models.FloatField()
@@ -54,8 +57,8 @@ class WeightModel(models.Model):
     order = models.IntegerField()
     player = models.CharField(max_length=40)
     first_line = models.BooleanField(default=False)
-    t1 = models.TimeField(null=True, blank=True, default=None)
-    t2 = models.TimeField(null=True, blank=True, default=None)
+    t1 = models.DateTimeField(null=True, blank=True, default=None)
+    t2 = models.DateTimeField(null=True, blank=True, default=None)
 
     def __str__(self):
         return self.start

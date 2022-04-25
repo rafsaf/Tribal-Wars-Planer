@@ -24,13 +24,14 @@ from django.utils import timezone
 
 if TYPE_CHECKING:
     from base.models import Message
+from base.models.server import Server
 
 
 class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     server = models.ForeignKey(
-        "Server", on_delete=models.SET_NULL, null=True, default=None
+        Server, on_delete=models.SET_NULL, null=True, default=None
     )
     validity_date = models.DateField(
         default=datetime.date(year=2021, month=2, day=25), blank=True, null=True

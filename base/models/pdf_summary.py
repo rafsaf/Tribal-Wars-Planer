@@ -10,6 +10,10 @@ class PDFPaymentSummary(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = "PDF Summary"
+        verbose_name_plural = "PDF Summaries"
+
     def delete(self) -> tuple[int, dict[str, int]]:
         try:
             os.remove(f"{settings.MEDIA_ROOT}/{self.path}")

@@ -114,8 +114,8 @@ def new_outline_create_select(request: HttpRequest, _id: int) -> HttpResponse:
             form2.fields["tribe2"].choices = choices
 
             if form1.is_valid():
-                plemie = request.POST.get("tribe1")
-                instance.ally_tribe_tag.append(plemie)
+                tribe = request.POST["tribe1"]
+                instance.ally_tribe_tag.append(tribe)
                 instance.save()
                 return redirect("base:planer_create_select", _id)
         elif "tribe2" in request.POST:
@@ -125,8 +125,8 @@ def new_outline_create_select(request: HttpRequest, _id: int) -> HttpResponse:
             form2.fields["tribe2"].choices = choices
 
             if form2.is_valid():
-                plemie = request.POST.get("tribe2")
-                instance.enemy_tribe_tag.append(plemie)
+                tribe = request.POST["tribe2"]
+                instance.enemy_tribe_tag.append(tribe)
                 instance.save()
                 return redirect("base:planer_create_select", _id)
         else:

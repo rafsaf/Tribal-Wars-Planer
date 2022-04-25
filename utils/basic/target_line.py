@@ -18,7 +18,7 @@ from utils import basic
 
 
 class TargetsData:
-    def __init__(self, data: str, world: int):
+    def __init__(self, data: str, world: models.World):
         """
         Param data is text input data saved by user
         """

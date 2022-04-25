@@ -15,14 +15,17 @@
 
 from django.db import models
 
+from base.models.tribe import Tribe
+from base.models.world import World
+
 
 class Player(models.Model):
     """Player in the game"""
 
     player_id = models.IntegerField()
     name = models.TextField(db_index=True)
-    tribe = models.ForeignKey("Tribe", on_delete=models.CASCADE, null=True, blank=True)
-    world = models.ForeignKey("World", on_delete=models.CASCADE)
+    tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE, null=True, blank=True)
+    world = models.ForeignKey(World, on_delete=models.CASCADE)
     villages = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

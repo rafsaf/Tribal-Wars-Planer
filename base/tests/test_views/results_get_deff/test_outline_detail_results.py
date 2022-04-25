@@ -15,7 +15,6 @@
 
 from django.urls import reverse
 
-from base import forms
 from base.tests.test_utils.mini_setup import MiniSetup
 
 
@@ -54,10 +53,6 @@ class OutlineDetailResults(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 200
-        form: forms.SettingMessageForm = response.context["form1"]
-        assert form.fields["default_show_hidden"].initial == outline.default_show_hidden
-        assert form.fields["title_message"].initial == outline.title_message
-        assert form.fields["text_message"].initial == outline.text_message
 
     def test_planer_detail_results___302_form_redirect_works_ok(self):
         outline = self.get_outline(add_result=True)

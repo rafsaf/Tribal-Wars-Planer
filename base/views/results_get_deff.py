@@ -83,32 +83,14 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
     world: models.World = instance.world
     name_prefix = world.link_to_game()
 
-    form1 = forms.SettingMessageForm(request.POST or None)
-    form1.fields["default_show_hidden"].initial = instance.default_show_hidden
-    form1.fields["title_message"].initial = instance.title_message
-    form1.fields["text_message"].initial = instance.text_message
-    form1.fields["sending_option"].initial = instance.sending_option
+    form1 = forms.SettingMessageForm(request.POST or None, instance=instance)
 
     if request.method == "POST":
         if "form1" in request.POST:
             if form1.is_valid():
-                default_show_hidden = request.POST.get("default_show_hidden")
-
-                if default_show_hidden == "on":
-                    default_show_hidden = True
-                else:
-                    default_show_hidden = False
-
-                title_message = request.POST.get("title_message")
-                text_message = request.POST.get("text_message")
-                sending_option = request.POST.get("sending_option")
-                instance.sending_option = sending_option
-                instance.default_show_hidden = default_show_hidden
-                instance.title_message = title_message
-                instance.text_message = text_message
-                instance.save()
-
-                overviews.update(show_hidden=default_show_hidden)
+                form1.save()
+                instance.refresh_from_db()
+                overviews.update(show_hidden=instance.default_show_hidden)
 
                 return redirect("base:planer_detail_results", _id)
 

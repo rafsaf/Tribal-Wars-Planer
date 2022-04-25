@@ -20,7 +20,6 @@ from time import sleep
 import stripe
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.db.models.query import QuerySet
 
 import metrics
 from base.models import Payment

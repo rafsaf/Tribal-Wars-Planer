@@ -13,13 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import TYPE_CHECKING
 
 from django.db import models
 from django.utils.translation import gettext_lazy
 
-if TYPE_CHECKING:
-    from base.models import Server
+from base.models.server import Server
 
 
 class World(models.Model):
@@ -29,13 +27,13 @@ class World(models.Model):
         ("active", "Active"),
         ("inactive", "Inactive"),
     ]
-    server = models.ForeignKey("Server", on_delete=models.CASCADE)
+    server = models.ForeignKey(Server, on_delete=models.CASCADE)
     postfix = models.CharField(max_length=10)
     last_update = models.DateTimeField(auto_now_add=True)
 
     connection_errors = models.IntegerField(default=0)
-    speed_world = models.FloatField(null=True, blank=True, default=1)
-    speed_units = models.FloatField(null=True, blank=True, default=1)
+    speed_world = models.FloatField(default=1)
+    speed_units = models.FloatField(default=1)
     paladin = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     archer = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     militia = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
@@ -46,13 +44,11 @@ class World(models.Model):
     etag_village = models.CharField(max_length=200, default="")
 
     def __str__(self):
-        server: "Server" = self.server
-        return server.prefix + self.postfix
+        return self.server.prefix + self.postfix
 
     def human(self, prefix: bool = False):
-        server: "Server" = self.server
         if prefix:
-            server_prefix: str = server.prefix
+            server_prefix: str = self.server.prefix
             last = " " + server_prefix.upper()
         else:
             last = ""

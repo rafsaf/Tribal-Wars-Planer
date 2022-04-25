@@ -582,7 +582,7 @@ def initial_move_down(
         weight_model.save()
         next_weight.order = order1
         next_weight.save()
-    request.session["weight"] = weight_model.id
+    request.session["weight"] = weight_model.pk
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}&filtr={filtr}"
@@ -613,7 +613,7 @@ def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpR
         weight_model.save()
         next_weight.order = order1
         next_weight.save()
-    request.session["weight"] = weight_model.id
+    request.session["weight"] = weight_model.pk
     return redirect(
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}&filtr={filtr}"

@@ -123,8 +123,6 @@ class TestMakeFinalOutline(TestCase):
         weight1 = WeightModel.objects.get(start="500|500")
         time_periods = self.make_final._time_periods(target)
         new_weight = time_periods.next(weight1)
-        new_weight.t1 = new_weight.t1.time()
-        new_weight.t2 = new_weight.t2.time()
         res = self.make_final._json_weight(new_weight)
         expected = {
             "start": "500|500",
