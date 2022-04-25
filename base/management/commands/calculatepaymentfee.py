@@ -36,39 +36,45 @@ class Command(BaseCommand):  # pragma: no cover
     def handle(self, *args, **options):
         log.info("job:calculatepaymentfee start")
         self.stdout.write(self.style.SUCCESS("job:calculatepaymentfee start"))
-        payments_to_process: QuerySet[Payment] = Payment.objects.filter(
-            payment_intent_id="", from_stripe=True
-        )
+        payments_to_process = Payment.objects.filter(promotion=False, amount_pln=0)
+
         for payment in payments_to_process:
-            sleep(0.2)
+            if payment.from_stripe:
+                event = stripe.Event.retrieve(id=payment.event_id)
+                sleep(0.2)
 
-            event = stripe.Event.retrieve(id=payment.event_id)
-            sleep(0.2)
+                intent_id: str = event["data"]["object"]["payment_intent"]
+                intent = stripe.PaymentIntent.retrieve(intent_id)
+                sleep(0.2)
 
-            intent_id: str = event["data"]["object"]["payment_intent"]
-            intent = stripe.PaymentIntent.retrieve(intent_id)
-            sleep(0.2)
+                if len(intent["charges"]["data"]) != 1:
+                    log.error(f"not exactly one charge in payment intent, {intent_id}")
+                    metrics.ERRORS.labels("job:calculate_payment_fees").inc()
+                    continue
 
-            if len(intent["charges"]["data"]) != 1:
-                log.error(f"not exactly one charge in payment intent, {intent_id}")
-                metrics.ERRORS.labels("job:calculate_payment_fees").inc()
-                continue
-
-            balance_transaction_id = intent["charges"]["data"][0]["balance_transaction"]
-            balance_transaction = stripe.BalanceTransaction.retrieve(
-                balance_transaction_id
-            )
-
-            if not balance_transaction["currency"].lower() == "pln":
-                log.error(
-                    f"balance_transaction must be in pln, {balance_transaction_id}, intent: {intent_id}"
+                balance_transaction_id = intent["charges"]["data"][0][
+                    "balance_transaction"
+                ]
+                balance_transaction = stripe.BalanceTransaction.retrieve(
+                    balance_transaction_id
                 )
-                metrics.ERRORS.labels("job:calculate_payment_fees").inc()
-                continue
+                sleep(0.2)
 
-            payment.exchange_rate = balance_transaction["exchange_rate"]
-            payment.payment_intent_id = intent_id
-            payment.amount_pln = balance_transaction["amount"] / 100
-            payment.fee_pln = balance_transaction["fee"] / 100
-            payment.save()
+                if not balance_transaction["currency"].lower() == "pln":
+                    log.error(
+                        f"balance_transaction must be in pln, {balance_transaction_id}, intent: {intent_id}"
+                    )
+                    metrics.ERRORS.labels("job:calculate_payment_fees").inc()
+                    continue
+
+                payment.exchange_rate = balance_transaction["exchange_rate"]
+                payment.payment_intent_id = intent_id
+                payment.amount_pln = balance_transaction["amount"] / 100
+                payment.fee_pln = balance_transaction["fee"] / 100
+                payment.save()
+            else:
+                payment.amount_pln = payment.amount
+                payment.fee_pln = 0
+                payment.save()
+
         self.stdout.write(self.style.SUCCESS("job:calculatepaymentfee success"))

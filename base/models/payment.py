@@ -39,6 +39,7 @@ class Payment(models.Model):
     payment_intent_id = models.CharField(default="", max_length=512, blank=True)
     event_id = models.CharField(max_length=300, null=True, default=None, blank=True)
     from_stripe = models.BooleanField(default=False)
+    promotion = models.BooleanField(default=False)
     payment_date = models.DateField()
     months = models.IntegerField(default=1)
     comment = models.CharField(max_length=150, default="", blank=True)
