@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from datetime import datetime
 from math import sqrt
 
 from django.db import models
@@ -57,8 +58,11 @@ class WeightModel(models.Model):
     order = models.IntegerField()
     player = models.CharField(max_length=40)
     first_line = models.BooleanField(default=False)
-    t1 = models.DateTimeField(null=True, blank=True, default=None)
-    t2 = models.DateTimeField(null=True, blank=True, default=None)
+
+    t1: datetime
+    t2: datetime
+    sh_t1: datetime
+    sh_t2: datetime
 
     def __str__(self):
         return self.start
