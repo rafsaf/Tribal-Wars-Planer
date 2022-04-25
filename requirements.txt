@@ -7,7 +7,7 @@ confusable-homoglyphs==3.2.0; python_version >= "3.6"
 django-crispy-forms==1.14.0; python_version >= "3.7"
 django-registration==3.2; python_version >= "3.6"
 django-ses==2.6.1; python_version >= "3.5"
-django==4.0.3; python_version >= "3.8"
+django==4.0.4; python_version >= "3.8"
 djangorestframework==3.13.1; python_version >= "3.6"
 fpdf==1.7.2
 idna==3.3; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.5"
