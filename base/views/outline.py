@@ -44,8 +44,8 @@ class OutlineList(LoginRequiredMixin, ListView):
         for outline in query:
             # overwrite attributes
             setattr(outline, "world_human", outline.world.human(prefix=True))
-            setattr(outline, "ally_tribe_tag", outline.ally_tribe_tag)
-            setattr(outline, "enemy_tribe_tag", outline.enemy_tribe_tag)
+            setattr(outline, "ally_tribe_tag", ", ".join(outline.ally_tribe_tag))
+            setattr(outline, "enemy_tribe_tag", ", ".join(outline.enemy_tribe_tag))
 
         return query
 
@@ -66,8 +66,8 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
         for outline in query:
             # overwrite attributes
             setattr(outline, "world_human", outline.world.human(prefix=True))
-            setattr(outline, "ally_tribe_tag", outline.ally_tribe_tag)
-            setattr(outline, "enemy_tribe_tag", outline.enemy_tribe_tag)
+            setattr(outline, "ally_tribe_tag", ", ".join(outline.ally_tribe_tag))
+            setattr(outline, "enemy_tribe_tag", ", ".join(outline.enemy_tribe_tag))
 
         return query
 
