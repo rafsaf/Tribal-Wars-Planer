@@ -58,7 +58,7 @@ from rest_api.serializers import (
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-log = logging.getLogger(__file__)
+log = logging.getLogger(__name__)
 
 
 @api_view(["GET"])
@@ -264,7 +264,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                     {
                         "quantity": 1,
                         "price": price.price_id,
-                        "description": f"plemiona-planer.pl - {price.product} - {profile.user.username}",
+                        "description": f"plemiona-planer.pl - {price.product} - {profile.user.username}",  # type: ignore
                     }
                 ],
             )

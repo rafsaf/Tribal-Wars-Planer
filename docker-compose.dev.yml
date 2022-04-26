@@ -19,14 +19,14 @@ services:
     restart: "unless-stopped"
     build:
       context: ./
-      dockerfile: Dockerfile.cronjobs
-    command: python -m base.run_cronjobs
+      dockerfile: Dockerfile.prod
+    command: bash /build/scripts/init_cronjobs.sh
     environment:
       - POSTGRES_HOST=postgres_dev
     env_file:
       - .env
     volumes:
-      - "./logs:/app/logs"
+      - "./logs:/build/logs"
 
   stripe_cli:
     image: stripe/stripe-cli

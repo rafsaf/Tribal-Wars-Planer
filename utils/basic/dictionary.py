@@ -51,8 +51,11 @@ def coord_to_player_points(outline: Outline) -> dict[str, int]:
 def coord_to_player_model_from_string(
     village_coord_list: str, world: World
 ) -> dict[str, Player]:
-    """Dictionary coord : player model for villages in coord_list"""
-    village_dictionary: dict[str, Player] = {}
+    """Dictionary coord : player model for villages in coord_list
+
+    We assume for those coords player cant be none
+    """
+    village_dictionary = {}
     village_list: list[str] = village_coord_list.split()
 
     villages: QuerySet[VillageModel] = VillageModel.objects.select_related(

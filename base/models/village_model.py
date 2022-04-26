@@ -15,6 +15,9 @@
 
 from django.db import models
 
+from base.models.player import Player
+from base.models.world import World
+
 
 class VillageModel(models.Model):
     """Village in the game"""
@@ -23,10 +26,8 @@ class VillageModel(models.Model):
     x_coord = models.IntegerField()
     y_coord = models.IntegerField()
     coord = models.CharField(max_length=7, db_index=True)
-    player = models.ForeignKey(
-        "Player", on_delete=models.CASCADE, null=True, blank=True
-    )
-    world = models.ForeignKey("World", on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
+    world = models.ForeignKey(World, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

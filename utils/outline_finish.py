@@ -15,6 +15,7 @@
 
 import json
 import secrets
+from typing import Any
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.query import QuerySet
@@ -158,7 +159,7 @@ class MakeFinalOutline:
 
     @staticmethod
     def _json_weight(weight: WeightModel):
-        return model_to_dict(
+        result = model_to_dict(
             weight,
             fields=[
                 "start",
@@ -168,10 +169,11 @@ class MakeFinalOutline:
                 "catapult",
                 "ruin",
                 "distance",
-                "t1",
-                "t2",
             ],
         )
+        result["t1"] = weight.t1.time() if weight.t1 else None
+        result["t2"] = weight.t2.time() if weight.t2 else None
+        return result
 
     def _outline_overview(
         self, json_weight_dict: str, json_targets: str
@@ -192,7 +194,7 @@ class MakeFinalOutline:
         self._calculate_villages_id_dictionary()
         self._calculate_period_dictionary()
 
-        json_weights = {}
+        json_weights: dict[int, list[dict[str, Any]]] = {}
         outline_info = basic.OutlineInfo(outline=self.outline)
         text = basic.TableText(world=self.outline.world)
 
@@ -225,8 +227,6 @@ class MakeFinalOutline:
                         fake=target.fake,
                         deputy=deputy_id,
                     )
-                    weight.t1 = weight.t1.time()
-                    weight.t2 = weight.t2.time()
                     json_weights[target.pk].append(self._json_weight(weight))
 
         result_instance: Result = Result.objects.get(outline=self.outline)

@@ -10,7 +10,7 @@
     <h3>{% trans 'Payments summary' %}</h3>
     
     {% for pdf in summary %}
-    <a target="_blank" href="{{pdf.url}}">{{pdf.period}}</a><br>
+    <a target="_blank" href="{{pdf.url}}">{{pdf.period}} &nbsp;&nbsp;<span style="font-size: small;">[{{pdf.created_at}}]</span></a> <br>
     {% endfor %}
     
     <form method="POST" autocomplete="off" class="mt-4">

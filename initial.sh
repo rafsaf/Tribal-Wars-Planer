@@ -1,15 +1,13 @@
 #!/bin/bash
 
-echo "activate venv if exists (default folder venv inside docker image)"
-if [ -d "venv" ]; then
-  source venv/bin/activate || true
-fi
-
 echo "prometheus multi proc directory, media creating and cleanup"
 mkdir prometheus_multi_proc_dir || true
 mkdir media || true
 mkdir logs || true
+
+echo "cleanup old logs and metrics"
 rm -rf prometheus_multi_proc_dir/*
+rm -rf logs/*
 
 echo "staticfiles collection"
 python manage.py collectstatic --no-input
@@ -17,10 +15,16 @@ python manage.py collectstatic --no-input
 echo "migrations"
 python manage.py migrate
 
-echo "first superuser, by default admin, admin"
-if [ -z ${var+DJANGO_SUPERUSER_USERNAME} ]; then export DJANGO_SUPERUSER_USERNAME=admin; else echo "username ok"; fi
-if [ -z ${var+DJANGO_SUPERUSER_PASSWORD} ]; then export DJANGO_SUPERUSER_PASSWORD=admin; else echo "password ok"; fi
-if [ -z ${var+DJANGO_SUPERUSER_EMAIL} ]; then export DJANGO_SUPERUSER_EMAIL=admin@admin.com; else echo "email ok"; fi
+# default username and password admin, admin
+username=${DJANGO_SUPERUSER_USERNAME:-admin} 
+password=${DJANGO_SUPERUSER_PASSWORD:-admin}
+email=${DJANGO_SUPERUSER_EMAIL:-admin@admin.com}
+
+echo "Creating first superuser, username:${username}, email:${email}"
+export DJANGO_SUPERUSER_USERNAME=${username}
+export DJANGO_SUPERUSER_PASSWORD=${password}
+export DJANGO_SUPERUSER_EMAIL=${email}
+
 python manage.py createsuperuser --no-input
 
 echo "initialize all supported servers"

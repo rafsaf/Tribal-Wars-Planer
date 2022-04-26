@@ -10,21 +10,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
 
-  postgres:
-    restart: always
-    image: postgres
-    volumes:
-      - twp_stg_postgresql:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=${POSTGRES_NAME}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    env_file:
-      - .env
-
   web:
-    depends_on:
-      - postgres
     restart: always
     image: rafsaf/twp-server:stage
     labels:
@@ -44,6 +30,8 @@ services:
       timeout: "10"
     volumes:
       - "twp_stg_logs:/build/logs"
+      - "twp_stg_media:/build/media"
+      - "twp_stg_prometheus:/build/prometheus_multi_proc_dir"
 
   traefik:
     image: "traefik:v2.4"
@@ -73,14 +61,16 @@ services:
 
   cronjobs:
     restart: always
-    image: rafsaf/twp-cronjobs:stage
-    command: python -m base.run_cronjobs
+    image: rafsaf/twp-server:stage
+    command: bash /build/scripts/init_cronjobs.sh
     env_file:
       - .env
     volumes:
-      - "twp_stg_logs:/app/logs"
+      - "twp_stg_logs:/build/logs"
+      - "twp_stg_prometheus:/build/prometheus_multi_proc_dir"
 
 volumes:
-  twp_stg_postgresql:
   twp_stg_logs:
   twp_stg_letsencrypt:
+  twp_stg_prometheus:
+  twp_stg_media:

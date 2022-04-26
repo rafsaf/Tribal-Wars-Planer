@@ -53,7 +53,7 @@ def new_server_create_test_world(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Payment)
 def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
     if created:
-        user: User = instance.user
+        user: User = instance.user  # type: ignore
         user_profile: Profile = Profile.objects.get(user=user)
 
         current_date: datetime.date = timezone.localdate()

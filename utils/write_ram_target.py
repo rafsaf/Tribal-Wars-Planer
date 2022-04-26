@@ -57,8 +57,8 @@ class WriteRamTarget:
 
         self.random = random
         self.avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
-        self.interval_dist: int = self.target.enter_t2 - self.avg_dist
-        self.dividier: int = (
+        self.interval_dist = self.target.enter_t2 - self.avg_dist
+        self.dividier = (
             self.outline.world.speed_world * self.outline.world.speed_units * 2
         )
 

@@ -25,7 +25,7 @@ from base.models import StripePrice, StripeProduct
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-log = logging.getLogger(__file__)
+log = logging.getLogger(__name__)
 
 
 @transaction.atomic()

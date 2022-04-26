@@ -93,7 +93,7 @@ class TargetWeightQueries:
         context = self.__create_target_dict()
         for weight in self.__weights():
             weight.distance = round(basic.dist(weight.start, weight.target.target), 1)
-            weight.off = f"{round(weight.off / 1000,1)}k"
+            weight.off = f"{round(weight.off / 1000,1)}k"  # type: ignore
             context[weight.target].append(weight)
         return context
 

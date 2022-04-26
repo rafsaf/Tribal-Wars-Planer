@@ -45,6 +45,12 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "example@example.com")
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+JOB_MIN_INTERVAL = int(os.environ.get("JOB_MIN_INTERVAL", 10))
+JOB_MAX_INTERVAL = int(os.environ.get("JOB_MAX_INTERVAL", 15))
+assert JOB_MAX_INTERVAL >= JOB_MIN_INTERVAL
+JOB_LIFETIME_MAX_SECS = int(os.environ.get("JOB_LIFETIME_MAX_SECS", 0))
+assert JOB_LIFETIME_MAX_SECS == 0 or JOB_LIFETIME_MAX_SECS >= 120
+
 ADMINS = [("admin", DEFAULT_FROM_EMAIL)]
 
 INSTALLED_APPS = [
@@ -241,38 +247,60 @@ else:
     REGISTRATION_OPEN = True
 
 DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "WARNING")
+
 os.makedirs("logs", exist_ok=True)
+os.makedirs("prometheus_multi_proc_dir", exist_ok=True)
+os.makedirs("media", exist_ok=True)
 
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-            "format": "{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "format": "{asctime} [{levelname}] {name}: {message}",
             "style": "{",
         },
         "simple": {
-            "format": "{levelname} {message}",
+            "format": "{asctime}|{message}",
             "style": "{",
         },
     },
     "handlers": {
-        "file": {
+        "error": {
             "class": "logging.FileHandler",
-            "filename": "logs/django.log",
+            "filename": "logs/django_error.log",
             "formatter": "verbose",
-            "level": DJANGO_LOG_LEVEL,
+            "level": "ERROR",
         },
-        "stream": {
-            "class": "logging.StreamHandler",
+        "warning": {
+            "class": "logging.FileHandler",
+            "filename": "logs/django_warning.log",
+            "formatter": "verbose",
+            "level": "WARNING",
+        },
+        "info": {
+            "class": "logging.FileHandler",
+            "filename": "logs/django_info.log",
             "formatter": "simple",
+            "level": "INFO",
+        },
+        "commands": {
+            "class": "logging.FileHandler",
+            "filename": "logs/django_commands.log",
+            "formatter": "verbose",
             "level": "INFO",
         },
     },
     "loggers": {
         "": {
-            "level": DJANGO_LOG_LEVEL,
-            "handlers": ["file", "stream"],
+            "level": "INFO",
+            "handlers": ["error", "info", "warning"],
+            "propagate": False,
+        },
+        "base.management.commands": {
+            "level": "INFO",
+            "handlers": ["commands"],
+            "propagate": True,
         },
     },
 }

@@ -123,7 +123,13 @@ class Migration(migrations.Migration):
             model_name="outline",
             name="initial_outline_catapult_default",
             field=models.IntegerField(
-                choices=[(50, 50), (75, 75), (100, 100), (150, 150), (200, 200)],
+                choices=[
+                    (50, "50"),
+                    (75, "75"),
+                    (100, "100"),
+                    (150, "150"),
+                    (200, "200"),
+                ],
                 default=150,
             ),
         ),

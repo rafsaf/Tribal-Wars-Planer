@@ -18,6 +18,8 @@ import datetime
 from django.db import models
 from django.utils.translation import gettext_lazy
 
+from base.models.outline_time import OutlineTime
+
 
 class PeriodModel(models.Model):
     """Handle one period of time in outline specification"""
@@ -31,7 +33,7 @@ class PeriodModel(models.Model):
         ("noble", gettext_lazy("Noble")),
         ("ram", gettext_lazy("Ram")),
     ]
-    outline_time = models.ForeignKey("OutlineTime", on_delete=models.CASCADE)
+    outline_time = models.ForeignKey(OutlineTime, on_delete=models.CASCADE)
     status = models.CharField(max_length=15, choices=STATUS)
     unit = models.CharField(max_length=15, choices=UNITS)
     from_number = models.IntegerField(null=True, default=None, blank=True)

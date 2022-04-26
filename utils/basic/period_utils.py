@@ -107,6 +107,6 @@ class FromPeriods:
         t2_shipment = t2 - time_distance
         weight.t1 = t1
         weight.t2 = t2
-        weight.sh_t1 = t1_shipment  # type: ignore
-        weight.sh_t2 = t2_shipment  # type: ignore
+        weight.sh_t1 = t1_shipment
+        weight.sh_t2 = t2_shipment
         return weight

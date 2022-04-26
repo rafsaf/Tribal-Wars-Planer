@@ -294,7 +294,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
         if "form-filter-targets" in request.POST:
             filter_form = forms.SetTargetsMenuFilters(request.POST)
             if filter_form.is_valid():
-                cards = request.POST.get("filter_targets_number")
+                cards = request.POST["filter_targets_number"]
                 if request.POST.get("simple_textures") == "on":
                     textures = True
                 else:
@@ -499,30 +499,12 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
     sort = sort_obj.sort
     filtr = sort_obj.filtr
     # Forms
-    filter_form = forms.SetNewOutlineFilters(request.POST or None)
-    filter_form.fields["filter_weights_min"].initial = instance.filter_weights_min
-    filter_form.fields[
-        "filter_weights_catapults_min"
-    ].initial = instance.filter_weights_catapults_min
-    filter_form.fields["filter_weights_max"].initial = instance.filter_weights_max
-    filter_form.fields["filter_card_number"].initial = instance.filter_card_number
-    filter_form.fields["filter_hide_front"].initial = instance.filter_hide_front
+    filter_form = forms.SetNewOutlineFilters(request.POST or None, instance=instance)
 
     if request.method == "POST":
         if "form-filter" in request.POST:
             if filter_form.is_valid():
-                minimum = request.POST.get("filter_weights_min")
-                minimum_catapult = request.POST.get("filter_weights_catapults_min")
-                maximum = request.POST.get("filter_weights_max")
-                cards = request.POST.get("filter_card_number")
-                hide_front = request.POST.get("filter_hide_front")
-
-                instance.filter_weights_min = minimum
-                instance.filter_weights_catapults_min = minimum_catapult
-                instance.filter_weights_max = maximum
-                instance.filter_card_number = cards
-                instance.filter_hide_front = hide_front
-                instance.save()
+                filter_form.save()
                 return redirect(
                     reverse("base:planer_initial_detail", args=[id1, id2])
                     + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"  # type: ignore
@@ -605,8 +587,8 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
             pass
         else:
             for model in result_lst:
-                if model.id == paint_id:
-                    model.paint = "paint"
+                if model.pk == paint_id:
+                    setattr(model, "paint", "paint")
                     break
         finally:
             del request.session["weight"]
@@ -638,7 +620,7 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
         models.OutlineTime.objects.select_related(), pk=pk
     )
     outline: models.Outline = get_object_or_404(
-        models.Outline, owner=request.user, id=outline_time.outline.id
+        models.Outline, owner=request.user, id=outline_time.outline.pk
     )
     mode: str | None = request.GET.get("mode")
     page: str | None = request.GET.get("page")
@@ -663,7 +645,7 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
         models.OutlineTime.objects.select_related(), pk=pk
     )
     outline: models.Outline = get_object_or_404(
-        models.Outline, owner=request.user, id=outline_time.outline.id
+        models.Outline, owner=request.user, id=outline_time.outline.pk
     )
     mode: str | None = request.GET.get("mode")
     page: str | None = request.GET.get("page")

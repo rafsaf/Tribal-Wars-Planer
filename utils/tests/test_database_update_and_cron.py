@@ -17,8 +17,8 @@ from pathlib import Path
 
 import requests
 import requests_mock
+from django.core.management import call_command
 
-from base.cron import db_update
 from base.models import Player, Tribe, VillageModel, World
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils.database_update import WorldQuery
@@ -223,13 +223,13 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
                 content=VILLAGES,
                 headers={"etag": "12345"},
             )
-            db_update()
+            call_command("dbupdate")
             self.world.refresh_from_db()
             date1 = self.world.last_update
             assert VillageModel.objects.count() == 38219
             assert Player.objects.count() == 10234
             assert Tribe.objects.count() == 534
-            db_update()
+            call_command("dbupdate")
             self.world.refresh_from_db()
             date2 = self.world.last_update
             assert date2 > date1

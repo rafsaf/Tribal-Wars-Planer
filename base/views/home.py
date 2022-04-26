@@ -29,12 +29,11 @@ from base import models
 from base.models import PDFPaymentSummary
 from utils.basic.pdf import generate_pdf_summary
 
-log = logging.getLogger(__file__)
+log = logging.getLogger(__name__)
 
 
 def base_view(request):
     """base view"""
-    log.debug(request.LANGUAGE_CODE)
     stats = {}
     INITIAL_DATE = date(year=2020, month=9, day=1)
     days: int = (timezone.localdate() - INITIAL_DATE).days
@@ -120,9 +119,19 @@ def payment_sum_up_view(request: HttpRequest) -> HttpResponse:
     user: User = request.user  # type: ignore
     if user.is_superuser and user.username == "admin":
         if request.method == "POST" and "form" in request.POST:
-            generate_pdf_summary()
+            generate_pdf_summary(request=request)
             return redirect("base:payment_summary")
-        summary = PDFPaymentSummary.objects.all()
+        summary_periods = (
+            PDFPaymentSummary.objects.all()
+            .order_by("period")
+            .distinct("period")
+            .values_list("period", flat=True)
+        )
+        summary = []
+        for period in summary_periods:
+            summary.append(
+                PDFPaymentSummary.objects.filter(period=period).latest("created_at")
+            )
         context = {"summary": summary}
         return render(request, "base/user/payments_summary.html", context=context)
     else:

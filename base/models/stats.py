@@ -15,10 +15,12 @@
 
 from django.db import models
 
+from base.models.outline import Outline
+
 
 class Stats(models.Model):
     outline = models.ForeignKey(
-        "Outline", on_delete=models.SET_NULL, null=True, blank=True
+        Outline, on_delete=models.SET_NULL, null=True, blank=True
     )
     outline_pk = models.IntegerField()
     owner_name = models.CharField(max_length=300)
@@ -42,3 +44,7 @@ class Stats(models.Model):
     go_back_clicked = models.IntegerField(default=0)
     finish_outline_clicked = models.IntegerField(default=0)
     overview_visited = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Statistic"
+        verbose_name_plural = "Statistics"

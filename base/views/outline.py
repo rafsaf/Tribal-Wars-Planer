@@ -42,9 +42,11 @@ class OutlineList(LoginRequiredMixin, ListView):
         )
 
         for outline in query:
-            outline.world_human = outline.world.human(prefix=True)
-            outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
-            outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
+            # overwrite attributes
+            setattr(outline, "world_human", outline.world.human(prefix=True))
+            setattr(outline, "ally_tribe_tag", outline.ally_tribe_tag)
+            setattr(outline, "enemy_tribe_tag", outline.enemy_tribe_tag)
+
         return query
 
 
@@ -62,9 +64,11 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
         )
 
         for outline in query:
-            outline.world_human = outline.world.human(prefix=True)
-            outline.ally_tribe_tag = ", ".join(outline.ally_tribe_tag)
-            outline.enemy_tribe_tag = ", ".join(outline.enemy_tribe_tag)
+            # overwrite attributes
+            setattr(outline, "world_human", outline.world.human(prefix=True))
+            setattr(outline, "ally_tribe_tag", outline.ally_tribe_tag)
+            setattr(outline, "enemy_tribe_tag", outline.enemy_tribe_tag)
+
         return query
 
     def get_context_data(self, **kwargs):
@@ -105,43 +109,43 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
 
-    form1 = forms.OffTroopsForm(None, outline=instance)
-    form2 = forms.DeffTroopsForm(None, outline=instance)
+    form1 = forms.OffTroopsForm(request.POST, None, instance=instance, outline=instance)
+    form2 = forms.DeffTroopsForm(
+        request.POST, None, instance=instance, outline=instance
+    )
 
     off_troops = Troops(instance, "off_troops")
     deff_troops = Troops(instance, "deff_troops")
 
     if request.method == "POST":
         if "form-1" in request.POST:
-            form10 = forms.OffTroopsForm(request.POST, outline=instance)
             instance.actions.save_off_troops(instance)
-            if form10.is_valid():
-                instance.off_troops = request.POST.get("off_troops")
-                instance.save()
+            if form1.is_valid():
+                form1.save()
                 request.session["message-off-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:
                 off_troops.set_troops(request.POST.get("off_troops"))
-                off_troops.set_errors(form10.errors)
+                off_troops.set_errors(form1.errors)
 
         elif "form-2" in request.POST:
-            form20 = forms.DeffTroopsForm(request.POST, outline=instance)
             instance.actions.save_deff_troops(instance)
-            if form20.is_valid():
-                instance.deff_troops = request.POST.get("deff_troops")
-                instance.save()
+            if form2.is_valid():
+                form2.save()
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:
                 deff_troops.set_troops(request.POST.get("deff_troops"))
-                deff_troops.set_errors(form20.errors)
+                deff_troops.set_errors(form2.errors)
 
     if instance.world.postfix == "Test":
-        instance.world.update = gettext("Never") + "."
+        setattr(instance.world, "update", gettext("Never") + ".")
     else:
         _timedelta = timezone.now() - instance.world.last_update
-        instance.world.update = str(_timedelta.seconds // 60) + gettext(
-            " minute(s) ago."
+        setattr(
+            instance.world,
+            "update",
+            str(_timedelta.seconds // 60) + gettext(" minute(s) ago."),
         )
 
     context = {

@@ -13,23 +13,22 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import TYPE_CHECKING
 
 from django.db import models
 from django.http import HttpRequest
 from django.urls import reverse
 
-if TYPE_CHECKING:
-    from base.models import Outline
+from base.models.outline import Outline
+from base.models.outline_overview import OutlineOverview
 
 
 class Overview(models.Model):
     """Present results for tribe members using unique urls"""
 
-    outline_overview = models.ForeignKey("OutlineOverview", on_delete=models.CASCADE)
+    outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
     token = models.CharField(max_length=100, primary_key=True, db_index=True)
     outline = models.ForeignKey(
-        "Outline", on_delete=models.SET_NULL, null=True, blank=True
+        Outline, on_delete=models.SET_NULL, null=True, blank=True
     )
     player = models.CharField(max_length=40)
     created = models.DateTimeField(auto_now_add=True)

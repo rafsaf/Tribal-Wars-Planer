@@ -5,8 +5,14 @@ from django.db import models
 
 
 class PDFPaymentSummary(models.Model):
-    period = models.CharField(max_length=7, primary_key=True)
-    path = models.CharField(max_length=300)
+    period = models.CharField(max_length=10)
+    path = models.CharField(max_length=300, primary_key=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "PDF Summary"
+        verbose_name_plural = "PDF Summaries"
 
     def delete(self) -> tuple[int, dict[str, int]]:
         try:
