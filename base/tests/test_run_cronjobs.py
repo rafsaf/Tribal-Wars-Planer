@@ -34,14 +34,14 @@ def test_run_cronjobs(monkeypatch: MonkeyPatch, capsys: CaptureFixture):
 
     out, err = capsys.readouterr()
     assert out == (
-        "job:dbupdate start\n"
-        "job:dbupdate success\n"
-        "job:dbupdate start\n"
-        "job:dbupdate success\n"
-        "job:outdateoverviewsdelete start\n"
-        "job:outdateoverviewsdelete success\n"
-        "job:outdateoutlinedelete start\n"
-        "job:outdateoutlinedelete success\n"
-        "job:calculatepaymentfee start\n"
-        "job:calculatepaymentfee success\n"
+        "starting task dbupdate\n"
+        "success task dbupdate\n"
+        "starting task dbupdate\n"
+        "success task dbupdate\n"
+        "starting task outdateoverviewsdelete\n"
+        "success task outdateoverviewsdelete\n"
+        "starting task outdateoutlinedelete\n"
+        "success task outdateoutlinedelete\n"
+        "starting task calculatepaymentfee\n"
+        "success task calculatepaymentfee\n"
     )

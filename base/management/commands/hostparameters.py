@@ -15,30 +15,19 @@
 
 
 import logging
-from datetime import timedelta
-from time import sleep
 
+import psutil
 from django.core.management.base import BaseCommand
-from django.db.models.query import QuerySet
-from django.utils.timezone import now
 
-from base.management.commands.decorators import job_logs_and_metrics
-from base.models import Outline
+import metrics
 
 log = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    help = "Delete outlines older than 35 days except test World"
+    help = "Get host parameters"
 
-    @job_logs_and_metrics(log)
     def handle(self, *args, **options):
-        expiration_date = now() - timedelta(days=35)
-        expired: QuerySet[Outline] = (
-            Outline.objects.select_related("world")
-            .filter(created__lt=expiration_date)
-            .exclude(world__postfix="Test")
-        )
-        for outline in expired:
-            outline.delete()
-            sleep(0.2)
+        metrics.CPU.set(psutil.cpu_percent())
+        metrics.MEMORY.set(psutil.virtual_memory().percent)
+        metrics.DISK.set(psutil.disk_usage("/").percent)

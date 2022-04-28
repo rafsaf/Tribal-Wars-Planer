@@ -22,6 +22,7 @@ from django.db import transaction
 from django.db.models import Count
 from django.utils import timezone
 
+import metrics
 from base.models import Player, Tribe, VillageModel, World
 
 
@@ -218,6 +219,12 @@ class WorldQuery:
                 village_id__in=village_ids_to_remove, world=self.world
             ).delete()
             VillageModel.objects.bulk_create(create_list)
+            metrics.DBUPDATE.labels("village", self.world.postfix, "create").inc(
+                len(create_list)
+            )
+            metrics.DBUPDATE.labels("village", self.world.postfix, "delete").inc(
+                len(village_ids_to_remove)
+            )
             self.village_log_msg += (
                 f"C-{len(create_list)},D-{len(village_ids_to_remove)}"
             )
@@ -259,6 +266,12 @@ class WorldQuery:
                 tribe_id__in=[item[0] for item in tribe_set], world=self.world
             ).delete()
             Tribe.objects.bulk_create(create_list)
+            metrics.DBUPDATE.labels("tribe", self.world.postfix, "create").inc(
+                len(create_list)
+            )
+            metrics.DBUPDATE.labels("tribe", self.world.postfix, "delete").inc(
+                len(tribe_set)
+            )
             self.tribe_log_msg += f"C-{len(create_list)},D-{len(tribe_set)}"
 
     def update_players(self):
@@ -360,6 +373,15 @@ class WorldQuery:
                 world=self.world, player_id__in=player_ids_map.keys()
             ).delete()
             Player.objects.bulk_create(create_list)
+            metrics.DBUPDATE.labels("player", self.world.postfix, "create").inc(
+                len(create_list)
+            )
+            metrics.DBUPDATE.labels("player", self.world.postfix, "delete").inc(
+                len(player_ids_map)
+            )
+            metrics.DBUPDATE.labels("player", self.world.postfix, "update").inc(
+                len(update_list)
+            )
             self.player_log_msg += (
                 f"C-{len(create_list)},D-{len(player_ids_map)},U-{len(update_list)}"
             )

@@ -14,16 +14,24 @@
 # ==============================================================================
 
 
+import logging
+
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
+import metrics
+from base.management.commands.decorators import job_logs_and_metrics
 from base.models import Server
+
+log = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    help = "Closes the specified poll for voting"
+    help = "Creates servers objects in database"
 
+    @job_logs_and_metrics(log)
     def handle(self, *args, **options):
+        metrics.CRONTASK.labels("createservers").inc()
         server_info: tuple[str, str]
         for server_info in settings.TRIBAL_WARS_SUPPORTED_SERVERS:
             _, created = Server.objects.get_or_create(
