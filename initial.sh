@@ -1,13 +1,18 @@
 #!/bin/bash
 
+CLEANUP="${1:-no}"
+
 echo "prometheus multi proc directory, media creating and cleanup"
 mkdir prometheus_multi_proc_dir || true
 mkdir media || true
 mkdir logs || true
 
-echo "cleanup old logs and metrics"
-rm -rf prometheus_multi_proc_dir/*
-rm -rf logs/*
+if [ "$CLEANUP" = "yes" ];
+then
+    echo "cleanup old logs and metrics"
+    rm -rf prometheus_multi_proc_dir/*
+    rm -rf logs/*
+fi;
 
 echo "staticfiles collection"
 python manage.py collectstatic --no-input

@@ -22,6 +22,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 
 import metrics
+from base.management.commands.decorators import job_logs_and_metrics
 from base.models import Payment
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -32,11 +33,10 @@ log = logging.getLogger(__name__)
 class Command(BaseCommand):  # pragma: no cover
     help = "Update stripe payments fees"
 
+    @job_logs_and_metrics(log)
     def handle(self, *args, **options):
-        log.info("job:calculatepaymentfee start")
-        self.stdout.write(self.style.SUCCESS("job:calculatepaymentfee start"))
         payments_to_process = Payment.objects.filter(promotion=False, amount_pln=0)
-
+        processed = 0
         for payment in payments_to_process:
             if payment.from_stripe:
                 event = stripe.Event.retrieve(id=payment.event_id)
@@ -75,5 +75,5 @@ class Command(BaseCommand):  # pragma: no cover
                 payment.amount_pln = payment.amount
                 payment.fee_pln = 0
                 payment.save()
-
-        self.stdout.write(self.style.SUCCESS("job:calculatepaymentfee success"))
+            processed += 1
+        log.info(f"updated {processed} payments")

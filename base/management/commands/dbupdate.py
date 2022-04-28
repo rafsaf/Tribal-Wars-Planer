@@ -18,7 +18,7 @@ import logging
 
 from django.core.management.base import BaseCommand
 
-import metrics
+from base.management.commands.decorators import job_logs_and_metrics
 from base.models import World
 from utils.database_update import WorldQuery
 
@@ -28,29 +28,21 @@ log = logging.getLogger(__name__)
 class Command(BaseCommand):
     help = "Update all Tribe, VillageModel, Player instances"
 
+    @job_logs_and_metrics(log)
     def handle(self, *args, **options):
-        log.info("job:dbupdate start")
-        self.stdout.write(self.style.SUCCESS("job:dbupdate start"))
-        try:
-            worlds = []
-            for world in World.objects.select_related("server").exclude(postfix="Test"):
-                instance = WorldQuery(world=world)
-                instance.update_all()
-                worlds.append(world)
-                message = (
-                    f"{str(world)} | tribe_updated: {instance.tribe_log_msg} |"
-                    f" village_update: {instance.village_log_msg} |"
-                    f" player_update: {instance.player_log_msg}"
-                )
-                log.info(message)
-                self.stdout.write(self.style.SUCCESS(message))
-
-            World.objects.bulk_update(
-                worlds, ["last_update", "etag_player", "etag_tribe", "etag_village"]
+        worlds = []
+        for world in World.objects.select_related("server").exclude(postfix="Test"):
+            instance = WorldQuery(world=world)
+            instance.update_all()
+            worlds.append(world)
+            message = (
+                f"{str(world)} | tribe_updated: {instance.tribe_log_msg} |"
+                f" village_update: {instance.village_log_msg} |"
+                f" player_update: {instance.player_log_msg}"
             )
-        except Exception as error:
-            msg = f"job:dbupdate failed: {error}"
-            self.stdout.write(self.style.ERROR(msg))
-            log.error(msg)
-            metrics.ERRORS.labels("job:dbupdate").inc()
-        self.stdout.write(self.style.SUCCESS("job:dbupdate success"))
+            log.info(message)
+            self.stdout.write(self.style.SUCCESS(message))
+
+        World.objects.bulk_update(
+            worlds, ["last_update", "etag_player", "etag_tribe", "etag_village"]
+        )

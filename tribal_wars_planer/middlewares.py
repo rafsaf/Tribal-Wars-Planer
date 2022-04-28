@@ -7,11 +7,6 @@ from django.urls import resolve
 
 import metrics
 
-METRICS_SKIP_VIEWS = {
-    "rest_api:metrics_export",
-    "rest_api:healthcheck",
-}
-
 
 def PrometheusBeforeMiddleware(get_response: Callable):
     def middleware(request: HttpRequest):
@@ -26,20 +21,18 @@ def PrometheusBeforeMiddleware(get_response: Callable):
 def PrometheusAfterMiddleware(get_response: Callable):
     def middleware(request: HttpRequest):
         match = resolve(request.path)
-        if match.view_name in METRICS_SKIP_VIEWS:
-            response: HttpResponse = get_response(request)
 
-        else:
-            metrics.REQUEST_COUNT.labels(
-                view_name=match.view_name, method=request.method
-            ).inc()
-            response: HttpResponse = get_response(request)
-            metrics.REQUEST_LATENCY.labels(
-                view_name=match.view_name, method=request.method
-            ).observe(time() - getattr(request, "_metrics_process_time_start"))
+        metrics.REQUEST_COUNT.labels(
+            view_name=match.view_name, method=request.method
+        ).inc()
+        response: HttpResponse = get_response(request)
 
-        if response.status_code != 200 and response.status_code >= 400:
+        if response.status_code >= 400:
             metrics.ERRORS.labels(f"{match.view_name} {response.status_code}").inc()
+
+        metrics.REQUEST_LATENCY.labels(
+            view_name=match.view_name, method=request.method
+        ).observe(time() - getattr(request, "_metrics_process_time_start"))
 
         return response
 

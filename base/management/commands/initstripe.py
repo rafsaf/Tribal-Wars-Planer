@@ -21,6 +21,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
+from base.management.commands.decorators import job_logs_and_metrics
 from base.models import StripePrice, StripeProduct
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -83,6 +84,7 @@ def synchronize_stripe():  # pragma: no cover
 class Command(BaseCommand):  # pragma: no cover
     help = "Fetch and update stripe products and prices"
 
+    @job_logs_and_metrics(log)
     def handle(self, *args, **options):
         if settings.STRIPE_SECRET_KEY:
             prices, products = synchronize_stripe()

@@ -20,7 +20,7 @@ from datetime import timedelta
 from django.core.management.base import BaseCommand
 from django.utils.timezone import now
 
-import metrics
+from base.management.commands.decorators import job_logs_and_metrics
 from base.models import Overview
 
 log = logging.getLogger(__name__)
@@ -29,14 +29,8 @@ log = logging.getLogger(__name__)
 class Command(BaseCommand):
     help = "Delete expired overview links"
 
+    @job_logs_and_metrics(log)
     def handle(self, *args, **options):
-        log.info("job:outdateoverviewsdelete start")
-        self.stdout.write(self.style.SUCCESS("job:outdateoverviewsdelete start"))
-        try:
-            expiration_date = now() - timedelta(days=30)
-            expired = Overview.objects.filter(created__lt=expiration_date)
-            expired.delete()
-        except Exception as error:
-            log.error(f"job:outdateoverviewsdelete error: {error}")
-            metrics.ERRORS.labels("job:outdateoverviewsdelete").inc()
-        self.stdout.write(self.style.SUCCESS("job:outdateoverviewsdelete success"))
+        expiration_date = now() - timedelta(days=30)
+        expired = Overview.objects.filter(created__lt=expiration_date)
+        expired.delete()

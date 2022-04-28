@@ -8,5 +8,7 @@ mkdir prometheus_multi_proc_dir || true
 mkdir media || true
 mkdir logs || true
 
+rm -f prometheus_multi_proc_dir/gauge*
+
 ### 2. Run cronjobs ###
 python manage.py runcronjobs

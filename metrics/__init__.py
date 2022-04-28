@@ -1,4 +1,4 @@
-from prometheus_client import Counter, Summary
+from prometheus_client import Counter, Summary, Gauge
 
 
 REQUEST_LATENCY = Summary(
@@ -10,3 +10,16 @@ REQUEST_COUNT = Counter(
 )
 
 ERRORS = Counter("errors", "App errors", ["error_messsage"])
+
+DBUPDATE = Counter(
+    "database_update",
+    "Village, Player, Tribe updates",
+    ["table_name", "world", "action"],
+)
+CRONTASK = Counter("cron_task", "Cron tasks", ["job_name"])
+
+MEMORY = Gauge("memory", "Memory usage percent")
+
+DISK = Gauge("disk", "Disk usage percent")
+
+CPU = Gauge("cpu", "CPU usage percent")
