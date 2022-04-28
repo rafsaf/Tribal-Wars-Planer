@@ -38,7 +38,7 @@ class Command(BaseCommand):
     help = "Cronjobs runner"
 
     def handle(self, *args, **options):
-        log.info("job:runcronjobs start")
+        log.info("task runcronjobs start")
         try:
             schedule.every(settings.JOB_MIN_INTERVAL).to(
                 settings.JOB_MAX_INTERVAL
@@ -71,7 +71,7 @@ class Command(BaseCommand):
             log.info("Cronjobs restarting in 60s...")
             time.sleep(60)  # grace period 60s waiting for threads end
         except Exception as error:
-            msg = f"job:runcronjobs failed: {error}"
+            msg = f"task runcronjobs failed: {error}"
             self.stdout.write(self.style.ERROR(msg))
             log.error(msg)
-            metrics.ERRORS.labels("job:runcronjobs").inc()
+            metrics.ERRORS.labels("task_runcronjobs").inc()
