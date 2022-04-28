@@ -16,6 +16,7 @@ joblib==1.1.0; python_version >= "3.8" and python_version < "3.11"
 js2py==0.71
 numpy==1.22.3; python_version >= "3.8" and python_version < "3.11"
 prometheus-client==0.13.1; python_version >= "3.6"
+psutil==5.9.0; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 psycopg2==2.9.3; python_version >= "3.6"
 pyjsparser==2.7.1
 python-dateutil==2.8.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.3.0")

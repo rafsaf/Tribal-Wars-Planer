@@ -23,6 +23,7 @@ stripe = "2.65.0"
 tw-complex = "1.0.3"
 uWSGI = "^2.0.20"
 schedule = "^1.1.0"
+psutil = "^5.9.0"
 
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
