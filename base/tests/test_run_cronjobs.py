@@ -33,7 +33,6 @@ def test_run_cronjobs(monkeypatch: MonkeyPatch, capsys: CaptureFixture):
     call_command("runcronjobs")
 
     out, err = capsys.readouterr()
-    print(out)
     assert out == (
         "starting task dbupdate\n"
         "success task dbupdate\n"
