@@ -114,38 +114,43 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
         request.POST, None, instance=instance, outline=instance
     )
 
+    form1 = forms.OffTroopsForm(None, outline=instance)
+    form2 = forms.DeffTroopsForm(None, outline=instance)
+
     off_troops = Troops(instance, "off_troops")
     deff_troops = Troops(instance, "deff_troops")
 
     if request.method == "POST":
         if "form-1" in request.POST:
+            form10 = forms.OffTroopsForm(request.POST, outline=instance)
             instance.actions.save_off_troops(instance)
-            if form1.is_valid():
-                form1.save()
+            if form10.is_valid():
+                instance.off_troops = request.POST.get("off_troops")
+                instance.save()
                 request.session["message-off-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:
                 off_troops.set_troops(request.POST.get("off_troops"))
-                off_troops.set_errors(form1.errors)
+                off_troops.set_errors(form10.errors)
 
         elif "form-2" in request.POST:
+            form20 = forms.DeffTroopsForm(request.POST, outline=instance)
             instance.actions.save_deff_troops(instance)
-            if form2.is_valid():
-                form2.save()
+            if form20.is_valid():
+                instance.deff_troops = request.POST.get("deff_troops")
+                instance.save()
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:
                 deff_troops.set_troops(request.POST.get("deff_troops"))
-                deff_troops.set_errors(form2.errors)
+                deff_troops.set_errors(form20.errors)
 
     if instance.world.postfix == "Test":
-        setattr(instance.world, "update", gettext("Never") + ".")
+        instance.world.update = gettext("Never") + "."
     else:
         _timedelta = timezone.now() - instance.world.last_update
-        setattr(
-            instance.world,
-            "update",
-            str(_timedelta.seconds // 60) + gettext(" minute(s) ago."),
+        instance.world.update = str(_timedelta.seconds // 60) + gettext(
+            " minute(s) ago."
         )
 
     context = {
