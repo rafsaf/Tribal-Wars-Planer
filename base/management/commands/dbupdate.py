@@ -28,26 +28,28 @@ from utils.database_update import WorldUpdateHandler
 log = logging.getLogger(__name__)
 
 
+def update_world(world: World, command: BaseCommand):
+    try:
+        world_handler = WorldUpdateHandler(world=world)
+        message = world_handler.update_all()
+        command.stdout.write(command.style.SUCCESS(message))
+        log.info(message)
+    except Exception as error:
+        log.error(f"error in task dbupdate: {error}")
+        metrics.ERRORS.labels("task_dbupdate").inc()
+
+
 class Command(BaseCommand):
     help = "Update all Tribe, VillageModel, Player instances"
 
     @job_logs_and_metrics(log)
     def handle(self, *args, **options):
-        tasks: list[futures.Future] = []
+        worlds = list(World.objects.select_related("server").exclude(postfix="Test"))
+
         with futures.ThreadPoolExecutor() as executor:
-            for world in World.objects.select_related("server").exclude(postfix="Test"):
-
-                def update_world():
-                    try:
-                        world_handler = WorldUpdateHandler(world=world)
-                        message = world_handler.update_all()
-                        self.stdout.write(self.style.SUCCESS(message))
-                        log.info(message)
-                    except Exception as error:
-                        log.error(f"error in task dbupdate: {error}")
-                        metrics.ERRORS.labels("task_dbupdate").inc()
-
-                tasks.append(executor.submit(update_world))
+            tasks: list[futures.Future] = []
+            for world in worlds:
+                tasks.append(executor.submit(update_world, world=world, command=self))
                 sleep(0.2)
 
             futures.wait(tasks)
