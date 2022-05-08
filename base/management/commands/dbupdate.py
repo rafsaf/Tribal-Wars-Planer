@@ -15,12 +15,15 @@
 
 
 import logging
+from concurrent import futures
+from time import sleep
 
 from django.core.management.base import BaseCommand
 
-from base.management.commands.decorators import job_logs_and_metrics
+import metrics
+from base.management.commands.utils import job_logs_and_metrics
 from base.models import World
-from utils.database_update import WorldQuery
+from utils.database_update import WorldUpdateHandler
 
 log = logging.getLogger(__name__)
 
@@ -30,19 +33,21 @@ class Command(BaseCommand):
 
     @job_logs_and_metrics(log)
     def handle(self, *args, **options):
-        worlds = []
-        for world in World.objects.select_related("server").exclude(postfix="Test"):
-            instance = WorldQuery(world=world)
-            instance.update_all()
-            worlds.append(world)
-            message = (
-                f"{str(world)} | tribe_updated: {instance.tribe_log_msg} |"
-                f" village_update: {instance.village_log_msg} |"
-                f" player_update: {instance.player_log_msg}"
-            )
-            log.info(message)
-            self.stdout.write(self.style.SUCCESS(message))
+        tasks: list[futures.Future] = []
+        with futures.ThreadPoolExecutor() as executor:
+            for world in World.objects.select_related("server").exclude(postfix="Test"):
 
-        World.objects.bulk_update(
-            worlds, ["last_update", "etag_player", "etag_tribe", "etag_village"]
-        )
+                def update_world():
+                    try:
+                        world_handler = WorldUpdateHandler(world=world)
+                        message = world_handler.update_all()
+                        self.stdout.write(self.style.SUCCESS(message))
+                        log.info(message)
+                    except Exception as error:
+                        log.error(f"error in task dbupdate: {error}")
+                        metrics.ERRORS.labels("task_dbupdate").inc()
+
+                tasks.append(executor.submit(update_world))
+                sleep(0.2)
+
+            futures.wait(tasks)

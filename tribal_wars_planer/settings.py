@@ -16,6 +16,7 @@
 import os
 from pathlib import Path
 
+from diskcache.fanout import FanoutCache
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -268,25 +269,25 @@ LOGGING = {
     "handlers": {
         "error": {
             "class": "logging.FileHandler",
-            "filename": "logs/django_error.log",
+            "filename": BASE_DIR / "logs/django_error.log",
             "formatter": "verbose",
             "level": "ERROR",
         },
         "warning": {
             "class": "logging.FileHandler",
-            "filename": "logs/django_warning.log",
+            "filename": BASE_DIR / "logs/django_warning.log",
             "formatter": "verbose",
             "level": "WARNING",
         },
         "info": {
             "class": "logging.FileHandler",
-            "filename": "logs/django_info.log",
+            "filename": BASE_DIR / "logs/django_info.log",
             "formatter": "simple",
             "level": "INFO",
         },
         "commands": {
             "class": "logging.FileHandler",
-            "filename": "logs/django_commands.log",
+            "filename": BASE_DIR / "logs/django_commands.log",
             "formatter": "verbose",
             "level": "INFO",
         },
@@ -304,3 +305,8 @@ LOGGING = {
         },
     },
 }
+
+# disk cache im temp dir, 5gb limit
+fanout_cache = FanoutCache(
+    directory=BASE_DIR / "disk_cache", shards=4, timeout=1, size_limit=5 * 2**30
+)

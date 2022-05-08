@@ -10,8 +10,8 @@ First of all, assume that it is not a problem on the <b>Planer</b> side and a bu
 
 The most common mistakes are:
 
-<p class = "my-0"> <span class = "md-error"> 1. </span> If everything you entered is wrong, it is likely that the villages you pasted do not belong to the tribes and/or world you declared when creating this lists. </p>
-<p class = "my-0"> <span class = "md-error"> 2. </span> Data updates every 10-15 minutes, sometimes villages change owners or players during this period. </p>
-<p class = "my-0"> <span class = "md-error"> 3. </span> If a large part is wrong and the rest is correct, perhaps a duplicate script output has been pasted, duplicate lines are shown as wrong. </p>
+<p class = "my-2"> <span class = "md-error"> 1. </span> If everything you entered is wrong, it is likely that the villages you pasted do not belong to the tribes and/or world you declared when creating this lists. </p>
+<p class = "my-2"> <span class = "md-error"> 2. </span> Sometimes villages can change owners or players their tribe. Data update runs every few minutes, BUT Tribal Wars offers fresh data only every <b>1 hour</b>. Due to the bug in their infrastructure, this <b><span class = "md-error"> often </span></b> can be shorter period, always look on <u>Last world update: X minute(s) ago.</u> message in the left upper corner. </p>
+<p class = "my-2"> <span class = "md-error"> 3. </span> If a large part is wrong and the rest is correct, perhaps a duplicate script output has been pasted, duplicate lines are shown as wrong. </p>
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> If none of the above, a little bit of information on what else is checked, along with an example of the text being pasted, you can also find <b><a target="_blank" href="/documentation#uzupelnianie-zbiorki-wojska">here</a></b>. If you feel this is definitely a page error, you should report it on<b>Discord</b>.</div>

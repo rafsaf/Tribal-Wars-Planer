@@ -15,9 +15,7 @@
 
 
 import logging
-import threading
 import time
-from typing import Callable
 
 import schedule
 from django.conf import settings
@@ -25,13 +23,9 @@ from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
 import metrics
+from base.management.commands.utils import run_threaded
 
 log = logging.getLogger(__name__)
-
-
-def run_threaded(job_func: Callable[[], None], **kwargs):
-    job_thread = threading.Thread(target=job_func, kwargs=kwargs)
-    job_thread.start()
 
 
 class Command(BaseCommand):

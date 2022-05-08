@@ -1,8 +1,15 @@
+import threading
 from logging import Logger
+from typing import Callable
 
 from django.core.management.base import BaseCommand
 
 import metrics
+
+
+def run_threaded(job_func: Callable[[], None], **kwargs):
+    job_thread = threading.Thread(target=job_func, kwargs=kwargs)
+    job_thread.start()
 
 
 def job_logs_and_metrics(log: Logger):

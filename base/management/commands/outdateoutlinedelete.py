@@ -22,7 +22,7 @@ from django.core.management.base import BaseCommand
 from django.db.models.query import QuerySet
 from django.utils.timezone import now
 
-from base.management.commands.decorators import job_logs_and_metrics
+from base.management.commands.utils import job_logs_and_metrics
 from base.models import Outline
 
 log = logging.getLogger(__name__)

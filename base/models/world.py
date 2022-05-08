@@ -39,12 +39,16 @@ class World(models.Model):
     militia = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     max_noble_distance = models.IntegerField(default=50)
     morale = models.IntegerField(default=1)
-    etag_player = models.CharField(max_length=200, default="")
-    etag_tribe = models.CharField(max_length=200, default="")
-    etag_village = models.CharField(max_length=200, default="")
+    fanout_key_text_player = models.CharField(default="__0", max_length=200)
+    fanout_key_text_tribe = models.CharField(default="__0", max_length=200)
+    fanout_key_text_village = models.CharField(default="__0", max_length=200)
 
     def __str__(self):
         return self.server.prefix + self.postfix
+
+    def last_modified_timestamp(self) -> float:
+        world, data_type, timestampt_str = self.fanout_key_text_village.split("_")
+        return float(timestampt_str)
 
     def human(self, prefix: bool = False):
         if prefix:

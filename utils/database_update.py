@@ -14,6 +14,10 @@
 # ==============================================================================
 
 import gzip
+import logging
+import time
+from datetime import datetime
+from typing import Literal
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
 
@@ -21,17 +25,28 @@ import requests
 from django.db import transaction
 from django.db.models import Count
 from django.utils import timezone
+from requests.exceptions import ConnectionError, Timeout
 
 import metrics
 from base.models import Player, Tribe, VillageModel, World
+from tribal_wars_planer.settings import fanout_cache
+
+log = logging.getLogger(__name__)
 
 
-class WorldQuery:
+class WorldUpdateHandler:
+    VILLAGE_DATA = "/map/village.txt.gz"
+    TRIBE_DATA = "/map/ally.txt.gz"
+    PLAYER_DATA = "/map/player.txt.gz"
+    DATA_TYPES = Literal[
+        "/map/village.txt.gz", "/map/ally.txt.gz", "/map/player.txt.gz"
+    ]
+
     def __init__(self, world: World):
         self.world = world
-        self.player_log_msg: str = "N/-"
-        self.tribe_log_msg: str = "N/-"
-        self.village_log_msg: str = "N/-"
+        self.player_log_msg: str | None = None
+        self.tribe_log_msg: str | None = None
+        self.village_log_msg: str | None = None
 
     def check_if_world_exist_and_try_create(self) -> tuple[World | None, str]:
         """
@@ -46,9 +61,9 @@ class WorldQuery:
             return (None, "added")
         try:
             req = requests.get(
-                self.world.link_to_game("/interface.php?func=get_config")
+                self.world.link_to_game("/interface.php?func=get_config"), timeout=3.05
             )
-        except requests.exceptions.RequestException:
+        except (Timeout, ConnectionError):
             return (None, "error")
         if req.history:
             return (None, "error")
@@ -87,9 +102,10 @@ class WorldQuery:
 
         try:
             req_units = requests.get(
-                self.world.link_to_game("/interface.php?func=get_unit_info")
+                self.world.link_to_game("/interface.php?func=get_unit_info"),
+                timeout=3.05,
             )
-        except requests.exceptions.RequestException:
+        except (Timeout, ConnectionError):
             return (None, "error")
         if req_units.history:
             return (None, "error")
@@ -121,267 +137,300 @@ class WorldQuery:
             self.handle_connection_error()
 
     def handle_connection_error(self):
+        metrics.ERRORS.labels(f"conn error {self.world.link_to_game()}").inc()
         self.world.connection_errors += 1
         self.world.save()
 
+    @staticmethod
+    def last_modified_timestamp(datetime_string: str):
+        """Converts 'Sun, 08 May 2022 06:15:20 GMT' to timestamp"""
+        last_modified_datetime = datetime.strptime(
+            datetime_string, "%a, %d %b %Y %H:%M:%S %Z"
+        )
+        last_modified_datetime = last_modified_datetime.replace(tzinfo=timezone.utc)
+        return last_modified_datetime.timestamp()
+
     @transaction.atomic()
     def update_all(self):
-        self.update_tribes()
-        self.update_players()
-        self.update_villages()
-        self.world.last_update = timezone.now()
+        """Synchronize Tribe, Village, Player tables with latest data from game."""
+        count = 0
+        while count < 6:
+            self.download_and_save(self.PLAYER_DATA)
+            self.download_and_save(self.VILLAGE_DATA)
+            self.download_and_save(self.TRIBE_DATA)
+            time.sleep(2 + 0.1 * count)
+            count += 1
 
-    def update_villages(self):
-        dupl_ids = list(
+        tribe_cache_key = self.get_latest_data_key(self.TRIBE_DATA)
+        if tribe_cache_key != self.world.fanout_key_text_tribe:
+            tribe_text = fanout_cache.get(tribe_cache_key)
+            self.world.fanout_key_text_tribe = tribe_cache_key
+            self.update_tribes(text=tribe_text)
+
+        player_cache_key = self.get_latest_data_key(self.PLAYER_DATA)
+        if player_cache_key != self.world.fanout_key_text_player:
+            player_text = fanout_cache.get(player_cache_key)
+            self.world.fanout_key_text_player = player_cache_key
+            self.update_players(text=player_text)
+
+        village_cache_key = self.get_latest_data_key(self.VILLAGE_DATA)
+        if village_cache_key != self.world.fanout_key_text_village:
+            village_text = fanout_cache.get(village_cache_key)
+            self.world.fanout_key_text_village = village_cache_key
+            self.update_villages(text=village_text)
+
+        message = (
+            f"{self.world} | tribe_updated: {self.tribe_log_msg} |"
+            f" village_update: {self.tribe_log_msg} |"
+            f" player_update: {self.tribe_log_msg}"
+        )
+
+        self.world.last_update = timezone.now()
+        self.world.save()
+        return message
+
+    def download_and_save(self, data_type: "WorldUpdateHandler.DATA_TYPES"):
+        """Download data (NOT ALWAYS latest) from game API in text format and save in disk cache"""
+        try:
+            res = requests.get(
+                self.world.link_to_game(data_type),
+                stream=True,
+                timeout=3.05,
+            )
+            if res.history:
+                return self.check_if_world_is_archived(res.url)
+            # handle last-modified header without accessing body
+            last_modified = WorldUpdateHandler.last_modified_timestamp(
+                res.headers["last-modified"]
+            )
+            unique_cache_key = f"{self.world}_{data_type}_{last_modified}"
+            if unique_cache_key in fanout_cache:
+                res.close()
+                return
+            # only now make another request to get body
+            text = gzip.decompress(res.content).decode()
+            log.info(f"setting cache key {unique_cache_key}")
+            fanout_cache.set(unique_cache_key, text, 3 * 60 * 60)
+            res.close()
+        except (Timeout, ConnectionError):
+            self.handle_connection_error()
+
+    def get_latest_data_key(self, data_type: "WorldUpdateHandler.DATA_TYPES") -> str:
+        """Get latest key (by 'last-modified' datetime) from disk cache"""
+        cache_key_prefix = f"{self.world}_{data_type}_"
+        result_list: list[str] = []
+        for key in fanout_cache:
+            if str(key).startswith(cache_key_prefix):
+                result_list.append(key)
+
+        result_list.sort(reverse=True)
+        return result_list[0]
+
+    def update_villages(self, text: str):
+        create_list: list[VillageModel] = []
+
+        players = Player.objects.filter(world=self.world)
+        player_ids_map: dict[int, Player] = {
+            player.player_id: player for player in players
+        }
+
+        duplicated_ids_list: list[str] = list(
             VillageModel.objects.filter(world=self.world)
             .values_list("village_id", flat=True)
             .annotate(num_id=Count("village_id"))
             .filter(num_id__gt=1)
         )
-        if len(dupl_ids) > 0:
+        if duplicated_ids_list:
             VillageModel.objects.filter(
-                world=self.world, village_id__in=dupl_ids
+                world=self.world, village_id__in=duplicated_ids_list
             ).delete()
 
-        create_list = list()
-
-        try:
-            req = requests.get(
-                self.world.link_to_game("/map/village.txt.gz"), stream=True
+        villages_barbarian: set[tuple[int, int, int]] = set(
+            VillageModel.objects.filter(player=None, world=self.world).values_list(
+                "village_id", "x_coord", "y_coord"
             )
-        except requests.exceptions.RequestException:
-            self.handle_connection_error()
+        )
+        villages_humans: set[tuple[int, int, int, int]] = set(
+            VillageModel.objects.select_related()
+            .exclude(player=None)
+            .filter(world=self.world)
+            .values_list("village_id", "player__player_id", "x_coord", "y_coord")
+        )
 
-        else:
-            if req.history:
-                return self.check_if_world_is_archived(req.url)
+        for line in [i.split(",") for i in text.split("\n")]:
+            if line == [""]:
+                continue
+
+            village_id = int(line[0])
+            player_id = int(line[4])
+            x = int(line[2])
+            y = int(line[3])
+
+            if (village_id, x, y) in villages_barbarian and player_id == 0:
+                villages_barbarian.remove((village_id, x, y))
+                continue
+
+            if (village_id, player_id, x, y) in villages_humans:
+                villages_humans.remove((village_id, player_id, x, y))
+                continue
+
+            if player_id == 0:
+                player = None
+            elif player_id not in player_ids_map:
+                continue
             else:
-                text = gzip.decompress(req.content).decode()
-                self.world.etag_village = req.headers["etag"]
-                self.village_log_msg = "T/"
-            player_context = {}
+                player = player_ids_map[player_id]
 
-            players = Player.objects.filter(world=self.world)
-            for player in players:
-                player_context[player.player_id] = player
-
-            village_set1 = set(
-                VillageModel.objects.filter(player=None, world=self.world).values_list(
-                    "village_id", "x_coord", "y_coord"
-                )
+            village = VillageModel(
+                village_id=village_id,
+                x_coord=x,
+                y_coord=y,
+                coord=f"{x}|{y}",
+                player=player,
+                world=self.world,
             )
-            village_set2 = set(
-                VillageModel.objects.select_related()
-                .exclude(player=None)
-                .filter(world=self.world)
-                .values_list("village_id", "player__player_id", "x_coord", "y_coord")
+            create_list.append(village)
+
+        village_ids_to_remove = [int(village[0]) for village in villages_barbarian] + [
+            int(village[0]) for village in villages_humans
+        ]
+
+        VillageModel.objects.filter(
+            village_id__in=village_ids_to_remove, world=self.world
+        ).delete()
+        VillageModel.objects.bulk_create(create_list)
+        metrics.DBUPDATE.labels("village", self.world.postfix, "create").inc(
+            len(create_list)
+        )
+        metrics.DBUPDATE.labels("village", self.world.postfix, "delete").inc(
+            len(village_ids_to_remove)
+        )
+        self.village_log_msg = f"C-{len(create_list)},D-{len(village_ids_to_remove)}"
+
+    def update_tribes(self, text: str):
+        create_list: list[Tribe] = []
+
+        tribe_set: set[tuple[int, str]] = set(
+            Tribe.objects.filter(world=self.world).values_list("tribe_id", "tag")
+        )
+
+        for line in [i.split(",") for i in text.split("\n")]:
+            if line == [""]:
+                continue
+
+            tribe_id = int(line[0])
+            tag = unquote(unquote_plus(line[2]))
+
+            if (tribe_id, tag) in tribe_set:
+                tribe_set.remove((tribe_id, tag))
+
+            else:
+                tribe = Tribe(tribe_id=tribe_id, tag=tag, world=self.world)
+                create_list.append(tribe)
+
+        Tribe.objects.filter(
+            tribe_id__in=[item[0] for item in tribe_set], world=self.world
+        ).delete()
+        Tribe.objects.bulk_create(create_list)
+        metrics.DBUPDATE.labels("tribe", self.world.postfix, "create").inc(
+            len(create_list)
+        )
+        metrics.DBUPDATE.labels("tribe", self.world.postfix, "delete").inc(
+            len(tribe_set)
+        )
+        self.tribe_log_msg = f"C-{len(create_list)},D-{len(tribe_set)}"
+
+    def update_players(self, text: str):
+        create_list: list[Player] = []
+        update_list: list[Player] = []
+
+        players = Player.objects.filter(world=self.world)
+        player_ids_map: dict[int, Player] = {
+            player.player_id: player for player in players
+        }
+
+        tribes = Tribe.objects.filter(world=self.world)
+        tribe_context: dict[int, Tribe] = {tribe.tribe_id: tribe for tribe in tribes}
+
+        players_without_tribe: set[tuple[int, str, int, int]] = set(
+            Player.objects.filter(tribe=None, world=self.world).values_list(
+                "player_id", "name", "villages", "points"
             )
+        )
 
-            for line in [i.split(",") for i in text.split("\n")]:
-                if line == [""]:
-                    continue
+        players_with_tribe: set[tuple[int, str, int, int, int]] = set(
+            Player.objects.exclude(tribe=None)
+            .filter(world=self.world)
+            .select_related("tribe")
+            .values_list("player_id", "name", "tribe__tribe_id", "villages", "points")
+        )
 
-                village_id = int(line[0])
-                player_id = int(line[4])
-                x = int(line[2])
-                y = int(line[3])
+        for line in [i.split(",") for i in text.split("\n")]:
+            if line == [""]:
+                continue
 
-                if (village_id, x, y) in village_set1 and player_id == 0:
-                    village_set1.remove((village_id, x, y))
-                    continue
+            player_id = int(line[0])
+            name = unquote(unquote_plus(line[1]))
+            tribe_id = int(line[2])
+            villages = int(line[3])
+            points = int(line[4])
 
-                if (village_id, player_id, x, y) in village_set2:
-                    village_set2.remove((village_id, player_id, x, y))
-                    continue
+            if (
+                player_id,
+                name,
+                villages,
+                points,
+            ) in players_without_tribe and tribe_id == 0:
+                players_without_tribe.remove((player_id, name, villages, points))
+                del player_ids_map[player_id]
+                continue
 
-                if player_id == 0:
-                    player = None
-                elif player_id not in player_context:
-                    continue
-                else:
-                    player = player_context[player_id]
+            if (player_id, name, tribe_id, villages, points) in players_with_tribe:
+                players_with_tribe.remove((player_id, name, tribe_id, villages, points))
+                del player_ids_map[player_id]
+                continue
 
-                village = VillageModel(
-                    village_id=village_id,
-                    x_coord=x,
-                    y_coord=y,
-                    coord=f"{x}|{y}",
-                    player=player,
+            # else create or update
+            if tribe_id == 0:
+                tribe = None
+            elif tribe_id not in tribe_context:
+                continue
+            else:
+                tribe = tribe_context[tribe_id]
+
+            if player_id in player_ids_map:
+                player = player_ids_map[player_id]
+                player.name = name
+                player.tribe = tribe
+                player.villages = villages
+                player.points = points
+                update_list.append(player)
+                del player_ids_map[player_id]
+            else:
+                player = Player(
+                    player_id=player_id,
+                    name=name,
+                    tribe=tribe,
                     world=self.world,
+                    villages=villages,
+                    points=points,
                 )
-                create_list.append(village)
+                create_list.append(player)
 
-            village_ids_to_remove = [int(village[0]) for village in village_set1] + [
-                int(village[0]) for village in village_set2
-            ]
-
-            VillageModel.objects.filter(
-                village_id__in=village_ids_to_remove, world=self.world
-            ).delete()
-            VillageModel.objects.bulk_create(create_list)
-            metrics.DBUPDATE.labels("village", self.world.postfix, "create").inc(
-                len(create_list)
-            )
-            metrics.DBUPDATE.labels("village", self.world.postfix, "delete").inc(
-                len(village_ids_to_remove)
-            )
-            self.village_log_msg += (
-                f"C-{len(create_list)},D-{len(village_ids_to_remove)}"
-            )
-
-    def update_tribes(self):
-        create_list = list()
-
-        try:
-            req = requests.get(self.world.link_to_game("/map/ally.txt.gz"), stream=True)
-        except requests.exceptions.RequestException:
-            self.handle_connection_error()
-
-        else:
-            if req.history:
-                return self.check_if_world_is_archived(req.url)
-            else:
-                text = gzip.decompress(req.content).decode()
-                self.world.etag_tribe = req.headers["etag"]
-                self.tribe_log_msg = "T/"
-            tribe_set = set(
-                Tribe.objects.filter(world=self.world).values_list("tribe_id", "tag")
-            )
-
-            for line in [i.split(",") for i in text.split("\n")]:
-                if line == [""]:
-                    continue
-
-                tribe_id = int(line[0])
-                tag = unquote(unquote_plus(line[2]))
-
-                if (tribe_id, tag) in tribe_set:
-                    tribe_set.remove((tribe_id, tag))
-
-                else:
-                    tribe = Tribe(tribe_id=tribe_id, tag=tag, world=self.world)
-                    create_list.append(tribe)
-
-            Tribe.objects.filter(
-                tribe_id__in=[item[0] for item in tribe_set], world=self.world
-            ).delete()
-            Tribe.objects.bulk_create(create_list)
-            metrics.DBUPDATE.labels("tribe", self.world.postfix, "create").inc(
-                len(create_list)
-            )
-            metrics.DBUPDATE.labels("tribe", self.world.postfix, "delete").inc(
-                len(tribe_set)
-            )
-            self.tribe_log_msg += f"C-{len(create_list)},D-{len(tribe_set)}"
-
-    def update_players(self):
-        try:
-            req = requests.get(
-                self.world.link_to_game("/map/player.txt.gz"), stream=True
-            )
-        except requests.exceptions.RequestException:
-            self.handle_connection_error()
-
-        else:
-            if req.history:
-                return self.check_if_world_is_archived(req.url)
-            else:
-                text = gzip.decompress(req.content).decode()
-                self.world.etag_player = req.headers["etag"]
-                self.player_log_msg = "T/"
-            tribe_context = {}
-
-            tribes = Tribe.objects.filter(world=self.world)
-            for tribe in tribes:
-                tribe_context[tribe.tribe_id] = tribe
-
-            create_list: list[Player] = []
-            update_list: list[Player] = []
-
-            player_set1 = set(
-                Player.objects.filter(tribe=None, world=self.world).values_list(
-                    "player_id", "name", "villages", "points"
-                )
-            )
-
-            player_set2 = set(
-                Player.objects.exclude(tribe=None)
-                .filter(world=self.world)
-                .select_related("tribe")
-                .values_list(
-                    "player_id", "name", "tribe__tribe_id", "villages", "points"
-                )
-            )
-
-            player_ids_map: dict[int, Player] = {}
-
-            db_player: Player
-            for db_player in Player.objects.filter(world=self.world):
-                player_ids_map[db_player.player_id] = db_player
-
-            for line in [i.split(",") for i in text.split("\n")]:
-                if line == [""]:
-                    continue
-
-                player_id = int(line[0])
-                name = unquote(unquote_plus(line[1]))
-                tribe_id = int(line[2])
-                villages = int(line[3])
-                points = int(line[4])
-
-                if (player_id, name, villages, points) in player_set1 and tribe_id == 0:
-                    player_set1.remove((player_id, name, villages, points))
-                    del player_ids_map[player_id]
-                    continue
-
-                if (player_id, name, tribe_id, villages, points) in player_set2:
-                    player_set2.remove((player_id, name, tribe_id, villages, points))
-                    del player_ids_map[player_id]
-                    continue
-
-                # else create or update
-                if tribe_id == 0:
-                    tribe = None
-                elif tribe_id not in tribe_context:
-                    continue
-                else:
-                    tribe = tribe_context[tribe_id]
-
-                if player_id in player_ids_map:
-                    player = player_ids_map[player_id]
-                    player.name = name
-                    player.tribe = tribe
-                    player.villages = villages
-                    player.points = points
-                    update_list.append(player)
-                    del player_ids_map[player_id]
-                else:
-                    player = Player(
-                        player_id=player_id,
-                        name=name,
-                        tribe=tribe,
-                        world=self.world,
-                        villages=villages,
-                        points=points,
-                    )
-                    create_list.append(player)
-
-            Player.objects.bulk_update(
-                update_list, ["name", "tribe", "points", "villages"]
-            )
-            Player.objects.filter(
-                world=self.world, player_id__in=player_ids_map.keys()
-            ).delete()
-            Player.objects.bulk_create(create_list)
-            metrics.DBUPDATE.labels("player", self.world.postfix, "create").inc(
-                len(create_list)
-            )
-            metrics.DBUPDATE.labels("player", self.world.postfix, "delete").inc(
-                len(player_ids_map)
-            )
-            metrics.DBUPDATE.labels("player", self.world.postfix, "update").inc(
-                len(update_list)
-            )
-            self.player_log_msg += (
-                f"C-{len(create_list)},D-{len(player_ids_map)},U-{len(update_list)}"
-            )
+        Player.objects.bulk_update(update_list, ["name", "tribe", "points", "villages"])
+        Player.objects.filter(
+            world=self.world, player_id__in=player_ids_map.keys()
+        ).delete()
+        Player.objects.bulk_create(create_list)
+        metrics.DBUPDATE.labels("player", self.world.postfix, "create").inc(
+            len(create_list)
+        )
+        metrics.DBUPDATE.labels("player", self.world.postfix, "delete").inc(
+            len(player_ids_map)
+        )
+        metrics.DBUPDATE.labels("player", self.world.postfix, "update").inc(
+            len(update_list)
+        )
+        self.player_log_msg = (
+            f"C-{len(create_list)},D-{len(player_ids_map)},U-{len(update_list)}"
+        )
