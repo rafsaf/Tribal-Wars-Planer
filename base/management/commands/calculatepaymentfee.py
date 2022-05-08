@@ -22,7 +22,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 
 import metrics
-from base.management.commands.decorators import job_logs_and_metrics
+from base.management.commands.utils import job_logs_and_metrics
 from base.models import Payment
 
 stripe.api_key = settings.STRIPE_SECRET_KEY

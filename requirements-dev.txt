@@ -14,6 +14,7 @@ colorama==0.4.4; python_version >= "3.7" and python_full_version >= "3.6.2" and 
 configargparse==1.5.3; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 confusable-homoglyphs==3.2.0; python_version >= "3.6"
 coverage==6.3.2; python_version >= "3.7"
+diskcache==5.4.0; python_version >= "3"
 django-crispy-forms==1.14.0; python_version >= "3.7"
 django-registration==3.2; python_version >= "3.6"
 django-ses==2.6.1; python_version >= "3.5"

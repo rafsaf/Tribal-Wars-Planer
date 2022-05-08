@@ -14,20 +14,20 @@
 # ==============================================================================
 
 from pathlib import Path
+from unittest.mock import patch
 
 import requests
 import requests_mock
-from django.core.management import call_command
 
 from base.models import Player, Tribe, VillageModel, World
 from base.tests.test_utils.mini_setup import MiniSetup
-from utils.database_update import WorldQuery
+from utils.database_update import WorldUpdateHandler
 
 GET_CONFIG = Path("utils/tests/database_update/get_config.xml").read_text()
 GET_UNIT_INFO = Path("utils/tests/database_update/get_unit_info.xml").read_text()
 
 
-class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
+class WorldUpdateHandlerTest(MiniSetup):
     def setUp(self):
         super().setUp()
         self.world = self.get_world(save=False)
@@ -35,22 +35,22 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
     def test_already_added(self):
         world = self.world
         world.save()
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         assert world_query.check_if_world_exist_and_try_create() == (None, "added")
 
     def test_connection_error_get_config(self):
         world = self.world
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         with requests_mock.Mocker() as mock:
             mock.get(
                 world.link_to_game("/interface.php?func=get_config"),
-                exc=requests.exceptions.RequestException,
+                exc=requests.exceptions.ConnectionError,
             )
             assert world_query.check_if_world_exist_and_try_create() == (None, "error")
 
     def test_connection_bad_status_get_config(self):
         world = self.world
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         with requests_mock.Mocker() as mock:
             mock.get(
                 world.link_to_game("/interface.php?func=get_config"), status_code=400
@@ -59,7 +59,7 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
 
     def test_connection_redirect_get_config(self):
         world = self.world
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         with requests_mock.Mocker() as mock:
             mock.get(
                 world.link_to_game("/interface.php?func=get_config"),
@@ -78,7 +78,7 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
 
     def test_connection_error_get_unit_info(self):
         world = self.world
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         with requests_mock.Mocker() as mock:
             mock.get(
                 world.link_to_game("/interface.php?func=get_config"),
@@ -91,13 +91,13 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
             )
             mock.get(
                 world.link_to_game("/interface.php?func=get_unit_info"),
-                exc=requests.exceptions.RequestException,
+                exc=requests.exceptions.ConnectionError,
             )
             assert world_query.check_if_world_exist_and_try_create() == (None, "error")
 
     def test_connection_bad_status_get_unit_info(self):
         world = self.world
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         with requests_mock.Mocker() as mock:
             mock.get(
                 world.link_to_game("/interface.php?func=get_config"),
@@ -121,7 +121,7 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
 
     def test_connection_redirect_get_unit_info(self):
         world = self.world
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         with requests_mock.Mocker() as mock:
             mock.get(
                 world.link_to_game("/interface.php?func=get_config"),
@@ -149,7 +149,7 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
 
     def test_works_ok(self):
         world = self.world
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         assert world_query.world.paladin == "inactive"
         assert world_query.world.archer == "inactive"
         assert world_query.world.militia == "inactive"
@@ -187,7 +187,7 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
         world = self.world
         world.save()
         world.refresh_from_db()
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         world_query.check_if_world_is_archived("https://example.com/archive/nt1")
         assert not World.objects.filter(pk=world.pk).exists()
 
@@ -195,41 +195,54 @@ class WorldTest_check_if_world_exist_and_try_create(MiniSetup):
         world = self.world
         world.save()
         world.refresh_from_db()
-        world_query = WorldQuery(world=world)
+        world_query = WorldUpdateHandler(world=world)
         world_query.check_if_world_is_archived("https://example.com/archive/nope")
         assert World.objects.filter(pk=world.pk).exists()
         assert world_query.world.connection_errors == 1
 
-    def test_db_update_cron_job(self):
+    def test_last_modified_timestamp(self):
+        datetime = "Sat, 08 Jan 2022 13:48:44 GMT"
+        assert WorldUpdateHandler.last_modified_timestamp(datetime) == 1641649724
+
+    @patch("time.sleep", return_value=None)
+    def test_db_update_cron_job(self, patched_time_sleep):
         TRIBES = Path("utils/tests/database_update/ally.txt.gz").read_bytes()
         PLAYERS = Path("utils/tests/database_update/player.txt.gz").read_bytes()
         VILLAGES = Path("utils/tests/database_update/village.txt.gz").read_bytes()
-
         self.world.save()
-        world_query = WorldQuery(world=self.world)
         with requests_mock.Mocker() as mock:
+            world_query = WorldUpdateHandler(world=self.world)
             mock.get(
                 world_query.world.link_to_game("/map/player.txt.gz"),
                 content=PLAYERS,
-                headers={"etag": "12345"},
+                headers={
+                    "etag": "12345",
+                    "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
+                },
             )
             mock.get(
                 world_query.world.link_to_game("/map/ally.txt.gz"),
                 content=TRIBES,
-                headers={"etag": "12345"},
+                headers={
+                    "etag": "12345",
+                    "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
+                },
             )
             mock.get(
                 world_query.world.link_to_game("/map/village.txt.gz"),
                 content=VILLAGES,
-                headers={"etag": "12345"},
+                headers={
+                    "etag": "12345",
+                    "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
+                },
             )
-            call_command("dbupdate")
+            world_query.update_all()
             self.world.refresh_from_db()
             date1 = self.world.last_update
             assert VillageModel.objects.count() == 38219
             assert Player.objects.count() == 10234
             assert Tribe.objects.count() == 534
-            call_command("dbupdate")
+            world_query.update_all()
             self.world.refresh_from_db()
             date2 = self.world.last_update
             assert date2 > date1

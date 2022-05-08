@@ -18,6 +18,8 @@ letsencrypt
 /data_richdev_postgres/*
 # Webhook
 /webhook/hooks.json
+# Diskcache
+/disk_cache/
 
 # Distribution / packaging
 .Python

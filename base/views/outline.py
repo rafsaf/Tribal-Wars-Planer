@@ -13,11 +13,12 @@
 # limitations under the License.
 # ==============================================================================
 
+from time import time
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
 from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
@@ -109,11 +110,6 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
 
-    form1 = forms.OffTroopsForm(request.POST, None, instance=instance, outline=instance)
-    form2 = forms.DeffTroopsForm(
-        request.POST, None, instance=instance, outline=instance
-    )
-
     form1 = forms.OffTroopsForm(None, outline=instance)
     form2 = forms.DeffTroopsForm(None, outline=instance)
 
@@ -125,7 +121,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
             form10 = forms.OffTroopsForm(request.POST, outline=instance)
             instance.actions.save_off_troops(instance)
             if form10.is_valid():
-                instance.off_troops = request.POST.get("off_troops")
+                instance.off_troops = request.POST["off_troops"]
                 instance.save()
                 request.session["message-off-troops"] = "true"
                 return redirect("base:planer_detail", _id)
@@ -137,7 +133,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
             form20 = forms.DeffTroopsForm(request.POST, outline=instance)
             instance.actions.save_deff_troops(instance)
             if form20.is_valid():
-                instance.deff_troops = request.POST.get("deff_troops")
+                instance.deff_troops = request.POST["deff_troops"]
                 instance.save()
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)
@@ -146,11 +142,13 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
                 deff_troops.set_errors(form20.errors)
 
     if instance.world.postfix == "Test":
-        instance.world.update = gettext("Never") + "."
+        setattr(instance.world, "update", gettext("Never") + ".")
     else:
-        _timedelta = timezone.now() - instance.world.last_update
-        instance.world.update = str(_timedelta.seconds // 60) + gettext(
-            " minute(s) ago."
+        _timedelta = time() - instance.world.last_modified_timestamp()
+        setattr(
+            instance.world,
+            "update",
+            str(round(_timedelta / 60)) + gettext(" minute(s) ago."),
         )
 
     context = {

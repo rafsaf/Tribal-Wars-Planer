@@ -818,7 +818,7 @@ class AddNewWorldForm(forms.ModelForm):
         except Exception:
             return None
         world = models.World(server=server, postfix=postfix.lower())
-        world_query = database_update.WorldQuery(world=world)
+        world_query = database_update.WorldUpdateHandler(world=world)
 
         result = world_query.check_if_world_exist_and_try_create()
         if result[1] == "error":
