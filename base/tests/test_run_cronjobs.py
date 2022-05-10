@@ -4,8 +4,10 @@ import django.conf
 from django.conf import LazySettings
 from django.core.management import call_command
 from pytest import CaptureFixture, MonkeyPatch
+from freezegun import freeze_time
 
 
+@freeze_time("2022-05-10")
 def test_run_cronjobs(monkeypatch: MonkeyPatch, capsys: CaptureFixture):
     import time
 
@@ -35,13 +37,15 @@ def test_run_cronjobs(monkeypatch: MonkeyPatch, capsys: CaptureFixture):
     out, err = capsys.readouterr()
     assert out == (
         "starting task dbupdate\n"
-        "success task dbupdate\n"
+        "success task dbupdate - processed in 0.0s\n"
         "starting task dbupdate\n"
-        "success task dbupdate\n"
+        "success task dbupdate - processed in 0.0s\n"
         "starting task outdateoverviewsdelete\n"
-        "success task outdateoverviewsdelete\n"
+        "success task outdateoverviewsdelete - processed in 0.0s\n"
         "starting task outdateoutlinedelete\n"
-        "success task outdateoutlinedelete\n"
+        "success task outdateoutlinedelete - processed in 0.0s\n"
         "starting task calculatepaymentfee\n"
-        "success task calculatepaymentfee\n"
+        "success task calculatepaymentfee - processed in 0.0s\n"
+        "starting task worldlastupdate\n"
+        "success task worldlastupdate - processed in 0.0s\n"
     )

@@ -66,10 +66,12 @@ services:
     env_file:
       - .env
     volumes:
+      - "twp_stg_disk_cache": "/build/disk_cache"
       - "twp_stg_logs:/build/logs"
       - "twp_stg_prometheus:/build/prometheus_multi_proc_dir"
 
 volumes:
+  twp_stg_disk_cache:
   twp_stg_logs:
   twp_stg_letsencrypt:
   twp_stg_prometheus:

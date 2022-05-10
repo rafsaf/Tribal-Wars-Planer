@@ -35,8 +35,8 @@ def update_world(world: World, command: BaseCommand):
         command.stdout.write(command.style.SUCCESS(message))
         log.info(message)
     except Exception as error:
-        log.error(f"error in task dbupdate: {error}")
-        metrics.ERRORS.labels("task_dbupdate").inc()
+        log.error(f"error in task dbupdate {world}: {error}")
+        metrics.ERRORS.labels(f"task_dbupdate {world}").inc()
 
 
 class Command(BaseCommand):

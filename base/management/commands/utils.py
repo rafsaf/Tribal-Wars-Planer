@@ -1,5 +1,6 @@
 import threading
 from logging import Logger
+from time import time
 from typing import Callable
 
 from django.core.management.base import BaseCommand
@@ -18,7 +19,7 @@ def job_logs_and_metrics(log: Logger):
             task_name = log.name.split(".")[-1]
             self.stdout.write(self.style.SUCCESS(f"starting task {task_name}"))
             log.info(f"starting task {task_name}")
-
+            start = time()
             try:
                 result = function(self, *args, **kwargs)
             except Exception as error:
@@ -29,8 +30,11 @@ def job_logs_and_metrics(log: Logger):
                 exit(1)
             else:
                 metrics.CRONTASK.labels(task_name).inc()
-                log.info(f"success task {task_name}")
-                self.stdout.write(self.style.SUCCESS(f"success task {task_name}"))
+                success_msg = (
+                    f"success task {task_name} - processed in {time() - start}s"
+                )
+                log.info(success_msg)
+                self.stdout.write(self.style.SUCCESS(success_msg))
                 return result
 
         return inner_wrapper
