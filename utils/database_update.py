@@ -150,7 +150,6 @@ class WorldUpdateHandler:
         last_modified_datetime = last_modified_datetime.replace(tzinfo=timezone.utc)
         return last_modified_datetime.timestamp()
 
-    @transaction.atomic()
     def update_all(self):
         """Synchronize Tribe, Village, Player tables with latest data from game."""
         count = 0
@@ -161,32 +160,34 @@ class WorldUpdateHandler:
             time.sleep(2 + 0.1 * count)
             count += 1
 
-        tribe_cache_key = self.get_latest_data_key(self.TRIBE_DATA)
-        if tribe_cache_key != self.world.fanout_key_text_tribe:
-            tribe_text = fanout_cache.get(tribe_cache_key)
-            self.world.fanout_key_text_tribe = tribe_cache_key
-            self.update_tribes(text=tribe_text)
+        with transaction.atomic():
+            tribe_cache_key = self.get_latest_data_key(self.TRIBE_DATA)
+            if tribe_cache_key != self.world.fanout_key_text_tribe:
+                tribe_text = fanout_cache.get(tribe_cache_key)
+                self.world.fanout_key_text_tribe = tribe_cache_key
+                self.update_tribes(text=tribe_text)
 
-        player_cache_key = self.get_latest_data_key(self.PLAYER_DATA)
-        if player_cache_key != self.world.fanout_key_text_player:
-            player_text = fanout_cache.get(player_cache_key)
-            self.world.fanout_key_text_player = player_cache_key
-            self.update_players(text=player_text)
+            player_cache_key = self.get_latest_data_key(self.PLAYER_DATA)
+            if player_cache_key != self.world.fanout_key_text_player:
+                player_text = fanout_cache.get(player_cache_key)
+                self.world.fanout_key_text_player = player_cache_key
+                self.update_players(text=player_text)
 
-        village_cache_key = self.get_latest_data_key(self.VILLAGE_DATA)
-        if village_cache_key != self.world.fanout_key_text_village:
-            village_text = fanout_cache.get(village_cache_key)
-            self.world.fanout_key_text_village = village_cache_key
-            self.update_villages(text=village_text)
+            village_cache_key = self.get_latest_data_key(self.VILLAGE_DATA)
+            if village_cache_key != self.world.fanout_key_text_village:
+                village_text = fanout_cache.get(village_cache_key)
+                self.world.fanout_key_text_village = village_cache_key
+                self.update_villages(text=village_text)
 
-        message = (
-            f"{self.world} | tribe_updated: {self.tribe_log_msg} |"
-            f" village_update: {self.tribe_log_msg} |"
-            f" player_update: {self.tribe_log_msg}"
-        )
+            message = (
+                f"{self.world} | tribe_updated: {self.tribe_log_msg} |"
+                f" village_update: {self.tribe_log_msg} |"
+                f" player_update: {self.tribe_log_msg}"
+            )
 
-        self.world.last_update = timezone.now()
-        self.world.save()
+            self.world.last_update = timezone.now()
+            self.world.save()
+
         return message
 
     def download_and_save(self, data_type: "WorldUpdateHandler.DATA_TYPES"):

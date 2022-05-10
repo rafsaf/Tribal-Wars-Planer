@@ -99,10 +99,12 @@ services:
     env_file:
       - .env
     volumes:
+      - "twp_prd_disk_cache": "/build/disk_cache"
       - "twp_prd_logs:/build/logs"
       - "twp_prd_prometheus:/build/prometheus_multi_proc_dir"
 
 volumes:
+  twp_prd_disk_cache:
   twp_prd_logs:
   twp_prd_letsencrypt:
   twp_prd_media:
