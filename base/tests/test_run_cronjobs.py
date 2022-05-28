@@ -3,8 +3,8 @@ from typing import Callable
 import django.conf
 from django.conf import LazySettings
 from django.core.management import call_command
-from pytest import CaptureFixture, MonkeyPatch
 from freezegun import freeze_time
+from pytest import CaptureFixture, MonkeyPatch
 
 
 @freeze_time("2022-05-10")
