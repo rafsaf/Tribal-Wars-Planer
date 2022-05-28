@@ -33,7 +33,6 @@ coverage = {extras = ["toml"], version = "^6.4"}
 flake8 = "^4.0.1"
 freezegun = "^1.2.1"
 isort = "^5.10.1"
-locust = "^2.8.5"
 pytest-django = "^4.5.2"
 requests-mock = "^1.9.3"
 schedule = "^1.1.0"
