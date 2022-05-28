@@ -37,6 +37,7 @@ locust = "^2.8.5"
 pytest-django = "^4.5.2"
 requests-mock = "^1.9.3"
 schedule = "^1.1.0"
+pre-commit = "^2.19.0"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
