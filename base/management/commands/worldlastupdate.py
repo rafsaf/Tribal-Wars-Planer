@@ -15,12 +15,13 @@
 
 
 import logging
-
-from base.management.commands.utils import job_logs_and_metrics
-from django.core.management.base import BaseCommand
-from base.models import World
-import metrics
 import time
+
+from django.core.management.base import BaseCommand
+
+import metrics
+from base.management.commands.utils import job_logs_and_metrics
+from base.models import World
 
 log = logging.getLogger(__name__)
 
