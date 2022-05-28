@@ -32,7 +32,7 @@ idna==3.3; python_version >= "3.6" and python_full_version < "3.0.0" or python_f
 iniconfig==1.1.1; python_version >= "3.7"
 isort==5.10.1; python_full_version >= "3.6.1" and python_version < "4.0"
 itsdangerous==2.1.2; python_version >= "3.7"
-jinja2==3.0.3; python_version >= "3.7"
+jinja2==3.1.2; python_version >= "3.7"
 jmespath==1.0.0; python_version >= "3.7"
 joblib==1.1.0; python_version >= "3.8" and python_version < "3.11"
 js2py==0.71
