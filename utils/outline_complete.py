@@ -244,12 +244,9 @@ class CreateWeights:
         # closest, close, random, far
 
         if noble_or_ruin:
-            iterator = zip(target.exact_noble, self.modes_list)
+            yield from zip(target.exact_noble, self.modes_list)
         else:
-            iterator = zip(target.exact_off, self.modes_list)
-        required: int
-        for required, mode in iterator:
-            yield (required, mode)
+            yield from zip(target.exact_off, self.modes_list)
 
     def _create_weights_or_pass_update_max_list(
         self, weights_lsts: tuple[list[WeightModel], list[WeightMaximum]]

@@ -36,7 +36,6 @@ from .off_text import (
 )
 from .outline_stats import Action, action
 from .period_utils import FromPeriods
-from .queries import TargetWeightQueries
 from .sort_detail_view import SortAndPaginRequest
 from .table_text import TableText
 from .target_line import TargetsData, TargetsOneLine

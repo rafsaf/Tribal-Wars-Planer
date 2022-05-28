@@ -13,13 +13,13 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Literal, Set
+from typing import Literal
 
 from django.utils.translation import gettext as _
 
 
 class Mode:
-    VALID_MODE_TYPE: Set[str] = {
+    VALID_MODE_TYPE: set[str] = {
         "menu",
         "time",
         "fake",
@@ -76,7 +76,7 @@ class Mode:
 
 
 class TargetMode:
-    VALID_MODE_LIST: Set[Literal["real", "fake", "ruin"]] = {
+    VALID_MODE_LIST: set[Literal["real", "fake", "ruin"]] = {
         "real",
         "fake",
         "ruin",

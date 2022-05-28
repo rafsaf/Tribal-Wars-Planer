@@ -3,17 +3,6 @@ repos:
     rev: v2.3.0
     hooks:
       - id: check-yaml
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-  - repo: https://github.com/psf/black
-    rev: "22.3.0"
-    hooks:
-      - id: black
-
-  - repo: https://github.com/pycqa/isort
-    rev: "5.10.1"
-    hooks:
-      - id: isort
 
   - repo: https://github.com/myint/autoflake
     rev: "v1.4"
@@ -27,6 +16,31 @@ repos:
             "--remove-all-unused-imports",
             "--ignore-init-module-imports",
           ]
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.32.1
+    hooks:
+      - id: pyupgrade
+        args:
+          [
+            "--py3-plus",
+            "--py36-plus",
+            "--py37-plus",
+            "--py38-plus",
+            "--py39-plus",
+            "--py310-plus",
+          ]
+        files: ".*"
+
+  - repo: https://github.com/psf/black
+    rev: "22.3.0"
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pycqa/isort
+    rev: "5.10.1"
+    hooks:
+      - id: isort
 
   - repo: https://github.com/PyCQA/flake8
     rev: "4.0.1"

@@ -13,8 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
+from typing import TYPE_CHECKING
+
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.db.models.query import QuerySet
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
 
@@ -78,6 +81,11 @@ class TargetVertex(models.Model):
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)
     enter_t2 = models.IntegerField(default=12)
+
+    if TYPE_CHECKING:
+        from base.models.weight_model import WeightModel
+
+        weightmodel_set: QuerySet[WeightModel]
 
     class Meta:
         verbose_name = "Target"

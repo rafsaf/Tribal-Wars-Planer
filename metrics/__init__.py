@@ -1,5 +1,4 @@
-from prometheus_client import Counter, Summary, Gauge
-
+from prometheus_client import Counter, Gauge, Summary
 
 REQUEST_LATENCY = Summary(
     "request_latency_seconds", "Latency of request for view", ["view_name", "method"]

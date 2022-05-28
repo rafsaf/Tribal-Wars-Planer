@@ -129,10 +129,10 @@ class OutlineInfo:
 
 class TargetCount:
     def __init__(
-        self, target: models.TargetVertex, weight_lst: QuerySet[models.WeightModel]
+        self, target: models.TargetVertex, weight_lst: list[models.WeightModel]
     ) -> None:
         self.target: models.TargetVertex = target
-        self.weight_lst: QuerySet[models.WeightModel] = weight_lst
+        self.weight_lst = weight_lst
 
     @property
     def line(self) -> str:
@@ -173,7 +173,7 @@ class TargetCount:
 
     @property
     def line_with_ally_nick(self):
-        unique_ally_players = set(weight.player for weight in self.weight_lst)
+        unique_ally_players = {weight.player for weight in self.weight_lst}
         return f"{self.line} ({', '.join(unique_ally_players)})"
 
     @property
