@@ -205,6 +205,9 @@ poetry install
 # it will be default create virtualenv in ~.cache/pypoetry/virutalenvs/tribal-wars-planer-asod(some random signs)
 # You need to activate it.
 # Honestly, you can also use just python3.10 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
+pre-commit install
+
+# adds pre-commit stuff
 ```
 
 Run database with docker and then python dev server
