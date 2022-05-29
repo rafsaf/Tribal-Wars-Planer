@@ -41,10 +41,9 @@ def trigger_off_troops_update_redirect(request: HttpRequest, outline_id: int):
     request.session["error"] = gettext(
         "<h5>It looks like your Army collection is no longer actual!</h5> "
         "<p>To use the Planer:</p> "
-        "<p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> "
-        "<p>2. Return to the <b>Planer</b> tab.</p> "
-        "<p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p>"
-        "<p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
+        "<p>1. Paste the current data in the <b>Army collection</b>, solve issues.</p> "
+        "<p>2. Click on <b>Submit</b>.</p> "
+        "<p>3. Only then return to the <b>Planer</b> tab.</p> "
     )
 
     return redirect("base:planer_detail", outline_id)
@@ -73,14 +72,20 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     else:
         premium_error = False
 
-    if models.WeightMaximum.objects.filter(outline=instance).count() == 0:
-
+    if (
+        models.WeightMaximum.objects.filter(outline=instance).count() == 0
+        or instance.get_or_set_off_troops_hash()
+        != instance.off_troops_weightmodels_hash
+    ):
+        models.WeightMaximum.objects.filter(outline=instance).delete()
         off_form = forms.OffTroopsForm(
             {"off_troops": instance.off_troops}, outline=instance
         )
         if off_form.is_valid():
             make_outline = MakeOutline(outline=instance)
             make_outline()
+
+            instance.actions.click_troops_refresh(instance)
         else:
             return trigger_off_troops_update_redirect(request=request, outline_id=_id)
 
@@ -674,7 +679,6 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     )
 
 
-@basic.timing
 @login_required
 @require_POST
 def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
@@ -702,31 +706,3 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
         instance.written = "active"
         instance.save()
     return redirect(reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu")
-
-
-@login_required
-@require_POST
-def update_outline_troops(request: HttpRequest, id1: int) -> HttpResponse:
-    instance: models.Outline = get_object_or_404(
-        models.Outline.objects.select_related(), id=id1, owner=request.user
-    )
-    off_form: forms.OffTroopsForm = forms.OffTroopsForm(
-        {"off_troops": instance.off_troops}, outline=instance
-    )
-    if off_form.is_valid():
-        make_outline = MakeOutline(instance)
-        make_outline()
-    else:
-        return trigger_off_troops_update_redirect(request=request, outline_id=id1)
-
-    instance.actions.click_troops_refresh(instance)
-    target_mode = basic.TargetMode(request.GET.get("t"))
-    instance.avaiable_offs = []
-    instance.avaiable_offs_near = []
-    instance.avaiable_nobles = []
-    instance.avaiable_nobles_near = []
-    instance.avaiable_ruins = None
-    instance.save()
-    return redirect(
-        reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode.mode}"
-    )

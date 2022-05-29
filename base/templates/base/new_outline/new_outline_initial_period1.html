@@ -417,15 +417,6 @@
         </div>
       </div>
 
-      <h3><span class="badge badge-dark my-1 mt-5"><i class="bi bi-recycle"></i> {% trans 'Updating off troops:' %}</span></h3>
-
-      <p>{% trans "After pasting the data from the tribe into the Army collection in the previous tab, equivalents models are created in the database for each village (the entered line). This process only takes place once, the first time you enter this tab. If you changed (e.g. you added a new 100 lines of data) the Army collection, use the button below." %}</p>
-
-      <form method="POST" id="form-update" action="{% url 'base:planer_update_troops' instance.id %}">
-        {% csrf_token %}
-        <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-update`,``,true);" id="form-update-btn" class="btn btn-outline-ocean mb-3"><i class="bi bi-arrow-counterclockwise"></i> {% trans 'Recreate Models' %}</button>
-      </form>
-
     </div>
     <div class="d-block d-lg-none mb-4"></div>
   </div>
