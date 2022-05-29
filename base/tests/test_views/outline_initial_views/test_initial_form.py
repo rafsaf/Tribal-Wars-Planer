@@ -19,6 +19,7 @@ from django.utils import timezone
 from base import forms
 from base.models import TargetVertex, WeightMaximum
 from base.models.player import Player
+from base.models.stats import Stats
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils.outline_initial import MakeOutline
 
@@ -732,7 +733,7 @@ class InitialForm(MiniSetup):
         outline.morale_on = True
         outline.save()
 
-        # weight maxs must be created so there will be no redirect
+        # weight maxs must be already created
         make_outline = MakeOutline(outline=outline)
         make_outline()
 
@@ -752,7 +753,7 @@ class InitialForm(MiniSetup):
         outline.morale_on = True
         outline.save()
 
-        # weight maxs must be created so there will be no redirect
+        # weight maxs must be already created
         make_outline = MakeOutline(outline=outline)
         make_outline()
 
@@ -765,3 +766,57 @@ class InitialForm(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 200
+
+    def test_planer_initial_form___200_correct_processing_off_troops_changes(self):
+        outline = self.get_outline(test_world=True)
+        outline.create_stats()
+        stats: Stats = Stats.objects.get(outline=outline)
+        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops_hash = outline.get_or_set_off_troops_hash()
+        outline.avaiable_offs = [1, 2, 3, 4]
+        outline.avaiable_offs_near = [1, 2, 3, 4]
+        outline.avaiable_nobles = [4, 4, 4]
+        outline.avaiable_nobles_near = [4, 4, 4]
+        outline.avaiable_ruins = 1555
+        outline.save()
+
+        PATH = reverse("base:planer_initial_form", args=[outline.pk])
+        self.login_me()
+
+        # this should create one weight_max from off_troops
+        response = self.client.get(PATH)
+        assert response.status_code == 200
+        assert WeightMaximum.objects.count() == 1
+        outline.refresh_from_db()
+        stats.refresh_from_db()
+        assert outline.avaiable_offs == []
+        assert outline.avaiable_offs_near == []
+        assert outline.avaiable_nobles == []
+        assert outline.avaiable_nobles_near == []
+        assert outline.avaiable_ruins is None
+        assert stats.troops_refreshed == 1
+        assert outline.off_troops_weightmodels_hash == outline.off_troops_hash
+
+        # this should not do anything to weight models and reset `available` fields
+        response = self.client.get(PATH)
+        assert response.status_code == 200
+        assert WeightMaximum.objects.count() == 1
+        outline.refresh_from_db()
+        stats.refresh_from_db()
+        assert stats.troops_refreshed == 1
+        assert outline.off_troops_weightmodels_hash == outline.off_troops_hash
+
+        # after just changing off troops weight models should be recreated
+        outline.off_troops = self.TEST_WORLD_DATA
+        outline.off_troops_hash = outline.get_or_set_off_troops_hash(
+            force_recalculate=True
+        )
+        outline.save()
+
+        response = self.client.get(PATH)
+        assert response.status_code == 200
+        assert WeightMaximum.objects.count() == 50
+        outline.refresh_from_db()
+        stats.refresh_from_db()
+        assert stats.troops_refreshed == 2
+        assert outline.off_troops_weightmodels_hash == outline.off_troops_hash

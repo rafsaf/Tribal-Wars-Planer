@@ -14,6 +14,7 @@
 # ==============================================================================
 
 import datetime
+from hashlib import sha256
 
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
@@ -201,13 +202,22 @@ class Outline(models.Model):
     initial_outline_fake_mode = models.CharField(
         max_length=60, choices=FAKE_MIN_OFF_CHOICES, default="off"
     )
+
     off_troops = models.TextField(
         blank=True,
         default="",
     )
+    off_troops_hash = models.CharField(max_length=64, default="", blank=True)
+    off_troops_weightmodels_hash = models.CharField(
+        max_length=64, default="", blank=True
+    )
     deff_troops = models.TextField(
         blank=True,
         default="",
+    )
+    deff_troops_hash = models.CharField(max_length=64, default="", blank=True)
+    deff_troops_weightmodels_hash = models.CharField(
+        max_length=64, default="", blank=True
     )
 
     avaiable_offs = ArrayField(models.IntegerField(), default=list, blank=True)
@@ -276,6 +286,26 @@ class Outline(models.Model):
 
     def __str__(self):
         return "ID:" + str(self.pk) + ", Nazwa: " + str(self.name)
+
+    def get_or_set_off_troops_hash(self, force_recalculate: bool = False):
+        if force_recalculate or not self.off_troops_hash:
+            new_hash = sha256(
+                self.off_troops.encode(), usedforsecurity=False
+            ).hexdigest()
+            self.off_troops_hash = new_hash
+            self.save()
+            return new_hash
+        return self.off_troops_hash
+
+    def get_or_set_deff_troops_hash(self, force_recalculate: bool = False):
+        if force_recalculate or not self.deff_troops_hash:
+            new_hash = sha256(
+                self.deff_troops.encode(), usedforsecurity=False
+            ).hexdigest()
+            self.deff_troops_hash = new_hash
+            self.save()
+            return new_hash
+        return self.deff_troops_hash
 
     def remove_user_outline(self):
         from base import forms

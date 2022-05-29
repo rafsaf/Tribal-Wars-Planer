@@ -74,11 +74,6 @@ urlpatterns = [
         name="planer_complete",
     ),
     path(
-        "planer/<int:id1>/update_troops",
-        views.update_outline_troops,
-        name="planer_update_troops",
-    ),
-    path(
         "planer/planer-menu/delete-time/<int:pk>",
         views.initial_delete_time,
         name="planer_delete_time",
