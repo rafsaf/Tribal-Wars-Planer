@@ -122,6 +122,9 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
             instance.actions.save_off_troops(instance)
             if form10.is_valid():
                 instance.off_troops = request.POST["off_troops"]
+                instance.off_troops_hash = instance.get_or_set_off_troops_hash(
+                    force_recalculate=True
+                )
                 instance.save()
                 request.session["message-off-troops"] = "true"
                 return redirect("base:planer_detail", _id)
@@ -135,6 +138,9 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
             if form20.is_valid():
                 instance.deff_troops = request.POST["deff_troops"]
                 instance.save()
+                instance.deff_troops_hash = instance.get_or_set_deff_troops_hash(
+                    force_recalculate=True
+                )
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:

@@ -80,6 +80,10 @@ class InactiveOutline(MiniSetup):
         stats.refresh_from_db()
         assert stats.off_troops == 1
         assert outline.off_troops == TROOPS
+        assert (
+            outline.off_troops_hash
+            == "6e229ad27b9bdfbf5fa635fd7291d3a61899ec0da9064c08c516ac2e7749d544"
+        )
 
     def test_planer_detail___302_auth_works_ok_on_Test_world_deff_troops(self):
         outline = self.get_outline(editable="inactive", test_world=True)
@@ -103,6 +107,10 @@ class InactiveOutline(MiniSetup):
         stats.refresh_from_db()
         assert stats.deff_troops == 1
         assert outline.deff_troops == DEFF
+        assert (
+            outline.deff_troops_hash
+            == "f2f2d2b0a9f51cd2def7c25571b1b07b0ce835359902ac46700b6731e0cb5da4"
+        )
 
     def test_planer_detail___200_auth_form_error_when_nonsense(self):
         outline = self.get_outline(editable="inactive", test_world=True)

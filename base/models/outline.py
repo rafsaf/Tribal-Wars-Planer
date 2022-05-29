@@ -289,7 +289,9 @@ class Outline(models.Model):
 
     def get_or_set_off_troops_hash(self, force_recalculate: bool = False):
         if force_recalculate or not self.off_troops_hash:
-            new_hash = sha256(self.off_troops.encode(), usedforsecurity=False)
+            new_hash = sha256(
+                self.off_troops.encode(), usedforsecurity=False
+            ).hexdigest()
             self.off_troops_hash = new_hash
             self.save()
             return new_hash
@@ -297,7 +299,9 @@ class Outline(models.Model):
 
     def get_or_set_deff_troops_hash(self, force_recalculate: bool = False):
         if force_recalculate or not self.deff_troops_hash:
-            new_hash = sha256(self.deff_troops.encode(), usedforsecurity=False)
+            new_hash = sha256(
+                self.deff_troops.encode(), usedforsecurity=False
+            ).hexdigest()
             self.deff_troops_hash = new_hash
             self.save()
             return new_hash
