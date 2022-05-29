@@ -51,6 +51,15 @@ class TestMakeFinalOutline(TestCase):
         expected = {"Gracz player nie istnieje"}
         self.assertEqual(expected, self.make_final.error_messages_set)
 
+    def test_targets_json_format(self):
+        target = Target.objects.get(target="500|499")
+        self.make_final.targets = Target.objects.filter(target="500|499")
+
+        assert (
+            self.make_final.targets_json_format()
+            == f'{{"{target.pk}": {{"target": "500|499", "player": "player1", "fake": false, "ruin": false}}}}'
+        )
+
     def test_ally_id(self):
         self.make_final._calculate_villages_id_dictionary()
         coord1 = "500|500"

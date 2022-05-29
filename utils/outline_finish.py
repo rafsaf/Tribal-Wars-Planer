@@ -14,17 +14,22 @@
 # ==============================================================================
 
 import json
+import logging
 import secrets
 from typing import Any
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.forms.models import model_to_dict
 from django.utils.translation import gettext as _
 
+import metrics
+from base import models
 from base.models import (
     Outline,
     OutlineOverview,
+    OutlineTime,
     Overview,
     PeriodModel,
     Player,
@@ -36,6 +41,8 @@ from base.models import (
 )
 from utils import basic
 from utils.basic import info_generatation
+
+log = logging.getLogger(__name__)
 
 
 class OutdatedData(Exception):
@@ -63,17 +70,28 @@ class MakeFinalOutline:
     """
 
     def __init__(self, outline: Outline) -> None:
+        self.target_msg = _("Target")
+        self.village_msg = _("Village")
+        self.player_msg = _("Player")
+        self.not_exist_msg = _("does not exists")
+
         self.outline: Outline = outline
-        self.target_msg: str = _("Target")
-        self.village_msg: str = _("Village")
-        self.player_msg: str = _("Player")
-        self.not_exist_msg: str = _("does not exists")
         self.error_messages_set: set[str] = set()
-        self.player_id_dictionary: dict[str, str] = dict()
-        self.village_id_dictionary: dict[str, str] = dict()
-        self.target_period_dict: dict[TargetVertex, list[PeriodModel]] = dict()
-        self.queries: basic.TargetWeightQueries = basic.TargetWeightQueries(
-            outline=outline, every=True, only_with_weights=True
+        self.player_id_dictionary: dict[str, str] = {}
+        self.village_id_dictionary: dict[str, str] = {}
+        self.target_period_dict: dict[TargetVertex, list[PeriodModel]] = {}
+
+        self.targets: QuerySet[TargetVertex] = (
+            (
+                TargetVertex.objects.select_related("outline_time")
+                .prefetch_related(
+                    "weightmodel_set",
+                )
+                .filter(outline=outline)
+                .order_by("id")
+            )
+            .annotate(num_of_weights=Count("weightmodel"))
+            .filter(num_of_weights__gt=0)
         )
 
     def _add_target_error(self, target: str) -> None:
@@ -124,10 +142,10 @@ class MakeFinalOutline:
 
     def _calculate_villages_id_dictionary(self) -> None:
         distinct_weight_coords = list(
-            WeightModel.objects.filter(target__in=self.queries.targets)
+            WeightModel.objects.filter(target__in=self.targets)
             .distinct("start")
             .values_list("start", flat=True)
-        ) + [target.target for target in self.queries.targets]
+        ) + [target.target for target in self.targets]
         # coord - village_id
 
         villages = VillageModel.objects.filter(
@@ -139,14 +157,9 @@ class MakeFinalOutline:
             self.village_id_dictionary[village["coord"]] = str(village["village_id"])
 
     @staticmethod
-    def _weights_list(target: TargetVertex) -> QuerySet[WeightModel]:
-        # return (
-        #     WeightModel.objects.filter(target=target)
-        #     .select_related("target", "state")
-        #     .order_by("order")
-        # )
+    def _weights_list(target: TargetVertex) -> list[WeightModel]:
         return sorted(
-            [target for target in target.weightmodel_set.all()],  # type: ignore
+            (target for target in target.weightmodel_set.all()),
             key=lambda target: target.order,
         )
 
@@ -187,7 +200,7 @@ class MakeFinalOutline:
 
     def _calculate_period_dictionary(self) -> None:
         # target - lst[period1, period2, ...]
-        self.target_period_dict = self.queries.target_period_dictionary()
+        self.target_period_dict = self.target_period_dictionary()
 
     def __call__(self) -> set[str]:
         self._calculate_player_id_dictionary()
@@ -200,9 +213,9 @@ class MakeFinalOutline:
 
         with text:
             target: TargetVertex
-            for target in self.queries.targets:
+            for target in self.targets:
                 time_periods = self._time_periods(target)
-                json_weights[target.pk] = list()
+                json_weights[target.pk] = []
 
                 lst = self._weights_list(target)
                 info_line = info_generatation.TargetCount(target, lst)
@@ -210,7 +223,6 @@ class MakeFinalOutline:
                     info_line.line_with_ally_nick, info_line.target_type
                 )
 
-                weight: WeightModel
                 for weight in lst:
                     weight = time_periods.next(weight=weight)
                     try:
@@ -236,7 +248,7 @@ class MakeFinalOutline:
         result_instance.results_export = outline_info.show_export_troops()
         result_instance.save()
         json_weight_dict = json.dumps(json_weights, cls=DjangoJSONEncoder)
-        json_targets = self.queries.targets_json_format()
+        json_targets = self.targets_json_format()
 
         outline_overview = self._outline_overview(json_weight_dict, json_targets)
         overviews = []
@@ -259,3 +271,42 @@ class MakeFinalOutline:
             )
         Overview.objects.bulk_create(overviews)
         return self.error_messages_set
+
+    def targets_json_format(self):
+        context = {}
+        target: models.TargetVertex
+        for target in self.targets:
+            context[target.pk] = {
+                "target": target.target,
+                "player": target.player,
+                "fake": target.fake,
+                "ruin": target.ruin,
+            }
+        return json.dumps(context)
+
+    def target_period_dictionary(self):
+        result_dict: dict[TargetVertex, list[PeriodModel]] = {}
+        outline_time_dict: dict[OutlineTime, list[PeriodModel]] = {}
+
+        for target in self.targets:
+            if target.outline_time is None:
+                err = f"outline time None, {target}, {self.outline}"
+                log.error(err)
+                metrics.ERRORS.labels("queries_outline_time_none").inc()
+                raise ValueError(err)
+
+            outline_time_dict[target.outline_time] = []
+
+        periods = (
+            models.PeriodModel.objects.select_related("outline_time")
+            .filter(outline_time__in=[target.outline_time for target in self.targets])
+            .order_by("from_time", "-unit")
+        )
+
+        for period in periods:
+            outline_time_dict[period.outline_time].append(period)
+
+        for target in self.targets:
+            result_dict[target] = outline_time_dict[target.outline_time]  # type: ignore
+
+        return result_dict

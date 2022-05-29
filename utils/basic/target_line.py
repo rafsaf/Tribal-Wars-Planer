@@ -28,7 +28,7 @@ class TargetsData:
         self.villages_coord = []
         self.vill_id_line = {}
         self.errors_ids = set()
-        self.new_validated_data = str()
+        self.new_validated_data = ""
 
     def validate(self):
         for i, line in enumerate(self.lines):
@@ -53,7 +53,7 @@ class TargetsData:
         )
 
         if len(set(self.villages_coord)) != village_models.count():
-            villages_ids_set = set([village.coord for village in village_models])
+            villages_ids_set = {village.coord for village in village_models}
 
             for village in self.villages_coord:
                 if village not in villages_ids_set:

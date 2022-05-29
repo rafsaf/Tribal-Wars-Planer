@@ -39,14 +39,12 @@ from utils.outline_initial import MakeOutline
 
 def trigger_off_troops_update_redirect(request: HttpRequest, outline_id: int):
     request.session["error"] = gettext(
-        (
-            "<h5>It looks like your Army collection is no longer actual!</h5> "
-            "<p>To use the Planer:</p> "
-            "<p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> "
-            "<p>2. Return to the <b>Planer</b> tab.</p> "
-            "<p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p>"
-            "<p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
-        )
+        "<h5>It looks like your Army collection is no longer actual!</h5> "
+        "<p>To use the Planer:</p> "
+        "<p>1. Paste the current data in the <b>Army collection</b> and <b>Submit</b>.</p> "
+        "<p>2. Return to the <b>Planer</b> tab.</p> "
+        "<p>3. Navigate to the header <span class='md-correct'>Updating off troops</span> at the bottom of page.</p>"
+        "<p>4. Click the button <span class='md-correct'>Recreate models</span>.</p>"
     )
 
     return redirect("base:planer_detail", outline_id)

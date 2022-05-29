@@ -55,7 +55,7 @@ class OffTroopsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
-        super(OffTroopsForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["off_troops"].strip = False
 
     def clean_off_troops(self):
@@ -102,7 +102,7 @@ class DeffTroopsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.outline = kwargs.pop("outline")
-        super(DeffTroopsForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["deff_troops"].strip = False
 
     def clean_deff_troops(self):
@@ -190,7 +190,7 @@ class GetDeffForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.world = kwargs.pop("world")
-        super(GetDeffForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def clean_excluded(self):
         """Excluded Villages"""
@@ -220,7 +220,7 @@ class InitialOutlineForm(forms.Form):
         self.max_to_add: int = kwargs.pop(
             "max_to_add", settings.INPUT_OUTLINE_MAX_TARGETS
         )
-        super(InitialOutlineForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def clean_target(self):
         """User's input Targets"""
@@ -403,7 +403,7 @@ class SetNewOutlineFilters(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        super(SetNewOutlineFilters, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["filter_weights_min"].widget.attrs["class"] = "form-control"
         self.fields["filter_weights_catapults_min"].widget.attrs[
             "class"
@@ -422,7 +422,7 @@ class SetTargetsMenuFilters(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        super(SetTargetsMenuFilters, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["filter_targets_number"].widget.attrs["class"] = "form-control"
         self.fields["simple_textures"].widget.attrs["class"] = "form-check-input"
 
@@ -600,7 +600,7 @@ class PeriodForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(PeriodForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["status"].widget.attrs["class"] = "form-control"
         self.fields["unit"].widget.attrs["class"] = "form-control"
         self.fields["from_number"].widget.attrs["class"] = "form-control"
@@ -731,7 +731,7 @@ class ChooseOutlineTimeForm(forms.Form):
     choice = forms.ChoiceField(required=True, choices=[])
 
     def __init__(self, *args, **kwargs):
-        super(ChooseOutlineTimeForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["choice"].widget.attrs["class"] = "form-control"
 
 
@@ -747,7 +747,7 @@ class CreateNewInitialTarget(forms.Form):
     def __init__(self, *args, **kwargs):
         self.outline: models.Outline = kwargs.pop("outline")
         self.is_premium: bool = kwargs.pop("is_premium")
-        super(CreateNewInitialTarget, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["target"].widget.attrs["class"] = "form-control"
 
     def clean_target(self):
