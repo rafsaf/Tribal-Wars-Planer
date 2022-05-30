@@ -209,15 +209,15 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "django-registration"
-version = "3.2"
+version = "3.3"
 description = "An extensible user-registration application for Django"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 confusable-homoglyphs = ">=3.0,<4.0"
-Django = ">=2.2,<3.0.0 || >=3.1.0"
+Django = ">=3.2"
 
 [[package]]
 name = "django-ses"
@@ -847,7 +847,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.10,<3.11"
-content-hash = "93713c42c99c81f7c85e705c8f7c0cacf7f3f68028732941745d6108b429d089"
+content-hash = "4bbaaf47825eccdf01a3dc755fdcc022eea480d9229acf5637661ab5876945b8"
 
 [metadata.files]
 asgiref = [
@@ -982,8 +982,8 @@ django-crispy-forms = [
     {file = "django_crispy_forms-1.14.0-py3-none-any.whl", hash = "sha256:bc4d2037f6de602d39c0bc452ac3029d1f5d65e88458872cc4dbc01c3a400604"},
 ]
 django-registration = [
-    {file = "django-registration-3.2.tar.gz", hash = "sha256:2ea8c7d89a8760ccde41dfd335aa28ba89073d09aab5a0f5f3d7c8c148fcc518"},
-    {file = "django_registration-3.2-py3-none-any.whl", hash = "sha256:e79fdbfa22bfaf4182efccb6604391391a7de19438d2669c5b9520a7708efbd2"},
+    {file = "django-registration-3.3.tar.gz", hash = "sha256:884a4cc9ec87b9f1c0ceb6b6c4b7ba491c1877997a3cd29cc923697dac785eb8"},
+    {file = "django_registration-3.3-py3-none-any.whl", hash = "sha256:dfa176f594fb465c93495caa55686be723a15829769511383e25172d2efbd0e6"},
 ]
 django-ses = [
     {file = "django-ses-3.0.1.tar.gz", hash = "sha256:f2d1aa805bfbbc4d5e73e4a0e7399287bac426b45689e3fd15810793986a89ed"},
