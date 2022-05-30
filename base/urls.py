@@ -36,6 +36,11 @@ urlpatterns = [
     path("planer/create/", views.new_outline_create, name="planer_create"),
     path("planer/<int:_id>/status", views.inactive_outline, name="planer_status"),
     path("planer/<int:_id>", views.outline_detail, name="planer_detail"),
+    path(
+        "planer/<int:_id>/data-analysis",
+        views.outline_data_analysis,
+        name="planer_data_analysis",
+    ),
     path("planer/<int:_id>/delete", views.outline_delete, name="planer_delete"),
     path("documentation", views.base_documentation, name="documentation"),
     path(

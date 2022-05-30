@@ -23,17 +23,15 @@
 <body>
     <div class="d-flex" id="wrapper">{% spaceless %}
         <div class="d-none d-lg-flex">
-            {% block showsidebar %} 
             {% if user.is_authenticated %}
-            <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="bg-light border-right {% block showsidebar %}{% endblock %}" id="sidebar-wrapper">
                 <div class="sidebar-heading">{% trans 'User Panel' %}</div>
-                <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light">{% trans 'Create new outline' %}</a>
+                <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
                 {% block sidebar %}
                 {% endblock %}
                 </div>
             </div> 
             {% endif %}
-            {% endblock %}
         </div>
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -48,8 +46,8 @@
                         <li class="nav-item dropdown ml-1">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'User Panel' %}</a>
                             <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
-                                <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light">{% trans 'My outlines' %}</a>
-                                <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light">{% trans 'Create new outline' %}</a>
+                                <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a>
+                                <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
                                 {% block phonesidebar %}
                                 {% endblock %}
                             </div>

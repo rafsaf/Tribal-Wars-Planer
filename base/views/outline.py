@@ -179,3 +179,16 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
         context["error"] = error
         del request.session["error"]
     return render(request, "base/new_outline/new_outline.html", context)
+
+
+@login_required
+def outline_data_analysis(request: HttpRequest, _id: int) -> HttpResponse:
+    instance: models.Outline = get_object_or_404(
+        models.Outline.objects.select_related(), id=_id, owner=request.user
+    )
+
+    context = {
+        "instance": instance,
+    }
+
+    return render(request, "base/new_outline/new_outline_data_analysis.html", context)
