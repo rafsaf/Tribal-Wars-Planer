@@ -15,27 +15,34 @@
 
 """ Army and Defence tools"""
 from functools import cached_property
+from typing import NamedTuple
 
 from base import models
 from utils import basic
 
 
-def world_evidence(world: models.World) -> tuple[int, int, int]:
+class WorldEvidence(NamedTuple):
+    paladin: bool
+    archer: bool
+    militia: bool
+
+
+def world_evidence(world: models.World) -> WorldEvidence:
     """For world return [T/F, .. , ..] [paladin, archer, militia]"""
     if world.paladin == "active":
-        paladin = 1
+        paladin = True
     else:
-        paladin = 0
+        paladin = False
     if world.archer == "active":
-        archer = 1
+        archer = True
     else:
-        archer = 0
+        archer = False
     if world.militia == "active":
-        militia = 1
+        militia = True
     else:
-        militia = 0
+        militia = False
 
-    return (paladin, archer, militia)
+    return WorldEvidence(paladin, archer, militia)
 
 
 class ArmyError(Exception):
@@ -43,7 +50,14 @@ class ArmyError(Exception):
 
 
 class Army:
-    """Off line in off troops"""
+    """Off line in off troops for calculation purposes.
+
+    It perfectly calculate off/deff for village
+
+    Note it can be used for defence line also, by using from_defence_line param,
+    every off/deff calculations will be precise, but clean_init method won't
+    pass for defence line.
+    """
 
     EVIDENCE_DICTIONARY: dict[tuple[int, int, int], set[int]] = {
         (1, 1, 1): {16, 17},
@@ -55,10 +69,17 @@ class Army:
         (0, 1, 0): {14, 15},
         (0, 0, 0): {12, 13},
     }
+    # (paladin, archer, militia)
 
-    def __init__(self, text_army: str, evidence):
+    def __init__(
+        self, text_army: str, evidence: WorldEvidence, from_defence_line: bool = False
+    ):
+        self._original_text = text_army
         self.text_army = text_army.split(",")
         self.world_evidence = evidence
+        if from_defence_line:
+            # remove second "in village" / "enroute" place
+            del self.text_army[1]
 
     def clean_init(self, player_dictionary):
         """Text army validation"""
@@ -90,11 +111,11 @@ class Army:
     @cached_property
     def nobleman(self):
         """Number of nobleman"""
-        if self.world_evidence[1] == 0:
-            if self.world_evidence[0] == 0:
+        if not self.world_evidence.archer:
+            if not self.world_evidence.paladin:
                 return int(self.text_army[9])
             return int(self.text_army[10])
-        if self.world_evidence[0] == 0:
+        if not self.world_evidence.paladin:
             return int(self.text_army[11])
         return int(self.text_army[12])
 
@@ -102,13 +123,13 @@ class Army:
     def catapult(self):
         """Literal Number of catapult"""
         # no heavy cavalery
-        if self.world_evidence[1] == 0:  # no archers
+        if not self.world_evidence.archer:  # no archers
             return int(self.text_army[8])
         return int(self.text_army[10])
 
     def _raw_deff(self):
         # no heavy cavalery
-        if self.world_evidence[1] == 0:  # no archers
+        if not self.world_evidence.archer:  # no archers
             return (
                 int(self.text_army[1])
                 + int(self.text_army[2])
@@ -124,7 +145,7 @@ class Army:
         )
 
     def _off_scout(self):
-        if self.world_evidence[1] == 0:
+        if not self.world_evidence.archer:
             scouts = int(self.text_army[4])
         else:
             scouts = int(self.text_army[5])
@@ -134,7 +155,7 @@ class Army:
 
     def _raw_off(self):
         # no heavy cavalery
-        if self.world_evidence[1] == 0:  # no archers
+        if not self.world_evidence.archer:  # no archers
             return (
                 int(self.text_army[3])
                 + self._off_scout()
@@ -158,7 +179,7 @@ class Army:
         raw_off = self._raw_off()
 
         if raw_off > raw_deff:
-            if self.world_evidence[1] == 0:  # no archers
+            if not self.world_evidence.archer:  # no archers
                 return raw_off + int(self.text_army[6]) * 6
             return raw_off + int(self.text_army[8]) * 6  # with archers
         return raw_off - self._off_scout()
@@ -166,7 +187,7 @@ class Army:
     @cached_property
     def deff(self):
         """Number of deff"""
-        if self.world_evidence[1] == 0:  # no archers
+        if not self.world_evidence.archer:  # no archers
             return (
                 int(self.text_army[1])
                 + int(self.text_army[2])

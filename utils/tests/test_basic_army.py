@@ -66,11 +66,17 @@ class TestArmy(TestCase):
         self.world4_evidence = basic.world_evidence(self.world4)
 
         self.text_world1 = "500|500,1,2,3,5,6,8,9,10,12,13,14,15,"
+        self.text_world1_in_village = "500|500,in village,1,2,3,5,6,8,9,10,12,13,14,"
+        self.text_world1_enroute = "500|500,enroute,1,2,3,5,6,8,9,10,12,13,14,"
         self.text_world2 = "500|500,1,2,3,5,6,8,9,10,12,14,15,"
         self.text_world3 = "500|500,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,"
         self.text_world4 = "500|500,1,2,3,4,5,6,7,8,9,10,11,12,14,15,"
 
         self.text_world5 = "537|535,0,0,6135,50,2743,100,276,243,2,3,0,"
+        self.text_world5_in_village = (
+            "537|535,in village,0,0,6135,50,2743,100,276,243,2,3,"
+        )
+        self.text_world5_enroute = "537|535,enroute,0,0,6135,50,2743,100,276,243,2,3,"
         self.text_world6 = "537|534,1,0,6205,8,2778,100,309,231,0,3,0,"
         self.text_world7 = "402|277,2794,1898,5000,50,0,580,200,100,0,4,0,"
         self.text_world8 = "407|277,2825,1892,3000,91,0,608,0,51,0,0,0,"
@@ -84,10 +90,23 @@ class TestArmy(TestCase):
         self.text_world16 = "500|500,1,2,3003,4,300,6,7,8,9,10,11,12,13,14,15,"
 
         self.army1 = basic.Army(self.text_world1, self.world1_evidence)
+        self.army1_in_village = basic.Army(
+            self.text_world1_in_village, self.world1_evidence, from_defence_line=True
+        )
+        self.army1_enroute = basic.Army(
+            self.text_world1_enroute, self.world1_evidence, from_defence_line=True
+        )
+        self.army1 = basic.Army(self.text_world1, self.world1_evidence)
         self.army2 = basic.Army(self.text_world2, self.world2_evidence)
         self.army3 = basic.Army(self.text_world3, self.world3_evidence)
         self.army4 = basic.Army(self.text_world4, self.world4_evidence)
         self.army5 = basic.Army(self.text_world5, self.world2_evidence)
+        self.army5_in_village = basic.Army(
+            self.text_world5_in_village, self.world2_evidence, from_defence_line=True
+        )
+        self.army5_enroute = basic.Army(
+            self.text_world5_enroute, self.world2_evidence, from_defence_line=True
+        )
         self.army6 = basic.Army(self.text_world6, self.world2_evidence)
         self.army7 = basic.Army(self.text_world7, self.world2_evidence)
         self.army8 = basic.Army(self.text_world8, self.world2_evidence)
@@ -102,9 +121,13 @@ class TestArmy(TestCase):
 
     def test_army1_coord_is_correct(self):
         self.assertEqual(self.army1.coord, "500|500")
+        self.assertEqual(self.army1_enroute.coord, "500|500")
+        self.assertEqual(self.army1_in_village.coord, "500|500")
 
     def test_nobleman_army1_correct_int_return(self):
         self.assertEqual(self.army1.nobleman, 12)
+        self.assertEqual(self.army1_in_village.nobleman, 12)
+        self.assertEqual(self.army1_enroute.nobleman, 12)
 
     def test_nobleman_army2_correct_int_return(self):
         self.assertEqual(self.army2.nobleman, 12)
@@ -117,6 +140,8 @@ class TestArmy(TestCase):
 
     def test_deff_army1_correct_int_return(self):
         self.assertEqual(self.army1.deff, 35)
+        self.assertEqual(self.army1_enroute.deff, 35)
+        self.assertEqual(self.army1_in_village.deff, 35)
 
     def test_deff_army2_correct_int_return(self):
         self.assertEqual(self.army2.deff, 35)
@@ -129,6 +154,8 @@ class TestArmy(TestCase):
 
     def test_off_army1_correct_int_return(self):
         self.assertEqual(self.army1.off, 210)
+        self.assertEqual(self.army1_enroute.off, 210)
+        self.assertEqual(self.army1_in_village.off, 210)
 
     def test_off_army2_correct_int_return(self):
         self.assertEqual(self.army2.off, 210)
@@ -141,6 +168,8 @@ class TestArmy(TestCase):
 
     def test_off_army5_correct_int_return(self):
         self.assertEqual(self.army5.off, 21131)
+        self.assertEqual(self.army5_enroute.off, 21131)
+        self.assertEqual(self.army5_in_village.off, 21131)
 
     def test_off_army6_correct_int_return(self):
         self.assertEqual(self.army6.off, 21326)

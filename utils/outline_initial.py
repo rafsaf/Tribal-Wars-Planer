@@ -34,7 +34,7 @@ class MakeOutline:
 
     def __init__(self, outline: models.Outline) -> None:
         self.outline: Outline = outline
-        self.evidence: tuple[int, int, int] = basic.world_evidence(world=outline.world)
+        self.evidence = basic.world_evidence(world=outline.world)
         self.village_dictionary: dict[str, str] = basic.coord_to_player(outline=outline)
         self.village_points_dictionary = basic.coord_to_player_points(outline=outline)
         self.off_troops: list[str] = self.outline.off_troops.split("\r\n")
