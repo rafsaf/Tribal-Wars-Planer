@@ -186,6 +186,19 @@ def outline_data_analysis(request: HttpRequest, _id: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
+    if not instance.off_troops or not instance.deff_troops:
+        request.session["error"] = gettext(
+            "<p>To use the <b><span class='md-correct'>Data analysis</span></b> tab both "
+            "<b>Army collection</b> and <b>Deff collection</b> must be already filled in!</p>"
+        )
+        return redirect("base:planer_detail", _id)
+    if instance.written == "active":
+        request.session["error"] = gettext(
+            "<p>You can't access <b><span class='md-correct'>Data analysis</span></b> tab, "
+            "because your outline is already written! You can always click on <b>Go back</b> "
+            "button in <b>Planer</b> menu tab, but you will loose part of your progress.</p>"
+        )
+        return redirect("base:planer_detail", _id)
 
     context = {
         "instance": instance,

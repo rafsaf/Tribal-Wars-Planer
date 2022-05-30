@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-18 22:53+0200\n"
+"POT-Creation-Date: 2022-07-18 22:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2326,6 +2326,28 @@ msgstr "Nigdy"
 #: base/views/outline.py:157
 msgid " minute(s) ago."
 msgstr " minut temu."
+
+#: base/views/outline.py:191
+msgid ""
+"<p>To use the <b><span class='md-correct'>Data analysis</span></b> tab both "
+"<b>Army collection</b> and <b>Deff collection</b> must be already filled in!"
+"</p>"
+msgstr ""
+"<p>Aby skorzystać z zakładki <b><span class='md-correct'>Analiza danych</"
+"span></b>, wymagane jest wklejenie obu rodzajów danych, <b>Zbiórki wojska</"
+"b> oraz <b>Zbiórki deffa</b>.</p>"
+
+#: base/views/outline.py:197
+msgid ""
+"<p>You can't access <b><span class='md-correct'>Data analysis</span></b> "
+"tab, because your outline is already written! You can always click on <b>Go "
+"back</b> button in <b>Planer</b> menu tab, but you will loose part of your "
+"progress.</p>"
+msgstr ""
+"<p>Nie możesz wejść do zakładki <b><span class='md-correct'>Analiza danych</"
+"span></b>, ponieważ Twoja rozpiska została już rozpisana! Możesz zawsze "
+"zresetować jej postęp klikając na przycisk <b>Powrót</b> w menu zakładki "
+"<b>Planer</b>.</p>"
 
 #: base/views/outline_initial_views.py:42
 msgid ""
