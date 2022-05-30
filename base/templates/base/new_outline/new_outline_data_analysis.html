@@ -1,12 +1,70 @@
 {% extends "base/new_outline/new_outline.html" %}
 {% load i18n %}
+{% load static %}
 {% block title %}{% trans 'Data analysis' %} - {{instance.name|capfirst}}{% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
 <div class="mt-2 mb-5">
-  XXXX data analysis
+  <div class="conatiner-fluid">
+    <div id="top-element"></div>
+    <table class="table table-sm table-bordered text-center" id="analized-villages-table">
+      <thead>
+          <tr>
+              <th class="text-nowrap" scope="col">Player</th>
+              <th class="text-nowrap" scope="col">Village</th>
+              <th class="text-nowrap" scope="col">State</th>
+              <th class="text-nowrap" scope="col">Troops</th>
+              <th class="text-nowrap" scope="col">In village</th>
+              <th class="text-nowrap" scope="col">Other</th>
+              
+          </tr>
+      </thead>
+      <tbody>
+        {% for analize in analized_villages %}
+          <tr class="text-center">
+            <th class="text-nowrap" width="1%">
+                <h5><span class="badge badge-pill badge-info">{{analize.player}}</span></h5>
+            </th>
+            <th class="text-nowrap" width="1%">
+                <h5><span class="badge badge badge-secondary">{{analize.coord}}</span></h5>
+            </th>
+            <th class="text-nowrap" width="1%">
+              {% if analize.suspicious %}
+              <span class="badge badge-warning">suspicious</span>
+              {% else %}
+              <i class="bi bi-check-lg"></i>
+              {% endif %}
+            </th>
+            <th id="{{analize.coord}}-all-army-th" class="analysis-row {% if analize.suspicious %}analysis-row-suspicious{% else %}analysis-row-done{% endif %}">
+              <img src='{% static "images/ax.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord}}-all-army-off">{{analize.all_army.off}}</span>&nbsp;
+              <img src='{% static "images/nobleman.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord}}-all-army-nobleman">{{analize.all_army.nobleman}}</span>
+            </th>
+            <th id="{{analize.coord}}-in-village-army-th" class="analysis-row">
+              <img src='{% static "images/ax.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord}}-in-village-army-off">{{analize.in_village_army.off}}</span>&nbsp;
+              <img src='{% static "images/nobleman.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord}}-in-village-army-nobleman">{{analize.in_village_army.nobleman}}</span>
+            </th>
+            <th class="text-nowrap" width="1%">
+              <i style="color:#17a2b8;font-size:1.3rem" class="bi bi-journals"></i>
+              <i style="color:red;font-size:1.3rem" class="bi bi-trash pl-2"></i>
+            </th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div> 
 </div>
 
+<script>
+  $(document).ready( function () {
+    const topElement = document.getElementById("top-element");
+    $('#analized-villages-table').DataTable({
+      "order": [2, "desc"],
+    });
+  });
+</script>
 
 {% endblock %}

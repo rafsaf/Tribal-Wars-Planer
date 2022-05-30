@@ -25,6 +25,7 @@ from django.views.generic import ListView
 
 from base import forms, models
 from utils.basic import Troops
+from utils.outline_troops_analysis import OutlineTroopsAnalysis
 
 
 class OutlineList(LoginRequiredMixin, ListView):
@@ -200,8 +201,8 @@ def outline_data_analysis(request: HttpRequest, _id: int) -> HttpResponse:
         )
         return redirect("base:planer_detail", _id)
 
-    context = {
-        "instance": instance,
-    }
+    analized_villages = OutlineTroopsAnalysis(outline=instance).run_analize()
+
+    context = {"instance": instance, "analized_villages": analized_villages}
 
     return render(request, "base/new_outline/new_outline_data_analysis.html", context)

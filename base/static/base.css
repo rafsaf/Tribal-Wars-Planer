@@ -781,3 +781,15 @@ a.nav-link.nav-link-pills.last-nav-link {
 .focus-side-link {
   background-color: rgb(231, 237, 241) !important;
 }
+.analysis-row {
+  cursor: pointer;
+}
+.analysis-row:hover {
+  background-color: rgba(201, 245, 201, 0.658);
+}
+.analysis-row-done {
+  background-color: rgba(201, 245, 201, 0.658);
+}
+.analysis-row-suspicious {
+  background-color: rgba(240, 241, 125, 0.5);
+}
