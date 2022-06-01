@@ -785,7 +785,7 @@ a.nav-link.nav-link-pills.last-nav-link {
   cursor: pointer;
 }
 .analysis-row:hover {
-  background-color: rgba(201, 245, 201, 0.658);
+  background-color: rgba(172, 236, 172, 0.658);
 }
 .analysis-row-done {
   background-color: rgba(201, 245, 201, 0.658);
