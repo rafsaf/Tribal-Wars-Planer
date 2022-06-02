@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-18 22:54+0200\n"
+"POT-Creation-Date: 2022-07-18 22:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1051,7 +1051,7 @@ msgstr "Dane o wojsku"
 
 #: base/templates/base/new_outline/new_outline.html:9
 #: base/templates/base/new_outline/new_outline.html:17
-#: base/templates/base/new_outline/new_outline_data_analysis.html:3
+#: base/templates/base/new_outline/new_outline_data_analysis.html:4
 msgid "Data analysis"
 msgstr "Analiza danych"
 
@@ -1221,6 +1221,39 @@ msgstr ""
 #: base/templates/base/new_outline/new_outline_initial_period2.html:371
 msgid "Continue"
 msgstr "Kontynuuj"
+
+#: base/templates/base/new_outline/new_outline_data_analysis.html:17
+#: base/templates/base/new_outline/new_outline_initial_period3.html:138
+#: base/templates/base/new_outline/new_outline_results.html:87
+#: base/templates/base/new_outline/new_outline_results.html:128
+#: utils/outline_finish.py:75
+msgid "Player"
+msgstr "Gracz"
+
+#: base/templates/base/new_outline/new_outline_data_analysis.html:18
+#: utils/outline_finish.py:74
+msgid "Village"
+msgstr "Wioska"
+
+#: base/templates/base/new_outline/new_outline_data_analysis.html:19
+msgid "State"
+msgstr "Status"
+
+#: base/templates/base/new_outline/new_outline_data_analysis.html:20
+msgid "Troops"
+msgstr "Wszystkie jednostki"
+
+#: base/templates/base/new_outline/new_outline_data_analysis.html:21
+msgid "In village"
+msgstr "W wiosce"
+
+#: base/templates/base/new_outline/new_outline_data_analysis.html:22
+msgid "Other"
+msgstr "Inne"
+
+#: base/templates/base/new_outline/new_outline_data_analysis.html:37
+msgid "suspicious"
+msgstr "podejrzana"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:22
 #: base/templates/base/new_outline/new_outline_initial_period1.html:25
@@ -1732,13 +1765,6 @@ msgstr "Podziel na 3"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:120
 msgid "Divide into 4"
 msgstr "Podziel na 4"
-
-#: base/templates/base/new_outline/new_outline_initial_period3.html:138
-#: base/templates/base/new_outline/new_outline_results.html:87
-#: base/templates/base/new_outline/new_outline_results.html:128
-#: utils/outline_finish.py:75
-msgid "Player"
-msgstr "Gracz"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:140
 msgid "TW Stats"
@@ -2319,15 +2345,15 @@ msgstr "Ważność konta premium"
 msgid "Contact with admin to change your email address. "
 msgstr "Skontaktuj się z administratorem by zmienić swój adres e-mail. "
 
-#: base/views/outline.py:151
+#: base/views/outline.py:152
 msgid "Never"
 msgstr "Nigdy"
 
-#: base/views/outline.py:157
+#: base/views/outline.py:158
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline.py:191
+#: base/views/outline.py:192
 msgid ""
 "<p>To use the <b><span class='md-correct'>Data analysis</span></b> tab both "
 "<b>Army collection</b> and <b>Deff collection</b> must be already filled in!"
@@ -2337,7 +2363,7 @@ msgstr ""
 "span></b>, wymagane jest wklejenie obu rodzajów danych, <b>Zbiórki wojska</"
 "b> oraz <b>Zbiórki deffa</b>.</p>"
 
-#: base/views/outline.py:197
+#: base/views/outline.py:198
 msgid ""
 "<p>You can't access <b><span class='md-correct'>Data analysis</span></b> "
 "tab, because your outline is already written! You can always click on <b>Go "
@@ -2767,10 +2793,14 @@ msgstr "Znak"
 msgid "Is not equal to '|'!"
 msgstr "Nie jest równy '|'!"
 
-#: utils/outline_finish.py:74
-msgid "Village"
-msgstr "Wioska"
-
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#: utils/outline_troops_analysis.py:43
+msgid ":nobles"
+msgstr ":szlachta"
+
+#: utils/outline_troops_analysis.py:48
+msgid ":off"
+msgstr ":off"

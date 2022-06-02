@@ -131,8 +131,8 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 
 </div>
 <div>
-<pre class="md-pre md-correct2 notranslate" id="world-test-deff-troops" style="height:200px">100|100,w wiosce,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,
-100|100,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+<pre class="md-pre md-correct2 notranslate" id="world-test-deff-troops" style="height:200px">100|100,w wiosce,100,100,3500,0,50,1400,0,0,350,100,0,0,0,0,
+100|100,w drodze,0,0,3500,0,50,1400,0,0,0,0,0,0,0,0,
 101|101,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,
 101|101,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 102|102,w wiosce,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,
@@ -151,8 +151,8 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 108|108,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 109|109,w wiosce,100,100,7009,0,100,2809,0,0,350,100,0,0,0,0,
 109|109,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-110|110,w wiosce,100,100,7010,0,100,2810,0,0,350,100,0,0,0,0,
-110|110,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+110|110,w wiosce,100,100,10,0,100,10,0,0,0,100,0,0,0,0,
+110|110,w drodze,0,0,7000,0,0,2800,0,0,350,0,0,0,0,0,
 111|111,w wiosce,100,100,7011,0,100,2811,0,0,350,100,0,0,0,0,
 111|111,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 112|112,w wiosce,100,100,7012,0,100,2812,0,0,350,100,0,0,0,0,
@@ -227,10 +227,10 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 146|146,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 147|147,w wiosce,100,100,7047,0,100,2847,0,0,350,100,0,4,0,0,
 147|147,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-148|148,w wiosce,100,100,7048,0,100,2848,0,0,350,100,0,4,0,0,
-148|148,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-149|149,w wiosce,100,100,7049,0,100,2849,0,0,350,100,0,4,0,0,
-149|149,w drodze,0,0,0,0,0,0,0,0,0,0,0,0,0,0,</pre></div>
+148|148,w wiosce,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+148|148,w drodze,100,100,7048,0,100,2848,0,0,350,100,0,4,0,0,
+149|149,w wiosce,100,100,6649,0,100,2849,0,0,350,100,0,0,0,0,
+149|149,w drodze,0,0,400,0,0,0,0,0,0,0,0,4,0,0,</pre></div>
 
 <p class="md-error">Do dyspozycji z powyższych danych masz:</p>
 <p>30x pełnych offów z 0 szlachciami</p>
@@ -1282,18 +1282,17 @@ W skrajnych sytuacjach można odznaczyć drugą opcję <span class="md-correct2"
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga w plemionach występują w kolejności popularności trzy ustawienia morale: oparte na punktach, oparte na punktach i czasie oraz brak morali.</div>
 
-
 1. Morale bazujące na punktach
 
-    Dla najbardziej popularnej morale opierają się tylko na punktach gracza atakującego i obrońcy, co Planer implementuje dokładnie, choć nie brane są pod uwage początkowe ochrony występujące na niektórych światach!
+   Dla najbardziej popularnej morale opierają się tylko na punktach gracza atakującego i obrońcy, co Planer implementuje dokładnie, choć nie brane są pod uwage początkowe ochrony występujące na niektórych światach!
 
 2. Morale bazujące na punktach i czasie
 
-    W tym przypadku oprócz punktów, morale są zwiększane proporcjonalnie do czasu gry obrońcy na świecie, aż do maksymalnej wartości 50%. Planer **nie przelicza** tego dodatku czasowego, z racji braku technicznej możliwości, gra nie udostępnia tego typu danych. Wynik będzie niedokładny i skrajnych przypadkach zamiast np. morale 30% na celu, w rzeczywistości nasz gracz będzie miał 50% (ale nie więcej).
+   W tym przypadku oprócz punktów, morale są zwiększane proporcjonalnie do czasu gry obrońcy na świecie, aż do maksymalnej wartości 50%. Planer **nie przelicza** tego dodatku czasowego, z racji braku technicznej możliwości, gra nie udostępnia tego typu danych. Wynik będzie niedokładny i skrajnych przypadkach zamiast np. morale 30% na celu, w rzeczywistości nasz gracz będzie miał 50% (ale nie więcej).
 
 3. Brak morale
 
-    W tym przypadku zakładka jest nieaktywna zaś kwestia morali pomijana.
+   W tym przypadku zakładka jest nieaktywna zaś kwestia morali pomijana.
 
 <br>
 

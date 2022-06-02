@@ -1,3 +1,5 @@
+from django.utils.translation import gettext as _
+
 from base.models import Outline
 from utils import basic
 
@@ -10,6 +12,7 @@ class SingleVillageAnalize:
 
         self.player: str = ""
         self.suspicious: bool = False
+        self.suspicious_text_lst: list[str] = []
 
     @property
     def coord(self):
@@ -34,12 +37,15 @@ class OutlineTroopsAnalysis:
                 or vill_analize.enroute_army is None
             ):
                 continue
-            if (
-                vill_analize.all_army.nobleman != vill_analize.in_village_army.nobleman
-                or vill_analize.in_village_army.off < 0.85 * vill_analize.all_army.off
-            ):
-                # too much off difference or nobles mismatch
+            if vill_analize.all_army.nobleman != vill_analize.in_village_army.nobleman:
+                # nobles mismatch
                 vill_analize.suspicious = True
+                vill_analize.suspicious_text_lst.append(_(":nobles"))
+
+            if vill_analize.in_village_army.off < 0.85 * vill_analize.all_army.off:
+                # too much off difference
+                vill_analize.suspicious = True
+                vill_analize.suspicious_text_lst.append(_(":off"))
 
         return self.villages.values()
 
