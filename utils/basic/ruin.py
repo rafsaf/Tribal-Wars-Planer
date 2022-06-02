@@ -294,7 +294,7 @@ class RuinHandle:
             best = self.outline.initial_outline_catapult_default
 
         next_level: int = self._next_level(best)
-        if next_level <= 4:
+        if next_level <= 3:
             self.building_is_not_set = True
         else:
             self.current_level = next_level
