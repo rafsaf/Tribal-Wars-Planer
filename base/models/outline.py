@@ -125,6 +125,7 @@ class Outline(models.Model):
     ]
 
     CATAPULTS_NUMBER = [
+        (25, "25"),
         (50, "50"),
         (75, "75"),
         (100, "100"),
@@ -166,7 +167,7 @@ class Outline(models.Model):
     initial_outline_ruins = models.TextField(blank=True, default="")
 
     initial_outline_catapult_default = models.IntegerField(
-        default=150, choices=CATAPULTS_NUMBER
+        default=50, choices=CATAPULTS_NUMBER
     )
     initial_outline_off_left_catapult = models.IntegerField(
         default=50, validators=[MinValueValidator(0), MaxValueValidator(400)]
