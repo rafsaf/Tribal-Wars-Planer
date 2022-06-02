@@ -54,6 +54,38 @@ class RuinHandle:
         "wall": 20,
     }
     LEVEL_DICTIONARY: dict[tuple[int, int], int] = {
+        (20, 1): 0,
+        (25, 30): 29,
+        (25, 29): 28,
+        (25, 28): 27,
+        (25, 27): 26,
+        (25, 26): 25,
+        (25, 25): 24,
+        (25, 24): 23,
+        (25, 23): 22,
+        (25, 22): 21,
+        (25, 21): 20,
+        (25, 20): 19,
+        (25, 19): 17,
+        (25, 18): 16,
+        (25, 17): 15,
+        (25, 16): 14,
+        (25, 15): 13,
+        (25, 14): 12,
+        (25, 13): 10,
+        (25, 12): 9,
+        (25, 11): 8,
+        (25, 10): 6,
+        (25, 9): 5,
+        (25, 8): 4,
+        (25, 7): 2,
+        (25, 6): 1,
+        (25, 5): 0,
+        (25, 4): 0,
+        (25, 3): 0,
+        (25, 2): 0,
+        (25, 1): 0,
+        (25, 0): 0,
         (50, 30): 29,
         (50, 29): 28,
         (50, 28): 27,
@@ -85,6 +117,37 @@ class RuinHandle:
         (50, 2): 0,
         (50, 1): 0,
         (50, 0): 0,
+        (75, 30): 28,
+        (75, 29): 27,
+        (75, 28): 26,
+        (75, 27): 25,
+        (75, 26): 23,
+        (75, 25): 22,
+        (75, 24): 21,
+        (75, 23): 20,
+        (75, 22): 18,
+        (75, 21): 17,
+        (75, 20): 16,
+        (75, 19): 14,
+        (75, 18): 13,
+        (75, 17): 11,
+        (75, 16): 10,
+        (75, 15): 8,
+        (75, 14): 7,
+        (75, 13): 5,
+        (75, 12): 3,
+        (75, 11): 1,
+        (75, 10): 0,
+        (75, 9): 0,
+        (75, 8): 0,
+        (75, 7): 0,
+        (75, 6): 0,
+        (75, 5): 0,
+        (75, 4): 0,
+        (75, 3): 0,
+        (75, 2): 0,
+        (75, 1): 0,
+        (75, 0): 0,
         (100, 30): 27,
         (100, 29): 26,
         (100, 28): 25,
@@ -178,38 +241,6 @@ class RuinHandle:
         (200, 2): 0,
         (200, 1): 0,
         (200, 0): 0,
-        (75, 30): 28,
-        (75, 29): 27,
-        (75, 28): 26,
-        (75, 27): 25,
-        (75, 26): 23,
-        (75, 25): 22,
-        (75, 24): 21,
-        (75, 23): 20,
-        (75, 22): 18,
-        (75, 21): 17,
-        (75, 20): 16,
-        (75, 19): 14,
-        (75, 18): 13,
-        (75, 17): 11,
-        (75, 16): 10,
-        (75, 15): 8,
-        (75, 14): 7,
-        (75, 13): 5,
-        (75, 12): 3,
-        (75, 11): 1,
-        (75, 10): 0,
-        (75, 9): 0,
-        (75, 8): 0,
-        (75, 7): 0,
-        (75, 6): 0,
-        (75, 5): 0,
-        (75, 4): 0,
-        (75, 3): 0,
-        (75, 2): 0,
-        (75, 1): 0,
-        (75, 0): 0,
-        (20, 1): 0,
     }
 
     def __init__(self, outline: Outline) -> None:
@@ -247,11 +278,13 @@ class RuinHandle:
             raise ValueError("current level is None")
         if self.current_level == 1:
             best = 20
-        elif self.current_level <= 8 or available_cats < 75:
+        elif self.current_level <= 7 or available_cats < 50:
+            best = 25
+        elif self.current_level <= 10 or available_cats < 75:
             best = 50
-        elif self.current_level <= 11 or available_cats < 100:
+        elif self.current_level <= 12 or available_cats < 100:
             best = 75
-        elif self.current_level <= 13 or available_cats < 150:
+        elif self.current_level <= 14 or available_cats < 150:
             best = 100
         elif self.current_level <= 16 or available_cats < 200:
             best = 150
@@ -261,7 +294,7 @@ class RuinHandle:
             best = self.outline.initial_outline_catapult_default
 
         next_level: int = self._next_level(best)
-        if next_level <= 3:
+        if next_level <= 4:
             self.building_is_not_set = True
         else:
             self.current_level = next_level
