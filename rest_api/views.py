@@ -54,7 +54,10 @@ from rest_api.serializers import (
     StripeSessionAmount,
     TargetDeleteSerializer,
     TargetTimeUpdateSerializer,
+    UpdateOutlineOffTroops,
 )
+from utils import basic
+from utils.basic.army import world_evidence
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -373,3 +376,47 @@ def metrics_export(request: Request):
     return HttpResponse(
         metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST, status=200
     )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def update_outline_off_troops(request: Request):
+    """
+    Update single row in outline off_troops field in select for update transaction.
+    """
+    req = UpdateOutlineOffTroops(data=request.data)
+    if req.is_valid():
+        outline_query = (
+            Outline.objects.select_related("world")
+            .filter(
+                pk=req.data.get("outline_id"),
+                owner=request.user,
+            )
+            .select_for_update()
+        )
+        with transaction.atomic():
+            if not len(outline_query):
+                return Response(status=status.HTTP_404_NOT_FOUND)
+            for outline in outline_query:
+                evidence = world_evidence(outline.world)
+                new_line: str = req.data["new_line"]
+                old_line: str = req.data["old_line"]
+                for text_army in [old_line, new_line]:
+                    army = basic.Army(text_army=text_army, evidence=evidence)
+                    try:
+                        army.clean_init(player_dictionary=None)
+                    except basic.ArmyError:
+                        return Response(
+                            f"Invalid text_army: {text_army}",
+                            status=status.HTTP_400_BAD_REQUEST,
+                        )
+                if old_line not in outline.off_troops:
+                    return Response(
+                        "old_line not found in outline",
+                        status=status.HTTP_404_NOT_FOUND,
+                    )
+                outline.off_troops = outline.off_troops.replace(old_line, new_line)
+                outline.get_or_set_off_troops_hash(force_recalculate=True)
+                return Response(status=status.HTTP_204_NO_CONTENT)
+
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)

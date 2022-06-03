@@ -81,7 +81,7 @@ class Army:
             # remove second "in village" / "enroute" place
             del self.text_army[1]
 
-    def clean_init(self, player_dictionary):
+    def clean_init(self, player_dictionary: dict[str, str] | None):
         """Text army validation"""
 
         text_army_length = len(self.text_army)
@@ -95,7 +95,7 @@ class Army:
         except basic.VillageError as identifier:
             raise ArmyError(identifier)
         else:
-            if village.coord not in player_dictionary:
+            if player_dictionary and village.coord not in player_dictionary:
                 raise ArmyError(f"{village.coord} is not in any valid tribe")
         for army_element in self.text_army[1:-1]:
             if not army_element.isnumeric():

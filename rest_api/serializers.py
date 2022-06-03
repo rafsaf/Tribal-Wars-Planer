@@ -79,3 +79,9 @@ class ChangeWeightBuildingSerializer(serializers.Serializer):
         if value not in BUILDINGS:
             raise serializers.ValidationError(f"Invalid building: {value}")
         return value
+
+
+class UpdateOutlineOffTroops(serializers.Serializer):
+    outline_id = serializers.IntegerField()
+    old_line = serializers.CharField(max_length=200)
+    new_line = serializers.CharField(max_length=200)

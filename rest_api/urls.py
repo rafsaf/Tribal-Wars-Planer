@@ -43,4 +43,9 @@ urlpatterns = [
     path("reset-user-messages/", views.reset_user_messages, name="reset_user_messages"),
     path("metrics/", views.metrics_export, name="metrics_export"),
     path("healthcheck/", views.healthcheck, name="healthcheck"),
+    path(
+        "update-outline-off-troops/",
+        views.update_outline_off_troops,
+        name="update_outline_off_troops",
+    ),
 ]
