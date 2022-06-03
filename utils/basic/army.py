@@ -108,6 +108,14 @@ class Army:
         """Coords of village"""
         return self.text_army[0]
 
+    @property
+    def coord_as_int(self) -> int:
+        return int(self.coord.replace("|", ""))
+
+    @property
+    def text_army_line(self) -> str:
+        return ",".join(self.text_army)
+
     @cached_property
     def nobleman(self):
         """Number of nobleman"""

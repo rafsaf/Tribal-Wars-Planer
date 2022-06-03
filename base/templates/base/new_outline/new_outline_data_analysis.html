@@ -30,27 +30,30 @@
                 <h5><span class="badge badge-pill badge-info">{{analize.player}}</span></h5>
             </th>
             <th class="text-nowrap" width="1%">
-                <h5><span class="badge badge badge-secondary">{{analize.coord}}</span></h5>
+                <h5><span class="badge badge badge-secondary">{{analize.all_army.coord}}</span></h5>
             </th>
             <th class="text-nowrap" width="1%">
               {% if analize.suspicious %}
               <span class="badge badge-warning">{% trans "suspicious" %}</span>
-              {% for text in analize.suspicious_text_lst %}
-                <span class="badge badge-danger ml-1">{{text}}</span>
-              {% endfor %}
+                {% if analize.suspicious_nobles %}
+                <span class="badge badge-warning ml-1">{% trans ":nobles" %}</span>
+                {% endif %}
+                {% if analize.suspicious_off %}
+                <span class="badge badge-danger ml-1">{% trans ":off" %}</span>
+                {% endif %}
               {% else %}
               <i class="bi bi-check-lg"></i>
               {% endif %}
             </th>
-            <th id="{{analize.coord}}-all-army-th" class="analysis-row {% if analize.suspicious %}analysis-row-suspicious{% else %}analysis-row-done{% endif %}">
-              <img src='{% static "images/ax.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord}}-all-army-off">{{analize.all_army.off}}</span>&nbsp;
-              <img src='{% static "images/nobleman.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord}}-all-army-nobleman">{{analize.all_army.nobleman}}</span>&nbsp;
-              <img src='{% static "images/catapult.png" %}' alt="cat"> <span class="px-1" id="{{analize.coord}}-all-army-catapult">{{analize.all_army.catapult}}</span>
+            <th id="{{analize.coord_as_int}}-all-army" data-army="{{analize.all_army.text_army_line}}" class="analysis-row {% if analize.suspicious %}analysis-row-suspicious{% else %}analysis-row-done{% endif %}">
+              <img src='{% static "images/ax.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord_as_int}}-all-army-off">{{analize.all_army.off}}</span>&nbsp;
+              <img src='{% static "images/nobleman.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord_as_int}}-all-army-nobleman">{{analize.all_army.nobleman}}</span>&nbsp;
+              <img src='{% static "images/catapult.png" %}' alt="cat"> <span class="px-1" id="{{analize.coord_as_int}}-all-army-catapult">{{analize.all_army.catapult}}</span>
             </th>
-            <th id="{{analize.coord}}-in-village-army-th" class="analysis-row">
-              <img src='{% static "images/ax.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord}}-in-village-army-off">{{analize.in_village_army.off}}</span>&nbsp;
-              <img src='{% static "images/nobleman.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord}}-in-village-army-nobleman">{{analize.in_village_army.nobleman}}</span>&nbsp;
-              <img src='{% static "images/catapult.png" %}' alt="cat"> <span class="px-1" id="{{analize.coord}}-in-village-army-catapult">{{analize.in_village_army.catapult}}</span>
+            <th id="{{analize.coord_as_int}}-in-village-army" data-army="{{analize.in_village_army.text_army_line}}" class="analysis-row">
+              <img src='{% static "images/ax.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord_as_int}}-in-village-army-off">{{analize.in_village_army.off}}</span>&nbsp;
+              <img src='{% static "images/nobleman.png" %}' alt="ax"> <span class="px-1" id="{{analize.coord_as_int}}-in-village-army-nobleman">{{analize.in_village_army.nobleman}}</span>&nbsp;
+              <img src='{% static "images/catapult.png" %}' alt="cat"> <span class="px-1" id="{{analize.coord_as_int}}-in-village-army-catapult">{{analize.in_village_army.catapult}}</span>
             </th>
             <th class="text-nowrap" width="1%">
               <i style="color:#17a2b8;font-size:1.3rem" class="bi bi-journals"></i>
