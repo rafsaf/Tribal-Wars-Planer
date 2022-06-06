@@ -24,7 +24,7 @@ from utils import basic
 
 class RemoveUserOutline(MiniSetup):
     def test_reset_outline_to_defaults(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         outline_time = self.create_outline_time(outline)
         outline.written = "active"
         outline.avaiable_offs = [1, 23, 5]
@@ -60,7 +60,7 @@ class RemoveUserOutline(MiniSetup):
         assert outline.default_ruin_time_id is None
 
     def test_reset_results_to_defaults(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         result: models.Result = models.Result.objects.get(outline=outline)
         result.results_outline = self.random_lower_string()
         result.results_players = self.random_lower_string()
@@ -76,7 +76,7 @@ class RemoveUserOutline(MiniSetup):
         assert result.results_export == ""
 
     def test_delete_all_weights_and_outline_times_and_update_overviews(self):
-        outline = self.get_outline(add_result=True, test_world=True)
+        outline = self.get_outline(test_world=True)
         self.create_target_on_test_world(outline)
         target = models.TargetVertex.objects.get(target="200|200")
         weight_max = self.create_weight_maximum(outline)
@@ -101,7 +101,7 @@ class RemoveUserOutline(MiniSetup):
         assert models.TargetVertex.objects.count() == 0
 
     def test_weight_max_still_exists_but_is_updated_correctly_and_target_deleted(self):
-        outline = self.get_outline(add_result=True, test_world=True)
+        outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = self.random_lower_string()
         outline.initial_outline_fake_limit = 10
@@ -156,7 +156,7 @@ class RemoveUserOutline(MiniSetup):
         assert weight_max.fake_limit == 10
 
     def test_weight_max_ok_real_target_bad(self):
-        outline = self.get_outline(add_result=True, test_world=True)
+        outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = "200|200:4:4"
         outline.initial_outline_fakes = "201|201:4:4"
@@ -185,7 +185,7 @@ class RemoveUserOutline(MiniSetup):
         assert models.TargetVertex.objects.count() == 0
 
     def test_weight_max_ok_fake_target_bad(self):
-        outline = self.get_outline(add_result=True, test_world=True)
+        outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = "200|200:4:4"
         outline.initial_outline_fakes = "201|201:4:4"
@@ -214,7 +214,7 @@ class RemoveUserOutline(MiniSetup):
         assert models.TargetVertex.objects.count() == 0
 
     def test_weight_max_ok_ruin_target_bad(self):
-        outline = self.get_outline(add_result=True, test_world=True)
+        outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = "200|200:4:4"
         outline.initial_outline_fakes = "201|201:4:4"

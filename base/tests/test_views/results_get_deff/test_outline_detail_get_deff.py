@@ -31,7 +31,7 @@ class OutlineDetailGetDeff(MiniSetup):
         assert response.url == self.login_page_path(next=PATH)
 
     def test_planer_detail_get_deff___404_foreign_user_no_access(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         PATH = reverse("base:planer_detail_get_deff", args=[outline.pk])
 
         self.login_foreign_user()
@@ -50,7 +50,7 @@ class OutlineDetailGetDeff(MiniSetup):
         assert response.status_code == 404
 
     def test_planer_detail_get_deff___302_redirect_when_no_deff_or_off_troops(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         PATH = reverse("base:planer_detail_get_deff", args=[outline.pk])
         REDIRECT = reverse("base:planer_detail", args=[outline.pk])
         self.login_me()
@@ -81,7 +81,9 @@ class OutlineDetailGetDeff(MiniSetup):
         assert response.status_code == 200
 
     def test_planer_detail_get_deff___302_form_work_ok_data(self):
-        outline = self.get_outline(test_world=True, add_result=True)
+        outline = self.get_outline(
+            test_world=True,
+        )
         PATH = reverse("base:planer_detail_get_deff", args=[outline.pk])
         REDIRECT_BAD = reverse("base:planer_detail", args=[outline.pk])
         REDIRECT_OK = (

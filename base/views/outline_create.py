@@ -57,8 +57,6 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                 )
                 new_instance.save()
                 new_instance.refresh_from_db()
-                result = models.Result(outline=new_instance)
-                result.save()
                 new_instance.create_stats()
 
                 return redirect("base:planer_create_select", new_instance.pk)

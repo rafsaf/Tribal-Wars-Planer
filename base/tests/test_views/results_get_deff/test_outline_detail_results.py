@@ -20,7 +20,7 @@ from base.tests.test_utils.mini_setup import MiniSetup
 
 class OutlineDetailResults(MiniSetup):
     def test_planer_detail_results___302_not_auth_redirect_login(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         outline_time = self.create_outline_time(outline)
         PATH = reverse("base:planer_detail_results", args=[outline_time.pk])
 
@@ -31,7 +31,7 @@ class OutlineDetailResults(MiniSetup):
         assert response.url == self.login_page_path(next=PATH)
 
     def test_planer_detail_results___404_foreign_user_no_access(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         PATH = reverse("base:planer_detail_results", args=[outline.pk])
 
         self.login_foreign_user()
@@ -42,7 +42,7 @@ class OutlineDetailResults(MiniSetup):
         assert response.status_code == 404
 
     def test_planer_detail_results___404_initial_form_works_properly(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         outline.default_show_hidden = False
         outline.title_message = self.random_lower_string()
         outline.text_message = self.random_lower_string()
@@ -55,7 +55,7 @@ class OutlineDetailResults(MiniSetup):
         assert response.status_code == 200
 
     def test_planer_detail_results___302_form_redirect_works_ok(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         overview = self.create_overview(outline)
         overview.show_hidden = False
         overview.removed = False

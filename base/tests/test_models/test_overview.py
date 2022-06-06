@@ -28,7 +28,7 @@ class OverviewTest(MiniSetup):
         translation.activate("pl")
 
     def test_extend_with_encodeURIComponent(self):
-        outline = self.get_outline(add_result=True)
+        outline = self.get_outline()
         outline.title_message = "t1\nt2\r[#/]!@]"
         outline.text_message = "t1\nt2\r[#/]!@a;poasd1!\n\t\nbffdb[b]XD[/b]"
         outline.save()

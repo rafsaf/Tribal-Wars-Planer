@@ -117,7 +117,9 @@ class InitialPlaner(MiniSetup):
         assert filtr == "yyy"
 
     def test_planer_initial___302_go_back_button(self):
-        outline = self.get_outline(written="active", add_result=True)
+        outline = self.get_outline(
+            written="active",
+        )
         outline_time = self.create_outline_time(outline)
         outline.written = "active"
         outline.avaiable_offs = [155, 5555, 1111, 100]

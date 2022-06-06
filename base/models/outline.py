@@ -15,6 +15,7 @@
 
 import datetime
 from hashlib import sha256
+from typing import TYPE_CHECKING
 
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
@@ -280,6 +281,11 @@ class Outline(models.Model):
     default_off_time_id = models.IntegerField(default=None, null=True, blank=True)
     default_fake_time_id = models.IntegerField(default=None, null=True, blank=True)
     default_ruin_time_id = models.IntegerField(default=None, null=True, blank=True)
+
+    if TYPE_CHECKING:
+        from base.models.troops_history import TroopsHistory
+
+        troopshistory: TroopsHistory
 
     class Meta:
         ordering = ("-created",)

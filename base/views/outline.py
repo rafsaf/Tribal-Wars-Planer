@@ -24,6 +24,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
 from base import forms, models
+from base.views.outline_initial_views import trigger_off_deff_troops_update_redirect
 from utils.basic import Troops
 from utils.outline_troops_analysis import OutlineTroopsAnalysis
 
@@ -179,6 +180,19 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     if error is not None:
         context["error"] = error
         del request.session["error"]
+        off_form = forms.OffTroopsForm(
+            {"off_troops": instance.off_troops}, outline=instance
+        )
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": instance.deff_troops}, outline=instance
+        )
+        if not off_form.is_valid():
+            off_troops.set_troops(instance.off_troops)
+            off_troops.set_errors(off_form.errors)
+        elif not deff_form.is_valid():
+            deff_troops.set_troops(instance.deff_troops)
+            deff_troops.set_errors(deff_form.errors)
+
     return render(request, "base/new_outline/new_outline.html", context)
 
 
@@ -200,6 +214,17 @@ def outline_data_analysis(request: HttpRequest, _id: int) -> HttpResponse:
             "button in <b>Planer</b> menu tab, but you will loose part of your progress.</p>"
         )
         return redirect("base:planer_detail", _id)
+
+    off_form = forms.OffTroopsForm(
+        {"off_troops": instance.off_troops}, outline=instance
+    )
+    if not off_form.is_valid():
+        return trigger_off_deff_troops_update_redirect(request=request, outline_id=_id)
+    deff_form = forms.DeffTroopsForm(
+        {"deff_troops": instance.deff_troops}, outline=instance
+    )
+    if not deff_form.is_valid():
+        return trigger_off_deff_troops_update_redirect(request=request, outline_id=_id)
 
     analized_villages = OutlineTroopsAnalysis(outline=instance).run_analize()
 

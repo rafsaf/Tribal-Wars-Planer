@@ -41,6 +41,14 @@ class AdminStripePriceModel(admin.ModelAdmin):
     ]
 
 
+@admin.register(models.TroopsHistory)
+class AdminTroopsHistoryModel(admin.ModelAdmin):
+    list_display = [
+        "outline",
+        "created_at",
+    ]
+
+
 @admin.register(models.StripeProduct)
 class AdminStripeProductModel(admin.ModelAdmin):
     list_display = [

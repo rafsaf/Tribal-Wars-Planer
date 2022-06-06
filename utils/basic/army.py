@@ -247,11 +247,11 @@ class Defence:
         else:
             if village.coord not in player_dictionary:
                 raise DefenceError(f"{village.coord} is not in any valid tribe")
+        if not self.text_army[1].isalpha():
+            raise DefenceError(f"{self.text_army[1]} is not a string")
         for army_element in self.text_army[2:-1]:
             if not army_element.isnumeric():
                 raise DefenceError(f"{army_element} is not a number")
-        if not isinstance(self.text_army[1], str):
-            raise DefenceError("Second element must be a string")
         if self.text_army[-1] != "":
             raise DefenceError(f"Invalid syntax in {self.text_army[-1]}")
 

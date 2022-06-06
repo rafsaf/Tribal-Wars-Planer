@@ -37,13 +37,11 @@ from utils.outline_finish import MakeFinalOutline
 from utils.outline_initial import MakeOutline
 
 
-def trigger_off_troops_update_redirect(request: HttpRequest, outline_id: int):
+def trigger_off_deff_troops_update_redirect(request: HttpRequest, outline_id: int):
     request.session["error"] = gettext(
-        "<h5>It looks like your Army collection is no longer actual!</h5> "
-        "<p>To use the Planer:</p> "
-        "<p>1. Paste the current data in the <b>Army collection</b>, solve issues.</p> "
-        "<p>2. Click on <b>Submit</b>.</p> "
-        "<p>3. Only then return to the <b>Planer</b> tab.</p> "
+        "<h5>It looks like your Army or Deff collection is no longer actual!</h5> "
+        "<p>To use the <b>2. Data analysis</b> and <b>3. Planer</b> tabs:</p> "
+        "<p>Paste the current data in the <b>1. Troops data</b> tab, solve all issues.</p> "
     )
 
     return redirect("base:planer_detail", outline_id)
@@ -87,7 +85,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
 
             instance.actions.click_troops_refresh(instance)
         else:
-            return trigger_off_troops_update_redirect(request=request, outline_id=_id)
+            return trigger_off_deff_troops_update_redirect(
+                request=request, outline_id=_id
+            )
 
     target_mode = basic.TargetMode(request.GET.get("t"))
 
@@ -155,7 +155,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     else:
                         instance.actions.save_ruin_targets(instance)
                 else:
-                    return trigger_off_troops_update_redirect(
+                    return trigger_off_deff_troops_update_redirect(
                         request=request, outline_id=_id
                     )
 

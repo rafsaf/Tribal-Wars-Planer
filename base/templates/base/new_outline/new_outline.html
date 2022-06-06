@@ -62,12 +62,12 @@
 
                         <div class="error-text">
                             <p class="mb-0">{% trans 'Incorrect data in' %} {{off_troops.errors|length}} {% trans 'lines.' %}</p>
-                            <p class="mt-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                            <p class="my-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
                         </div>
         
                         {% endif %} 
                         {% if off_troops.empty %} 
-                        <div class="error-text mb-3">
+                        <div class="error-text">
                             {% trans 'The text cannot be empty' %}.
                         </div>
                         <script>
@@ -122,14 +122,14 @@
                             });
                         </script>
                     
-                        <div class="error-text mb-3">
+                        <div class="error-text">
                             <p class="mb-0">{% trans 'Incorrect data in' %} {{deff_troops.errors|length}} {% trans 'lines.' %}</p>
-                            <p class="mt-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                            <p class="my-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
                         </div>
         
                         {% endif %} 
                         {% if deff_troops.empty %} 
-                        <div class="error-text mb-3">
+                        <div class="error-text">
                             {% trans 'The text cannot be empty' %}.
                         </div>
                         <script>

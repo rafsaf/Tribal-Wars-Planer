@@ -30,7 +30,6 @@ from base.models import (
     Overview,
     Payment,
     Profile,
-    Result,
     Server,
     TargetVertex,
     Tribe,
@@ -185,7 +184,6 @@ class MiniSetup(TestCase):
         name: str = "name",
         editable: Literal["active", "inactive"] = "active",
         written: Literal["active", "inactive"] = "inactive",
-        add_result: bool = False,
     ) -> Outline:
         world = self.get_world(test_world=test_world)
         try:
@@ -204,8 +202,6 @@ class MiniSetup(TestCase):
                 outline.enemy_tribe_tag = ["ENEMY"]
                 outline.save()
                 outline.refresh_from_db()
-            if add_result:
-                Result.objects.create(outline=outline)
             return outline
 
     def create_foreign_outline(

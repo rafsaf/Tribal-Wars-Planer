@@ -972,3 +972,52 @@ const changeWeightBuildingDirect = async (changingElement, outline_id) => {
     nameOfBuilding.innerHTML = `<b>${data.name}</b>`;
   }
 };
+
+const updateOutlineOffTroops = async (
+  outline_id,
+  coordAsInt,
+  new_line_element
+) => {
+  const allArmyRow = document.getElementById(`${coordAsInt}-all-army`);
+  const allArmyRowOff = document.getElementById(`${coordAsInt}-all-army-off`);
+  const allArmyRowNoble = document.getElementById(
+    `${coordAsInt}-all-army-nobleman`
+  );
+  const allArmyRowCatapult = document.getElementById(
+    `${coordAsInt}-all-army-catapult`
+  );
+  const status = document.getElementById(`${coordAsInt}-status`);
+
+  const currentStatusHTML = status.innerHTML;
+  status.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
+
+  const response = await fetch(`/api/update-outline-off-troops/`, {
+    method: "POST",
+    credentials: "same-origin",
+    body: JSON.stringify({
+      outline_id: outline_id,
+      old_line: allArmyRow.dataset.army,
+      new_line: new_line_element.dataset.army,
+    }),
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.status !== 200) {
+    status.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
+    setTimeout(() => {
+      status.innerHTML = currentStatusHTML;
+    }, 2000);
+  } else {
+    const data = await response.json();
+    status.innerHTML = `<i class="bi bi-check-lg"></i>`;
+    allArmyRow.dataset.army = new_line_element.dataset.army;
+    allArmyRow.classList.remove("analysis-row-suspicious");
+    allArmyRow.classList.add("analysis-row-done");
+    allArmyRowOff.innerText = data["off"];
+    allArmyRowNoble.innerText = data["nobleman"];
+    allArmyRowCatapult.innerText = data["catapult"];
+  }
+};

@@ -74,7 +74,7 @@ class GetDeffFunctionTest(TestCase):
             deff_troops=DEFF_TEXT,
             off_troops=ARMY_TEXT,
         )
-        models.Result.objects.create(outline=self.outline)
+
         self.ally_tribe1 = models.Tribe(tribe_id=1, tag="pl1", world=self.world1)
         self.ally_tribe2 = models.Tribe(tribe_id=2, tag="pl2", world=self.world1)
         self.enemy_tribe1 = models.Tribe(tribe_id=3, tag="pl3", world=self.world1)

@@ -119,7 +119,7 @@ class UpdateOutlineOffTroopsTest(MiniSetup):
         )
         assert response.status_code == 404
 
-    def test_outline_update_off_troops___204_valid_replace_troops_old_line_to_new(self):
+    def test_outline_update_off_troops___200_valid_replace_troops_old_line_to_new(self):
         outline = self.get_outline(test_world=True)
         outline.off_troops = self.TEST_WORLD_DATA
         outline.get_or_set_off_troops_hash()
@@ -139,7 +139,12 @@ class UpdateOutlineOffTroopsTest(MiniSetup):
             ),
             content_type="application/json",
         )
-        assert response.status_code == 204
+        assert response.status_code == 200
+        assert response.json() == {
+            "off": 16350,
+            "nobleman": 0,
+            "catapult": 100,
+        }
         outline.refresh_from_db()
         assert outline.off_troops == (
             "100|100,100,100,8000,0,100,1400,0,0,350,100,0,0,0,0,0,\r\n"
@@ -193,3 +198,10 @@ class UpdateOutlineOffTroopsTest(MiniSetup):
             "148|148,100,100,7048,0,100,2848,0,0,350,100,0,4,0,0,0,\r\n"
             "149|149,100,100,7049,0,100,2849,0,0,350,100,0,4,0,0,0,"
         )
+
+        assert outline.troopshistory.history_json == {
+            "100|100": [
+                "100|100,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,",
+                "100|100,100,100,8000,0,100,1400,0,0,350,100,0,0,0,0,0,",
+            ]
+        }

@@ -25,7 +25,15 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import gettext
 
-from base.models import Message, Payment, Profile, Server
+from base.models import (
+    Message,
+    Outline,
+    Payment,
+    Profile,
+    Result,
+    Server,
+    TroopsHistory,
+)
 from utils.basic import create_test_world
 
 
@@ -33,6 +41,13 @@ from utils.basic import create_test_world
 def created_message(sender, instance, created, **kwargs):
     if created:
         Profile.objects.all().update(messages=F("messages") + 1)
+
+
+@receiver(post_save, sender=Outline)
+def post_save_outline(sender, instance: Outline, created: bool, **kwargs):
+    if created:
+        TroopsHistory.objects.create(outline=instance)
+        Result.objects.create(outline=instance)
 
 
 @receiver(post_save, sender=User)

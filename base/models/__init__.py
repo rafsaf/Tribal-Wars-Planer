@@ -30,6 +30,7 @@ from .stripe_price import StripePrice
 from .stripe_product import StripeProduct
 from .target_vertex import TargetVertex
 from .tribe import Tribe
+from .troops_history import TroopsHistory
 from .village_model import VillageModel
 from .weight_maximum import WeightMaximum
 from .weight_model import WeightModel
