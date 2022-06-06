@@ -605,7 +605,7 @@ tzdata = {version = "*", markers = "python_version >= \"3.6\""}
 
 [[package]]
 name = "pyupgrade"
-version = "2.32.1"
+version = "2.33.0"
 description = "A tool to automatically upgrade syntax for newer versions."
 category = "dev"
 optional = false
@@ -847,7 +847,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.10,<3.11"
-content-hash = "4aedca3adf7d690302248fb516173b27f61fb475c720803100d77f6fca4c234e"
+content-hash = "acf271ea0d472bff80beb5da317a3270c42ff73597fc2870b8f830a3ae4af17d"
 
 [metadata.files]
 asgiref = [
@@ -1190,8 +1190,8 @@ pytz-deprecation-shim = [
     {file = "pytz_deprecation_shim-0.1.0.post0.tar.gz", hash = "sha256:af097bae1b616dde5c5744441e2ddc69e74dfdcb0c263129610d85b87445a59d"},
 ]
 pyupgrade = [
-    {file = "pyupgrade-2.32.1-py2.py3-none-any.whl", hash = "sha256:d874f34870abadd7536c89678f9811076d5df93c13620f90a125355a2d31fa91"},
-    {file = "pyupgrade-2.32.1.tar.gz", hash = "sha256:11e2c3e4e2e53a61b2d8852ed154ea5683887b6ac42561622ca8d89c94fd951a"},
+    {file = "pyupgrade-2.33.0-py2.py3-none-any.whl", hash = "sha256:0e12263a032d84e983cc1879c75e9a67e43b38897a91995e8c82bd485a66d38e"},
+    {file = "pyupgrade-2.33.0.tar.gz", hash = "sha256:a7c9f12efee6f9e1e5454dbace80e78f713ebf040984486a653bb657828a6d1c"},
 ]
 pyyaml = [
     {file = "PyYAML-6.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d4db7c7aef085872ef65a8fd7d6d09a14ae91f691dec3e87ee5ee0539d516f53"},
