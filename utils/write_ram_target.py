@@ -63,6 +63,8 @@ class WriteRamTarget:
         )
 
     def sorted_weights_offs(self, catapults: int = 50) -> list[WeightMaximum]:
+        self.filters.append(self._only_closer_than_maximum_off_dist())
+
         if self.target.fake:
             self.filters.append(self._fake_query())
         elif self.ruin:
@@ -213,6 +215,15 @@ class WriteRamTarget:
             return True
 
         return [weight for weight in self.weight_max_list if all_filters_match(weight)]
+
+    def _only_closer_than_maximum_off_dist(self):
+        def filter_closer_than_maximum_off_dist(weight_max: WeightMaximum) -> bool:
+            return (
+                getattr(weight_max, "distance")
+                <= self.outline.initial_outline_maximum_off_dist
+            )
+
+        return filter_closer_than_maximum_off_dist
 
     def _fake_query(self):
         def filter_fake(weight_max: WeightMaximum) -> bool:

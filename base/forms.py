@@ -270,6 +270,7 @@ class AvailableTroopsForm(forms.ModelForm):
             "initial_outline_front_dist",
             "initial_outline_maximum_front_dist",
             "initial_outline_target_dist",
+            "initial_outline_maximum_off_dist",
             "initial_outline_excluded_coords",
         ]
         labels = {
@@ -282,6 +283,7 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Maximum distance from front line"
             ),
             "initial_outline_target_dist": gettext_lazy("Max Distance for nobles"),
+            "initial_outline_maximum_off_dist": gettext_lazy("Max Distance for offs"),
         }
         help_texts = {
             "initial_outline_min_off": gettext_lazy(
@@ -297,7 +299,10 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Greater than or equal to 0 and less than or equal to 1000. Villages farther from the enemy than this value will be considered too far from the front and completely skipped."
             ),
             "initial_outline_target_dist": gettext_lazy(
-                "Greater than or equal to 0 and less than or equal to 1000."
+                "Greater than or equal to 0 and less than or equal to 1000. This is STRICT limit of distance for any NOBLE regardless of distance from the front line."
+            ),
+            "initial_outline_maximum_off_dist": gettext_lazy(
+                "Greater than or equal to 0 and less than or equal to 1000. This is STRICT limit of distance for any OFF regardless of distance from the front line."
             ),
         }
 

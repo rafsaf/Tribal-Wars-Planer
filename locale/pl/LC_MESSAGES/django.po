@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-29 12:10+0200\n"
+"POT-Creation-Date: 2022-06-30 21:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr "Przeciwne plemiona"
 msgid "Radius"
 msgstr "Promień"
 
-#: base/forms.py:178 base/forms.py:300
+#: base/forms.py:178
 msgid "Greater than or equal to 0 and less than or equal to 1000."
 msgstr "Większa lub równa 0 i mniejsza lub równa 1000."
 
@@ -91,27 +91,31 @@ msgstr ""
 "możliwą ilość celów aby chronić stronę przed nadużyciami.<br> Prosimy o "
 "zmniejszenie ilości celów poniżej limitu lub kontakt z administracją."
 
-#: base/forms.py:276
+#: base/forms.py:277
 msgid "Min. off units number"
 msgstr "Minimalna liczba jednostek w offie"
 
-#: base/forms.py:277
+#: base/forms.py:278
 msgid "Max. off units number"
 msgstr "Maksymalna liczba jednostek w offie"
 
-#: base/forms.py:279
+#: base/forms.py:280
 msgid "Minimum distance from front line"
 msgstr "Minimalna odległość od linii frontu"
 
-#: base/forms.py:282
+#: base/forms.py:283
 msgid "Maximum distance from front line"
 msgstr "Maksymalna odległość od linii frontu"
 
-#: base/forms.py:284
+#: base/forms.py:285
 msgid "Max Distance for nobles"
 msgstr "Maksymalna odległość dla szlachciców"
 
-#: base/forms.py:288
+#: base/forms.py:286
+msgid "Max Distance for offs"
+msgstr "Maksymalna odległość dla offów"
+
+#: base/forms.py:290
 msgid ""
 "Greater than or equal to 1 and less than or equal to 28000. Only offs above "
 "this value will be considered full offs and will be written out."
@@ -119,7 +123,7 @@ msgstr ""
 "Większa lub równa 1 i mniejsza lub równa 28000. Tylko offy powyżej tej "
 "wielkości będą uznane za pełne offy i rozpisane"
 
-#: base/forms.py:291
+#: base/forms.py:293
 msgid ""
 "Defaults to 28000. Similar to minimum off units number, must be greater than "
 "it."
@@ -127,7 +131,7 @@ msgstr ""
 "Domyślnie rozsądnie duże 28000. Podobna do minimalnej liczby jednostek w "
 "offie, ale musi być większa niż ona."
 
-#: base/forms.py:294
+#: base/forms.py:296
 msgid ""
 "Greater than or equal to 0 and less than or equal to 500. Villages closer to "
 "the enemy than this value will be considered front-line and not written out "
@@ -137,7 +141,7 @@ msgstr ""
 "najbliższego wroga od tej wartości będą uznane za frontowe i nie będą "
 "domyślnie rozpisane"
 
-#: base/forms.py:297
+#: base/forms.py:299
 msgid ""
 "Greater than or equal to 0 and less than or equal to 1000. Villages farther "
 "from the enemy than this value will be considered too far from the front and "
@@ -147,32 +151,50 @@ msgstr ""
 "najbliższego wroga bedą uznane za zbyt dalekie i zostaną całkowicie "
 "pominięte."
 
+#: base/forms.py:302
+msgid ""
+"Greater than or equal to 0 and less than or equal to 1000. This is STRICT "
+"limit of distance for any NOBLE regardless of distance from the front line."
+msgstr ""
+"Większa lub równa 0 i mniejsza lub równa 1000 (w kratkach). Jest to ŚCISŁY "
+"limit odległości dla każdego SZLACHCICA bez względu na ustawienia dotyczące "
+"frontu i odległości od niego."
+
 #: base/forms.py:305
+msgid ""
+"Greater than or equal to 0 and less than or equal to 1000. This is STRICT "
+"limit of distance for any OFF regardless of distance from the front line."
+msgstr ""
+"Większa lub równa 0 i mniejsza lub równa 1000 (w kratkach). Jest to ŚCISŁY "
+"limit odległości dla każdego OFFA bez względu na ustawienia dotyczące frontu "
+"i odległości od niego."
+
+#: base/forms.py:310
 msgid "Excluded enemy villages coords (secluded villages)"
 msgstr ""
 "Nieuwzględniane przy liczeniu frontowych offów wioski wroga (diody itp.)"
 
-#: base/forms.py:309
+#: base/forms.py:314
 msgid "Exact coords separated by a space or an entry"
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:363
+#: base/forms.py:368
 msgid "Show all hidden"
 msgstr "Pokaż wszystkie ukryte"
 
-#: base/forms.py:364
+#: base/forms.py:369
 msgid "Title of message:"
 msgstr "Tytuł wiadomości"
 
-#: base/forms.py:365
+#: base/forms.py:370
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:366
+#: base/forms.py:371
 msgid "Sending Options:"
 msgstr "Opcje wysyłki"
 
-#: base/forms.py:370
+#: base/forms.py:375
 msgid ""
 "By checking this option, players will see the commands of all other players "
 "for their own targets. By default, it's not turned on and players only see "
@@ -182,15 +204,15 @@ msgstr ""
 "swoich celach. Domyślnie jest wyłączona, czyli gracze widzą tylko swoje "
 "komendy."
 
-#: base/forms.py:372
+#: base/forms.py:377
 msgid "Maximum length: 200."
 msgstr "Maksymalna długość: 200."
 
-#: base/forms.py:373
+#: base/forms.py:378
 msgid "Maximum length: 2000."
 msgstr "Maksymalna długość: 2000."
 
-#: base/forms.py:375
+#: base/forms.py:380
 msgid ""
 "Directly messages will bahave poorly with many (more than 80-100) commands"
 msgstr ""
@@ -198,149 +220,149 @@ msgstr ""
 "ilości rozkazów (więcej niż 80-100) z racji ograniczeń znaków w wiadomości w "
 "grze."
 
-#: base/forms.py:390
+#: base/forms.py:395
 msgid "Set new date"
 msgstr "Wybierz nową datę"
 
-#: base/forms.py:443
+#: base/forms.py:448
 msgid "Choose the distance of the written offs:"
 msgstr "Wybierz dystans dla rozpisywanych offów:"
 
-#: base/forms.py:444
+#: base/forms.py:449
 msgid "Choose the distance of the written nobles:"
 msgstr "Wybierz dystans dla rozpisywanych szlachciców:"
 
-#: base/forms.py:445
+#: base/forms.py:450
 msgid "Choose how to split offs with nobles:"
 msgstr "Wybierz jak powinny być dzielone offy z szlachciami:"
 
-#: base/forms.py:447
+#: base/forms.py:452
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Wybierz preferowany sposób rozpisywania wymaganych szlachiców:"
 
-#: base/forms.py:450
+#: base/forms.py:455
 msgid "Choose how noble commands should be written out:"
 msgstr "Wybierz jak komendy z wiosek z szlachtą powinny być rozpisane:"
 
-#: base/forms.py:453
+#: base/forms.py:458
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 
-#: base/forms.py:456
+#: base/forms.py:461
 msgid "Determine which villages to write fake attacks from:"
 msgstr "Wybierz z jakich wiosek rozpisywać fejki:"
 
-#: base/forms.py:478
+#: base/forms.py:483
 msgid "MAX number of catapults in one ruin attack:"
 msgstr "MAX liczba katapult w każdym burzaku:"
 
-#: base/forms.py:481
+#: base/forms.py:486
 msgid "Number of catapults that will always be left in full offs:"
 msgstr "Liczba katapult, która zawsze pozostanie w pełnych offach:"
 
-#: base/forms.py:484
+#: base/forms.py:489
 msgid "How many points on average do demolished targets have:"
 msgstr "Jak dużo punktów mają średnio burzone cele:"
 
-#: base/forms.py:498
+#: base/forms.py:503
 msgid "Only attackers ABOVE this morale value can be used:"
 msgstr "Tylko atakujący POWYŻEJ tej wartości morale mogą zostać rozpisani"
 
-#: base/forms.py:500
+#: base/forms.py:505
 msgid "Is morale calculation active in this outline:"
 msgstr "Bierz pod uwagę morale w tej rozpisce"
 
-#: base/forms.py:538
+#: base/forms.py:543
 msgid "Choose whether to avoid the night bonus"
 msgstr "Wybierz czy wysyłki powinny omijać bonus nocny"
 
-#: base/forms.py:544
+#: base/forms.py:549
 msgid "Approximate hours of entry"
 msgstr "Przybliżone czasy wejścia akcji"
 
-#: base/forms.py:551
+#: base/forms.py:556
 msgid "Approximate hours of the last entry"
 msgstr "Przybliżone ostatnie czasy wejścia akcji"
 
-#: base/forms.py:564
+#: base/forms.py:569
 msgid "First value must be less or equal to second!"
 msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 
-#: base/forms.py:573 base/templates/base/overview.html:193
+#: base/forms.py:578 base/templates/base/overview.html:193
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:576 base/models/period_model.py:33
+#: base/forms.py:581 base/models/period_model.py:33
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:584 base/forms.py:595
+#: base/forms.py:589 base/forms.py:600
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:111
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:174
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:587 base/forms.py:596
+#: base/forms.py:592 base/forms.py:601
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:112
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:175
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:214
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:594
+#: base/forms.py:599
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:107
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:597
+#: base/forms.py:602
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:108
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:598
+#: base/forms.py:603
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:109
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:176
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:215
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:599
+#: base/forms.py:604
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:110
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:177
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:216
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:675 base/forms.py:685
+#: base/forms.py:680 base/forms.py:690
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:693
+#: base/forms.py:698
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:705 base/forms.py:711
+#: base/forms.py:710 base/forms.py:716
 msgid "The All mode time frame MUST always be last for off and for noble."
 msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:719 base/forms.py:726
+#: base/forms.py:724 base/forms.py:731
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/forms.py:760
+#: base/forms.py:765
 msgid "You need a premium account to add more targets here."
 msgstr "Potrzebujesz konta premium by dodawać cele w tym miejscu."
 
-#: base/forms.py:770
+#: base/forms.py:775
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:777
+#: base/forms.py:782
 msgid ""
 "Found more than one village in database, this is the bug. Write me: <rafal."
 "safin@rafsaf.pl>"
@@ -348,40 +370,40 @@ msgstr ""
 "Znaleziono więcej niż 1 wioskę w bazie, jest to błąd. Napisz do mnie: <rafal."
 "safin@rafsaf.pl>"
 
-#: base/forms.py:783
+#: base/forms.py:788
 msgid "Village must not be barbarian."
 msgstr "Wioska nie może być barbarzyńska."
 
-#: base/forms.py:793
+#: base/forms.py:798
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:794
+#: base/forms.py:799
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:805
+#: base/forms.py:810
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr "Niedozwolone znaki w podanym przedrostku, sprwadź jego poprawność"
 
-#: base/forms.py:826
+#: base/forms.py:831
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:829
+#: base/forms.py:834
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:841 base/forms.py:850
+#: base/forms.py:846 base/forms.py:855
 msgid "Please select your server:"
 msgstr "Ustaw swój serwer:"
 
-#: base/forms.py:852
+#: base/forms.py:857
 msgid "Turn on morale calculations in every outline by default:"
 msgstr ""
 "Włącz domyślną obsługę morali dla każdej nowej rozpiski (domyślnie wyłączone)"
 
-#: base/forms.py:854
+#: base/forms.py:859
 msgid "Please select your currency:"
 msgstr "Ustaw swoją walutę płatności:"
 
@@ -550,47 +572,47 @@ msgstr "Średnio powyżej 8k"
 msgid "Average 5-8k"
 msgstr "Średnio 5-8k"
 
-#: base/models/outline.py:136
+#: base/models/outline.py:137
 msgid "Fakes only from off villages"
 msgstr "Fejki tylko z wiosek z pełnym offem"
 
-#: base/models/outline.py:137
+#: base/models/outline.py:138
 msgid "Fakes from all villages"
 msgstr "Fejki z wszystkich wiosek"
 
-#: base/models/outline.py:143
+#: base/models/outline.py:144
 msgid "(Default) Auto generated, fully equipped safe links"
 msgstr "(Domyślne) Automatycznie wygenerowane bezpieczne linki"
 
-#: base/models/outline.py:145
+#: base/models/outline.py:146
 msgid "Text simple directly in message"
 msgstr "Tekst prosty bezpośrednio w wiadomości"
 
-#: base/models/outline.py:146
+#: base/models/outline.py:147
 msgid "Text extended directly in message"
 msgstr "Tekst rozszerzony bezpośrednio w wiadomości"
 
-#: base/models/outline.py:147
+#: base/models/outline.py:148
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:274
+#: base/models/outline.py:278
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:389
+#: base/models/outline.py:393
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:394
+#: base/models/outline.py:398
 msgid "never"
 msgstr "nigdy"
 
-#: base/models/outline.py:406
+#: base/models/outline.py:410
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:408
+#: base/models/outline.py:412
 msgid "days"
 msgstr "dni"
 

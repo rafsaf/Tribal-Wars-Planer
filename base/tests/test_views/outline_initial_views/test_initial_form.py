@@ -541,6 +541,7 @@ class InitialForm(MiniSetup):
                 "initial_outline_front_dist": 90,
                 "initial_outline_maximum_front_dist": 115,
                 "initial_outline_target_dist": 100,
+                "initial_outline_maximum_off_dist": 222,
                 "initial_outline_excluded_coords": "250|250 251|251",
             },
         )
@@ -551,6 +552,7 @@ class InitialForm(MiniSetup):
         assert outline.initial_outline_front_dist == 90
         assert outline.initial_outline_maximum_front_dist == 115
         assert outline.initial_outline_target_dist == 100
+        assert outline.initial_outline_maximum_off_dist == 222
         assert outline.initial_outline_excluded_coords == "250|250 251|251"
         # also table is filled correctly
         assert outline.avaiable_offs == [50, 13, 18, 19]

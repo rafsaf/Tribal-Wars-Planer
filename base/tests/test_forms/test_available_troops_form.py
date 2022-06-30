@@ -26,6 +26,7 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_front_dist": 15,
                 "initial_outline_maximum_front_dist": 150,
                 "initial_outline_target_dist": 100,
+                "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500|500",
             },
         )
@@ -39,6 +40,7 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_front_dist": 150,
                 "initial_outline_maximum_front_dist": 15,
                 "initial_outline_target_dist": 100,
+                "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500|500",
             },
         )
@@ -52,6 +54,7 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_front_dist": 15,
                 "initial_outline_maximum_front_dist": 150,
                 "initial_outline_target_dist": 100,
+                "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500XD500",
             },
         )
@@ -65,6 +68,7 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_front_dist": 15,
                 "initial_outline_maximum_front_dist": 25,
                 "initial_outline_target_dist": 100,
+                "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500|500",
             },
         )
@@ -78,6 +82,7 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_front_dist": "",
                 "initial_outline_maximum_front_dist": "",
                 "initial_outline_target_dist": "",
+                "initial_outline_maximum_off_dist": "",
                 "initial_outline_excluded_coords": "",
             },
         )
