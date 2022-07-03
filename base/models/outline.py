@@ -254,10 +254,6 @@ class Outline(models.Model):
         default=12,
         validators=[MinValueValidator(1), MaxValueValidator(40)],
     )
-    filter_targets_number = models.IntegerField(
-        default=12,
-        validators=[MinValueValidator(1), MaxValueValidator(40)],
-    )
     filter_hide_front = models.CharField(
         max_length=20, choices=HIDE_CHOICES, default="all"
     )
@@ -266,8 +262,8 @@ class Outline(models.Model):
     )
     morale_on = models.BooleanField(default=False)
     filter_targets_number = models.IntegerField(
-        default=12,
-        validators=[MinValueValidator(1), MaxValueValidator(50)],
+        default=25,
+        validators=[MinValueValidator(1), MaxValueValidator(200)],
     )
     simple_textures = models.BooleanField(default=False)
     default_show_hidden = models.BooleanField(default=False)
@@ -332,8 +328,6 @@ class Outline(models.Model):
         self.filter_weights_min = 0
         self.filter_weights_catapults_min = 0
         self.filter_weights_max = 30000
-        self.filter_card_number = 12
-        self.filter_targets_number = 12
         self.filter_hide_front = "all"
         self.choice_sort = "distance"
         self.default_off_time_id = None

@@ -264,6 +264,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "estimated_time": estimated_time,
         "premium_error": premium_error,
         "premium_account_max_targets_free": settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE,
+        "available_troops_empty_alert": instance.actions.get_both_back_with_available_troops_clicked(
+            instance
+        ),
     }
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
