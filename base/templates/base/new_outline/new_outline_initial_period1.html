@@ -116,6 +116,10 @@
       </div>
     </div>
 
+    {% if available_troops_empty_alert %}
+    <div class="p-3 mb-2" style="background: #CEF2F3 !important;">{% trans "Note, the result from the tab <b>1. Available Troops</b> has been reset when you clicked the Back button. Please reload!" %}</div>
+    {% endif %}
+
     <table class="table table-sm table-bordered my-3">
       <thead>
         <tr>

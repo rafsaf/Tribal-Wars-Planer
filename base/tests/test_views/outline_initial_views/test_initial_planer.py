@@ -153,8 +153,8 @@ class InitialPlaner(MiniSetup):
         assert outline.avaiable_ruins is None
         assert outline.filter_weights_min == 0
         assert outline.filter_weights_max == 30000
-        assert outline.filter_card_number == 12
-        assert outline.filter_targets_number == 12
+        assert outline.filter_card_number == 15
+        assert outline.filter_targets_number == 8
         assert outline.filter_hide_front == "all"
         assert outline.choice_sort == "distance"
         assert outline.default_off_time_id is None

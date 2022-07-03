@@ -86,5 +86,15 @@ class Action:
             overview_visited=F("overview_visited") + 1
         )
 
+    def get_both_back_with_available_troops_clicked(self, outline: Outline) -> bool:
+        stats = Stats.objects.filter(outline=outline).first()
+        if stats is not None:
+            return (
+                stats.go_back_clicked > 0
+                and stats.available_troops > 0
+                and outline.avaiable_offs == []
+            )
+        return False
+
 
 action: Action = Action()
