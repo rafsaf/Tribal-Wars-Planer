@@ -18,7 +18,7 @@ def reverse_migration_pass(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("base", "0056_alter_outline_initial_outline_catapult_default"),
+        ("base", "0058_alter_outline_filter_targets_number"),
     ]
 
     operations = [
