@@ -137,8 +137,6 @@ def create_initial_data():
         off_troops=TEXT,
     )
 
-    models.Result.objects.create(outline=outline1)
-
     models.Outline.objects.create(
         id=2,
         owner=user1,

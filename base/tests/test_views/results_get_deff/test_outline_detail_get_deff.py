@@ -41,14 +41,6 @@ class OutlineDetailGetDeff(MiniSetup):
         response = self.client.post(PATH)
         assert response.status_code == 404
 
-    def test_planer_detail_get_deff___404_when_result_not_exists(self):
-        outline = self.get_outline()
-        PATH = reverse("base:planer_detail_get_deff", args=[outline.pk])
-        self.login_me()
-
-        response = self.client.get(PATH)
-        assert response.status_code == 404
-
     def test_planer_detail_get_deff___302_redirect_when_no_deff_or_off_troops(self):
         outline = self.get_outline()
         PATH = reverse("base:planer_detail_get_deff", args=[outline.pk])
