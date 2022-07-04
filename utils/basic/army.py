@@ -247,7 +247,7 @@ class Defence:
         else:
             if village.coord not in player_dictionary:
                 raise DefenceError(f"{village.coord} is not in any valid tribe")
-        if not self.text_army[1].isalpha():
+        if not self.text_army[1].replace(" ", "").isalpha():
             raise DefenceError(f"{self.text_army[1]} is not a string")
         for army_element in self.text_army[2:-1]:
             if not army_element.isnumeric():
