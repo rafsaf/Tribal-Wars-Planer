@@ -245,7 +245,10 @@ class WriteRamTarget:
         def filter_ruin(weight_max: WeightMaximum):
             if (
                 weight_max.catapult_left >= catapults
-                and weight_max.off_left < self.outline.initial_outline_min_off
+                and (
+                    weight_max.off_left < self.outline.initial_outline_min_off
+                    or weight_max.off_left > self.outline.initial_outline_max_off
+                )
             ) or (
                 weight_max.catapult_left
                 >= (catapults + self.outline.initial_outline_off_left_catapult)

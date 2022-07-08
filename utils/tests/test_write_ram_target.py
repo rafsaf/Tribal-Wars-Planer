@@ -24,8 +24,55 @@ from base.models import TargetVertex as Target
 from base.models import WeightMaximum
 from base.models.target_vertex import TargetVertex
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
+from base.tests.test_utils.mini_setup import MiniSetup
 from utils.outline_initial import MakeOutline
 from utils.write_ram_target import WriteRamTarget
+
+
+class TestWriteRamTargetNew(MiniSetup):
+    def test__ruin_query_filter_ruin(self):
+        random = SystemRandom("test_write_ram")
+        outline = self.get_outline(test_world=True)
+        outline.initial_outline_min_off = 9000
+        outline.initial_outline_max_off = 13500
+        outline.initial_outline_off_left_catapult = 30
+        self.create_target_on_test_world(outline=outline)
+        target = Target.objects.get(target="200|200")
+        weight_max = self.create_weight_maximum(outline=outline)
+
+        write_ram = WriteRamTarget(
+            target=target,
+            outline=outline,
+            weight_max_list=[weight_max],
+            random=random,
+        )
+
+        ruin_filter = write_ram._ruin_query(catapults=50)
+
+        # case 1 weight max off below 9000
+        weight_max.off_left = 5000
+        weight_max.catapult_left = 500
+        assert ruin_filter(weight_max)
+        weight_max.catapult_left = 49
+        assert not ruin_filter(weight_max)
+
+        # case 2 weight max off below 9000 - 13500
+        weight_max.off_left = 10000
+        weight_max.catapult_left = 500
+        assert ruin_filter(weight_max)
+        weight_max.catapult_left = 60
+        assert not ruin_filter(weight_max)
+        weight_max.catapult_left = 80
+        assert ruin_filter(weight_max)
+
+        # case 3 weight max off below 13500+
+        weight_max.off_left = 18000
+        weight_max.catapult_left = 500
+        assert ruin_filter(weight_max)
+        weight_max.catapult_left = 49
+        assert not ruin_filter(weight_max)
+        weight_max.catapult_left = 50
+        assert ruin_filter(weight_max)
 
 
 class TestWriteRamTarget(TestCase):
