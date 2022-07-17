@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-03 20:44+0200\n"
+"POT-Creation-Date: 2022-07-17 15:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1958,6 +1958,11 @@ msgstr "Pomyślnie skopiowano!"
 #: base/templates/base/overview.html:90 base/templates/base/overview.html:140
 msgid "Click to copy again"
 msgstr "Kliknij by ponownie skopiować"
+
+#: base/templates/base/overview.html:45 base/templates/base/overview.html:67
+#: base/templates/base/overview.html:90 base/templates/base/overview.html:140
+msgid "Error! Please copy the textarea below"
+msgstr "Błąd! Skopiuj tekst z pola tekstowego poniżej"
 
 #: base/templates/base/overview.html:45 base/templates/base/overview.html:67
 #: base/templates/base/overview.html:90 base/templates/base/overview.html:140
