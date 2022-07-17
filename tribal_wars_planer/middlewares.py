@@ -1,3 +1,4 @@
+import logging
 from time import time
 from typing import Callable
 
@@ -6,6 +7,8 @@ from django.http.response import HttpResponse
 from django.urls import resolve
 
 import metrics
+
+log = logging.getLogger(__name__)
 
 
 def PrometheusBeforeMiddleware(get_response: Callable):
@@ -20,6 +23,8 @@ def PrometheusBeforeMiddleware(get_response: Callable):
 
 def PrometheusAfterMiddleware(get_response: Callable):
     def middleware(request: HttpRequest):
+        log.debug("Request %s META: %s", request.path_info, request.META)
+
         match = resolve(request.path)
 
         metrics.REQUEST_COUNT.labels(
