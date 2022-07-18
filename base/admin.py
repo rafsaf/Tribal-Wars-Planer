@@ -12,12 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+from typing import Any
 
 from django.contrib import admin
+from django.db.models.query import QuerySet
+from django.http import HttpRequest
+
+from base.models.world import World
 
 from . import models
 
 # Register your models here.
+
 
 admin.site.register(models.PeriodModel)
 admin.site.register(models.Server)
@@ -162,6 +168,54 @@ class AdminWorld(admin.ModelAdmin):
         "archer",
         "militia",
     ]
+
+    def get_deleted_objects(
+        self, objs: QuerySet[World], request: HttpRequest
+    ) -> tuple[list[Any], dict[Any, Any], set[Any], list[Any]]:
+
+        worlds_list = [world.human(prefix=True) for world in objs]
+        model_count = {
+            models.World._meta.verbose_name_plural: f"{len(objs)} ({', '.join(worlds_list)})",
+            models.VillageModel._meta.verbose_name_plural: models.VillageModel.objects.filter(
+                world__in=objs
+            ).count(),
+            models.Player._meta.verbose_name_plural: models.Player.objects.filter(
+                world__in=objs
+            ).count(),
+            models.Tribe._meta.verbose_name_plural: models.Tribe.objects.filter(
+                world__in=objs
+            ).count(),
+            models.Outline._meta.verbose_name_plural: models.Outline.objects.filter(
+                world__in=objs
+            ).count(),
+            models.OutlineOverview._meta.verbose_name_plural: models.OutlineOverview.objects.filter(
+                outline__world__in=objs
+            ).count(),
+            models.Overview._meta.verbose_name_plural: models.Overview.objects.filter(
+                outline_overview__outline__world__in=objs
+            ).count(),
+            models.WeightMaximum._meta.verbose_name_plural: models.WeightMaximum.objects.filter(
+                outline__world__in=objs
+            ).count(),
+            models.WeightModel._meta.verbose_name_plural: models.WeightModel.objects.filter(
+                state__outline__world__in=objs
+            ).count(),
+            models.TargetVertex._meta.verbose_name_plural: models.TargetVertex.objects.filter(
+                outline__world__in=objs
+            ).count(),
+            models.OutlineTime._meta.verbose_name_plural: models.OutlineTime.objects.filter(
+                outline__world__in=objs
+            ).count(),
+            models.Result._meta.verbose_name_plural: models.Result.objects.filter(
+                outline__world__in=objs
+            ).count(),
+        }
+        return (
+            [],
+            model_count,
+            set(),
+            [],
+        )
 
 
 @admin.register(models.VillageModel)
