@@ -193,6 +193,7 @@ AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "")
 AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT", "")
 INPUT_OUTLINE_MAX_TARGETS = int(os.environ.get("INPUT_OUTLINE_MAX_TARGETS", 5000))
 
+TRIBALWARS_ANDROID_APP_NAME = "air.com.innogames.staemme"
 METRICS_EXPORT_ENDPOINT_SECRET = os.environ.get(
     "METRICS_EXPORT_ENDPOINT_SECRET", "secret"
 )
@@ -247,7 +248,7 @@ if env_registration_open in ["False", "false"]:
 else:
     REGISTRATION_OPEN = True
 
-DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "WARNING")
+DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "INFO")
 
 os.makedirs("logs", exist_ok=True)
 os.makedirs("prometheus_multi_proc_dir", exist_ok=True)
@@ -285,6 +286,12 @@ LOGGING = {
             "formatter": "simple",
             "level": "INFO",
         },
+        "debug": {
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "logs/django_debug.log",
+            "formatter": "verbose",
+            "level": "DEBUG",
+        },
         "commands": {
             "class": "logging.FileHandler",
             "filename": BASE_DIR / "logs/django_commands.log",
@@ -294,8 +301,8 @@ LOGGING = {
     },
     "loggers": {
         "": {
-            "level": "INFO",
-            "handlers": ["error", "info", "warning"],
+            "level": DJANGO_LOG_LEVEL,
+            "handlers": ["error", "info", "warning", "debug"],
             "propagate": False,
         },
         "base.management.commands": {
