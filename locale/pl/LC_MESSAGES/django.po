@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-17 15:14+0200\n"
+"POT-Creation-Date: 2022-07-18 17:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,7 +288,7 @@ msgstr "Przybliżone ostatnie czasy wejścia akcji"
 msgid "First value must be less or equal to second!"
 msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 
-#: base/forms.py:578 base/templates/base/overview.html:193
+#: base/forms.py:578 base/templates/base/overview.html:209
 msgid "Off"
 msgstr "Off"
 
@@ -686,6 +686,8 @@ msgid "Create new outline"
 msgstr "Stwórz nową rozpiskę"
 
 #: base/templates/base/base.html:66
+#: templates/admin/base/world/delete_confirmation.html:14
+#: templates/admin/base/world/delete_selected_confirmation.html:14
 msgid "Home"
 msgstr "Strona Główna"
 
@@ -987,6 +989,7 @@ msgstr "Ukryj"
 #: base/templates/base/new_outline/new_outline_initial_period2.html:318
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:202
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:239
+#: templates/admin/base/world/delete_confirmation.html:18
 msgid "Delete"
 msgstr "Usuń"
 
@@ -1686,7 +1689,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:253
 #: base/templates/base/new_outline/new_outline_initial_period3.html:139
-#: base/templates/base/overview.html:174 utils/basic/mode.py:62
+#: base/templates/base/overview.html:190 utils/basic/mode.py:62
 #: utils/outline_finish.py:73
 msgid "Target"
 msgstr "Cel"
@@ -1696,7 +1699,7 @@ msgid "Select Time"
 msgstr "Wybierz Czas"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:255
-#: base/templates/base/overview.html:175 utils/basic/mode.py:69
+#: base/templates/base/overview.html:191 utils/basic/mode.py:69
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -1949,119 +1952,124 @@ msgstr ""
 msgid "Text simple"
 msgstr "Tekst prosty"
 
-#: base/templates/base/overview.html:45 base/templates/base/overview.html:67
-#: base/templates/base/overview.html:90 base/templates/base/overview.html:140
+#: base/templates/base/overview.html:46 base/templates/base/overview.html:72
+#: base/templates/base/overview.html:99 base/templates/base/overview.html:153
+msgid "Copy content from textarea below"
+msgstr "Skopiuj tekst z pola tekstowego poniżej"
+
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:101 base/templates/base/overview.html:155
 msgid "Successfully copied!"
 msgstr "Pomyślnie skopiowano!"
 
-#: base/templates/base/overview.html:45 base/templates/base/overview.html:67
-#: base/templates/base/overview.html:90 base/templates/base/overview.html:140
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:101 base/templates/base/overview.html:155
 msgid "Click to copy again"
 msgstr "Kliknij by ponownie skopiować"
 
-#: base/templates/base/overview.html:45 base/templates/base/overview.html:67
-#: base/templates/base/overview.html:90 base/templates/base/overview.html:140
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:101 base/templates/base/overview.html:155
 msgid "Error! Please copy the textarea below"
 msgstr "Błąd! Skopiuj tekst z pola tekstowego poniżej"
 
-#: base/templates/base/overview.html:45 base/templates/base/overview.html:67
-#: base/templates/base/overview.html:90 base/templates/base/overview.html:140
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:101 base/templates/base/overview.html:155
 msgid "Copy to clipboard"
 msgstr "Kopiuj do schowka"
 
-#: base/templates/base/overview.html:49 base/templates/base/overview.html:72
-#: base/templates/base/overview.html:94 base/templates/base/overview.html:145
+#: base/templates/base/overview.html:53 base/templates/base/overview.html:80
+#: base/templates/base/overview.html:106 base/templates/base/overview.html:161
 msgid "This is what this form of orders looks like when pasted into a notebook"
 msgstr "Ten typ rozkazów tak będzie wyglądał po wklejeniu do notatek w grze"
 
-#: base/templates/base/overview.html:54 base/templates/base/overview.html:77
-#: base/templates/base/overview.html:111 base/templates/base/overview.html:150
+#: base/templates/base/overview.html:58 base/templates/base/overview.html:85
+#: base/templates/base/overview.html:123 base/templates/base/overview.html:166
 #: utils/basic/table_text.py:63
 msgid "Send OFF"
 msgstr "Wyślij OFF"
 
-#: base/templates/base/overview.html:60 base/templates/base/overview.html:83
-#: base/templates/base/overview.html:133 base/templates/base/overview.html:155
+#: base/templates/base/overview.html:64 base/templates/base/overview.html:91
+#: base/templates/base/overview.html:145 base/templates/base/overview.html:171
 msgid "A link to your targets on plemiona-planer.pl."
 msgstr "Link do Twoich celów na plemiona-planer.pl."
 
-#: base/templates/base/overview.html:66
+#: base/templates/base/overview.html:70
 msgid "Text extended"
 msgstr "Tekst rozszerzony"
 
-#: base/templates/base/overview.html:74 base/templates/base/overview.html:147
+#: base/templates/base/overview.html:82 base/templates/base/overview.html:163
 #: utils/basic/table_text.py:135
 msgid "from village"
 msgstr "z wioski"
 
-#: base/templates/base/overview.html:74 base/templates/base/overview.html:122
-#: base/templates/base/overview.html:147
+#: base/templates/base/overview.html:82 base/templates/base/overview.html:134
+#: base/templates/base/overview.html:163
 msgid "Remember this is only the example"
 msgstr "Pamiętaj, że to tylko przykład"
 
-#: base/templates/base/overview.html:74 base/templates/base/overview.html:147
+#: base/templates/base/overview.html:82 base/templates/base/overview.html:163
 #: utils/basic/table_text.py:136
 msgid "to "
 msgstr "na "
 
-#: base/templates/base/overview.html:74 base/templates/base/overview.html:125
-#: base/templates/base/overview.html:147
+#: base/templates/base/overview.html:82 base/templates/base/overview.html:137
+#: base/templates/base/overview.html:163
 msgid "Plemiona Planer is the best"
 msgstr "Plemiona Planer jest najlepszy"
 
-#: base/templates/base/overview.html:89
+#: base/templates/base/overview.html:97
 msgid "Table"
 msgstr "Tabela"
 
-#: base/templates/base/overview.html:92
+#: base/templates/base/overview.html:104
 msgid "Hint: Use Text format if u have many commands. "
 msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
 
-#: base/templates/base/overview.html:100
+#: base/templates/base/overview.html:112
 msgid "SEND"
 msgstr "WYŚLIJ"
 
-#: base/templates/base/overview.html:101
+#: base/templates/base/overview.html:113
 msgid "OFF"
 msgstr "OFF"
 
-#: base/templates/base/overview.html:102
+#: base/templates/base/overview.html:114
 msgid "NOBLE"
 msgstr "GRUBE"
 
-#: base/templates/base/overview.html:103
+#: base/templates/base/overview.html:115
 msgid "SENDING"
 msgstr "WYSYŁKA"
 
-#: base/templates/base/overview.html:104
+#: base/templates/base/overview.html:116
 msgid "ENTER"
 msgstr "WEJŚCIE"
 
-#: base/templates/base/overview.html:105
+#: base/templates/base/overview.html:117
 msgid "FROM"
 msgstr "Z WIOSKI"
 
-#: base/templates/base/overview.html:106
+#: base/templates/base/overview.html:118
 msgid "TARGET"
 msgstr "CEL"
 
-#: base/templates/base/overview.html:139
+#: base/templates/base/overview.html:151
 msgid "Text for deputy"
 msgstr "Tekst dla zastępcy"
 
-#: base/templates/base/overview.html:143
+#: base/templates/base/overview.html:159
 msgid "Hint: Use this one when someone else will send this commands."
 msgstr ""
 "Wskazówka: Użyj tej formy jeśli ktoś inny będzie za Ciebie wysyłał ataki z "
 "zastępstwa."
 
-#: base/templates/base/overview.html:165
+#: base/templates/base/overview.html:181
 msgid "Alert! The order in the list below matters and is fixed."
 msgstr ""
 "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
 "ustalona."
 
-#: base/templates/base/overview.html:191
+#: base/templates/base/overview.html:207
 msgid "Ruin"
 msgstr "Burzenie"
 
@@ -2365,6 +2373,64 @@ msgid ""
 msgstr ""
 "Ops, wystąpił błąd serwera. Spróbuj ponownie za chwilę, a jeśli to nie "
 "pomoże, skontaktuj się z administracją."
+
+#: templates/admin/base/world/delete_confirmation.html:24
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: templates/admin/base/world/delete_confirmation.html:31
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: templates/admin/base/world/delete_confirmation.html:38
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: templates/admin/base/world/delete_confirmation.html:45
+#: templates/admin/base/world/delete_selected_confirmation.html:46
+msgid "Yes, I’m sure"
+msgstr ""
+
+#: templates/admin/base/world/delete_confirmation.html:46
+#: templates/admin/base/world/delete_selected_confirmation.html:47
+msgid "No, take me back"
+msgstr ""
+
+#: templates/admin/base/world/delete_selected_confirmation.html:17
+msgid "Delete multiple objects"
+msgstr ""
+
+#: templates/admin/base/world/delete_selected_confirmation.html:23
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: templates/admin/base/world/delete_selected_confirmation.html:30
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+
+#: templates/admin/base/world/delete_selected_confirmation.html:37
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
 
 #: templates/django_registration/registration_complete.html:7
 msgid "Congratulations, you have successfully registered!"

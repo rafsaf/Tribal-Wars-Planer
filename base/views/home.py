@@ -27,6 +27,7 @@ from django.utils import timezone
 
 from base import models
 from base.models import PDFPaymentSummary
+from utils.basic import is_android_tw_app_webview
 from utils.basic.pdf import generate_pdf_summary
 
 log = logging.getLogger(__name__)
@@ -76,7 +77,7 @@ def base_documentation(request):
     return render(request, "base/documentation.html")
 
 
-def overview_view(request, token):
+def overview_view(request: HttpRequest, token: str):
     """Safe url for member of tribe"""
     overview: models.Overview = get_object_or_404(
         models.Overview.objects.select_related().filter(pk=token)
@@ -110,7 +111,11 @@ def overview_view(request, token):
                 else:
                     query.append((targets[target], owns))
 
-    context = {"query": query, "overview": overview}
+    context = {
+        "query": query,
+        "overview": overview,
+        "android_tw_app_webview": is_android_tw_app_webview(request=request),
+    }
     return render(request, "base/overview.html", context=context)
 
 

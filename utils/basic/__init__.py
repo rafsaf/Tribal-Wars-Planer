@@ -36,6 +36,7 @@ from .off_text import (
 )
 from .outline_stats import Action, action
 from .period_utils import FromPeriods
+from .request_info import is_android_tw_app_webview  # noqa
 from .sort_detail_view import SortAndPaginRequest
 from .table_text import TableText
 from .target_line import TargetsData, TargetsOneLine
