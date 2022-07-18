@@ -386,62 +386,56 @@ def update_outline_off_troops(request: Request):
     Update single row in outline off_troops field in select for update transaction.
     """
     req = UpdateOutlineOffTroops(data=request.data)
-    if req.is_valid():
-        with transaction.atomic():
-            outline = (
-                Outline.objects.filter(
-                    pk=req.data.get("outline_id"),
-                    owner=request.user,
-                )
-                .select_for_update()
-                .first()
+    if not req.is_valid():
+        return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
+    with transaction.atomic():
+        outline = (
+            Outline.objects.filter(
+                pk=req.data.get("outline_id"),
+                owner=request.user,
             )
-            if outline is None:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            troops_history = (
-                TroopsHistory.objects.filter(outline=outline).select_for_update().get()
-            )
+            .select_for_update()
+            .first()
+        )
+        if outline is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        troops_history = (
+            TroopsHistory.objects.filter(outline=outline).select_for_update().get()
+        )
 
-            evidence = world_evidence(outline.world)
-            new_line: str = req.data["new_line"]
-            old_line: str = req.data["old_line"]
+        evidence = world_evidence(outline.world)
+        new_line: str = req.data["new_line"]
+        old_line: str = req.data["old_line"]
 
-            old_army = basic.Army(text_army=old_line, evidence=evidence)
-            new_army = basic.Army(text_army=new_line, evidence=evidence)
-            try:
-                old_army.clean_init(player_dictionary=None)
-                new_army.clean_init(player_dictionary=None)
-            except basic.ArmyError:
-                return Response(
-                    "Invalid new_line or old_line format.",
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            if old_line not in outline.off_troops:
-                return Response(
-                    "old_line not found in outline",
-                    status=status.HTTP_404_NOT_FOUND,
-                )
-            outline.off_troops = outline.off_troops.replace(old_line, new_line)
-            outline.get_or_set_off_troops_hash(force_recalculate=True)
-
-            if new_army.coord not in troops_history.history_json:
-                troops_history.history_json[new_army.coord] = [old_army.text_army_line]
-            if (
-                new_army.text_army_line
-                != troops_history.history_json[new_army.coord][-1]
-            ):
-                troops_history.history_json[new_army.coord].append(
-                    new_army.text_army_line
-                )
-            troops_history.save()
-
+        old_army = basic.Army(text_army=old_line, evidence=evidence)
+        new_army = basic.Army(text_army=new_line, evidence=evidence)
+        try:
+            old_army.clean_init(player_dictionary=None)
+            new_army.clean_init(player_dictionary=None)
+        except basic.ArmyError:
             return Response(
-                {
-                    "off": new_army.off,
-                    "nobleman": new_army.nobleman,
-                    "catapult": new_army.catapult,
-                },
-                status=status.HTTP_200_OK,
+                "Invalid new_line or old_line format.",
+                status=status.HTTP_400_BAD_REQUEST,
             )
+        if old_line not in outline.off_troops:
+            return Response(
+                "old_line not found in outline",
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        outline.off_troops = outline.off_troops.replace(old_line, new_line)
+        outline.get_or_set_off_troops_hash(force_recalculate=True)
 
-    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
+        if new_army.coord not in troops_history.history_json:
+            troops_history.history_json[new_army.coord] = [old_army.text_army_line]
+        if new_army.text_army_line != troops_history.history_json[new_army.coord][-1]:
+            troops_history.history_json[new_army.coord].append(new_army.text_army_line)
+        troops_history.save()
+
+    return Response(
+        {
+            "off": new_army.off,
+            "nobleman": new_army.nobleman,
+            "catapult": new_army.catapult,
+        },
+        status=status.HTTP_200_OK,
+    )
