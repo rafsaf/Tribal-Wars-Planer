@@ -16,7 +16,7 @@
 import gzip
 import logging
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Literal
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
@@ -24,7 +24,7 @@ from xml.etree import ElementTree
 import requests
 from django.db import transaction
 from django.db.models import Count
-from django.utils import timezone
+from django.utils.timezone import now
 from requests.exceptions import ConnectionError, Timeout
 
 import metrics
@@ -185,7 +185,7 @@ class WorldUpdateHandler:
                 f" player_update: {self.tribe_log_msg}"
             )
 
-            self.world.last_update = timezone.now()
+            self.world.last_update = now()
             self.world.save()
 
         return message
