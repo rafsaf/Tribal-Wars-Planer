@@ -77,7 +77,27 @@ class TargetTimeUpdate(MiniSetup):
         assert response.status_code == 400
         assert response.json() == {"target_id": ["A valid integer is required."]}
 
-    def test_target_delete___200_target_is_deleted_properly(self):
+    def test_target_delete___200_target_empty_is_deleted_properly(self):
+        outline = self.get_outline()
+        self.create_target_on_test_world(outline)
+        target: TargetVertex = TargetVertex.objects.get(target="200|200")
+
+        self.login_me()
+        PATH = reverse("rest_api:target_delete")
+
+        response = self.client.delete(
+            PATH,
+            data=json.dumps(
+                {
+                    "target_id": target.pk,
+                }
+            ),
+            content_type="application/json",
+        )
+        assert response.status_code == 204
+        assert not TargetVertex.objects.filter(target="200|200").exists()
+
+    def test_target_delete___200_target__with_weights_is_deleted_properly(self):
         outline = self.get_outline()
         self.create_target_on_test_world(outline)
         target: TargetVertex = TargetVertex.objects.get(target="200|200")

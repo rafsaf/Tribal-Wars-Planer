@@ -112,30 +112,24 @@ def delete_target(request: Request):
             TargetVertex.objects.select_related("outline"), pk=req.data.get("target_id")
         )
         get_object_or_404(Outline, owner=request.user, pk=target.outline.pk)
-        try:
-            with transaction.atomic():
-                weights = WeightModel.objects.filter(target=target)
-                # deletes weights related to this target and updates weight state
-                weight_model: WeightModel
-                for weight_model in weights:
-                    state: WeightMaximum = weight_model.state
-                    state.off_left += weight_model.off
-                    state.off_state -= weight_model.off
-                    state.nobleman_left += weight_model.nobleman
-                    state.nobleman_state -= weight_model.nobleman
-                    state.catapult_left += weight_model.catapult
-                    state.catapult_state -= weight_model.catapult
-                    state.save()
+        with transaction.atomic():
+            weights = WeightModel.objects.filter(target=target)
+            # deletes weights related to this target and updates weight state
+            weight_model: WeightModel
+            for weight_model in weights:
+                state: WeightMaximum = weight_model.state
+                state.off_left += weight_model.off
+                state.off_state -= weight_model.off
+                state.nobleman_left += weight_model.nobleman
+                state.nobleman_state -= weight_model.nobleman
+                state.catapult_left += weight_model.catapult
+                state.catapult_state -= weight_model.catapult
+                state.save()
 
-                deleted_weights, _ = weights.delete()
-                assert deleted_weights
-                deleted_target, _ = target.delete()
-                assert deleted_target
-        except AssertionError:  # pragma: no cover
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            weights.delete()
+            target.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
