@@ -4,118 +4,13 @@
 {% block meta-content %}<meta name="description" content="{% trans 'Documentation of Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}"/>{% endblock %}
 {% block content %}{% autoescape off %} 
 
-<style>
-.docs-image {
-    height: 250px;
-    margin: 1rem 0 !important;
-    display: block;
-    background: transparent;
-
-}
-img#large {
-    cursor: -moz-zoom-in;
-    cursor: -webkit-zoom-in;
-    cursor: zoom-in;
-  }
-</style>
-
 <div class="container" style="font-size: larger;max-width:900px;">
     <article style="margin-left:-15px!important;margin-right:-15px;">
         <div id="docs" ></div>
     </article>
 </div>
 {% endautoescape %}
-{% get_current_language as LANG %}
 
-<script>
-    var IMAGES = {
-        "1_000_test-filled-form.png": "{% static 'docs/'|add:LANG|add:'/1_000_test-filled-form.png' %}",
-        "1_010_test-example.png": "{% static 'docs/'|add:LANG|add:'/1_010_test-example.png' %}",
-        "1_020_test-menu.png": "{% static 'docs/'|add:LANG|add:'/1_020_test-menu.png' %}",
-        "1_030_test-target.png": "{% static 'docs/'|add:LANG|add:'/1_030_test-target.png' %}",
-        "1_040_test-time.png": "{% static 'docs/'|add:LANG|add:'/1_040_test-time.png' %}",
-        "1_050_test-time2.png": "{% static 'docs/'|add:LANG|add:'/1_050_test-time2.png' %}",
-        "1_060_time1.png": "{% static 'docs/'|add:LANG|add:'/1_060_time1.png' %}",
-        "1_070_time2.png": "{% static 'docs/'|add:LANG|add:'/1_070_time2.png' %}",
-        "1_080_test-result.png": "{% static 'docs/'|add:LANG|add:'/1_080_test-result.png' %}",
-        "2_010_tamper1.png": "{% static 'docs/'|add:LANG|add:'/2_010_tamper1.png' %}",
-        "2_020_tamper2.png": "{% static 'docs/'|add:LANG|add:'/2_020_tamper2.png' %}",
-        "2_021_off-troops.png": "{% static 'docs/'|add:LANG|add:'/2_021_off-troops.png' %}",
-        "2_022_deff-troops.png": "{% static 'docs/'|add:LANG|add:'/2_022_deff-troops.png' %}",
-        "2_023_result-off-troops.png": "{% static 'docs/'|add:LANG|add:'/2_023_result-off-troops.png' %}",
-        "2_024_result-deff-troops.png": "{% static 'docs/'|add:LANG|add:'/2_024_result-deff-troops.png' %}",
-        "3_010_target-ex1.png": "{% static 'docs/'|add:LANG|add:'/3_010_target-ex1.png' %}",
-        "3_020_target-ex2.png": "{% static 'docs/'|add:LANG|add:'/3_020_target-ex2.png' %}",
-        "3_030_target-ex3.png": "{% static 'docs/'|add:LANG|add:'/3_030_target-ex3.png' %}",
-        "3_040_troops-form1.png": "{% static 'docs/'|add:LANG|add:'/3_040_troops-form1.png' %}",
-        "3_041_troops-form2.png": "{% static 'docs/'|add:LANG|add:'/3_041_troops-form2.png' %}",
-        "3_042_troops-form3.png": "{% static 'docs/'|add:LANG|add:'/3_042_troops-form3.png' %}",
-        "3_050_troops-table1.png": "{% static 'docs/'|add:LANG|add:'/3_050_troops-table1.png' %}",
-        "3_051_troops-table2.png": "{% static 'docs/'|add:LANG|add:'/3_051_troops-table2.png' %}",
-        "3_052_troops-table3.png": "{% static 'docs/'|add:LANG|add:'/3_052_troops-table3.png' %}",
-        "3_070_small-outline0.png": "{% static 'docs/'|add:LANG|add:'/3_070_small-outline0.png' %}",
-        "3_080_small-outline01.png": "{% static 'docs/'|add:LANG|add:'/3_080_small-outline01.png' %}",
-        "3_090_small-outline1.png": "{% static 'docs/'|add:LANG|add:'/3_090_small-outline1.png' %}",
-        "3_100_small-outline2.png": "{% static 'docs/'|add:LANG|add:'/3_100_small-outline2.png' %}",
-        "3_110_small-outline3.png": "{% static 'docs/'|add:LANG|add:'/3_110_small-outline3.png' %}",
-        "3_120_mid-outline1.png": "{% static 'docs/'|add:LANG|add:'/3_120_mid-outline1.png' %}",
-        "3_130_mid-outline2.png": "{% static 'docs/'|add:LANG|add:'/3_130_mid-outline2.png' %}",
-        "3_140_mid-outline3.png": "{% static 'docs/'|add:LANG|add:'/3_140_mid-outline3.png' %}",
-        "3_150_mid-outline4.png": "{% static 'docs/'|add:LANG|add:'/3_150_mid-outline4.png' %}",
-        "3_160_big-outline1.png": "{% static 'docs/'|add:LANG|add:'/3_160_big-outline1.png' %}",
-        "3_170_big-outline2.png": "{% static 'docs/'|add:LANG|add:'/3_170_big-outline2.png' %}",
-        "3_180_big-outline3.png": "{% static 'docs/'|add:LANG|add:'/3_180_big-outline3.png' %}",
-        "3_190_big-outline4.png": "{% static 'docs/'|add:LANG|add:'/3_190_big-outline4.png' %}",
-        "3_200_ruin-targets.png": "{% static 'docs/'|add:LANG|add:'/3_200_ruin-targets.png' %}",
-        "3_210_ruin-panel.png": "{% static 'docs/'|add:LANG|add:'/3_210_ruin-panel.png' %}",
-        "3_220_ruin-show.png": "{% static 'docs/'|add:LANG|add:'/3_220_ruin-show.png' %}",
-        "4_010_change-date.png": "{% static 'docs/'|add:LANG|add:'/4_010_change-date.png' %}",
-        "4_020_change-mode1.png": "{% static 'docs/'|add:LANG|add:'/4_020_change-mode1.png' %}",
-        "4_030_change-mode1.1.png": "{% static 'docs/'|add:LANG|add:'/4_030_change-mode1.1.png' %}",
-        "4_040_change-mode1.2.png": "{% static 'docs/'|add:LANG|add:'/4_040_change-mode1.2.png' %}",
-        "4_045_morale_photo.png": "{% static 'docs/'|add:LANG|add:'/4_045_morale_photo.png' %}",
-        "4_060_avoid-night.png": "{% static 'docs/'|add:LANG|add:'/4_060_avoid-night.png' %}",
-        "4_070_avoid-night2.png": "{% static 'docs/'|add:LANG|add:'/4_070_avoid-night2.png' %}",
-        "5_010_ruin-panel.png": "{% static 'docs/'|add:LANG|add:'/5_010_ruin-panel.png' %}",
-    }
-</script>
-
-<script>
-    var bg_color_img_box = 'rgba(0,0,0,0.9)';
-    var allow_hide_scroll_img_box = 'yes';
-    var use_fade_inout_img_box = 'yes';
-    var speed_img_box = 0.08;
-    var z_index_dv_img_box = 999;
-    var vopa_img_box, idpopup_img_box;
-    imagePopupActivate();
-    loadDocsPage(1, "docs", "{% static 'markdown/'|add:LANG|add:'/documentation.md' %}", true);
-
-    const asyncLoadImages = async () => {
-        let retry = 0;
-        let loadedImages = {};
-        while (Object.keys(loadedImages).length !== Object.keys(IMAGES).length && retry <= 5) {
-            for (let key in IMAGES) {
-                if (!(key in loadedImages)) {
-                    try {
-                        const image = document.createElement("img");
-                        const imageParent = document.getElementById(key);
-                        image.id = "large";
-                        image.style = "height: 250px";
-                        image.className = "img-thumbnail";
-                        imageParent.addEventListener("click", () => { img_box(image) })
-                        image.src = IMAGES[key];
-                        imageParent.appendChild(image);
-                        loadedImages[key] = undefined;
-                    } catch {
-                        console.debug(`${key} element not found, retrying image src appending in 100ms...`)
-                    }
-                }
-            }
-            retry += 1;
-            await new Promise(resolve => setTimeout(resolve, 100));
-        }
-    }
-    asyncLoadImages();
-</script>
+<script>imagePopupActivate();loadDocsPage(1, "docs", "documentation.md", true);</script>
 
 {% endblock %}

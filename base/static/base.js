@@ -1,3 +1,11 @@
+var bg_color_img_box = "rgba(0,0,0,0.9)";
+var allow_hide_scroll_img_box = "yes";
+var use_fade_inout_img_box = "yes";
+var speed_img_box = 0.08;
+var z_index_dv_img_box = 999;
+var vopa_img_box, idpopup_img_box;
+const DOCS_RE = /\!\[\]\([a-zA-Z0-9.\/_-]*\)/g;
+
 const modal = () => {
   document.addEventListener("DOMContentLoaded", function (event) {
     $("#form-modal").on("show.bs.modal", function (event) {
@@ -24,6 +32,23 @@ const modal = () => {
   });
 };
 
+const isLocalhost = () => {
+  if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+    return true;
+  }
+  return false;
+};
+
+const getLanguage = () => {
+  const pathParams = location.pathname.split("/");
+  try {
+    return pathParams[1];
+  } catch (error) {
+    console.error(error);
+    return "en";
+  }
+};
+
 const loadDocsPage = (
   uniqueNumber,
   elementId,
@@ -35,25 +60,51 @@ const loadDocsPage = (
   // if staticPath for specific document is changed (and it must be refetched),
   // we remove old cached markdown, fetch new and save, alongside with path
   const element = document.getElementById(elementId);
+  const markdownFolder = `/static/markdown/${getLanguage()}`;
+  const docsPath = `${markdownFolder}/${staticPath}`;
   if (
-    localStorage.getItem(staticPath) !== null &&
+    localStorage.getItem(docsPath) !== null &&
     window.location.hostname !== "localhost"
   ) {
-    element.innerHTML = marked.parse(localStorage.getItem(staticPath));
+    element.innerHTML = marked.parse(localStorage.getItem(docsPath));
   } else {
-    fetch(staticPath)
+    fetch(docsPath)
       .then((res) => res.text())
+      .then((codeText) => {
+        const imagesArray = [...codeText.matchAll(DOCS_RE)];
+        for (const imgTagArray of imagesArray) {
+          const imgTag = imgTagArray[0];
+          let path = imgTag.slice(4, -1);
+          path = `${markdownFolder}/${path}`;
+          const img = `<img id="large" class="img-thumbnail" style="height: 250px;" onclick="img_box(this)" src="${path}">`;
+          codeText = codeText.replaceAll(imgTag, img);
+        }
+        return codeText;
+      })
       .then((codeText) => {
         if (localStorage.getItem(String(uniqueNumber)) != null) {
           localStorage.removeItem(localStorage.getItem(String(uniqueNumber)));
         }
         document.getElementById(elementId).innerHTML = marked.parse(codeText);
-        localStorage.setItem(staticPath, codeText);
-        localStorage.setItem(String(uniqueNumber), staticPath);
+        if (!isLocalhost()) {
+          localStorage.setItem(docsPath, codeText);
+          localStorage.setItem(String(uniqueNumber), docsPath);
+        }
+      })
+      .then(() => {
+        const params = new URLSearchParams(location.search);
+        if (location.hash !== "" && params.get("link") === "true") {
+          setTimeout(() => {
+            localStorage.setItem(
+              `${uniqueNumber}-scroll-id`,
+              String(document.getElementById(location.hash.slice(1)).offsetTop)
+            );
+            location.search = "";
+          }, 300);
+        } else if (handleScrollTop) {
+          wholePageContentScroll(`${uniqueNumber}-scroll-id`);
+        }
       });
-  }
-  if (handleScrollTop) {
-    wholePageContentScroll(`${uniqueNumber}-scroll-id`);
   }
 };
 
@@ -614,7 +665,7 @@ const handleButtonClipboardUpdate = (
   selector,
   success,
   updatedText,
-  errorMessage,
+  errorMessage
 ) => {
   const text = document.getElementById(selector);
   const currentInnerText = element.innerHTML;
@@ -634,8 +685,6 @@ const handleButtonClipboardUpdate = (
       element.innerHTML = currentInnerText;
     }, 5000);
   }
-  
-
 };
 const copyDataToClipboard = (element, id, form) => {
   const newClip = form
@@ -658,6 +707,7 @@ const removeOutline = (btn, dismissBtn, form, msg) => {
   buttonDismiss.disabled = true;
   submitForm.submit();
 };
+
 const imagePopupActivate = () => {
   window.onload = function () {
     var crtdv_img_box = document.createElement("div");
