@@ -6,6 +6,17 @@ input[type="radio"] {
   width: 1rem;
   height: 1rem;
 }
+.docs-image {
+  height: 250px;
+  margin: 1rem 0 !important;
+  display: block;
+  background: transparent;
+}
+img#large {
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
 .disabled-link {
   pointer-events: none;
 }
