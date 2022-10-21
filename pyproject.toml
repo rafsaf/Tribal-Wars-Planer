@@ -10,7 +10,7 @@ python = ">3.10,<3.11"
 Django = "4.1.2"
 django-crispy-forms = "1.14.0"
 django-registration = "3.3"
-django-ses = "3.1.2"
+django-ses = "3.2.0"
 djangorestframework = "3.14.0"
 
 Js2Py = "0.71"
