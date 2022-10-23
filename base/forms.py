@@ -23,6 +23,8 @@ from django.db.models.query import QuerySet
 from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
 
+from base.models.outline import Outline
+from base.models.village_model import VillageModel
 from utils import basic, database_update
 
 from . import models
@@ -54,13 +56,15 @@ class OffTroopsForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.outline = kwargs.pop("outline")
+        self.outline: Outline = kwargs.pop("outline")
         super().__init__(*args, **kwargs)
         self.fields["off_troops"].strip = False
+        self.first_error_message: str = ""
+        self.second_error_message: str = ""
 
     def clean_off_troops(self):
         """User's input from script"""
-        text = self.cleaned_data["off_troops"]
+        text: str = self.cleaned_data["off_troops"]
         if text == "":
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
@@ -73,13 +77,38 @@ class OffTroopsForm(forms.ModelForm):
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Army(text_army=text_line, evidence=evidence)
             try:
-                army.clean_init(player_dictionary)
-            except basic.ArmyError:
-                self.add_error("off_troops", i)  # type: ignore
+                army.clean_init(player_dictionary, self.outline.ally_tribe_tag)
+            except basic.ArmyError as error:
+                if not self.first_error_message:
+                    self.first_error_message = str(error)
+                if error.coord:
+                    village = VillageModel.objects.filter(
+                        coord=error.coord, world=self.outline.world
+                    ).first()
+                    if not village:
+                        self.second_error_message = gettext_lazy(
+                            "[coord: %(coord)s] - [world: %(world)s]: FATAL ERR no such village"
+                            % {
+                                "coord": error.coord,
+                                "world": self.outline.world.human(),
+                            }
+                        )
+                    else:
+                        self.second_error_message = (
+                            f"[coord: {village.coord}] - "
+                            f"[world: {village.world.human()}] - "
+                            f"[player: {village.player}] - "
+                            f"[tribe: {village.player.tribe if village.player else None}]"
+                        )
+                self.add_error("off_troops", str(i))
                 continue
 
             if army.coord in already_used_villages:
-                self.add_error("off_troops", i)  # type: ignore
+                if not self.first_error_message:
+                    self.first_error_message = gettext_lazy(
+                        "Village in this line is duplicated: %s" % army.coord
+                    )
+                self.add_error("off_troops", str(i))
                 continue
             else:
                 already_used_villages.add(army.coord)
@@ -101,9 +130,11 @@ class DeffTroopsForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.outline = kwargs.pop("outline")
+        self.outline: Outline = kwargs.pop("outline")
         super().__init__(*args, **kwargs)
         self.fields["deff_troops"].strip = False
+        self.first_error_message: str = ""
+        self.second_error_message: str = ""
 
     def clean_deff_troops(self):
         """User's input from script"""
@@ -120,13 +151,38 @@ class DeffTroopsForm(forms.ModelForm):
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Defence(text_army=text_line, evidence=evidence)
             try:
-                army.clean_init(player_dictionary)
-            except basic.DefenceError:
+                army.clean_init(player_dictionary, self.outline.ally_tribe_tag)
+            except basic.DefenceError as error:
+                if not self.first_error_message:
+                    self.first_error_message = str(error)
+                if error.coord:
+                    village = VillageModel.objects.filter(
+                        coord=error.coord, world=self.outline.world
+                    ).first()
+                    if not village:
+                        self.second_error_message = gettext_lazy(
+                            "[coord: %(coord)s] - [world: %(world)s]: FATAL ERR no such village"
+                            % {
+                                "coord": error.coord,
+                                "world": self.outline.world.human(),
+                            }
+                        )
+                    else:
+                        self.second_error_message = (
+                            f"[coord: {village.coord}] - "
+                            f"[world: {village.world.human()}] - "
+                            f"[player: {village.player}] - "
+                            f"[tribe: {village.player.tribe if village.player else None}]"
+                        )
                 self.add_error("deff_troops", i)  # type: ignore
                 continue
             if army.coord in already_used_villages:
                 already_used_villages[army.coord] += 1
                 if already_used_villages[army.coord] > 2:
+                    if not self.first_error_message:
+                        self.first_error_message = gettext_lazy(
+                            "Village in this line is duplicated: %s" % army.coord
+                        )
                     self.add_error("deff_troops", i)  # type: ignore
             else:
                 already_used_villages[army.coord] = 1

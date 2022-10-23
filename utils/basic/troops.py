@@ -17,6 +17,7 @@ import json
 from typing import Literal
 
 from django.forms.utils import ErrorDict
+from django.utils.translation import gettext
 
 from base.models import Outline
 
@@ -30,6 +31,8 @@ class Troops:
         self.errors: list[dict[str, str]] | None = None
         self.empty: bool = False
         self.get_json = ""
+        self.first_error_msg = ""
+        self.second_error_msg = ""
 
     def set_troops(self, troops: str | None):
         if troops is None:
@@ -43,3 +46,11 @@ class Troops:
         else:
             self.errors = json.loads(error_dict.as_json())[self.name]
             self.get_json = json.dumps(self.errors)
+
+    def set_first_error_msg(self, message: str):
+        if self.errors and len(self.errors):
+            line_number = int(self.errors[0]["message"])
+            self.first_error_msg = gettext("Line %s: ") % f"{line_number + 1}" + message
+
+    def set_second_error_msg(self, message: str):
+        self.second_error_msg = message

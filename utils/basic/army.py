@@ -16,6 +16,8 @@
 """ Army and Defence tools"""
 from functools import cached_property
 
+from django.utils.translation import gettext
+
 from base import models
 from utils import basic
 
@@ -41,6 +43,10 @@ def world_evidence(world: models.World) -> tuple[int, int, int]:
 class ArmyError(Exception):
     """Army and Defence base error"""
 
+    def __init__(self, *args: object, coord: str | None = None) -> None:
+        super().__init__(*args)
+        self.coord = coord
+
 
 class Army:
     """Off line in off troops"""
@@ -56,31 +62,54 @@ class Army:
         (0, 0, 0): {12, 13},
     }
 
-    def __init__(self, text_army: str, evidence):
+    def __init__(self, text_army: str, evidence: tuple[int, int, int]):
         self.text_army = text_army.split(",")
         self.world_evidence = evidence
 
-    def clean_init(self, player_dictionary):
+    def clean_init(
+        self, player_dictionary: dict[str, str], ally_tribes: list[str] | None = None
+    ):
         """Text army validation"""
 
         text_army_length = len(self.text_army)
 
         if text_army_length not in Army.EVIDENCE_DICTIONARY[self.world_evidence]:
-            raise ArmyError(f"Length: {text_army_length} is not correct")
+            raise ArmyError(
+                gettext(
+                    "Invalid number of elements in line: %(len)s is not correct, expected %(expected)s"
+                )
+                % {
+                    "len": text_army_length,
+                    "expected": Army.EVIDENCE_DICTIONARY[self.world_evidence],
+                }
+            )
         if len(self.text_army[0]) != 7:
-            raise ArmyError("Length must be equal to 7")
+            raise ArmyError(
+                gettext("Length of coord at first postition must be equal to 7")
+            )
         try:
             village = basic.Village(self.text_army[0])
         except basic.VillageError as identifier:
             raise ArmyError(identifier)
         else:
             if village.coord not in player_dictionary:
-                raise ArmyError(f"{village.coord} is not in any valid tribe")
+                raise ArmyError(
+                    gettext(
+                        "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
+                    )
+                    % {"coord": village.coord, "tribes": ally_tribes},
+                    coord=village.coord,
+                )
         for army_element in self.text_army[1:-1]:
             if not army_element.isnumeric():
-                raise ArmyError(f"{army_element} is not a number")
+                raise ArmyError(
+                    gettext("One of line elements is not a number: %s") % army_element
+                )
         if self.text_army[-1] != "":
-            raise ArmyError(f"Syntax error in {self.text_army[-1]}")
+            raise ArmyError(
+                gettext("Last element in line must be empty string, currently: %s")
+                % self.text_army[-1]
+            )
 
     @property
     def coord(self) -> str:
@@ -183,6 +212,10 @@ class Army:
 class DefenceError(Exception):
     """Defence Error"""
 
+    def __init__(self, *args: object, coord: str | None = None) -> None:
+        super().__init__(*args)
+        self.coord = coord
+
 
 class Defence:
     """Deff line in deff troops"""
@@ -202,29 +235,53 @@ class Defence:
         self.text_army = text_army.split(",")
         self.world_evidence = evidence
 
-    def clean_init(self, player_dictionary):
+    def clean_init(self, player_dictionary, ally_tribes: list[str] | None = None):
         """Text army validation"""
 
         text_army_length = len(self.text_army)
 
         if text_army_length not in Defence.EVIDENCE_DICTIONARY[self.world_evidence]:
-            raise DefenceError(f"Length: {text_army_length} is not correct")
+            raise DefenceError(
+                gettext(
+                    "Invalid number of elements in line: %(len)s is not correct, expected %(expected)s"
+                )
+                % {
+                    "len": text_army_length,
+                    "expected": Defence.EVIDENCE_DICTIONARY[self.world_evidence],
+                }
+            )
         if len(self.text_army[0]) != 7:
-            raise DefenceError("Length must be equal to 7")
+            raise DefenceError(
+                gettext("Length of coord at first postition must be equal to 7")
+            )
         try:
             village = basic.Village(self.text_army[0])
         except basic.VillageError as identifier:
             raise DefenceError(identifier)
         else:
             if village.coord not in player_dictionary:
-                raise DefenceError(f"{village.coord} is not in any valid tribe")
+                raise DefenceError(
+                    gettext(
+                        "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
+                    )
+                    % {"coord": village.coord, "tribes": ally_tribes},
+                    coord=village.coord,
+                )
         for army_element in self.text_army[2:-1]:
             if not army_element.isnumeric():
-                raise DefenceError(f"{army_element} is not a number")
-        if not isinstance(self.text_army[1], str):
-            raise DefenceError("Second element must be a string")
+                raise DefenceError(
+                    gettext("One of line elements is not a number: %s") % army_element
+                )
+        if not all(chr.isalpha() or chr.isspace() for chr in self.text_army[1]):
+            raise DefenceError(
+                gettext("Second element of line must be a text: %s")
+                % self.text_army[1],
+            )
         if self.text_army[-1] != "":
-            raise DefenceError(f"Invalid syntax in {self.text_army[-1]}")
+            raise DefenceError(
+                gettext("Last element in line must be empty string, currently: %s")
+                % self.text_army[-1]
+            )
 
     @cached_property
     def coord(self):
