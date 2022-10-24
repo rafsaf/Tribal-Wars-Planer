@@ -81,25 +81,34 @@ class OffTroopsForm(forms.ModelForm):
             except basic.ArmyError as error:
                 if not self.first_error_message:
                     self.first_error_message = str(error)
-                if error.coord:
-                    village = VillageModel.objects.filter(
-                        coord=error.coord, world=self.outline.world
-                    ).first()
-                    if not village:
-                        self.second_error_message = gettext_lazy(
-                            "[coord: %(coord)s] - [world: %(world)s]: FATAL ERR no such village"
-                            % {
-                                "coord": error.coord,
-                                "world": self.outline.world.human(),
+                    if error.coord:
+                        village = VillageModel.objects.filter(
+                            coord=error.coord, world=self.outline.world
+                        ).first()
+                        if not village:
+                            self.second_error_message = gettext_lazy(
+                                gettext_lazy(
+                                    "[coord: %(coord)s] - [world: %(world)s]: no such village"
+                                )
+                                % {
+                                    "coord": error.coord,
+                                    "world": self.outline.world.human(),
+                                }
+                            )
+                        else:
+                            self.second_error_message = gettext_lazy(
+                                "[coord: %(coord)s] - "
+                                "[world: %(world)s] - "
+                                "[player: %(player)s] - "
+                                "[tribe: %(tribe)s]"
+                            ) % {
+                                "coord": village.coord,
+                                "world": village.world.human(),
+                                "player": village.player,
+                                "tribe": village.player.tribe
+                                if village.player
+                                else None,
                             }
-                        )
-                    else:
-                        self.second_error_message = (
-                            f"[coord: {village.coord}] - "
-                            f"[world: {village.world.human()}] - "
-                            f"[player: {village.player}] - "
-                            f"[tribe: {village.player.tribe if village.player else None}]"
-                        )
                 self.add_error("off_troops", str(i))
                 continue
 
@@ -155,25 +164,34 @@ class DeffTroopsForm(forms.ModelForm):
             except basic.DefenceError as error:
                 if not self.first_error_message:
                     self.first_error_message = str(error)
-                if error.coord:
-                    village = VillageModel.objects.filter(
-                        coord=error.coord, world=self.outline.world
-                    ).first()
-                    if not village:
-                        self.second_error_message = gettext_lazy(
-                            "[coord: %(coord)s] - [world: %(world)s]: FATAL ERR no such village"
-                            % {
-                                "coord": error.coord,
-                                "world": self.outline.world.human(),
+                    if error.coord:
+                        village = VillageModel.objects.filter(
+                            coord=error.coord, world=self.outline.world
+                        ).first()
+                        if not village:
+                            self.second_error_message = gettext_lazy(
+                                gettext_lazy(
+                                    "[coord: %(coord)s] - [world: %(world)s]: no such village"
+                                )
+                                % {
+                                    "coord": error.coord,
+                                    "world": self.outline.world.human(),
+                                }
+                            )
+                        else:
+                            self.second_error_message = gettext_lazy(
+                                "[coord: %(coord)s] - "
+                                "[world: %(world)s] - "
+                                "[player: %(player)s] - "
+                                "[tribe: %(tribe)s]"
+                            ) % {
+                                "coord": village.coord,
+                                "world": village.world.human(),
+                                "player": village.player,
+                                "tribe": village.player.tribe
+                                if village.player
+                                else None,
                             }
-                        )
-                    else:
-                        self.second_error_message = (
-                            f"[coord: {village.coord}] - "
-                            f"[world: {village.world.human()}] - "
-                            f"[player: {village.player}] - "
-                            f"[tribe: {village.player.tribe if village.player else None}]"
-                        )
                 self.add_error("deff_troops", i)  # type: ignore
                 continue
             if army.coord in already_used_villages:
