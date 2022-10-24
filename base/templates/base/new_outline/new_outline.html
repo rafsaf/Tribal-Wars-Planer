@@ -56,9 +56,13 @@
                         {% if off_troops.errors %} 
                         <script>codemirrorValidation(`{{off_troops.get_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
 
-                        <div class="error-text">
+                        <div class="error-text mb-1">
                             <p class="mb-0">{% trans 'Incorrect data in' %} {{off_troops.errors|length}} {% trans 'lines.' %}</p>
-                            <p class="mt-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                            <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                            <p class="mt-1 mb-0"><b>**{{off_troops.first_error_msg}}**</b></p>
+                            {% if off_troops.second_error_msg %}
+                            <p class="mt-0 mb-0"><b>**{{off_troops.second_error_msg}}**</b></p>
+                            {% endif %}
                         </div>
         
                         {% endif %} 
@@ -118,9 +122,13 @@
                             });
                         </script>
                     
-                        <div class="error-text mb-3">
+                        <div class="error-text mb-1">
                             <p class="mb-0">{% trans 'Incorrect data in' %} {{deff_troops.errors|length}} {% trans 'lines.' %}</p>
-                            <p class="mt-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                            <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                            <p class="mt-1 mb-0"><b>**{{deff_troops.first_error_msg}}**</b></p>
+                            {% if deff_troops.second_error_msg %}
+                            <p class="mt-0 mb-0"><b>**{{deff_troops.second_error_msg}}**</b></p>
+                            {% endif %}
                         </div>
         
                         {% endif %} 
