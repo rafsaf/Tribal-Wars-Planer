@@ -1,7 +1,7 @@
 import threading
+from collections.abc import Callable
 from logging import Logger
 from time import time
-from typing import Callable
 
 from django.core.management.base import BaseCommand
 

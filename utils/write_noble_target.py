@@ -13,8 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+from collections.abc import Callable
 from secrets import SystemRandom
-from typing import Callable
 
 from base.models import Outline
 from base.models import TargetVertex as Target

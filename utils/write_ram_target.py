@@ -13,9 +13,9 @@
 # limitations under the License.
 # ==============================================================================
 
+from collections.abc import Callable, Generator
 from secrets import SystemRandom
 from statistics import mean
-from typing import Callable, Generator
 
 from base.models import Outline
 from base.models import TargetVertex as Target

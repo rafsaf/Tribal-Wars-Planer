@@ -14,9 +14,10 @@
 # ==============================================================================
 
 from collections import defaultdict
+from collections.abc import Generator
 from copy import deepcopy
 from secrets import SystemRandom
-from typing import Any, Generator
+from typing import Any
 
 import numpy as np
 from django.db.models.query import QuerySet
