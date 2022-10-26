@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Callable
+from collections.abc import Callable
 
 from js2py import eval_js
 

@@ -1,4 +1,4 @@
-from typing import Callable
+from collections.abc import Callable
 
 import django.conf
 from django.conf import LazySettings

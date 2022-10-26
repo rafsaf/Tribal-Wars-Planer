@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-from typing import Iterator
+from collections.abc import Iterator
 
 from base.models import Outline, WeightMaximum
 
