@@ -73,7 +73,7 @@ def target_time_update(request: Request):
     """
     For given target id match it with Time obj id.
     """
-    req = TargetTimeUpdateSerializer(data=request.data)
+    req = TargetTimeUpdateSerializer(data=request.data)  # type: ignore
     if req.is_valid():
         target: TargetVertex = get_object_or_404(
             TargetVertex, pk=req.data.get("target_id")
@@ -106,7 +106,7 @@ def delete_target(request: Request):
     """
     For given target id, delete obj.
     """
-    req = TargetDeleteSerializer(data=request.data)
+    req = TargetDeleteSerializer(data=request.data)  # type: ignore
     if req.is_valid():
         target: TargetVertex = get_object_or_404(
             TargetVertex.objects.select_related("outline"), pk=req.data.get("target_id")
@@ -136,7 +136,7 @@ def delete_target(request: Request):
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def overview_state_update(request: Request):
-    req = OverwiewStateHideSerializer(data=request.data)
+    req = OverwiewStateHideSerializer(data=request.data)  # type: ignore
     if req.is_valid():
         get_object_or_404(Outline, id=req.data.get("outline_id"), owner=request.user)
         overview: Overview = get_object_or_404(Overview, token=req.data.get("token"))
@@ -163,7 +163,7 @@ def change_weight_model_buildings(request: Request):
     """
     For given weight model updates its building.
     """
-    req = ChangeWeightBuildingSerializer(data=request.data)
+    req = ChangeWeightBuildingSerializer(data=request.data)  # type: ignore
     if req.is_valid():
         get_object_or_404(Outline, pk=req.data.get("outline_id"), owner=request.user)
         weight: WeightModel = get_object_or_404(
@@ -184,12 +184,12 @@ def change_buildings_array(request: Request):
     """
     For given outline updates array with buildings.
     """
-    req = ChangeBuildingsArraySerializer(data=request.data)
+    req = ChangeBuildingsArraySerializer(data=request.data)  # type: ignore
     if req.is_valid():
         outline: Outline = get_object_or_404(
             Outline, id=req.data.get("outline_id"), owner=request.user
         )
-        outline.initial_outline_buildings = req.data.get("buildings")
+        outline.initial_outline_buildings = req.data["buildings"]
         outline.actions.form_building_order_change(outline)
         outline.save()
         return Response(status=status.HTTP_200_OK)
@@ -221,7 +221,7 @@ def stripe_config(request: Request):
 def stripe_checkout_session(request: Request):  # pragma: no cover
     """Stripe checkout session endpoint"""
 
-    req = StripeSessionAmount(data=request.data)
+    req = StripeSessionAmount(data=request.data)  # type: ignore
     if req.is_valid():
         user_pk: int = request.user.pk
         profile: Profile = Profile.objects.get(user_id=user_pk)

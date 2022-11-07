@@ -300,7 +300,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
         if "form-filter-targets" in request.POST:
             filter_form = forms.SetTargetsMenuFilters(request.POST)
             if filter_form.is_valid():
-                cards = request.POST["filter_targets_number"]
+                cards = int(request.POST["filter_targets_number"])
                 if request.POST.get("simple_textures") == "on":
                     textures = True
                 else:

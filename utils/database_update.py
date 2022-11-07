@@ -165,19 +165,19 @@ class WorldUpdateHandler:
             if tribe_cache_key != self.world.fanout_key_text_tribe:
                 tribe_text = fanout_cache.get(tribe_cache_key)
                 self.world.fanout_key_text_tribe = tribe_cache_key
-                self.update_tribes(text=tribe_text)
+                self.update_tribes(text=tribe_text)  # type: ignore
 
             player_cache_key = self.get_latest_data_key(self.PLAYER_DATA)
             if player_cache_key != self.world.fanout_key_text_player:
                 player_text = fanout_cache.get(player_cache_key)
                 self.world.fanout_key_text_player = player_cache_key
-                self.update_players(text=player_text)
+                self.update_players(text=player_text)  # type: ignore
 
             village_cache_key = self.get_latest_data_key(self.VILLAGE_DATA)
             if village_cache_key != self.world.fanout_key_text_village:
                 village_text = fanout_cache.get(village_cache_key)
                 self.world.fanout_key_text_village = village_cache_key
-                self.update_villages(text=village_text)
+                self.update_villages(text=village_text)  # type: ignore
 
             message = (
                 f"{self.world} | tribe_updated: {self.tribe_log_msg} |"
@@ -222,7 +222,7 @@ class WorldUpdateHandler:
         result_list: list[str] = []
         for key in fanout_cache:
             if str(key).startswith(cache_key_prefix):
-                result_list.append(key)
+                result_list.append(str(key))
 
         result_list.sort(reverse=True)
         return result_list[0]
