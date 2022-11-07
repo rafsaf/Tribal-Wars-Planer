@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-24 20:59+0200\n"
+"POT-Creation-Date: 2022-11-08 00:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:51
+#: base/forms.py:51 base/models/outline.py:152
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
 
@@ -61,7 +61,8 @@ msgstr ""
 msgid "Village in this line is duplicated: %s"
 msgstr ""
 
-#: base/forms.py:134 base/templates/base/new_outline/new_outline.html:9
+#: base/forms.py:134 base/models/outline.py:153
+#: base/templates/base/new_outline/new_outline.html:9
 #: base/templates/base/new_outline/new_outline.html:15
 #: base/templates/base/new_outline/new_outline_get_deff.html:4
 #: base/templates/base/new_outline/new_outline_initial_period2.html:31
@@ -619,23 +620,23 @@ msgstr "Tekst rozszerzony bezpośrednio w wiadomości"
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:274
+#: base/models/outline.py:281
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:387
+#: base/models/outline.py:395
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:392
+#: base/models/outline.py:400
 msgid "never"
 msgstr "nigdy"
 
-#: base/models/outline.py:404
+#: base/models/outline.py:412
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:406
+#: base/models/outline.py:414
 msgid "days"
 msgstr "dni"
 
@@ -1090,61 +1091,80 @@ msgstr "Wyniki"
 msgid "Hold on a second..."
 msgstr "Jeszcze chwila..."
 
-#: base/templates/base/new_outline/new_outline.html:24
+#: base/templates/base/new_outline/new_outline.html:25
 msgid "Last world update: "
 msgstr "Ostatnia aktualizacja świata: "
 
 #: base/templates/base/new_outline/new_outline.html:42
+msgid "Input data for planer tab: "
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline.html:54
+#: base/templates/base/new_outline/new_outline_initial_period1.html:236
+#: base/templates/base/new_outline/new_outline_initial_period1.html:294
+#: base/templates/base/new_outline/new_outline_initial_period1.html:327
+#: base/templates/base/new_outline/new_outline_initial_period1.html:387
+#: base/templates/base/new_outline/new_outline_initial_period1.html:418
+#: base/templates/base/new_outline/new_outline_initial_period2.html:84
+#: base/templates/base/new_outline/new_outline_initial_period2.html:113
+#: base/templates/base/new_outline/new_outline_initial_period3.html:146
+#: base/templates/base/new_outline/new_outline_initial_period3.html:200
+#: base/templates/base/new_outline/new_outline_results.html:62
+#: base/templates/base/user/profile_settings.html:65
+msgid "Save"
+msgstr "Zapisz"
+
+#: base/templates/base/new_outline/new_outline.html:81
 msgid "Army troops have been successfully added."
 msgstr "Zbiórka Wojska pomyślnie dodana."
 
-#: base/templates/base/new_outline/new_outline.html:60
-#: base/templates/base/new_outline/new_outline.html:126
+#: base/templates/base/new_outline/new_outline.html:99
+#: base/templates/base/new_outline/new_outline.html:165
 #: base/templates/base/new_outline/new_outline_initial_period1.html:92
 msgid "Incorrect data in"
 msgstr "Nieprawidłowe dane w"
 
-#: base/templates/base/new_outline/new_outline.html:60
-#: base/templates/base/new_outline/new_outline.html:126
+#: base/templates/base/new_outline/new_outline.html:99
+#: base/templates/base/new_outline/new_outline.html:165
 #: base/templates/base/new_outline/new_outline_initial_period1.html:92
 msgid "lines."
 msgstr "liniach."
 
-#: base/templates/base/new_outline/new_outline.html:61
-#: base/templates/base/new_outline/new_outline.html:127
+#: base/templates/base/new_outline/new_outline.html:100
+#: base/templates/base/new_outline/new_outline.html:166
 msgid "*After clicking submit you will be transferred to first error*"
 msgstr "*Po kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*"
 
-#: base/templates/base/new_outline/new_outline.html:71
-#: base/templates/base/new_outline/new_outline.html:137
+#: base/templates/base/new_outline/new_outline.html:110
+#: base/templates/base/new_outline/new_outline.html:176
 msgid "The text cannot be empty"
 msgstr "Tekst nie może być pusty"
 
-#: base/templates/base/new_outline/new_outline.html:80
-#: base/templates/base/new_outline/new_outline.html:146
+#: base/templates/base/new_outline/new_outline.html:119
+#: base/templates/base/new_outline/new_outline.html:185
 #: base/templates/base/new_outline/new_outline_get_deff.html:15
 msgid "Submit"
 msgstr "Potwierdź"
 
-#: base/templates/base/new_outline/new_outline.html:101
+#: base/templates/base/new_outline/new_outline.html:140
 msgid "Deff troops have been successfully added."
 msgstr "Zbiórka Deffa pomyślnie dodana."
 
-#: base/templates/base/new_outline/new_outline.html:165
+#: base/templates/base/new_outline/new_outline.html:204
 #: base/templates/base/new_outline/new_outline_create.html:31
 #: base/templates/base/new_outline/new_outline_get_deff.html:23
 #: base/templates/base/new_outline/new_outline_initial_period1.html:432
 msgid "Info"
 msgstr "Info"
 
-#: base/templates/base/new_outline/new_outline.html:168
+#: base/templates/base/new_outline/new_outline.html:207
 #: base/templates/base/new_outline/new_outline_create.html:34
 #: base/templates/base/new_outline/new_outline_get_deff.html:26
 #: base/templates/base/new_outline/new_outline_initial_period1.html:436
 msgid "Examples"
 msgstr "Przykłady"
 
-#: base/templates/base/new_outline/new_outline.html:190
+#: base/templates/base/new_outline/new_outline.html:229
 #: base/templates/base/new_outline/new_outline_initial_period1.html:468
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:331
 msgid "An error occured"
@@ -1387,20 +1407,6 @@ msgstr "2. Zmiana daty akcji"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:230
 msgid "Current date:"
 msgstr "Aktualna data:"
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:236
-#: base/templates/base/new_outline/new_outline_initial_period1.html:294
-#: base/templates/base/new_outline/new_outline_initial_period1.html:327
-#: base/templates/base/new_outline/new_outline_initial_period1.html:387
-#: base/templates/base/new_outline/new_outline_initial_period1.html:418
-#: base/templates/base/new_outline/new_outline_initial_period2.html:84
-#: base/templates/base/new_outline/new_outline_initial_period2.html:113
-#: base/templates/base/new_outline/new_outline_initial_period3.html:146
-#: base/templates/base/new_outline/new_outline_initial_period3.html:200
-#: base/templates/base/new_outline/new_outline_results.html:62
-#: base/templates/base/user/profile_settings.html:65
-msgid "Save"
-msgstr "Zapisz"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:246
 msgid "3. Default mode selection"
