@@ -15,7 +15,7 @@
 
 import datetime
 from typing import TYPE_CHECKING
-
+from django.utils.translation import gettext_lazy
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -28,6 +28,11 @@ from base.models.server import Server
 
 
 class Profile(models.Model):
+
+    INPUT_DATA_TYPES = [
+        ("Army collection", gettext_lazy("Army collection")),
+        ("Deff collection", gettext_lazy("Deff collection")),
+    ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     server = models.ForeignKey(
@@ -42,6 +47,9 @@ class Profile(models.Model):
     messages = models.IntegerField(default=0)
     server_bind = models.BooleanField(default=False)
     default_morale_on = models.BooleanField(default=False)
+    input_data_type = models.CharField(
+        max_length=32, default="Army collection", choices=INPUT_DATA_TYPES
+    )
 
     def is_premium(self) -> bool:
         if settings.PREMIUM_ACCOUNT_VALIDATION_ON:

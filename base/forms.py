@@ -460,6 +460,32 @@ class SettingMessageForm(forms.ModelForm):
         }
 
 
+class InputDataPlanerForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "input_data_type",
+        ]
+        labels = {
+            "input_data_type": gettext_lazy("Input type for planer"),
+        }
+        help_texts = {
+            "input_data_type": gettext_lazy(
+                "Data for planer tab may be from Army or Defence tabs. Army - all troops (also that are outside of villages), Defence - only troops from villages."
+            ),
+        }
+        widgets = {
+            "sending_option": forms.RadioSelect,
+            "text_message": forms.Textarea,
+        }
+
+    set_as_default = forms.BooleanField(
+        required=False,
+        label=gettext_lazy("Set as default choice for next outlines"),
+        initial=False,
+    )
+
+
 class SettingDateForm(forms.ModelForm):
     class Meta:
         model = models.Outline
@@ -924,11 +950,12 @@ class ChangeServerForm(forms.ModelForm):
 class ChangeProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
-        fields = ["server", "currency", "default_morale_on"]
+        fields = ["server", "currency", "input_data_type", "default_morale_on"]
         labels = {
             "server": gettext_lazy("Please select your server:"),
             "default_morale_on": gettext_lazy(
                 "Turn on morale calculations in every outline by default:"
             ),
+            "input_data_type": gettext_lazy("Default input type for planer"),
             "currency": gettext_lazy("Please select your currency:"),
         }
