@@ -15,7 +15,7 @@
 
 from django.urls import reverse
 
-from base.models import Outline, Stats, Profile
+from base.models import Outline, Profile, Stats
 from base.tests.test_utils.mini_setup import MiniSetup
 
 

@@ -15,15 +15,17 @@
 
 import datetime
 from typing import TYPE_CHECKING
-from django.utils.translation import gettext_lazy
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.query import QuerySet
 from django.utils import timezone
+from django.utils.translation import gettext_lazy
 
 if TYPE_CHECKING:
     from base.models import Message
+
 from base.models.server import Server
 
 
@@ -31,7 +33,7 @@ class Profile(models.Model):
 
     INPUT_DATA_TYPES = [
         ("Army collection", gettext_lazy("Army collection")),
-        ("Deff collection", gettext_lazy("Deff collection")),
+        ("Deff collection", gettext_lazy("Deff collection ")),
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)

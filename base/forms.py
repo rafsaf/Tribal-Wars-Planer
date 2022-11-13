@@ -131,7 +131,7 @@ class DeffTroopsForm(forms.ModelForm):
     class Meta:
         model = models.Outline
         fields = {"deff_troops"}
-        labels = {"deff_troops": gettext_lazy("Deff collection")}
+        labels = {"deff_troops": gettext_lazy("Deff collection ")}
         widgets = {
             "deff_troops": forms.Textarea(
                 attrs={"spellcheck": "false", "autocomplete": "off"}

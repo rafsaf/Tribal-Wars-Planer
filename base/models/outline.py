@@ -151,8 +151,8 @@ class Outline(models.Model):
     ARMY_COLLECTION = "Army collection"
     DEFF_COLLECTION = "Deff collection"
     INPUT_DATA_TYPES = [
-        (ARMY_COLLECTION, gettext_lazy(ARMY_COLLECTION)),
-        (DEFF_COLLECTION, gettext_lazy(DEFF_COLLECTION)),
+        (ARMY_COLLECTION, gettext_lazy("Army collection")),
+        (DEFF_COLLECTION, gettext_lazy("Deff collection ")),
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -292,6 +292,12 @@ class Outline(models.Model):
 
     class Meta:
         ordering = ("-created",)
+
+    def get_input_data_trans(self):
+        if self.input_data_type == self.ARMY_COLLECTION:
+            return gettext_lazy("Army collection")
+        else:
+            return gettext_lazy("Deff collection ")
 
     def __str__(self):
         return "ID:" + str(self.pk) + ", Nazwa: " + str(self.name)

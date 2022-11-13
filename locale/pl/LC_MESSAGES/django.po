@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-13 22:47+0100\n"
+"POT-Creation-Date: 2022-11-14 00:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:51 base/models/profile.py:33
+#: base/forms.py:51 base/models/outline.py:154 base/models/profile.py:33
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
 
@@ -61,15 +61,9 @@ msgstr ""
 msgid "Village in this line is duplicated: %s"
 msgstr "Wioska w tej linii jest podwojona: %s"
 
-#: base/forms.py:134 base/models/profile.py:34
-#: base/templates/base/new_outline/new_outline.html:9
-#: base/templates/base/new_outline/new_outline.html:15
-#: base/templates/base/new_outline/new_outline_get_deff.html:4
-#: base/templates/base/new_outline/new_outline_initial_period2.html:31
-#: base/templates/base/new_outline/new_outline_initial_period2.html:44
-#: base/templates/base/new_outline/new_outline_results.html:25
-msgid "Deff collection"
-msgstr "Zbiórka Deffa"
+#: base/forms.py:134 base/models/outline.py:155 base/models/profile.py:34
+msgid "Deff collection "
+msgstr "Zbiórka Obrona"
 
 #: base/forms.py:215
 msgid "Ally tribe"
@@ -253,8 +247,8 @@ msgid ""
 "Data for planer tab may be from Army or Defence tabs. Army - all troops "
 "(also that are outside of villages), Defence - only troops from villages."
 msgstr ""
-"Zakładka Planer może korzystać z danych Zbiórki Wojska lub Zbiórki Deffa. "
-"Pierwsza bierze wszystkie jednostki (także spoza wiosek!) zaś Zbiórka Deffa "
+"Zakładka Planer może korzystać z danych Zbiórki Wojska lub Zbiórki Obrony. "
+"Pierwsza bierze wszystkie jednostki (także spoza wiosek!) zaś Zbiórka Obrona "
 "tylko te z wiosek."
 
 #: base/forms.py:484
@@ -1107,6 +1101,15 @@ msgstr ""
 msgid "Results"
 msgstr "Wyniki"
 
+#: base/templates/base/new_outline/new_outline.html:9
+#: base/templates/base/new_outline/new_outline.html:15
+#: base/templates/base/new_outline/new_outline_get_deff.html:4
+#: base/templates/base/new_outline/new_outline_initial_period2.html:31
+#: base/templates/base/new_outline/new_outline_initial_period2.html:44
+#: base/templates/base/new_outline/new_outline_results.html:25
+msgid "Deff collection"
+msgstr "Zbiórka Deffa"
+
 #: base/templates/base/new_outline/new_outline.html:10
 #: base/templates/base/new_outline/new_outline_initial_period2.html:33
 msgid "Hold on a second..."
@@ -1169,7 +1172,7 @@ msgstr "Potwierdź"
 
 #: base/templates/base/new_outline/new_outline.html:133
 msgid "Deff troops have been successfully added."
-msgstr "Zbiórka Deffa pomyślnie dodana."
+msgstr "Zbiórka Obrona pomyślnie dodana."
 
 #: base/templates/base/new_outline/new_outline.html:197
 #: base/templates/base/new_outline/new_outline_create.html:31
@@ -2387,7 +2390,7 @@ msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
 #: base/views/outline_initial_views.py:74 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
-msgstr "<h5>Zbiórka Deffa jest pusta!</h5>"
+msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
 #: base/views/outline_initial_views.py:430
 msgid "<h5>All targets must have an assigned Time.</h5>"
@@ -2400,9 +2403,9 @@ msgid ""
 "<b>Army and Deff collections</b> and <b>Submit</b> both.</p> <p>2. Return to "
 "the <b>Deff collection</b> tab.</p> <p>3. Try again."
 msgstr ""
-"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska lub Deffa nie są już "
+"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska lub Obrony nie są już "
 "aktualne!</h5> <p>Aby móc użyć zakładki Zbiórka Deffa:</p> <p>1. Wklej "
-"akutalne dane <b>Zbiórek Wojska i Deffa</b> i <b>Potwierdź</b> obie.</p> "
+"akutalne dane <b>Zbiórek Wojska i Obrona</b> i <b>Potwierdź</b> obie.</p> "
 "<p>2. Powróć do zakładki <b>Zbiórka Deffa</b>.</p> <p>3. Spróbuj ponownie.</"
 "p>"
 
@@ -2603,7 +2606,7 @@ msgid ""
 msgstr ""
 "Prośba o zmianę hasła do konta plemiona-planer.pl - link do zmiany hasła"
 
-#: utils/basic/army.py:157 utils/basic/army.py:289
+#: utils/basic/army.py:157 utils/basic/army.py:295
 #, python-format
 msgid ""
 "Invalid number of elements in line: %(len)s is not correct, expected "
@@ -2612,11 +2615,11 @@ msgstr ""
 "Niewłaściwa liczba elementów w linii: %(len)s jest błędna, spodziewany "
 "zakres: %(expected)s"
 
-#: utils/basic/army.py:166 utils/basic/army.py:298
+#: utils/basic/army.py:166 utils/basic/army.py:304
 msgid "Length of coord at first postition must be equal to 7"
 msgstr "Długość koordów w pierwszym elemencie musi być równa dokładnie 7"
 
-#: utils/basic/army.py:176 utils/basic/army.py:308
+#: utils/basic/army.py:176 utils/basic/army.py:314
 #, python-format
 msgid ""
 "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
@@ -2624,17 +2627,17 @@ msgstr ""
 "Koord: %(coord)s nie istnieje lub nie jest w żadnym z sojuszniczych plemion "
 "rozpiski: %(tribes)s"
 
-#: utils/basic/army.py:184 utils/basic/army.py:316
+#: utils/basic/army.py:184 utils/basic/army.py:322
 #, python-format
 msgid "One of line elements is not a number: %s"
 msgstr "Jeden z elementów w linii nie jest liczbą: %s"
 
-#: utils/basic/army.py:188 utils/basic/army.py:325
+#: utils/basic/army.py:188 utils/basic/army.py:331
 #, python-format
 msgid "Last element in line must be empty string, currently: %s"
 msgstr "Ostatni element w linii musi być pustym stringiem, obecnie: %s"
 
-#: utils/basic/army.py:320
+#: utils/basic/army.py:326
 #, python-format
 msgid "Second element of line must be a text: %s"
 msgstr "Drugi element w linii musi być tekstem, obecnie: %s"

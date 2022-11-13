@@ -15,7 +15,8 @@
 
 """ Army and Defence tools"""
 from functools import cached_property
-from typing import Literal, TypedDict, NamedTuple
+from typing import Literal, NamedTuple, TypedDict
+
 from django.utils.translation import gettext
 
 from base import models

@@ -25,7 +25,7 @@ from django.forms import formset_factory
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseServerError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import gettext, gettext_lazy
+from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 
 import utils.avaiable_troops as avaiable_troops
@@ -38,14 +38,13 @@ from utils.outline_initial import MakeOutline
 
 
 def trigger_off_troops_update_redirect(request: HttpRequest, outline: models.Outline):
-    collection = gettext_lazy(outline.input_data_type)
     request.session["error"] = gettext(
         "<h5>It looks like your %(collection)s is no longer actual!</h5> "
         "<p>To use the Planer:</p> "
         "<p>1. Paste the current data in the <b>%(collection)s</b>, solve issues.</p> "
         "<p>2. Click on <b>Submit</b>.</p> "
         "<p>3. Only then return to the <b>Planer</b> tab.</p> "
-    ) % {"collection": collection}
+    ) % {"collection": outline.get_input_data_trans()}
 
     return redirect("base:planer_detail", outline.pk)
 

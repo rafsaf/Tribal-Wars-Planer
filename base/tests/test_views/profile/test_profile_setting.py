@@ -16,7 +16,7 @@
 from django.urls import reverse
 
 from base.forms import ChangeProfileForm
-from base.models import Profile, Outline
+from base.models import Outline, Profile
 from base.tests.test_utils.mini_setup import MiniSetup
 
 
