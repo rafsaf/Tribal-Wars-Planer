@@ -45,7 +45,7 @@ msgstr "[wioska: %(coord)s] - [świat: %(world)s]: taka wioska nie istnieje!"
 
 #: base/forms.py:94 base/forms.py:177
 msgid "coord"
-msgstr ""
+msgstr "koord"
 
 #: base/forms.py:100 base/forms.py:183
 #, python-format
@@ -59,7 +59,7 @@ msgstr ""
 #: base/forms.py:118 base/forms.py:202
 #, python-format
 msgid "Village in this line is duplicated: %s"
-msgstr ""
+msgstr "Wioska w tej linii jest podwojona: %s"
 
 #: base/forms.py:134 base/models/outline.py:153 base/models/profile.py:34
 #: base/templates/base/new_outline/new_outline.html:9
@@ -246,17 +246,18 @@ msgstr ""
 
 #: base/forms.py:470
 msgid "Input type for planer"
-msgstr ""
+msgstr "Wykorzystywane dane dla zakładki Planer"
 
 #: base/forms.py:474 base/templates/base/new_outline/new_outline.html:30
 msgid ""
 "Data for planer tab may be from Army or Defence tabs. Army - all troops "
 "(also that are outside of villages), Defence - only troops from villages."
-msgstr ""
+msgstr "Zakładka Planer może korzystać z danych Zbiórki Wojska lub Zbiórki Deffa. "
+"Pierwsza bierze wszystkie jednostki (także spoza wiosek!) zaś Zbiórka Deffa tylko te z wiosek."
 
 #: base/forms.py:484
 msgid "Set as default choice for next outlines"
-msgstr ""
+msgstr "Domyślny wybór dla nastepnych rozpisek"
 
 #: base/forms.py:495
 msgid "Set new date"
@@ -443,7 +444,7 @@ msgstr ""
 
 #: base/forms.py:959
 msgid "Default input type for planer"
-msgstr ""
+msgstr "Wybierz typ danych dla planera"
 
 #: base/forms.py:960
 msgid "Please select your currency:"
@@ -1111,7 +1112,7 @@ msgstr "Jeszcze chwila..."
 
 #: base/templates/base/new_outline/new_outline.html:37
 msgid "Input data for planer tab: "
-msgstr ""
+msgstr "Planer wybierze dane wklejone w:"
 
 #: base/templates/base/new_outline/new_outline.html:47
 #: base/templates/base/new_outline/new_outline_initial_period1.html:236

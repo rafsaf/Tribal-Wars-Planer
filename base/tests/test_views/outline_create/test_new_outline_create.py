@@ -65,6 +65,7 @@ class NewOutlineCreate(MiniSetup):
         PATH = reverse("base:planer_create")
         profile: Profile = Profile.objects.get(user=self.me())
         profile.default_morale_on = True
+        profile.input_data_type = "Deff collection"
         profile.save()
         world = self.get_world()
 
@@ -89,6 +90,7 @@ class NewOutlineCreate(MiniSetup):
 
         assert response.url == REDIRECT
         assert outline.name == "name"
+        assert outline.input_data_type == "Deff collection"
         assert outline.date == datetime.date.today()
         assert outline.morale_on
         assert outline.world == world

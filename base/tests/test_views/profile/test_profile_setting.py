@@ -52,6 +52,7 @@ class OutlineProfileSettings(MiniSetup):
                 "server": "xaxaxa",
                 "form1": "",
                 "default_morale_on": True,
+                "input_data_type": "Army collection",
                 "currency": "PLN",
             },
         )
@@ -68,6 +69,7 @@ class OutlineProfileSettings(MiniSetup):
         profile: Profile = Profile.objects.get(user=me)
         profile.default_morale_on = True
         profile.server = None
+        profile.input_data_type = "Army collection"
         profile.save()
 
         self.login_me()
@@ -76,6 +78,7 @@ class OutlineProfileSettings(MiniSetup):
             data={
                 "server": "nottestserver",
                 "currency": "EUR",
+                "input_data_type": "Deff collection",
                 "default_morale_on": False,
                 "form1": "",
             },
@@ -84,5 +87,6 @@ class OutlineProfileSettings(MiniSetup):
         assert response.url == PATH
 
         profile.refresh_from_db()
+        assert profile.input_data_type == "Deff collection"
         assert profile.server.dns == "nottestserver"  # type: ignore
         assert not profile.default_morale_on
