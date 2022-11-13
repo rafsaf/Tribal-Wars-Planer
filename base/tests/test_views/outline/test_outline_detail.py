@@ -15,7 +15,7 @@
 
 from django.urls import reverse
 
-from base.models import Outline, Stats
+from base.models import Outline, Profile, Stats
 from base.tests.test_utils.mini_setup import MiniSetup
 
 
@@ -131,3 +131,51 @@ class InactiveOutline(MiniSetup):
 
         outline.refresh_from_db()
         assert outline.deff_troops == ""
+
+    def test_planer_detail___302_input_data_form_ok_no_set_deafult(self):
+        outline = self.get_outline(editable="inactive", test_world=True)
+        profile: Profile = outline.owner.profile  # type: ignore
+        profile.input_data_type = Outline.ARMY_COLLECTION
+        profile.save()
+        outline.input_data_type = Outline.ARMY_COLLECTION
+        outline.save()
+
+        PATH = reverse("base:planer_detail", args=[outline.pk])
+        self.login_me()
+        response = self.client.post(
+            PATH,
+            data={
+                "form-input": "",
+                "input_data_type": Outline.DEFF_COLLECTION,
+                "set_as_default": False,
+            },
+        )
+        assert response.status_code == 302
+        outline.refresh_from_db()
+        profile.refresh_from_db()
+        assert outline.input_data_type == Outline.DEFF_COLLECTION
+        assert profile.input_data_type == Outline.ARMY_COLLECTION
+
+    def test_planer_detail___302_input_data_form_ok_set_deafult(self):
+        outline = self.get_outline(editable="inactive", test_world=True)
+        profile: Profile = outline.owner.profile  # type: ignore
+        profile.input_data_type = Outline.ARMY_COLLECTION
+        profile.save()
+        outline.input_data_type = Outline.ARMY_COLLECTION
+        outline.save()
+
+        PATH = reverse("base:planer_detail", args=[outline.pk])
+        self.login_me()
+        response = self.client.post(
+            PATH,
+            data={
+                "form-input": "",
+                "input_data_type": Outline.DEFF_COLLECTION,
+                "set_as_default": True,
+            },
+        )
+        assert response.status_code == 302
+        outline.refresh_from_db()
+        profile.refresh_from_db()
+        assert outline.input_data_type == Outline.DEFF_COLLECTION
+        assert profile.input_data_type == Outline.DEFF_COLLECTION

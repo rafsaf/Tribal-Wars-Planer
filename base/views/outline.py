@@ -24,6 +24,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
 from base import forms, models
+from base.models.profile import Profile
 from utils.basic import Troops
 
 
@@ -109,7 +110,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
-
+    form_input_type = forms.InputDataPlanerForm(None, instance=instance)
     form1 = forms.OffTroopsForm(None, outline=instance)
     form2 = forms.DeffTroopsForm(None, outline=instance)
 
@@ -117,6 +118,19 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     deff_troops = Troops(instance, "deff_troops")
 
     if request.method == "POST":
+        if "form-input" in request.POST:
+            form_input_type = forms.InputDataPlanerForm(request.POST, instance=instance)
+            if form_input_type.is_valid():
+                form_input_type.save()
+                set_as_default: bool = form_input_type.cleaned_data["set_as_default"]
+                if set_as_default:
+                    profile: Profile = request.user.profile  # type: ignore
+                    profile.input_data_type = form_input_type.cleaned_data[
+                        "input_data_type"
+                    ]
+                    profile.save()
+                return redirect("base:planer_detail", _id)
+
         if "form-1" in request.POST:
             form10 = forms.OffTroopsForm(request.POST, outline=instance)
             instance.actions.save_off_troops(instance)
@@ -167,6 +181,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
         "off_troops": off_troops,
         "deff_troops": deff_troops,
         "form2": form2,
+        "form_input_type": form_input_type,
     }
     message_off = request.session.get("message-off-troops")
     if message_off is not None:

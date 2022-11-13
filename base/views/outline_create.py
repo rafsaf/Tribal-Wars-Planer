@@ -54,6 +54,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                     name=request.POST["name"],
                     world=world_instance,
                     morale_on=profile.default_morale_on,
+                    input_data_type=profile.input_data_type,
                 )
                 new_instance.save()
                 new_instance.refresh_from_db()

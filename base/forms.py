@@ -131,7 +131,7 @@ class DeffTroopsForm(forms.ModelForm):
     class Meta:
         model = models.Outline
         fields = {"deff_troops"}
-        labels = {"deff_troops": gettext_lazy("Deff collection")}
+        labels = {"deff_troops": gettext_lazy("Deff collection ")}
         widgets = {
             "deff_troops": forms.Textarea(
                 attrs={"spellcheck": "false", "autocomplete": "off"}
@@ -155,7 +155,7 @@ class DeffTroopsForm(forms.ModelForm):
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
 
-        already_used_villages = dict()
+        already_used_villages = {}
 
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Defence(text_army=text_line, evidence=evidence)
@@ -458,6 +458,32 @@ class SettingMessageForm(forms.ModelForm):
             "sending_option": forms.RadioSelect,
             "text_message": forms.Textarea,
         }
+
+
+class InputDataPlanerForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = [
+            "input_data_type",
+        ]
+        labels = {
+            "input_data_type": gettext_lazy("Input type for planer"),
+        }
+        help_texts = {
+            "input_data_type": gettext_lazy(
+                "Data for planer tab may be from Army or Defence tabs. Army - all troops (also that are outside of villages), Defence - only troops from villages."
+            ),
+        }
+        widgets = {
+            "sending_option": forms.RadioSelect,
+            "text_message": forms.Textarea,
+        }
+
+    set_as_default = forms.BooleanField(
+        required=False,
+        label=gettext_lazy("Set as default choice for next outlines"),
+        initial=False,
+    )
 
 
 class SettingDateForm(forms.ModelForm):
@@ -924,11 +950,12 @@ class ChangeServerForm(forms.ModelForm):
 class ChangeProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
-        fields = ["server", "currency", "default_morale_on"]
+        fields = ["server", "currency", "input_data_type", "default_morale_on"]
         labels = {
             "server": gettext_lazy("Please select your server:"),
             "default_morale_on": gettext_lazy(
                 "Turn on morale calculations in every outline by default:"
             ),
+            "input_data_type": gettext_lazy("Default input type for planer"),
             "currency": gettext_lazy("Please select your currency:"),
         }

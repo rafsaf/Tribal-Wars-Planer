@@ -125,7 +125,7 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 149|149,100,100,7049,0,100,2849,0,0,350,100,0,4,0,0,0,</pre></div>
 <div>
 <br>
-<p class="md-error">Następnie wklej w pole <span class="md-correct2">Zbiórka Deffa</span> poniższe dane i kliknij <span class="md-correct2">Potwierdź</span>.</p>
+<p class="md-error">Następnie wklej w pole <span class="md-correct2">Zbiórka Obrona</span> poniższe dane i kliknij <span class="md-correct2">Potwierdź</span>.</p>
 
 <button onclick="updateClipboard('world-test-deff-troops');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>Skopiowano!`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>Kliknij by skopiować ponownie`;this.blur()},1800);" class="btn btn-outline-ocean my-2">Kliknij by skopiować do schowka</button>
 

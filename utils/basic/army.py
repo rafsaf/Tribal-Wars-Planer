@@ -15,14 +15,92 @@
 
 """ Army and Defence tools"""
 from functools import cached_property
+from typing import Literal, NamedTuple, TypedDict
 
 from django.utils.translation import gettext
 
 from base import models
 from utils import basic
 
+TROOPS_TYPES = [
+    "spear",
+    "swordsman",
+    "axeman",
+    "archer",
+    "scout",
+    "light",
+    "mounted_archer",
+    "heavy",
+    "ram",
+    "catapult",
+    "paladin",
+    "nobleman",
+    "militia",
+]
 
-def world_evidence(world: models.World) -> tuple[int, int, int]:
+
+class WorldEvidence(NamedTuple):
+    paladin: int
+    archer: int
+    militia: int
+
+
+class ArmyIndexDict(TypedDict):
+    spear: int
+    swordsman: int
+    axeman: int
+    archer: int | None
+    scout: int
+    light: int
+    mounted_archer: int | None
+    heavy: int
+    ram: int
+    catapult: int
+    paladin: int | None
+    nobleman: int
+    militia: int | None
+
+
+class TroopsIndex:
+    def __init__(self, army: Literal["army", "defence"]) -> None:
+        self.result_mapping = {
+            WorldEvidence(1, 1, 1): {},
+            WorldEvidence(1, 1, 0): {},
+            WorldEvidence(0, 1, 1): {},
+            WorldEvidence(1, 0, 1): {},
+            WorldEvidence(1, 0, 0): {},
+            WorldEvidence(0, 0, 1): {},
+            WorldEvidence(0, 1, 0): {},
+            WorldEvidence(0, 0, 0): {},
+        }
+        for evidence in self.result_mapping:
+            if army == "army":
+                start_index = 1
+            else:
+                start_index = 2
+            troops_indexes = self.result_mapping[evidence]
+            for troop in TROOPS_TYPES:
+                if not evidence.archer and troop in {"archer", "mounted_archer"}:
+                    troops_indexes[troop] = None
+                    continue
+                if not evidence.paladin and troop == "paladin":
+                    troops_indexes[troop] = None
+                    continue
+                if not evidence.militia and troop == "militia":
+                    troops_indexes[troop] = None
+                    continue
+                troops_indexes[troop] = start_index
+                start_index += 1
+
+    def get_index_dict(self, evidence: WorldEvidence) -> ArmyIndexDict:
+        return self.result_mapping[evidence]  # type: ignore
+
+
+ARMY_INDEX = TroopsIndex("army")
+DEFENCE_INDEX = TroopsIndex("defence")
+
+
+def world_evidence(world: models.World):
     """For world return [T/F, .. , ..] [paladin, archer, militia]"""
     if world.paladin == "active":
         paladin = 1
@@ -37,7 +115,7 @@ def world_evidence(world: models.World) -> tuple[int, int, int]:
     else:
         militia = 0
 
-    return (paladin, archer, militia)
+    return WorldEvidence(paladin, archer, militia)
 
 
 class ArmyError(Exception):
@@ -62,9 +140,10 @@ class Army:
         (0, 0, 0): {12, 13},
     }
 
-    def __init__(self, text_army: str, evidence: tuple[int, int, int]):
+    def __init__(self, text_army: str, evidence: WorldEvidence):
         self.text_army = text_army.split(",")
         self.world_evidence = evidence
+        self.index_dict = ARMY_INDEX.get_index_dict(self.world_evidence)
 
     def clean_init(
         self, player_dictionary: dict[str, str], ally_tribes: list[str] | None = None
@@ -111,6 +190,11 @@ class Army:
                 % self.text_army[-1]
             )
 
+    def army_value(self, index: int | None):
+        if index is None:
+            return 0
+        return int(self.text_army[index])
+
     @property
     def coord(self) -> str:
         """Coords of village"""
@@ -119,65 +203,38 @@ class Army:
     @cached_property
     def nobleman(self):
         """Number of nobleman"""
-        if self.world_evidence[1] == 0:
-            if self.world_evidence[0] == 0:
-                return int(self.text_army[9])
-            return int(self.text_army[10])
-        if self.world_evidence[0] == 0:
-            return int(self.text_army[11])
-        return int(self.text_army[12])
+        return self.army_value(self.index_dict["nobleman"])
 
     @cached_property
     def catapult(self):
         """Literal Number of catapult"""
-        # no heavy cavalery
-        if self.world_evidence[1] == 0:  # no archers
-            return int(self.text_army[8])
-        return int(self.text_army[10])
+        return self.army_value(self.index_dict["catapult"])
 
     def _raw_deff(self):
         # no heavy cavalery
-        if self.world_evidence[1] == 0:  # no archers
-            return (
-                int(self.text_army[1])
-                + int(self.text_army[2])
-                + int(self.text_army[4]) * 2
-                + int(self.text_army[8]) * 8
-            )
-        return (  # with archers
-            int(self.text_army[1])
-            + int(self.text_army[2])
-            + int(self.text_army[4])
-            + int(self.text_army[5]) * 2
-            + int(self.text_army[10]) * 8
+        return (
+            self.army_value(self.index_dict["spear"])
+            + self.army_value(self.index_dict["swordsman"])
+            + self.army_value(self.index_dict["scout"]) * 2
+            + self.army_value(self.index_dict["archer"])
+            + self.army_value(self.index_dict["catapult"]) * 8
         )
 
-    def _off_scout(self):
-        if self.world_evidence[1] == 0:
-            scouts = int(self.text_army[4])
-        else:
-            scouts = int(self.text_army[5])
+    def _off_scouts(self):
+        scouts = self.army_value(self.index_dict["scout"])
         if scouts >= 200:
             return 400
         return scouts * 2
 
     def _raw_off(self):
         # no heavy cavalery
-        if self.world_evidence[1] == 0:  # no archers
-            return (
-                int(self.text_army[3])
-                + self._off_scout()
-                + int(self.text_army[5]) * 4
-                + int(self.text_army[7]) * 5
-                + int(self.text_army[8]) * 8
-            )
-        return (  # with archers
-            int(self.text_army[3])
-            + self._off_scout()
-            + int(self.text_army[6]) * 4
-            + int(self.text_army[7]) * 5
-            + int(self.text_army[9]) * 5
-            + int(self.text_army[10]) * 8
+        return (
+            self.army_value(self.index_dict["axeman"])
+            + self._off_scouts()
+            + self.army_value(self.index_dict["light"]) * 4
+            + self.army_value(self.index_dict["mounted_archer"]) * 5
+            + self.army_value(self.index_dict["ram"]) * 5
+            + self.army_value(self.index_dict["catapult"]) * 8
         )
 
     @cached_property
@@ -187,25 +244,17 @@ class Army:
         raw_off = self._raw_off()
 
         if raw_off > raw_deff:
-            if self.world_evidence[1] == 0:  # no archers
-                return raw_off + int(self.text_army[6]) * 6
-            return raw_off + int(self.text_army[8]) * 6  # with archers
-        return raw_off - self._off_scout()
+            return raw_off + self.army_value(self.index_dict["heavy"]) * 6
+        return raw_off - self._off_scouts()
 
     @cached_property
     def deff(self):
         """Number of deff"""
-        if self.world_evidence[1] == 0:  # no archers
-            return (
-                int(self.text_army[1])
-                + int(self.text_army[2])
-                + int(self.text_army[6]) * 4
-            )
-        return (  # with archers
-            int(self.text_army[1])
-            + int(self.text_army[2])
-            + int(self.text_army[4])
-            + int(self.text_army[8]) * 4
+        return (
+            self.army_value(self.index_dict["spear"])
+            + self.army_value(self.index_dict["swordsman"])
+            + self.army_value(self.index_dict["archer"])
+            + self.army_value(self.index_dict["heavy"]) * 4
         )
 
 
@@ -217,7 +266,7 @@ class DefenceError(Exception):
         self.coord = coord
 
 
-class Defence:
+class Defence(Army):
     """Deff line in deff troops"""
 
     EVIDENCE_DICTIONARY: dict[tuple[int, int, int], set[int]] = {
@@ -234,6 +283,7 @@ class Defence:
     def __init__(self, text_army: str, evidence):
         self.text_army = text_army.split(",")
         self.world_evidence = evidence
+        self.index_dict = DEFENCE_INDEX.get_index_dict(self.world_evidence)
 
     def clean_init(self, player_dictionary, ally_tribes: list[str] | None = None):
         """Text army validation"""
@@ -282,53 +332,3 @@ class Defence:
                 gettext("Last element in line must be empty string, currently: %s")
                 % self.text_army[-1]
             )
-
-    @cached_property
-    def coord(self):
-        """Coords of village"""
-        return self.text_army[0]
-
-    @cached_property
-    def nobleman(self):
-        """Number of nobleman"""
-        if self.world_evidence[1] == 0:
-            if self.world_evidence[0] == 0:
-                return int(self.text_army[10])
-            return int(self.text_army[11])
-        if self.world_evidence[0] == 0:
-            return int(self.text_army[12])
-        return int(self.text_army[13])
-
-    @cached_property
-    def off(self):
-        """Number of off"""
-        if self.world_evidence[1] == 0:
-            return (
-                int(self.text_army[4])
-                + int(self.text_army[6]) * 4
-                + int(self.text_army[8]) * 5
-                + int(self.text_army[9]) * 8
-            )
-        return (
-            int(self.text_army[4])
-            + int(self.text_army[7]) * 4
-            + int(self.text_army[8]) * 5
-            + int(self.text_army[10]) * 5
-            + int(self.text_army[11]) * 8
-        )
-
-    @cached_property
-    def deff(self):
-        """Number of deff"""
-        if self.world_evidence[1] == 0:
-            return (
-                int(self.text_army[2])
-                + int(self.text_army[3])
-                + int(self.text_army[7]) * 4
-            )
-        return (
-            int(self.text_army[2])
-            + int(self.text_army[3])
-            + int(self.text_army[5])
-            + int(self.text_army[9]) * 4
-        )

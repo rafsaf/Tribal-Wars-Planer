@@ -2,7 +2,10 @@
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Korzystając z <b><a target="_blank" href="/documentation?link=true#skrypt-zbiorka-wojska-i-obrony">nowego skryptu do paska</a></b>, po zebraniu danych o graczach z plemienia (lub wielu plemion), wklej tutaj ich wyniki.</div>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> By przejść do  zakładki <span class="md-error">Planer</span> i rozpisać akcję, wymagane jest jedynie uzupełnienie <b>Zbiórki Wojska</b>. Dodatkowo dla zakładki <span class="md-error">Zbiórka Deffa</span> wymagana są dane z <b>Zbiórki Deffa</b>.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> By przejść do programu <span class="md-error">Planer</span> i rozpisać akcję, wymagane jest jedynie uzupełnienie wybranego formularza: <b>Zbiórki Wojska</b> lub <b>Zbiórka Obrona</b>. Należy wkleić tam dane zebrane skryptem z widoku plemienia w grze, z odpowiadającej im nazwy zakładki. Można ustalić które dane powinien wykorzystywać Planer.
+
+Dla programu <span class="md-error">Zbiórki Deffa</span> wymagana są dane z obu zakładek.
+</div>
 
 ### Pojawiające się błędy
 
