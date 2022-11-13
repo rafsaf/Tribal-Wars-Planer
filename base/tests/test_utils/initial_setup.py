@@ -458,6 +458,14 @@ def create_initial_data_write_outline():
         "500|504,0,0,20000,0,0,0,0,100,4,0,0,\r\n"
         "500|505,0,0,20000,0,0,0,0,100,2,0,0,"
     )
+    TEXT_DEFF = (
+        "500|500,w wiosce,0,0,10000,0,0,0,0,100,2,0,0,\r\n"
+        "500|501,w wiosce,0,0,190,0,0,0,0,100,0,0,0,\r\n"
+        "500|502,w wiosce,0,0,19500,0,0,0,0,100,0,0,0,\r\n"
+        "500|503,w wiosce,0,0,20100,0,0,0,0,100,0,0,0,\r\n"
+        "500|504,w wiosce,0,0,20000,0,0,0,0,100,4,0,0,\r\n"
+        "500|505,w wiosce,0,0,20000,0,0,0,0,100,2,0,0,"
+    )
 
     server = models.Server.objects.create(
         dns="testserver",
@@ -482,6 +490,7 @@ def create_initial_data_write_outline():
         initial_outline_min_off=15000,
         initial_outline_front_dist=3,
         off_troops=TEXT,
+        deff_troops=TEXT_DEFF,
     )
 
     ally_tribe = models.Tribe(tribe_id=0, tag="pl1", world=world1)

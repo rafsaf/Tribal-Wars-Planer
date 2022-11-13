@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-12 23:55+0100\n"
+"POT-Creation-Date: 2022-11-13 22:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:51 base/models/outline.py:152 base/models/profile.py:33
+#: base/forms.py:51 base/models/profile.py:33
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Village in this line is duplicated: %s"
 msgstr "Wioska w tej linii jest podwojona: %s"
 
-#: base/forms.py:134 base/models/outline.py:153 base/models/profile.py:34
+#: base/forms.py:134 base/models/profile.py:34
 #: base/templates/base/new_outline/new_outline.html:9
 #: base/templates/base/new_outline/new_outline.html:15
 #: base/templates/base/new_outline/new_outline_get_deff.html:4
@@ -252,8 +252,10 @@ msgstr "Wykorzystywane dane dla zakładki Planer"
 msgid ""
 "Data for planer tab may be from Army or Defence tabs. Army - all troops "
 "(also that are outside of villages), Defence - only troops from villages."
-msgstr "Zakładka Planer może korzystać z danych Zbiórki Wojska lub Zbiórki Deffa. "
-"Pierwsza bierze wszystkie jednostki (także spoza wiosek!) zaś Zbiórka Deffa tylko te z wiosek."
+msgstr ""
+"Zakładka Planer może korzystać z danych Zbiórki Wojska lub Zbiórki Deffa. "
+"Pierwsza bierze wszystkie jednostki (także spoza wiosek!) zaś Zbiórka Deffa "
+"tylko te z wiosek."
 
 #: base/forms.py:484
 msgid "Set as default choice for next outlines"
@@ -639,23 +641,23 @@ msgstr "Tekst rozszerzony bezpośrednio w wiadomości"
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:281
+#: base/models/outline.py:283
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:395
+#: base/models/outline.py:397
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:400
+#: base/models/outline.py:402
 msgid "never"
 msgstr "nigdy"
 
-#: base/models/outline.py:412
+#: base/models/outline.py:414
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:414
+#: base/models/outline.py:416
 msgid "days"
 msgstr "dni"
 
@@ -1111,7 +1113,7 @@ msgid "Hold on a second..."
 msgstr "Jeszcze chwila..."
 
 #: base/templates/base/new_outline/new_outline.html:37
-msgid "Input data for planer tab: "
+msgid "Planer will choose data pasted in: "
 msgstr "Planer wybierze dane wklejone w:"
 
 #: base/templates/base/new_outline/new_outline.html:47
@@ -2366,29 +2368,30 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:42
+#: base/views/outline_initial_views.py:43
+#, python-format
 msgid ""
-"<h5>It looks like your Army collection is no longer actual!</h5> <p>To use "
-"the Planer:</p> <p>1. Paste the current data in the <b>Army collection</b>, "
+"<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
+"the Planer:</p> <p>1. Paste the current data in the <b>%(collection)s</b>, "
 "solve issues.</p> <p>2. Click on <b>Submit</b>.</p> <p>3. Only then return "
 "to the <b>Planer</b> tab.</p> "
 msgstr ""
-"<h5>Wygląda na to, że dane Twojej Zbiórki Wojska nie są już aktualne!</h5> "
-"<p>Aby móc użyć zakładki Planer:</p> <p>1. Wklej aktualne dane <b>Zbiórki "
-"Wojska</b>, usuń błędy.</p> <p>2. Używaj <b>Potwierdź</b> by je zapisywać.</"
-"p> <p>3. Po tym procesie powróć do zakładki <b>Planer</b>.</p> "
+"<h5>Wygląda na to, że dane: %(collection)s nie są już aktualne!</h5> <p>Aby "
+"móc użyć zakładki Planer:</p> <p>1. Wklej aktualne dane <b>%(collection)s</"
+"b>, usuń błędy.</p> <p>2. Używaj <b>Potwierdź</b> by je zapisywać.</p> <p>3. "
+"Po tym procesie powróć do zakładki <b>Planer</b>.</p> "
 
-#: base/views/outline_initial_views.py:64 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:68 base/views/results_get_deff.py:39
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:397
-msgid "<h5>All targets must have an assigned Time.</h5>"
-msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
-
-#: base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:74 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Deffa jest pusta!</h5>"
+
+#: base/views/outline_initial_views.py:430
+msgid "<h5>All targets must have an assigned Time.</h5>"
+msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
 #: base/views/results_get_deff.py:53
 msgid ""
@@ -2600,7 +2603,7 @@ msgid ""
 msgstr ""
 "Prośba o zmianę hasła do konta plemiona-planer.pl - link do zmiany hasła"
 
-#: utils/basic/army.py:79 utils/basic/army.py:246
+#: utils/basic/army.py:157 utils/basic/army.py:289
 #, python-format
 msgid ""
 "Invalid number of elements in line: %(len)s is not correct, expected "
@@ -2609,11 +2612,11 @@ msgstr ""
 "Niewłaściwa liczba elementów w linii: %(len)s jest błędna, spodziewany "
 "zakres: %(expected)s"
 
-#: utils/basic/army.py:88 utils/basic/army.py:255
+#: utils/basic/army.py:166 utils/basic/army.py:298
 msgid "Length of coord at first postition must be equal to 7"
 msgstr "Długość koordów w pierwszym elemencie musi być równa dokładnie 7"
 
-#: utils/basic/army.py:98 utils/basic/army.py:265
+#: utils/basic/army.py:176 utils/basic/army.py:308
 #, python-format
 msgid ""
 "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
@@ -2621,17 +2624,17 @@ msgstr ""
 "Koord: %(coord)s nie istnieje lub nie jest w żadnym z sojuszniczych plemion "
 "rozpiski: %(tribes)s"
 
-#: utils/basic/army.py:106 utils/basic/army.py:273
+#: utils/basic/army.py:184 utils/basic/army.py:316
 #, python-format
 msgid "One of line elements is not a number: %s"
 msgstr "Jeden z elementów w linii nie jest liczbą: %s"
 
-#: utils/basic/army.py:110 utils/basic/army.py:282
+#: utils/basic/army.py:188 utils/basic/army.py:325
 #, python-format
 msgid "Last element in line must be empty string, currently: %s"
 msgstr "Ostatni element w linii musi być pustym stringiem, obecnie: %s"
 
-#: utils/basic/army.py:277
+#: utils/basic/army.py:320
 #, python-format
 msgid "Second element of line must be a text: %s"
 msgstr "Drugi element w linii musi być tekstem, obecnie: %s"
@@ -2832,3 +2835,6 @@ msgstr "Wioska"
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "Input data for planer tab: "
+#~ msgstr "Planer wybierze dane wklejone w:"

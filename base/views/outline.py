@@ -110,7 +110,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
-    form_input_type = forms.InputDataPlanerForm(None)
+    form_input_type = forms.InputDataPlanerForm(None, instance=instance)
     form1 = forms.OffTroopsForm(None, outline=instance)
     form2 = forms.DeffTroopsForm(None, outline=instance)
 

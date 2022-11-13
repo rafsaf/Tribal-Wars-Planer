@@ -155,7 +155,7 @@ class DeffTroopsForm(forms.ModelForm):
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
 
-        already_used_villages = dict()
+        already_used_villages = {}
 
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Defence(text_army=text_line, evidence=evidence)

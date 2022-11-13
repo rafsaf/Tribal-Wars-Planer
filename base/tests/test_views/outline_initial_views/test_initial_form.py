@@ -18,6 +18,7 @@ from django.utils import timezone
 
 from base import forms
 from base.models import TargetVertex, WeightMaximum
+from base.models.outline import Outline
 from base.models.player import Player
 from base.models.stats import Stats
 from base.tests.test_utils.mini_setup import MiniSetup
@@ -46,6 +47,25 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___302_redirect_when_off_troops_empty(self):
         outline = self.get_outline()
+        outline.off_troops = ""
+        outline.deff_troops = (
+            "102|102,w wiosce,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,"
+        )
+        outline.input_data_type = Outline.ARMY_COLLECTION
+        outline.save()
+        PATH = reverse("base:planer_initial_form", args=[outline.pk])
+        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.status_code == 302
+        assert response.url == REDIRECT
+
+    def test_planer_initial_form___302_redirect_when_deff_troops_empty(self):
+        outline = self.get_outline()
+        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.deff_troops = ""
+        outline.input_data_type = Outline.DEFF_COLLECTION
+        outline.save()
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
         REDIRECT = reverse("base:planer_detail", args=[outline.pk])
         self.login_me()
@@ -56,6 +76,22 @@ class InitialForm(MiniSetup):
     def test_planer_initial_form___302_redirect_when_invalid_off_troops(self):
         outline = self.get_outline()
         outline.off_troops = self.random_lower_string()
+        outline.deff_troops = ""
+        outline.input_data_type = Outline.DEFF_COLLECTION
+        outline.save()
+        PATH = reverse("base:planer_initial_form", args=[outline.pk])
+        REDIRECT = reverse("base:planer_detail", args=[outline.pk])
+
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.status_code == 302
+        assert response.url == REDIRECT
+
+    def test_planer_initial_form___302_redirect_when_invalid_deff_troops(self):
+        outline = self.get_outline()
+        outline.off_troops = ""
+        outline.deff_troops = self.random_lower_string()
+        outline.input_data_type = Outline.DEFF_COLLECTION
         outline.save()
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
         REDIRECT = reverse("base:planer_detail", args=[outline.pk])
@@ -82,6 +118,45 @@ class InitialForm(MiniSetup):
     ):
         outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.save()
+        PATH = reverse("base:planer_initial_form", args=[outline.pk])
+
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.status_code == 200
+        assert (
+            WeightMaximum.objects.filter(outline=outline, start="102|102").count() == 1
+        )
+        assert response.context.get("premium_error") is False
+        assert response.context.get("real_dups") == []
+        assert response.context.get("fake_dups") == []
+        assert response.context.get("ruin_dups") == []
+        assert response.context.get("len_real") == 0
+        assert response.context.get("len_fake") == 0
+        assert response.context.get("len_ruin") == 0
+        assert response.context.get("estimated_time") == 0
+        assert response.context.get("mode") == "real"
+        response = self.client.get(PATH + "?t=fake")
+        assert response.status_code == 200
+        assert response.context.get("mode") == "fake"
+        response = self.client.get(PATH + "?t=ruin")
+        assert response.status_code == 200
+        assert response.context.get("mode") == "ruin"
+
+        session = self.client.session
+        session["premium_error"] = True
+        session.save()
+        response = self.client.get(PATH)
+        assert response.context.get("premium_error") is True
+
+    def test_planer_initial_form___200_deff_troops_correct_and_creating_weights_and_mode_always_correct(
+        self,
+    ):
+        outline = self.get_outline(test_world=True)
+        outline.deff_troops = (
+            "102|102,w wiosce,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,"
+        )
+        outline.input_data_type = Outline.DEFF_COLLECTION
         outline.save()
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
 

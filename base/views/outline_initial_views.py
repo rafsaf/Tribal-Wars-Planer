@@ -25,7 +25,7 @@ from django.forms import formset_factory
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseServerError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import gettext
+from django.utils.translation import gettext, gettext_lazy
 from django.views.decorators.http import require_POST
 
 import utils.avaiable_troops as avaiable_troops
@@ -37,16 +37,17 @@ from utils.outline_finish import MakeFinalOutline
 from utils.outline_initial import MakeOutline
 
 
-def trigger_off_troops_update_redirect(request: HttpRequest, outline_id: int):
+def trigger_off_troops_update_redirect(request: HttpRequest, outline: models.Outline):
+    collection = gettext_lazy(outline.input_data_type)
     request.session["error"] = gettext(
-        "<h5>It looks like your Army collection is no longer actual!</h5> "
+        "<h5>It looks like your %(collection)s is no longer actual!</h5> "
         "<p>To use the Planer:</p> "
-        "<p>1. Paste the current data in the <b>Army collection</b>, solve issues.</p> "
+        "<p>1. Paste the current data in the <b>%(collection)s</b>, solve issues.</p> "
         "<p>2. Click on <b>Submit</b>.</p> "
         "<p>3. Only then return to the <b>Planer</b> tab.</p> "
-    )
+    ) % {"collection": collection}
 
-    return redirect("base:planer_detail", outline_id)
+    return redirect("base:planer_detail", outline.pk)
 
 
 @login_required
@@ -60,9 +61,19 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
-    if instance.off_troops == "":
+    if (
+        instance.input_data_type == models.Outline.ARMY_COLLECTION
+        and instance.off_troops == ""
+    ):
         request.session["error"] = gettext("<h5>Army collection is empty!</h5>")
         return redirect("base:planer_detail", _id)
+    elif (
+        instance.input_data_type == models.Outline.DEFF_COLLECTION
+        and instance.deff_troops == ""
+    ):
+        request.session["error"] = gettext("<h5>Deff collection is empty!</h5>")
+        return redirect("base:planer_detail", _id)
+
     if instance.written == "active":
         return redirect("base:planer_initial", _id)
     premium_error: bool
@@ -72,22 +83,44 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     else:
         premium_error = False
 
-    if (
-        models.WeightMaximum.objects.filter(outline=instance).count() == 0
-        or instance.get_or_set_off_troops_hash()
-        != instance.off_troops_weightmodels_hash
-    ):
-        models.WeightMaximum.objects.filter(outline=instance).delete()
-        off_form = forms.OffTroopsForm(
-            {"off_troops": instance.off_troops}, outline=instance
-        )
-        if off_form.is_valid():
-            make_outline = MakeOutline(outline=instance)
-            make_outline()
+    if instance.input_data_type == models.Outline.ARMY_COLLECTION:
+        if (
+            models.WeightMaximum.objects.filter(outline=instance).count() == 0
+            or instance.get_or_set_off_troops_hash()
+            != instance.off_troops_weightmodels_hash
+        ):
+            models.WeightMaximum.objects.filter(outline=instance).delete()
+            off_form = forms.OffTroopsForm(
+                {"off_troops": instance.off_troops}, outline=instance
+            )
+            if off_form.is_valid():
+                make_outline = MakeOutline(outline=instance)
+                make_outline()
 
-            instance.actions.click_troops_refresh(instance)
-        else:
-            return trigger_off_troops_update_redirect(request=request, outline_id=_id)
+                instance.actions.click_troops_refresh(instance)
+            else:
+                return trigger_off_troops_update_redirect(
+                    request=request, outline=instance
+                )
+    else:
+        if (
+            models.WeightMaximum.objects.filter(outline=instance).count() == 0
+            or instance.get_or_set_deff_troops_hash()
+            != instance.deff_troops_weightmodels_hash
+        ):
+            models.WeightMaximum.objects.filter(outline=instance).delete()
+            deff_form = forms.DeffTroopsForm(
+                {"deff_troops": instance.deff_troops}, outline=instance
+            )
+            if deff_form.is_valid():
+                make_outline = MakeOutline(outline=instance)
+                make_outline()
+
+                instance.actions.click_troops_refresh(instance)
+            else:
+                return trigger_off_troops_update_redirect(
+                    request=request, outline=instance
+                )
 
     target_mode = basic.TargetMode(request.GET.get("t"))
 
@@ -156,7 +189,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                         instance.actions.save_ruin_targets(instance)
                 else:
                     return trigger_off_troops_update_redirect(
-                        request=request, outline_id=_id
+                        request=request, outline=instance
                     )
 
                 return redirect(

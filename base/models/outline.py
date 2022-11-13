@@ -148,9 +148,11 @@ class Outline(models.Model):
         ("deputy", gettext_lazy("Text for deputy directly in message")),
     ]
 
+    ARMY_COLLECTION = "Army collection"
+    DEFF_COLLECTION = "Deff collection"
     INPUT_DATA_TYPES = [
-        ("Army collection", gettext_lazy("Army collection")),
-        ("Deff collection", gettext_lazy("Deff collection")),
+        (ARMY_COLLECTION, gettext_lazy(ARMY_COLLECTION)),
+        (DEFF_COLLECTION, gettext_lazy(DEFF_COLLECTION)),
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
