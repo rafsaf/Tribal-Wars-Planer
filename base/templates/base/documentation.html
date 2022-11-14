@@ -10,7 +10,10 @@
     </article>
 </div>
 {% endautoescape %}
-
-<script>imagePopupActivate();loadDocsPage(1, "docs", "documentation.md", true);</script>
+{% get_current_language as LANG %}
+<script>
+    imagePopupActivate();
+    loadDocsPage(1, "docs", "{% static 'markdown/'|add:LANG|add:'/documentation.md' %}", true);
+</script>
 
 {% endblock %}
