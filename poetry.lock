@@ -965,7 +965,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "stripe"
-version = "3.2.0"
+version = "4.2.0"
 description = "Python bindings for the Stripe API"
 category = "main"
 optional = false
@@ -1121,7 +1121,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.10,<3.12"
-content-hash = "d0546b94a48e769569d08cf6372145040450eccccf9979de51751d3b06b912c5"
+content-hash = "48d5b8ab468422212837a8142cccb30c4f4f10caf37b2a3ab6e2dbbc70636c76"
 
 [metadata.files]
 asgiref = [
@@ -2147,8 +2147,8 @@ sqlparse = [
     {file = "sqlparse-0.4.3.tar.gz", hash = "sha256:69ca804846bb114d2ec380e4360a8a340db83f0ccf3afceeb1404df028f57268"},
 ]
 stripe = [
-    {file = "stripe-3.2.0-py2.py3-none-any.whl", hash = "sha256:210d5137bdc686a31ee435a7c1761e112544ad58d84dd8cb7f0903068edcabd2"},
-    {file = "stripe-3.2.0.tar.gz", hash = "sha256:d9a47de7d963cf69a880f3d04961b792c40f456c74e09878551555de3c2261f0"},
+    {file = "stripe-4.2.0-py2.py3-none-any.whl", hash = "sha256:8ce03bfc099465740e33890000c454e79316c8730e45ad1efbaec3d52a019d05"},
+    {file = "stripe-4.2.0.tar.gz", hash = "sha256:f0134704bd4e9410fae25034836dc6f5849d92c0f9083d58d43e01b3e631ac4c"},
 ]
 threadpoolctl = [
     {file = "threadpoolctl-3.1.0-py3-none-any.whl", hash = "sha256:8b99adda265feb6773280df41eece7b2e6561b772d21ffd52e372f999024907b"},
