@@ -797,14 +797,14 @@ python-versions = "*"
 
 [[package]]
 name = "pyupgrade"
-version = "2.38.4"
+version = "3.2.2"
 description = "A tool to automatically upgrade syntax for newer versions."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
-tokenize-rt = "<5"
+tokenize-rt = ">=3.2.0"
 
 [[package]]
 name = "pywin32"
@@ -1121,7 +1121,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.10,<3.12"
-content-hash = "6b454c88fa8a22462b1e94b4d9a9611b91f7a6d4cada0f3cbc6502acbb08c5e7"
+content-hash = "d0546b94a48e769569d08cf6372145040450eccccf9979de51751d3b06b912c5"
 
 [metadata.files]
 asgiref = [
@@ -1932,8 +1932,8 @@ pytz = [
     {file = "pytz-2022.5.tar.gz", hash = "sha256:c4d88f472f54d615e9cd582a5004d1e5f624854a6a27a6211591c251f22a6914"},
 ]
 pyupgrade = [
-    {file = "pyupgrade-2.38.4-py2.py3-none-any.whl", hash = "sha256:944ff993c396ddc2b9012eb3de4cda138eb4c149b22c6c560d4c8bfd0e180982"},
-    {file = "pyupgrade-2.38.4.tar.gz", hash = "sha256:1eb43a49f416752929741ba4d706bf3f33593d3cac9bdc217fc1ef55c047c1f4"},
+    {file = "pyupgrade-3.2.2-py2.py3-none-any.whl", hash = "sha256:16c0e3a6ac2d83cd0fd30c138af5504918c59d584344f60a15d5f8009b11a0ed"},
+    {file = "pyupgrade-3.2.2.tar.gz", hash = "sha256:6bfa246fb9d94e490fad37980bcfc05b9494183ff29d9100ef4f7f22a952ce67"},
 ]
 pywin32 = [
     {file = "pywin32-305-cp310-cp310-win32.whl", hash = "sha256:421f6cd86e84bbb696d54563c48014b12a23ef95a14e0bdba526be756d89f116"},
