@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-14 00:18+0100\n"
+"POT-Creation-Date: 2022-11-14 18:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,8 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:51 base/models/outline.py:154 base/models/profile.py:33
+#: base/forms.py:51 base/models/outline.py:154 base/models/outline.py:298
+#: base/models/profile.py:35
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
 
@@ -61,7 +62,8 @@ msgstr ""
 msgid "Village in this line is duplicated: %s"
 msgstr "Wioska w tej linii jest podwojona: %s"
 
-#: base/forms.py:134 base/models/outline.py:155 base/models/profile.py:34
+#: base/forms.py:134 base/models/outline.py:155 base/models/outline.py:300
+#: base/models/profile.py:36
 msgid "Deff collection "
 msgstr "Zbiórka Obrona"
 
@@ -253,7 +255,7 @@ msgstr ""
 
 #: base/forms.py:484
 msgid "Set as default choice for next outlines"
-msgstr "Domyślny wybór dla nastepnych rozpisek"
+msgstr "Domyślny wybór dla następnych rozpisek"
 
 #: base/forms.py:495
 msgid "Set new date"
@@ -639,19 +641,19 @@ msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:397
+#: base/models/outline.py:403
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:402
+#: base/models/outline.py:408
 msgid "never"
 msgstr "nigdy"
 
-#: base/models/outline.py:414
+#: base/models/outline.py:420
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:416
+#: base/models/outline.py:422
 msgid "days"
 msgstr "dni"
 
@@ -2371,7 +2373,7 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:43
+#: base/views/outline_initial_views.py:42
 #, python-format
 msgid ""
 "<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
@@ -2384,15 +2386,15 @@ msgstr ""
 "b>, usuń błędy.</p> <p>2. Używaj <b>Potwierdź</b> by je zapisywać.</p> <p>3. "
 "Po tym procesie powróć do zakładki <b>Planer</b>.</p> "
 
-#: base/views/outline_initial_views.py:68 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:67 base/views/results_get_deff.py:39
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:74 base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:73 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:430
+#: base/views/outline_initial_views.py:429
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
@@ -2606,7 +2608,7 @@ msgid ""
 msgstr ""
 "Prośba o zmianę hasła do konta plemiona-planer.pl - link do zmiany hasła"
 
-#: utils/basic/army.py:157 utils/basic/army.py:295
+#: utils/basic/army.py:158 utils/basic/army.py:296
 #, python-format
 msgid ""
 "Invalid number of elements in line: %(len)s is not correct, expected "
@@ -2615,11 +2617,11 @@ msgstr ""
 "Niewłaściwa liczba elementów w linii: %(len)s jest błędna, spodziewany "
 "zakres: %(expected)s"
 
-#: utils/basic/army.py:166 utils/basic/army.py:304
+#: utils/basic/army.py:167 utils/basic/army.py:305
 msgid "Length of coord at first postition must be equal to 7"
 msgstr "Długość koordów w pierwszym elemencie musi być równa dokładnie 7"
 
-#: utils/basic/army.py:176 utils/basic/army.py:314
+#: utils/basic/army.py:177 utils/basic/army.py:315
 #, python-format
 msgid ""
 "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
@@ -2627,17 +2629,17 @@ msgstr ""
 "Koord: %(coord)s nie istnieje lub nie jest w żadnym z sojuszniczych plemion "
 "rozpiski: %(tribes)s"
 
-#: utils/basic/army.py:184 utils/basic/army.py:322
+#: utils/basic/army.py:185 utils/basic/army.py:323
 #, python-format
 msgid "One of line elements is not a number: %s"
 msgstr "Jeden z elementów w linii nie jest liczbą: %s"
 
-#: utils/basic/army.py:188 utils/basic/army.py:331
+#: utils/basic/army.py:189 utils/basic/army.py:332
 #, python-format
 msgid "Last element in line must be empty string, currently: %s"
 msgstr "Ostatni element w linii musi być pustym stringiem, obecnie: %s"
 
-#: utils/basic/army.py:326
+#: utils/basic/army.py:327
 #, python-format
 msgid "Second element of line must be a text: %s"
 msgstr "Drugi element w linii musi być tekstem, obecnie: %s"
