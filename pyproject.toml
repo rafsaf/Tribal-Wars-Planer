@@ -38,7 +38,7 @@ requests-mock = "^1.9.3"
 schedule = "^1.1.0"
 pre-commit = "^2.19.0"
 pyupgrade = "^2.34.0"
-pytest-xdist = "^2.5.0"
+pytest-xdist = "^3.0.2"
 locust = "^2.13.0"
 
 [tool.pytest.ini_options]
