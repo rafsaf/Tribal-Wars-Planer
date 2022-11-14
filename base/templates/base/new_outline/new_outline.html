@@ -242,9 +242,9 @@
 </script>
 
 {% endif %} 
-
+{% get_current_language as LANG %}
 <script>
-    loadDocsPage(8, "planer-docs-scripts-info", "planer_scripts_info.md");
-    loadDocsPage(9, "planer-docs-scripts-example", "planer_scripts_example.md");
+    loadDocsPage(8, "planer-docs-scripts-info", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_info.md' %}");
+    loadDocsPage(9, "planer-docs-scripts-example", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_example.md' %}");
 </script>
 {% endblock %}

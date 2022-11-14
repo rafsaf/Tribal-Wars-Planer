@@ -52,20 +52,16 @@ const getLanguage = () => {
 const loadDocsPage = (
   uniqueNumber,
   elementId,
-  staticPath,
+  docsPath,
   handleScrollTop = false
 ) => {
   // tries to load cached markdown file from localStorage
   // if not exists, fetch and save it
-  // if staticPath for specific document is changed (and it must be refetched),
+  // if docsPath for specific document is changed (and it must be refetched),
   // we remove old cached markdown, fetch new and save, alongside with path
   const element = document.getElementById(elementId);
   const markdownFolder = `/static/markdown/${getLanguage()}`;
-  const docsPath = `${markdownFolder}/${staticPath}`;
-  if (
-    localStorage.getItem(docsPath) !== null &&
-    window.location.hostname !== "localhost"
-  ) {
+  if (localStorage.getItem(docsPath) !== null && !isLocalhost()) {
     element.innerHTML = marked.parse(localStorage.getItem(docsPath));
   } else {
     fetch(docsPath)
