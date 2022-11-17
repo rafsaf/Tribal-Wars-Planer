@@ -342,7 +342,6 @@ class AvailableTroopsForm(forms.ModelForm):
             "initial_outline_min_off",
             "initial_outline_max_off",
             "initial_outline_front_dist",
-            "initial_outline_maximum_front_dist",
             "initial_outline_target_dist",
             "initial_outline_maximum_off_dist",
             "initial_outline_excluded_coords",
@@ -352,9 +351,6 @@ class AvailableTroopsForm(forms.ModelForm):
             "initial_outline_max_off": gettext_lazy("Max. off units number"),
             "initial_outline_front_dist": gettext_lazy(
                 "Minimum distance from front line"
-            ),
-            "initial_outline_maximum_front_dist": gettext_lazy(
-                "Maximum distance from front line"
             ),
             "initial_outline_target_dist": gettext_lazy("Max Distance for nobles"),
             "initial_outline_maximum_off_dist": gettext_lazy("Max Distance for offs"),
@@ -368,9 +364,6 @@ class AvailableTroopsForm(forms.ModelForm):
             ),
             "initial_outline_front_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
-            ),
-            "initial_outline_maximum_front_dist": gettext_lazy(
-                "Greater than or equal to 0 and less than or equal to 1000. Villages farther from the enemy than this value will be considered too far from the front and completely skipped."
             ),
             "initial_outline_target_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 1000. This is STRICT limit of distance for any NOBLE regardless of distance from the front line."
@@ -399,22 +392,8 @@ class AvailableTroopsForm(forms.ModelForm):
         return coords
 
     def clean(self):
-        radius_min: int | None = self.cleaned_data.get("initial_outline_front_dist")
-        radius_max: int | None = self.cleaned_data.get(
-            "initial_outline_maximum_front_dist"
-        )
         off_min: int | None = self.cleaned_data.get("initial_outline_min_off")
         off_max: int | None = self.cleaned_data.get("initial_outline_max_off")
-        if radius_min is not None and radius_max is not None:
-            if radius_min > radius_max:
-                self.add_error(
-                    "initial_outline_front_dist",
-                    f"It cannot be grater than maximum! Change this value to less than {radius_max} or increase the maximum.",
-                )
-                self.add_error(
-                    "initial_outline_maximum_front_dist",
-                    f"It cannot be less than minimum! Change this value to greater than {radius_min} or reduce the minimum.",
-                )
         if off_min is not None and off_max is not None:
             if off_min > off_max:
                 self.add_error(

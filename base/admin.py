@@ -87,8 +87,18 @@ class AdminOutlineOverview(admin.ModelAdmin):
 
 @admin.register(models.WeightMaximum)
 class AdminWeightMaximumModel(admin.ModelAdmin):
-    list_display = ["start", "outline", "player", "off_max", "nobleman_max"]
-    search_fields = ["start"]
+    list_display = [
+        "start",
+        "outline",
+        "player",
+        "off_max",
+        "off_left",
+        "nobleman_max",
+        "nobleman_left",
+        "catapult_max",
+        "catapult_left",
+    ]
+    search_fields = ["start", "outline__name"]
     readonly_fields = ["outline"]
 
 

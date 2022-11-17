@@ -28,7 +28,7 @@ def get_legal_coords_outline(outline: models.Outline):
     excluded_coords: list[str] = excluded_coords_text.split()
 
     min_radius: float = float(outline.initial_outline_front_dist)
-    max_radius: float = float(outline.initial_outline_maximum_front_dist)
+    max_radius: float = float(outline.initial_outline_maximum_off_dist)
 
     ally_villages: list[str] = [
         start

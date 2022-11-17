@@ -197,9 +197,6 @@ class Outline(models.Model):
     initial_outline_front_dist = models.IntegerField(
         default=10, validators=[MinValueValidator(0), MaxValueValidator(500)]
     )
-    initial_outline_maximum_front_dist = models.IntegerField(
-        default=80, validators=[MinValueValidator(0), MaxValueValidator(1000)]
-    )
     initial_outline_maximum_off_dist = models.IntegerField(
         default=100, validators=[MinValueValidator(0), MaxValueValidator(1000)]
     )
@@ -326,7 +323,6 @@ class Outline(models.Model):
     def remove_user_outline(self):
         from base import forms
         from base.models import (
-            OutlineTime,
             Overview,
             Result,
             TargetVertex,
@@ -389,7 +385,6 @@ class Outline(models.Model):
             if not form1.is_valid() or not form2.is_valid() or not form3.is_valid():
                 TargetVertex.objects.filter(outline=self).delete()
 
-        OutlineTime.objects.filter(outline=self).delete()
         Overview.objects.filter(outline=self, removed=False).update(removed=True)
         result: Result = Result.objects.get(outline=self)
         result.results_outline = ""
