@@ -24,7 +24,6 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_min_off": 10,
                 "initial_outline_max_off": 15,
                 "initial_outline_front_dist": 15,
-                "initial_outline_maximum_front_dist": 150,
                 "initial_outline_target_dist": 100,
                 "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500|500",
@@ -32,27 +31,12 @@ class AvailableTroopsFormTest(MiniSetup):
         )
         assert form.is_valid()
 
-    def test_form_not_valid_when_min_radius_gt_max(self):
-        form: AvailableTroopsForm = AvailableTroopsForm(
-            {
-                "initial_outline_min_off": 10,
-                "initial_outline_max_off": 15,
-                "initial_outline_front_dist": 150,
-                "initial_outline_maximum_front_dist": 15,
-                "initial_outline_target_dist": 100,
-                "initial_outline_maximum_off_dist": 111,
-                "initial_outline_excluded_coords": "500|500",
-            },
-        )
-        assert not form.is_valid()
-
     def test_form_not_valid_when_invalid_excluded_coords(self):
         form: AvailableTroopsForm = AvailableTroopsForm(
             {
                 "initial_outline_min_off": 10,
                 "initial_outline_max_off": 15,
                 "initial_outline_front_dist": 15,
-                "initial_outline_maximum_front_dist": 150,
                 "initial_outline_target_dist": 100,
                 "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500XD500",
@@ -66,7 +50,6 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_min_off": 15,
                 "initial_outline_max_off": 10,
                 "initial_outline_front_dist": 15,
-                "initial_outline_maximum_front_dist": 25,
                 "initial_outline_target_dist": 100,
                 "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500|500",
@@ -80,7 +63,6 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_min_off": "",
                 "initial_outline_max_off": "",
                 "initial_outline_front_dist": "",
-                "initial_outline_maximum_front_dist": "",
                 "initial_outline_target_dist": "",
                 "initial_outline_maximum_off_dist": "",
                 "initial_outline_excluded_coords": "",

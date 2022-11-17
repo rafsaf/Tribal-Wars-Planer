@@ -225,7 +225,6 @@ class InitialForm(MiniSetup):
         initial_outline_ruins = self.random_lower_string()
         # form2
         initial_outline_front_dist = self.random_integer()
-        initial_outline_maximum_front_dist = self.random_integer()
         initial_outline_target_dist = self.random_integer()
         initial_outline_min_off = self.random_integer()
         initial_outline_excluded_coords = self.random_lower_string()
@@ -260,7 +259,6 @@ class InitialForm(MiniSetup):
         outline.initial_outline_fakes = initial_outline_fakes
         outline.initial_outline_ruins = initial_outline_ruins
         outline.initial_outline_front_dist = initial_outline_front_dist
-        outline.initial_outline_maximum_front_dist = initial_outline_maximum_front_dist
         outline.initial_outline_target_dist = initial_outline_target_dist
         outline.initial_outline_min_off = initial_outline_min_off
         outline.initial_outline_excluded_coords = initial_outline_excluded_coords
@@ -295,10 +293,6 @@ class InitialForm(MiniSetup):
         assert form1["target"].initial == initial_outline_targets
 
         assert form2["initial_outline_front_dist"].initial == initial_outline_front_dist
-        assert (
-            form2["initial_outline_maximum_front_dist"].initial
-            == initial_outline_maximum_front_dist
-        )
         assert (
             form2["initial_outline_target_dist"].initial == initial_outline_target_dist
         )
@@ -357,7 +351,6 @@ class InitialForm(MiniSetup):
         initial_outline_ruins = self.random_lower_string()
         # form2
         initial_outline_front_dist = self.random_integer()
-        initial_outline_maximum_front_dist = self.random_integer()
         initial_outline_target_dist = self.random_integer()
         initial_outline_min_off = self.random_integer()
         initial_outline_excluded_coords = self.random_lower_string()
@@ -392,7 +385,6 @@ class InitialForm(MiniSetup):
         outline.initial_outline_fakes = initial_outline_fakes
         outline.initial_outline_ruins = initial_outline_ruins
         outline.initial_outline_front_dist = initial_outline_front_dist
-        outline.initial_outline_maximum_front_dist = initial_outline_maximum_front_dist
         outline.initial_outline_target_dist = initial_outline_target_dist
         outline.initial_outline_min_off = initial_outline_min_off
         outline.initial_outline_excluded_coords = initial_outline_excluded_coords
@@ -427,10 +419,6 @@ class InitialForm(MiniSetup):
         assert form1["target"].initial == initial_outline_targets
 
         assert form2["initial_outline_front_dist"].initial == initial_outline_front_dist
-        assert (
-            form2["initial_outline_maximum_front_dist"].initial
-            == initial_outline_maximum_front_dist
-        )
         assert (
             form2["initial_outline_target_dist"].initial == initial_outline_target_dist
         )
@@ -614,9 +602,8 @@ class InitialForm(MiniSetup):
                 "initial_outline_min_off": 15000,
                 "initial_outline_max_off": 28000,
                 "initial_outline_front_dist": 90,
-                "initial_outline_maximum_front_dist": 115,
                 "initial_outline_target_dist": 100,
-                "initial_outline_maximum_off_dist": 222,
+                "initial_outline_maximum_off_dist": 115,
                 "initial_outline_excluded_coords": "250|250 251|251",
             },
         )
@@ -625,9 +612,8 @@ class InitialForm(MiniSetup):
         outline.refresh_from_db()
         assert outline.initial_outline_min_off == 15000
         assert outline.initial_outline_front_dist == 90
-        assert outline.initial_outline_maximum_front_dist == 115
         assert outline.initial_outline_target_dist == 100
-        assert outline.initial_outline_maximum_off_dist == 222
+        assert outline.initial_outline_maximum_off_dist == 115
         assert outline.initial_outline_excluded_coords == "250|250 251|251"
         # also table is filled correctly
         assert outline.avaiable_offs == [50, 13, 18, 19]

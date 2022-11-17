@@ -96,7 +96,7 @@ class RemoveUserOutline(MiniSetup):
 
         assert overview.removed is True
         assert models.WeightModel.objects.count() == 0
-        assert models.OutlineTime.objects.count() == 0
+        assert models.OutlineTime.objects.count() == 1
         assert models.WeightMaximum.objects.count() == 0
         assert models.TargetVertex.objects.count() == 0
 

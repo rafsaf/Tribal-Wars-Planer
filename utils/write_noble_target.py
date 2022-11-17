@@ -412,10 +412,7 @@ class WriteNobleTarget:
 
     def _noble_query(self):
         def filter_noble(weight_max: WeightMaximum):
-            if (
-                weight_max.nobleman_left >= 1
-                and weight_max.off_left >= 200 + weight_max.catapult_left * 8
-            ):
+            if weight_max.nobleman_left >= 1:
                 return True
             return False
 
