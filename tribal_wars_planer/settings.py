@@ -35,10 +35,11 @@ if env_debug in ["True", "true"]:
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = [
-    os.environ.get("MAIN_DOMAIN", "localhost"),
-    os.environ.get("SUB_DOMAIN", ""),
-]
+MAIN_DOMAIN = os.environ.get("MAIN_DOMAIN", "localhost")
+SUB_DOMAIN = os.environ.get("SUB_DOMAIN", "")
+ALLOWED_HOSTS = [MAIN_DOMAIN]
+if SUB_DOMAIN:
+    ALLOWED_HOSTS.append(SUB_DOMAIN)
 if "localhost" not in ALLOWED_HOSTS:
     # docker image healthcheck require constantly requesting via localhost
     ALLOWED_HOSTS.append("localhost")

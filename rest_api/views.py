@@ -254,6 +254,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                 success_url=f"{http}{host}{success}",
                 cancel_url=f"{http}{host}{cancel}",
                 client_reference_id=user_pk,
+                customer_email=profile.user.email,
                 metadata={"language": language},
                 mode="payment",
                 line_items=[
