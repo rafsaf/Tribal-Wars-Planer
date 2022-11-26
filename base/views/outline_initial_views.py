@@ -125,7 +125,8 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
 
     form1 = forms.InitialOutlineForm(None, outline=instance, target_mode=target_mode)
     form2 = forms.AvailableTroopsForm(None, instance=instance)
-    form3 = forms.SettingDateForm(None, instance=instance)
+    form3 = forms.SettingDateForm(None)
+    form3.fields["date"].initial = instance.date.strftime("%Y-%m-%d")
     form4 = forms.ModeOutlineForm(None, instance=instance)
     form5 = forms.NightBonusSetForm(None, instance=instance)
     form6 = forms.RuiningOutlineForm(None, instance=instance)

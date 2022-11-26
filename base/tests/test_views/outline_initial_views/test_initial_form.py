@@ -15,6 +15,7 @@
 
 from django.urls import reverse
 from django.utils import timezone
+from freezegun import freeze_time
 
 from base import forms
 from base.models import TargetVertex, WeightMaximum
@@ -218,6 +219,7 @@ class InitialForm(MiniSetup):
         assert response.context.get("estimated_time") == 102
         assert response.context.get("mode") == "real"
 
+    @freeze_time("2022-11-26")
     def test_planer_initial_form___200_initial_values_for_forms_works_well_1(self):
         # form1
         initial_outline_targets = self.random_lower_string()
@@ -302,7 +304,7 @@ class InitialForm(MiniSetup):
             == initial_outline_excluded_coords
         )
 
-        assert form3["date"].initial == date
+        assert form3["date"].initial == "2022-11-26"
 
         assert form4["mode_off"].initial == mode_off
         assert form4["mode_noble"].initial == mode_noble
@@ -344,6 +346,7 @@ class InitialForm(MiniSetup):
         form1: forms.InitialOutlineForm = response.context["form1"]
         assert form1["target"].initial == initial_outline_ruins
 
+    @freeze_time("2022-11-26")
     def test_planer_initial_form___200_initial_values_for_forms_works_well_2(self):
         # form1
         initial_outline_targets = self.random_lower_string()
@@ -428,7 +431,7 @@ class InitialForm(MiniSetup):
             == initial_outline_excluded_coords
         )
 
-        assert form3["date"].initial == date
+        assert form3["date"].initial == "2022-11-26"
 
         assert form4["mode_off"].initial == mode_off
         assert form4["mode_noble"].initial == mode_noble
