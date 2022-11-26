@@ -16,10 +16,16 @@
 import os
 from pathlib import Path
 
+import tomllib
 from diskcache.fanout import FanoutCache
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+with open(BASE_DIR / "pyproject.toml", "rb") as f:
+    pyproject_toml = tomllib.load(f)
+
+BUILD_TAG = pyproject_toml["tool"]["poetry"]["version"]
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
@@ -107,6 +113,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "tribal_wars_planer.context_processors.build_tag",
             ],
         },
     },

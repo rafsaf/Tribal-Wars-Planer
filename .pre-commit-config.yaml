@@ -60,3 +60,10 @@ repos:
             "requirements.txt",
             "--without-hashes",
           ]
+
+  - repo: https://github.com/rafsaf/pyproject-tag-check
+    rev: "0.2.0"
+    hooks:
+      - id: pyproject-tag-check
+        args:
+          - https://github.com/rafsaf/Tribal-Wars-Planer
