@@ -15,6 +15,7 @@
 
 import datetime
 import random
+import secrets
 import string
 from random import randint
 from typing import Literal
@@ -325,4 +326,5 @@ class MiniSetup(TestCase):
             user=self.me(),
             payment_date=f"2021-{random_month}-{random_day}",
             months=random_months,
+            event_id=secrets.token_urlsafe(),
         )
