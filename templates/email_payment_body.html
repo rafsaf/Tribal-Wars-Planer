@@ -1,4 +1,4 @@
-{% load i18n %}{% trans 'Hello, '%}{{instance.user.username}}
+{% load i18n %}{% trans 'Hello, '%}<b>{{instance.user.username}}</b>
 <br>
 <br>
 {% trans 'Your payment on' %} {{instance.payment_date}} {% trans 'in the amount of' %} {{instance.amount}} {{instance.currency}} {% trans 'has been successfully processed and your premium account has been activated or extended.' %}
@@ -8,9 +8,9 @@
 <br>
 <b>{% trans 'This e-mail was generated automatically, please do not reply.' %}</b>
 <br>
-{% trans "If you have questions, use contact email: <rafal.safin@rafsaf.pl>." %}
+{% trans "If you have questions, use contact email: rafal.safin@rafsaf.pl" %}
 <br>
 <br>
 {% trans 'Sincerely,' %}
 <br>
-{% trans 'plemiona-planer.pl' %}
+{{domain}}

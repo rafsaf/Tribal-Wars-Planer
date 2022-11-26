@@ -17,6 +17,7 @@ import datetime
 import logging
 
 from dateutil.relativedelta import relativedelta
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.db import transaction
@@ -91,7 +92,10 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
             )
             msg_html = render_to_string(
                 "email_payment_body.html",
-                {"instance": instance},
+                {
+                    "instance": instance,
+                    "domain": settings.MAIN_DOMAIN,
+                },
             )
             send_mail(
                 title,
