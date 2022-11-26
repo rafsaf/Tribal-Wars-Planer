@@ -36,7 +36,7 @@ class Profile(models.Model):
         ("Deff collection", gettext_lazy("Deff collection ")),
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     server = models.ForeignKey(
         Server, on_delete=models.SET_NULL, null=True, default=None
     )

@@ -25,7 +25,7 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils import timezone
+from django.utils import timezone, translation
 from prometheus_client import multiprocess
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -227,7 +227,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
         profile: Profile = Profile.objects.get(user_id=user_pk)
         try:
             price: StripePrice = StripePrice.objects.get(
-                amount=req.data.get("amount"),
+                amount=req.data["amount"],
                 active=True,
                 product__active=True,
                 currency=profile.currency,
@@ -249,16 +249,18 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
         success = reverse("base:payment_done")
         cancel = reverse("base:premium")
         try:
+            language = translation.get_language()
             checkout_session = stripe.checkout.Session.create(
                 success_url=f"{http}{host}{success}",
                 cancel_url=f"{http}{host}{cancel}",
                 client_reference_id=user_pk,
+                metadata={"language": language},
                 mode="payment",
                 line_items=[
                     {
                         "quantity": 1,
                         "price": price.price_id,
-                        "description": f"plemiona-planer.pl - {price.product} - {profile.user.username}",  # type: ignore
+                        "description": f"plemiona-planer.pl - {price.product} - {profile.user.username}",
                     }
                 ],
             )
