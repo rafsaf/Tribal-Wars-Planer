@@ -35,14 +35,25 @@ class Command(BaseCommand):  # pragma: no cover
 
     @job_logs_and_metrics(log)
     def handle(self, *args, **options):
-        payments_to_process = Payment.objects.filter(promotion=False, amount_pln=0)
         processed = 0
+        payment_without_new_date = Payment.objects.filter(new_date=None)
+        for payment in payment_without_new_date:
+            metrics.ERRORS.labels("payment_without_new_date found").inc()
+            payment.save()  # signal handle_payment will be executed
+            processed += 1
+            sleep(0.5)
+
+        payments_to_process = Payment.objects.filter(promotion=False, amount_pln=0)
         for payment in payments_to_process:
             if payment.from_stripe:
-                event = stripe.Event.retrieve(id=payment.event_id)
-                sleep(0.2)
+                if not payment.payment_intent_id:
+                    event = stripe.Event.retrieve(id=payment.event_id)
+                    sleep(0.2)
 
-                intent_id: str = event["data"]["object"]["payment_intent"]
+                    intent_id: str = event["data"]["object"]["payment_intent"]
+                else:
+                    intent_id = payment.payment_intent_id
+
                 intent = stripe.PaymentIntent.retrieve(intent_id)
                 sleep(0.2)
 

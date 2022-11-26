@@ -43,7 +43,7 @@ class Command(BaseCommand):
             schedule.every().hour.do(
                 run_threaded, call_command, command_name="outdateoutlinedelete"
             )
-            schedule.every(10).minutes.do(
+            schedule.every(5).minutes.do(
                 run_threaded, call_command, command_name="calculatepaymentfee"
             )
             schedule.every(15).seconds.do(

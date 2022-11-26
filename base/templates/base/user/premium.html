@@ -8,7 +8,7 @@
 
 
 <div class="fixed-scrollbar-container">
-<div class="container py-1" style="min-height: 70vh; max-width:1000px !important;font-size: larger;">
+<div class="container py-1" style="min-height: 70vh;font-size: large;">
 <div style="margin-right:-15px;margin-left:-15px;">
     {% if user.profile.is_premium %}
     <div class="alert alert-success" role="alert">
@@ -60,9 +60,10 @@
 
     <h2><span class="badge badge-dark my-3 mt-5">{% trans 'Payment history' %}:</span></h2>
 
-    <table class="table table-bordered table-sm text-center">
+    <table class="table table-bordered table-sm text-center" style="font-size:medium !important">
         <thead>
             <tr>
+                <th class="text-wrap">ID</th>
                 <th class="text-nowrap">{% trans 'Status' %}</th>
                 <th class="text-nowrap">{% trans 'Payment date' %}</th>
                 <th class="text-nowrap">{% trans 'Amount' %}</th>
@@ -74,12 +75,13 @@
         <tbody >
             {% for payment in payments %}
             <tr>
-                <th class="text-nowrap border-row">{{payment.get_status_display}}</th>
-                <th class="text-nowrap border-row">{{payment.payment_date}}</th>
-                <th class="text-nowrap border-row">{{payment.value}}</th>
-                <th class="text-nowrap border-row">{{payment.months}}</th>
-                <th class="text-nowrap border-row">{{payment.new_date}}</th>
-                <th class="text-nowrap border-row">{{payment.comment}}</th>
+                <td class="text-wrap border-row"><span style="font-size:small">{{payment.payment_intent_id}}</span></th>
+                <td class="text-nowrap border-row">{{payment.get_status_display}}</th>
+                <td class="text-nowrap border-row">{{payment.payment_date}}</th>
+                <td class="text-nowrap border-row">{{payment.value}}</th>
+                <td class="text-nowrap border-row">{{payment.months}}</th>
+                <td class="text-nowrap border-row">{{payment.new_date}}</th>
+                <td class="text-wrap border-row"><span style="font-size:small">{{payment.comment}}</span></th>
             </tr>
             {% endfor %}
         </tbody>

@@ -261,6 +261,14 @@ bounce = ["cryptography (>=36.0.2)", "requests (>=2.27.1)"]
 events = ["cryptography (>=36.0.2)", "requests (>=2.27.1)"]
 
 [[package]]
+name = "django-types"
+version = "0.16.0"
+description = "Type stubs for Django"
+category = "dev"
+optional = false
+python-versions = ">=3.7,<4.0"
+
+[[package]]
 name = "djangorestframework"
 version = "3.14.0"
 description = "Web APIs for Django, made easy."
@@ -1121,7 +1129,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.10,<3.12"
-content-hash = "c774b167b551bfa1e152769d9028fcddc0ff26bd2415e03a68ea6afde52c10df"
+content-hash = "2a65b72e7f65b4cce943ad7faeb2858bbe748fe37fdd201233200830eacdab42"
 
 [metadata.files]
 asgiref = [
@@ -1420,6 +1428,10 @@ django-registration = [
 django-ses = [
     {file = "django-ses-3.2.2.tar.gz", hash = "sha256:2415c83cef1fb8f139f924950e544df8334f255856747ab33d2e12d6228ed646"},
     {file = "django_ses-3.2.2-py3-none-any.whl", hash = "sha256:c2338c250aa006f5f76be692a2903debe4ee7185eb51b66f16e7a999f5d969a0"},
+]
+django-types = [
+    {file = "django-types-0.16.0.tar.gz", hash = "sha256:29d23af8b88fa1579b47418e92ffc1d89bfbdf11eab64d2ae006fa09e54fed9a"},
+    {file = "django_types-0.16.0-py3-none-any.whl", hash = "sha256:9df4e1936f304f309a59f4cee19a607e151282fc0d97238833a382fafc5052c8"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.14.0-py3-none-any.whl", hash = "sha256:eb63f58c9f218e1a7d064d17a70751f528ed4e1d35547fdade9aaf4cd103fd08"},

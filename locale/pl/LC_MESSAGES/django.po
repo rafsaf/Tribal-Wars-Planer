@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-18 00:27+0100\n"
+"POT-Creation-Date: 2022-11-26 16:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -643,11 +643,11 @@ msgstr "za"
 msgid "days"
 msgstr "dni"
 
-#: base/models/payment.py:26
+#: base/models/payment.py:33
 msgid "Finished"
 msgstr "Zakończono"
 
-#: base/models/payment.py:27
+#: base/models/payment.py:34
 msgid "Returned"
 msgstr "Zwrócono"
 
@@ -675,10 +675,6 @@ msgstr "Premium na %s miesiące"
 #: base/models/world.py:59
 msgid "World "
 msgstr "Świat "
-
-#: base/signals.py:70
-msgid "[Premium] Successful completion of the payment on"
-msgstr "[Premium] Pomyślne zakończenie płatności z dnia"
 
 #: base/templates/base/base.html:7 base/templates/base/overview.html:4
 msgid "Tribal Wars Planer"
@@ -2380,7 +2376,7 @@ msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:429
+#: base/views/outline_initial_views.py:430
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
@@ -2469,39 +2465,51 @@ msgstr ""
 msgid "Create an account"
 msgstr "Utwórz konto"
 
-#: templates/email_payment.html:1
+#: templates/email_payment_body.html:1
 #: templates/registration/password_reset_email.html:1
 msgid "Hello, "
 msgstr "Witaj, "
 
-#: templates/email_payment.html:4
+#: templates/email_payment_body.html:4
 msgid "Your payment on"
 msgstr "Twoja płatność z dnia"
 
-#: templates/email_payment.html:4
+#: templates/email_payment_body.html:4
 msgid "in the amount of"
 msgstr "w kwocie"
 
-#: templates/email_payment.html:4
+#: templates/email_payment_body.html:4
 msgid ""
 "has been successfully processed and your premium account has been activated "
 "or extended."
 msgstr ""
 "została pomyślnie przetworzona, zaś konto premium aktywowane lub przedłużone."
 
-#: templates/email_payment.html:7
+#: templates/email_payment_body.html:6
+msgid "When refering THIS payment, use following payment intent id:"
+msgstr "Podczas nawiązywania do TEJ płatności, użyj jej unikalnego id:"
+
+#: templates/email_payment_body.html:9
 msgid "This e-mail was generated automatically, please do not reply."
 msgstr "Ten email został wygenerowany automatycznie, prosimy nie odpowiadać."
 
-#: templates/email_payment.html:10
+#: templates/email_payment_body.html:11
+msgid "If you have questions, use contact email: <rafal.safin@rafsaf.pl>."
+msgstr "Jeśli masz pytania, użyj maila kontaktowego: <rafal.safin@rafsaf.pl>."
+
+#: templates/email_payment_body.html:14
 #: templates/registration/password_reset_email.html:9
 msgid "Sincerely,"
 msgstr "Z pozdrowieniami"
 
-#: templates/email_payment.html:12
+#: templates/email_payment_body.html:16
 #: templates/registration/password_reset_email.html:10
 msgid "plemiona-planer.pl"
 msgstr "plemiona-planer.pl"
+
+#: templates/email_payment_title.html:1
+msgid "[Premium] Successful completion of the payment on"
+msgstr "[Premium] Pomyślne zakończenie płatności z dnia"
 
 #: templates/registration/login.html:4
 msgid "Sign in and create tribal wars proffesional outlines."

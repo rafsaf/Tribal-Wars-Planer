@@ -256,6 +256,9 @@ else:
     REGISTRATION_OPEN = True
 
 DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "INFO")
+DJANGO_LOG_HANDLERS = ["error", "info", "warning", "debug"]
+if DJANGO_LOG_LEVEL == "DEBUG":
+    DJANGO_LOG_HANDLERS.append("debug_stream")
 
 os.makedirs("logs", exist_ok=True)
 os.makedirs("prometheus_multi_proc_dir", exist_ok=True)
@@ -275,6 +278,11 @@ LOGGING = {
         },
     },
     "handlers": {
+        "debug_stream": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+            "level": "DEBUG",
+        },
         "error": {
             "class": "logging.FileHandler",
             "filename": BASE_DIR / "logs/django_error.log",
@@ -299,23 +307,12 @@ LOGGING = {
             "formatter": "verbose",
             "level": "DEBUG",
         },
-        "commands": {
-            "class": "logging.FileHandler",
-            "filename": BASE_DIR / "logs/django_commands.log",
-            "formatter": "verbose",
-            "level": "INFO",
-        },
     },
     "loggers": {
         "": {
             "level": DJANGO_LOG_LEVEL,
-            "handlers": ["error", "info", "warning", "debug"],
+            "handlers": DJANGO_LOG_HANDLERS,
             "propagate": False,
-        },
-        "base.management.commands": {
-            "level": "INFO",
-            "handlers": ["commands"],
-            "propagate": True,
         },
     },
 }
