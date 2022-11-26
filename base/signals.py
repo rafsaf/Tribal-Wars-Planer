@@ -14,19 +14,23 @@
 # ==============================================================================
 
 import datetime
+import logging
 
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.db import transaction
 from django.db.models import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.translation import gettext
+from django.utils.translation import activate
 
 from base.models import Message, Payment, Profile, Server
 from utils.basic import create_test_world
+
+log = logging.getLogger(__name__)
 
 
 @receiver(post_save, sender=Message)
@@ -52,40 +56,46 @@ def new_server_create_test_world(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Payment)
 def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
-    if created:
-        user: User = instance.user  # type: ignore
-        user_profile: Profile = Profile.objects.get(user=user)
+    if instance.new_date is not None:
+        log.info("payment instance %s already is completed", instance)
+    else:
+        with transaction.atomic():
+            instance = Payment.objects.select_for_update().get(pk=instance.pk)
+            if instance.new_date is not None:
+                return
+            user: User = instance.user  # type: ignore
+            user_profile: Profile = Profile.objects.get(user=user)
 
-        current_date: datetime.date = timezone.localdate()
-        relative_months: relativedelta = relativedelta(months=instance.months)
-        day: relativedelta = relativedelta(days=1)
-        if user_profile.validity_date is None:
-            user_profile.validity_date = current_date + relative_months + day
-        elif user_profile.validity_date <= current_date:
-            user_profile.validity_date = current_date + relative_months + day
-        else:
-            user_profile.validity_date = (
-                user_profile.validity_date + relative_months + day
-            )
-        title = gettext("[Premium] Successful completion of the payment on")
-        if instance.send_mail:
-            msg_html = render_to_string(
-                "email_payment.html",
-                {
-                    "amount": instance.amount,
-                    "payment_date": instance.payment_date,
-                    "new_date": instance.new_date,
-                    "user": instance.user,
-                },
-            )
-            send_mail(
-                f"{title} {instance.payment_date}",
-                "",
-                "plemionaplaner.pl@gmail.com",
-                recipient_list=[user.email],
-                html_message=msg_html,
-            )
+            current_date: datetime.date = timezone.localdate()
+            relative_months: relativedelta = relativedelta(months=instance.months)
+            day: relativedelta = relativedelta(days=1)
+            if user_profile.validity_date is None:
+                user_profile.validity_date = current_date + relative_months + day
+            elif user_profile.validity_date <= current_date:
+                user_profile.validity_date = current_date + relative_months + day
+            else:
+                user_profile.validity_date = (
+                    user_profile.validity_date + relative_months + day
+                )
 
-        instance.new_date = user_profile.validity_date
-        user_profile.save()
-        instance.save()
+            if instance.send_mail:
+                activate(instance.language)
+                title = render_to_string(
+                    "email_payment_title.html",
+                    {"instance": instance},
+                )
+                msg_html = render_to_string(
+                    "email_payment_body.html",
+                    {"instance": instance},
+                )
+                send_mail(
+                    title,
+                    "",
+                    "plemionaplaner.pl@gmail.com",
+                    recipient_list=[user.email],
+                    html_message=msg_html,
+                )
+
+            instance.new_date = user_profile.validity_date
+            user_profile.save()
+            instance.save()

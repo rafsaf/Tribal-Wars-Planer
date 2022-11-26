@@ -40,6 +40,7 @@ services:
     env_file:
       - .env
     environment:
+      - DEBUG=false
       - SECRET_KEY=askldjasd0987123987
       - SUB_DOMAIN=web
       - CSRF_TRUSTED_ORIGIN=http://localhost:7998

@@ -317,7 +317,8 @@ def stripe_webhook(request: Request):  # pragma: no cover
             user: User = User.objects.get(pk=data["client_reference_id"])
             amount: int = int(data["amount_total"])
             currency: str = data["currency"].upper()
-
+            language = data["metadata"]["language"]
+            payment_intent = data["payment_intent"]
             try:
                 price: StripePrice = StripePrice.objects.get(
                     currency=currency,
@@ -331,14 +332,18 @@ def stripe_webhook(request: Request):  # pragma: no cover
                 )
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
-            Payment.objects.create(
-                user=user,
-                amount=int(amount / 100),
-                from_stripe=True,
-                currency=currency,
-                months=price.product.months,
-                payment_date=current_date,
+            Payment.objects.get_or_create(
                 event_id=evt_id,
+                defaults={
+                    "user": user,
+                    "amount": int(amount / 100),
+                    "from_stripe": True,
+                    "currency": currency,
+                    "months": price.product.months,
+                    "payment_intent_id": payment_intent,
+                    "language": language,
+                    "payment_date": current_date,
+                },
             )
         return Response(status=status.HTTP_200_OK)
 

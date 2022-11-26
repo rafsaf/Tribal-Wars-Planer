@@ -13,10 +13,17 @@
 # limitations under the License.
 # ==============================================================================
 
+import secrets
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy
+
+
+def promotion_event_id() -> str:
+    unique_id = secrets.token_urlsafe(64)
+    return f"promotion_{unique_id}"
 
 
 class Payment(models.Model):
@@ -37,9 +44,12 @@ class Payment(models.Model):
     amount_pln = models.FloatField(default=0, blank=True)
     fee_pln = models.FloatField(default=0, blank=True)
     payment_intent_id = models.CharField(default="", max_length=512, blank=True)
-    event_id = models.CharField(max_length=300, null=True, default=None, blank=True)
+    event_id = models.CharField(max_length=300, unique=True)
     from_stripe = models.BooleanField(default=False)
     promotion = models.BooleanField(default=False)
+    language = models.CharField(
+        max_length=16, default=settings.LANGUAGE_CODE, choices=settings.LANGUAGES
+    )
     payment_date = models.DateField()
     months = models.IntegerField(default=1)
     comment = models.CharField(max_length=150, default="", blank=True)
@@ -47,3 +57,9 @@ class Payment(models.Model):
 
     def value(self) -> str:
         return f"{self.amount} {self.currency}"
+
+    def save(self, *args, **kwargs) -> None:
+        if self.promotion:
+            if not self.event_id:
+                self.event_id = promotion_event_id()
+        return super().save(*args, **kwargs)
