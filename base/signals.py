@@ -62,6 +62,7 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
         with transaction.atomic():
             instance = Payment.objects.select_for_update().get(pk=instance.pk)
             if instance.new_date is not None:
+                log.info("payment instance %s already is completed", instance)
                 return
             user: User = instance.user  # type: ignore
             user_profile: Profile = Profile.objects.get(user=user)
@@ -78,24 +79,24 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
                     user_profile.validity_date + relative_months + day
                 )
 
-            if instance.send_mail:
-                activate(instance.language)
-                title = render_to_string(
-                    "email_payment_title.html",
-                    {"instance": instance},
-                )
-                msg_html = render_to_string(
-                    "email_payment_body.html",
-                    {"instance": instance},
-                )
-                send_mail(
-                    title,
-                    "",
-                    "plemionaplaner.pl@gmail.com",
-                    recipient_list=[user.email],
-                    html_message=msg_html,
-                )
-
             instance.new_date = user_profile.validity_date
             user_profile.save()
             instance.save()
+
+        if instance.send_mail:
+            activate(instance.language)
+            title = render_to_string(
+                "email_payment_title.html",
+                {"instance": instance},
+            )
+            msg_html = render_to_string(
+                "email_payment_body.html",
+                {"instance": instance},
+            )
+            send_mail(
+                title,
+                "",
+                "plemionaplaner.pl@gmail.com",
+                recipient_list=[user.email],
+                html_message=msg_html,
+            )
