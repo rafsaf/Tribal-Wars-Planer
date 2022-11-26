@@ -18,9 +18,13 @@ Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal
 
 # Table of contents
 
+- [Official Site and Discord](#official-site-and-discord)
+    - [Discord channel: discord.gg/g5pcsCteCT](#discord-channel-discordggg5pcsctect)
+    - [Production server: plemiona-planer.pl](#production-server-plemiona-planerpl)
+- [Table of contents](#table-of-contents)
 - [Quickstart](#quickstart)
-- [Docker images reference](#dockerfile-reference)
-  - [twp-server image](#twp-server-image)
+- [Dockerfile reference](#dockerfile-reference)
+  - [TWP-server image](#twp-server-image)
 - [Development](#development)
 - [Server](#server)
 
@@ -107,13 +111,13 @@ This project maintains one docker images, the same one for server and for schedu
 
 ## TWP-server image
 
-### [TWP-server image on dockerhub](https://hub.docker.com/r/rafsaf/twp-server)
+[TWP-server image on dockerhub](https://hub.docker.com/r/rafsaf/twp-server)
 
 `rafsaf/twp-server:latest`
 
 Note, there are also other tags like `stage` or `stable`, but **latest** should be prefered choice.
 
-Contains TWP Django server based on `python:3.10` docker image, [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks.
+Contains TWP Django server based on `python:3.11.0-bullseye` docker image, with [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks and many more open source software.
 
 Environment variables:
 
@@ -153,7 +157,7 @@ Environment variables:
 
 **STRIPE_ENDPOINT_SECRET** - _optional_ - stripe endpoint, defaults to empty string
 
-**EMAIL_BACKEND** - _optional_ - postgres database host, defaults to `django.core.mail.backends.console.EmailBackend`
+**EMAIL_BACKEND** - _optional_ - email backend, refer to django docs, defaults to `django.core.mail.backends.console.EmailBackend`
 
 **AWS_ACCESS_KEY_ID** - _optional_ - AWS SES account key id, defaults to empty string
 
@@ -183,7 +187,7 @@ Environment variables:
 
 If you want to run it in development you will need
 
-- [python](https://www.python.org/downloads/) == 3.10
+- [python](https://www.python.org/downloads/) == 3.11
 - [poetry](https://python-poetry.org/)
 - [docker](https://www.docker.com/get-started)
 
@@ -204,7 +208,7 @@ poetry install
 
 # it will be default create virtualenv in ~.cache/pypoetry/virutalenvs/tribal-wars-planer-asod(some random signs)
 # You need to activate it.
-# Honestly, you can also use just python3.10 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
+# Honestly, you can also use just python3.11 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
 pre-commit install
 
 # adds pre-commit stuff
