@@ -1,13 +1,13 @@
 [tool.poetry]
-authors = ["rafsaf <rafal.safin12@gmail.com>"]
+authors = ["rafsaf <rafal.safin@rafsaf.pl>"]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-version = "4.13.1"
+version = "4.13.2"
 
 [tool.poetry.dependencies]
 python = ">3.10,<3.12"
 
-django = "^4.1.3"
+django = "^4.1.4"
 django-crispy-forms = "^1.14.0"
 django-registration = "^3.3"
 django-ses = "^3.2.2"
@@ -25,22 +25,20 @@ stripe = "^5.0.0"
 tw-complex = "^1.1.0"
 uwsgi = "^2.0.21"
 
-
 [tool.poetry.group.dev.dependencies]
-autoflake = "^1.4"
-black = "^22.3.0"
-coverage = { extras = ["toml"], version = "^6.4" }
-flake8 = "^4.0.1"
-freezegun = "^1.2.1"
-isort = "^5.10.1"
-pytest-django = "^4.5.2"
-requests-mock = "^1.9.3"
-schedule = "^1.1.0"
-pre-commit = "^2.19.0"
-pyupgrade = "^3.2.2"
-pytest-xdist = "^3.0.2"
-locust = "^2.13.0"
+autoflake = "^2.0.0"
+black = "^22.12.0"
+coverage = {extras = ["toml"], version = "^6.5.0"}
 django-types = "^0.16.0"
+flake8 = "^6.0.0"
+freezegun = "^1.2.2"
+isort = "^5.10.1"
+locust = "^2.13.2"
+pre-commit = "^2.20.0"
+pytest-django = "^4.5.2"
+pytest-xdist = "^3.1.0"
+pyupgrade = "^3.3.1"
+requests-mock = "^1.10.0"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
