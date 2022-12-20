@@ -17,6 +17,7 @@
 from django.db import models
 from django.http import HttpRequest
 from django.urls import reverse
+from django.utils.translation import gettext_lazy
 
 from base.models.outline import Outline
 from base.models.outline_overview import OutlineOverview
@@ -53,16 +54,26 @@ class Overview(models.Model):
         setattr(self, "to", encode_component(self.player))
 
         message: str = f"[b]{self.player}[/b]\n\n"
-        f2 = f"[url]{request.scheme}://{request.get_host()}{self.get_absolute_url()}[/url]\n\n"
+        link_msg = gettext_lazy("Unique link to your targets on plemiona-planer.pl")
+        overview_url = (
+            f"{link_msg}\n"
+            f"[url]{request.scheme}://{request.get_host()}{self.get_absolute_url()}[/url]\n\n"
+        )
 
         if instance.sending_option == "string":
+            if instance.send_message_with_url:
+                message += overview_url
             message += instance.text_message + self.string
         elif instance.sending_option == "extended":
+            if instance.send_message_with_url:
+                message += overview_url
             message += instance.text_message + self.extended
         elif instance.sending_option == "deputy":
+            if instance.send_message_with_url:
+                message += overview_url
             message += instance.text_message + self.deputy
         else:
-            message += f2 + instance.text_message
+            message += overview_url + instance.text_message
 
         setattr(
             self,

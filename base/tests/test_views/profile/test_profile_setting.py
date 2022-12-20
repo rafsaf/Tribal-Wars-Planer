@@ -54,6 +54,8 @@ class OutlineProfileSettings(MiniSetup):
                 "default_morale_on": True,
                 "input_data_type": Outline.DEFF_COLLECTION,
                 "currency": "PLN",
+                "sending_option": "default",
+                "send_message_with_url": True,
             },
         )
         assert response.status_code == 200
@@ -80,13 +82,18 @@ class OutlineProfileSettings(MiniSetup):
                 "currency": "EUR",
                 "input_data_type": Outline.DEFF_COLLECTION,
                 "default_morale_on": False,
+                "sending_option": "extended",
+                "send_message_with_url": False,
                 "form1": "",
             },
         )
         assert response.status_code == 302
         assert response.url == PATH
 
-        profile.refresh_from_db()
+        profile: Profile = Profile.objects.get(user=me)
         assert profile.input_data_type == Outline.DEFF_COLLECTION
-        assert profile.server.dns == "nottestserver"  # type: ignore
+        assert profile.server is not None
+        assert profile.server.dns == "nottestserver"
         assert not profile.default_morale_on
+        assert profile.sending_option == "extended"
+        assert not profile.send_message_with_url

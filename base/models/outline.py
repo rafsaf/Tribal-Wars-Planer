@@ -279,6 +279,7 @@ class Outline(models.Model):
     title_message = models.CharField(
         max_length=200, default=gettext_lazy("Outline Targets")
     )
+    send_message_with_url = models.BooleanField(default=True)
     text_message = models.CharField(max_length=2000, default="", blank=True)
     night_bonus = models.BooleanField(default=False)
     enter_t1 = models.IntegerField(default=7)

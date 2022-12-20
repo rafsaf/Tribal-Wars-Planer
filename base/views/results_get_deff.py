@@ -91,6 +91,12 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
                 form1.save()
                 instance.refresh_from_db()
                 overviews.update(show_hidden=instance.default_show_hidden)
+                set_as_default: bool = form1.cleaned_data["set_as_default"]
+                if set_as_default:
+                    profile: models.Profile = request.user.profile  # type: ignore
+                    profile.sending_option = instance.sending_option
+                    profile.send_message_with_url = instance.send_message_with_url
+                    profile.save()
 
                 return redirect("base:planer_detail_results", _id)
 

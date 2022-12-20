@@ -414,6 +414,7 @@ class SettingMessageForm(forms.ModelForm):
         fields = [
             "default_show_hidden",
             "sending_option",
+            "send_message_with_url",
             "title_message",
             "text_message",
         ]
@@ -422,21 +423,33 @@ class SettingMessageForm(forms.ModelForm):
             "title_message": gettext_lazy("Title of message:"),
             "text_message": gettext_lazy("Content of message:"),
             "sending_option": gettext_lazy("Sending Options:"),
+            "send_message_with_url": gettext_lazy("Add links to direct messages:"),
         }
         help_texts = {
             "default_show_hidden": gettext_lazy(
                 "By checking this option, players will see the commands of all other players for their own targets. By default, it's not turned on and players only see their commands."
             ),
-            "title_message": gettext_lazy("Maximum length: 200."),
-            "text_message": gettext_lazy("Maximum length: 2000."),
+            "title_message": gettext_lazy("Title, maximum length 200."),
+            "text_message": gettext_lazy(
+                "BBCode message, maximum length 2000. Hint: Format text in game and paste here."
+            ),
             "sending_option": gettext_lazy(
                 "Directly messages will bahave poorly with many (more than 80-100) commands"
+            ),
+            "send_message_with_url": gettext_lazy(
+                "If checked, direct messages from options above will have safe link to planer"
             ),
         }
         widgets = {
             "sending_option": forms.RadioSelect,
             "text_message": forms.Textarea,
         }
+
+    set_as_default = forms.BooleanField(
+        required=False,
+        label=gettext_lazy("Set sending option as default choice for next outlines"),
+        initial=False,
+    )
 
 
 class InputDataPlanerForm(forms.ModelForm):
@@ -929,7 +942,14 @@ class ChangeServerForm(forms.ModelForm):
 class ChangeProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
-        fields = ["server", "currency", "input_data_type", "default_morale_on"]
+        fields = [
+            "server",
+            "currency",
+            "input_data_type",
+            "default_morale_on",
+            "send_message_with_url",
+            "sending_option",
+        ]
         labels = {
             "server": gettext_lazy("Please select your server:"),
             "default_morale_on": gettext_lazy(
@@ -937,4 +957,15 @@ class ChangeProfileForm(forms.ModelForm):
             ),
             "input_data_type": gettext_lazy("Default input type for planer"),
             "currency": gettext_lazy("Please select your currency:"),
+            "sending_option": gettext_lazy("Sending Options:"),
+            "send_message_with_url": gettext_lazy("Add links to direct messages:"),
+        }
+        help_texts = {
+            "sending_option": gettext_lazy("Prefered sending option in Results tab"),
+            "send_message_with_url": gettext_lazy(
+                "If checked, direct messages in Results tab will have safe link to planer"
+            ),
+        }
+        widgets = {
+            "sending_option": forms.RadioSelect,
         }
