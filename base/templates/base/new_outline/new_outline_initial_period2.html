@@ -1,4 +1,4 @@
-{% extends "base/base.html" %} 
+{% extends "base/new_outline/new_outline.html" %} 
 {% load static %} 
 {% load i18n %} 
 {% block title %}
@@ -14,58 +14,16 @@
 {% trans 'Add and remove' %} - {{instance.name|capfirst}}
 {% endif %}
 {% endblock %}
-{% block showsidebar %}
-    {% if user.is_authenticated %}
-    <div class="bg-light border-right toggled" id="sidebar-wrapper">
-        <div class="sidebar-heading">{% trans 'User Panel' %} </div>
-        <div class="list-group list-group-flush">
-            <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light">{% trans 'My outlines' %}</a>
+{% block showsidebar %}toggled{% endblock %}
 
-            <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light">{% trans 'Create new outline' %}</a> 
+{% block content %}
 
-            {% block sidebar %}
-            <a class=" list-group-item list-group-item-action bg-secondary" style="color: rgb(243, 243, 243);" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+<input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
+<input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 
-            <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Results' %}</a>
-
-            <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Deff collection' %}</a>
-
-            <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Planer' %}</a>
-            {% endblock %}
-        </div>
-    </div>
-    {% endif %}
-    {% endblock %}
-    {% block phonesidebar %}
-    <a class=" list-group-item list-group-item-action bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
-
-    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Results' %}</a>
-
-    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Deff collection' %}</a>
-
-    <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-actionbg-light">{% trans 'Planer' %}</a> 
-    {% endblock %}
-    {% block content %}
-
-    <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
-    <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
-
+<div>
     <div>
     {% block outline_navbar %}
-    <style>
-        body {
-            width: calc(100% - 16px);
-        }
-        .navbar {
-            width: calc(100%);
-        }
-        @media screen and (min-width:992px) {
-            .navbar {
-                width: calc(100vw - 16px);
-            }     
-        }
-    </style>
-
     <table class="table table-sm table-bordered mb-2" style="width: min-content">
         <thead>
           <tr>
@@ -215,6 +173,7 @@
         </ul>
     </nav>
     {% endblock %}
+    </div>
 
     {% if mode.is_add_and_remove %}
     <div class="container-fluid" style="margin-left: -15px; margin-right:-15px;">

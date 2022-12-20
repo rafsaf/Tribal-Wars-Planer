@@ -4,16 +4,19 @@
 
 {% block title %}{{instance.name|capfirst}} - {{instance.world.human}}{% endblock %}
 {% block sidebar %}
-    <a class=" list-group-item list-group-item-action bg-secondary" style="color: rgb(243, 243, 243);" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
-    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Results' %}</a>
-    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Deff collection' %}</a>
-    <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Planer' %}</a>
+    <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{instance.name|capfirst}} - {{instance.world.human}}</div>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_get_deff' %}focus-side-link{% endif %}"><div class="badge badge-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'other' %}</div> <span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Deff raport' %}</span></a>
+    <a class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail' %}focus-side-link{% endif %}" href="{% url 'base:planer_detail' instance.id %}" role="button"> 1. {% trans "Troops data" %} </a>
+    <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_initial_form' or request.resolver_match.url_name == 'planer_initial' or request.resolver_match.url_name == 'planer_initial_detail' %}focus-side-link{% endif %}">2. {% trans 'Planer' %}</a>
+    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_results' %}focus-side-link{% endif %}">3. {% trans 'Results' %}</a>
+
 {% endblock %}
 {% block phonesidebar %}
-    <a class=" list-group-item list-group-item-action bg-secondary" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
-    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Results' %}</a>
-    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Deff collection' %}</a>
-    <a href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light">{% trans 'Planer' %}</a> 
+    <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{instance.name|capfirst}} - {{instance.world.human}}</div>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_get_deff' %}focus-side-link{% endif %}"><div class="badge badge-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'other' %}</div> <span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Deff raport' %}</span></a>
+    <a class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail' %}focus-side-link{% endif %}" href="{% url 'base:planer_detail' instance.id %}" role="button"> 1. {% trans "Troops data" %} </a>
+    <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_initial_form' %}focus-side-link{% endif %}">2. {% trans 'Planer' %}</a>
+    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_results' %}focus-side-link{% endif %}">3. {% trans 'Results' %}</a>
 {% endblock %}
 
 {% block content %}

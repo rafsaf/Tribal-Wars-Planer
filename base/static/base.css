@@ -6,6 +6,9 @@ input[type="radio"] {
   width: 1rem;
   height: 1rem;
 }
+.focus-side-link {
+  background-color: rgb(231, 237, 241) !important;
+}
 .docs-image {
   height: 250px;
   margin: 1rem 0 !important;

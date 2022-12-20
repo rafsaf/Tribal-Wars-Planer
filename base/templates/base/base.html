@@ -23,17 +23,15 @@
 <body>
     <div class="d-flex" id="wrapper">{% spaceless %}
         <div class="d-none d-lg-flex">
-            {% block showsidebar %} 
             {% if user.is_authenticated %}
-            <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="bg-light border-right {% block showsidebar %}{% endblock %}" id="sidebar-wrapper">
                 <div class="sidebar-heading">{% trans 'User Panel' %}</div>
-                <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light">{% trans 'Create new outline' %}</a>
+                <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
                 {% block sidebar %}
                 {% endblock %}
                 </div>
             </div> 
             {% endif %}
-            {% endblock %}
         </div>
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -48,8 +46,8 @@
                         <li class="nav-item dropdown ml-1">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'User Panel' %}</a>
                             <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
-                                <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light">{% trans 'My outlines' %}</a>
-                                <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light">{% trans 'Create new outline' %}</a>
+                                <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a>
+                                <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
                                 {% block phonesidebar %}
                                 {% endblock %}
                             </div>
@@ -317,7 +315,7 @@
                                                 <p>
                                                     <i class="bi bi-lock-fill lock-green"></i> {% trans 'When designing the application, special emphasis was placed on the security of user accounts, preventing access to the data entered by them for other users and third parties.' %}</p>
                                                 <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'Both the web server and the database server are located in the <a href="https://aws.amazon.com/">Amazon Web Services</a> cloud, with special attention to all their safety recommendations.' %}</p>
+                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'Both the web server and the database server are located in the <a href="https://cloud.oracle.com/">Oracle Cloud</a> cloud, with special attention to all their safety recommendations.' %}</p>
                                                 <p>
                                                     <i class="bi bi-lock-fill lock-green"></i> {% trans 'The only one person involved in code writing and project maintenance from the beginning to date, means little risk of accidental sudden exposure of user data.' %}</p>
                                                 <p>
@@ -348,7 +346,7 @@
                     <div>
                         <p>{% trans 'This site is free of 3rd party trackers, we belive in privacy, refer to '%} <a target="_blank" href="{% static 'privacy-policy-08.06.2021.pdf' %}">{% trans 'our privacy policy and regulations.' %}</a></p>
                         <p>Build version: <i>{{ BUILD_TAG }}</i></p>
-                        <p class="footer-link">&copy; 2020-2022 <a href='https://www.rafsaf.pl'>rafsaf.pl</a></p>           
+                        <p class="footer-link">&copy; 2020-2023 <a href='https://www.rafsaf.pl'>rafsaf.pl</a></p>           
                     </div>
                 </footer>
                 {% endblock %}
