@@ -252,6 +252,9 @@ class Outline(models.Model):
     filter_weights_catapults_min = models.IntegerField(
         default=0, validators=[MinValueValidator(0), MaxValueValidator(3000)]
     )
+    filter_weights_nobles_min = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
     filter_weights_max = models.IntegerField(
         default=30000,
         validators=[MinValueValidator(0), MaxValueValidator(30000)],
@@ -340,6 +343,7 @@ class Outline(models.Model):
         self.avaiable_ruins = None
         self.filter_weights_min = 0
         self.filter_weights_catapults_min = 0
+        self.filter_weights_nobles_min = 0
         self.filter_weights_max = 30000
         self.filter_hide_front = "all"
         self.choice_sort = "distance"

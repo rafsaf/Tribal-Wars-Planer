@@ -495,6 +495,7 @@ class SetNewOutlineFilters(forms.ModelForm):
             "filter_weights_min",
             "filter_weights_max",
             "filter_weights_catapults_min",
+            "filter_weights_nobles_min",
             "filter_card_number",
             "filter_hide_front",
         ]
@@ -505,6 +506,7 @@ class SetNewOutlineFilters(forms.ModelForm):
         self.fields["filter_weights_catapults_min"].widget.attrs[
             "class"
         ] = "form-control"
+        self.fields["filter_weights_nobles_min"].widget.attrs["class"] = "form-control"
         self.fields["filter_weights_max"].widget.attrs["class"] = "form-control"
         self.fields["filter_card_number"].widget.attrs["class"] = "form-control"
         self.fields["filter_hide_front"].widget.attrs["class"] = "form-control"

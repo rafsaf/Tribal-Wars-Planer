@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-20 18:17+0100\n"
+"POT-Creation-Date: 2022-12-20 20:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:51 base/models/outline.py:154 base/models/outline.py:296
+#: base/forms.py:51 base/models/outline.py:154 base/models/outline.py:299
 #: base/models/profile.py:36
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Village in this line is duplicated: %s"
 msgstr "Wioska w tej linii jest podwojona: %s"
 
-#: base/forms.py:134 base/models/outline.py:155 base/models/outline.py:298
+#: base/forms.py:134 base/models/outline.py:155 base/models/outline.py:301
 #: base/models/profile.py:37
 msgid "Deff collection "
 msgstr "Zbiórka Obrona"
@@ -196,11 +196,11 @@ msgstr "Tytuł wiadomości"
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:425 base/forms.py:960
+#: base/forms.py:425 base/forms.py:962
 msgid "Sending Options:"
 msgstr "Opcje wysyłki"
 
-#: base/forms.py:426 base/forms.py:961
+#: base/forms.py:426 base/forms.py:963
 msgid "Add links to direct messages:"
 msgstr "Linki do celów w bezpośrednich wiadomościach:"
 
@@ -266,145 +266,145 @@ msgstr "Domyślny wybór dla następnych rozpisek"
 msgid "Set new date"
 msgstr "Wybierz nową datę"
 
-#: base/forms.py:540
+#: base/forms.py:542
 msgid "Choose the distance of the written offs:"
 msgstr "Wybierz dystans dla rozpisywanych offów:"
 
-#: base/forms.py:541
+#: base/forms.py:543
 msgid "Choose the distance of the written nobles:"
 msgstr "Wybierz dystans dla rozpisywanych szlachciców:"
 
-#: base/forms.py:542
+#: base/forms.py:544
 msgid "Choose how to split offs with nobles:"
 msgstr "Wybierz jak powinny być dzielone offy z szlachciami:"
 
-#: base/forms.py:544
+#: base/forms.py:546
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Wybierz preferowany sposób rozpisywania wymaganych szlachiców:"
 
-#: base/forms.py:547
+#: base/forms.py:549
 msgid "Choose how noble commands should be written out:"
 msgstr "Wybierz jak komendy z wiosek z szlachtą powinny być rozpisane:"
 
-#: base/forms.py:550
+#: base/forms.py:552
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 
-#: base/forms.py:553
+#: base/forms.py:555
 msgid "Determine which villages to write fake attacks from:"
 msgstr "Wybierz z jakich wiosek rozpisywać fejki:"
 
-#: base/forms.py:575
+#: base/forms.py:577
 msgid "MAX number of catapults in one ruin attack:"
 msgstr "MAX liczba katapult w każdym burzaku:"
 
-#: base/forms.py:578
+#: base/forms.py:580
 msgid "Number of catapults that will always be left in full offs:"
 msgstr "Liczba katapult, która zawsze pozostanie w pełnych offach:"
 
-#: base/forms.py:581
+#: base/forms.py:583
 msgid "How many points on average do demolished targets have:"
 msgstr "Jak dużo punktów mają średnio burzone cele:"
 
-#: base/forms.py:595
+#: base/forms.py:597
 msgid "Only attackers ABOVE this morale value can be used:"
 msgstr "Tylko atakujący POWYŻEJ tej wartości morale mogą zostać rozpisani"
 
-#: base/forms.py:597
+#: base/forms.py:599
 msgid "Is morale calculation active in this outline:"
 msgstr "Bierz pod uwagę morale w tej rozpisce"
 
-#: base/forms.py:635
+#: base/forms.py:637
 msgid "Choose whether to avoid the night bonus"
 msgstr "Wybierz czy wysyłki powinny omijać bonus nocny"
 
-#: base/forms.py:641
+#: base/forms.py:643
 msgid "Approximate hours of entry"
 msgstr "Przybliżone czasy wejścia akcji"
 
-#: base/forms.py:648
+#: base/forms.py:650
 msgid "Approximate hours of the last entry"
 msgstr "Przybliżone ostatnie czasy wejścia akcji"
 
-#: base/forms.py:661
+#: base/forms.py:663
 msgid "First value must be less or equal to second!"
 msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 
-#: base/forms.py:670 base/templates/base/overview.html:209
+#: base/forms.py:672 base/templates/base/overview.html:209
 msgid "Off"
 msgstr "Off"
 
-#: base/forms.py:673 base/models/period_model.py:33
+#: base/forms.py:675 base/models/period_model.py:33
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:681 base/forms.py:692
+#: base/forms.py:683 base/forms.py:694
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:111
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:174
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:684 base/forms.py:693
+#: base/forms.py:686 base/forms.py:695
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:112
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:175
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:214
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:691
+#: base/forms.py:693
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:107
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:694
+#: base/forms.py:696
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:108
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:695
+#: base/forms.py:697
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:109
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:176
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:215
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:696
+#: base/forms.py:698
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:110
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:177
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:216
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:772 base/forms.py:782
+#: base/forms.py:774 base/forms.py:784
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:790
+#: base/forms.py:792
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:802 base/forms.py:808
+#: base/forms.py:804 base/forms.py:810
 msgid "The All mode time frame MUST always be last for off and for noble."
 msgstr "Tryb Wszystkie musi być na końcu przedziałów dla obu jednostek."
 
-#: base/forms.py:816 base/forms.py:823
+#: base/forms.py:818 base/forms.py:825
 msgid "The All mode cannot overlap with other time periods"
 msgstr "Tryb Wszystkie nie może pokrywać się z innymi przedziałami"
 
-#: base/forms.py:857
+#: base/forms.py:859
 msgid "You need a premium account to add more targets here."
 msgstr "Potrzebujesz konta premium by dodawać cele w tym miejscu."
 
-#: base/forms.py:867
+#: base/forms.py:869
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:874
+#: base/forms.py:876
 msgid ""
 "Found more than one village in database, this is the bug. Write me: <rafal."
 "safin@rafsaf.pl>"
@@ -412,52 +412,52 @@ msgstr ""
 "Znaleziono więcej niż 1 wioskę w bazie, jest to błąd. Napisz do mnie: <rafal."
 "safin@rafsaf.pl>"
 
-#: base/forms.py:880
+#: base/forms.py:882
 msgid "Village must not be barbarian."
 msgstr "Wioska nie może być barbarzyńska."
 
-#: base/forms.py:890
+#: base/forms.py:892
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:891
+#: base/forms.py:893
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:902
+#: base/forms.py:904
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr "Niedozwolone znaki w podanym przedrostku, sprwadź jego poprawność"
 
-#: base/forms.py:923
+#: base/forms.py:925
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:926
+#: base/forms.py:928
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:938 base/forms.py:954
+#: base/forms.py:940 base/forms.py:956
 msgid "Please select your server:"
 msgstr "Ustaw swój serwer:"
 
-#: base/forms.py:956
+#: base/forms.py:958
 msgid "Turn on morale calculations in every outline by default:"
 msgstr ""
 "Włącz domyślną obsługę morali dla każdej nowej rozpiski (domyślnie wyłączone)"
 
-#: base/forms.py:958
+#: base/forms.py:960
 msgid "Default input type for planer"
 msgstr "Wybierz typ danych dla planera"
 
-#: base/forms.py:959
+#: base/forms.py:961
 msgid "Please select your currency:"
 msgstr "Ustaw swoją walutę płatności:"
 
-#: base/forms.py:964
+#: base/forms.py:966
 msgid "Prefered sending option in Results tab"
 msgstr "Preferowana opcja wysyłki wiadomości w zakładce Wyniki"
 
-#: base/forms.py:966
+#: base/forms.py:968
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
@@ -653,23 +653,23 @@ msgstr "Tekst rozszerzony bezpośrednio w wiadomości"
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:280
+#: base/models/outline.py:283
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:399
+#: base/models/outline.py:403
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:404
+#: base/models/outline.py:408
 msgid "never"
 msgstr "nigdy"
 
-#: base/models/outline.py:416
+#: base/models/outline.py:420
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:418
+#: base/models/outline.py:422
 msgid "days"
 msgstr "dni"
 
@@ -1048,7 +1048,7 @@ msgid "Delete"
 msgstr "Usuń"
 
 #: base/templates/base/base_planer.html:43
-#: base/templates/base/new_outline/new_outline_initial_period3.html:144
+#: base/templates/base/new_outline/new_outline_initial_period3.html:145
 msgid "Show"
 msgstr "Pokaż"
 
@@ -1145,8 +1145,8 @@ msgstr "Planer wybierze dane wklejone w:"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:418
 #: base/templates/base/new_outline/new_outline_initial_period2.html:84
 #: base/templates/base/new_outline/new_outline_initial_period2.html:113
-#: base/templates/base/new_outline/new_outline_initial_period3.html:146
-#: base/templates/base/new_outline/new_outline_initial_period3.html:200
+#: base/templates/base/new_outline/new_outline_initial_period3.html:147
+#: base/templates/base/new_outline/new_outline_initial_period3.html:209
 #: base/templates/base/new_outline/new_outline_results.html:62
 #: base/templates/base/user/profile_settings.html:65
 msgid "Save"
@@ -1818,97 +1818,101 @@ msgstr "Offy do"
 msgid "Catapults from"
 msgstr "Katapulty od"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:145
+#: base/templates/base/new_outline/new_outline_initial_period3.html:144
+msgid "Nobles from"
+msgstr "Szlachta od"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:146
 msgid "Cards on page"
 msgstr "Karty na stronę"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:213
+#: base/templates/base/new_outline/new_outline_initial_period3.html:222
 msgid "Sort"
 msgstr "Sortuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:217
+#: base/templates/base/new_outline/new_outline_initial_period3.html:226
 msgid "Ascending by distance"
 msgstr "Rosnąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:218
+#: base/templates/base/new_outline/new_outline_initial_period3.html:227
 msgid "Random by distance"
 msgstr "Losowo ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:219
+#: base/templates/base/new_outline/new_outline_initial_period3.html:228
 msgid "Descending by distance"
 msgstr "Malejąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:220
+#: base/templates/base/new_outline/new_outline_initial_period3.html:229
 msgid "Descending by number of units"
 msgstr "Malejąco ze względu na liczbę jednostek"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:221
+#: base/templates/base/new_outline/new_outline_initial_period3.html:230
 msgid "Descending by number of noble"
 msgstr "Malejąco ze względu na ilość szlachty"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:225
+#: base/templates/base/new_outline/new_outline_initial_period3.html:234
 msgid "Closest full offs"
 msgstr "Najbliższe pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:226
+#: base/templates/base/new_outline/new_outline_initial_period3.html:235
 msgid "Closest noblemans"
 msgstr "Najbliższa szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:227
+#: base/templates/base/new_outline/new_outline_initial_period3.html:236
 msgid "Closest offs with noblemans"
 msgstr "Najbliższe pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:231
+#: base/templates/base/new_outline/new_outline_initial_period3.html:240
 msgid "Random full offs"
 msgstr "Losowo pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:232
+#: base/templates/base/new_outline/new_outline_initial_period3.html:241
 msgid "Random noblemans"
 msgstr "Losowo szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:233
+#: base/templates/base/new_outline/new_outline_initial_period3.html:242
 msgid "Random offs with noblemans"
 msgstr "Losowo pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:237
+#: base/templates/base/new_outline/new_outline_initial_period3.html:246
 msgid "Farthest full offs"
 msgstr "Najdalsze pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:238
+#: base/templates/base/new_outline/new_outline_initial_period3.html:247
 msgid "Farthest noblemans"
 msgstr "Najdalsza szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:239
+#: base/templates/base/new_outline/new_outline_initial_period3.html:248
 msgid "Farthest offs with noblemans"
 msgstr "Najdalsze pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:249
-#: base/templates/base/new_outline/new_outline_initial_period3.html:256
+#: base/templates/base/new_outline/new_outline_initial_period3.html:258
+#: base/templates/base/new_outline/new_outline_initial_period3.html:265
 msgid "Previous"
 msgstr "Poprzednia"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:260
+#: base/templates/base/new_outline/new_outline_initial_period3.html:269
 msgid "of"
 msgstr "z"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:264
-#: base/templates/base/new_outline/new_outline_initial_period3.html:270
+#: base/templates/base/new_outline/new_outline_initial_period3.html:273
+#: base/templates/base/new_outline/new_outline_initial_period3.html:279
 msgid "Next"
 msgstr "Następna"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:281
+#: base/templates/base/new_outline/new_outline_initial_period3.html:290
 msgid "coord or nick..."
 msgstr "kordy lub nick..."
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:321
+#: base/templates/base/new_outline/new_outline_initial_period3.html:330
 msgid "On the left adding Fake, on the right 1 Noble"
 msgstr "Po lewej dodawaj zwykłe Fejki, na prawo 1 Szlachcic"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:325
+#: base/templates/base/new_outline/new_outline_initial_period3.html:334
 msgid "On the left adding Offs, on the right Ruin attack"
 msgstr "Po lewej dodawaj Offy, po prawej Burzaki"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:329
+#: base/templates/base/new_outline/new_outline_initial_period3.html:338
 msgid "On the left adding Offs, on the right Offs with the Nobles"
 msgstr "Po lewej dodawaj Offy, po prawej Offy z całą szlachtą"
 
@@ -2671,39 +2675,39 @@ msgstr "Ostatni element w linii musi być pustym stringiem, obecnie: %s"
 msgid "Second element of line must be a text: %s"
 msgstr "Drugi element w linii musi być tekstem, obecnie: %s"
 
-#: utils/basic/info_generatation.py:44
+#: utils/basic/info_generatation.py:45
 msgid "Targets:"
 msgstr "Cele:"
 
-#: utils/basic/info_generatation.py:45
+#: utils/basic/info_generatation.py:46
 msgid "Fakes:"
 msgstr "Fejk Cele:"
 
-#: utils/basic/info_generatation.py:46
+#: utils/basic/info_generatation.py:47
 msgid "Ruins:"
 msgstr "Burzone Cele:"
 
-#: utils/basic/info_generatation.py:52
+#: utils/basic/info_generatation.py:53
 msgid "Nicknames: "
 msgstr "Nazwy graczy: "
 
-#: utils/basic/info_generatation.py:140
+#: utils/basic/info_generatation.py:160
 msgid "fakes"
 msgstr "fejków"
 
-#: utils/basic/info_generatation.py:141
+#: utils/basic/info_generatation.py:161
 msgid "fake nobles"
 msgstr "fake grubych"
 
-#: utils/basic/info_generatation.py:153 utils/basic/info_generatation.py:161
+#: utils/basic/info_generatation.py:176 utils/basic/info_generatation.py:192
 msgid "offs"
 msgstr "offów"
 
-#: utils/basic/info_generatation.py:154
+#: utils/basic/info_generatation.py:177
 msgid "ruins"
 msgstr "burzaków"
 
-#: utils/basic/info_generatation.py:162
+#: utils/basic/info_generatation.py:193
 msgid "nobles"
 msgstr "szlachciców"
 
