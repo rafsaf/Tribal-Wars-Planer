@@ -57,9 +57,10 @@ class OverviewTest(MiniSetup):
         overview.extend_with_encodeURIComponent(outline, self.request)
 
         assert getattr(overview, "to", None) == "%3Dhated%20guy%3D"
+        print(getattr(overview, "message", None))
         assert (
             getattr(overview, "message", None)
-            == "%5Bb%5D%3Dhated%20guy%3D%5B%2Fb%5D%0A%0A%5Burl%5Dhttp%3A%2F%2Flocalhost%2Fpl%2Foverview%2Ftoken%5B%2Furl%5D%0A%0At1%0At2%0D%5B%23%2F%5D!%40a%3Bpoasd1!%0A%09%0Abffdb%5Bb%5DXD%5B%2Fb%5D"
+            == "%5Bb%5D%3Dhated%20guy%3D%5B%2Fb%5D%0A%0AUnikalny%20link%20do%20Twoich%20cel%C3%B3w%20na%20plemiona-planer.pl%0A%5Burl%5Dhttp%3A%2F%2Flocalhost%2Fpl%2Foverview%2Ftoken%5B%2Furl%5D%0A%0At1%0At2%0D%5B%23%2F%5D!%40a%3Bpoasd1!%0A%09%0Abffdb%5Bb%5DXD%5B%2Fb%5D"
         )
 
         outline.sending_option = "string"
@@ -68,9 +69,10 @@ class OverviewTest(MiniSetup):
         overview.extend_with_encodeURIComponent(outline, self.request)
 
         assert getattr(overview, "to", None) == "%3Dhated%20guy%3D"
+        print(getattr(overview, "message", None))
         assert (
             getattr(overview, "message", None)
-            == "%5Bb%5D%3Dhated%20guy%3D%5B%2Fb%5D%0A%0At1%0At2%0D%5B%23%2F%5D!%40a%3Bpoasd1!%0A%09%0Abffdb%5Bb%5DXD%5B%2Fb%5D1.%20%5Bcolor%3D%2300a500%5D%5Bb%5DWy%C5%9Blij%20fejk%20szlachcic%5B%2Fb%5D%5B%2Fcolor%5D%20(1%20szlachcic)%0A%5Bb%5D2021-02-20%20%5Bcolor%3D%23ff0000%5D15%3A28%3A42%20-%2015%3A28%3A42%5B%2Fcolor%5D%5B%2Fb%5D%0A%5Burl%3Dhttps%3A%2F%2FplTest.plemiona.pl%2Fgame.php%3Fvillage%3D38%26screen%3Dplace%26target%3D65%5DWy%C5%9Blij%20fejk%5B%2Furl%5D"
+            == "%5Bb%5D%3Dhated%20guy%3D%5B%2Fb%5D%0A%0AUnikalny%20link%20do%20Twoich%20cel%C3%B3w%20na%20plemiona-planer.pl%0A%5Burl%5Dhttp%3A%2F%2Flocalhost%2Fpl%2Foverview%2Ftoken%5B%2Furl%5D%0A%0At1%0At2%0D%5B%23%2F%5D!%40a%3Bpoasd1!%0A%09%0Abffdb%5Bb%5DXD%5B%2Fb%5D1.%20%5Bcolor%3D%2300a500%5D%5Bb%5DWy%C5%9Blij%20fejk%20szlachcic%5B%2Fb%5D%5B%2Fcolor%5D%20(1%20szlachcic)%0A%5Bb%5D2021-02-20%20%5Bcolor%3D%23ff0000%5D15%3A28%3A42%20-%2015%3A28%3A42%5B%2Fcolor%5D%5B%2Fb%5D%0A%5Burl%3Dhttps%3A%2F%2FplTest.plemiona.pl%2Fgame.php%3Fvillage%3D38%26screen%3Dplace%26target%3D65%5DWy%C5%9Blij%20fejk%5B%2Furl%5D"
         )
 
         outline.sending_option = "extended"
@@ -79,9 +81,10 @@ class OverviewTest(MiniSetup):
         overview.extend_with_encodeURIComponent(outline, self.request)
 
         assert getattr(overview, "to", None) == "%3Dhated%20guy%3D"
+        print(getattr(overview, "message", None))
         assert (
             getattr(overview, "message", None)
-            == "%5Bb%5D%3Dhated%20guy%3D%5B%2Fb%5D%0A%0At1%0At2%0D%5B%23%2F%5D!%40a%3Bpoasd1!%0A%09%0Abffdb%5Bb%5DXD%5B%2Fb%5D1.%20%5Bcolor%3D%2300a500%5D%5Bb%5DWy%C5%9Blij%20fejk%20szlachcic%5B%2Fb%5D%5B%2Fcolor%5D%20(1%20szlachcic)%20z%20wioski%20138%7C138%20na%20215%7C215%0A%5Bb%5D2021-02-20%20%5Bcolor%3D%23ff0000%5D15%3A28%3A42%20-%2015%3A28%3A42%5B%2Fcolor%5D%5B%2Fb%5D%0A%5Burl%3Dhttps%3A%2F%2FplTest.plemiona.pl%2Fgame.php%3Fvillage%3D38%26screen%3Dplace%26target%3D65%5DWy%C5%9Blij%20fejk%5B%2Furl%5D"
+            == "%5Bb%5D%3Dhated%20guy%3D%5B%2Fb%5D%0A%0AUnikalny%20link%20do%20Twoich%20cel%C3%B3w%20na%20plemiona-planer.pl%0A%5Burl%5Dhttp%3A%2F%2Flocalhost%2Fpl%2Foverview%2Ftoken%5B%2Furl%5D%0A%0At1%0At2%0D%5B%23%2F%5D!%40a%3Bpoasd1!%0A%09%0Abffdb%5Bb%5DXD%5B%2Fb%5D1.%20%5Bcolor%3D%2300a500%5D%5Bb%5DWy%C5%9Blij%20fejk%20szlachcic%5B%2Fb%5D%5B%2Fcolor%5D%20(1%20szlachcic)%20z%20wioski%20138%7C138%20na%20215%7C215%0A%5Bb%5D2021-02-20%20%5Bcolor%3D%23ff0000%5D15%3A28%3A42%20-%2015%3A28%3A42%5B%2Fcolor%5D%5B%2Fb%5D%0A%5Burl%3Dhttps%3A%2F%2FplTest.plemiona.pl%2Fgame.php%3Fvillage%3D38%26screen%3Dplace%26target%3D65%5DWy%C5%9Blij%20fejk%5B%2Furl%5D"
         )
 
         outline.sending_option = "deputy"
@@ -90,7 +93,8 @@ class OverviewTest(MiniSetup):
         overview.extend_with_encodeURIComponent(outline, self.request)
 
         assert getattr(overview, "to", None) == "%3Dhated%20guy%3D"
+        print(getattr(overview, "message", None))
         assert (
             getattr(overview, "message", None)
-            == "%5Bb%5D%3Dhated%20guy%3D%5B%2Fb%5D%0A%0At1%0At2%0D%5B%23%2F%5D!%40a%3Bpoasd1!%0A%09%0Abffdb%5Bb%5DXD%5B%2Fb%5D1.%20%5Bcolor%3D%2300a500%5D%5Bb%5DWy%C5%9Blij%20fejk%20szlachcic%5B%2Fb%5D%5B%2Fcolor%5D%20(1%20szlachcic)%20z%20wioski%20138%7C138%20na%20215%7C215%0A%5Bb%5D2021-02-20%20%5Bcolor%3D%23ff0000%5D15%3A28%3A42%20-%2015%3A28%3A42%5B%2Fcolor%5D%5B%2Fb%5D%0A%5Burl%3Dhttps%3A%2F%2FplTest.plemiona.pl%2Fgame.php%3Fvillage%3D38%26screen%3Dplace%26target%3D65%26t%3D3%5DWy%C5%9Blij%20fejk%5B%2Furl%5D"
+            == "%5Bb%5D%3Dhated%20guy%3D%5B%2Fb%5D%0A%0AUnikalny%20link%20do%20Twoich%20cel%C3%B3w%20na%20plemiona-planer.pl%0A%5Burl%5Dhttp%3A%2F%2Flocalhost%2Fpl%2Foverview%2Ftoken%5B%2Furl%5D%0A%0At1%0At2%0D%5B%23%2F%5D!%40a%3Bpoasd1!%0A%09%0Abffdb%5Bb%5DXD%5B%2Fb%5D1.%20%5Bcolor%3D%2300a500%5D%5Bb%5DWy%C5%9Blij%20fejk%20szlachcic%5B%2Fb%5D%5B%2Fcolor%5D%20(1%20szlachcic)%20z%20wioski%20138%7C138%20na%20215%7C215%0A%5Bb%5D2021-02-20%20%5Bcolor%3D%23ff0000%5D15%3A28%3A42%20-%2015%3A28%3A42%5B%2Fcolor%5D%5B%2Fb%5D%0A%5Burl%3Dhttps%3A%2F%2FplTest.plemiona.pl%2Fgame.php%3Fvillage%3D38%26screen%3Dplace%26target%3D65%26t%3D3%5DWy%C5%9Blij%20fejk%5B%2Furl%5D"
         )
