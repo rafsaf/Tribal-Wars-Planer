@@ -26,6 +26,7 @@ from django.utils.translation import gettext_lazy
 if TYPE_CHECKING:
     from base.models import Message
 
+from base.models.outline import Outline
 from base.models.server import Server
 
 
@@ -52,6 +53,10 @@ class Profile(models.Model):
     input_data_type = models.CharField(
         max_length=32, default="Army collection", choices=INPUT_DATA_TYPES
     )
+    sending_option = models.CharField(
+        default="default", choices=Outline.SENDING_OPTIONS, max_length=50
+    )
+    send_message_with_url = models.BooleanField(default=True)
 
     def is_premium(self) -> bool:
         if settings.PREMIUM_ACCOUNT_VALIDATION_ON:

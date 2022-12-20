@@ -55,6 +55,8 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                     world=world_instance,
                     morale_on=profile.default_morale_on,
                     input_data_type=profile.input_data_type,
+                    sending_option=profile.sending_option,
+                    send_message_with_url=profile.send_message_with_url,
                 )
                 new_instance.save()
                 new_instance.refresh_from_db()
@@ -100,7 +102,7 @@ def new_outline_create_select(request: HttpRequest, _id: int) -> HttpResponse:
 
     banned_tribe_id = [tribe.pk for tribe in ally_tribe + enemy_tribe]
 
-    choices = [("banned", "--------")] + [  # type: ignore
+    choices = [("banned", "--------")] + [
         (f"{tribe.tag}", f"{tribe.tag}")
         for tribe in models.Tribe.objects.filter(world=instance.world).exclude(
             pk__in=banned_tribe_id
