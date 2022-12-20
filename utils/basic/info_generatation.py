@@ -15,6 +15,7 @@
 
 
 from django.db.models.query import QuerySet
+from django.utils.translation import get_language
 from django.utils.translation import gettext as _
 
 from base import models
@@ -133,6 +134,25 @@ class TargetCount:
     ) -> None:
         self.target: models.TargetVertex = target
         self.weight_lst = weight_lst
+        self.ally_players_offs = {weight.player: 0 for weight in self.weight_lst}
+        self.ally_players_nobles = {player: 0 for player in self.ally_players_offs}
+        self.ally_players_fakes = {player: 0 for player in self.ally_players_offs}
+        self.ally_players_ruins = {player: 0 for player in self.ally_players_offs}
+        lang = get_language()
+        if lang == "pl":
+            self.troops_shortcuts = {
+                "offs": "o",
+                "noble": "s",
+                "ruin": "b",
+                "fake": "f",
+            }
+        else:
+            self.troops_shortcuts = {
+                "offs": "o",
+                "noble": "n",
+                "ruin": "r",
+                "fake": "f",
+            }
 
     @property
     def line(self) -> str:
@@ -140,41 +160,79 @@ class TargetCount:
             fakes_string: str = _("fakes")
             fake_nobles_string: str = _("fake nobles")
 
-            fakes: int = len(
-                [weight for weight in self.weight_lst if weight.nobleman == 0]
-            )
-            fake_nobles: int = 0
-            weight: models.WeightModel
+            fakes = 0
+            fake_nobles = 0
             for weight in self.weight_lst:
-                fake_nobles += weight.nobleman
+                if weight.nobleman:
+                    fake_nobles += weight.nobleman
+                    self.ally_players_nobles[weight.player] += weight.nobleman
+                else:
+                    self.ally_players_fakes[weight.player] += 1
+                    fakes += 1
+
             return f"\r\n{self.target.target} - {fakes} {fakes_string} - {fake_nobles} {fake_nobles_string}"
 
-        if self.target.ruin:
+        elif self.target.ruin:
             offs_string: str = _("offs")
             ruins_string: str = _("ruins")
 
-            ruins: int = len([weight for weight in self.weight_lst if weight.ruin])
-            offs: int = len(self.weight_lst) - ruins
+            ruins = 0
+            offs = 0
+            for weight in self.weight_lst:
+                if weight.ruin:
+                    ruins += 1
+                    self.ally_players_ruins[weight.player] += 1
+                else:
+                    offs += 1
+                    self.ally_players_offs[weight.player] += 1
+
             return f"\r\n{self.target.target} - {offs} {offs_string} - {ruins} {ruins_string}"
 
         else:
             offs_string: str = _("offs")
             nobles_string: str = _("nobles")
 
-            offs: int = len(
-                [weight for weight in self.weight_lst if weight.nobleman == 0]
-            )
-            nobles: int = 0
-            weight: models.WeightModel
+            nobles = 0
+            offs = 0
             for weight in self.weight_lst:
-                nobles += weight.nobleman
-
+                if weight.nobleman:
+                    nobles += weight.nobleman
+                    self.ally_players_nobles[weight.player] += weight.nobleman
+                else:
+                    self.ally_players_offs[weight.player] += 1
+                    offs += 1
             return f"\r\n{self.target.target} - {offs} {offs_string} - {nobles} {nobles_string}"
 
     @property
     def line_with_ally_nick(self):
-        unique_ally_players = {weight.player for weight in self.weight_lst}
-        return f"{self.line} ({', '.join(unique_ally_players)})"
+        base_line = self.line
+
+        ally_players_details = {player: "" for player in self.ally_players_offs}
+        for player, count in self.ally_players_offs.items():
+            if count:
+                ally_players_details[
+                    player
+                ] += f"{count}{self.troops_shortcuts['offs']}"
+        for player, count in self.ally_players_fakes.items():
+            if count:
+                ally_players_details[
+                    player
+                ] += f"{count}{self.troops_shortcuts['fake']}"
+        for player, count in self.ally_players_nobles.items():
+            if count:
+                ally_players_details[
+                    player
+                ] += f"{count}{self.troops_shortcuts['noble']}"
+        for player, count in self.ally_players_ruins.items():
+            if count:
+                ally_players_details[
+                    player
+                ] += f"{count}{self.troops_shortcuts['ruin']}"
+        parse_details = ""
+        for player, details in ally_players_details.items():
+            parse_details += f"{player} {details}, "
+        parse_details = parse_details.removesuffix(", ")
+        return f"{base_line} ({parse_details})"
 
     @property
     def target_type(self) -> str:
