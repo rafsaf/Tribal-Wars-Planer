@@ -2,7 +2,7 @@
 {% load static %} 
 {% load i18n %}
 {% block title %}{{overview.player}} | {% trans 'Tribal Wars Planer' %}{% endblock %}
-
+{% block showsidebar %}toggled{% endblock %}
 {% block content %}
 <style>.tribalwarsbg{background: url("{% static 'images/bg_content_48x48.png' %}");font-family:Verdana, Arial;}</style>
 <input id="speed_world" type="hidden" value="{{overview.outline.world.speed_world}}">
