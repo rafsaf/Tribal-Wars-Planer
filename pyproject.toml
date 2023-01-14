@@ -2,12 +2,12 @@
 authors = ["rafsaf <rafal.safin@rafsaf.pl>"]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-version = "4.14.1"
+version = "4.14.3"
 
 [tool.poetry.dependencies]
 python = ">3.10,<3.12"
 
-django = "^4.1.4"
+django = "^4.1.5"
 django-crispy-forms = "^1.14.0"
 django-registration = "^3.3"
 django-ses = "^3.3.0"
