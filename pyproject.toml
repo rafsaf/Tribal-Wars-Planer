@@ -32,7 +32,7 @@ coverage = { extras = ["toml"], version = "^6.5.0" }
 django-types = "^0.16.0"
 flake8 = "^6.0.0"
 freezegun = "^1.2.2"
-isort = "^5.10.1"
+isort = "^5.11.4"
 locust = "^2.13.2"
 pre-commit = "^2.20.0"
 pytest-django = "^4.5.2"
