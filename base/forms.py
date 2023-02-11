@@ -907,7 +907,6 @@ class AddNewWorldForm(forms.ModelForm):
         return postfix
 
     def clean(self):
-
         server = self.cleaned_data.get("server")
         postfix = self.cleaned_data.get("postfix")
         if postfix is None:

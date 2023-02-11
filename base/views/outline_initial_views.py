@@ -364,7 +364,6 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
                 )
 
     if not mode.is_time:
-
         page_obj = instance.pagin_targets(
             page=page_number,
             fake=mode.is_fake,

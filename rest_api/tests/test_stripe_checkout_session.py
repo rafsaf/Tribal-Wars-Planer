@@ -22,7 +22,6 @@ from base.tests.test_utils.mini_setup import MiniSetup
 
 class StripeCheckoutSession(MiniSetup):
     def test_stripe_session___403_not_auth(self):
-
         PATH = reverse("rest_api:stripe_session")
 
         response = self.client.post(

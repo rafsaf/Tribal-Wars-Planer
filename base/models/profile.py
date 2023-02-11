@@ -31,7 +31,6 @@ from base.models.server import Server
 
 
 class Profile(models.Model):
-
     INPUT_DATA_TYPES = [
         ("Army collection", gettext_lazy("Army collection")),
         ("Deff collection", gettext_lazy("Deff collection ")),

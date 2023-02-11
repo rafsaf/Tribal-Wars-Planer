@@ -23,7 +23,6 @@ from base.tests.test_views.outline_initial_changes.changes_view_setup import (
 
 class InitialAddLastOff(ChangesViewSetup):
     def test_planer_add_last_off(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)
@@ -65,7 +64,6 @@ class InitialAddLastOff(ChangesViewSetup):
         self.assertEqual(new_weight.catapult, 200)  # type: ignore
 
     def test_planer_add_last_off___prevent_access_from_other_user(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)

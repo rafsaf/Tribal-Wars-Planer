@@ -21,14 +21,12 @@ from base.tests.test_utils.mini_setup import MiniSetup
 
 class StripeConfig(MiniSetup):
     def test_stripe_key___403_not_auth(self):
-
         PATH = reverse("rest_api:stripe_key")
 
         response = self.client.get(PATH)
         assert response.status_code == 403
 
     def test_stripe_key___200_works_properly(self):
-
         PATH = reverse("rest_api:stripe_key")
 
         self.login_me()

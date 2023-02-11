@@ -182,7 +182,6 @@ class AdminWorld(admin.ModelAdmin):
     def get_deleted_objects(
         self, objs: QuerySet[World], request: HttpRequest
     ) -> tuple[list[Any], dict[Any, Any], set[Any], list[Any]]:
-
         worlds_list = [world.human(prefix=True) for world in objs]
         model_count = {
             models.World._meta.verbose_name_plural: f"{len(objs)} ({', '.join(worlds_list)})",

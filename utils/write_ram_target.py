@@ -103,7 +103,6 @@ class WriteRamTarget:
             return self._far_weight_lst()
 
     def weight_create_list(self) -> tuple[list[WeightModel], list[WeightMaximum]]:
-
         weights_max_update_lst: list[WeightMaximum] = []
         weights_create_lst: list[WeightModel] = []
         self._set_building_generator()
@@ -179,7 +178,6 @@ class WriteRamTarget:
         building: str | None,
         order: int,
     ) -> WeightModel:
-
         return WeightModel(
             target=self.target,
             player=weight_max.player,
@@ -373,7 +371,6 @@ class WriteRamTarget:
             left_offs -= len(weight_list_3)
 
             if left_offs > 0:
-
                 weight_list_2: list[WeightMaximum] = list(
                     self._random_query(filtered_weight_max, night_bool=2)[:left_offs]
                 )
@@ -382,7 +379,6 @@ class WriteRamTarget:
                 left_offs -= len(weight_list_2)
 
                 if left_offs > 0:
-
                     weight_list_1: list[WeightMaximum] = list(
                         self._random_query(filtered_weight_max, night_bool=1)[
                             :left_offs

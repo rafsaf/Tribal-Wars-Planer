@@ -21,7 +21,6 @@ from base.tests.test_utils.mini_setup import MiniSetup
 
 class StripeConfig(MiniSetup):
     def test_metrics_export___403_not_auth(self):
-
         PATH = reverse("rest_api:metrics_export")
 
         response = self.client.get(PATH)

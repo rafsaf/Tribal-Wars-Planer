@@ -10,7 +10,6 @@ def delete_all_pdfs(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0049_pdfpaymentsummary_created_at_and_more"),
     ]

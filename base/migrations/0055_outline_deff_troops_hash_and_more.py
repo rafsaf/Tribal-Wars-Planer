@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0054_remove_world_etag_player_remove_world_etag_tribe_and_more"),
     ]

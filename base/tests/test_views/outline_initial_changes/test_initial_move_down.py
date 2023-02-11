@@ -23,7 +23,6 @@ from base.tests.test_views.outline_initial_changes.changes_view_setup import (
 
 class InitialMoveDown(ChangesViewSetup):
     def test_planer_initial_move_down(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         self.get_weight_max(outline)
@@ -66,7 +65,6 @@ class InitialMoveDown(ChangesViewSetup):
         self.assertEqual(weight1.order, 1)
 
     def test_planer_initial_move_down___prevent_access_from_other_user(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         self.get_weight_max(outline)

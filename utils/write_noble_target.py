@@ -122,7 +122,6 @@ class WriteNobleTarget:
         weight_max: WeightMaximum
         noble_number: int
         for i, (weight_max, noble_number) in enumerate(self.default_create_list):
-
             off: int = self._off(weight_max)
             catapult: int = self._catapult(weight_max)
             first_off: int = self._first_off(weight_max, off)
@@ -176,7 +175,6 @@ class WriteNobleTarget:
         noble: int,
         order: int,
     ) -> WeightModel:
-
         return WeightModel(
             target=self.target,
             player=weight_max.player,

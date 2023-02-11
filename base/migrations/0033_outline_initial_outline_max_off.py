@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0032_remove_profile_server_bind_remind_not_before_date"),
     ]

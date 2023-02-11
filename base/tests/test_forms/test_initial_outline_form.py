@@ -25,7 +25,6 @@ from utils import basic
 
 class TestInitialOutlineForm(TestCase):
     def setUp(self):
-
         self.server = models.Server.objects.create(
             dns="testserver",
             prefix="te",

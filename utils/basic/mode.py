@@ -28,7 +28,6 @@ class Mode:
     }
 
     def __init__(self, request_GET_mode: str | None):
-
         if request_GET_mode is None:
             self.mode = "menu"
         else:
@@ -83,7 +82,6 @@ class TargetMode:
     }
 
     def __init__(self, request_GET_mode: str | None) -> None:
-
         if request_GET_mode is None:
             self.mode = "real"
         else:

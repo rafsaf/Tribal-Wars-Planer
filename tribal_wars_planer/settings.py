@@ -14,9 +14,9 @@
 # ==============================================================================
 
 import os
+import tomllib
 from pathlib import Path
 
-import tomllib
 from diskcache.fanout import FanoutCache
 from dotenv import load_dotenv
 

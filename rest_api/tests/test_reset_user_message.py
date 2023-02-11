@@ -21,7 +21,6 @@ from base.tests.test_utils.mini_setup import MiniSetup
 
 class ResetUserMessage(MiniSetup):
     def test_reset_user_messages___403_not_auth(self):
-
         PATH = reverse("rest_api:reset_user_messages")
 
         response = self.client.put(PATH)

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0052_alter_pdfpaymentsummary_options_alter_stats_options_and_more"),
     ]
