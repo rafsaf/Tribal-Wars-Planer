@@ -16,6 +16,7 @@
 from itertools import zip_longest
 
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import Max, Min
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -28,6 +29,7 @@ from utils import basic
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_first(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -35,8 +37,8 @@ def initial_add_first(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -76,6 +78,7 @@ def initial_add_first(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_first_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -83,8 +86,8 @@ def initial_add_first_off(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -122,6 +125,7 @@ def initial_add_first_off(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_first_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -129,8 +133,8 @@ def initial_add_first_ruin(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -175,6 +179,7 @@ def initial_add_first_ruin(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_first_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -182,8 +187,8 @@ def initial_add_first_fake(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -242,6 +247,7 @@ def initial_add_first_fake(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_first_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -249,8 +255,8 @@ def initial_add_first_fake_noble(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -292,6 +298,7 @@ def initial_add_first_fake_noble(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_last_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -299,8 +306,8 @@ def initial_add_last_fake(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -359,6 +366,7 @@ def initial_add_last_fake(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_last_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -366,8 +374,8 @@ def initial_add_last_fake_noble(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -409,6 +417,7 @@ def initial_add_last_fake_noble(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_last_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -416,8 +425,8 @@ def initial_add_last_ruin(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -463,6 +472,7 @@ def initial_add_last_ruin(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_last_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -470,8 +480,8 @@ def initial_add_last_off(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -510,6 +520,7 @@ def initial_add_last_off(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_add_last(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -517,8 +528,8 @@ def initial_add_last(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex, pk=id2)
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -559,6 +570,7 @@ def initial_add_last(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_move_down(
     request: HttpRequest, id1: int, id2: int, id4: int
 ) -> HttpResponse:
@@ -566,8 +578,10 @@ def initial_move_down(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight_model = models.WeightModel.objects.get(pk=id4)
-    target = get_object_or_404(models.TargetVertex, pk=id2)
+    weight_model = get_object_or_404(
+        models.WeightModel.objects.select_for_update(), pk=id4
+    )
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
     order1 = weight_model.order
 
     next_weight = (
@@ -591,14 +605,17 @@ def initial_move_down(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpResponse:
     get_object_or_404(models.Outline, owner=request.user, id=id1)
 
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight_model = models.WeightModel.objects.get(pk=id4)
-    target = get_object_or_404(models.TargetVertex, pk=id2)
+    weight_model = get_object_or_404(
+        models.WeightModel.objects.select_for_update(), pk=id4
+    )
+    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
     order1 = weight_model.order
 
     next_weight = (
@@ -622,6 +639,7 @@ def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpR
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_weight_delete(
     request: HttpRequest, id1: int, id2: int, id4: int
 ) -> HttpResponse:
@@ -629,9 +647,9 @@ def initial_weight_delete(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight_model: models.WeightModel = models.WeightModel.objects.select_related(
-        "state"
-    ).filter(pk=id4)[0]
+    weight_model = get_object_or_404(
+        models.WeightModel.objects.select_for_update().select_related("state"), pk=id4
+    )
     state: models.WeightMaximum = weight_model.state
     state.off_left += weight_model.off
     state.off_state -= weight_model.off
@@ -651,6 +669,7 @@ def initial_weight_delete(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_divide(
     request: HttpRequest, id1: int, id2: int, id4: int, n: int
 ) -> HttpResponse:
@@ -658,22 +677,22 @@ def initial_divide(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight: models.WeightModel = models.WeightModel.objects.select_related(
-        "state"
-    ).filter(pk=id4)[0]
+    weight_model = get_object_or_404(
+        models.WeightModel.objects.select_for_update().select_related("state"), pk=id4
+    )
     n_list = [i + 1 for i in range(n - 1)]
-    nob_list = [i for i in range(max(weight.nobleman - 1, 0))]
-    if n > weight.nobleman:
+    nob_list = [i for i in range(max(weight_model.nobleman - 1, 0))]
+    if n > weight_model.nobleman:
         zipped_list = zip_longest(n_list, nob_list)
-        nob_number = max(weight.nobleman - 1, 0)
+        nob_number = max(weight_model.nobleman - 1, 0)
     else:
         zipped_list = zip(n_list, nob_list)
         nob_number = n - 1
 
-    off = weight.off // n
-    catapult = weight.catapult // n
-    rest = weight.off - off * n
-    rest_catapult = weight.catapult - catapult * n
+    off = weight_model.off // n
+    catapult = weight_model.catapult // n
+    rest = weight_model.off - off * n
+    rest_catapult = weight_model.catapult - catapult * n
     update_list = []
     create_list = []
     for number, nob in zipped_list:
@@ -684,26 +703,26 @@ def initial_divide(
 
         create_list.append(
             models.WeightModel(
-                target=weight.target,
-                player=weight.player,
-                start=weight.start,
-                state=weight.state,
+                target=weight_model.target,
+                player=weight_model.player,
+                start=weight_model.start,
+                state=weight_model.state,
                 off=off,
-                ruin=weight.ruin,
+                ruin=weight_model.ruin,
                 catapult=catapult,
                 nobleman=nob,
-                order=weight.order + number,
-                distance=weight.distance,
-                first_line=weight.first_line,
+                order=weight_model.order + number,
+                distance=weight_model.distance,
+                first_line=weight_model.first_line,
             )
         )
-    weight.off = off + rest
-    weight.catapult = catapult + rest_catapult
-    weight.nobleman = weight.nobleman - nob_number
-    weight.save()
+    weight_model.off = off + rest
+    weight_model.catapult = catapult + rest_catapult
+    weight_model.nobleman = weight_model.nobleman - nob_number
+    weight_model.save()
 
     for next_weight in models.WeightModel.objects.filter(
-        target=weight.target, order__gt=weight.order
+        target=weight_model.target, order__gt=weight_model.order
     ):
         next_weight.order = next_weight.order + n
         update_list.append(next_weight)
@@ -719,15 +738,16 @@ def initial_divide(
 
 @require_POST
 @login_required
+@transaction.atomic
 def initial_hide_weight(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
     get_object_or_404(models.Outline, owner=request.user, id=id1)
-    get_object_or_404(models.TargetVertex, pk=id2)
+    get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight = get_object_or_404(models.WeightMaximum, pk=id3)
+    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
     weight.hidden = not weight.hidden
     weight.save()
     return redirect(
