@@ -10,21 +10,52 @@ const modal = () => {
   document.addEventListener("DOMContentLoaded", function (event) {
     $("#form-modal").on("show.bs.modal", function (event) {
       var button = $(event.relatedTarget); // Button that triggered the modal
+      var attackNumber = button.data("attacknumber");
       var start = button.data("start");
-      var off = button.data("off");
-      var leftOff = button.data("leftoff");
-      var nobleman = button.data("nobleman");
-      var leftNobleman = button.data("leftnobleman");
+      var off = parseInt(button.data("off"));
+      var leftOff = parseInt(button.data("leftoff"));
+      var nobleman = parseInt(button.data("nobleman"));
+      var leftNobleman = parseInt(button.data("leftnobleman"));
+      var catapult = parseInt(button.data("catapult"));
+      var leftCatapult = parseInt(button.data("leftcatapult"));
       var id = button.data("id");
       var modal = $(this);
+
+      var currentOther = off - catapult * 8;
+      var currentCatapult = catapult;
+
+      var currentOtherLeft = leftOff - leftCatapult * 8;
+      var currentCatapultLeft = leftCatapult;
+
+      var currentOtherMax = currentOther + currentOtherLeft;
+      var currentCatapultMax = currentCatapult + currentCatapultLeft;
+
       modal.find(".modal-title").text(start);
-      modal.find("#id_off").val(off);
-      modal.find("#id_off").attr("max", parseInt(off) + parseInt(leftOff));
-      modal.find("#id_nobleman").val(nobleman);
-      modal
-        .find("#id_nobleman")
-        .attr("max", parseInt(nobleman) + parseInt(leftNobleman));
+      modal.find("#attack-number").text(attackNumber);
       modal.find("#id_weight_id").val(id);
+      modal.find("#id_off").val(off);
+
+      modal.find("#id_off_no_catapult").val(currentOther);
+      modal.find("#id_off_no_catapult").attr("max", currentOtherMax);
+      modal.find("#hint_id_off_no_catapult").text(`0-${currentOtherMax}`);
+      modal.find("#id_off_no_catapult").change(function () {
+        var cat = parseInt(modal.find("#id_catapult").val());
+        var offNoCats = parseInt(modal.find("#id_off_no_catapult").val());
+        modal.find("#id_off").val(offNoCats + cat * 8);
+      });
+
+      modal.find("#id_catapult").val(currentCatapult);
+      modal.find("#id_catapult").attr("max", currentCatapultMax);
+      modal.find("#hint_id_catapult").text(`0-${currentCatapultMax}`);
+      modal.find("#id_catapult").change(function () {
+        var cat = parseInt(modal.find("#id_catapult").val());
+        var offNoCats = parseInt(modal.find("#id_off_no_catapult").val());
+        modal.find("#id_off").val(offNoCats + cat * 8);
+      });
+
+      modal.find("#id_nobleman").val(nobleman);
+      modal.find("#id_nobleman").attr("max", nobleman + leftNobleman);
+      modal.find("#hint_id_nobleman").text(`0-${nobleman + leftNobleman}`);
     });
 
     $(".popoverData").popover();
