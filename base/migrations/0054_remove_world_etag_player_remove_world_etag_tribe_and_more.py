@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0053_remove_weightmodel_t1_remove_weightmodel_t2"),
     ]

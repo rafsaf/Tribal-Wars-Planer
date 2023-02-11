@@ -23,7 +23,6 @@ from base.tests.test_views.outline_initial_changes.changes_view_setup import (
 
 class InitialWeightDelete(ChangesViewSetup):
     def test_planer_initial_weight_delete(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         self.get_weight_max(outline)
@@ -54,7 +53,6 @@ class InitialWeightDelete(ChangesViewSetup):
         )
 
     def test_planer_initial_weight_delete___prevent_access_from_other_user(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         self.get_weight_max(outline)

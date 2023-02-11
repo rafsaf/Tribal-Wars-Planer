@@ -364,7 +364,6 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
                 )
 
     if not mode.is_time:
-
         page_obj = instance.pagin_targets(
             page=page_number,
             fake=mode.is_fake,
@@ -552,66 +551,63 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
         if "form" in request.POST:
             form = forms.WeightForm(request.POST)
             if form.is_valid():
-                weight_id: str | None = request.POST.get("weight_id")
-                off_post: str | None = request.POST.get("off")
-                nobleman_post: str | None = request.POST.get("nobleman")
-                if nobleman_post is not None and off_post is not None:
-                    nobleman = int(nobleman_post)
-                    off = int(off_post)
-                else:
-                    raise Http404()
-                weight: models.WeightModel = get_object_or_404(
-                    models.WeightModel.objects.select_related("state"), pk=weight_id
-                )
-                state: models.WeightMaximum = weight.state
-                off_diffrence: int = off - weight.off
-                noble_diffrence: int = nobleman - weight.nobleman
+                with transaction.atomic():
+                    weight_id: str | None = request.POST.get("weight_id")
+                    off_no_cats_post: str | None = request.POST.get("off_no_catapult")
+                    nobleman_post: str | None = request.POST.get("nobleman")
+                    catapult_post: str | None = request.POST.get("catapult")
 
-                state.off_state += off_diffrence
-                state.off_left -= off_diffrence
-                state.nobleman_state += noble_diffrence
-                state.nobleman_left -= noble_diffrence
+                    weight: models.WeightModel = get_object_or_404(
+                        models.WeightModel.objects.select_for_update().select_related(
+                            "state"
+                        ),
+                        pk=weight_id,
+                    )
+                    state = weight.state
+                    try:
+                        assert nobleman_post
+                        assert off_no_cats_post
+                        assert catapult_post
 
-                off_additional: int = 0
-                if off > weight.off:
-                    if off > weight.off + state.off_left - state.catapult_left * 8:
-                        off_from_catapults: int = weight.off + state.off_left - off
-                        catapults_up: int = min(
-                            (off_from_catapults // 8) + 1, state.catapult_left
-                        )
-                        state.catapult_state += catapults_up
-                        state.catapult_left -= catapults_up
-                        state.off_state += catapults_up * 8 - off_from_catapults
-                        state.off_left -= catapults_up * 8 - off_from_catapults
-                        off_additional = catapults_up * 8 - off_from_catapults
-                    else:
-                        catapults_up = 0
-                    catapults = weight.catapult + catapults_up
-                else:
-                    if weight.catapult * 8 > off:
-                        off_from_catapults: int = weight.catapult * 8 - off
-                        catapults_down: int = min(
-                            (off_from_catapults // 8) + 1, weight.catapult
-                        )
-                        state.catapult_state -= catapults_down
-                        state.catapult_left += catapults_down
-                        state.off_state -= catapults_down * 8 - off_from_catapults
-                        state.off_left += catapults_down * 8 - off_from_catapults
-                        off_additional = off_from_catapults - catapults_down * 8
-                    else:
-                        catapults_down: int = 0
-                    catapults = weight.catapult - catapults_down
+                        nobleman = int(nobleman_post)
+                        off_no_cats = int(off_no_cats_post)
+                        catapult = int(catapult_post)
 
-                weight.off = off + off_additional
-                weight.nobleman = nobleman
-                weight.catapult = catapults
+                        off_diffrence: int = off_no_cats + catapult * 8 - weight.off
+                        noble_diffrence: int = nobleman - weight.nobleman
+                        catapult_diffrence: int = catapult - weight.catapult
 
-                weight.save()
-                state.save()
-                return redirect(
-                    reverse("base:planer_initial_detail", args=[id1, id2])
-                    + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"  # type: ignore
-                )
+                        assert noble_diffrence <= state.nobleman_left
+                        assert -weight.nobleman <= noble_diffrence
+                        assert off_diffrence <= state.off_left
+                        assert -weight.off <= off_diffrence
+                        assert catapult_diffrence <= state.catapult_left
+                        assert -weight.catapult <= catapult_diffrence
+
+                    except AssertionError:
+                        raise Http404()
+
+                    off_diffrence: int = off_no_cats + catapult * 8 - weight.off
+                    noble_diffrence: int = nobleman - weight.nobleman
+                    catapult_diffrence: int = catapult - weight.catapult
+
+                    state.off_state += off_diffrence
+                    state.off_left -= off_diffrence
+                    state.nobleman_state += noble_diffrence
+                    state.nobleman_left -= noble_diffrence
+                    state.catapult_state += catapult_diffrence
+                    state.catapult_left -= catapult_diffrence
+
+                    weight.off += off_diffrence
+                    weight.nobleman += noble_diffrence
+                    weight.catapult += catapult_diffrence
+
+                    weight.save()
+                    state.save()
+                    return redirect(
+                        reverse("base:planer_initial_detail", args=[id1, id2])
+                        + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"  # type: ignore
+                    )
         else:
             form = forms.WeightForm(None)
 

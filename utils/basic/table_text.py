@@ -171,7 +171,6 @@ class TableText:
     def add_weight(
         self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None
     ):
-
         self.weight_table[weight] = str(
             self.__weight_table(weight, ally_id, enemy_id, fake)
         )

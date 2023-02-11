@@ -252,14 +252,12 @@ class CreateWeights:
     def _create_weights_or_pass_update_max_list(
         self, weights_lsts: tuple[list[WeightModel], list[WeightMaximum]]
     ) -> None:
-
         temp_to_update_dict = {}
         weight_max: WeightMaximum
         for weight_max in weights_lsts[1]:
             temp_to_update_dict[weight_max.pk] = weight_max
 
         for i, weight_max in enumerate(self.weight_max_list):
-
             if weight_max.pk in temp_to_update_dict:
                 self.weight_max_list[i] = temp_to_update_dict[weight_max.pk]
 
@@ -270,7 +268,7 @@ class CreateWeights:
     def _noble_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
             self._annotate_distances_and_morale_for_target(target)
-            for (required, mode) in self._extended_syntax(target, noble_or_ruin=True):
+            for required, mode in self._extended_syntax(target, noble_or_ruin=True):
                 if required == 0:
                     continue
                 target.required_noble = required
@@ -301,7 +299,7 @@ class CreateWeights:
     def _ruin_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
             self._annotate_distances_and_morale_for_target(target)
-            for (required, mode) in self._extended_syntax(target, noble_or_ruin=True):
+            for required, mode in self._extended_syntax(target, noble_or_ruin=True):
                 if required == 0:
                     continue
                 target.required_off = required
@@ -335,7 +333,7 @@ class CreateWeights:
     def _ram_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=False):
             self._annotate_distances_and_morale_for_target(target)
-            for (required, mode) in self._extended_syntax(target, noble_or_ruin=False):
+            for required, mode in self._extended_syntax(target, noble_or_ruin=False):
                 if required == 0:
                     continue
                 target.required_off = required

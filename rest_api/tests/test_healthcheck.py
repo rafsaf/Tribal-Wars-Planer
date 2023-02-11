@@ -20,7 +20,6 @@ from base.tests.test_utils.mini_setup import MiniSetup
 
 class Healthcheck(MiniSetup):
     def test_healthcheck__200(self):
-
         PATH = reverse("rest_api:healthcheck")
 
         response = self.client.get(PATH)

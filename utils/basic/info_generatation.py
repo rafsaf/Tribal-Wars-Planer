@@ -23,7 +23,6 @@ from utils import basic
 
 
 class OutlineInfo:
-
     evidence_dictionary: dict[tuple[int, int, int], int] = {
         (1, 1, 1): 16,
         (1, 1, 0): 15,

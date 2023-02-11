@@ -19,7 +19,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0031_auto_20220108_1915"),
     ]

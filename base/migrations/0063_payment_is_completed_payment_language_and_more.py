@@ -23,7 +23,6 @@ def reverse_pass(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0062_alter_profile_user"),
     ]

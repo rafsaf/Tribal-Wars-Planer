@@ -13,6 +13,7 @@
         <div class="modal-content">
             <div class="px-4 py-4">
                 {% load crispy_forms_tags %}
+                <h4 class="mb-3" id="attack-number">0</h4>
                 <div class="btn-group">
                     <form method='POST'>
                         {% csrf_token %} {{form|crispy}}
@@ -98,11 +99,8 @@
                                     </button>
                                 </form>
 
-                                {% if not weight.ruin %}
-                                <button id="modalbutton" class="btn btn-default" type="button" data-toggle="modal" data-target="#form-modal" data-start="{{weight.start}}" data-off="{{weight.off}}" data-leftoff="{{weight.state.off_left}}" data-leftnobleman="{{weight.state.nobleman_left}}" data-nobleman="{{weight.nobleman}}" data-id="{{weight.id}}"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z" /><path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" /></svg>
+                                <button id="modalbutton" class="btn btn-default" type="button" data-toggle="modal" data-target="#form-modal" data-attacknumber="{{forloop.counter}}" data-start="{{weight.start}}" data-off="{{weight.off}}" data-leftoff="{{weight.state.off_left}}" data-catapult="{{weight.catapult}}" data-leftcatapult="{{weight.state.catapult_left}}" data-leftnobleman="{{weight.state.nobleman_left}}" data-nobleman="{{weight.nobleman}}" data-id="{{weight.id}}"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z" /><path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" /></svg>
                                 </button>
-
-                                {% endif %}
 
                                 <div class="btn-group">
                                     <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Divide' %}</button>
@@ -487,7 +485,6 @@
     $("#{{sort}}2").addClass("selected")
     var tabPlanerMenuHasBeenHidden = false;
     document.addEventListener("visibilitychange", handlePlanerMenuVisibilityChange, false);
-</script>
 </script>
 
 {% endblock %}

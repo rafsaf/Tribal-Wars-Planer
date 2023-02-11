@@ -22,7 +22,6 @@ from base.tests.test_views.outline_initial_changes.changes_view_setup import (
 
 class InitialHideWeight(ChangesViewSetup):
     def test_planer_initial_hide_weight(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)
@@ -64,7 +63,6 @@ class InitialHideWeight(ChangesViewSetup):
         self.assertEqual(weight_max.hidden, False)
 
     def test_planer_initial_hide_weight___prevent_access_from_other_user(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)

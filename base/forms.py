@@ -669,10 +669,29 @@ class WeightForm(forms.Form):
 
     weight_id = forms.IntegerField(widget=forms.HiddenInput)
     off = forms.IntegerField(
-        widget=forms.NumberInput, label=gettext_lazy("Off"), min_value=0
+        widget=forms.NumberInput,
+        disabled=True,
+        label=gettext_lazy("Sum of off"),
+        min_value=0,
+        required=False,
+    )
+    off_no_catapult = forms.IntegerField(
+        widget=forms.NumberInput,
+        label=gettext_lazy("Off without catapults"),
+        min_value=0,
+        help_text="0-0",
+    )
+    catapult = forms.IntegerField(
+        widget=forms.NumberInput,
+        label=gettext_lazy("Catapults"),
+        min_value=0,
+        help_text="0-0",
     )
     nobleman = forms.IntegerField(
-        widget=forms.NumberInput, label=gettext_lazy("Noble"), min_value=0
+        widget=forms.NumberInput,
+        label=gettext_lazy("Noble"),
+        min_value=0,
+        help_text="0-0",
     )
 
 
@@ -907,7 +926,6 @@ class AddNewWorldForm(forms.ModelForm):
         return postfix
 
     def clean(self):
-
         server = self.cleaned_data.get("server")
         postfix = self.cleaned_data.get("postfix")
         if postfix is None:

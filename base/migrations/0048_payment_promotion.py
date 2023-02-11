@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0047_payment_amount_pln_payment_exchange_rate_and_more"),
     ]

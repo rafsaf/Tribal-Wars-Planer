@@ -67,7 +67,6 @@ class InitialAddLastRuin(ChangesViewSetup):
         self.assertEqual(new_weight.order, 3)  # type: ignore
 
     def test_planer_add_last_ruin___prevent_access_from_other_user(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)

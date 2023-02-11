@@ -23,7 +23,6 @@ from base.tests.test_views.outline_initial_changes.changes_view_setup import (
 
 class InitialDivide(ChangesViewSetup):
     def test_planer_initial_divide(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         self.get_weight_max(outline)
@@ -49,7 +48,6 @@ class InitialDivide(ChangesViewSetup):
         self.assertEqual(WeightModel.objects.filter(target=target).count(), 6)
 
     def test_planer_initial_divide___prevent_access_from_other_user2(self):
-
         outline = self.get_outline()
         target = self.get_target(outline)
         self.get_weight_max(outline)

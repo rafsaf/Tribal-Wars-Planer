@@ -260,7 +260,6 @@ class TestWorldEvidence(TestCase):
     """Test for world_evidence function"""
 
     def setUp(self):
-
         self.server = models.Server.objects.create(
             dns="testserver",
             prefix="te",

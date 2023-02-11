@@ -107,7 +107,6 @@ class OutlineCreateTargets:
         exact_off: list[str],
         exact_noble: list[str],
     ) -> Target:
-
         target: Target = Target(
             outline=self.outline,
             target=coord,

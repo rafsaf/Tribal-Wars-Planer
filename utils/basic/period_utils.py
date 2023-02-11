@@ -80,7 +80,6 @@ class FromPeriods:
     def overwrite_weight(
         self, period: models.PeriodModel, weight: models.WeightModel
     ) -> models.WeightModel:
-
         t1 = period.from_time
         t2 = period.to_time
         time_d1 = datetime.timedelta(

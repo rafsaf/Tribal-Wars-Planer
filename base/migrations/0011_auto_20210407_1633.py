@@ -22,7 +22,6 @@ import base.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0010_auto_20210228_1831"),
     ]

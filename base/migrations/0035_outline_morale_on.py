@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("base", "0034_outline_morale_on_targets_greater_than_and_more"),
     ]
