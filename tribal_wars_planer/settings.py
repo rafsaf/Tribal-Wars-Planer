@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "rest_api",
     "utils",
     "crispy_forms",
+    "crispy_bootstrap4",
     "django_registration",
     "rest_framework",
     "django.contrib.admin",
@@ -188,6 +189,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_REDIRECT_URL = "base:base"
