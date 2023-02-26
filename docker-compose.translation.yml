@@ -1,7 +1,4 @@
-version: "3.4"
-
-# docker-compose -f docker-compose.translation run trans
-
+# docker compose -f docker-compose.translation run trans
 services:
   trans:
     restart: "no"

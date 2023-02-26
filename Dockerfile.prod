@@ -10,7 +10,7 @@ WORKDIR /build
 RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
-RUN apt-get update && apt-get install -y python3-pip nginx
+RUN apt-get update && apt-get install -y python3-pip nginx postgresql-client
 
 COPY requirements.txt requirements.txt
 
