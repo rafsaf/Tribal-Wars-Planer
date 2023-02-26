@@ -112,7 +112,7 @@ def new_outline_create_select(request: HttpRequest, _id: int) -> HttpResponse:
     sugested_ally_tribes = []
     sugested_enemy_tribes = []
     for old_outline in (
-        models.Outline.objects.filter(world=instance.world)
+        models.Outline.objects.filter(world=instance.world, owner=request.user)
         .exclude(id=_id)
         .order_by("-created")[:5]
     ):
