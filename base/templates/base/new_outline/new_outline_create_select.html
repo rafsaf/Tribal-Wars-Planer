@@ -14,7 +14,7 @@
                     <table class="table table-sm table-bordered my-0" style="width: min-content;">
                         <tr>
                             {% for ally_tag in sugested_ally_tribes %}
-                            <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn" onclick="this.form.id_tribe1.value='{{ally_tag}}';this.form.submit();">{{ally_tag}}</button>
+                            <th class="fancy-th-btn text-nowrap"><button class="btn btn-sm btn-default fancy-building-btn" onclick="this.form.id_tribe1.value='{{ally_tag}}';this.form.submit();">{{ally_tag}}</button>
                             </th>
                             {% endfor %}
                         </tr>
@@ -31,7 +31,7 @@
                     <table class="table table-sm table-bordered my-0" style="width: min-content;">
                         <tr>
                             {% for enemy_tag in sugested_enemy_tribes %}
-                            <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn" onclick="this.form.id_tribe2.value='{{enemy_tag}}';this.form.submit();">{{enemy_tag}}</button>
+                            <th class="fancy-th-btn text-nowrap"><button class="btn btn-sm btn-default fancy-building-btn" onclick="this.form.id_tribe2.value='{{enemy_tag}}';this.form.submit();">{{enemy_tag}}</button>
                             </th>
                             {% endfor %}
                         </tr>
