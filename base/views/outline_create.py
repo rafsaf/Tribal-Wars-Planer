@@ -109,6 +109,28 @@ def new_outline_create_select(request: HttpRequest, _id: int) -> HttpResponse:
         )
     ]
 
+    sugested_ally_tribes = []
+    sugested_enemy_tribes = []
+    for old_outline in (
+        models.Outline.objects.filter(world=instance.world)
+        .exclude(id=_id)
+        .order_by("-created")[:5]
+    ):
+        for old_ally_tribe_tag in old_outline.ally_tribe_tag:
+            if (old_ally_tribe_tag, old_ally_tribe_tag) in choices:
+                if (
+                    len(sugested_ally_tribes) < 6
+                    and old_ally_tribe_tag not in sugested_ally_tribes
+                ):
+                    sugested_ally_tribes.append(old_ally_tribe_tag)
+        for old_enemy_tribe_tag in old_outline.enemy_tribe_tag:
+            if (old_enemy_tribe_tag, old_enemy_tribe_tag) in choices:
+                if (
+                    len(sugested_enemy_tribes) < 6
+                    and old_enemy_tribe_tag not in sugested_enemy_tribes
+                ):
+                    sugested_enemy_tribes.append(old_enemy_tribe_tag)
+
     if request.method == "POST":
         if "tribe1" in request.POST:
             form1 = forms.MyTribeTagForm(request.POST)
@@ -150,6 +172,8 @@ def new_outline_create_select(request: HttpRequest, _id: int) -> HttpResponse:
         "form2": form2,
         "ally": ally_tribe,
         "enemy": enemy_tribe,
+        "sugested_ally_tribes": sugested_ally_tribes,
+        "sugested_enemy_tribes": sugested_enemy_tribes,
     }
     return render(request, "base/new_outline/new_outline_create_select.html", context)
 
