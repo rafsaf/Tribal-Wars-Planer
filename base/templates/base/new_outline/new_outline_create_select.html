@@ -26,7 +26,7 @@
             </div>
             <div class="mt-5">
                 <form method='POST'>{% csrf_token %} {{ form2|crispy }}
-                    {% if sugested_ally_tribes %}
+                    {% if sugested_enemy_tribes %}
                     <div class="fixed-scrollbar-container mb-2">
                     <table class="table table-sm table-bordered my-0" style="width: min-content;">
                         <tr>
