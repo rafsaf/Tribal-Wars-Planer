@@ -174,23 +174,32 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 max_to_add=max_to_add,
             )
             if form1.is_valid():
-                off_form = forms.OffTroopsForm(
-                    {"off_troops": instance.off_troops}, outline=instance
-                )
-                if off_form.is_valid():
-                    instance.save()
-                    create_targets = OutlineCreateTargets(instance, target_mode)
-                    create_targets()
-                    if target_mode.is_real:
-                        instance.actions.save_real_targets(instance)
-                    elif target_mode.is_fake:
-                        instance.actions.save_fake_targets(instance)
-                    else:
-                        instance.actions.save_ruin_targets(instance)
-                else:
-                    return trigger_off_troops_update_redirect(
-                        request=request, outline=instance
+                if instance.input_data_type == models.Outline.ARMY_COLLECTION:
+                    off_form = forms.OffTroopsForm(
+                        {"off_troops": instance.off_troops}, outline=instance
                     )
+                    if not off_form.is_valid():
+                        return trigger_off_troops_update_redirect(
+                            request=request, outline=instance
+                        )
+                else:
+                    deff_form = forms.DeffTroopsForm(
+                        {"deff_troops": instance.deff_troops}, outline=instance
+                    )
+                    if not deff_form.is_valid():
+                        return trigger_off_troops_update_redirect(
+                            request=request, outline=instance
+                        )
+
+                instance.save()
+                create_targets = OutlineCreateTargets(instance, target_mode)
+                create_targets()
+                if target_mode.is_real:
+                    instance.actions.save_real_targets(instance)
+                elif target_mode.is_fake:
+                    instance.actions.save_fake_targets(instance)
+                else:
+                    instance.actions.save_ruin_targets(instance)
 
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
