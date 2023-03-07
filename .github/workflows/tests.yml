@@ -66,7 +66,7 @@ jobs:
           POSTGRES_HOST: localhost
         run: |
           poetry run bash initial.sh
-          poetry run coverage run -m pytest
+          poetry run coverage run -p --concurrency multiprocessing -m pytest -n auto
           poetry run coverage xml
           poetry run coverage report --show-missing
 
