@@ -28,7 +28,7 @@ from django.utils.timezone import now
 from requests.exceptions import ConnectionError, Timeout
 
 import metrics
-from base.models import Player, Tribe, VillageModel, World
+from base.models import Outline, Player, Tribe, VillageModel, World
 from tribal_wars_planer.settings import fanout_cache
 
 log = logging.getLogger(__name__)
@@ -43,6 +43,7 @@ class WorldUpdateHandler:
     ]
 
     def __init__(self, world: World):
+        self.deleted: bool = False
         self.world = world
         self.player_log_msg: str | None = None
         self.tribe_log_msg: str | None = None
@@ -129,15 +130,40 @@ class WorldUpdateHandler:
         return (self.world, "success")
 
     def check_if_world_is_archived(self, url_param: str):
+        log.info("Checking world archive of url %s", url_param)
         postfix = str(self.world)
-        archive_end = f"/archive/{postfix}"
-        if url_param.endswith(archive_end):
-            self.world.delete()
+        if f"/archive/{postfix}" in url_param:
+            log.warning("World %s flagged as archived, trying to delete it", self.world)
+            outline_count = Outline.objects.filter(world=self.world).count()
+            if outline_count:
+                log.warning(
+                    "Could not delete world %s, there are still %s related outlines",
+                    self.world,
+                    outline_count,
+                )
+            else:
+                self.world.delete()
+                self.deleted = True
+                try:
+                    metrics.WORLD_LAST_UPDATE.labels(world=str(self.world)).clear()
+                except Exception as err:
+                    log.error(
+                        "Could not clear metric WORLD_LAST_UPDATE for %s: %s",
+                        self.world,
+                        err,
+                        exc_info=True,
+                    )
+                log.info("Deleted world %s", self.world)
         else:
+            log.warning(
+                "World %s does not look like archived, connection error?", self.world
+            )
             self.handle_connection_error()
 
     def handle_connection_error(self):
-        metrics.ERRORS.labels(f"conn error {self.world.link_to_game()}").inc()
+        msg = f"conn error {self.world.link_to_game()}"
+        metrics.ERRORS.labels(msg).inc()
+        log.error(msg)
         self.world.connection_errors += 1
         self.world.save()
 
@@ -159,6 +185,9 @@ class WorldUpdateHandler:
             self.download_and_save(self.TRIBE_DATA)
             time.sleep(2 + 0.1 * count)
             count += 1
+
+        if self.deleted:
+            f"{self.world} was deleted"
 
         with transaction.atomic():
             tribe_cache_key = self.get_latest_data_key(self.TRIBE_DATA)
@@ -192,6 +221,8 @@ class WorldUpdateHandler:
 
     def download_and_save(self, data_type: "WorldUpdateHandler.DATA_TYPES"):
         """Download data (NOT ALWAYS latest) from game API in text format and save in disk cache"""
+        if self.deleted:
+            return
         try:
             res = requests.get(
                 self.world.link_to_game(data_type),
@@ -199,6 +230,11 @@ class WorldUpdateHandler:
                 timeout=3.05,
             )
             if res.history:
+                log.warning(
+                    "World %s got redirect when requested %s",
+                    self.world,
+                    self.world.link_to_game(data_type),
+                )
                 return self.check_if_world_is_archived(res.url)
             # handle last-modified header without accessing body
             last_modified = WorldUpdateHandler.last_modified_timestamp(
@@ -210,9 +246,10 @@ class WorldUpdateHandler:
                 return
             # only now make another request to get body
             text = gzip.decompress(res.content).decode()
+            res.close()
             log.info(f"setting cache key {unique_cache_key}")
             fanout_cache.set(unique_cache_key, text, 3 * 60 * 60)
-            res.close()
+
         except (Timeout, ConnectionError):
             self.handle_connection_error()
 
