@@ -17,6 +17,7 @@ from .message import Message
 from .outline import Outline, building_default_list
 from .outline_overview import OutlineOverview
 from .outline_time import OutlineTime
+from .outline_write_lock import OutlineWriteLock
 from .overview import Overview
 from .payment import Payment
 from .pdf_summary import PDFPaymentSummary

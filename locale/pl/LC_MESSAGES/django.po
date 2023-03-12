@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 18:06+0100\n"
+"POT-Creation-Date: 2023-03-12 00:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1025,12 +1025,12 @@ msgid "Created"
 msgstr "Utworzono"
 
 #: base/templates/base/base_planer.html:13
-#: base/templates/base/new_outline/new_outline_create_select.html:28
+#: base/templates/base/new_outline/new_outline_create_select.html:52
 msgid "Ally"
 msgstr "Sojusznik"
 
 #: base/templates/base/base_planer.html:14
-#: base/templates/base/new_outline/new_outline_create_select.html:54
+#: base/templates/base/new_outline/new_outline_create_select.html:78
 msgid "Enemy"
 msgstr "Wróg"
 
@@ -1048,12 +1048,12 @@ msgid "Delete"
 msgstr "Usuń"
 
 #: base/templates/base/base_planer.html:43
-#: base/templates/base/new_outline/new_outline_initial_period3.html:146
+#: base/templates/base/new_outline/new_outline_initial_period3.html:143
 msgid "Show"
 msgstr "Pokaż"
 
 #: base/templates/base/base_planer.html:58
-#: base/templates/base/new_outline/new_outline_create_select.html:95
+#: base/templates/base/new_outline/new_outline_create_select.html:119
 #: base/templates/base/new_outline/new_outline_initial_period2.html:352
 msgid "Warning"
 msgstr "Ostrzeżenie"
@@ -1077,7 +1077,7 @@ msgid "This operation cannot be undone!"
 msgstr "Tej operacji nie można cofnąć!"
 
 #: base/templates/base/base_planer.html:73
-#: base/templates/base/new_outline/new_outline_create_select.html:110
+#: base/templates/base/new_outline/new_outline_create_select.html:134
 #: base/templates/base/new_outline/new_outline_initial_period2.html:359
 #: base/templates/base/new_outline/new_outline_initial_period3.html:24
 msgid "Close"
@@ -1149,8 +1149,8 @@ msgstr "Planer wybierze dane wklejone w:"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:418
 #: base/templates/base/new_outline/new_outline_initial_period2.html:42
 #: base/templates/base/new_outline/new_outline_initial_period2.html:71
-#: base/templates/base/new_outline/new_outline_initial_period3.html:148
-#: base/templates/base/new_outline/new_outline_initial_period3.html:210
+#: base/templates/base/new_outline/new_outline_initial_period3.html:145
+#: base/templates/base/new_outline/new_outline_initial_period3.html:207
 #: base/templates/base/new_outline/new_outline_results.html:62
 #: base/templates/base/user/profile_settings.html:65
 msgid "Save"
@@ -1212,6 +1212,7 @@ msgstr "Przykłady"
 
 #: base/templates/base/new_outline/new_outline.html:225
 #: base/templates/base/new_outline/new_outline_initial_period1.html:468
+#: base/templates/base/new_outline/new_outline_initial_period1.html:489
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:331
 msgid "An error occured"
 msgstr "Uwaga, wystąpił błąd"
@@ -1259,24 +1260,24 @@ msgstr "Ustaw serwer"
 msgid "Select tribes"
 msgstr "Wybierz plemiona"
 
-#: base/templates/base/new_outline/new_outline_create_select.html:12
+#: base/templates/base/new_outline/new_outline_create_select.html:24
 msgid "Add an ally tribe"
 msgstr "Dodaj własne plemię"
 
-#: base/templates/base/new_outline/new_outline_create_select.html:17
+#: base/templates/base/new_outline/new_outline_create_select.html:41
 msgid "Add an enemy tribe"
 msgstr "Dodaj przeciwne plemię"
 
-#: base/templates/base/new_outline/new_outline_create_select.html:41
-#: base/templates/base/new_outline/new_outline_create_select.html:67
+#: base/templates/base/new_outline/new_outline_create_select.html:65
+#: base/templates/base/new_outline/new_outline_create_select.html:91
 msgid "Delete all"
 msgstr "Usuń wszystkie"
 
-#: base/templates/base/new_outline/new_outline_create_select.html:87
+#: base/templates/base/new_outline/new_outline_create_select.html:111
 msgid "Save and create"
 msgstr "Zapisz i utwórz"
 
-#: base/templates/base/new_outline/new_outline_create_select.html:101
+#: base/templates/base/new_outline/new_outline_create_select.html:125
 msgid ""
 " To avoid future conflicts you can set up ally and enemy tribes\n"
 "                <div class=\"md-error\">ONLY ONCE!</div>\n"
@@ -1297,7 +1298,7 @@ msgstr ""
 "li>\n"
 "                "
 
-#: base/templates/base/new_outline/new_outline_create_select.html:113
+#: base/templates/base/new_outline/new_outline_create_select.html:137
 #: base/templates/base/new_outline/new_outline_initial_period2.html:363
 msgid "Continue"
 msgstr "Kontynuuj"
@@ -1765,7 +1766,7 @@ msgid "Create at least one Time below"
 msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:253
-#: base/templates/base/new_outline/new_outline_initial_period3.html:140
+#: base/templates/base/new_outline/new_outline_initial_period3.html:137
 #: base/templates/base/overview.html:179 utils/basic/mode.py:61
 #: utils/outline_finish.py:73
 msgid "Target"
@@ -1788,140 +1789,140 @@ msgstr "Utwórz najpierw co najmniej jeden Czas powyżej"
 msgid "Change and save"
 msgstr "Zmień i zapisz"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:109
+#: base/templates/base/new_outline/new_outline_initial_period3.html:106
 msgid "Divide"
 msgstr "Podziel"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:113
+#: base/templates/base/new_outline/new_outline_initial_period3.html:110
 msgid "Divide into 2"
 msgstr "Podziel na 2"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:117
+#: base/templates/base/new_outline/new_outline_initial_period3.html:114
 msgid "Divide into 3"
 msgstr "Podziel na 3"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:121
+#: base/templates/base/new_outline/new_outline_initial_period3.html:118
 msgid "Divide into 4"
 msgstr "Podziel na 4"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:139
+#: base/templates/base/new_outline/new_outline_initial_period3.html:136
 #: base/templates/base/new_outline/new_outline_results.html:87
 #: base/templates/base/new_outline/new_outline_results.html:128
 #: utils/outline_finish.py:75
 msgid "Player"
 msgstr "Gracz"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:141
+#: base/templates/base/new_outline/new_outline_initial_period3.html:138
 msgid "TW Stats"
 msgstr "TW Stats"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:142
+#: base/templates/base/new_outline/new_outline_initial_period3.html:139
 msgid "Troops from"
 msgstr "Offy od"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:143
+#: base/templates/base/new_outline/new_outline_initial_period3.html:140
 msgid "Troops to"
 msgstr "Offy do"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:144
+#: base/templates/base/new_outline/new_outline_initial_period3.html:141
 msgid "Catapults from"
 msgstr "Katapulty od"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:145
+#: base/templates/base/new_outline/new_outline_initial_period3.html:142
 msgid "Nobles from"
 msgstr "Szlachta od"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:147
+#: base/templates/base/new_outline/new_outline_initial_period3.html:144
 msgid "Cards on page"
 msgstr "Karty na stronę"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:223
+#: base/templates/base/new_outline/new_outline_initial_period3.html:220
 msgid "Sort"
 msgstr "Sortuj"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:227
+#: base/templates/base/new_outline/new_outline_initial_period3.html:224
 msgid "Ascending by distance"
 msgstr "Rosnąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:228
+#: base/templates/base/new_outline/new_outline_initial_period3.html:225
 msgid "Random by distance"
 msgstr "Losowo ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:229
+#: base/templates/base/new_outline/new_outline_initial_period3.html:226
 msgid "Descending by distance"
 msgstr "Malejąco ze względu na dystans"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:230
+#: base/templates/base/new_outline/new_outline_initial_period3.html:227
 msgid "Descending by number of units"
 msgstr "Malejąco ze względu na liczbę jednostek"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:231
+#: base/templates/base/new_outline/new_outline_initial_period3.html:228
 msgid "Descending by number of noble"
 msgstr "Malejąco ze względu na ilość szlachty"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:235
+#: base/templates/base/new_outline/new_outline_initial_period3.html:232
 msgid "Closest full offs"
 msgstr "Najbliższe pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:236
+#: base/templates/base/new_outline/new_outline_initial_period3.html:233
 msgid "Closest noblemans"
 msgstr "Najbliższa szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:237
+#: base/templates/base/new_outline/new_outline_initial_period3.html:234
 msgid "Closest offs with noblemans"
 msgstr "Najbliższe pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:241
+#: base/templates/base/new_outline/new_outline_initial_period3.html:238
 msgid "Random full offs"
 msgstr "Losowo pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:242
+#: base/templates/base/new_outline/new_outline_initial_period3.html:239
 msgid "Random noblemans"
 msgstr "Losowo szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:243
+#: base/templates/base/new_outline/new_outline_initial_period3.html:240
 msgid "Random offs with noblemans"
 msgstr "Losowo pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:247
+#: base/templates/base/new_outline/new_outline_initial_period3.html:244
 msgid "Farthest full offs"
 msgstr "Najdalsze pełne offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:248
+#: base/templates/base/new_outline/new_outline_initial_period3.html:245
 msgid "Farthest noblemans"
 msgstr "Najdalsza szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:249
+#: base/templates/base/new_outline/new_outline_initial_period3.html:246
 msgid "Farthest offs with noblemans"
 msgstr "Najdalsze pełne offy z szlachtą"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:259
-#: base/templates/base/new_outline/new_outline_initial_period3.html:266
+#: base/templates/base/new_outline/new_outline_initial_period3.html:256
+#: base/templates/base/new_outline/new_outline_initial_period3.html:263
 msgid "Previous"
 msgstr "Poprzednia"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:270
+#: base/templates/base/new_outline/new_outline_initial_period3.html:267
 msgid "of"
 msgstr "z"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:274
-#: base/templates/base/new_outline/new_outline_initial_period3.html:280
+#: base/templates/base/new_outline/new_outline_initial_period3.html:271
+#: base/templates/base/new_outline/new_outline_initial_period3.html:277
 msgid "Next"
 msgstr "Następna"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:291
+#: base/templates/base/new_outline/new_outline_initial_period3.html:288
 msgid "coord or nick..."
 msgstr "kordy lub nick..."
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:331
+#: base/templates/base/new_outline/new_outline_initial_period3.html:328
 msgid "On the left adding Fake, on the right 1 Noble"
 msgstr "Po lewej dodawaj zwykłe Fejki, na prawo 1 Szlachcic"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:335
+#: base/templates/base/new_outline/new_outline_initial_period3.html:332
 msgid "On the left adding Offs, on the right Ruin attack"
 msgstr "Po lewej dodawaj Offy, po prawej Burzaki"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:339
+#: base/templates/base/new_outline/new_outline_initial_period3.html:336
 msgid "On the left adding Offs, on the right Offs with the Nobles"
 msgstr "Po lewej dodawaj Offy, po prawej Offy z całą szlachtą"
 
@@ -2406,7 +2407,7 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:42
+#: base/views/outline_initial_views.py:47
 #, python-format
 msgid ""
 "<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
@@ -2419,17 +2420,30 @@ msgstr ""
 "b>, usuń błędy.</p> <p>2. Używaj <b>Potwierdź</b> by je zapisywać.</p> <p>3. "
 "Po tym procesie powróć do zakładki <b>Planer</b>.</p> "
 
-#: base/views/outline_initial_views.py:67 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:72 base/views/results_get_deff.py:39
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:73 base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:78 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:429
+#: base/views/outline_initial_views.py:447
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
+
+#: base/views/outline_initial_views.py:763
+#, python-format
+msgid ""
+"<h5>It looks like your outline in being written just now!</h5> <p>You cannot "
+"click on \"Write an outline\" button more than once at the same time.</p> "
+"<p>Try to refresh this page in a moment. The lock force expires in <b>"
+"%(lock_expire)ss</b>.</p> "
+msgstr ""
+"<h5>Wygląda na to że Twoja rozpiska jest już teraz rozpisywana!</h5> <p>Nie "
+"możesz obecnie kliknąć na przycisk \"Rozpisz tą akcję\" aby uniknąć korpucji "
+"danych.</p> <p>Spróbuj odświeżyć tą stronę za moment. Blokada zniknie zaraz "
+"po zakończeniu rozpisywania lub wygaśnie za <b>%(lock_expire)ss.</b></p> "
 
 #: base/views/results_get_deff.py:53
 msgid ""

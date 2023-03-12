@@ -14,6 +14,7 @@
 # ==============================================================================
 
 import logging
+from datetime import timedelta
 
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -25,9 +26,11 @@ from django.forms import formset_factory
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseServerError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 
+import metrics
 import utils.avaiable_troops as avaiable_troops
 import utils.basic as basic
 from base import forms, models
@@ -35,6 +38,8 @@ from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
 from utils.outline_finish import MakeFinalOutline
 from utils.outline_initial import MakeOutline
+
+log = logging.getLogger(__name__)
 
 
 def trigger_off_troops_update_redirect(request: HttpRequest, outline: models.Outline):
@@ -49,6 +54,23 @@ def trigger_off_troops_update_redirect(request: HttpRequest, outline: models.Out
     return redirect("base:planer_detail", outline.pk)
 
 
+def outline_being_written_error(
+    instance: models.Outline, request: HttpRequest, lock: models.OutlineWriteLock
+):
+    now = timezone.now()
+    log.warning("complete_outline locked outline %s", instance.pk)
+    metrics.ERRORS.labels("complete_outline_locked_outline").inc()
+    request.session["error"] = gettext(
+        "<h5>It looks like your outline in being written just now!</h5> "
+        '<p>You cannot click on "Write an outline" button more than once at the same time.</p> '
+        "<p>Try to refresh this page in a moment. The lock force expires in <b>%(lock_expire)ss</b>.</p> "
+    ) % {"lock_expire": (lock.lock_expire - now).seconds}
+    target_mode: str | None = request.GET.get("t")
+    return redirect(
+        reverse("base:planer_initial_form", args=[instance.pk]) + f"?t={target_mode}"
+    )
+
+
 @login_required
 def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     """
@@ -60,6 +82,7 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
     )
+    now = timezone.now()
     if (
         instance.input_data_type == models.Outline.ARMY_COLLECTION
         and instance.off_troops == ""
@@ -159,6 +182,11 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         form1.fields["target"].initial = instance.initial_outline_ruins
 
     if request.method == "POST":
+        lock = models.OutlineWriteLock.objects.filter(
+            outline_id=instance.pk, lock_expire__gt=now
+        ).first()
+        if lock:
+            return outline_being_written_error(instance, request, lock)
         if "form1" in request.POST:
             max_to_add = (
                 settings.INPUT_OUTLINE_MAX_TARGETS
@@ -310,6 +338,10 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
             instance
         ),
     }
+    error = request.session.get("error")
+    if error is not None:
+        context["error"] = error
+        del request.session["error"]
     return render(request, "base/new_outline/new_outline_initial_period1.html", context)
 
 
@@ -726,6 +758,8 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
     )
+    if instance.written == "active":
+        return redirect("base:planer_initial", id1)
     user: AbstractBaseUser | AnonymousUser = request.user
     profile: models.Profile = models.Profile.objects.get(user=user)
     if not profile.is_premium():
@@ -736,14 +770,29 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
             return redirect(
                 reverse("base:planer_initial_form", args=[id1]) + f"?t={target_mode}"
             )
-    with transaction.atomic():
-        try:
+    # delete old lock
+    now = timezone.now()
+    models.OutlineWriteLock.objects.filter(
+        outline_id=instance.pk, lock_expire__lt=now
+    ).delete()
+    # try acquire lock on outline for 120s or result in error
+    lock, created = models.OutlineWriteLock.objects.get_or_create(
+        outline_id=instance.pk, defaults={"lock_expire": now + timedelta(seconds=120)}
+    )
+    if not created:
+        return outline_being_written_error(instance, request, lock)
+    try:
+        with transaction.atomic():
             complete_outline_write(outline=instance)
-        except Exception as error:
-            logging.error(f"outline_complete_write unknown error: {error}")
-            return HttpResponseServerError()
+            instance.actions.click_outline_write(instance)
+            instance.written = "active"
+            instance.save()
+    except Exception as err:
+        log.error("outline_complete_write unknown error: %s", err, exc_info=True)
+        metrics.ERRORS.labels("complete_outline_unkown_error").inc()
 
-        instance.actions.click_outline_write(instance)
-        instance.written = "active"
-        instance.save()
+        lock.delete()
+        return HttpResponseServerError()
+
+    lock.delete()
     return redirect(reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu")
