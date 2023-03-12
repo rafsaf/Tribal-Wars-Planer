@@ -13,7 +13,7 @@
             <li>{% trans 'World has been added.' %}</li>
           </div>
         {% endif %}
-    <form method="POST" autocomplete="off">
+    <form id="form-add-world" method="POST" autocomplete="off">
         <input type="hidden" value="" name="form1">
         {% csrf_token %}
         {{form1|crispy}}
@@ -22,7 +22,7 @@
         <small class="form-text text-muted">{% trans 'For "plc1.plemiona.pl" prefix is "c1". ' %}</small>
         <small class="form-text text-muted">{% trans 'For "csc1.divokekmeny.czl" prefix is "c1". ' %}</small>
 
-        <button class="btn btn-ocean mt-3" onclick="this.disabled=true;this.form.submit();">
+        <button class="btn btn-ocean mt-3" onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-add-world`,``,true);">
             {% trans 'Add new world' %}
         </button>
     </form>
