@@ -56,6 +56,12 @@ class Profile(models.Model):
         default="default", choices=Outline.SENDING_OPTIONS, max_length=50
     )
     send_message_with_url = models.BooleanField(default=True)
+    send_message_title_message = models.CharField(
+        max_length=200, default=gettext_lazy("Outline Targets")
+    )
+    send_message_text_message = models.CharField(
+        max_length=2000, default="", blank=True
+    )
 
     def is_premium(self) -> bool:
         if settings.PREMIUM_ACCOUNT_VALIDATION_ON:
