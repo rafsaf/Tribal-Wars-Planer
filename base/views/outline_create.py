@@ -57,6 +57,8 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                     input_data_type=profile.input_data_type,
                     sending_option=profile.sending_option,
                     send_message_with_url=profile.send_message_with_url,
+                    title_message=profile.send_message_title_message,
+                    text_message=profile.send_message_text_message,
                 )
                 new_instance.save()
                 new_instance.refresh_from_db()

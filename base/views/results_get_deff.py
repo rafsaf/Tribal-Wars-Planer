@@ -96,6 +96,8 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
                     profile: models.Profile = request.user.profile  # type: ignore
                     profile.sending_option = instance.sending_option
                     profile.send_message_with_url = instance.send_message_with_url
+                    profile.send_message_title_message = instance.title_message
+                    profile.send_message_text_message = instance.text_message
                     profile.save()
 
                 return redirect("base:planer_detail_results", _id)
