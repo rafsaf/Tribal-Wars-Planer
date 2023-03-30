@@ -34,6 +34,7 @@
             <th class="text-nowrap">{% trans 'Ruin Targets' %}</th>
             <th class="text-nowrap">{% trans 'Offs left' %}</th>
             <th class="text-nowrap">{% trans 'Nobles left' %}</th>
+            <th class="text-nowrap">{% trans 'Catapults left' %}</th>
             {% if instance.night_bonus %}
             <th class="text-nowrap">{% trans 'Night bonus avoid' %}</th>
             {% endif %}
@@ -51,6 +52,7 @@
             <th><h5><span class="badge badge-secondary">{{instance.count_ruin}}</span></h5></th>
             <th><h5><span class="badge badge-info">{{instance.count_off}}</span></h5></th>
             <th><h5><span class="badge badge-info">{{instance.count_noble}}</span></h5></th>
+            <th><h5><span class="badge badge-info">{{instance.count_catapults}}</span></h5></th>
             {% if instance.night_bonus %}
             <th><h5><span class="badge badge-info">{{instance.enter_t1}} - {{instance.enter_t2}}</span></h5></th>
             {% endif %}

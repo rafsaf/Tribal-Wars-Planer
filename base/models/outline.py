@@ -24,6 +24,7 @@ from django.db import models, transaction
 from django.db.models import Count, F, Q, Sum
 from django.db.models.query import QuerySet
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy
 
 from base.models.world import World
@@ -423,23 +424,38 @@ class Outline(models.Model):
             + postfix
         )
 
-    def count_targets(self) -> int:
+    @cached_property
+    def get_all_targets(self):
         from base.models import TargetVertex
 
-        targets: QuerySet[TargetVertex] = TargetVertex.objects.filter(outline=self)
-        return targets.filter(fake=False, ruin=False).count()
+        return list(TargetVertex.objects.filter(outline=self))
+
+    def count_targets(self) -> int:
+        return len(
+            [
+                target
+                for target in self.get_all_targets
+                if not target.fake and not target.ruin
+            ]
+        )
 
     def count_fake(self) -> int:
-        from base.models import TargetVertex
-
-        targets: QuerySet[TargetVertex] = TargetVertex.objects.filter(outline=self)
-        return targets.filter(fake=True, ruin=False).count()
+        return len(
+            [
+                target
+                for target in self.get_all_targets
+                if target.fake and not target.ruin
+            ]
+        )
 
     def count_ruin(self) -> int:
-        from base.models import TargetVertex
-
-        targets: QuerySet[TargetVertex] = TargetVertex.objects.filter(outline=self)
-        return targets.filter(fake=False, ruin=True).count()
+        return len(
+            [
+                target
+                for target in self.get_all_targets
+                if not target.fake and target.ruin
+            ]
+        )
 
     def count_off(self) -> int:
         from base.models import WeightMaximum
@@ -447,11 +463,20 @@ class Outline(models.Model):
         weights: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(outline=self)
         return weights.filter(off_left__gte=self.initial_outline_min_off).count()
 
-    def count_noble(self) -> int:
+    @cached_property
+    def get_aggregated_weights(self):
         from base.models import WeightMaximum
 
         weights: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(outline=self)
-        return weights.aggregate(sum=Sum("nobleman_left"))["sum"] or 0
+        return weights.aggregate(
+            nobles=Sum("nobleman_left"), catapult=Sum("catapult_left")
+        )
+
+    def count_noble(self) -> int:
+        return self.get_aggregated_weights["nobles"] or 0
+
+    def count_catapults(self) -> int:
+        return self.get_aggregated_weights["catapult"] or 0
 
     def pagin_targets(
         self,
