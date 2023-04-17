@@ -27,7 +27,7 @@ uwsgi = "^2.0.21"
 psycopg = { extras = ["c"], version = "^3.1.8" }
 
 [tool.poetry.group.dev.dependencies]
-autoflake = "^2.0.0"
+autoflake = "^2.1.0"
 black = "^23.1.0"
 coverage = "^7.2.1"
 django-types = "^0.17.0"
