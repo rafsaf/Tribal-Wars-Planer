@@ -11,7 +11,6 @@ if [ "$CLEANUP" = "yes" ];
 then
     echo "cleanup old logs and metrics"
     rm -rf prometheus_multi_proc_dir/*
-    rm -rf logs/*
 fi;
 
 echo "staticfiles collection"

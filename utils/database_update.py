@@ -145,7 +145,7 @@ class WorldUpdateHandler:
                 self.world.delete()
                 self.deleted = True
                 try:
-                    metrics.WORLD_LAST_UPDATE.labels(world=str(self.world)).clear()
+                    metrics.WORLD_LAST_UPDATE.labels(world=str(self.world)).set(0)
                 except Exception as err:
                     log.error(
                         "Could not clear metric WORLD_LAST_UPDATE for %s: %s",
@@ -187,7 +187,7 @@ class WorldUpdateHandler:
             count += 1
 
         if self.deleted:
-            f"{self.world} was deleted"
+            return f"{self.world} was deleted"
 
         with transaction.atomic():
             tribe_cache_key = self.get_latest_data_key(self.TRIBE_DATA)
