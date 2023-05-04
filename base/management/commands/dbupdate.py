@@ -46,9 +46,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         worlds = list(World.objects.select_related("server").exclude(postfix="Test"))
 
-        with futures.ThreadPoolExecutor() as executor:
+        with futures.ThreadPoolExecutor(max_workers=4) as executor:
             tasks: list[futures.Future] = []
             for world in worlds:
+                log.info("submited update_world task for world: %s to executor", world)
                 tasks.append(executor.submit(update_world, world=world, command=self))
                 sleep(0.2)
 

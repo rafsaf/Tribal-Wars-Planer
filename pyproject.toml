@@ -2,7 +2,7 @@
 authors = ["rafsaf <rafal.safin@rafsaf.pl>"]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-version = "4.23.0"
+version = "4.24.0"
 
 [tool.poetry.dependencies]
 python = ">3.10,<3.12"
@@ -18,13 +18,14 @@ diskcache = "^5.4.0"
 fpdf = "^1.7.2"
 prometheus-client = "^0.16.0"
 psutil = "^5.9.4"
+psycopg = {extras = ["c"], version = "^3.1.9"}
 python-dateutil = "^2.8.2"
 python-dotenv = "^1.0.0"
 schedule = "^1.1.0"
 stripe = "^5.1.1"
 tw-complex = "^1.1.0"
 uwsgi = "^2.0.21"
-psycopg = { extras = ["c"], version = "^3.1.8" }
+botocore = "^1.29.126"
 
 [tool.poetry.group.dev.dependencies]
 autoflake = "^2.0.0"
