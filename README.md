@@ -45,7 +45,7 @@ version: "3.4"
 services:
   postgres:
     restart: always
-    image: postgres
+    image: postgres:15
     volumes:
       - twp_local_postgresql:/var/lib/postgresql/data
     environment:

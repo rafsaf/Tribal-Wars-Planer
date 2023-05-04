@@ -10,7 +10,7 @@ services:
 
   postgres:
     restart: "unless-stopped"
-    image: postgres:12
+    image: postgres:15
     volumes:
       - twp_richdev_postgresql:/var/lib/postgresql/data
     environment:
@@ -72,11 +72,11 @@ services:
     restart: "unless-stopped"
     image: locustio/locust
     ports:
-     - "8089:8089"
+      - "8089:8089"
     volumes:
       - ./perf:/mnt/locust
     command: -f /mnt/locust/locustfile.py --master -H http://web:80
-  
+
   worker_locust:
     restart: "unless-stopped"
     image: locustio/locust
