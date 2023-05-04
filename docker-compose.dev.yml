@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   postgres_dev:
-    image: postgres:14
+    image: postgres:15
     restart: "unless-stopped"
     volumes:
       - twp_dev_postgresql:/var/lib/postgresql/data
