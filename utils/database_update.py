@@ -179,6 +179,7 @@ class WorldUpdateHandler:
     def update_all(self):
         """Synchronize Tribe, Village, Player tables with latest data from game."""
         count = 0
+        log.info("%s start download_and_save data from tribal wars", self.world)
         while count < 6:
             self.download_and_save(self.PLAYER_DATA)
             self.download_and_save(self.VILLAGE_DATA)
@@ -189,24 +190,31 @@ class WorldUpdateHandler:
         if self.deleted:
             return f"{self.world} was deleted"
 
+        log.info("%s start atomic transaction", self.world)
         with transaction.atomic():
             tribe_cache_key = self.get_latest_data_key(self.TRIBE_DATA)
+            log.info("%s tribe_cache_key is %s", self.world, tribe_cache_key)
             if tribe_cache_key != self.world.fanout_key_text_tribe:
                 tribe_text = fanout_cache.get(tribe_cache_key)
                 self.world.fanout_key_text_tribe = tribe_cache_key
                 self.update_tribes(text=tribe_text)  # type: ignore
+            log.info("%s finish update_tribes", self.world)
 
             player_cache_key = self.get_latest_data_key(self.PLAYER_DATA)
+            log.info("%s player_cache_key is %s", self.world, player_cache_key)
             if player_cache_key != self.world.fanout_key_text_player:
                 player_text = fanout_cache.get(player_cache_key)
                 self.world.fanout_key_text_player = player_cache_key
                 self.update_players(text=player_text)  # type: ignore
+            log.info("%s finish update_players", self.world)
 
             village_cache_key = self.get_latest_data_key(self.VILLAGE_DATA)
+            log.info("%s village_cache_key is %s", self.world, village_cache_key)
             if village_cache_key != self.world.fanout_key_text_village:
                 village_text = fanout_cache.get(village_cache_key)
                 self.world.fanout_key_text_village = village_cache_key
                 self.update_villages(text=village_text)  # type: ignore
+            log.info("%s finish update_villages", self.world)
 
             message = (
                 f"{self.world} | tribe_updated: {self.tribe_log_msg} |"
