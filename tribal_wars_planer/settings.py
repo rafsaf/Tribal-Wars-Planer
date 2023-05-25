@@ -234,7 +234,7 @@ TRIBAL_WARS_SUPPORTED_SERVERS = [
     ("tribalwars.nl", "nl"),
     ("tribalwars.com.br", "br"),
     ("tribalwars.com.pt", "pt"),
-    ("divokekmeny.cz", "cz"),
+    ("divokekmeny.cz", "cs"),
     ("triburile.ro", "ro"),
     ("voyna-plemyon.ru", "ru"),
     ("fyletikesmaxes.gr", "gr"),
