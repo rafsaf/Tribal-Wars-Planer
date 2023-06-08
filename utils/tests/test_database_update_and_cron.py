@@ -23,8 +23,12 @@ from base.models import Player, Tribe, VillageModel, World
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils.database_update import WorldUpdateHandler
 
-GET_CONFIG = Path("utils/tests/database_update/get_config.xml").read_text()
-GET_UNIT_INFO = Path("utils/tests/database_update/get_unit_info.xml").read_text()
+CURRENT_DIRECTORY = Path(__file__).parent
+GET_CONFIG = (CURRENT_DIRECTORY / "database_update/get_config.xml").read_text()
+GET_UNIT_INFO = (CURRENT_DIRECTORY / "database_update/get_unit_info.xml").read_text()
+TRIBES = (CURRENT_DIRECTORY / "database_update/ally.txt.gz").read_bytes()
+PLAYERS = (CURRENT_DIRECTORY / "database_update/player.txt.gz").read_bytes()
+VILLAGES = (CURRENT_DIRECTORY / "database_update/village.txt.gz").read_bytes()
 
 
 class WorldUpdateHandlerTest(MiniSetup):
@@ -206,9 +210,6 @@ class WorldUpdateHandlerTest(MiniSetup):
 
     @patch("time.sleep", return_value=None)
     def test_db_update_cron_job(self, patched_time_sleep):
-        TRIBES = Path("utils/tests/database_update/ally.txt.gz").read_bytes()
-        PLAYERS = Path("utils/tests/database_update/player.txt.gz").read_bytes()
-        VILLAGES = Path("utils/tests/database_update/village.txt.gz").read_bytes()
         self.world.save()
         with requests_mock.Mocker() as mock:
             world_query = WorldUpdateHandler(world=self.world)

@@ -26,6 +26,7 @@
   <buildtime_formula>2</buildtime_formula>
   <knight>3</knight>
   <knight_new_items></knight_new_items>
+  <knight_archer_bonus/>
   <archer>1</archer>
   <tech>2</tech>
   <farm_limit>0</farm_limit>
