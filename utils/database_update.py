@@ -73,17 +73,39 @@ class WorldUpdateHandler:
 
         tree = ElementTree.fromstring(req.content)
 
-        speed_world = tree[0].text
+        speed_world_tag = tree.find("speed")
+        assert speed_world_tag is not None
+        speed_world = speed_world_tag.text
         assert speed_world is not None
-        speed_units = tree[1].text
+
+        speed_units_tag = tree.find("unit_speed")
+        assert speed_units_tag is not None
+        speed_units = speed_units_tag.text
         assert speed_units is not None
-        morale = tree[2].text
+
+        morale_tag = tree.find("moral")
+        assert morale_tag is not None
+        morale = morale_tag.text
         assert morale is not None
-        paladin = tree[7][1].text
+
+        game_tag = tree.find("game")
+        assert game_tag is not None
+
+        paladin_tag = game_tag.find("knight")
+        assert paladin_tag is not None
+        paladin = paladin_tag.text
         assert paladin is not None
-        archer = tree[7][3].text
+
+        archer_tag = game_tag.find("archer")
+        assert archer_tag is not None
+        archer = archer_tag.text
         assert archer is not None
-        max_noble_distance = tree[9][3].text
+
+        nobleman_tag = tree.find("snob")
+        assert nobleman_tag is not None
+        max_noble_distance_tag = nobleman_tag.find("max_dist")
+        assert max_noble_distance_tag is not None
+        max_noble_distance = max_noble_distance_tag.text
         assert max_noble_distance is not None
 
         self.world.speed_world = float(speed_world)
