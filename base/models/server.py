@@ -22,3 +22,6 @@ class Server(models.Model):
 
     def __str__(self):
         return self.dns
+
+    class Meta:
+        ordering = ("dns",)
