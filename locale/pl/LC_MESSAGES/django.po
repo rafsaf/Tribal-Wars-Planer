@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-10 11:23+0200\n"
+"POT-Creation-Date: 2023-06-10 12:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgid "Outline Name"
 msgstr "Nazwa Rozpiski"
 
 #: base/forms.py:41 base/templates/base/base_planer.html:10
-#: utils/basic/info_generatation.py:146
+#: utils/basic/info_generatation.py:165
 msgid "Date"
 msgstr "Data"
 
@@ -351,7 +351,7 @@ msgstr "Szlachcic"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:111
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:174
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
-#: utils/basic/info_generatation.py:99
+#: utils/basic/info_generatation.py:118
 msgid "From"
 msgstr "Od"
 
@@ -359,7 +359,7 @@ msgstr "Od"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:112
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:175
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:214
-#: utils/basic/info_generatation.py:100
+#: utils/basic/info_generatation.py:119
 msgid "To"
 msgstr "Do"
 
@@ -367,7 +367,7 @@ msgstr "Do"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:107
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
-#: utils/basic/info_generatation.py:97
+#: utils/basic/info_generatation.py:116
 msgid "Mode"
 msgstr "Tryb"
 
@@ -375,7 +375,7 @@ msgstr "Tryb"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:108
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
-#: utils/basic/info_generatation.py:98
+#: utils/basic/info_generatation.py:117
 msgid "Unit"
 msgstr "Jednostka"
 
@@ -383,7 +383,7 @@ msgstr "Jednostka"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:109
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:176
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:215
-#: utils/basic/info_generatation.py:101
+#: utils/basic/info_generatation.py:120
 msgid "Min. time"
 msgstr "Min. czas"
 
@@ -391,7 +391,7 @@ msgstr "Min. czas"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:110
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:177
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:216
-#: utils/basic/info_generatation.py:102
+#: utils/basic/info_generatation.py:121
 msgid "Max. time"
 msgstr "Max. czas"
 
@@ -2718,61 +2718,61 @@ msgstr "Ostatni element w linii musi być pustym stringiem, obecnie: %s"
 msgid "Second element of line must be a text: %s"
 msgstr "Drugi element w linii musi być tekstem, obecnie: %s"
 
-#: utils/basic/info_generatation.py:44
-msgid "Targets:"
-msgstr "Cele:"
-
-#: utils/basic/info_generatation.py:45
-msgid "Fakes:"
-msgstr "Fejk Cele:"
-
-#: utils/basic/info_generatation.py:46
-msgid "Ruins:"
-msgstr "Burzone Cele:"
-
-#: utils/basic/info_generatation.py:58
+#: utils/basic/info_generatation.py:63
 msgid "Nicknames: "
 msgstr "Nazwy graczy: "
 
-#: utils/basic/info_generatation.py:96
+#: utils/basic/info_generatation.py:105 utils/basic/info_generatation.py:115
 msgid "Time"
 msgstr "Czas"
 
-#: utils/basic/info_generatation.py:127
+#: utils/basic/info_generatation.py:146
 #, python-format
 msgid ""
 "SUM: %(offs_count)s offs, %(nobles_count)s nobles, %(ruins_count)s ruins and "
 "%(fakes_count)s fakes"
 msgstr ""
-"SUMA: %(offs_count)s offów, %(nobles_count)s szlachciców, %(ruins_count)s burzaków oraz "
-"%(fakes_count)s fejków"
+"SUMA: %(offs_count)s offów, %(nobles_count)s szlachciców, %(ruins_count)s "
+"burzaków oraz %(fakes_count)s fejków"
 
-#: utils/basic/info_generatation.py:136
+#: utils/basic/info_generatation.py:155
 #, python-format
 msgid ""
 "LEFT: %(offs_count)s offs, %(nobles_count)s nobles, %(catapults_count)s "
 "catapults"
 msgstr ""
-"POZOSTAŁO: %(offs_count)s offów, %(nobles_count)s szlachciców, %(catapults_count)s "
-"katapult"
+"POZOSTAŁO: %(offs_count)s offów, %(nobles_count)s szlachciców, "
+"%(catapults_count)s katapult"
 
-#: utils/basic/info_generatation.py:236
+#: utils/basic/info_generatation.py:174
+msgid "### TARGETS ###"
+msgstr "### CELE ###"
+
+#: utils/basic/info_generatation.py:178
+msgid "### FAKES ###"
+msgstr "### FEJKI ###"
+
+#: utils/basic/info_generatation.py:182
+msgid "### RUINS ###"
+msgstr "### BURZAKI ###"
+
+#: utils/basic/info_generatation.py:261
 msgid "fakes"
 msgstr "fejków"
 
-#: utils/basic/info_generatation.py:237
+#: utils/basic/info_generatation.py:262
 msgid "fake nobles"
 msgstr "fake grubych"
 
-#: utils/basic/info_generatation.py:252 utils/basic/info_generatation.py:268
+#: utils/basic/info_generatation.py:277 utils/basic/info_generatation.py:293
 msgid "offs"
 msgstr "offów"
 
-#: utils/basic/info_generatation.py:253
+#: utils/basic/info_generatation.py:278
 msgid "ruins"
 msgstr "burzaków"
 
-#: utils/basic/info_generatation.py:269
+#: utils/basic/info_generatation.py:294
 msgid "nobles"
 msgstr "szlachciców"
 
@@ -2936,6 +2936,15 @@ msgstr "Wioska"
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "Targets:"
+#~ msgstr "Cele:"
+
+#~ msgid "Fakes:"
+#~ msgstr "Fejk Cele:"
+
+#~ msgid "Ruins:"
+#~ msgstr "Burzone Cele:"
 
 #~ msgid "Maximum length: 2000."
 #~ msgstr "Maksymalna długość: 2000."

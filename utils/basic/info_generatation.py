@@ -15,6 +15,8 @@
 
 from __future__ import annotations
 
+from collections import defaultdict
+
 from django.db.models.query import QuerySet
 from django.utils.translation import get_language
 from django.utils.translation import gettext as _
@@ -42,9 +44,12 @@ class OutlineInfo:
         """
         self.outline: models.Outline = outline
         self.targets: QuerySet = models.TargetVertex.objects.filter(outline=outline)
-        self.target_message: str = _("Targets:") + "\r\n"
-        self.fake_message: str = _("Fakes:") + "\r\n"
-        self.ruin_message: str = _("Ruins:") + "\r\n"
+        # self.target_message: str = _("### TARGETS ###") + "\r\n"
+        # self.fake_message: str = _("### FAKES ###") + "\r\n"
+        # self.ruin_message: str = _("### RUINS ###") + "\r\n"
+        self.ruin_message: dict[int, str] = defaultdict(str)
+        self.fake_message: dict[int, str] = defaultdict(str)
+        self.target_message: dict[int, str] = defaultdict(str)
         self.world_evidence: tuple[int, int, int] = basic.world_evidence(
             self.outline.world
         )
@@ -74,12 +79,14 @@ class OutlineInfo:
 
     def add_target_info(self, target_info: TargetCount) -> None:
         line = target_info.line_with_ally_nick
+        assert target_info.target.outline_time is not None, self.outline.pk
+        time_order = target_info.target.outline_time.order
         if target_info.target_type == "real":
-            self.target_message += line
+            self.target_message[time_order] += line
         elif target_info.target_type == "fake":
-            self.fake_message += line
+            self.fake_message[time_order] += line
         else:
-            self.ruin_message += line
+            self.ruin_message[time_order] += line
 
         for ruin in target_info.ally_players_ruins.values():
             self.order_counter["ruins"] += ruin
@@ -89,6 +96,18 @@ class OutlineInfo:
             self.order_counter["nobles"] += noble
         for fake in target_info.ally_players_fakes.values():
             self.order_counter["fakes"] += fake
+
+    def format_per_time_message(self, time_message: dict[int, str]):
+        ordered_time_message = {
+            key: time_message[key] for key in sorted(time_message.keys())
+        }
+        result = ""
+        for time_order, targets_info in ordered_time_message.items():
+            result += _("Time")
+            result += f": {time_order}"
+            result += targets_info
+            result += "\r\n\r\n"
+        return result
 
     def get_outline_time_text(self) -> str:
         outline_times = self.outline.get_outline_times()
@@ -153,11 +172,17 @@ class OutlineInfo:
             + "\r\n\r\n"
             + self.get_outline_time_text()
             + "\r\n\r\n"
-            + self.target_message
+            + _("### TARGETS ###")
             + "\r\n\r\n"
-            + self.fake_message
+            + self.format_per_time_message(self.target_message)
+            + "\r\n"
+            + _("### FAKES ###")
             + "\r\n\r\n"
-            + self.ruin_message
+            + self.format_per_time_message(self.fake_message)
+            + "\r\n"
+            + _("### RUINS ###")
+            + "\r\n\r\n"
+            + self.format_per_time_message(self.ruin_message)
         )
 
     @staticmethod
