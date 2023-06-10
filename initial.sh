@@ -6,6 +6,7 @@ echo "prometheus multi proc directory, media creating and cleanup"
 mkdir prometheus_multi_proc_dir || true
 mkdir media || true
 mkdir logs || true
+mkdir disk_cache || true
 
 if [ "$CLEANUP" = "yes" ];
 then
