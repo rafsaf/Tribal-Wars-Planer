@@ -44,9 +44,6 @@ class OutlineInfo:
         """
         self.outline: models.Outline = outline
         self.targets: QuerySet = models.TargetVertex.objects.filter(outline=outline)
-        # self.target_message: str = _("### TARGETS ###") + "\r\n"
-        # self.fake_message: str = _("### FAKES ###") + "\r\n"
-        # self.ruin_message: str = _("### RUINS ###") + "\r\n"
         self.ruin_message: dict[int, str] = defaultdict(str)
         self.fake_message: dict[int, str] = defaultdict(str)
         self.target_message: dict[int, str] = defaultdict(str)
