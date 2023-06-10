@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-31 00:10+0200\n"
+"POT-Creation-Date: 2023-06-10 12:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,7 @@ msgid "Outline Name"
 msgstr "Nazwa Rozpiski"
 
 #: base/forms.py:41 base/templates/base/base_planer.html:10
+#: utils/basic/info_generatation.py:165
 msgid "Date"
 msgstr "Data"
 
@@ -30,7 +31,7 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:51 base/models/outline.py:154 base/models/outline.py:299
+#: base/forms.py:51 base/models/outline.py:155 base/models/outline.py:300
 #: base/models/profile.py:35
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
@@ -62,7 +63,7 @@ msgstr ""
 msgid "Village in this line is duplicated: %s"
 msgstr "Wioska w tej linii jest podwojona: %s"
 
-#: base/forms.py:134 base/models/outline.py:155 base/models/outline.py:301
+#: base/forms.py:134 base/models/outline.py:156 base/models/outline.py:302
 #: base/models/profile.py:36
 msgid "Deff collection "
 msgstr "Zbiórka Obrona"
@@ -350,6 +351,7 @@ msgstr "Szlachcic"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:111
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:174
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
+#: utils/basic/info_generatation.py:118
 msgid "From"
 msgstr "Od"
 
@@ -357,6 +359,7 @@ msgstr "Od"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:112
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:175
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:214
+#: utils/basic/info_generatation.py:119
 msgid "To"
 msgstr "Do"
 
@@ -364,6 +367,7 @@ msgstr "Do"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:107
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
+#: utils/basic/info_generatation.py:116
 msgid "Mode"
 msgstr "Tryb"
 
@@ -371,6 +375,7 @@ msgstr "Tryb"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:108
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
+#: utils/basic/info_generatation.py:117
 msgid "Unit"
 msgstr "Jednostka"
 
@@ -378,6 +383,7 @@ msgstr "Jednostka"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:109
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:176
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:215
+#: utils/basic/info_generatation.py:120
 msgid "Min. time"
 msgstr "Min. czas"
 
@@ -385,6 +391,7 @@ msgstr "Min. czas"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:110
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:177
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:216
+#: utils/basic/info_generatation.py:121
 msgid "Max. time"
 msgstr "Max. czas"
 
@@ -472,212 +479,216 @@ msgstr ""
 "Jeśli ta opcja jest zaznaczona, bezpośrednie wiadomości w zakładce Wyniki "
 "będą zawierać linki do celów"
 
-#: base/models/outline.py:66 base/models/outline.py:73
+#: base/models/outline.py:67 base/models/outline.py:74
 #: base/models/target_vertex.py:32 base/models/target_vertex.py:39
 msgid "Closest Front"
 msgstr "Front Najbliżej"
 
-#: base/models/outline.py:67 base/models/outline.py:74
+#: base/models/outline.py:68 base/models/outline.py:75
 #: base/models/target_vertex.py:33 base/models/target_vertex.py:40
 msgid "Close Back"
 msgstr "Zaplecze Blisko"
 
-#: base/models/outline.py:68 base/models/outline.py:75
+#: base/models/outline.py:69 base/models/outline.py:76
 #: base/models/target_vertex.py:34 base/models/target_vertex.py:41
 msgid "Random Back"
 msgstr "Zaplecze Losowo"
 
-#: base/models/outline.py:69 base/models/outline.py:76
+#: base/models/outline.py:70 base/models/outline.py:77
 #: base/models/target_vertex.py:35 base/models/target_vertex.py:42
 msgid "Far Back"
 msgstr "Zaplecze Daleko"
 
-#: base/models/outline.py:80 base/models/target_vertex.py:46
+#: base/models/outline.py:81 base/models/target_vertex.py:46
 msgid "Divide off with nobles"
 msgstr "Dziel offy z szlachtą"
 
-#: base/models/outline.py:81 base/models/target_vertex.py:47
+#: base/models/outline.py:82 base/models/target_vertex.py:47
 msgid "Dont't divide off"
 msgstr "Nie dziel offów z szlachtą"
 
-#: base/models/outline.py:82 base/models/target_vertex.py:48
+#: base/models/outline.py:83 base/models/target_vertex.py:48
 msgid "Off and nobles separatly"
 msgstr "Offy i szlachta osobno"
 
-#: base/models/outline.py:86
+#: base/models/outline.py:87
 msgid "Nobles from one village as one command"
 msgstr "Szlachta z jednej wioski jako jeden rozkaz"
 
-#: base/models/outline.py:87
+#: base/models/outline.py:88
 msgid "Nobles from one village as many commands"
 msgstr "Szlachta z jednej wioski jako wiele rozkazów"
 
-#: base/models/outline.py:91 base/models/target_vertex.py:52
+#: base/models/outline.py:92 base/models/target_vertex.py:52
 msgid "Try send all nobles to one target"
 msgstr "Rozpisuj szlachtę możliwie na jedną wioskę"
 
-#: base/models/outline.py:92 base/models/target_vertex.py:53
+#: base/models/outline.py:93 base/models/target_vertex.py:53
 msgid "Nobles to one or many targets"
 msgstr "Szlachta na jedną lub wiele wiosek (optymalnie)"
 
-#: base/models/outline.py:93 base/models/target_vertex.py:54
+#: base/models/outline.py:94 base/models/target_vertex.py:54
 msgid "Try single nobles from many villages"
 msgstr "Rozpisuj szlachtę na cel możliwie z pojedynczych wiosek"
 
-#: base/models/outline.py:97 base/models/period_model.py:28
+#: base/models/outline.py:98 base/models/period_model.py:28
 #: base/templates/base/new_outline/new_outline_initial_period1.html:127
 msgid "All"
 msgstr "Wszystkie"
 
-#: base/models/outline.py:98
+#: base/models/outline.py:99
 #: base/templates/base/new_outline/new_outline_initial_period1.html:128
 msgid "Front"
 msgstr "Front"
 
-#: base/models/outline.py:99
+#: base/models/outline.py:100
 #: base/templates/base/new_outline/new_outline_initial_period1.html:129
 msgid "Back"
 msgstr "Zaplecze"
 
-#: base/models/outline.py:100
+#: base/models/outline.py:101
 #: base/templates/base/new_outline/new_outline_initial_period1.html:130
 msgid "Away"
 msgstr "Poza"
 
-#: base/models/outline.py:101
+#: base/models/outline.py:102
 msgid "Hidden"
 msgstr "Ukryte"
 
-#: base/models/outline.py:105 base/models/weight_model.py:30
+#: base/models/outline.py:106 base/models/weight_model.py:30
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 #: base/templates/base/new_outline/new_outline_initial_period2.html:315
 msgid "Headquarters"
 msgstr "Ratusz"
 
-#: base/models/outline.py:106 base/models/weight_model.py:31
+#: base/models/outline.py:107 base/models/weight_model.py:31
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "Barracks"
 msgstr "Koszary"
 
-#: base/models/outline.py:107 base/models/weight_model.py:32
+#: base/models/outline.py:108 base/models/weight_model.py:32
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "Stable"
 msgstr "Stajnia"
 
-#: base/models/outline.py:108 base/models/weight_model.py:33
+#: base/models/outline.py:109 base/models/weight_model.py:33
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "Workshop"
 msgstr "Warsztat"
 
-#: base/models/outline.py:109 base/models/weight_model.py:34
+#: base/models/outline.py:110 base/models/weight_model.py:34
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "Academy"
 msgstr "Pałac"
 
-#: base/models/outline.py:110 base/models/weight_model.py:35
+#: base/models/outline.py:111 base/models/weight_model.py:35
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 #: base/templates/base/new_outline/new_outline_initial_period2.html:316
 msgid "Smithy"
 msgstr "Kuźnia"
 
-#: base/models/outline.py:111 base/models/weight_model.py:36
+#: base/models/outline.py:112 base/models/weight_model.py:36
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "Rally point"
 msgstr "Plac"
 
-#: base/models/outline.py:112 base/models/weight_model.py:37
+#: base/models/outline.py:113 base/models/weight_model.py:37
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "Statue"
 msgstr "Piedestał"
 
-#: base/models/outline.py:113 base/models/weight_model.py:38
+#: base/models/outline.py:114 base/models/weight_model.py:38
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "Market"
 msgstr "Rynek"
 
-#: base/models/outline.py:114 base/models/weight_model.py:39
+#: base/models/outline.py:115 base/models/weight_model.py:39
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 #: base/templates/base/new_outline/new_outline_initial_period2.html:317
 msgid "Timber camp"
 msgstr "Tartak"
 
-#: base/models/outline.py:115 base/models/weight_model.py:40
+#: base/models/outline.py:116 base/models/weight_model.py:40
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 #: base/templates/base/new_outline/new_outline_initial_period2.html:320
 msgid "Clay pit"
 msgstr "Cegielnia"
 
-#: base/models/outline.py:116 base/models/weight_model.py:41
+#: base/models/outline.py:117 base/models/weight_model.py:41
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "Iron mine"
 msgstr "Huta żelaza"
 
-#: base/models/outline.py:117 base/models/weight_model.py:42
+#: base/models/outline.py:118 base/models/weight_model.py:42
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 #: base/templates/base/new_outline/new_outline_initial_period2.html:321
 msgid "Farm"
 msgstr "Zagroda"
 
-#: base/models/outline.py:118 base/models/weight_model.py:43
+#: base/models/outline.py:119 base/models/weight_model.py:43
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 #: base/templates/base/new_outline/new_outline_initial_period2.html:322
 msgid "Warehouse"
 msgstr "Spichlerz"
 
-#: base/models/outline.py:119 base/models/weight_model.py:44
+#: base/models/outline.py:120 base/models/weight_model.py:44
 #: base/templates/base/new_outline/new_outline_initial_period1.html:454
 msgid "wall"
 msgstr "Mur"
 
-#: base/models/outline.py:123
+#: base/models/outline.py:124
 msgid "Average greater than 8k"
 msgstr "Średnio powyżej 8k"
 
-#: base/models/outline.py:124
+#: base/models/outline.py:125
 msgid "Average 5-8k"
 msgstr "Średnio 5-8k"
 
-#: base/models/outline.py:137
+#: base/models/outline.py:138
 msgid "Fakes only from off villages"
 msgstr "Fejki tylko z wiosek z pełnym offem"
 
-#: base/models/outline.py:138
+#: base/models/outline.py:139
 msgid "Fakes from all villages"
 msgstr "Fejki z wszystkich wiosek"
 
-#: base/models/outline.py:144
+#: base/models/outline.py:145
 msgid "(Default) Auto generated, fully equipped safe links"
 msgstr "(Domyślne) Automatycznie wygenerowane bezpieczne linki"
 
-#: base/models/outline.py:146
+#: base/models/outline.py:147
 msgid "Text simple directly in message"
 msgstr "Tekst prosty bezpośrednio w wiadomości"
 
-#: base/models/outline.py:147
+#: base/models/outline.py:148
 msgid "Text extended directly in message"
 msgstr "Tekst rozszerzony bezpośrednio w wiadomości"
 
-#: base/models/outline.py:148
+#: base/models/outline.py:149
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:283
+#: base/models/outline.py:284 base/models/profile.py:60
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:403
+#: base/models/outline.py:305
+msgid "Name"
+msgstr "Nazwa"
+
+#: base/models/outline.py:405
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:408
+#: base/models/outline.py:410
 msgid "never"
 msgstr "nigdy"
 
-#: base/models/outline.py:420
+#: base/models/outline.py:422
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:422
+#: base/models/outline.py:424
 msgid "days"
 msgstr "dni"
 
@@ -2707,39 +2718,61 @@ msgstr "Ostatni element w linii musi być pustym stringiem, obecnie: %s"
 msgid "Second element of line must be a text: %s"
 msgstr "Drugi element w linii musi być tekstem, obecnie: %s"
 
-#: utils/basic/info_generatation.py:44
-msgid "Targets:"
-msgstr "Cele:"
-
-#: utils/basic/info_generatation.py:45
-msgid "Fakes:"
-msgstr "Fejk Cele:"
-
-#: utils/basic/info_generatation.py:46
-msgid "Ruins:"
-msgstr "Burzone Cele:"
-
-#: utils/basic/info_generatation.py:52
+#: utils/basic/info_generatation.py:63
 msgid "Nicknames: "
 msgstr "Nazwy graczy: "
 
-#: utils/basic/info_generatation.py:159
+#: utils/basic/info_generatation.py:105 utils/basic/info_generatation.py:115
+msgid "Time"
+msgstr "Czas"
+
+#: utils/basic/info_generatation.py:146
+#, python-format
+msgid ""
+"SUM: %(offs_count)s offs, %(nobles_count)s nobles, %(ruins_count)s ruins and "
+"%(fakes_count)s fakes"
+msgstr ""
+"SUMA: %(offs_count)s offów, %(nobles_count)s szlachciców, %(ruins_count)s "
+"burzaków oraz %(fakes_count)s fejków"
+
+#: utils/basic/info_generatation.py:155
+#, python-format
+msgid ""
+"LEFT: %(offs_count)s offs, %(nobles_count)s nobles, %(catapults_count)s "
+"catapults"
+msgstr ""
+"POZOSTAŁO: %(offs_count)s offów, %(nobles_count)s szlachciców, "
+"%(catapults_count)s katapult"
+
+#: utils/basic/info_generatation.py:174
+msgid "### TARGETS ###"
+msgstr "### CELE ###"
+
+#: utils/basic/info_generatation.py:178
+msgid "### FAKES ###"
+msgstr "### FEJKI ###"
+
+#: utils/basic/info_generatation.py:182
+msgid "### RUINS ###"
+msgstr "### BURZAKI ###"
+
+#: utils/basic/info_generatation.py:261
 msgid "fakes"
 msgstr "fejków"
 
-#: utils/basic/info_generatation.py:160
+#: utils/basic/info_generatation.py:262
 msgid "fake nobles"
 msgstr "fake grubych"
 
-#: utils/basic/info_generatation.py:175 utils/basic/info_generatation.py:191
+#: utils/basic/info_generatation.py:277 utils/basic/info_generatation.py:293
 msgid "offs"
 msgstr "offów"
 
-#: utils/basic/info_generatation.py:176
+#: utils/basic/info_generatation.py:278
 msgid "ruins"
 msgstr "burzaków"
 
-#: utils/basic/info_generatation.py:192
+#: utils/basic/info_generatation.py:294
 msgid "nobles"
 msgstr "szlachciców"
 
@@ -2903,6 +2936,15 @@ msgstr "Wioska"
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "Targets:"
+#~ msgstr "Cele:"
+
+#~ msgid "Fakes:"
+#~ msgstr "Fejk Cele:"
+
+#~ msgid "Ruins:"
+#~ msgstr "Burzone Cele:"
 
 #~ msgid "Maximum length: 2000."
 #~ msgstr "Maksymalna długość: 2000."

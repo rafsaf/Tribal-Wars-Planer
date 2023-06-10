@@ -240,7 +240,7 @@ To run makemessages/compilemessages (the project is in English, every string is 
 
 ```bash
 # every machine - using dockerfiles
-docker compose -f docker-compose.translation.yml up -d
+docker compose -f docker-compose.translation.yml run --rm trans
 
 ```
 

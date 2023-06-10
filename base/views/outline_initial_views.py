@@ -449,7 +449,7 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
             filtr=filtr,
         )
         query = instance.targets_query(target_lst=page_obj)
-        outline_time_dict = instance.get_outline_times(with_periods=True)
+        outline_time_dict = instance.get_outline_times()
 
         select_formset = formset_factory(
             form=forms.ChooseOutlineTimeForm, extra=12, max_num=12

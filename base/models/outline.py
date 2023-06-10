@@ -302,7 +302,8 @@ class Outline(models.Model):
             return gettext_lazy("Deff collection ")
 
     def __str__(self):
-        return "ID:" + str(self.pk) + ", Nazwa: " + str(self.name)
+        name_text = gettext_lazy("Name")
+        return f"ID: {self.pk}, {name_text}: {self.name}"
 
     def get_or_set_off_troops_hash(self, force_recalculate: bool = False):
         if force_recalculate or not self.off_troops_hash:
@@ -585,13 +586,10 @@ class Outline(models.Model):
             .exists()
         )
 
-    def get_outline_times(self, with_periods: bool):
+    def get_outline_times(self):
         from base.models import OutlineTime, PeriodModel
 
         outline_time_lst = OutlineTime.objects.filter(outline=self).order_by("order")
-        if not with_periods:
-            return outline_time_lst
-
         period_model_lst = (
             PeriodModel.objects.select_related("outline_time")
             .filter(outline_time__in=outline_time_lst)
@@ -605,7 +603,12 @@ class Outline(models.Model):
                 result[period.outline_time].append(period)
             else:
                 result[period.outline_time] = [period]
-        return result
+        return {
+            key: result[key]
+            for key in sorted(
+                result.keys(), key=lambda outline_time: outline_time.order
+            )
+        }
 
     def create_stats(self):
         from base.models import Stats
