@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from __future__ import annotations
 
 from django.db.models.query import QuerySet
 from django.utils.translation import get_language
@@ -47,6 +48,12 @@ class OutlineInfo:
         self.world_evidence: tuple[int, int, int] = basic.world_evidence(
             self.outline.world
         )
+        self.order_counter = {
+            "ruins": 0,
+            "fakes": 0,
+            "offs": 0,
+            "nobles": 0,
+        }
 
     def generate_nicks(self) -> str:
         result: str = _("Nicknames: ") + "\r\n\r\n"
@@ -65,17 +72,88 @@ class OutlineInfo:
             result += f"{player};"
         return result
 
-    def add_target_info(self, line: str, target_type: str) -> None:
-        if target_type == "real":
+    def add_target_info(self, target_info: TargetCount) -> None:
+        line = target_info.line_with_ally_nick
+        if target_info.target_type == "real":
             self.target_message += line
-        elif target_type == "fake":
+        elif target_info.target_type == "fake":
             self.fake_message += line
         else:
             self.ruin_message += line
 
+        for ruin in target_info.ally_players_ruins.values():
+            self.order_counter["ruins"] += ruin
+        for off in target_info.ally_players_offs.values():
+            self.order_counter["offs"] += off
+        for noble in target_info.ally_players_nobles.values():
+            self.order_counter["nobles"] += noble
+        for fake in target_info.ally_players_fakes.values():
+            self.order_counter["fakes"] += fake
+
+    def get_outline_time_text(self) -> str:
+        outline_times = self.outline.get_outline_times()
+
+        headers = [
+            _("Time"),
+            _("Mode"),
+            _("Unit"),
+            _("From"),
+            _("To"),
+            _("Min. time"),
+            _("Max. time"),
+        ]
+        i = 0
+        table_data = []
+        for outline_time, periods in outline_times.items():
+            i += 1
+            for period in periods:
+                unit = period.get_unit_display()  # type: ignore
+                mode = period.get_status_display()  # type: ignore
+                row = [
+                    i,
+                    mode,
+                    unit,
+                    period.from_number or "",
+                    period.to_number or "",
+                    period.from_time,
+                    period.to_time,
+                ]
+                table_data.append(row)
+
+        table = basic.draw_table(headers, table_data)
+        return f"[code]\r\n{table}\r\n[/code]"
+
     def show_sum_up(self):
+        sum_text = _(
+            "SUM: %(offs_count)s offs, %(nobles_count)s nobles, "
+            "%(ruins_count)s ruins and %(fakes_count)s fakes"
+        ) % {
+            "offs_count": self.order_counter["offs"],
+            "nobles_count": self.order_counter["nobles"],
+            "ruins_count": self.order_counter["ruins"],
+            "fakes_count": self.order_counter["fakes"],
+        }
+        left_text = _(
+            "LEFT: %(offs_count)s offs, %(nobles_count)s nobles, "
+            "%(catapults_count)s catapults"
+        ) % {
+            "offs_count": self.outline.count_off(),
+            "nobles_count": self.outline.count_noble(),
+            "catapults_count": self.outline.count_catapults(),
+        }
         return (
-            self.target_message
+            str(self.outline)
+            + "\r\n"
+            + _("Date")
+            + f": {self.outline.date}"
+            + "\r\n"
+            + sum_text
+            + "\r\n"
+            + left_text
+            + "\r\n\r\n"
+            + self.get_outline_time_text()
+            + "\r\n\r\n"
+            + self.target_message
             + "\r\n\r\n"
             + self.fake_message
             + "\r\n\r\n"

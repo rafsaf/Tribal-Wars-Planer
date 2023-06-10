@@ -23,6 +23,7 @@ from .dictionary import (
     coord_to_player_model_from_string,
     coord_to_player_points,
 )
+from .draw_table import draw_table
 from .encode_component import encode_component
 from .info_generatation import OutlineInfo, TargetCount
 from .mode import Mode, TargetMode

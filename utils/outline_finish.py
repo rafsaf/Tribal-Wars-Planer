@@ -219,9 +219,7 @@ class MakeFinalOutline:
 
                 lst = self._weights_list(target)
                 info_line = info_generatation.TargetCount(target, lst)
-                outline_info.add_target_info(
-                    info_line.line_with_ally_nick, info_line.target_type
-                )
+                outline_info.add_target_info(target_info=info_line)
 
                 for weight in lst:
                     weight = time_periods.next(weight=weight)

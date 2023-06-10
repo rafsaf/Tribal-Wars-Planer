@@ -1,4 +1,4 @@
-# docker compose -f docker-compose.translation run trans
+# docker compose -f docker-compose.translation.yml run --rm trans
 services:
   trans:
     restart: "no"
