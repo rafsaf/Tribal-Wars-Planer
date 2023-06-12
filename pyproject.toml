@@ -14,7 +14,7 @@ django-registration = "^3.3"
 django-ses = "^3.3.0"
 djangorestframework = "^3.14.0"
 
-botocore = "^1.29.126"
+botocore = "^1.29.152"
 diskcache = "^5.4.0"
 fpdf = "^1.7.2"
 prometheus-client = "^0.16.0"
