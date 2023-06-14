@@ -1,8 +1,9 @@
-FROM python:3.11.3-bullseye
+FROM python:3.11.4-bullseye
 
 ENV PYTHONUNBUFFERED 1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
 ENV UWSGI_PROCESSES=1
+ENV UWSGI_THREADS=1
 ENV SERVICE_NAME=uwsgi
 
 RUN mkdir build
