@@ -1,6 +1,6 @@
 asgiref==3.7.2 ; python_full_version > "3.10.0" and python_version < "3.12"
-boto3==1.26.150 ; python_full_version > "3.10.0" and python_version < "3.12"
-botocore==1.29.150 ; python_full_version > "3.10.0" and python_version < "3.12"
+boto3==1.26.153 ; python_full_version > "3.10.0" and python_version < "3.12"
+botocore==1.29.153 ; python_full_version > "3.10.0" and python_version < "3.12"
 certifi==2023.5.7 ; python_full_version > "3.10.0" and python_version < "3.12"
 charset-normalizer==3.1.0 ; python_full_version > "3.10.0" and python_version < "3.12"
 confusable-homoglyphs==3.2.0 ; python_full_version > "3.10.0" and python_version < "3.12"
