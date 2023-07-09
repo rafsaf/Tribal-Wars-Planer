@@ -9,8 +9,6 @@ mkdir media || true
 mkdir logs || true
 mkdir disk_cache || true
 
-rm -f prometheus_multi_proc_dir/gauge*
-
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/logs
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/media
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/prometheus_multi_proc_dir
