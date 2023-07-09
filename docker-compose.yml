@@ -1,6 +1,6 @@
 services:
   postgres:
-    restart: always
+    restart: "no"
     image: postgres:15
     volumes:
       - twp_local_postgresql:/var/lib/postgresql/data
@@ -10,7 +10,7 @@ services:
   web:
     depends_on:
       - postgres
-    restart: always
+    restart: "no"
     image: rafsaf/twp-server:latest
     ports:
       - 7999:80
@@ -23,7 +23,7 @@ services:
   cronjobs:
     depends_on:
       - postgres
-    restart: always
+    restart: "no"
     image: rafsaf/twp-server:latest
     command: bash /build/scripts/init_cronjobs.sh
 
