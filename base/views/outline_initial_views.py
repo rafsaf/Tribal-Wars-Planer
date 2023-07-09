@@ -472,6 +472,13 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
                     return redirect(
                         reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
                     )
+                elif not models.OutlineTime.objects.filter(outline=instance).exists():
+                    request.session["outline_error"] = gettext(
+                        "<h5>Minimum one Time must exists.</h5>"
+                    )
+                    return redirect(
+                        reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
+                    )
                 models.Overview.objects.filter(outline=instance).update(removed=True)
                 make_final_outline = MakeFinalOutline(instance)
 
