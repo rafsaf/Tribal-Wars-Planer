@@ -1,6 +1,6 @@
 services:
   autoheal:
-    restart: always
+    restart: "no"
     image: willfarrell/autoheal
     environment:
       - AUTOHEAL_CONTAINER_LABEL=all
@@ -9,7 +9,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
 
   postgres:
-    restart: "unless-stopped"
+    restart: "no"
     image: postgres:15
     volumes:
       - twp_richdev_postgresql:/var/lib/postgresql/data
@@ -18,6 +18,7 @@ services:
       - DEBUG=false
 
   prometheus:
+    restart: "no"
     image: prom/prometheus:latest
     ports:
       - 9090:9090
@@ -29,7 +30,7 @@ services:
   web:
     depends_on:
       - postgres
-    restart: "unless-stopped"
+    restart: "no"
     build:
       context: ./
       dockerfile: Dockerfile.prod
@@ -56,7 +57,7 @@ services:
   cronjobs:
     depends_on:
       - postgres
-    restart: "unless-stopped"
+    restart: "no"
     build:
       context: ./
       dockerfile: Dockerfile.prod
@@ -71,7 +72,7 @@ services:
       - "twp_richdev_prometheus:/build/prometheus_multi_proc_dir"
 
   master_locust:
-    restart: "unless-stopped"
+    restart: "no"
     image: locustio/locust
     ports:
       - "8089:8089"
@@ -80,7 +81,7 @@ services:
     command: -f /mnt/locust/locustfile.py --master -H http://web:80
 
   worker_locust:
-    restart: "unless-stopped"
+    restart: "no"
     image: locustio/locust
     volumes:
       - ./perf:/mnt/locust
