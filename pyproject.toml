@@ -29,7 +29,7 @@ uwsgi = "^2.0.21"
 
 [tool.poetry.group.dev.dependencies]
 autoflake = "^2.0.0"
-black = "^23.1.0"
+black = "^23.7.0"
 coverage = "^7.2.1"
 django-types = "^0.17.0"
 flake8 = "^6.0.0"
