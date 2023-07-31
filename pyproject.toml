@@ -25,7 +25,7 @@ python-dotenv = "^1.0.0"
 schedule = "^1.1.0"
 stripe = "^5.1.1"
 tw-complex = "^1.1.0"
-uwsgi = "^2.0.21"
+uwsgi = "^2.0.22"
 
 [tool.poetry.group.dev.dependencies]
 autoflake = "^2.0.0"
