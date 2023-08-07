@@ -112,13 +112,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.31.1"
+version = "1.31.21"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">= 3.7"
 files = [
-    {file = "botocore-1.31.1-py3-none-any.whl", hash = "sha256:62e954b8eb9a404510dd97c4fdfaae25bd0349213a3cd70e937e0634821342f5"},
-    {file = "botocore-1.31.1.tar.gz", hash = "sha256:4c9c58ae286a2ca1f900c9bce285b9efd1f0401648aa54a5026c93ada63ad897"},
+    {file = "botocore-1.31.21-py3-none-any.whl", hash = "sha256:c20a5c46eaf49b18b76fdfaec5583320e18abd551b1bc3cd7b1e718372675e21"},
+    {file = "botocore-1.31.21.tar.gz", hash = "sha256:9a13736b16aea3f16829b00edfb2c656fee72ecbfe5eb396cc2f8632e31fd524"},
 ]
 
 [package.dependencies]
@@ -127,7 +127,7 @@ python-dateutil = ">=2.1,<3.0.0"
 urllib3 = ">=1.25.4,<1.27"
 
 [package.extras]
-crt = ["awscrt (==0.16.9)"]
+crt = ["awscrt (==0.16.26)"]
 
 [[package]]
 name = "brotli"
@@ -1540,7 +1540,7 @@ name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
     {file = "pycparser-2.21-py2.py3-none-any.whl", hash = "sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9"},
     {file = "pycparser-2.21.tar.gz", hash = "sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"},
@@ -2246,4 +2246,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">3.10,<3.12"
-content-hash = "b674b55414741ad7777d41b10f3c41407da042c07db3ae62fabe807562cd41f4"
+content-hash = "3311fa3414a852c30b35132d5feb2a19312f93d1173523d3ed4b54dfbbd48510"
