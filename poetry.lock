@@ -1507,7 +1507,7 @@ name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
     {file = "pycparser-2.21-py2.py3-none-any.whl", hash = "sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9"},
     {file = "pycparser-2.21.tar.gz", hash = "sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"},
@@ -2015,13 +2015,13 @@ test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "stripe"
-version = "5.5.0"
+version = "6.0.0"
 description = "Python bindings for the Stripe API"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+python-versions = ">=3.6"
 files = [
-    {file = "stripe-5.5.0-py2.py3-none-any.whl", hash = "sha256:b4947da66dbb3de8969004ba6398f9a019c6b1b3ffe6aa88d5b07ac560a52b28"},
-    {file = "stripe-5.5.0.tar.gz", hash = "sha256:04a9732b37a46228ecf0e496163a3edd93596b0e6200029fbc48911638627e19"},
+    {file = "stripe-6.0.0-py2.py3-none-any.whl", hash = "sha256:f3cf6e619a91d1a49ddde417d444e47435cc472f394f2fa0d82f3d127d8cc17d"},
+    {file = "stripe-6.0.0.tar.gz", hash = "sha256:d8f315c9f2ceb429ad23cd98a50e14cd0e973b3ffbd920f77e5a2da75a94693e"},
 ]
 
 [package.dependencies]
@@ -2229,4 +2229,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">3.10,<3.12"
-content-hash = "b674b55414741ad7777d41b10f3c41407da042c07db3ae62fabe807562cd41f4"
+content-hash = "3aa30b402fc64e678b40a0d95f60163fa6d835046226001e1cdcfebbeb5220de"
