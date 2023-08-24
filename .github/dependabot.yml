@@ -5,6 +5,23 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    open-pull-requests-limit: 15
+    allow:
+      - dependency-type: "all"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "django"
+          - "django-crispy-forms"
+          - "django-registration"
+          - "django-ses"
+          - "djangorestframework"
+          - "schedule"
+          - "stripe"
+          - "tw-complex"
+          - "uwsgi"
 
   - package-ecosystem: github-actions
     directory: /
