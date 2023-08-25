@@ -1,4 +1,4 @@
-FROM python:3.11.5-bullseye
+FROM python:3.12.0rc1-bullseye
 
 RUN apt-get update
 RUN apt-get install gettext -y
