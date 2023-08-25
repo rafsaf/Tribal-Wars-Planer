@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Starts nginx + uwsgi server inside Dockerfile.prod
+# Starts nginx + uwsgi server inside Dockerfile
 
 ### 1. Initial script, migrations etc., cleanup ###
 bash /build/initial.sh

@@ -18,8 +18,8 @@ services:
   cronjobs_dev:
     restart: "no"
     build:
+      target: build
       context: ./
-      dockerfile: Dockerfile.prod
     command: bash /build/scripts/init_cronjobs.sh
     environment:
       - POSTGRES_HOST=postgres_dev

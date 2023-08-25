@@ -32,8 +32,8 @@ services:
       - postgres
     restart: "no"
     build:
+      target: build
       context: ./
-      dockerfile: Dockerfile.prod
     ports:
       - 7998:80
     env_file:
@@ -59,8 +59,8 @@ services:
       - postgres
     restart: "no"
     build:
+      target: build
       context: ./
-      dockerfile: Dockerfile.prod
     command: bash /build/scripts/init_cronjobs.sh
     env_file:
       - .env

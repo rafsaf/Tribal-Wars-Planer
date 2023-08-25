@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Starts python schedule managed cronjobs inside Dockerfile.prod
+# Starts python schedule managed cronjobs inside Dockerfile
 
 ### 1. Cleanup and folder create ###
 echo "prometheus multi proc directory, media creating and cleanup"
