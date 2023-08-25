@@ -17,7 +17,6 @@ docker-compose.stg.yml
 docker-compose.translation.yml
 docker-compose.yml
 LICENSE
-poetry.lock
 README.md
 .gitignore
 letsencrypt

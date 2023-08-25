@@ -3,8 +3,8 @@ services:
   trans:
     restart: "no"
     build:
+      target: translations
       context: ./
-      dockerfile: Dockerfile.translation
     env_file:
       - .env.example
     volumes: 

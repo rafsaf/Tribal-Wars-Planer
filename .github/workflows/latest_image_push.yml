@@ -30,7 +30,7 @@ jobs:
       - name: Build and push latest twp-server image
         uses: docker/build-push-action@v4
         with:
-          file: Dockerfile.prod
+          target: build
           context: .
           push: true
           tags: rafsaf/twp-server:latest
