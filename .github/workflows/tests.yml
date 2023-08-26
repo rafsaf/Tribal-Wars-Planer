@@ -66,9 +66,7 @@ jobs:
           POSTGRES_HOST: localhost
         run: |
           poetry run bash initial.sh
-          poetry run coverage run -m pytest
-          poetry run coverage xml
-          poetry run coverage report --show-missing
+          poetry run pytest
 
       - name: Upload coverage result to Codecov
         uses: codecov/codecov-action@v3
