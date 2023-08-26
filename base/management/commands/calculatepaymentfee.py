@@ -54,17 +54,17 @@ class Command(BaseCommand):  # pragma: no cover
                 else:
                     intent_id = payment.payment_intent_id
 
-                intent = stripe.PaymentIntent.retrieve(intent_id)
+                intent = stripe.PaymentIntent.retrieve(
+                    intent_id, expand=["latest_charge"]
+                )
                 sleep(0.2)
 
-                if len(intent["charges"]["data"]) != 1:
+                if "latest_charge" not in intent:
                     log.error(f"not exactly one charge in payment intent, {intent_id}")
                     metrics.ERRORS.labels("job:calculate_payment_fees").inc()
                     continue
 
-                balance_transaction_id = intent["charges"]["data"][0][
-                    "balance_transaction"
-                ]
+                balance_transaction_id = intent["latest_charge"]["balance_transaction"]
                 balance_transaction = stripe.BalanceTransaction.retrieve(
                     balance_transaction_id
                 )

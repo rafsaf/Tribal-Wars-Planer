@@ -245,14 +245,14 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
             )
 
         host = request.get_host()
-        http = "http://"
+        scheme = request.scheme
         success = reverse("base:payment_done")
         cancel = reverse("base:premium")
         try:
             language = translation.get_language()
             checkout_session = stripe.checkout.Session.create(
-                success_url=f"{http}{host}{success}",
-                cancel_url=f"{http}{host}{cancel}",
+                success_url=f"{scheme}://{host}{success}",
+                cancel_url=f"{scheme}://{host}{cancel}",
                 client_reference_id=user_pk,
                 customer_email=profile.user.email,
                 metadata={"language": language},
@@ -261,7 +261,6 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                     {
                         "quantity": 1,
                         "price": price.price_id,
-                        "description": f"plemiona-planer.pl - {price.product} - {profile.user.username}",
                     }
                 ],
             )
