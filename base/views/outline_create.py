@@ -54,6 +54,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                     name=request.POST["name"],
                     world=world_instance,
                     morale_on=profile.default_morale_on,
+                    initial_outline_target_dist=world_instance.max_noble_distance,
                     input_data_type=profile.input_data_type,
                     sending_option=profile.sending_option,
                     send_message_with_url=profile.send_message_with_url,

@@ -37,7 +37,7 @@ class World(models.Model):
     paladin = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     archer = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
     militia = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
-    max_noble_distance = models.IntegerField(default=50)
+    max_noble_distance = models.IntegerField(default=500)
     morale = models.IntegerField(default=1)
     fanout_key_text_player = models.CharField(default="__0", max_length=200)
     fanout_key_text_tribe = models.CharField(default="__0", max_length=200)

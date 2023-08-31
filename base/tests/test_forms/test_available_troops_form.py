@@ -28,6 +28,7 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500|500",
             },
+            instance=self.get_outline(),
         )
         assert form.is_valid()
 
@@ -41,6 +42,7 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500XD500",
             },
+            instance=self.get_outline(),
         )
         assert not form.is_valid()
 
@@ -54,6 +56,7 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_maximum_off_dist": 111,
                 "initial_outline_excluded_coords": "500|500",
             },
+            instance=self.get_outline(),
         )
         assert not form.is_valid()
 
@@ -67,5 +70,6 @@ class AvailableTroopsFormTest(MiniSetup):
                 "initial_outline_maximum_off_dist": "",
                 "initial_outline_excluded_coords": "",
             },
+            instance=self.get_outline(),
         )
         assert not form.is_valid()

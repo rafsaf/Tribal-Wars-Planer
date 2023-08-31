@@ -353,7 +353,9 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Minimum distance from front line"
             ),
             "initial_outline_target_dist": gettext_lazy("Max Distance for nobles"),
-            "initial_outline_maximum_off_dist": gettext_lazy("Max Distance for offs"),
+            "initial_outline_maximum_off_dist": gettext_lazy(
+                "Max Distance for offs and ruins"
+            ),
         }
         help_texts = {
             "initial_outline_min_off": gettext_lazy(
@@ -364,9 +366,6 @@ class AvailableTroopsForm(forms.ModelForm):
             ),
             "initial_outline_front_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
-            ),
-            "initial_outline_target_dist": gettext_lazy(
-                "Greater than or equal to 0 and less than or equal to 1000. This is STRICT limit of distance for any NOBLE regardless of distance from the front line."
             ),
             "initial_outline_maximum_off_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 1000. This is STRICT limit of distance for any OFF regardless of distance from the front line."
@@ -381,6 +380,23 @@ class AvailableTroopsForm(forms.ModelForm):
         help_text=gettext_lazy("Exact coords separated by a space or an entry"),
         widget=forms.Textarea,
     )
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.outline: models.Outline = kwargs["instance"]
+        self.fields["initial_outline_target_dist"].help_text = gettext_lazy(
+            "Greater than or equal to 0 and less than or equal to your world maximum: %(max_noble_distance)s. This is STRICT limit of distance for any NOBLE regardless of distance from the front line."
+        ) % {"max_noble_distance": self.outline.world.max_noble_distance}
+
+    def clean_initial_outline_target_dist(self) -> int:
+        noble_dist: int = self.cleaned_data["initial_outline_target_dist"]
+        if noble_dist > self.outline.world.max_noble_distance:
+            self.add_error(
+                "initial_outline_target_dist",
+                gettext_lazy("Ensure this value is less than or equal to %(value)s.")
+                % {"value": self.outline.world.max_noble_distance},
+            )
+        return noble_dist
 
     def clean_initial_outline_excluded_coords(self):
         """Excluded Villages"""
