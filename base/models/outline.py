@@ -202,7 +202,7 @@ class Outline(models.Model):
         default=100, validators=[MinValueValidator(0), MaxValueValidator(1000)]
     )
     initial_outline_target_dist = models.IntegerField(
-        default=50, validators=[MinValueValidator(0), MaxValueValidator(1000)]
+        default=50, validators=[MinValueValidator(0), MaxValueValidator(10000)]
     )
     initial_outline_excluded_coords = models.TextField(default="", blank=True)
     initial_outline_fake_limit = models.IntegerField(
