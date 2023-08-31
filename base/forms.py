@@ -946,7 +946,7 @@ class AddNewWorldForm(forms.ModelForm):
             raise forms.ValidationError(gettext_lazy("World is already added!"))
 
         elif result[1] == "success":
-            world_query.update_all()
+            world_query.update_all(download_try=1)
             world_query.world.save()
 
 

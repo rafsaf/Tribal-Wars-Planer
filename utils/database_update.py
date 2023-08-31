@@ -198,11 +198,11 @@ class WorldUpdateHandler:
         last_modified_datetime = last_modified_datetime.replace(tzinfo=timezone.utc)
         return last_modified_datetime.timestamp()
 
-    def update_all(self):
+    def update_all(self, download_try: int = 6):
         """Synchronize Tribe, Village, Player tables with latest data from game."""
         count = 0
         log.info("%s start download_and_save data from tribal wars", self.world)
-        while count < 6:
+        while count < download_try:
             self.download_and_save(self.PLAYER_DATA)
             self.download_and_save(self.VILLAGE_DATA)
             self.download_and_save(self.TRIBE_DATA)

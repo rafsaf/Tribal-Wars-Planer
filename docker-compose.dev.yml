@@ -26,7 +26,7 @@ services:
     env_file:
       - .env
     volumes:
-      - "./logs:/build/logs"
+      - "twp_prd_logs:/build/logs"
 
   stripe_cli:
     image: stripe/stripe-cli:latest
@@ -38,3 +38,4 @@ services:
 
 volumes:
   twp_dev_postgresql:
+  twp_prd_logs:
