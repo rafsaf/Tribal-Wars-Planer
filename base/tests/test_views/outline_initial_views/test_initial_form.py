@@ -623,7 +623,8 @@ class InitialForm(MiniSetup):
         assert outline.avaiable_nobles == [60, 46, 14, 0]
         assert outline.avaiable_offs_near == [20, 13, 7, 0]
         assert outline.avaiable_nobles_near == [60, 46, 14, 0]
-        assert outline.avaiable_ruins == 1850
+        assert outline.available_catapults == [5000, 1300, 1800, 1900]
+        assert outline.avaiable_ruins == 1800 - 18 * 50
 
         assert WeightMaximum.objects.filter(too_far_away=True).count() == 19
         assert WeightMaximum.objects.filter(first_line=True).count() == 13
