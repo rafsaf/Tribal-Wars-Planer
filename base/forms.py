@@ -393,10 +393,8 @@ class AvailableTroopsForm(forms.ModelForm):
         if noble_dist > self.outline.world.max_noble_distance:
             self.add_error(
                 "initial_outline_target_dist",
-                gettext_lazy(
-                    "Ensure this value is less than or equal to %(value)s."
-                    % {"value": self.outline.world.max_noble_distance}
-                ),
+                gettext_lazy("Ensure this value is less than or equal to %(value)s.")
+                % {"value": self.outline.world.max_noble_distance},
             )
         return noble_dist
 
