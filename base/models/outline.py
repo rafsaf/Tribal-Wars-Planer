@@ -235,6 +235,9 @@ class Outline(models.Model):
     avaiable_nobles = ArrayField(models.IntegerField(), default=list, blank=True)
     avaiable_offs_near = ArrayField(models.IntegerField(), default=list, blank=True)
     avaiable_nobles_near = ArrayField(models.IntegerField(), default=list, blank=True)
+    available_catapults = ArrayField(
+        models.IntegerField(), default=list, blank=True, max_length=4
+    )
     avaiable_ruins = models.IntegerField(default=None, null=True, blank=True)
 
     mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")

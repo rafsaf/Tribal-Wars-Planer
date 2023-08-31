@@ -32,7 +32,10 @@ COPY . .
 RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build
 CMD bash /build/scripts/init_webserver.sh
 
-FROM build as translations
+FROM base as translations
+COPY --from=poetry /requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
 RUN apt-get update -y && apt-get install gettext -y
 CMD python manage.py makemessages --all --ignore .venv &&  \
     python manage.py compilemessages --ignore .venv

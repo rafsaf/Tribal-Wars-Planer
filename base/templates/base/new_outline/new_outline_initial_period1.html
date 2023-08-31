@@ -154,6 +154,17 @@
           {% endfor %}
         </tr>
         <tr>
+          <th style="cursor: default;">{% trans 'Catapults' %}</th>
+          {% for item in instance.available_catapults %}
+          <th>{{ item }}</th>
+          {% empty %}
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          {% endfor %}
+        </tr>
+        <tr>
           <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Offs close to real targets' %} <i class="bi bi-question-square"></i></th>
 
           {% for item in instance.avaiable_offs_near %}
@@ -178,8 +189,11 @@
           {% endfor %}
         </tr>
         <tr>
-          <th>{% trans 'The number of available catapults' %}</th>
-          <th > 
+          <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="
+          {% blocktrans with initial_outline_off_left_catapult=instance.initial_outline_off_left_catapult initial_outline_maximum_off_dist=instance.initial_outline_maximum_off_dist %}
+          Catapults from villages that are not front, minus what must be left in off villages ({{initial_outline_off_left_catapult}} catapults per village, see 6.). Only villages at maximum distance that are not far away (now more than {{initial_outline_maximum_off_dist}}, see 1.).
+          {% endblocktrans %}" class="text-nowrap" scope="col">{% trans 'Available catapults to use' %} <i class="bi bi-question-square"></i></th>
+          <th>
             {% if instance.avaiable_ruins %}
             {{instance.avaiable_ruins}}
             {% endif %}

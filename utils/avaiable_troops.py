@@ -208,29 +208,47 @@ def get_legal_coords_outline(outline: models.Outline):
 
 
 def update_available_ruins(outline: models.Outline) -> None:
-    ruins_from_other: int = (
+    catapults = models.WeightMaximum.objects.filter(outline=outline)
+    all_catapults: int = catapults.aggregate(n=Sum("catapult_max"))["n"] or 0
+    front_catapults: int = (
+        catapults.filter(first_line=True).aggregate(n=Sum("catapult_max"))["n"] or 0
+    )
+    too_far_catapults: int = (
+        catapults.filter(too_far_away=True).aggregate(n=Sum("catapult_max"))["n"] or 0
+    )
+    back_catapults: int = all_catapults - front_catapults - too_far_catapults
+
+    available_ruins_from_other: int = (
         models.WeightMaximum.objects.filter(
             first_line=False,
+            too_far_away=False,
             outline=outline,
             off_left__lt=outline.initial_outline_min_off,
-        ).aggregate(ruin_sum=Sum("catapult_left"))["ruin_sum"]
+        ).aggregate(ruin_sum=Sum("catapult_max"))["ruin_sum"]
         or 0
     )
 
-    ruins_from_offs: int = (
+    available_ruins_from_offs: int = (
         models.WeightMaximum.objects.filter(
             outline=outline,
             first_line=False,
+            too_far_away=False,
             catapult_left__gte=outline.initial_outline_off_left_catapult,
             off_left__gte=outline.initial_outline_min_off,
             off_left__lte=outline.initial_outline_max_off,
         )
         .annotate(
-            ruin_number=(F("catapult_left") - outline.initial_outline_off_left_catapult)
+            ruin_number=(F("catapult_max") - outline.initial_outline_off_left_catapult)
         )
         .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
         or 0
     )
 
-    outline.avaiable_ruins = ruins_from_offs + ruins_from_other
+    outline.avaiable_ruins = available_ruins_from_other + available_ruins_from_offs
+    outline.available_catapults = [
+        all_catapults,
+        front_catapults,
+        back_catapults,
+        too_far_catapults,
+    ]
     outline.save()
