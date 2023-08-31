@@ -844,6 +844,7 @@ class InitialForm(MiniSetup):
         outline.avaiable_offs_near = [1, 2, 3, 4]
         outline.avaiable_nobles = [4, 4, 4]
         outline.avaiable_nobles_near = [4, 4, 4]
+        outline.available_catapults = [4, 4, 4]
         outline.avaiable_ruins = 1555
         outline.save()
 
@@ -860,6 +861,7 @@ class InitialForm(MiniSetup):
         assert outline.avaiable_offs_near == []
         assert outline.avaiable_nobles == []
         assert outline.avaiable_nobles_near == []
+        assert outline.available_catapults == []
         assert outline.avaiable_ruins is None
         assert stats.troops_refreshed == 1
         assert outline.off_troops_weightmodels_hash == outline.off_troops_hash

@@ -345,6 +345,7 @@ class Outline(models.Model):
         self.avaiable_offs_near = []
         self.avaiable_nobles = []
         self.avaiable_nobles_near = []
+        self.available_catapults = []
         self.avaiable_ruins = None
         self.filter_weights_min = 0
         self.filter_weights_catapults_min = 0

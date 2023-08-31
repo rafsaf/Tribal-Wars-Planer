@@ -31,6 +31,7 @@ class RemoveUserOutline(MiniSetup):
         outline.avaiable_offs_near = [123, 123, 5]
         outline.avaiable_nobles = [1]
         outline.avaiable_nobles_near = [55]
+        outline.available_catapults = [55]
         outline.avaiable_ruins = 66
         outline.filter_weights_min = 15000
         outline.filter_weights_max = 15001
@@ -48,6 +49,7 @@ class RemoveUserOutline(MiniSetup):
         assert outline.avaiable_offs_near == []
         assert outline.avaiable_nobles == []
         assert outline.avaiable_nobles_near == []
+        assert outline.available_catapults == []
         assert outline.avaiable_ruins is None
         assert outline.filter_weights_min == 0
         assert outline.filter_weights_max == 30000

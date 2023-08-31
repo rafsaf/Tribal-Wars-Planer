@@ -15,10 +15,10 @@
 
 """ App views """
 
-from .home import *
-from .outline import *
-from .outline_create import *
-from .outline_initial_changes import *
-from .outline_initial_views import *
-from .profile import *
-from .results_get_deff import *
+from .home import *  # type: ignore
+from .outline import *  # type: ignore
+from .outline_create import *  # type: ignore
+from .outline_initial_changes import *  # type: ignore
+from .outline_initial_views import *  # type: ignore
+from .profile import *  # type: ignore
+from .results_get_deff import *  # type: ignore

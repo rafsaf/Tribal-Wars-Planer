@@ -124,6 +124,7 @@ class InitialPlaner(MiniSetup):
         outline.avaiable_offs_near = [123, 123, 5, 0]
         outline.avaiable_nobles = [1, 2, 3, 7]
         outline.avaiable_nobles_near = [55, 33, 3, 5]
+        outline.available_catapults = [55, 33, 3, 5]
         outline.avaiable_ruins = 6661
         outline.filter_weights_min = 150005
         outline.filter_weights_max = 150015
@@ -150,6 +151,7 @@ class InitialPlaner(MiniSetup):
         assert outline.avaiable_offs_near == []
         assert outline.avaiable_nobles == []
         assert outline.avaiable_nobles_near == []
+        assert outline.available_catapults == []
         assert outline.avaiable_ruins is None
         assert outline.filter_weights_min == 0
         assert outline.filter_weights_max == 30000

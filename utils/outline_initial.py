@@ -69,6 +69,7 @@ class MakeOutline:
         self.outline.avaiable_offs_near = []
         self.outline.avaiable_nobles = []
         self.outline.avaiable_nobles_near = []
+        self.outline.available_catapults = []
         self.outline.avaiable_ruins = None
         self.outline.save()
 
