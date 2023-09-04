@@ -12,7 +12,7 @@ jobs:
   push_latest_image_to_dockerhub:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -44,7 +44,7 @@ jobs:
     if: ${{ github.event.inputs.tag == 'latest' }}
     needs: push_latest_image_to_dockerhub
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Redeploy prod server
         run: |
           curl -k -X POST https://${{ secrets.PROD_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.PROD_HOOK_SECRET }}"}'
