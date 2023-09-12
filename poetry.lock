@@ -2093,18 +2093,18 @@ test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "stripe"
-version = "6.2.0"
+version = "6.4.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-6.2.0-py2.py3-none-any.whl", hash = "sha256:e4decf87227b83616b57038224baba2e7bd210b378c0fe8966707cab1bde0c25"},
-    {file = "stripe-6.2.0.tar.gz", hash = "sha256:c4c72c8b9c84bae08c3f6e40dab647c201eb5bd0a4ae81dbd4ad9068a0771a0c"},
+    {file = "stripe-6.4.0-py2.py3-none-any.whl", hash = "sha256:d1ab2739aa6511f34ba77f66fca9f86cffe2dbb17df84bd224a38e7254efe61b"},
+    {file = "stripe-6.4.0.tar.gz", hash = "sha256:d99e97e6d3f6dbaf9361ebd07b3024ec6f9d7b1f77724c8127338e0754314e9d"},
 ]
 
 [package.dependencies]
 requests = {version = ">=2.20", markers = "python_version >= \"3.0\""}
-typing-extensions = {version = ">3.7.2", markers = "python_version >= \"3.7\""}
+typing-extensions = {version = ">=4.0.0", markers = "python_version >= \"3.7\""}
 
 [[package]]
 name = "threadpoolctl"
@@ -2308,4 +2308,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">3.10,<3.12"
-content-hash = "5522747b5ceb1212553cf855c2ef72e9ddaff8dde2b5e26ea776374eb6ae223e"
+content-hash = "2f548b3077eca5ed13e382fbe12f1361ccbab3675d7b6cdd8f1133f909ad3a3a"
