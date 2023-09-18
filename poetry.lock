@@ -2093,13 +2093,13 @@ test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "stripe"
-version = "6.4.0"
+version = "6.5.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-6.4.0-py2.py3-none-any.whl", hash = "sha256:d1ab2739aa6511f34ba77f66fca9f86cffe2dbb17df84bd224a38e7254efe61b"},
-    {file = "stripe-6.4.0.tar.gz", hash = "sha256:d99e97e6d3f6dbaf9361ebd07b3024ec6f9d7b1f77724c8127338e0754314e9d"},
+    {file = "stripe-6.5.0-py2.py3-none-any.whl", hash = "sha256:ac86d6428283bd3ca16c2e4538732850ce84c55f8b516e58f911c29112ee44e9"},
+    {file = "stripe-6.5.0.tar.gz", hash = "sha256:f5f4c76ab7b901f2631ef77741d069320f3328c1e31918dac7edb4aa04acb0fd"},
 ]
 
 [package.dependencies]
@@ -2308,4 +2308,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">3.10,<3.12"
-content-hash = "2f548b3077eca5ed13e382fbe12f1361ccbab3675d7b6cdd8f1133f909ad3a3a"
+content-hash = "ef47e61142c6ba0f857558336e60992f6a0737b8ed891ccd403209c95e09825c"
