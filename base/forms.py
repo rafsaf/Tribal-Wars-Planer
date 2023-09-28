@@ -344,6 +344,7 @@ class AvailableTroopsForm(forms.ModelForm):
             "initial_outline_front_dist",
             "initial_outline_target_dist",
             "initial_outline_maximum_off_dist",
+            "initial_outline_minimum_noble_troops",
             "initial_outline_excluded_coords",
         ]
         labels = {
@@ -353,6 +354,9 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Minimum distance from front line"
             ),
             "initial_outline_target_dist": gettext_lazy("Max Distance for nobles"),
+            "initial_outline_minimum_noble_troops": gettext_lazy(
+                "Min. off units for every noble"
+            ),
             "initial_outline_maximum_off_dist": gettext_lazy(
                 "Max Distance for offs and ruins"
             ),
@@ -363,6 +367,9 @@ class AvailableTroopsForm(forms.ModelForm):
             ),
             "initial_outline_max_off": gettext_lazy(
                 "Defaults to 28000. Similar to minimum off units number, must be greater than it."
+            ),
+            "initial_outline_minimum_noble_troops": gettext_lazy(
+                "Defaults to just 100. Must be between 0 and 28000. This is strict minimum so if village have nobles, but not enough off units, Planer won't use it."
             ),
             "initial_outline_front_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
@@ -553,6 +560,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_split",
             "initial_outline_fake_limit",
             "initial_outline_fake_mode",
+            "initial_outline_max_nobles_from_one_village",
         ]
         labels = {
             "mode_off": gettext_lazy("Choose the distance of the written offs:"),
@@ -569,6 +577,17 @@ class ModeOutlineForm(forms.ModelForm):
             ),
             "initial_outline_fake_mode": gettext_lazy(
                 "Determine which villages to write fake attacks from:"
+            ),
+            "initial_outline_max_nobles_from_one_village": gettext_lazy(
+                "Max. number of nobles send per village:"
+            ),
+        }
+        help_texts = {
+            "initial_outline_max_nobles_from_one_village": gettext_lazy(
+                "Defaults to 16. Between 1 and 250. "
+                "For example you may want only 4 nobles from single "
+                "village or even 1 (with full off). "
+                'Best works with "Min. off units for every noble" in above tab.'
             ),
         }
         widgets = {

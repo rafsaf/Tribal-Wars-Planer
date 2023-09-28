@@ -214,6 +214,15 @@ class Outline(models.Model):
     initial_outline_fake_mode = models.CharField(
         max_length=60, choices=FAKE_MIN_OFF_CHOICES, default="off"
     )
+    initial_outline_minimum_noble_troops = models.IntegerField(
+        default=100,
+        validators=[MinValueValidator(0), MaxValueValidator(28000)],
+    )
+    initial_outline_max_nobles_from_one_village = models.IntegerField(
+        default=16,
+        validators=[MinValueValidator(1), MaxValueValidator(250)],
+    )
+
     input_data_type = models.CharField(
         max_length=32, default="Army collection", choices=INPUT_DATA_TYPES
     )
