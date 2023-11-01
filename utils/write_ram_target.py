@@ -107,11 +107,19 @@ class WriteRamTarget:
         weights_create_lst: list[WeightModel] = []
         self._set_building_generator()
         if self.ruin:
-            off_lst: list[WeightMaximum] = (
-                self.sorted_weights_offs(25)
-                + self.sorted_weights_offs(50)
-                + self.sorted_weights_offs(100)
-            )
+            ruins_set: set[WeightMaximum] = set()
+            for catapult_val in [200, 150, 100, 75, 50, 25]:
+                if (
+                    self.outline.initial_outline_catapult_min_value
+                    <= catapult_val
+                    <= self.outline.initial_outline_catapult_max_value
+                ):
+                    ruins_set |= set(self.sorted_weights_offs(catapult_val))
+                    self.filters = []
+                    if len(ruins_set) >= self.target.required_off:
+                        break
+
+            off_lst: list[WeightMaximum] = list(ruins_set)
 
             off_lst.sort(key=lambda weight: -weight.catapult_left)
             off_lst = off_lst[: self.target.required_off]
@@ -212,6 +220,9 @@ class WriteRamTarget:
         def all_filters_match(weight_max: WeightMaximum):
             for filter_func in self.filters:
                 if not filter_func(weight_max):
+                    if self.ruin:
+                        if weight_max.catapult_max > 40:
+                            print(filter_func)
                     return False
             return True
 

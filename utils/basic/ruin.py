@@ -290,8 +290,10 @@ class RuinHandle:
             best = 150
         else:
             best = 200
-        if best > self.outline.initial_outline_catapult_default:
-            best = self.outline.initial_outline_catapult_default
+        if best > self.outline.initial_outline_catapult_max_value:
+            best = self.outline.initial_outline_catapult_max_value
+        elif best < self.outline.initial_outline_catapult_min_value:
+            best = self.outline.initial_outline_catapult_min_value
 
         next_level: int = self._next_level(best)
         if next_level <= 3:

@@ -220,7 +220,10 @@ def update_available_ruins(outline: models.Outline) -> None:
 
     available_ruins_from_other: int = (
         models.WeightMaximum.objects.filter(
-            first_line=False, too_far_away=False, outline=outline
+            first_line=False,
+            too_far_away=False,
+            outline=outline,
+            catapult_left__gte=outline.initial_outline_catapult_min_value,
         )
         .filter(
             Q(off_left__lt=outline.initial_outline_min_off)
@@ -235,7 +238,8 @@ def update_available_ruins(outline: models.Outline) -> None:
             outline=outline,
             first_line=False,
             too_far_away=False,
-            catapult_left__gte=outline.initial_outline_off_left_catapult,
+            catapult_left__gte=outline.initial_outline_off_left_catapult
+            + outline.initial_outline_catapult_min_value,
             off_left__gte=outline.initial_outline_min_off,
             off_left__lte=outline.initial_outline_max_off,
         )

@@ -111,7 +111,7 @@ class TestOutlineCreateTargets(TestCase):
 
     def test_indexes_are_correct_in_every_distance_ruin_target(self):
         self.outline.initial_outline_min_off = 500
-        self.outline.initial_outline_catapult_default = 50
+        self.outline.initial_outline_catapult_max_value = 50
         self.outline.save()
         target = self.target()
         target.ruin = True
@@ -805,7 +805,7 @@ class TestOutlineCreateTargets(TestCase):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"
         self.outline.initial_outline_buildings = ["headquarters"]
-        self.outline.initial_outline_catapult_default = 100
+        self.outline.initial_outline_catapult_max_value = 100
         self.outline.initial_outline_off_left_catapult = 0
         self.outline.save()
         target = self.target()
@@ -865,7 +865,7 @@ class TestOutlineCreateTargets(TestCase):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"
         self.outline.initial_outline_buildings = ["smithy", "clay_pit"]
-        self.outline.initial_outline_catapult_default = 200
+        self.outline.initial_outline_catapult_max_value = 200
         self.outline.initial_outline_off_left_catapult = 0
         self.outline.save()
         target = self.target()

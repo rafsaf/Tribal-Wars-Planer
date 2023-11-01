@@ -145,8 +145,8 @@ def initial_add_first_ruin(
             - 1
         )
     if weight.catapult_left > 0:
-        if weight.catapult_left > outline.initial_outline_catapult_default:
-            catapult = outline.initial_outline_catapult_default
+        if weight.catapult_left > outline.initial_outline_catapult_max_value:
+            catapult = outline.initial_outline_catapult_max_value
         else:
             catapult = weight.catapult_left
 
@@ -437,8 +437,8 @@ def initial_add_last_ruin(
             + 1
         )
     if weight.catapult_left > 0:
-        if weight.catapult_left > outline.initial_outline_catapult_default:
-            catapult = outline.initial_outline_catapult_default
+        if weight.catapult_left > outline.initial_outline_catapult_max_value:
+            catapult = outline.initial_outline_catapult_max_value
         else:
             catapult = weight.catapult_left
 
