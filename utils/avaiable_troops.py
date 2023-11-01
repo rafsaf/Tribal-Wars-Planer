@@ -16,7 +16,7 @@
 
 import numpy as np
 from django.db.models import F, Sum
-from django.db.models.query import QuerySet
+from django.db.models.query import Q, QuerySet
 from tw_complex.cdist_brute import CDistBrute
 
 from base import models
@@ -220,11 +220,13 @@ def update_available_ruins(outline: models.Outline) -> None:
 
     available_ruins_from_other: int = (
         models.WeightMaximum.objects.filter(
-            first_line=False,
-            too_far_away=False,
-            outline=outline,
-            off_left__lt=outline.initial_outline_min_off,
-        ).aggregate(ruin_sum=Sum("catapult_max"))["ruin_sum"]
+            first_line=False, too_far_away=False, outline=outline
+        )
+        .filter(
+            Q(off_left__lt=outline.initial_outline_min_off)
+            | Q(off_left__gt=outline.initial_outline_max_off)
+        )
+        .aggregate(ruin_sum=Sum("catapult_max"))["ruin_sum"]
         or 0
     )
 
