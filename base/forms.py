@@ -560,7 +560,7 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_split",
             "initial_outline_fake_limit",
             "initial_outline_fake_mode",
-            "initial_outline_max_nobles_from_one_village",
+            "initial_outline_nobles_limit",
         ]
         labels = {
             "mode_off": gettext_lazy("Choose the distance of the written offs:"),
@@ -578,12 +578,12 @@ class ModeOutlineForm(forms.ModelForm):
             "initial_outline_fake_mode": gettext_lazy(
                 "Determine which villages to write fake attacks from:"
             ),
-            "initial_outline_max_nobles_from_one_village": gettext_lazy(
+            "initial_outline_nobles_limit": gettext_lazy(
                 "Max. number of nobles send per village:"
             ),
         }
         help_texts = {
-            "initial_outline_max_nobles_from_one_village": gettext_lazy(
+            "initial_outline_nobles_limit": gettext_lazy(
                 "Defaults to 16. Between 1 and 250. "
                 "For example you may want only 4 nobles from single "
                 "village or even 1 (with full off). "

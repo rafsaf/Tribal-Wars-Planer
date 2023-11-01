@@ -199,6 +199,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
             "nobleman_state",
             "nobleman_left",
             "fake_limit",
+            "nobles_limit",
         ],
         batch_size=1000,
     )

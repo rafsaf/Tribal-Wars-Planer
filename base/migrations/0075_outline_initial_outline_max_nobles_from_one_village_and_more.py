@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name="outline",
-            name="initial_outline_max_nobles_from_one_village",
+            name="initial_outline_nobles_limit",
             field=models.IntegerField(
                 default=16,
                 validators=[

@@ -77,6 +77,7 @@ class WriteNobleTarget:
 
     def sorted_weights_nobles(self) -> list[WeightMaximum]:
         self.filters.append(self._noble_query())
+        self.filters.append(self._minimal_noble_off())
         self.filters.append(self._only_closer_than_target_dist())
 
         if self.outline.morale_on and self.outline.world.morale > 0:
@@ -201,6 +202,7 @@ class WriteNobleTarget:
         weight_max.catapult_left = catapult_to_left
         weight_max.nobleman_state += noble_number
         weight_max.nobleman_left = weight_max.nobleman_left - noble_number
+        weight_max.nobles_limit -= noble_number
 
         return weight_max
 
@@ -221,6 +223,8 @@ class WriteNobleTarget:
                     nobles: int = 1
                 else:
                     nobles: int = weight_max.nobleman_left
+                    if nobles < weight_max.nobles_limit:
+                        nobles = weight_max.nobles_limit
 
                 if nobles >= self.target.required_noble:
                     self.default_create_list.append(
@@ -410,7 +414,15 @@ class WriteNobleTarget:
 
     def _noble_query(self):
         def filter_noble(weight_max: WeightMaximum):
-            if weight_max.nobleman_left >= 1:
+            if weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1:
+                return True
+            return False
+
+        return filter_noble
+
+    def _minimal_noble_off(self):
+        def filter_noble(weight_max: WeightMaximum):
+            if weight_max.off_left >= self.outline.initial_outline_minimum_noble_troops:
                 return True
             return False
 

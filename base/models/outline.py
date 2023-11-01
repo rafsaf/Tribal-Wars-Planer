@@ -218,8 +218,8 @@ class Outline(models.Model):
         default=100,
         validators=[MinValueValidator(0), MaxValueValidator(28000)],
     )
-    initial_outline_max_nobles_from_one_village = models.IntegerField(
-        default=16,
+    initial_outline_nobles_limit = models.IntegerField(
+        default=10,
         validators=[MinValueValidator(1), MaxValueValidator(250)],
     )
 
@@ -389,6 +389,7 @@ class Outline(models.Model):
                 first_line=False,
                 too_far_away=False,
                 fake_limit=self.initial_outline_fake_limit,
+                nobles_limit=self.initial_outline_nobles_limit,
             )
             form1 = forms.InitialOutlineForm(
                 {"target": self.initial_outline_targets},

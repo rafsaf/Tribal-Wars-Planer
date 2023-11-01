@@ -49,6 +49,11 @@ class WeightMaximum(models.Model):
     fake_limit = models.IntegerField(
         default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
     )
+    nobles_limit = models.IntegerField(
+        default=10,
+        validators=[MinValueValidator(1), MaxValueValidator(250)],
+    )
+
     if TYPE_CHECKING:
         distance: int
         night_bool: bool
@@ -62,6 +67,7 @@ class WeightMaximum(models.Model):
         "catapult_left",
         "catapult_state",
         "fake_limit",
+        "nobles_limit",
     ]
 
     def __str__(self):

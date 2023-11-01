@@ -270,7 +270,8 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     mode_guide=instance.mode_guide,
                 )
                 models.WeightMaximum.objects.filter(outline=instance).update(
-                    fake_limit=instance.initial_outline_fake_limit
+                    fake_limit=instance.initial_outline_fake_limit,
+                    nobles_limit=instance.initial_outline_nobles_limit,
                 )
 
                 return redirect(
