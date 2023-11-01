@@ -107,12 +107,15 @@ class WriteRamTarget:
         weights_create_lst: list[WeightModel] = []
         self._set_building_generator()
         if self.ruin:
-            off_lst: list[WeightMaximum] = list(
-                set(self.sorted_weights_offs(50) + self.sorted_weights_offs(100))
+            off_lst: list[WeightMaximum] = (
+                self.sorted_weights_offs(25)
+                + self.sorted_weights_offs(50)
+                + self.sorted_weights_offs(100)
             )
+
             off_lst.sort(key=lambda weight: -weight.catapult_left)
             off_lst = off_lst[: self.target.required_off]
-            off_lst.sort(key=lambda weight: -weight.distance)  # type: ignore
+            off_lst.sort(key=lambda weight: -weight.distance)
         else:
             off_lst: list[WeightMaximum] = self.sorted_weights_offs()
         i: int
