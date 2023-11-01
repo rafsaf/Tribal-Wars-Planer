@@ -584,12 +584,16 @@ class RuiningOutlineForm(forms.ModelForm):
     class Meta:
         model = models.Outline
         fields = [
-            "initial_outline_catapult_default",
+            "initial_outline_catapult_min_value",
+            "initial_outline_catapult_max_value",
             "initial_outline_off_left_catapult",
             "initial_outline_average_ruining_points",
         ]
         labels = {
-            "initial_outline_catapult_default": gettext_lazy(
+            "initial_outline_catapult_min_value": gettext_lazy(
+                "MIN number of catapults in one ruin attack:"
+            ),
+            "initial_outline_catapult_max_value": gettext_lazy(
                 "MAX number of catapults in one ruin attack:"
             ),
             "initial_outline_off_left_catapult": gettext_lazy(

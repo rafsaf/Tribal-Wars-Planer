@@ -24,7 +24,7 @@ from base.tests.test_views.outline_initial_changes.changes_view_setup import (
 class InitialAddLastRuin(ChangesViewSetup):
     def test_planer_add_last_ruin(self):
         outline = self.get_outline()
-        outline.initial_outline_catapult_default = 150
+        outline.initial_outline_catapult_max_value = 150
         outline.save()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)

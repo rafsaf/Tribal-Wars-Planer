@@ -174,8 +174,11 @@ class Outline(models.Model):
     initial_outline_fakes = models.TextField(blank=True, default="")
     initial_outline_ruins = models.TextField(blank=True, default="")
 
-    initial_outline_catapult_default = models.IntegerField(
-        default=50, choices=CATAPULTS_NUMBER
+    initial_outline_catapult_max_value = models.IntegerField(
+        default=200, choices=CATAPULTS_NUMBER
+    )
+    initial_outline_catapult_min_value = models.IntegerField(
+        default=25, choices=CATAPULTS_NUMBER
     )
     initial_outline_off_left_catapult = models.IntegerField(
         default=50, validators=[MinValueValidator(0), MaxValueValidator(400)]
@@ -466,22 +469,26 @@ class Outline(models.Model):
         from base.models import WeightMaximum
 
         weights: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(outline=self)
-        return weights.filter(off_left__gte=self.initial_outline_min_off).count()
+        return weights.filter(
+            off_left__gte=self.initial_outline_min_off,
+            off_max__lte=self.initial_outline_max_off,
+        ).count()
 
-    @cached_property
-    def get_aggregated_weights(self):
+    def count_noble(self) -> int:
         from base.models import WeightMaximum
 
         weights: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(outline=self)
-        return weights.aggregate(
-            nobles=Sum("nobleman_left"), catapult=Sum("catapult_left")
+        return (
+            weights.aggregate(
+                nobles=Sum("nobleman_left"), catapult=Sum("catapult_left")
+            )["nobles"]
+            or 0
         )
 
-    def count_noble(self) -> int:
-        return self.get_aggregated_weights["nobles"] or 0
-
     def count_catapults(self) -> int:
-        return self.get_aggregated_weights["catapult"] or 0
+        from utils.avaiable_troops import get_available_ruins
+
+        return get_available_ruins(self)
 
     def pagin_targets(
         self,
