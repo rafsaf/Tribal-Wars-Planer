@@ -207,7 +207,7 @@ def get_legal_coords_outline(outline: models.Outline):
     outline.save()
 
 
-def update_available_ruins(outline: models.Outline) -> None:
+def get_available_catapults_lst(outline: models.Outline) -> list[int]:
     catapults = models.WeightMaximum.objects.filter(outline=outline)
     all_catapults: int = catapults.aggregate(n=Sum("catapult_max"))["n"] or 0
     front_catapults: int = (
@@ -217,7 +217,16 @@ def update_available_ruins(outline: models.Outline) -> None:
         catapults.filter(too_far_away=True).aggregate(n=Sum("catapult_max"))["n"] or 0
     )
     back_catapults: int = all_catapults - front_catapults - too_far_catapults
+    available_catapults_lst = [
+        all_catapults,
+        front_catapults,
+        back_catapults,
+        too_far_catapults,
+    ]
+    return available_catapults_lst
 
+
+def get_available_ruins(outline: models.Outline) -> int:
     available_ruins_from_other: int = (
         models.WeightMaximum.objects.filter(
             first_line=False,
@@ -249,12 +258,10 @@ def update_available_ruins(outline: models.Outline) -> None:
         .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
         or 0
     )
+    return available_ruins_from_other + available_ruins_from_offs
 
-    outline.avaiable_ruins = available_ruins_from_other + available_ruins_from_offs
-    outline.available_catapults = [
-        all_catapults,
-        front_catapults,
-        back_catapults,
-        too_far_catapults,
-    ]
+
+def update_available_ruins(outline: models.Outline) -> None:
+    outline.avaiable_ruins = get_available_ruins(outline=outline)
+    outline.available_catapults = get_available_catapults_lst(outline=outline)
     outline.save()
