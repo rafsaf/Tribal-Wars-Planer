@@ -213,13 +213,11 @@ class WriteNobleTarget:
 
         self.default_create_list.sort(key=order_func)
 
-    def _fill_default_list(
-        self, sorted_list: list[WeightMaximum], single: bool = False
-    ) -> None:
+    def _fill_default_list(self, sorted_list: list[WeightMaximum]) -> None:
         weight_max: WeightMaximum
         for weight_max in sorted_list:
             if self.target.required_noble > 0:
-                if single:
+                if self.target.mode_guide == "single":
                     nobles: int = 1
                 else:
                     nobles: int = weight_max.nobleman_left
@@ -290,7 +288,7 @@ class WriteNobleTarget:
         sorted_weight_max_lst: list[WeightMaximum] = sorted(
             weight_max_list, key=sort_func
         )
-        self._fill_default_list(sorted_weight_max_lst, single=True)
+        self._fill_default_list(sorted_weight_max_lst)
 
     def _off(self, weight_max: WeightMaximum) -> int:
         if self.target.fake:
