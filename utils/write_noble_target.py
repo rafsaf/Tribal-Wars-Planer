@@ -220,9 +220,13 @@ class WriteNobleTarget:
                 if self.target.mode_guide == "single":
                     nobles: int = 1
                 else:
-                    nobles: int = weight_max.nobleman_left
-                    if nobles < weight_max.nobles_limit:
-                        nobles = weight_max.nobles_limit
+                    nobles: int = min(weight_max.nobleman_left, weight_max.nobles_limit)
+
+                possible_nobles_by_min_off = (
+                    weight_max.off_left
+                    // self.outline.initial_outline_minimum_noble_troops
+                )
+                nobles = min(nobles, possible_nobles_by_min_off)
 
                 if nobles >= self.target.required_noble:
                     self.default_create_list.append(
@@ -277,7 +281,7 @@ class WriteNobleTarget:
         Updates self.default_create_list attribute
 
         This case represents FROM MANY case, depend of off troops and distance
-        Later we decide to use only one noble from every village by using single=True
+        Later we decide to use only one noble from every village
         """
 
         def sort_func(weight_max: WeightMaximum) -> tuple[float, int]:
