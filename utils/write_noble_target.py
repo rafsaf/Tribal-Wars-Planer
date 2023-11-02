@@ -404,31 +404,27 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return weight_max.catapult_left
 
-    def _morale_query(self):
-        def filter_morale(weight_max: WeightMaximum):
-            if weight_max.morale >= self.outline.morale_on_targets_greater_than:
-                return True
-            return False
+    def _morale_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_morale(weight_max: WeightMaximum) -> bool:
+            return weight_max.morale >= self.outline.morale_on_targets_greater_than
 
         return filter_morale
 
-    def _noble_query(self):
-        def filter_noble(weight_max: WeightMaximum):
-            if weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1:
-                return True
-            return False
+    def _noble_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_noble(weight_max: WeightMaximum) -> bool:
+            return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
 
         return filter_noble
 
-    def _minimal_noble_off(self):
-        def filter_noble(weight_max: WeightMaximum):
-            if weight_max.off_left >= self.outline.initial_outline_minimum_noble_troops:
-                return True
-            return False
+    def _minimal_noble_off(self) -> Callable[[WeightMaximum], bool]:
+        def filter_noble(weight_max: WeightMaximum) -> bool:
+            return (
+                weight_max.off_left >= self.outline.initial_outline_minimum_noble_troops
+            )
 
         return filter_noble
 
-    def _only_closer_than_target_dist(self):
+    def _only_closer_than_target_dist(self) -> Callable[[WeightMaximum], bool]:
         def filter_close_than_target_dist(weight_max: WeightMaximum) -> bool:
             return (
                 getattr(weight_max, "distance")
@@ -437,24 +433,20 @@ class WriteNobleTarget:
 
         return filter_close_than_target_dist
 
-    def _get_filtered_weight_max_list(self):
-        def all_filters_match(weight_max: WeightMaximum):
-            for filter_func in self.filters:
-                if not filter_func(weight_max):
-                    return False
-            return True
+    def _get_filtered_weight_max_list(self) -> list[WeightMaximum]:
+        return [
+            weight
+            for weight in self.weight_max_list
+            if all(filter_func(weight) for filter_func in self.filters)
+        ]
 
-        return [weight for weight in self.weight_max_list if all_filters_match(weight)]
-
-    def _first_line_false_query(self):
-        def filter_first_line_false(weight_max: WeightMaximum):
-            if (
+    def _first_line_false_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_first_line_false(weight_max: WeightMaximum) -> bool:
+            return (
                 not weight_max.first_line
                 and getattr(weight_max, "distance")
                 >= self.outline.initial_outline_front_dist
-            ):
-                return True
-            return False
+            )
 
         return filter_first_line_false
 
