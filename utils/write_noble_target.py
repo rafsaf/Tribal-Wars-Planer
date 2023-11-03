@@ -102,8 +102,7 @@ class WriteNobleTarget:
             self.index = 80000
             return self._far_weight_lst()
 
-    def weight_create_list(self) -> tuple[list[WeightModel], list[WeightMaximum]]:
-        weights_max_update_lst: list[WeightMaximum] = []
+    def weight_create_list(self) -> list[WeightModel]:
         weights_create_lst: list[WeightModel] = []
 
         weight_max_list = self.sorted_weights_nobles()
@@ -160,13 +159,11 @@ class WriteNobleTarget:
                 )
                 weights_create_lst.append(weight)
 
-            weights_max_update_lst.append(
-                self._updated_weight_max(
-                    weight_max, off_to_left, catapult_to_left, noble_number
-                )
+            self._update_weight_max(
+                weight_max, off_to_left, catapult_to_left, noble_number
             )
 
-        return weights_create_lst, weights_max_update_lst
+        return weights_create_lst
 
     def _weight_model(
         self,
@@ -190,7 +187,7 @@ class WriteNobleTarget:
         )
 
     @staticmethod
-    def _updated_weight_max(
+    def _update_weight_max(
         weight_max: WeightMaximum,
         off_to_left: int,
         catapult_to_left: int,

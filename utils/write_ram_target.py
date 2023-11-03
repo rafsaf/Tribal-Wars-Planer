@@ -102,8 +102,7 @@ class WriteRamTarget:
                 self.index += 40000
             return self._far_weight_lst()
 
-    def weight_create_list(self) -> tuple[list[WeightModel], list[WeightMaximum]]:
-        weights_max_update_lst: list[WeightMaximum] = []
+    def weight_create_list(self) -> list[WeightModel]:
         weights_create_lst: list[WeightModel] = []
         self._set_building_generator()
         if self.ruin:
@@ -140,11 +139,9 @@ class WriteRamTarget:
             weight = self._weight_model(weight_max, off, catapult, building, i)
             weights_create_lst.append(weight)
 
-            weights_max_update_lst.append(
-                self._updated_weight_max(weight_max, off, catapult, fake_limit)
-            )
+            self._update_weight_max(weight_max, off, catapult, fake_limit)
 
-        return weights_create_lst, weights_max_update_lst
+        return weights_create_lst
 
     def _set_building_generator(self) -> None:
         if self.ruin and len(self.outline.initial_outline_buildings) > 0:
@@ -205,7 +202,7 @@ class WriteRamTarget:
         )
 
     @staticmethod
-    def _updated_weight_max(
+    def _update_weight_max(
         weight_max: WeightMaximum, off: int, catapult: int, fake_limit: int
     ) -> WeightMaximum:
         weight_max.off_state += off

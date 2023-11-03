@@ -129,11 +129,11 @@ class TestWriteNobleTarget(TestCase):
         self.assertEqual(weight.order, 999 + 4)
         self.assertEqual(weight.distance, 10)
 
-    def test_updated_weight_max(self):
+    def test_update_weight_max(self):
         target = self.target()
         write_noble = self.get_write_noble(target)
 
-        updated_weight = write_noble._updated_weight_max(
+        updated_weight = write_noble._update_weight_max(
             weight_max=self.weight4,
             off_to_left=1000,
             catapult_to_left=10,
