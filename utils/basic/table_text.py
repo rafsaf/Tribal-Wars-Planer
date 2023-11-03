@@ -202,7 +202,7 @@ class TableText:
         for player, lst in self.result.items():
             table = str(self.NEXT_LINE + self.NEXT_LINE + self.PREFIX)
             for i, weight in enumerate(lst):
-                table += f"[*]{i+1}" + self.weight_table[weight]
+                table += f"[*]{i + 1}" + self.weight_table[weight]
                 if i % 31 == 0 and i != 0:
                     table += (
                         self.POSTFIX
@@ -219,7 +219,9 @@ class TableText:
         for player, lst in self.result.items():
             text = str(self.NEXT_LINE + self.NEXT_LINE)
             for i, weight in enumerate(lst):
-                text += f"{i+1}. " + self.weight_string[weight] + self.NEXT_LINE_DOUBLE
+                text += (
+                    f"{i + 1}. " + self.weight_string[weight] + self.NEXT_LINE_DOUBLE
+                )
 
             self.string_result[player] = text
 
@@ -227,7 +229,9 @@ class TableText:
         for player, lst in self.result.items():
             text = str(self.NEXT_LINE + self.NEXT_LINE)
             for i, weight in enumerate(lst):
-                text += f"{i+1}. " + self.weight_deputy[weight] + self.NEXT_LINE_DOUBLE
+                text += (
+                    f"{i + 1}. " + self.weight_deputy[weight] + self.NEXT_LINE_DOUBLE
+                )
 
             self.deputy_result[player] = text
 
@@ -236,7 +240,7 @@ class TableText:
             text = str(self.NEXT_LINE + self.NEXT_LINE)
             for i, weight in enumerate(lst):
                 text += (
-                    f"{i+1}. " + self.weight_extended[weight] + self.NEXT_LINE_DOUBLE
+                    f"{i + 1}. " + self.weight_extended[weight] + self.NEXT_LINE_DOUBLE
                 )
 
             self.extended_result[player] = text

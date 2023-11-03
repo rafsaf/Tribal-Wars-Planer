@@ -23,9 +23,9 @@ Also prining only villages in center
 """
 
 import numpy as np
-from tw_complex import CDistBrute
 
 from base import models
+from utils.basic.cdist_brute import CDistBrute
 
 from . import basic
 
@@ -72,7 +72,6 @@ def get_set_of_villages(
             enemy_villages=enemy_villages,
             min_radius=radius,
             max_radius=1000,
-            _precision=1,
         ).result()
     else:
         back_array = ally_villages

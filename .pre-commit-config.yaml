@@ -30,6 +30,7 @@ repos:
             "--py39-plus",
             "--py310-plus",
             "--py311-plus",
+            "--py312-plus",
           ]
         files: ".*"
 
