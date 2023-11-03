@@ -44,7 +44,7 @@ def create_test_world(server: Server):
                 world=test_world,
                 x_coord=100 + i,
                 y_coord=100 + i,
-                coord=f"{100+i}|{100+i}",
+                coord=f"{100 + i}|{100 + i}",
                 village_id=i,
                 player=ally_players[ids],
             )
@@ -54,7 +54,7 @@ def create_test_world(server: Server):
                 world=test_world,
                 x_coord=200 + i,
                 y_coord=200 + i,
-                coord=f"{200+i}|{200+i}",
+                coord=f"{200 + i}|{200 + i}",
                 village_id=i + 50,
                 player=enemy_players[ids],
             )

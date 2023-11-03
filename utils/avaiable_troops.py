@@ -17,9 +17,9 @@
 import numpy as np
 from django.db.models import F, Sum
 from django.db.models.query import Q, QuerySet
-from tw_complex.cdist_brute import CDistBrute
 
 from base import models
+from utils.basic.cdist_brute import CDistBrute
 
 
 def get_legal_coords_outline(outline: models.Outline):
@@ -68,7 +68,6 @@ def get_legal_coords_outline(outline: models.Outline):
             enemy_villages=all_enemy,
             min_radius=min_radius,
             max_radius=max_radius,
-            _precision=1,
         ).triple_result()
     else:
         front_array = np.array([])
@@ -142,7 +141,6 @@ def get_legal_coords_outline(outline: models.Outline):
             enemy_villages=real_target_enemy,
             min_radius=target_radius,
             max_radius=target_radius,
-            _precision=1,
         ).result()
     else:
         outline.save()

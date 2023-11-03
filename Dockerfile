@@ -1,4 +1,4 @@
-FROM python:3.11.5-bookworm as base
+FROM python:3.12.0-bookworm as base
 
 ENV PYTHONUNBUFFERED 1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
@@ -18,7 +18,7 @@ ENV PATH="/venv/bin:$PATH"
 RUN apt-get update && apt-get install -y python3-pip nginx postgresql-client
 
 FROM base as poetry
-RUN pip install poetry==1.5.1
+RUN pip install poetry==1.6.1
 COPY poetry.lock pyproject.toml ./
 RUN poetry export -o /requirements.txt --without-hashes
 
