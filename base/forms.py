@@ -344,7 +344,6 @@ class AvailableTroopsForm(forms.ModelForm):
             "initial_outline_front_dist",
             "initial_outline_target_dist",
             "initial_outline_maximum_off_dist",
-            "initial_outline_minimum_noble_troops",
             "initial_outline_excluded_coords",
         ]
         labels = {
@@ -354,9 +353,6 @@ class AvailableTroopsForm(forms.ModelForm):
                 "Minimum distance from front line"
             ),
             "initial_outline_target_dist": gettext_lazy("Max Distance for nobles"),
-            "initial_outline_minimum_noble_troops": gettext_lazy(
-                "Min. off units for every noble"
-            ),
             "initial_outline_maximum_off_dist": gettext_lazy(
                 "Max Distance for offs and ruins"
             ),
@@ -367,9 +363,6 @@ class AvailableTroopsForm(forms.ModelForm):
             ),
             "initial_outline_max_off": gettext_lazy(
                 "Defaults to 28000. Similar to minimum off units number, must be greater than it."
-            ),
-            "initial_outline_minimum_noble_troops": gettext_lazy(
-                "Defaults to just 100. Must be between 0 and 28000. This is strict minimum so if village have nobles, but not enough off units, Planer won't use it."
             ),
             "initial_outline_front_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
@@ -561,10 +554,15 @@ class ModeOutlineForm(forms.ModelForm):
             "initial_outline_fake_limit",
             "initial_outline_fake_mode",
             "initial_outline_nobles_limit",
+            "initial_outline_minimum_noble_troops",
         ]
         labels = {
-            "mode_off": gettext_lazy("Choose the distance of the written offs:"),
-            "mode_noble": gettext_lazy("Choose the distance of the written nobles:"),
+            "mode_off": gettext_lazy(
+                "Choose the default distance of the written offs:"
+            ),
+            "mode_noble": gettext_lazy(
+                "Choose the default distance of the written nobles:"
+            ),
             "mode_division": gettext_lazy("Choose how to split offs with nobles:"),
             "mode_guide": gettext_lazy(
                 "Choose prefered way of writing required nobles:"
@@ -581,13 +579,25 @@ class ModeOutlineForm(forms.ModelForm):
             "initial_outline_nobles_limit": gettext_lazy(
                 "Max. number of nobles send per village:"
             ),
+            "initial_outline_minimum_noble_troops": gettext_lazy(
+                "Min. off units for every noble"
+            ),
         }
         help_texts = {
+            "mode_guide": gettext_lazy(
+                "For 4 nobles in village, first option would <b>try</b> to send them all 4x on target X, second would randomly send from 1 to 4 nobles to single target or many targets (as needed), and last option would send 1x on X1,X2,X2,X4 (one noble per target)."
+            ),
+            "mode_division": gettext_lazy(
+                'For 20000 troops and 4 nobles in village, first option would try to use 4 x 5000, second 1 x 19700 + 3 x 100, and last 4 x 100, where 100 can be changed in "Min. off units for every noble".'
+            ),
             "initial_outline_nobles_limit": gettext_lazy(
                 "Defaults to 16. Between 1 and 250. "
                 "For example you may want only 4 nobles from single "
                 "village or even 1 (with full off). "
-                'Best works with "Min. off units for every noble" in above tab.'
+                'Best works with "Min. off units for every noble" below.'
+            ),
+            "initial_outline_minimum_noble_troops": gettext_lazy(
+                "Defaults to just 100. Must be between 0 and 28000. This is strict minimum so if village have nobles, but not enough off units, Planer won't use it. Use with caution as it can change drastically how other options behave."
             ),
         }
         widgets = {

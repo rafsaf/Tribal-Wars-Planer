@@ -14,7 +14,7 @@
 <p class="mb-0"><b><a target="_blank" href="/documentation?link=true#dostepne-jednostki-i-opis-tabeli">1. Dostępne jednostki i opis Tabeli.</a></b></p>
 
 <p class="my-0"><b><a target="_blank" href="/documentation?link=true#zmiana-daty-akcji">2. Zmiana daty akcji.</a></b></p>
-<p class="my-0"><b><a target="_blank" href="/documentation?link=true#domyslne-ustawienia-trybu-akcji">3. Domyślne ustawienia trybu akcji.</a></b></p>
+<p class="my-0"><b><a target="_blank" href="/documentation?link=true#parametry-rozpiski">3. Parametry rozpiski.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation?link=true#morale">4. Morale.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation?link=true#unikanie-bonusu-nocnego">5. Unikanie wysyłek w bonusie.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation?link=true#burzenie">6. Burzenie.</a></b></p>

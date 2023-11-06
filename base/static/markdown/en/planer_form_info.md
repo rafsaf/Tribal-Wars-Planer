@@ -14,7 +14,7 @@
 <p class="mb-0"><b><a target="_blank" href="/documentation?link=true#dostepne-jednostki-i-opis-tabeli">1. Available units and description of the Table.</a></b></p>
 
 <p class="my-0"><b><a target="_blank" href="/documentation?link=true#zmiana-daty-akcji">2. Changing the date of the otuline.</a></b></p>
-<p class="my-0"><b><a target="_blank" href="/documentation?link=true#domyslne-ustawienia-trybu-akcji">3. Default outline mode settings.</a></b></p>
+<p class="my-0"><b><a target="_blank" href="/documentation?link=true#parametry-rozpiski">3. Default outline mode settings.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation?link=true#morale">4. Morale.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation?link=true#unikanie-bonusu-nocnego">5. Avoidance of night shipments.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/documentation?link=true#burzenie">6. Ruin outlines.</a></b></p>

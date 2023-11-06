@@ -315,6 +315,10 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                     + f"?t={target_mode.mode}"
                 )
 
+    if not instance.avaiable_offs:
+        avaiable_troops.get_legal_coords_outline(outline=instance)
+        avaiable_troops.update_available_ruins(outline=instance)
+
     context = {
         "instance": instance,
         "form1": form1,
@@ -335,9 +339,6 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
         "estimated_time": estimated_time,
         "premium_error": premium_error,
         "premium_account_max_targets_free": settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE,
-        "available_troops_empty_alert": instance.actions.get_both_back_with_available_troops_clicked(
-            instance
-        ),
     }
     error = request.session.get("error")
     if error is not None:

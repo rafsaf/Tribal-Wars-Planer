@@ -230,7 +230,6 @@ class InitialForm(MiniSetup):
         initial_outline_target_dist = self.random_integer()
         initial_outline_min_off = self.random_integer()
         initial_outline_excluded_coords = self.random_lower_string()
-        initial_outline_minimum_noble_troops = self.random_integer()
         # form3
         date = timezone.now().date()
         # form4
@@ -242,6 +241,7 @@ class InitialForm(MiniSetup):
         initial_outline_fake_limit = self.random_integer(maximum=15)
         initial_outline_fake_mode = "all"
         initial_outline_nobles_limit = 12
+        initial_outline_minimum_noble_troops = self.random_integer()
         # form 5
         night_bonus = True
         enter_t1 = self.random_integer(0, 10)
@@ -311,10 +311,6 @@ class InitialForm(MiniSetup):
             form2["initial_outline_excluded_coords"].initial
             == initial_outline_excluded_coords
         )
-        assert (
-            form2["initial_outline_minimum_noble_troops"].initial
-            == initial_outline_minimum_noble_troops
-        )
 
         assert form3["date"].initial == "2022-11-26"
 
@@ -328,6 +324,10 @@ class InitialForm(MiniSetup):
         assert (
             form4["initial_outline_nobles_limit"].initial
             == initial_outline_nobles_limit
+        )
+        assert (
+            form4["initial_outline_minimum_noble_troops"].initial
+            == initial_outline_minimum_noble_troops
         )
 
         assert form5["night_bonus"].initial == night_bonus
@@ -377,7 +377,6 @@ class InitialForm(MiniSetup):
         initial_outline_target_dist = self.random_integer()
         initial_outline_min_off = self.random_integer()
         initial_outline_excluded_coords = self.random_lower_string()
-        initial_outline_minimum_noble_troops = self.random_integer()
         # form3
         date = timezone.now().date()
         # form4
@@ -389,6 +388,7 @@ class InitialForm(MiniSetup):
         initial_outline_fake_limit = self.random_integer(maximum=15)
         initial_outline_fake_mode = "off"
         initial_outline_nobles_limit = 1
+        initial_outline_minimum_noble_troops = self.random_integer()
         # form 5
         night_bonus = False
         enter_t1 = self.random_integer(0, 10)
@@ -458,10 +458,6 @@ class InitialForm(MiniSetup):
             form2["initial_outline_excluded_coords"].initial
             == initial_outline_excluded_coords
         )
-        assert (
-            form2["initial_outline_minimum_noble_troops"].initial
-            == initial_outline_minimum_noble_troops
-        )
 
         assert form3["date"].initial == "2022-11-26"
 
@@ -475,6 +471,10 @@ class InitialForm(MiniSetup):
         assert (
             form4["initial_outline_nobles_limit"].initial
             == initial_outline_nobles_limit
+        )
+        assert (
+            form4["initial_outline_minimum_noble_troops"].initial
+            == initial_outline_minimum_noble_troops
         )
 
         assert form5["night_bonus"].initial == night_bonus
@@ -647,7 +647,6 @@ class InitialForm(MiniSetup):
                 "initial_outline_front_dist": 90,
                 "initial_outline_target_dist": 100,
                 "initial_outline_maximum_off_dist": 115,
-                "initial_outline_minimum_noble_troops": 250,
                 "initial_outline_excluded_coords": "250|250 251|251",
             },
         )
@@ -659,7 +658,6 @@ class InitialForm(MiniSetup):
         assert outline.initial_outline_target_dist == 100
         assert outline.initial_outline_maximum_off_dist == 115
         assert outline.initial_outline_excluded_coords == "250|250 251|251"
-        assert outline.initial_outline_minimum_noble_troops == 250
         # also table is filled correctly
         assert outline.avaiable_offs == [50, 13, 18, 19]
         assert outline.avaiable_nobles == [60, 46, 14, 0]
@@ -709,6 +707,7 @@ class InitialForm(MiniSetup):
         initial_outline_fake_limit = self.random_integer(maximum=15)
         initial_outline_fake_mode = "all"
         initial_outline_nobles_limit = 15
+        initial_outline_minimum_noble_troops = 222
 
         response = self.client.post(
             PATH,
@@ -722,6 +721,7 @@ class InitialForm(MiniSetup):
                 "initial_outline_fake_limit": initial_outline_fake_limit,
                 "initial_outline_fake_mode": initial_outline_fake_mode,
                 "initial_outline_nobles_limit": initial_outline_nobles_limit,
+                "initial_outline_minimum_noble_troops": initial_outline_minimum_noble_troops,
             },
         )
         assert response.status_code == 302
@@ -735,6 +735,10 @@ class InitialForm(MiniSetup):
         assert outline.initial_outline_fake_limit == initial_outline_fake_limit
         assert outline.initial_outline_fake_mode == initial_outline_fake_mode
         assert outline.initial_outline_nobles_limit == initial_outline_nobles_limit
+        assert (
+            outline.initial_outline_minimum_noble_troops
+            == initial_outline_minimum_noble_troops
+        )
 
         target: TargetVertex = TargetVertex.objects.get(target="200|200")
         assert target.mode_off == mode_off
@@ -909,12 +913,12 @@ class InitialForm(MiniSetup):
         assert WeightMaximum.objects.count() == 1
         outline.refresh_from_db()
         stats.refresh_from_db()
-        assert outline.avaiable_offs == []
+        assert outline.avaiable_offs == [1, 0, 0, 1]
         assert outline.avaiable_offs_near == []
-        assert outline.avaiable_nobles == []
+        assert outline.avaiable_nobles == [0, 0, 0, 0]
         assert outline.avaiable_nobles_near == []
-        assert outline.available_catapults == []
-        assert outline.avaiable_ruins is None
+        assert outline.available_catapults == [100, 0, 0, 100]
+        assert outline.avaiable_ruins == 0
         assert stats.troops_refreshed == 1
         assert outline.off_troops_weightmodels_hash == outline.off_troops_hash
 
