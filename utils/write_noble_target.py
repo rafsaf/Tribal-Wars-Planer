@@ -77,8 +77,10 @@ class WriteNobleTarget:
 
     def sorted_weights_nobles(self) -> list[WeightMaximum]:
         self.filters.append(self._noble_query())
-        self.filters.append(self._minimal_noble_off())
         self.filters.append(self._only_closer_than_target_dist())
+
+        if not self.target.fake:
+            self.filters.append(self._minimal_noble_off())
 
         if self.outline.morale_on and self.outline.world.morale > 0:
             self.filters.append(self._morale_query())
@@ -217,7 +219,12 @@ class WriteNobleTarget:
                 if self.target.mode_guide == "single":
                     nobles: int = 1
                 else:
-                    nobles: int = weight_max.nobles_allowed_to_use
+                    if self.target.fake:
+                        nobles: int = min(
+                            weight_max.nobleman_left, weight_max.nobles_limit
+                        )
+                    else:
+                        nobles: int = weight_max.nobles_allowed_to_use
 
                 if nobles >= self.target.required_noble:
                     self.default_create_list.append(
