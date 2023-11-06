@@ -396,13 +396,16 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[6].state.nobleman_state, 4)
         self.assertEqual(created[6].state.fake_limit, 4)
 
-    def test_real_type_outline_guide_is_one_and_division_is_not_divide_together(self):
+    def test_real_type_outline_initial_outline_minimum_noble_troops_is_respected_v1(
+        self,
+    ):
         self.outline.initial_outline_min_off = 500
+        self.outline.initial_outline_minimum_noble_troops = 10000
         self.outline.mode_split = "together"
         self.outline.save()
         target = self.target()
-        target.mode_division = "not_divide"
-        target.mode_guide = "one"
+        target.mode_division = "divide"
+        target.mode_guide = "many"
         target.exact_off = [0, 1, 0, 0]
         target.exact_noble = [0, 0, 6, 0]
         target.save()
@@ -422,6 +425,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[0].state.nobleman_left, 0)
         self.assertEqual(created[0].state.nobleman_state, 0)
         self.assertEqual(created[0].state.fake_limit, 4)
+        self.assertEqual(created[0].state.nobles_limit, 10)
 
         self.assertEqual(created[1].order, 90000)
         self.assertEqual(created[1].start, "500|505")
@@ -436,20 +440,145 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[1].state.nobleman_left, 0)
         self.assertEqual(created[1].state.nobleman_state, 2)
         self.assertEqual(created[1].state.fake_limit, 4)
+        self.assertEqual(created[1].state.nobles_limit, 8)
 
         self.assertEqual(created[2].order, 90001)
         self.assertEqual(created[2].start, "500|504")
         self.assertEqual(created[2].off, 20800)
         self.assertEqual(created[2].catapult, 100)
-        self.assertEqual(created[2].nobleman, 4)
+        self.assertEqual(created[2].nobleman, 2)
         self.assertEqual(created[2].distance, 5)
         self.assertEqual(created[2].state.off_left, 0)
         self.assertEqual(created[2].state.off_state, 20800)
         self.assertEqual(created[2].state.catapult_left, 0)
         self.assertEqual(created[2].state.catapult_state, 100)
-        self.assertEqual(created[2].state.nobleman_left, 0)
-        self.assertEqual(created[2].state.nobleman_state, 4)
+        self.assertEqual(created[2].state.nobleman_left, 2)
+        self.assertEqual(created[2].state.nobleman_state, 2)
         self.assertEqual(created[2].state.fake_limit, 4)
+        self.assertEqual(created[2].state.nobles_limit, 8)
+
+    def test_real_type_outline_initial_outline_minimum_noble_troops_is_respected_v2(
+        self,
+    ):
+        self.outline.initial_outline_min_off = 500
+        self.outline.initial_outline_minimum_noble_troops = 15000
+        self.outline.mode_split = "together"
+        self.outline.save()
+        target = self.target()
+        target.mode_division = "divide"
+        target.mode_guide = "many"
+        target.exact_off = [0, 1, 0, 0]
+        target.exact_noble = [0, 0, 6, 0]
+        target.save()
+        complete_outline_write(self.outline, salt=self.salt)
+        created = self.weights()
+        self.assertEqual(len(created), 3)
+        self.assertEqual(created[0].order, 20000)
+        self.assertEqual(created[0].start, "500|503")
+        self.assertEqual(created[0].off, 20900)
+        self.assertEqual(created[0].catapult, 100)
+        self.assertEqual(created[0].nobleman, 0)
+        self.assertEqual(created[0].distance, 4)
+        self.assertEqual(created[0].state.off_left, 0)
+        self.assertEqual(created[0].state.off_state, 20900)
+        self.assertEqual(created[0].state.catapult_left, 0)
+        self.assertEqual(created[0].state.catapult_state, 100)
+        self.assertEqual(created[0].state.nobleman_left, 0)
+        self.assertEqual(created[0].state.nobleman_state, 0)
+        self.assertEqual(created[0].state.fake_limit, 4)
+        self.assertEqual(created[0].state.nobles_limit, 10)
+
+        self.assertEqual(created[1].order, 90000)
+        self.assertEqual(created[1].start, "500|505")
+        self.assertEqual(created[1].off, 20800)
+        self.assertEqual(created[1].catapult, 100)
+        self.assertEqual(created[1].nobleman, 1)
+        self.assertEqual(created[1].distance, 6)
+        self.assertEqual(created[1].state.off_left, 0)
+        self.assertEqual(created[1].state.off_state, 20800)
+        self.assertEqual(created[1].state.catapult_left, 0)
+        self.assertEqual(created[1].state.catapult_state, 100)
+        self.assertEqual(created[1].state.nobleman_left, 1)
+        self.assertEqual(created[1].state.nobleman_state, 1)
+        self.assertEqual(created[1].state.fake_limit, 4)
+        self.assertEqual(created[1].state.nobles_limit, 9)
+
+        self.assertEqual(created[2].order, 90001)
+        self.assertEqual(created[2].start, "500|504")
+        self.assertEqual(created[2].off, 20800)
+        self.assertEqual(created[2].catapult, 100)
+        self.assertEqual(created[2].nobleman, 1)
+        self.assertEqual(created[2].distance, 5)
+        self.assertEqual(created[2].state.off_left, 0)
+        self.assertEqual(created[2].state.off_state, 20800)
+        self.assertEqual(created[2].state.catapult_left, 0)
+        self.assertEqual(created[2].state.catapult_state, 100)
+        self.assertEqual(created[2].state.nobleman_left, 3)
+        self.assertEqual(created[2].state.nobleman_state, 1)
+        self.assertEqual(created[2].state.fake_limit, 4)
+        self.assertEqual(created[2].state.nobles_limit, 9)
+
+    def test_real_type_outline_initial_outline_nobles_limit_is_respected_v1(
+        self,
+    ):
+        self.outline.initial_outline_min_off = 500
+        self.outline.initial_outline_minimum_noble_troops = 150
+        self.outline.mode_split = "together"
+        self.outline.save()
+        target = self.target()
+        target.mode_division = "divide"
+        target.mode_guide = "many"
+        target.exact_off = [0, 1, 0, 0]
+        target.exact_noble = [0, 0, 6, 0]
+        target.save()
+        WeightMaximum.objects.update(nobles_limit=1)
+        complete_outline_write(self.outline, salt=self.salt)
+        created = self.weights()
+        self.assertEqual(len(created), 3)
+        self.assertEqual(created[0].order, 20000)
+        self.assertEqual(created[0].start, "500|503")
+        self.assertEqual(created[0].off, 20900)
+        self.assertEqual(created[0].catapult, 100)
+        self.assertEqual(created[0].nobleman, 0)
+        self.assertEqual(created[0].distance, 4)
+        self.assertEqual(created[0].state.off_left, 0)
+        self.assertEqual(created[0].state.off_state, 20900)
+        self.assertEqual(created[0].state.catapult_left, 0)
+        self.assertEqual(created[0].state.catapult_state, 100)
+        self.assertEqual(created[0].state.nobleman_left, 0)
+        self.assertEqual(created[0].state.nobleman_state, 0)
+        self.assertEqual(created[0].state.fake_limit, 4)
+        self.assertEqual(created[0].state.nobles_limit, 1)
+
+        self.assertEqual(created[1].order, 90000)
+        self.assertEqual(created[1].start, "500|505")
+        self.assertEqual(created[1].off, 20800)
+        self.assertEqual(created[1].catapult, 100)
+        self.assertEqual(created[1].nobleman, 1)
+        self.assertEqual(created[1].distance, 6)
+        self.assertEqual(created[1].state.off_left, 0)
+        self.assertEqual(created[1].state.off_state, 20800)
+        self.assertEqual(created[1].state.catapult_left, 0)
+        self.assertEqual(created[1].state.catapult_state, 100)
+        self.assertEqual(created[1].state.nobleman_left, 1)
+        self.assertEqual(created[1].state.nobleman_state, 1)
+        self.assertEqual(created[1].state.fake_limit, 4)
+        self.assertEqual(created[1].state.nobles_limit, 0)
+
+        self.assertEqual(created[2].order, 90001)
+        self.assertEqual(created[2].start, "500|504")
+        self.assertEqual(created[2].off, 20800)
+        self.assertEqual(created[2].catapult, 100)
+        self.assertEqual(created[2].nobleman, 1)
+        self.assertEqual(created[2].distance, 5)
+        self.assertEqual(created[2].state.off_left, 0)
+        self.assertEqual(created[2].state.off_state, 20800)
+        self.assertEqual(created[2].state.catapult_left, 0)
+        self.assertEqual(created[2].state.catapult_state, 100)
+        self.assertEqual(created[2].state.nobleman_left, 3)
+        self.assertEqual(created[2].state.nobleman_state, 1)
+        self.assertEqual(created[2].state.fake_limit, 4)
+        self.assertEqual(created[2].state.nobles_limit, 0)
 
     def test_real_type_outline_guide_is_single_and_division_is_separatly_split(self):
         self.outline.initial_outline_min_off = 1000

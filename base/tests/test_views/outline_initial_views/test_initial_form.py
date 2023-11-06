@@ -240,6 +240,8 @@ class InitialForm(MiniSetup):
         mode_split = "together"
         initial_outline_fake_limit = self.random_integer(maximum=15)
         initial_outline_fake_mode = "all"
+        initial_outline_nobles_limit = 12
+        initial_outline_minimum_noble_troops = self.random_integer()
         # form 5
         night_bonus = True
         enter_t1 = self.random_integer(0, 10)
@@ -265,6 +267,9 @@ class InitialForm(MiniSetup):
         outline.initial_outline_target_dist = initial_outline_target_dist
         outline.initial_outline_min_off = initial_outline_min_off
         outline.initial_outline_excluded_coords = initial_outline_excluded_coords
+        outline.initial_outline_minimum_noble_troops = (
+            initial_outline_minimum_noble_troops
+        )
         outline.mode_off = mode_off
         outline.mode_noble = mode_noble
         outline.mode_division = mode_division
@@ -272,6 +277,7 @@ class InitialForm(MiniSetup):
         outline.mode_split = mode_split
         outline.initial_outline_fake_limit = initial_outline_fake_limit
         outline.initial_outline_fake_mode = initial_outline_fake_mode
+        outline.initial_outline_nobles_limit = initial_outline_nobles_limit
         outline.night_bonus = night_bonus
         outline.enter_t1 = enter_t1
         outline.enter_t2 = enter_t2
@@ -315,6 +321,14 @@ class InitialForm(MiniSetup):
         assert form4["mode_split"].initial == mode_split
         assert form4["initial_outline_fake_limit"].initial == initial_outline_fake_limit
         assert form4["initial_outline_fake_mode"].initial == initial_outline_fake_mode
+        assert (
+            form4["initial_outline_nobles_limit"].initial
+            == initial_outline_nobles_limit
+        )
+        assert (
+            form4["initial_outline_minimum_noble_troops"].initial
+            == initial_outline_minimum_noble_troops
+        )
 
         assert form5["night_bonus"].initial == night_bonus
         assert form5["enter_t1"].initial == enter_t1
@@ -373,6 +387,8 @@ class InitialForm(MiniSetup):
         mode_split = "split"
         initial_outline_fake_limit = self.random_integer(maximum=15)
         initial_outline_fake_mode = "off"
+        initial_outline_nobles_limit = 1
+        initial_outline_minimum_noble_troops = self.random_integer()
         # form 5
         night_bonus = False
         enter_t1 = self.random_integer(0, 10)
@@ -398,6 +414,9 @@ class InitialForm(MiniSetup):
         outline.initial_outline_target_dist = initial_outline_target_dist
         outline.initial_outline_min_off = initial_outline_min_off
         outline.initial_outline_excluded_coords = initial_outline_excluded_coords
+        outline.initial_outline_minimum_noble_troops = (
+            initial_outline_minimum_noble_troops
+        )
         outline.mode_off = mode_off
         outline.mode_noble = mode_noble
         outline.mode_division = mode_division
@@ -405,6 +424,7 @@ class InitialForm(MiniSetup):
         outline.mode_split = mode_split
         outline.initial_outline_fake_limit = initial_outline_fake_limit
         outline.initial_outline_fake_mode = initial_outline_fake_mode
+        outline.initial_outline_nobles_limit = initial_outline_nobles_limit
         outline.night_bonus = night_bonus
         outline.enter_t1 = enter_t1
         outline.enter_t2 = enter_t2
@@ -448,6 +468,14 @@ class InitialForm(MiniSetup):
         assert form4["mode_split"].initial == mode_split
         assert form4["initial_outline_fake_limit"].initial == initial_outline_fake_limit
         assert form4["initial_outline_fake_mode"].initial == initial_outline_fake_mode
+        assert (
+            form4["initial_outline_nobles_limit"].initial
+            == initial_outline_nobles_limit
+        )
+        assert (
+            form4["initial_outline_minimum_noble_troops"].initial
+            == initial_outline_minimum_noble_troops
+        )
 
         assert form5["night_bonus"].initial == night_bonus
         assert form5["enter_t1"].initial == enter_t1
@@ -678,6 +706,8 @@ class InitialForm(MiniSetup):
         mode_split = "together"
         initial_outline_fake_limit = self.random_integer(maximum=15)
         initial_outline_fake_mode = "all"
+        initial_outline_nobles_limit = 15
+        initial_outline_minimum_noble_troops = 222
 
         response = self.client.post(
             PATH,
@@ -690,6 +720,8 @@ class InitialForm(MiniSetup):
                 "mode_split": mode_split,
                 "initial_outline_fake_limit": initial_outline_fake_limit,
                 "initial_outline_fake_mode": initial_outline_fake_mode,
+                "initial_outline_nobles_limit": initial_outline_nobles_limit,
+                "initial_outline_minimum_noble_troops": initial_outline_minimum_noble_troops,
             },
         )
         assert response.status_code == 302
@@ -702,6 +734,11 @@ class InitialForm(MiniSetup):
         assert outline.mode_split == mode_split
         assert outline.initial_outline_fake_limit == initial_outline_fake_limit
         assert outline.initial_outline_fake_mode == initial_outline_fake_mode
+        assert outline.initial_outline_nobles_limit == initial_outline_nobles_limit
+        assert (
+            outline.initial_outline_minimum_noble_troops
+            == initial_outline_minimum_noble_troops
+        )
 
         target: TargetVertex = TargetVertex.objects.get(target="200|200")
         assert target.mode_off == mode_off
@@ -876,12 +913,12 @@ class InitialForm(MiniSetup):
         assert WeightMaximum.objects.count() == 1
         outline.refresh_from_db()
         stats.refresh_from_db()
-        assert outline.avaiable_offs == []
+        assert outline.avaiable_offs == [1, 0, 0, 1]
         assert outline.avaiable_offs_near == []
-        assert outline.avaiable_nobles == []
+        assert outline.avaiable_nobles == [0, 0, 0, 0]
         assert outline.avaiable_nobles_near == []
-        assert outline.available_catapults == []
-        assert outline.avaiable_ruins is None
+        assert outline.available_catapults == [100, 0, 0, 100]
+        assert outline.avaiable_ruins == 0
         assert stats.troops_refreshed == 1
         assert outline.off_troops_weightmodels_hash == outline.off_troops_hash
 

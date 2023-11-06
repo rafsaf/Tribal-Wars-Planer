@@ -199,6 +199,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
             "nobleman_state",
             "nobleman_left",
             "fake_limit",
+            "nobles_limit",
         ],
         batch_size=1000,
     )
@@ -249,22 +250,6 @@ class CreateWeights:
         else:
             yield from zip(target.exact_off, self.modes_list)
 
-    def _create_weights_or_pass_update_max_list(
-        self, weights_lsts: tuple[list[WeightModel], list[WeightMaximum]]
-    ) -> None:
-        temp_to_update_dict = {}
-        weight_max: WeightMaximum
-        for weight_max in weights_lsts[1]:
-            temp_to_update_dict[weight_max.pk] = weight_max
-
-        for i, weight_max in enumerate(self.weight_max_list):
-            if weight_max.pk in temp_to_update_dict:
-                self.weight_max_list[i] = temp_to_update_dict[weight_max.pk]
-
-        weight: WeightModel
-        for weight in weights_lsts[0]:
-            self.weight_create_lst.append(weight)
-
     def _noble_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
             self._annotate_distances_and_morale_for_target(target)
@@ -279,9 +264,7 @@ class CreateWeights:
                     outline=self.outline,
                     weight_max_list=self.weight_max_list,
                 )
-                self._create_weights_or_pass_update_max_list(
-                    weight_noble.weight_create_list()
-                )
+                self.weight_create_lst += weight_noble.weight_create_list()
 
         else:
             if target.required_noble > 0:
@@ -292,9 +275,7 @@ class CreateWeights:
                     outline=self.outline,
                     weight_max_list=self.weight_max_list,
                 )
-                self._create_weights_or_pass_update_max_list(
-                    weight_noble.weight_create_list()
-                )
+                self.weight_create_lst += weight_noble.weight_create_list()
 
     def _ruin_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
@@ -311,9 +292,7 @@ class CreateWeights:
                     weight_max_list=self.weight_max_list,
                     ruin=True,
                 )
-                self._create_weights_or_pass_update_max_list(
-                    weight_ram.weight_create_list()
-                )
+                self.weight_create_lst += weight_ram.weight_create_list()
 
         else:
             target.required_off = target.required_noble
@@ -326,9 +305,7 @@ class CreateWeights:
                     weight_max_list=self.weight_max_list,
                     ruin=True,
                 )
-                self._create_weights_or_pass_update_max_list(
-                    weight_ram.weight_create_list()
-                )
+                self.weight_create_lst += weight_ram.weight_create_list()
 
     def _ram_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=False):
@@ -345,9 +322,7 @@ class CreateWeights:
                     weight_max_list=self.weight_max_list,
                     ruin=False,
                 )
-                self._create_weights_or_pass_update_max_list(
-                    weight_ram.weight_create_list()
-                )
+                self.weight_create_lst += weight_ram.weight_create_list()
 
         else:
             if target.required_off > 0:
@@ -359,9 +334,7 @@ class CreateWeights:
                     weight_max_list=self.weight_max_list,
                     ruin=False,
                 )
-                self._create_weights_or_pass_update_max_list(
-                    weight_ram.weight_create_list()
-                )
+                self.weight_create_lst += weight_ram.weight_create_list()
 
     def _annotate_distances_and_morale_for_target(self, target: Target) -> None:
         if self.dist_matrix is not None:

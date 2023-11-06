@@ -214,6 +214,15 @@ class Outline(models.Model):
     initial_outline_fake_mode = models.CharField(
         max_length=60, choices=FAKE_MIN_OFF_CHOICES, default="off"
     )
+    initial_outline_minimum_noble_troops = models.IntegerField(
+        default=100,
+        validators=[MinValueValidator(0), MaxValueValidator(28000)],
+    )
+    initial_outline_nobles_limit = models.IntegerField(
+        default=10,
+        validators=[MinValueValidator(1), MaxValueValidator(250)],
+    )
+
     input_data_type = models.CharField(
         max_length=32, default="Army collection", choices=INPUT_DATA_TYPES
     )
@@ -380,6 +389,7 @@ class Outline(models.Model):
                 first_line=False,
                 too_far_away=False,
                 fake_limit=self.initial_outline_fake_limit,
+                nobles_limit=self.initial_outline_nobles_limit,
             )
             form1 = forms.InitialOutlineForm(
                 {"target": self.initial_outline_targets},

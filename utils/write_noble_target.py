@@ -79,6 +79,9 @@ class WriteNobleTarget:
         self.filters.append(self._noble_query())
         self.filters.append(self._only_closer_than_target_dist())
 
+        if not self.target.fake:
+            self.filters.append(self._minimal_noble_off())
+
         if self.outline.morale_on and self.outline.world.morale > 0:
             self.filters.append(self._morale_query())
 
@@ -101,8 +104,7 @@ class WriteNobleTarget:
             self.index = 80000
             return self._far_weight_lst()
 
-    def weight_create_list(self) -> tuple[list[WeightModel], list[WeightMaximum]]:
-        weights_max_update_lst: list[WeightMaximum] = []
+    def weight_create_list(self) -> list[WeightModel]:
         weights_create_lst: list[WeightModel] = []
 
         weight_max_list = self.sorted_weights_nobles()
@@ -159,13 +161,11 @@ class WriteNobleTarget:
                 )
                 weights_create_lst.append(weight)
 
-            weights_max_update_lst.append(
-                self._updated_weight_max(
-                    weight_max, off_to_left, catapult_to_left, noble_number
-                )
+            self._update_weight_max(
+                weight_max, off_to_left, catapult_to_left, noble_number
             )
 
-        return weights_create_lst, weights_max_update_lst
+        return weights_create_lst
 
     def _weight_model(
         self,
@@ -189,7 +189,7 @@ class WriteNobleTarget:
         )
 
     @staticmethod
-    def _updated_weight_max(
+    def _update_weight_max(
         weight_max: WeightMaximum,
         off_to_left: int,
         catapult_to_left: int,
@@ -201,6 +201,7 @@ class WriteNobleTarget:
         weight_max.catapult_left = catapult_to_left
         weight_max.nobleman_state += noble_number
         weight_max.nobleman_left = weight_max.nobleman_left - noble_number
+        weight_max.nobles_limit -= noble_number
 
         return weight_max
 
@@ -211,16 +212,19 @@ class WriteNobleTarget:
 
         self.default_create_list.sort(key=order_func)
 
-    def _fill_default_list(
-        self, sorted_list: list[WeightMaximum], single: bool = False
-    ) -> None:
+    def _fill_default_list(self, sorted_list: list[WeightMaximum]) -> None:
         weight_max: WeightMaximum
         for weight_max in sorted_list:
             if self.target.required_noble > 0:
-                if single:
+                if self.target.mode_guide == "single":
                     nobles: int = 1
                 else:
-                    nobles: int = weight_max.nobleman_left
+                    if self.target.fake:
+                        nobles: int = min(
+                            weight_max.nobleman_left, weight_max.nobles_limit
+                        )
+                    else:
+                        nobles: int = weight_max.nobles_allowed_to_use
 
                 if nobles >= self.target.required_noble:
                     self.default_create_list.append(
@@ -275,7 +279,7 @@ class WriteNobleTarget:
         Updates self.default_create_list attribute
 
         This case represents FROM MANY case, depend of off troops and distance
-        Later we decide to use only one noble from every village by using single=True
+        Later we decide to use only one noble from every village
         """
 
         def sort_func(weight_max: WeightMaximum) -> tuple[float, int]:
@@ -286,17 +290,17 @@ class WriteNobleTarget:
         sorted_weight_max_lst: list[WeightMaximum] = sorted(
             weight_max_list, key=sort_func
         )
-        self._fill_default_list(sorted_weight_max_lst, single=True)
+        self._fill_default_list(sorted_weight_max_lst)
 
     def _off(self, weight_max: WeightMaximum) -> int:
         if self.target.fake:
             return 0
 
-        elif weight_max.off_left < 200 * weight_max.nobleman_left:
-            return weight_max.off_left // weight_max.nobleman_left
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
+            return weight_max.off_left // weight_max.nobles_allowed_to_use
 
         elif self.target.mode_division == "divide":
-            return weight_max.off_left // weight_max.nobleman_left
+            return weight_max.off_left // weight_max.nobles_allowed_to_use
 
         elif self.target.mode_division == "not_divide":
             return 200
@@ -308,14 +312,14 @@ class WriteNobleTarget:
         if self.target.fake:
             return 0
 
-        elif weight_max.off_left < 200 * weight_max.nobleman_left:
-            return weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
+            return weight_max.off_left - (off * (weight_max.nobles_allowed_to_use - 1))
 
         elif self.target.mode_division == "divide":
-            return weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+            return weight_max.off_left - (off * (weight_max.nobles_allowed_to_use - 1))
 
         elif self.target.mode_division == "not_divide":
-            return weight_max.off_left - (off * (weight_max.nobleman_left - 1))
+            return weight_max.off_left - (off * (weight_max.nobles_allowed_to_use - 1))
 
         else:  # self.target.mode_division == "separatly"
             return 200
@@ -324,11 +328,11 @@ class WriteNobleTarget:
         if self.target.fake:
             return 0
 
-        elif weight_max.off_left < 200 * weight_max.nobleman_left:
-            return weight_max.catapult_left // weight_max.nobleman_left
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
+            return weight_max.catapult_left // weight_max.nobles_allowed_to_use
 
         elif self.target.mode_division == "divide":
-            return weight_max.catapult_left // weight_max.nobleman_left
+            return weight_max.catapult_left // weight_max.nobles_allowed_to_use
 
         elif self.target.mode_division == "not_divide":
             return 0
@@ -340,14 +344,14 @@ class WriteNobleTarget:
         if self.target.fake:
             return 0
 
-        elif weight_max.off_left < 200 * weight_max.nobleman_left:
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
             return weight_max.catapult_left - (
-                catapult * (weight_max.nobleman_left - 1)
+                catapult * (weight_max.nobles_allowed_to_use - 1)
             )
 
         elif self.target.mode_division == "divide":
             return weight_max.catapult_left - (
-                catapult * (weight_max.nobleman_left - 1)
+                catapult * (weight_max.nobles_allowed_to_use - 1)
             )
 
         elif self.target.mode_division == "not_divide":
@@ -360,19 +364,19 @@ class WriteNobleTarget:
         if self.target.fake:
             return weight_max.off_left
 
-        elif weight_max.off_left < 200 * weight_max.nobleman_left:
-            if weight_max.nobleman_left > noble:
-                return off * (weight_max.nobleman_left - noble)
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
+            if weight_max.nobles_allowed_to_use > noble:
+                return off * (weight_max.nobles_allowed_to_use - noble)
             return 0
 
         elif self.target.mode_division == "divide":
-            if weight_max.nobleman_left > noble:
-                return off * (weight_max.nobleman_left - noble)
+            if weight_max.nobles_allowed_to_use > noble:
+                return off * (weight_max.nobles_allowed_to_use - noble)
             return 0
 
         elif self.target.mode_division == "not_divide":
-            if weight_max.nobleman_left > noble:
-                return 200 * (weight_max.nobleman_left - noble)
+            if weight_max.nobles_allowed_to_use > noble:
+                return 200 * (weight_max.nobles_allowed_to_use - noble)
             return 0
 
         else:  # self.target.mode_division == "separatly"
@@ -384,14 +388,14 @@ class WriteNobleTarget:
         if self.target.fake:
             return weight_max.catapult_left
 
-        elif weight_max.off_left < 200 * weight_max.nobleman_left:
-            if weight_max.nobleman_left > noble:
-                return catapult * (weight_max.nobleman_left - noble)
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
+            if weight_max.nobles_allowed_to_use > noble:
+                return catapult * (weight_max.nobles_allowed_to_use - noble)
             return 0
 
         elif self.target.mode_division == "divide":
-            if weight_max.nobleman_left > noble:
-                return catapult * (weight_max.nobleman_left - noble)
+            if weight_max.nobles_allowed_to_use > noble:
+                return catapult * (weight_max.nobles_allowed_to_use - noble)
             return 0
 
         elif self.target.mode_division == "not_divide":
@@ -400,23 +404,27 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return weight_max.catapult_left
 
-    def _morale_query(self):
-        def filter_morale(weight_max: WeightMaximum):
-            if weight_max.morale >= self.outline.morale_on_targets_greater_than:
-                return True
-            return False
+    def _morale_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_morale(weight_max: WeightMaximum) -> bool:
+            return weight_max.morale >= self.outline.morale_on_targets_greater_than
 
         return filter_morale
 
-    def _noble_query(self):
-        def filter_noble(weight_max: WeightMaximum):
-            if weight_max.nobleman_left >= 1:
-                return True
-            return False
+    def _noble_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_noble(weight_max: WeightMaximum) -> bool:
+            return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
 
         return filter_noble
 
-    def _only_closer_than_target_dist(self):
+    def _minimal_noble_off(self) -> Callable[[WeightMaximum], bool]:
+        def filter_noble(weight_max: WeightMaximum) -> bool:
+            return (
+                weight_max.off_left >= self.outline.initial_outline_minimum_noble_troops
+            )
+
+        return filter_noble
+
+    def _only_closer_than_target_dist(self) -> Callable[[WeightMaximum], bool]:
         def filter_close_than_target_dist(weight_max: WeightMaximum) -> bool:
             return (
                 getattr(weight_max, "distance")
@@ -425,24 +433,20 @@ class WriteNobleTarget:
 
         return filter_close_than_target_dist
 
-    def _get_filtered_weight_max_list(self):
-        def all_filters_match(weight_max: WeightMaximum):
-            for filter_func in self.filters:
-                if not filter_func(weight_max):
-                    return False
-            return True
+    def _get_filtered_weight_max_list(self) -> list[WeightMaximum]:
+        return [
+            weight
+            for weight in self.weight_max_list
+            if all(filter_func(weight) for filter_func in self.filters)
+        ]
 
-        return [weight for weight in self.weight_max_list if all_filters_match(weight)]
-
-    def _first_line_false_query(self):
-        def filter_first_line_false(weight_max: WeightMaximum):
-            if (
+    def _first_line_false_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_first_line_false(weight_max: WeightMaximum) -> bool:
+            return (
                 not weight_max.first_line
                 and getattr(weight_max, "distance")
                 >= self.outline.initial_outline_front_dist
-            ):
-                return True
-            return False
+            )
 
         return filter_first_line_false
 

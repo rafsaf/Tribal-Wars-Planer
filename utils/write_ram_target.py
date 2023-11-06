@@ -102,8 +102,7 @@ class WriteRamTarget:
                 self.index += 40000
             return self._far_weight_lst()
 
-    def weight_create_list(self) -> tuple[list[WeightModel], list[WeightMaximum]]:
-        weights_max_update_lst: list[WeightMaximum] = []
+    def weight_create_list(self) -> list[WeightModel]:
         weights_create_lst: list[WeightModel] = []
         self._set_building_generator()
         if self.ruin:
@@ -140,11 +139,9 @@ class WriteRamTarget:
             weight = self._weight_model(weight_max, off, catapult, building, i)
             weights_create_lst.append(weight)
 
-            weights_max_update_lst.append(
-                self._updated_weight_max(weight_max, off, catapult, fake_limit)
-            )
+            self._update_weight_max(weight_max, off, catapult, fake_limit)
 
-        return weights_create_lst, weights_max_update_lst
+        return weights_create_lst
 
     def _set_building_generator(self) -> None:
         if self.ruin and len(self.outline.initial_outline_buildings) > 0:
@@ -205,7 +202,7 @@ class WriteRamTarget:
         )
 
     @staticmethod
-    def _updated_weight_max(
+    def _update_weight_max(
         weight_max: WeightMaximum, off: int, catapult: int, fake_limit: int
     ) -> WeightMaximum:
         weight_max.off_state += off
@@ -216,19 +213,14 @@ class WriteRamTarget:
 
         return weight_max
 
-    def _get_filtered_weight_max_list(self):
-        def all_filters_match(weight_max: WeightMaximum):
-            for filter_func in self.filters:
-                if not filter_func(weight_max):
-                    if self.ruin:
-                        if weight_max.catapult_max > 40:
-                            print(filter_func)
-                    return False
-            return True
+    def _get_filtered_weight_max_list(self) -> list[WeightMaximum]:
+        return [
+            weight
+            for weight in self.weight_max_list
+            if all(filter_func(weight) for filter_func in self.filters)
+        ]
 
-        return [weight for weight in self.weight_max_list if all_filters_match(weight)]
-
-    def _only_closer_than_maximum_off_dist(self):
+    def _only_closer_than_maximum_off_dist(self) -> Callable[[WeightMaximum], bool]:
         def filter_closer_than_maximum_off_dist(weight_max: WeightMaximum) -> bool:
             return (
                 getattr(weight_max, "distance")
@@ -237,7 +229,7 @@ class WriteRamTarget:
 
         return filter_closer_than_maximum_off_dist
 
-    def _fake_query(self):
+    def _fake_query(self) -> Callable[[WeightMaximum], bool]:
         def filter_fake(weight_max: WeightMaximum) -> bool:
             if self.outline.initial_outline_fake_mode == "off":
                 return (
@@ -253,9 +245,9 @@ class WriteRamTarget:
 
         return filter_fake
 
-    def _ruin_query(self, catapults=50):
-        def filter_ruin(weight_max: WeightMaximum):
-            if (
+    def _ruin_query(self, catapults: int = 50) -> Callable[[WeightMaximum], bool]:
+        def filter_ruin(weight_max: WeightMaximum) -> bool:
+            return (
                 weight_max.catapult_left >= catapults
                 and (
                     weight_max.off_left < self.outline.initial_outline_min_off
@@ -266,32 +258,26 @@ class WriteRamTarget:
                 >= (catapults + self.outline.initial_outline_off_left_catapult)
                 and weight_max.off_left >= self.outline.initial_outline_min_off
                 and weight_max.off_left <= self.outline.initial_outline_max_off
-            ):
-                return True
-            return False
+            )
 
         return filter_ruin
 
-    def _morale_query(self):
-        def filter_morale(weight_max: WeightMaximum):
-            if weight_max.morale >= self.outline.morale_on_targets_greater_than:
-                return True
-            return False
+    def _morale_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_morale(weight_max: WeightMaximum) -> bool:
+            return weight_max.morale >= self.outline.morale_on_targets_greater_than
 
         return filter_morale
 
-    def _off_query(self):
-        def filter_off(weight_max: WeightMaximum):
-            if (
+    def _off_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_off(weight_max: WeightMaximum) -> bool:
+            return (
                 weight_max.off_left >= self.outline.initial_outline_min_off
                 and weight_max.off_left <= self.outline.initial_outline_max_off
-            ):
-                return True
-            return False
+            )
 
         return filter_off
 
-    def _add_night_bonus_annotations(self, weight_lst: list[WeightMaximum]):
+    def _add_night_bonus_annotations(self, weight_lst: list[WeightMaximum]) -> None:
         for weight_max in weight_lst:
             time_hours: int = getattr(weight_max, "distance") / self.dividier
             time_mod = time_hours % 24
@@ -307,8 +293,8 @@ class WriteRamTarget:
                 score = 1
             setattr(weight_max, "night_bool", score)
 
-    def _first_line_false_query(self):
-        def filter_first_line_false(weight_max: WeightMaximum):
+    def _first_line_false_query(self) -> Callable[[WeightMaximum], bool]:
+        def filter_first_line_false(weight_max: WeightMaximum) -> bool:
             if (
                 not weight_max.first_line
                 and getattr(weight_max, "distance")

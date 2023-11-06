@@ -129,11 +129,11 @@ class TestWriteNobleTarget(TestCase):
         self.assertEqual(weight.order, 999 + 4)
         self.assertEqual(weight.distance, 10)
 
-    def test_updated_weight_max(self):
+    def test_update_weight_max(self):
         target = self.target()
         write_noble = self.get_write_noble(target)
 
-        updated_weight = write_noble._updated_weight_max(
+        updated_weight = write_noble._update_weight_max(
             weight_max=self.weight4,
             off_to_left=1000,
             catapult_to_left=10,
@@ -165,7 +165,7 @@ class TestWriteNobleTarget(TestCase):
         target.required_noble = 8
         write_noble = self.get_write_noble(target)
         fill_list = [self.weight4, self.weight0]
-        write_noble._fill_default_list(fill_list, single=False)
+        write_noble._fill_default_list(fill_list)
         expected1 = [(self.weight4, 4), (self.weight0, 2)]
         self.assertEqual(write_noble.default_create_list, expected1)
         self.assertEqual(write_noble.target.required_noble, 2)
@@ -173,9 +173,10 @@ class TestWriteNobleTarget(TestCase):
     def test_fill_default_list_single(self):
         target: Target = self.target()
         target.required_noble = 8
+        target.mode_guide = "single"
         write_noble = self.get_write_noble(target)
         fill_list = [self.weight4, self.weight0]
-        write_noble._fill_default_list(fill_list, single=True)
+        write_noble._fill_default_list(fill_list)
         expected1 = [
             (self.weight4, 1),
             (self.weight0, 1),
@@ -234,6 +235,7 @@ class TestWriteNobleTarget(TestCase):
     def test_mode_guide_is_single(self):
         target: Target = self.target()
         target.required_noble = 4
+        target.mode_guide = "single"
         write_noble = self.get_write_noble(target)
         self.weight0.distance = 10
         self.weight4.distance = 10

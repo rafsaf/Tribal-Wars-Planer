@@ -89,6 +89,7 @@ class MakeOutline:
                 nobleman_left=army.nobleman,
                 first_line=False,
                 fake_limit=self.outline.initial_outline_fake_limit,
+                nobles_limit=self.outline.initial_outline_nobles_limit,
                 points=points,
             )
         )
