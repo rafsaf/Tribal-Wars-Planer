@@ -17,6 +17,7 @@
 import logging
 from concurrent import futures
 from time import sleep
+from django.conf import settings
 
 from django.core.management.base import BaseCommand
 
@@ -46,7 +47,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         worlds = list(World.objects.select_related("server").exclude(postfix="Test"))
 
-        with futures.ThreadPoolExecutor(max_workers=4) as executor:
+        with futures.ThreadPoolExecutor(
+            max_workers=settings.WORLD_UPDATE_THREADS
+        ) as executor:
             tasks: list[futures.Future] = []
             for world in worlds:
                 log.info("submited update_world task for world: %s to executor", world)
