@@ -20,6 +20,7 @@ from datetime import datetime, timezone
 from typing import Literal
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
+from django.conf import settings
 
 import requests
 from django.db import transaction
@@ -198,7 +199,7 @@ class WorldUpdateHandler:
         last_modified_datetime = last_modified_datetime.replace(tzinfo=timezone.utc)
         return last_modified_datetime.timestamp()
 
-    def update_all(self, download_try: int = 6):
+    def update_all(self, download_try: int = settings.WORLD_UPDATE_TRY_COUNT):
         """Synchronize Tribe, Village, Player tables with latest data from game."""
         count = 0
         log.info("%s start download_and_save data from tribal wars", self.world)
