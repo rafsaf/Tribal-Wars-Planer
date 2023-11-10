@@ -369,9 +369,7 @@ class Outline(models.Model):
         self.default_fake_time_id = None
         self.default_ruin_time_id = None
 
-        WeightModel.objects.select_related("target").filter(
-            target__outline=self
-        ).delete()
+        WeightModel.objects.filter(target__outline=self).delete()
 
         off_form = forms.OffTroopsForm({"off_troops": self.off_troops}, outline=self)
         if not off_form.is_valid():
@@ -478,19 +476,21 @@ class Outline(models.Model):
     def count_off(self) -> int:
         from base.models import WeightMaximum
 
-        weights: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(outline=self)
-        return weights.filter(
-            off_left__gte=self.initial_outline_min_off,
-            off_max__lte=self.initial_outline_max_off,
-        ).count()
+        return (
+            WeightMaximum.objects.filter(outline=self)
+            .filter(
+                off_left__gte=self.initial_outline_min_off,
+                off_left__lte=self.initial_outline_max_off,
+            )
+            .count()
+        )
 
     def count_noble(self) -> int:
         from base.models import WeightMaximum
 
-        weights: QuerySet[WeightMaximum] = WeightMaximum.objects.filter(outline=self)
         return (
-            weights.aggregate(
-                nobles=Sum("nobleman_left"), catapult=Sum("catapult_left")
+            WeightMaximum.objects.filter(outline=self).aggregate(
+                nobles=Sum("nobleman_left")
             )["nobles"]
             or 0
         )
@@ -591,6 +591,9 @@ class Outline(models.Model):
         TargetVertex.objects.create(
             outline=self,
             player=village.player.name if village.player else "",
+            player_created_at=village.player.created_at
+            if village.player
+            else timezone.now(),
             target=coord,
             fake=fake,
             ruin=ruin,

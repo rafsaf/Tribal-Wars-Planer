@@ -244,8 +244,7 @@ class WorldUpdateHandler:
                 f" village_update: {self.tribe_log_msg} |"
                 f" player_update: {self.tribe_log_msg}"
             )
-
-            self.world.last_update = now()
+            self.world.created_at = now()
             self.world.save()
 
         return message

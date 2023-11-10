@@ -1,4 +1,5 @@
 from collections import defaultdict
+from datetime import datetime, timezone
 
 from django.db.models.query import QuerySet
 
@@ -20,10 +21,16 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
     Defaults to 100 morale for example where some players are missing or when
     they have 0 points.
     """
-    target_players_queryset: QuerySet["Target"] = (
+    now = datetime.now(timezone.utc)
+    map_player_tuple_to_morale: defaultdict[tuple[str, str], int] = defaultdict(
+        _return_100
+    )
+    if outline.world.morale == 0:
+        return map_player_tuple_to_morale
+
+    targets_unique_by_player = (
         Target.objects.filter(outline=outline).order_by("player").distinct("player")
     )
-    unique_target_players = [target.player for target in target_players_queryset]
     weight_max_players_queryset: QuerySet["WeightMaximum"] = (
         WeightMaximum.objects.filter(outline=outline)
         .order_by("player")
@@ -34,26 +41,28 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
     ]
     dict_player_to_points: dict[str, int] = {}
 
-    dict_player_tuple_to_morale: defaultdict[tuple[str, str], int] = defaultdict(
-        _return_100
-    )
-    for target in target_players_queryset:
-        dict_player_to_points[target.player] = target.points
     for weight_max in weight_max_players_queryset:
         dict_player_to_points[weight_max.player] = weight_max.points
 
-    for target_player in unique_target_players:
-        target_player_points = dict_player_to_points[target_player]
+    for target in targets_unique_by_player:
         for weight_player in unique_weight_max_players:
             weight_player_points = dict_player_to_points[weight_player]
             if weight_player_points == 0:
                 continue
-            morale = round(
-                ((3 * target_player_points / weight_player_points) + 0.3) * 100
-            )
+            if outline.world.morale == 1:
+                # points based only
+                morale = round(((3 * target.points / weight_player_points) + 0.3) * 100)
+            else:
+                # time-points based outline.world.morale == 2
+                morale = (3 * target.points / weight_player_points) + 0.25
+                if morale < 0.5:
+                    target_player_time_played = now - target.player_created_at
+                    morale += target_player_time_played.days / 500
+                    if morale > 0.5:
+                        morale = 0.5
+                morale = round(morale * 100)
+
             if morale >= 100:
                 continue
-            elif morale < 25:
-                morale = 25
-            dict_player_tuple_to_morale[(target_player, weight_player)] = morale
-    return dict_player_tuple_to_morale
+            map_player_tuple_to_morale[(target.player, weight_player)] = morale
+    return map_player_tuple_to_morale

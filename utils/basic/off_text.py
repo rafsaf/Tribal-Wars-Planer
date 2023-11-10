@@ -14,17 +14,18 @@
 # ==============================================================================
 
 from django.utils.translation import gettext as _
+from utils.basic import Army, Defence
 
 
 class NewOffsText:
-    def __init__(self, name=None):
+    def __init__(self, name=None) -> None:
         self.ins = {"1": 0, "3/4": 0, "1/2": 0, "1/4": 0}
         self.out = {"1": 0, "3/4": 0, "1/2": 0, "1/4": 0}
         self.name = name
         self.newline = "\r\n"
         self.results = ""
 
-    def add_army_front(self, army):
+    def add_army_front(self, army: Army) -> None:
         if army.off >= 20000:
             self.ins["1"] += 1
         elif army.off >= 15000:
@@ -34,7 +35,7 @@ class NewOffsText:
         elif army.off >= 5000:
             self.ins["1/4"] += 1
 
-    def add_army_out(self, army):
+    def add_army_out(self, army: Army) -> None:
         if army.off >= 20000:
             self.out["1"] += 1
         elif army.off >= 15000:
@@ -44,7 +45,7 @@ class NewOffsText:
         elif army.off >= 5000:
             self.out["1/4"] += 1
 
-    def full_text(self):
+    def full_text(self) -> str:
         return (
             f"\r\n---FRONT---\r\n"
             f"Pełne : {self.ins['1']},\r\n"
@@ -58,20 +59,20 @@ class NewOffsText:
             f"1/4 : {self.out['1/4']},\r\n"
         )
 
-    def simplified(self):
+    def simplified(self) -> str:
         return (
             f"{self.name}    "
             f"({self.ins['1']},{self.ins['3/4']},{self.ins['1/2']},{self.ins['1/4']})   "
             f"({self.out['1']},{self.out['3/4']},{self.out['1/2']},{self.out['1/4']})"
         )
 
-    def add_user(self, simplified):
+    def add_user(self, simplified: str) -> None:
         self.results += simplified + self.newline
 
-    def full_decription(self):
+    def full_decription(self) -> str:
         return "\r\nNICK, FRONT, ZAPLECZE\r\n" f"{self.results}"
 
-    def text(self):
+    def text(self) -> str:
         return str(
             "Uwaga 1, Pełny off to 20k, 3/4 to 15k itd.\r\n"
             + "Uwaga 2, np. -500 jednostek poza wioską to nie błąd,"
@@ -89,24 +90,28 @@ class DeffException(Exception):
 
 
 class NewDeffText:
-    def __init__(self):
-        self.users = {}
+    def __init__(self) -> None:
+        self.users: dict[str, UserDeffInfo] = {}
 
-    def add_back_village(self, user, deff_instance, army_instance):
+    def add_back_village(
+        self, user: str, deff_instance: Defence, army_instance: Army | None
+    ) -> None:
         if user in self.users:
             self.users[user].add_back_village(deff_instance, army_instance)
         else:
             self.users[user] = UserDeffInfo(user)
             self.users[user].add_back_village(deff_instance, army_instance)
 
-    def add_front_village(self, user, deff_instance, army_instance):
+    def add_front_village(
+        self, user: str, deff_instance: Defence, army_instance: Army | None
+    ) -> None:
         if user in self.users:
             self.users[user].add_front_village(deff_instance, army_instance)
         else:
             self.users[user] = UserDeffInfo(user)
             self.users[user].add_front_village(deff_instance, army_instance)
 
-    def __str__(self):
+    def __str__(self) -> str:
         description = (
             _("Tested. LEGEND: ")
             + "\r\n"
@@ -126,7 +131,7 @@ class NewDeffText:
 
 
 class UserDeffInfo:
-    def __init__(self, username: str):
+    def __init__(self, username: str) -> None:
         self.name = username
         self.back_villages = 0
         self.front_villages = 0
@@ -139,7 +144,7 @@ class UserDeffInfo:
         self.player_back_villages = []
         self.player_front_villages = []
 
-    def user_description(self):
+    def user_description(self) -> str:
         on_front = _("On front")
         villages = _("villages,")
         deff_inside = _("deff IN VILLAGE and")
@@ -159,7 +164,7 @@ class UserDeffInfo:
             f"{all_own}.\r\n"
         )
 
-    def add_back_village(self, deff_instance, army_instance):
+    def add_back_village(self, deff_instance: Defence, army_instance: Army | None):
         self.back_villages += 1
         coord = deff_instance.coord
         inside_army = deff_instance.deff
@@ -169,11 +174,11 @@ class UserDeffInfo:
         else:
             own_army = _("No preview")
 
-        village_info_object = VillageDeffInfo(coord, own_army, inside_army)
+        village_info_object = VillageDeffInfo(coord, str(own_army), str(inside_army))
         self.player_back_villages.append(village_info_object)
         self.sumary_info["player_back_deff_inside"] += inside_army
 
-    def add_front_village(self, deff_instance, army_instance):
+    def add_front_village(self, deff_instance: Defence, army_instance: Army | None):
         self.front_villages += 1
         coord = deff_instance.coord
         inside_army = deff_instance.deff
@@ -183,11 +188,11 @@ class UserDeffInfo:
         else:
             own_army = _("No preview")
 
-        village_info_object = VillageDeffInfo(coord, own_army, inside_army)
+        village_info_object = VillageDeffInfo(coord, str(own_army), str(inside_army))
         self.player_front_villages.append(village_info_object)
         self.sumary_info["player_front_deff_inside"] += inside_army
 
-    def __str__(self):
+    def __str__(self) -> str:
         text = "\r\n\r\n" + self.name + "\r\n---------FRONT---------" + "\r\n"
         for village_info in self.player_front_villages:
             text += str(village_info)
@@ -198,12 +203,12 @@ class UserDeffInfo:
 
 
 class VillageDeffInfo:
-    def __init__(self, coord, own_army, inside_army):
+    def __init__(self, coord: str, own_army: str, inside_army: str) -> None:
         self.coord = coord
         self.own_army = own_army
         self.inside_army = inside_army
 
-    def __str__(self):
+    def __str__(self) -> str:
         inside = _("- In village- ")
         all_troops = _("(All deff")
         return (

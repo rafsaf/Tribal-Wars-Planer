@@ -19,9 +19,11 @@ from django.db.models import F, Sum
 from django.db.models.query import Q, QuerySet
 
 from base import models
+from utils import basic
 from utils.basic.cdist_brute import CDistBrute
 
 
+@basic.timing
 def get_legal_coords_outline(outline: models.Outline):
     """Create set with ally_vill without enemy_vill closer than radius"""
     excluded_coords_text: str = outline.initial_outline_excluded_coords
@@ -105,8 +107,8 @@ def get_legal_coords_outline(outline: models.Outline):
 
     all_weights: QuerySet[models.WeightMaximum] = models.WeightMaximum.objects.filter(
         outline=outline,
-        off_max__gte=outline.initial_outline_min_off,
-        off_max__lte=outline.initial_outline_max_off,
+        off_left__gte=outline.initial_outline_min_off,
+        off_left__lte=outline.initial_outline_max_off,
     )
 
     all_off: int = all_weights.count()
@@ -115,15 +117,15 @@ def get_legal_coords_outline(outline: models.Outline):
     back_off: int = all_off - front_off - too_far_off
 
     n_query: QuerySet[models.WeightMaximum] = models.WeightMaximum.objects.filter(
-        outline=outline, nobleman_max__gte=1
+        outline=outline, nobleman_left__gte=1
     )
 
-    all_noble: int = n_query.aggregate(n=Sum("nobleman_max"))["n"] or 0
+    all_noble: int = n_query.aggregate(n=Sum("nobleman_left"))["n"] or 0
     front_noble: int = (
-        n_query.filter(first_line=True).aggregate(n=Sum("nobleman_max"))["n"] or 0
+        n_query.filter(first_line=True).aggregate(n=Sum("nobleman_left"))["n"] or 0
     )
     too_far_noble: int = (
-        n_query.filter(too_far_away=True).aggregate(n=Sum("nobleman_max"))["n"] or 0
+        n_query.filter(too_far_away=True).aggregate(n=Sum("nobleman_left"))["n"] or 0
     )
     back_noble = all_noble - front_noble - too_far_noble
 
@@ -161,8 +163,8 @@ def get_legal_coords_outline(outline: models.Outline):
                 models.WeightMaximum
             ] = models.WeightMaximum.objects.filter(
                 outline=outline,
-                off_max__gte=outline.initial_outline_min_off,
-                off_max__lte=outline.initial_outline_max_off,
+                off_left__gte=outline.initial_outline_min_off,
+                off_left__lte=outline.initial_outline_max_off,
             ).filter(
                 start__in=close_batch
             )
@@ -175,8 +177,8 @@ def get_legal_coords_outline(outline: models.Outline):
             models.WeightMaximum
         ] = models.WeightMaximum.objects.filter(
             outline=outline,
-            off_max__gte=outline.initial_outline_min_off,
-            off_max__lte=outline.initial_outline_max_off,
+            off_left__gte=outline.initial_outline_min_off,
+            off_left__lte=outline.initial_outline_max_off,
         ).filter(
             start__in=close_starts
         )
@@ -187,15 +189,15 @@ def get_legal_coords_outline(outline: models.Outline):
     back_off: int = all_off - front_off - too_far_off
 
     snob_weights = models.WeightMaximum.objects.filter(
-        outline=outline, nobleman_max__gte=1, too_far_away=False
+        outline=outline, nobleman_left__gte=1, too_far_away=False
     ).filter(start__in=close_starts)
 
-    all_noble: int = snob_weights.aggregate(n=Sum("nobleman_max"))["n"] or 0
+    all_noble: int = snob_weights.aggregate(n=Sum("nobleman_left"))["n"] or 0
     front_noble: int = (
-        snob_weights.filter(first_line=True).aggregate(n=Sum("nobleman_max"))["n"] or 0
+        snob_weights.filter(first_line=True).aggregate(n=Sum("nobleman_left"))["n"] or 0
     )
     too_far_noble: int = (
-        snob_weights.filter(too_far_away=True).aggregate(n=Sum("nobleman_max"))["n"]
+        snob_weights.filter(too_far_away=True).aggregate(n=Sum("nobleman_left"))["n"]
         or 0
     )
     back_noble: int = all_noble - front_noble - too_far_noble
@@ -207,12 +209,12 @@ def get_legal_coords_outline(outline: models.Outline):
 
 def get_available_catapults_lst(outline: models.Outline) -> list[int]:
     catapults = models.WeightMaximum.objects.filter(outline=outline)
-    all_catapults: int = catapults.aggregate(n=Sum("catapult_max"))["n"] or 0
+    all_catapults: int = catapults.aggregate(n=Sum("catapult_left"))["n"] or 0
     front_catapults: int = (
-        catapults.filter(first_line=True).aggregate(n=Sum("catapult_max"))["n"] or 0
+        catapults.filter(first_line=True).aggregate(n=Sum("catapult_left"))["n"] or 0
     )
     too_far_catapults: int = (
-        catapults.filter(too_far_away=True).aggregate(n=Sum("catapult_max"))["n"] or 0
+        catapults.filter(too_far_away=True).aggregate(n=Sum("catapult_left"))["n"] or 0
     )
     back_catapults: int = all_catapults - front_catapults - too_far_catapults
     available_catapults_lst = [
@@ -236,7 +238,7 @@ def get_available_ruins(outline: models.Outline) -> int:
             Q(off_left__lt=outline.initial_outline_min_off)
             | Q(off_left__gt=outline.initial_outline_max_off)
         )
-        .aggregate(ruin_sum=Sum("catapult_max"))["ruin_sum"]
+        .aggregate(ruin_sum=Sum("catapult_left"))["ruin_sum"]
         or 0
     )
 
@@ -251,7 +253,7 @@ def get_available_ruins(outline: models.Outline) -> int:
             off_left__lte=outline.initial_outline_max_off,
         )
         .annotate(
-            ruin_number=(F("catapult_max") - outline.initial_outline_off_left_catapult)
+            ruin_number=(F("catapult_left") - outline.initial_outline_off_left_catapult)
         )
         .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
         or 0

@@ -18,6 +18,7 @@ from typing import TYPE_CHECKING
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.db.models.query import QuerySet
+from django.utils.timezone import now
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
 
@@ -58,8 +59,9 @@ class TargetVertex(models.Model):
     outline_time = models.ForeignKey(
         OutlineTime, on_delete=models.SET_NULL, null=True, default=None
     )
-    target = models.CharField(max_length=7, db_index=True)
+    target = models.CharField(max_length=7)
     player = models.CharField(max_length=30)
+    player_created_at = models.DateTimeField(default=now)
     points = models.IntegerField(default=0)
     fake = models.BooleanField(default=False)
     ruin = models.BooleanField(default=False)

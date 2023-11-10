@@ -29,8 +29,6 @@ class World(models.Model):
     ]
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
     postfix = models.CharField(max_length=10)
-    last_update = models.DateTimeField(auto_now_add=True)
-
     connection_errors = models.IntegerField(default=0)
     speed_world = models.FloatField(default=1)
     speed_units = models.FloatField(default=1)
@@ -42,6 +40,9 @@ class World(models.Model):
     fanout_key_text_player = models.CharField(default="__0", max_length=200)
     fanout_key_text_tribe = models.CharField(default="__0", max_length=200)
     fanout_key_text_village = models.CharField(default="__0", max_length=200)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.server.prefix + self.postfix

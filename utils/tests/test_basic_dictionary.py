@@ -173,7 +173,10 @@ class TestCoordToPlayerAndFromCoordFunctions(TestCase):
             "500|504": "player0",
             "500|505": "player0",
         }
-        self.assertEqual(basic.coord_to_player(self.outline), expected_dict)
+        coord_map = basic.coord_to_player(self.outline)
+        self.assertEqual(
+            {coord: coord_map[coord].name for coord in coord_map}, expected_dict
+        )
 
     def test_coord_to_player_queries_first_are_equal(self):
         with self.assertNumQueries(1):
@@ -188,11 +191,12 @@ class TestCoordToPlayerAndFromCoordFunctions(TestCase):
             "500|504": 999955,
             "500|505": 999955,
         }
-        self.assertEqual(basic.coord_to_player_points(self.outline), expected_dict)
+        coord_player_map = basic.coord_to_player(self.outline)
 
-    def test_coord_to_player_points_queries_first_are_equal(self):
-        with self.assertNumQueries(1):
-            basic.coord_to_player_points(self.outline)
+        self.assertEqual(
+            {coord: coord_player_map[coord].points for coord in coord_player_map},
+            expected_dict,
+        )
 
     def test_coord_from_string_for_tribe1_result_dict_is_correct(self):
         player: Player = Player.objects.get(name="player0")

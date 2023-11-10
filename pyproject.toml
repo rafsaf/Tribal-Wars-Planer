@@ -27,6 +27,7 @@ stripe = "^6.6.0"
 uwsgi = "^2.0.23"
 numpy = "^1.26.1"
 scipy = "^1.11.3"
+beautifulsoup4 = "^4.12.2"
 
 [tool.poetry.group.dev.dependencies]
 autoflake = "^2.2.1"

@@ -170,6 +170,7 @@ class AdminWorld(admin.ModelAdmin):
         "militia",
         "max_noble_distance",
     ]
+    search_fields = ["postfix", "server__dns"]
     list_editable = [
         "connection_errors",
         "speed_world",

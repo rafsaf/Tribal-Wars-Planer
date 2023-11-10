@@ -16,7 +16,7 @@
 
 import utils.basic as basic
 from base.models import Outline, Player
-from base.models import TargetVertex as Target
+from base.models import TargetVertex
 
 
 class OutlineCreateTargets:
@@ -48,16 +48,8 @@ class OutlineCreateTargets:
             text: str = self.outline.initial_outline_ruins
         self.target_text = text.split("\r\n")
 
-    def _player(self, coord: str) -> str:
-        """Return player name"""
-        return self.village_dict[coord].name
-
-    def _points(self, coord: str) -> int:
-        """Return player points"""
-        return self.village_dict[coord].points
-
     def __call__(self) -> None:
-        Target.objects.filter(
+        TargetVertex.objects.filter(
             outline=self.outline,
             fake=self.target_mode.is_fake,
             ruin=self.target_mode.is_ruin,
@@ -68,7 +60,7 @@ class OutlineCreateTargets:
             return None
 
         self._fill_village_dict()
-        targets: list[Target] = []
+        targets: list[TargetVertex] = []
 
         line: str
         for line in self.target_text:
@@ -97,7 +89,7 @@ class OutlineCreateTargets:
                     exact_noble=exact_noble,
                 )
             )
-        Target.objects.bulk_create(targets, batch_size=500)
+        TargetVertex.objects.bulk_create(targets, batch_size=500)
 
     def _target(
         self,
@@ -106,14 +98,16 @@ class OutlineCreateTargets:
         noble: str,
         exact_off: list[str],
         exact_noble: list[str],
-    ) -> Target:
-        target: Target = Target(
+    ) -> TargetVertex:
+        player = self.village_dict[coord]
+        target = TargetVertex(
             outline=self.outline,
             target=coord,
             fake=self.target_mode.is_fake,
             ruin=self.target_mode.is_ruin,
-            player=self._player(coord=coord),
-            points=self._points(coord=coord),
+            player=player.name,
+            points=player.points,
+            player_created_at=player.created_at,
             required_off=off,
             required_noble=noble,
             exact_off=exact_off,

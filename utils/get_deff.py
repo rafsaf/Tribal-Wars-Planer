@@ -25,6 +25,7 @@ Also prining only villages in center
 import numpy as np
 
 from base import models
+from utils.basic.army import Army, Defence
 from utils.basic.cdist_brute import CDistBrute
 
 from . import basic
@@ -92,10 +93,10 @@ def deff_text(
 
     not_in_front = get_set_of_villages(ally_villages, enemy_villages, radius)
     village_dictionary = basic.dictionary.coord_to_player(outline=outline)
-    deff_in_village_back: dict = {}
-    deff_in_village_front: dict = {}
-    deff_own_from_village_back: dict = {}
-    deff_own_from_village_front: dict = {}
+    deff_in_village_back: dict[str, Defence] = {}
+    deff_in_village_front: dict[str, Defence] = {}
+    deff_own_from_village_back: dict[str, Army | None] = {}
+    deff_own_from_village_front: dict[str, Army] = {}
 
     world_evidence = basic.world_evidence(world=outline.world)
 
@@ -133,7 +134,7 @@ def deff_text(
             army_instance = deff_own_from_village_back[coord]
         except KeyError:
             army_instance = None
-        owner = village_dictionary[coord]
+        owner = village_dictionary[coord].name
         all_deff_text.add_back_village(owner, deff_instance, army_instance)
 
     for coord, deff_instance in deff_in_village_front.items():
@@ -141,7 +142,7 @@ def deff_text(
             army_instance = deff_own_from_village_front[coord]
         except KeyError:
             army_instance = None
-        owner = village_dictionary[coord]
+        owner = village_dictionary[coord].name
         all_deff_text.add_front_village(owner, deff_instance, army_instance)
 
     return str(all_deff_text)

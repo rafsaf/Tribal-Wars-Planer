@@ -21,7 +21,6 @@ from .create_test_world import create_test_world
 from .dictionary import (
     coord_to_player,
     coord_to_player_model_from_string,
-    coord_to_player_points,
 )
 from .draw_table import draw_table
 from .encode_component import encode_component
