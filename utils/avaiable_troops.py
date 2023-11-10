@@ -19,11 +19,9 @@ from django.db.models import F, Sum
 from django.db.models.query import Q, QuerySet
 
 from base import models
-from utils import basic
 from utils.basic.cdist_brute import CDistBrute
 
 
-@basic.timing
 def get_legal_coords_outline(outline: models.Outline):
     """Create set with ally_vill without enemy_vill closer than radius"""
     excluded_coords_text: str = outline.initial_outline_excluded_coords
