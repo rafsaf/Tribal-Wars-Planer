@@ -17,6 +17,7 @@
 import utils.basic as basic
 from base import models
 from base.models import Outline, WeightMaximum
+from base.models.player import Player
 from utils.basic import Army, Defence
 
 
@@ -35,8 +36,9 @@ class MakeOutline:
     def __init__(self, outline: models.Outline) -> None:
         self.outline: Outline = outline
         self.evidence = basic.world_evidence(world=outline.world)
-        self.village_dictionary: dict[str, str] = basic.coord_to_player(outline=outline)
-        self.village_points_dictionary = basic.coord_to_player_points(outline=outline)
+        self.village_dictionary: dict[str, Player] = basic.coord_to_player(
+            outline=outline
+        )
         self.weight_max_create_list: list[WeightMaximum] = []
 
     def __call__(self) -> None:
@@ -44,9 +46,8 @@ class MakeOutline:
         if self.outline.input_data_type == models.Outline.ARMY_COLLECTION:
             for line in self.outline.off_troops.split("\r\n"):
                 army = Army(line, self.evidence)
-                player_name: str = self.village_dictionary[army.coord]
-                points: int = self.village_points_dictionary[army.coord]
-                self._add_weight_max(army=army, player=player_name, points=points)
+                player: Player = self.village_dictionary[army.coord]
+                self._add_weight_max(army=army, player=player)
             self.outline.off_troops_weightmodels_hash = (
                 self.outline.get_or_set_off_troops_hash()
             )
@@ -57,10 +58,8 @@ class MakeOutline:
                 if army.coord == current_coord:
                     # we dont wanna use troops outside of village
                     continue
-                current_coord = army.coord
-                player_name: str = self.village_dictionary[army.coord]
-                points: int = self.village_points_dictionary[army.coord]
-                self._add_weight_max(army=army, player=player_name, points=points)
+                player: Player = self.village_dictionary[army.coord]
+                self._add_weight_max(army=army, player=player)
             self.outline.deff_troops_weightmodels_hash = (
                 self.outline.get_or_set_deff_troops_hash()
             )
@@ -73,11 +72,11 @@ class MakeOutline:
         self.outline.avaiable_ruins = None
         self.outline.save()
 
-    def _add_weight_max(self, army: Army | Defence, player: str, points: int) -> None:
+    def _add_weight_max(self, army: Army | Defence, player: Player) -> None:
         self.weight_max_create_list.append(
             WeightMaximum(
                 outline=self.outline,
-                player=player,
+                player=player.name,
                 start=army.coord,
                 x_coord=int(army.coord[0:3]),
                 y_coord=int(army.coord[4:7]),
@@ -90,6 +89,6 @@ class MakeOutline:
                 first_line=False,
                 fake_limit=self.outline.initial_outline_fake_limit,
                 nobles_limit=self.outline.initial_outline_nobles_limit,
-                points=points,
+                points=player.points,
             )
         )

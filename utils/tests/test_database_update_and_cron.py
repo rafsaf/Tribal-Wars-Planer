@@ -239,11 +239,11 @@ class WorldUpdateHandlerTest(MiniSetup):
             )
             world_query.update_all()
             self.world.refresh_from_db()
-            date1 = self.world.last_update
+            date1 = self.world.updated_at
             assert VillageModel.objects.count() == 38219
             assert Player.objects.count() == 10234
             assert Tribe.objects.count() == 534
             world_query.update_all()
             self.world.refresh_from_db()
-            date2 = self.world.last_update
+            date2 = self.world.updated_at
             assert date2 > date1

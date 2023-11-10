@@ -29,7 +29,7 @@ class Overview(models.Model):
     outline_overview = models.ForeignKey(OutlineOverview, on_delete=models.CASCADE)
     token = models.CharField(max_length=100, primary_key=True, db_index=True)
     outline = models.ForeignKey(
-        Outline, on_delete=models.SET_NULL, null=True, blank=True
+        Outline, on_delete=models.SET_NULL, null=True, blank=True, db_index=True
     )
     player = models.CharField(max_length=40)
     created = models.DateTimeField(auto_now_add=True)

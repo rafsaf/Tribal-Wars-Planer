@@ -25,7 +25,7 @@ class WeightMaximum(models.Model):
     """Control state smaller than maximum"""
 
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
-    start = models.CharField(max_length=7, db_index=True)
+    start = models.CharField(max_length=7)
     x_coord = models.IntegerField(default=0)
     y_coord = models.IntegerField(default=0)
     player = models.CharField(max_length=30)

@@ -486,8 +486,8 @@ class TestArmyDefenceCleanMethodsAndDictionaryFunction(TestCase):
             "500|502": "player2",
             "498|502": "player2",
         }
-
-        self.assertEqual(basic.coord_to_player(self.outline), players)
+        coord_map = basic.coord_to_player(self.outline)
+        self.assertEqual({coord: coord_map[coord].name for coord in coord_map}, players)
 
     def test_clean_army_text_off1_pass(self):
         with self.assertRaises(Exception):

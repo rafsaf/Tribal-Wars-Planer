@@ -52,6 +52,9 @@ class Command(BaseCommand):
             schedule.every(60).to(120).seconds.do(
                 run_threaded, call_command, command_name="worldlastupdate"
             )
+            schedule.every(11).to(13).hours.do(
+                run_threaded, call_command, command_name="fetchnewworlds"
+            )
 
             call_command("dbupdate")  # extra db_update on startup
 

@@ -20,32 +20,17 @@ from django.db.models.query import QuerySet
 from base.models import Outline, Player, VillageModel, World
 
 
-def coord_to_player(outline: Outline) -> dict[str, str]:
+def coord_to_player(outline: Outline) -> dict[str, Player]:
     """Dictionary coord : player name for tribes in outline"""
-    ally_villages = (
-        VillageModel.objects.select_related("player")
-        .filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world)
-        .values("coord", "player__name")
+    ally_villages = VillageModel.objects.select_related("player").filter(
+        player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world
     )
-    village_dictionary: dict[str, str] = {}
+    village_dictionary: dict[str, Player] = {}
     for village in ally_villages.iterator(chunk_size=10000):
-        village_dictionary[village["coord"]] = village["player__name"]
+        assert village.player
+        village_dictionary[village.coord] = village.player
 
     return village_dictionary
-
-
-def coord_to_player_points(outline: Outline) -> dict[str, int]:
-    """Dictionary coord : player points for tribes in outline"""
-    ally_villages = (
-        VillageModel.objects.select_related("player")
-        .filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world)
-        .values("coord", "player__points")
-    )
-    village_points_dictionary: dict[str, int] = {}
-    for village in ally_villages.iterator(chunk_size=10000):
-        village_points_dictionary[village["coord"]] = village["player__points"]
-
-    return village_points_dictionary
 
 
 def coord_to_player_model_from_string(
