@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 run_threaded, call_command, command_name="worldlastupdate"
             )
             if settings.WORLD_UPDATE_FETCH_ALL:
-                schedule.every(11).to(13).hours.do(
+                schedule.every(5).to(7).hours.do(
                     run_threaded, call_command, command_name="fetchnewworlds"
                 )
 
