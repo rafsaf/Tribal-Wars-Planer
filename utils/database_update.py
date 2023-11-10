@@ -205,9 +205,11 @@ class WorldUpdateHandler:
         log.info("%s start download_and_save data from tribal wars", self.world)
         while count < download_try:
             self.download_and_save(self.PLAYER_DATA)
+            time.sleep(1.03 + 0.1 * count)
             self.download_and_save(self.VILLAGE_DATA)
+            time.sleep(1.03 + 0.1 * count)
             self.download_and_save(self.TRIBE_DATA)
-            time.sleep(2 + 0.1 * count)
+            time.sleep(1.03 + 0.1 * count)
             count += 1
 
         if self.deleted:
