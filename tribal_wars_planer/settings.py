@@ -57,6 +57,11 @@ JOB_MIN_INTERVAL = int(os.environ.get("JOB_MIN_INTERVAL", 10))
 JOB_MAX_INTERVAL = int(os.environ.get("JOB_MAX_INTERVAL", 15))
 WORLD_UPDATE_TRY_COUNT = int(os.environ.get("WORLD_UPDATE_TRY_COUNT", 1))
 WORLD_UPDATE_THREADS = int(os.environ.get("WORLD_UPDATE_THREADS", 1))
+env_world_update_fetch_all = os.environ.get("WORLD_UPDATE_FETCH_ALL", False)
+if env_world_update_fetch_all in ["True", "true"]:
+    WORLD_UPDATE_FETCH_ALL = True
+else:
+    WORLD_UPDATE_FETCH_ALL = False
 assert JOB_MAX_INTERVAL >= JOB_MIN_INTERVAL
 JOB_LIFETIME_MAX_SECS = int(os.environ.get("JOB_LIFETIME_MAX_SECS", 0))
 assert JOB_LIFETIME_MAX_SECS == 0 or JOB_LIFETIME_MAX_SECS >= 120
