@@ -20,9 +20,9 @@ from datetime import datetime, timezone
 from typing import Literal
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
-from django.conf import settings
 
 import requests
+from django.conf import settings
 from django.db import transaction
 from django.db.models import Count
 from django.utils.timezone import now

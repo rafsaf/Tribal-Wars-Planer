@@ -18,10 +18,7 @@
 from .army import Army, ArmyError, Defence, DefenceError, world_evidence
 from .calculate_duplicates import CalcultateDuplicates
 from .create_test_world import create_test_world
-from .dictionary import (
-    coord_to_player,
-    coord_to_player_model_from_string,
-)
+from .dictionary import coord_to_player, coord_to_player_model_from_string
 from .draw_table import draw_table
 from .encode_component import encode_component
 from .info_generatation import OutlineInfo, TargetCount

@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
 from django.core.validators import MaxValueValidator, MinValueValidator

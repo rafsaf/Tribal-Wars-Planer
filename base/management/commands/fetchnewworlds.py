@@ -15,23 +15,15 @@
 
 
 import logging
-from concurrent import futures
 from time import sleep
-from django.conf import settings
-
-from django.core.management.base import BaseCommand
-
-import metrics
-from base.management.commands.utils import job_logs_and_metrics
-from base.models import World
-from utils.database_update import WorldUpdateHandler
-
 
 import requests
 from bs4 import BeautifulSoup
+from django.core.management.base import BaseCommand
+
 from base import forms
+from base.management.commands.utils import job_logs_and_metrics
 from base.models import Server, World
-import logging
 
 log = logging.getLogger(__name__)
 
@@ -62,9 +54,9 @@ def fetch_and_add_new_worlds() -> None:
     for server in servers:
         log.info("processing server: %s", server.dns)
         available_worlds_postfixes = get_lst_of_available_worlds(server)
-        server_worlds_postfixes = set(
+        server_worlds_postfixes = {
             db_world.postfix for db_world in db_worlds if db_world.server == server
-        )
+        }
         for world_postfix in available_worlds_postfixes:
             if world_postfix in server_worlds_postfixes:
                 continue

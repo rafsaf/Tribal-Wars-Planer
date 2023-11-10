@@ -17,8 +17,8 @@
 import logging
 from concurrent import futures
 from time import sleep
-from django.conf import settings
 
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
 import metrics

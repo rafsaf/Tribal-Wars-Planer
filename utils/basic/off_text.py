@@ -14,6 +14,7 @@
 # ==============================================================================
 
 from django.utils.translation import gettext as _
+
 from utils.basic import Army, Defence
 
 
