@@ -48,6 +48,4 @@ def test_run_cronjobs(monkeypatch: MonkeyPatch, capsys: CaptureFixture):
         "success task calculatepaymentfee - processed in 0.0s\n"
         "starting task worldlastupdate\n"
         "success task worldlastupdate - processed in 0.0s\n"
-        "starting task fetchnewworlds\n"
-        "success task fetchnewworlds - processed in 0.0s\n"
     )
