@@ -82,19 +82,31 @@ def fetch_and_add_new_worlds() -> None:
                 log.info("world %s:%s already here", server.dns, world_postfix)
                 continue
             log.info("adding world %s:%s", server.dns, world_postfix)
-            world_form = forms.AddNewWorldForm(
-                {"server": server.dns, "postfix": world_postfix}
-            )
-            if world_form.is_valid():
-                log.info("added world %s,%s successfully", server.dns, world_postfix)
+            try:
+                world_form = forms.AddNewWorldForm(
+                    {"server": server.dns, "postfix": world_postfix}
+                )
+                if world_form.is_valid():
+                    log.info(
+                        "added world %s,%s successfully", server.dns, world_postfix
+                    )
+                    sleep(1)
+                    continue
+                log.error(
+                    "adding world %s,%s failed: %s",
+                    server.dns,
+                    world_postfix,
+                    world_form.errors,
+                )
+            except Exception as err:
+                log.error(
+                    "adding world %s,%s failed: %s",
+                    server.dns,
+                    world_postfix,
+                    err,
+                    exc_info=True,
+                )
                 sleep(1)
-                continue
-            log.error(
-                "adding world %s,%s failed: %s",
-                server.dns,
-                world_postfix,
-                world_form.errors,
-            )
         sleep(1)
 
 
