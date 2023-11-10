@@ -16,7 +16,6 @@
 
 import logging
 from concurrent import futures
-from time import sleep
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -36,7 +35,7 @@ def update_world(world: World, command: BaseCommand):
         command.stdout.write(command.style.SUCCESS(message))
         log.info(message)
     except Exception as error:
-        log.error(f"error in task dbupdate {world}: {error}")
+        log.error("error in task dbupdate %s: %s", world, error, exc_info=True)
         metrics.ERRORS.labels(f"task_dbupdate {world}").inc()
 
 
@@ -54,6 +53,5 @@ class Command(BaseCommand):
             for world in worlds:
                 log.info("submited update_world task for world: %s to executor", world)
                 tasks.append(executor.submit(update_world, world=world, command=self))
-                sleep(0.2)
 
             futures.wait(tasks)
