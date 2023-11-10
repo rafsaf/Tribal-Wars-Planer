@@ -17,6 +17,7 @@ import gzip
 import logging
 import time
 from datetime import datetime, timezone
+from random import randint
 from typing import Literal
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
@@ -205,12 +206,13 @@ class WorldUpdateHandler:
         log.info("%s start download_and_save data from tribal wars", self.world)
         while count < download_try:
             self.download_and_save(self.PLAYER_DATA)
-            time.sleep(1.03 + 0.1 * count)
+            time.sleep(1.23 + randint(1, 60) / 60)
             self.download_and_save(self.VILLAGE_DATA)
-            time.sleep(1.03 + 0.1 * count)
+            time.sleep(1.23 + randint(1, 60) / 60)
             self.download_and_save(self.TRIBE_DATA)
-            time.sleep(1.03 + 0.1 * count)
             count += 1
+            if count < download_try:
+                time.sleep(1.23 + randint(1, 60) / 60)
 
         if self.deleted:
             return f"{self.world} was deleted"
@@ -255,6 +257,7 @@ class WorldUpdateHandler:
         """Download data (NOT ALWAYS latest) from game API in text format and save in disk cache"""
         if self.deleted:
             return
+        log.info("%s download_and_save: %s", self.world, data_type)
         try:
             res = requests.get(
                 self.world.link_to_game(data_type),
