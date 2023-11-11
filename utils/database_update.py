@@ -206,13 +206,13 @@ class WorldUpdateHandler:
         log.info("%s start download_and_save data from tribal wars", self.world)
         while count < download_try:
             self.download_and_save(self.PLAYER_DATA)
-            time.sleep(1.23 + randint(1, 60) / 60)
+            time.sleep(0.2 + randint(1, 20) / 60)
             self.download_and_save(self.VILLAGE_DATA)
-            time.sleep(1.23 + randint(1, 60) / 60)
+            time.sleep(0.2 + randint(1, 20) / 60)
             self.download_and_save(self.TRIBE_DATA)
             count += 1
             if count < download_try:
-                time.sleep(1.23 + randint(1, 60) / 60)
+                time.sleep(0.5 + randint(1, 20) / 60)
 
         if self.deleted:
             return f"{self.world} was deleted"
@@ -285,7 +285,8 @@ class WorldUpdateHandler:
             log.info(f"setting cache key {unique_cache_key}")
             fanout_cache.set(unique_cache_key, text, 3 * 60 * 60)
 
-        except (Timeout, ConnectionError):
+        except (Timeout, ConnectionError) as err:
+            log.error(err, exc_info=True)
             self.handle_connection_error()
 
     def get_latest_data_key(self, data_type: "WorldUpdateHandler.DATA_TYPES") -> str:
