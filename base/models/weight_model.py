@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from collections.abc import Callable
 from datetime import datetime
 from math import sqrt
 
@@ -63,6 +64,7 @@ class WeightModel(models.Model):
     t2: datetime
     sh_t1: datetime
     sh_t2: datetime
+    get_building_display: Callable[[], str]
 
     def __str__(self):
         return self.start

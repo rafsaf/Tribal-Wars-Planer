@@ -56,7 +56,7 @@
 
                 <div class="overview-card">
                     <h1 class="font-nav">
-                        <span class="mr-2">{% trans 'Text extended' %}</span>
+                        <span class="mr-2">{% trans 'New Text extended' %}</span>
                         {% if android_tw_app_webview %}
                         <h5>{% trans "Copy content from textarea below" %}</h5>
                         {% else %}
@@ -68,7 +68,41 @@
 
                         <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
                             <div class="pl-2">
-                                <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%}</span><br>
+                                <br>
+                                <b>----------------1999-03-02 ({% trans 'Tuesday' %})----------------</b>
+                                <br>
+                                1. <b><span style="color:#a50000">{% trans 'Send OFF' %}[20970 off]</span> (2 {% trans 'of' %} 5) </b>
+                                <br>
+                                <br>
+                                <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                <br>
+                                <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11 </span> <b> -> </b> <span style="color:#603000;font-weight:700"> {% trans "Plemiona Planer is the best"%} (999|999) K99</span>
+                                <br>
+                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.new_extended}}</textarea>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <h1 class="font-nav">
+                        <span class="mr-2">{% trans 'Old Text extended' %}</span>
+                        {% if android_tw_app_webview %}
+                        <h5>{% trans "Copy content from textarea below" %}</h5>
+                        {% else %}
+                        <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                        {% endif %}
+                    </h1>
+
+                    <div>
+
+                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="pl-2">
+                                <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%} (999|999) K99</span><br>
                                 <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
                                 <br>
                                 <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
@@ -120,10 +154,10 @@
                                             <b><span style="color:#0e5e5e">07:00:00</span></b>-<b><span style="color:#ff0000">08:00:00</span></b>
                                         </td>
                                         <td>
-                                            <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span>
+                                            <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11</span>
                                         </td>
                                         <td>
-                                            <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%}</span>
+                                            <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%} (999|999) K99</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -149,7 +183,7 @@
 
                         <div style="cursor: default;" class="tribalwarsbg" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
                             <div class="pl-2">
-                                <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %}</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best" %}</span><br>
+                                <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best" %}</span><br>
                                 <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
                                 <br>
                                 <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
@@ -191,11 +225,11 @@
                                             <span class="badge badge badge-secondary">{{target.target}}</span>
                                         </h5>
                                         {% if target.fake %}
-                                        <h5 style="color: teal;" class="font-italic">Fake</h5>
+                                        <h5 style="color: teal;" class="font-italic"> Fake</h5>
                                         {% elif target.ruin %}
-                                        <h5 style="color: rgb(109, 70, 46);" class="font-italic"><img src='{% static "images/catapult.png" %}' alt="cat">{% trans 'Ruin' %}</h5>
+                                        <h5 style="color: rgb(109, 70, 46);" class="font-italic"><img src='{% static "images/catapult.png" %}' alt="cat"> {% trans 'Ruin' %}</h5>
                                         {% else %}
-                                        <h5 style="color: rgb(79, 81, 85);" class="font-italic"><img src='{% static "images/ax.png" %}' alt="ax">{% trans 'Off' %}</h5>
+                                        <h5 style="color: rgb(79, 81, 85);" class="font-italic"><img src='{% static "images/ax.png" %}' alt="ax"> {% trans 'Off' %}</h5>
                                         {% endif %}
                                     </th>
                                     {% for weight in lst %}

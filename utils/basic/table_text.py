@@ -14,33 +14,57 @@
 # ==============================================================================
 
 import re
+from collections import defaultdict
 
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 from base import models
+from base.models.weight_model import WeightModel
 
 
 class TableText:
     NEXT_LINE = "\r\n"
     NEXT_LINE_DOUBLE = "\r\n\r\n"
     POSTFIX = "[/table]"
+    WEEKDAY_PAUZES = "-" * 16
+    WEEKDAYS = {
+        0: gettext_lazy("Monday"),
+        1: gettext_lazy("Tuesday"),
+        2: gettext_lazy("Wednesday"),
+        3: gettext_lazy("Thursday"),
+        4: gettext_lazy("Friday"),
+        5: gettext_lazy("Saturday"),
+        6: gettext_lazy("Sunday"),
+    }
 
-    def __init__(self, world: models.World):
+    def __init__(self, outline: models.Outline):
         self.PREFIX = _(
             "[table][**][||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
         )
-        self.result = {}
+        self.result: defaultdict[str, list[WeightModel]] = defaultdict(list)
         self.table_result = {}
         self.string_result = {}
         self.deputy_result = {}
         self.extended_result = {}
+        self.new_extended_result = {}
 
         self.weight_table = {}
         self.weight_string = {}
+        self.weight_string = {}
         self.weight_deputy = {}
         self.weight_extended = {}
+        self.new_weight_extended = {}
 
-        self.world = world
+        self.world = outline.world
+        self.outline = outline
+        self.weights: defaultdict[str, list[WeightModel]] = defaultdict(list)
+
+    def create_weights(self, weight_lst: list[WeightModel]):
+        for weight in weight_lst:
+            self.weights[weight.start].append(weight)
+        for weights in self.weights.values():
+            weights.sort(key=lambda weight: weight.sh_t1)
 
     def __link(
         self,
@@ -122,6 +146,131 @@ class TableText:
             f"[|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord]"
         )
 
+    def __new_weight_string(
+        self,
+        weight: models.WeightModel,
+        ally_id,
+        enemy_id,
+        fake,
+        deputy=None,
+    ):
+        if deputy is not None:
+            deputy_link_part = f"&t={deputy}"
+        else:
+            deputy_link_part = ""
+
+        data = {
+            "noble_number": weight.nobleman,
+            "off_number": weight.off,
+            "catapults_number": weight.catapult,
+            "date": self.__date_string(weight.sh_t1, weight.sh_t2),
+            "start_coord": weight.start,
+            "target_coord": weight.target.target,
+            "game_url": self.world.link_to_game(),
+            "ally_id": ally_id,
+            "enemy_id": enemy_id,
+            "deputy_link_part": deputy_link_part,
+            "building": weight.get_building_display().upper()
+            if weight.building
+            else None,
+        }
+        if fake and weight.nobleman > 0:
+            all_weights_from_this_village = [
+                w
+                for w in self.weights[weight.start]
+                if w.target.fake and weight.nobleman > 0
+            ]
+            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
+            data["weight_count_all"] = len(all_weights_from_this_village)
+            return (
+                _(
+                    "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
+                    "[url=%(game_url)s/game.php?"
+                    "village=%(ally_id)s&screen=place&"
+                    "target=%(enemy_id)s%(deputy_link_part)s]Send FAKE NOBLE[/url]"
+                )
+                % data
+            )
+        elif fake and weight.nobleman == 0:
+            all_weights_from_this_village = [
+                w
+                for w in self.weights[weight.start]
+                if w.target.fake and weight.nobleman == 0
+            ]
+            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
+            data["weight_count_all"] = len(all_weights_from_this_village)
+            return (
+                _(
+                    "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
+                    "[url=%(game_url)s/game.php?"
+                    "village=%(ally_id)s&screen=place&"
+                    "target=%(enemy_id)s%(deputy_link_part)s]Send FAKE[/url]"
+                )
+                % data
+            )
+        elif weight.ruin:
+            all_weights_from_this_village = [
+                w for w in self.weights[weight.start] if w.ruin
+            ]
+            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
+            data["weight_count_all"] = len(all_weights_from_this_village)
+            return (
+                _(
+                    "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s][/color] "
+                    "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
+                    "[url=%(game_url)s/game.php?"
+                    "village=%(ally_id)s&screen=place&"
+                    "target=%(enemy_id)s%(deputy_link_part)s]Send RUIN[/url]"
+                )
+                % data
+            )
+        elif weight.nobleman > 0:
+            all_weights_from_this_village = [
+                w
+                for w in self.weights[weight.start]
+                if not w.ruin and not w.target.fake and w.nobleman > 0
+            ]
+            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
+            data["weight_count_all"] = len(all_weights_from_this_village)
+            return (
+                _(
+                    "[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/color] "
+                    "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
+                    "[url=%(game_url)s/game.php?"
+                    "village=%(ally_id)s&screen=place&"
+                    "target=%(enemy_id)s%(deputy_link_part)s]Send NOBLE[/url]"
+                )
+                % data
+            )
+        else:
+            all_weights_from_this_village = [
+                w
+                for w in self.weights[weight.start]
+                if not w.ruin and not w.target.fake and w.nobleman == 0
+            ]
+            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
+            data["weight_count_all"] = len(all_weights_from_this_village)
+            return (
+                _(
+                    "[b][color=#a50000]Send OFF[%(off_number)s off][/color] "
+                    "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
+                    "[url=%(game_url)s/game.php?"
+                    "village=%(ally_id)s&screen=place&"
+                    "target=%(enemy_id)s%(deputy_link_part)s]Send OFF[/url]"
+                )
+                % data
+            )
+
     def __weight_string(
         self,
         weight: models.WeightModel,
@@ -143,7 +292,7 @@ class TableText:
         elif weight.ruin:
             text = _("[color=#0e0eff][b]Ruin[/b][/color] (Catapults-")
             if weight.building is not None:
-                building = "[b]" + weight.get_building_display() + "[/b]"  # type: ignore
+                building = "[b]" + weight.get_building_display() + "[/b]"
             else:
                 building = ""
             send = f"{text}{weight.catapult} {building})"
@@ -183,14 +332,15 @@ class TableText:
             self.__weight_string(weight, ally_id, enemy_id, fake)
         )
 
-        self.weight_deputy[weight] = str(
-            self.__weight_string(weight, ally_id, enemy_id, fake, deputy=deputy)
+        self.new_weight_extended[weight] = str(
+            self.__new_weight_string(weight, ally_id, enemy_id, fake)
         )
-        try:
-            self.result[weight.player].append(weight)
 
-        except KeyError:
-            self.result[weight.player] = [weight]
+        self.weight_deputy[weight] = str(
+            self.__new_weight_string(weight, ally_id, enemy_id, fake, deputy=deputy)
+        )
+
+        self.result[weight.player].append(weight)
 
     def __sort_weights(self):
         for lst in self.result.values():
@@ -227,8 +377,21 @@ class TableText:
 
     def __create_deputy(self):
         for player, lst in self.result.items():
+            day_split_used: set[str] = set()
             text = str(self.NEXT_LINE + self.NEXT_LINE)
             for i, weight in enumerate(lst):
+                date = str(weight.sh_t1.date())
+                if date not in day_split_used:
+                    day_split_used.add(date)
+                    text += (
+                        "[b]"
+                        + self.WEEKDAY_PAUZES
+                        + date
+                        + f" ({self.WEEKDAYS[weight.sh_t1.weekday()]})"
+                        + self.WEEKDAY_PAUZES
+                        + "[/b]"
+                        + self.NEXT_LINE
+                    )
                 text += (
                     f"{i + 1}. " + self.weight_deputy[weight] + self.NEXT_LINE_DOUBLE
                 )
@@ -244,6 +407,31 @@ class TableText:
                 )
 
             self.extended_result[player] = text
+
+    def __create_new_extended(self):
+        for player, lst in self.result.items():
+            day_split_used: set[str] = set()
+            text = str(self.NEXT_LINE + self.NEXT_LINE)
+            for i, weight in enumerate(lst):
+                date = str(weight.sh_t1.date())
+                if date not in day_split_used:
+                    day_split_used.add(date)
+                    text += (
+                        "[b]"
+                        + self.WEEKDAY_PAUZES
+                        + date
+                        + f" ({self.WEEKDAYS[weight.sh_t1.weekday()]})"
+                        + self.WEEKDAY_PAUZES
+                        + "[/b]"
+                        + self.NEXT_LINE
+                    )
+                text += (
+                    f"{i + 1}. "
+                    + self.new_weight_extended[weight]
+                    + self.NEXT_LINE_DOUBLE
+                )
+
+            self.new_extended_result[player] = text
 
     def get_full_result(self):
         result = ""
@@ -264,6 +452,7 @@ class TableText:
         self.__create_string()
         self.__create_deputy()
         self.__create_extended()
+        self.__create_new_extended()
 
     def iterate_over(self):
         for player in self.result:
@@ -273,4 +462,5 @@ class TableText:
                 self.string_result[player],
                 self.deputy_result[player],
                 self.extended_result[player],
+                self.new_extended_result[player],
             )

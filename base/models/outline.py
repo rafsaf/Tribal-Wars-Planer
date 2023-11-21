@@ -145,7 +145,8 @@ class Outline(models.Model):
             gettext_lazy("(Default) Auto generated, fully equipped safe links"),
         ),
         ("string", gettext_lazy("Text simple directly in message")),
-        ("extended", gettext_lazy("Text extended directly in message")),
+        ("new_extended", gettext_lazy("New text extended directly in message")),
+        ("extended", gettext_lazy("Old text extended directly in message")),
         ("deputy", gettext_lazy("Text for deputy directly in message")),
     ]
 
