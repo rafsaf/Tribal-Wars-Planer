@@ -209,8 +209,9 @@ class MakeFinalOutline:
 
         json_weights: dict[int, list[dict[str, Any]]] = {}
         outline_info = basic.OutlineInfo(outline=self.outline)
-        text = basic.TableText(world=self.outline.world)
+        text = basic.TableText(outline=self.outline)
 
+        weight_lst: list[WeightModel] = []
         with text:
             target: TargetVertex
             for target in self.targets:
@@ -223,21 +224,27 @@ class MakeFinalOutline:
 
                 for weight in lst:
                     weight = time_periods.next(weight=weight)
-                    try:
-                        ally_id = self._ally_id(weight.start)
-                        enemy_id = self._enemy_id(weight.target.target)
-                        deputy_id = self._player_id(weight.player)
-                    except OutdatedData:
-                        continue
+                    weight.target = target
 
-                    text.add_weight(
-                        weight=weight,
-                        ally_id=ally_id,
-                        enemy_id=enemy_id,
-                        fake=target.fake,
-                        deputy=deputy_id,
-                    )
+                    weight_lst.append(weight)
                     json_weights[target.pk].append(self._json_weight(weight))
+
+            text.create_weights(weight_lst)
+
+            for weight in weight_lst:
+                try:
+                    ally_id = self._ally_id(weight.start)
+                    enemy_id = self._enemy_id(weight.target.target)
+                    deputy_id = self._player_id(weight.player)
+                except OutdatedData:
+                    continue
+                text.add_weight(
+                    weight=weight,
+                    ally_id=ally_id,
+                    enemy_id=enemy_id,
+                    fake=weight.target.fake,
+                    deputy=deputy_id,
+                )
 
         result_instance: Result = Result.objects.get(outline=self.outline)
         result_instance.results_outline = text.get_full_result()
@@ -251,7 +258,14 @@ class MakeFinalOutline:
         outline_overview = self._outline_overview(json_weight_dict, json_targets)
         overviews = []
 
-        for player, table, string, deputy, extended in text.iterate_over():
+        for (
+            player,
+            table,
+            string,
+            deputy,
+            extended,
+            new_extended,
+        ) in text.iterate_over():
             token = secrets.token_urlsafe()
 
             overviews.append(
@@ -262,6 +276,7 @@ class MakeFinalOutline:
                     outline_overview=outline_overview,
                     table=table,
                     extended=extended,
+                    new_extended=new_extended,
                     string=string,
                     deputy=deputy,
                     show_hidden=self.outline.default_show_hidden,

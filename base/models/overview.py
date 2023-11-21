@@ -36,6 +36,7 @@ class Overview(models.Model):
     table = models.TextField()
     string = models.TextField()
     extended = models.TextField(default="")
+    new_extended = models.TextField(default="")
     deputy = models.TextField(default="")
     show_hidden = models.BooleanField(default=False)
     removed = models.BooleanField(default=False)
