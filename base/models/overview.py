@@ -69,6 +69,10 @@ class Overview(models.Model):
             if instance.send_message_with_url:
                 message += overview_url
             message += instance.text_message + self.extended
+        elif instance.sending_option == "new_extended":
+            if instance.send_message_with_url:
+                message += overview_url
+            message += instance.text_message + self.new_extended
         elif instance.sending_option == "deputy":
             if instance.send_message_with_url:
                 message += overview_url

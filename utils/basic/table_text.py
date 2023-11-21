@@ -184,9 +184,9 @@ class TableText:
             data["weight_count_all"] = len(all_weights_from_this_village)
             return (
                 _(
-                    "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\r\n"
-                    "%(date)s\r\n"
-                    "%(start_coord)s [b]->[/b] %(target_coord)s\r\n"
+                    "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
                     "[url=%(game_url)s/game.php?"
                     "village=%(ally_id)s&screen=place&"
                     "target=%(enemy_id)s%(deputy_link_part)s]Send FAKE NOBLE[/url]"
@@ -203,9 +203,9 @@ class TableText:
             data["weight_count_all"] = len(all_weights_from_this_village)
             return (
                 _(
-                    "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\r\n"
-                    "%(date)s\r\n"
-                    "%(start_coord)s [b]->[/b] %(target_coord)s\r\n"
+                    "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
                     "[url=%(game_url)s/game.php?"
                     "village=%(ally_id)s&screen=place&"
                     "target=%(enemy_id)s%(deputy_link_part)s]Send FAKE[/url]"
@@ -221,9 +221,9 @@ class TableText:
             return (
                 _(
                     "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s][/color] "
-                    "(%(weight_count)s of %(weight_count_all)s)[/b]\r\n"
-                    "%(date)s\r\n"
-                    "%(start_coord)s [b]->[/b] %(target_coord)s\r\n"
+                    "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
                     "[url=%(game_url)s/game.php?"
                     "village=%(ally_id)s&screen=place&"
                     "target=%(enemy_id)s%(deputy_link_part)s]Send RUIN[/url]"
@@ -241,9 +241,9 @@ class TableText:
             return (
                 _(
                     "[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/color] "
-                    "(%(weight_count)s of %(weight_count_all)s)[/b]\r\n"
-                    "%(date)s\r\n"
-                    "%(start_coord)s [b]->[/b] %(target_coord)s\r\n"
+                    "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
                     "[url=%(game_url)s/game.php?"
                     "village=%(ally_id)s&screen=place&"
                     "target=%(enemy_id)s%(deputy_link_part)s]Send NOBLE[/url]"
@@ -261,9 +261,9 @@ class TableText:
             return (
                 _(
                     "[b][color=#a50000]Send OFF[%(off_number)s off][/color] "
-                    "(%(weight_count)s of %(weight_count_all)s)[/b]\r\n"
-                    "%(date)s\r\n"
-                    "%(start_coord)s [b]->[/b] %(target_coord)s\r\n"
+                    "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
                     "[url=%(game_url)s/game.php?"
                     "village=%(ally_id)s&screen=place&"
                     "target=%(enemy_id)s%(deputy_link_part)s]Send OFF[/url]"
