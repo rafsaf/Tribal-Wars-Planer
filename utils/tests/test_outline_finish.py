@@ -186,6 +186,28 @@ class TestMakeFinalOutline(TestCase):
         )
 
         self.assertEqual(overview.extended, extended)
+        new_extended = (
+            "\r\n\r\n[b]----------------2021-03-03 (Środa)----------------[/b]\r\n"
+            "1. [b][color=#a50000]Wyślij OFF[19000 off][/color] (1 z 1)[/b]\n"
+            "\r\n"
+            "[b]2021-03-03 [color=#ff0000]05:30:00 - 07:30:00[/color][/b]\n"
+            "500|502 [b]->[/b] 500|499\n"
+            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url]\r\n"
+            "\r\n"
+            "2. [b][color=#a50000]Wyślij OFF[100 off][/color] (1 z 1)[/b]\n"
+            "\r\n"
+            "[b]2021-03-03 [color=#ff0000]06:00:00 - 08:00:00[/color][/b]\n"
+            "500|501 [b]->[/b] 500|499\n"
+            "[url=https://te1.testserver/game.php?village=1&screen=place&target=6]Wyślij OFF[/url]\r\n"
+            "\r\n"
+            "3. [b][color=#a500a5]Wyślij SZLACHCIC[5000 off + 1 szlachcic][/color] (1 z 1)[/b]\n"
+            "\r\n"
+            "[b]2021-03-03 [color=#ff0000]08:25:00 - 09:25:00[/color][/b]\n"
+            "500|500 [b]->[/b] 500|499\n"
+            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij SZLACHCIC[/url]\r\n\r\n"
+        )
+
+        self.assertEqual(overview.new_extended, new_extended)
 
         string = (
             "\r\n\r\n1. [size=12][b]OFF[/b][/size] (Off-19000)\r\n"
@@ -203,17 +225,24 @@ class TestMakeFinalOutline(TestCase):
         self.assertEqual(overview.string, string)
 
         deputy = (
-            "\r\n\r\n1. [size=12][b]OFF[/b][/size] (Off-19000) z wioski 500|502 na 500|499\r\n"
+            "\r\n\r\n[b]----------------2021-03-03 (Środa)----------------[/b]\r\n"
+            "1. [b][color=#a50000]Wyślij OFF[19000 off][/color] (1 z 1)[/b]\n"
+            "\r\n"
             "[b]2021-03-03 [color=#ff0000]05:30:00 - 07:30:00[/color][/b]\n"
+            "500|502 [b]->[/b] 500|499\n"
             "[url=https://te1.testserver/game.php?village=2&screen=place&target=6&t=0]Wyślij OFF[/url]\r\n"
             "\r\n"
-            "2. [size=12][b]OFF[/b][/size] (Off-100) z wioski 500|501 na 500|499\r\n"
+            "2. [b][color=#a50000]Wyślij OFF[100 off][/color] (1 z 1)[/b]\n"
+            "\r\n"
             "[b]2021-03-03 [color=#ff0000]06:00:00 - 08:00:00[/color][/b]\n"
+            "500|501 [b]->[/b] 500|499\n"
             "[url=https://te1.testserver/game.php?village=1&screen=place&target=6&t=0]Wyślij OFF[/url]\r\n"
             "\r\n"
-            "3. [color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color] (Off-5000, Szlachcice-1)  z wioski 500|500 na 500|499\r\n"
+            "3. [b][color=#a500a5]Wyślij SZLACHCIC[5000 off + 1 szlachcic][/color] (1 z 1)[/b]\n"
+            "\r\n"
             "[b]2021-03-03 [color=#ff0000]08:25:00 - 09:25:00[/color][/b]\n"
-            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6&t=0]Wyślij OFF[/url]\r\n\r\n"
+            "500|500 [b]->[/b] 500|499\n"
+            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6&t=0]Wyślij SZLACHCIC[/url]\r\n\r\n"
         )
         self.assertEqual(overview.deputy, deputy)
         self.assertEqual(overview.show_hidden, False)
