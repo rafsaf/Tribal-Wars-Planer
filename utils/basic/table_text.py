@@ -17,6 +17,7 @@ import re
 from collections import defaultdict
 
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 from base import models
 from base.models.weight_model import WeightModel
@@ -28,13 +29,13 @@ class TableText:
     POSTFIX = "[/table]"
     WEEKDAY_PAUZES = "-" * 16
     WEEKDAYS = {
-        0: _("Monday"),
-        1: _("Tuesday"),
-        2: _("Wednesday"),
-        3: _("Thursday"),
-        4: _("Friday"),
-        5: _("Saturday"),
-        6: _("Sunday"),
+        0: gettext_lazy("Monday"),
+        1: gettext_lazy("Tuesday"),
+        2: gettext_lazy("Wednesday"),
+        3: gettext_lazy("Thursday"),
+        4: gettext_lazy("Friday"),
+        5: gettext_lazy("Saturday"),
+        6: gettext_lazy("Sunday"),
     }
 
     def __init__(self, outline: models.Outline):
