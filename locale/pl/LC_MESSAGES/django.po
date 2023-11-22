@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-21 02:50+0100\n"
+"POT-Creation-Date: 2023-11-22 22:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1828,7 +1828,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:253
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
-#: base/templates/base/overview.html:213 utils/basic/mode.py:61
+#: base/templates/base/overview.html:220 utils/basic/mode.py:61
 #: utils/outline_finish.py:73
 msgid "Target"
 msgstr "Cel"
@@ -1838,7 +1838,7 @@ msgid "Select Time"
 msgstr "Wybierz Czas"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:255
-#: base/templates/base/overview.html:214 utils/basic/mode.py:68
+#: base/templates/base/overview.html:221 utils/basic/mode.py:68
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -1963,7 +1963,7 @@ msgid "Previous"
 msgstr "Poprzednia"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:267
-#: base/templates/base/overview.html:74
+#: base/templates/base/overview.html:74 base/templates/base/overview.html:188
 msgid "of"
 msgstr "z"
 
@@ -2128,20 +2128,20 @@ msgstr "Kopiuj do schowka"
 
 #: base/templates/base/overview.html:42 base/templates/base/overview.html:69
 #: base/templates/base/overview.html:103 base/templates/base/overview.html:129
-#: base/templates/base/overview.html:184
+#: base/templates/base/overview.html:183
 msgid "This is what this form of orders looks like when pasted into a notebook"
 msgstr "Ten typ rozkazów tak będzie wyglądał po wklejeniu do notatek w grze"
 
 #: base/templates/base/overview.html:47 base/templates/base/overview.html:74
 #: base/templates/base/overview.html:81 base/templates/base/overview.html:108
-#: base/templates/base/overview.html:146 base/templates/base/overview.html:189
-#: utils/basic/table_text.py:87
+#: base/templates/base/overview.html:146 base/templates/base/overview.html:188
+#: base/templates/base/overview.html:195 utils/basic/table_text.py:87
 msgid "Send OFF"
 msgstr "Wyślij OFF"
 
 #: base/templates/base/overview.html:53 base/templates/base/overview.html:87
 #: base/templates/base/overview.html:114 base/templates/base/overview.html:168
-#: base/templates/base/overview.html:194
+#: base/templates/base/overview.html:201
 msgid "A link to your targets on plemiona-planer.pl."
 msgstr "Link do Twoich celów na plemiona-planer.pl."
 
@@ -2149,17 +2149,18 @@ msgstr "Link do Twoich celów na plemiona-planer.pl."
 msgid "New Text extended"
 msgstr "Nowy tekst rozszerzony"
 
-#: base/templates/base/overview.html:72 utils/basic/table_text.py:33
+#: base/templates/base/overview.html:72 base/templates/base/overview.html:186
+#: utils/basic/table_text.py:33
 msgid "Tuesday"
 msgstr "Wtorek"
 
 #: base/templates/base/overview.html:79 base/templates/base/overview.html:105
-#: base/templates/base/overview.html:157 base/templates/base/overview.html:186
+#: base/templates/base/overview.html:157 base/templates/base/overview.html:193
 msgid "Remember this is only the example"
 msgstr "Pamiętaj, że to tylko przykład"
 
 #: base/templates/base/overview.html:79 base/templates/base/overview.html:105
-#: base/templates/base/overview.html:160 base/templates/base/overview.html:186
+#: base/templates/base/overview.html:160 base/templates/base/overview.html:193
 msgid "Plemiona Planer is the best"
 msgstr "Plemiona Planer jest najlepszy"
 
@@ -2167,13 +2168,11 @@ msgstr "Plemiona Planer jest najlepszy"
 msgid "Old Text extended"
 msgstr "Stary tekst rozszerzony"
 
-#: base/templates/base/overview.html:105 base/templates/base/overview.html:186
-#: utils/basic/table_text.py:284
+#: base/templates/base/overview.html:105 utils/basic/table_text.py:284
 msgid "from village"
 msgstr "z wioski"
 
-#: base/templates/base/overview.html:105 base/templates/base/overview.html:186
-#: utils/basic/table_text.py:285
+#: base/templates/base/overview.html:105 utils/basic/table_text.py:285
 msgid "to "
 msgstr "na "
 
@@ -2223,17 +2222,17 @@ msgstr ""
 "Wskazówka: Użyj tej formy jeśli ktoś inny będzie za Ciebie wysyłał ataki z "
 "zastępstwa."
 
-#: base/templates/base/overview.html:204
+#: base/templates/base/overview.html:211
 msgid "Alert! The order in the list below matters and is fixed."
 msgstr ""
 "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
 "ustalona."
 
-#: base/templates/base/overview.html:230
+#: base/templates/base/overview.html:237
 msgid "Ruin"
 msgstr "Burzenie"
 
-#: base/templates/base/overview.html:232
+#: base/templates/base/overview.html:239
 msgid "Off"
 msgstr "Off"
 
