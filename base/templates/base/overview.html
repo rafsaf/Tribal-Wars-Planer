@@ -60,7 +60,7 @@
                         {% if android_tw_app_webview %}
                         <h5>{% trans "Copy content from textarea below" %}</h5>
                         {% else %}
-                        <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                        <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`new-text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
                         {% endif %}
                     </h1>
 
@@ -84,7 +84,7 @@
                             </div>
                         </div>
 
-                        <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.new_extended}}</textarea>
+                        <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="new-text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.new_extended}}</textarea>
                     </div>
                 </div>
 
