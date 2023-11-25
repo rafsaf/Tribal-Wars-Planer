@@ -64,7 +64,9 @@ class TableText:
         for weight in weight_lst:
             self.weights[weight.start].append(weight)
         for weights in self.weights.values():
-            weights.sort(key=lambda weight: weight.sh_t1)
+            weights.sort(
+                key=lambda weight: (weight.sh_t1, weight.nobleman, weight.order)
+            )
 
     def __link(
         self,
@@ -159,7 +161,11 @@ class TableText:
         else:
             deputy_link_part = ""
 
+        all_weights_from_this_village = self.weights[weight.start]
+
         data = {
+            "weight_count": all_weights_from_this_village.index(weight) + 1,
+            "weight_count_all": len(all_weights_from_this_village),
             "noble_number": weight.nobleman,
             "off_number": weight.off,
             "catapults_number": weight.catapult,
@@ -174,14 +180,8 @@ class TableText:
             if weight.building
             else None,
         }
+
         if fake and weight.nobleman > 0:
-            all_weights_from_this_village = [
-                w
-                for w in self.weights[weight.start]
-                if w.target.fake and weight.nobleman > 0
-            ]
-            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
-            data["weight_count_all"] = len(all_weights_from_this_village)
             return (
                 _(
                     "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
@@ -194,13 +194,6 @@ class TableText:
                 % data
             )
         elif fake and weight.nobleman == 0:
-            all_weights_from_this_village = [
-                w
-                for w in self.weights[weight.start]
-                if w.target.fake and weight.nobleman == 0
-            ]
-            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
-            data["weight_count_all"] = len(all_weights_from_this_village)
             return (
                 _(
                     "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
@@ -213,11 +206,6 @@ class TableText:
                 % data
             )
         elif weight.ruin:
-            all_weights_from_this_village = [
-                w for w in self.weights[weight.start] if w.ruin
-            ]
-            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
-            data["weight_count_all"] = len(all_weights_from_this_village)
             return (
                 _(
                     "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s][/color] "
@@ -231,13 +219,6 @@ class TableText:
                 % data
             )
         elif weight.nobleman > 0:
-            all_weights_from_this_village = [
-                w
-                for w in self.weights[weight.start]
-                if not w.ruin and not w.target.fake and w.nobleman > 0
-            ]
-            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
-            data["weight_count_all"] = len(all_weights_from_this_village)
             return (
                 _(
                     "[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/color] "
@@ -251,13 +232,6 @@ class TableText:
                 % data
             )
         else:
-            all_weights_from_this_village = [
-                w
-                for w in self.weights[weight.start]
-                if not w.ruin and not w.target.fake and w.nobleman == 0
-            ]
-            data["weight_count"] = all_weights_from_this_village.index(weight) + 1
-            data["weight_count_all"] = len(all_weights_from_this_village)
             return (
                 _(
                     "[b][color=#a50000]Send OFF[%(off_number)s off][/color] "
