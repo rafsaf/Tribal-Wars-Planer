@@ -17,9 +17,8 @@ from collections.abc import Callable, Generator
 from secrets import SystemRandom
 from statistics import mean
 
-from base.models import Outline
+from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
-from base.models import WeightMaximum, WeightModel
 from utils.basic.ruin import RuinHandle
 
 

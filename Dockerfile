@@ -27,8 +27,20 @@ COPY --from=poetry /requirements.txt .
 RUN pip install -r requirements.txt
 RUN apt-get remove -y python3-pip && apt-get autoremove --purge -y        \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
-COPY ./config/twp_nginx.conf /etc/nginx/nginx.conf
-COPY . .
+
+COPY base base
+COPY config/twp_nginx.conf /etc/nginx/nginx.conf
+COPY locale locale
+COPY manage.py .
+COPY metrics metrics
+COPY pyproject.toml .
+COPY rest_api rest_api
+COPY scripts scripts
+COPY LICENSE .
+COPY templates templates
+COPY tribal_wars_planer tribal_wars_planer
+COPY utils utils
+
 RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build
 CMD bash /build/scripts/init_webserver.sh
 
@@ -36,6 +48,5 @@ FROM base as translations
 COPY --from=poetry /requirements.txt .
 RUN pip install -r requirements.txt
 RUN apt-get update -y && apt-get install gettext -y
-COPY . .
 CMD python manage.py makemessages --all --ignore .venv &&  \
     python manage.py compilemessages --ignore .venv

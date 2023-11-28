@@ -14,8 +14,8 @@
 # ==============================================================================
 
 
-import utils.basic as basic
 from base.models import Outline, Player, TargetVertex
+from utils import basic
 
 
 class OutlineCreateTargets:

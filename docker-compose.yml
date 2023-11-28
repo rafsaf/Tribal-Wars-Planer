@@ -1,31 +1,54 @@
 services:
-  postgres:
+  postgres_dev:
+    image: postgres:16.1
     restart: "no"
-    image: postgres:15
     volumes:
-      - twp_local_postgresql:/var/lib/postgresql/data
+      - twp_dev_postgresql:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=postgres
-
-  web:
-    depends_on:
-      - postgres
-    restart: "no"
-    image: rafsaf/twp-server:latest
+      - POSTGRES_DB=${POSTGRES_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .env
     ports:
-      - 7999:80
-    environment:
-      - SECRET_KEY=zaq12wsx3edc
-      - DJANGO_SUPERUSER_USERNAME=admin
-      - DJANGO_SUPERUSER_PASSWORD=admin
-      - DJANGO_SUPERUSER_EMAIL=admin@admin.com
+      - ${POSTGRES_PORT}:5432
 
-  cronjobs:
-    depends_on:
-      - postgres
+  cronjobs_dev:
     restart: "no"
-    image: rafsaf/twp-server:latest
+    build:
+      target: build
+      context: ./
     command: bash /build/scripts/init_cronjobs.sh
+    environment:
+      - POSTGRES_HOST=postgres_dev
+    env_file:
+      - .env
+
+  web_dev:
+    depends_on:
+      - postgres_dev
+    restart: "no"
+    build:
+      target: build
+      context: ./
+    ports:
+      - 7998:80
+    env_file:
+      - .env
+    environment:
+      - DEBUG=false
+      - SECRET_KEY=askldjasd0987123987
+      - SUB_DOMAIN=web
+      - CSRF_TRUSTED_ORIGIN=http://localhost:7998
+      - POSTGRES_HOST=postgres_dev
+
+  stripe_cli:
+    image: stripe/stripe-cli:latest
+    restart: "no"
+    command: listen --forward-to http://localhost:8000/api/stripe-webhook/
+    environment:
+      - STRIPE_API_KEY=${STRIPE_SECRET_KEY}
+    network_mode: "host"
 
 volumes:
-  twp_local_postgresql:
+  twp_dev_postgresql:

@@ -4,50 +4,16 @@ repos:
     hooks:
       - id: check-yaml
 
-  - repo: https://github.com/myint/autoflake
-    rev: "v2.2.1"
-    hooks:
-      - id: autoflake
-        args:
-          [
-            "--recursive",
-            "--in-place",
-            "--remove-unused-variables",
-            "--remove-all-unused-imports",
-            "--ignore-init-module-imports",
-          ]
-
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.0
-    hooks:
-      - id: pyupgrade
-        args:
-          [
-            "--py3-plus",
-            "--py36-plus",
-            "--py37-plus",
-            "--py38-plus",
-            "--py39-plus",
-            "--py310-plus",
-            "--py311-plus",
-            "--py312-plus",
-          ]
-        files: ".*"
-
   - repo: https://github.com/psf/black
-    rev: "23.10.1"
+    rev: "23.11.0"
     hooks:
       - id: black
 
-  - repo: https://github.com/pycqa/isort
-    rev: "5.12.0"
-    hooks:
-      - id: isort
-
-  - repo: https://github.com/PyCQA/flake8
-    rev: "6.1.0"
-    hooks:
-      - id: flake8
+  # - repo: https://github.com/astral-sh/ruff-pre-commit
+  #   rev: v0.1.6
+  #   hooks:
+  #     - id: ruff
+  #       args: [--fix]
 
   - repo: https://github.com/rafsaf/pyproject-tag-check
     rev: "1.0.0"

@@ -52,11 +52,6 @@ jobs:
         run: |
           poetry install --no-interaction --no-root
 
-      - name: Lint with flake8
-        run: |
-          # stop the build if there are Python syntax errors or undefined names
-          poetry run flake8 base rest_api tribal_wars_planer utils --count --statistics
-
       - name: Create .env file from example env file
         run: |
           cp .env.example .env
@@ -65,7 +60,7 @@ jobs:
         env:
           POSTGRES_HOST: localhost
         run: |
-          poetry run bash initial.sh
+          poetry run bash scripts/initial.sh
           poetry run pytest
 
       - name: Upload coverage result to Codecov

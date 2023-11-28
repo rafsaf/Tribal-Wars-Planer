@@ -3,7 +3,7 @@
 # Starts nginx + uwsgi server inside Dockerfile
 
 ### 1. Initial script, migrations etc., cleanup ###
-bash /build/initial.sh
+bash /build/scripts/initial.sh
 
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/logs
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/media
