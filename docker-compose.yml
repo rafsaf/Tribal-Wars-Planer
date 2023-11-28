@@ -23,8 +23,6 @@ services:
       - POSTGRES_HOST=postgres_dev
     env_file:
       - .env
-    volumes:
-      - "twp_dev_logs:/build/logs"
 
   web_dev:
     depends_on:

@@ -24,9 +24,8 @@ from django.db.models.query import QuerySet
 from numpy.typing import NDArray
 from scipy.spatial.distance import cdist
 
-from base.models import Outline
+from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
-from base.models import WeightMaximum, WeightModel
 from utils.basic import generate_morale_dict
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget

@@ -31,9 +31,8 @@ from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 
 import metrics
-import utils.avaiable_troops as avaiable_troops
-import utils.basic as basic
 from base import forms, models
+from utils import avaiable_troops, basic
 from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
 from utils.outline_finish import MakeFinalOutline

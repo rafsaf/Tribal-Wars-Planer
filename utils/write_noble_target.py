@@ -16,9 +16,8 @@
 from collections.abc import Callable
 from secrets import SystemRandom
 
-from base.models import Outline
+from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
-from base.models import WeightMaximum, WeightModel
 
 
 class WriteNobleTarget:

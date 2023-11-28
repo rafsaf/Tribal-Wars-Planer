@@ -14,10 +14,10 @@
 # ==============================================================================
 
 
-import utils.basic as basic
 from base import models
 from base.models import Outline, WeightMaximum
 from base.models.player import Player
+from utils import basic
 from utils.basic import Army, Defence
 
 

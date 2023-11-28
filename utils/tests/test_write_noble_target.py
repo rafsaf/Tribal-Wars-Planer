@@ -19,9 +19,8 @@ from django.db.models import ExpressionWrapper, F, FloatField
 from django.test import TestCase
 from django.utils.translation import activate
 
-from base.models import Outline
+from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
-from base.models import WeightMaximum, WeightModel
 from base.models.target_vertex import TargetVertex
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from utils.outline_initial import MakeOutline

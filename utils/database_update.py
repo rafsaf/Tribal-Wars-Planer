@@ -16,7 +16,7 @@
 import gzip
 import logging
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from random import randint
 from typing import Literal
 from urllib.parse import unquote, unquote_plus
@@ -197,7 +197,7 @@ class WorldUpdateHandler:
         last_modified_datetime = datetime.strptime(
             datetime_string, "%a, %d %b %Y %H:%M:%S %Z"
         )
-        last_modified_datetime = last_modified_datetime.replace(tzinfo=timezone.utc)
+        last_modified_datetime = last_modified_datetime.replace(tzinfo=UTC)
         return last_modified_datetime.timestamp()
 
     def update_all(self, download_try: int = settings.WORLD_UPDATE_TRY_COUNT):

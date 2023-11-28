@@ -28,17 +28,18 @@ RUN pip install -r requirements.txt
 RUN apt-get remove -y python3-pip && apt-get autoremove --purge -y        \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
-COPY base .
+COPY base base
 COPY config/twp_nginx.conf /etc/nginx/nginx.conf
-COPY locale .
+COPY locale locale
 COPY manage.py .
-COPY metrics .
+COPY metrics metrics
 COPY pyproject.toml .
-COPY rest_api .
-COPY scripts .
-COPY templates .
-COPY tribal_wars_planer .
-COPY utils .
+COPY rest_api rest_api
+COPY scripts scripts
+COPY LICENSE .
+COPY templates templates
+COPY tribal_wars_planer tribal_wars_planer
+COPY utils utils
 
 RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build
 CMD bash /build/scripts/init_webserver.sh

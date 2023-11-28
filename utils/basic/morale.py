@@ -14,13 +14,12 @@
 # ==============================================================================
 
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from django.db.models.query import QuerySet
 
-from base.models import Outline
+from base.models import Outline, WeightMaximum
 from base.models import TargetVertex as Target
-from base.models import WeightMaximum
 
 
 def _return_100():
@@ -36,7 +35,7 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
     Defaults to 100 morale for example where some players are missing or when
     they have 0 points.
     """
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     map_player_tuple_to_morale: defaultdict[tuple[str, str], int] = defaultdict(
         _return_100
     )
