@@ -220,7 +220,7 @@ Run database with docker and then python dev server
 docker-compose -f docker-compose.dev.yml up -d
 # This set up db and cronjobs container
 
-bash initial.sh
+bash scripts/initial.sh
 # migrations, creates admin/admin superuser, creates media and prometheus dirs, creates game servers
 
 python manage.py runserver
