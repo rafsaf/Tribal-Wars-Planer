@@ -1,8 +1,7 @@
 import pathlib
 from textwrap import dedent
 
-working_dir = pathlib.Path("./../")
-
+working_dir = pathlib.Path(__file__).parent.parent.absolute()
 license_short_text = dedent(
     """
     # Copyright 2023 Rafał Safin (rafsaf). All Rights Reserved.
@@ -19,7 +18,7 @@ license_short_text = dedent(
     # See the License for the specific language governing permissions and
     # limitations under the License.
     # ==============================================================================
-    """
+"""
 )
 
 
@@ -35,5 +34,9 @@ def find_python_files(path: pathlib.Path) -> list[pathlib.Path]:
 
 
 for python_file in find_python_files(working_dir):
-    if "Rafał Safin (rafsaf). All Rights Reserved." not in python_file.read_text():
-        print(f"---> {python_file}")
+    if "Rafał Safin (rafsaf). All Rights Reserved." in python_file.read_text():
+        continue
+    print(f"---> {python_file}")
+    current_file_text = python_file.read_text()
+    with open(python_file, "w") as file_to_update:
+        file_to_update.write(license_short_text.strip() + "\n\n" + current_file_text)
