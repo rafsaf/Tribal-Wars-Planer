@@ -22,84 +22,67 @@ Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal
   - [Discord channel: discord.gg/g5pcsCteCT](#discord-channel-discordggg5pcsctect)
   - [Production server: plemiona-planer.pl](#production-server-plemiona-planerpl)
 - [Table of contents](#table-of-contents)
-- [Quickstart](#quickstart)
+- [Development](#development)
 - [Dockerfile reference](#dockerfile-reference)
   - [TWP-server image](#twp-server-image)
-- [Development](#development)
-- [Server](#server)
 
-# Quickstart
+# Development
 
-**STEP 1**
+If you want to run it in development you will need
 
-Install [Docker](https://www.docker.com/get-started) on whatever system you work (On linux additionaly install docker-compose, on Windows and Mac it is included in docker installation)
+- [python](https://www.python.org/downloads/) == 3.12
+- [poetry](https://python-poetry.org/)
+- [docker](https://www.docker.com/get-started)
 
-**STEP 2**
-
-In your favourite folder create file `docker-compose.yml`. Too see every possible environemnt variables, see [Docker images reference](#dockerfile-reference):
-
-```yml
-# docker-compose.yml
-version: "3.4"
-
-services:
-  postgres:
-    restart: always
-    image: postgres:15
-    volumes:
-      - twp_local_postgresql:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=postgres
-
-  web:
-    depends_on:
-      - postgres
-    restart: always
-    image: rafsaf/twp-server:latest
-    ports:
-      - 7999:80
-    environment:
-      - SECRET_KEY=zaq12wsx3edc
-      - DJANGO_SUPERUSER_USERNAME=admin
-      - DJANGO_SUPERUSER_PASSWORD=admin
-      - DJANGO_SUPERUSER_EMAIL=admin@admin.com
-
-  cronjobs:
-    depends_on:
-      - postgres
-    restart: always
-    image: rafsaf/twp-server:latest
-    command: bash /build/scripts/init_cronjobs.sh
-
-volumes:
-  twp_local_postgresql:
-```
-
-Then run, (using Terminal in Linux/Mac, Powershell or CMD on Windows):
+In your favourite folder e.g. Desktop:
 
 ```bash
-docker-compose up -d
-# it may take up to few minutes
+git clone https://github.com/rafsaf/Tribal-Wars-Planer.git
+cd Tribal-Wars-Planer
 
-# Note, if you see "ERROR 500" in app,
-# it means that web container wasn't ready yet
-# but should be good in another ~30 seconds
 ```
 
-**STEP 3**
+Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
 
-Go to the browser tab and write out `localhost:7999`, fresh instance of site should be up and running.
+Then run
 
-**STEP 4** (Login by default `admin` and password `admin`)
+```bash
+poetry install
 
-The database data will not be losed after reboot, it lives in docker volume folder.
-For more details what exactly it means refer to Docker volumes docs.
+# it will be default create virtualenv in ~.cache/pypoetry/virutalenvs/tribal-wars-planer-asod(some random signs)
+# You need to activate it.
+# Honestly, you can also use just python3.12 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
+pre-commit install
 
-**STEP 5**
+# adds pre-commit stuff
+```
 
-Now you are free to create new worlds, and outlines just like in production server!
+Run database with docker and then python dev server
 
-GL;)
+```bash
+docker-compose up -d postgres_dev
+# This set up db container
+
+bash scripts/initial.sh
+# migrations, creates admin/admin superuser, creates media and prometheus dirs, creates game servers
+
+python manage.py runserver
+# Runs development server at localhost:8000
+```
+
+To run tests with coverage report
+
+```bash
+pytest
+```
+
+To run makemessages/compilemessages (the project is in English, every string is then translated to Polish)
+
+```bash
+# every machine - using dockerfiles
+docker compose -f docker-compose.translation.yml run --rm trans
+
+```
 
 # Dockerfile reference
 
@@ -182,111 +165,3 @@ Environment variables:
 **JOB_MIN_INTERVAL** - _optional_ - minimal time when database info about villages, players, worlds will be updated in minutes, defaults to `10`
 
 **JOB_MAX_INTERVAL** - _optional_ - maximal time when database info about villages, players, worlds will be updated in minutes, defautls to `15`
-
-# Development
-
-If you want to run it in development you will need
-
-- [python](https://www.python.org/downloads/) == 3.11
-- [poetry](https://python-poetry.org/)
-- [docker](https://www.docker.com/get-started)
-
-In your favourite folder e.g. Desktop:
-
-```bash
-git clone https://github.com/rafsaf/Tribal-Wars-Planer.git
-cd Tribal-Wars-Planer
-
-```
-
-Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
-
-Then run
-
-```bash
-poetry install
-
-# it will be default create virtualenv in ~.cache/pypoetry/virutalenvs/tribal-wars-planer-asod(some random signs)
-# You need to activate it.
-# Honestly, you can also use just python3.12 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
-pre-commit install
-
-# adds pre-commit stuff
-```
-
-Run database with docker and then python dev server
-
-```bash
-docker-compose -f docker-compose.dev.yml up -d
-# This set up db and cronjobs container
-
-bash scripts/initial.sh
-# migrations, creates admin/admin superuser, creates media and prometheus dirs, creates game servers
-
-python manage.py runserver
-# Runs development server at localhost:8000
-```
-
-To run tests
-
-```bash
-pytest
-# old way: python manage.py test
-# python manage.py test base
-# python manage.py test base.tests.test_views
-```
-
-To run makemessages/compilemessages (the project is in English, every string is then translated to Polish)
-
-```bash
-# every machine - using dockerfiles
-docker compose -f docker-compose.translation.yml run --rm trans
-
-```
-
-Test coverage
-
-```bash
-coverage run -m pytest
-coverage report --show-missing
-# Settings for coverage (also for other tools lives in pyproject.toml)
-```
-
-# Server
-
-On fresh ubuntu 20 webserver instance with enabled ports 9000, 443, 80 ports enabled and sudo access:
-
-```bash
-sudo su && cd
-
-wget https://raw.githubusercontent.com/rafsaf/Tribal-Wars-Planer/master/scripts/install_twp.sh \
-  && bash install_twp.sh
-# it will install all the boring stuff, refer to installation file
-
-```
-
-You can use printed webhook secret to trigger images pull and docker-compose up from anywhere:
-
-```bash
-curl -v -k -X POST https://$INSTANCE_IP:9000/hooks/redeploy \
-  -H "Content-Type: application/json" -d "{\"secret\": \"${SECRET}\"}"
-```
-
-Now in `~/` folder, create `.env` and `docker-compose.yml` files.
-
-```bash
-# .env
-# ...see  Dockerfile reference
-```
-
-```yml
-# two domains, external database or single domain with internal database
-# ...see docker-compose.stg.yml or docker-compose.prod.yml
-```
-
-Then just run
-
-```
-sudo docker-compose up -d
-
-```
