@@ -23,7 +23,7 @@ from base.models.server import Server
 class World(models.Model):
     """World in the game"""
 
-    STATUS_CHOICES = [
+    STATUS_CHOICES: list[tuple[str, str]] = [
         ("active", "Active"),
         ("inactive", "Inactive"),
     ]

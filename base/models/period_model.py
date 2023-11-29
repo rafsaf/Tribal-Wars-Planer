@@ -24,12 +24,12 @@ from base.models.outline_time import OutlineTime
 class PeriodModel(models.Model):
     """Handle one period of time in outline specification"""
 
-    STATUS = [
+    STATUS: list[tuple[str, str]] = [
         ("all", gettext_lazy("All")),
         ("random", gettext_lazy("Random")),
         ("exact", gettext_lazy("Exact")),
     ]
-    UNITS = [
+    UNITS: list[tuple[str, str]] = [
         ("noble", gettext_lazy("Noble")),
         ("ram", gettext_lazy("Ram")),
     ]

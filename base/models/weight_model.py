@@ -27,7 +27,7 @@ from base.models.weight_maximum import WeightMaximum
 class WeightModel(models.Model):
     """Command between start and target"""
 
-    BUILDINGS = [
+    BUILDINGS: list[tuple[str, str]] = [
         ("headquarters", gettext_lazy("Headquarters")),
         ("barracks", gettext_lazy("Barracks")),
         ("stable", gettext_lazy("Stable")),
