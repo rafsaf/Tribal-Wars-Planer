@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+import sys
 import threading
 from collections.abc import Callable
 from logging import Logger
@@ -42,7 +43,7 @@ def job_logs_and_metrics(log: Logger):
                 self.stdout.write(str(error))
                 self.stdout.write(self.style.ERROR(f"task {task_name} fail"))
                 metrics.ERRORS.labels(f"task_{task_name}").inc()
-                exit(1)
+                sys.exit(1)
             else:
                 metrics.CRONTASK.labels(task_name).inc()
                 success_msg = (

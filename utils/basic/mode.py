@@ -30,11 +30,10 @@ class Mode:
     def __init__(self, request_GET_mode: str | None):
         if request_GET_mode is None:
             self.mode = "menu"
+        elif request_GET_mode in self.VALID_MODE_TYPE:
+            self.mode = request_GET_mode
         else:
-            if request_GET_mode in self.VALID_MODE_TYPE:
-                self.mode = request_GET_mode
-            else:
-                self.mode = "menu"
+            self.mode = "menu"
 
     @property
     def is_menu(self):
@@ -84,11 +83,10 @@ class TargetMode:
     def __init__(self, request_GET_mode: str | None) -> None:
         if request_GET_mode is None:
             self.mode = "real"
+        elif request_GET_mode in self.VALID_MODE_LIST:
+            self.mode = request_GET_mode
         else:
-            if request_GET_mode in self.VALID_MODE_LIST:
-                self.mode = request_GET_mode
-            else:
-                self.mode = "real"
+            self.mode = "real"
 
     @property
     def is_real(self) -> bool:

@@ -71,7 +71,9 @@ def outline_being_written_error(
 
 
 @login_required
-def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
+def initial_form(  # noqa: PLR0912,PLR0911
+    request: HttpRequest, _id: int
+) -> HttpResponse:
     """
     view with table with created outline,
 
@@ -123,25 +125,22 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 return trigger_off_troops_update_redirect(
                     request=request, outline=instance
                 )
-    else:
-        if (
-            models.WeightMaximum.objects.filter(outline=instance).count() == 0
-            or instance.get_or_set_deff_troops_hash()
-            != instance.deff_troops_weightmodels_hash
-        ):
-            models.WeightMaximum.objects.filter(outline=instance).delete()
-            deff_form = forms.DeffTroopsForm(
-                {"deff_troops": instance.deff_troops}, outline=instance
-            )
-            if deff_form.is_valid():
-                make_outline = MakeOutline(outline=instance)
-                make_outline()
+    elif (
+        models.WeightMaximum.objects.filter(outline=instance).count() == 0
+        or instance.get_or_set_deff_troops_hash()
+        != instance.deff_troops_weightmodels_hash
+    ):
+        models.WeightMaximum.objects.filter(outline=instance).delete()
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": instance.deff_troops}, outline=instance
+        )
+        if deff_form.is_valid():
+            make_outline = MakeOutline(outline=instance)
+            make_outline()
 
-                instance.actions.click_troops_refresh(instance)
-            else:
-                return trigger_off_troops_update_redirect(
-                    request=request, outline=instance
-                )
+            instance.actions.click_troops_refresh(instance)
+        else:
+            return trigger_off_troops_update_redirect(request=request, outline=instance)
 
     target_mode = basic.TargetMode(request.GET.get("t"))
 
@@ -347,7 +346,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
 
 
 @login_required
-def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ignore
+def initial_planer(  # noqa: PLR0912,PLR0911
+    request: HttpRequest, _id: int
+) -> HttpResponse:  # type: ignore
     """view with form for initial period outline"""
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
@@ -548,7 +549,9 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
 
 
 @login_required
-def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
+def initial_target(  # noqa: PLR0912
+    request: HttpRequest, id1: int, id2: int
+) -> HttpResponse:
     """view with form for initial period outline detail"""
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user

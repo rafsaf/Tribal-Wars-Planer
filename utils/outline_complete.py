@@ -265,16 +265,15 @@ class CreateWeights:
                 )
                 self.weight_create_lst += weight_noble.weight_create_list()
 
-        else:
-            if target.required_noble > 0:
-                self._annotate_distances_and_morale_for_target(target)
-                weight_noble: WriteNobleTarget = WriteNobleTarget(
-                    random=self.random,
-                    target=target,
-                    outline=self.outline,
-                    weight_max_list=self.weight_max_list,
-                )
-                self.weight_create_lst += weight_noble.weight_create_list()
+        elif target.required_noble > 0:
+            self._annotate_distances_and_morale_for_target(target)
+            weight_noble: WriteNobleTarget = WriteNobleTarget(
+                random=self.random,
+                target=target,
+                outline=self.outline,
+                weight_max_list=self.weight_max_list,
+            )
+            self.weight_create_lst += weight_noble.weight_create_list()
 
     def _ruin_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
@@ -323,17 +322,16 @@ class CreateWeights:
                 )
                 self.weight_create_lst += weight_ram.weight_create_list()
 
-        else:
-            if target.required_off > 0:
-                self._annotate_distances_and_morale_for_target(target)
-                weight_ram: WriteRamTarget = WriteRamTarget(
-                    random=self.random,
-                    target=target,
-                    outline=self.outline,
-                    weight_max_list=self.weight_max_list,
-                    ruin=False,
-                )
-                self.weight_create_lst += weight_ram.weight_create_list()
+        elif target.required_off > 0:
+            self._annotate_distances_and_morale_for_target(target)
+            weight_ram: WriteRamTarget = WriteRamTarget(
+                random=self.random,
+                target=target,
+                outline=self.outline,
+                weight_max_list=self.weight_max_list,
+                ruin=False,
+            )
+            self.weight_create_lst += weight_ram.weight_create_list()
 
     def _annotate_distances_and_morale_for_target(self, target: Target) -> None:
         if self.dist_matrix is not None:

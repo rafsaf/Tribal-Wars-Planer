@@ -84,7 +84,9 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
 
 
 @login_required
-def new_outline_create_select(request: HttpRequest, _id: int) -> HttpResponse:
+def new_outline_create_select(  # noqa: PLR0912
+    request: HttpRequest, _id: int
+) -> HttpResponse:
     """select user's ally and enemy tribe after creating outline, login required"""
     instance = get_object_or_404(
         models.Outline, pk=_id, owner=request.user, editable="active"

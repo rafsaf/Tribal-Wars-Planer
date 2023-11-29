@@ -61,7 +61,7 @@ source = ["base", "rest_api", "tribal_wars_planer", "utils"]
 [tool.ruff]
 # pycodestyle, pyflakes, isort, pylint, pyupgrade
 select = ["E", "W", "F", "I", "PL", "UP"]
-ignore = ["E501"]
+ignore = ["E501", "PLR2004", "PLR0915"]
 target-version = "py312"
 
 [tool.ruff.pylint]

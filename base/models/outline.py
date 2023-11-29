@@ -501,7 +501,7 @@ class Outline(models.Model):
 
         return get_available_ruins(self)
 
-    def pagin_targets(
+    def pagin_targets(  # noqa: PLR0912
         self,
         page: str | None,
         fake: bool = False,

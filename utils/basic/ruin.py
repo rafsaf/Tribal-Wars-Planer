@@ -262,7 +262,7 @@ class RuinHandle:
             raise ValueError("Current level cannot be none")
         return self.LEVEL_DICTIONARY[(catapults, self.current_level)]
 
-    def best_catapult(self, weight_max: WeightMaximum) -> int:
+    def best_catapult(self, weight_max: WeightMaximum) -> int:  # noqa: PLR0912
         """
         For given weight_max match best catapult number possible
         Also take care about current levels and building name

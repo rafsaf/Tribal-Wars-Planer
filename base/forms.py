@@ -775,7 +775,7 @@ class PeriodForm(forms.ModelForm):
         self.fields["from_time"].widget.attrs["class"] = "time-timepicker form-control"
         self.fields["to_time"].widget.attrs["class"] = "time-timepicker form-control"
 
-    def clean(self):
+    def clean(self):  # noqa: PLR0912
         status = self.cleaned_data.get("status")
         time1 = self.cleaned_data.get("from_time")
         time2 = self.cleaned_data.get("to_time")
@@ -813,7 +813,7 @@ class PeriodForm(forms.ModelForm):
 
 
 class BasePeriodFormSet(BaseFormSet):
-    def clean(self):
+    def clean(self):  # noqa: PLR0912
         if any(self.errors):
             return
 
