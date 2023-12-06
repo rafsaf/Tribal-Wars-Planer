@@ -635,7 +635,7 @@ def initial_target(  # noqa: PLR0912
                     noble_diffrence: int = nobleman - weight.nobleman
                     catapult_diffrence: int = catapult - weight.catapult
 
-                    if any(
+                    if not all(
                         [
                             noble_diffrence <= state.nobleman_left,
                             -weight.nobleman <= noble_diffrence,
