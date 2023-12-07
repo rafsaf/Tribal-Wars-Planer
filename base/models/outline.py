@@ -41,7 +41,7 @@ def building_default_list() -> list[str]:
 class Outline(models.Model):
     """Outline with all informations about it"""
 
-    VALID_SORT_CHOICES = [
+    VALID_SORT_CHOICES: list[tuple[str, str]] = [
         ("distance", "distance"),
         ("random_distance", "random_distance"),
         ("-distance", "-distance"),
@@ -58,43 +58,43 @@ class Outline(models.Model):
         ("farthest_noble_offs", "farthest_noble_offs"),
     ]
 
-    STATUS_CHOICES = [
+    STATUS_CHOICES: list[tuple[str, str]] = [
         ("active", "Active"),
         ("inactive", "Inactive"),
     ]
 
-    MODE_OFF = [
+    MODE_OFF: list[tuple[str, str]] = [
         ("closest", gettext_lazy("Closest Front")),
         ("close", gettext_lazy("Close Back")),
         ("random", gettext_lazy("Random Back")),
         ("far", gettext_lazy("Far Back")),
     ]
 
-    MODE_NOBLE = [
+    MODE_NOBLE: list[tuple[str, str]] = [
         ("closest", gettext_lazy("Closest Front")),
         ("close", gettext_lazy("Close Back")),
         ("random", gettext_lazy("Random Back")),
         ("far", gettext_lazy("Far Back")),
     ]
 
-    MODE_DIVISION = [
+    MODE_DIVISION: list[tuple[str, str]] = [
         ("divide", gettext_lazy("Divide off with nobles")),
         ("not_divide", gettext_lazy("Dont't divide off")),
         ("separatly", gettext_lazy("Off and nobles separatly")),
     ]
 
-    MODE_SPLIT = [
+    MODE_SPLIT: list[tuple[str, str]] = [
         ("together", gettext_lazy("Nobles from one village as one command")),
         ("split", gettext_lazy("Nobles from one village as many commands")),
     ]
 
-    NOBLE_GUIDELINES = [
+    NOBLE_GUIDELINES: list[tuple[str, str]] = [
         ("one", gettext_lazy("Try send all nobles to one target")),
         ("many", gettext_lazy("Nobles to one or many targets")),
         ("single", gettext_lazy("Try single nobles from many villages")),
     ]
 
-    HIDE_CHOICES = [
+    HIDE_CHOICES: list[tuple[str, str]] = [
         ("all", gettext_lazy("All")),
         ("front", gettext_lazy("Front")),
         ("back", gettext_lazy("Back")),
@@ -102,7 +102,7 @@ class Outline(models.Model):
         ("hidden", gettext_lazy("Hidden")),
     ]
 
-    BUILDINGS = [
+    BUILDINGS: list[tuple[str, str]] = [
         ("headquarters", gettext_lazy("Headquarters")),
         ("barracks", gettext_lazy("Barracks")),
         ("stable", gettext_lazy("Stable")),
@@ -120,12 +120,12 @@ class Outline(models.Model):
         ("wall", gettext_lazy("wall")),
     ]
 
-    RUINED_VILLAGES_POINTS = [
+    RUINED_VILLAGES_POINTS: list[tuple[str, str]] = [
         ("big", gettext_lazy("Average greater than 8k")),
         ("medium", gettext_lazy("Average 5-8k")),
     ]
 
-    CATAPULTS_NUMBER = [
+    CATAPULTS_NUMBER: list[tuple[int, str]] = [
         (25, "25"),
         (50, "50"),
         (75, "75"),
@@ -134,12 +134,12 @@ class Outline(models.Model):
         (200, "200"),
     ]
 
-    FAKE_MIN_OFF_CHOICES = [
+    FAKE_MIN_OFF_CHOICES: list[tuple[str, str]] = [
         ("off", gettext_lazy("Fakes only from off villages")),
         ("all", gettext_lazy("Fakes from all villages")),
     ]
 
-    SENDING_OPTIONS = [
+    SENDING_OPTIONS: list[tuple[str, str]] = [
         (
             "default",
             gettext_lazy("(Default) Auto generated, fully equipped safe links"),
@@ -152,7 +152,7 @@ class Outline(models.Model):
 
     ARMY_COLLECTION = "Army collection"
     DEFF_COLLECTION = "Deff collection"
-    INPUT_DATA_TYPES = [
+    INPUT_DATA_TYPES: list[tuple[str, str]] = [
         (ARMY_COLLECTION, gettext_lazy("Army collection")),
         (DEFF_COLLECTION, gettext_lazy("Deff collection ")),
     ]
@@ -501,7 +501,7 @@ class Outline(models.Model):
 
         return get_available_ruins(self)
 
-    def pagin_targets(
+    def pagin_targets(  # noqa: PLR0912
         self,
         page: str | None,
         fake: bool = False,

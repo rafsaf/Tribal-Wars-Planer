@@ -12,13 +12,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-
-""" App views """
-
-from .home import *  # type: ignore
-from .outline import *  # type: ignore
-from .outline_create import *  # type: ignore
-from .outline_initial_changes import *  # type: ignore
-from .outline_initial_views import *  # type: ignore
-from .profile import *  # type: ignore
-from .results_get_deff import *  # type: ignore

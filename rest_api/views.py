@@ -280,7 +280,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
-def stripe_webhook(request: Request):  # pragma: no cover
+def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
     """Stripe webhooks endpoint to verify payment success"""
 
     endpoint_secret = settings.STRIPE_ENDPOINT_SECRET

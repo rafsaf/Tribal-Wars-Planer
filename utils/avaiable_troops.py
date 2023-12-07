@@ -22,7 +22,7 @@ from base import models
 from utils.basic.cdist_brute import CDistBrute
 
 
-def get_legal_coords_outline(outline: models.Outline):
+def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     """Create set with ally_vill without enemy_vill closer than radius"""
     excluded_coords_text: str = outline.initial_outline_excluded_coords
     excluded_coords: list[str] = excluded_coords_text.split()

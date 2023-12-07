@@ -164,7 +164,7 @@ class MiniSetup(TestCase):
                 )
                 Server.objects.bulk_create([server_in])
                 server = Server.objects.get(dns="nottestserver")
-                world1: World = World(
+                world1 = World(
                     server=server,
                     postfix="1",
                     paladin="inactive",

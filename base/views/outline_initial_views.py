@@ -23,7 +23,14 @@ from django.contrib.auth.models import AnonymousUser
 from django.db import transaction
 from django.db.models import Max
 from django.forms import formset_factory
-from django.http import Http404, HttpRequest, HttpResponse, HttpResponseServerError
+from django.http import (
+    Http404,
+    HttpRequest,
+    HttpResponse,
+    HttpResponsePermanentRedirect,
+    HttpResponseRedirect,
+    HttpResponseServerError,
+)
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -41,7 +48,9 @@ from utils.outline_initial import MakeOutline
 log = logging.getLogger(__name__)
 
 
-def trigger_off_troops_update_redirect(request: HttpRequest, outline: models.Outline):
+def trigger_off_troops_update_redirect(
+    request: HttpRequest, outline: models.Outline
+) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
     request.session["error"] = gettext(
         "<h5>It looks like your %(collection)s is no longer actual!</h5> "
         "<p>To use the Planer:</p> "
@@ -55,7 +64,7 @@ def trigger_off_troops_update_redirect(request: HttpRequest, outline: models.Out
 
 def outline_being_written_error(
     instance: models.Outline, request: HttpRequest, lock: models.OutlineWriteLock
-):
+) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
     now = timezone.now()
     log.warning("complete_outline locked outline %s", instance.pk)
     metrics.ERRORS.labels("complete_outline_locked_outline").inc()
@@ -71,7 +80,9 @@ def outline_being_written_error(
 
 
 @login_required
-def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
+def initial_form(  # noqa: PLR0912,PLR0911
+    request: HttpRequest, _id: int
+) -> HttpResponse:
     """
     view with table with created outline,
 
@@ -123,25 +134,22 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
                 return trigger_off_troops_update_redirect(
                     request=request, outline=instance
                 )
-    else:
-        if (
-            models.WeightMaximum.objects.filter(outline=instance).count() == 0
-            or instance.get_or_set_deff_troops_hash()
-            != instance.deff_troops_weightmodels_hash
-        ):
-            models.WeightMaximum.objects.filter(outline=instance).delete()
-            deff_form = forms.DeffTroopsForm(
-                {"deff_troops": instance.deff_troops}, outline=instance
-            )
-            if deff_form.is_valid():
-                make_outline = MakeOutline(outline=instance)
-                make_outline()
+    elif (
+        models.WeightMaximum.objects.filter(outline=instance).count() == 0
+        or instance.get_or_set_deff_troops_hash()
+        != instance.deff_troops_weightmodels_hash
+    ):
+        models.WeightMaximum.objects.filter(outline=instance).delete()
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": instance.deff_troops}, outline=instance
+        )
+        if deff_form.is_valid():
+            make_outline = MakeOutline(outline=instance)
+            make_outline()
 
-                instance.actions.click_troops_refresh(instance)
-            else:
-                return trigger_off_troops_update_redirect(
-                    request=request, outline=instance
-                )
+            instance.actions.click_troops_refresh(instance)
+        else:
+            return trigger_off_troops_update_redirect(request=request, outline=instance)
 
     target_mode = basic.TargetMode(request.GET.get("t"))
 
@@ -347,7 +355,9 @@ def initial_form(request: HttpRequest, _id: int) -> HttpResponse:
 
 
 @login_required
-def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ignore
+def initial_planer(  # noqa: PLR0912,PLR0911
+    request: HttpRequest, _id: int
+) -> HttpResponse:
     """view with form for initial period outline"""
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=_id, owner=request.user
@@ -437,118 +447,115 @@ def initial_planer(request: HttpRequest, _id: int) -> HttpResponse:  # type: ign
             context,
         )
 
-    elif mode.is_time:
-        error: str | None = request.session.get("outline_error")
-        if error is not None:
-            del request.session["outline_error"]
+    error: str | None = request.session.get("outline_error")
+    if error is not None:
+        del request.session["outline_error"]
 
-        page_obj = instance.pagin_targets(
-            page=page_number,
-            every=True,
-            not_empty_only=True,
-            related=True,
-            filtr=filtr,
-        )
-        query = instance.targets_query(target_lst=page_obj)
-        outline_time_dict = instance.get_outline_times()
+    page_obj = instance.pagin_targets(
+        page=page_number,
+        every=True,
+        not_empty_only=True,
+        related=True,
+        filtr=filtr,
+    )
+    query = instance.targets_query(target_lst=page_obj)
+    outline_time_dict = instance.get_outline_times()
 
-        select_formset = formset_factory(
-            form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
-        )
+    select_formset = formset_factory(
+        form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
+    )
 
-        create_formset = formset_factory(
-            form=forms.PeriodForm,
-            formset=forms.BasePeriodFormSet,
-            extra=6,
-            min_num=2,
-            max_num=6,
-        )
+    create_formset = formset_factory(
+        form=forms.PeriodForm,
+        formset=forms.BasePeriodFormSet,
+        extra=6,
+        min_num=2,
+        max_num=6,
+    )
 
-        if request.method == "POST":
-            if "form-finish" in request.POST:
-                if instance.is_target_with_no_time():
-                    request.session["outline_error"] = gettext(
-                        "<h5>All targets must have an assigned Time.</h5>"
-                    )
-                    return redirect(
-                        reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
-                    )
-                elif not models.OutlineTime.objects.filter(outline=instance).exists():
-                    request.session["outline_error"] = gettext(
-                        "<h5>Minimum one Time must exists.</h5>"
-                    )
-                    return redirect(
-                        reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
-                    )
-                models.Overview.objects.filter(outline=instance).update(removed=True)
-                make_final_outline = MakeFinalOutline(instance)
+    if request.method == "POST":
+        if "form-finish" in request.POST:
+            if instance.is_target_with_no_time():
+                request.session["outline_error"] = gettext(
+                    "<h5>All targets must have an assigned Time.</h5>"
+                )
+                return redirect(
+                    reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
+                )
+            elif not models.OutlineTime.objects.filter(outline=instance).exists():
+                request.session["outline_error"] = gettext(
+                    "<h5>Minimum one Time must exists.</h5>"
+                )
+                return redirect(
+                    reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
+                )
+            models.Overview.objects.filter(outline=instance).update(removed=True)
+            make_final_outline = MakeFinalOutline(instance)
 
-                error_messages = make_final_outline()
-                if len(error_messages) > 0:
-                    request.session["error_messages"] = ",".join(error_messages)
-                instance.actions.click_outline_finish(instance)
+            error_messages = make_final_outline()
+            if len(error_messages) > 0:
+                request.session["error_messages"] = ",".join(error_messages)
+            instance.actions.click_outline_finish(instance)
 
-                return redirect("base:planer_detail_results", _id)
+            return redirect("base:planer_detail_results", _id)
 
-            if "formset" in request.POST:
-                create_formset = create_formset(request.POST)
-                select_formset = select_formset()
-                if create_formset.is_valid():
-                    instance.actions.save_time_created(instance)
-                    outline_times_Q = models.OutlineTime.objects.filter(
-                        outline=instance
-                    )
-                    if outline_times_Q.count() == 0:
-                        order = 1
-                    else:
-                        order = (
-                            outline_times_Q.aggregate(Max("order"))["order__max"] + 1
-                        )
-
-                    new_time = models.OutlineTime.objects.create(
-                        outline=instance, order=order
-                    )
-                    create_list = []
-                    for obj_dict in create_formset.cleaned_data:
-                        if obj_dict == {}:
-                            continue
-                        obj_dict["outline_time"] = new_time
-                        create_list.append(models.PeriodModel(**obj_dict))
-                    models.PeriodModel.objects.bulk_create(create_list)
-                    return redirect(
-                        reverse("base:planer_initial", args=[_id])
-                        + f"?page={page_number}&mode={mode}&filtr={filtr}"
-                    )
+        if "formset" in request.POST:
+            create_formset = create_formset(request.POST)
+            select_formset = select_formset()
+            if create_formset.is_valid():
+                instance.actions.save_time_created(instance)
+                outline_times_Q = models.OutlineTime.objects.filter(outline=instance)
+                if outline_times_Q.count() == 0:
+                    order = 1
                 else:
-                    for form in create_formset:
-                        for err in form.errors:
-                            form.fields[err].widget.attrs["class"] += " border-invalid"
+                    order = outline_times_Q.aggregate(Max("order"))["order__max"] + 1
 
-        else:
-            create_formset = create_formset()
+                new_time = models.OutlineTime.objects.create(
+                    outline=instance, order=order
+                )
+                create_list = []
+                for obj_dict in create_formset.cleaned_data:
+                    if obj_dict == {}:
+                        continue
+                    obj_dict["outline_time"] = new_time
+                    create_list.append(models.PeriodModel(**obj_dict))
+                models.PeriodModel.objects.bulk_create(create_list)
+                return redirect(
+                    reverse("base:planer_initial", args=[_id])
+                    + f"?page={page_number}&mode={mode}&filtr={filtr}"
+                )
+            else:
+                for form in create_formset:
+                    for err in form.errors:
+                        form.fields[err].widget.attrs["class"] += " border-invalid"
 
-        context = {
-            "instance": instance,
-            "outline_time": outline_time_dict,
-            "query": query,
-            "page_obj": page_obj,
-            "mode": mode,
-            "filter_form": filter_form,
-            "formset": create_formset,
-            "choice_formset": select_formset,
-            "error": error,
-            "filtr": filtr,
-        }
+    else:
+        create_formset = create_formset()
 
-        return render(
-            request,
-            "base/new_outline/new_outline_initial_period2_1.html",
-            context,
-        )
+    context = {
+        "instance": instance,
+        "outline_time": outline_time_dict,
+        "query": query,
+        "page_obj": page_obj,
+        "mode": mode,
+        "filter_form": filter_form,
+        "formset": create_formset,
+        "choice_formset": select_formset,
+        "error": error,
+        "filtr": filtr,
+    }
+
+    return render(
+        request,
+        "base/new_outline/new_outline_initial_period2_1.html",
+        context,
+    )
 
 
 @login_required
-def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
+def initial_target(  # noqa: PLR0912
+    request: HttpRequest, id1: int, id2: int
+) -> HttpResponse:
     """view with form for initial period outline detail"""
     instance: models.Outline = get_object_or_404(
         models.Outline.objects.select_related(), id=id1, owner=request.user
@@ -571,8 +578,8 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
         .filter(target=target)
         .order_by("order")
     )
-    for weight in result_lst:
-        weight.distance = round(weight.distance, 1)
+    for weight_obj in result_lst:
+        weight_obj.distance = round(weight_obj.distance, 1)
     # sort
     sort_obj = basic.SortAndPaginRequest(
         outline=instance,
@@ -613,32 +620,32 @@ def initial_target(request: HttpRequest, id1: int, id2: int) -> HttpResponse:
                         pk=weight_id,
                     )
                     state = weight.state
-                    try:
-                        assert nobleman_post
-                        assert off_no_cats_post
-                        assert catapult_post
-
-                        nobleman = int(nobleman_post)
-                        off_no_cats = int(off_no_cats_post)
-                        catapult = int(catapult_post)
-
-                        off_diffrence: int = off_no_cats + catapult * 8 - weight.off
-                        noble_diffrence: int = nobleman - weight.nobleman
-                        catapult_diffrence: int = catapult - weight.catapult
-
-                        assert noble_diffrence <= state.nobleman_left
-                        assert -weight.nobleman <= noble_diffrence
-                        assert off_diffrence <= state.off_left
-                        assert -weight.off <= off_diffrence
-                        assert catapult_diffrence <= state.catapult_left
-                        assert -weight.catapult <= catapult_diffrence
-
-                    except AssertionError:
+                    if (
+                        nobleman_post is None
+                        or off_no_cats_post is None
+                        or catapult_post is None
+                    ):
                         raise Http404()
+
+                    nobleman = int(nobleman_post)
+                    off_no_cats = int(off_no_cats_post)
+                    catapult = int(catapult_post)
 
                     off_diffrence: int = off_no_cats + catapult * 8 - weight.off
                     noble_diffrence: int = nobleman - weight.nobleman
                     catapult_diffrence: int = catapult - weight.catapult
+
+                    if not all(
+                        [
+                            noble_diffrence <= state.nobleman_left,
+                            -weight.nobleman <= noble_diffrence,
+                            off_diffrence <= state.off_left,
+                            -weight.off <= off_diffrence,
+                            catapult_diffrence <= state.catapult_left,
+                            -weight.catapult <= catapult_diffrence,
+                        ]
+                    ):
+                        raise Http404()
 
                     state.off_state += off_diffrence
                     state.off_left -= off_diffrence
@@ -736,17 +743,15 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     fake: str | None = request.GET.get("fake")
     ruin: str | None = request.GET.get("ruin")
 
+    fake_state: bool = False
+    ruin_state: bool = False
     if fake == "true":
-        fake_state: bool = True
-        ruin_state: bool = False
+        fake_state = True
         outline.default_fake_time_id = outline_time.pk
     elif ruin == "true":
-        fake_state: bool = False
-        ruin_state: bool = True
+        ruin_state = True
         outline.default_ruin_time_id = outline_time.pk
     else:
-        fake_state: bool = False
-        ruin_state: bool = False
         outline.default_off_time_id = outline_time.pk
 
     targets = models.TargetVertex.objects.filter(

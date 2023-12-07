@@ -217,13 +217,10 @@ class WriteNobleTarget:
             if self.target.required_noble > 0:
                 if self.target.mode_guide == "single":
                     nobles: int = 1
+                elif self.target.fake:
+                    nobles: int = min(weight_max.nobleman_left, weight_max.nobles_limit)
                 else:
-                    if self.target.fake:
-                        nobles: int = min(
-                            weight_max.nobleman_left, weight_max.nobles_limit
-                        )
-                    else:
-                        nobles: int = weight_max.nobles_allowed_to_use
+                    nobles: int = weight_max.nobles_allowed_to_use
 
                 if nobles >= self.target.required_noble:
                     self.default_create_list.append(
@@ -359,7 +356,9 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return 0
 
-    def _off_to_left(self, weight_max: WeightMaximum, off: int, noble: int) -> int:
+    def _off_to_left(  # noqa: PLR0911
+        self, weight_max: WeightMaximum, off: int, noble: int
+    ) -> int:
         if self.target.fake:
             return weight_max.off_left
 
@@ -381,7 +380,7 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return weight_max.off_left - (off * (noble))
 
-    def _catapult_to_left(
+    def _catapult_to_left(  # noqa: PLR0911
         self, weight_max: WeightMaximum, catapult: int, noble: int
     ) -> int:
         if self.target.fake:

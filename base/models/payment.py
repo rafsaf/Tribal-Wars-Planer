@@ -29,7 +29,7 @@ def promotion_event_id() -> str:
 class Payment(models.Model):
     """Represents real payment, only superuser access"""
 
-    STATUS = [
+    STATUS: list[tuple[str, str]] = [
         ("finished", gettext_lazy("Finished")),
         ("returned", gettext_lazy("Returned")),
     ]

@@ -697,9 +697,9 @@ def initial_divide(
     create_list = []
     for number, nob in zipped_list:
         if nob is None:
-            nob = 0
+            nobleman_number = 0
         else:
-            nob = 1
+            nobleman_number = 1
 
         create_list.append(
             models.WeightModel(
@@ -710,7 +710,7 @@ def initial_divide(
                 off=off,
                 ruin=weight_model.ruin,
                 catapult=catapult,
-                nobleman=nob,
+                nobleman=nobleman_number,
                 order=weight_model.order + number,
                 distance=weight_model.distance,
                 first_line=weight_model.first_line,

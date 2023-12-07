@@ -1217,14 +1217,28 @@ typing-extensions = {version = ">=4.0.0", markers = "python_version >= \"3.7\""}
 
 [[package]]
 name = "types-psycopg2"
-version = "2.9.21.18"
+version = "2.9.21.19"
 description = "Typing stubs for psycopg2"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "types-psycopg2-2.9.21.18.tar.gz", hash = "sha256:5082c61e8e400ac9eda06ec2e0f11a9885c575339bc1bf9b61754021fb259de7"},
-    {file = "types_psycopg2-2.9.21.18-py3-none-any.whl", hash = "sha256:66b8a882a878003f963a3a004dff328d7d34bfe1802c8bc625d24db79206130b"},
+    {file = "types-psycopg2-2.9.21.19.tar.gz", hash = "sha256:ec3aae522dde9c41141597bc41123b4c955fb4093b1fc7ec6ee607795a0a088f"},
+    {file = "types_psycopg2-2.9.21.19-py3-none-any.whl", hash = "sha256:8a4871df20c29e516622be8d66b91814c3262ff94112ff9e2f72a043d8fdf03c"},
 ]
+
+[[package]]
+name = "types-requests"
+version = "2.31.0.10"
+description = "Typing stubs for requests"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "types-requests-2.31.0.10.tar.gz", hash = "sha256:dc5852a76f1eaf60eafa81a2e50aefa3d1f015c34cf0cba130930866b1b22a92"},
+    {file = "types_requests-2.31.0.10-py3-none-any.whl", hash = "sha256:b32b9a86beffa876c0c3ac99a4cd3b8b51e973fb8e3bd4e0a6bb32c7efad80fc"},
+]
+
+[package.dependencies]
+urllib3 = ">=2"
 
 [[package]]
 name = "typing-extensions"
@@ -1298,4 +1312,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "f33ca2210ee91f1741ea81369c02eb1de57899f1a4c3ca11094964a0c74aefeb"
+content-hash = "bcf0e87bb53edb30a669e1334394ecedb8fec7720e8c6d06b5f6ee70d376cc9e"

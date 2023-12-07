@@ -31,7 +31,7 @@ from base.models.server import Server
 
 
 class Profile(models.Model):
-    INPUT_DATA_TYPES = [
+    INPUT_DATA_TYPES: list[tuple[str, str]] = [
         ("Army collection", gettext_lazy("Army collection")),
         ("Deff collection", gettext_lazy("Deff collection ")),
     ]

@@ -104,7 +104,7 @@ class SortAndPaginRequest:
         page_obj = paginator.get_page(self.page)
         return page_obj
 
-    def sorted_query(self):
+    def sorted_query(self):  # noqa: PLR0912,PLR0911
         query = self._nonused()
 
         if self.sort == "distance":

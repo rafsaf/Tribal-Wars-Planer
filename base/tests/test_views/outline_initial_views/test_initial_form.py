@@ -358,13 +358,13 @@ class InitialForm(MiniSetup):
 
         response = self.client.get(PATH + "?t=fake")
         assert response.status_code == 200
-        form1: forms.InitialOutlineForm = response.context["form1"]
-        assert form1["target"].initial == initial_outline_fakes
+        form1_2: forms.InitialOutlineForm = response.context["form1"]
+        assert form1_2["target"].initial == initial_outline_fakes
 
         response = self.client.get(PATH + "?t=ruin")
         assert response.status_code == 200
-        form1: forms.InitialOutlineForm = response.context["form1"]
-        assert form1["target"].initial == initial_outline_ruins
+        form1_3: forms.InitialOutlineForm = response.context["form1"]
+        assert form1_3["target"].initial == initial_outline_ruins
 
     @freeze_time("2022-11-26")
     def test_planer_initial_form___200_initial_values_for_forms_works_well_2(self):
@@ -505,13 +505,13 @@ class InitialForm(MiniSetup):
 
         response = self.client.get(PATH + "?t=fake")
         assert response.status_code == 200
-        form1: forms.InitialOutlineForm = response.context["form1"]
-        assert form1["target"].initial == initial_outline_fakes
+        form1_2: forms.InitialOutlineForm = response.context["form1"]
+        assert form1_2["target"].initial == initial_outline_fakes
 
         response = self.client.get(PATH + "?t=ruin")
         assert response.status_code == 200
-        form1: forms.InitialOutlineForm = response.context["form1"]
-        assert form1["target"].initial == initial_outline_ruins
+        form1_3: forms.InitialOutlineForm = response.context["form1"]
+        assert form1_3["target"].initial == initial_outline_ruins
 
     def test_planer_initial_form___302_test_form1_real(self):
         outline = self.get_outline(test_world=True)

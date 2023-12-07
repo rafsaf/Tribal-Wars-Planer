@@ -51,7 +51,9 @@ class WorldUpdateHandler:
         self.tribe_log_msg: str | None = None
         self.village_log_msg: str | None = None
 
-    def check_if_world_exist_and_try_create(self) -> tuple[World | None, str]:
+    def check_if_world_exist_and_try_create(  # noqa: PLR0912,PLR0911
+        self,
+    ) -> tuple[World | None, str]:
         """
         Check if world exists in game
         if world is already added, return tuple None, 'added'

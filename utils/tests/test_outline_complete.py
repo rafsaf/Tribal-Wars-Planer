@@ -1117,7 +1117,7 @@ class TestOutlineCreateTargets(TestCase):
         FAKE_MIN_OFF_CHOICES = [mode[0] for mode in Outline.FAKE_MIN_OFF_CHOICES]
         NIGHT_BONUS = [True, False]
 
-        cases = itertools.product(
+        cases: list[tuple[str, str, str, str, str, str, str, bool]] = itertools.product(
             *[
                 MODE_OFF,
                 MODE_NOBLE,
@@ -1128,7 +1128,7 @@ class TestOutlineCreateTargets(TestCase):
                 FAKE_MIN_OFF_CHOICES,
                 NIGHT_BONUS,
             ]
-        )
+        )  # type: ignore
 
         Result.objects.create(outline=self.outline)
         self.outline.initial_outline_min_off = 10000

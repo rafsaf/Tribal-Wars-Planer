@@ -80,7 +80,7 @@ def get_set_of_villages(
     return {f"{coord[0]}|{coord[1]}" for coord in back_array}
 
 
-def deff_text(
+def deff_text(  # noqa: PLR0912
     ally_villages,
     enemy_villages,
     radius: int,

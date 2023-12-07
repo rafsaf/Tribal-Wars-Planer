@@ -9,11 +9,11 @@ repos:
     hooks:
       - id: black
 
-  # - repo: https://github.com/astral-sh/ruff-pre-commit
-  #   rev: v0.1.6
-  #   hooks:
-  #     - id: ruff
-  #       args: [--fix]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.6
+    hooks:
+      - id: ruff
+        args: [--fix]
 
   - repo: https://github.com/rafsaf/pyproject-tag-check
     rev: "1.0.0"

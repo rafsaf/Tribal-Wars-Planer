@@ -270,13 +270,12 @@ class TableText:
             else:
                 building = ""
             send = f"{text}{weight.catapult} {building})"
+        elif weight.nobleman == 0:
+            text = _("[size=12][b]OFF[/b][/size] (Off-")
+            send = f"{text}{weight.off})"
         else:
-            if weight.nobleman == 0:
-                text = _("[size=12][b]OFF[/b][/size] (Off-")
-                send = f"{text}{weight.off})"
-            else:
-                text = _("[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]")
-                send = f"{text} (Off-{weight.off}, {nobles}{weight.nobleman}) "
+            text = _("[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]")
+            send = f"{text} (Off-{weight.off}, {nobles}{weight.nobleman}) "
 
         if simple:
             own_and_enemy_villages = ""

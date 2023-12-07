@@ -104,7 +104,7 @@ def outline_delete(request: HttpRequest, _id: int) -> HttpResponse:
 
 
 @login_required
-def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:
+def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:  # noqa: PLR0912
     """details user's outline , login required"""
     models.Outline.objects.filter(editable="active", owner=request.user).delete()
     instance: models.Outline = get_object_or_404(
