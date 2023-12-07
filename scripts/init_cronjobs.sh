@@ -14,5 +14,10 @@ chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/media
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/prometheus_multi_proc_dir
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/disk_cache
 
-### 2. Run cronjobs ###
+### 2. Run metrics on :8050 in the background
+echo "start metrics thread"
+runuser -u ${SERVICE_NAME} -- /usr/bin/nohup python scripts/expose_metrics_server.py &
+
+### 3. Run cronjobs ###
+echo "start cronjobs"
 runuser -u ${SERVICE_NAME} -- python manage.py runcronjobs

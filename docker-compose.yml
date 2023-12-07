@@ -18,7 +18,9 @@ services:
     build:
       target: build
       context: ./
-    command: bash /build/scripts/init_cronjobs.sh
+    ports:
+      - 8052:8050
+    command: /build/scripts/init_cronjobs.sh
     environment:
       - POSTGRES_HOST=postgres_dev
     env_file:
@@ -33,6 +35,7 @@ services:
       context: ./
     ports:
       - 7998:80
+      - 8053:8050
     env_file:
       - .env
     environment:

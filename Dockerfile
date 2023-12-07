@@ -42,7 +42,9 @@ COPY tribal_wars_planer tribal_wars_planer
 COPY utils utils
 
 RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build
-CMD bash /build/scripts/init_webserver.sh
+CMD /build/scripts/init_webserver.sh
+EXPOSE 80
+EXPOSE 8050
 
 FROM base as translations
 COPY --from=poetry /requirements.txt .

@@ -8,6 +8,7 @@ Pipfile*
 prometheus_multi_proc_dir
 .pytest_cache
 .ruff_cache
+nohup.out
 # C extensions
 *.so
 /logs
