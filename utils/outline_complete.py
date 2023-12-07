@@ -53,7 +53,7 @@ def generate_distance_matrix(outline: Outline, weight_max_lst: list[WeightMaximu
     targets: QuerySet["Target"] = Target.objects.filter(outline=outline).order_by("id")
 
     coord_to_id = {}
-    list_of_coords = []
+    list_of_coords: list[Any] = []
     for target in targets.only("target"):
         coord = target.coord_tuple()
         if coord in coord_to_id:
@@ -267,7 +267,7 @@ class CreateWeights:
 
         elif target.required_noble > 0:
             self._annotate_distances_and_morale_for_target(target)
-            weight_noble: WriteNobleTarget = WriteNobleTarget(
+            weight_noble = WriteNobleTarget(
                 random=self.random,
                 target=target,
                 outline=self.outline,
@@ -296,7 +296,7 @@ class CreateWeights:
             target.required_off = target.required_noble
             if target.required_off > 0:
                 self._annotate_distances_and_morale_for_target(target)
-                weight_ram: WriteRamTarget = WriteRamTarget(
+                weight_ram = WriteRamTarget(
                     random=self.random,
                     target=target,
                     outline=self.outline,
@@ -324,7 +324,7 @@ class CreateWeights:
 
         elif target.required_off > 0:
             self._annotate_distances_and_morale_for_target(target)
-            weight_ram: WriteRamTarget = WriteRamTarget(
+            weight_ram = WriteRamTarget(
                 random=self.random,
                 target=target,
                 outline=self.outline,

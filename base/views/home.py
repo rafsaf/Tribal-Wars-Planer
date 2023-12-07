@@ -35,7 +35,7 @@ log = logging.getLogger(__name__)
 
 def base_view(request):
     """base view"""
-    stats = {}
+    stats: dict[str, int | None] = {}
     INITIAL_DATE = date(year=2020, month=9, day=1)
     days: int = (timezone.localdate() - INITIAL_DATE).days
     stats["days"] = days

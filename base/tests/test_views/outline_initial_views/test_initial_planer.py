@@ -81,40 +81,40 @@ class InitialPlaner(MiniSetup):
 
         PATH = reverse("base:planer_initial", args=[outline.pk])
 
-        response = self.client.get(PATH + "?mode=ruin&page=5&filtr=xxx")
-        assert response.status_code == 200
-        mode: basic.Mode = response.context["mode"]
-        filtr: str = response.context["filtr"]
-        assert mode.is_ruin
-        assert filtr == "xxx"
+        response_1 = self.client.get(PATH + "?mode=ruin&page=5&filtr=xxx")
+        assert response_1.status_code == 200
+        mode_1: basic.Mode = response_1.context["mode"]
+        filtr_1: str = response_1.context["filtr"]
+        assert mode_1.is_ruin
+        assert filtr_1 == "xxx"
 
-        response = self.client.get(PATH + "?mode=time&page=5&filtr=yyy")
-        assert response.status_code == 200
-        mode: basic.Mode = response.context["mode"]
-        filtr: str = response.context["filtr"]
-        assert mode.is_time
-        assert filtr == "yyy"
+        response_2 = self.client.get(PATH + "?mode=time&page=5&filtr=yyy")
+        assert response_2.status_code == 200
+        mode_2: basic.Mode = response_2.context["mode"]
+        filtr_2: str = response_2.context["filtr"]
+        assert mode_2.is_time
+        assert filtr_2 == "yyy"
 
-        response = self.client.get(PATH + "?mode=add_and_remove&page=5&filtr=yyy")
-        assert response.status_code == 200
-        mode: basic.Mode = response.context["mode"]
-        filtr: str = response.context["filtr"]
-        assert mode.is_add_and_remove
-        assert filtr == "yyy"
+        response_3 = self.client.get(PATH + "?mode=add_and_remove&page=5&filtr=yyy")
+        assert response_3.status_code == 200
+        mode_3: basic.Mode = response_3.context["mode"]
+        filtr_3: str = response_3.context["filtr"]
+        assert mode_3.is_add_and_remove
+        assert filtr_3 == "yyy"
 
-        response = self.client.get(PATH + "?mode=menu&page=5&filtr=yyy")
-        assert response.status_code == 200
-        mode: basic.Mode = response.context["mode"]
-        filtr: str = response.context["filtr"]
-        assert mode.is_menu
-        assert filtr == "yyy"
+        response_4 = self.client.get(PATH + "?mode=menu&page=5&filtr=yyy")
+        assert response_4.status_code == 200
+        mode_4: basic.Mode = response_4.context["mode"]
+        filtr_4: str = response_4.context["filtr"]
+        assert mode_4.is_menu
+        assert filtr_4 == "yyy"
 
-        response = self.client.get(PATH + "?mode=fake&page=5&filtr=yyy")
-        assert response.status_code == 200
-        mode: basic.Mode = response.context["mode"]
-        filtr: str = response.context["filtr"]
-        assert mode.is_fake
-        assert filtr == "yyy"
+        response_5 = self.client.get(PATH + "?mode=fake&page=5&filtr=yyy")
+        assert response_5.status_code == 200
+        mode_5: basic.Mode = response_5.context["mode"]
+        filtr_5: str = response_5.context["filtr"]
+        assert mode_5.is_fake
+        assert filtr_5 == "yyy"
 
     def test_planer_initial___302_go_back_button(self):
         outline = self.get_outline(written="active", add_result=True)

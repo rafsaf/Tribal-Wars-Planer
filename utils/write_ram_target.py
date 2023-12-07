@@ -123,7 +123,7 @@ class WriteRamTarget:
             off_lst = off_lst[: self.target.required_off]
             off_lst.sort(key=lambda weight: -weight.distance)
         else:
-            off_lst: list[WeightMaximum] = self.sorted_weights_offs()
+            off_lst = self.sorted_weights_offs()
         i: int
         weight_max: WeightMaximum
         for i, weight_max in enumerate(off_lst):
@@ -221,10 +221,8 @@ class WriteRamTarget:
 
     def _only_closer_than_maximum_off_dist(self) -> Callable[[WeightMaximum], bool]:
         def filter_closer_than_maximum_off_dist(weight_max: WeightMaximum) -> bool:
-            return (
-                getattr(weight_max, "distance")
-                <= self.outline.initial_outline_maximum_off_dist
-            )
+            distance: int = getattr(weight_max, "distance")
+            return distance <= self.outline.initial_outline_maximum_off_dist
 
         return filter_closer_than_maximum_off_dist
 
@@ -328,7 +326,7 @@ class WriteRamTarget:
         if len(weight_list) < self.target.required_off:
             required: int = len(weight_list)
         else:
-            required: int = self.target.required_off
+            required = self.target.required_off
 
         sampled_weight_lst: list[WeightMaximum] = self.random.sample(
             weight_list, required
@@ -388,7 +386,7 @@ class WriteRamTarget:
                     left_offs -= len(weight_list_1)
 
         else:
-            result_lst: list[WeightMaximum] = list(
+            result_lst = list(
                 self._random_query(filtered_weight_max, night_bool=None)[
                     : self.target.required_off
                 ]
@@ -417,7 +415,7 @@ class WriteRamTarget:
         if len(weight_list) < self.target.required_off:
             required: int = len(weight_list)
         else:
-            required: int = self.target.required_off
+            required = self.target.required_off
 
         sampled_weight_lst: list[WeightMaximum] = self.random.sample(
             weight_list, required

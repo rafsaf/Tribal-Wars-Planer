@@ -90,10 +90,10 @@ class OutlineProfileSettings(MiniSetup):
         assert response.status_code == 302
         assert response.url == PATH
 
-        profile: Profile = Profile.objects.get(user=me)
-        assert profile.input_data_type == Outline.DEFF_COLLECTION
-        assert profile.server is not None
-        assert profile.server.dns == "nottestserver"
-        assert not profile.default_morale_on
-        assert profile.sending_option == "extended"
-        assert not profile.send_message_with_url
+        profile_2: Profile = Profile.objects.get(user=me)
+        assert profile_2.input_data_type == Outline.DEFF_COLLECTION
+        assert profile_2.server is not None
+        assert profile_2.server.dns == "nottestserver"
+        assert not profile_2.default_morale_on
+        assert profile_2.sending_option == "extended"
+        assert not profile_2.send_message_with_url
