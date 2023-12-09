@@ -1,4 +1,4 @@
-FROM python:3.12.0-bookworm as base
+FROM python:3.12.1-bookworm as base
 
 ENV PYTHONUNBUFFERED 1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
