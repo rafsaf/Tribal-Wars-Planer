@@ -45,7 +45,7 @@ class InitialAddFirstFake(ChangesViewSetup):
 
         # redirect to target view after the work is done
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, expected_path)
+        self.assertEqual(getattr(response, "url"), expected_path)
         # testing behaviour
         self.assertEqual(
             WeightModel.objects.filter(start="500|500", target=target).count(), 2

@@ -28,11 +28,11 @@ class InitialPlaner(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_initial___404_foreign_user_no_access(self):
         outline = self.get_outline(written="active")
@@ -143,7 +143,7 @@ class InitialPlaner(MiniSetup):
 
         response = self.client.post(PATH, data={"form1": ""})
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         outline.refresh_from_db()
         assert outline.written == "inactive"
@@ -181,7 +181,7 @@ class InitialPlaner(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?page=None&mode=menu&filtr="
+        assert getattr(response, "url") == PATH + "?page=None&mode=menu&filtr="
         outline.refresh_from_db()
         assert outline.simple_textures is True
         assert outline.filter_targets_number == 15
@@ -201,7 +201,7 @@ class InitialPlaner(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?page=None&mode=menu&filtr="
+        assert getattr(response, "url") == PATH + "?page=None&mode=menu&filtr="
 
         response = self.client.post(
             PATH,
@@ -212,7 +212,7 @@ class InitialPlaner(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?page=None&mode=menu&filtr="
+        assert getattr(response, "url") == PATH + "?page=None&mode=menu&filtr="
 
         response = self.client.post(
             PATH,
@@ -223,7 +223,7 @@ class InitialPlaner(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?page=None&mode=menu&filtr="
+        assert getattr(response, "url") == PATH + "?page=None&mode=menu&filtr="
 
         assert TargetVertex.objects.filter(fake=False, ruin=False).count() == 1
         assert TargetVertex.objects.filter(fake=True, ruin=False).count() == 1

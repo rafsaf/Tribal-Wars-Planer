@@ -28,7 +28,7 @@ class OutlineDetailGetDeff(MiniSetup):
         assert response.status_code == 302
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_detail_get_deff___404_foreign_user_no_access(self):
         outline = self.get_outline(add_result=True)
@@ -61,7 +61,7 @@ class OutlineDetailGetDeff(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         outline.refresh_from_db()
         outline.deff_troops = self.random_lower_string()
@@ -70,7 +70,7 @@ class OutlineDetailGetDeff(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         outline.refresh_from_db()
         outline.deff_troops = self.random_lower_string()
@@ -99,7 +99,7 @@ class OutlineDetailGetDeff(MiniSetup):
             PATH, data={"form": "", "radius": 10, "excluded": "500|500"}
         )
         assert response.status_code == 302
-        assert response.url == REDIRECT_OK
+        assert getattr(response, "url") == REDIRECT_OK
 
         response = self.client.post(
             PATH,
@@ -116,4 +116,4 @@ class OutlineDetailGetDeff(MiniSetup):
             data={"form": "", "radius": 10, "excluded": ""},
         )
         assert response.status_code == 302
-        assert response.url == REDIRECT_BAD
+        assert getattr(response, "url") == REDIRECT_BAD

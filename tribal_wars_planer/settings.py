@@ -17,9 +17,11 @@ import os
 import tomllib
 from pathlib import Path
 
+import django_stubs_ext
 from diskcache.fanout import FanoutCache
 from dotenv import load_dotenv
 
+django_stubs_ext.monkeypatch()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 with open(BASE_DIR / "pyproject.toml", "rb") as f:

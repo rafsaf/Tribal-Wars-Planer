@@ -26,7 +26,7 @@ class InactiveOutline(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_detail___404_foreign_user_no_access(self):
         outline = self.get_outline(editable="inactive")
@@ -74,7 +74,7 @@ class InactiveOutline(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH
+        assert getattr(response, "url") == PATH
 
         outline.refresh_from_db()
         stats.refresh_from_db()
@@ -101,7 +101,7 @@ class InactiveOutline(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH
+        assert getattr(response, "url") == PATH
 
         outline.refresh_from_db()
         stats.refresh_from_db()

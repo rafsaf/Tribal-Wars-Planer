@@ -26,11 +26,11 @@ class OutlineDelete(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_delete___404_foreign_user_no_access(self):
         outline = self.get_outline()
@@ -56,6 +56,6 @@ class OutlineDelete(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         assert Outline.objects.count() == 1

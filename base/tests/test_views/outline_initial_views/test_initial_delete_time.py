@@ -29,7 +29,7 @@ class InitialDeleteTime(MiniSetup):
         assert response.status_code == 302
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_delete_time___404_foreign_user_no_access(self):
         outline = self.get_outline()
@@ -61,7 +61,7 @@ class InitialDeleteTime(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         assert not OutlineTime.objects.filter(pk=outline_time.pk).exists()
 
@@ -89,7 +89,7 @@ class InitialDeleteTime(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         assert not OutlineTime.objects.filter(pk=outline_time1.pk).exists()
         outline.refresh_from_db()
@@ -102,7 +102,7 @@ class InitialDeleteTime(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         assert not OutlineTime.objects.filter(pk=outline_time2.pk).exists()
         outline.refresh_from_db()
@@ -115,7 +115,7 @@ class InitialDeleteTime(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         assert not OutlineTime.objects.filter(pk=outline_time3.pk).exists()
         outline.refresh_from_db()

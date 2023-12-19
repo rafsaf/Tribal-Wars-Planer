@@ -26,7 +26,7 @@ class OutlineProfileSettings(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_settings___200_foreign_user_works_ok(self):
         self.login_foreign_user()
@@ -88,7 +88,7 @@ class OutlineProfileSettings(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH
+        assert getattr(response, "url") == PATH
 
         profile_2: Profile = Profile.objects.get(user=me)
         assert profile_2.input_data_type == Outline.DEFF_COLLECTION

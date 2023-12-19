@@ -26,7 +26,7 @@ class NewOutlineCreateSelect(MiniSetup):
         response = self.client.get(PATH)
 
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_create_select___404_foreign_user(self):
         self.login_foreign_user()
@@ -71,7 +71,7 @@ class NewOutlineCreateSelect(MiniSetup):
         response = self.client.post(PATH, data={"tribe1": "ally"})
 
         assert response.status_code == 302
-        assert response.url == PATH
+        assert getattr(response, "url") == PATH
         outline.refresh_from_db()
         assert outline.ally_tribe_tag == ["ally"]
 
@@ -96,7 +96,7 @@ class NewOutlineCreateSelect(MiniSetup):
         response = self.client.post(PATH, data={"tribe2": "enemy"})
 
         assert response.status_code == 302
-        assert response.url == PATH
+        assert getattr(response, "url") == PATH
         outline.refresh_from_db()
         assert outline.enemy_tribe_tag == ["enemy"]
 

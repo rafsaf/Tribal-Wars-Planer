@@ -43,7 +43,7 @@ class InitialMoveUp(ChangesViewSetup):
 
         # redirect to target view after the work is done
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, expected_path)
+        self.assertEqual(getattr(response, "url"), expected_path)
         # testing behaviour
         weight0.refresh_from_db()
         weight1.refresh_from_db()
@@ -57,7 +57,7 @@ class InitialMoveUp(ChangesViewSetup):
 
         # redirect to target view after the work is done
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, expected_path)
+        self.assertEqual(getattr(response, "url"), expected_path)
         # testing behaviour
         weight0.refresh_from_db()
         weight1.refresh_from_db()

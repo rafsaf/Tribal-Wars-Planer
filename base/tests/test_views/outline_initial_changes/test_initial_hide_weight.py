@@ -43,7 +43,7 @@ class InitialHideWeight(ChangesViewSetup):
 
         # redirect to target view after the work is done
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, expected_path)
+        self.assertEqual(getattr(response, "url"), expected_path)
         # testing behaviour
 
         weight_max.refresh_from_db()
@@ -57,7 +57,7 @@ class InitialHideWeight(ChangesViewSetup):
         )
 
         self.assertEqual(response2.status_code, 302)
-        self.assertEqual(response2.url, expected_path)
+        self.assertEqual(getattr(response2, "url"), expected_path)
 
         weight_max.refresh_from_db()
         self.assertEqual(weight_max.hidden, False)

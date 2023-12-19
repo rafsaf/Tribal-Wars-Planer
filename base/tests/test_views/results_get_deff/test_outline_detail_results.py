@@ -28,7 +28,7 @@ class OutlineDetailResults(MiniSetup):
         assert response.status_code == 302
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_detail_results___404_foreign_user_no_access(self):
         outline = self.get_outline(add_result=True)
@@ -82,7 +82,7 @@ class OutlineDetailResults(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH
+        assert getattr(response, "url") == PATH
 
         outline.refresh_from_db()
 
