@@ -142,8 +142,8 @@ class UserDeffInfo:
             "player_front_deff_inside": 0,
             "player_front_deff_own": 0,
         }
-        self.player_back_villages = []
-        self.player_front_villages = []
+        self.player_back_villages: list[VillageDeffInfo] = []
+        self.player_front_villages: list[VillageDeffInfo] = []
 
     def user_description(self) -> str:
         on_front = _("On front")

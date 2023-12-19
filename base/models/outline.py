@@ -428,9 +428,9 @@ class Outline(models.Model):
         expire: datetime.timedelta = self.created - minus_35_days
 
         if expire.days > 7:
-            prefix: str = "<small class='md-correct2'>"
+            prefix = "<small class='md-correct2'>"
         else:
-            prefix: str = "<small class='md-error'>"
+            prefix = "<small class='md-error'>"
 
         return (
             prefix

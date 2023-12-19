@@ -60,6 +60,10 @@ jobs:
         run: |
           poetry run ruff .
 
+      - name: Run mypy
+        run: |
+          poetry run mypy --check .
+
       - name: Coverage full tests
         env:
           POSTGRES_HOST: localhost

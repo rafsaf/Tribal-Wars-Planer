@@ -58,7 +58,7 @@ class MakeOutline:
                 if army.coord == current_coord:
                     # we dont wanna use troops outside of village
                     continue
-                player: Player = self.village_dictionary[army.coord]
+                player = self.village_dictionary[army.coord]
                 self._add_weight_max(army=army, player=player)
             self.outline.deff_troops_weightmodels_hash = (
                 self.outline.get_or_set_deff_troops_hash()

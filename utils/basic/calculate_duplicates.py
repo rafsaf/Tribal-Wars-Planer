@@ -110,7 +110,7 @@ class CalcultateDuplicates:
             if len(line_lst) <= 3:
                 lines: str = ",".join(line_lst)
             else:
-                lines: str = ",".join(line_lst[:3]) + ",..."
+                lines = ",".join(line_lst[:3]) + ",..."
             result_list.append(
                 {
                     "target": target_dict["target"],

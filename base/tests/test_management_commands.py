@@ -21,9 +21,7 @@ from base.models import Server, World
 
 
 def test_create_servers_command():
-    args = []
-    opts = {}
-    call_command("createservers", *args, **opts)
+    call_command("createservers")
 
     assert Server.objects.all().count() == len(settings.TRIBAL_WARS_SUPPORTED_SERVERS)
 

@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+from collections.abc import Iterable
 from itertools import zip_longest
 
 from django.contrib.auth.decorators import login_required
@@ -680,11 +681,11 @@ def initial_divide(
     weight_model = get_object_or_404(
         models.WeightModel.objects.select_for_update().select_related("state"), pk=id4
     )
-    n_list = [i + 1 for i in range(n - 1)]
-    nob_list = [i for i in range(max(weight_model.nobleman - 1, 0))]
+    n_list: list[int] = [i + 1 for i in range(n - 1)]
+    nob_list: list[int] = [i for i in range(max(weight_model.nobleman - 1, 0))]
     if n > weight_model.nobleman:
-        zipped_list = zip_longest(n_list, nob_list)
-        nob_number = max(weight_model.nobleman - 1, 0)
+        zipped_list: Iterable[tuple[int, int]] = zip_longest(n_list, nob_list)
+        nob_number: int = max(weight_model.nobleman - 1, 0)
     else:
         zipped_list = zip(n_list, nob_list)
         nob_number = n - 1

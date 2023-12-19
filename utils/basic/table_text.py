@@ -43,18 +43,17 @@ class TableText:
             "[table][**][||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
         )
         self.result: defaultdict[str, list[WeightModel]] = defaultdict(list)
-        self.table_result = {}
-        self.string_result = {}
-        self.deputy_result = {}
-        self.extended_result = {}
-        self.new_extended_result = {}
+        self.table_result: dict[str, str] = {}
+        self.string_result: dict[str, str] = {}
+        self.deputy_result: dict[str, str] = {}
+        self.extended_result: dict[str, str] = {}
+        self.new_extended_result: dict[str, str] = {}
 
-        self.weight_table = {}
-        self.weight_string = {}
-        self.weight_string = {}
-        self.weight_deputy = {}
-        self.weight_extended = {}
-        self.new_weight_extended = {}
+        self.weight_table: dict[WeightModel, str] = {}
+        self.weight_string: dict[WeightModel, str] = {}
+        self.weight_deputy: dict[WeightModel, str] = {}
+        self.weight_extended: dict[WeightModel, str] = {}
+        self.new_weight_extended: dict[WeightModel, str] = {}
 
         self.world = outline.world
         self.outline = outline

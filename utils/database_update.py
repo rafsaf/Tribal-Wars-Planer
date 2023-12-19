@@ -37,9 +37,9 @@ log = logging.getLogger(__name__)
 
 
 class WorldUpdateHandler:
-    VILLAGE_DATA = "/map/village.txt.gz"
-    TRIBE_DATA = "/map/ally.txt.gz"
-    PLAYER_DATA = "/map/player.txt.gz"
+    VILLAGE_DATA: Literal["/map/village.txt.gz"] = "/map/village.txt.gz"
+    TRIBE_DATA: Literal["/map/ally.txt.gz"] = "/map/ally.txt.gz"
+    PLAYER_DATA: Literal["/map/player.txt.gz"] = "/map/player.txt.gz"
     DATA_TYPES = Literal[
         "/map/village.txt.gz", "/map/ally.txt.gz", "/map/player.txt.gz"
     ]

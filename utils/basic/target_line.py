@@ -25,9 +25,9 @@ class TargetsData:
         self.world = world
         self.data = data
         self.lines = data.split("\r\n")
-        self.villages_coord = []
-        self.vill_id_line = {}
-        self.errors_ids = set()
+        self.villages_coord: list[str] = []
+        self.vill_id_line: dict[str, int] = {}
+        self.errors_ids: set[int] = set()
         self.new_validated_data = ""
 
     def validate(self):

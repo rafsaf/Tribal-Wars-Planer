@@ -155,7 +155,7 @@ class DeffTroopsForm(forms.ModelForm):
         player_dictionary = basic.coord_to_player(self.outline)
         evidence = basic.world_evidence(self.outline.world)
 
-        already_used_villages = {}
+        already_used_villages: dict[str, int] = {}
 
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Defence(text_army=text_line, evidence=evidence)
@@ -331,7 +331,7 @@ class InitialOutlineForm(forms.Form):
             return data
 
         for error_id in data_lines.errors_ids:
-            self.add_error("target", error_id)
+            self.add_error("target", str(error_id))
         return data
 
 

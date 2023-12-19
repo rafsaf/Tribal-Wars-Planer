@@ -34,47 +34,51 @@ def synchronize_stripe():  # pragma: no cover
     StripeProduct.objects.all().delete()
     log.info("Started synchonization of stripe")
     products = 0
-    for item in stripe.Product.list():
-        if "months" not in item["metadata"]:
-            log.warning(f"No months in metadata, skipping product: {item['id']}")
+    for product_item in stripe.Product.list():
+        if "months" not in product_item["metadata"]:
+            log.warning(
+                f"No months in metadata, skipping product: {product_item['id']}"
+            )
             continue
         product = StripeProduct(
-            product_id=item["id"],
-            active=item["active"],
-            created=item["created"],
-            updated=item["updated"],
-            name=item["name"],
-            months=item["metadata"]["months"],
+            product_id=product_item["id"],
+            active=product_item["active"],
+            created=product_item["created"],
+            updated=product_item["updated"],
+            name=product_item["name"],
+            months=product_item["metadata"]["months"],
         )
 
         product.save()
         products += 1
 
     prices = 0
-    for item in stripe.Price.list():
-        currency = item["currency"].upper()
-        if not item["type"] == "one_time":
-            log.warning(f"Not one time price: {item['id']}")
+    for price_item in stripe.Price.list():
+        currency = price_item["currency"].upper()
+        if not price_item["type"] == "one_time":
+            log.warning(f"Not one time price: {price_item['id']}")
             continue
         if currency not in settings.SUPPORTED_CURRENCIES:
-            log.warning(f"Currency {item['currency']} not supported: {item['id']}")
+            log.warning(
+                f"Currency {price_item['currency']} not supported: {price_item['id']}"
+            )
             continue
 
         try:
-            product = StripeProduct.objects.get(product_id=item["product"])
+            product = StripeProduct.objects.get(product_id=price_item["product"])
         except StripeProduct.DoesNotExist:
             log.warning(
-                f"Product {item['product']} does not exists, skipping price: {item['id']}"
+                f"Product {price_item['product']} does not exists, skipping price: {price_item['id']}"
             )
             continue
 
         price = StripePrice(
-            price_id=item["id"],
-            product_id=item["product"],
-            active=item["active"],
-            created=item["created"],
+            price_id=price_item["id"],
+            product_id=price_item["product"],
+            active=price_item["active"],
+            created=price_item["created"],
             currency=currency,
-            amount=item["unit_amount"],
+            amount=price_item["unit_amount"],
         )
         price.save()
         prices += 1

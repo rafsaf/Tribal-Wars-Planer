@@ -35,11 +35,11 @@ def timing(function):
         if len(str(args)) > 80:
             new_args = str(args)[0:80]
         else:
-            new_args = args
+            new_args = str(args)
         if len(str(kwargs)) > 80:
             new_kwargs = str(kwargs)[0:80]
         else:
-            new_kwargs = kwargs
+            new_kwargs = str(kwargs)
         end_queries = len(connection.queries)
         time3 = round(time2 - time1, 5)
         logging.debug(f"\r\n Func: {function.__name__}")
