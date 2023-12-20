@@ -30,7 +30,7 @@ class CompleteOutline(MiniSetup):
         assert response.status_code == 302
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_complete___404_foreign_user_no_access(self):
         outline = self.get_outline()
@@ -60,7 +60,7 @@ class CompleteOutline(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
     def test_planer_complete___302_redirect_redirect_to_next_tab(self):
         outline = self.get_outline(test_world=True)
@@ -83,7 +83,7 @@ class CompleteOutline(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
         outline.refresh_from_db()
         assert outline.written == "active"
         assert WeightModel.objects.all().count() == 5
@@ -110,7 +110,7 @@ class CompleteOutline(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
     def test_planer_complete___302_ok_even_when_target_player_not_updated(self):
         outline = self.get_outline(test_world=True)
@@ -134,4 +134,4 @@ class CompleteOutline(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT

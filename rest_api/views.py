@@ -223,7 +223,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
 
     req = StripeSessionAmount(data=request.data)  # type: ignore
     if req.is_valid():
-        user_pk: int = request.user.pk
+        user_pk: str = str(request.user.pk)
         profile: Profile = Profile.objects.get(user_id=user_pk)
         try:
             price: StripePrice = StripePrice.objects.get(
@@ -298,7 +298,7 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
         log.error(f"stripe_webhook() invalid payload {err}")
         metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    except stripe.error.SignatureVerificationError as err:
+    except stripe.SignatureVerificationError as err:
         # Invalid signature
         log.error(f"stripe_webhook() invalid signature {err}")
         metrics.ERRORS.labels("stripe_error").inc()

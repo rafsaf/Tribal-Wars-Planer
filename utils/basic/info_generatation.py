@@ -288,7 +288,7 @@ class TargetCount:
             return f"\r\n{self.target.target} - {offs} {offs_string} - {ruins} {ruins_string}"
 
         else:
-            offs_string: str = _("offs")
+            offs_string = _("offs")
             nobles_string: str = _("nobles")
 
             nobles = 0

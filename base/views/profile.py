@@ -50,7 +50,7 @@ def profile_settings(request: HttpRequest) -> HttpResponse:
     form1 = forms.ChangeProfileForm(None, instance=profile)
     if request.method == "POST":
         if "form1" in request.POST:
-            profile: Profile = Profile.objects.get(user=user)
+            profile = Profile.objects.get(user=user)
             form1 = forms.ChangeProfileForm(request.POST, instance=profile)
             if form1.is_valid():
                 updated_profile: Profile = form1.save(commit=False)

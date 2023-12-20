@@ -73,7 +73,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
             if form2.is_valid():
                 new_server = request.POST.get("server")
                 new_server = get_object_or_404(models.Server, dns=new_server)
-                profile: models.Profile = models.Profile.objects.get(user=request.user)
+                profile = models.Profile.objects.get(user=request.user)
                 profile.server = new_server
                 profile.server_bind = True
                 profile.save()
@@ -114,8 +114,8 @@ def new_outline_create_select(  # noqa: PLR0912
         )
     ]
 
-    sugested_ally_tribes = []
-    sugested_enemy_tribes = []
+    sugested_ally_tribes: list[str] = []
+    sugested_enemy_tribes: list[str] = []
     for old_outline in (
         models.Outline.objects.filter(world=instance.world, owner=request.user)
         .exclude(id=_id)

@@ -121,7 +121,7 @@ def generate_pdf_summary(request: HttpRequest):
         current_datetime = current_datetime + delta
 
     for yearly_result in years_result:
-        payments: QuerySet[Payment] = Payment.objects.filter(
+        payments = Payment.objects.filter(
             status="finished",
             payment_date__year=yearly_result,
             promotion=False,

@@ -33,7 +33,7 @@ class InitialForm(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_initial_form___404_foreign_user_no_access(self):
         outline = self.get_outline()
@@ -59,7 +59,7 @@ class InitialForm(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
     def test_planer_initial_form___302_redirect_when_deff_troops_empty(self):
         outline = self.get_outline()
@@ -72,7 +72,7 @@ class InitialForm(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
     def test_planer_initial_form___302_redirect_when_invalid_off_troops(self):
         outline = self.get_outline()
@@ -86,7 +86,7 @@ class InitialForm(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
     def test_planer_initial_form___302_redirect_when_invalid_deff_troops(self):
         outline = self.get_outline()
@@ -100,7 +100,7 @@ class InitialForm(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
     def test_planer_initial_form___302_redirect_when_written(self):
         outline = self.get_outline(written="active")
@@ -112,7 +112,7 @@ class InitialForm(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
     def test_planer_initial_form___200_off_troops_correct_and_creating_weights_and_mode_always_correct(
         self,
@@ -536,7 +536,7 @@ class InitialForm(MiniSetup):
         response = self.client.post(PATH, data={"form1": "", "target": "200|200:0:0"})
         REDIRECT = reverse("base:planer_detail", args=[outline.pk])
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
         assert TargetVertex.objects.filter(fake=False, ruin=False).count() == 0
 
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
@@ -575,7 +575,7 @@ class InitialForm(MiniSetup):
         response = self.client.post(PATH, data={"form1": "", "target": "200|200:0:0"})
         REDIRECT = reverse("base:planer_detail", args=[outline.pk])
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
         assert TargetVertex.objects.filter(fake=True, ruin=False).count() == 0
 
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
@@ -614,7 +614,7 @@ class InitialForm(MiniSetup):
         response = self.client.post(PATH, data={"form1": "", "target": "200|200:0:0"})
         REDIRECT = reverse("base:planer_detail", args=[outline.pk])
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
         assert TargetVertex.objects.filter(fake=False, ruin=True).count() == 0
 
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
@@ -651,7 +651,7 @@ class InitialForm(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?t=real"
+        assert getattr(response, "url") == PATH + "?t=real"
         outline.refresh_from_db()
         assert outline.initial_outline_min_off == 15000
         assert outline.initial_outline_front_dist == 90
@@ -686,7 +686,7 @@ class InitialForm(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?t=real"
+        assert getattr(response, "url") == PATH + "?t=real"
         outline.refresh_from_db()
         assert outline.date == date
 
@@ -725,7 +725,7 @@ class InitialForm(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?t=real"
+        assert getattr(response, "url") == PATH + "?t=real"
         outline.refresh_from_db()
         assert outline.mode_off == mode_off
         assert outline.mode_noble == mode_noble
@@ -772,7 +772,7 @@ class InitialForm(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?t=real"
+        assert getattr(response, "url") == PATH + "?t=real"
         outline.refresh_from_db()
         assert outline.night_bonus is True
         assert outline.enter_t1 == enter_t1
@@ -803,7 +803,7 @@ class InitialForm(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?t=real"
+        assert getattr(response, "url") == PATH + "?t=real"
         outline.refresh_from_db()
         assert (
             outline.initial_outline_off_left_catapult
@@ -845,7 +845,7 @@ class InitialForm(MiniSetup):
             },
         )
         assert response.status_code == 302
-        assert response.url == PATH + "?t=real"
+        assert getattr(response, "url") == PATH + "?t=real"
         outline.refresh_from_db()
         assert outline.morale_on == morale_on
         assert outline.morale_on_targets_greater_than == morale_on_targets_greater_than

@@ -64,7 +64,7 @@ class ArmyIndexDict(TypedDict):
 
 class TroopsIndex:
     def __init__(self, army: Literal["army", "defence"]) -> None:
-        self.result_mapping = {
+        self.result_mapping: dict[WorldEvidence, dict[str, int | None]] = {
             WorldEvidence(1, 1, 1): {},
             WorldEvidence(1, 1, 0): {},
             WorldEvidence(0, 1, 1): {},

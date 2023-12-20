@@ -106,7 +106,7 @@ def deff_text(  # noqa: PLR0912
 
         deff_instance = basic.Defence(text_army=line, evidence=world_evidence)
         try:
-            owner = village_dictionary[deff_instance.coord]  # type: ignore
+            village_dictionary[deff_instance.coord]
         except KeyError:
             raise basic.DeffException()
 
@@ -118,7 +118,7 @@ def deff_text(  # noqa: PLR0912
     for line in outline.off_troops.strip().split("\r\n"):
         army_instance = basic.Army(text_army=line, evidence=world_evidence)
         try:
-            owner = village_dictionary[army_instance.coord]
+            village_dictionary[army_instance.coord]
         except KeyError:
             raise basic.DeffException()
 
@@ -131,18 +131,18 @@ def deff_text(  # noqa: PLR0912
 
     for coord, deff_instance in deff_in_village_back.items():
         try:
-            army_instance = deff_own_from_village_back[coord]
+            back_army_instance: Army | None = deff_own_from_village_back[coord]
         except KeyError:
-            army_instance = None
+            back_army_instance = None
         owner = village_dictionary[coord].name
-        all_deff_text.add_back_village(owner, deff_instance, army_instance)
+        all_deff_text.add_back_village(owner, deff_instance, back_army_instance)
 
     for coord, deff_instance in deff_in_village_front.items():
         try:
-            army_instance = deff_own_from_village_front[coord]
+            front_army_instance: Army | None = deff_own_from_village_front[coord]
         except KeyError:
-            army_instance = None
+            front_army_instance = None
         owner = village_dictionary[coord].name
-        all_deff_text.add_front_village(owner, deff_instance, army_instance)
+        all_deff_text.add_front_village(owner, deff_instance, front_army_instance)
 
     return str(all_deff_text)

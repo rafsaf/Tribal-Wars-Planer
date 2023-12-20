@@ -26,7 +26,7 @@ class PaymentSumUpView(MiniSetup):
         response = self.client.get(PATH)
 
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_payment_summary___404_foreign_user(self):
         self.login_foreign_user()

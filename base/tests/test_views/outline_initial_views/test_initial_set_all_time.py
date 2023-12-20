@@ -29,7 +29,7 @@ class InitialSetAllTime(MiniSetup):
         assert response.status_code == 302
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_set_all_time___404_foreign_user_no_access(self):
         outline = self.get_outline()
@@ -64,7 +64,7 @@ class InitialSetAllTime(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         real_target: TargetVertex = TargetVertex.objects.get(target="200|200")
         assert real_target.outline_time == outline_time
@@ -97,7 +97,7 @@ class InitialSetAllTime(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         real_target: TargetVertex = TargetVertex.objects.get(target="200|200")
         assert real_target.outline_time is None
@@ -130,7 +130,7 @@ class InitialSetAllTime(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         real_target: TargetVertex = TargetVertex.objects.get(target="200|200")
         assert real_target.outline_time is None

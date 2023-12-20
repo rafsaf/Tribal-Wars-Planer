@@ -30,7 +30,7 @@ class NewOutlineCreate(MiniSetup):
         response = self.client.get(PATH)
 
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_create___200_auth(self):
         PATH = reverse("base:planer_create")
@@ -88,7 +88,7 @@ class NewOutlineCreate(MiniSetup):
         outline: Outline = Outline.objects.get(name="name")
         REDIRECT = reverse("base:planer_create_select", args=[outline.pk])
 
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
         assert outline.name == "name"
         assert outline.input_data_type == "Deff collection"
         assert outline.date == datetime.date.today()
@@ -126,7 +126,7 @@ class NewOutlineCreate(MiniSetup):
         )
 
         assert response.status_code == 302
-        assert response.url == PATH
+        assert getattr(response, "url") == PATH
         profile.refresh_from_db()
         assert profile.server == world.server
         assert profile.server_bind is True

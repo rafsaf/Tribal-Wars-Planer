@@ -39,8 +39,8 @@ class FromPeriods:
         )
         self.ram_periods = deque([period for period in periods if period.unit == "ram"])
 
-        self.nob_period = None
-        self.ram_period = None
+        self.nob_period: models.PeriodModel | None = None
+        self.ram_period: models.PeriodModel | None = None
 
     def next(self, weight: models.WeightModel) -> models.WeightModel:
         if weight.nobleman == 0 and not weight.ruin:

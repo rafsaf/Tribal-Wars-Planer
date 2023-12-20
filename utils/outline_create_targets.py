@@ -42,9 +42,9 @@ class OutlineCreateTargets:
         if self.target_mode.is_fake:
             text: str = self.outline.initial_outline_fakes
         elif self.target_mode.is_real:
-            text: str = self.outline.initial_outline_targets
+            text = self.outline.initial_outline_targets
         else:
-            text: str = self.outline.initial_outline_ruins
+            text = self.outline.initial_outline_ruins
         self.target_text = text.split("\r\n")
 
     def __call__(self) -> None:
@@ -67,17 +67,17 @@ class OutlineCreateTargets:
 
             if line_list[1].isnumeric():
                 required_off: str = line_list[1]
-                exact_off: list[str] = list()
+                exact_off: list[str] = []
             else:
-                required_off: str = "0"
-                exact_off: list[str] = line_list[1].split("|")
+                required_off = "0"
+                exact_off = line_list[1].split("|")
 
             if line_list[2].isnumeric():
                 required_noble: str = line_list[2]
-                exact_noble: list[str] = list()
+                exact_noble: list[str] = []
             else:
-                required_noble: str = "0"
-                exact_noble: list[str] = line_list[2].split("|")
+                required_noble = "0"
+                exact_noble = line_list[2].split("|")
 
             targets.append(
                 self._target(

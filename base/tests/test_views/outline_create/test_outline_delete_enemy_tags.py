@@ -27,7 +27,7 @@ class OutlineDeleteEnemyTags(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == self.login_page_path(next=PATH)
+        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_planer_delete_enemy_tags___404_foreign_user(self):
         self.login_foreign_user()
@@ -53,7 +53,7 @@ class OutlineDeleteEnemyTags(MiniSetup):
 
         response = self.client.post(PATH)
         assert response.status_code == 302
-        assert response.url == REDIRECT
+        assert getattr(response, "url") == REDIRECT
 
         outline.refresh_from_db()
         assert outline.enemy_tribe_tag == []
