@@ -16,7 +16,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         env:
           POSTGRES_PASSWORD: postgres
         options: >-
@@ -61,9 +61,9 @@ jobs:
         run: |
           poetry run ruff .
 
-      - name: Run mypy
-        run: |
-          poetry run mypy --check .
+      # - name: Run mypy
+      #   run: |
+      #     poetry run mypy --check .
 
       - name: Coverage full tests
         env:

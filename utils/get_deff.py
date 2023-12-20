@@ -106,7 +106,7 @@ def deff_text(  # noqa: PLR0912
 
         deff_instance = basic.Defence(text_army=line, evidence=world_evidence)
         try:
-            owner = village_dictionary[deff_instance.coord]  # type: ignore
+            village_dictionary[deff_instance.coord]
         except KeyError:
             raise basic.DeffException()
 
@@ -118,7 +118,7 @@ def deff_text(  # noqa: PLR0912
     for line in outline.off_troops.strip().split("\r\n"):
         army_instance = basic.Army(text_army=line, evidence=world_evidence)
         try:
-            owner = village_dictionary[army_instance.coord]
+            village_dictionary[army_instance.coord]
         except KeyError:
             raise basic.DeffException()
 
