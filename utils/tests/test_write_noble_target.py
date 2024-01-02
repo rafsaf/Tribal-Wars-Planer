@@ -347,14 +347,14 @@ class TestWriteNobleTargetNew(MiniSetup):
         target = Target.objects.get(target="200|200")
         weight_max = self.create_weight_maximum(outline=outline)
 
-        write_ram = WriteNobleTarget(
+        write_noble = WriteNobleTarget(
             target=target,
             outline=outline,
             weight_max_list=[weight_max],
             random=random,
         )
 
-        filter_casual_attack_block_ratio = write_ram._casual_attack_block_ratio()
+        filter_casual_attack_block_ratio = write_noble._casual_attack_block_ratio()
 
         target.points = 100
         weight_max.points = 130
