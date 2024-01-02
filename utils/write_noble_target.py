@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+import math
 from collections.abc import Callable
 from secrets import SystemRandom
 
@@ -77,6 +78,9 @@ class WriteNobleTarget:
     def sorted_weights_nobles(self) -> list[WeightMaximum]:
         self.filters.append(self._noble_query())
         self.filters.append(self._only_closer_than_target_dist())
+
+        if self.outline.world.casual_attack_block_ratio is not None:
+            self.filters.append(self._casual_attack_block_ratio())
 
         if not self.target.fake:
             self.filters.append(self._minimal_noble_off())
@@ -421,6 +425,19 @@ class WriteNobleTarget:
             )
 
         return filter_noble
+
+    def _casual_attack_block_ratio(self) -> Callable[[WeightMaximum], bool]:
+        if self.outline.world.casual_attack_block_ratio is None:
+            raise RuntimeError("expected world casual_attack_block_ratio to be int")
+        world_ratio = (100 + self.outline.world.casual_attack_block_ratio) / 100
+
+        def filter_casual_attack_block_ratio(weight_max: WeightMaximum) -> bool:
+            smaller_points = min(weight_max.points, self.target.points)
+            bigger_points = max(weight_max.points, self.target.points)
+            max_possible = math.floor(world_ratio * smaller_points)
+            return bigger_points <= max_possible
+
+        return filter_casual_attack_block_ratio
 
     def _only_closer_than_target_dist(self) -> Callable[[WeightMaximum], bool]:
         def filter_close_than_target_dist(weight_max: WeightMaximum) -> bool:

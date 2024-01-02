@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+import math
 from collections.abc import Callable, Generator
 from secrets import SystemRandom
 from statistics import mean
@@ -63,6 +64,9 @@ class WriteRamTarget:
 
     def sorted_weights_offs(self, catapults: int = 50) -> list[WeightMaximum]:
         self.filters.append(self._only_closer_than_maximum_off_dist())
+
+        if self.outline.world.casual_attack_block_ratio is not None:
+            self.filters.append(self._casual_attack_block_ratio())
 
         if self.target.fake:
             self.filters.append(self._fake_query())
@@ -264,6 +268,19 @@ class WriteRamTarget:
             return weight_max.morale >= self.outline.morale_on_targets_greater_than
 
         return filter_morale
+
+    def _casual_attack_block_ratio(self) -> Callable[[WeightMaximum], bool]:
+        if self.outline.world.casual_attack_block_ratio is None:
+            raise RuntimeError("expected world casual_attack_block_ratio to be int")
+        world_ratio = (100 + self.outline.world.casual_attack_block_ratio) / 100
+
+        def filter_casual_attack_block_ratio(weight_max: WeightMaximum) -> bool:
+            smaller_points = min(weight_max.points, self.target.points)
+            bigger_points = max(weight_max.points, self.target.points)
+            max_possible = math.floor(world_ratio * smaller_points)
+            return bigger_points <= max_possible
+
+        return filter_casual_attack_block_ratio
 
     def _off_query(self) -> Callable[[WeightMaximum], bool]:
         def filter_off(weight_max: WeightMaximum) -> bool:

@@ -73,6 +73,37 @@ class TestWriteRamTargetNew(MiniSetup):
         weight_max.catapult_left = 50
         assert ruin_filter(weight_max)
 
+    def test_ram_filter_casual_attack_block_ratio(self) -> None:
+        random = SystemRandom("test_write_ram")
+        outline = self.get_outline(test_world=True)
+        outline.world.casual_attack_block_ratio = 20
+        outline.world.save()
+        self.create_target_on_test_world(outline=outline)
+        target = Target.objects.get(target="200|200")
+        weight_max = self.create_weight_maximum(outline=outline)
+
+        write_ram = WriteRamTarget(
+            target=target,
+            outline=outline,
+            weight_max_list=[weight_max],
+            random=random,
+        )
+
+        filter_casual_attack_block_ratio = write_ram._casual_attack_block_ratio()
+
+        target.points = 100
+        weight_max.points = 130
+        assert not filter_casual_attack_block_ratio(weight_max)
+
+        weight_max.points = 119
+        assert filter_casual_attack_block_ratio(weight_max)
+
+        weight_max.points = 80
+        assert not filter_casual_attack_block_ratio(weight_max)
+
+        weight_max.points = 90
+        assert filter_casual_attack_block_ratio(weight_max)
+
 
 class TestWriteRamTarget(TestCase):
     def setUp(self):
