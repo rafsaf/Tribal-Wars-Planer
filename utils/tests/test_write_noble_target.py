@@ -23,6 +23,7 @@ from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
 from base.models.target_vertex import TargetVertex
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
+from base.tests.test_utils.mini_setup import MiniSetup
 from utils.outline_initial import MakeOutline
 from utils.write_noble_target import WriteNobleTarget
 
@@ -334,3 +335,36 @@ class TestWriteNobleTarget(TestCase):
         self.assertEqual(off5, 0)
         off6 = write_noble._first_off(weight, off5)
         self.assertEqual(off6, 0)
+
+
+class TestWriteNobleTargetNew(MiniSetup):
+    def test_noble_filter_casual_attack_block_ratio(self) -> None:
+        random = SystemRandom("test_write_ram")
+        outline = self.get_outline(test_world=True)
+        outline.world.casual_attack_block_ratio = 20
+        outline.world.save()
+        self.create_target_on_test_world(outline=outline)
+        target = Target.objects.get(target="200|200")
+        weight_max = self.create_weight_maximum(outline=outline)
+
+        write_noble = WriteNobleTarget(
+            target=target,
+            outline=outline,
+            weight_max_list=[weight_max],
+            random=random,
+        )
+
+        filter_casual_attack_block_ratio = write_noble._casual_attack_block_ratio()
+
+        target.points = 100
+        weight_max.points = 130
+        assert not filter_casual_attack_block_ratio(weight_max)
+
+        weight_max.points = 119
+        assert filter_casual_attack_block_ratio(weight_max)
+
+        weight_max.points = 80
+        assert not filter_casual_attack_block_ratio(weight_max)
+
+        weight_max.points = 90
+        assert filter_casual_attack_block_ratio(weight_max)
