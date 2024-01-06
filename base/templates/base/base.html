@@ -95,7 +95,10 @@
                                 {% if user.is_superuser and user.username == "admin" %}
                                 <a class="dropdown-item font-teal py-2" href="{% url 'base:payment_summary' %}">{% trans 'Payments summary' %}</a>
                                 {% endif %}
-                                <a class="dropdown-item font-red py-2" href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <input class="dropdown-item font-red py-2" type="submit" value="{% trans 'Sign out' %}" />
+                                </form>
                                 
                                 {% else %}
                                 <a class="dropdown-item font-teal py-2" href="{% url 'login' %}">{% trans 'Sign in' %}</a>
