@@ -18,7 +18,7 @@ ENV PATH="/venv/bin:$PATH"
 RUN apt-get update && apt-get install -y python3-pip nginx postgresql-client
 
 FROM base as poetry
-RUN pip install poetry==1.6.1
+RUN pip install poetry==1.7.1
 COPY poetry.lock pyproject.toml ./
 RUN poetry export -o /requirements.txt --without-hashes
 
