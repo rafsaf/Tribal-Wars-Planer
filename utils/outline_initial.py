@@ -56,8 +56,17 @@ class MakeOutline:
             for line in self.outline.deff_troops.split("\r\n"):
                 army = Defence(line, self.evidence)
                 if army.coord == current_coord:
-                    # we dont wanna use troops outside of village
+                    # we dont want to create weight max from enroute troops
+                    self.outline.deff_collection_text_enroute = (
+                        army.deff_collection_text
+                    )
                     continue
+                else:
+                    current_coord = army.coord
+                    self.outline.deff_collection_text_in_village = (
+                        army.deff_collection_text
+                    )
+
                 player = self.village_dictionary[army.coord]
                 self._add_weight_max(army=army, player=player)
             self.outline.deff_troops_weightmodels_hash = (

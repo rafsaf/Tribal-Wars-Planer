@@ -308,6 +308,13 @@ class Outline(models.Model):
     default_fake_time_id = models.IntegerField(default=None, null=True, blank=True)
     default_ruin_time_id = models.IntegerField(default=None, null=True, blank=True)
 
+    deff_collection_text_in_village = models.CharField(
+        max_length=256, default="", blank=True
+    )
+    deff_collection_text_enroute = models.CharField(
+        max_length=256, default="", blank=True
+    )
+
     class Meta:
         ordering = ("-created",)
 

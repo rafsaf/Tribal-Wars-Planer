@@ -286,6 +286,10 @@ class Defence(Army):
         self.world_evidence = evidence
         self.index_dict = DEFENCE_INDEX.get_index_dict(self.world_evidence)
 
+    @property
+    def deff_collection_text(self) -> str:
+        return self.text_army[1]
+
     def clean_init(self, player_dictionary, ally_tribes: list[str] | None = None):
         """Text army validation"""
 
