@@ -29,7 +29,6 @@ from django.http import (
     HttpResponse,
     HttpResponsePermanentRedirect,
     HttpResponseRedirect,
-    HttpResponseServerError,
 )
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -805,7 +804,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
         metrics.ERRORS.labels("complete_outline_unkown_error").inc()
 
         lock.delete()
-        return HttpResponseServerError()
+        raise
 
     lock.delete()
     return redirect(reverse("base:planer_initial", args=[id1]) + "?page=1&mode=menu")

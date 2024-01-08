@@ -188,12 +188,19 @@ class OutlineInfo:
         line_lst: list[str],
         noble_index: int,
         catapult_index: int,
+        deff_collection_text: str | None = None,
     ) -> str:
-        line_lst[0] = str(weight_max.start) + ","
-        line_lst[3] = str(weight_max.off_left - weight_max.catapult_left * 8) + ","
-        line_lst[noble_index] = str(weight_max.nobleman_left) + ","
-        line_lst[catapult_index] = str(weight_max.catapult_left) + ","
-        return "".join(line_lst)
+        army_line_lst = line_lst.copy()
+        army_line_lst[0] = str(weight_max.start) + ","
+        army_line_lst[3] = str(weight_max.off_left - weight_max.catapult_left * 8) + ","
+        army_line_lst[noble_index] = str(weight_max.nobleman_left) + ","
+        army_line_lst[catapult_index] = str(weight_max.catapult_left) + ","
+
+        if deff_collection_text is not None:
+            army_line_lst.insert(1, f"{deff_collection_text},")
+            army_line_lst.pop()
+
+        return "".join(army_line_lst)
 
     def show_export_troops(self) -> str:
         sum_text: str = ""
@@ -220,11 +227,36 @@ class OutlineInfo:
         for weight_max in models.WeightMaximum.objects.filter(
             outline=self.outline
         ).iterator():
-            sum_text += self.parse_weight_to_army_line(
-                weight_max, line_lst, noble_index, catapult_index
-            )
+            if self.outline.input_data_type == self.outline.ARMY_COLLECTION:
+                sum_text += self.parse_weight_to_army_line(
+                    weight_max, line_lst, noble_index, catapult_index
+                )
+            else:
+                sum_text += self.parse_weight_to_army_line(
+                    weight_max,
+                    line_lst,
+                    noble_index,
+                    catapult_index,
+                    deff_collection_text=self.outline.deff_collection_text_in_village,
+                )
+                sum_text += "\r\n"
+
+                # HACK
+                # force empty enroute troops
+                weight_max.off_left = 0
+                weight_max.catapult_left = 0
+                weight_max.nobleman_left = 0
+
+                sum_text += self.parse_weight_to_army_line(
+                    weight_max,
+                    line_lst,
+                    noble_index,
+                    catapult_index,
+                    deff_collection_text=self.outline.deff_collection_text_enroute,
+                )
+
             sum_text += "\r\n"
-        return sum_text
+        return sum_text.strip()
 
 
 class TargetCount:
