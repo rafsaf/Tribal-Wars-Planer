@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-22 22:59+0100\n"
+"POT-Creation-Date: 2024-01-08 21:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,7 +96,7 @@ msgstr "Wykluczone wysunięte wioski wroga"
 msgid "Exact coords separated by a space or an entry."
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:286 base/templates/base/base.html:236
+#: base/forms.py:286 base/templates/base/base.html:239
 #: base/templates/base/new_outline/new_outline_initial_period2.html:32
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
 msgid "Targets"
@@ -345,11 +345,11 @@ msgstr ""
 
 #: base/forms.py:600
 msgid ""
-"Defaults to just 100. Must be between 0 and 28000. This is strict minimum so "
-"if village have nobles, but not enough off units, Planer won't use it. Use "
-"with caution as it can change drastically how other options behave."
+"Defaults to just 100. Must be between 20 and 28000. This is strict minimum "
+"so if village have nobles, but not enough off units, Planer won't use it. "
+"Use with caution as it can change drastically how other options behave."
 msgstr ""
-"Domyślnie jedynie 100. Musi być pomiędzy 0 a 28000. Jest to <b>ścisły</b> "
+"Domyślnie jedynie 100. Musi być pomiędzy 20 a 28000. Jest to <b>ścisły</b> "
 "limit więc jeśli wioska ma szlachciców, ale niewystarczająco jednostek, "
 "planer nie użyje jej! Należy używać ostrożnie ponieważ może drastycznie "
 "zmienić rozpiskę i działanie innych opcji."
@@ -793,7 +793,7 @@ msgstr "Premium na 1 miesiąc"
 msgid "Premium %s months"
 msgstr "Premium na %s miesiące"
 
-#: base/models/world.py:60
+#: base/models/world.py:61
 msgid "World "
 msgstr "Świat "
 
@@ -866,104 +866,104 @@ msgstr "Dodaj świat"
 msgid "Payments summary"
 msgstr "Podsumowanie płatności"
 
-#: base/templates/base/base.html:98
+#: base/templates/base/base.html:100
 msgid "Sign out"
 msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:101 base/templates/base/base.html:189
-#: base/templates/base/base.html:200
+#: base/templates/base/base.html:104 base/templates/base/base.html:192
+#: base/templates/base/base.html:203
 msgid "Sign in"
 msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:102 base/templates/base/base.html:192
-#: base/templates/base/base.html:204 templates/registration/login.html:18
+#: base/templates/base/base.html:105 base/templates/base/base.html:195
+#: base/templates/base/base.html:207 templates/registration/login.html:18
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
-#: base/templates/base/base.html:106
+#: base/templates/base/base.html:109
 msgid "Language"
 msgstr "Język"
 
-#: base/templates/base/base.html:181
+#: base/templates/base/base.html:184
 #: templates/django_registration/registration_disallowed.html:7
 msgid "This is test environment, registration is not allowed. Go to"
 msgstr "Jest to testowe środowisko, rejestracja nie jest możliwa. Przejdź do"
 
-#: base/templates/base/base.html:187 base/templates/base/base.html:198
+#: base/templates/base/base.html:190 base/templates/base/base.html:201
 msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:192 base/templates/base/base.html:202
+#: base/templates/base/base.html:195 base/templates/base/base.html:205
 #: templates/registration/login.html:18
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:212
+#: base/templates/base/base.html:215
 msgid "Planer in numbers"
 msgstr "Planer w liczbach"
 
-#: base/templates/base/base.html:220
+#: base/templates/base/base.html:223
 msgid "Project days"
 msgstr "Dni projektu"
 
-#: base/templates/base/base.html:225
+#: base/templates/base/base.html:228
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: base/templates/base/base.html:231
+#: base/templates/base/base.html:234
 msgid "Outlines"
 msgstr "Rozpiski"
 
-#: base/templates/base/base.html:241
+#: base/templates/base/base.html:244
 msgid "Orders"
 msgstr "Rozkazy"
 
-#: base/templates/base/base.html:250
+#: base/templates/base/base.html:253
 msgid "PL version"
 msgstr "wersja PL"
 
-#: base/templates/base/base.html:259
+#: base/templates/base/base.html:262
 msgid "ENG version"
 msgstr "wersja ENG"
 
-#: base/templates/base/base.html:268
+#: base/templates/base/base.html:271
 msgid "Code tests"
 msgstr "Testy kodu"
 
-#: base/templates/base/base.html:278
+#: base/templates/base/base.html:281
 msgid "Benefits"
 msgstr "Korzyści"
 
-#: base/templates/base/base.html:281
+#: base/templates/base/base.html:284
 msgid "Security"
 msgstr "Bezpieczeństwo"
 
-#: base/templates/base/base.html:284
+#: base/templates/base/base.html:287
 msgid "Author"
 msgstr "O Twórcy"
 
-#: base/templates/base/base.html:291
+#: base/templates/base/base.html:294
 msgid "You save a tons of time and have all outlines in one place."
 msgstr ""
 "Oszczędzisz mnóstwo czasu i będziesz mieć wszystkie rozpiski w jednym "
 "miejscu."
 
-#: base/templates/base/base.html:293
+#: base/templates/base/base.html:296
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
 msgstr ""
 "Gracze otrzymają końcowe cele jako tekst gotowy do wklejenia do notatek i "
 "wysłania."
 
-#: base/templates/base/base.html:295
+#: base/templates/base/base.html:298
 msgid "Instantly distribute created objectives to players."
 msgstr "Natychmiastowe wysyłanie do graczy utworzonych dla nich wytycznych."
 
-#: base/templates/base/base.html:297
+#: base/templates/base/base.html:300
 msgid "Friendly and easy-to-use interface."
 msgstr "Przyjazny i łatwy w obsłudze interfejs."
 
-#: base/templates/base/base.html:299
+#: base/templates/base/base.html:302
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
@@ -971,33 +971,33 @@ msgstr ""
 "Możliwość rozpisania każdego topornika własnoręcznie albo pozostawienia "
 "ciężaru rozpisywania celi Planerowi, wybierając spośród dziesiątek opcji."
 
-#: base/templates/base/base.html:301
+#: base/templates/base/base.html:304
 msgid "Growing number of users."
 msgstr "Coraz więcej zaangażowanych w projekt użytkowników."
 
-#: base/templates/base/base.html:303
+#: base/templates/base/base.html:306
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Ciągłe dodawanie nowych opcji i naprawianie błędów."
 
-#: base/templates/base/base.html:305
+#: base/templates/base/base.html:308
 msgid "The scripts used are reported and approved by the game support."
 msgstr ""
 "Skrypty używane w grze wykorzystywane na stronie są zgłoszone i uznane za "
 "legalne przez Support."
 
-#: base/templates/base/base.html:307
+#: base/templates/base/base.html:310
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "Wyrzucisz wszystkie notatniki, kartki i arkusze excela do kosza."
 
-#: base/templates/base/base.html:309
+#: base/templates/base/base.html:312
 msgid "You will avoid common problems like doubled commands."
 msgstr "Pozbędziesz się typowych problemów jak podwojone komendy."
 
-#: base/templates/base/base.html:311
+#: base/templates/base/base.html:314
 msgid "No more mistakes when sending messages to players."
 msgstr "Nigdy więcej pomyłek przy rozsyłaniu celów graczom w wiadomościach."
 
-#: base/templates/base/base.html:315
+#: base/templates/base/base.html:318
 msgid ""
 "The application is written in the modern and very secure <a "
 "target=\"_blank\" href=\"https://www.djangoproject.com/\">Django</a> "
@@ -1013,7 +1013,7 @@ msgstr ""
 "site request forgery czy clickjacking, zapewniając jednocześnie w bezpieczny "
 "sposób utrzymywanie kont użytkowników."
 
-#: base/templates/base/base.html:317
+#: base/templates/base/base.html:320
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
@@ -1023,7 +1023,7 @@ msgstr ""
 "bezpieczeństwa kont użytkowników, uniemożliwiając jakikolwiek dostęp do "
 "danych użytkowników innym użytkownikom strony oraz osobom trzecim."
 
-#: base/templates/base/base.html:319
+#: base/templates/base/base.html:322
 msgid ""
 "Both the web server and the database server are located in the <a "
 "href=\"https://cloud.oracle.com/\">Oracle Cloud</a> cloud, with special "
@@ -1034,7 +1034,7 @@ msgstr ""
 "Cloud</a>, ze specjalnym naciskiem położonym na ich rekomendacje w kwestiach "
 "bezpieczeństwa."
 
-#: base/templates/base/base.html:321
+#: base/templates/base/base.html:324
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
@@ -1044,7 +1044,7 @@ msgstr ""
 "od początku do dnia dzisiejszego, oznacza relatywnie małą szansę na "
 "przypadkowe, nagłe narażenie danych użytkowników na ekspozycję."
 
-#: base/templates/base/base.html:323
+#: base/templates/base/base.html:326
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
@@ -1055,7 +1055,7 @@ msgstr ""
 "innym użytkownikom, graczom gry, osobom trzecim a także komukolwiek innemu, "
 "z jakiegokolwiek powodu."
 
-#: base/templates/base/base.html:325
+#: base/templates/base/base.html:328
 msgid ""
 "My name is Rafał, I am a Software Engineer at Samsung R&D. I am interested "
 "in web applications, both backend and frontend, cloud technologies and "
@@ -1066,7 +1066,7 @@ msgstr ""
 "frontendem, technologiami chmurowymi i bezpieczeństwem w sieci. Piszę "
 "głównie w Pythonie i Typescriptcie."
 
-#: base/templates/base/base.html:325
+#: base/templates/base/base.html:328
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
@@ -1080,7 +1080,7 @@ msgstr ""
 "(największe osiągnięcie to występ na zawodach na szczeblu wojewódzkim), "
 "lubię szachy i pokera a także dobry film."
 
-#: base/templates/base/base.html:331
+#: base/templates/base/base.html:334
 msgid ""
 "Join the discord to be up to date with news, ask about what is unclear, "
 "report bugs and propose changes."
@@ -1088,14 +1088,14 @@ msgstr ""
 "Dołącz do Discorda by być na bieżąco z nowościami, pytać w razie problemów, "
 "zgłaszać błędy i proponować zmiany."
 
-#: base/templates/base/base.html:348
+#: base/templates/base/base.html:351
 msgid ""
 "This site is free of 3rd party trackers, we belive in privacy, refer to "
 msgstr ""
 "Ta strona jest strefą wolną od skryptów śledzących, dbamy o anonimowość w "
 "sieci, zobacz"
 
-#: base/templates/base/base.html:348
+#: base/templates/base/base.html:351
 msgid "our privacy policy and regulations."
 msgstr "naszą politykę prywatności."
 
@@ -1828,7 +1828,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:253
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
-#: base/templates/base/overview.html:220 utils/basic/mode.py:61
+#: base/templates/base/overview.html:220 utils/basic/mode.py:60
 #: utils/outline_finish.py:73
 msgid "Target"
 msgstr "Cel"
@@ -1838,7 +1838,7 @@ msgid "Select Time"
 msgstr "Wybierz Czas"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:255
-#: base/templates/base/overview.html:221 utils/basic/mode.py:68
+#: base/templates/base/overview.html:221 utils/basic/mode.py:67
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -2135,7 +2135,7 @@ msgstr "Ten typ rozkazów tak będzie wyglądał po wklejeniu do notatek w grze"
 #: base/templates/base/overview.html:47 base/templates/base/overview.html:74
 #: base/templates/base/overview.html:81 base/templates/base/overview.html:108
 #: base/templates/base/overview.html:146 base/templates/base/overview.html:188
-#: base/templates/base/overview.html:195 utils/basic/table_text.py:87
+#: base/templates/base/overview.html:195 utils/basic/table_text.py:88
 msgid "Send OFF"
 msgstr "Wyślij OFF"
 
@@ -2168,11 +2168,11 @@ msgstr "Plemiona Planer jest najlepszy"
 msgid "Old Text extended"
 msgstr "Stary tekst rozszerzony"
 
-#: base/templates/base/overview.html:105 utils/basic/table_text.py:284
+#: base/templates/base/overview.html:105 utils/basic/table_text.py:257
 msgid "from village"
 msgstr "z wioski"
 
-#: base/templates/base/overview.html:105 utils/basic/table_text.py:285
+#: base/templates/base/overview.html:105 utils/basic/table_text.py:258
 msgid "to "
 msgstr "na "
 
@@ -2484,7 +2484,7 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:47
+#: base/views/outline_initial_views.py:55
 #, python-format
 msgid ""
 "<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
@@ -2497,7 +2497,7 @@ msgstr ""
 "b>, usuń błędy.</p> <p>2. Używaj <b>Potwierdź</b> by je zapisywać.</p> <p>3. "
 "Po tym procesie powróć do zakładki <b>Planer</b>.</p> "
 
-#: base/views/outline_initial_views.py:64
+#: base/views/outline_initial_views.py:72
 #, python-format
 msgid ""
 "<h5>It looks like your outline in being written just now!</h5> <p>You cannot "
@@ -2510,19 +2510,19 @@ msgstr ""
 "danych.</p> <p>Spróbuj odświeżyć tą stronę za moment. Blokada zniknie zaraz "
 "po zakończeniu rozpisywania lub wygaśnie za <b>%(lock_expire)ss.</b></p> "
 
-#: base/views/outline_initial_views.py:90 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:100 base/views/results_get_deff.py:39
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:96 base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:106 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:472
+#: base/views/outline_initial_views.py:480
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
-#: base/views/outline_initial_views.py:479
+#: base/views/outline_initial_views.py:487
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Musi istnieć co najmniej jeden Czas.</h5>"
 
@@ -2841,19 +2841,19 @@ msgstr "burzaków"
 msgid "nobles"
 msgstr "szlachciców"
 
-#: utils/basic/mode.py:63
+#: utils/basic/mode.py:62
 msgid "Fake Target"
 msgstr "Fejk Cel"
 
-#: utils/basic/mode.py:64
+#: utils/basic/mode.py:63
 msgid "Ruin Target"
 msgstr "Cele Burzenie"
 
-#: utils/basic/mode.py:70
+#: utils/basic/mode.py:69
 msgid "Fake Outline"
 msgstr "Fejk Rozpiska"
 
-#: utils/basic/mode.py:71
+#: utils/basic/mode.py:70
 msgid "Ruin Outline"
 msgstr "Rozpiska Burzenie"
 
@@ -2941,31 +2941,31 @@ msgstr ""
 "[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z "
 "WIOSKI[||]CEL[/**]"
 
-#: utils/basic/table_text.py:83
+#: utils/basic/table_text.py:84
 msgid "Send fake"
 msgstr "Wyślij fejk"
 
-#: utils/basic/table_text.py:85
+#: utils/basic/table_text.py:86
 msgid "Send ruin"
 msgstr "Wyślij burzak"
 
-#: utils/basic/table_text.py:89
+#: utils/basic/table_text.py:90
 msgid "Send NOBLE"
 msgstr "Wyślij SZLACHCIC"
 
-#: utils/basic/table_text.py:128
+#: utils/basic/table_text.py:129
 msgid "fake noble"
 msgstr "fake gruby"
 
-#: utils/basic/table_text.py:130
+#: utils/basic/table_text.py:131
 msgid "fake"
 msgstr "fake"
 
-#: utils/basic/table_text.py:132
+#: utils/basic/table_text.py:133
 msgid "Catapults-"
 msgstr "Katapulty-"
 
-#: utils/basic/table_text.py:187
+#: utils/basic/table_text.py:186
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] "
@@ -2984,7 +2984,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "FEJK SZLACHCIC[/url]"
 
-#: utils/basic/table_text.py:206
+#: utils/basic/table_text.py:198
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3003,7 +3003,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "FEJK[/url]"
 
-#: utils/basic/table_text.py:223
+#: utils/basic/table_text.py:210
 #, python-format
 msgid ""
 "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s][/color] "
@@ -3022,7 +3022,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "BURZAK[/url]"
 
-#: utils/basic/table_text.py:243
+#: utils/basic/table_text.py:223
 #, python-format
 msgid ""
 "[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/"
@@ -3041,7 +3041,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "SZLACHCIC[/url]"
 
-#: utils/basic/table_text.py:263
+#: utils/basic/table_text.py:236
 #, python-format
 msgid ""
 "[b][color=#a50000]Send OFF[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3060,27 +3060,27 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "OFF[/url]"
 
-#: utils/basic/table_text.py:283
+#: utils/basic/table_text.py:256
 msgid "Nobles-"
 msgstr "Szlachcice-"
 
-#: utils/basic/table_text.py:287
+#: utils/basic/table_text.py:260
 msgid "[color=#00a500][b]Send fake noble[/b][/color] (1 noble)"
 msgstr "[color=#00a500][b]Wyślij fejk szlachcic[/b][/color] (1 szlachcic)"
 
-#: utils/basic/table_text.py:290
+#: utils/basic/table_text.py:263
 msgid "[color=#00a500][b]Send fake[/b][/color]"
 msgstr "[color=#00a500][b]Wyślij fejk[/b][/color]"
 
-#: utils/basic/table_text.py:293
+#: utils/basic/table_text.py:266
 msgid "[color=#0e0eff][b]Ruin[/b][/color] (Catapults-"
 msgstr "[color=#0e0eff][b]Burzak[/b][/color] (Katapulty-"
 
-#: utils/basic/table_text.py:301
+#: utils/basic/table_text.py:273
 msgid "[size=12][b]OFF[/b][/size] (Off-"
 msgstr "[size=12][b]OFF[/b][/size] (Off-"
 
-#: utils/basic/table_text.py:304
+#: utils/basic/table_text.py:276
 msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
 msgstr "[color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color]"
 
