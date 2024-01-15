@@ -46,7 +46,7 @@
         {% if real_dups or fake_dups or ruin_dups %}
         <div class="mb-2">
 
-          <a class="md-correct2 mt-0" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;">{% trans 'Duplicates detected, click to view them' %}</a>
+          <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Duplicates detected, click to view them' %}</a>
 
           <div class="collapse mb-3 mt-1" id="collapseRepeat">
             <div class="card card-body">
