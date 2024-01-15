@@ -16,7 +16,7 @@
 """ Basic """
 
 from .army import Army, ArmyError, Defence, DefenceError, world_evidence  # noqa
-from .calculate_duplicates import CalcultateDuplicates  # noqa
+from .target_calculations import TargetsCalculations  # noqa
 from .create_test_world import create_test_world  # noqa
 from .dictionary import coord_to_player, coord_to_player_model_from_string  # noqa
 from .draw_table import draw_table  # noqa

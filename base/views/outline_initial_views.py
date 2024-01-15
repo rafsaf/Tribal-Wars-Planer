@@ -161,7 +161,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
     form6 = forms.RuiningOutlineForm(None, instance=instance)
     form7 = forms.MoraleOutlineForm(None, instance=instance)
 
-    calculations: basic.CalcultateDuplicates = basic.CalcultateDuplicates(
+    calculations: basic.TargetsCalculations = basic.TargetsCalculations(
         outline=instance, target_mode=target_mode
     )
 
