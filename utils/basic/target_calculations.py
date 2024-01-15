@@ -27,6 +27,11 @@ class TargetDuplicateInfo(TypedDict):
     lines: str
 
 
+class TargetBarbarianInfo(TypedDict):
+    target: str
+    lines: str
+
+
 class TargetsCalculations:
     def __init__(self, outline: Outline, target_mode: TargetMode) -> None:
         self.outline: Outline = outline
@@ -100,7 +105,7 @@ class TargetsCalculations:
         targets_context: dict[str, list[str]] = {}
         # example {"500|500": [1, 2, 3]}
         # where 1,2,3 represent line numbers in target input
-        result_list: list[TargetDuplicateInfo] = []
+        result: list[TargetDuplicateInfo] = []
 
         for i, target in enumerate(targets):
             if target.target in targets_context:
@@ -112,12 +117,14 @@ class TargetsCalculations:
         target_counter = Counter([target.target for target in targets])
 
         for target_coord, count in target_counter.items():
+            if count == 1:
+                continue
             line_lst: list[str] = targets_context[target_coord]
             if len(line_lst) <= 3:
                 lines: str = ",".join(line_lst)
             else:
                 lines = ",".join(line_lst[:3]) + ",..."
-            result_list.append(
+            result.append(
                 {
                     "target": target_coord,
                     "duplicate": count,
@@ -125,13 +132,86 @@ class TargetsCalculations:
                 }
             )
 
-        return result_list
+        return result
 
+    @staticmethod
+    def _barbarians(
+        targets: list[TargetVertex],
+    ) -> list[TargetBarbarianInfo]:
+        """
+        Example result:
+        ===============
+
+        [
+            {"target": "500|500", lines: "2,3"},
+            {"target": "500|501", lines: "5,6,7..."}
+        ]
+
+        """
+
+        targets_context: dict[str, list[str]] = {}
+        # example {"500|500": [1, 2, 3]}
+        # where 1,2,3 represent line numbers in target input
+        result: list[TargetBarbarianInfo] = []
+
+        for i, target in enumerate(targets):
+            if target.player:
+                # skip targets with player name set
+                continue
+            if target.target in targets_context:
+                if len(targets_context[target.target]) < 4:
+                    targets_context[target.target].append(str(i + 1))
+            else:
+                targets_context[target.target] = [str(i + 1)]
+
+        for target_coord, line_lst in targets_context.items():
+            if len(line_lst) <= 3:
+                lines: str = ",".join(line_lst)
+            else:
+                lines = ",".join(line_lst[:3]) + ",..."
+            result.append(
+                {
+                    "target": target_coord,
+                    "lines": lines,
+                }
+            )
+
+        return result
+
+    @cached_property
     def real_duplicates(self) -> list[TargetDuplicateInfo]:
         return self._targets_duplicates(self._real_targets)
 
+    @cached_property
     def fake_duplicates(self) -> list[TargetDuplicateInfo]:
         return self._targets_duplicates(self._fake_targets)
 
+    @cached_property
     def ruin_duplicates(self) -> list[TargetDuplicateInfo]:
         return self._targets_duplicates(self._ruin_targets)
+
+    def show_duplicates(self) -> bool:
+        return (
+            len(self.real_duplicates) > 0
+            or len(self.fake_duplicates) > 0
+            or len(self.ruin_duplicates) > 0
+        )
+
+    @cached_property
+    def real_barbarians(self) -> list[TargetBarbarianInfo]:
+        return self._barbarians(self._real_targets)
+
+    @cached_property
+    def fake_barbarians(self) -> list[TargetBarbarianInfo]:
+        return self._barbarians(self._fake_targets)
+
+    @cached_property
+    def ruin_barbarians(self) -> list[TargetBarbarianInfo]:
+        return self._barbarians(self._ruin_targets)
+
+    def show_barbarians(self) -> bool:
+        return (
+            len(self.real_barbarians) > 0
+            or len(self.fake_barbarians) > 0
+            or len(self.ruin_barbarians) > 0
+        )

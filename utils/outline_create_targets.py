@@ -14,6 +14,8 @@
 # ==============================================================================
 
 
+from django.utils.timezone import now
+
 from base.models import Outline, Player, TargetVertex
 from utils import basic
 
@@ -104,9 +106,9 @@ class OutlineCreateTargets:
             target=coord,
             fake=self.target_mode.is_fake,
             ruin=self.target_mode.is_ruin,
-            player=player.name,
-            points=player.points,
-            player_created_at=player.created_at,
+            player=player.name if player else "",
+            points=player.points if player else 0,
+            player_created_at=player.created_at if player else now(),
             required_off=off,
             required_noble=noble,
             exact_off=exact_off,

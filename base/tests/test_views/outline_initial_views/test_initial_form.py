@@ -129,12 +129,15 @@ class InitialForm(MiniSetup):
             WeightMaximum.objects.filter(outline=outline, start="102|102").count() == 1
         )
         assert response.context.get("premium_error") is False
-        assert response.context.get("real_dups") == []
-        assert response.context.get("fake_dups") == []
-        assert response.context.get("ruin_dups") == []
-        assert response.context.get("len_real") == 0
-        assert response.context.get("len_fake") == 0
-        assert response.context.get("len_ruin") == 0
+        assert response.context["calc"].fake_duplicates == []
+        assert response.context["calc"].real_duplicates == []
+        assert response.context["calc"].ruin_duplicates == []
+        assert response.context["calc"].real_barbarians == []
+        assert response.context["calc"].fake_barbarians == []
+        assert response.context["calc"].ruin_barbarians == []
+        assert response.context["calc"].len_real == 0
+        assert response.context["calc"].len_fake == 0
+        assert response.context["calc"].len_ruin == 0
         assert response.context.get("estimated_time") == 0
         assert response.context.get("mode") == "real"
         response = self.client.get(PATH + "?t=fake")
@@ -168,12 +171,15 @@ class InitialForm(MiniSetup):
             WeightMaximum.objects.filter(outline=outline, start="102|102").count() == 1
         )
         assert response.context.get("premium_error") is False
-        assert response.context.get("real_dups") == []
-        assert response.context.get("fake_dups") == []
-        assert response.context.get("ruin_dups") == []
-        assert response.context.get("len_real") == 0
-        assert response.context.get("len_fake") == 0
-        assert response.context.get("len_ruin") == 0
+        assert response.context["calc"].fake_duplicates == []
+        assert response.context["calc"].real_duplicates == []
+        assert response.context["calc"].ruin_duplicates == []
+        assert response.context["calc"].real_barbarians == []
+        assert response.context["calc"].fake_barbarians == []
+        assert response.context["calc"].ruin_barbarians == []
+        assert response.context["calc"].len_real == 0
+        assert response.context["calc"].len_fake == 0
+        assert response.context["calc"].len_ruin == 0
         assert response.context.get("estimated_time") == 0
         assert response.context.get("mode") == "real"
         response = self.client.get(PATH + "?t=fake")
@@ -201,22 +207,39 @@ class InitialForm(MiniSetup):
         self.create_target_on_test_world(outline=outline, ruin=True)
         self.create_target_on_test_world(outline=outline, ruin=True)
         self.create_target_on_test_world(outline=outline, ruin=True)
+        self.create_target_on_test_world(outline=outline, player="", coord="999|999")
+        self.create_target_on_test_world(outline=outline, player="", coord="999|999")
+        self.create_target_on_test_world(outline=outline, player="", coord="999|999")
+        self.create_target_on_test_world(outline=outline, player="", coord="999|999")
+        self.create_target_on_test_world(outline=outline, player="", coord="999|999")
+        self.create_target_on_test_world(
+            outline=outline, fake=True, player="", coord="999|999"
+        )
 
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 200
         assert response.context.get("premium_error") is False
-        assert response.context.get("real_dups") == []
-        assert response.context.get("fake_dups") == [
-            {"target": "200|200", "duplicate": 2, "lines": "1,2"}
+        assert response.context["calc"].fake_duplicates == [
+            {"target": "200|200", "duplicate": 2, "lines": "1,2"},
         ]
-        assert response.context.get("ruin_dups") == [
+        assert response.context["calc"].real_duplicates == [
+            {"target": "999|999", "duplicate": 5, "lines": "2,3,4,..."}
+        ]
+        assert response.context["calc"].ruin_duplicates == [
             {"target": "200|200", "duplicate": 4, "lines": "1,2,3,..."}
         ]
-        assert response.context.get("len_real") == 1
-        assert response.context.get("len_fake") == 2
-        assert response.context.get("len_ruin") == 4
-        assert response.context.get("estimated_time") == 102
+        assert response.context["calc"].len_real == 6
+        assert response.context["calc"].len_fake == 3
+        assert response.context["calc"].len_ruin == 4
+        assert response.context["calc"].real_barbarians == [
+            {"target": "999|999", "lines": "2,3,4,..."}
+        ]
+        assert response.context["calc"].fake_barbarians == [
+            {"target": "999|999", "lines": "3"}
+        ]
+        assert response.context["calc"].ruin_barbarians == []
+        assert response.context.get("estimated_time") == 162
         assert response.context.get("mode") == "real"
 
     @freeze_time("2022-11-26")
