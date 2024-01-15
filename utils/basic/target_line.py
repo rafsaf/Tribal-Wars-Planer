@@ -46,10 +46,8 @@ class TargetsData:
         self.validate_villages_database()
 
     def validate_villages_database(self):
-        village_models = (
-            models.VillageModel.objects.select_related()
-            .filter(world=self.world, coord__in=self.villages_coord)
-            .exclude(player=None)
+        village_models = models.VillageModel.objects.select_related().filter(
+            world=self.world, coord__in=self.villages_coord
         )
 
         if len(set(self.villages_coord)) != village_models.count():

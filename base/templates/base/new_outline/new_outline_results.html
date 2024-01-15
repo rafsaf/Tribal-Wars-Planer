@@ -192,7 +192,7 @@
         <div class="tab-pane fade" id="pills-outline-export" role="tabpanel" aria-labelledby="pills-contact-tab">
             {% if user.profile.is_premium %}
             <div class="my-3">
-              {% trans 'Below you will find all the unused troops left after the roster. Paste them into the Army Collection in order to start a new action.' %}
+              {% trans 'Below you will find all the unused troops left after the roster. Paste them into the "1. Troops Data" in order to start a new action.' %}
             </div>
             <div class="form-group" contenteditable="true">
                 <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_export}}</textarea>

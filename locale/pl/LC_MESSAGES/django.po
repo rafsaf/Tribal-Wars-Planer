@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 21:54+0100\n"
+"POT-Creation-Date: 2024-01-16 00:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:51 base/models/outline.py:156 base/models/outline.py:316
+#: base/forms.py:51 base/models/outline.py:156 base/models/outline.py:323
 #: base/models/profile.py:35
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Village in this line is duplicated: %s"
 msgstr "Wioska w tej linii jest podwojona: %s"
 
-#: base/forms.py:134 base/models/outline.py:157 base/models/outline.py:318
+#: base/forms.py:134 base/models/outline.py:157 base/models/outline.py:325
 #: base/models/profile.py:36
 msgid "Deff collection "
 msgstr "Zbiórka Obrona"
@@ -403,7 +403,7 @@ msgid "Off without catapults"
 msgstr "Off bez katapult"
 
 #: base/forms.py:735
-#: base/templates/base/new_outline/new_outline_initial_period1.html:153
+#: base/templates/base/new_outline/new_outline_initial_period1.html:195
 msgid "Catapults"
 msgstr "Katapulty"
 
@@ -596,22 +596,22 @@ msgid "Try single nobles from many villages"
 msgstr "Rozpisuj szlachtę na cel możliwie z pojedynczych wiosek"
 
 #: base/models/outline.py:98 base/models/period_model.py:28
-#: base/templates/base/new_outline/new_outline_initial_period1.html:123
+#: base/templates/base/new_outline/new_outline_initial_period1.html:165
 msgid "All"
 msgstr "Wszystkie"
 
 #: base/models/outline.py:99
-#: base/templates/base/new_outline/new_outline_initial_period1.html:124
+#: base/templates/base/new_outline/new_outline_initial_period1.html:166
 msgid "Front"
 msgstr "Front"
 
 #: base/models/outline.py:100
-#: base/templates/base/new_outline/new_outline_initial_period1.html:125
+#: base/templates/base/new_outline/new_outline_initial_period1.html:167
 msgid "Back"
 msgstr "Zaplecze"
 
 #: base/models/outline.py:101
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline_initial_period1.html:168
 msgid "Away"
 msgstr "Poza"
 
@@ -620,83 +620,83 @@ msgid "Hidden"
 msgstr "Ukryte"
 
 #: base/models/outline.py:106 base/models/weight_model.py:31
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 #: base/templates/base/new_outline/new_outline_initial_period2.html:315
 msgid "Headquarters"
 msgstr "Ratusz"
 
 #: base/models/outline.py:107 base/models/weight_model.py:32
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "Barracks"
 msgstr "Koszary"
 
 #: base/models/outline.py:108 base/models/weight_model.py:33
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "Stable"
 msgstr "Stajnia"
 
 #: base/models/outline.py:109 base/models/weight_model.py:34
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "Workshop"
 msgstr "Warsztat"
 
 #: base/models/outline.py:110 base/models/weight_model.py:35
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "Academy"
 msgstr "Pałac"
 
 #: base/models/outline.py:111 base/models/weight_model.py:36
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 #: base/templates/base/new_outline/new_outline_initial_period2.html:316
 msgid "Smithy"
 msgstr "Kuźnia"
 
 #: base/models/outline.py:112 base/models/weight_model.py:37
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "Rally point"
 msgstr "Plac"
 
 #: base/models/outline.py:113 base/models/weight_model.py:38
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "Statue"
 msgstr "Piedestał"
 
 #: base/models/outline.py:114 base/models/weight_model.py:39
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "Market"
 msgstr "Rynek"
 
 #: base/models/outline.py:115 base/models/weight_model.py:40
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 #: base/templates/base/new_outline/new_outline_initial_period2.html:317
 msgid "Timber camp"
 msgstr "Tartak"
 
 #: base/models/outline.py:116 base/models/weight_model.py:41
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 #: base/templates/base/new_outline/new_outline_initial_period2.html:320
 msgid "Clay pit"
 msgstr "Cegielnia"
 
 #: base/models/outline.py:117 base/models/weight_model.py:42
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "Iron mine"
 msgstr "Huta żelaza"
 
 #: base/models/outline.py:118 base/models/weight_model.py:43
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 #: base/templates/base/new_outline/new_outline_initial_period2.html:321
 msgid "Farm"
 msgstr "Zagroda"
 
 #: base/models/outline.py:119 base/models/weight_model.py:44
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 #: base/templates/base/new_outline/new_outline_initial_period2.html:322
 msgid "Warehouse"
 msgstr "Spichlerz"
 
 #: base/models/outline.py:120 base/models/weight_model.py:45
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
 msgid "wall"
 msgstr "Mur"
 
@@ -740,23 +740,23 @@ msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:321
+#: base/models/outline.py:328
 msgid "Name"
 msgstr "Nazwa"
 
-#: base/models/outline.py:421
+#: base/models/outline.py:428
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:426
+#: base/models/outline.py:433
 msgid "never"
 msgstr "nigdy"
 
-#: base/models/outline.py:438
+#: base/models/outline.py:445
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:440
+#: base/models/outline.py:447
 msgid "days"
 msgstr "dni"
 
@@ -1165,8 +1165,8 @@ msgstr "Zamknij"
 
 #: base/templates/base/base_planer.html:78
 #: base/templates/base/new_outline/new_outline_get_deff.html:15
-#: base/templates/base/new_outline/new_outline_initial_period1.html:114
-#: base/templates/base/new_outline/new_outline_initial_period1.html:223
+#: base/templates/base/new_outline/new_outline_initial_period1.html:156
+#: base/templates/base/new_outline/new_outline_initial_period1.html:265
 #: base/templates/base/new_outline/new_outline_initial_period2.html:365
 #: base/templates/base/user/add_world.html:25
 msgid "Processing..."
@@ -1223,11 +1223,11 @@ msgid "Planer will choose data pasted in: "
 msgstr "Planer wybierze dane wklejone w:"
 
 #: base/templates/base/new_outline/new_outline.html:50
-#: base/templates/base/new_outline/new_outline_initial_period1.html:246
-#: base/templates/base/new_outline/new_outline_initial_period1.html:266
-#: base/templates/base/new_outline/new_outline_initial_period1.html:299
-#: base/templates/base/new_outline/new_outline_initial_period1.html:359
-#: base/templates/base/new_outline/new_outline_initial_period1.html:390
+#: base/templates/base/new_outline/new_outline_initial_period1.html:288
+#: base/templates/base/new_outline/new_outline_initial_period1.html:308
+#: base/templates/base/new_outline/new_outline_initial_period1.html:341
+#: base/templates/base/new_outline/new_outline_initial_period1.html:401
+#: base/templates/base/new_outline/new_outline_initial_period1.html:432
 #: base/templates/base/new_outline/new_outline_initial_period2.html:43
 #: base/templates/base/new_outline/new_outline_initial_period2.html:73
 #: base/templates/base/new_outline/new_outline_initial_period3.html:145
@@ -1247,13 +1247,13 @@ msgstr "Zbiórka Wojska pomyślnie dodana."
 
 #: base/templates/base/new_outline/new_outline.html:95
 #: base/templates/base/new_outline/new_outline.html:161
-#: base/templates/base/new_outline/new_outline_initial_period1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period1.html:134
 msgid "Incorrect data in"
 msgstr "Nieprawidłowe dane w"
 
 #: base/templates/base/new_outline/new_outline.html:95
 #: base/templates/base/new_outline/new_outline.html:161
-#: base/templates/base/new_outline/new_outline_initial_period1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period1.html:134
 msgid "lines."
 msgstr "liniach."
 
@@ -1280,20 +1280,20 @@ msgstr "Zbiórka Obrona pomyślnie dodana."
 #: base/templates/base/new_outline/new_outline.html:200
 #: base/templates/base/new_outline/new_outline_create.html:31
 #: base/templates/base/new_outline/new_outline_get_deff.html:23
-#: base/templates/base/new_outline/new_outline_initial_period1.html:404
+#: base/templates/base/new_outline/new_outline_initial_period1.html:446
 msgid "Info"
 msgstr "Info"
 
 #: base/templates/base/new_outline/new_outline.html:203
 #: base/templates/base/new_outline/new_outline_create.html:34
 #: base/templates/base/new_outline/new_outline_get_deff.html:26
-#: base/templates/base/new_outline/new_outline_initial_period1.html:408
+#: base/templates/base/new_outline/new_outline_initial_period1.html:450
 msgid "Examples"
 msgstr "Przykłady"
 
 #: base/templates/base/new_outline/new_outline.html:225
-#: base/templates/base/new_outline/new_outline_initial_period1.html:440
-#: base/templates/base/new_outline/new_outline_initial_period1.html:461
+#: base/templates/base/new_outline/new_outline_initial_period1.html:482
+#: base/templates/base/new_outline/new_outline_initial_period1.html:503
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:331
 msgid "An error occured"
 msgstr "Uwaga, wystąpił błąd"
@@ -1420,25 +1420,41 @@ msgstr "Fejki-Duplikaty"
 msgid "Ruin-Duplicated"
 msgstr "Burzenie-Duplikaty"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period1.html:90
+msgid "Barbarian targets detected, click to view them"
+msgstr "Wykryto wioski barbarzyńskie, kliknij by zobaczyć"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:96
+msgid "Targets-Barbarian"
+msgstr "Cele-Barbarzyńskie"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:105
+msgid "Fakes-Barbarian"
+msgstr "Fejki-Barbarzyńskie"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:114
+msgid "Ruin-Barbarian"
+msgstr "Burzenie-Barbarzyńskie"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:134
 msgid "Valid lines looks like (assuming that such a village 000|000 exists):"
 msgstr ""
 "Poprawne linie to na przykład (zakładając, że wioska 000|000 istnieje):"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period1.html:134
 msgid "\"000|000\" - clean coords"
 msgstr "\"000|000\" - czyste koordy"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period1.html:134
 msgid "\"000|000:0:0\" - coords with :off:noble numbers"
 msgstr "\"000|000:0:0\" - kordy z określonymi liczbami :off:szlachta"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period1.html:134
 msgid "\"000|000:0|0|0|0:0\" - additional off info, list instead of number"
 msgstr ""
 "\"000|000:0|0|0|0:0\" - dodatkowe parametry dla offów, lista zamiast liczby"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:92
+#: base/templates/base/new_outline/new_outline_initial_period1.html:134
 msgid ""
 "\"000|000:0|0|0|0:0|0|0|0\" - max info that can be passed about offs and "
 "nobles"
@@ -1446,65 +1462,65 @@ msgstr ""
 "\"000|000:0|0|0|0:0|0|0|0\" - max informacje, które można zamieścić o offach "
 "i szlachcie "
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:112
-#: base/templates/base/new_outline/new_outline_initial_period1.html:246
-#: base/templates/base/new_outline/new_outline_initial_period1.html:266
-#: base/templates/base/new_outline/new_outline_initial_period1.html:299
-#: base/templates/base/new_outline/new_outline_initial_period1.html:359
-#: base/templates/base/new_outline/new_outline_initial_period1.html:390
+#: base/templates/base/new_outline/new_outline_initial_period1.html:154
+#: base/templates/base/new_outline/new_outline_initial_period1.html:288
+#: base/templates/base/new_outline/new_outline_initial_period1.html:308
+#: base/templates/base/new_outline/new_outline_initial_period1.html:341
+#: base/templates/base/new_outline/new_outline_initial_period1.html:401
+#: base/templates/base/new_outline/new_outline_initial_period1.html:432
 msgid "Saving..."
 msgstr "Zapisywanie..."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:112
+#: base/templates/base/new_outline/new_outline_initial_period1.html:154
 msgid "Save targets"
 msgstr "Zapisz cele"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:114
+#: base/templates/base/new_outline/new_outline_initial_period1.html:156
 msgid "Write an outline"
 msgstr "Rozpisz tą akcję"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:122
+#: base/templates/base/new_outline/new_outline_initial_period1.html:164
 msgid "Description"
 msgstr "Opis"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline_initial_period1.html:168
 msgid "Offs further than maximum distance for offs (equals to"
 msgstr "Offy dalej od frontu niż maksymalna odległość od frontu (równa"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline_initial_period1.html:168
 msgid "now), which will be completely skipped now."
 msgstr "obecnie), które będą całkowicie pominięte."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:131
+#: base/templates/base/new_outline/new_outline_initial_period1.html:173
 msgid "Offs"
 msgstr "Offy"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:142
+#: base/templates/base/new_outline/new_outline_initial_period1.html:184
 msgid "Nobles"
 msgstr "Szlachcice"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:164
+#: base/templates/base/new_outline/new_outline_initial_period1.html:206
 msgid "Offs around real targets at maximum distance for nobles (now equals to"
 msgstr ""
 "Offy wokół prawdziwych celów w promieniu równym maksymalnej odległości dla "
 "szlachty (równej"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:164
+#: base/templates/base/new_outline/new_outline_initial_period1.html:206
 msgid "Offs close to real targets"
 msgstr "Offy blisko celów"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:176
+#: base/templates/base/new_outline/new_outline_initial_period1.html:218
 msgid ""
 "Nobles around real targets at maximum distance for nobles (now equals to"
 msgstr ""
 "Szlachta wokół prawdziwych celów w promieniu równym maksymalnej odległości "
 "dla szlachty (równej"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:176
+#: base/templates/base/new_outline/new_outline_initial_period1.html:218
 msgid "Nobles close to real targets"
 msgstr "Szlachta blisko celów"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:189
+#: base/templates/base/new_outline/new_outline_initial_period1.html:231
 #, python-format
 msgid ""
 "\n"
@@ -1521,65 +1537,65 @@ msgstr ""
 "%(initial_outline_maximum_off_dist)s, zob. 1.).\n"
 "          "
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:191
+#: base/templates/base/new_outline/new_outline_initial_period1.html:233
 msgid "Available catapults to use"
 msgstr "Katapulty do użycia"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:202
+#: base/templates/base/new_outline/new_outline_initial_period1.html:244
 msgid "Advanced settings:"
 msgstr "Ustawienia zaawansowane:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:209
+#: base/templates/base/new_outline/new_outline_initial_period1.html:251
 msgid "1. Available Troops"
 msgstr "1. Dostępne jednostki"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:216
+#: base/templates/base/new_outline/new_outline_initial_period1.html:258
 msgid "Available troops settings:"
 msgstr "Ustawienia dostępnych jednostek"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:223
+#: base/templates/base/new_outline/new_outline_initial_period1.html:265
 msgid "Save and reload troops"
 msgstr "Zapisz i odśwież dostępne"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:233
+#: base/templates/base/new_outline/new_outline_initial_period1.html:275
 msgid "2. Setting the date"
 msgstr "2. Zmiana daty akcji"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:240
+#: base/templates/base/new_outline/new_outline_initial_period1.html:282
 msgid "Current date:"
 msgstr "Aktualna data:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:256
+#: base/templates/base/new_outline/new_outline_initial_period1.html:298
 msgid "3. Outline parameters"
 msgstr "3. Parametry rozpiski"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:275
+#: base/templates/base/new_outline/new_outline_initial_period1.html:317
 msgid "4. Morale"
 msgstr "4. Morale"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:283
-#: base/templates/base/new_outline/new_outline_initial_period1.html:285
-#: base/templates/base/new_outline/new_outline_initial_period1.html:345
-#: base/templates/base/new_outline/new_outline_initial_period1.html:350
+#: base/templates/base/new_outline/new_outline_initial_period1.html:325
+#: base/templates/base/new_outline/new_outline_initial_period1.html:327
+#: base/templates/base/new_outline/new_outline_initial_period1.html:387
+#: base/templates/base/new_outline/new_outline_initial_period1.html:392
 msgid "ACTIVE: "
 msgstr "AKTYWNE:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:283
-#: base/templates/base/new_outline/new_outline_initial_period1.html:345
+#: base/templates/base/new_outline/new_outline_initial_period1.html:325
+#: base/templates/base/new_outline/new_outline_initial_period1.html:387
 msgid "True"
 msgstr "Tak"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:285
-#: base/templates/base/new_outline/new_outline_initial_period1.html:350
+#: base/templates/base/new_outline/new_outline_initial_period1.html:327
+#: base/templates/base/new_outline/new_outline_initial_period1.html:392
 msgid "False"
 msgstr "Nie"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:288
+#: base/templates/base/new_outline/new_outline_initial_period1.html:330
 msgid "has no morale turned off and thus it is pointless to use this option."
 msgstr ""
 "ma całkowicie wyłączone morale i korzystanie z tej zakładki mija się z celem."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:290
+#: base/templates/base/new_outline/new_outline_initial_period1.html:332
 msgid ""
 "has morale based on points and time. This is not perfectly handled by "
 "Planer. See topic \"4. Morale\" in the docs on the right side."
@@ -1588,45 +1604,45 @@ msgstr ""
 "perfekcyjnie morali na tego typu światach. Zobacz temat \"4. Morale\" w "
 "dokumentacji, link w sekcji po prawej."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:307
+#: base/templates/base/new_outline/new_outline_initial_period1.html:349
 msgid "Attacker"
 msgstr "Atakujący"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:308
+#: base/templates/base/new_outline/new_outline_initial_period1.html:350
 msgid "Defender"
 msgstr "Obrońca"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:309
+#: base/templates/base/new_outline/new_outline_initial_period1.html:351
 msgid "Morale value"
 msgstr "Wartość morale"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:325
+#: base/templates/base/new_outline/new_outline_initial_period1.html:367
 msgid "Congratulations! No morale issues found for selected targets."
 msgstr ""
 "Gratulacje! Nie znaleziono żadnych problemów z moralami przy wybranych "
 "celach."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:336
+#: base/templates/base/new_outline/new_outline_initial_period1.html:378
 msgid "5. Avoid night bonus"
 msgstr "5. Unikanie bonusu nocnego"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:346
+#: base/templates/base/new_outline/new_outline_initial_period1.html:388
 msgid "Time 1: "
 msgstr "Czas wejścia 1:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:347
+#: base/templates/base/new_outline/new_outline_initial_period1.html:389
 msgid "Time 2: "
 msgstr "Czas wejścia 2:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:369
+#: base/templates/base/new_outline/new_outline_initial_period1.html:411
 msgid "6. Ruining"
 msgstr "6. Burzenie"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:377
+#: base/templates/base/new_outline/new_outline_initial_period1.html:419
 msgid "Order of demolition of buildings:"
 msgstr "Kolejność burzenia budynków:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:378
+#: base/templates/base/new_outline/new_outline_initial_period1.html:420
 msgid ""
 "Only the buildings listed below will be included in the demolition! (in that "
 "order)"
@@ -1634,20 +1650,20 @@ msgstr ""
 "Tylko budynki wymienione poniżej będą uwzględnione w burzeniu (w takiej "
 "kolejności)"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:446
+#: base/templates/base/new_outline/new_outline_initial_period1.html:488
 msgid "Premium account is required to complete outlines greater than "
 msgstr "Konto premium jest potrzebne by tworzyć akcje większe niż "
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:446
+#: base/templates/base/new_outline/new_outline_initial_period1.html:488
 msgid " targets. Buy it"
 msgstr "celów. Możesz kupić je"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:446
+#: base/templates/base/new_outline/new_outline_initial_period1.html:488
 #: base/templates/base/new_outline/new_outline_results.html:31
 msgid "here"
 msgstr "tutaj"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:446
+#: base/templates/base/new_outline/new_outline_initial_period1.html:488
 msgid "or reduce the number of outline targets."
 msgstr "albo zmniejszyć łączną ilość celów."
 
@@ -2060,10 +2076,10 @@ msgstr "Wyślij"
 #: base/templates/base/new_outline/new_outline_results.html:196
 msgid ""
 "Below you will find all the unused troops left after the roster. Paste them "
-"into the Army Collection in order to start a new action."
+"into the \"1. Troops Data\" in order to start a new action."
 msgstr ""
 "Poniżej znajdziesz wszystkie niewykorzystane wojska pozostałe po zakończonej "
-"rozpisce. Wklej je do Zbiórki Wojska by wykorzystać w kolejnej akcji."
+"rozpisce. Wklej je do \"1. Dane o wojsku\" by wykorzystać w kolejnej akcji."
 
 #: base/templates/base/new_outline/new_outline_results.html:202
 msgid "You have no access to unused troops without premium account."
@@ -2484,7 +2500,7 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:55
+#: base/views/outline_initial_views.py:54
 #, python-format
 msgid ""
 "<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
@@ -2497,7 +2513,7 @@ msgstr ""
 "b>, usuń błędy.</p> <p>2. Używaj <b>Potwierdź</b> by je zapisywać.</p> <p>3. "
 "Po tym procesie powróć do zakładki <b>Planer</b>.</p> "
 
-#: base/views/outline_initial_views.py:72
+#: base/views/outline_initial_views.py:71
 #, python-format
 msgid ""
 "<h5>It looks like your outline in being written just now!</h5> <p>You cannot "
@@ -2510,19 +2526,19 @@ msgstr ""
 "danych.</p> <p>Spróbuj odświeżyć tą stronę za moment. Blokada zniknie zaraz "
 "po zakończeniu rozpisywania lub wygaśnie za <b>%(lock_expire)ss.</b></p> "
 
-#: base/views/outline_initial_views.py:100 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:99 base/views/results_get_deff.py:39
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:106 base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:105 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:480
+#: base/views/outline_initial_views.py:465
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
-#: base/views/outline_initial_views.py:487
+#: base/views/outline_initial_views.py:472
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Musi istnieć co najmniej jeden Czas.</h5>"
 
@@ -2747,7 +2763,7 @@ msgid ""
 msgstr ""
 "Prośba o zmianę hasła do konta plemiona-planer.pl - link do zmiany hasła"
 
-#: utils/basic/army.py:159 utils/basic/army.py:297
+#: utils/basic/army.py:159 utils/basic/army.py:301
 #, python-format
 msgid ""
 "Invalid number of elements in line: %(len)s is not correct, expected "
@@ -2756,11 +2772,11 @@ msgstr ""
 "Niewłaściwa liczba elementów w linii: %(len)s jest błędna, spodziewany "
 "zakres: %(expected)s"
 
-#: utils/basic/army.py:168 utils/basic/army.py:306
+#: utils/basic/army.py:168 utils/basic/army.py:310
 msgid "Length of coord at first postition must be equal to 7"
 msgstr "Długość koordów w pierwszym elemencie musi być równa dokładnie 7"
 
-#: utils/basic/army.py:178 utils/basic/army.py:316
+#: utils/basic/army.py:178 utils/basic/army.py:320
 #, python-format
 msgid ""
 "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
@@ -2768,17 +2784,17 @@ msgstr ""
 "Koord: %(coord)s nie istnieje lub nie jest w żadnym z sojuszniczych plemion "
 "rozpiski: %(tribes)s"
 
-#: utils/basic/army.py:186 utils/basic/army.py:324
+#: utils/basic/army.py:186 utils/basic/army.py:328
 #, python-format
 msgid "One of line elements is not a number: %s"
 msgstr "Jeden z elementów w linii nie jest liczbą: %s"
 
-#: utils/basic/army.py:190 utils/basic/army.py:333
+#: utils/basic/army.py:190 utils/basic/army.py:337
 #, python-format
 msgid "Last element in line must be empty string, currently: %s"
 msgstr "Ostatni element w linii musi być pustym stringiem, obecnie: %s"
 
-#: utils/basic/army.py:328
+#: utils/basic/army.py:332
 #, python-format
 msgid "Second element of line must be a text: %s"
 msgstr "Drugi element w linii musi być tekstem, obecnie: %s"
@@ -2821,23 +2837,23 @@ msgstr "### FEJKI ###"
 msgid "### RUINS ###"
 msgstr "### BURZAKI ###"
 
-#: utils/basic/info_generatation.py:259
+#: utils/basic/info_generatation.py:291
 msgid "fakes"
 msgstr "fejków"
 
-#: utils/basic/info_generatation.py:260
+#: utils/basic/info_generatation.py:292
 msgid "fake nobles"
 msgstr "fake grubych"
 
-#: utils/basic/info_generatation.py:275 utils/basic/info_generatation.py:291
+#: utils/basic/info_generatation.py:307 utils/basic/info_generatation.py:323
 msgid "offs"
 msgstr "offów"
 
-#: utils/basic/info_generatation.py:276
+#: utils/basic/info_generatation.py:308
 msgid "ruins"
 msgstr "burzaków"
 
-#: utils/basic/info_generatation.py:292
+#: utils/basic/info_generatation.py:324
 msgid "nobles"
 msgstr "szlachciców"
 

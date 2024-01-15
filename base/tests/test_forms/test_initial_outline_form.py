@@ -91,4 +91,4 @@ class TestInitialOutlineForm(TestCase):
             outline=self.outline,
             target_mode=self.real_target_mode,
         )
-        self.assertFalse(off_form.is_valid())
+        self.assertTrue(off_form.is_valid())

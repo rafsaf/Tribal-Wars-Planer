@@ -161,19 +161,10 @@ def initial_form(  # noqa: PLR0912,PLR0911
     form6 = forms.RuiningOutlineForm(None, instance=instance)
     form7 = forms.MoraleOutlineForm(None, instance=instance)
 
-    calculations: basic.CalcultateDuplicates = basic.CalcultateDuplicates(
+    calc: basic.TargetsCalculations = basic.TargetsCalculations(
         outline=instance, target_mode=target_mode
     )
-
-    len_fake = calculations.len_fake
-    len_ruin = calculations.len_ruin
-    len_real = calculations.len_real
-
-    estimated_time = 10 * (len_real + len_fake) + 18 * len_ruin  # type: ignore
-
-    real_dups = calculations.real_duplicates()
-    fake_dups = calculations.fake_duplicates()
-    ruin_dups = calculations.ruin_duplicates()
+    estimated_time = 10 * (calc.len_real + calc.len_fake) + 18 * calc.len_ruin
 
     if instance.morale_on and instance.world.morale > 0:
         morale_dict = basic.generate_morale_dict(instance)
@@ -196,10 +187,10 @@ def initial_form(  # noqa: PLR0912,PLR0911
         if "form1" in request.POST:
             max_to_add = (
                 settings.INPUT_OUTLINE_MAX_TARGETS
-                - calculations.len_fake
-                - calculations.len_real
-                - calculations.len_ruin
-                + calculations.actual_len
+                - calc.len_fake
+                - calc.len_real
+                - calc.len_ruin
+                + calc.actual_len
             )
             form1 = forms.InitialOutlineForm(
                 request.POST,
@@ -334,13 +325,8 @@ def initial_form(  # noqa: PLR0912,PLR0911
         "form5": form5,
         "form6": form6,
         "form7": form7,
-        "fake_dups": fake_dups,
-        "real_dups": real_dups,
-        "ruin_dups": ruin_dups,
+        "calc": calc,
         "mode": target_mode.mode,
-        "len_real": len_real,
-        "len_fake": len_fake,
-        "len_ruin": len_ruin,
         "morale_dict": morale_dict.items() if morale_dict else None,
         "estimated_time": estimated_time,
         "premium_error": premium_error,

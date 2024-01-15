@@ -945,10 +945,6 @@ class CreateNewInitialTarget(forms.Form):
                 ),
             )
             return
-        village: models.VillageModel = village_query[0]
-        if village.player is None:
-            self.add_error("target", gettext_lazy("Village must not be barbarian."))
-            return
 
 
 class AddNewWorldForm(forms.ModelForm):

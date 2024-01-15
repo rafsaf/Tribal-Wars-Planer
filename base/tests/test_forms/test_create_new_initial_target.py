@@ -56,7 +56,7 @@ class CreateNewInitialTargetTest(MiniSetup):
         )
         assert form.is_valid()
 
-    def test_form_not_pass_when_village_barbarian(self):
+    def test_form_pass_when_village_barbarian(self):
         outline = self.get_outline(test_world=True)
         village: models.VillageModel = models.VillageModel.objects.get(coord="200|200")
         village.player = None
@@ -67,7 +67,7 @@ class CreateNewInitialTargetTest(MiniSetup):
             outline=outline,
             is_premium=False,
         )
-        assert not form.is_valid()
+        assert form.is_valid()
 
     def test_form_not_pass_when_2_villages_in_database(self):
         outline = self.get_outline(test_world=True)

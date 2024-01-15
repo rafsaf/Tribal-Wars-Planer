@@ -19,34 +19,34 @@
     <div class="w-100">
       <div class="mb-4 mt-2">
         {% if mode == "real" %}
-        <a class="t-tab-teal t-tab-teal-active" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{len_real}}</span></a>
+        <a class="t-tab-teal t-tab-teal-active" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{calc.len_real}}</span></a>
 
         {% else %}
-        <a class="t-tab-teal" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{len_real}}</span></a>
+        <a class="t-tab-teal" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{calc.len_real}}</span></a>
 
         {% endif %}
         {% if mode == "fake" %}
-        <a class="t-tab-teal t-tab-teal-active" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{len_fake}}</span></a>
+        <a class="t-tab-teal t-tab-teal-active" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{calc.len_fake}}</span></a>
 
         {% else %}
-        <a class="t-tab-teal" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{len_fake}}</span></a>
+        <a class="t-tab-teal" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{calc.len_fake}}</span></a>
 
         {% endif %}
         {% if mode == "ruin" %}
-        <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span></a>
+        <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{calc.len_ruin}}</span></a>
 
         {% else %}
-        <a class="t-tab-teal" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{len_ruin}}</span></a>
+        <a class="t-tab-teal" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{calc.len_ruin}}</span></a>
 
         {% endif %}
       </div>
       <form id="form1-form" method='POST'>
         <input type="hidden" name="form1" value=""/>{% csrf_token %}
 
-        {% if real_dups or fake_dups or ruin_dups %}
+        {% if calc.show_duplicates %}
         <div class="mb-2">
 
-          <a class="md-correct2 mt-0" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;">{% trans 'Duplicates detected, click to view them' %}</a>
+          <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Duplicates detected, click to view them' %}</a>
 
           <div class="collapse mb-3 mt-1" id="collapseRepeat">
             <div class="card card-body">
@@ -54,7 +54,7 @@
                 <div class="col-auto my-1">
                   <h5>{% trans 'Targets-Duplicated' %}</h5>
 
-                  {% for dict in real_dups %}
+                  {% for dict in calc.real_duplicates %}
 
                   <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
 
@@ -63,7 +63,7 @@
                 <div class="col-auto my-1">
                   <h5>{% trans 'Fakes-Duplicated' %}</h5>
 
-                  {% for dict in fake_dups %}
+                  {% for dict in calc.fake_duplicates %}
 
                   <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
 
@@ -72,7 +72,7 @@
                 <div class="col-auto my-1">
                   <h5>{% trans 'Ruin-Duplicated' %}</h5>
 
-                  {% for dict in ruin_dups %}
+                  {% for dict in calc.ruin_duplicates %}
 
                   <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
 
@@ -83,6 +83,48 @@
           </div>
         </div>
         {% endif %}
+
+        {% if calc.show_barbarians %}
+        <div class="mb-2">
+
+          <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat2" role="button" aria-expanded="false" aria-controls="collapseRepeat2" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Barbarian targets detected, click to view them' %}</a>
+
+          <div class="collapse mb-3 mt-1" id="collapseRepeat2">
+            <div class="card card-body">
+              <div class="row">
+                <div class="col-auto my-1">
+                  <h5>{% trans 'Targets-Barbarian' %}</h5>
+
+                  {% for dict in calc.real_barbarians %}
+
+                  <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                  {% endfor %}
+                </div>
+                <div class="col-auto my-1">
+                  <h5>{% trans 'Fakes-Barbarian' %}</h5>
+
+                  {% for dict in calc.fake_barbarians %}
+
+                  <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                  {% endfor %}
+                </div>
+                <div class="col-auto my-1">
+                  <h5>{% trans 'Ruin-Barbarian' %}</h5>
+
+                  {% for dict in calc.ruin_barbarians %}
+
+                  <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+  
         {{ form1.target }} 
 
         {% if form1.target.errors %}

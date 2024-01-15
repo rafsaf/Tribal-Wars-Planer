@@ -179,13 +179,6 @@ class RemoveUserOutline(MiniSetup):
         assert models.WeightMaximum.objects.count() == 1
         assert models.TargetVertex.objects.count() == 3
 
-        # TARGET DELETED WHEN VILLAGE BECAME BARBARIAN
-        models.VillageModel.objects.filter(coord="200|200").update(player=None)
-        outline.remove_user_outline()
-
-        assert models.WeightMaximum.objects.count() == 1
-        assert models.TargetVertex.objects.count() == 0
-
     def test_weight_max_ok_fake_target_bad(self):
         outline = self.get_outline(add_result=True, test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
@@ -208,13 +201,6 @@ class RemoveUserOutline(MiniSetup):
         assert models.WeightMaximum.objects.count() == 1
         assert models.TargetVertex.objects.count() == 3
 
-        # TARGET DELETED WHEN VILLAGE BECAME BARBARIAN
-        models.VillageModel.objects.filter(coord="201|201").update(player=None)
-        outline.remove_user_outline()
-
-        assert models.WeightMaximum.objects.count() == 1
-        assert models.TargetVertex.objects.count() == 0
-
     def test_weight_max_ok_ruin_target_bad(self):
         outline = self.get_outline(add_result=True, test_world=True)
         outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
@@ -236,13 +222,6 @@ class RemoveUserOutline(MiniSetup):
 
         assert models.WeightMaximum.objects.count() == 1
         assert models.TargetVertex.objects.count() == 3
-
-        # TARGET DELETED WHEN VILLAGE BECAME BARBARIAN
-        models.VillageModel.objects.filter(coord="202|202").update(player=None)
-        outline.remove_user_outline()
-
-        assert models.WeightMaximum.objects.count() == 1
-        assert models.TargetVertex.objects.count() == 0
 
     def test_create_stats(self):
         outline = self.get_outline()
