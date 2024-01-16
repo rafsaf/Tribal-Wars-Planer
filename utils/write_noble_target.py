@@ -432,6 +432,9 @@ class WriteNobleTarget:
         world_ratio = (100 + self.outline.world.casual_attack_block_ratio) / 100
 
         def filter_casual_attack_block_ratio(weight_max: WeightMaximum) -> bool:
+            if self.target.player == "":
+                # special case barbarians
+                return True
             smaller_points = min(weight_max.points, self.target.points)
             bigger_points = max(weight_max.points, self.target.points)
             max_possible = math.floor(world_ratio * smaller_points)
