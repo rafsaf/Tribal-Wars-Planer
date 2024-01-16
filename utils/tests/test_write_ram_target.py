@@ -104,6 +104,11 @@ class TestWriteRamTargetNew(MiniSetup):
         weight_max.points = 90
         assert filter_casual_attack_block_ratio(weight_max)
 
+        target.player = ""
+        target.points = 0
+        weight_max.points = 10000
+        assert filter_casual_attack_block_ratio(weight_max)
+
 
 class TestWriteRamTarget(TestCase):
     def setUp(self):
