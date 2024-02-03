@@ -19,7 +19,7 @@ from django.db import models
 
 
 class OutlineWriteLock(models.Model):
-    class LOCK_NAME(StrEnum):
+    class LOCK_NAME_TYPES(StrEnum):
         WRITE_OUTLINE = "write_outline"
         CREATE_WEIGHTMAX = "create_weightmax_objects"
 
