@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-16 00:23+0100\n"
+"POT-Creation-Date: 2024-02-03 19:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,11 +205,11 @@ msgstr "Tytuł wiadomości"
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:441 base/forms.py:1029
+#: base/forms.py:441 base/forms.py:1025
 msgid "Sending Options:"
 msgstr "Opcje wysyłki"
 
-#: base/forms.py:442 base/forms.py:1030
+#: base/forms.py:442 base/forms.py:1026
 msgid "Add links to direct messages:"
 msgstr "Linki do celów w bezpośrednich wiadomościach:"
 
@@ -491,52 +491,48 @@ msgstr ""
 "Znaleziono więcej niż 1 wioskę w bazie, jest to błąd. Napisz do mnie: <rafal."
 "safin@rafsaf.pl>"
 
-#: base/forms.py:950
-msgid "Village must not be barbarian."
-msgstr "Wioska nie może być barbarzyńska."
-
-#: base/forms.py:960
+#: base/forms.py:956
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:961
+#: base/forms.py:957
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:972
+#: base/forms.py:968
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr "Niedozwolone znaki w podanym przedrostku, sprwadź jego poprawność"
 
-#: base/forms.py:992
+#: base/forms.py:988
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:995
+#: base/forms.py:991
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:1007 base/forms.py:1023
+#: base/forms.py:1003 base/forms.py:1019
 msgid "Please select your server:"
 msgstr "Ustaw swój serwer:"
 
-#: base/forms.py:1025
+#: base/forms.py:1021
 msgid "Turn on morale calculations in every outline by default:"
 msgstr ""
 "Włącz domyślną obsługę morali dla każdej nowej rozpiski (domyślnie wyłączone)"
 
-#: base/forms.py:1027
+#: base/forms.py:1023
 msgid "Default input type for planer"
 msgstr "Wybierz typ danych dla planera"
 
-#: base/forms.py:1028
+#: base/forms.py:1024
 msgid "Please select your currency:"
 msgstr "Ustaw swoją walutę płatności:"
 
-#: base/forms.py:1033
+#: base/forms.py:1029
 msgid "Prefered sending option in Results tab"
 msgstr "Preferowana opcja wysyłki wiadomości w zakładce Wyniki"
 
-#: base/forms.py:1035
+#: base/forms.py:1031
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
@@ -2522,23 +2518,36 @@ msgid ""
 "<b>%(lock_expire)ss</b>.</p> "
 msgstr ""
 "<h5>Wygląda na to że Twoja rozpiska jest już teraz rozpisywana!</h5> <p>Nie "
-"możesz obecnie kliknąć na przycisk \"Rozpisz tą akcję\" aby uniknąć korpucji "
-"danych.</p> <p>Spróbuj odświeżyć tą stronę za moment. Blokada zniknie zaraz "
-"po zakończeniu rozpisywania lub wygaśnie za <b>%(lock_expire)ss.</b></p> "
+"możesz obecnie przejść do zakładki aby uniknąć korpucji "
+"danych.</p> <p>Spróbuj odświeżyć tę stronę za moment. Blokada zniknie zaraz "
+"po zakończeniu rozpisywania lub wygaśnie automatycznie za <b>%(lock_expire)ss.</b></p> "
 
-#: base/views/outline_initial_views.py:99 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:88
+#, python-format
+msgid ""
+"<h5>It looks like your outline in being changed just now!</h5> <p>Data about "
+"villages is being created or recreated.</p> <p>Try to refresh this page in a "
+"moment. The lock force expires in <b>%(lock_expire)ss</b>.</p> "
+msgstr ""
+"<h5>Twoja rozpiska jest obecnie zmieniana!</h5> <p>Dane "
+"o wioskach są teraz tworzone lub aktualizowane, nie możesz przejść do "
+"zakładki aby uniknąć korpucji danych.</p> <p>Spróbuj odświeżyć tę stronę za "
+"moment. Blokada zniknie zaraz po zakończeniu procesu lub wygaśnie automatycznie za "
+"<b>%(lock_expire)ss.</b></p> "
+
+#: base/views/outline_initial_views.py:112 base/views/results_get_deff.py:39
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:105 base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:118 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:465
+#: base/views/outline_initial_views.py:539
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
-#: base/views/outline_initial_views.py:472
+#: base/views/outline_initial_views.py:546
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Musi istnieć co najmniej jeden Czas.</h5>"
 
@@ -3136,6 +3145,9 @@ msgstr "Wioska"
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "Village must not be barbarian."
+#~ msgstr "Wioska nie może być barbarzyńska."
 
 #~ msgid ""
 #~ "Note, the result from the tab <b>1. Available Troops</b> has been reset "

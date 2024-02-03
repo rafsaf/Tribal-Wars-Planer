@@ -78,6 +78,23 @@ def outline_being_written_error(
     )
 
 
+def outline_onging_weightmax_creating_error(
+    instance: models.Outline, request: HttpRequest, lock: models.OutlineWriteLock
+) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
+    now = timezone.now()
+    log.warning("make_outline locked outline %s", instance.pk)
+    metrics.ERRORS.labels("make_outline_locked_outline").inc()
+    request.session["error"] = gettext(
+        "<h5>It looks like your outline in being changed just now!</h5> "
+        "<p>Data about villages is being created or recreated.</p> "
+        "<p>Try to refresh this page in a moment. The lock force expires in <b>%(lock_expire)ss</b>.</p> "
+    ) % {"lock_expire": (lock.lock_expire - now).seconds}
+    target_mode: str | None = request.GET.get("t")
+    return redirect(
+        reverse("base:planer_initial_form", args=[instance.pk]) + f"?t={target_mode}"
+    )
+
+
 @login_required
 def initial_form(  # noqa: PLR0912,PLR0911
     request: HttpRequest, _id: int
@@ -113,22 +130,55 @@ def initial_form(  # noqa: PLR0912,PLR0911
         del request.session["premium_error"]
     else:
         premium_error = False
+    error = request.session.get("error")
 
-    if instance.input_data_type == models.Outline.ARMY_COLLECTION:
+    if error is not None:
+        pass
+    elif instance.input_data_type == models.Outline.ARMY_COLLECTION:
         if (
             models.WeightMaximum.objects.filter(outline=instance).count() == 0
             or instance.get_or_set_off_troops_hash()
             != instance.off_troops_weightmodels_hash
         ):
-            models.WeightMaximum.objects.filter(outline=instance).delete()
+            current_lock = models.OutlineWriteLock.objects.filter(
+                outline_id=instance.pk,
+                lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.CREATE_WEIGHTMAX,
+                lock_expire__gt=now,
+            ).first()
+            if current_lock:
+                return outline_onging_weightmax_creating_error(
+                    instance, request, current_lock
+                )
+
             off_form = forms.OffTroopsForm(
                 {"off_troops": instance.off_troops}, outline=instance
             )
             if off_form.is_valid():
-                make_outline = MakeOutline(outline=instance)
-                make_outline()
+                # remove old locks
+                models.OutlineWriteLock.objects.filter(
+                    outline_id=instance.pk,
+                    lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.CREATE_WEIGHTMAX,
+                    lock_expire__lt=now,
+                ).delete()
 
-                instance.actions.click_troops_refresh(instance)
+                lock, created = models.OutlineWriteLock.objects.get_or_create(
+                    outline_id=instance.pk,
+                    lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.CREATE_WEIGHTMAX,
+                    defaults={"lock_expire": now + timedelta(seconds=70)},
+                )
+                if not created:
+                    return outline_onging_weightmax_creating_error(
+                        instance, request, lock
+                    )
+
+                try:
+                    with transaction.atomic():
+                        make_outline = MakeOutline(outline=instance)
+                        make_outline()
+
+                    instance.actions.click_troops_refresh(instance)
+                finally:
+                    lock.delete()
             else:
                 return trigger_off_troops_update_redirect(
                     request=request, outline=instance
@@ -138,15 +188,43 @@ def initial_form(  # noqa: PLR0912,PLR0911
         or instance.get_or_set_deff_troops_hash()
         != instance.deff_troops_weightmodels_hash
     ):
-        models.WeightMaximum.objects.filter(outline=instance).delete()
+        current_lock = models.OutlineWriteLock.objects.filter(
+            outline_id=instance.pk,
+            lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.CREATE_WEIGHTMAX,
+            lock_expire__gt=now,
+        ).first()
+        if current_lock:
+            return outline_onging_weightmax_creating_error(
+                instance, request, current_lock
+            )
+
         deff_form = forms.DeffTroopsForm(
             {"deff_troops": instance.deff_troops}, outline=instance
         )
         if deff_form.is_valid():
-            make_outline = MakeOutline(outline=instance)
-            make_outline()
+            # remove old locks
+            models.OutlineWriteLock.objects.filter(
+                outline_id=instance.pk,
+                lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.CREATE_WEIGHTMAX,
+                lock_expire__lt=now,
+            ).delete()
 
-            instance.actions.click_troops_refresh(instance)
+            lock, created = models.OutlineWriteLock.objects.get_or_create(
+                outline_id=instance.pk,
+                lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.CREATE_WEIGHTMAX,
+                defaults={"lock_expire": now + timedelta(seconds=70)},
+            )
+            if not created:
+                return outline_onging_weightmax_creating_error(instance, request, lock)
+
+            try:
+                with transaction.atomic():
+                    make_outline = MakeOutline(outline=instance)
+                    make_outline()
+
+                instance.actions.click_troops_refresh(instance)
+            finally:
+                lock.delete()
         else:
             return trigger_off_troops_update_redirect(request=request, outline=instance)
 
@@ -178,7 +256,9 @@ def initial_form(  # noqa: PLR0912,PLR0911
     else:
         form1.fields["target"].initial = instance.initial_outline_ruins
 
-    if request.method == "POST":
+    if error is not None:
+        pass
+    elif request.method == "POST":
         lock = models.OutlineWriteLock.objects.filter(
             outline_id=instance.pk,
             lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.WRITE_OUTLINE,
@@ -314,7 +394,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
                     + f"?t={target_mode.mode}"
                 )
 
-    if not instance.avaiable_offs:
+    if not instance.avaiable_offs and error is not None:
         avaiable_troops.get_legal_coords_outline(outline=instance)
         avaiable_troops.update_available_ruins(outline=instance)
 
@@ -334,7 +414,6 @@ def initial_form(  # noqa: PLR0912,PLR0911
         "premium_error": premium_error,
         "premium_account_max_targets_free": settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE,
     }
-    error = request.session.get("error")
     if error is not None:
         context["error"] = error
         del request.session["error"]

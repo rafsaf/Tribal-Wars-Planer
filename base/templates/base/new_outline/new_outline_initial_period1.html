@@ -501,9 +501,9 @@
         <div class="modal-content text-white bg-danger">
             <div class="modal-header">
                 <h3 class="modal-title">{% trans 'An error occured' %}</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
             <div class="modal-body">
                 {{error|safe}}
@@ -513,10 +513,17 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
-        $('.bd-example-modal-lg2').modal('show');
-
-
+        $('.bd-example-modal-lg2').modal({backdrop: 'static', keyboard: false}, 'show');
     });
+    const buttons = document.getElementsByTagName("button");
+    const links = document.getElementsByTagName("a");
+    for (const i of buttons) {
+      i.disabled = true;
+    }
+    for (const i of links) {
+      i.classList.add("disabled-link");
+    }
+    
 </script>
 {% endif %} 
 {% get_current_language as LANG %}
