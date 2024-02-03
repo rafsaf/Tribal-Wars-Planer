@@ -180,7 +180,9 @@ def initial_form(  # noqa: PLR0912,PLR0911
 
     if request.method == "POST":
         lock = models.OutlineWriteLock.objects.filter(
-            outline_id=instance.pk, lock_expire__gt=now
+            outline_id=instance.pk,
+            lock_name=models.OutlineWriteLock.LOCK_NAME.WRITE_OUTLINE,
+            lock_expire__gt=now,
         ).first()
         if lock:
             return outline_being_written_error(instance, request, lock)
@@ -771,11 +773,15 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     # delete old lock
     now = timezone.now()
     models.OutlineWriteLock.objects.filter(
-        outline_id=instance.pk, lock_expire__lt=now
+        outline_id=instance.pk,
+        lock_name=models.OutlineWriteLock.LOCK_NAME.WRITE_OUTLINE,
+        lock_expire__lt=now,
     ).delete()
     # try acquire lock on outline for 120s or result in error
     lock, created = models.OutlineWriteLock.objects.get_or_create(
-        outline_id=instance.pk, defaults={"lock_expire": now + timedelta(seconds=120)}
+        outline_id=instance.pk,
+        lock_name=models.OutlineWriteLock.LOCK_NAME.WRITE_OUTLINE,
+        defaults={"lock_expire": now + timedelta(seconds=120)},
     )
     if not created:
         return outline_being_written_error(instance, request, lock)
