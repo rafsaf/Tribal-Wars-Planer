@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+from django.utils.translation import activate
+
 from base.tests.test_utils.mini_setup import MiniSetup
 
 
@@ -22,10 +24,12 @@ class WorldTest(MiniSetup):
         assert str(world) == "nt1"
 
     def test_human_prefix_true(self):
+        activate("pl")
         world = self.get_world()
         assert world.human(prefix=True) == "Świat 1 NT"
 
     def test_human_prefix_false(self):
+        activate("pl")
         world = self.get_world()
         assert world.human(prefix=False) == "Świat 1"
 
