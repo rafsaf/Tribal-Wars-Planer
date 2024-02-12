@@ -18,7 +18,6 @@ import logging
 
 import prometheus_client
 import stripe
-import stripe.error
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import transaction

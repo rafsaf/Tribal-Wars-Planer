@@ -256,9 +256,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
     else:
         form1.fields["target"].initial = instance.initial_outline_ruins
 
-    if error is not None:
-        pass
-    elif request.method == "POST":
+    if request.method == "POST":
         lock = models.OutlineWriteLock.objects.filter(
             outline_id=instance.pk,
             lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.WRITE_OUTLINE,
@@ -394,7 +392,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
                     + f"?t={target_mode.mode}"
                 )
 
-    if not instance.avaiable_offs and error is not None:
+    if not instance.avaiable_offs:
         avaiable_troops.get_legal_coords_outline(outline=instance)
         avaiable_troops.update_available_ruins(outline=instance)
 
