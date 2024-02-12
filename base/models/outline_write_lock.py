@@ -13,11 +13,26 @@
 # limitations under the License.
 # ==============================================================================
 
+from enum import StrEnum
+
 from django.db import models
 
 
 class OutlineWriteLock(models.Model):
+    class LOCK_NAME_TYPES(StrEnum):
+        WRITE_OUTLINE = "write_outline"
+        CREATE_WEIGHTMAX = "create_weightmax_objects"
+
     outline_id = models.BigIntegerField(primary_key=True)
+    lock_name = models.CharField(max_length=64)
     lock_expire = models.DateTimeField(db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["outline_id", "lock_name"],
+                name="unique_lock_by_outline_and_name",
+            )
+        ]
