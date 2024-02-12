@@ -22,6 +22,17 @@ updates:
           - "stripe"
           - "tw-complex"
           - "uwsgi"
+      main-dependencies:
+        patterns:
+          - "django"
+          - "django-crispy-forms"
+          - "django-registration"
+          - "django-ses"
+          - "djangorestframework"
+          - "schedule"
+          - "stripe"
+          - "tw-complex"
+          - "uwsgi"
 
   - package-ecosystem: github-actions
     directory: /
