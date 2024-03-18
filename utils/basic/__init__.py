@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-""" Basic """
+"""Basic"""
 
 from .army import Army, ArmyError, Defence, DefenceError, world_evidence  # noqa
 from .target_calculations import TargetsCalculations  # noqa

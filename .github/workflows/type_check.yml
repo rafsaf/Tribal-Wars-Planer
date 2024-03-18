@@ -1,5 +1,4 @@
-name: Run pytest based tests
-
+name: type-check
 on:
   push:
     branches:
@@ -8,28 +7,17 @@ on:
       - "*.*"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  type_check:
     strategy:
       matrix:
+        check: ["ruff check", "ruff format --check"]
         python-version: ["3.12.2"]
 
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -53,20 +41,6 @@ jobs:
         run: |
           poetry install --no-interaction --no-root
 
-      - name: Create .env file from example env file
+      - name: Run ${{ matrix.check }}
         run: |
-          cp .env.example .env
-
-      - name: Coverage full tests
-        env:
-          POSTGRES_HOST: localhost
-        run: |
-          poetry run bash scripts/initial.sh
-          poetry run pytest
-
-      - name: Upload coverage result to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          flags: unittests
-          file: coverage.xml
-          fail_ci_if_error: false
+          poetry run ${{ matrix.check }} .
