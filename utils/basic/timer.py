@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-""" File with decorator to measure function time """
+"""File with decorator to measure function time"""
 
 import logging
 from functools import wraps

@@ -13,7 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
-""" Tests for basic.army.py, later tests for init and fiew test for off form """
+"""Tests for basic.army.py, later tests for init and fiew test for off form"""
+
 import datetime
 
 from django.contrib.auth.models import User

@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-""" App forms """
+"""App forms"""
 
 import re
 
@@ -519,9 +519,9 @@ class SetNewOutlineFilters(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["filter_weights_min"].widget.attrs["class"] = "form-control"
-        self.fields["filter_weights_catapults_min"].widget.attrs[
-            "class"
-        ] = "form-control"
+        self.fields["filter_weights_catapults_min"].widget.attrs["class"] = (
+            "form-control"
+        )
         self.fields["filter_weights_nobles_min"].widget.attrs["class"] = "form-control"
         self.fields["filter_weights_max"].widget.attrs["class"] = "form-control"
         self.fields["filter_card_number"].widget.attrs["class"] = "form-control"
@@ -928,9 +928,9 @@ class CreateNewInitialTarget(forms.Form):
             )
             return
 
-        village_query: QuerySet[
-            models.VillageModel
-        ] = models.VillageModel.objects.filter(coord=coord, world=self.outline.world)
+        village_query: QuerySet[models.VillageModel] = (
+            models.VillageModel.objects.filter(coord=coord, world=self.outline.world)
+        )
         if not village_query.exists():
             self.add_error(
                 "target",

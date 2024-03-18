@@ -13,7 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
-""" Tests for utils folder """
+"""Tests for utils folder"""
+
 from math import sqrt
 
 from django.test import TestCase

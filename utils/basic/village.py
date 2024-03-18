@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-""" Village, Unit, Map classes """
+"""Village, Unit, Map classes"""
 
 from math import ceil, sqrt
 

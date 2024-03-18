@@ -157,14 +157,12 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
         close_iterations = len(close_starts) // 1000 + 1
         for i in range(close_iterations):
             close_batch = close_starts[i * 1000 : (i + 1) * 1000]
-            batch_weights: QuerySet[
-                models.WeightMaximum
-            ] = models.WeightMaximum.objects.filter(
-                outline=outline,
-                off_left__gte=outline.initial_outline_min_off,
-                off_left__lte=outline.initial_outline_max_off,
-            ).filter(
-                start__in=close_batch
+            batch_weights: QuerySet[models.WeightMaximum] = (
+                models.WeightMaximum.objects.filter(
+                    outline=outline,
+                    off_left__gte=outline.initial_outline_min_off,
+                    off_left__lte=outline.initial_outline_max_off,
+                ).filter(start__in=close_batch)
             )
             all_off += batch_weights.count()
             front_off += batch_weights.filter(first_line=True).count()

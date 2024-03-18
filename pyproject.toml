@@ -2,7 +2,7 @@
 authors = ["rafsaf <rafal.safin@rafsaf.pl>"]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-version = "4.41.0"
+version = "4.42.0"
 
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"
@@ -14,39 +14,39 @@ django-registration = "^3.3"
 django-ses = "^3.3.0"
 djangorestframework = "^3.14.0"
 
-botocore = "^1.34.55"
+beautifulsoup4 = "^4.12.3"
+botocore = "^1.34.64"
 diskcache = "^5.6.3"
 fpdf = "^1.7.2"
+numpy = "^1.26.4"
 prometheus-client = "^0.20.0"
 psutil = "^5.9.8"
 psycopg = { extras = ["c"], version = "^3.1.18" }
 python-dateutil = "^2.9.0"
 python-dotenv = "^1.0.1"
 schedule = "^1.2.1"
+scipy = "^1.12.0"
 stripe = "^8.6.0"
 uwsgi = "^2.0.24"
-numpy = "^1.26.4"
-scipy = "^1.12.0"
-beautifulsoup4 = "^4.12.3"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.2.0"
-coverage = "^7.4.3"
-freezegun = "^1.2.2"
-pre-commit = "^3.6.2"
-pytest-django = "^4.8.0"
-pytest-xdist = "^3.1.0"
-requests-mock = "^1.10.0"
-pytest-cov = "^4.1.0"
-mypy = "^1.7.1"
-ruff = "^0.3.0"
-types-requests = "^2.31.0.20240218"
-types-python-dateutil = "^2.8.19.14"
-types-pytz = "^2024.1.0.20240203"
+black = "^24.3.0"
+coverage = "^7.4.4"
 django-stubs = "^4.2.7"
 django-stubs-ext = "^4.2.7"
 djangorestframework-stubs = "^3.14.5"
-types-markdown = "^3.5.0.20240129"
+freezegun = "^1.2.2"
+mypy = "^1.9.0"
+pre-commit = "^3.6.2"
+pytest-cov = "^4.1.0"
+pytest-django = "^4.8.0"
+pytest-xdist = "^3.1.0"
+requests-mock = "^1.10.0"
+ruff = "^0.3.3"
+types-markdown = "^3.6.0.20240316"
+types-python-dateutil = "^2.9.0.20240316"
+types-pytz = "^2024.1.0.20240203"
+types-requests = "^2.31.0.20240311"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
@@ -56,29 +56,31 @@ testpaths = ["base", "rest_api", "tribal_wars_planer", "utils"]
 
 [tool.coverage.run]
 omit = [
-  "*__init__.py*",
   "*/migrations/*",
   "*/tests/*",
-  "tribal_wars_planer/wsgi.py",
+  "*__init__.py*",
   "tribal_wars_planer/asgi.py",
+  "tribal_wars_planer/wsgi.py",
 ]
 source = ["base", "rest_api", "tribal_wars_planer", "utils"]
 
 [tool.ruff]
-# pycodestyle, pyflakes, isort, pylint, pyupgrade
-select = ["E", "W", "F", "I", "PL", "UP"]
-ignore = ["E501", "PLR2004", "PLR0915"]
 target-version = "py312"
 
-[tool.ruff.pylint]
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, pylint, pyupgrade
+ignore = ["E501", "PLR0915", "PLR2004"]
+select = ["E", "F", "I", "PL", "UP", "W"]
+
+[tool.ruff.lint.pylint]
 max-args = 12
 max-branches = 20
 
 [tool.mypy]
+ignore_missing_imports = true
 python_version = "3.12"
 warn_return_any = false
 warn_unused_configs = true
-ignore_missing_imports = true
 # strict = true
 check_untyped_defs = true
 plugins = ["mypy_django_plugin.main"]

@@ -13,7 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
-""" Army and Defence tools"""
+"""Army and Defence tools"""
+
 from functools import cached_property
 from typing import Literal, NamedTuple, TypedDict
 

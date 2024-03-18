@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-""" functions to generate coord-to-player dictionaries """
+"""functions to generate coord-to-player dictionaries"""
 
 from django.db.models.query import QuerySet
 

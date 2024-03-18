@@ -13,7 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
-""" Tests for forms.py """
+"""Tests for forms.py"""
+
 import datetime
 
 from django.contrib.auth.models import User

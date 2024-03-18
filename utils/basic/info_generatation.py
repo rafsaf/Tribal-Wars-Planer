@@ -341,24 +341,24 @@ class TargetCount:
         ally_players_details = {player: "" for player in self.ally_players_offs}
         for player, count in self.ally_players_offs.items():
             if count:
-                ally_players_details[
-                    player
-                ] += f"{count}{self.troops_shortcuts['offs']}"
+                ally_players_details[player] += (
+                    f"{count}{self.troops_shortcuts['offs']}"
+                )
         for player, count in self.ally_players_fakes.items():
             if count:
-                ally_players_details[
-                    player
-                ] += f"{count}{self.troops_shortcuts['fake']}"
+                ally_players_details[player] += (
+                    f"{count}{self.troops_shortcuts['fake']}"
+                )
         for player, count in self.ally_players_nobles.items():
             if count:
-                ally_players_details[
-                    player
-                ] += f"{count}{self.troops_shortcuts['noble']}"
+                ally_players_details[player] += (
+                    f"{count}{self.troops_shortcuts['noble']}"
+                )
         for player, count in self.ally_players_ruins.items():
             if count:
-                ally_players_details[
-                    player
-                ] += f"{count}{self.troops_shortcuts['ruin']}"
+                ally_players_details[player] += (
+                    f"{count}{self.troops_shortcuts['ruin']}"
+                )
         parse_details = ""
         for player, details in ally_players_details.items():
             parse_details += f"{player} {details}, "

@@ -189,7 +189,7 @@ class Table:
         """
         cell_line = str(cell_line)
         assert len(cell_line) <= cell_width - (2 * self.min_h_padding)  # TODO
-        return "{}{}{}".format(
+        return "{}{}{}".format(  # noqa: UP032
             # left padding: min_h_padding
             self.cell_fill_char * self.min_h_padding,
             # value
@@ -246,7 +246,7 @@ class Table:
                 )  # cell padding
 
             lines.append(
-                "{}{}{}".format(
+                "{}{}{}".format(  # noqa: UP032
                     self.cell_sep_char,  # first |
                     self.cell_sep_char.join(line),  # values separated by |
                     self.cell_sep_char,  # last |
