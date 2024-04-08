@@ -380,13 +380,13 @@ files = [
 
 [[package]]
 name = "django"
-version = "5.0.3"
+version = "5.0.4"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "Django-5.0.3-py3-none-any.whl", hash = "sha256:5c7d748ad113a81b2d44750ccc41edc14e933f56581683db548c9257e078cc83"},
-    {file = "Django-5.0.3.tar.gz", hash = "sha256:5fb37580dcf4a262f9258c1f4373819aacca906431f505e4688e37f3a99195df"},
+    {file = "Django-5.0.4-py3-none-any.whl", hash = "sha256:916423499d75d62da7aa038d19aef23d23498d8df229775eb0a6309ee1013775"},
+    {file = "Django-5.0.4.tar.gz", hash = "sha256:4bd01a8c830bb77a8a3b0e7d8b25b887e536ad17a81ba2dce5476135c73312bd"},
 ]
 
 [package.dependencies]
@@ -1252,13 +1252,13 @@ test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "stripe"
-version = "8.9.0"
+version = "8.10.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-8.9.0-py2.py3-none-any.whl", hash = "sha256:ee0280bbc82264e8067d0754272de76bed3b368743a912f9bf0ba2b3fbe4ede4"},
-    {file = "stripe-8.9.0.tar.gz", hash = "sha256:71f7c1bdda0f3e568aa29d275910a14834115a58ae21eb0479b3b26745875d0e"},
+    {file = "stripe-8.10.0-py2.py3-none-any.whl", hash = "sha256:d948f0d21c5d3e0c807d4f87a82c9c9195ae290c05c20449602d452880058ed8"},
+    {file = "stripe-8.10.0.tar.gz", hash = "sha256:d67fcf528c6759e04d71de488e6977ff01a5304e84f4cd5fbceeff15d7d23816"},
 ]
 
 [package.dependencies]
@@ -1395,4 +1395,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "e033803882794df5fa825d6370af2df78c6af546a047c9903cce692c94a694db"
+content-hash = "c8a66bf159c422e6594578a614de5c25ca6f8bf673bf71934eae7fc12b627e82"
