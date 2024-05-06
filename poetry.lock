@@ -380,13 +380,13 @@ files = [
 
 [[package]]
 name = "django"
-version = "5.0.4"
+version = "5.0.5"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "Django-5.0.4-py3-none-any.whl", hash = "sha256:916423499d75d62da7aa038d19aef23d23498d8df229775eb0a6309ee1013775"},
-    {file = "Django-5.0.4.tar.gz", hash = "sha256:4bd01a8c830bb77a8a3b0e7d8b25b887e536ad17a81ba2dce5476135c73312bd"},
+    {file = "Django-5.0.5-py3-none-any.whl", hash = "sha256:8af4f166dc9a2bb822f9374cd78e34a10c286b402597fe2c7fb97c131656ba65"},
+    {file = "Django-5.0.5.tar.gz", hash = "sha256:dc95c9cb2a37ba54599d9d1c8faf81609d36f3e74cd04395ce1300573e57baf9"},
 ]
 
 [package.dependencies]
@@ -433,18 +433,18 @@ tests = ["coverage", "tomli"]
 
 [[package]]
 name = "django-ses"
-version = "3.6.0"
+version = "4.0.0"
 description = "A Django email backend for Amazon's Simple Email Service (SES)"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "django_ses-3.6.0-py3-none-any.whl", hash = "sha256:f3f69b97444fdbda41946c7349c63e1a0ea8284d9e9acd6f4b5cb3dba5030829"},
-    {file = "django_ses-3.6.0.tar.gz", hash = "sha256:ea08bea9e1aab71f9fbf43b30733a27eff76cea3797b7ebeab9f6bc5d3df6b37"},
+    {file = "django_ses-4.0.0-py3-none-any.whl", hash = "sha256:43e869a3fd3aa22dbe9e4c2031163dd93448ddb801e12033c8d3f12c2df5ce80"},
+    {file = "django_ses-4.0.0.tar.gz", hash = "sha256:dd86175e2669bf90c4d66d97ae317dcf8e21a4ff3d9a8859fcbca3be5ad15626"},
 ]
 
 [package.dependencies]
 boto3 = ">=1.0.0"
-django = ">=2.2"
+django = ">=3.2"
 pytz = ">=2016.10"
 
 [package.extras]
@@ -1251,13 +1251,13 @@ doc = ["sphinx"]
 
 [[package]]
 name = "stripe"
-version = "9.2.0"
+version = "9.5.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-9.2.0-py2.py3-none-any.whl", hash = "sha256:f5e75709d0271917fbb4c16864d5a33ac1d0ae3d277907aadf6c3e4f7562a706"},
-    {file = "stripe-9.2.0.tar.gz", hash = "sha256:bc4f522fe6afa2b9a7cb1820d7ead6d90fdf0a5e6bc6a1a463becfd970a11e22"},
+    {file = "stripe-9.5.0-py2.py3-none-any.whl", hash = "sha256:ace24a3ed07cff3b8efe0e23a72e02372f26124b034d1d3b78f58afdcd5bd390"},
+    {file = "stripe-9.5.0.tar.gz", hash = "sha256:cd38369641ae6140e1ce9edcd5400aecdb1a10ba704e653a2f2a7550cb8f277e"},
 ]
 
 [package.dependencies]
@@ -1394,4 +1394,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "78dadc06aeb4ef43a4ecd09cf6c30b4e2daf098060b3d0989280862d803c6dbe"
+content-hash = "28eed343f783f91d76aa1afcf3b009f24aac7020da88412f88b1bbf299d66539"
