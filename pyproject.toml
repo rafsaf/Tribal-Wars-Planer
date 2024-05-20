@@ -11,7 +11,7 @@ crispy-bootstrap4 = "^2024.1"
 django = "^5.0"
 django-crispy-forms = "^2.0"
 django-registration = "^3.3"
-django-ses = "^3.6.0"
+django-ses = "^4.0.0"
 djangorestframework = "^3.15.1"
 
 beautifulsoup4 = "^4.12.3"
@@ -26,7 +26,7 @@ python-dateutil = "^2.9.0"
 python-dotenv = "^1.0.1"
 schedule = "^1.2.1"
 scipy = "^1.13.0"
-stripe = "^9.2.0"
+stripe = "^9.7.0"
 uwsgi = "^2.0.25"
 
 [tool.poetry.group.dev.dependencies]
