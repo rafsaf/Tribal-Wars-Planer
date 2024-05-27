@@ -380,13 +380,13 @@ files = [
 
 [[package]]
 name = "django"
-version = "5.0.4"
+version = "5.0.6"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "Django-5.0.4-py3-none-any.whl", hash = "sha256:916423499d75d62da7aa038d19aef23d23498d8df229775eb0a6309ee1013775"},
-    {file = "Django-5.0.4.tar.gz", hash = "sha256:4bd01a8c830bb77a8a3b0e7d8b25b887e536ad17a81ba2dce5476135c73312bd"},
+    {file = "Django-5.0.6-py3-none-any.whl", hash = "sha256:8363ac062bb4ef7c3f12d078f6fa5d154031d129a15170a1066412af49d30905"},
+    {file = "Django-5.0.6.tar.gz", hash = "sha256:ff1b61005004e476e0aeea47c7f79b85864c70124030e95146315396f1e7951f"},
 ]
 
 [package.dependencies]
@@ -433,18 +433,18 @@ tests = ["coverage", "tomli"]
 
 [[package]]
 name = "django-ses"
-version = "3.6.0"
+version = "4.1.0"
 description = "A Django email backend for Amazon's Simple Email Service (SES)"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "django_ses-3.6.0-py3-none-any.whl", hash = "sha256:f3f69b97444fdbda41946c7349c63e1a0ea8284d9e9acd6f4b5cb3dba5030829"},
-    {file = "django_ses-3.6.0.tar.gz", hash = "sha256:ea08bea9e1aab71f9fbf43b30733a27eff76cea3797b7ebeab9f6bc5d3df6b37"},
+    {file = "django_ses-4.1.0-py3-none-any.whl", hash = "sha256:26a898b04f9e32bd40c87a24bab1672d5f9007be09d11389346078b757827b21"},
+    {file = "django_ses-4.1.0.tar.gz", hash = "sha256:354db724b32201ef9b384f93e17966a42cbba31787d66d8deb081ace4931d60c"},
 ]
 
 [package.dependencies]
 boto3 = ">=1.0.0"
-django = ">=2.2"
+django = ">=3.2"
 pytz = ">=2016.10"
 
 [package.extras]
@@ -1145,14 +1145,16 @@ crt = ["botocore[crt] (>=1.33.2,<2.0a.0)"]
 
 [[package]]
 name = "schedule"
-version = "1.2.1"
+version = "1.2.2"
 description = "Job scheduling for humans."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "schedule-1.2.1-py2.py3-none-any.whl", hash = "sha256:14cdeb083a596aa1de6dc77639a1b2ac8bf6eaafa82b1c9279d3612823063d01"},
-    {file = "schedule-1.2.1.tar.gz", hash = "sha256:843bc0538b99c93f02b8b50e3e39886c06f2d003b24f48e1aa4cadfa3f341279"},
+    {file = "schedule-1.2.2-py3-none-any.whl", hash = "sha256:5bef4a2a0183abf44046ae0d164cadcac21b1db011bdd8102e4a0c1e91e06a7d"},
 ]
+
+[package.extras]
+timezone = ["pytz"]
 
 [[package]]
 name = "scipy"
@@ -1251,13 +1253,13 @@ doc = ["sphinx"]
 
 [[package]]
 name = "stripe"
-version = "9.2.0"
+version = "9.8.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-9.2.0-py2.py3-none-any.whl", hash = "sha256:f5e75709d0271917fbb4c16864d5a33ac1d0ae3d277907aadf6c3e4f7562a706"},
-    {file = "stripe-9.2.0.tar.gz", hash = "sha256:bc4f522fe6afa2b9a7cb1820d7ead6d90fdf0a5e6bc6a1a463becfd970a11e22"},
+    {file = "stripe-9.8.0-py2.py3-none-any.whl", hash = "sha256:f630bcf47d49beaad02feba0109784bc016b5e0c974272da6fdf590a0f7ec8a9"},
+    {file = "stripe-9.8.0.tar.gz", hash = "sha256:63161fca746cb6a81e2158bf61950ccb8d75f1b7231c7f4ac9e05817aab586b4"},
 ]
 
 [package.dependencies]
@@ -1394,4 +1396,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "78dadc06aeb4ef43a4ecd09cf6c30b4e2daf098060b3d0989280862d803c6dbe"
+content-hash = "2ff3b73f451811b1c7537daa87372437335091468b636605643c62357e53ef34"
