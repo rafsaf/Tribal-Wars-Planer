@@ -45,7 +45,7 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
     targets_unique_by_player = (
         Target.objects.filter(outline=outline).order_by("player").distinct("player")
     )
-    weight_max_players_queryset: QuerySet["WeightMaximum"] = (
+    weight_max_players_queryset: QuerySet[WeightMaximum] = (
         WeightMaximum.objects.filter(outline=outline)
         .order_by("player")
         .distinct("player")

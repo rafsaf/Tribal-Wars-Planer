@@ -58,10 +58,7 @@ def initial_add_first(
         catapult=weight.catapult_left,
         nobleman=weight.nobleman_left,
         order=order,
-        distance=round(
-            basic.Village(target.target).distance(basic.Village(weight.start)),
-            1,
-        ),
+        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
         first_line=weight.first_line,
     )
     weight.off_state += weight.off_left
@@ -107,10 +104,7 @@ def initial_add_first_off(
         catapult=weight.catapult_left,
         nobleman=0,
         order=order,
-        distance=round(
-            basic.Village(target.target).distance(basic.Village(weight.start)),
-            1,
-        ),
+        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
         first_line=weight.first_line,
     )
     weight.off_state += weight.off_left
@@ -161,10 +155,7 @@ def initial_add_first_ruin(
             catapult=catapult,
             nobleman=0,
             order=order,
-            distance=round(
-                basic.Village(target.target).distance(basic.Village(weight.start)),
-                1,
-            ),
+            distance=basic.Village(target.target).distance(basic.Village(weight.start)),
             first_line=weight.first_line,
         )
         weight.off_state += catapult * 8
@@ -227,10 +218,7 @@ def initial_add_first_fake(
         off=army,
         nobleman=nobles,
         order=order,
-        distance=round(
-            basic.Village(target.target).distance(basic.Village(weight.start)),
-            1,
-        ),
+        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
         first_line=weight.first_line,
     )
     weight.off_state += army
@@ -281,10 +269,7 @@ def initial_add_first_fake_noble(
             off=army,
             nobleman=nobles,
             order=order,
-            distance=round(
-                basic.Village(target.target).distance(basic.Village(weight.start)),
-                1,
-            ),
+            distance=basic.Village(target.target).distance(basic.Village(weight.start)),
             first_line=weight.first_line,
         )
         weight.nobleman_state += nobles
@@ -346,10 +331,7 @@ def initial_add_last_fake(
         off=army,
         nobleman=nobles,
         order=order,
-        distance=round(
-            basic.Village(target.target).distance(basic.Village(weight.start)),
-            1,
-        ),
+        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
         first_line=weight.first_line,
     )
     weight.off_state += army
@@ -400,10 +382,7 @@ def initial_add_last_fake_noble(
             off=army,
             nobleman=nobles,
             order=order,
-            distance=round(
-                basic.Village(target.target).distance(basic.Village(weight.start)),
-                1,
-            ),
+            distance=basic.Village(target.target).distance(basic.Village(weight.start)),
             first_line=weight.first_line,
         )
         weight.nobleman_state += nobles
@@ -453,10 +432,7 @@ def initial_add_last_ruin(
             catapult=catapult,
             nobleman=0,
             order=order,
-            distance=round(
-                basic.Village(target.target).distance(basic.Village(weight.start)),
-                1,
-            ),
+            distance=basic.Village(target.target).distance(basic.Village(weight.start)),
             first_line=weight.first_line,
         )
         weight.off_state += catapult * 8
@@ -501,10 +477,7 @@ def initial_add_last_off(
         catapult=weight.catapult_left,
         nobleman=0,
         order=order,
-        distance=round(
-            basic.Village(target.target).distance(basic.Village(weight.start)),
-            1,
-        ),
+        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
         first_line=weight.first_line,
     )
     weight.off_state += weight.off_left
@@ -549,10 +522,7 @@ def initial_add_last(
         catapult=weight.catapult_left,
         nobleman=weight.nobleman_left,
         order=order,
-        distance=round(
-            basic.Village(target.target).distance(basic.Village(weight.start)),
-            1,
-        ),
+        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
         first_line=weight.first_line,
     )
     weight.off_state += weight.off_left

@@ -182,6 +182,26 @@ const menu_toggle = () => {
   });
 };
 
+const prettifyTimeDistance = (secs) => {
+  secs = Math.round(secs);
+  const hours = Math.floor(secs / 3600);
+  secs %= 3600;
+  const minutes = Math.floor(secs / 60);
+  const seconds = secs % 60;
+
+  let hh = hours.toString();
+  let mm = minutes.toString();
+  let ss = seconds.toString();
+
+  if (mm.length < 2) {
+    mm = "0" + mm;
+  }
+  if (ss.length < 2) {
+    ss = "0" + ss;
+  }
+  return `${hh}:${mm}:${ss}`;
+};
+
 const calculate_distance = (element) => {
   const world_speed = parseFloat(
     String(document.getElementById("speed_world").value).replace(",", ".")
@@ -194,22 +214,14 @@ const calculate_distance = (element) => {
     element.innerHTML = element.distance;
     element.clicked = false;
   } else {
-    element.distance = parseFloat(element.innerHTML);
-    let fixed_ram = (element.distance / units_speed / world_speed / 60) * 30;
-    if (fixed_ram > 99.9) {
-      fixed_ram = fixed_ram.toFixed(0);
-    } else {
-      fixed_ram = fixed_ram.toFixed(1);
-    }
+    element.distance = parseFloat(element.innerHTML.replace(",", "."));
+    let secs_ram = (element.distance / units_speed / world_speed) * 30 * 60;
 
-    let fixed_noble = (element.distance / units_speed / world_speed / 60) * 35;
-    if (fixed_noble > 99.9) {
-      fixed_noble = fixed_noble.toFixed(0);
-    } else {
-      fixed_noble = fixed_noble.toFixed(1);
-    }
+    let secs_noble = (element.distance / units_speed / world_speed) * 35 * 60;
 
-    element.innerHTML = `<span class='text-nowrap'>${fixed_ram}h / ${fixed_noble}h</span>`;
+    element.innerHTML = `<span class='text-nowrap'>${prettifyTimeDistance(
+      secs_ram
+    )} / ${prettifyTimeDistance(secs_noble)}</span>`;
     element.clicked = true;
   }
 };

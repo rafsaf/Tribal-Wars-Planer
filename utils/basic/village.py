@@ -131,7 +131,7 @@ class Village:
             (self.x_coord - other.x_coord) ** 2 + (self.y_coord - other.y_coord) ** 2
         )
 
-    def time_distance(self, other, unit: str, world: models.World):
+    def time_distance(self, other, unit: str, world: models.World) -> int:
         """Time in seconds for given unit between two villages"""
         unit_speed = Unit(name=unit).speed
         return round(
