@@ -215,11 +215,9 @@ const calculate_distance = (element) => {
     element.clicked = false;
   } else {
     element.distance = parseFloat(element.innerHTML.replace(",", "."));
-    let secs_ram =
-      (element.distance / units_speed / world_speed / 60) * 30 * 60;
+    let secs_ram = (element.distance / units_speed / world_speed) * 30 * 60;
 
-    let secs_noble =
-      (element.distance / units_speed / world_speed / 60) * 35 * 60;
+    let secs_noble = (element.distance / units_speed / world_speed) * 35 * 60;
 
     element.innerHTML = `<span class='text-nowrap'>${prettifyTimeDistance(
       secs_ram
