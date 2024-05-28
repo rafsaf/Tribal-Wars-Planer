@@ -183,32 +183,23 @@ const menu_toggle = () => {
 };
 
 const prettifyTimeDistance = (secs) => {
-  secs = Math.round(secs * 1000) / 1000;
+  secs = Math.round(secs);
   const hours = Math.floor(secs / 3600);
   secs %= 3600;
   const minutes = Math.floor(secs / 60);
-  const seconds_plus = secs % 60;
-  const seconds = Math.floor(seconds_plus);
-  const milis = (seconds_plus - seconds) * 1000;
+  const seconds = secs % 60;
 
-  let h = hours.toString();
-  let m = minutes.toString();
-  let s = seconds.toString();
-  let ms = milis.toString();
+  let hh = hours.toString();
+  let mm = minutes.toString();
+  let ss = seconds.toString();
 
-  if (m.length < 2) {
-    m = "0" + m;
+  if (mm.length < 2) {
+    mm = "0" + mm;
   }
-  if (s.length < 2) {
-    s = "0" + s;
+  if (ss.length < 2) {
+    ss = "0" + ss;
   }
-  if (ms.length < 2) {
-    ms = "00" + ms;
-  }
-  if (ms.length < 3) {
-    ms = "0" + ms;
-  }
-  return `${h}:${m}:${s}:${ms}`;
+  return `${hh}:${mm}:${ss}`;
 };
 
 const calculate_distance = (element) => {
@@ -223,7 +214,7 @@ const calculate_distance = (element) => {
     element.innerHTML = element.distance;
     element.clicked = false;
   } else {
-    element.distance = parseFloat(element.innerHTML);
+    element.distance = parseFloat(element.innerHTML.replace(",", "."));
     let secs_ram =
       (element.distance / units_speed / world_speed / 60) * 30 * 60;
 
