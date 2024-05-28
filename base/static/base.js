@@ -182,6 +182,35 @@ const menu_toggle = () => {
   });
 };
 
+const prettifyTimeDistance = (secs) => {
+  secs = Math.round(secs * 1000) / 1000;
+  const hours = Math.floor(secs / 3600);
+  secs %= 3600;
+  const minutes = Math.floor(secs / 60);
+  const seconds_plus = secs % 60;
+  const seconds = Math.floor(seconds_plus);
+  const milis = (seconds_plus - seconds) * 1000;
+
+  let h = hours.toString();
+  let m = minutes.toString();
+  let s = seconds.toString();
+  let ms = milis.toString();
+
+  if (m.length < 2) {
+    m = "0" + m;
+  }
+  if (s.length < 2) {
+    s = "0" + s;
+  }
+  if (ms.length < 2) {
+    ms = "00" + ms;
+  }
+  if (ms.length < 3) {
+    ms = "0" + ms;
+  }
+  return `${h}:${m}:${s}:${ms}`;
+};
+
 const calculate_distance = (element) => {
   const world_speed = parseFloat(
     String(document.getElementById("speed_world").value).replace(",", ".")
@@ -195,19 +224,15 @@ const calculate_distance = (element) => {
     element.clicked = false;
   } else {
     element.distance = parseFloat(element.innerHTML);
-    let full_seconds_ram = Math.round((element.distance / units_speed / world_speed / 60) * 30 * 60, 3);
-    let hours_ram = Math.floor(full_seconds_ram / 3600);
-    full_seconds_ram %= 3600;
-    let minutes_ram = Math.floor(full_seconds_ram / 60);
-    let seconds_plus = full_seconds_ram % 60;
-    let seconds_ram = Math.floor(full_seconds_ram)
-    let milis_ram = seconds_plus - seconds_ram
-    const ram = `${hours_ram}:${minutes_ram}:${seconds_ram}:${milis_ram}`
+    let secs_ram =
+      (element.distance / units_speed / world_speed / 60) * 30 * 60;
 
-    let fixed_noble = (element.distance / units_speed / world_speed / 60) * 35 * 60;
+    let secs_noble =
+      (element.distance / units_speed / world_speed / 60) * 35 * 60;
 
-
-    element.innerHTML = `<span class='text-nowrap'>${ram} / ${fixed_noble}h</span>`;
+    element.innerHTML = `<span class='text-nowrap'>${prettifyTimeDistance(
+      secs_ram
+    )} / ${prettifyTimeDistance(secs_noble)}</span>`;
     element.clicked = true;
   }
 };
