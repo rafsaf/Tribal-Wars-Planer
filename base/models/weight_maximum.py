@@ -55,7 +55,7 @@ class WeightMaximum(models.Model):
     )
 
     if TYPE_CHECKING:
-        distance: int
+        distance: float
         night_bool: bool
         morale: int
 

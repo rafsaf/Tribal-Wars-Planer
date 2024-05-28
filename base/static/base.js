@@ -195,21 +195,19 @@ const calculate_distance = (element) => {
     element.clicked = false;
   } else {
     element.distance = parseFloat(element.innerHTML);
-    let fixed_ram = (element.distance / units_speed / world_speed / 60) * 30;
-    if (fixed_ram > 99.9) {
-      fixed_ram = fixed_ram.toFixed(0);
-    } else {
-      fixed_ram = fixed_ram.toFixed(1);
-    }
+    let full_seconds_ram = Math.round((element.distance / units_speed / world_speed / 60) * 30 * 60, 3);
+    let hours_ram = Math.floor(full_seconds_ram / 3600);
+    full_seconds_ram %= 3600;
+    let minutes_ram = Math.floor(full_seconds_ram / 60);
+    let seconds_plus = full_seconds_ram % 60;
+    let seconds_ram = Math.floor(full_seconds_ram)
+    let milis_ram = seconds_plus - seconds_ram
+    const ram = `${hours_ram}:${minutes_ram}:${seconds_ram}:${milis_ram}`
 
-    let fixed_noble = (element.distance / units_speed / world_speed / 60) * 35;
-    if (fixed_noble > 99.9) {
-      fixed_noble = fixed_noble.toFixed(0);
-    } else {
-      fixed_noble = fixed_noble.toFixed(1);
-    }
+    let fixed_noble = (element.distance / units_speed / world_speed / 60) * 35 * 60;
 
-    element.innerHTML = `<span class='text-nowrap'>${fixed_ram}h / ${fixed_noble}h</span>`;
+
+    element.innerHTML = `<span class='text-nowrap'>${ram} / ${fixed_noble}h</span>`;
     element.clicked = true;
   }
 };
