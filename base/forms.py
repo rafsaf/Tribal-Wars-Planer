@@ -105,9 +105,9 @@ class OffTroopsForm(forms.ModelForm):
                                 "coord": village.coord,
                                 "world": village.world.human(),
                                 "player": village.player,
-                                "tribe": village.player.tribe
-                                if village.player
-                                else None,
+                                "tribe": (
+                                    village.player.tribe if village.player else None
+                                ),
                             }
                 self.add_error("off_troops", str(i))
                 continue
@@ -115,7 +115,7 @@ class OffTroopsForm(forms.ModelForm):
             if army.coord in already_used_villages:
                 if not self.first_error_message:
                     self.first_error_message = gettext_lazy(
-                        "Village in this line is duplicated: %s" % army.coord
+                        "Village in this line is duplicated: %s" % army.coord  # noqa: UP031
                     )
                 self.add_error("off_troops", str(i))
                 continue
@@ -188,9 +188,9 @@ class DeffTroopsForm(forms.ModelForm):
                                 "coord": village.coord,
                                 "world": village.world.human(),
                                 "player": village.player,
-                                "tribe": village.player.tribe
-                                if village.player
-                                else None,
+                                "tribe": (
+                                    village.player.tribe if village.player else None
+                                ),
                             }
                 self.add_error("deff_troops", i)  # type: ignore
                 continue
@@ -199,7 +199,7 @@ class DeffTroopsForm(forms.ModelForm):
                 if already_used_villages[army.coord] > 2:
                     if not self.first_error_message:
                         self.first_error_message = gettext_lazy(
-                            "Village in this line is duplicated: %s" % army.coord
+                            "Village in this line is duplicated: %s" % army.coord  # noqa: UP031
                         )
                     self.add_error("deff_troops", i)  # type: ignore
             else:

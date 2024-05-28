@@ -50,7 +50,7 @@ def generate_distance_matrix(outline: Outline, weight_max_lst: list[WeightMaximu
     if not len(weight_max_lst):
         return None, {}
 
-    targets: QuerySet["Target"] = Target.objects.filter(outline=outline).order_by("id")
+    targets: QuerySet[Target] = Target.objects.filter(outline=outline).order_by("id")
 
     coord_to_id = {}
     list_of_coords: list[Any] = []
