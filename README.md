@@ -1,4 +1,4 @@
-![plemiona-planer](https://plemiona-planer.pl/static/images/background.jpg)
+![plemiona-planer](https://plemiona-planer.pl/static/images/background.avif)
 
 ![Codecov](https://img.shields.io/codecov/c/github/rafsaf/Tribal-Wars-Planer)
 ![GitHub](https://img.shields.io/github/license/rafsaf/Tribal-Wars-Planer)
