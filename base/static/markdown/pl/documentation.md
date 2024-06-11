@@ -266,13 +266,13 @@ Cała zakładka służy głównie dwóm celom, jest to wpisywanie celów, oraz a
 
 <p class="md-error">Wprowadź te wartości do formularza w 1 zakładce:</p>
 
-![](images/1_000_test-filled-form.png)
+![](images/1_000_test-filled-form.avif)
 
 Rozwiń pierwszą zakładkę <span class="md-correct2">1. Dostępne jednostki</span>. W polach formularza zmień **Minimalną odległość od linii frontu** na 90, **Maksymalną odległość od linii frontu** na 130, zaś **Maksymalna odległość dla szlachciców** na 120 (zobacz rysunek wyżej). Celem jest podzielenie wszystkich naszych wiosek na trzy grupy, <span class="md-error">Frontowe</span>, <span class="md-error">Zapleczowe</span> oraz <span class="md-error">Poza</span> (bardzo dalekie) w zależności od wpisanych wrogich plemion (liczona jest odległość od najbliższych wrogów dla każdej naszej wioski). Dla <span class="md-correct2">Świata Testowego</span> wszystkie wioski są daleko od wroga stąd te odległości są znaczne. Zatwierdź formularz klikając <span class="md-correct2">Zapisz i odśwież dostępne</span>.
 
 <p class="md-error">Powinieneś zobaczyć w tabeli poniższe rezultaty:</p>
 
-![](images/1_010_test-example.png)
+![](images/1_010_test-example.avif)
 
 <p class="md-error">Kliknij teraz <span class="md-correct2">Rozpisz tą akcję</span>, czas na kolejną zakładkę :)</p>
  
@@ -284,7 +284,7 @@ Rozwiń pierwszą zakładkę <span class="md-correct2">1. Dostępne jednostki</s
 
 W następnej zakładce zobaczysz Menu z 5 zakładkami zaznaczonymi na obrazku poniżej (2,3,4,5), przyciskiem Powrotu do poprzedniej zakładki (1), edycji każdego celu (9,10,11), wyszukiwanie rozkazów (7) i nawigację między stronami (8).
 
-![](images/1_020_test-menu.png)
+![](images/1_020_test-menu.avif)
 
 <br>
 
@@ -298,7 +298,7 @@ Cele są podzielone po 12 na jedną stronę. Przy każdym z nich znajduje się p
 
 <br>
 
-![](images/1_030_test-target.png)
+![](images/1_030_test-target.avif)
 
 <br>
 
@@ -328,9 +328,9 @@ To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie widocz
 
 <br>
 
-![](images/1_040_test-time.png)
+![](images/1_040_test-time.avif)
 
-![](images/1_050_test-time2.png)
+![](images/1_050_test-time2.avif)
 
 <br>
 <p class="my-0"><span class="md-error">1</span> - Zakończenie rozpiski</p>
@@ -346,7 +346,7 @@ To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie widocz
 
 Użytkownik ma możliwość tworzenia wielu obiektów w zakładce, w praktyce jednak wystarczyć może nawet jeden lub kilka. Wybieramy przedziały czasowe dla rozkazu, jednostkę oraz tryb spośród 3 możliwych. Przykładowy, skomplikowany czas mógłby wyglądać tak:
 
-![](images/1_060_time1.png)
+![](images/1_060_time1.avif)
 
 <br>
 
@@ -370,7 +370,7 @@ Co oznacza:
 
 <br>
 
-![](images/1_070_time2.png)
+![](images/1_070_time2.avif)
 
 <br>
 <br>
@@ -381,7 +381,7 @@ Co oznacza:
 
 <br>
 
-![](images/1_080_test-result.png)
+![](images/1_080_test-result.avif)
 
 <br>
 
@@ -595,14 +595,14 @@ document.getElementById('message').value = decodeURIComponent(result.message);
 
 ##### Przykład 1, offy i szlachta domyślnie kodowane
 
-![](images/3_010_target-ex1.png)
+![](images/3_010_target-ex1.avif)
 
 **440|670:5:4** w pierszej linijce to przykład, jak domyślnie kodować ilość offów i szlachciców na dany cel. Pierwsza liczba oznacza <span class="md-error">Ilość offów</span>, zaś druga <span class="md-error">Ilość szlachciców</span>.<br><br>
 Planer obsługuje trzy rodzaje celów, prawdziwe, fejkowe oraz burzące. <span class="md-error">Cele prawdziwe</span> zamieszaj w **Cele**, <span class="md-error">Cele fejkowe</span> obok w **Fejki**, zaś <span class="md-error">Cele do burzenia</span> w **Burzaki**. Dla **Fejków** kodujemy zamiast offów i szlachiców odpowiednio ilość fejków i fejk szlachciców, zaś w zakładce **Burzaki** odpowiednio ilość offów i ilość burzaków (które wchodzą za offami).
 
 ##### Przykład 2, rozszerzone kodowanie offów i szlachty
 
-![](images/3_020_target-ex2.png)
+![](images/3_020_target-ex2.avif)
 
 Domyślnie cele jak w **Przykładzie 1**, dziedziczą tryb wysyłania z zakładki <b><a href="#jak-wpisywac-i-zapisac-cele-akcji">3. Parametry rozpiski</a></b>, czyli np. offy losowo z zaplecza oraz szlachta z najbliższego frontu. W przypadku gdy chcemy na dany cel, np. linijkę numer 3 w **Przykładzie 2**, czyli **439|671** wysłać **5 offów losowo z zaplecza**, **2 offów z bliskiego zaplecza**, **1 szlachcica z daleka** oraz ostatnie **3 szlachcice z bliska**, można wykorzystać rozszerzoną składnię wpisując:<br><br>
 <span class="md-error">439|671:2|0|5|0:3|0|0|1</span><br><br>
@@ -612,7 +612,7 @@ W takim przypadku zmiast jednej liczby offów wpisaliśmy **2|0|5|0** a zamiast 
 
 ##### Przykład 3, błędy podczas zapisywania
 
-![](images/3_030_target-ex3.png)
+![](images/3_030_target-ex3.avif)
 
 <span class="md-error">Błędy</span> pojawią się w standardowych przypadkach, czyli przede wszystkim gdy dana wioska <b>nie istnieje</b> na zadeklarowanym w rozpisce świecie lub gdy wioska <b>jest barbarzyńska</b> oraz gdy wpisywane po kordach znaki nie będą jednymi z podanych powyżej możliwości. Nie ma przeszkód by celami były wioski współplemieńców lub by te same wioski były wpisane wielokrotnie (choć w tym przypadku, u góry pojawi się informacja, że wykryto powtórzenia). Powtórzenia nie są zabronione, każdy wpisany cel, nawet jeśli pojawia się wielokrotnie, zostanie potraktowany oddzielnie, tym nie mniej może to spowodować chaos u graczy bo będzie np. kilka tych samych celów z różnymi rozkazami na nie (?). Powtórzenia w różnych zakładkach (<b>Cele, Fejki, Burzaki</b>) nie są zliczane.
 
@@ -631,7 +631,7 @@ W takim przypadku zmiast jednej liczby offów wpisaliśmy **2|0|5|0** a zamiast 
 Odpowiedzią na to, by podczas rozpisywania akcji **nie** rozpisywać frontowych offów frontowcom, którzy powinni je trzymać na dobitki z bliska (lub używać w dowolny inny sposób), jest podział naszych wiosek na dwie najważniejsze grupy, <span class="md-error">Front</span>, czyli offy i szlachta **blisko** wroga, oraz <span class="md-error">Zaplecze</span> czyli offy i szlachta **daleko** od wroga. Od wersji 2.1.0 doszedł kolejny rejon <span class="md-error">Poza</span> intuicyjnie oznaczający bardzo dalekie wioski (ale przykładów zastosowań jest więcej), rozwiązujący problem offów z bardzo daleka, które nie są porządane, ale nie tylko, bo również pozwalający na akcję offami z **przedziału** np. 20 kratek - 80 kratek. Jak dokładnie to się odbywa i jak to kontrolować, wyjaśni się za chwilę.
 
 <h5>Całość intuicji związanej z podziałem można skrócić do poniższego zdjęcia:</h5>
-<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="https://raw.githubusercontent.com/rafsaf/tw-complex/main/images/Figure_3.png" alt="Troops form">
+<img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="https://raw.githubusercontent.com/rafsaf/tw-complex/main/images/Figure_3.avif" alt="Troops form">
 
 Nasze plemiona (na niebiesko) otaczają wroga (czerwonego), na lewym zdjęciu widać stan SPRZED działania algorytmu, zaś na prawym PO jego zastosowaniu. Podzieliśmy całość naszych wiosek na "sektory" w zależności od odległości od wroga: najbliżej czerwonego- **Front**, trochę dalej ale nie do przesady- **Zaplecze**, zaś wioski bardzo dalekie pozostały niebieskie i oznaczają one **Poza**. PS. Ta część aplikacji jest dostępna jako open-source i jest dostępna przez PyPI oraz na [GitHubie](https://github.com/rafsaf/tw-complex).
 
@@ -642,23 +642,23 @@ To, jak zostaną podzielone nasze offy i szlachta, zależy od ustawień w zakła
 <br>
 <h5>Przykład wyniku dla <b>min. 0 kratek i maks. 500 kratek</b>- czyli nie chcemy ŻADNYCH "Frontów" i żadnych "Poza", wszystko jest zapleczem i wszystko można rozpisać.</b></h5>
 
-![](images/3_040_troops-form1.png)
+![](images/3_040_troops-form1.avif)
 
-![](images/3_050_troops-table1.png)
+![](images/3_050_troops-table1.avif)
 
 <br>
 <h5>Przykład wyniku dla <b>min. 15 kratek i maks. 100 kratek</b>- czyli chcemy  by gracze którzy mają poniżej 15 kratek od wroga, trzymali offy jako frontowcy i nie chcemy by jakikolwiek off miał dalej od celu niż 100 kratek (czyli leciał dłużej niż 2 doby etc).</b></h5>
 
-![](images/3_041_troops-form2.png)
+![](images/3_041_troops-form2.avif)
 
-![](images/3_051_troops-table2.png)
+![](images/3_051_troops-table2.avif)
 
 <br>
 <h5>Przykład wyniku dla <b>min. 60 kratek i maks. 120 kratek</b>- kiedy chcemy, aby zaplecze było powyżej 60 kratek od wroga i poniżej 120, np. przy akcji czy burzeniu z daleka (a z bliska robimy osobną).</b></h5>
 
-![](images/3_042_troops-form3.png)
+![](images/3_042_troops-form3.avif)
 
-![](images/3_052_troops-table3.png)
+![](images/3_052_troops-table3.avif)
 
 Tylko offy **większe niż wybrana minimalna liczba jednostek w offie** zostaną pokazane. W obecnej wersji ck z offów również będą **rozpoznane** i odróżnione od ck z wiosek deffowych oraz policzone. Wynik zależy głównie od <span class="md-error">Przeciwnych plemion</span>, które zostały wybrane na samym początku przy tworzeniu rozpiski. Algorytm jest bardzo prosty, dookoła każdej **wrogiej** wioski liczony jest rejon w odległości, która została podana jako <b>odległość od linii frontu</b>. Biorąc sumę tych wszystkich rejonów w całość, możemy dla każdej **sojuszniczej** wioski wskazać czy jest ona w pobliżu tych wrogich wiosek (wtedy jest frontowa), czy też nie jest (wtedy jest na zapleczu). Stąd też w pole <span class="md-correct2">Nieuwzględniane przy liczeniu frontowych offów wioski wroga</span> wklejamy wszelkie wrogie diody, by nie zaburzały wyniku.
 
@@ -688,7 +688,7 @@ Pomysł polega na ręcznym rozpisaniu rozkazów na wszystkie cele i **nie korzys
 
 <h5>Dla małej akcji uzupełniona zakładka może wyglądać następująco:</h5>
 
-![](images/3_070_small-outline0.png)
+![](images/3_070_small-outline0.avif)
 
 <br>
 Ustaw tam minimalną liczbę w offie na adekwatną, **małą wartość np. 2000**, (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu również małą czyli **1-10 kratek**. Klikamy <span class="md-correct2">Zapisz i odśwież dostępne</span>. Uzupełniona zostanie tabela z ilością naszych offów.
@@ -697,17 +697,17 @@ Ustaw tam minimalną liczbę w offie na adekwatną, **małą wartość np. 2000*
 
 <h5>Tak mniej więcej powinna wyglądać uzupełniona tabela:</h5>
 
-![](images/3_080_small-outline01.png)
+![](images/3_080_small-outline01.avif)
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga, dwa dolne wiersze tabeli pojawią się dopiero po tym jak uzupełnimy cele, ponieważ ilości tam wpisane zależą od tego, jakie cele są zapisane (to wokół nich liczone są te offy i szlachta). Stąd na początku będą tam zera. Możesz przejść do wpisywania celów w zależności od ilości offów i szlachty, którymi dysponujesz. Następnie możesz ponownie policzyć <b>Dostępne jednostki</b>.</div><br>
 
-![](images/3_090_small-outline1.png)
+![](images/3_090_small-outline1.avif)
 
 Po wpisaniu kordów jak wyżej i ich zapisaniu, każda linijka będzie wyglądać podobnie do **000|000:0:0**.<br> <b><span class="md-error">Ignorujemy wszystkie pozostałe zaawansowane ustawienia, pozostawiając 0 offów i 0 szlachty w każdej linijce i klikamy</span></b> <span class="md-correct2">Rozpisz tą akcję</span>.
 
 <br>
 
-![](images/3_100_small-outline2.png)
+![](images/3_100_small-outline2.avif)
 
 <br>
 
@@ -715,7 +715,7 @@ Po przejściu do następnej zakładki, zauważymy, że wszystkie cele są puste.
 
 <br>
 
-![](images/3_110_small-outline3.png)
+![](images/3_110_small-outline3.avif)
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Powyżej pokazano jak może wyglądać przykładowo rozpisany cel w początkowym etapie gry, <b>2 offy</b> na początku, następnie <b>4 szlachcice</b>. Pamiętaj że po każdym dodaniu wojsk, aktualizuje się ich stan we wszystkich celach (innymi słowy, jest to dobrze zaprogramowane, nie rozpiszesz więcej wojsk niż maksimum posiadane przez graczy). Po rozpisaniu wszystkich celów, znanym już z <b>Świata Testowego</b> sposobem przejdź do zakładki Czasów, ustal czasy wejścia, zakończ rozpiskę i roześlij graczom ich cele.</div><br>
 
@@ -739,7 +739,7 @@ Akcję będziemy rozpisywać wykorzystując automatyczne rozpisywanie z racji il
 
 <h5>Dla średniej akcji uzupełniona zakładka może wyglądać następująco:</h5>
 
-![](images/3_120_mid-outline1.png)
+![](images/3_120_mid-outline1.avif)
 
 <br>
 
@@ -749,19 +749,19 @@ Ustaw tam minimalną liczbę w offie na adekwatną ilość, pewnie więcej niż 
 
 <h5>Tak mniej więcej powinna wyglądać uzupełniona tabela:</h5>
 
-![](images/3_130_mid-outline2.png)
+![](images/3_130_mid-outline2.avif)
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga, dwa dolne wiersze tabeli pojawią się dopiero po tym jak uzupełnimy cele, ponieważ ilości tam wpisane zależą od tego, jakie cele są zapisane (to wokół nich liczone są te offy i szlachta). Stąd na początku będą tam zera. Możesz przejść do wpisywania celów w zależności od ilości offów i szlachty, którymi dysponujesz. Następnie możesz ponownie policzyć <b>Dostępne jednostki</b>.</div><br>
 
 <h5>Przykład wpisywanych celów:</h5>
 
-![](images/3_140_mid-outline3.png)
+![](images/3_140_mid-outline3.avif)
 
 W razie konieczności korzystaj z rozszerzonego kodowania offów i szlachty opisanego w artykule **Jak wpisywać i zapisać cele akcji**. Następnie przejdź do zakładki <span class="md-correct2">3. Parametry rozpiski</span> by ustalić ustawienia dla tej rozpiski, dokładny opis wszystkich opcji w razie trudności, znajdziesz w temacie jej poświęconym, czyli <b><a href="#parametry-rozpiski">3. Parametry rozpiski</a></b>.
 
 <h5>Przykład ustawień dla akcji średniej:</h5>
 
-![](images/3_150_mid-outline4.png)
+![](images/3_150_mid-outline4.avif)
 
 Opcjonalnie możesz pozostawić domyślne **Szlachta z jednej wioski jako wiele rozkazów**, jeśli wolisz by gracze otrzymywali rozkazy na szlachtę osobno. Warto natomiast zmienić **Maksymalną ilość fejk taranów z jednej wioski** na ciut mniejszą niż domyślne **4** oraz ustawić opcję **Dziel offy z szlachtą**, która już w trochę większych akcjach będzie się sprawowała lepiej.
 
@@ -791,7 +791,7 @@ Akcję będziemy rozpisywać wykorzystując automatyczne rozpisywanie z racji il
 
 <h5>Dla dużej akcji uzupełniona zakładka może wyglądać następująco:</h5>
 
-![](images/3_160_big-outline1.png)
+![](images/3_160_big-outline1.avif)
 
 <br>
 
@@ -801,19 +801,19 @@ Ustaw tam minimalną liczbę w offie na pełnego offa, **ok. 19k** lub ciut mnie
 
 <h5>Tak mniej więcej powinna wyglądać uzupełniona tabela:</h5>
 
-![](images/3_170_big-outline2.png)
+![](images/3_170_big-outline2.avif)
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga, dwa dolne wiersze tabeli pojawią się dopiero po tym jak uzupełnimy cele, ponieważ ilości tam wpisane zależą od tego, jakie cele są zapisane (to wokół nich liczone są te offy i szlachta). Stąd na początku będą tam zera. Możesz przejść do wpisywania celów w zależności od ilości offów i szlachty, którymi dysponujesz. Następnie możesz ponownie policzyć <b>Dostępne jednostki</b>.</div><br>
 
 <h5>Przykład wpisywanych celów:</h5>
 
-![](images/3_180_big-outline3.png)
+![](images/3_180_big-outline3.avif)
 
 Jeśli któreś cele mają mieć inne ustawienia od domyślnych, korzystaj z rozszerzonego kodowania offów i szlachty opisanego w artykule **Jak wpisywać i zapisać cele akcji**. Następnie przejdź do zakładki <span class="md-correct2">3. Parametry rozpiski</span> by ustalić ustawienia dla tej rozpiski, dokładny opis wszystkich opcji w razie trudności, znajdziesz w temacie jej poświęconym, czyli <b><a href="#parametry-rozpiski">3. Parametry rozpiski</a></b>.
 
 <h5>Przykład ustawień dla akcji dużej:</h5>
 
-![](images/3_190_big-outline4.png)
+![](images/3_190_big-outline4.avif)
 
 Prawdopodobnie powinieneś też włączyć w zakładce **5.** unikanie wysyłek w bonus nocny.
 
@@ -837,11 +837,11 @@ Akcja będzie całkowicie tworzona w polu **Burzaki** obok Celów. Ustawienia w 
 
 <h5>Przykład celów burzących i wyników tabeli, po 3 offy i *50 burzaków:</h5>
 
-![](images/3_200_ruin-targets.png)
+![](images/3_200_ruin-targets.avif)
 
 <h5>Przykład ustawień akcji burzącej, celujemy w 3 widoczne budynki w tej kolejności</h5>
 
-![](images/3_210_ruin-panel.png)
+![](images/3_210_ruin-panel.avif)
 
 - Uwaga, 50 burzaków nie oznacza że tyle koniecznie zostanie rozpisane!
 
@@ -849,7 +849,7 @@ Akcja będzie całkowicie tworzona w polu **Burzaki** obok Celów. Ustawienia w 
 
 <h5>Przykład rozpisanej mini akcji, różne ilości katapult od 200 do 50</h5>
 
-![](images/3_220_ruin-show.png)
+![](images/3_220_ruin-show.avif)
 
 #### 1. Optymalny wybów katapult do burzenia
 
@@ -957,7 +957,7 @@ Podsumowując warto zastanowić się nad ilością katapult (i ile budynków war
 
 <h5>Wygląd zakładki z przykładową datą:</h5>
 
-![](images/4_010_change-date.png)
+![](images/4_010_change-date.avif)
 
 Nie istnieje i nie będzie istniała możliwość _de facto_ rozpisania akcji na kilka dni. Jedyną możliwością jest rozpisanie akcji na pierwszy dzień np. **01.01**, wysłania wyników graczom, a następnie w <span class="md-error">Zakładce Wyniki</span>, po zakończonej rozpisce, możesz znaleźć _pozostałe_, niewykorzystane jednostki w zakładce <span class="md-error">Niewykorzystane wojska</span>. Tworząc nową rozpiskę z inną datą, np. na kolejny dzień **02.01** i kopiując tam te dane o Wojskach, można rozpisać akcję na kolejny dzień.
 
@@ -977,7 +977,7 @@ Nie istnieje i nie będzie istniała możliwość _de facto_ rozpisania akcji na
 
 <h5>Wygląd zakładki z domyślnymi ustawieniami:</h5>
 
-![](images/4_020_change-mode1.png)
+![](images/4_020_change-mode1.avif)
 
 W artykule <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa rejony plemienia czyli co to front i zaplecze</a></b> dowidziałeś/aś się jak Planer radzi sobie z podziałem na <span class="md-error">Front</span>, <span class="md-error">Zaplecze</span>i <span class="md-error">Poza</span>. Najpierw omówimy punkty **1.** i **2.** na powyższym zdjęciu.
 
@@ -985,7 +985,7 @@ W artykule <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa r
 
 <h5>Ustawienia 1-2:</h5>
 
-![](images/4_030_change-mode1.1.png)
+![](images/4_030_change-mode1.1.avif)
 
 Możesz zdefiniować z których dokładnie części plemienia powinny domyślnie polecieć offy i szlachta. Domyślnie jest to **Zaplecze Losowo** dla offów oraz **Front Najbliżej** dla szlachty.<br>
 
@@ -1003,7 +1003,7 @@ Przejdźmy do ustawień **3.** do **6.** , które skupiają się na ogólnych us
 
 <h5>Ustawienia 3-6:</h5>
 
-![](images/4_040_change-mode1.2.png)
+![](images/4_040_change-mode1.2.avif)
 
 <b><span class="md-error">W punkcie 3.</span></b> decydujemy jak powinna być dzielona szlachta z **jednej wioski**. Do wyboru są trzy zwyczajowe możliwości, czyli <span class="md-error">Dzielić</span> (każdy szlachcic z tą samą obstawą), <span class="md-error">Nie dzielić</span> (pierwszy szlachcic z największą obstawą, pozostałe z minimalną obstawą, uwaga słabo to wypada w przypadku np. 5 szlachciców, zawsze wtedy gdy rozdzielone zostaną na kilka wiosek) oraz <span class="md-error">Osobno</span>, czyli **wszystkie** szlachcice są z minimalną obstawą, a offy lecą osobno przed nimi, tylko do szczególnych akcji i zastosowań.
 
@@ -1037,7 +1037,7 @@ Najbardziej sensowna opcja szczególnie dla większych akcji to raczej **dzielen
 
 <h5>Ustawienia:</h5>
 
-![](images/4_045_morale_photo.png)
+![](images/4_045_morale_photo.avif)
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga. Domyślnie opcja jest <span class="md-error">wyłączona</span> w każdej akcji, ale możesz zmienić to zachowanie przechodząc do <span class="md-correct2">Menu -> Moje konto</span>.</div>
 
@@ -1081,7 +1081,7 @@ W przypadku aktywacji, Planer będzie unikał wysyłek w godzinach **00:00-07:00
 
 <h5>Wygląd zakładki wyłączonej:</h5>
 
-![](images/4_060_avoid-night.png)
+![](images/4_060_avoid-night.avif)
 
 <br>
 
@@ -1091,7 +1091,7 @@ Domyślnie opcja ta jest **wyłączona**, zaznacz pierwszy kwadracik by ją usta
 
 <h5>Wygląd zakładki aktywowanej:</h5>
 
-![](images/4_070_avoid-night2.png)
+![](images/4_070_avoid-night2.avif)
 
 <br>
 
@@ -1109,7 +1109,7 @@ Domyślnie opcja ta jest **wyłączona**, zaznacz pierwszy kwadracik by ją usta
 
 <h5>Wygląd zakładki:</h5>
 
-![](images/5_010_ruin-panel.png)
+![](images/5_010_ruin-panel.avif)
 
 <br>
 

@@ -753,13 +753,13 @@ a.nav-link.nav-link-pills.last-nav-link {
   position: relative;
 }
 .background-image-lg {
-  background-image: url("/static/images/background.jpg");
+  background-image: url("/static/images/background.avif");
   background-size: cover;
   min-height: 250px;
   border-bottom: 1px solid teal;
 }
 .background-image-sm {
-  background-image: url("/static/images/background.jpg");
+  background-image: url("/static/images/background.avif");
   background-size: cover;
   min-height: 325px;
   border-bottom: 1px solid teal;

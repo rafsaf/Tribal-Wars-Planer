@@ -211,8 +211,9 @@ const calculate_distance = (element) => {
   );
 
   if (element.clicked) {
-    element.innerHTML = element.distance;
+    element.innerHTML = String(element.distance).replace(".", ",");
     element.clicked = false;
+    element.style.cursor = "zoom-in";
   } else {
     element.distance = parseFloat(element.innerHTML.replace(",", "."));
     let secs_ram = (element.distance / units_speed / world_speed) * 30 * 60;
@@ -221,8 +222,9 @@ const calculate_distance = (element) => {
 
     element.innerHTML = `<span class='text-nowrap'>${prettifyTimeDistance(
       secs_ram
-    )} / ${prettifyTimeDistance(secs_noble)}</span>`;
+    )} /<br/> ${prettifyTimeDistance(secs_noble)}</span>`;
     element.clicked = true;
+    element.style.cursor = "zoom-out";
   }
 };
 

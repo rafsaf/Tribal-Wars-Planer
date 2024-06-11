@@ -78,9 +78,12 @@ class WeightMaximum(models.Model):
 
     @property
     def nobles_allowed_to_use(self) -> int:
-        possible_nobles_by_min_off = (
-            self.off_left // self.outline.initial_outline_minimum_noble_troops
-        )
+        if self.outline.initial_outline_minimum_noble_troops == 0:
+            possible_nobles_by_min_off = self.nobleman_left
+        else:
+            possible_nobles_by_min_off = (
+                self.off_left // self.outline.initial_outline_minimum_noble_troops
+            )
         return min(self.nobleman_left, self.nobles_limit, possible_nobles_by_min_off)
 
     @property
