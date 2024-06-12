@@ -1369,7 +1369,7 @@ files = [
 
 [package.dependencies]
 distlib = ">=0.3.7,<1"
-filelock = ">=3.12.2,<4"
+filelock = ">=3.12.4,<4"
 platformdirs = ">=3.9.1,<5"
 
 [package.extras]
