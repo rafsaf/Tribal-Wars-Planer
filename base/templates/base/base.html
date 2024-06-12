@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'min.base.css' %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha512-xeUh+KxNyTufZOje++oQHstlMQ8/rpyzPuM+gjMFYK3z5ILJGE7l2NvYL+XfliKURMpBIKKp1XoPN/qswlSMFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript" src="{% static 'base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'min.base.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 </head>
 
@@ -170,6 +170,7 @@
                 
                 <div style="min-height: 91vh;">
                     {% block content %}
+                    <link rel="preload" fetchpriority="high" as="image" href="/static/images/background.avif" type="image/avif">
                     {% comment %}
                     <div class="text-center row" style="background-color: rgb(93, 167, 93);color:white; min-height:45px;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
                         <div class="col-12 align-self-center">
