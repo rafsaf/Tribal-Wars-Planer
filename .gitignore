@@ -12,6 +12,7 @@ nohup.out
 # C extensions
 *.so
 /logs
+/bin
 # Traefik
 letsencrypt
 # Docker
