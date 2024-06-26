@@ -145,13 +145,13 @@
             {% for time in outline_time %}
             <li class="nav-item">
                 {% if forloop.first %}
-                <a class="nav-link nav-link-pills active" id="pills-{{time.order}}" data-toggle="pill" href="#{{time.order}}"
+                <a class="nav-link nav-link-pills active" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}"
                     role="tab" aria-controls="pills-{{time.order}}" aria-selected="true">{{time.order}}</a>
                 {% elif forloop.last %}
-                <a class="nav-link nav-link-pills last-nav-link" id="pills-{{time.order}}" data-toggle="pill" href="#{{time.order}}"
+                <a class="nav-link nav-link-pills last-nav-link" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}"
                     role="tab" aria-controls="pills-{{time.order}}" aria-selected="true">{{time.order}}</a>
                 {% else %}
-                <a class="nav-link nav-link-pills" id="pills-{{time.order}}" data-toggle="pill" href="#{{time.order}}" role="tab"
+                <a class="nav-link nav-link-pills" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}" role="tab"
                     aria-controls="pills-{{time.order}}" aria-selected="false">{{time.order}}</a> 
                 {% endif %}
             </li>
@@ -161,8 +161,8 @@
         <div class="tab-content" id="pills-tabContent">
             {% for time, periodmodel in outline_time.items %}
             {% if forloop.counter == 1 %}
-            <div class="tab-pane fade show active" id="{{time.order}}" role="tabpanel"
-                aria-labelledby="pills-{{time.order}}">
+            <div class="tab-pane fade show active" id="pills-{{time.order}}" role="tabpanel"
+                aria-labelledby="pills-{{time.order}}-tab">
                 <table class="table table-sm ">
                     <thead>
                         <tr>
@@ -204,7 +204,7 @@
                 </div>
             </div>
             {% else %}
-            <div class="tab-pane fade show" id="{{time.order}}" role="tabpanel" aria-labelledby="pills-{{time.order}}">
+            <div class="tab-pane fade show" id="pills-{{time.order}}" role="tabpanel" aria-labelledby="pills-{{time.order}}-tab">
                 <table class="table table-sm ">
                         <thead>
                             <tr>
