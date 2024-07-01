@@ -1248,13 +1248,13 @@ doc = ["sphinx"]
 
 [[package]]
 name = "stripe"
-version = "10.0.0"
+version = "10.1.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-10.0.0-py2.py3-none-any.whl", hash = "sha256:48a99472065143de9a304ea34976b163cb6bb1dc6e4cdc1615640aecf41220e3"},
-    {file = "stripe-10.0.0.tar.gz", hash = "sha256:19dbc7edb2521f61cd3afe142318925db945ed0a8ae590d8fd5aed22e1d21e89"},
+    {file = "stripe-10.1.0-py2.py3-none-any.whl", hash = "sha256:f92a7b2a92c03efd624052cee2a734c0c6d67dfd6710cb11ea2f841196960629"},
+    {file = "stripe-10.1.0.tar.gz", hash = "sha256:241a2cba4fe8412369bfbbfaea9971c350247c4fb6e96ce8884057ebac60f1f9"},
 ]
 
 [package.dependencies]
@@ -1391,4 +1391,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "fc11382468de9c9273cd6b4bf847f280b9adf7032fdf14ceac4d2ebb4bdb61d0"
+content-hash = "392385fb3519a851ebb77ae8a8dcbe3968562a0722acbeb0cba770cb0e145ee0"
