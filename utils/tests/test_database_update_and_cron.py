@@ -204,9 +204,9 @@ class WorldUpdateHandlerTest(MiniSetup):
         assert World.objects.filter(pk=world.pk).exists()
         assert world_query.world.connection_errors == 1
 
-    def test_last_modified_timestamp(self):
+    def test_last_modified(self):
         datetime = "Sat, 08 Jan 2022 13:48:44 GMT"
-        assert WorldUpdateHandler.last_modified_timestamp(datetime) == 1641649724
+        assert WorldUpdateHandler.last_modified(datetime).timestamp() == 1641649724
 
     @patch("time.sleep", return_value=None)
     def test_db_update_cron_job(self, patched_time_sleep):
