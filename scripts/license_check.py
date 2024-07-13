@@ -24,12 +24,12 @@ license_short_text = dedent(
 
 def find_python_files(path: pathlib.Path) -> list[pathlib.Path]:
     python_file_lst: list[pathlib.Path] = []
-    for path, dirs, files in path.walk():
+    for root, dirs, files in path.walk():
         for file in files:
             if file.endswith(".py"):
-                python_file_lst.append(path / file)
+                python_file_lst.append(root / file)
         for dir in dirs:
-            python_file_lst += find_python_files(path / dir)
+            python_file_lst += find_python_files(root / dir)
     return python_file_lst
 
 
