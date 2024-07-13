@@ -35,6 +35,10 @@ from tribal_wars_planer.settings import fanout_cache
 
 log = logging.getLogger(__name__)
 
+MAX_LAST_MODIFIED_EXISTING = 14
+MAX_LAST_MODIFIED_NEW = 3
+STATUS_200 = 200
+
 
 class WorldUpdateHandler:
     VILLAGE_DATA: Literal["/map/village.txt.gz"] = "/map/village.txt.gz"
@@ -72,7 +76,7 @@ class WorldUpdateHandler:
             return (None, "error")
         if req.history:
             return (None, "error")
-        if req.status_code != 200:
+        if req.status_code != STATUS_200:
             return (None, "error")
 
         tree = ElementTree.fromstring(req.content)
@@ -136,7 +140,7 @@ class WorldUpdateHandler:
             return (None, "error")
         if req_units.history:
             return (None, "error")
-        if req_units.status_code != 200:
+        if req_units.status_code != STATUS_200:
             return (None, "error")
 
         tree_units = ElementTree.fromstring(req_units.content)
@@ -158,16 +162,12 @@ class WorldUpdateHandler:
                 stream=True,
                 timeout=3.05,
             )
+            req_data.close()
         except (Timeout, ConnectionError):
             return (None, "error")
-
         if req_data.history:
-            log.warning(
-                "World %s got redirect when requested %s",
-                self.world,
-                self.world.link_to_game(self.VILLAGE_DATA),
-            )
-            req_data.close()
+            return (None, "error")
+        if req_data.status_code != STATUS_200:
             return (None, "error")
 
         # handle last-modified header without accessing body
@@ -175,16 +175,15 @@ class WorldUpdateHandler:
             req_data.headers["last-modified"]
         )
         now = datetime.now(UTC)
-        if last_modified < now - timedelta(days=3):
+        if last_modified < now - timedelta(days=MAX_LAST_MODIFIED_NEW):
             log.warning(
-                "cannot save world %s: last modified is %s that is over 3d old",
+                "cannot save world %s: last modified is %s that is over %dd old",
                 self.world,
                 last_modified,
+                MAX_LAST_MODIFIED_NEW,
             )
-            req_data.close()
             return (None, "error")
 
-        req_data.close()
         self.world.save()
         return (self.world, "success")
 
@@ -314,17 +313,28 @@ class WorldUpdateHandler:
                     self.world,
                     self.world.link_to_game(data_type),
                 )
+                res.close()
                 return self.check_if_world_is_archived(res.url)
+            if res.status_code != STATUS_200:
+                log.error(
+                    "%s download_and_save: %s: unexpected status code %d",
+                    self.world,
+                    data_type,
+                    res.status_code,
+                )
+                res.close()
+                return self.handle_connection_error()
             # handle last-modified header without accessing body
             last_modified = WorldUpdateHandler.last_modified(
                 res.headers["last-modified"]
             )
             now = datetime.now(UTC)
-            if last_modified < now - timedelta(days=14):
+            if last_modified < now - timedelta(days=MAX_LAST_MODIFIED_EXISTING):
                 log.warning(
-                    "world %s: last modified is %s that is over 14d old",
+                    "world %s: last modified is %s that is over %dd old",
                     self.world,
                     last_modified,
+                    MAX_LAST_MODIFIED_EXISTING,
                 )
                 res.close()
                 self.deleted = self.delete_world(self.world)
