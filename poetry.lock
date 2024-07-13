@@ -527,6 +527,19 @@ coreapi = ["coreapi (>=2.0.0)"]
 markdown = ["types-Markdown (>=0.1.5)"]
 
 [[package]]
+name = "djhtml"
+version = "3.0.6"
+description = "Django/Jinja template indenter"
+optional = false
+python-versions = "*"
+files = [
+    {file = "djhtml-3.0.6.tar.gz", hash = "sha256:abfc4d7b4730432ca6a98322fbdf8ae9d6ba254ea57ba3759a10ecb293bc57de"},
+]
+
+[package.extras]
+dev = ["nox", "pre-commit"]
+
+[[package]]
 name = "execnet"
 version = "2.1.1"
 description = "execnet: rapid multi-Python deployment"
@@ -1380,4 +1393,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "17a73f0dc355fe4684d7cb157d19c1ded58c2ef46c01111ecc8a9e4fbcb05588"
+content-hash = "21c5c8733d7555657866baf43cd0f3ccfe81e1de20099d89fbfeaec087f554ae"

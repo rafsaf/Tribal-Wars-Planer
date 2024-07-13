@@ -10,7 +10,7 @@ jobs:
   type_check:
     strategy:
       matrix:
-        check: ["ruff check", "ruff format --check"]
+        check: ["ruff check", "ruff format --check", "djhtml --check"]
         python-version: ["3.12.4"]
 
     runs-on: ubuntu-latest
