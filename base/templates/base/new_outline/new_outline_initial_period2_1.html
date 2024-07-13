@@ -2,350 +2,350 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-<input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
-<input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
+    <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
+    <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 
-<div>
-    {% block outline_navbar %}
-    {{block.super}}
-    {% endblock %}
+    <div>
+        {% block outline_navbar %}
+            {{block.super}}
+        {% endblock %}
 
-    <table class="table table-sm table-bordered my-2 mt-3" style="width: min-content;">
-        <thead>
-            <tr>
-                <th style="min-width: 15vh;" class="text-nowrap">{% trans 'Type of order' %}</th>
-                <th class="text-nowrap">{% trans 'Targets' %}</th>
-                <th class="text-nowrap">{% trans 'Fake Targets' %}</th>
-                <th class="text-nowrap" data-toggle="tooltip" data-placement="top" title="{% trans 'For ruins, the Ram Unit means Off and the Noble Unit represents later ruins' %}">
-                    {% trans 'Ruin Targets' %}
-                    <i class="bi bi-question-square"></i>
-                </th>
-            </tr>
-            <tr class="text-center">
-                <th class="text-nowrap pb-2 text-left">{% trans 'Default Time' %}</th>
-                <th style="min-width: 25vh;">
-                    <div>
-                    {% for time in outline_time %}
-                    {% if time.pk == instance.default_off_time_id %}
-                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
-                        {% csrf_token %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 mr-1">{{time.order}}</button>
-                    </form>
-                    {% else %}
-                    <form style="display:inline" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
-                        {% csrf_token %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
-                    </form>
-                    {% endif %}
-                    {% empty %}
-                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
-                        <i style="color: red;font-size:larger;" class="bi bi-exclamation-triangle"></i>
-                    </span>
-                    {% endfor %}
-                    </div>
-                </th>
-                <th style="min-width: 25vh;">
-                    {% for time in outline_time %}
-                    {% if time.pk == instance.default_fake_time_id %}
-                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&fake=true">
-                        {% csrf_token %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 mr-1">{{time.order}}</button>
-                    </form>
-                    {% else %}
-                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&fake=true">
-                        {% csrf_token %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
-                    </form>
-                    {% endif %}
-                    {% empty %}
-                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
-                        <i style="color: red;font-size:larger;" class="bi bi-exclamation-triangle"></i>
-                    </span>
-                    {% endfor %}
-                </th>
-                <th style="min-width: 25vh;">
-                    {% for time in outline_time %}
-                    {% if time.pk == instance.default_ruin_time_id %}
-                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&ruin=true">
-                        {% csrf_token %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 mr-1">{{time.order}}</button>
-                    </form>
-                    {% else %}
-                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&ruin=true">
-                        {% csrf_token %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
-                    </form>
-                    {% endif %}
-                    {% empty %}
-                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
-                        <i style="color: red;font-size:larger;" class="bi bi-exclamation-triangle"></i>
-                    </span>
-                    {% endfor %}
-                </th>
-            </tr>
-        </thead>
-    </table>
-
-    <div class="container-fluid" style="margin-left:-13px;margin-right:-13px">
-    <div class="row">
-    <div class="col-12 col-lg-7 mt-2">
-            <script
-                src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"
-                integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA=="
-                crossorigin="anonymous"></script>
-            <link rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css"
-                integrity="sha512-/Ae8qSd9X8ajHk6Zty0m8yfnKJPlelk42HTJjOHDWs1Tjr41RfsSkceZ/8yyJGLkxALGMIYd5L2oGemy/x1PLg=="
-                crossorigin="anonymous" />
-            <script src="https://use.fontawesome.com/0cd1dfa084.js"></script>
-
-            <form method="post">
-                <input type="hidden" name="formset" value="">
-                {% csrf_token %}
-                {{ formset.management_form }}
-                <div class="form-row mb-2">
-                    <div class="col-md-2"><label>{% trans 'Mode' %}</label></div>
-                    <div class="col-md-2"><label>{% trans 'Unit' %}</label></div>
-                    <div class="col-md-2"><label>{% trans 'Min. time' %}</label></div>
-                    <div class="col-md-2"><label>{% trans 'Max. time' %}</label></div>
-                    <div class="col-md-2"><label>{% trans 'From' %}</label></div>
-                    <div class="col-md-2"><label>{% trans 'To' %}</label></div>
-
-                </div>
-                {% for form in formset %}
-
-                <div class="form-row mb-2">
-                        {% for field in form %}
-                        {% if forloop.first %}
-                        <div class="col-md-2">
-                            {{field}}
-                        </div>
-                        {% else %}
-                        <div class="col-md-2">
-                            {{field}}
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                </div>
-                 {% endfor %} 
-                 {% if formset.non_form_errors %} 
-                 <div class="md-error mb-2">
-                     {% for error in formset.non_form_errors %} 
-                     {{error}} 
-                     {% endfor %}
-         </div>
-         {% endif %}
-        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean" >{% trans 'Create' %}</button>
-
-        </form>
-
-    </div>
-    <div class="col-12 col-lg-5 mt-2">
-        <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
-            {% for time in outline_time %}
-            <li class="nav-item">
-                {% if forloop.first %}
-                <a class="nav-link nav-link-pills active" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}"
-                    role="tab" aria-controls="pills-{{time.order}}" aria-selected="true">{{time.order}}</a>
-                {% elif forloop.last %}
-                <a class="nav-link nav-link-pills last-nav-link" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}"
-                    role="tab" aria-controls="pills-{{time.order}}" aria-selected="true">{{time.order}}</a>
-                {% else %}
-                <a class="nav-link nav-link-pills" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}" role="tab"
-                    aria-controls="pills-{{time.order}}" aria-selected="false">{{time.order}}</a> 
-                {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-        
-        <div class="tab-content" id="pills-tabContent">
-            {% for time, periodmodel in outline_time.items %}
-            {% if forloop.counter == 1 %}
-            <div class="tab-pane fade show active" id="pills-{{time.order}}" role="tabpanel"
-                aria-labelledby="pills-{{time.order}}-tab">
-                <table class="table table-sm ">
-                    <thead>
-                        <tr>
-                            <th scope="col">{% trans 'Mode' %}</th>
-                            <th data-toggle="tooltip" data-placement="top" title="{% trans 'For ruins, the Ram Unit means Off and the Noble Unit represents later ruins' %}" class="text-nowrap" scope="col">
-                                {% trans 'Unit' %}
-                                <i class="bi bi-question-square"></i>
-                            </th>
-                            <th scope="col">{% trans 'From' %}</th>
-                            <th scope="col">{% trans 'To' %}</th>
-                            <th scope="col">{% trans 'Min. time' %}</th>
-                            <th scope="col">{% trans 'Max. time' %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for period in periodmodel %}
-                        <tr>
-                            <th>{{period.get_status_display}}</th>
-                            <th>{{period.get_unit_display}}</th>
-                            <th>{%if period.from_number != None %}
-                                {{period.from_number}}
-                                {% endif %}</th>
-                            <th>{%if period.to_number != None %}
-                                {{period.to_number}}
-                                {% endif %}</th>
-                            <th>{{period.from_time|safe}}</th>
-                            <th>{{period.to_time|safe}}</th>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-                <div class="btn-group" role="group" aria-label="Basic example">
-                <form method="POST"
-                    action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
-                    {% csrf_token %}
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
-                </form>
-                </div>
-            </div>
-            {% else %}
-            <div class="tab-pane fade show" id="pills-{{time.order}}" role="tabpanel" aria-labelledby="pills-{{time.order}}-tab">
-                <table class="table table-sm ">
-                        <thead>
-                            <tr>
-                                <th scope="col">{% trans 'Mode' %}</th>
-                                <th scope="col">{% trans 'Unit' %}</th>
-                                <th scope="col">{% trans 'From' %}</th>
-                                <th scope="col">{% trans 'To' %}</th>
-                                <th scope="col">{% trans 'Min. time' %}</th>
-                                <th scope="col">{% trans 'Max. time' %}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for period in periodmodel %}
-                            <tr>
-                                <th>{{period.get_status_display}}</th>
-                                <th>{{period.get_unit_display}}</th>
-                                <th>{%if period.from_number != None %}
-                                    {{period.from_number}}
-                                    {% endif %}</th>
-                                <th>{%if period.to_number != None %}
-                                    {{period.to_number}}
-                                    {% endif %}</th>
-                                <th>{{period.from_time|safe}}</th>
-                                <th>{{period.to_time|safe}}</th>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                </table>
-                    <form method="POST"
-                        action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
-                        {% csrf_token %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
-                    </form>
-            </div>
-            {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-    </div>
-    {% block outline_navigation %}
-    {{block.super}}
-    {% endblock %}
-    <table class="table table-sm table-bordered" style="width:min-content">
-        <thead>
-            <tr>
-                <th scope="col">{% trans 'Target' %}</th>
-                <th scope="col">{% trans 'Select Time' %}</th>
-                <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for target, lst in query %}
-            <tr class="text-center">
-                <th>
-                    <h5><span class="badge badge-pill badge-info">{{target.player}}</span></h5>
-                    <h5><span class="badge badge badge-secondary">{{target.target}}</span></h5>
-                </th>
-                <th style="min-width: 15vh !important;" class="text-left">
-                    {% for time in outline_time %}
-                    {% if time.pk == target.outline_time.pk %}
-                    <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-primary my-1 py-0 px-1 mr-1">{{time.order}}</button>
-                    {% else %}
-                    <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
-                    {% endif %}
-                    {% empty %}
-                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time above' %}">
-                        <i style="color: red;font-size:larger;" class="bi bi-exclamation-triangle"></i>
-                    </span>
-                    {% endfor %}
-                </th>
-                {% for weight in lst %}
-                <th class="front-{{weight.first_line}}">
-                    <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>{% if weight.ruin %}<h5 style='text-align:center'>{{weight.get_building_display}}</h5>{% endif %}" rel="popover" data-placement="top" data-trigger="hover">
-                    {% if instance.simple_textures %}
-                        <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.off}}</p>
-                        {% if weight.ruin %}
-                        <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.catapult}}</p>
-                        {% else %}
-                        <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.nobleman}}</p>                            
-                        {% endif %}
-                        <p class="text-nowrap px-2 p-2" style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance}}</p>
-                    {% else %}
-                        <table class="table table-sm">
-                            <tr>
-                                <th><img src='{% static "images/ax.avif" %}' alt="ax"></th>
-                                <th style="font-size: small;cursor:default;">{{weight.off}}</th>
-                            </tr>
-                            <tr>
-                                {% if weight.ruin %}
-                                <th><img src='{% static "images/catapult.avif" %}' alt="cat"></th>
-                                <th style="font-size: small;cursor:default;">{{weight.catapult}}</th>
+        <table class="table table-sm table-bordered my-2 mt-3" style="width: min-content;">
+            <thead>
+                <tr>
+                    <th style="min-width: 15vh;" class="text-nowrap">{% trans 'Type of order' %}</th>
+                    <th class="text-nowrap">{% trans 'Targets' %}</th>
+                    <th class="text-nowrap">{% trans 'Fake Targets' %}</th>
+                    <th class="text-nowrap" data-toggle="tooltip" data-placement="top" title="{% trans 'For ruins, the Ram Unit means Off and the Noble Unit represents later ruins' %}">
+                        {% trans 'Ruin Targets' %}
+                        <i class="bi bi-question-square"></i>
+                    </th>
+                </tr>
+                <tr class="text-center">
+                    <th class="text-nowrap pb-2 text-left">{% trans 'Default Time' %}</th>
+                    <th style="min-width: 25vh;">
+                        <div>
+                            {% for time in outline_time %}
+                                {% if time.pk == instance.default_off_time_id %}
+                                    <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                                        {% csrf_token %}
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                    </form>
                                 {% else %}
-                                <th><img src='{% static "images/nobleman.avif" %}' alt="ax"></th>
-                                <th style="font-size: small;cursor:default;">{{weight.nobleman}}</th>
+                                    <form style="display:inline" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                                        {% csrf_token %}
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                    </form>
                                 {% endif %}
-                            </tr>
-                            <tr>
-                                <th><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg></th>
-                                <th style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance}}</th>
-                            </tr>
-                            {% if weight.ruin %}
-                            <tr>
-                                <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
-                            </tr>
+                            {% empty %}
+                                <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
+                                    <i style="color: red;font-size:larger;" class="bi bi-exclamation-triangle"></i>
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </th>
+                    <th style="min-width: 25vh;">
+                        {% for time in outline_time %}
+                            {% if time.pk == instance.default_fake_time_id %}
+                                <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&fake=true">
+                                    {% csrf_token %}
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                </form>
+                            {% else %}
+                                <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&fake=true">
+                                    {% csrf_token %}
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                </form>
                             {% endif %}
-                        </table>
-                    {% endif %}
-                    </div>
-                </th>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
-</div>  
+                        {% empty %}
+                            <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
+                                <i style="color: red;font-size:larger;" class="bi bi-exclamation-triangle"></i>
+                            </span>
+                        {% endfor %}
+                    </th>
+                    <th style="min-width: 25vh;">
+                        {% for time in outline_time %}
+                            {% if time.pk == instance.default_ruin_time_id %}
+                                <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&ruin=true">
+                                    {% csrf_token %}
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                </form>
+                            {% else %}
+                                <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&ruin=true">
+                                    {% csrf_token %}
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                </form>
+                            {% endif %}
+                        {% empty %}
+                            <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time below' %}">
+                                <i style="color: red;font-size:larger;" class="bi bi-exclamation-triangle"></i>
+                            </span>
+                        {% endfor %}
+                    </th>
+                </tr>
+            </thead>
+        </table>
 
-{% if error != None %}
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content text-white bg-danger">
-            <div class="modal-header">
-                <h3 class="modal-title">{% trans 'An error occured' %}</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="container-fluid" style="margin-left:-13px;margin-right:-13px">
+            <div class="row">
+                <div class="col-12 col-lg-7 mt-2">
+                    <script
+                        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"
+                        integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA=="
+                        crossorigin="anonymous"></script>
+                    <link rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css"
+                          integrity="sha512-/Ae8qSd9X8ajHk6Zty0m8yfnKJPlelk42HTJjOHDWs1Tjr41RfsSkceZ/8yyJGLkxALGMIYd5L2oGemy/x1PLg=="
+                          crossorigin="anonymous" />
+                    <script src="https://use.fontawesome.com/0cd1dfa084.js"></script>
+
+                    <form method="post">
+                        <input type="hidden" name="formset" value="">
+                        {% csrf_token %}
+                        {{ formset.management_form }}
+                        <div class="form-row mb-2">
+                            <div class="col-md-2"><label>{% trans 'Mode' %}</label></div>
+                            <div class="col-md-2"><label>{% trans 'Unit' %}</label></div>
+                            <div class="col-md-2"><label>{% trans 'Min. time' %}</label></div>
+                            <div class="col-md-2"><label>{% trans 'Max. time' %}</label></div>
+                            <div class="col-md-2"><label>{% trans 'From' %}</label></div>
+                            <div class="col-md-2"><label>{% trans 'To' %}</label></div>
+
+                        </div>
+                        {% for form in formset %}
+
+                            <div class="form-row mb-2">
+                                {% for field in form %}
+                                    {% if forloop.first %}
+                                        <div class="col-md-2">
+                                            {{field}}
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-2">
+                                            {{field}}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        {% if formset.non_form_errors %}
+                            <div class="md-error mb-2">
+                                {% for error in formset.non_form_errors %}
+                                    {{error}}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean" >{% trans 'Create' %}</button>
+
+                    </form>
+
+                </div>
+                <div class="col-12 col-lg-5 mt-2">
+                    <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
+                        {% for time in outline_time %}
+                            <li class="nav-item">
+                                {% if forloop.first %}
+                                    <a class="nav-link nav-link-pills active" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}"
+                                       role="tab" aria-controls="pills-{{time.order}}" aria-selected="true">{{time.order}}</a>
+                                {% elif forloop.last %}
+                                    <a class="nav-link nav-link-pills last-nav-link" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}"
+                                       role="tab" aria-controls="pills-{{time.order}}" aria-selected="true">{{time.order}}</a>
+                                {% else %}
+                                    <a class="nav-link nav-link-pills" id="pills-{{time.order}}-tab" data-toggle="tab" href="#pills-{{time.order}}" role="tab"
+                                       aria-controls="pills-{{time.order}}" aria-selected="false">{{time.order}}</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="tab-content" id="pills-tabContent">
+                        {% for time, periodmodel in outline_time.items %}
+                            {% if forloop.counter == 1 %}
+                                <div class="tab-pane fade show active" id="pills-{{time.order}}" role="tabpanel"
+                                     aria-labelledby="pills-{{time.order}}-tab">
+                                    <table class="table table-sm ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">{% trans 'Mode' %}</th>
+                                                <th data-toggle="tooltip" data-placement="top" title="{% trans 'For ruins, the Ram Unit means Off and the Noble Unit represents later ruins' %}" class="text-nowrap" scope="col">
+                                                    {% trans 'Unit' %}
+                                                    <i class="bi bi-question-square"></i>
+                                                </th>
+                                                <th scope="col">{% trans 'From' %}</th>
+                                                <th scope="col">{% trans 'To' %}</th>
+                                                <th scope="col">{% trans 'Min. time' %}</th>
+                                                <th scope="col">{% trans 'Max. time' %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for period in periodmodel %}
+                                                <tr>
+                                                    <th>{{period.get_status_display}}</th>
+                                                    <th>{{period.get_unit_display}}</th>
+                                                    <th>{%if period.from_number != None %}
+                                                        {{period.from_number}}
+                                                    {% endif %}</th>
+                                                    <th>{%if period.to_number != None %}
+                                                        {{period.to_number}}
+                                                    {% endif %}</th>
+                                                    <th>{{period.from_time|safe}}</th>
+                                                    <th>{{period.to_time|safe}}</th>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <form method="POST"
+                                              action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                                            {% csrf_token %}
+                                            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="tab-pane fade show" id="pills-{{time.order}}" role="tabpanel" aria-labelledby="pills-{{time.order}}-tab">
+                                    <table class="table table-sm ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">{% trans 'Mode' %}</th>
+                                                <th scope="col">{% trans 'Unit' %}</th>
+                                                <th scope="col">{% trans 'From' %}</th>
+                                                <th scope="col">{% trans 'To' %}</th>
+                                                <th scope="col">{% trans 'Min. time' %}</th>
+                                                <th scope="col">{% trans 'Max. time' %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for period in periodmodel %}
+                                                <tr>
+                                                    <th>{{period.get_status_display}}</th>
+                                                    <th>{{period.get_unit_display}}</th>
+                                                    <th>{%if period.from_number != None %}
+                                                        {{period.from_number}}
+                                                    {% endif %}</th>
+                                                    <th>{%if period.to_number != None %}
+                                                        {{period.to_number}}
+                                                    {% endif %}</th>
+                                                    <th>{{period.from_time|safe}}</th>
+                                                    <th>{{period.to_time|safe}}</th>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <form method="POST"
+                                          action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
+                                        {% csrf_token %}
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                {{error|safe}}
-            </div>
+            {% block outline_navigation %}
+                {{block.super}}
+            {% endblock %}
+            <table class="table table-sm table-bordered" style="width:min-content">
+                <thead>
+                    <tr>
+                        <th scope="col">{% trans 'Target' %}</th>
+                        <th scope="col">{% trans 'Select Time' %}</th>
+                        <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for target, lst in query %}
+                        <tr class="text-center">
+                            <th>
+                                <h5><span class="badge badge-pill badge-info">{{target.player}}</span></h5>
+                                <h5><span class="badge badge badge-secondary">{{target.target}}</span></h5>
+                            </th>
+                            <th style="min-width: 15vh !important;" class="text-left">
+                                {% for time in outline_time %}
+                                    {% if time.pk == target.outline_time.pk %}
+                                        <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-primary my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                    {% else %}
+                                        <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                    {% endif %}
+                                {% empty %}
+                                    <span data-toggle="tooltip" data-placement="top" title="{% trans 'Create at least one Time above' %}">
+                                        <i style="color: red;font-size:larger;" class="bi bi-exclamation-triangle"></i>
+                                    </span>
+                                {% endfor %}
+                            </th>
+                            {% for weight in lst %}
+                                <th class="front-{{weight.first_line}}">
+                                    <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>{% if weight.ruin %}<h5 style='text-align:center'>{{weight.get_building_display}}</h5>{% endif %}" rel="popover" data-placement="top" data-trigger="hover">
+                                        {% if instance.simple_textures %}
+                                            <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.off}}</p>
+                                            {% if weight.ruin %}
+                                                <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.catapult}}</p>
+                                            {% else %}
+                                                <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.nobleman}}</p>
+                                            {% endif %}
+                                            <p class="text-nowrap px-2 p-2" style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance}}</p>
+                                        {% else %}
+                                            <table class="table table-sm">
+                                                <tr>
+                                                    <th><img src='{% static "images/ax.avif" %}' alt="ax"></th>
+                                                    <th style="font-size: small;cursor:default;">{{weight.off}}</th>
+                                                </tr>
+                                                <tr>
+                                                    {% if weight.ruin %}
+                                                        <th><img src='{% static "images/catapult.avif" %}' alt="cat"></th>
+                                                        <th style="font-size: small;cursor:default;">{{weight.catapult}}</th>
+                                                    {% else %}
+                                                        <th><img src='{% static "images/nobleman.avif" %}' alt="ax"></th>
+                                                        <th style="font-size: small;cursor:default;">{{weight.nobleman}}</th>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <th><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg></th>
+                                                    <th style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance}}</th>
+                                                </tr>
+                                                {% if weight.ruin %}
+                                                    <tr>
+                                                        <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
+                                                    </tr>
+                                                {% endif %}
+                                            </table>
+                                        {% endif %}
+                                    </div>
+                                </th>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
-<script>document.addEventListener("DOMContentLoaded", function (event) {$('.bd-example-modal-lg').modal('show');});</script>
-{% endif %}
 
-<script>handleAllFormsetSelect();</script>
+    {% if error != None %}
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content text-white bg-danger">
+                    <div class="modal-header">
+                        <h3 class="modal-title">{% trans 'An error occured' %}</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{error|safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>document.addEventListener("DOMContentLoaded", function (event) {$('.bd-example-modal-lg').modal('show');});</script>
+    {% endif %}
 
-{% block outline_go_back %}
-{{block.super}}
-{% endblock %}
+    <script>handleAllFormsetSelect();</script>
+
+    {% block outline_go_back %}
+        {{block.super}}
+    {% endblock %}
 
 {% endblock %}

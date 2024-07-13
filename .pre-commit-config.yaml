@@ -27,5 +27,3 @@ repos:
     rev: "3.0.6"
     hooks:
       - id: djhtml
-      - id: djcss
-      - id: djjs

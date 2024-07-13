@@ -1,28 +1,28 @@
-{% extends "base/base.html" %} 
+{% extends "base/base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% block title %}{% trans 'Payments summary' %}{% endblock %}
 {% block content %}
 
-<div class="fixed-scrollbar-container">
-<div class="container-md py-5" style="min-height: 70vh; max-width:1000px !important;">
-    <div style="margin-left:-15px;margin-right:-15px;">
-    <h3>{% trans 'Payments summary' %}</h3>
-    
-    {% for pdf in summary %}
-    <a target="_blank" href="{{pdf.url}}">{{pdf.period}} &nbsp;&nbsp;<span style="font-size: small;">[{{pdf.created_at}}]</span></a> <br>
-    {% endfor %}
-    
-    <form method="POST" autocomplete="off" class="mt-4">
-        <input type="hidden" value="" name="form">
-        {% csrf_token %}
-        <button class="btn btn-ocean" onclick="this.disabled=true;this.form.submit();">
-            {% trans 'Regenerate' %}
-        </button>
-    </form>
+    <div class="fixed-scrollbar-container">
+        <div class="container-md py-5" style="min-height: 70vh; max-width:1000px !important;">
+            <div style="margin-left:-15px;margin-right:-15px;">
+                <h3>{% trans 'Payments summary' %}</h3>
+
+                {% for pdf in summary %}
+                    <a target="_blank" href="{{pdf.url}}">{{pdf.period}} &nbsp;&nbsp;<span style="font-size: small;">[{{pdf.created_at}}]</span></a> <br>
+                {% endfor %}
+
+                <form method="POST" autocomplete="off" class="mt-4">
+                    <input type="hidden" value="" name="form">
+                    {% csrf_token %}
+                    <button class="btn btn-ocean" onclick="this.disabled=true;this.form.submit();">
+                        {% trans 'Regenerate' %}
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-</div> 
 
 
 {% endblock %}

@@ -1,377 +1,377 @@
-{% extends "base/new_outline/new_outline.html" %} 
-{% load static %} 
-{% load i18n %} 
+{% extends "base/new_outline/new_outline.html" %}
+{% load static %}
+{% load i18n %}
 {% block title %}
-{% if mode.is_menu %}
-{% trans 'Real targets' %} - {{instance.name|capfirst}}
-{% elif mode.is_fake %}
-{% trans 'Fake targets' %} - {{instance.name|capfirst}}
-{% elif mode.is_ruin %}
-{% trans 'Ruin targets' %} - {{instance.name|capfirst}}
-{% elif mode.is_time %}
-{% trans 'Set time' %} - {{instance.name|capfirst}}
-{% elif mode.is_add_and_remove %}
-{% trans 'Add and remove' %} - {{instance.name|capfirst}}
-{% endif %}
+    {% if mode.is_menu %}
+        {% trans 'Real targets' %} - {{instance.name|capfirst}}
+    {% elif mode.is_fake %}
+        {% trans 'Fake targets' %} - {{instance.name|capfirst}}
+    {% elif mode.is_ruin %}
+        {% trans 'Ruin targets' %} - {{instance.name|capfirst}}
+    {% elif mode.is_time %}
+        {% trans 'Set time' %} - {{instance.name|capfirst}}
+    {% elif mode.is_add_and_remove %}
+        {% trans 'Add and remove' %} - {{instance.name|capfirst}}
+    {% endif %}
 {% endblock %}
 {% block showsidebar %}toggled{% endblock %}
 
 {% block content %}
 
-<input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
-<input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
+    <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
+    <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
 
-<div>
     <div>
-    {% block outline_navbar %}
-    <table class="table table-sm table-bordered mb-2" style="width: min-content">
-        <thead>
-          <tr>
-            <th class="text-nowrap">{% trans 'Summary' %}</th>
-            <th class="text-nowrap">{% trans 'Outline Date' %}</th>
-            <th class="text-nowrap">{% trans 'Targets' %}</th>
-            <th class="text-nowrap">{% trans 'Fake Targets' %}</th>
-            <th class="text-nowrap">{% trans 'Ruin Targets' %}</th>
-            <th class="text-nowrap">{% trans 'Offs left' %}</th>
-            <th class="text-nowrap">{% trans 'Nobles left' %}</th>
-            <th class="text-nowrap">{% trans 'Available catapults left' %}</th>
-            {% if instance.night_bonus %}
-            <th class="text-nowrap">{% trans 'Night bonus avoid' %}</th>
-            {% endif %}
-            <th class="text-nowrap">{% trans 'Targets on page' %}</th>
-            <th class="text-nowrap">{% trans 'Simple textures' %}</th>
-            <th class="text-nowrap">{% trans 'Save' %}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="text-center">
-            <th><h5><span class="badge badge-info">{{instance.name}}</span></h5></th>
-            <th><h5><span class="badge badge-secondary">{{instance.date}}</span></h5></th>
-            <th><h5><span class="badge badge-secondary">{{instance.count_targets}}</span></h5></th>
-            <th><h5><span class="badge badge-secondary">{{instance.count_fake}}</span></h5></th>
-            <th><h5><span class="badge badge-secondary">{{instance.count_ruin}}</span></h5></th>
-            <th><h5><span class="badge badge-info">{{instance.count_off}}</span></h5></th>
-            <th><h5><span class="badge badge-info">{{instance.count_noble}}</span></h5></th>
-            <th><h5><span class="badge badge-info">{{instance.count_catapults}}</span></h5></th>
-            {% if instance.night_bonus %}
-            <th><h5><span class="badge badge-info">{{instance.enter_t1}} - {{instance.enter_t2}}</span></h5></th>
-            {% endif %}
-            <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="form-filter-targets" value="">
-                <th>{{filter_form.filter_targets_number}}
-                    {% for error in filter_form.filter_targets_number.errors %}
-                    <div class="md-error">{{ error }}</div>
-                    {% endfor %}
-                </th>
-                <th style="position: relative;">{{filter_form.simple_textures}}
-                    {% for error in filter_form.simple_textures.errors %}
-                    <div class="md-error">{{ error }}</div>
-                    {% endfor %}
-                </th>
-                <th>
-                    <button onclick="this.disabled=true;this.form.submit();" name="form-filter" type="submit" class="btn btn-ocean btn-sm">{% trans 'Save' %}</button>
-                </th>
-            </form>
-          </tr>
-        </tbody>
-      </table>
-
-    <nav aria-label="pagination" id="pagination" class="mt-3">
-        <ul class="pagination" >
-            <li class="page-item mr-1">
-                <button type="button" style="height: 48px;min-width:150px;" class="text-nowrap btn btn-secondary btn-lg" data-toggle="modal" data-target="#ValidationModal">
-                <b><svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/></svg> {% trans 'Go back' %}</b>
-            </button>
-            </li>
-            <li class="page-item ml-1">
-                {% if mode.is_add_and_remove %}
-                <a href="?page=1&mode=add_and_remove&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Add and remove targets' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                    </svg></a>
-                {% else %}
-                <a href="?page=1&mode=add_and_remove&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Add and remove targets' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" /><path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /></svg></a>
-                {% endif %}
-            </li>
-            <li class="page-item">
-                {% if mode.is_menu %}
-                <a href="?page=1&mode=menu&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Set real targets' %}"><img src="{% static 'images/sword.svg' %}" alt="cat"></a> {% else %}
-                <a href="?page=1&mode=menu&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Set real targets' %}"><img src="{% static 'images/sword.svg' %}" alt="cat"></a> {% endif %}
-    
-            </li>
-    
-            <li class="page-item">
-                {% if mode.is_fake %}
-                <a style="height:48px;width:48px" href="?page=1&mode=fake&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
-                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                        <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
-                            <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135 -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614 41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737 49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647 -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43 2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202 104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218 113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29 -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7 466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87 525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10 -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0 -807 -131 -2556 -444z" />
-                        </g>
-                    </svg>
-                </a>
-                {% else %}
-                <a style="height:48px;width:48px" href="?page=1&mode=fake&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
-                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                        <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
-                            <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135 -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614 41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737 49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647 -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43 2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202 104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218 113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29 -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7 466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87 525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10 -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0 -807 -131 -2556 -444z" />
-                        </g>
-                    </svg>
-                </a>
-                {% endif %}
-            </li>
-            <li class="page-item">
-                {% if mode.is_ruin %}
-                <a style="height:48px;width:48px" href="?page=1&mode=ruin&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set ruin targets' %}">
-                    <img src="{% static 'images/cat.svg' %}" alt="cat" width="auto" height="100%">
-                </a> 
-                {% else %}
-                <a style="height:48px;width:48px" href="?page=1&mode=ruin&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set ruin targets' %}">
-                    <img src="{% static 'images/cat.svg' %}" alt="cat" width="auto" height="100%">
-                </a> 
-                {% endif %}
-            </li> 
-            <li class="page-item">
-                {% if mode.is_time %}
-                <a style="height:48px;width:48px" href="?page=1&mode=time&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set time and confirm' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" /><path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" /></svg></a> 
-                {% else %}
-                <a style="height:48px;width:48px" href="?page=1&mode=time&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set time and confirm' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" /><path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" /></svg></a> 
-                {% endif %}
-            </li>
-            {% if mode.is_time %}
-            <li class="page-item ml-2">
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" value="" name="form-finish">
-                    <button onclick="this.disabled=true;this.form.submit();" style="height: 48px;border-radius: 0 !important;" class="text-nowrap btn btn-ocean btn-lg" data-toggle="modal"
-                    data-target="#ValidationModal">
-                    <b><svg xmlns="http://www.w3.org/2000/svg" width="25" height="35" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg> {% trans 'Finish the Outline' %}</b>
-                    </button>
-                </form>
-            </li>
-            {% endif %}
-            <li class="page-item ml-3">
-                <form method="GET" autocomplete="off">
-                    <div class="input-group">
-                        <input name="page" type="hidden" value="{{page_obj.number}}">
-                        <input name="mode" type="hidden" value="{{mode}}">
-                        <input list="filtr-options" style="height: 48px;min-width: 330px" class="form-control py-2" maxlength="50" placeholder="{% trans 'target, nick or number of commands' %}" name="filtr" type="search" value="{{filtr}}">
-                        <span class="input-group-append">
-                          <button class="btn btn-outline-secondary" style="border-color: rgb(204, 202, 202);height: 48px;" type="submit">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg>
-                          </button>
-                        </span>
-                        <datalist id="filtr-options">
-                            <option label="{% trans 'Search by nickname' %}" value="User123">
-                            <option label="{% trans 'Search by target' %}" value="500|500">
-                            <option label="{% trans 'Search more than number of commands' %}" value="command>2">
-                            <option label="{% trans 'Search less than number of commands' %}" value="command<5">
-                            <option label="{% trans 'Search equal to number of commands' %}" value="command=0">
-                        </datalist> 
-                    </div>
-                </form>
-            </li>
-        </ul>
-    </nav>
-    {% endblock %}
-    </div>
-
-    {% if mode.is_add_and_remove %}
-    <div class="container-fluid" style="margin-left: -15px; margin-right:-15px;">
-
-        <div class="mt-5">
-            {% if message %}
-            <div id="s-message">
-                <small  class="badge badge-success mb-1">
-                    {% trans 'Target added successfully!' %}
-                </small>
-            </div>
-            <script>
-                setTimeout(()=>{
-                    const message=document.getElementById("s-message");
-                    message.style.display = 'none';
-                }, 1500)
-            </script>
-            {% endif %}
-        </div>
-        
-        <table class="table table-bordered mb-4" style="width: min-content;">
-            <thead>
-                <tr>
-                    <th style="min-width: 25vh;" class="text-nowrap">{% trans 'Create a single Target' %}</th>
-                    <th style="min-width: 25vh;" class="text-nowrap">
-                        <form id="create-form" method='POST' autocomplete="off">{% csrf_token %}
-                            <input name="create" type="hidden" value="">
-                            {{target_form.target_type}}
-                            {{ target_form.target }}
-                        </form>
-                        {% for error in target_form.target.errors %}
-                        <div class="md-error">
-                            {{ error }}
-                        </div>
-                        {% endfor %}
-                    </th>
-                    <th class="text-nowrap"><button onclick="this.disabled=true;fillAndSubmit(`real`)" style="height: 48px;border-radius: 0 !important;" class="btn btn-lg btn-ocean">{% trans 'Create Real' %}</button></th>
-                    <th class="text-nowrap"><button onclick="this.disabled=true;fillAndSubmit(`fake`)" style="height: 48px;border-radius: 0 !important;" class="btn btn-lg btn-ocean">{% trans 'Create Fake' %}</button></th>
-                    <th class="text-nowrap"><button onclick="this.disabled=true;fillAndSubmit(`ruin`)" style="height: 48px;border-radius: 0 !important;" class="btn btn-lg btn-ocean">{% trans 'Create Ruin' %}</button></th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    {% endif %}
-
-    {% block outline_navigation %}
-    <div class="container-fluid" style="margin-left: -15px;margin-right:-15px;">
-    <div class="row mt-2 mb-0">
-    <div class="col-0 col-md-5 col-xl-6"></div>
-    <div class="col-auto">
-    <nav aria-label="pagination_nav" id="pagination_nav">
-        <ul class="pagination text-center" >
-            {% with page_obj.number as page_num %}
-            {% with page_obj.paginator.num_pages as num_pages %}
-            {% for n in page_obj.paginator.page_range %}
-              {% if page_num|add:'-3' == n %}
-                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page=1&mode={{mode}}&filtr={{filtr}}"><h4>1</h4></a></li>
-                {% if n != 1 %}
-                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:60px;"><h4>&#8943;</h4></a></li>
-                {% endif %}
-              {% elif page_num == n %}
-                <li class="page-item"><a class="page-link" style="height:48px;width:60px;;background-color: teal!important;color: white !important;" href="?page={{page_num}}&mode={{mode}}&filtr={{filtr}}"><h4>{{n}}</h4></a></li>
-              {% elif page_num|add:'-3' < n and n < page_num|add:'3' %}
-                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page={{n}}&mode={{mode}}&filtr={{filtr}}"><h4>{{n}}</h4></a></li>
-              {% elif page_num|add:'3' == n %}
-                {% if n != num_pages %}
-                  <li class="page-item disabled"><a class="page-link" style="height:48px;width:60px;"><h4>&#8943;</h4></a></li>
-                {% endif %}
-                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page={{num_pages}}&mode={{mode}}&filtr={{filtr}}"><h4>{{ num_pages }}</h4></a></li>
-              {% endif %}
-            {% endfor %}
-            {% endwith %}
-            {% endwith %}
-        </ul>
-    </nav>
-    </div>
-    </div>
-    </div>
-    {% endblock %}
-    <div class="conatiner-fluid" style="width: min-content;">
-        <table class="table table-sm table-bordered">
-            <thead>
-                <tr>
-                    <th class="text-nowrap" scope="col">{{mode.trans_target}}</th>
-                    <th class="text-nowrap" colspan="100" scope="colgroup">{{mode.trans_outline}}</th>
-                </tr>
-            </thead>
-            {% block tbody %}
-            <tbody>
-                {% for target, lst in query %}
-                
-                <tr id="target-row-{{target.pk}}" class="text-center">
-                    <th>
-                        <h5><span class="badge badge-pill badge-info">{{target.player}}</span></h5>
-                        <h5><span class="badge badge badge-secondary">{{target.target}}</span></h5>
-                        <h5><a target="_blank" href="{{target.get_absolute_url}}?sort={{instance.choice_sort}}" class="btn btn-sm btn-outline-info">{% trans 'Edit' %}</a></h5>
-                    </th>
-                    {% if mode.is_add_and_remove %}
-                    <th style="min-width: 15vh !important;" class="text-center">
-                        <button id="target-btn-{{target.pk}}" onclick="deleteTarget(`{{target.pk}}`);" class="btn btn-outline-danger">
-                            {% trans 'Delete' %}
-                        </button>
-                    </th>
-                    {% endif %}
-                    {% for weight in lst %}
-                    <th class="front-{{weight.first_line}}">
-                        <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>" rel="popover" data-placement="top" data-trigger="hover">
-                        {% if instance.simple_textures %}
-                            <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.off}}</p>
-                            {% if weight.ruin %}
-                            <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.catapult}}</p>
-                            {% else %}
-                            <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.nobleman}}</p>                            
+        <div>
+            {% block outline_navbar %}
+                <table class="table table-sm table-bordered mb-2" style="width: min-content">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap">{% trans 'Summary' %}</th>
+                            <th class="text-nowrap">{% trans 'Outline Date' %}</th>
+                            <th class="text-nowrap">{% trans 'Targets' %}</th>
+                            <th class="text-nowrap">{% trans 'Fake Targets' %}</th>
+                            <th class="text-nowrap">{% trans 'Ruin Targets' %}</th>
+                            <th class="text-nowrap">{% trans 'Offs left' %}</th>
+                            <th class="text-nowrap">{% trans 'Nobles left' %}</th>
+                            <th class="text-nowrap">{% trans 'Available catapults left' %}</th>
+                            {% if instance.night_bonus %}
+                                <th class="text-nowrap">{% trans 'Night bonus avoid' %}</th>
                             {% endif %}
-                            <p class="text-nowrap px-2 p-2" style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance}}</p>
-                        {% else %}
-                            <table class="table table-sm">
-                                <tr>
-                                    <th><img src='{% static "images/ax.avif" %}' alt="ax"></th>
-                                    <th colspan="2" style="font-size: small;cursor:default;">{{weight.off}}</th>
-                                </tr>
-                                <tr>
-                                    {% if weight.ruin %}
-                                    <th><img src='{% static "images/catapult.avif" %}' alt="cat"></th>
-                                    <th colspan="2" style="font-size: small;cursor:default;">{{weight.catapult}}</th>
-                                    {% else %}
-                                    <th><img src='{% static "images/nobleman.avif" %}' alt="ax"></th>
-                                    <th colspan="2" style="font-size: small;cursor:default;">{{weight.nobleman}}</th>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <th><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg></th>
-                                    <th colspan="2" style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance}}</th>
-                                </tr>
-                                {% if weight.ruin and not mode.is_add_and_remove %}
-                                <tr>
-                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'headquarters' %}fancy-building-True{% endif %}" id="headquarters-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Headquarters"|slice:":2" %}</button></th>
-                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'smithy' %}fancy-building-True{% endif %}" id="smithy-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Smithy"|slice:":2" %}</button></th>
-                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'timber_camp' %}fancy-building-True{% endif %}" id="timber_camp-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Timber camp"|slice:":2" %}</button></th>
-                                </tr>
-                                <tr>
-                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'clay_pit' %}fancy-building-True{% endif %}" id="clay_pit-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Clay pit"|slice:":2" %}</button></th>
-                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'farm' %}fancy-building-True{% endif %}" id="farm-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Farm"|slice:":2" %}</button></th>
-                                    <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'warehouse' %}fancy-building-True{% endif %}" id="warehouse-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Warehouse"|slice:":2" %}</button></th>
-                                </tr>
+                            <th class="text-nowrap">{% trans 'Targets on page' %}</th>
+                            <th class="text-nowrap">{% trans 'Simple textures' %}</th>
+                            <th class="text-nowrap">{% trans 'Save' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <th><h5><span class="badge badge-info">{{instance.name}}</span></h5></th>
+                            <th><h5><span class="badge badge-secondary">{{instance.date}}</span></h5></th>
+                            <th><h5><span class="badge badge-secondary">{{instance.count_targets}}</span></h5></th>
+                            <th><h5><span class="badge badge-secondary">{{instance.count_fake}}</span></h5></th>
+                            <th><h5><span class="badge badge-secondary">{{instance.count_ruin}}</span></h5></th>
+                            <th><h5><span class="badge badge-info">{{instance.count_off}}</span></h5></th>
+                            <th><h5><span class="badge badge-info">{{instance.count_noble}}</span></h5></th>
+                            <th><h5><span class="badge badge-info">{{instance.count_catapults}}</span></h5></th>
+                            {% if instance.night_bonus %}
+                                <th><h5><span class="badge badge-info">{{instance.enter_t1}} - {{instance.enter_t2}}</span></h5></th>
+                            {% endif %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="form-filter-targets" value="">
+                                <th>{{filter_form.filter_targets_number}}
+                                    {% for error in filter_form.filter_targets_number.errors %}
+                                        <div class="md-error">{{ error }}</div>
+                                    {% endfor %}
+                                </th>
+                                <th style="position: relative;">{{filter_form.simple_textures}}
+                                    {% for error in filter_form.simple_textures.errors %}
+                                        <div class="md-error">{{ error }}</div>
+                                    {% endfor %}
+                                </th>
+                                <th>
+                                    <button onclick="this.disabled=true;this.form.submit();" name="form-filter" type="submit" class="btn btn-ocean btn-sm">{% trans 'Save' %}</button>
+                                </th>
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
 
-                                <tr>
-                                    <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
-                                </tr>
-                                {% elif weight.ruin and mode.is_add_and_remove %}
-                                <tr>
-                                    <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
-                                </tr>
-                                {% endif %}
-                                
-                            </table>
+                <nav aria-label="pagination" id="pagination" class="mt-3">
+                    <ul class="pagination" >
+                        <li class="page-item mr-1">
+                            <button type="button" style="height: 48px;min-width:150px;" class="text-nowrap btn btn-secondary btn-lg" data-toggle="modal" data-target="#ValidationModal">
+                                <b><svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/></svg> {% trans 'Go back' %}</b>
+                            </button>
+                        </li>
+                        <li class="page-item ml-1">
+                            {% if mode.is_add_and_remove %}
+                                <a href="?page=1&mode=add_and_remove&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Add and remove targets' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                </svg></a>
+                            {% else %}
+                                <a href="?page=1&mode=add_and_remove&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Add and remove targets' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" /><path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /></svg></a>
+                            {% endif %}
+                        </li>
+                        <li class="page-item">
+                            {% if mode.is_menu %}
+                                <a href="?page=1&mode=menu&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Set real targets' %}"><img src="{% static 'images/sword.svg' %}" alt="cat"></a> {% else %}
+                                <a href="?page=1&mode=menu&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Set real targets' %}"><img src="{% static 'images/sword.svg' %}" alt="cat"></a> {% endif %}
+
+                        </li>
+
+                        <li class="page-item">
+                            {% if mode.is_fake %}
+                                <a style="height:48px;width:48px" href="?page=1&mode=fake&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                                            <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135 -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614 41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737 49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647 -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43 2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202 104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218 113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29 -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7 466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87 525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10 -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0 -807 -131 -2556 -444z" />
+                                        </g>
+                                    </svg>
+                                </a>
+                            {% else %}
+                                <a style="height:48px;width:48px" href="?page=1&mode=fake&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set fake targets' %}">
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 782.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                                            <path d="M3285 12355 c-1364 -244 -2500 -449 -2525 -455 -25 -6 -85 -31 -135 -55 -336 -163 -584 -568 -621 -1012 -3 -43 -1 -404 5 -803 12 -772 25 -1614 41 -2740 6 -382 15 -1001 20 -1375 25 -1645 50 -3398 55 -3850 7 -582 16 -737 49 -868 64 -251 213 -457 404 -555 42 -22 358 -168 702 -325 436 -199 647 -290 697 -301 503 -112 1026 413 1078 1084 4 47 2 375 -4 730 -26 1582 -43 2931 -37 2937 4 4 769 143 1701 310 1322 236 1710 308 1763 329 119 48 202 104 308 209 233 230 363 530 381 885 19 371 -130 722 -375 883 -37 25 -218 113 -402 197 -184 84 -482 219 -662 301 -188 86 -355 156 -395 165 -123 29 -195 19 -1304 -180 -570 -102 -1043 -186 -1051 -186 -12 0 -16 126 -26 846 -7 466 -10 849 -7 852 3 3 920 168 2037 368 1231 220 2065 373 2113 388 271 87 525 362 644 699 143 405 88 855 -138 1140 -57 72 -151 151 -221 187 -19 10 -323 149 -675 310 -394 180 -669 299 -714 311 -43 11 -106 19 -150 18 -54 0 -807 -131 -2556 -444z" />
+                                        </g>
+                                    </svg>
+                                </a>
+                            {% endif %}
+                        </li>
+                        <li class="page-item">
+                            {% if mode.is_ruin %}
+                                <a style="height:48px;width:48px" href="?page=1&mode=ruin&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set ruin targets' %}">
+                                    <img src="{% static 'images/cat.svg' %}" alt="cat" width="auto" height="100%">
+                                </a>
+                            {% else %}
+                                <a style="height:48px;width:48px" href="?page=1&mode=ruin&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set ruin targets' %}">
+                                    <img src="{% static 'images/cat.svg' %}" alt="cat" width="auto" height="100%">
+                                </a>
+                            {% endif %}
+                        </li>
+                        <li class="page-item">
+                            {% if mode.is_time %}
+                                <a style="height:48px;width:48px" href="?page=1&mode=time&filtr={{filtr}}" class="page-link paint" data-toggle="tooltip" data-placement="top" title="{% trans 'Set time and confirm' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" /><path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" /></svg></a>
+                            {% else %}
+                                <a style="height:48px;width:48px" href="?page=1&mode=time&filtr={{filtr}}" class="page-link" data-toggle="tooltip" data-placement="top" title="{% trans 'Set time and confirm' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z" /><path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" /></svg></a>
+                            {% endif %}
+                        </li>
+                        {% if mode.is_time %}
+                            <li class="page-item ml-2">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="" name="form-finish">
+                                    <button onclick="this.disabled=true;this.form.submit();" style="height: 48px;border-radius: 0 !important;" class="text-nowrap btn btn-ocean btn-lg" data-toggle="modal"
+                                            data-target="#ValidationModal">
+                                        <b><svg xmlns="http://www.w3.org/2000/svg" width="25" height="35" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg> {% trans 'Finish the Outline' %}</b>
+                                    </button>
+                                </form>
+                            </li>
                         {% endif %}
-                        </div>
-                    </th>
-                    
-                    {% endfor %}
-                </tr>
-                
-                {% endfor %}
-            </tbody>
+                        <li class="page-item ml-3">
+                            <form method="GET" autocomplete="off">
+                                <div class="input-group">
+                                    <input name="page" type="hidden" value="{{page_obj.number}}">
+                                    <input name="mode" type="hidden" value="{{mode}}">
+                                    <input list="filtr-options" style="height: 48px;min-width: 330px" class="form-control py-2" maxlength="50" placeholder="{% trans 'target, nick or number of commands' %}" name="filtr" type="search" value="{{filtr}}">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-outline-secondary" style="border-color: rgb(204, 202, 202);height: 48px;" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                            </svg>
+                                        </button>
+                                    </span>
+                                    <datalist id="filtr-options">
+                                        <option label="{% trans 'Search by nickname' %}" value="User123">
+                                            <option label="{% trans 'Search by target' %}" value="500|500">
+                                                <option label="{% trans 'Search more than number of commands' %}" value="command>2">
+                                                    <option label="{% trans 'Search less than number of commands' %}" value="command<5">
+                                                        <option label="{% trans 'Search equal to number of commands' %}" value="command=0">
+                                                        </datalist>
+                                                    </div>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </nav>
             {% endblock %}
-        </table>
-    </div>
-</div>
+        </div>
 
-{% block outline_go_back %}
-<div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">{% trans "<p>Your current progress here will be <span class='md-error'>LOST</span>!</p><p>You will return to the previous tab. Front and Back division will be reset and targets removed.</p>" %}</div>
-        <div class="modal-footer">
-            <button id="dismiss-btn" type="button" class="btn btn-secondary" data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
-            <form id="form1-form" method="POST">
-                <input type="hidden" name="form1" value="">
-                {% csrf_token %}
-                <button id="form1-btn" onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form1-form`,``,true);" class="btn btn-ocean">{% trans 'Continue' %}</button>
-            </form>
+        {% if mode.is_add_and_remove %}
+            <div class="container-fluid" style="margin-left: -15px; margin-right:-15px;">
+
+                <div class="mt-5">
+                    {% if message %}
+                        <div id="s-message">
+                            <small  class="badge badge-success mb-1">
+                                {% trans 'Target added successfully!' %}
+                            </small>
+                        </div>
+                        <script>
+                            setTimeout(()=>{
+                                const message=document.getElementById("s-message");
+                                message.style.display = 'none';
+                            }, 1500)
+                        </script>
+                    {% endif %}
+                </div>
+
+                <table class="table table-bordered mb-4" style="width: min-content;">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 25vh;" class="text-nowrap">{% trans 'Create a single Target' %}</th>
+                            <th style="min-width: 25vh;" class="text-nowrap">
+                                <form id="create-form" method='POST' autocomplete="off">{% csrf_token %}
+                                    <input name="create" type="hidden" value="">
+                                    {{target_form.target_type}}
+                                    {{ target_form.target }}
+                                </form>
+                                {% for error in target_form.target.errors %}
+                                    <div class="md-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </th>
+                            <th class="text-nowrap"><button onclick="this.disabled=true;fillAndSubmit(`real`)" style="height: 48px;border-radius: 0 !important;" class="btn btn-lg btn-ocean">{% trans 'Create Real' %}</button></th>
+                            <th class="text-nowrap"><button onclick="this.disabled=true;fillAndSubmit(`fake`)" style="height: 48px;border-radius: 0 !important;" class="btn btn-lg btn-ocean">{% trans 'Create Fake' %}</button></th>
+                            <th class="text-nowrap"><button onclick="this.disabled=true;fillAndSubmit(`ruin`)" style="height: 48px;border-radius: 0 !important;" class="btn btn-lg btn-ocean">{% trans 'Create Ruin' %}</button></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        {% endif %}
+
+        {% block outline_navigation %}
+            <div class="container-fluid" style="margin-left: -15px;margin-right:-15px;">
+                <div class="row mt-2 mb-0">
+                    <div class="col-0 col-md-5 col-xl-6"></div>
+                    <div class="col-auto">
+                        <nav aria-label="pagination_nav" id="pagination_nav">
+                            <ul class="pagination text-center" >
+                                {% with page_obj.number as page_num %}
+                                    {% with page_obj.paginator.num_pages as num_pages %}
+                                        {% for n in page_obj.paginator.page_range %}
+                                            {% if page_num|add:'-3' == n %}
+                                                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page=1&mode={{mode}}&filtr={{filtr}}"><h4>1</h4></a></li>
+                                                {% if n != 1 %}
+                                                    <li class="page-item disabled"><a class="page-link" style="height:48px;width:60px;"><h4>&#8943;</h4></a></li>
+                                                {% endif %}
+                                            {% elif page_num == n %}
+                                                <li class="page-item"><a class="page-link" style="height:48px;width:60px;;background-color: teal!important;color: white !important;" href="?page={{page_num}}&mode={{mode}}&filtr={{filtr}}"><h4>{{n}}</h4></a></li>
+                                            {% elif page_num|add:'-3' < n and n < page_num|add:'3' %}
+                                                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page={{n}}&mode={{mode}}&filtr={{filtr}}"><h4>{{n}}</h4></a></li>
+                                            {% elif page_num|add:'3' == n %}
+                                                {% if n != num_pages %}
+                                                    <li class="page-item disabled"><a class="page-link" style="height:48px;width:60px;"><h4>&#8943;</h4></a></li>
+                                                {% endif %}
+                                                <li class="page-item"><a class="page-link" style="height:48px;width:60px;" href="?page={{num_pages}}&mode={{mode}}&filtr={{filtr}}"><h4>{{ num_pages }}</h4></a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endwith %}
+                                {% endwith %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        <div class="conatiner-fluid" style="width: min-content;">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-nowrap" scope="col">{{mode.trans_target}}</th>
+                        <th class="text-nowrap" colspan="100" scope="colgroup">{{mode.trans_outline}}</th>
+                    </tr>
+                </thead>
+                {% block tbody %}
+                    <tbody>
+                        {% for target, lst in query %}
+
+                            <tr id="target-row-{{target.pk}}" class="text-center">
+                                <th>
+                                    <h5><span class="badge badge-pill badge-info">{{target.player}}</span></h5>
+                                    <h5><span class="badge badge badge-secondary">{{target.target}}</span></h5>
+                                    <h5><a target="_blank" href="{{target.get_absolute_url}}?sort={{instance.choice_sort}}" class="btn btn-sm btn-outline-info">{% trans 'Edit' %}</a></h5>
+                                </th>
+                                {% if mode.is_add_and_remove %}
+                                    <th style="min-width: 15vh !important;" class="text-center">
+                                        <button id="target-btn-{{target.pk}}" onclick="deleteTarget(`{{target.pk}}`);" class="btn btn-outline-danger">
+                                            {% trans 'Delete' %}
+                                        </button>
+                                    </th>
+                                {% endif %}
+                                {% for weight in lst %}
+                                    <th class="front-{{weight.first_line}}">
+                                        <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>" rel="popover" data-placement="top" data-trigger="hover">
+                                            {% if instance.simple_textures %}
+                                                <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.off}}</p>
+                                                {% if weight.ruin %}
+                                                    <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.catapult}}</p>
+                                                {% else %}
+                                                    <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.nobleman}}</p>
+                                                {% endif %}
+                                                <p class="text-nowrap px-2 p-2" style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance}}</p>
+                                            {% else %}
+                                                <table class="table table-sm">
+                                                    <tr>
+                                                        <th><img src='{% static "images/ax.avif" %}' alt="ax"></th>
+                                                        <th colspan="2" style="font-size: small;cursor:default;">{{weight.off}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        {% if weight.ruin %}
+                                                            <th><img src='{% static "images/catapult.avif" %}' alt="cat"></th>
+                                                            <th colspan="2" style="font-size: small;cursor:default;">{{weight.catapult}}</th>
+                                                        {% else %}
+                                                            <th><img src='{% static "images/nobleman.avif" %}' alt="ax"></th>
+                                                            <th colspan="2" style="font-size: small;cursor:default;">{{weight.nobleman}}</th>
+                                                        {% endif %}
+                                                    </tr>
+                                                    <tr>
+                                                        <th><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg></th>
+                                                        <th colspan="2" style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance}}</th>
+                                                    </tr>
+                                                    {% if weight.ruin and not mode.is_add_and_remove %}
+                                                        <tr>
+                                                            <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'headquarters' %}fancy-building-True{% endif %}" id="headquarters-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Headquarters"|slice:":2" %}</button></th>
+                                                            <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'smithy' %}fancy-building-True{% endif %}" id="smithy-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Smithy"|slice:":2" %}</button></th>
+                                                            <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'timber_camp' %}fancy-building-True{% endif %}" id="timber_camp-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Timber camp"|slice:":2" %}</button></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'clay_pit' %}fancy-building-True{% endif %}" id="clay_pit-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Clay pit"|slice:":2" %}</button></th>
+                                                            <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'farm' %}fancy-building-True{% endif %}" id="farm-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Farm"|slice:":2" %}</button></th>
+                                                            <th class="fancy-th-btn"><button class="btn btn-sm btn-default fancy-building-btn {% if weight.building == 'warehouse' %}fancy-building-True{% endif %}" id="warehouse-{{weight.pk}}" onclick="changeWeightBuildingDirect(this, `{{instance.pk}}`);">{% trans "Warehouse"|slice:":2" %}</button></th>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
+                                                        </tr>
+                                                    {% elif weight.ruin and mode.is_add_and_remove %}
+                                                        <tr>
+                                                            <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
+                                                        </tr>
+                                                    {% endif %}
+
+                                                </table>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+
+                                {% endfor %}
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                {% endblock %}
+            </table>
         </div>
     </div>
-</div>
-</div>
-{% endblock %}
-<script>
-var tabPlanerMenuHasBeenHidden = false;
-document.addEventListener("visibilitychange", handlePlanerMenuVisibilityChange, false);
-</script>
+
+    {% block outline_go_back %}
+        <div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">{% trans "<p>Your current progress here will be <span class='md-error'>LOST</span>!</p><p>You will return to the previous tab. Front and Back division will be reset and targets removed.</p>" %}</div>
+                    <div class="modal-footer">
+                        <button id="dismiss-btn" type="button" class="btn btn-secondary" data-dismiss="modal"><b>{% trans 'Close' %}</b></button>
+                        <form id="form1-form" method="POST">
+                            <input type="hidden" name="form1" value="">
+                            {% csrf_token %}
+                            <button id="form1-btn" onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form1-form`,``,true);" class="btn btn-ocean">{% trans 'Continue' %}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <script>
+        var tabPlanerMenuHasBeenHidden = false;
+        document.addEventListener("visibilitychange", handlePlanerMenuVisibilityChange, false);
+    </script>
 
 {% endblock %}
