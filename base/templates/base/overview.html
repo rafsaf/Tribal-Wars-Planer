@@ -1,294 +1,294 @@
 {% extends "base/base.html" %}
-{% load static %} 
+{% load static %}
 {% load i18n %}
 {% block title %}{{overview.player}} | {% trans 'Tribal Wars Planer' %}{% endblock %}
 {% block showsidebar %}toggled{% endblock %}
 {% block content %}
-<style>.tribalwarsbg{background: url("{% static 'images/bg_content_48x48.avif' %}");font-family:Verdana, Arial;}</style>
-<input id="speed_world" type="hidden" value="{{overview.outline.world.speed_world}}">
-<input id="speed_units" type="hidden" value="{{overview.outline.world.speed_units}}">
-<h1 class="font-nav text-center">{{overview.player}}</h1>
-<h4 class="font-nav mb-3 text-center">{{overview.outline.date}}</h4>
+    <style>.tribalwarsbg{background: url("{% static 'images/bg_content_48x48.avif' %}");font-family:Verdana, Arial;}</style>
+    <input id="speed_world" type="hidden" value="{{overview.outline.world.speed_world}}">
+    <input id="speed_units" type="hidden" value="{{overview.outline.world.speed_units}}">
+    <h1 class="font-nav text-center">{{overview.player}}</h1>
+    <h4 class="font-nav mb-3 text-center">{{overview.outline.date}}</h4>
 
-<div class="col-12 col-lg-10 offset-lg-1" style="padding: 0 0" >
-    <ul class="nav nav-tabs mb-3 mt-1 font-nav" id="pills-tab" role="tablist" style="font-size:x-large;">
-        <li class="nav-item" >
-            <a style="color:black;" class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Copy' %}</a>
-        </li>
-        <li class="nav-item">
-            <a style="color: black;" class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-details" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Details' %}</a>
-        </li>
-    </ul>
-</div>
+    <div class="col-12 col-lg-10 offset-lg-1" style="padding: 0 0" >
+        <ul class="nav nav-tabs mb-3 mt-1 font-nav" id="pills-tab" role="tablist" style="font-size:x-large;">
+            <li class="nav-item" >
+                <a style="color:black;" class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-outline-copy" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Copy' %}</a>
+            </li>
+            <li class="nav-item">
+                <a style="color: black;" class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-details" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Details' %}</a>
+            </li>
+        </ul>
+    </div>
 
-<div class="tab-content" id="pills-tabContent" style="margin-bottom:-80px;">
-    <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
-        <div class="row" id='outline-fit'>
-            <div class="col-auto mx-auto">
-                <div class="alert alert-primary mt-2 mt-lg-5" style="font-size: large;cursor:default;" role="alert">{% trans 'The contents below shows your targets, please copy the one you like to your in-game notes.' %}</div>
+    <div class="tab-content" id="pills-tabContent" style="margin-bottom:-80px;">
+        <div class="tab-pane fade show active" id="pills-outline-copy" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="row" id='outline-fit'>
+                <div class="col-auto mx-auto">
+                    <div class="alert alert-primary mt-2 mt-lg-5" style="font-size: large;cursor:default;" role="alert">{% trans 'The contents below shows your targets, please copy the one you like to your in-game notes.' %}</div>
+                </div>
+                <div class="col-12 col-lg-8 offset-lg-2 mt-2">
+                    <div class="overview-card">
+                        <h1 class="font-nav">
+                            <span class="mr-2">{% trans 'Text simple' %}</span>
+                            {% if android_tw_app_webview %}
+                                <h5>{% trans "Copy content from textarea below" %}</h5>
+                            {% else %}
+                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`text-simple-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                            {% endif %}
+                        </h1>
+
+                        <div>
+                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="pl-2">
+                                    <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970)<br>
+                                    <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                    <br>
+                                    <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="text-simple-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.string}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <h1 class="font-nav">
+                            <span class="mr-2">{% trans 'New Text extended' %}</span>
+                            {% if android_tw_app_webview %}
+                                <h5>{% trans "Copy content from textarea below" %}</h5>
+                            {% else %}
+                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`new-text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                            {% endif %}
+                        </h1>
+
+                        <div>
+
+                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="pl-2">
+                                    <br>
+                                    <b>----------------1999-03-02 ({% trans 'Tuesday' %})----------------</b>
+                                    <br>
+                                    1. <b><span style="color:#a50000">{% trans 'Send OFF' %}[20970 off]</span> (2 {% trans 'of' %} 5) </b>
+                                    <br>
+                                    <br>
+                                    <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                    <br>
+                                    <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11 </span> <b> -> </b> <span style="color:#603000;font-weight:700"> {% trans "Plemiona Planer is the best"%} (999|999) K99</span>
+                                    <br>
+                                    <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="new-text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.new_extended}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <h1 class="font-nav">
+                            <span class="mr-2">{% trans 'Old Text extended' %}</span>
+                            {% if android_tw_app_webview %}
+                                <h5>{% trans "Copy content from textarea below" %}</h5>
+                            {% else %}
+                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                            {% endif %}
+                        </h1>
+
+                        <div>
+
+                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="pl-2">
+                                    <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%} (999|999) K99</span><br>
+                                    <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                    <br>
+                                    <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.extended}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <h1 class="font-nav">
+                            <span class="mr-2">{% trans 'Table' %}</span>
+                            {% if android_tw_app_webview %}
+                                <h5>{% trans "Copy content from textarea below" %}</h5>
+                            {% else %}
+                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`table-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                            {% endif %}
+                        </h1>
+                        <small class="form-text text-muted">{% trans 'Hint: Use Text format if u have many commands. ' %}</small>
+                        <div>
+                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="table-responsive">
+                                    <table class="vis bbcodetable">
+                                        <tbody>
+                                            <tr class="content-border-head">
+                                                <th></th>
+                                                <th>{% trans 'SEND' %}</th>
+                                                <th>{% trans 'OFF' %}</th>
+                                                <th>{% trans 'NOBLE' %}</th>
+                                                <th>{% trans 'SENDING' %}</th>
+                                                <th>{% trans 'ENTER' %}</th>
+                                                <th>{% trans 'FROM' %}</th>
+                                                <th>{% trans 'TARGET' %}</th>
+                                            </tr>
+                                            <tr class="content-border">
+                                                <td >1</td>
+                                                <td>
+                                                    <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                                </td>
+                                                <td>20970</td>
+                                                <td>0</td>
+                                                <td>1999-03-02<br>
+                                                    <b><span style="color:#0e5e5e">07:34:56</span></b>-<b><span style="color:#ff0000">08:34:56</span></b>
+                                                </td>
+                                                <td>1999-03-05<br>
+                                                    <b><span style="color:#0e5e5e">07:00:00</span></b>-<b><span style="color:#ff0000">08:00:00</span></b>
+                                                </td>
+                                                <td>
+                                                    <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11</span>
+                                                </td>
+                                                <td>
+                                                    <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%} (999|999) K99</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="table-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.table}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <h1 class="font-nav">
+                            <span class="mr-2">{% trans 'Text for deputy' %}</span>
+                            {% if android_tw_app_webview %}
+                                <h5>{% trans "Copy content from textarea below" %}</h5>
+                            {% else %}
+                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`deputy-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}
+                                </button>
+                            {% endif %}
+                        </h1>
+                        <small class="form-text text-muted">{% trans 'Hint: Use this one when someone else will send this commands.' %}</small><div>
+                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="pl-2">
+                                    <br>
+                                    <b>----------------1999-03-02 ({% trans 'Tuesday' %})----------------</b>
+                                    <br>
+                                    1. <b><span style="color:#a50000">{% trans 'Send OFF' %}[20970 off]</span> (2 {% trans 'of' %} 5) </b>
+                                    <br>
+                                    <br>
+                                    <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
+                                    <br>
+                                    <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11 </span> <b> -> </b> <span style="color:#603000;font-weight:700"> {% trans "Plemiona Planer is the best"%} (999|999) K99</span>
+                                    <br>
+                                    <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="deputy-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.deputy}}</textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-12 col-lg-8 offset-lg-2 mt-2">
-                <div class="overview-card">
-                    <h1 class="font-nav">
-                        <span class="mr-2">{% trans 'Text simple' %}</span>
-                        {% if android_tw_app_webview %}
-                        <h5>{% trans "Copy content from textarea below" %}</h5>
-                        {% else %}
-                        <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`text-simple-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
-                        {% endif %}
-                    </h1>
+        </div>
 
-                    <div>
-                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                            <div class="pl-2">
-                                <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970)<br>
-                                <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
-                                <br>
-                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-
-                        <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="text-simple-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.string}}</textarea>
-                    </div>
+        <div class="tab-pane fade" id="pills-outline-details" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="row" id='outline-fit'>
+                <div class="col-auto mx-auto">
+                    <div class="alert alert-primary mt-2 mt-lg-5" style="font-size: large;cursor:default;" role="alert">{% trans 'Alert! The order in the list below matters and is fixed.' %}</div>
                 </div>
 
-                <div class="overview-card">
-                    <h1 class="font-nav">
-                        <span class="mr-2">{% trans 'New Text extended' %}</span>
-                        {% if android_tw_app_webview %}
-                        <h5>{% trans "Copy content from textarea below" %}</h5>
-                        {% else %}
-                        <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`new-text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
-                        {% endif %}
-                    </h1>
-
-                    <div>
-
-                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                            <div class="pl-2">
-                                <br>
-                                <b>----------------1999-03-02 ({% trans 'Tuesday' %})----------------</b>
-                                <br>
-                                1. <b><span style="color:#a50000">{% trans 'Send OFF' %}[20970 off]</span> (2 {% trans 'of' %} 5) </b>
-                                <br>
-                                <br>
-                                <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
-                                <br>
-                                <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11 </span> <b> -> </b> <span style="color:#603000;font-weight:700"> {% trans "Plemiona Planer is the best"%} (999|999) K99</span>
-                                <br>
-                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-
-                        <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="new-text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.new_extended}}</textarea>
-                    </div>
-                </div>
-
-                <div class="overview-card">
-                    <h1 class="font-nav">
-                        <span class="mr-2">{% trans 'Old Text extended' %}</span>
-                        {% if android_tw_app_webview %}
-                        <h5>{% trans "Copy content from textarea below" %}</h5>
-                        {% else %}
-                        <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
-                        {% endif %}
-                    </h1>
-
-                    <div>
-
-                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                            <div class="pl-2">
-                                <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%} (999|999) K99</span><br>
-                                <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
-                                <br>
-                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-
-                        <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="text-extend-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.extended}}</textarea>
-                    </div>
-                </div>
-
-                <div class="overview-card">
-                    <h1 class="font-nav">
-                        <span class="mr-2">{% trans 'Table' %}</span> 
-                        {% if android_tw_app_webview %}
-                        <h5>{% trans "Copy content from textarea below" %}</h5>
-                        {% else %}
-                        <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`table-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
-                        {% endif %}
-                    </h1>
-                    <small class="form-text text-muted">{% trans 'Hint: Use Text format if u have many commands. ' %}</small>
-                    <div>
-                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                            <div class="table-responsive">
-                            <table class="vis bbcodetable">
-                                <tbody>
-                                    <tr class="content-border-head">
-                                        <th></th>
-                                        <th>{% trans 'SEND' %}</th>
-                                        <th>{% trans 'OFF' %}</th>
-                                        <th>{% trans 'NOBLE' %}</th>
-                                        <th>{% trans 'SENDING' %}</th>
-                                        <th>{% trans 'ENTER' %}</th>
-                                        <th>{% trans 'FROM' %}</th>
-                                        <th>{% trans 'TARGET' %}</th>
+                <div class="col-12 col-lg-10 offset-lg-1 mt-2">
+                    <div class="table-responsive mb-4" style="overflow-y: auto;height:80vh; border-top: 1px solid grey" id='parent'>
+                        <div id='child' class="" style="width: min-content;">
+                            <table class="table table-sm table-bordered mb-5">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">{% trans 'Target' %}</th>
+                                        <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
                                     </tr>
-                                    <tr class="content-border">
-                                        <td >1</td>
-                                        <td>
-                                            <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
-                                        </td>
-                                        <td>20970</td>
-                                        <td>0</td>
-                                        <td>1999-03-02<br>
-                                            <b><span style="color:#0e5e5e">07:34:56</span></b>-<b><span style="color:#ff0000">08:34:56</span></b>
-                                        </td>
-                                        <td>1999-03-05<br>
-                                            <b><span style="color:#0e5e5e">07:00:00</span></b>-<b><span style="color:#ff0000">08:00:00</span></b>
-                                        </td>
-                                        <td>
-                                            <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11</span>
-                                        </td>
-                                        <td>
-                                            <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%} (999|999) K99</span>
-                                        </td>
-                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    {% for target, lst in query %}
+                                        <tr>
+                                            <th class="front-{{target.fake}}">
+                                                <h5>
+                                                    <span class="badge badge-pill badge-info">{{target.player}}</span>
+                                                </h5>
+                                                <h5>
+                                                    <span class="badge badge badge-secondary">{{target.target}}</span>
+                                                </h5>
+                                                {% if target.fake %}
+                                                    <h5 style="color: teal;" class="font-italic"> Fake</h5>
+                                                {% elif target.ruin %}
+                                                    <h5 style="color: rgb(109, 70, 46);" class="font-italic"><img src='{% static "images/catapult.avif" %}' alt="cat"> {% trans 'Ruin' %}</h5>
+                                                {% else %}
+                                                    <h5 style="color: rgb(79, 81, 85);" class="font-italic"><img src='{% static "images/ax.avif" %}' alt="ax"> {% trans 'Off' %}</h5>
+                                                {% endif %}
+                                            </th>
+                                            {% for weight in lst %}
+                                                <th>
+                                                    <div style="font-size: medium;">
+                                                        <span class='badge badge-pill badge-info text-break'>{{weight.player}}</span>
+                                                    </div>
+                                                    <h6>
+                                                        <span class='badge badge badge-secondary'>{{weight.start}}</span>
+                                                    </h6>
+                                                    <div style="font-size: medium;color:green; ">{{weight.t1|safe}}</div>
+                                                    <div style="font-size: medium;color: red;">{{weight.t2|safe}}</div>
+                                                    <table class="table table-sm">
+                                                        <tr>
+                                                            <th>
+                                                                <img src='{% static "images/ax.avif" %}' alt="ax">
+                                                            </th>
+                                                            <th style="font-size: small;cursor:default">{{weight.off}}</th>
+                                                        </tr>
+                                                        {% if weight.ruin %}
+                                                            <tr>
+                                                                <th>
+                                                                    <img src='{% static "images/catapult.avif" %}' alt="cat">
+                                                                </th>
+                                                                <th style="font-size: small;cursor:default;">{{weight.catapult}}</th>
+                                                            </tr>
+                                                        {% else %}
+                                                            <tr>
+                                                                <th>
+                                                                    <img src='{% static "images/nobleman.avif" %}' alt="ax">
+                                                                </th>
+                                                                <th style="font-size: small;cursor:default;">{{weight.nobleman}}</th>
+                                                            </tr>
+                                                        {% endif %}
+                                                        <tr>
+                                                            <th>
+                                                                <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg>
+                                                            </th>
+                                                            <th style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance|floatformat:1}}</th>
+                                                        </tr>
+                                                    </table>
+                                                </th>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
-                            </div>
                         </div>
-
-                        <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="table-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.table}}</textarea>
-                    </div>
-                </div>
-
-                <div class="overview-card">
-                    <h1 class="font-nav">
-                        <span class="mr-2">{% trans 'Text for deputy' %}</span>
-                        {% if android_tw_app_webview %}
-                        <h5>{% trans "Copy content from textarea below" %}</h5>
-                        {% else %}
-                        <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`deputy-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}
-                        </button>
-                        {% endif %}
-                    </h1>
-                    <small class="form-text text-muted">{% trans 'Hint: Use this one when someone else will send this commands.' %}</small><div>
-                        <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                            <div class="pl-2">
-                                <br>
-                                <b>----------------1999-03-02 ({% trans 'Tuesday' %})----------------</b>
-                                <br>
-                                1. <b><span style="color:#a50000">{% trans 'Send OFF' %}[20970 off]</span> (2 {% trans 'of' %} 5) </b>
-                                <br>
-                                <br>
-                                <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
-                                <br>
-                                <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11 </span> <b> -> </b> <span style="color:#603000;font-weight:700"> {% trans "Plemiona Planer is the best"%} (999|999) K99</span>
-                                <br>
-                                <b><span style="color: #4040D0">{% trans 'Send OFF' %}</span></b>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-
-                        <textarea spellcheck="false" autocomplete="off" class="form-control mt-1" id="deputy-copy" rows="10">[url={{ request.scheme }}://{{ request.get_host }}{{overview.get_absolute_url}}]{% trans 'A link to your targets on plemiona-planer.pl.' %}[/url]&#10;{{overview.deputy}}</textarea>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="tab-pane fade" id="pills-outline-details" role="tabpanel" aria-labelledby="pills-contact-tab">
-        <div class="row" id='outline-fit'>
-            <div class="col-auto mx-auto">
-                <div class="alert alert-primary mt-2 mt-lg-5" style="font-size: large;cursor:default;" role="alert">{% trans 'Alert! The order in the list below matters and is fixed.' %}</div>
-            </div>
-
-            <div class="col-12 col-lg-10 offset-lg-1 mt-2">
-                <div class="table-responsive mb-4" style="overflow-y: auto;height:80vh; border-top: 1px solid grey" id='parent'>
-                    <div id='child' class="" style="width: min-content;">
-                        <table class="table table-sm table-bordered mb-5">
-                            <thead>
-                                <tr>
-                                    <th scope="col">{% trans 'Target' %}</th>
-                                    <th colspan="50" scope="colgroup">{% trans 'Outline' %}</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                {% for target, lst in query %}
-                                <tr>
-                                    <th class="front-{{target.fake}}">
-                                        <h5>
-                                            <span class="badge badge-pill badge-info">{{target.player}}</span>
-                                        </h5>
-                                        <h5>
-                                            <span class="badge badge badge-secondary">{{target.target}}</span>
-                                        </h5>
-                                        {% if target.fake %}
-                                        <h5 style="color: teal;" class="font-italic"> Fake</h5>
-                                        {% elif target.ruin %}
-                                        <h5 style="color: rgb(109, 70, 46);" class="font-italic"><img src='{% static "images/catapult.avif" %}' alt="cat"> {% trans 'Ruin' %}</h5>
-                                        {% else %}
-                                        <h5 style="color: rgb(79, 81, 85);" class="font-italic"><img src='{% static "images/ax.avif" %}' alt="ax"> {% trans 'Off' %}</h5>
-                                        {% endif %}
-                                    </th>
-                                    {% for weight in lst %}
-                                    <th>
-                                        <div style="font-size: medium;">
-                                            <span class='badge badge-pill badge-info text-break'>{{weight.player}}</span>
-                                        </div>
-                                        <h6>
-                                            <span class='badge badge badge-secondary'>{{weight.start}}</span>
-                                        </h6>
-                                        <div style="font-size: medium;color:green; ">{{weight.t1|safe}}</div>
-                                        <div style="font-size: medium;color: red;">{{weight.t2|safe}}</div>
-                                            <table class="table table-sm">
-                                                <tr>
-                                                    <th>
-                                                        <img src='{% static "images/ax.avif" %}' alt="ax">
-                                                    </th>
-                                                    <th style="font-size: small;cursor:default">{{weight.off}}</th>
-                                                </tr>
-                                                {% if weight.ruin %}
-                                                <tr>
-                                                    <th>
-                                                        <img src='{% static "images/catapult.avif" %}' alt="cat">
-                                                    </th>
-                                                    <th style="font-size: small;cursor:default;">{{weight.catapult}}</th>
-                                                </tr>
-                                                {% else %}
-                                                <tr>
-                                                    <th>
-                                                        <img src='{% static "images/nobleman.avif" %}' alt="ax">
-                                                    </th>
-                                                    <th style="font-size: small;cursor:default;">{{weight.nobleman}}</th>
-                                                </tr>
-                                                {% endif %}
-                                                <tr>
-                                                    <th>
-                                                        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg>
-                                                    </th>
-                                                    <th style="font-size: small;cursor: zoom-in;" onclick="calculate_distance(this);">{{weight.distance|floatformat:1}}</th>
-                                                </tr>
-                                            </table>
-                                    </th>
-                                    {% endfor %}
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 {% endblock %}

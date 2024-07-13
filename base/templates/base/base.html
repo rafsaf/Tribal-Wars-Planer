@@ -1,176 +1,176 @@
 {% load static %}{% load i18n %}<!doctype html>
 <html lang="{{ request.get_full_path|slice:'1:3' }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>{% block title %}{% trans 'Tribal Wars Planer' %}{% endblock %}</title>
+        <title>{% block title %}{% trans 'Tribal Wars Planer' %}{% endblock %}</title>
 
-    {% block meta-content %}<meta name="description" content="{% trans 'Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}"/>{% endblock %}
+        {% block meta-content %}<meta name="description" content="{% trans 'Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}"/>{% endblock %}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{% static 'min.base.css' %}">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha512-xeUh+KxNyTufZOje++oQHstlMQ8/rpyzPuM+gjMFYK3z5ILJGE7l2NvYL+XfliKURMpBIKKp1XoPN/qswlSMFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript" src="{% static 'min.base.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-</head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="{% static 'min.base.css' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
 
-<body>
-    <div class="d-flex" id="wrapper">{% spaceless %}
-        <div class="d-none d-lg-flex">
-            {% if user.is_authenticated %}
-            <div class="bg-light border-right {% block showsidebar %}{% endblock %}" id="sidebar-wrapper">
-                <div class="sidebar-heading">{% trans 'User Panel' %}</div>
-                <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
-                {% block sidebar %}
-                {% endblock %}
-                </div>
-            </div> 
-            {% endif %}
-        </div>
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha512-xeUh+KxNyTufZOje++oQHstlMQ8/rpyzPuM+gjMFYK3z5ILJGE7l2NvYL+XfliKURMpBIKKp1XoPN/qswlSMFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript" src="{% static 'min.base.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div class="d-flex" id="wrapper">{% spaceless %}
+            <div class="d-none d-lg-flex">
                 {% if user.is_authenticated %}
-                <div class="d-none d-lg-block">
-                    <button onclick="setTimeout(()=>{this.blur();},600)" class="btn toggle-icon" id="menu-toggle">
-                        <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-toggles" fill="teal" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M4.5 9a3.5 3.5 0 1 0 0 7h7a3.5 3.5 0 1 0 0-7h-7zm7 6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-7-14a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm2.45 0A3.49 3.49 0 0 1 8 3.5 3.49 3.49 0 0 1 6.95 6h4.55a2.5 2.5 0 0 0 0-5H6.95zM4.5 0h7a3.5 3.5 0 1 1 0 7h-7a3.5 3.5 0 1 1 0-7z" /></svg>
-                    </button>
-                </div>
-                <div class="d-block d-lg-none font-nav">
-                    <ul class="navbar-nav ml-auto font-nav">
-                        <li class="nav-item dropdown ml-1">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'User Panel' %}</a>
-                            <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
-                                <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a>
-                                <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
-                                {% block phonesidebar %}
-                                {% endblock %}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="bg-light border-right {% block showsidebar %}{% endblock %}" id="sidebar-wrapper">
+                        <div class="sidebar-heading">{% trans 'User Panel' %}</div>
+                        <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
+                            {% block sidebar %}
+                            {% endblock %}
+                        </div>
+                    </div>
                 {% endif %}
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto font-nav">
-                        <li class="nav-item" id="li-home">
-                            <a class="nav-link ml-1" href="{% url 'base:base' %}">{% trans 'Home' %}</a>
-                        </li>
-                        <li class="nav-item" id="li-planer">
-                            <a class="nav-link ml-1" href="{% url 'base:planer' %}">{% trans 'Planer' %}</a>
-                        </li>
-                        <li class="nav-item" id="li-doc">
-                            <a class="nav-link ml-1" href="{% url 'base:documentation' %}">{% trans 'Documentation' %}</a>
-                        </li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item" id="li-planer">
-                            <a class="nav-link ml-1" href="{% url 'base:premium' %}">{% trans 'Premium' %}</a>
-                        </li>
-                        {% endif %}
-                        {% if user.is_staff %}
-                        <li class="nav-item">
-                            <a class="nav-link ml-1" href="/admin">{% trans 'Admin Site' %}</a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item dropdown ml-1">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
-                            <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
-                                <div class="dropdown-divider" style="margin-top:0"></div>
-                                {% if not user.is_authenticated %}
-                                <div class='small text-center'>{% trans 'Account' %}</div>
-                                {% else %}
-                                <div class='small text-center px-2'>{{user.username}}</div>
-                                {% endif %}
-                                <div class="dropdown-divider" style="margin-bottom:0"></div>
-                                {% if user.is_authenticated %}
-                                <a class="dropdown-item font-teal py-2" href="{% url 'base:settings' %}">{% trans 'My account' %}</a>
-                                <a class="dropdown-item font-teal py-2" href="{% url 'base:add_world' %}">{% trans 'Add world' %}</a>
-                                {% if user.is_superuser and user.username == "admin" %}
-                                <a class="dropdown-item font-teal py-2" href="{% url 'base:payment_summary' %}">{% trans 'Payments summary' %}</a>
-                                {% endif %}
-                                <form action="{% url 'logout' %}" method="post">
-                                    {% csrf_token %}
-                                    <input class="dropdown-item font-red py-2" type="submit" value="{% trans 'Sign out' %}" />
-                                </form>
-                                
-                                {% else %}
-                                <a class="dropdown-item font-teal py-2" href="{% url 'login' %}">{% trans 'Sign in' %}</a>
-                                <a class="dropdown-item font-teal py-2" href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
-                                {% endif %}
-
-                                <div class="dropdown-divider" style="margin-top:0;"></div>
-                                <div class='small text-center'>{% trans 'Language' %}</div>
-                                <div class="dropdown-divider" style="margin-bottom:0;"></div>
-                                <form action="{% url 'set_language' %}" method="post">
-                                    {% csrf_token %}
-                                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
-                                    <input name="language" type="hidden" value="pl" />
-                                    <input class="dropdown-item font-nav py-2" type="submit" value="Polski" />
-                                </form>
-                                <form action="{% url 'set_language' %}" method="post">
-                                    {% csrf_token %}
-                                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
-                                    <input name="language" type="hidden" value="en" />
-                                    <input class="dropdown-item font-nav py-2" type="submit" value="English" />
-                                </form>
-                            </div>
-                        </li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item dropdown ml-1">
-                            {% if user.profile.messages == 0 %}
-                            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="rgba(0,0,0,.5)" class="bi bi-bell" viewBox="0 0 16 16"><path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"></svg>
-                                <span style="margin-left:1px">0</span>
-                            </a>
-                            {% else %}
-                            <a onclick="resetUserMessages();" class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><svg id="reset-svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="red" class="bi bi-bell" viewBox="0 0 16 16"><path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"></svg>
-                                <span id="reset-span" style="color:red;margin-left:1px">{{user.profile.messages}}</span>
-                            </a>
+            </div>
+            <div id="page-content-wrapper">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    {% if user.is_authenticated %}
+                        <div class="d-none d-lg-block">
+                            <button onclick="setTimeout(()=>{this.blur();},600)" class="btn toggle-icon" id="menu-toggle">
+                                <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-toggles" fill="teal" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M4.5 9a3.5 3.5 0 1 0 0 7h7a3.5 3.5 0 1 0 0-7h-7zm7 6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-7-14a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm2.45 0A3.49 3.49 0 0 1 8 3.5 3.49 3.49 0 0 1 6.95 6h4.55a2.5 2.5 0 0 0 0-5H6.95zM4.5 0h7a3.5 3.5 0 1 1 0 7h-7a3.5 3.5 0 1 1 0-7z" /></svg>
+                            </button>
+                        </div>
+                        <div class="d-block d-lg-none font-nav">
+                            <ul class="navbar-nav ml-auto font-nav">
+                                <li class="nav-item dropdown ml-1">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'User Panel' %}</a>
+                                    <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
+                                        <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a>
+                                        <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
+                                        {% block phonesidebar %}
+                                        {% endblock %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto font-nav">
+                            <li class="nav-item" id="li-home">
+                                <a class="nav-link ml-1" href="{% url 'base:base' %}">{% trans 'Home' %}</a>
+                            </li>
+                            <li class="nav-item" id="li-planer">
+                                <a class="nav-link ml-1" href="{% url 'base:planer' %}">{% trans 'Planer' %}</a>
+                            </li>
+                            <li class="nav-item" id="li-doc">
+                                <a class="nav-link ml-1" href="{% url 'base:documentation' %}">{% trans 'Documentation' %}</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item" id="li-planer">
+                                    <a class="nav-link ml-1" href="{% url 'base:premium' %}">{% trans 'Premium' %}</a>
+                                </li>
                             {% endif %}
-                            <div class="dropdown-menu dropdown-menu-right" style="padding:1rem;width: 50vw!important;">
-                                {% for message in user.profile.latest_messages %}
-                                <div style="position:relative;font-family:serif">
-                                    <div style="position:absolute;top:0;right:0;color:teal">{{message.description}}</div>
-                                    <h4>
-                                    <i class="bi bi-megaphone"></i> &nbsp;{{message.date}}</h4>
-                                    <p>{{message.text|safe}}</p>
-                                    <div class="dropdown-divider"></div>
-                                </div> 
-                                {% endfor %}
+                            {% if user.is_staff %}
+                                <li class="nav-item">
+                                    <a class="nav-link ml-1" href="/admin">{% trans 'Admin Site' %}</a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item dropdown ml-1">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
+                                <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
+                                    <div class="dropdown-divider" style="margin-top:0"></div>
+                                    {% if not user.is_authenticated %}
+                                        <div class='small text-center'>{% trans 'Account' %}</div>
+                                    {% else %}
+                                        <div class='small text-center px-2'>{{user.username}}</div>
+                                    {% endif %}
+                                    <div class="dropdown-divider" style="margin-bottom:0"></div>
+                                    {% if user.is_authenticated %}
+                                        <a class="dropdown-item font-teal py-2" href="{% url 'base:settings' %}">{% trans 'My account' %}</a>
+                                        <a class="dropdown-item font-teal py-2" href="{% url 'base:add_world' %}">{% trans 'Add world' %}</a>
+                                        {% if user.is_superuser and user.username == "admin" %}
+                                            <a class="dropdown-item font-teal py-2" href="{% url 'base:payment_summary' %}">{% trans 'Payments summary' %}</a>
+                                        {% endif %}
+                                        <form action="{% url 'logout' %}" method="post">
+                                            {% csrf_token %}
+                                            <input class="dropdown-item font-red py-2" type="submit" value="{% trans 'Sign out' %}" />
+                                        </form>
 
-                            </div>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a target="_blank" href='https://discord.gg/g5pcsCteCT' class="ml-lg-4">
-                                <img height="30" style="margin: 5px 0" src="{% static 'images/discord-logo.svg'%}" alt="Discord">
-                            </a>
+                                    {% else %}
+                                        <a class="dropdown-item font-teal py-2" href="{% url 'login' %}">{% trans 'Sign in' %}</a>
+                                        <a class="dropdown-item font-teal py-2" href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
+                                    {% endif %}
 
-                        </li>
-                        <li class="nav-item">
-                            <a target="_blank" href='https://github.com/rafsaf/Tribal-Wars-Planer' class="ml-lg-4">
-                                <img height="22" style="margin: 8px 0 3px 0" src="{% static 'images/github-logo.svg'%}" alt="Github">
-                            </a>
+                                    <div class="dropdown-divider" style="margin-top:0;"></div>
+                                    <div class='small text-center'>{% trans 'Language' %}</div>
+                                    <div class="dropdown-divider" style="margin-bottom:0;"></div>
+                                    <form action="{% url 'set_language' %}" method="post">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                                        <input name="language" type="hidden" value="pl" />
+                                        <input class="dropdown-item font-nav py-2" type="submit" value="Polski" />
+                                    </form>
+                                    <form action="{% url 'set_language' %}" method="post">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                                        <input name="language" type="hidden" value="en" />
+                                        <input class="dropdown-item font-nav py-2" type="submit" value="English" />
+                                    </form>
+                                </div>
+                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item dropdown ml-1">
+                                    {% if user.profile.messages == 0 %}
+                                        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="rgba(0,0,0,.5)" class="bi bi-bell" viewBox="0 0 16 16"><path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"></svg>
+                                                <span style="margin-left:1px">0</span>
+                                            </a>
+                                    {% else %}
+                                        <a onclick="resetUserMessages();" class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><svg id="reset-svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="red" class="bi bi-bell" viewBox="0 0 16 16"><path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"></svg>
+                                            <span id="reset-span" style="color:red;margin-left:1px">{{user.profile.messages}}</span>
+                                        </a>
+                                    {% endif %}
+                                    <div class="dropdown-menu dropdown-menu-right" style="padding:1rem;width: 50vw!important;">
+                                        {% for message in user.profile.latest_messages %}
+                                            <div style="position:relative;font-family:serif">
+                                                <div style="position:absolute;top:0;right:0;color:teal">{{message.description}}</div>
+                                                <h4>
+                                                    <i class="bi bi-megaphone"></i> &nbsp;{{message.date}}</h4>
+                                                <p>{{message.text|safe}}</p>
+                                                <div class="dropdown-divider"></div>
+                                            </div>
+                                        {% endfor %}
 
-                        </li>
-                    </ul>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a target="_blank" href='https://discord.gg/g5pcsCteCT' class="ml-lg-4">
+                                    <img height="30" style="margin: 5px 0" src="{% static 'images/discord-logo.svg'%}" alt="Discord">
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a target="_blank" href='https://github.com/rafsaf/Tribal-Wars-Planer' class="ml-lg-4">
+                                    <img height="22" style="margin: 8px 0 3px 0" src="{% static 'images/github-logo.svg'%}" alt="Github">
+                                </a>
+
+                            </li>
+                        </ul>
 
 
 
-                </div>
-            </nav>
-            <div class="container-fluid" style="margin-top: 10px;">
-                
-                <div style="min-height: 91vh;">
-                    {% block content %}
-                    <link rel="preload" fetchpriority="high" as="image" href="/static/images/background.avif" type="image/avif">
+                    </div>
+                </nav>
+                <div class="container-fluid" style="margin-top: 10px;">
+
+                    <div style="min-height: 91vh;">
+                        {% block content %}
+                            <link rel="preload" fetchpriority="high" as="image" href="/static/images/background.avif" type="image/avif">
                     {% comment %}
                     <div class="text-center row" style="background-color: rgb(93, 167, 93);color:white; min-height:45px;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
                         <div class="col-12 align-self-center">
@@ -178,189 +178,189 @@
                         </div> 
                     </div>
                     {% endcomment %}
-                    {% if not registration_open %}
-                    <div class="text-center row" style="background-color: rgb(93, 167, 93);color:white; min-height:45px;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
-                        <div class="col-12 align-self-center">
-                            {% trans 'This is test environment, registration is not allowed. Go to' %} <a style="color: rgb(210, 253, 208);" href="https://plemiona-planer.pl">plemiona-planer.pl</a></b>
-                        </div> 
-                    </div>
-                    {% endif %}
-                    <div class='text-center' >
-                        <div class='background-image-lg d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
-                            <h2 class="font-nav pt-2">{% trans 'Create simple and fast outlines' %}</h2>
-                            <a href="{% url 'login' %}" style="width: 32%" class="btn btn-ocean mt-2">
-                                <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
-                            </a>
-                            <p style="font-size: normal;" class="mt-1">
-                                <span style="width: 100%; background:rgba(255, 255, 255, 0.986)">{% trans "Don't have an account? "  %}</span><span style="width: 100%; background:rgba(255, 255, 255, 0.986)"><a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a></span>
-                            </p>
-                        </div>
-
-                        <div class='background-image-sm d-block d-lg-none' style="margin-left:-15px !important;margin-right:-15px !important">
-                            <div class="px-3">
-                                <h2 class="font-nav pt-4">{% trans 'Create simple and fast outlines' %}</h2>
-                                <a href="{% url 'login' %}" style="width: 75%" class="btn btn-ocean mt-1">
-                                    <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
-                                </a>
-                                <p style="font-size: normal;" class="mt-2 mb-0">{% trans "Don't have an account? "  %}</p>
-                                <p style="font-size: normal;" class="mt-0">
-                                    <a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="row mt-3">
-                                <div class="col-0 col-lg-1"></div>
-                                <div class="col-12 col-md-8 col-lg-5 pt-3">
-                                    <h2 class=" py-3 font-nav">{% trans 'Planer in numbers' %}</h2>
-                                <table style="font-size: larger;" class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th>
-                                                <img src="{% static 'images/clock.svg' %}">
-                                            </th>
-                                            <th><span class="badge badge-secondary">{{stats.days}}</span></th>
-                                            <th>{% trans 'Project days' %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="{% static 'images/users.svg' %}"></th>
-                                            <th><span class="badge badge-secondary">{{stats.users}}</span></th>
-                                            <th>{% trans 'Users' %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="{% static 'images/outlines.svg' %}"></th>
-                                        
-                                            <th><span class="badge badge-secondary">{{stats.outlines}}</span></th>
-                                            <th>{% trans 'Outlines' %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="{% static 'images/targets.svg' %}"></th>
-                                            <th><span class="badge badge-secondary">{{stats.targets}}</span></th>
-                                            <th>{% trans 'Targets' %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="{% static 'images/weights.svg' %}"></th>
-                                            <th><span class="badge badge-secondary">{{stats.orders}}</span></th>
-                                            <th>{% trans 'Orders' %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="{% static 'images/pl_version.svg' %}"></th>
-                                            <th>
-                                                <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                                                </div>
-                                            </th>
-                                            <th>{% trans 'PL version' %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="{% static 'images/eng_version.svg' %}"></th>
-                                            <th>
-                                                <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
-                                                </div>
-                                            </th>
-                                            <th>{% trans 'ENG version' %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th><img src="{% static 'images/tests.svg' %}"></th>
-                                            <th>
-                                                <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 83%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100">83%</div>
-                                                </div>
-                                            </th>
-                                            <th>{% trans 'Code tests' %}</th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-
+                            {% if not registration_open %}
+                                <div class="text-center row" style="background-color: rgb(93, 167, 93);color:white; min-height:45px;margin-left:-15px;margin-right:-15px;margin-top:-10px;font-size:large">
+                                    <div class="col-12 align-self-center">
+                                        {% trans 'This is test environment, registration is not allowed. Go to' %} <a style="color: rgb(210, 253, 208);" href="https://plemiona-planer.pl">plemiona-planer.pl</a></b>
                                 </div>
-                                <div class="col-12 col-lg-5 pt-3">
-                                        <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
-                                            <li class="nav-item navitem100">
-                                                <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Benefits' %}</a>
-                                            </li>
-                                            <li class="nav-item navitem100">
-                                                <a class="nav-link ocean-tab-mid" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Security' %}</a>
-                                            </li>
-                                            <li class="nav-item navitem100">
-                                                <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Author' %}</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content text-left" id="pills-tabContent" style="font-size: larger;">
-                                            <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab" >
-                                                
-                                                <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'You save a tons of time and have all outlines in one place.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Players receive final orders ready to paste in the in-game notes and send.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Instantly distribute created objectives to players.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Friendly and easy-to-use interface.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'The ability to accurately describe each axeman yourself or leave it to the Planer, choosing from dozens of options.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Growing number of users.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'Constantly adding new options and fixing bugs.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-check2-circle check2-green"></i> {% trans 'The scripts used are reported and approved by the game support.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-x-circle xcircle-red"></i> {% trans 'Putting away notebooks, sheets and excel sheets in the trash.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-x-circle xcircle-red"></i> {% trans 'You will avoid common problems like doubled commands.' %}</p>
-                                                <p class="mb-2">
-                                                    <i class="bi bi-x-circle xcircle-red"></i> {% trans 'No more mistakes when sending messages to players.' %}</p>
-                                            </div>
-                                            <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                                <p class="mt-4">
-                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'The application is written in the modern and very secure <a target="_blank" href="https://www.djangoproject.com/">Django</a> framework. Therefore it solves COMPLETELY most of the seciurity mistakes of smaller applications like SQL injection, cross-site scripting, cross-site request forgery and clickjacking also providing a safe way to manage user accounts.' %}</p>
-                                                <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'When designing the application, special emphasis was placed on the security of user accounts, preventing access to the data entered by them for other users and third parties.' %}</p>
-                                                <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'Both the web server and the database server are located in the <a href="https://cloud.oracle.com/">Oracle Cloud</a> cloud, with special attention to all their safety recommendations.' %}</p>
-                                                <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'The only one person involved in code writing and project maintenance from the beginning to date, means little risk of accidental sudden exposure of user data.' %}</p>
-                                                <p>
-                                                    <i class="bi bi-lock-fill lock-green"></i> {% trans 'Ensuring the privacy of users is the most important task of this project, your data will never be passed on to other users, game players or third parties or anyone else for any purpose.' %}</p>    
-                                            </div>
-                                            <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">{% trans 'My name is Rafał, I am a Software Engineer at Samsung R&D. I am interested in web applications, both backend and frontend, cloud technologies and security in the web. I write mainly in Python and Typescript.' %}<br><br>{% trans 'In addition to the above, I am a fan of fantasy, I have been reading series more or less regularly since childhood, my favourite author is Ursula Le Guin and her series Earthsea. I am a seasonal runner (my greatest achievement is participation in provincial competitions), I love chess and poker and a good movie too.' %}<br><br>
+                                </div>
+                            {% endif %}
+                            <div class='text-center' >
+                                <div class='background-image-lg d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
+                                    <h2 class="font-nav pt-2">{% trans 'Create simple and fast outlines' %}</h2>
+                                    <a href="{% url 'login' %}" style="width: 32%" class="btn btn-ocean mt-2">
+                                        <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
+                                    </a>
+                                    <p style="font-size: normal;" class="mt-1">
+                                        <span style="width: 100%; background:rgba(255, 255, 255, 0.986)">{% trans "Don't have an account? "  %}</span><span style="width: 100%; background:rgba(255, 255, 255, 0.986)"><a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a></span>
+                                    </p>
+                                </div>
+
+                                <div class='background-image-sm d-block d-lg-none' style="margin-left:-15px !important;margin-right:-15px !important">
+                                    <div class="px-3">
+                                        <h2 class="font-nav pt-4">{% trans 'Create simple and fast outlines' %}</h2>
+                                        <a href="{% url 'login' %}" style="width: 75%" class="btn btn-ocean mt-1">
+                                            <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
+                                        </a>
+                                        <p style="font-size: normal;" class="mt-2 mb-0">{% trans "Don't have an account? "  %}</p>
+                                        <p style="font-size: normal;" class="mt-0">
+                                            <a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row mt-3">
+                                        <div class="col-0 col-lg-1"></div>
+                                        <div class="col-12 col-md-8 col-lg-5 pt-3">
+                                            <h2 class=" py-3 font-nav">{% trans 'Planer in numbers' %}</h2>
+                                            <table style="font-size: larger;" class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>
+                                                            <img src="{% static 'images/clock.svg' %}">
+                                                        </th>
+                                                        <th><span class="badge badge-secondary">{{stats.days}}</span></th>
+                                                        <th>{% trans 'Project days' %}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><img src="{% static 'images/users.svg' %}"></th>
+                                                        <th><span class="badge badge-secondary">{{stats.users}}</span></th>
+                                                        <th>{% trans 'Users' %}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><img src="{% static 'images/outlines.svg' %}"></th>
+
+                                                        <th><span class="badge badge-secondary">{{stats.outlines}}</span></th>
+                                                        <th>{% trans 'Outlines' %}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><img src="{% static 'images/targets.svg' %}"></th>
+                                                        <th><span class="badge badge-secondary">{{stats.targets}}</span></th>
+                                                        <th>{% trans 'Targets' %}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><img src="{% static 'images/weights.svg' %}"></th>
+                                                        <th><span class="badge badge-secondary">{{stats.orders}}</span></th>
+                                                        <th>{% trans 'Orders' %}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><img src="{% static 'images/pl_version.svg' %}"></th>
+                                                        <th>
+                                                            <div class="progress">
+                                                                <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                                                            </div>
+                                                        </th>
+                                                        <th>{% trans 'PL version' %}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><img src="{% static 'images/eng_version.svg' %}"></th>
+                                                        <th>
+                                                            <div class="progress">
+                                                                <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                                                            </div>
+                                                        </th>
+                                                        <th>{% trans 'ENG version' %}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><img src="{% static 'images/tests.svg' %}"></th>
+                                                        <th>
+                                                            <div class="progress">
+                                                                <div class="progress-bar" role="progressbar" style="width: 83%;" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100">83%</div>
+                                                            </div>
+                                                        </th>
+                                                        <th>{% trans 'Code tests' %}</th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                        <div class="col-12 col-lg-5 pt-3">
+                                            <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+                                                <li class="nav-item navitem100">
+                                                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Benefits' %}</a>
+                                                </li>
+                                                <li class="nav-item navitem100">
+                                                    <a class="nav-link ocean-tab-mid" id="pills-profile-tab" data-toggle="pill" href="#pills-oznaczenia" role="tab" aria-controls="pills-profile" aria-selected="false">{% trans 'Security' %}</a>
+                                                </li>
+                                                <li class="nav-item navitem100">
+                                                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Author' %}</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content text-left" id="pills-tabContent" style="font-size: larger;">
+                                                <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab" >
+
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-check2-circle check2-green"></i> {% trans 'You save a tons of time and have all outlines in one place.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-check2-circle check2-green"></i> {% trans 'Players receive final orders ready to paste in the in-game notes and send.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-check2-circle check2-green"></i> {% trans 'Instantly distribute created objectives to players.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-check2-circle check2-green"></i> {% trans 'Friendly and easy-to-use interface.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-check2-circle check2-green"></i> {% trans 'The ability to accurately describe each axeman yourself or leave it to the Planer, choosing from dozens of options.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-check2-circle check2-green"></i> {% trans 'Growing number of users.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-check2-circle check2-green"></i> {% trans 'Constantly adding new options and fixing bugs.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-check2-circle check2-green"></i> {% trans 'The scripts used are reported and approved by the game support.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-x-circle xcircle-red"></i> {% trans 'Putting away notebooks, sheets and excel sheets in the trash.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-x-circle xcircle-red"></i> {% trans 'You will avoid common problems like doubled commands.' %}</p>
+                                                    <p class="mb-2">
+                                                        <i class="bi bi-x-circle xcircle-red"></i> {% trans 'No more mistakes when sending messages to players.' %}</p>
+                                                </div>
+                                                <div class="tab-pane fade" id="pills-oznaczenia" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                                    <p class="mt-4">
+                                                        <i class="bi bi-lock-fill lock-green"></i> {% trans 'The application is written in the modern and very secure <a target="_blank" href="https://www.djangoproject.com/">Django</a> framework. Therefore it solves COMPLETELY most of the seciurity mistakes of smaller applications like SQL injection, cross-site scripting, cross-site request forgery and clickjacking also providing a safe way to manage user accounts.' %}</p>
+                                                    <p>
+                                                        <i class="bi bi-lock-fill lock-green"></i> {% trans 'When designing the application, special emphasis was placed on the security of user accounts, preventing access to the data entered by them for other users and third parties.' %}</p>
+                                                    <p>
+                                                        <i class="bi bi-lock-fill lock-green"></i> {% trans 'Both the web server and the database server are located in the <a href="https://cloud.oracle.com/">Oracle Cloud</a> cloud, with special attention to all their safety recommendations.' %}</p>
+                                                    <p>
+                                                        <i class="bi bi-lock-fill lock-green"></i> {% trans 'The only one person involved in code writing and project maintenance from the beginning to date, means little risk of accidental sudden exposure of user data.' %}</p>
+                                                    <p>
+                                                        <i class="bi bi-lock-fill lock-green"></i> {% trans 'Ensuring the privacy of users is the most important task of this project, your data will never be passed on to other users, game players or third parties or anyone else for any purpose.' %}</p>
+                                                </div>
+                                                <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">{% trans 'My name is Rafał, I am a Software Engineer at Samsung R&D. I am interested in web applications, both backend and frontend, cloud technologies and security in the web. I write mainly in Python and Typescript.' %}<br><br>{% trans 'In addition to the above, I am a fan of fantasy, I have been reading series more or less regularly since childhood, my favourite author is Ursula Le Guin and her series Earthsea. I am a seasonal runner (my greatest achievement is participation in provincial competitions), I love chess and poker and a good movie too.' %}<br><br>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="mb-2 mt-0" style="font-size: larger; max-width: 100%;">
+                                        <p class="mb-3 mt-5 py-4" style="border-top: 1px solid teal;">{% trans 'Join the discord to be up to date with news, ask about what is unclear, report bugs and propose changes.' %}</p>
+                                    </div>
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-auto mb-4">
+                                            <a target="_blank" href='https://discord.gg/g5pcsCteCT'>
+                                                <img height="80" src="{% static 'images/discord-logo-light.svg'%}" alt="Discord">
+                                            </a>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="mb-2 mt-0" style="font-size: larger; max-width: 100%;">
-                            <p class="mb-3 mt-5 py-4" style="border-top: 1px solid teal;">{% trans 'Join the discord to be up to date with news, ask about what is unclear, report bugs and propose changes.' %}</p>
+                        {% endblock %}
+                    </div>
+                    {% block footer %}
+                        <footer class="footer-center">
+                            <div>
+                                <p>{% trans 'This site is free of 3rd party trackers, we belive in privacy, refer to '%} <a target="_blank" href="{% static 'privacy-policy-04-02-2023.pdf' %}">{% trans 'our privacy policy and regulations.' %}</a></p>
+                                <p>Build version: <i>{{ BUILD_TAG }}</i></p>
+                                <p class="footer-link">&copy; 2020-2024 <a href='https://www.rafsaf.pl'>rafsaf.pl</a></p>
                             </div>
-                            <div class="row mt-4 justify-content-center">
-                                <div class="col-auto mb-4">
-                                    <a target="_blank" href='https://discord.gg/g5pcsCteCT'>
-                                        <img height="80" src="{% static 'images/discord-logo-light.svg'%}" alt="Discord">
-                                    </a>
-                                </div>
-                            </div>                  
- 
-                    </div>
-                    </div>
+                        </footer>
                     {% endblock %}
                 </div>
-                {% block footer %}
-                <footer class="footer-center">
-                    <div>
-                        <p>{% trans 'This site is free of 3rd party trackers, we belive in privacy, refer to '%} <a target="_blank" href="{% static 'privacy-policy-04-02-2023.pdf' %}">{% trans 'our privacy policy and regulations.' %}</a></p>
-                        <p>Build version: <i>{{ BUILD_TAG }}</i></p>
-                        <p class="footer-link">&copy; 2020-2024 <a href='https://www.rafsaf.pl'>rafsaf.pl</a></p>           
-                    </div>
-                </footer>
-                {% endblock %}
             </div>
-        </div>
-    </div>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-    <script>activateTooltips();menu_toggle();</script>
-{% endspaceless %}
-</body>
-</html>
+            </div>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+            <script>activateTooltips();menu_toggle();</script>
+        {% endspaceless %}
+        </body>
+    </html>

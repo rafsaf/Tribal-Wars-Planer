@@ -1,537 +1,537 @@
 {% extends "base/new_outline/new_outline.html" %}
-{% load static %} 
+{% load static %}
 {% load i18n %}
 {% block title %}{% trans 'Planer' %} - {{instance.name|capfirst}}{% endblock %}
-{% block content %} 
-{% load crispy_forms_tags %}
-{% get_current_language as LANG %}
+{% block content %}
+  {% load crispy_forms_tags %}
+  {% get_current_language as LANG %}
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
-<link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
-<script src="{% static 'codemirror-min.js' %}"></script>
-<script src="{% static 'multi-select-min.js' %}"></script>
-<script src="https://kit.fontawesome.com/dc3f7108e7.js" crossorigin="anonymous"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
+  <script src="{% static 'codemirror-min.js' %}"></script>
+  <script src="{% static 'multi-select-min.js' %}"></script>
+  <script src="https://kit.fontawesome.com/dc3f7108e7.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 
 
-<div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
-  <div class="col-12 col-lg-7">
-    <div class="w-100">
-      <div class="mb-4 mt-2">
-        {% if mode == "real" %}
-        <a class="t-tab-teal t-tab-teal-active" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{calc.len_real}}</span></a>
+  <div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
+    <div class="col-12 col-lg-7">
+      <div class="w-100">
+        <div class="mb-4 mt-2">
+          {% if mode == "real" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{calc.len_real}}</span></a>
 
-        {% else %}
-        <a class="t-tab-teal" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{calc.len_real}}</span></a>
+          {% else %}
+            <a class="t-tab-teal" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{calc.len_real}}</span></a>
 
-        {% endif %}
-        {% if mode == "fake" %}
-        <a class="t-tab-teal t-tab-teal-active" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{calc.len_fake}}</span></a>
+          {% endif %}
+          {% if mode == "fake" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{calc.len_fake}}</span></a>
 
-        {% else %}
-        <a class="t-tab-teal" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{calc.len_fake}}</span></a>
+          {% else %}
+            <a class="t-tab-teal" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{calc.len_fake}}</span></a>
 
-        {% endif %}
-        {% if mode == "ruin" %}
-        <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{calc.len_ruin}}</span></a>
+          {% endif %}
+          {% if mode == "ruin" %}
+            <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{calc.len_ruin}}</span></a>
 
-        {% else %}
-        <a class="t-tab-teal" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{calc.len_ruin}}</span></a>
+          {% else %}
+            <a class="t-tab-teal" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{calc.len_ruin}}</span></a>
 
-        {% endif %}
+          {% endif %}
+        </div>
+        <form id="form1-form" method='POST'>
+          <input type="hidden" name="form1" value=""/>{% csrf_token %}
+
+          {% if calc.show_duplicates %}
+            <div class="mb-2">
+
+              <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Duplicates detected, click to view them' %}</a>
+
+              <div class="collapse mb-3 mt-1" id="collapseRepeat">
+                <div class="card card-body">
+                  <div class="row">
+                    <div class="col-auto my-1">
+                      <h5>{% trans 'Targets-Duplicated' %}</h5>
+
+                      {% for dict in calc.real_duplicates %}
+
+                        <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                      {% endfor %}
+                    </div>
+                    <div class="col-auto my-1">
+                      <h5>{% trans 'Fakes-Duplicated' %}</h5>
+
+                      {% for dict in calc.fake_duplicates %}
+
+                        <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                      {% endfor %}
+                    </div>
+                    <div class="col-auto my-1">
+                      <h5>{% trans 'Ruin-Duplicated' %}</h5>
+
+                      {% for dict in calc.ruin_duplicates %}
+
+                        <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if calc.show_barbarians %}
+            <div class="mb-2">
+
+              <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat2" role="button" aria-expanded="false" aria-controls="collapseRepeat2" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Barbarian targets detected, click to view them' %}</a>
+
+              <div class="collapse mb-3 mt-1" id="collapseRepeat2">
+                <div class="card card-body">
+                  <div class="row">
+                    <div class="col-auto my-1">
+                      <h5>{% trans 'Targets-Barbarian' %}</h5>
+
+                      {% for dict in calc.real_barbarians %}
+
+                        <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                      {% endfor %}
+                    </div>
+                    <div class="col-auto my-1">
+                      <h5>{% trans 'Fakes-Barbarian' %}</h5>
+
+                      {% for dict in calc.fake_barbarians %}
+
+                        <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                      {% endfor %}
+                    </div>
+                    <div class="col-auto my-1">
+                      <h5>{% trans 'Ruin-Barbarian' %}</h5>
+
+                      {% for dict in calc.ruin_barbarians %}
+
+                        <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {{ form1.target }}
+
+          {% if form1.target.errors %}
+            <script>codemirrorValidation(`{{form1.target.errors.as_json|safe}}`, `.CodeMirror`);</script>
+
+            <div class="error-text">
+              <p>{% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}<br><br>{% trans 'Valid lines looks like (assuming that such a village 000|000 exists):' %}<br>{% trans '"000|000" - clean coords' %}<br>{% trans '"000|000:0:0" - coords with :off:noble numbers' %}<br>{% trans '"000|000:0|0|0|0:0" - additional off info, list instead of number' %}<br>{% trans '"000|000:0|0|0|0:0|0|0|0" - max info that can be passed about offs and nobles' %}<br></p>
+            </div>
+          {% endif %}
+
+          {% if form1.target.errors|length == 0 %}
+
+            {% for error in form1.non_field_errors %}
+              <div class="error-text mb-3">{{error|safe}}</div>
+
+              <script>document.addEventListener("DOMContentLoaded", function(event) {$('.CodeMirror').addClass('CodeMirror-Invalid');});</script>
+
+            {% endfor %}
+
+          {% endif %}
+        </form>
+
+        <form id="form-complete" method="POST" action="{% url 'base:planer_complete' instance.id %}">{% csrf_token %}</form>
+
+        <div class="btn-group my-3">
+
+          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`,``,true);" id="form1-btn" class="btn btn-ocean">{% trans 'Save targets' %}</button>
+
+          <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`,`write-an-outline-percentage`,true);updateAfterClick(document.getElementById(`write-an-outline-percentage`),`{{estimated_time}}`, ``)" id="form-complete-btn" class="btn btn-outline-ocean"><i class="bi bi-pen" style="font-size: 1em;"></i> {% trans 'Write an outline' %}<span id="write-an-outline-percentage"></span></button>
+
+        </div>
       </div>
-      <form id="form1-form" method='POST'>
-        <input type="hidden" name="form1" value=""/>{% csrf_token %}
 
-        {% if calc.show_duplicates %}
-        <div class="mb-2">
+      <table class="table table-sm table-bordered my-3">
+        <thead>
+          <tr>
+            <th scope="col">{% trans 'Description' %}</th>
+            <th scope="col">{% trans 'All' %}</th>
+            <th scope="col">{% trans 'Front' %}</th>
+            <th scope="col">{% trans 'Back' %}</th>
+            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs further than maximum distance for offs (equals to' %} {{instance.initial_outline_maximum_off_dist}} {% trans 'now), which will be completely skipped now.' %}" class="text-nowrap"  scope="col">{% trans 'Away' %} <i class="bi bi-question-square"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th style="cursor: default;">{% trans 'Offs' %}</th>
+            {% for item in instance.avaiable_offs %}
+              <th style="cursor: default;"> {{ item }} </th>
+            {% empty %}
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th style="cursor: default;">{% trans 'Nobles' %}</th>
+            {% for item in instance.avaiable_nobles %}
+              <th>{{ item }}</th>
+            {% empty %}
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th style="cursor: default;">{% trans 'Catapults' %}</th>
+            {% for item in instance.available_catapults %}
+              <th>{{ item }}</th>
+            {% empty %}
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Offs close to real targets' %} <i class="bi bi-question-square"></i></th>
 
-          <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Duplicates detected, click to view them' %}</a>
+            {% for item in instance.avaiable_offs_near %}
+              <th>{{ item }}</th>
+            {% empty %}
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Nobles around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Nobles close to real targets' %} <i class="bi bi-question-square"></i></th>
 
-          <div class="collapse mb-3 mt-1" id="collapseRepeat">
-            <div class="card card-body">
-              <div class="row">
-                <div class="col-auto my-1">
-                  <h5>{% trans 'Targets-Duplicated' %}</h5>
+            {% for item in instance.avaiable_nobles_near %}
+              <th>{{ item }}</th>
+            {% empty %}
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="
+                                                                                           {% blocktrans with initial_outline_off_left_catapult=instance.initial_outline_off_left_catapult initial_outline_maximum_off_dist=instance.initial_outline_maximum_off_dist %}
+                                                                                             Catapults from villages that are not front, minus what must be left in off villages ({{initial_outline_off_left_catapult}} catapults per village, see 6.). Only villages at maximum distance that are not far away (now more than {{initial_outline_maximum_off_dist}}, see 1.).
+                                                                                           {% endblocktrans %}" class="text-nowrap" scope="col">{% trans 'Available catapults to use' %} <i class="bi bi-question-square"></i></th>
+            <th>
+              {% if instance.avaiable_ruins %}
+                {{instance.avaiable_ruins}}
+              {% endif %}
+            </th>
+          </tr>
 
-                  {% for dict in calc.real_duplicates %}
+        </tbody>
+      </table>
 
-                  <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+      <h4 class="my-4"><i class="bi bi-gear" style="font-size: 1.5em;position: relative;top: 0.125em"></i> {% trans 'Advanced settings:' %}</h4>
 
-                  {% endfor %}
-                </div>
-                <div class="col-auto my-1">
-                  <h5>{% trans 'Fakes-Duplicated' %}</h5>
+      <div class="accordion" id="outline-options">
 
-                  {% for dict in calc.fake_duplicates %}
+        <div class="card">
+          <div class="card-header" id="headingOne">
 
-                  <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{% if form2.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '1. Available Troops' %}</button></h5>
 
-                  {% endfor %}
-                </div>
-                <div class="col-auto my-1">
-                  <h5>{% trans 'Ruin-Duplicated' %}</h5>
+          </div>
 
-                  {% for dict in calc.ruin_duplicates %}
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" >
+            <div class="card-body">
 
-                  <p class="my-0">{{dict.target}} - {{dict.duplicate}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
+              <h4 class="mb-3">{% trans 'Available troops settings:' %}</h4>
 
-                  {% endfor %}
-                </div>
+              <div class="mt-1">
+                <form id="form2-form" method='POST' autocomplete="off">
+                  <input type="hidden" name="form2" value=""/>
+                  {% csrf_token %}
+                  {{form2|crispy}}
+                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`,``,true);" class="btn btn-ocean" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
-        {% endif %}
 
-        {% if calc.show_barbarians %}
-        <div class="mb-2">
+        <div class="card">
+          <div class="card-header" id="headingTwo">
 
-          <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat2" role="button" aria-expanded="false" aria-controls="collapseRepeat2" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Barbarian targets detected, click to view them' %}</a>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">{% if form3.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '2. Setting the date' %}</button></h5>
 
-          <div class="collapse mb-3 mt-1" id="collapseRepeat2">
-            <div class="card card-body">
-              <div class="row">
-                <div class="col-auto my-1">
-                  <h5>{% trans 'Targets-Barbarian' %}</h5>
-
-                  {% for dict in calc.real_barbarians %}
-
-                  <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
-
-                  {% endfor %}
-                </div>
-                <div class="col-auto my-1">
-                  <h5>{% trans 'Fakes-Barbarian' %}</h5>
-
-                  {% for dict in calc.fake_barbarians %}
-
-                  <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
-
-                  {% endfor %}
-                </div>
-                <div class="col-auto my-1">
-                  <h5>{% trans 'Ruin-Barbarian' %}</h5>
-
-                  {% for dict in calc.ruin_barbarians %}
-
-                  <p class="my-0">{{dict.target}} &nbsp; <span class="lines-wrapper">{{dict.lines}}</span></p>
-
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
-        {% endif %}
-  
-        {{ form1.target }} 
 
-        {% if form1.target.errors %}
-        <script>codemirrorValidation(`{{form1.target.errors.as_json|safe}}`, `.CodeMirror`);</script>
-                
-        <div class="error-text">
-          <p>{% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}<br><br>{% trans 'Valid lines looks like (assuming that such a village 000|000 exists):' %}<br>{% trans '"000|000" - clean coords' %}<br>{% trans '"000|000:0:0" - coords with :off:noble numbers' %}<br>{% trans '"000|000:0|0|0|0:0" - additional off info, list instead of number' %}<br>{% trans '"000|000:0|0|0|0:0|0|0|0" - max info that can be passed about offs and nobles' %}<br></p>
-        </div>
-        {% endif %} 
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
+            <div class="card-body">
 
-        {% if form1.target.errors|length == 0 %} 
-                
-        {% for error in form1.non_field_errors %}
-        <div class="error-text mb-3">{{error|safe}}</div>
+              <h4 class="mb-3"><i class="bi bi-calendar" style="font-size: 1em;"></i> {% trans 'Current date:' %} <span class="md-error">{{instance.date}}</span></h4>
 
-          <script>document.addEventListener("DOMContentLoaded", function(event) {$('.CodeMirror').addClass('CodeMirror-Invalid');});</script>
-
-        {% endfor %} 
-
-        {% endif %}
-      </form>
-
-      <form id="form-complete" method="POST" action="{% url 'base:planer_complete' instance.id %}">{% csrf_token %}</form>
-
-      <div class="btn-group my-3">
-
-        <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`,``,true);" id="form1-btn" class="btn btn-ocean">{% trans 'Save targets' %}</button>
-
-        <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`,`write-an-outline-percentage`,true);updateAfterClick(document.getElementById(`write-an-outline-percentage`),`{{estimated_time}}`, ``)" id="form-complete-btn" class="btn btn-outline-ocean"><i class="bi bi-pen" style="font-size: 1em;"></i> {% trans 'Write an outline' %}<span id="write-an-outline-percentage"></span></button>     
-
-      </div>
-    </div>
-
-    <table class="table table-sm table-bordered my-3">
-      <thead>
-        <tr>
-          <th scope="col">{% trans 'Description' %}</th>
-          <th scope="col">{% trans 'All' %}</th>
-          <th scope="col">{% trans 'Front' %}</th>
-          <th scope="col">{% trans 'Back' %}</th>
-          <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs further than maximum distance for offs (equals to' %} {{instance.initial_outline_maximum_off_dist}} {% trans 'now), which will be completely skipped now.' %}" class="text-nowrap"  scope="col">{% trans 'Away' %} <i class="bi bi-question-square"></i></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th style="cursor: default;">{% trans 'Offs' %}</th>
-          {% for item in instance.avaiable_offs %}
-          <th style="cursor: default;"> {{ item }} </th>
-          {% empty %}
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          {% endfor %}
-        </tr>
-        <tr>
-          <th style="cursor: default;">{% trans 'Nobles' %}</th>
-          {% for item in instance.avaiable_nobles %}
-          <th>{{ item }}</th>
-          {% empty %}
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          {% endfor %}
-        </tr>
-        <tr>
-          <th style="cursor: default;">{% trans 'Catapults' %}</th>
-          {% for item in instance.available_catapults %}
-          <th>{{ item }}</th>
-          {% empty %}
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          {% endfor %}
-        </tr>
-        <tr>
-          <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Offs close to real targets' %} <i class="bi bi-question-square"></i></th>
-
-          {% for item in instance.avaiable_offs_near %}
-          <th>{{ item }}</th>
-          {% empty %}
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          {% endfor %}
-        </tr>
-        <tr>
-          <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Nobles around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Nobles close to real targets' %} <i class="bi bi-question-square"></i></th>
-
-          {% for item in instance.avaiable_nobles_near %}
-          <th>{{ item }}</th>
-          {% empty %}
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          {% endfor %}
-        </tr>
-        <tr>
-          <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="
-          {% blocktrans with initial_outline_off_left_catapult=instance.initial_outline_off_left_catapult initial_outline_maximum_off_dist=instance.initial_outline_maximum_off_dist %}
-          Catapults from villages that are not front, minus what must be left in off villages ({{initial_outline_off_left_catapult}} catapults per village, see 6.). Only villages at maximum distance that are not far away (now more than {{initial_outline_maximum_off_dist}}, see 1.).
-          {% endblocktrans %}" class="text-nowrap" scope="col">{% trans 'Available catapults to use' %} <i class="bi bi-question-square"></i></th>
-          <th>
-            {% if instance.avaiable_ruins %}
-            {{instance.avaiable_ruins}}
-            {% endif %}
-          </th>
-        </tr>
-
-      </tbody>
-    </table>
-    
-    <h4 class="my-4"><i class="bi bi-gear" style="font-size: 1.5em;position: relative;top: 0.125em"></i> {% trans 'Advanced settings:' %}</h4>
-
-    <div class="accordion" id="outline-options">
-
-      <div class="card">
-        <div class="card-header" id="headingOne">
-
-          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{% if form2.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '1. Available Troops' %}</button></h5>
-
-        </div>
-                  
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" >
-          <div class="card-body">
-
-          <h4 class="mb-3">{% trans 'Available troops settings:' %}</h4>
-
-            <div class="mt-1">
-              <form id="form2-form" method='POST' autocomplete="off">
-                <input type="hidden" name="form2" value=""/>
+              <form id="form3-form" method='POST' autocomplete="off">
+                <input type="hidden" name="form3" value="">
                 {% csrf_token %}
-                {{form2|crispy}}
-                <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`,``,true);" class="btn btn-ocean" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
+                {{form3|crispy}}
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="headingThree">
+
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">{% if form4.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '3. Outline parameters' %}</button></h5>
+
+          </div>
+
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" >
+            <div class="card-body">
+              <form id="form4-form" method='POST' autocomplete="off">
+                <input type="hidden" name="form4" value="">
+                {% csrf_token %}
+                {{ form4|crispy }}
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form4-form`);" class="btn btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
               </form>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header" id="headingTwo">
+        <div class="card">
+          <div class="card-header" id="headingFour">
 
-          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">{% if form3.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '2. Setting the date' %}</button></h5>
-
-        </div>
-
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
-          <div class="card-body">
-
-            <h4 class="mb-3"><i class="bi bi-calendar" style="font-size: 1em;"></i> {% trans 'Current date:' %} <span class="md-error">{{instance.date}}</span></h4>
-
-            <form id="form3-form" method='POST' autocomplete="off">
-              <input type="hidden" name="form3" value="">
-              {% csrf_token %}
-              {{form3|crispy}}
-              <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
-            </form>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% if form7.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '4. Morale' %}</button></h5>
 
           </div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header" id="headingThree">
-
-          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">{% if form4.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '3. Outline parameters' %}</button></h5>
-
-        </div>
-
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" >
-          <div class="card-body">
-            <form id="form4-form" method='POST' autocomplete="off">
-              <input type="hidden" name="form4" value="">
-              {% csrf_token %}
-              {{ form4|crispy }}
-              <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form4-form`);" class="btn btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" id="headingFour">
-
-          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% if form7.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '4. Morale' %}</button></h5>
-
-        </div>
-
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" >
-          <div class="card-body">
-            <div class="mb-3">
-              {% if instance.morale_on %}
-              <h4>{% trans 'ACTIVE: ' %} <span class="md-correct2"> {%trans 'True' %}</span></h4>
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" >
+            <div class="card-body">
+              <div class="mb-3">
+                {% if instance.morale_on %}
+                  <h4>{% trans 'ACTIVE: ' %} <span class="md-correct2"> {%trans 'True' %}</span></h4>
+                {% else %}
+                  <h4>{% trans 'ACTIVE: ' %} <span class="md-error">{% trans 'False' %}</span></h4>
+                {% endif %}
+                {% if instance.world.morale == 0 %}
+                  <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i>&nbsp;<b>{{instance.world}}</b>&nbsp;<span class="md-error">{% trans 'has no morale turned off and thus it is pointless to use this option.' %}</span></div>
+                {% elif instance.world.morale == 2 %}
+                  <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> &nbsp;<b>{{instance.world}}</b>&nbsp;  <span class="md-error">{% trans 'has morale based on points and time. This is not perfectly handled by Planer. See topic "4. Morale" in the docs on the right side.' %}</span></div>
+                {% endif %}
+              </div>
+              <style>input[type=checkbox] {width:1rem; height:1rem;}</style>
+              {% if instance.world.morale != 0 %}
+                <form id="form7-form" method='POST' autocomplete="off">
+                  <input type="hidden" name="form7" value="">
+                  {% csrf_token %}
+                  {{form7|crispy}}
+                  <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean" id="form7-btn" >{% trans 'Save' %}</button>
+                </form>
+              {% endif %}
+              {% if morale_dict %}
+                <div class="my-3 mt-5">
+                  <table id="morale-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">{% trans 'Attacker' %}</th>
+                        <th scope="col">{% trans 'Defender' %}</th>
+                        <th scope="col">{% trans 'Morale value' %}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for players, morale in morale_dict %}
+                        <tr>
+                          <th>{{players.1}}</th>
+                          <th>{{players.0}}</th>
+                          <th>{{morale}}</th>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
               {% else %}
-              <h4>{% trans 'ACTIVE: ' %} <span class="md-error">{% trans 'False' %}</span></h4>
-              {% endif %}
-              {% if instance.world.morale == 0 %}
-              <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i>&nbsp;<b>{{instance.world}}</b>&nbsp;<span class="md-error">{% trans 'has no morale turned off and thus it is pointless to use this option.' %}</span></div>
-              {% elif instance.world.morale == 2 %}
-              <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> &nbsp;<b>{{instance.world}}</b>&nbsp;  <span class="md-error">{% trans 'has morale based on points and time. This is not perfectly handled by Planer. See topic "4. Morale" in the docs on the right side.' %}</span></div>
-              {% endif %}
-            </div>
-            <style>input[type=checkbox] {width:1rem; height:1rem;}</style>
-            {% if instance.world.morale != 0 %}
-            <form id="form7-form" method='POST' autocomplete="off">
-              <input type="hidden" name="form7" value="">
-              {% csrf_token %}
-              {{form7|crispy}}
-              <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean" id="form7-btn" >{% trans 'Save' %}</button>
-            </form>
-            {% endif %}
-            {% if morale_dict %}
-            <div class="my-3 mt-5">
-              <table id="morale-table">
-                <thead>
-                  <tr>
-                    <th scope="col">{% trans 'Attacker' %}</th>
-                    <th scope="col">{% trans 'Defender' %}</th>
-                    <th scope="col">{% trans 'Morale value' %}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for players, morale in morale_dict %}
-                    <tr>
-                      <th>{{players.1}}</th>
-                      <th>{{players.0}}</th>
-                      <th>{{morale}}</th>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            {% else %}
-            <div class="my-3">
-              <h4 class="md-correct2">{% trans "Congratulations! No morale issues found for selected targets." %}</h4>
-            </div>
-            {% endif %}
-          </div>
-
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" id="headingFive">
-
-          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '5. Avoid night bonus' %}</button></h5>
-
-        </div>
-
-        <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" >
-          <div class="card-body">
-
-            <div class="mb-3">
-              {% if instance.night_bonus %}
-              <h4>{% trans 'ACTIVE: ' %} <span class="md-correct2"> {%trans 'True' %}</span></h4>
-              <h4>{% trans 'Time 1: ' %} <span class="md-correct2">{{instance.enter_t1}}</span></h4>
-              <h4>{% trans 'Time 2: ' %} <span class="md-correct2">{{instance.enter_t2}}</span></h4>
-
-              {% else %}
-              <h4>{% trans 'ACTIVE: ' %} <span class="md-error">{% trans 'False' %}</span></h4>
-
+                <div class="my-3">
+                  <h4 class="md-correct2">{% trans "Congratulations! No morale issues found for selected targets." %}</h4>
+                </div>
               {% endif %}
             </div>
 
-            <form id="form5-form" method='POST' autocomplete="off">
-              <input type="hidden" name="form5" value="">
-              {% csrf_token %}
-              {{form5|crispy}}
-              <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form5-form`);" class="btn btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
-            </form>
-
           </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header" id="headingSix">
+        <div class="card">
+          <div class="card-header" id="headingFive">
 
-          <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '6. Ruining' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '5. Avoid night bonus' %}</button></h5>
 
-        </div>
+          </div>
 
-        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" >
-          <div class="card-body">
+          <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" >
+            <div class="card-body">
 
-            <div class="my-2">
-              <p class="mb-0">{% trans 'Order of demolition of buildings:' %}</p>
-              <p style="font-size:0.9rem;" class="mt-0 md-correct2">{% trans 'Only the buildings listed below will be included in the demolition! (in that order)' %}</p>
-            
-              <span class="multi-select"></span>
+              <div class="mb-3">
+                {% if instance.night_bonus %}
+                  <h4>{% trans 'ACTIVE: ' %} <span class="md-correct2"> {%trans 'True' %}</span></h4>
+                  <h4>{% trans 'Time 1: ' %} <span class="md-correct2">{{instance.enter_t1}}</span></h4>
+                  <h4>{% trans 'Time 2: ' %} <span class="md-correct2">{{instance.enter_t2}}</span></h4>
 
-              <p style="height: 0.8rem;" id="multi-select-spinner"></p>
+                {% else %}
+                  <h4>{% trans 'ACTIVE: ' %} <span class="md-error">{% trans 'False' %}</span></h4>
+
+                {% endif %}
+              </div>
+
+              <form id="form5-form" method='POST' autocomplete="off">
+                <input type="hidden" name="form5" value="">
+                {% csrf_token %}
+                {{form5|crispy}}
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form5-form`);" class="btn btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
+              </form>
 
             </div>
-
-            <form id="form6-form" method='POST' autocomplete="off">
-              <input type="hidden" name="form6" value="">
-              {% csrf_token %}
-              {{form6|crispy}}
-              <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-ocean" id="form6-btn" >{% trans 'Save' %}</button>
-            </form>
           </div>
         </div>
-      </div>
 
+        <div class="card">
+          <div class="card-header" id="headingSix">
+
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '6. Ruining' %}</button></h5>
+
+          </div>
+
+          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" >
+            <div class="card-body">
+
+              <div class="my-2">
+                <p class="mb-0">{% trans 'Order of demolition of buildings:' %}</p>
+                <p style="font-size:0.9rem;" class="mt-0 md-correct2">{% trans 'Only the buildings listed below will be included in the demolition! (in that order)' %}</p>
+
+                <span class="multi-select"></span>
+
+                <p style="height: 0.8rem;" id="multi-select-spinner"></p>
+
+              </div>
+
+              <form id="form6-form" method='POST' autocomplete="off">
+                <input type="hidden" name="form6" value="">
+                {% csrf_token %}
+                {{form6|crispy}}
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-ocean" id="form6-btn" >{% trans 'Save' %}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="d-block d-lg-none mb-4"></div>
     </div>
-    <div class="d-block d-lg-none mb-4"></div>
-  </div>
 
-  <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
-    <div class="h-100">
-      <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
-        <li class="nav-item navitem100">
+    <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
+      <div class="h-100">
+        <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+          <li class="nav-item navitem100">
             <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
-        </li>
+          </li>
 
-        <li class="nav-item navitem100">
+          <li class="nav-item navitem100">
             <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
-        </li>
-      </ul>
-      <div class="tab-content" id="pills-tabContent">
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
 
-        <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
-          <div id="planer-docs-form-info"></div>
+          <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div id="planer-docs-form-info"></div>
+          </div>
+
+          <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab"><div id="planer-docs-form-example"></div></div>
+
         </div>
-
-        <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab"><div id="planer-docs-form-example"></div></div>
-
       </div>
     </div>
+    {{instance.initial_outline_buildings|json_script:"initial-buildings"}}
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});
+      var instance = new SelectPure(".multi-select", {
+        options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "wall" %}`),
+        multiple: true,
+        value: JSON.parse(document.getElementById('initial-buildings').textContent),
+        icon: "fa fa-times",
+        onChange: value => { changeBuildingsArray(`{{instance.pk}}`,instance.value()); }
+      });
+    </script>
   </div>
-  {{instance.initial_outline_buildings|json_script:"initial-buildings"}}
-  <script>
-    var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});
-    var instance = new SelectPure(".multi-select", {
-      options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "wall" %}`),
-      multiple: true,
-      value: JSON.parse(document.getElementById('initial-buildings').textContent),
-      icon: "fa fa-times",
-      onChange: value => { changeBuildingsArray(`{{instance.pk}}`,instance.value()); }
-    });
-  </script>
-</div>
 
-{% if premium_error %}
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content text-white bg-danger">
-        <div class="modal-header">
+  {% if premium_error %}
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content text-white bg-danger">
+          <div class="modal-header">
             <h3 class="modal-title">{% trans 'An error occured' %}</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
-        </div>
-        <div class="modal-body">
+          </div>
+          <div class="modal-body">
             <h5>{% trans "Premium account is required to complete outlines greater than " %} {{premium_account_max_targets_free}} {% trans " targets. Buy it" %} <b><a style='color:white;text-decoration:underline' href="{% url 'base:premium' %}">{% trans 'here' %}</a></b> {% trans "or reduce the number of outline targets." %}</h5>
+          </div>
         </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<script>document.addEventListener("DOMContentLoaded", function(event) {$('.bd-example-modal-lg').modal('show');});</script>
+    <script>document.addEventListener("DOMContentLoaded", function(event) {$('.bd-example-modal-lg').modal('show');});</script>
 
-{% endif %}
-{% if error != None %}
+  {% endif %}
+  {% if error != None %}
 
-<div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content text-white bg-danger">
-            <div class="modal-header">
-                <h3 class="modal-title">{% trans 'An error occured' %}</h3>
+          <div class="modal-header">
+            <h3 class="modal-title">{% trans 'An error occured' %}</h3>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button> -->
-            </div>
-            <div class="modal-body">
-                {{error|safe}}
-            </div>
+          </div>
+          <div class="modal-body">
+            {{error|safe}}
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
+    <script>
+      document.addEventListener("DOMContentLoaded", function(event) {
         $('.bd-example-modal-lg2').modal({backdrop: 'static', keyboard: false}, 'show');
-    });
-    const buttons = document.getElementsByTagName("button");
-    const links = document.getElementsByTagName("a");
-    for (const i of buttons) {
-      i.disabled = true;
-    }
-    for (const i of links) {
-      i.classList.add("disabled-link");
-    }
-    
-</script>
-{% endif %} 
-{% get_current_language as LANG %}
-<script>
-  loadDocsPage(6, "planer-docs-form-info", "{% static 'markdown/'|add:LANG|add:'/planer_form_info.md' %}");
-  loadDocsPage(7, "planer-docs-form-example", "{% static 'markdown/'|add:LANG|add:'/planer_form_example.md' %}");
-  $(document).ready( function () {
-    $('#morale-table').DataTable();
-} );
-</script>
+      });
+      const buttons = document.getElementsByTagName("button");
+      const links = document.getElementsByTagName("a");
+      for (const i of buttons) {
+        i.disabled = true;
+      }
+      for (const i of links) {
+        i.classList.add("disabled-link");
+      }
+
+    </script>
+  {% endif %}
+  {% get_current_language as LANG %}
+  <script>
+    loadDocsPage(6, "planer-docs-form-info", "{% static 'markdown/'|add:LANG|add:'/planer_form_info.md' %}");
+    loadDocsPage(7, "planer-docs-form-example", "{% static 'markdown/'|add:LANG|add:'/planer_form_example.md' %}");
+    $(document).ready( function () {
+      $('#morale-table').DataTable();
+    } );
+  </script>
 {% endblock %}

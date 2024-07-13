@@ -1,13 +1,13 @@
-{% extends "base/base.html" %} 
-{% load i18n %} 
+{% extends "base/base.html" %}
+{% load i18n %}
 {% block title %}Server error 404{% endblock %}
 {% block content %}
-<div class="container-md py-5" style="min-height: 70vh; max-width:1000px !important;">
-    <div style="margin-left:-15px;margin-right:-15px;">
-        <h2>Not Found (404)</h2>
-        <p>{% trans "Ops, no access, or the content you're looking for is no longer available on the site." %}</p>
+    <div class="container-md py-5" style="min-height: 70vh; max-width:1000px !important;">
+        <div style="margin-left:-15px;margin-right:-15px;">
+            <h2>Not Found (404)</h2>
+            <p>{% trans "Ops, no access, or the content you're looking for is no longer available on the site." %}</p>
+        </div>
     </div>
-</div>
 
 
 {% endblock %}

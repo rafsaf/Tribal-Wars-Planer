@@ -2,87 +2,128 @@
 {% load i18n %}
 {% block title %}{% trans 'Results' %} - {{instance.name|capfirst}}{% endblock %}
 {% block content %}
-{% load crispy_forms_tags %}
-<div class="table-responsive">
-<div class="mt-2 mb-5" id='leftscroll'>
-    <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
-        <li class="nav-item navitem100">
-            <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
-        </li>
-        <li class="nav-item navitem100">
-            <a class="nav-link ocean-tab-mid" id="pills-sum-up" data-toggle="pill" href="#pills-outline-sum-up" role="tab" aria-controls="pills-sum-up" aria-selected="false">{% trans 'Sum Up' %}</a>
-        </li>
-        <li class="nav-item navitem100">
-            <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
-        </li>
-        <li class="nav-item navitem100">
-            <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
-        </li>
-        <li class="nav-item navitem100">
-            <a class="nav-link ocean-tab-mid" id="pills-export" data-toggle="pill" href="#pills-outline-export" role="tab" aria-controls="pills-export" aria-selected="false">{% trans 'Left troops' %}</a>
-        </li>
-        <li class="nav-item navitem100">
-            <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
-        </li>
+    {% load crispy_forms_tags %}
+    <div class="table-responsive">
+        <div class="mt-2 mb-5" id='leftscroll'>
+            <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+                <li class="nav-item navitem100">
+                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
+                </li>
+                <li class="nav-item navitem100">
+                    <a class="nav-link ocean-tab-mid" id="pills-sum-up" data-toggle="pill" href="#pills-outline-sum-up" role="tab" aria-controls="pills-sum-up" aria-selected="false">{% trans 'Sum Up' %}</a>
+                </li>
+                <li class="nav-item navitem100">
+                    <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
+                </li>
+                <li class="nav-item navitem100">
+                    <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
+                </li>
+                <li class="nav-item navitem100">
+                    <a class="nav-link ocean-tab-mid" id="pills-export" data-toggle="pill" href="#pills-outline-export" role="tab" aria-controls="pills-export" aria-selected="false">{% trans 'Left troops' %}</a>
+                </li>
+                <li class="nav-item navitem100">
+                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
+                </li>
 
-    </ul>
-    <div class="tab-content pt-1" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
-          <div class="p-2 my-2 mb-3  bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="{% url 'base:documentation' %}?link=true#send-script"> {% trans 'here' %}</a>.
+            </ul>
+            <div class="tab-content pt-1" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="p-2 my-2 mb-3  bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="{% url 'base:documentation' %}?link=true#send-script"> {% trans 'here' %}</a>.
             {% comment %}
             
             <br>{% trans '<b>Warning!</b> New version of script released 30.08.2021. No backward compability!!!' %}<a target="_blank" href="{% url 'base:documentation' %}#send-script"> {% trans 'Check out here.' %}
             
             {% endcomment %}
-            </a></div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <h5 class="mb-0">
+                    </a></div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
 
-                    <button style="text-decoration: none;" class="btn btn-link collapsed py-1 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        {% if form1.errors %}
-                        <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
-                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                          </svg></span>
-                        {% endif %}
-                      {% trans 'Set title, text and show hidden value' %}
-                    </button>
+                            <button style="text-decoration: none;" class="btn btn-link collapsed py-1 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                {% if form1.errors %}
+                                    <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
+                                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                                    </svg></span>
+                                {% endif %}
+                                {% trans 'Set title, text and show hidden value' %}
+                            </button>
 
-                  </h5>
+                        </h5>
 
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" >
+                        <div class="card-body">
+                            <form method="POST">
+                                <input type="hidden" name="form1" value="">
+                                {% csrf_token %}
+                                {{form1|crispy}}
+                                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean">{% trans 'Save' %}</button>
+                            </form>
+
+
+                        </div>
+                    </div>
                 </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" >
-                  <div class="card-body">
-                    <form method="POST">
-                        <input type="hidden" name="form1" value="">
-                        {% csrf_token %}
-                        {{form1|crispy}}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean">{% trans 'Save' %}</button>
-                    </form>
-                    
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
 
-                  </div>
+                            <button style="text-decoration: none;" class="btn btn-link collapsed text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                {% trans 'Removed links' %}
+                            </button>
+
+                        </h5>
+
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead style="background-color: teal;">
+
+                                    <tr style="color: white;">
+                                        <th scope="col" style="border:1px solid teal">{% trans 'Created' %}</th>
+                                        <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
+                                        <th scope="col" style="border:1px solid teal">{% trans 'Link to member Page' %}</th>
+                                        <th scope="col" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
+                                        <th scope="col" style="border:1px solid teal">{% trans 'Send message' %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in removed_overviews %}
+                                        <tr>
+                                            <th scope="row">{{ item.created }}</th>
+                                            <th>{{item.player}}</th>
+                                            <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
+                                            </th>
+                                            <th>
+                                                {% if item.show_hidden %}
+                                                    <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                                    </button>
+                                                {% else %}
+                                                    <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                                    </button>
+                                                {% endif %}
+                                            </th>
+                                            <th>
+                                                {% if instance.sending_option == "default" %}
+                                                    <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
+                                                {% else %}
+                                                    <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
+                                                {% endif %}
+                                            </th>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <h5 class="mb-0">
-
-                    <button style="text-decoration: none;" class="btn btn-link collapsed text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                      {% trans 'Removed links' %}
-                    </button>
-
-                  </h5>
-
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
-                  <div class="card-body">
+                <div>
                     <table class="table table-bordered">
                         <thead style="background-color: teal;">
-        
                             <tr style="color: white;">
-                                <th scope="col" style="border:1px solid teal">{% trans 'Created' %}</th>
+                                <th scope="col" style="border:1px solid teal">#</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Link to member Page' %}</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
@@ -90,165 +131,124 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for item in removed_overviews %}
-                            <tr>
-                                <th scope="row">{{ item.created }}</th>
-                                <th>{{item.player}}</th>
-                                <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
-                                </th>
-                                <th>
-                                  {% if item.show_hidden %}
-                                  <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
-                                  </button>
-                                  {% else %}
-                                  <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
-                                  </button>                          
-                                  {% endif %}
-                                </th>
-                                <th>
-                                  {% if instance.sending_option == "default" %}
-                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
-                                  {% else %}
-                                  <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
-                                  {% endif %}
-                                </th>
-                            </tr>
+                            {% for item in overviews %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <th>{{item.player}}</th>
+                                    <th>
+                                        <a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}
+                                        </a>
+                                    </th>
+                                    <th>
+                                        {% if item.show_hidden %}
+                                            <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                            </button>
+                                        {% else %}
+                                            <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                            </button>
+                                        {% endif %}
+                                    </th>
+                                    <th>
+                                        {% if instance.sending_option == "default" %}
+                                            <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
+                                        {% else %}
+                                            <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
+                                        {% endif %}
+                                    </th>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                  </div>
                 </div>
-              </div>
-            <div>
-            <table class="table table-bordered">
-                <thead style="background-color: teal;">
-                    <tr style="color: white;">
-                        <th scope="col" style="border:1px solid teal">#</th>
-                        <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
-                        <th scope="col" style="border:1px solid teal">{% trans 'Link to member Page' %}</th>
-                        <th scope="col" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
-                        <th scope="col" style="border:1px solid teal">{% trans 'Send message' %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in overviews %}
-                    <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <th>{{item.player}}</th>
-                        <th>
-                          <a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}
-                          </a>
-                        </th>
-                        <th>
-                          {% if item.show_hidden %}
-                          <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
-                          </button>
-                          {% else %}
-                          <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
-                          </button>                          
-                          {% endif %}
-                        </th>
-                        <th>
-                          {% if instance.sending_option == "default" %}
-                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
-                          {% else %}
-                          <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
-                          {% endif %}
-                        </th>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
 
-        </div>
+            </div>
 
-        <div class="tab-pane fade" id="pills-outline-sum-up" role="tabpanel" aria-labelledby="pills-outline-sum-up">
-            <div class="form-group" contenteditable="true">
-                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="8">{{instance.result.results_players}}</textarea>
+            <div class="tab-pane fade" id="pills-outline-sum-up" role="tabpanel" aria-labelledby="pills-outline-sum-up">
+                <div class="form-group" contenteditable="true">
+                    <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="8">{{instance.result.results_players}}</textarea>
+                </div>
+                <div class="form-group" contenteditable="true">
+                    <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="24">{{instance.result.results_sum_up}}</textarea>
+                </div>
             </div>
-            <div class="form-group" contenteditable="true">
-                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="24">{{instance.result.results_sum_up}}</textarea>
-            </div>
-        </div>
 
-        <div class="tab-pane fade" id="pills-outline-copy1" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <div class="form-group" contenteditable="true">
-                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">
-{% for item in overviews %}
-[b]{{item.player}}[/b]
-[url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]
-{% endfor %}
-                </textarea>
+            <div class="tab-pane fade" id="pills-outline-copy1" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="form-group" contenteditable="true">
+                    <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">
+                        {% for item in overviews %}
+                            [b]{{item.player}}[/b]
+                            [url]{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}[/url]
+                        {% endfor %}
+                    </textarea>
+                </div>
             </div>
-        </div>
 
-        <div class="tab-pane fade" id="pills-outline-copy2" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <div class="form-group" contenteditable="true">
-                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_outline}}</textarea>
+            <div class="tab-pane fade" id="pills-outline-copy2" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="form-group" contenteditable="true">
+                    <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_outline}}</textarea>
+                </div>
             </div>
-        </div>
 
-        <div class="tab-pane fade" id="pills-outline-export" role="tabpanel" aria-labelledby="pills-contact-tab">
-            {% if user.profile.is_premium %}
-            <div class="my-3">
-              {% trans 'Below you will find all the unused troops left after the roster. Paste them into the "1. Troops Data" in order to start a new action.' %}
-            </div>
-            <div class="form-group" contenteditable="true">
-                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_export}}</textarea>
-            </div>
-            {% else %}
-            <div class="my-3">{% trans 'You have no access to unused troops without premium account.' %}</div>
-            
-            {% endif %}
-        </div>
+            <div class="tab-pane fade" id="pills-outline-export" role="tabpanel" aria-labelledby="pills-contact-tab">
+                {% if user.profile.is_premium %}
+                    <div class="my-3">
+                        {% trans 'Below you will find all the unused troops left after the roster. Paste them into the "1. Troops Data" in order to start a new action.' %}
+                    </div>
+                    <div class="form-group" contenteditable="true">
+                        <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_export}}</textarea>
+                    </div>
+                {% else %}
+                    <div class="my-3">{% trans 'You have no access to unused troops without premium account.' %}</div>
 
-        <div class="tab-pane fade" id="pills-deff" role="tabpanel" aria-labelledby="pills-contact-tab">
-            <div class="form-group" contenteditable="true">
-                <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_get_deff}}</textarea>
+                {% endif %}
             </div>
+
+            <div class="tab-pane fade" id="pills-deff" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="form-group" contenteditable="true">
+                    <textarea spellcheck="false" autocomplete="off" class="form-control" id="zbiorka-wojsko" rows="26">{{instance.result.results_get_deff}}</textarea>
+                </div>
+            </div>
+
         </div>
 
     </div>
-
-</div>
-</div>
-{% if go_deff_tab %}
-<script>    
-  $(window).on("load", function () {
-    $('#pills-tab a[href="#pills-deff"]').tab('show')
-  });
-</script>
-{% endif %}
-{% if error != None %}
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content text-white bg-info">
-            <div class="modal-header">
-                <h3 class="modal-title">{% trans 'Some of the written orders have been omitted due to the following problems' %}</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {% for msg in error %}
-                <h6>{{msg}}</h6>
-                {% endfor %}
-            </div>
-
-        </div>
     </div>
-</div>
+    {% if go_deff_tab %}
+        <script>
+            $(window).on("load", function () {
+                $('#pills-tab a[href="#pills-deff"]').tab('show')
+            });
+        </script>
+    {% endif %}
+    {% if error != None %}
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content text-white bg-info">
+                    <div class="modal-header">
+                        <h3 class="modal-title">{% trans 'Some of the written orders have been omitted due to the following problems' %}</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% for msg in error %}
+                            <h6>{{msg}}</h6>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        $('.bd-example-modal-lg').modal('show');
-    });
-</script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                $('.bd-example-modal-lg').modal('show');
+            });
+        </script>
 
-{% endif %}
+    {% endif %}
 
 {% endblock %}

@@ -20,234 +20,234 @@
 {% endblock %}
 
 {% block content %}
-{% load crispy_forms_tags %}
-{% get_current_language as LANG %}
-<div class="row mt-3 mb-4">
-    <div class="col-12 col-lg-7">
+    {% load crispy_forms_tags %}
+    {% get_current_language as LANG %}
+    <div class="row mt-3 mb-4">
+        <div class="col-12 col-lg-7">
 
-        <div class="tab-content pt-1 mb-2" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div class="card">
-                    <div class="card-header" id="headingTwo" >
-                        <button style="text-decoration: none;height:min-content" class="btn btn-link collapsed py-0 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <div data-toggle="tooltip" data-placement="top" title="{% trans 'Data for planer tab may be from Army or Defence tabs. Army - all troops (also that are outside of villages), Defence - only troops from villages.' %}">
-                            {% if form_input_type.errors %}
-                            <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
-                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                              </svg></span>
-                            {% endif %}
-                          <span style="font-size: 1.0rem;">{% trans 'Planer will choose data pasted in: ' %} {% trans instance.get_input_data_trans %}</span>
+            <div class="tab-content pt-1 mb-2" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="card">
+                        <div class="card-header" id="headingTwo" >
+                            <button style="text-decoration: none;height:min-content" class="btn btn-link collapsed py-0 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div data-toggle="tooltip" data-placement="top" title="{% trans 'Data for planer tab may be from Army or Defence tabs. Army - all troops (also that are outside of villages), Defence - only troops from villages.' %}">
+                                    {% if form_input_type.errors %}
+                                        <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
+                                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                                        </svg></span>
+                                    {% endif %}
+                                    <span style="font-size: 1.0rem;">{% trans 'Planer will choose data pasted in: ' %} {% trans instance.get_input_data_trans %}</span>
+                                </div>
+                            </button>
                         </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <form method="POST">
+                                    <input type="hidden" name="form-input" value="">
+                                    {% csrf_token %}
+                                    {{form_input_type|crispy}}
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean">{% trans 'Save' %}</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'Last world update: ' %}{{instance.world.update}}</div>
+            </div>
+
+            <script src="{% static 'codemirror-min.js' %}"></script>
+            <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
+
+            <div class="row">
+
+                <div class="col-12">
+                    <form method='POST'>
+                        <input type="hidden" name="form-1" value="">
+                        {% csrf_token %}
+
+                        <div>
+                            <div>
+                                <h4 style="display: inline-block;" id="off-form-label">{{ form1.off_troops.label_tag }} </h4>
+                                {% if message_off %}
+                                    <div style="display: inline-block;" id="message_off" class="alert alert-success my-0 py-0" role="alert">
+                                        <span style="font-size: small !important;">{% trans 'Army troops have been successfully added.' %}</span>
+                                    </div>
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function(event) {
+                                            const message = document.getElementById('message_off');
+                                            setTimeout(() => {
+                                                message.style.display = 'none';
+                                            }, 2000)
+                                        });
+                                    </script>
+                                {% endif %}
+                            </div>
+
+                            {{ form1.off_troops }}
+                            {% if off_troops.errors %}
+                                <script>codemirrorValidation(`{{off_troops.get_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
+
+                                <div class="error-text mb-1">
+                                    <p class="mb-0">{% trans 'Incorrect data in' %} {{off_troops.errors|length}} {% trans 'lines.' %}</p>
+                                    <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                                    <p class="mt-1 mb-0"><b>**{{off_troops.first_error_msg}}**</b></p>
+                                    {% if off_troops.second_error_msg %}
+                                        <p class="mt-0 mb-0"><b>**{{off_troops.second_error_msg}}**</b></p>
+                                    {% endif %}
+                                </div>
+
+                            {% endif %}
+                            {% if off_troops.empty %}
+                                <div class="error-text mb-3">
+                                    {% trans 'The text cannot be empty' %}.
+                                </div>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function(event) {
+                                        $('.cm-s-off-troops-codemirror').addClass('CodeMirror-Invalid');
+                                    });
+                                </script>
+                            {% endif %}
+                        </div>
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}</button>
+                    </form>
+                </div>
+                <script>
+                    var editor1 = CodeMirror.fromTextArea(document.getElementById("id_off_troops"), {
+                        theme: 'off-troops-codemirror',
+                        lineNumbers: true,
+                    });
+                    editor1.replaceSelection(`{{off_troops.troops}}`)
+                </script>
+
+                <div class="col-12">
+                    <form method='POST'>
+                        <input type="hidden" name="form-2" value="">
+                        {% csrf_token %}
+
+                        <div>
+                            <div>
+                                <h4 style="display: inline-block;" id="deff-form-label">{{ form2.deff_troops.label_tag }}</h4>
+                                {% if message_deff %}
+                                    <div style="display: inline-block;" id="message_deff" class="alert alert-success my-0 py-0" role="alert">
+                                        <span style="font-size: small !important;">{% trans 'Deff troops have been successfully added.' %}</span>
+                                    </div>
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function(event) {
+                                            document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
+                                            const message = document.getElementById('message_deff');
+                                            setTimeout(() => {
+                                                message.style.display = 'none';
+                                            }, 2000)
+                                        });
+                                    </script>
+                                {% endif %}
+                            </div>
+                            {{ form2.deff_troops }}
+
+                            {% if deff_troops.errors %}
+
+                                <script>codemirrorValidation(`{{deff_troops.get_json|safe}}`, `.cm-s-deff-troops-codemirror`);</script>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function(event) {
+                                        document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
+                                    });
+                                </script>
+
+                                <div class="error-text mb-1">
+                                    <p class="mb-0">{% trans 'Incorrect data in' %} {{deff_troops.errors|length}} {% trans 'lines.' %}</p>
+                                    <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                                    <p class="mt-1 mb-0"><b>**{{deff_troops.first_error_msg}}**</b></p>
+                                    {% if deff_troops.second_error_msg %}
+                                        <p class="mt-0 mb-0"><b>**{{deff_troops.second_error_msg}}**</b></p>
+                                    {% endif %}
+                                </div>
+
+                            {% endif %}
+                            {% if deff_troops.empty %}
+                                <div class="error-text mb-3">
+                                    {% trans 'The text cannot be empty' %}.
+                                </div>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function(event) {
+                                        $('.cm-s-deff-troops-codemirror').addClass('CodeMirror-Invalid');
+                                    });
+                                </script>
+                            {% endif %}
+                        </div>
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}</button>
+                    </form>
+                </div>
+                <script>
+                    var editor2 = CodeMirror.fromTextArea(document.getElementById("id_deff_troops"), {
+                        theme: 'deff-troops-codemirror',
+                        lineNumbers: true,
+                    });
+                    editor2.replaceSelection(`{{deff_troops.troops}}`)
+                </script>
+                {% if not deff_troops.errors and not message_deff %}
+                    <script>window.scrollTo(0,0)</script>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
+            <div class="h-100">
+                <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
+                    <li class="nav-item navitem100">
+                        <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                    </li>
+                    <li class="nav-item navitem100">
+                        <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div id="planer-docs-scripts-info"></div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        <div id="planer-docs-scripts-example"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% if error != None %}
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content text-white bg-danger">
+                    <div class="modal-header">
+                        <h3 class="modal-title">{% trans 'An error occured' %}</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
-                      <div class="card-body">
-                        <form method="POST">
-                            <input type="hidden" name="form-input" value="">
-                            {% csrf_token %}
-                            {{form_input_type|crispy}}
-                            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean">{% trans 'Save' %}</button>
-                        </form>
-                      </div>
+                    <div class="modal-body">
+                        {{error|safe}}
                     </div>
                 </div>
             </div>
         </div>
 
-        <div>
-            <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'Last world update: ' %}{{instance.world.update}}</div>
-        </div>
-
-        <script src="{% static 'codemirror-min.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
-        
-        <div class="row">
-        
-            <div class="col-12">
-                <form method='POST'>
-                    <input type="hidden" name="form-1" value="">
-                    {% csrf_token %}
-        
-                    <div>
-                        <div>
-                            <h4 style="display: inline-block;" id="off-form-label">{{ form1.off_troops.label_tag }} </h4>
-                            {% if message_off %}
-                            <div style="display: inline-block;" id="message_off" class="alert alert-success my-0 py-0" role="alert">
-                                <span style="font-size: small !important;">{% trans 'Army troops have been successfully added.' %}</span>
-                            </div>
-                            <script>
-                                document.addEventListener("DOMContentLoaded", function(event) {
-                                    const message = document.getElementById('message_off');
-                                    setTimeout(() => {
-                                        message.style.display = 'none';
-                                    }, 2000)
-                                });
-                            </script>
-                            {% endif %}
-                        </div> 
-
-                        {{ form1.off_troops }} 
-                        {% if off_troops.errors %} 
-                        <script>codemirrorValidation(`{{off_troops.get_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
-
-                        <div class="error-text mb-1">
-                            <p class="mb-0">{% trans 'Incorrect data in' %} {{off_troops.errors|length}} {% trans 'lines.' %}</p>
-                            <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
-                            <p class="mt-1 mb-0"><b>**{{off_troops.first_error_msg}}**</b></p>
-                            {% if off_troops.second_error_msg %}
-                            <p class="mt-0 mb-0"><b>**{{off_troops.second_error_msg}}**</b></p>
-                            {% endif %}
-                        </div>
-        
-                        {% endif %} 
-                        {% if off_troops.empty %} 
-                        <div class="error-text mb-3">
-                            {% trans 'The text cannot be empty' %}.
-                        </div>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function(event) {
-                                $('.cm-s-off-troops-codemirror').addClass('CodeMirror-Invalid');
-                            });
-                        </script> 
-                        {% endif %}
-                    </div>
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}</button>
-                </form>
-            </div>
-            <script>
-                var editor1 = CodeMirror.fromTextArea(document.getElementById("id_off_troops"), {
-                    theme: 'off-troops-codemirror',
-                    lineNumbers: true,
-                });
-                editor1.replaceSelection(`{{off_troops.troops}}`)
-            </script>
-        
-            <div class="col-12">
-                <form method='POST'>
-                    <input type="hidden" name="form-2" value="">
-                    {% csrf_token %}
-        
-                    <div>
-                        <div>
-                            <h4 style="display: inline-block;" id="deff-form-label">{{ form2.deff_troops.label_tag }}</h4>
-                            {% if message_deff %}
-                            <div style="display: inline-block;" id="message_deff" class="alert alert-success my-0 py-0" role="alert">
-                                <span style="font-size: small !important;">{% trans 'Deff troops have been successfully added.' %}</span>
-                            </div>
-                            <script>
-                                document.addEventListener("DOMContentLoaded", function(event) {
-                                    document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
-                                    const message = document.getElementById('message_deff');
-                                    setTimeout(() => {
-                                        message.style.display = 'none';
-                                    }, 2000)
-                                });
-                            </script>
-                            {% endif %}
-                        </div>
-                        {{ form2.deff_troops }} 
-
-                        {% if deff_troops.errors %}
-                        
-                        <script>codemirrorValidation(`{{deff_troops.get_json|safe}}`, `.cm-s-deff-troops-codemirror`);</script>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function(event) {
-                                document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
-                            });
-                        </script>
-                    
-                        <div class="error-text mb-1">
-                            <p class="mb-0">{% trans 'Incorrect data in' %} {{deff_troops.errors|length}} {% trans 'lines.' %}</p>
-                            <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
-                            <p class="mt-1 mb-0"><b>**{{deff_troops.first_error_msg}}**</b></p>
-                            {% if deff_troops.second_error_msg %}
-                            <p class="mt-0 mb-0"><b>**{{deff_troops.second_error_msg}}**</b></p>
-                            {% endif %}
-                        </div>
-        
-                        {% endif %} 
-                        {% if deff_troops.empty %} 
-                        <div class="error-text mb-3">
-                            {% trans 'The text cannot be empty' %}.
-                        </div>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function(event) {
-                                $('.cm-s-deff-troops-codemirror').addClass('CodeMirror-Invalid');
-                            });
-                        </script>
-                        {% endif %}
-                    </div>
-                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}</button>
-                </form>
-            </div>
-            <script>
-                var editor2 = CodeMirror.fromTextArea(document.getElementById("id_deff_troops"), {
-                    theme: 'deff-troops-codemirror',
-                    lineNumbers: true,
-                });
-                editor2.replaceSelection(`{{deff_troops.troops}}`)
-            </script>
-            {% if not deff_troops.errors and not message_deff %}
-            <script>window.scrollTo(0,0)</script>
-            {% endif %}
-        </div>
-    </div>
-    <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
-        <div class="h-100">
-            <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
-                <li class="nav-item navitem100">
-                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
-                </li>
-                <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-opis" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div id="planer-docs-scripts-info"></div>
-                </div>
-                <div class="tab-pane fade" id="pills-przyklady" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <div id="planer-docs-scripts-example"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
-{% if error != None %}
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content text-white bg-danger">
-            <div class="modal-header">
-                <h3 class="modal-title">{% trans 'An error occured' %}</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{error|safe}}
-            </div>
-        </div>
-    </div>
-</div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                $('.bd-example-modal-lg').modal('show');
 
 
+            });
+        </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        $('.bd-example-modal-lg').modal('show');
-
-
-    });
-</script>
-
-{% endif %} 
-{% get_current_language as LANG %}
-<script>
-    loadDocsPage(8, "planer-docs-scripts-info", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_info.md' %}");
-    loadDocsPage(9, "planer-docs-scripts-example", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_example.md' %}");
-</script>
+    {% endif %}
+    {% get_current_language as LANG %}
+    <script>
+        loadDocsPage(8, "planer-docs-scripts-info", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_info.md' %}");
+        loadDocsPage(9, "planer-docs-scripts-example", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_example.md' %}");
+    </script>
 {% endblock %}
