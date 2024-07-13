@@ -16,7 +16,7 @@
 import gzip
 import logging
 import time
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from random import randint
 from typing import Literal
 from urllib.parse import unquote, unquote_plus
@@ -34,6 +34,10 @@ from base.models import Outline, Player, Tribe, VillageModel, World
 from tribal_wars_planer.settings import fanout_cache
 
 log = logging.getLogger(__name__)
+
+MAX_LAST_MODIFIED_EXISTING = 14
+MAX_LAST_MODIFIED_NEW = 3
+STATUS_200 = 200
 
 
 class WorldUpdateHandler:
@@ -72,7 +76,7 @@ class WorldUpdateHandler:
             return (None, "error")
         if req.history:
             return (None, "error")
-        if req.status_code != 200:
+        if req.status_code != STATUS_200:
             return (None, "error")
 
         tree = ElementTree.fromstring(req.content)
@@ -136,7 +140,7 @@ class WorldUpdateHandler:
             return (None, "error")
         if req_units.history:
             return (None, "error")
-        if req_units.status_code != 200:
+        if req_units.status_code != STATUS_200:
             return (None, "error")
 
         tree_units = ElementTree.fromstring(req_units.content)
@@ -152,41 +156,78 @@ class WorldUpdateHandler:
         else:
             self.world.militia = "inactive"
 
+        try:
+            req_data = requests.get(
+                self.world.link_to_game(self.VILLAGE_DATA),
+                stream=True,
+                timeout=3.05,
+            )
+            req_data.close()
+        except (Timeout, ConnectionError):
+            return (None, "error")
+        if req_data.history:
+            return (None, "error")
+        if req_data.status_code != STATUS_200:
+            return (None, "error")
+
+        # handle last-modified header without accessing body
+        last_modified = WorldUpdateHandler.last_modified(
+            req_data.headers["last-modified"]
+        )
+        now = datetime.now(UTC)
+        if last_modified < now - timedelta(days=MAX_LAST_MODIFIED_NEW):
+            log.warning(
+                "cannot save world %s: last modified is %s that is over %dd old",
+                self.world,
+                last_modified,
+                MAX_LAST_MODIFIED_NEW,
+            )
+            return (None, "error")
+
         self.world.save()
         return (self.world, "success")
 
-    def check_if_world_is_archived(self, url_param: str):
+    @staticmethod
+    def delete_world(world: World) -> bool:
+        log.warning("Start delete of world %s", world)
+        outline_count = Outline.objects.filter(world=world).count()
+        if outline_count:
+            log.warning(
+                "Could not delete world %s, there are still %s related outlines",
+                world,
+                outline_count,
+            )
+            world.pending_delete = True
+            world.save()
+            return False
+        else:
+            world.delete()
+            try:
+                metrics.WORLD_LAST_UPDATE.labels(world=str(world)).set(0)
+            except Exception as err:
+                log.error(
+                    "Could not clear metric WORLD_LAST_UPDATE for %s: %s",
+                    world,
+                    err,
+                    exc_info=True,
+                )
+
+            log.info("Deleted world %s", world)
+            return True
+
+    def check_if_world_is_archived(self, url_param: str) -> None:
         log.info("Checking world archive of url %s", url_param)
         postfix = str(self.world)
         if f"/archive/{postfix}" in url_param:
             log.warning("World %s flagged as archived, trying to delete it", self.world)
-            outline_count = Outline.objects.filter(world=self.world).count()
-            if outline_count:
-                log.warning(
-                    "Could not delete world %s, there are still %s related outlines",
-                    self.world,
-                    outline_count,
-                )
-            else:
-                self.world.delete()
-                self.deleted = True
-                try:
-                    metrics.WORLD_LAST_UPDATE.labels(world=str(self.world)).set(0)
-                except Exception as err:
-                    log.error(
-                        "Could not clear metric WORLD_LAST_UPDATE for %s: %s",
-                        self.world,
-                        err,
-                        exc_info=True,
-                    )
-                log.info("Deleted world %s", self.world)
+            self.deleted = self.delete_world(self.world)
         else:
             log.warning(
                 "World %s does not look like archived, connection error?", self.world
             )
             self.handle_connection_error()
 
-    def handle_connection_error(self):
+    def handle_connection_error(self) -> None:
         msg = f"conn error {self.world.link_to_game()}"
         metrics.ERRORS.labels(msg).inc()
         log.error(msg)
@@ -194,13 +235,13 @@ class WorldUpdateHandler:
         self.world.save()
 
     @staticmethod
-    def last_modified_timestamp(datetime_string: str):
-        """Converts 'Sun, 08 May 2022 06:15:20 GMT' to timestamp"""
+    def last_modified(datetime_string: str) -> datetime:
+        """Converts 'Sun, 08 May 2022 06:15:20 GMT' to datetime"""
         last_modified_datetime = datetime.strptime(
             datetime_string, "%a, %d %b %Y %H:%M:%S %Z"
         )
         last_modified_datetime = last_modified_datetime.replace(tzinfo=UTC)
-        return last_modified_datetime.timestamp()
+        return last_modified_datetime
 
     def update_all(self, download_try: int = settings.WORLD_UPDATE_TRY_COUNT):
         """Synchronize Tribe, Village, Player tables with latest data from game."""
@@ -272,12 +313,34 @@ class WorldUpdateHandler:
                     self.world,
                     self.world.link_to_game(data_type),
                 )
+                res.close()
                 return self.check_if_world_is_archived(res.url)
+            if res.status_code != STATUS_200:
+                log.error(
+                    "%s download_and_save: %s: unexpected status code %d",
+                    self.world,
+                    data_type,
+                    res.status_code,
+                )
+                res.close()
+                return self.handle_connection_error()
             # handle last-modified header without accessing body
-            last_modified = WorldUpdateHandler.last_modified_timestamp(
+            last_modified = WorldUpdateHandler.last_modified(
                 res.headers["last-modified"]
             )
-            unique_cache_key = f"{self.world}_{data_type}_{last_modified}"
+            now = datetime.now(UTC)
+            if last_modified < now - timedelta(days=MAX_LAST_MODIFIED_EXISTING):
+                log.warning(
+                    "world %s: last modified is %s that is over %dd old",
+                    self.world,
+                    last_modified,
+                    MAX_LAST_MODIFIED_EXISTING,
+                )
+                res.close()
+                self.deleted = self.delete_world(self.world)
+                return
+
+            unique_cache_key = f"{self.world}_{data_type}_{last_modified.timestamp()}"
             if unique_cache_key in fanout_cache:
                 res.close()
                 return

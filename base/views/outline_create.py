@@ -32,9 +32,9 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
 
     form1.fields["world"].choices = [
         (f"{world.pk}", f"{world.human()}")
-        for world in models.World.objects.filter(server=profile.server).order_by(
-            "postfix"
-        )
+        for world in models.World.objects.filter(
+            server=profile.server, pending_delete=False
+        ).order_by("postfix")
     ]
     if request.method == "POST":
         if "form1" in request.POST:
@@ -42,7 +42,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
             form1.fields["world"].choices = [
                 (f"{world.pk}", world.human())
                 for world in models.World.objects.filter(
-                    server=profile.server
+                    server=profile.server, pending_delete=False
                 ).order_by("postfix")
             ]
             if form1.is_valid():
