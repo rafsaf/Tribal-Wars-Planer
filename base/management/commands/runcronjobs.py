@@ -47,37 +47,25 @@ class Command(BaseCommand):
 
             schedule.every(settings.JOB_MIN_INTERVAL).to(
                 settings.JOB_MAX_INTERVAL
-            ).seconds.do(run_threaded, call_command, command_name="dbupdate")
-            schedule.every(5).seconds.do(
-                run_threaded,
-                call_command,
-                command_name="outdateoverviewsdelete",
+            ).minutes.do(run_threaded, call_command, command_name="dbupdate")
+            schedule.every().hour.do(
+                run_threaded, call_command, command_name="outdateoverviewsdelete"
             )
-            schedule.every(5).seconds.do(
-                run_threaded,
-                call_command,
-                command_name="outdateoutlinedelete",
+            schedule.every().hour.do(
+                run_threaded, call_command, command_name="outdateoutlinedelete"
             )
-            schedule.every(5).seconds.do(
-                run_threaded,
-                call_command,
-                command_name="calculatepaymentfee",
+            schedule.every(5).minutes.do(
+                run_threaded, call_command, command_name="calculatepaymentfee"
             )
-            schedule.every(5).seconds.do(
-                run_threaded,
-                call_command,
-                command_name="hostparameters",
+            schedule.every(15).seconds.do(
+                run_threaded, call_command, command_name="hostparameters"
             )
             schedule.every(60).to(120).seconds.do(
-                run_threaded,
-                call_command,
-                command_name="worldlastupdate",
+                run_threaded, call_command, command_name="worldlastupdate"
             )
             if settings.WORLD_UPDATE_FETCH_ALL:
                 schedule.every(5).to(7).hours.do(
-                    run_threaded,
-                    call_command,
-                    command_name="fetchnewworlds",
+                    run_threaded, call_command, command_name="fetchnewworlds"
                 )
 
             call_command("dbupdate")  # extra db_update on startup
