@@ -15,9 +15,12 @@
 
 
 import logging
-import time
+import signal
+import threading
+from types import FrameType
 
 import schedule
+from django import db
 from django.conf import settings
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
@@ -26,6 +29,12 @@ import metrics
 from base.management.commands.utils import run_threaded
 
 log = logging.getLogger(__name__)
+exit_event = threading.Event()
+
+
+def quit(sig: int, frame: FrameType | None) -> None:
+    log.info("interrupted by %s, shutting down", sig)
+    exit_event.set()
 
 
 class Command(BaseCommand):
@@ -34,43 +43,53 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         log.info("task runcronjobs start")
         try:
+            signal.signal(signalnum=signal.SIGINT, handler=quit)
+            signal.signal(signalnum=signal.SIGTERM, handler=quit)
+
+            # job_map: dict[str, threading.Thread] = {}
+
             schedule.every(settings.JOB_MIN_INTERVAL).to(
                 settings.JOB_MAX_INTERVAL
-            ).minutes.do(run_threaded, call_command, command_name="dbupdate")
-            schedule.every().hour.do(
-                run_threaded, call_command, command_name="outdateoverviewsdelete"
+            ).seconds.do(run_threaded, call_command, command_name="dbupdate")
+            schedule.every(5).seconds.do(
+                run_threaded,
+                call_command,
+                command_name="outdateoverviewsdelete",
             )
-            schedule.every().hour.do(
-                run_threaded, call_command, command_name="outdateoutlinedelete"
+            schedule.every(5).seconds.do(
+                run_threaded,
+                call_command,
+                command_name="outdateoutlinedelete",
             )
-            schedule.every(5).minutes.do(
-                run_threaded, call_command, command_name="calculatepaymentfee"
+            schedule.every(5).seconds.do(
+                run_threaded,
+                call_command,
+                command_name="calculatepaymentfee",
             )
-            schedule.every(15).seconds.do(
-                run_threaded, call_command, command_name="hostparameters"
+            schedule.every(5).seconds.do(
+                run_threaded,
+                call_command,
+                command_name="hostparameters",
             )
             schedule.every(60).to(120).seconds.do(
-                run_threaded, call_command, command_name="worldlastupdate"
+                run_threaded,
+                call_command,
+                command_name="worldlastupdate",
             )
             if settings.WORLD_UPDATE_FETCH_ALL:
                 schedule.every(5).to(7).hours.do(
-                    run_threaded, call_command, command_name="fetchnewworlds"
+                    run_threaded,
+                    call_command,
+                    command_name="fetchnewworlds",
                 )
 
             call_command("dbupdate")  # extra db_update on startup
 
-            secs_lifetime: int = settings.JOB_LIFETIME_MAX_SECS
-            rounds = secs_lifetime / 5
-            while True:
+            while not exit_event.is_set():
+                db.close_old_connections()
                 schedule.run_pending()
-                time.sleep(5)
-                if secs_lifetime:
-                    if rounds < 0:
-                        break
-                    rounds -= 1
+                exit_event.wait(5)
 
-            log.info("Cronjobs restarting in 60s...")
-            time.sleep(60)  # grace period 60s waiting for threads end
         except Exception as error:
             msg = f"task runcronjobs failed: {error}"
             self.stdout.write(self.style.ERROR(msg))

@@ -25,6 +25,11 @@ import metrics
 
 
 def run_threaded(job_func: Callable[[], None], **kwargs):
+    #  2003  sudo apt-get install -y net-tools
+    #  2004  sudo nsenter -t 57346 -n netstat
+    #  2005  sudo nsenter -t 57346 -n netstat > txt
+    #  2006  ps aux | grep manage
+    #  2007  sudo nsenter -t 59132 -n netstat > txt
     job_thread = threading.Thread(target=job_func, kwargs=kwargs)
     job_thread.start()
 
