@@ -19,5 +19,9 @@ echo "start metrics thread"
 runuser -u ${SERVICE_NAME} -- /usr/bin/nohup python scripts/expose_metrics_server.py &
 
 ### 3. Run cronjobs ###
+
+# runcronjobs specific environment variables
+export CONN_MAX_AGE=0
+
 echo "start cronjobs"
 runuser -u ${SERVICE_NAME} -- python manage.py runcronjobs

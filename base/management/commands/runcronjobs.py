@@ -20,7 +20,6 @@ import threading
 from types import FrameType
 
 import schedule
-from django import db
 from django.conf import settings
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
@@ -40,13 +39,11 @@ def quit(sig: int, frame: FrameType | None) -> None:
 class Command(BaseCommand):
     help = "Cronjobs runner"
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         log.info("task runcronjobs start")
         try:
             signal.signal(signalnum=signal.SIGINT, handler=quit)
             signal.signal(signalnum=signal.SIGTERM, handler=quit)
-
-            # job_map: dict[str, threading.Thread] = {}
 
             schedule.every(settings.JOB_MIN_INTERVAL).to(
                 settings.JOB_MAX_INTERVAL
@@ -86,7 +83,6 @@ class Command(BaseCommand):
             call_command("dbupdate")  # extra db_update on startup
 
             while not exit_event.is_set():
-                db.close_old_connections()
                 schedule.run_pending()
                 exit_event.wait(5)
 

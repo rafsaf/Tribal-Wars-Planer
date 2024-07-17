@@ -19,18 +19,25 @@ from collections.abc import Callable
 from logging import Logger
 from time import time
 
+from django import db
 from django.core.management.base import BaseCommand
 
 import metrics
 
 
-def run_threaded(job_func: Callable[[], None], **kwargs):
-    #  2003  sudo apt-get install -y net-tools
-    #  2004  sudo nsenter -t 57346 -n netstat
-    #  2005  sudo nsenter -t 57346 -n netstat > txt
-    #  2006  ps aux | grep manage
-    #  2007  sudo nsenter -t 59132 -n netstat > txt
-    job_thread = threading.Thread(target=job_func, kwargs=kwargs)
+def db_conn_clean_wrapper(job_func: Callable[[], None]):
+    def wrapper(*args, **kwargs) -> None:
+        db.close_old_connections()
+        try:
+            job_func(*args, **kwargs)
+        finally:
+            db.close_old_connections()
+
+    return wrapper
+
+
+def run_threaded(job_func: Callable[[], None], **kwargs) -> None:
+    job_thread = threading.Thread(target=db_conn_clean_wrapper(job_func), kwargs=kwargs)
     job_thread.start()
 
 
