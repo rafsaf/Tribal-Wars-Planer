@@ -257,8 +257,8 @@ class WorldUpdateHandler:
             if count < download_try:
                 time.sleep(0.5 + randint(1, 20) / 60)
 
-        if self.deleted:
-            return f"{self.world} was deleted"
+        if self.deleted or self.world.pending_delete:
+            return f"{self.world} was deleted or is going to be deleted"
 
         log.info("%s start atomic transaction", self.world)
         with transaction.atomic():

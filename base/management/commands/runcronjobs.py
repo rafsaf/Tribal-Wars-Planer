@@ -15,7 +15,9 @@
 
 
 import logging
-import time
+import signal
+import threading
+from types import FrameType
 
 import schedule
 from django.conf import settings
@@ -26,14 +28,23 @@ import metrics
 from base.management.commands.utils import run_threaded
 
 log = logging.getLogger(__name__)
+exit_event = threading.Event()
+
+
+def quit(sig: int, frame: FrameType | None) -> None:
+    log.info("interrupted by %s, shutting down", sig)
+    exit_event.set()
 
 
 class Command(BaseCommand):
     help = "Cronjobs runner"
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         log.info("task runcronjobs start")
         try:
+            signal.signal(signalnum=signal.SIGINT, handler=quit)
+            signal.signal(signalnum=signal.SIGTERM, handler=quit)
+
             schedule.every(settings.JOB_MIN_INTERVAL).to(
                 settings.JOB_MAX_INTERVAL
             ).minutes.do(run_threaded, call_command, command_name="dbupdate")
@@ -59,18 +70,10 @@ class Command(BaseCommand):
 
             call_command("dbupdate")  # extra db_update on startup
 
-            secs_lifetime: int = settings.JOB_LIFETIME_MAX_SECS
-            rounds = secs_lifetime / 5
-            while True:
+            while not exit_event.is_set():
                 schedule.run_pending()
-                time.sleep(5)
-                if secs_lifetime:
-                    if rounds < 0:
-                        break
-                    rounds -= 1
+                exit_event.wait(5)
 
-            log.info("Cronjobs restarting in 60s...")
-            time.sleep(60)  # grace period 60s waiting for threads end
         except Exception as error:
             msg = f"task runcronjobs failed: {error}"
             self.stdout.write(self.style.ERROR(msg))

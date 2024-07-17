@@ -63,9 +63,6 @@ if env_world_update_fetch_all in ["True", "true"]:
     WORLD_UPDATE_FETCH_ALL = True
 else:
     WORLD_UPDATE_FETCH_ALL = False
-assert JOB_MAX_INTERVAL >= JOB_MIN_INTERVAL
-JOB_LIFETIME_MAX_SECS = int(os.environ.get("JOB_LIFETIME_MAX_SECS", 0))
-assert JOB_LIFETIME_MAX_SECS == 0 or JOB_LIFETIME_MAX_SECS >= 120
 
 ADMINS = [("admin", DEFAULT_FROM_EMAIL)]
 
@@ -143,7 +140,7 @@ DATABASES: dict[str, dict[str, Any]] = {
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
         "HOST": os.environ.get("POSTGRES_HOST", "postgres"),
         "PORT": os.environ.get("POSTGRES_PORT", 5432),
-        "CONN_MAX_AGE": 120,
+        "CONN_MAX_AGE": int(os.environ.get("CONN_MAX_AGE", 120)),
         "CONN_HEALTH_CHECKS": True,
     }
 }
