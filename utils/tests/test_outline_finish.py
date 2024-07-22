@@ -129,6 +129,7 @@ class TestMakeFinalOutline(TestCase):
         self.make_final._calculate_period_dictionary()
         target = Target.objects.get(target="500|499")
         weight1 = WeightModel.objects.get(start="500|500")
+        weight1.target = target
         time_periods = self.make_final._time_periods(target)
         new_weight = time_periods.next(weight1)
         res = self.make_final._json_weight(new_weight)
