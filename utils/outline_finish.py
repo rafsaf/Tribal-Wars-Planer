@@ -230,6 +230,7 @@ class MakeFinalOutline:
                 lst.sort(
                     key=lambda weight: (
                         weight.t1,
+                        weight.nobleman > 0,
                         weight.t2,
                         weight.start,
                     )

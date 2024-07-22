@@ -73,9 +73,12 @@ class FromPeriods:
 
     def next(self, weight: models.WeightModel) -> models.WeightModel:
         if weight.nobleman == 0 and not weight.ruin:
-            if self.ram_period is None:
+            while self.ram_period is None:
                 period: models.PeriodModel = self.ram_periods.popleft()
                 self.ram_period = period
+                if self.attack_numbers_ram[self.ram_period] == 0:
+                    self.ram_period = None
+                    continue
 
             result = self.overwrite_weight(self.ram_period, weight)
             self.attack_numbers_ram[self.ram_period] -= 1
@@ -84,9 +87,13 @@ class FromPeriods:
 
             return result
 
-        if self.nob_period is None:
+        while self.nob_period is None:
             period = self.nob_periods.popleft()
             self.nob_period = period
+            if self.attack_numbers_noble[self.nob_period] == 0:
+                self.nob_period = None
+                continue
+
         result = self.overwrite_weight(self.nob_period, weight)
 
         self.attack_numbers_noble[self.nob_period] -= 1
