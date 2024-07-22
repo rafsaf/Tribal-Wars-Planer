@@ -222,11 +222,21 @@ class MakeFinalOutline:
                 info_line = info_generatation.TargetCount(target, lst)
                 outline_info.add_target_info(target_info=info_line)
 
-                for weight in lst:
-                    modified_weight = time_periods.next(weight=weight)
-                    modified_weight.target = target
+                time_periods.adjust_time(lst)
 
-                    weight_lst.append(modified_weight)
+                for weight in lst:
+                    time_periods.next(weight=weight)
+
+                lst.sort(
+                    key=lambda weight: (
+                        weight.t1,
+                        weight.t2,
+                        weight.start,
+                    )
+                )
+
+                for weight in lst:
+                    weight_lst.append(weight)
                     json_weights[target.pk].append(self._json_weight(weight))
 
             text.create_weights(weight_lst)

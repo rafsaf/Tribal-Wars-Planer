@@ -333,6 +333,8 @@ To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie widocz
 ![](images/1_050_test-time2.avif)
 
 <br>
+<br>
+
 <p class="my-0"><span class="md-error">1</span> - Zakończenie rozpiski</p>
 <p class="my-0"><span class="md-error">2</span> - Tworzenie nowego obiektu czasu.</p>
 <p class="my-0"><span class="md-error">3</span> -  Tutaj będą kolejno zakładki kolejnych czasów.</p>
@@ -344,10 +346,17 @@ To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie widocz
 
 ---
 
+<br>
+
+<h3 id="czasy-wejscia">Czasy wejścia</h4>
+
+<br>
+
 Użytkownik ma możliwość tworzenia wielu obiektów w zakładce, w praktyce jednak wystarczyć może nawet jeden lub kilka. Wybieramy przedziały czasowe dla rozkazu, jednostkę oraz tryb spośród 3 możliwych. Przykładowy, skomplikowany czas mógłby wyglądać tak:
 
-![](images/1_060_time1.avif)
+![](images/1_060_time1_2024-07-22.avif)
 
+<br>
 <br>
 
 Co oznacza:
@@ -360,9 +369,23 @@ Co oznacza:
 
 4. Rozpisać _wszystkie pozostałe tarany o ile jeszcze są_ między 12:00 a 12:30
 
-5. Rozpisać _pozostałe szlachcice_ na 12:30
+5. Rozpisać _wszystkie pozostałe szlachcice_ na 12:30
 
-<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga! Podany czas musi mieć sens, godzina maksymalnego wejścia musi być późniejsza lub taka sama co minimalnego wejścia. Poza tym tryb <span class="md-correct2">wszystkie - szlachcic</span> oraz <span class="md-correct2">wszystkie - taran</span>  muszą się pojawić chociaż raz, są one podstawą każdego wymyślonego czasu i w większości przypadków będą wystarczające tylko te dwa (w końcu większość akcji to np. offy 7-10 a szlachta 10-11 lub podobnie). Ułatwieniem może być rozumienie <span class="md-error">WSZYSTKIE</span> jako <span class="md-error">WSZYSTKIE POZOSTAŁE</span>, stąd musi on występować choć raz (czyli dwa razy, dla taranów i szlachty) oraz na końcu reszty trybów, rozłącznie z nimi. Jego specyfika prowadzi do częstego niezrozumienia działania pozostałych trybów, czyli  <span class="md-error">DOKŁADNIE</span> i <span class="md-error">LOSOWO</span>, warto pamiętać że w przypadku ich użycia (np. chcemy dokładnie 2 offy na 10:50:50-10:50:50), tryb wszystkie zawsze musi wystąpić <span class="md-correct2">po nich</span>, reprezentując wszystkie pozostałe offy.</div>
+<br>
+
+Wspierana jest także możliwość, aby "Wszystkie pozostałe" były również wcześniej niż pozostałe tryby. W poniższym przykładzie cel dostanie zawsze 2 offy i 2 szlachciców pod koniec dnia, i całą resztę (ilość można ustawić różną dla różnych wiosek) na rano. 
+
+
+![](images/1_071_time3_2024-07-22.avif)
+
+<br>
+<br>
+
+<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga! Podany czas musi mieć sens, godzina maksymalnego wejścia musi być późniejsza lub taka sama co minimalnego wejścia. Tryb <b>Wszystkie (poz.)</b> musi pojawić się <b>dokładnie dwukrotnie</b>: dla jednostki Taran i Szlachcic, ma on <span class="md-error">najniższy</span> priorytet.</div>
+
+<br>
+
+
 
 <br>
 
@@ -370,7 +393,7 @@ Co oznacza:
 
 <br>
 
-![](images/1_070_time2.avif)
+![](images/1_070_time2_2024-07-22.avif)
 
 <br>
 <br>
