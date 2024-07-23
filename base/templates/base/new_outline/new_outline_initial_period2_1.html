@@ -104,12 +104,12 @@
                         {% csrf_token %}
                         {{ formset.management_form }}
                         <div class="form-row mb-2">
-                            <div class="col-md-2"><label>{% trans 'Mode' %}</label></div>
+                            <div class="col-md-3"><label>{% trans 'Mode' %}</label></div>
                             <div class="col-md-2"><label>{% trans 'Unit' %}</label></div>
                             <div class="col-md-2"><label>{% trans 'Min. time' %}</label></div>
                             <div class="col-md-2"><label>{% trans 'Max. time' %}</label></div>
-                            <div class="col-md-2"><label>{% trans 'From' %}</label></div>
-                            <div class="col-md-2"><label>{% trans 'To' %}</label></div>
+                            <div class="col-md-1"><label>{% trans 'From' %}</label></div>
+                            <div class="col-md-1"><label>{% trans 'To' %}</label></div>
 
                         </div>
                         {% for form in formset %}
@@ -117,7 +117,11 @@
                             <div class="form-row mb-2">
                                 {% for field in form %}
                                     {% if forloop.first %}
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
+                                            {{field}}
+                                        </div>
+                                    {% elif forloop.counter > 4 %}
+                                        <div class="col-md-1">
                                             {{field}}
                                         </div>
                                     {% else %}
@@ -209,7 +213,10 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">{% trans 'Mode' %}</th>
-                                                <th scope="col">{% trans 'Unit' %}</th>
+                                                <th data-toggle="tooltip" data-placement="top" title="{% trans 'For ruins, the Ram Unit means Off and the Noble Unit represents later ruins' %}" class="text-nowrap" scope="col">
+                                                    {% trans 'Unit' %}
+                                                    <i class="bi bi-question-square"></i>
+                                                </th>
                                                 <th scope="col">{% trans 'From' %}</th>
                                                 <th scope="col">{% trans 'To' %}</th>
                                                 <th scope="col">{% trans 'Min. time' %}</th>

@@ -866,33 +866,6 @@ class BasePeriodFormSet(BaseFormSet):
         from_time_ram.sort(key=lambda tup: tup[0])
         to_time_ram.sort(key=lambda tup: tup[0])
 
-        if not from_time_nob[-1][1] == "all":
-            raise forms.ValidationError(
-                gettext_lazy(
-                    "The All mode time frame MUST always be last for off and for noble."
-                )
-            )
-        if not from_time_ram[-1][1] == "all":
-            raise forms.ValidationError(
-                gettext_lazy(
-                    "The All mode time frame MUST always be last for off and for noble."
-                )
-            )
-
-        nob_last = from_time_nob[-1][0]
-        for n_from in to_time_nob:
-            if nob_last < n_from[0] and n_from[1] != "all":
-                raise forms.ValidationError(
-                    gettext_lazy("The All mode cannot overlap with other time periods")
-                )
-
-        ram_last = from_time_ram[-1][0]
-        for r_from in to_time_ram:
-            if ram_last < r_from[0] and r_from[1] != "all":
-                raise forms.ValidationError(
-                    gettext_lazy("The All mode cannot overlap with other time periods")
-                )
-
 
 class ChooseOutlineTimeForm(forms.Form):
     choice = forms.ChoiceField(required=True, choices=[])

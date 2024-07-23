@@ -2,7 +2,7 @@
 authors = ["rafsaf <rafal.safin@rafsaf.pl>"]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-version = "4.44.1"
+version = "4.45.0"
 
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"

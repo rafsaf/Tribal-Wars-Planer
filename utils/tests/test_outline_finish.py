@@ -130,6 +130,7 @@ class TestMakeFinalOutline(TestCase):
         target = Target.objects.get(target="500|499")
         weight1 = WeightModel.objects.get(start="500|500")
         time_periods = self.make_final._time_periods(target)
+        time_periods.adjust_time([weight1])
         new_weight = time_periods.next(weight1)
         res = self.make_final._json_weight(new_weight)
         expected = {
@@ -250,7 +251,7 @@ class TestMakeFinalOutline(TestCase):
         weights = (
             '{"'
             + f"{target.pk}"
-            + '": [{"start": "500|500", "off": 5000, "distance": 1.0, "nobleman": 1, "catapult": 0, "ruin": false, "player": "player0", "t1": "09:00:00", "t2": "10:00:00"}, {"start": "500|501", "off": 100, "distance": 2.0, "nobleman": 0, "catapult": 0, "ruin": false, "player": "player0", "t1": "07:00:00", "t2": "09:00:00"}, {"start": "500|502", "off": 19000, "distance": 3.0, "nobleman": 0, "catapult": 0, "ruin": false, "player": "player0", "t1": "07:00:00", "t2": "09:00:00"}]}'
+            + '": [{"start": "500|501", "off": 100, "distance": 2.0, "nobleman": 0, "catapult": 0, "ruin": false, "player": "player0", "t1": "07:00:00", "t2": "09:00:00"}, {"start": "500|502", "off": 19000, "distance": 3.0, "nobleman": 0, "catapult": 0, "ruin": false, "player": "player0", "t1": "07:00:00", "t2": "09:00:00"}, {"start": "500|500", "off": 5000, "distance": 1.0, "nobleman": 1, "catapult": 0, "ruin": false, "player": "player0", "t1": "09:00:00", "t2": "10:00:00"}]}'
         )
         self.assertEqual(outline_overview.weights_json, weights)
 

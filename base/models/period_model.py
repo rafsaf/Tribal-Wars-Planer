@@ -25,7 +25,7 @@ class PeriodModel(models.Model):
     """Handle one period of time in outline specification"""
 
     STATUS: list[tuple[str, str]] = [
-        ("all", gettext_lazy("All")),
+        ("all", gettext_lazy("All (left)")),
         ("random", gettext_lazy("Random")),
         ("exact", gettext_lazy("Exact")),
     ]

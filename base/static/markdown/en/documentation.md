@@ -357,14 +357,14 @@ The user can create many objects in the tab, in practice, however, even one or s
 
 Simple example:
 
-![](images/1_070_time2.avif)
+![](images/1_070_time2_2024-07-22.avif)
 
 <br>
 <br>
 
 And more complicated example:
 
-![](images/1_060_time1.avif)
+![](images/1_060_time1_2024-07-22.avif)
 
 <br>
 

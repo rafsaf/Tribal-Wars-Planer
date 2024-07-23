@@ -120,7 +120,7 @@ const loadDocsPage = (
       })
       .then(() => {
         const params = new URLSearchParams(location.search);
-        if (location.hash !== "" && params.get("link") === "true") {
+        if (location.hash !== "") {
           setTimeout(() => {
             localStorage.setItem(
               `${uniqueNumber}-scroll-id`,

@@ -33,37 +33,71 @@ class FromPeriods:
             year=date.year, month=date.month, day=date.day
         )
         self.world: models.World = world
-        self.periods: list[models.PeriodModel] = periods
+
+        self.nob_period: models.PeriodModel | None = None
+        self.ram_period: models.PeriodModel | None = None
+
         self.nob_periods = deque(
             [period for period in periods if period.unit == "noble"]
         )
         self.ram_periods = deque([period for period in periods if period.unit == "ram"])
 
-        self.nob_period: models.PeriodModel | None = None
-        self.ram_period: models.PeriodModel | None = None
+        self.attack_numbers_ram = {}
+        self.attack_numbers_noble = {}
+
+    def adjust_time(self, weights: list[models.WeightModel]) -> None:
+        offs = len(
+            [weight for weight in weights if weight.nobleman == 0 and not weight.ruin]
+        )
+        nobles = len(weights) - offs
+
+        for period in self.ram_periods:
+            self.attack_numbers_ram[period] = self.attack_number(period)
+        for period in self.nob_periods:
+            self.attack_numbers_noble[period] = self.attack_number(period)
+
+        # now change infinity to really whats's left
+        left_rams = max(
+            offs - sum(n for n in self.attack_numbers_ram.values() if n != inf), 0
+        )
+        left_nobles = max(
+            nobles - sum(n for n in self.attack_numbers_noble.values() if n != inf), 0
+        )
+
+        for period in self.ram_periods:
+            if self.attack_numbers_ram[period] == inf:
+                self.attack_numbers_ram[period] = left_rams
+        for period in self.nob_periods:
+            if self.attack_numbers_noble[period] == inf:
+                self.attack_numbers_noble[period] = left_nobles
 
     def next(self, weight: models.WeightModel) -> models.WeightModel:
         if weight.nobleman == 0 and not weight.ruin:
-            if self.ram_period is None:
+            while self.ram_period is None:
                 period: models.PeriodModel = self.ram_periods.popleft()
-                period.attack_number = self.attack_number(period)  # type: ignore
                 self.ram_period = period
+                if self.attack_numbers_ram[self.ram_period] == 0:
+                    self.ram_period = None
+                    continue
 
             result = self.overwrite_weight(self.ram_period, weight)
-            self.ram_period.attack_number -= 1  # type: ignore
-            if self.ram_period.attack_number <= 0:  # type: ignore
+            self.attack_numbers_ram[self.ram_period] -= 1
+            if self.attack_numbers_ram[self.ram_period] <= 0:
                 self.ram_period = None
 
             return result
 
-        if self.nob_period is None:
+        while self.nob_period is None:
             period = self.nob_periods.popleft()
-            period.attack_number = self.attack_number(period)  # type: ignore
             self.nob_period = period
+            if self.attack_numbers_noble[self.nob_period] == 0:
+                self.nob_period = None
+                continue
+
         result = self.overwrite_weight(self.nob_period, weight)
 
-        self.nob_period.attack_number -= 1  # type: ignore
-        if self.nob_period.attack_number <= 0:  # type: ignore
+        self.attack_numbers_noble[self.nob_period] -= 1
+        if self.attack_numbers_noble[self.nob_period] <= 0:
             self.nob_period = None
 
         return result
