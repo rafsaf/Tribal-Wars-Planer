@@ -400,13 +400,13 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-crispy-forms"
-version = "2.2"
+version = "2.3"
 description = "Best way to have Django DRY forms"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "django_crispy_forms-2.2-py3-none-any.whl", hash = "sha256:a681cffd5af270b3082bda02cf8f81bdb5717ed66d2265e87e3df2f4ccf46277"},
-    {file = "django_crispy_forms-2.2.tar.gz", hash = "sha256:92cb7b7786fb82646bad739343fd17a99a04b0b736a09e34f3b91f26cbca7e4a"},
+    {file = "django_crispy_forms-2.3-py3-none-any.whl", hash = "sha256:efc4c31e5202bbec6af70d383a35e12fc80ea769d464fb0e7fe21768bb138a20"},
+    {file = "django_crispy_forms-2.3.tar.gz", hash = "sha256:2db17ae08527201be1273f0df789e5f92819e23dd28fec69cffba7f3762e1a38"},
 ]
 
 [package.dependencies]
@@ -1262,13 +1262,13 @@ doc = ["sphinx"]
 
 [[package]]
 name = "stripe"
-version = "10.3.0"
+version = "10.4.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-10.3.0-py2.py3-none-any.whl", hash = "sha256:95aa10d34e325cb6a19784412d6196621442c278b0c9cd3fe7be2a7ef180c2f8"},
-    {file = "stripe-10.3.0.tar.gz", hash = "sha256:56515faf0cbee82f27d9b066403988a107301fc80767500be9789a25d65f2bae"},
+    {file = "stripe-10.4.0-py2.py3-none-any.whl", hash = "sha256:b37ca0d23fabb4bc3533761051b5b27187819e346c7550007d3be25ae2272780"},
+    {file = "stripe-10.4.0.tar.gz", hash = "sha256:59155dbd5916227c9dedebafaebe92b950dd32f05ddba615b3bc52479a977070"},
 ]
 
 [package.dependencies]
@@ -1405,4 +1405,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "adf277c3e76fa57f4115fb6631ef2cde8f06c91d06085d14d80279026833f453"
+content-hash = "0a38cb234a8580e0946359774075e0bc2342a52562d04848ed087e05d443d08f"
