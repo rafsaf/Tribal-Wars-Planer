@@ -1,6 +1,8 @@
 # mkdocs
 docs/generated/en/*
 docs/generated/pl/*
+generated_docs/en/*
+generated_docs/pl/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
