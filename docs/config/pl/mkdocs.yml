@@ -1,5 +1,5 @@
 site_name: "Plemiona Planer"
-site_url: "https://plemiona-planer.pl/pl"
+site_url: "https://plemiona-planer.pl/pl/documentation/"
 docs_dir: "../../docs/pl" # Where to find the English markdown files
 site_dir: "../../generated/pl" # Where to put the English HTML files
 
@@ -8,7 +8,12 @@ theme:
     primary: teal
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.path
+    - navigation.sections
+    - toc.follow
+    - toc.integrate
+    - content.code.copy
   name: material
   custom_dir: "../../overrides/" # This is where the customization of the theme lives
   logo: assets/images/favicon.jpg # The logo is shared by all languages
@@ -26,10 +31,40 @@ extra: # Language Selection
     - name: English
       link: /en/
       lang: en
-
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path:
+        - ../../overrides/data/
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
 plugins:
   - search:
-      lang: pl # Set language for search
+      lang: en
+  - glightbox
 
 nav:
-  - Start: index.md
+  - Świat testowy:
+      - first_steps/index.md
+      - first_steps/step_1_create_outline.md
+      - first_steps/step_2_choose_tribes.md
+      - first_steps/step_3_fill_data.md
+      - first_steps/step_4_save_targets_and_settings.md
+      - first_steps/step_5_add_weights_to_target.md
+      - first_steps/step_6_set_time_finish.md
+      - first_steps/step_7_results_tab.md
+  - Instalacja niezbędnych skryptów: scripts/index.md
+  - Podstawy: primary/index.md
+  - Zaawansowane: advanced/index.md
