@@ -1,0 +1,35 @@
+site_name: "Plemiona Planer"
+site_url: "https://plemiona-planer.pl/en"
+docs_dir: "../../docs/en" # Where to find the English markdown files
+site_dir: "../../generated/en" # Where to put the English HTML files
+
+theme:
+  palette:
+    primary: teal
+  features:
+    - navigation.tabs
+    - navigation.path
+  name: material
+  custom_dir: "../../overrides/" # This is where the customization of the theme lives
+  logo: assets/images/favicon.jpg # The logo is shared by all languages
+  favicon: assets/images/favicon.jpg # The favicon is shared by all languages
+  language: en # The build's language
+
+extra_css:
+  - assets/stylesheets/yesplan.css # CSS is shared by all languages
+
+extra: # Language Selection
+  alternate:
+    - name: Polish
+      link: /pl/
+      lang: pl
+    - name: English
+      link: /en/
+      lang: en
+
+plugins:
+  - search:
+      lang: en # Set language for search
+
+nav:
+  - Welcome: index.md
