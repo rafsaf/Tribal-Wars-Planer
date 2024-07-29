@@ -28,6 +28,7 @@ schedule = "^1.2.1"
 scipy = "^1.14.0"
 stripe = "^10.6.0"
 uwsgi = "^2.0.25"
+mkdocs-material = {extras = ["imaging"], version = "^9.5.30"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
