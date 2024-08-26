@@ -400,17 +400,17 @@ files = [
 
 [[package]]
 name = "django"
-version = "5.0.8"
+version = "5.1"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "Django-5.0.8-py3-none-any.whl", hash = "sha256:333a7988f7ca4bc14d360d3d8f6b793704517761ae3813b95432043daec22a45"},
-    {file = "Django-5.0.8.tar.gz", hash = "sha256:ebe859c9da6fead9c9ee6dbfa4943b04f41342f4cea2c4d8c978ef0d10694f2b"},
+    {file = "Django-5.1-py3-none-any.whl", hash = "sha256:d3b811bf5371a26def053d7ee42a9df1267ef7622323fe70a601936725aa4557"},
+    {file = "Django-5.1.tar.gz", hash = "sha256:848a5980e8efb76eea70872fb0e4bc5e371619c70fffbe48e3e1b50b2c09455d"},
 ]
 
 [package.dependencies]
-asgiref = ">=3.7.0,<4"
+asgiref = ">=3.8.1,<4"
 sqlparse = ">=0.3.1"
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
@@ -453,23 +453,22 @@ tests = ["coverage", "tomli"]
 
 [[package]]
 name = "django-ses"
-version = "4.1.0"
+version = "4.1.1"
 description = "A Django email backend for Amazon's Simple Email Service (SES)"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "django_ses-4.1.0-py3-none-any.whl", hash = "sha256:26a898b04f9e32bd40c87a24bab1672d5f9007be09d11389346078b757827b21"},
-    {file = "django_ses-4.1.0.tar.gz", hash = "sha256:354db724b32201ef9b384f93e17966a42cbba31787d66d8deb081ace4931d60c"},
+    {file = "django_ses-4.1.1-py3-none-any.whl", hash = "sha256:83bb09d2b149dbc1a67a89f66a6681a99e32b8253f47ff4b7fae241d05344cc8"},
+    {file = "django_ses-4.1.1.tar.gz", hash = "sha256:28f9931df1251660eaf976b7413a42e7b0d25a18043316b96c721d8add7bf7b8"},
 ]
 
 [package.dependencies]
 boto3 = ">=1.0.0"
 django = ">=3.2"
-pytz = ">=2016.10"
 
 [package.extras]
-bounce = ["cryptography (>=36.0.2)", "requests (>=2.27.1)"]
-events = ["cryptography (>=36.0.2)", "requests (>=2.27.1)"]
+bounce = ["cryptography (>=36.0.2)", "requests (>=2.32.1)"]
+events = ["cryptography (>=36.0.2)", "requests (>=2.32.1)"]
 
 [[package]]
 name = "django-stubs"
@@ -1035,17 +1034,6 @@ files = [
 cli = ["click (>=5.0)"]
 
 [[package]]
-name = "pytz"
-version = "2024.1"
-description = "World timezone definitions, modern and historical"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pytz-2024.1-py2.py3-none-any.whl", hash = "sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319"},
-    {file = "pytz-2024.1.tar.gz", hash = "sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812"},
-]
-
-[[package]]
 name = "pyyaml"
 version = "6.0.1"
 description = "YAML parser and emitter for Python"
@@ -1282,13 +1270,13 @@ doc = ["sphinx"]
 
 [[package]]
 name = "stripe"
-version = "10.6.0"
+version = "10.8.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-10.6.0-py2.py3-none-any.whl", hash = "sha256:97290ba8b57b32b3782adf654e080011f9ff331f81d7c3fa182cb1c0270b9467"},
-    {file = "stripe-10.6.0.tar.gz", hash = "sha256:41ccb0ada5928d89530ed06d17a71bfbf5f4ea4f2324e30d8d636a2ab7180a74"},
+    {file = "stripe-10.8.0-py2.py3-none-any.whl", hash = "sha256:cf2f4ae56bf9230e17f4e98741de919382e66f9eba8a5bcf1244ce5f4966c7c9"},
+    {file = "stripe-10.8.0.tar.gz", hash = "sha256:2b49a6a4b403209c1df98d19e8b8392ba17d841399ac82a25b5b0894c1efae5f"},
 ]
 
 [package.dependencies]
@@ -1425,4 +1413,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "e17b6d62ee0c2cf594201b900e3c9f27e5a0a34e51b1acce9f4e0aee71c27667"
+content-hash = "11412fc46609a8bdc8c982aefd65e0c8ffad4c49c3e4a2967af1a470ee1be08e"
