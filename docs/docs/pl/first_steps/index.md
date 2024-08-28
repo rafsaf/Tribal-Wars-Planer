@@ -6,7 +6,7 @@ readtime: 15
 pin: true
 ---
 
-# Świat Testowy czyli pierwsze kroki z planerem.
+# Świat testowy czyli pierwsze kroki z planerem.
 
 W tej zakładce dowiesz się jak rozpisać swoją pierwszą akcję na specjalnie do tego celu utworzonym świecie testowym. Szybko, przejrzyście, bez potrzeby instalacji skryptów.
 

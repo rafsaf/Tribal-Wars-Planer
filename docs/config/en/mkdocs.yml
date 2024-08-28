@@ -16,6 +16,8 @@ theme:
     - toc.follow
     - toc.integrate
     - content.code.copy
+    - content.action.edit
+    - navigation.footer
   name: material
   custom_dir: "../../overrides/"
   logo: assets/images/favicon.jpg
@@ -23,6 +25,11 @@ theme:
   language: en
 
 extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rafsaf/Tribal-Wars-Planer
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/g5pcsCteCT
   alternate:
     - name: Polski
       link: /pl/documentation/
@@ -55,6 +62,7 @@ plugins:
   - search:
       lang: en
   - glightbox
+  - social
 
 nav:
   - Back to site: "https://plemiona-planer.pl"

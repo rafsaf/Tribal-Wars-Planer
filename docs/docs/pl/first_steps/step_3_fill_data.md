@@ -4,7 +4,7 @@ Aby przejść do nowo utworzonej rozpiski, kliknij na jej nazwę.
 
 <figure markdown="span">
   ![alt text](image-2.png)
-  <figcaption>Kliknij na "rozpiska"</figcaption>
+  <figcaption>Kliknij na "planer"</figcaption>
 </figure>
 
 

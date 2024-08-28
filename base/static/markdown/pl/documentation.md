@@ -44,19 +44,19 @@
 
 ## Pierwsze kroki...
 
-Specjalny świat oznaczony jako <span class="md-correct2">Świat Test</span> jest stworzony do testowania Planera szczególnie dla nowych użytkowników, pozwala na szybkie zapoznanie się z możliwościami strony bez konieczności wcześniejszego instalowania i korzystania ze skryptów. Wszelkie informacje co, gdzie, jak i po co wpisywać, znajdują się w dalszej części rozdziału.
+Specjalny świat oznaczony jako Świat Test jest stworzony do testowania Planera szczególnie dla nowych użytkowników, pozwala na szybkie zapoznanie się z możliwościami strony bez konieczności wcześniejszego instalowania i korzystania ze skryptów. Wszelkie informacje co, gdzie, jak i po co wpisywać, znajdują się w dalszej części rozdziału.
 
 ## Krok 1 - Utworzenie Rozpiski
 
-Po ewentualnym utworzeniu konta lub zalogowaniu, należy utworzyć nową rozpiskę w zakładce <span class="md-error">Stwórz nową rozpiskę</span> pamiętając by wybranym światem gry był <span class="md-correct2">Świat Test</span>. W obecnej wersji datę można swobodnie zmieniać w późniejszym czasie.
+Po ewentualnym utworzeniu konta lub zalogowaniu, należy utworzyć nową rozpiskę w zakładce Stwórz nową rozpiskę pamiętając by wybranym światem gry był Świat Test. W obecnej wersji datę można swobodnie zmieniać w późniejszym czasie.
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po kliknięciu <span class="md-correct2">Potwierdź</span> zostaniesz przeniesiony od razu do następnej zakładki.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po kliknięciu Potwierdź zostaniesz przeniesiony od razu do następnej zakładki.</div>
 
 ## Krok 2 - Wybieranie plemion
 
-W każdej rozpisce należy wybrać dokładne plemię lub plemiona nasze (atakujące) i przeciwne (atakowane). W przypadku kilku takich, wybieramy kilka. Na Testowym Świecie istnieją dokładnie dwa plemiona, <span class="md-correct2">ALLY</span> i <span class="md-error">ENEMY</span>, ustawiamy nasze plemię jako <span class="md-correct2">ALLY</span> zaś przeciwne jako <span class="md-error">ENEMY</span>, pamiętając o kliknięciu DODAJ. Potwierdzmy. Warto pamiętać, że jeśli nie podamy tutaj plemienia a wkleimy jego przegląd w Zbiórkę Wojska w następnej zakładce, to otrzymamy ścianę błędów - Planer zawsze sprawdza czy to co wkleja użytkownik ma sens - w tym czy wszystkie wklejane wioski są w jednym z podanych plemion.
+W każdej rozpisce należy wybrać dokładne plemię lub plemiona nasze (atakujące) i przeciwne (atakowane). W przypadku kilku takich, wybieramy kilka. Na Testowym Świecie istnieją dokładnie dwa plemiona, ALLY i ENEMY, ustawiamy nasze plemię jako ALLY zaś przeciwne jako ENEMY, pamiętając o kliknięciu DODAJ. Potwierdzmy. Warto pamiętać, że jeśli nie podamy tutaj plemienia a wkleimy jego przegląd w Zbiórkę Wojska w następnej zakładce, to otrzymamy ścianę błędów - Planer zawsze sprawdza czy to co wkleja użytkownik ma sens - w tym czy wszystkie wklejane wioski są w jednym z podanych plemion.
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po kliknięciu <span class="md-correct2">Zapisz i utwórz</span> zostaniesz przeniesiony do zakładki <span class="md-error">Moje rozpiski</span>, gdzie znajdują się wszystkie Twoje rozpiski. Aby kontynuować, wystarczy kliknąć na nazwę utworzonej przed chwilą rozpiski.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po kliknięciu Zapisz i utwórz zostaniesz przeniesiony do zakładki Moje rozpiski, gdzie znajdują się wszystkie Twoje rozpiski. Aby kontynuować, wystarczy kliknąć na nazwę utworzonej przed chwilą rozpiski.</div>
 
 ---
 
@@ -67,7 +67,7 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Aby przejść do kolejnych zakładek konieczne jest wklejenie danych w tej zakładce, nie podając ich, nie masz możliwości pójścia dalej!</div>
 
 <div>
-<p class="md-error">Dla celów Świata Testowego wklej w pole <span class="md-correct2">Zbiórka Wojska</span> poniższe dane i kliknij <span class="md-correct2">Potwierdź</span>.</p>
+<p class="md-error">Dla celów Świata Testowego wklej w pole Zbiórka Wojska poniższe dane i kliknij Potwierdź.</p>
 
 <button onclick="updateClipboard('world-test-army');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>Skopiowano!`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>Kliknij by skopiować ponownie`;this.blur()},1800);" class="btn btn-outline-ocean my-2">Kliknij by skopiować do schowka</button>
 
@@ -125,7 +125,7 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 149|149,100,100,7049,0,100,2849,0,0,350,100,0,4,0,0,0,</pre></div>
 <div>
 <br>
-<p class="md-error">Następnie wklej w pole <span class="md-correct2">Zbiórka Obrona</span> poniższe dane i kliknij <span class="md-correct2">Potwierdź</span>.</p>
+<p class="md-error">Następnie wklej w pole Zbiórka Obrona poniższe dane i kliknij Potwierdź.</p>
 
 <button onclick="updateClipboard('world-test-deff-troops');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>Skopiowano!`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>Kliknij by skopiować ponownie`;this.blur()},1800);" class="btn btn-outline-ocean my-2">Kliknij by skopiować do schowka</button>
 
@@ -237,16 +237,16 @@ Tutaj wklejamy wyniki generowane przez skrypty. Zbierają one informacje o każd
 <p>10x pełnych offów z 2 szlachciami</p>
 <p>10x pełnych offów z 4 szlachciami</p>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po wklejeniu wszystkich informacji, przejdź do zakładki <span class="md-error">Planer</span> aby rozpisać akcję.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po wklejeniu wszystkich informacji, przejdź do zakładki Planer aby rozpisać akcję.</div>
 
 ---
 
 ## Krok 4 - Rozpisanie akcji
 
-W zakładce <span class="md-error">Planer</span> należy umieszczać cele akcji zgodnie z opisem w zakładce, klikając <span class="md-correct2">Zapisz cele</span> aktualizujemy cele na które planujemy rozpisać akcję. Klikając na <span class="md-correct2">Rozpisz tą akcję</span> kończymy tą część rozpisywania i przechodzimy do następnych zakładek. Przed przystąpieniem do rozpisywania własnych akcji, należy przeczytać opisy interesującego nas typu akcji i najlepiej poeksperymentować w ustawianie różnych odległości od frontu, maksymalnych odległości dla szlachciców, zmieniać tryby rozpiski, następnie klikać <span class="md-correct2">Rozpisz tą akcję</span> i w razie niesatysfakcjonujących rezultatów, powracać klikając <span class="md-correct2">Powrót</span>.
+W zakładce Planer należy umieszczać cele akcji zgodnie z opisem w zakładce, klikając Zapisz cele aktualizujemy cele na które planujemy rozpisać akcję. Klikając na Rozpisz tą akcję kończymy tą część rozpisywania i przechodzimy do następnych zakładek. Przed przystąpieniem do rozpisywania własnych akcji, należy przeczytać opisy interesującego nas typu akcji i najlepiej poeksperymentować w ustawianie różnych odległości od frontu, maksymalnych odległości dla szlachciców, zmieniać tryby rozpiski, następnie klikać Rozpisz tą akcję i w razie niesatysfakcjonujących rezultatów, powracać klikając Powrót.
 
 <div>
-<p class="md-error">Na świecie testowym wklej poniższe cele w <span class="md-correct2">Cele</span> i kliknij <span class="md-correct2">Zapisz</span>.</p>
+<p class="md-error">Na świecie testowym wklej poniższe cele w Cele i kliknij Zapisz.</p>
 <button onclick="updateClipboard('world-test-targets');this.innerHTML=`<svg class='mr-2' width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-check2-all' fill='green' ><path fill-rule='evenodd' d='M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/><path d='M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z'/></svg>Skopiowano!`;setTimeout(()=>{this.innerHTML=`<svg class='mr-2'  width='1.3em' height='1.3em' viewBox='0 0 16 16' class='bi bi-arrow-counterclockwise' fill='currentColor'><path fill-rule='evenodd' d='M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z'/></svg>Kliknij by skopiować ponownie`;this.blur()},1800);" class="btn btn-outline-ocean my-2">Kliknij by skopiować do schowka</button>
 </div>
 <div>
@@ -256,9 +256,9 @@ W zakładce <span class="md-error">Planer</span> należy umieszczać cele akcji 
 220|220:0|0|3|3:2|0|2|0
 200|200</pre></div>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Cele mogą być wklejane na kilka sposobów, najłatwiej w kolejnych linijkach wklejać kolejne <span class="md-error">same kordy</span>, wówczas domyślnie ilość offów i szlachty zostanie uzupełniona jako <span class="md-error">0</span>. Ilość offów i szlachty kodowane są najprościej jako np. <span class="md-error">koordy:2:2</span> co oznacza <span class="md-error">koordy:dwa-offy:dwa-szachcice</span>, a bardziej dokładnie zapis <span class="md-error">kordy:2:1|1|1|1</span> oznaczać będzie 2 offy i po 1 szlachcicu kolejno z bliska, bliskiego zaplecza, losowo, z daleka. <b>Fejki</b> i <b>Burzaki</b> wpisujemy w odpowiednich zakładach w ten sam sposób.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Cele mogą być wklejane na kilka sposobów, najłatwiej w kolejnych linijkach wklejać kolejne same kordy, wówczas domyślnie ilość offów i szlachty zostanie uzupełniona jako 0. Ilość offów i szlachty kodowane są najprościej jako np. koordy:2:2 co oznacza koordy:dwa-offy:dwa-szachcice, a bardziej dokładnie zapis kordy:2:1|1|1|1 oznaczać będzie 2 offy i po 1 szlachcicu kolejno z bliska, bliskiego zaplecza, losowo, z daleka. <b>Fejki</b> i <b>Burzaki</b> wpisujemy w odpowiednich zakładach w ten sam sposób.</div>
 
-Cała zakładka służy głównie dwóm celom, jest to wpisywanie celów, oraz automatyczne ustawienia dotyczące rozpisywania akcji. Dla celów zapoznawczych <span class="md-correct2">Świata Testowego</span>, uzupełnimy jedynie tabelę z wioskami frontowymi i zapleczowymi, widoczną pod przyciskami do zapisywania celów i rozpisywania akcji. Jeśli ciekawią Cię pozostałe zakładki, możesz dowiedzieć się o nich więcej z innych części dokumentacji.
+Cała zakładka służy głównie dwóm celom, jest to wpisywanie celów, oraz automatyczne ustawienia dotyczące rozpisywania akcji. Dla celów zapoznawczych Świata Testowego, uzupełnimy jedynie tabelę z wioskami frontowymi i zapleczowymi, widoczną pod przyciskami do zapisywania celów i rozpisywania akcji. Jeśli ciekawią Cię pozostałe zakładki, możesz dowiedzieć się o nich więcej z innych części dokumentacji.
 
 <br>
 
@@ -268,15 +268,15 @@ Cała zakładka służy głównie dwóm celom, jest to wpisywanie celów, oraz a
 
 ![](images/1_000_test-filled-form.avif)
 
-Rozwiń pierwszą zakładkę <span class="md-correct2">1. Dostępne jednostki</span>. W polach formularza zmień **Minimalną odległość od linii frontu** na 90, **Maksymalną odległość od linii frontu** na 130, zaś **Maksymalna odległość dla szlachciców** na 120 (zobacz rysunek wyżej). Celem jest podzielenie wszystkich naszych wiosek na trzy grupy, <span class="md-error">Frontowe</span>, <span class="md-error">Zapleczowe</span> oraz <span class="md-error">Poza</span> (bardzo dalekie) w zależności od wpisanych wrogich plemion (liczona jest odległość od najbliższych wrogów dla każdej naszej wioski). Dla <span class="md-correct2">Świata Testowego</span> wszystkie wioski są daleko od wroga stąd te odległości są znaczne. Zatwierdź formularz klikając <span class="md-correct2">Zapisz i odśwież dostępne</span>.
+Rozwiń pierwszą zakładkę 1. Dostępne jednostki. W polach formularza zmień **Minimalną odległość od linii frontu** na 90, **Maksymalną odległość od linii frontu** na 130, zaś **Maksymalna odległość dla szlachciców** na 120 (zobacz rysunek wyżej). Celem jest podzielenie wszystkich naszych wiosek na trzy grupy, Frontowe, Zapleczowe oraz Poza (bardzo dalekie) w zależności od wpisanych wrogich plemion (liczona jest odległość od najbliższych wrogów dla każdej naszej wioski). Dla Świata Testowego wszystkie wioski są daleko od wroga stąd te odległości są znaczne. Zatwierdź formularz klikając Zapisz i odśwież dostępne.
 
 <p class="md-error">Powinieneś zobaczyć w tabeli poniższe rezultaty:</p>
 
 ![](images/1_010_test-example.avif)
 
-<p class="md-error">Kliknij teraz <span class="md-correct2">Rozpisz tą akcję</span>, czas na kolejną zakładkę :)</p>
+<p class="md-error">Kliknij teraz Rozpisz tą akcję, czas na kolejną zakładkę :)</p>
  
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Dla różnych akcji, ich rozypisywanie będzie się nieco różnić. Dla mniejszych akcji np. w początkowym etapie światów, warto dopracowywać każdy cel z osobna w wygodnej edycji, ale dla ogromnych akcji to oczywiście niemożliwe, wtedy należy bardziej skupić się na zakładce <span class="md-error">Planer</span> i dostepnych tam ustawieniach.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Dla różnych akcji, ich rozypisywanie będzie się nieco różnić. Dla mniejszych akcji np. w początkowym etapie światów, warto dopracowywać każdy cel z osobna w wygodnej edycji, ale dla ogromnych akcji to oczywiście niemożliwe, wtedy należy bardziej skupić się na zakładce Planer i dostepnych tam ustawieniach.</div>
 
 <br>
 
@@ -294,7 +294,7 @@ Ta zakładka jest bardzo prosta. Dodaj kordy wioski zaznaczając czy jest to cel
 
 <p class="md-error">3. MENU - USTAW CELE</p>
 
-Cele są podzielone po 12 na jedną stronę. Przy każdym z nich znajduje się przycisk <span class="md-correct2">Edytuj</span> pozwalający dopracować każdy cel z osobna. Klikając na edycję pierwszego celu czyli <span class="md-error">nr 9</span> na powyższym zdjęciu dostaniemy poniższy widok wraz z ponumerownymi przyciskami, opisanymi poniżej.
+Cele są podzielone po 12 na jedną stronę. Przy każdym z nich znajduje się przycisk Edytuj pozwalający dopracować każdy cel z osobna. Klikając na edycję pierwszego celu czyli nr 9 na powyższym zdjęciu dostaniemy poniższy widok wraz z ponumerownymi przyciskami, opisanymi poniżej.
 
 <br>
 
@@ -302,29 +302,29 @@ Cele są podzielone po 12 na jedną stronę. Przy każdym z nich znajduje się p
 
 <br>
 
-<p class="my-0"><span class="md-error">1,2</span> - Zamiana rozkazów miejscami.</p>
-<p class="my-0"><span class="md-error">3</span> - Usuwanie rozkazu, wraca on do puli po prawej.</p>
-<p class="my-0"><span class="md-error">4</span> -  Zmiana ilości wojsk w ataku.</p>
-<p class="my-0"><span class="md-error">5</span> -  Podział ataku na 2,3,4 równe części.</p>
-<p class="my-0"><span class="md-error">6</span> -  Sortowanie pozostałych wiosek na kilkanaście sposobów.</p>
-<p class="my-0"><span class="md-error">7,8</span> -  Filtrowanie po wielkości pozostałych offów.</p>
-<p class="my-0"><span class="md-error">9</span> -  Pokazywanie wszystkich, frontowych, zapleczowych lub ukrytych wiosek.</p>
-<p class="my-0"><span class="md-error">10</span> -  Dodawanie wioski do ukrytych.</p>
-<p class="my-0"><span class="md-error">11,12</span> -  Dodawanie nowego rozkazu z tej wioski, na górę i na dół (po lewej offy, po prawej offoszlachty itp., najedź na pytajnik po szczegóły).</p>
+<p class="my-0">1,2 - Zamiana rozkazów miejscami.</p>
+<p class="my-0">3 - Usuwanie rozkazu, wraca on do puli po prawej.</p>
+<p class="my-0">4 -  Zmiana ilości wojsk w ataku.</p>
+<p class="my-0">5 -  Podział ataku na 2,3,4 równe części.</p>
+<p class="my-0">6 -  Sortowanie pozostałych wiosek na kilkanaście sposobów.</p>
+<p class="my-0">7,8 -  Filtrowanie po wielkości pozostałych offów.</p>
+<p class="my-0">9 -  Pokazywanie wszystkich, frontowych, zapleczowych lub ukrytych wiosek.</p>
+<p class="my-0">10 -  Dodawanie wioski do ukrytych.</p>
+<p class="my-0">11,12 -  Dodawanie nowego rozkazu z tej wioski, na górę i na dół (po lewej offy, po prawej offoszlachty itp., najedź na pytajnik po szczegóły).</p>
 
 ---
 
 <p class="md-error">4. MENU - USTAW FEJKI</p>
 
-To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie fejkiem jest liczba jednostek w postaci 100 jednostek. Przy generowaniu celów wyświetlane naszym graczom jest tylko <span class="md-error">wyślij fejka</span> bez konkretów co do jednostek, chodzi o to, że każdy fejk zajmuje pewne miejsce w zagrodzie i niedociągnięciem byłoby to ignorować.
+To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie fejkiem jest liczba jednostek w postaci 100 jednostek. Przy generowaniu celów wyświetlane naszym graczom jest tylko wyślij fejka bez konkretów co do jednostek, chodzi o to, że każdy fejk zajmuje pewne miejsce w zagrodzie i niedociągnięciem byłoby to ignorować.
 
 <p class="md-error">5. MENU - USTAW BURZAKI</p>
 
-To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie widoczne są burzaki i offy. W edycji dodawana liczba katapult w każdym burzaku jest stała i równa domyślnej ustalonej w wcześniejszych formularzach. Przy generowaniu celów wyświetlane naszym graczom jest tylko <span class="md-error">burzak</span> jeśli dodajemy je tutaj, zaś przy automatycznym rozpisywaniu dodatkowo zostanie podany na jaki budynek.
+To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie widoczne są burzaki i offy. W edycji dodawana liczba katapult w każdym burzaku jest stała i równa domyślnej ustalonej w wcześniejszych formularzach. Przy generowaniu celów wyświetlane naszym graczom jest tylko burzak jeśli dodajemy je tutaj, zaś przy automatycznym rozpisywaniu dodatkowo zostanie podany na jaki budynek.
 
 <p class="md-error">6. USTAW CZASY WEJŚCIA I ZAKOŃCZ ROZPISKĘ</p>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po oglądnieciu wszystkich zakładek i ewentualnych operacjach w edycji poszczególnych celów, na koniec, w celu zakończenia rozpiski skieruj się do ostatniej zakładki <span class="md-error">Time</span>, której opis znajdziesz poniżej.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po oglądnieciu wszystkich zakładek i ewentualnych operacjach w edycji poszczególnych celów, na koniec, w celu zakończenia rozpiski skieruj się do ostatniej zakładki Time, której opis znajdziesz poniżej.</div>
 
 <br>
 
@@ -335,14 +335,14 @@ To samo co ustawianie prawdziwych celów, z tą różnicą że domyślnie widocz
 <br>
 <br>
 
-<p class="my-0"><span class="md-error">1</span> - Zakończenie rozpiski</p>
-<p class="my-0"><span class="md-error">2</span> - Tworzenie nowego obiektu czasu.</p>
-<p class="my-0"><span class="md-error">3</span> -  Tutaj będą kolejno zakładki kolejnych czasów.</p>
-<p class="my-0"><span class="md-error">4</span> -  Usunięcie obiektu czasu.</p>
-<p class="my-0"><span class="md-error">5</span> -  Zatwierdzenie wybranego czasu dla wszystkich prawdziwych celów.</p>
-<p class="my-0"><span class="md-error">6</span> -  Zatwierdzenie wybranego czasu dla wszystkich fejk celów.</p>
-<p class="my-0"><span class="md-error">7</span> -  Zatwierdzenie wybranego czasu dla wszystkich burzonych celów (Uwaga wtedy jednostka <b>Szlachcic</b> jest utożsamiany z Burzakami (notatka po najechaniu na pytajnik) by nie było zamętu nazewnictwa.</p>
-<p class="my-0"><span class="md-error">8,9,10,11</span> - Analogicznie możemy wybrać numer obecnie przypisanego czasu dla danego celu. Czas aktualizowany jest natychmiast po kliknięciu.</p>
+<p class="my-0">1 - Zakończenie rozpiski</p>
+<p class="my-0">2 - Tworzenie nowego obiektu czasu.</p>
+<p class="my-0">3 -  Tutaj będą kolejno zakładki kolejnych czasów.</p>
+<p class="my-0">4 -  Usunięcie obiektu czasu.</p>
+<p class="my-0">5 -  Zatwierdzenie wybranego czasu dla wszystkich prawdziwych celów.</p>
+<p class="my-0">6 -  Zatwierdzenie wybranego czasu dla wszystkich fejk celów.</p>
+<p class="my-0">7 -  Zatwierdzenie wybranego czasu dla wszystkich burzonych celów (Uwaga wtedy jednostka <b>Szlachcic</b> jest utożsamiany z Burzakami (notatka po najechaniu na pytajnik) by nie było zamętu nazewnictwa.</p>
+<p class="my-0">8,9,10,11 - Analogicznie możemy wybrać numer obecnie przypisanego czasu dla danego celu. Czas aktualizowany jest natychmiast po kliknięciu.</p>
 
 ---
 
@@ -381,7 +381,7 @@ Wspierana jest także możliwość, aby "Wszystkie pozostałe" były również w
 <br>
 <br>
 
-<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga! Podany czas musi mieć sens, godzina maksymalnego wejścia musi być późniejsza lub taka sama co minimalnego wejścia. Tryb <b>Wszystkie (poz.)</b> musi pojawić się <b>dokładnie dwukrotnie</b>: dla jednostki Taran i Szlachcic, ma on <span class="md-error">najniższy</span> priorytet.</div>
+<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga! Podany czas musi mieć sens, godzina maksymalnego wejścia musi być późniejsza lub taka sama co minimalnego wejścia. Tryb <b>Wszystkie (poz.)</b> musi pojawić się <b>dokładnie dwukrotnie</b>: dla jednostki Taran i Szlachcic, ma on najniższy priorytet.</div>
 
 <br>
 
@@ -389,7 +389,7 @@ Wspierana jest także możliwość, aby "Wszystkie pozostałe" były również w
 
 <br>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Dla celów świata testowego, możesz utworzyć prosty, poniższy czas i kliknąć <span class="md-correct2">Ustaw dla wszystkich celów</span> by zatwierdzić go dla każdego celu. Następnie zakończ rozpiskę klikając na <span class="md-error">Potwierdź całą rozpiskę i zakończ</span>.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Dla celów świata testowego, możesz utworzyć prosty, poniższy czas i kliknąć Ustaw dla wszystkich celów by zatwierdzić go dla każdego celu. Następnie zakończ rozpiskę klikając na Potwierdź całą rozpiskę i zakończ.</div>
 
 <br>
 
@@ -408,30 +408,30 @@ Wspierana jest także możliwość, aby "Wszystkie pozostałe" były również w
 
 <br>
 
-<p class="my-0"><span class="md-error">1</span> - Tabela z linkami do celów graczy i linki do wysyłki oraz formularz do zmiany treści wysyłanych wiadomości.</p>
-<p class="my-0"><span class="md-error">2</span> - Krótkie tekstowe podsumowanie nicków i celów.</p>
-<p class="my-0"><span class="md-error">3</span> -  Pole tekstowe z linkami, które można przesłać graczom ręcznie.</p>
-<p class="my-0"><span class="md-error">4</span> -  Wyniki rozpiski jako cały tekst do przesłania (wszyscy gracze).</p>
-<p class="my-0"><span class="md-error">5</span> -  Niewykorzystane wojska do kolejnej akcji.</p>
-<p class="my-0"><span class="md-error">6</span> -  Wyniki zbiórki deffa z zakładki <span class="md-correct2">ZBIÓRKA DEFFA</span>.</p>
-<p class="my-0"><span class="md-error">7</span> -  Formularz do treści wysyłanej wiadomości oraz ukrywania rozkazów innych graczy.</p>
-<p class="my-0"><span class="md-error">9</span> -  Tym linkiem przechodzimy do unikalnej strony z celami gracza.</p>
-<p class="my-0"><span class="md-error">10</span> -  Ręczna możliwość zmiany ukrywania rozkazów innych gracz.</p>
-<p class="my-0"><span class="md-error">11</span> -  Link do wysłania wiadomości w grze, wymagany <span class="md-correct2">Skrypt wysyłka celi</span>.</p>
+<p class="my-0">1 - Tabela z linkami do celów graczy i linki do wysyłki oraz formularz do zmiany treści wysyłanych wiadomości.</p>
+<p class="my-0">2 - Krótkie tekstowe podsumowanie nicków i celów.</p>
+<p class="my-0">3 -  Pole tekstowe z linkami, które można przesłać graczom ręcznie.</p>
+<p class="my-0">4 -  Wyniki rozpiski jako cały tekst do przesłania (wszyscy gracze).</p>
+<p class="my-0">5 -  Niewykorzystane wojska do kolejnej akcji.</p>
+<p class="my-0">6 -  Wyniki zbiórki deffa z zakładki ZBIÓRKA DEFFA.</p>
+<p class="my-0">7 -  Formularz do treści wysyłanej wiadomości oraz ukrywania rozkazów innych graczy.</p>
+<p class="my-0">9 -  Tym linkiem przechodzimy do unikalnej strony z celami gracza.</p>
+<p class="my-0">10 -  Ręczna możliwość zmiany ukrywania rozkazów innych gracz.</p>
+<p class="my-0">11 -  Link do wysłania wiadomości w grze, wymagany Skrypt wysyłka celi.</p>
 
 ---
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Został utworzony <span class="md-correct2">UNIKALNY ADRES URL</span> dla każdego gracza gdzie prezentowane są <span class="md-correct2">tylko i wyłącznie jego cele</span> wraz z tekstem do wklejenia w notatkach, oraz graficznym zaprezentowaniem jego rozkazów. Możesz przejść do nich klikając na przyciski <span class="md-error">9</span> na powyższym zdjęciu. Gracz po wejściu w swój link, ma już wszystko czego mu trzeba by wysłać przewidziane przez rozpiskę wojska na akcję.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Został utworzony UNIKALNY ADRES URL dla każdego gracza gdzie prezentowane są tylko i wyłącznie jego cele wraz z tekstem do wklejenia w notatkach, oraz graficznym zaprezentowaniem jego rozkazów. Możesz przejść do nich klikając na przyciski 9 na powyższym zdjęciu. Gracz po wejściu w swój link, ma już wszystko czego mu trzeba by wysłać przewidziane przez rozpiskę wojska na akcję.</div>
 
-Rozwijając zakładkę <span class="md-correct2">Wybierz tytuł, zawartość i "Pokaż ukryte"</span> czyli numer <span class="md-error">7</span>, precyzujesz treść wysyłanej graczom wiadomości oraz czy gracze powinni widzieć rozkazy innych graczy w szczegółach swoich indywidualnych celów. Domyślnie <span class="md-error">Pokaż ukryte - False</span> ozancza, że widzą tylko swoje rozkazy i rozkazy innych tylko jeśli atakują tą wioskę szlachtą z bliska. Ustawiając <span class="md-error">Pokaż ukryte - True</span> gracze widzą wszystkie rozkazy innych. Pod numerem <span class="md-error">8</span> znajdziesz tabelę ze wszystkimi utworzonymi linkami, po każdym zatwierdzeniu rozpiski, tworzą się nowe zaś stare trafiają do tej zakładki (ale są nadal aktywne!).
+Rozwijając zakładkę Wybierz tytuł, zawartość i "Pokaż ukryte" czyli numer 7, precyzujesz treść wysyłanej graczom wiadomości oraz czy gracze powinni widzieć rozkazy innych graczy w szczegółach swoich indywidualnych celów. Domyślnie Pokaż ukryte - False ozancza, że widzą tylko swoje rozkazy i rozkazy innych tylko jeśli atakują tą wioskę szlachtą z bliska. Ustawiając Pokaż ukryte - True gracze widzą wszystkie rozkazy innych. Pod numerem 8 znajdziesz tabelę ze wszystkimi utworzonymi linkami, po każdym zatwierdzeniu rozpiski, tworzą się nowe zaś stare trafiają do tej zakładki (ale są nadal aktywne!).
 <br>
 <br>
 
-<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga! Z biegiem czasu i rozwojem aplikacji, zmieniono (i już tak pozostanie) <span class="md-error">usuwalne</span> linki na <span class="md-error">nieusuwalne</span> linki, których użytkownik nie ma możliwości zmiany ani zablokowania dostępu np. po wysłaniu nieodpowiedniej osobie. Konwencja ta gwarantuje, że rozpisujący nie usunie przypadkowo rozesłanych już linków, co spowodowałoby ogromne nieporozumienia. <span class="md-error">Linki są aktywne przez 30 dni</span>, niezależnie czy rozpiska nadal istnieje, czy też została usunięta.</div>
+<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga! Z biegiem czasu i rozwojem aplikacji, zmieniono (i już tak pozostanie) usuwalne linki na nieusuwalne linki, których użytkownik nie ma możliwości zmiany ani zablokowania dostępu np. po wysłaniu nieodpowiedniej osobie. Konwencja ta gwarantuje, że rozpisujący nie usunie przypadkowo rozesłanych już linków, co spowodowałoby ogromne nieporozumienia. Linki są aktywne przez 30 dni, niezależnie czy rozpiska nadal istnieje, czy też została usunięta.</div>
 
 <br>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> To już wszystko w tym artykule dotyczącym pierwszych kroków z Planerem i <span class="md-correct2">Światem Testowym</span>.
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> To już wszystko w tym artykule dotyczącym pierwszych kroków z Planerem i Światem Testowym.
 <br>
 <a href="#spis-tresci"><i class="bi bi-arrow-left"></i> Kliknij by powrócić do spisu treści</a>.</div>
 <br>
@@ -612,7 +612,7 @@ document.getElementById('message').value = decodeURIComponent(result.message);
 
 <h2 id="jak-wpisywac-i-zapisac-cele-akcji">Jak wpisywać i zapisać cele akcji</h2>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Konwencja: kolejne <b>cele akcji</b> muszą być wpisywane w kolejnych linijkach <span class="md-correct2">Celów</span>. Minimalnie wystarczą same koordy, wówczas przykładowa linijka <b>000|000</b> zostanie uzupełniona do <b>000|000:0:0</b>. W dalszej części nauczysz się kodowania ilości offów i szlachciców. Aby zapisać cele kliknij <span class="md-correct2">Zapisz cele</span>.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Konwencja: kolejne <b>cele akcji</b> muszą być wpisywane w kolejnych linijkach Celów. Minimalnie wystarczą same koordy, wówczas przykładowa linijka <b>000|000</b> zostanie uzupełniona do <b>000|000:0:0</b>. W dalszej części nauczysz się kodowania ilości offów i szlachciców. Aby zapisać cele kliknij Zapisz cele.</div>
 
 <br>
 
@@ -620,15 +620,15 @@ document.getElementById('message').value = decodeURIComponent(result.message);
 
 ![](images/3_010_target-ex1.avif)
 
-**440|670:5:4** w pierszej linijce to przykład, jak domyślnie kodować ilość offów i szlachciców na dany cel. Pierwsza liczba oznacza <span class="md-error">Ilość offów</span>, zaś druga <span class="md-error">Ilość szlachciców</span>.<br><br>
-Planer obsługuje trzy rodzaje celów, prawdziwe, fejkowe oraz burzące. <span class="md-error">Cele prawdziwe</span> zamieszaj w **Cele**, <span class="md-error">Cele fejkowe</span> obok w **Fejki**, zaś <span class="md-error">Cele do burzenia</span> w **Burzaki**. Dla **Fejków** kodujemy zamiast offów i szlachiców odpowiednio ilość fejków i fejk szlachciców, zaś w zakładce **Burzaki** odpowiednio ilość offów i ilość burzaków (które wchodzą za offami).
+**440|670:5:4** w pierszej linijce to przykład, jak domyślnie kodować ilość offów i szlachciców na dany cel. Pierwsza liczba oznacza Ilość offów, zaś druga Ilość szlachciców.<br><br>
+Planer obsługuje trzy rodzaje celów, prawdziwe, fejkowe oraz burzące. Cele prawdziwe zamieszaj w **Cele**, Cele fejkowe obok w **Fejki**, zaś Cele do burzenia w **Burzaki**. Dla **Fejków** kodujemy zamiast offów i szlachiców odpowiednio ilość fejków i fejk szlachciców, zaś w zakładce **Burzaki** odpowiednio ilość offów i ilość burzaków (które wchodzą za offami).
 
 ##### Przykład 2, rozszerzone kodowanie offów i szlachty
 
 ![](images/3_020_target-ex2.avif)
 
 Domyślnie cele jak w **Przykładzie 1**, dziedziczą tryb wysyłania z zakładki <b><a href="#jak-wpisywac-i-zapisac-cele-akcji">3. Parametry rozpiski</a></b>, czyli np. offy losowo z zaplecza oraz szlachta z najbliższego frontu. W przypadku gdy chcemy na dany cel, np. linijkę numer 3 w **Przykładzie 2**, czyli **439|671** wysłać **5 offów losowo z zaplecza**, **2 offów z bliskiego zaplecza**, **1 szlachcica z daleka** oraz ostatnie **3 szlachcice z bliska**, można wykorzystać rozszerzoną składnię wpisując:<br><br>
-<span class="md-error">439|671:2|0|5|0:3|0|0|1</span><br><br>
+439|671:2|0|5|0:3|0|0|1<br><br>
 W takim przypadku zmiast jednej liczby offów wpisaliśmy **2|0|5|0** a zamiast jednej liczby szlachciców wpisaliśmy **3|0|0|1**. Korzystamy z rozszerzonej składni wtedy gdy zależy nam na części rozkazów z daleka a innej części z bliska, do wyboru są 4 rejony naszegeo plemienia.
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga, <b>A|B|C|D</b> tłumaczymy na:<br><b>A z bliska|B z bliskiego zaplecza|C losowo z zaplecza|D z daleka</b></div><br>
@@ -637,7 +637,7 @@ W takim przypadku zmiast jednej liczby offów wpisaliśmy **2|0|5|0** a zamiast 
 
 ![](images/3_030_target-ex3.avif)
 
-<span class="md-error">Błędy</span> pojawią się w standardowych przypadkach, czyli przede wszystkim gdy dana wioska <b>nie istnieje</b> na zadeklarowanym w rozpisce świecie lub gdy wioska <b>jest barbarzyńska</b> oraz gdy wpisywane po kordach znaki nie będą jednymi z podanych powyżej możliwości. Nie ma przeszkód by celami były wioski współplemieńców lub by te same wioski były wpisane wielokrotnie (choć w tym przypadku, u góry pojawi się informacja, że wykryto powtórzenia). Powtórzenia nie są zabronione, każdy wpisany cel, nawet jeśli pojawia się wielokrotnie, zostanie potraktowany oddzielnie, tym nie mniej może to spowodować chaos u graczy bo będzie np. kilka tych samych celów z różnymi rozkazami na nie (?). Powtórzenia w różnych zakładkach (<b>Cele, Fejki, Burzaki</b>) nie są zliczane.
+Błędy pojawią się w standardowych przypadkach, czyli przede wszystkim gdy dana wioska <b>nie istnieje</b> na zadeklarowanym w rozpisce świecie lub gdy wioska <b>jest barbarzyńska</b> oraz gdy wpisywane po kordach znaki nie będą jednymi z podanych powyżej możliwości. Nie ma przeszkód by celami były wioski współplemieńców lub by te same wioski były wpisane wielokrotnie (choć w tym przypadku, u góry pojawi się informacja, że wykryto powtórzenia). Powtórzenia nie są zabronione, każdy wpisany cel, nawet jeśli pojawia się wielokrotnie, zostanie potraktowany oddzielnie, tym nie mniej może to spowodować chaos u graczy bo będzie np. kilka tych samych celów z różnymi rozkazami na nie (?). Powtórzenia w różnych zakładkach (<b>Cele, Fejki, Burzaki</b>) nie są zliczane.
 
 <b><a href="#podstawowe-poradniki-zakladki-planer"><i class="bi bi-arrow-left"></i> Powrót do początku rozdziału.</a></b>
 
@@ -649,16 +649,16 @@ W takim przypadku zmiast jednej liczby offów wpisaliśmy **2|0|5|0** a zamiast 
 
 <h2 id="dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa rejony plemienia czyli co to Front i Zaplecze</h2>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zawsze rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na <span class="md-error">Frontowe</span>, <span class="md-error">Zapleczowe</span> oraz <span class="md-error">Poza</span> zgodnie z duchem danej rozpiski. Do tego celu służy zakładka <span class="md-correct2">1. Dostępne jednostki</span>, zaś wyniki prezentowane są w tabeli pod celami.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zawsze rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na Frontowe, Zapleczowe oraz Poza zgodnie z duchem danej rozpiski. Do tego celu służy zakładka 1. Dostępne jednostki, zaś wyniki prezentowane są w tabeli pod celami.</div>
 
-Odpowiedzią na to, by podczas rozpisywania akcji **nie** rozpisywać frontowych offów frontowcom, którzy powinni je trzymać na dobitki z bliska (lub używać w dowolny inny sposób), jest podział naszych wiosek na dwie najważniejsze grupy, <span class="md-error">Front</span>, czyli offy i szlachta **blisko** wroga, oraz <span class="md-error">Zaplecze</span> czyli offy i szlachta **daleko** od wroga. Od wersji 2.1.0 doszedł kolejny rejon <span class="md-error">Poza</span> intuicyjnie oznaczający bardzo dalekie wioski (ale przykładów zastosowań jest więcej), rozwiązujący problem offów z bardzo daleka, które nie są porządane, ale nie tylko, bo również pozwalający na akcję offami z **przedziału** np. 20 kratek - 80 kratek. Jak dokładnie to się odbywa i jak to kontrolować, wyjaśni się za chwilę.
+Odpowiedzią na to, by podczas rozpisywania akcji **nie** rozpisywać frontowych offów frontowcom, którzy powinni je trzymać na dobitki z bliska (lub używać w dowolny inny sposób), jest podział naszych wiosek na dwie najważniejsze grupy, Front, czyli offy i szlachta **blisko** wroga, oraz Zaplecze czyli offy i szlachta **daleko** od wroga. Od wersji 2.1.0 doszedł kolejny rejon Poza intuicyjnie oznaczający bardzo dalekie wioski (ale przykładów zastosowań jest więcej), rozwiązujący problem offów z bardzo daleka, które nie są porządane, ale nie tylko, bo również pozwalający na akcję offami z **przedziału** np. 20 kratek - 80 kratek. Jak dokładnie to się odbywa i jak to kontrolować, wyjaśni się za chwilę.
 
 <h5>Całość intuicji związanej z podziałem można skrócić do poniższego zdjęcia:</h5>
 <img id="large" class="img-thumbnail" onclick="img_box(this)" style="max-height:250px;" src="https://raw.githubusercontent.com/rafsaf/tw-complex/main/images/Figure_3.avif" alt="Troops form">
 
 Nasze plemiona (na niebiesko) otaczają wroga (czerwonego), na lewym zdjęciu widać stan SPRZED działania algorytmu, zaś na prawym PO jego zastosowaniu. Podzieliśmy całość naszych wiosek na "sektory" w zależności od odległości od wroga: najbliżej czerwonego- **Front**, trochę dalej ale nie do przesady- **Zaplecze**, zaś wioski bardzo dalekie pozostały niebieskie i oznaczają one **Poza**. PS. Ta część aplikacji jest dostępna jako open-source i jest dostępna przez PyPI oraz na [GitHubie](https://github.com/rafsaf/tw-complex).
 
-To, jak zostaną podzielone nasze offy i szlachta, zależy od ustawień w zakładce <span class="md-correct2">1. Dostępne jednostki</span>, rozważmy kilka popularnych możliwości.
+To, jak zostaną podzielone nasze offy i szlachta, zależy od ustawień w zakładce 1. Dostępne jednostki, rozważmy kilka popularnych możliwości.
 
 <div class="p-3 mb-2" style="background: #CEF2F3 !important;">Offy blisko celów i szlachta blisko celów, działają identycznie jak Offy i Szlachta, tyle tylko, że zamiast brać pod uwagę "wszystkich" wrogów i na tej podstawie dzielić na rejony, biorą pod uwagę tylko cele wpisane przez Użytkownika w <b>Cele</b>. Jest to dużo dokładniejszy wynik, bo wiadomo ile mamy dostępnych jednostek w pobliżu celów (może się to bardzo różnić w stosunku do tego co mamy w całym plemieniu).</div>
 
@@ -683,9 +683,9 @@ To, jak zostaną podzielone nasze offy i szlachta, zależy od ustawień w zakła
 
 ![](images/3_052_troops-table3.avif)
 
-Tylko offy **większe niż wybrana minimalna liczba jednostek w offie** zostaną pokazane. W obecnej wersji ck z offów również będą **rozpoznane** i odróżnione od ck z wiosek deffowych oraz policzone. Wynik zależy głównie od <span class="md-error">Przeciwnych plemion</span>, które zostały wybrane na samym początku przy tworzeniu rozpiski. Algorytm jest bardzo prosty, dookoła każdej **wrogiej** wioski liczony jest rejon w odległości, która została podana jako <b>odległość od linii frontu</b>. Biorąc sumę tych wszystkich rejonów w całość, możemy dla każdej **sojuszniczej** wioski wskazać czy jest ona w pobliżu tych wrogich wiosek (wtedy jest frontowa), czy też nie jest (wtedy jest na zapleczu). Stąd też w pole <span class="md-correct2">Nieuwzględniane przy liczeniu frontowych offów wioski wroga</span> wklejamy wszelkie wrogie diody, by nie zaburzały wyniku.
+Tylko offy **większe niż wybrana minimalna liczba jednostek w offie** zostaną pokazane. W obecnej wersji ck z offów również będą **rozpoznane** i odróżnione od ck z wiosek deffowych oraz policzone. Wynik zależy głównie od Przeciwnych plemion, które zostały wybrane na samym początku przy tworzeniu rozpiski. Algorytm jest bardzo prosty, dookoła każdej **wrogiej** wioski liczony jest rejon w odległości, która została podana jako <b>odległość od linii frontu</b>. Biorąc sumę tych wszystkich rejonów w całość, możemy dla każdej **sojuszniczej** wioski wskazać czy jest ona w pobliżu tych wrogich wiosek (wtedy jest frontowa), czy też nie jest (wtedy jest na zapleczu). Stąd też w pole Nieuwzględniane przy liczeniu frontowych offów wioski wroga wklejamy wszelkie wrogie diody, by nie zaburzały wyniku.
 
-Dwa dolne wiersze uwzględniają jeszcze podaną <span class="md-correct2">maksymalną odległość dla szlachty</span>, gdzie z mniejszej niż wskazana ilość kratek, nie zostanie rozpisany żaden **szlachcic**. Dodatkowo liczą one ilość offów i szlachty **WOKÓŁ** wpisanych celów, zatem nie wpisując jeszcze celów, dostaniemy tam liczby **0**.
+Dwa dolne wiersze uwzględniają jeszcze podaną maksymalną odległość dla szlachty, gdzie z mniejszej niż wskazana ilość kratek, nie zostanie rozpisany żaden **szlachcic**. Dodatkowo liczą one ilość offów i szlachty **WOKÓŁ** wpisanych celów, zatem nie wpisując jeszcze celów, dostaniemy tam liczby **0**.
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Warto zawsze wybrać wszystkie nasze pobliskie wrogie plemiona do rozpiski, a nie tylko to na które rozpisujemy akcję. Jeśli nasze plemię ma dwa fronty z plemionami <b>A</b> oraz <b>B</b>, a my chcemy rozpisać akcję na <b>A</b>, to wciąż chcemy zachować frontowe offy przy <b>B</b> na użytek tamtejszych frontowców, stąd dodajemy oba plemiona do wrogich plemion (w przeciwnym wypadku, jeśli będzie tylko plemię <b>A</b> to może się okazać, że offy frontowe spod <b>B</b> są rozpisane na akcję.</div>
 
@@ -701,20 +701,20 @@ Dwa dolne wiersze uwzględniają jeszcze podaną <span class="md-correct2">maksy
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga, podany niżej pomysł na małe akcje nie jest zobowiązujący, można to robić w dowolny sposób, choćby potraktować je jako średnie akcje.</div>
 
-W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać małą akcję, docelowo w początkowym etapie świata, na <b>mniej niż 25 celów</b> (w praktyce limit nie istnieje, ale zaprezentowana metoda będzie coraz bardziej czasochłonna wraz ze wzrostem liczby celów). <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a rel="noopener" target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem!</b></a>
+W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać małą akcję, docelowo w początkowym etapie świata, na <b>mniej niż 25 celów</b> (w praktyce limit nie istnieje, ale zaprezentowana metoda będzie coraz bardziej czasochłonna wraz ze wzrostem liczby celów). Uwaga, zakładana jest już cała wiedza z <a rel="noopener" target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem!</b></a>
 <br>
 <br>
 
 Pomysł polega na ręcznym rozpisaniu rozkazów na wszystkie cele i **nie korzystaniu** z możliwości automatycznego rozpisywania. Jest ku temu kilka powodów, gdy gracze nie mają pełnych offów, mnóstwa grubych i odległości do wrogów nie są sensowne (przemieszanie z wrogiem nie jest sensowne), automatyczne rozpisywanie akcji mija się z celem. Dokładnie i szybko można zrobić to ręcznie - **tylko że ręcznie z pomocą Planera!**, co przyspiesza tworzenie rozpiski i rozsyłanie celów do maksimum. Do tego był wstępnie stworzony, właśnie do małych akcji, w tym jest najlepszy. Cała nakładka do większych akcji to późniejsze dodatki. Ale do rzeczy!
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> <span class="md-error">Zawsze</span> rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na <span class="md-error">Frontowe</span> i <span class="md-error">Zapleczowe</span> zgodnie z duchem danej rozpiski. Do tego celu służy zakładka <span class="md-correct2">1. Dostępne jednostki</span>, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zawsze rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na Frontowe i Zapleczowe zgodnie z duchem danej rozpiski. Do tego celu służy zakładka 1. Dostępne jednostki, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
 
 <h5>Dla małej akcji uzupełniona zakładka może wyglądać następująco:</h5>
 
 ![](images/3_070_small-outline0.avif)
 
 <br>
-Ustaw tam minimalną liczbę w offie na adekwatną, **małą wartość np. 2000**, (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu również małą czyli **1-10 kratek**. Klikamy <span class="md-correct2">Zapisz i odśwież dostępne</span>. Uzupełniona zostanie tabela z ilością naszych offów.
+Ustaw tam minimalną liczbę w offie na adekwatną, **małą wartość np. 2000**, (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu również małą czyli **1-10 kratek**. Klikamy Zapisz i odśwież dostępne. Uzupełniona zostanie tabela z ilością naszych offów.
 
 <br>
 
@@ -726,7 +726,7 @@ Ustaw tam minimalną liczbę w offie na adekwatną, **małą wartość np. 2000*
 
 ![](images/3_090_small-outline1.avif)
 
-Po wpisaniu kordów jak wyżej i ich zapisaniu, każda linijka będzie wyglądać podobnie do **000|000:0:0**.<br> <b><span class="md-error">Ignorujemy wszystkie pozostałe zaawansowane ustawienia, pozostawiając 0 offów i 0 szlachty w każdej linijce i klikamy</span></b> <span class="md-correct2">Rozpisz tą akcję</span>.
+Po wpisaniu kordów jak wyżej i ich zapisaniu, każda linijka będzie wyglądać podobnie do **000|000:0:0**.<br> <b>Ignorujemy wszystkie pozostałe zaawansowane ustawienia, pozostawiając 0 offów i 0 szlachty w każdej linijce i klikamy</b> Rozpisz tą akcję.
 
 <br>
 
@@ -734,7 +734,7 @@ Po wpisaniu kordów jak wyżej i ich zapisaniu, każda linijka będzie wygląda�
 
 <br>
 
-Po przejściu do następnej zakładki, zauważymy, że wszystkie cele są puste. **Przechodzimy kolejno do edytowania wszystkich celów** przyciskami <span class="md-correct2">Edytuj</span> i rozpisujemy rozkazy od najbliższych graczy w wybranej przez siebie kolejności, pomocne będą sortowania oprócz domyślnego <span class="md-correct2">Rosnąco ze względu na odległość</span>, <span class="md-correct2">Najbliższe pełne offy</span> oraz <span class="md-correct2">Najbliższa szlachta</span>.
+Po przejściu do następnej zakładki, zauważymy, że wszystkie cele są puste. **Przechodzimy kolejno do edytowania wszystkich celów** przyciskami Edytuj i rozpisujemy rozkazy od najbliższych graczy w wybranej przez siebie kolejności, pomocne będą sortowania oprócz domyślnego Rosnąco ze względu na odległość, Najbliższe pełne offy oraz Najbliższa szlachta.
 
 <br>
 
@@ -754,11 +754,11 @@ Po przejściu do następnej zakładki, zauważymy, że wszystkie cele są puste.
 
 Uwaga, podany niżej pomysł na średnie akcje nie jest zobowiązujący, można to robić w dowolny sposób, choćby potraktować je jako małe lub duże akcje.
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać średnią akcję, docelowo w trochę późniejszym etapie świata, na <b>mniej niż 100 celów</b>, gdzie w plemieniu są już podczas akcji raczej pełne offy lub niewiele mniejsze. <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem</b></a>! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich poradników w tym dziale, czyli <a target="_blank" rel="noopener" href="#jak-wpisywac-i-zapisac-cele-akcji"><b>Jak wpisywać i zapisać cele akcji</b></a> i <a target="_blank" rel="noopener" href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze"><b>Dwa rejony plemienia czyli co to front i zaplecze</b></a>.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać średnią akcję, docelowo w trochę późniejszym etapie świata, na <b>mniej niż 100 celów</b>, gdzie w plemieniu są już podczas akcji raczej pełne offy lub niewiele mniejsze. Uwaga, zakładana jest już cała wiedza z <a target="_blank" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem</b></a>! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich poradników w tym dziale, czyli <a target="_blank" rel="noopener" href="#jak-wpisywac-i-zapisac-cele-akcji"><b>Jak wpisywać i zapisać cele akcji</b></a> i <a target="_blank" rel="noopener" href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze"><b>Dwa rejony plemienia czyli co to front i zaplecze</b></a>.</div><br>
 
 Akcję będziemy rozpisywać wykorzystując automatyczne rozpisywanie z racji ilości celów i skorzystamy z wszelkich dostępnych zaawansowanych opcji. W razie konieczności, można zmienić ustawienia indywidualnie dla każdego celu czy to w **Zakładce 4** zmieniając dla niego tryb rozpisywania, czy też _ostatecznie_ już po utworzeniu rozpiski, edytując wybrane cele ręcznie, tak jak w przypadku małych akcji.
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> <span class="md-error">Zawsze</span> rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na <span class="md-error">Frontowe</span> i <span class="md-error">Zapleczowe</span> zgodnie z duchem danej rozpiski. Do tego celu służy zakładka <span class="md-correct2">1. Dostępne jednostki</span>, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zawsze rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na Frontowe i Zapleczowe zgodnie z duchem danej rozpiski. Do tego celu służy zakładka 1. Dostępne jednostki, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
 
 <h5>Dla średniej akcji uzupełniona zakładka może wyglądać następująco:</h5>
 
@@ -766,7 +766,7 @@ Akcję będziemy rozpisywać wykorzystując automatyczne rozpisywanie z racji il
 
 <br>
 
-Ustaw tam minimalną liczbę w offie na adekwatną ilość, pewnie więcej niż 10000 (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu na około 5-25, jeśli przeciwnik ma na terenie plemienia diody, wyrzuć je wklejąc w pole **Nieuwzględniane przy liczeniu frontowych offów wioski wroga**. Klikamy <span class="md-correct2">Zapisz i odśwież dostępne</span>. Uzupełniona zostanie tabela z ilością naszych offów.
+Ustaw tam minimalną liczbę w offie na adekwatną ilość, pewnie więcej niż 10000 (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu na około 5-25, jeśli przeciwnik ma na terenie plemienia diody, wyrzuć je wklejąc w pole **Nieuwzględniane przy liczeniu frontowych offów wioski wroga**. Klikamy Zapisz i odśwież dostępne. Uzupełniona zostanie tabela z ilością naszych offów.
 
 <br>
 
@@ -780,7 +780,7 @@ Ustaw tam minimalną liczbę w offie na adekwatną ilość, pewnie więcej niż 
 
 ![](images/3_140_mid-outline3.avif)
 
-W razie konieczności korzystaj z rozszerzonego kodowania offów i szlachty opisanego w artykule **Jak wpisywać i zapisać cele akcji**. Następnie przejdź do zakładki <span class="md-correct2">3. Parametry rozpiski</span> by ustalić ustawienia dla tej rozpiski, dokładny opis wszystkich opcji w razie trudności, znajdziesz w temacie jej poświęconym, czyli <b><a href="#parametry-rozpiski">3. Parametry rozpiski</a></b>.
+W razie konieczności korzystaj z rozszerzonego kodowania offów i szlachty opisanego w artykule **Jak wpisywać i zapisać cele akcji**. Następnie przejdź do zakładki 3. Parametry rozpiski by ustalić ustawienia dla tej rozpiski, dokładny opis wszystkich opcji w razie trudności, znajdziesz w temacie jej poświęconym, czyli <b><a href="#parametry-rozpiski">3. Parametry rozpiski</a></b>.
 
 <h5>Przykład ustawień dla akcji średniej:</h5>
 
@@ -792,7 +792,7 @@ Dodatkowo możesz w zakładce **4.** doprecyzować indywidalnie poszczególne ce
 
 Ostatnie co powinieneś przemyśleć, jest zakładka **5.** czyli unikanie wysyłek w bonus nocny, prawdopodobnie będzie to korzystne, przynajmniej dla graczy i ich zdrowia, z racji mniejszej ilości lub zlikwidowania wysyłek w środku nocy :)
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po wpisaniu wszystkich celów, zmianie ustawień akcji i ewentualnie bonusu nocnego, znanym już z <b>Świata Testowego</b> sposobem przejdź do dalszej częsci rozpiski klikając <span class="md-correct2">Rozpisz tą akcję</span>, następnie sprawdź czy wszystko jest OK i ewentualnie powróć przyciskiem Powrót, zmień ustawienia. Potem standardowo przejdź do zakładki Czasów, ustal czasy wejścia, zakończ rozpiskę i roześlij graczom ich cele.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po wpisaniu wszystkich celów, zmianie ustawień akcji i ewentualnie bonusu nocnego, znanym już z <b>Świata Testowego</b> sposobem przejdź do dalszej częsci rozpiski klikając Rozpisz tą akcję, następnie sprawdź czy wszystko jest OK i ewentualnie powróć przyciskiem Powrót, zmień ustawienia. Potem standardowo przejdź do zakładki Czasów, ustal czasy wejścia, zakończ rozpiskę i roześlij graczom ich cele.</div><br>
 
 <b><a href="#podstawowe-poradniki-zakladki-planer"><i class="bi bi-arrow-left"></i> Powrót do początku rozdziału.</a></b>
 
@@ -806,11 +806,11 @@ Ostatnie co powinieneś przemyśleć, jest zakładka **5.** czyli unikanie wysy�
 
 Uwaga, podany niżej pomysł na duże akcje nie jest zobowiązujący, można to robić w dowolny sposób.
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać dużą akcję, docelowo w późnym etapie świata, na <b>więcej/dużo więcej niż 100 celów</b>, gdzie w plemieniu są już podczas akcji brane pod uwagę same pełne offy. <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a target="_blank" rel="noopener" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem</b></a>! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich poradników w tym dziale, czyli <a target="_blank" href="#jak-wpisywac-i-zapisac-cele-akcji"><b>Jak wpisywać i zapisać cele akcji</b></a> i <a target="_blank" href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze"><b>Dwa rejony plemienia czyli co to front i zaplecze</b></a>.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> W tym poradniku zobaczysz jak najefektywniej i najskuteczniej rozpisywać dużą akcję, docelowo w późnym etapie świata, na <b>więcej/dużo więcej niż 100 celów</b>, gdzie w plemieniu są już podczas akcji brane pod uwagę same pełne offy. Uwaga, zakładana jest już cała wiedza z <a target="_blank" rel="noopener" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem</b></a>! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich poradników w tym dziale, czyli <a target="_blank" href="#jak-wpisywac-i-zapisac-cele-akcji"><b>Jak wpisywać i zapisać cele akcji</b></a> i <a target="_blank" href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze"><b>Dwa rejony plemienia czyli co to front i zaplecze</b></a>.</div><br>
 
 Akcję będziemy rozpisywać wykorzystując automatyczne rozpisywanie z racji ilości celów i skorzystamy z wszelkich dostępnych zaawansowanych opcji. Nie będziemy korzystac z ręcznych możliwości edycji celów, całość akcji A-Z będziemy tworzyć w pierwszej zakładce, następnie tylko ustalać czasy wejścia i rozsyłać gotowe cele.
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> <span class="md-error">Zawsze</span> rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na <span class="md-error">Frontowe</span> i <span class="md-error">Zapleczowe</span> zgodnie z duchem danej rozpiski. Do tego celu służy zakładka <span class="md-correct2">1. Dostępne jednostki</span>, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zawsze rozpoczynaj rozpisywanie <b>dowolnej akcji na tej stronie</b> od policzenia wszystkich offów i podzieleniu ich na Frontowe i Zapleczowe zgodnie z duchem danej rozpiski. Do tego celu służy zakładka 1. Dostępne jednostki, zaś wyniki prezentowane są w tabeli pod celami.</div><br>
 
 <h5>Dla dużej akcji uzupełniona zakładka może wyglądać następująco:</h5>
 
@@ -818,7 +818,7 @@ Akcję będziemy rozpisywać wykorzystując automatyczne rozpisywanie z racji il
 
 <br>
 
-Ustaw tam minimalną liczbę w offie na pełnego offa, **ok. 19k** lub ciut mniej jeśli przewidywane wysyłki są dopiero za kilka dni i offy zdążą się dorobić pełne przez ten czas (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu na około 10-45 w zależności od tego jak wygląda front. Jeśli przeciwnik ma na terenie plemienia diody, wyrzuć je wklejąc w pole **Nieuwzględniane przy liczeniu frontowych offów wioski wroga**. Klikamy <span class="md-correct2">Zapisz i odśwież dostępne</span>. Uzupełniona zostanie tabela z ilością naszych offów.
+Ustaw tam minimalną liczbę w offie na pełnego offa, **ok. 19k** lub ciut mniej jeśli przewidywane wysyłki są dopiero za kilka dni i offy zdążą się dorobić pełne przez ten czas (tylko offy powyżej tego będą pokazane w tabeli), odległość od lini frontu na około 10-45 w zależności od tego jak wygląda front. Jeśli przeciwnik ma na terenie plemienia diody, wyrzuć je wklejąc w pole **Nieuwzględniane przy liczeniu frontowych offów wioski wroga**. Klikamy Zapisz i odśwież dostępne. Uzupełniona zostanie tabela z ilością naszych offów.
 
 <br>
 
@@ -832,7 +832,7 @@ Ustaw tam minimalną liczbę w offie na pełnego offa, **ok. 19k** lub ciut mnie
 
 ![](images/3_180_big-outline3.avif)
 
-Jeśli któreś cele mają mieć inne ustawienia od domyślnych, korzystaj z rozszerzonego kodowania offów i szlachty opisanego w artykule **Jak wpisywać i zapisać cele akcji**. Następnie przejdź do zakładki <span class="md-correct2">3. Parametry rozpiski</span> by ustalić ustawienia dla tej rozpiski, dokładny opis wszystkich opcji w razie trudności, znajdziesz w temacie jej poświęconym, czyli <b><a href="#parametry-rozpiski">3. Parametry rozpiski</a></b>.
+Jeśli któreś cele mają mieć inne ustawienia od domyślnych, korzystaj z rozszerzonego kodowania offów i szlachty opisanego w artykule **Jak wpisywać i zapisać cele akcji**. Następnie przejdź do zakładki 3. Parametry rozpiski by ustalić ustawienia dla tej rozpiski, dokładny opis wszystkich opcji w razie trudności, znajdziesz w temacie jej poświęconym, czyli <b><a href="#parametry-rozpiski">3. Parametry rozpiski</a></b>.
 
 <h5>Przykład ustawień dla akcji dużej:</h5>
 
@@ -840,7 +840,7 @@ Jeśli któreś cele mają mieć inne ustawienia od domyślnych, korzystaj z roz
 
 Prawdopodobnie powinieneś też włączyć w zakładce **5.** unikanie wysyłek w bonus nocny.
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po wpisaniu wszystkich celów, zmianie ustawień akcji i ustawieniu omijania bonusu nocnego, znanym już z <b>Świata Testowego</b> sposobem przejdź do dalszej częsci rozpiski klikając <span class="md-correct2">Rozpisz tą akcję</span>, następnie sprawdź czy wszystko jest OK i ewentualnie powróć przyciskiem Powrót, zmień ustawienia. Potem standardowo przejdź do zakładki Czasów, ustal czasy wejścia, zakończ rozpiskę i roześlij graczom ich cele.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Po wpisaniu wszystkich celów, zmianie ustawień akcji i ustawieniu omijania bonusu nocnego, znanym już z <b>Świata Testowego</b> sposobem przejdź do dalszej częsci rozpiski klikając Rozpisz tą akcję, następnie sprawdź czy wszystko jest OK i ewentualnie powróć przyciskiem Powrót, zmień ustawienia. Potem standardowo przejdź do zakładki Czasów, ustal czasy wejścia, zakończ rozpiskę i roześlij graczom ich cele.</div><br>
 
 <b><a href="#podstawowe-poradniki-zakladki-planer"><i class="bi bi-arrow-left"></i> Powrót do początku rozdziału.</a></b>
 
@@ -854,7 +854,7 @@ Prawdopodobnie powinieneś też włączyć w zakładce **5.** unikanie wysyłek 
 
 <h2 id="akcje-burzace-kompletny-poradnik">Akcje burzące - kompletny poradnik</h2>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> W tym poradniku zobaczysz jak rozpisywać akcje burzące, docelowo w późniejszym etapie świata. <span class="md-error">Uwaga</span>, zakładana jest już cała wiedza z <a target="_blank" rel="noopener" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem</b></a>! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich uniwersalnych poradników w tym dziale, czyli <a target="_blank" rel="noopener" href="#jak-wpisywac-i-zapisac-cele-akcji"><b>Jak wpisywać i zapisać cele akcji</b></a> i <a target="_blank" rel="noopener" href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze"><b>Dwa rejony plemienia czyli co to front i zaplecze</b></a>.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> W tym poradniku zobaczysz jak rozpisywać akcje burzące, docelowo w późniejszym etapie świata. Uwaga, zakładana jest już cała wiedza z <a target="_blank" rel="noopener" href="#swiat-testowy-czyli-pierwsze-kroki-z-planerem"><b>Pierwszych kroków z planerem</b></a>! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich uniwersalnych poradników w tym dziale, czyli <a target="_blank" rel="noopener" href="#jak-wpisywac-i-zapisac-cele-akcji"><b>Jak wpisywać i zapisać cele akcji</b></a> i <a target="_blank" rel="noopener" href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze"><b>Dwa rejony plemienia czyli co to front i zaplecze</b></a>.</div><br>
 
 Akcja będzie całkowicie tworzona w polu **Burzaki** obok Celów. Ustawienia w zakładce **6. Burzaki** są bardzo proste, ustalamy tam przede wszystkim kolejność burzonych budynków oraz max ilość katapult w atakach burzących (minimalna to 50).
 
@@ -919,7 +919,7 @@ Oczywiście można też zwyczajnie wymyślić obojętną liczbę celów i "spraw
 
 <br>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Pamiętaj, że u podstaw rozpisywania leży prosty algrytm zachłanny i stąd Planer ZAWSZE rozpisuje czy burzaki, czy fejki czy offy <b>LOSOWO</b> w bardzo podobny sposób, więc jeśli chcesz by offy czy burzaki były zupełnie nieodróżnialne od fejków, musisz rozpisać mnóstwo fejków. W przypadku burzenia warto zaznaczyć opcję <span class="md-error">Fejki ze wszystkich wiosek</span> z Zakładki <b>3. Domyślne ustawienia akcji</b>, która w przeciwieństwie do domyślnego ustawienia, fejki rozpisuje z wszystkich zapleczowych wiosek.</div><br>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Pamiętaj, że u podstaw rozpisywania leży prosty algrytm zachłanny i stąd Planer ZAWSZE rozpisuje czy burzaki, czy fejki czy offy <b>LOSOWO</b> w bardzo podobny sposób, więc jeśli chcesz by offy czy burzaki były zupełnie nieodróżnialne od fejków, musisz rozpisać mnóstwo fejków. W przypadku burzenia warto zaznaczyć opcję Fejki ze wszystkich wiosek z Zakładki <b>3. Domyślne ustawienia akcji</b>, która w przeciwieństwie do domyślnego ustawienia, fejki rozpisuje z wszystkich zapleczowych wiosek.</div><br>
 
 Podsumowując warto zastanowić się nad ilością katapult (i ile budynków warto w ogóle zburzyć, być może wystarczy tylko zagroda + ratusz + kuźnia?) i rozpisać mnóstwo fejków. Miłego gruzowania.
 
@@ -962,7 +962,7 @@ Podsumowując warto zastanowić się nad ilością katapult (i ile budynków war
 
 <h2 id="dostepne-jednostki-i-opis-tabeli">1. Dostępne jednostki i opis Tabeli</h2>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zakładka służy do dzielenia wiosek naszego plemienia na <span class="md-error">Front</span> i <span class="md-error">Zaplecze</span>. Ponieważ jej znajomość jest podstawą obsługi strony, całość jej opisu znajdziesz w <b>Podstawowych poradnikach zakładki Planer</b>, w tym artykule<br> <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa rejony plemienia czyli co to front i zaplecze</a></b>.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Zakładka służy do dzielenia wiosek naszego plemienia na Front i Zaplecze. Ponieważ jej znajomość jest podstawą obsługi strony, całość jej opisu znajdziesz w <b>Podstawowych poradnikach zakładki Planer</b>, w tym artykule<br> <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa rejony plemienia czyli co to front i zaplecze</a></b>.</div>
 
 <br>
 
@@ -982,7 +982,7 @@ Podsumowując warto zastanowić się nad ilością katapult (i ile budynków war
 
 ![](images/4_010_change-date.avif)
 
-Nie istnieje i nie będzie istniała możliwość _de facto_ rozpisania akcji na kilka dni. Jedyną możliwością jest rozpisanie akcji na pierwszy dzień np. **01.01**, wysłania wyników graczom, a następnie w <span class="md-error">Zakładce Wyniki</span>, po zakończonej rozpisce, możesz znaleźć _pozostałe_, niewykorzystane jednostki w zakładce <span class="md-error">Niewykorzystane wojska</span>. Tworząc nową rozpiskę z inną datą, np. na kolejny dzień **02.01** i kopiując tam te dane o Wojskach, można rozpisać akcję na kolejny dzień.
+Nie istnieje i nie będzie istniała możliwość _de facto_ rozpisania akcji na kilka dni. Jedyną możliwością jest rozpisanie akcji na pierwszy dzień np. **01.01**, wysłania wyników graczom, a następnie w Zakładce Wyniki, po zakończonej rozpisce, możesz znaleźć _pozostałe_, niewykorzystane jednostki w zakładce Niewykorzystane wojska. Tworząc nową rozpiskę z inną datą, np. na kolejny dzień **02.01** i kopiując tam te dane o Wojskach, można rozpisać akcję na kolejny dzień.
 
 <br>
 
@@ -1002,9 +1002,9 @@ Nie istnieje i nie będzie istniała możliwość _de facto_ rozpisania akcji na
 
 ![](images/4_020_change-mode1.avif)
 
-W artykule <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa rejony plemienia czyli co to front i zaplecze</a></b> dowidziałeś/aś się jak Planer radzi sobie z podziałem na <span class="md-error">Front</span>, <span class="md-error">Zaplecze</span>i <span class="md-error">Poza</span>. Najpierw omówimy punkty **1.** i **2.** na powyższym zdjęciu.
+W artykule <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa rejony plemienia czyli co to front i zaplecze</a></b> dowidziałeś/aś się jak Planer radzi sobie z podziałem na Front, Zapleczei Poza. Najpierw omówimy punkty **1.** i **2.** na powyższym zdjęciu.
 
-<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga, dla całości rozważań poniżej, ignorujemy wszystkie wioski z rejonu <span class="md-error">Poza</span>. Są one całkowicie pomijane przez Planer, stąd skupiamy się jedynie na froncie i zapleczu.</div>
+<div class="p-3 mb-2" style="background: #CEF2F3 !important;">Uwaga, dla całości rozważań poniżej, ignorujemy wszystkie wioski z rejonu Poza. Są one całkowicie pomijane przez Planer, stąd skupiamy się jedynie na froncie i zapleczu.</div>
 
 <h5>Ustawienia 1-2:</h5>
 
@@ -1012,13 +1012,13 @@ W artykule <b><a href="#dwa-rejony-plemienia-czyli-co-to-front-i-zaplecze">Dwa r
 
 Możesz zdefiniować z których dokładnie części plemienia powinny domyślnie polecieć offy i szlachta. Domyślnie jest to **Zaplecze Losowo** dla offów oraz **Front Najbliżej** dla szlachty.<br>
 
-**Front Najbliżej** oznacza tyle co <span class="md-error">Jak najbliżej się da</span>, niekoniecznie nawet musi być to z wiosek z <span class="md-error">Frontu</span>, jeśli np. nie ma frontowych wiosek lub podczas automatycznego rozpisywania, w danym rejonie już zostaną same wioski z zaplecza (bo frontowe zostaną wykorzystane), wówczas zwyczajnie zostaną wzięte jak najbliższe wioski.
+**Front Najbliżej** oznacza tyle co Jak najbliżej się da, niekoniecznie nawet musi być to z wiosek z Frontu, jeśli np. nie ma frontowych wiosek lub podczas automatycznego rozpisywania, w danym rejonie już zostaną same wioski z zaplecza (bo frontowe zostaną wykorzystane), wówczas zwyczajnie zostaną wzięte jak najbliższe wioski.
 
-**Zaplecze Blisko** to już musowo wioski z <span class="md-error">Zaplecza</span>, a wśród nich wzięte są najbliższe możliwe.
+**Zaplecze Blisko** to już musowo wioski z Zaplecza, a wśród nich wzięte są najbliższe możliwe.
 
-**Zaplecze Losowo** to wioski z <span class="md-error">Zaplecza</span>, wzięte prawdziwie (a nie pseudo) losowo spośród wszystkich możliwych, domyślne ustawienie dla offów - przeważnie nie chcemy by cokolwiek (odległość, wysyłający gracz) świadczyło, że to off i dało się go odróżnić od fejków.
+**Zaplecze Losowo** to wioski z Zaplecza, wzięte prawdziwie (a nie pseudo) losowo spośród wszystkich możliwych, domyślne ustawienie dla offów - przeważnie nie chcemy by cokolwiek (odległość, wysyłający gracz) świadczyło, że to off i dało się go odróżnić od fejków.
 
-**Zaplecze Daleko** to wioski z <span class="md-error">Zaplecza</span>, posortowane odwrotnie niż te z **Zaplecze Blisko**, to znaczy od najdalszych jakie są tylko możliwe.
+**Zaplecze Daleko** to wioski z Zaplecza, posortowane odwrotnie niż te z **Zaplecze Blisko**, to znaczy od najdalszych jakie są tylko możliwe.
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Dla dodatkowej frajdy, którą niewątpliwie będą czuć obrońcy akcji pisanych na tej stronie, wszystkie powyższe ustawienia mają minimalny stopień losowości, tzn <b>najbliższe</b> i <b>najdalsze</b> możliwe, mają pewne malutkie wahanie, ponieważ teoretycznie <b>Zaplecze Blisko</b> i <b>Zaplecze Daleko</b> są możliwe do rozpoznania dla obrońcy, a w ten sposób będzie to troszkę cięższe do odgadnięcia, w zależności ile ataków jest rozpisanych na daną wioskę, wahanie będzie większe.</div><br>
 
@@ -1028,21 +1028,21 @@ Przejdźmy do ustawień **3.** do **6.** , które skupiają się na ogólnych us
 
 ![](images/4_040_change-mode1.2.avif)
 
-<b><span class="md-error">W punkcie 3.</span></b> decydujemy jak powinna być dzielona szlachta z **jednej wioski**. Do wyboru są trzy zwyczajowe możliwości, czyli <span class="md-error">Dzielić</span> (każdy szlachcic z tą samą obstawą), <span class="md-error">Nie dzielić</span> (pierwszy szlachcic z największą obstawą, pozostałe z minimalną obstawą, uwaga słabo to wypada w przypadku np. 5 szlachciców, zawsze wtedy gdy rozdzielone zostaną na kilka wiosek) oraz <span class="md-error">Osobno</span>, czyli **wszystkie** szlachcice są z minimalną obstawą, a offy lecą osobno przed nimi, tylko do szczególnych akcji i zastosowań.
+<b>W punkcie 3.</b> decydujemy jak powinna być dzielona szlachta z **jednej wioski**. Do wyboru są trzy zwyczajowe możliwości, czyli Dzielić (każdy szlachcic z tą samą obstawą), Nie dzielić (pierwszy szlachcic z największą obstawą, pozostałe z minimalną obstawą, uwaga słabo to wypada w przypadku np. 5 szlachciców, zawsze wtedy gdy rozdzielone zostaną na kilka wiosek) oraz Osobno, czyli **wszystkie** szlachcice są z minimalną obstawą, a offy lecą osobno przed nimi, tylko do szczególnych akcji i zastosowań.
 
 Najbardziej sensowna opcja szczególnie dla większych akcji to raczej **dzielenie**, choć domyślne jest **nie dzielenie**, bo tak raczej to wygląda dla mniejszych rozpisek.<br>
 
-<b><span class="md-error">W punkcie 4.</span></b> mamy do wyboru 3 opcje, przy pierwszej Planer stara się brać szlachtę na daną wioskę możliwie z różnych wiosek naszych graczy (zastosowanie to na przykład offoszlachty z daleka), w drugiej opcji (domyślnej) robi to optymalnie zaś w trzeciej stara się puścić na każdą wioskę karetę od jednego gracza lub następnie 3 szlachcice od jednego gracz i 1 szlachcica od drugiego bądź też po 2, zaś prawdopodobnie nigdzie nie będzie pojedynczych szlachciców z różnych wiosek. Opcja trzecia jest najmniej pewna i może generować różne dziwne wyniki.
+<b>W punkcie 4.</b> mamy do wyboru 3 opcje, przy pierwszej Planer stara się brać szlachtę na daną wioskę możliwie z różnych wiosek naszych graczy (zastosowanie to na przykład offoszlachty z daleka), w drugiej opcji (domyślnej) robi to optymalnie zaś w trzeciej stara się puścić na każdą wioskę karetę od jednego gracza lub następnie 3 szlachcice od jednego gracz i 1 szlachcica od drugiego bądź też po 2, zaś prawdopodobnie nigdzie nie będzie pojedynczych szlachciców z różnych wiosek. Opcja trzecia jest najmniej pewna i może generować różne dziwne wyniki.
 
-<b><span class="md-error">W punkcie 5.</span></b> wybieramy jak powinny wyglądać rozkazy do placu dla naszych graczy w przypadku wielu szlachciców z jednej wioski. Załóżmy że nasz dany gracz ma puścić **20k** offa i **4 szlachcice** na wioskę **500|500**.
+<b>W punkcie 5.</b> wybieramy jak powinny wyglądać rozkazy do placu dla naszych graczy w przypadku wielu szlachciców z jednej wioski. Załóżmy że nasz dany gracz ma puścić **20k** offa i **4 szlachcice** na wioskę **500|500**.
 
-**W przypadku pierwszej opcji**, dostanie <span class="md-error">JEDEN</span> link do placu z **20k offa i 4 szlachcicami**
+**W przypadku pierwszej opcji**, dostanie JEDEN link do placu z **20k offa i 4 szlachcicami**
 
-**W przypadku drugiej, domyślnej opcji**, dostanie <span class="md-error">CZTERY</span> linki do placu pod rząd w swoich celach, każdy szalchcic zostanie innymi słowy potraktowany jako osobny rozkaz.
+**W przypadku drugiej, domyślnej opcji**, dostanie CZTERY linki do placu pod rząd w swoich celach, każdy szalchcic zostanie innymi słowy potraktowany jako osobny rozkaz.
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Która opcja w punkcie 5 jest lepsza? Odpowiedź jak zwykle: to zależy. Dla małych akcji zapewne <b>druga</b>, domyślna. Dla bardzo dużych, ogromnych akcji gdzie offy i tak zawsze będą dzielone, wygodniejsza dla graczy będzie opcja <b>pierwsza</b>. Dla reszty akcji dobieramy tak jak nam pasuje, domyślna opcja oznacza więcej szczegółów dla gracza (bo wie dokładnie jak wygląda obstawa dla każdego szlachcica), zaś opcja pierwsza jako jeden rozkaz oznacza mniej szczegółów i mniej zajętego miejsca.</div>
 
-<b><span class="md-error">W punkcie 6.</span></b> wybieramy ile maksymalnie fejków z jednej naszej wioski może zostać wysłane.
+<b>W punkcie 6.</b> wybieramy ile maksymalnie fejków z jednej naszej wioski może zostać wysłane.
 
 <br>
 
@@ -1062,13 +1062,13 @@ Najbardziej sensowna opcja szczególnie dla większych akcji to raczej **dzielen
 
 ![](images/4_045_morale_photo.avif)
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga. Domyślnie opcja jest <span class="md-error">wyłączona</span> w każdej akcji, ale możesz zmienić to zachowanie przechodząc do <span class="md-correct2">Menu -> Moje konto</span>.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga. Domyślnie opcja jest wyłączona w każdej akcji, ale możesz zmienić to zachowanie przechodząc do Menu -> Moje konto.</div>
 
-Pierwsze pole <span class="md-correct2">Tylko atakujący POWYŻEJ tej wartości morale mogą zostać rozpisani</span> służy do decydowania jaka **najniższa** dopuszczalna wartość morale jest w porządku dla akcji. Często będzie to wartość 90-100 w zależności od tego na jakim etapie jest świat, na jakie cele rozpisujemy akcje itd. Wpływ na wynik akcji wygląda tak, że dla danego celu (każdego z osobna!) listę wszystkich dopuszczalnych wiosek z których mogłyby być na niego rozpisane ataki, <span class="md-correct2">filtrujemy, pomniejszamy</span> o te wszystkie, które nie spełniają naszych wymagań dotyczących morale.
+Pierwsze pole Tylko atakujący POWYŻEJ tej wartości morale mogą zostać rozpisani służy do decydowania jaka **najniższa** dopuszczalna wartość morale jest w porządku dla akcji. Często będzie to wartość 90-100 w zależności od tego na jakim etapie jest świat, na jakie cele rozpisujemy akcje itd. Wpływ na wynik akcji wygląda tak, że dla danego celu (każdego z osobna!) listę wszystkich dopuszczalnych wiosek z których mogłyby być na niego rozpisane ataki, filtrujemy, pomniejszamy o te wszystkie, które nie spełniają naszych wymagań dotyczących morale.
 
 Czyli w teorii mając wśród wielu celów kilka czy kilkanaście **graczy z małą ilością punktów**, na nich rozpisane zostaną ataki z graczy z plemienia również z mniejszą ilością punktów.
 
-W skrajnych sytuacjach można odznaczyć drugą opcję <span class="md-correct2">Bierz pod uwagę morale w tej rozpisce</span> co skutkuje **nie braniem** pod uwagę morali.
+W skrajnych sytuacjach można odznaczyć drugą opcję Bierz pod uwagę morale w tej rozpisce co skutkuje **nie braniem** pod uwagę morali.
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Uwaga w plemionach występują w kolejności popularności trzy ustawienia morale: oparte na punktach, oparte na punktach i czasie oraz brak morali.</div>
 
@@ -1108,7 +1108,7 @@ W przypadku aktywacji, Planer będzie unikał wysyłek w godzinach **00:00-07:00
 
 <br>
 
-Domyślnie opcja ta jest **wyłączona**, zaznacz pierwszy kwadracik by ją ustawić. Z racji tego, że _de facto_ dokładne czasy wejścia offów ustala się na samym końcu, w zakładce <span class="md-error">Time</span>, podajemy jedynie **przybliżone** godziny wejścia wszystkich offów lub ich większości. Dla ustalenia uwagi, większość akcji planowana jest na rano, np. offy wchodzą **7-11**, wtedy też takie dwie godziny wpisujemy w formularz.
+Domyślnie opcja ta jest **wyłączona**, zaznacz pierwszy kwadracik by ją ustawić. Z racji tego, że _de facto_ dokładne czasy wejścia offów ustala się na samym końcu, w zakładce Time, podajemy jedynie **przybliżone** godziny wejścia wszystkich offów lub ich większości. Dla ustalenia uwagi, większość akcji planowana jest na rano, np. offy wchodzą **7-11**, wtedy też takie dwie godziny wpisujemy w formularz.
 
 <br>
 
@@ -1136,7 +1136,7 @@ Domyślnie opcja ta jest **wyłączona**, zaznacz pierwszy kwadracik by ją usta
 
 <br>
 
-W opcji pod numerem <span class="md-error">1.</span> ustalana jest kolejność burzonych budynków. Planer rozpisze na nie ataki w podanej kolejności, **nie uwzględniając pominiętych budynków**. Pod numerem <span class="md-error">2.</span> ustalamy maksymalną ilość katapult, która będzie rozpisywana (a potem kolejno coraz mniejsze ilości aż do 50 katapult). W <span class="md-error">3.</span> wybieramy ilość katapult w pełnych offach, która powinna zawsze zostać w wioskach (celem puszczenia wraz z offem). W ostatnim polu <span class="md-error">4.</span> możemy wybrać wielkość burzonych wiosek, domyślnie są to duże, pełne wioski z maksymalnymi budynkami ok. 9k punktów (stąd i więcej katapult trzeba do zburzenia zagrody, kuźni itp. niż gdy jest to wioska 5k pkt.). Wybieramy wedle specyfiki naszej akcji.
+W opcji pod numerem 1. ustalana jest kolejność burzonych budynków. Planer rozpisze na nie ataki w podanej kolejności, **nie uwzględniając pominiętych budynków**. Pod numerem 2. ustalamy maksymalną ilość katapult, która będzie rozpisywana (a potem kolejno coraz mniejsze ilości aż do 50 katapult). W 3. wybieramy ilość katapult w pełnych offach, która powinna zawsze zostać w wioskach (celem puszczenia wraz z offem). W ostatnim polu 4. możemy wybrać wielkość burzonych wiosek, domyślnie są to duże, pełne wioski z maksymalnymi budynkami ok. 9k punktów (stąd i więcej katapult trzeba do zburzenia zagrody, kuźni itp. niż gdy jest to wioska 5k pkt.). Wybieramy wedle specyfiki naszej akcji.
 
 <br>
 

@@ -1,6 +1,6 @@
-# First steps.
+# Test World - first steps with the Planer
 
-W tej zakładce dowiesz się jak rozpisać swoją pierwszą akcję na specjalnie do tego celu utworzonym świecie testowym. Szybko, przejrzyście, bez potrzeby instalacji skryptów.
+In this tab you will learn how to write your first outline on a specially created test world. Quickly, transparently, without the need for scripts.
 
-Specjalny świat oznaczony jako {==Świat Test==} jest stworzony do testowania Planera szczególnie dla nowych użytkowników, pozwala na szybkie zapoznanie się z możliwościami strony bez konieczności wcześniejszego instalowania i korzystania ze skryptów. Wszelkie informacje co, gdzie, jak i po co wpisywać, znajdują się w dalszej części rozdziału.
+A special world marked as {==World Test==} is designed to test the Planer especially for new users, it allows you to quickly familiarize yourself with the possibilities of the website without the need to install and use scripts first. All information about what, where, how and why to enter it can be found later in this chapter.
 

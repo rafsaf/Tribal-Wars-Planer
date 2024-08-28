@@ -1,13 +1,13 @@
-# Krok 1 - Tworzenie Rozpiski
+# Step 1 - Create an outline
 
-Po ewentualnym utworzeniu konta lub zalogowaniu, należy utworzyć nową rozpiskę w zakładce {==Stwórz nową rozpiskę==} pamiętając by wybranym światem gry był Świat Test. W obecnej wersji datę można swobodnie zmieniać w późniejszym czasie.
+After creating an account or logging in, you should create a new outline in the {==Create new outline==}, remembering that the selected world of the game would be the test world. In the current version, the date can be freely changed at a later time.
 
 <figure markdown="span">
-  ![alt text](image-1.png)
-  <figcaption>Wybierz Świat Test</figcaption>
+  ![alt text](image.png)
+  <figcaption>Choose World Test</figcaption>
 </figure>
 
 
 !!! info
 
-    Po kliknięciu Potwierdź zostaniesz przeniesiony od razu do następnej zakładki.
+    After clicking Create you will be taken directly to the next page.
