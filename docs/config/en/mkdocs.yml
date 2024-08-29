@@ -72,7 +72,7 @@ nav:
       - first_steps/step_2_choose_tribes.md
       - first_steps/step_3_fill_data.md
       - first_steps/step_4_save_targets_and_settings.md
-      - first_steps/step_5_add_weights_to_target.md
+      - first_steps/step_5_outline_edit.md
       - first_steps/step_6_set_time_finish.md
       - first_steps/step_7_results_tab.md
   - 2. Installing the necessary scripts: scripts/index.md
