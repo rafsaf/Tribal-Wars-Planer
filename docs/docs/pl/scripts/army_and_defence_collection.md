@@ -1,0 +1,1 @@
+# Skrypt Zbiórka Wojska i Obrony

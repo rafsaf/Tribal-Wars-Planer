@@ -1,0 +1,1 @@
+# Skrypt Auto uzupełnianie wiadomości
