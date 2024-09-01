@@ -1,8 +1,8 @@
 # Skrypt Zbiórka Wojska i Obrony
 
-| Serwer             | Forum plemion                                                                                                                                                        | Dozwolony | Kod                                                                                                   |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
-| plemiona-planer.pl | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/) | TAK       | [Kod na GitHubie](https://github.com/rafsaf/scripts_tribal_wars/blob/master/src/collect_troops_v2.ts) |
+| Serwer             | Forum plemion                                                                                                                                                        | Dozwolony | Kod                                                                                                               |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------- |
+| plemiona-planer.pl | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/) | TAK       | [Kod na GitHubie (v2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/collect_troops_v2.js) |
 
 !!! warning
 
@@ -25,6 +25,7 @@ Przebiega identycznie jak w przypadku wszystkich skryptów do paska, należy prz
 3. Przejdź do wybranej rozpiski
 4. Wklej dane i potwierdź
 
+![Przykładowy wynik skryptu](image-2.png)
 
 ## Opis
 
