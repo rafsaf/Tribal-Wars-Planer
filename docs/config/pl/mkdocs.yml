@@ -76,8 +76,8 @@ nav:
       - first_steps/step_6_set_time_finish.md
       - first_steps/step_7_results_tab.md
   - 2. Instalacja niezbędnych skryptów:
-      - scripts/index.md
       - scripts/army_and_defence_collection.md
       - scripts/sending_messages.md
-  - 3. Podstawy: primary/index.md
+  - 3. Podstawy:
+      - primary/write_outline_targets.md
   - 4. Zaawansowane: advanced/index.md
