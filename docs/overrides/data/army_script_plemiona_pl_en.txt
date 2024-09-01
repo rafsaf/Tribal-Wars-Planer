@@ -1,0 +1,15 @@
+javascript: var COLLECT_TROOPS_DATA_V2 = {
+    cache: true,
+    cacheTime: 5,
+    removedPlayers: "",
+    allowedPlayers: "",
+    firstLineTroops: "",
+    showFirstLineTroops: false,
+    showNicknamesTroops: false,
+    firstLineDeff: "",
+    showFirstLineDeff: false,
+    showNicknamesDeff: false,
+    language: "en",
+};
+$.getScript("https://media.innogamescdn.com/com_DS_PL/skrypty/Zbiorka_wojska_i_obrony.js");
+void 0;
