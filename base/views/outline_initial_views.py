@@ -858,7 +858,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     lock, created = models.OutlineWriteLock.objects.get_or_create(
         outline_id=instance.pk,
         lock_name=models.OutlineWriteLock.LOCK_NAME_TYPES.WRITE_OUTLINE,
-        defaults={"lock_expire": now + timedelta(seconds=120)},
+        defaults={"lock_expire": now + timedelta(seconds=720)},
     )
     if not created:
         return outline_being_written_error(instance, request, lock)
