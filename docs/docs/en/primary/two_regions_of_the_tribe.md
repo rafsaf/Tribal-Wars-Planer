@@ -1,4 +1,4 @@
-# Two regions of the trbie - front and rear
+# Two regions of the Tribe - front and rear
 
 !!! hint
 

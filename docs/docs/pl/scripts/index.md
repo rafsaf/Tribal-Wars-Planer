@@ -1,3 +1,0 @@
-# Opis skryptów
-
-Korzystanie ze skryptu Zbiórki Wojska i Obrony jest konieczne by korzystać z wszystkich funkcji Planera. Zbiera on jednym kliknięciem cały stan wojsk od wszystkich członków plemienia, co pozwala rozpisywać akcję lub zebrać deff plemienny mając aktualne dane. Mając stan wojsk wraz z odpowiadającymi im koordynatami wiosek, można (choć to wcale nie takie proste do zaprogramowania ) tworzyć akcję i rozsyłać cele odpowiednim graczom korzystając z wygodnych opcji i zakładek. Skrypty są legalne a ich działanie dokładnie przetestowane, do paska i do przeglądarki.

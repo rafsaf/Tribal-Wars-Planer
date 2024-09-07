@@ -38,4 +38,4 @@ Dodatkowo możesz w [zakładce 4. ustawić morale](./../advanced/4_morale.md).
 
 Ostatnie co powinieneś przemyśleć, jest zakładka [5. czyli unikanie wysyłek w bonus nocny](./../advanced/5_avoid_night_bonus.md), prawdopodobnie będzie to korzystne, przynajmniej dla graczy i ich zdrowia, z racji mniejszej ilości lub zlikwidowania wysyłek w środku nocy :)
 
-Po wpisaniu wszystkich celów, zmianie ustawień akcji i ewentualnie bonusu nocnego, znanym już z Świata Testowego sposobem przejdź do dalszej częsci rozpiski klikając Rozpisz tą akcję, następnie sprawdź czy wszystko jest OK i ewentualnie powróć przyciskiem Powrót, zmień ustawienia. Potem standardowo przejdź do zakładki Czasów, ustal czasy wejścia, zakończ rozpiskę i roześlij graczom ich cele.
+Po wpisaniu wszystkich celów, zmianie ustawień akcji i ewentualnie bonusu nocnego, znanym już z Świata Testowego sposobem przejdź do dalszej części rozpiski klikając Rozpisz tą akcję, następnie sprawdź czy wszystko jest OK i ewentualnie powróć przyciskiem Powrót, zmień ustawienia. Potem standardowo przejdź do zakładki Czasów, ustal czasy wejścia, zakończ rozpiskę i roześlij graczom ich cele.

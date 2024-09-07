@@ -1,3 +1,0 @@
-# Script Description
-
-Using the Army and Defense Collection script is necessary to utilize all the functions of the Planner. With one click, it collects the entire state of troops from all tribe members, allowing you to schedule actions or gather tribal defense with up-to-date data. Having the state of troops along with the corresponding village coordinates, you can (although it's not that simple to program) create actions and distribute targets to the appropriate players using convenient options and tabs. The scripts are legal and their operation has been thoroughly tested, both for the toolbar and the browser.

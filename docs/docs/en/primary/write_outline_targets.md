@@ -9,7 +9,7 @@ Convention: subsequent action targets must be entered in consecutive lines of Ta
 
 `440|670:5:4` in the first line is an example of how to encode the number of offenses and nobles for a given target by default. The first number indicates the number of offenses, and the second number indicates the number of nobles.
 
-The Planner supports three types of targets: real, fake, and demolition. Place real targets in Targets, fake targets in Fakes, and demolition targets in Demolitions. For Fakes, instead of offenses and nobles, encode the number of fakes and fake nobles, and in the Demolitions tab, encode the number of offenses and the number of demolitions (which follow the offenses).
+The Planer supports three types of targets: real, fake, and demolition. Place real targets in Targets, fake targets in Fakes, and demolition targets in Demolitions. For Fakes, instead of offenses and nobles, encode the number of fakes and fake nobles, and in the Demolitions tab, encode the number of offenses and the number of demolitions (which follow the offenses).
 
 <figure markdown="span">
   ![alt text](image-1.png){ width="600" }
