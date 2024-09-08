@@ -19,6 +19,10 @@ from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class BaseDocumentation(MiniSetup):
-    def test_base(self):
+    def test_docs_404(self):
         response = self.client.get(reverse("base:documentation"))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
+
+    def test_docs_redirect(self):
+        response = self.client.get("/documentation/")
+        self.assertEqual(response.status_code, 302)
