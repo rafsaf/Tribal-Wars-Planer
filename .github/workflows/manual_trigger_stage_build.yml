@@ -29,10 +29,33 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
 
+      - name: Cache
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: |
+            var-cache-pip
+            var-cache-apt
+            var-lib-apt
+          key: ${{ runner.os }}-cache-${{ hashFiles('Dockerfile') }}
+
+      - name: inject cache into docker
+        uses: reproducible-containers/buildkit-cache-dance@v3.1.2
+        with:
+          cache-map: |
+            {
+              "var-cache-pip": "/var/cache/pip",
+              "var-cache-apt": "/var/cache/apt",
+              "var-lib-apt": "/var/lib/apt"
+            }
+          skip-extraction: ${{ steps.cache.outputs.cache-hit }}
+
       - name: Build and push stage twp-server image
         uses: docker/build-push-action@v6
         with:
           target: build
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           context: .
           push: true
           tags: rafsaf/twp-server:${{ github.event.inputs.tag }}
