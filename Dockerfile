@@ -15,12 +15,10 @@ RUN addgroup --gid 2222 --system ${SERVICE_NAME} && \
 RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
-RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
-    --mount=target=/var/cache/apt,type=cache,sharing=locked \
-    apt-get update && apt-get install -y python3-pip nginx postgresql-client
+RUN apt-get update && apt-get install -y python3-pip nginx postgresql-client
 
 FROM base as poetry
-RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked pip install poetry==1.8.2
+RUN pip install poetry==1.8.2
 COPY poetry.lock pyproject.toml ./
 RUN poetry export -o  /requirements.txt --without-hashes --without="dev" --without="docs"
 RUN poetry export -o /requirements-docs.txt --without-hashes --with="docs"
@@ -29,14 +27,14 @@ FROM base AS docs
 COPY docs docs
 COPY Makefile .
 COPY --from=poetry /requirements-docs.txt .
-RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked pip install -r requirements-docs.txt
+RUN pip install -r requirements-docs.txt
 RUN make docs_build_pl
 RUN make docs_build_en
 
 FROM base AS build
 COPY --from=docs /build/generated_docs generated_docs
 COPY --from=poetry /requirements.txt .
-RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked pip install -r requirements.txt
+RUN pip install -r requirements.txt
 RUN apt-get remove -y python3-pip && apt-get autoremove --purge -y        \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
@@ -61,8 +59,6 @@ EXPOSE 8050
 FROM base as translations
 COPY --from=poetry /requirements.txt .
 RUN pip install -r requirements.txt
-RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
-    --mount=target=/var/cache/apt,type=cache,sharing=locked \
-    apt-get update -y && apt-get install gettext -y
+RUN apt-get update -y && apt-get install gettext -y
 CMD python manage.py makemessages --all --ignore .venv &&  \
     python manage.py compilemessages --ignore .venv
