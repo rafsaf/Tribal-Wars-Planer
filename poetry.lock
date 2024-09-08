@@ -1843,7 +1843,6 @@ optional = false
 python-versions = ">=3.7"
 files = [
     {file = "schedule-1.2.2-py3-none-any.whl", hash = "sha256:5bef4a2a0183abf44046ae0d164cadcac21b1db011bdd8102e4a0c1e91e06a7d"},
-    {file = "schedule-1.2.2.tar.gz", hash = "sha256:15fe9c75fe5fd9b9627f3f19cc0ef1420508f9f9a46f45cd0769ef75ede5f0b7"},
 ]
 
 [package.extras]
@@ -2152,4 +2151,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "de3f17021b13ea4cd1353768fed1eca260c83f297936f56949ea131638a9db84"
+content-hash = "6e70f39bb1f41132a75d9e01575bf32208d9c4fb245c7031e0320cdf6cb38614"
