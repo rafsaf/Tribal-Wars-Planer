@@ -1,4 +1,4 @@
-# 3. Outline parameters
+# 3. Outline Parameters
 
 This tab is used to specify the details of where exactly the offensive troops should come from for an operation, as well as other general schedule settings. Buckle up.
 

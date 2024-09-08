@@ -66,6 +66,7 @@ plugins:
 
 nav:
   - Powrót do strony: "https://plemiona-planer.pl"
+  - FAQ: index.md
   - 1. Świat testowy:
       - first_steps/index.md
       - first_steps/step_1_create_outline.md
