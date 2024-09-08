@@ -263,6 +263,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <th scope="col"><h2><i class="bi bi-arrow-down-square"></i></h2></th>
+                        <th scope="col">
+                            {% for time in outline_time %}
+                                <form style="display:inline" method="POST" action="{% url 'base:planer_set_all_time_page' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&filtr={{ filtr }}">
+                                    {% csrf_token %}
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 mr-1">{{time.order}}</button>
+                                </form>
+                            {% endfor %}
+                        </th>
+                        <th colspan="50" scope="colgroup"></th>
+                    </tr>
                     {% for target, lst in query %}
                         <tr class="text-center">
                             <th>

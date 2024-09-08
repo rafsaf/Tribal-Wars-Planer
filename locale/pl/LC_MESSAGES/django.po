@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-08 11:40+0200\n"
+"POT-Creation-Date: 2024-09-08 22:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1053,10 +1053,10 @@ msgid ""
 "web applications, both backend and frontend, cloud technologies and security "
 "in the web. I write mainly in Python, Go and Typescript."
 msgstr ""
-"Mam na imię Rafał, pracuję we Wrocławiu jako Software "
-"Engineer. Interesuję się aplikacjami webowymi, tak backendem jak i "
-"frontendem, technologiami chmurowymi i bezpieczeństwem w sieci. Piszę "
-"głównie w Pythonie, Go i Typescriptcie."
+"Mam na imię Rafał, pracuję we Wrocławiu jako Software Engineer. Interesuję "
+"się aplikacjami webowymi, tak backendem jak i frontendem, technologiami "
+"chmurowymi i bezpieczeństwem w sieci. Piszę głównie w Pythonie, Go i "
+"Typescriptcie."
 
 #: base/templates/base/base.html:329
 msgid ""
@@ -1278,7 +1278,7 @@ msgstr "Przykłady"
 #: base/templates/base/new_outline/new_outline.html:225
 #: base/templates/base/new_outline/new_outline_initial_period1.html:482
 #: base/templates/base/new_outline/new_outline_initial_period1.html:503
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:338
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:350
 msgid "An error occured"
 msgstr "Uwaga, wystąpił błąd"
 
@@ -1844,7 +1844,11 @@ msgstr "Wybierz Czas"
 msgid "Outline"
 msgstr "Rozpiska"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:280
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:267
+msgid "All targets below"
+msgstr "Wszystkie cele na stronie"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:292
 msgid "Create at least one Time above"
 msgstr "Utwórz najpierw co najmniej jeden Czas powyżej"
 
@@ -2486,7 +2490,7 @@ msgstr "Nigdy"
 msgid " minute(s) ago."
 msgstr " minut temu."
 
-#: base/views/outline_initial_views.py:54
+#: base/views/outline_initial_views.py:55
 #, python-format
 msgid ""
 "<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
@@ -2499,7 +2503,7 @@ msgstr ""
 "b>, usuń błędy.</p> <p>2. Używaj <b>Potwierdź</b> by je zapisywać.</p> <p>3. "
 "Po tym procesie powróć do zakładki <b>Planer</b>.</p> "
 
-#: base/views/outline_initial_views.py:71
+#: base/views/outline_initial_views.py:72
 #, python-format
 msgid ""
 "<h5>It looks like your outline in being written just now!</h5> <p>You cannot "
@@ -2513,7 +2517,7 @@ msgstr ""
 "zakończeniu rozpisywania lub wygaśnie automatycznie za <b>%(lock_expire)ss.</"
 "b></p> "
 
-#: base/views/outline_initial_views.py:88
+#: base/views/outline_initial_views.py:89
 #, python-format
 msgid ""
 "<h5>It looks like your outline in being changed just now!</h5> <p>Data about "
@@ -2526,19 +2530,19 @@ msgstr ""
 "zniknie zaraz po zakończeniu procesu lub wygaśnie automatycznie za "
 "<b>%(lock_expire)ss.</b></p> "
 
-#: base/views/outline_initial_views.py:116 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:117 base/views/results_get_deff.py:39
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:122 base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:123 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:544
+#: base/views/outline_initial_views.py:545
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
-#: base/views/outline_initial_views.py:551
+#: base/views/outline_initial_views.py:552
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Musi istnieć co najmniej jeden Czas.</h5>"
 
