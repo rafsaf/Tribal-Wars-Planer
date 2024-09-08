@@ -3,7 +3,7 @@ site_url: "https://plemiona-planer.pl/en/documentation/"
 docs_dir: "../../docs/en"
 site_dir: "../../../generated_docs/en/documentation"
 repo_url: https://github.com/rafsaf/Tribal-Wars-Planer
-edit_uri: "edit/main/docs/docs/en"
+edit_uri: "edit/master/docs/docs/en"
 
 theme:
   palette:

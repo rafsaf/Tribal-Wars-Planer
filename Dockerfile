@@ -1,4 +1,4 @@
-FROM python:3.12.5-bookworm as base
+FROM python:3.12.5-bookworm AS base
 
 ENV PYTHONUNBUFFERED 1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
@@ -17,11 +17,11 @@ ENV PATH="/venv/bin:$PATH"
 
 RUN apt-get update && apt-get install -y python3-pip nginx postgresql-client
 
-FROM base as poetry
+FROM base AS poetry
 RUN pip install poetry==1.8.2
 COPY poetry.lock pyproject.toml ./
 RUN poetry export -o  /requirements.txt --without-hashes --without="dev" --without="docs"
-RUN poetry export -o /requirements-docs.txt --without-hashes --with="docs"
+RUN poetry export -o /requirements-docs.txt --without-hashes --only="docs"
 
 FROM base AS docs
 COPY docs docs
@@ -56,7 +56,7 @@ CMD /build/scripts/init_webserver.sh
 EXPOSE 80
 EXPOSE 8050
 
-FROM base as translations
+FROM base AS translations
 COPY --from=poetry /requirements.txt .
 RUN pip install -r requirements.txt
 RUN apt-get update -y && apt-get install gettext -y
