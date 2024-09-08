@@ -14,9 +14,8 @@
 # ==============================================================================
 
 import secrets
-from datetime import datetime
+from datetime import UTC, datetime
 
-import pytz
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.db.models.query import QuerySet
@@ -55,7 +54,7 @@ class PdfPage(FPDF):
 def generate_pdf_summary(request: HttpRequest):
     years_result: dict[int, dict[str, float]] = {}
 
-    current_datetime = datetime(2021, 1, 1).replace(tzinfo=pytz.UTC)
+    current_datetime = datetime(2021, 1, 1).replace(tzinfo=UTC)
     delta = relativedelta(months=1)
     now = timezone.now()
     host = request.get_host()
