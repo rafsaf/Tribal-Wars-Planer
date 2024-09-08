@@ -8,10 +8,10 @@ version = "5.0.0"
 python = ">=3.12,<3.13"
 
 crispy-bootstrap4 = "^2024.1"
-django = "^5.0.8"
+django = "^5.1.1"
 django-crispy-forms = "^2.3"
 django-registration = "^3.3"
-django-ses = "^4.1.0"
+django-ses = "^4.1.1"
 djangorestframework = "^3.15.2"
 
 beautifulsoup4 = "^4.12.3"
@@ -27,7 +27,7 @@ python-dateutil = "^2.9.0"
 python-dotenv = "^1.0.1"
 schedule = "^1.2.1"
 scipy = "^1.14.0"
-stripe = "^10.6.0"
+stripe = "^10.10.0"
 uwsgi = "^2.0.25"
 
 [tool.poetry.group.dev.dependencies]
