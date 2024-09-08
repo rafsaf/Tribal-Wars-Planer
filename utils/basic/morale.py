@@ -72,8 +72,7 @@ def generate_morale_dict(outline: Outline) -> defaultdict[tuple[str, str], int]:
                 if morale < 0.5:
                     target_player_time_played = now - target.player_created_at
                     morale += target_player_time_played.days / 500
-                    if morale > 0.5:
-                        morale = 0.5
+                    morale = min(morale, 0.5)
                 morale = round(morale * 100)
 
             if morale >= 100:
