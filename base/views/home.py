@@ -20,10 +20,10 @@ from datetime import date
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
+from django.utils import timezone, translation
 
 from base import models
 from base.models import PDFPaymentSummary
@@ -72,9 +72,12 @@ def base_view(request):
     return render(request, "base/base.html", context)
 
 
-def base_documentation(request):
+def base_documentation(request: HttpRequest):
     """base documentation view"""
-    return render(request, "base/documentation.html")
+    language = translation.get_language()
+    if request.path.startswith(language):
+        return HttpResponseRedirect(language + request.path.removesuffix("/") + "/")
+    raise Http404()
 
 
 def overview_view(request: HttpRequest, token: str):

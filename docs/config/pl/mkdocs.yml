@@ -1,0 +1,95 @@
+site_name: "Plemiona Planer"
+site_url: "https://plemiona-planer.pl/pl/documentation/"
+docs_dir: "../../docs/pl"
+site_dir: "../../../generated_docs/pl/documentation"
+repo_url: https://github.com/rafsaf/Tribal-Wars-Planer
+edit_uri: "edit/main/docs/docs/pl"
+
+theme:
+  palette:
+    primary: teal
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.path
+    - navigation.sections
+    - toc.follow
+    - toc.integrate
+    - content.code.copy
+    - content.action.edit
+    - navigation.footer
+  name: material
+  custom_dir: "../../overrides/"
+  logo: assets/images/favicon.jpg
+  favicon: assets/images/favicon.jpg
+  language: pl
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rafsaf/Tribal-Wars-Planer
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/g5pcsCteCT
+  alternate:
+    - name: Polski
+      link: /pl/documentation/
+      lang: pl
+    - name: English
+      link: /en/documentation/
+      lang: en
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path:
+        - ./docs/overrides/data/
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search:
+      lang: en
+  - glightbox
+  - social
+
+nav:
+  - Powrót do strony: "/"
+  - FAQ: index.md
+  - 1. Świat testowy:
+      - first_steps/index.md
+      - first_steps/step_1_create_outline.md
+      - first_steps/step_2_choose_tribes.md
+      - first_steps/step_3_fill_data.md
+      - first_steps/step_4_save_targets_and_settings.md
+      - first_steps/step_5_outline_edit.md
+      - first_steps/step_6_set_time_finish.md
+      - first_steps/step_7_results_tab.md
+  - 2. Instalacja niezbędnych skryptów:
+      - scripts/army_and_defence_collection.md
+      - scripts/sending_messages.md
+  - 3. Poradniki:
+      - primary/write_outline_targets.md
+      - primary/two_regions_of_the_tribe.md
+      - primary/small_outlines.md
+      - primary/medium_outlines.md
+      - primary/large_outlines.md
+      - primary/ruin_outlines.md
+  - 4. Zaawansowane:
+      - advanced/1_available_troops_and_table.md
+      - advanced/2_change_of_date.md
+      - advanced/3_outline_parameters.md
+      - advanced/4_morale.md
+      - advanced/5_avoid_night_bonus.md
+      - advanced/6_ruin.md

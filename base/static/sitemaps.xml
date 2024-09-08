@@ -1,152 +1,740 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://plemiona-planer.pl/pl/</loc>
-    <changefreq>monthly</changefreq>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/"/>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/</loc>
-    <changefreq>monthly</changefreq>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/"/>
+<url>
+  <loc>https://plemiona-planer.pl/en/</loc>
+  <lastmod>2024-09-08T10:11:41+00:00</lastmod>
+  <priority>1.00</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/</loc>
+  <lastmod>2024-09-08T10:11:41+00:00</lastmod>
+  <priority>1.00</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.80</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.80</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/login/</loc>
+  <lastmod>2024-09-08T10:11:41+00:00</lastmod>
+  <priority>0.80</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/login/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/login/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/login/</loc>
+  <lastmod>2024-09-08T10:11:41+00:00</lastmod>
+  <priority>0.80</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/login/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/login/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/register/</loc>
+  <lastmod>2024-09-08T10:11:41+00:00</lastmod>
+  <priority>0.80</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/register/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/register/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/register/</loc>
+  <lastmod>2024-09-08T10:11:41+00:00</lastmod>
+  <priority>0.80</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/register/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/register/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/password_reset/</loc>
+  <lastmod>2024-09-08T10:11:41+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/password_reset/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/password_reset/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/password_reset/</loc>
+  <lastmod>2024-09-08T10:11:41+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/password_reset/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/password_reset/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/.</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/."/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/."/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/.</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/."/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/."/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/first_steps/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/first_steps/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/scripts/army_and_defence_collection/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/scripts/army_and_defence_collection/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/scripts/army_and_defence_collection/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/scripts/army_and_defence_collection/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/scripts/army_and_defence_collection/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/scripts/army_and_defence_collection/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/primary/write_outline_targets/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/write_outline_targets/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/write_outline_targets/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/primary/write_outline_targets/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/write_outline_targets/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/write_outline_targets/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/advanced/1_available_troops_and_table/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/1_available_troops_and_table/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/1_available_troops_and_table/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/advanced/1_available_troops_and_table/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/1_available_troops_and_table/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/1_available_troops_and_table/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/first_steps/step_1_create_outline/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_1_create_outline/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_1_create_outline/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/first_steps/step_1_create_outline/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_1_create_outline/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_1_create_outline/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/first_steps/step_2_choose_tribes/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_2_choose_tribes/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_2_choose_tribes/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/first_steps/step_2_choose_tribes/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_2_choose_tribes/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_2_choose_tribes/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/first_steps/step_3_fill_data/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_3_fill_data/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_3_fill_data/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/first_steps/step_3_fill_data/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_3_fill_data/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_3_fill_data/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/first_steps/step_4_save_targets_and_settings/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_4_save_targets_and_settings/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_4_save_targets_and_settings/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/first_steps/step_4_save_targets_and_settings/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_4_save_targets_and_settings/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_4_save_targets_and_settings/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/first_steps/step_5_outline_edit/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_5_outline_edit/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_5_outline_edit/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/first_steps/step_5_outline_edit/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_5_outline_edit/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_5_outline_edit/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/first_steps/step_6_set_time_finish/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_6_set_time_finish/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_6_set_time_finish/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/first_steps/step_6_set_time_finish/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_6_set_time_finish/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_6_set_time_finish/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/first_steps/step_7_results_tab/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_7_results_tab/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_7_results_tab/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/first_steps/step_7_results_tab/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/first_steps/step_7_results_tab/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/first_steps/step_7_results_tab/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/scripts/sending_messages/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/scripts/sending_messages/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/scripts/sending_messages/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/scripts/sending_messages/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/scripts/sending_messages/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/scripts/sending_messages/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/primary/two_regions_of_the_tribe/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/two_regions_of_the_tribe/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/two_regions_of_the_tribe/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/primary/two_regions_of_the_tribe/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/two_regions_of_the_tribe/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/two_regions_of_the_tribe/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/primary/small_outlines/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/small_outlines/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/small_outlines/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/primary/small_outlines/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/small_outlines/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/small_outlines/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/primary/medium_outlines/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/medium_outlines/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/medium_outlines/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/primary/medium_outlines/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/medium_outlines/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/medium_outlines/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/primary/large_outlines/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/large_outlines/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/large_outlines/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/primary/large_outlines/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/large_outlines/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/large_outlines/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/primary/ruin_outlines/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/ruin_outlines/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/ruin_outlines/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/primary/ruin_outlines/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/primary/ruin_outlines/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/primary/ruin_outlines/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/advanced/2_change_of_date/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/2_change_of_date/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/2_change_of_date/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/advanced/2_change_of_date/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/2_change_of_date/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/2_change_of_date/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/advanced/3_outline_parameters/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/3_outline_parameters/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/3_outline_parameters/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/advanced/3_outline_parameters/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/3_outline_parameters/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/3_outline_parameters/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/advanced/4_morale/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/4_morale/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/4_morale/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/advanced/4_morale/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/4_morale/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/4_morale/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/advanced/5_avoid_night_bonus/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/5_avoid_night_bonus/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/5_avoid_night_bonus/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/advanced/5_avoid_night_bonus/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/5_avoid_night_bonus/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/5_avoid_night_bonus/"/>
+</url>
 
-  </url>
-  <url>
-    <changefreq>monthly</changefreq>
-    <loc>https://plemiona-planer.pl/en/</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/"/>
+<url>
+  <loc>https://plemiona-planer.pl/en/documentation/advanced/6_ruin/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/6_ruin/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/6_ruin/"/>
+</url>
+<url>
+  <loc>https://plemiona-planer.pl/pl/documentation/advanced/6_ruin/</loc>
+  <lastmod>2024-09-08T10:01:59+00:00</lastmod>
+  <priority>0.64</priority>
+  <xhtml:link
+    rel="alternate"
+    hreflang="en"
+    href="https://plemiona-planer.pl/en/documentation/advanced/6_ruin/"/>
+  <xhtml:link
+    rel="alternate"
+    hreflang="pl"
+    href="https://plemiona-planer.pl/pl/documentation/advanced/6_ruin/"/>
+</url>
 
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/login/</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/login/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/login/"/>
-
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/en/login/</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/login/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/login/"/>
-
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/pl/login/</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/login/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/login/"/>
-
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/register/</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/register/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/register/"/>
-
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/en/register/</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/register/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/register/"/>
-
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/pl/register/</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/register/"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/register/"/>
-
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/en/documentation</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/documentation"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/documentation"/>
-
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/documentation</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/documentation"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/documentation"/>
-
-  </url>
-  <url>
-    <loc>https://plemiona-planer.pl/pl/documentation</loc>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="pl"
-               href="https://plemiona-planer.pl/pl/documentation"/>
-    <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://plemiona-planer.pl/en/documentation"/>
-
-  </url>
-  
 </urlset>

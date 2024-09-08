@@ -19,8 +19,8 @@ Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal
 # Table of contents
 
 - [Official Site and Discord](#official-site-and-discord)
-  - [Discord channel: discord.gg/g5pcsCteCT](#discord-channel-discordggg5pcsctect)
-  - [Production server: plemiona-planer.pl](#production-server-plemiona-planerpl)
+    - [Discord channel: discord.gg/g5pcsCteCT](#discord-channel-discordggg5pcsctect)
+    - [Production server: plemiona-planer.pl](#production-server-plemiona-planerpl)
 - [Table of contents](#table-of-contents)
 - [Development](#development)
 - [Dockerfile reference](#dockerfile-reference)
@@ -100,7 +100,7 @@ This project maintains one docker images, the same one for server and for schedu
 
 Note, there are also other tags like `stage` or `stable`, but **latest** should be prefered choice.
 
-Contains TWP Django server based on `python:3.12.4-bullseye` docker image, with [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks and many more open source software.
+Contains TWP Django server based on `python:3.12.5-bullseye` docker image, with [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks and many more open source software.
 
 Environment variables:
 
