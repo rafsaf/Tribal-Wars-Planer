@@ -2,7 +2,7 @@
 authors = ["rafsaf <rafal.safin@rafsaf.pl>"]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-version = "4.46.0"
+version = "5.0.0"
 
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"
@@ -18,6 +18,7 @@ beautifulsoup4 = "^4.12.3"
 botocore = "^1.34.154"
 diskcache = "^5.6.3"
 fpdf = "^1.7.2"
+mkdocs-material = { extras = ["imaging"], version = "^9.5.30" }
 numpy = "^2.0.1"
 prometheus-client = "^0.20.0"
 psutil = "^6.0.0"
@@ -28,7 +29,6 @@ schedule = "^1.2.1"
 scipy = "^1.14.0"
 stripe = "^10.6.0"
 uwsgi = "^2.0.25"
-mkdocs-material = {extras = ["imaging"], version = "^9.5.30"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
@@ -52,8 +52,8 @@ types-requests = "^2.32.0.20240712"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["i18n"], version = "^1.6.0" }
-mkdocs-material = "^9.5.30"
 mkdocs-glightbox = "^0.4.0"
+mkdocs-material = "^9.5.30"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
