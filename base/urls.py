@@ -83,7 +83,7 @@ urlpatterns = [
     path("planer/<int:_id>/status", inactive_outline, name="planer_status"),
     path("planer/<int:_id>", outline_detail, name="planer_detail"),
     path("planer/<int:_id>/delete", outline_delete, name="planer_delete"),
-    path("documentation", base_documentation, name="documentation"),
+    path("documentation/", base_documentation, name="documentation"),
     path(
         "planer/<int:_id>/delete/ally-tags",
         outline_delete_ally_tags,

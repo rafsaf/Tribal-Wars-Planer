@@ -65,7 +65,7 @@ plugins:
   - social
 
 nav:
-  - Back to site: "https://plemiona-planer.pl"
+  - Back to site: "/"
   - FAQ: index.md
   - 1. Test world:
       - first_steps/index.md

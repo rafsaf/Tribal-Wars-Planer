@@ -1,6 +1,6 @@
 ### Uzupełnianie danymi z gry
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Korzystając z <b><a target="_blank" href="/documentation?link=true#skrypt-zbiorka-wojska-i-obrony">nowego skryptu do paska</a></b>, po zebraniu danych o graczach z plemienia (lub wielu plemion), wklej tutaj ich wyniki.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Korzystając z <b><a target="_blank" href="/pl/documentation/scripts/army_and_defence_collection/">skryptu do paska</a></b>, po zebraniu danych o graczach z plemienia (lub wielu plemion), wklej tutaj ich wyniki.</div>
 
 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> By przejść do programu <span class="md-error">Planer</span> i rozpisać akcję, wymagane jest jedynie uzupełnienie wybranego formularza: <b>Zbiórki Wojska</b> lub <b>Zbiórka Obrona</b>. Należy wkleić tam dane zebrane skryptem z widoku plemienia w grze, z odpowiadającej im nazwy zakładki. Można ustalić które dane powinien wykorzystywać Planer.
 
@@ -17,4 +17,4 @@ Najczęstsze błędy to przede wszystkim:
 <p class="my-2"><span class="md-error">2.</span> Czasem wioski zmieniają właściciela lub gracze człon. Dane na stronie synchronizują się co kilka minut, ALE Plemiona aktualizują wystawiane dane jedynie <b>co 1 godzinę</b>. Ponieważ w swojej infrastrukturze mają buga, <b><span class = "md-error"> często </span></b> czas ten jest o wiele krótszy, zawsze patrz na wiadomość <u>Ostatnia aktualizacja świata: X minut temu.</u> w lewym górnym rogu strony, jest to dokładny czas ostatniej synchronizacji z grą.</p>
 <p class="my-2"><span class="md-error">3.</span> Jeśli spora część jest błędna a reszta poprawna, być może został wklejony powtórzony wynik skryptu, podwojone linijki są pokazywane jako błędne.</p>
 
-<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Jeśli to żadne z powyższych, trochę informacji na temat tego, co jeszcze jest sprawdzane wraz z przykładem wklejanego tekstu, możesz znaleźć też <b><a target="_blank" href="/documentation?link=true#uzupelnianie-zbiorki-wojska">tutaj</a></b>. Jeśli zaś czujesz, że to na pewno błąd strony, powinieneś zgłosić to na <b>Discordzie</b>.</div>
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Jeśli to żadne z powyższych, trochę informacji na temat tego, co jeszcze jest sprawdzane wraz z przykładem wklejanego tekstu, możesz znaleźć też <b><a target="_blank" href="/pl/documentation/first_steps/step_3_fill_data/">tutaj</a></b>. Jeśli zaś czujesz, że to na pewno błąd strony, powinieneś zgłosić to na <b>Discordzie</b>.</div>
