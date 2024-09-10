@@ -95,8 +95,24 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
     fakes = get_targets(outline, True, False)
     ruins = get_targets(outline, False, True)
     weight_max_lst = list(
-        WeightMaximum.objects.select_related("outline").filter(
-            outline=outline, too_far_away=False
+        WeightMaximum.objects.select_related("outline")
+        .filter(outline=outline, too_far_away=False)
+        .only(
+            "player",
+            "start",
+            "points",
+            "x_coord",
+            "y_coord",
+            "off_state",
+            "off_left",
+            "catapult_state",
+            "catapult_left",
+            "nobleman_state",
+            "nobleman_left",
+            "fake_limit",
+            "nobles_limit",
+            "first_line",
+            "outline__initial_outline_minimum_noble_troops",
         )
     )
 

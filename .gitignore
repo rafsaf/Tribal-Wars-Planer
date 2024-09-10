@@ -1,3 +1,6 @@
+# perf
+perf.data
+perf.data.old
 # mkdocs
 docs/generated/en/*
 docs/generated/pl/*

@@ -1,5 +1,5 @@
-from tribal_wars_planer.urls import TESTING
+from django.conf import settings
 
 
 def test_testing_is_true():
-    assert TESTING
+    assert settings.TESTING

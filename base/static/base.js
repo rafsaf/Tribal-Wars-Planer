@@ -178,6 +178,9 @@ const menu_toggle = () => {
     $("#id_date").addClass("data-picker");
     $(".data-picker").datepicker({
       format: "yyyy-mm-dd",
+      weekStart: 1,
+      language: getLanguage(),
+      todayHighlight: true,
     });
   });
 };
