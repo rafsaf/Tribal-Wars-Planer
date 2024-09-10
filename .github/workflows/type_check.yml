@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         check: ["ruff check", "ruff format --check", "djhtml --check"]
-        python-version: ["3.12.5"]
+        python-version: ["3.12.6"]
 
     runs-on: ubuntu-latest
     steps:
