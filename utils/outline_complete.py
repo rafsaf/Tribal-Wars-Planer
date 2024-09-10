@@ -95,7 +95,9 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
     fakes = get_targets(outline, True, False)
     ruins = get_targets(outline, False, True)
     weight_max_lst = list(
-        WeightMaximum.objects.filter(outline=outline, too_far_away=False)
+        WeightMaximum.objects.select_related("outline").filter(
+            outline=outline, too_far_away=False
+        )
     )
 
     for weight_max in weight_max_lst:

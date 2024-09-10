@@ -307,19 +307,26 @@ class InitialOutlineForm(forms.Form):
             data_lines.validate()
 
         if len(data_lines.errors_ids) == 0:
-            if self.target_mode.is_real:
-                self.outline.initial_outline_targets = (
-                    data_lines.new_validated_data.strip()
-                )
-            elif self.target_mode.is_fake:
-                self.outline.initial_outline_fakes = (
-                    data_lines.new_validated_data.strip()
-                )
-            else:
-                self.outline.initial_outline_ruins = (
-                    data_lines.new_validated_data.strip()
-                )
-            self.outline.save()
+            new_data = data_lines.new_validated_data.strip()
+            if (
+                self.target_mode.is_real
+                and self.outline.initial_outline_targets != new_data
+            ):
+                self.outline.initial_outline_targets = new_data
+                self.outline.save()
+            elif (
+                self.target_mode.is_fake
+                and self.outline.initial_outline_fakes != new_data
+            ):
+                self.outline.initial_outline_fakes = new_data
+                self.outline.save()
+            elif (
+                self.target_mode.is_ruin
+                and self.outline.initial_outline_ruins != new_data
+            ):
+                self.outline.initial_outline_ruins = new_data
+                self.outline.save()
+
         if len(data_lines.lines) > self.max_to_add:
             self.add_error(
                 None,

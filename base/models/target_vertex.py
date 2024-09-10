@@ -88,6 +88,7 @@ class TargetVertex(models.Model):
         from base.models.weight_model import WeightModel
 
         weightmodel_set: QuerySet[WeightModel]
+        outline_id: int
 
     class Meta:
         verbose_name = "Target"
@@ -97,7 +98,7 @@ class TargetVertex(models.Model):
         return self.target
 
     def get_absolute_url(self):
-        return reverse("base:planer_initial_detail", args=[self.outline.pk, self.pk])
+        return reverse("base:planer_initial_detail", args=[self.outline_id, self.pk])
 
     def coord_tuple(self):
         return (int(self.target[0:3]), int(self.target[4:7]))
