@@ -443,7 +443,7 @@ class SettingMessageForm(forms.ModelForm):
         }
         help_texts = {
             "default_show_hidden": gettext_lazy(
-                "By checking this option, players will see the commands of all other players for their own targets. By default, it's not turned on and players only see their commands."
+                "By checking this option, players will see the commands of all other players for their own targets. By default, it’s not turned on and players only see their commands."
             ),
             "title_message": gettext_lazy("Title, maximum length 200."),
             "text_message": gettext_lazy(
