@@ -465,7 +465,7 @@
     <script>
       var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});
       var instance = new SelectPure(".multi-select", {
-        options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "wall" %}`),
+        options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "Wall" %}`,`{% trans "Watchtower" %}`),
         multiple: true,
         value: JSON.parse(document.getElementById('initial-buildings').textContent),
         icon: "fa fa-times",

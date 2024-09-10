@@ -18,12 +18,14 @@ import itertools
 
 from django.test import TestCase
 from django.utils.translation import activate
+from parameterized import parameterized
 
 from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
 from base.models.player import Player
 from base.models.result import Result
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
+from rest_api.serializers import BUILDINGS
 from utils.avaiable_troops import get_legal_coords_outline
 from utils.outline_complete import complete_outline_write
 from utils.outline_initial import MakeOutline
@@ -988,6 +990,23 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[2].state.nobleman_left, 0)
         self.assertEqual(created[2].state.nobleman_state, 0)
         self.assertEqual(created[2].state.fake_limit, 4)
+
+    @parameterized.expand(sorted(BUILDINGS))
+    def test_ruin_type_outline_all_buidlings_are_supported(self, building: str):
+        self.outline.initial_outline_min_off = 500
+        self.outline.mode_split = "split"
+        self.outline.initial_outline_buildings = [building]
+        self.outline.initial_outline_catapult_max_value = 100
+        self.outline.initial_outline_off_left_catapult = 0
+        self.outline.save()
+        target = self.target()
+        target.ruin = True
+        target.exact_off = [0, 0, 0, 0]
+        target.exact_noble = [0, 0, 3, 0]
+        target.save()
+        complete_outline_write(self.outline, salt=self.salt)
+        created = self.weights()
+        self.assertGreaterEqual(len(created), 1)
 
     def test_ruin_type_outline_smithy(self):
         self.outline.initial_outline_min_off = 500

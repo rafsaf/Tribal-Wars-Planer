@@ -890,7 +890,8 @@ const createBuildingsOptions = (
   iron_mine,
   farm,
   warehouse,
-  wall
+  wall,
+  watchtower
 ) => {
   return [
     {
@@ -952,6 +953,10 @@ const createBuildingsOptions = (
     {
       label: wall,
       value: "wall",
+    },
+    {
+      label: watchtower,
+      value: "watchtower",
     },
   ];
 };
