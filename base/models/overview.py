@@ -85,3 +85,6 @@ class Overview(models.Model):
             "message",
             encode_component(message.replace("[size=12]", "").replace("[/size]", "")),
         )
+
+    def number_of_orders(self) -> int:
+        return self.string.count("&screen=place&target=")

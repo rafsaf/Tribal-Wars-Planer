@@ -86,6 +86,7 @@
                                         <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
                                         <th scope="col" style="border:1px solid teal">{% trans 'Link to member Page' %}</th>
                                         <th scope="col" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
+                                        <th scope="col" style="border:1px solid teal">{% trans 'Number of orders' %}</th>
                                         <th scope="col" style="border:1px solid teal">{% trans 'Send message' %}</th>
                                     </tr>
                                 </thead>
@@ -105,6 +106,7 @@
                                                     </button>
                                                 {% endif %}
                                             </th>
+                                            <th>{{ item.number_of_orders }}</th>
                                             <th>
                                                 {% if instance.sending_option == "default" %}
                                                     <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
@@ -126,7 +128,8 @@
                                 <th scope="col" style="border:1px solid teal">#</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Link to member Page' %}</th>
-                                <th scope="col" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
+                                <th scope="col" data-toggle="tooltip" data-placement="top" title="{% trans 'By checking this option, players will see the commands of all other players for their own targets. By default, it’s not turned on and players only see their commands.' %}" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
+                                <th scope="col" style="border:1px solid teal">{% trans 'Number of orders' %}</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Send message' %}</th>
                             </tr>
                         </thead>
@@ -148,6 +151,7 @@
                                             </button>
                                         {% endif %}
                                     </th>
+                                    <th>{{ item.number_of_orders }}</th>
                                     <th>
                                         {% if instance.sending_option == "default" %}
                                             <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|safe }}&subject={{ subject|safe }}&message={{ item.message|safe }}">{% trans 'Send' %}</a>
