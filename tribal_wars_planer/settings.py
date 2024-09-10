@@ -45,7 +45,7 @@ if "localhost" not in ALLOWED_HOSTS:
     # docker image healthcheck require constantly requesting via localhost
     ALLOWED_HOSTS.append("localhost")
 if "127.0.0.1" not in ALLOWED_HOSTS:
-    ALLOWED_HOSTS.append("localhost")
+    ALLOWED_HOSTS.append("127.0.0.1")
 
 INTERNAL_IPS = [
     "localhost",

@@ -41,7 +41,7 @@ from django.views.generic.base import TemplateView
 from django_registration.backends.one_step.views import RegistrationView
 from django_registration.forms import RegistrationFormUniqueEmail
 
-TESTING = "test" in sys.argv
+TESTING = "pytest" in sys.modules
 
 urlpatterns = [
     path("api/", include("rest_api.urls")),
