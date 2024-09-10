@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-
 import os
+import sys
 import tomllib
 from pathlib import Path
 from typing import Any
@@ -36,6 +36,8 @@ if env_debug in ["True", "true"]:
 else:
     DEBUG = False
 
+TESTING = "pytest" in sys.modules
+DEBUG_TOOLBAR = DEBUG and int(os.environ.get("DEBUG_TOOLBAR", 0)) == 1 and not TESTING
 MAIN_DOMAIN = os.environ.get("MAIN_DOMAIN", "localhost")
 SUB_DOMAIN = os.environ.get("SUB_DOMAIN", "")
 ALLOWED_HOSTS = [MAIN_DOMAIN]
@@ -113,6 +115,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "tribal_wars_planer.middlewares.PrometheusAfterMiddleware",
 ]
+
+if DEBUG_TOOLBAR:
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+    INSTALLED_APPS.append("debug_toolbar")
 
 ROOT_URLCONF = "tribal_wars_planer.urls"
 
