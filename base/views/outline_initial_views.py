@@ -856,7 +856,8 @@ def initial_set_all_time_page(request: HttpRequest, pk: int) -> HttpResponse:
     ).update(outline_time=outline_time)
 
     return redirect(
-        reverse("base:planer_initial", args=[outline.pk]) + f"?page={page}&mode={mode}"
+        reverse("base:planer_initial", args=[outline.pk])
+        + f"?page={page}&mode={mode}&filtr={filtr}"
     )
 
 
