@@ -58,6 +58,7 @@ from base.views.outline_initial_views import (
     initial_form,
     initial_planer,
     initial_set_all_time,
+    initial_set_all_time_page,
     initial_target,
 )
 from base.views.profile import add_world, payment_done, premium_view, profile_settings
@@ -128,6 +129,11 @@ urlpatterns = [
         "planer/planer-menu/set-all-time/<int:pk>",
         initial_set_all_time,
         name="planer_set_all_time",
+    ),
+    path(
+        "planer/planer-menu/set-all-time-page/<int:pk>",
+        initial_set_all_time_page,
+        name="planer_set_all_time_page",
     ),
     path(
         "planer/<int:id1>/planer-target/<int:id2>",

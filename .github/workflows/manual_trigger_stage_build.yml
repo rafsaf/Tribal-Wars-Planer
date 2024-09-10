@@ -59,7 +59,7 @@ jobs:
           context: .
           push: true
           tags: rafsaf/twp-server:${{ github.event.inputs.tag }}
-          platforms: linux/amd64 #,linux/arm64
+          platforms: linux/amd64,linux/arm64
 
   redeploy_stage:
     runs-on: ubuntu-latest

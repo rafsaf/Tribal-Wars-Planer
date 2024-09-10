@@ -2,6 +2,17 @@
 ESBUILD_VERSION=https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.21.4.tgz
 ESBUILD_PATH=./bin/esbuild
 
+.PHONY: up
+up:
+	docker compose up -d postgres_dev
+	python manage.py migrate
+	DJANGO_SUPERUSER_PASSWORD=admin python manage.py createsuperuser --noinput --username admin --email admin@admin.admin || true
+	python manage.py runserver
+
+.PHONY: trans
+trans:
+	docker compose -f docker-compose.translation.yml run --build --rm trans
+
 bin/esbuild:
 	mkdir -p ./bin
 	mkdir /tmp/esbuild

@@ -38,6 +38,7 @@ from django.views.decorators.http import require_POST
 
 import metrics
 from base import forms, models
+from base.models.target_vertex import TargetVertex
 from utils import avaiable_troops, basic
 from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
@@ -826,6 +827,37 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
 
     return redirect(
         reverse("base:planer_initial", args=[outline.pk]) + f"?page={page}&mode={mode}"
+    )
+
+
+@login_required
+@require_POST
+def initial_set_all_time_page(request: HttpRequest, pk: int) -> HttpResponse:
+    outline_time: models.OutlineTime = get_object_or_404(
+        models.OutlineTime.objects.select_related(), pk=pk
+    )
+    outline: models.Outline = get_object_or_404(
+        models.Outline, owner=request.user, id=outline_time.outline.pk
+    )
+    mode = request.GET.get("mode")
+    page = request.GET.get("page")
+    filtr = request.GET.get("filtr") or ""
+
+    page_obj = outline.pagin_targets(
+        page=page,
+        every=True,
+        not_empty_only=True,
+        related=True,
+        filtr=filtr,
+    )
+
+    TargetVertex.objects.filter(
+        outline=outline, id__in=[target.pk for target in page_obj]
+    ).update(outline_time=outline_time)
+
+    return redirect(
+        reverse("base:planer_initial", args=[outline.pk])
+        + f"?page={page}&mode={mode}&filtr={filtr}"
     )
 
 
