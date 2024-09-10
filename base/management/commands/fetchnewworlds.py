@@ -30,8 +30,8 @@ log = logging.getLogger(__name__)
 retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
 
 
-def get_lst_of_available_worlds(tw_server: Server) -> list[str]:
-    worlds: list[str] = []
+def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
+    worlds: dict[str, str] = {}
     page_url = f"https://{tw_server.dns}/page/stats"
     session = requests.Session()
     session.mount("https://", HTTPAdapter(max_retries=retries))
@@ -54,7 +54,7 @@ def get_lst_of_available_worlds(tw_server: Server) -> list[str]:
             .split(".")[0]
             .removeprefix(tw_server.prefix)
         )
-        worlds.append(world_postfix)
+        worlds[world_postfix] = world_li.a.text.strip()
     return worlds
 
 
@@ -75,11 +75,17 @@ def fetch_and_add_new_worlds() -> None:
             sleep(1)
             continue
         server_worlds_postfixes = {
-            db_world.postfix for db_world in db_worlds if db_world.server == server
+            db_world.postfix: db_world
+            for db_world in db_worlds
+            if db_world.server == server
         }
         for world_postfix in available_worlds_postfixes:
             if world_postfix in server_worlds_postfixes:
                 log.info("world %s:%s already here", server.dns, world_postfix)
+                world = server_worlds_postfixes[world_postfix]
+                if world.full_game_name != available_worlds_postfixes[world_postfix]:
+                    world.full_game_name = available_worlds_postfixes[world_postfix]
+                    world.save()
                 continue
             log.info("adding world %s:%s", server.dns, world_postfix)
             try:
@@ -90,6 +96,11 @@ def fetch_and_add_new_worlds() -> None:
                     log.info(
                         "added world %s,%s successfully", server.dns, world_postfix
                     )
+                    World.objects.filter(
+                        server=server,
+                        postfix=world_postfix,
+                    ).update(full_game_name=available_worlds_postfixes[world_postfix])
+
                     sleep(1)
                     continue
                 log.error(
