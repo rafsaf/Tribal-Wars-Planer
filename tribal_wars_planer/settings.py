@@ -241,7 +241,7 @@ TRIBAL_WARS_SUPPORTED_SERVERS = [
     ("tribalwars.com.pt", "pt"),
     ("divokekmeny.cz", "cs"),
     ("triburile.ro", "ro"),
-    ("voyna-plemyon.ru", "ru"),
+    ("voynaplemyon.com", "ru"),
     ("fyletikesmaxes.gr", "gr"),
     ("divoke-kmene.sk", "sk"),
     ("klanhaboru.hu", "hu"),
