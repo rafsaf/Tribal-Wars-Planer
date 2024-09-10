@@ -87,7 +87,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "debug_toolbar",
 ]
 
 REST_FRAMEWORK = {
@@ -103,7 +102,6 @@ REST_FRAMEWORK = {
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 MIDDLEWARE = [
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "tribal_wars_planer.middlewares.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
