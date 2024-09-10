@@ -429,7 +429,7 @@ def initial_planer(  # noqa: PLR0912,PLR0911
     )
     if instance.written == "inactive":
         raise Http404()
-    profile: models.Profile = models.Profile.objects.get(user=request.user)
+    profile: models.Profile = request.user.profile  # type: ignore
     is_premium: bool = profile.is_premium()
     filter_form = forms.SetTargetsMenuFilters(None)
     filter_form.fields["filter_targets_number"].initial = instance.filter_targets_number

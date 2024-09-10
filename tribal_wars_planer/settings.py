@@ -44,6 +44,13 @@ if SUB_DOMAIN:
 if "localhost" not in ALLOWED_HOSTS:
     # docker image healthcheck require constantly requesting via localhost
     ALLOWED_HOSTS.append("localhost")
+if "127.0.0.1" not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append("127.0.0.1")
+
+INTERNAL_IPS = [
+    "localhost",
+    "127.0.0.1",
+]
 
 CSRF_TRUSTED_ORIGINS = os.environ.get(
     "CSRF_TRUSTED_ORIGINS", "http://localhost:8000,http://localhost:7999"
@@ -80,6 +87,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
 ]
 
 REST_FRAMEWORK = {
@@ -95,6 +103,7 @@ REST_FRAMEWORK = {
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "tribal_wars_planer.middlewares.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

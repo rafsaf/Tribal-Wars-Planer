@@ -64,11 +64,13 @@ def profile_settings(request: HttpRequest) -> HttpResponse:
 @login_required
 def premium_view(request: HttpRequest) -> HttpResponse:
     user: User = request.user  # type: ignore
-    profile: Profile = Profile.objects.get(user=user)
+    profile: Profile = user.profile  # type: ignore
     payments = Payment.objects.filter(user=user).order_by("-payment_date", "-new_date")
-    prices = StripePrice.objects.filter(
-        active=True, product__active=True, currency=profile.currency
-    ).order_by("amount")
+    prices = (
+        StripePrice.objects.select_related("product")
+        .filter(active=True, product__active=True, currency=profile.currency)
+        .order_by("amount")
+    )
     context = {
         "user": user,
         "payments": payments,

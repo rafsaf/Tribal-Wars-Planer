@@ -29,6 +29,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+import sys
+
+from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
@@ -37,6 +40,8 @@ from django.urls import include, path
 from django.views.generic.base import TemplateView
 from django_registration.backends.one_step.views import RegistrationView
 from django_registration.forms import RegistrationFormUniqueEmail
+
+TESTING = "pytest" in sys.modules
 
 urlpatterns = [
     path("api/", include("rest_api.urls")),
@@ -70,3 +75,5 @@ urlpatterns += i18n_patterns(  # type: ignore
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # type: ignore
+if settings.DEBUG and not TESTING:
+    urlpatterns += debug_toolbar_urls()
