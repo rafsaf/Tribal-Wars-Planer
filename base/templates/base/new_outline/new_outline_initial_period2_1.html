@@ -264,7 +264,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="col"><h2><i class="bi bi-arrow-down-square"></i></h2></th>
+                        <th scope="col"><h2 data-toggle="tooltip" data-placement="top" style="height:48px;width:48px" title="{% trans 'Set time to all targets on this page' %}"><i class="bi bi-arrow-down-square"></i></h2></th>
                         <th scope="col">
                             {% for time in outline_time %}
                                 <form style="display:inline" method="POST" action="{% url 'base:planer_set_all_time_page' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&filtr={{ filtr }}">

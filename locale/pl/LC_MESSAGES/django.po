@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-08 22:00+0200\n"
+"POT-Creation-Date: 2024-09-10 12:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1845,8 +1845,8 @@ msgid "Outline"
 msgstr "Rozpiska"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:267
-msgid "All targets below"
-msgstr "Wszystkie cele na stronie"
+msgid "Set time to all targets on this page"
+msgstr "Ustaw czas dla celów na tej stronie"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:292
 msgid "Create at least one Time above"
@@ -3140,6 +3140,9 @@ msgstr "Wioska"
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "All targets below"
+#~ msgstr "Wszystkie cele na stronie"
 
 #~ msgid ""
 #~ "Documentation of Tribal Wars Planer, professional tool for creating "
