@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load i18n %}
-{% block title %}{% trans 'Select tribes' %} - {{instance.name|capfirst}} | {{instance.world.human}}{% endblock %}
+{% block title %}{% trans 'Select tribes' %} - {{instance.name|capfirst}} | {{instance.world.game_name}}{% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
 

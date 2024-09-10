@@ -92,7 +92,7 @@ class OffTroopsForm(forms.ModelForm):
                                 )
                                 % {
                                     "coord": error.coord,
-                                    "world": self.outline.world.human(),
+                                    "world": self.outline.world.game_name(),
                                 }
                             )
                         else:
@@ -103,7 +103,7 @@ class OffTroopsForm(forms.ModelForm):
                                 "[tribe: %(tribe)s]"
                             ) % {
                                 "coord": village.coord,
-                                "world": village.world.human(),
+                                "world": village.world.game_name(),
                                 "player": village.player,
                                 "tribe": (
                                     village.player.tribe if village.player else None
@@ -175,7 +175,7 @@ class DeffTroopsForm(forms.ModelForm):
                                 )
                                 % {
                                     "coord": error.coord,
-                                    "world": self.outline.world.human(),
+                                    "world": self.outline.world.game_name(),
                                 }
                             )
                         else:
@@ -186,7 +186,7 @@ class DeffTroopsForm(forms.ModelForm):
                                 "[tribe: %(tribe)s]"
                             ) % {
                                 "coord": village.coord,
-                                "world": village.world.human(),
+                                "world": village.world.game_name(),
                                 "player": village.player,
                                 "tribe": (
                                     village.player.tribe if village.player else None

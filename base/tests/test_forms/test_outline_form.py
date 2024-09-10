@@ -30,7 +30,7 @@ class OutlineFormTest(MiniSetup):
                 "world": f"{world.pk}",
             },
         )
-        form.fields["world"].choices = [(f"{world.pk}", world.human())]
+        form.fields["world"].choices = [(f"{world.pk}", world.game_name())]
         assert form.is_valid()
 
     def test_form_not_pass_when_incorrect_date(self):
@@ -44,7 +44,7 @@ class OutlineFormTest(MiniSetup):
                 "world": f"{world.pk}",
             },
         )
-        form.fields["world"].choices = [(f"{world.pk}", world.human())]
+        form.fields["world"].choices = [(f"{world.pk}", world.game_name())]
         assert not form.is_valid()
 
         form2: OutlineForm = OutlineForm(
@@ -54,5 +54,5 @@ class OutlineFormTest(MiniSetup):
                 "world": f"{world.pk}",
             },
         )
-        form2.fields["world"].choices = [(f"{world.pk}", world.human())]
+        form2.fields["world"].choices = [(f"{world.pk}", world.game_name())]
         assert not form2.is_valid()
