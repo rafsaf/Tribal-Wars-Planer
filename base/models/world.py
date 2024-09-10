@@ -42,6 +42,7 @@ class World(models.Model):
     fanout_key_text_player = models.CharField(default="__0", max_length=200)
     fanout_key_text_tribe = models.CharField(default="__0", max_length=200)
     fanout_key_text_village = models.CharField(default="__0", max_length=200)
+    full_game_name = models.CharField(max_length=256, default="")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -53,13 +54,23 @@ class World(models.Model):
         world, data_type, timestampt_str = self.fanout_key_text_village.split("_")
         return float(timestampt_str)
 
-    def human(self, prefix: bool = False):
+    def human(self, prefix: bool = False) -> str:
         if prefix:
             server_prefix: str = self.server.prefix
             last = " " + server_prefix.upper()
         else:
             last = ""
         return gettext_lazy("World ") + self.postfix + last
+
+    def game_name(self, prefix: bool = False) -> str:
+        if prefix:
+            server_prefix: str = self.server.prefix
+            last = " " + server_prefix.upper()
+        else:
+            last = ""
+        if self.full_game_name:
+            return self.full_game_name + last
+        return self.human(prefix=prefix)
 
     def link_to_game(self, addition: str = ""):
         return f"https://{str(self)}." f"{self.server.dns}" f"{addition}"

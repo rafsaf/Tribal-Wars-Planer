@@ -38,14 +38,14 @@ class OutlineList(LoginRequiredMixin, ListView):
             editable="active", owner=self.request.user
         ).delete()
         query = (
-            models.Outline.objects.select_related("world")
+            models.Outline.objects.select_related("world", "world__server")
             .filter(owner=self.request.user)
             .filter(status="active")
         )
 
         for outline in query:
             # overwrite attributes
-            setattr(outline, "world_human", outline.world.human(prefix=True))
+            setattr(outline, "world_human", outline.world.game_name(prefix=True))
             setattr(outline, "ally_tribe_tag", ", ".join(outline.ally_tribe_tag))
             setattr(outline, "enemy_tribe_tag", ", ".join(outline.enemy_tribe_tag))
 
@@ -61,13 +61,13 @@ class OutlineListShowAll(LoginRequiredMixin, ListView):
         models.Outline.objects.filter(
             editable="active", owner=self.request.user
         ).delete()
-        query = models.Outline.objects.select_related("world").filter(
+        query = models.Outline.objects.select_related("world", "world__server").filter(
             owner=self.request.user
         )
 
         for outline in query:
             # overwrite attributes
-            setattr(outline, "world_human", outline.world.human(prefix=True))
+            setattr(outline, "world_human", outline.world.game_name(prefix=True))
             setattr(outline, "ally_tribe_tag", ", ".join(outline.ally_tribe_tag))
             setattr(outline, "enemy_tribe_tag", ", ".join(outline.enemy_tribe_tag))
 

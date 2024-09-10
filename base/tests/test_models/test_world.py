@@ -33,6 +33,18 @@ class WorldTest(MiniSetup):
         world = self.get_world()
         assert world.human(prefix=False) == "Świat 1"
 
+    def test_game_name_prefix_true(self):
+        activate("pl")
+        world = self.get_world()
+        world.full_game_name = "Świat 1"
+        assert world.human(prefix=True) == "Świat 1 NT"
+
+    def test_game_name_prefix_false(self):
+        activate("pl")
+        world = self.get_world()
+        world.full_game_name = "Świat 1"
+        assert world.human(prefix=False) == "Świat 1"
+
     def test_link_to_game(self):
         world = self.get_world()
         link = world.link_to_game(addition="+my addition")

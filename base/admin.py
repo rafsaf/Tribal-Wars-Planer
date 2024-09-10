@@ -162,6 +162,7 @@ class AdminWorld(admin.ModelAdmin):
     list_display = [
         "server",
         "postfix",
+        "full_game_name",
         "connection_errors",
         "speed_world",
         "speed_units",
@@ -170,7 +171,7 @@ class AdminWorld(admin.ModelAdmin):
         "militia",
         "max_noble_distance",
     ]
-    search_fields = ["postfix", "server__dns"]
+    search_fields = ["postfix", "server__dns", "full_game_name"]
     list_editable = [
         "connection_errors",
         "speed_world",
