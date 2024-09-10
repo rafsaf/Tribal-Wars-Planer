@@ -27,7 +27,7 @@ from base.management.commands.utils import job_logs_and_metrics
 from base.models import Server, World
 
 log = logging.getLogger(__name__)
-retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
+retries = Retry(total=3, backoff_factor=1, status_forcelist=[502, 503, 504])
 
 
 def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
@@ -38,6 +38,7 @@ def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
     res = session.get(
         page_url,
         allow_redirects=True,
+        timeout=5,
         headers={
             "Accept-Encoding": "gzip, deflate, br",
             "Accept": "*/*",
