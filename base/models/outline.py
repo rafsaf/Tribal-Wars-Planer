@@ -117,7 +117,8 @@ class Outline(models.Model):
         ("iron_mine", gettext_lazy("Iron mine")),
         ("farm", gettext_lazy("Farm")),
         ("warehouse", gettext_lazy("Warehouse")),
-        ("wall", gettext_lazy("wall")),
+        ("wall", gettext_lazy("Wall")),
+        ("watchtower", gettext_lazy("Watchtower")),
     ]
 
     RUINED_VILLAGES_POINTS: list[tuple[str, str]] = [

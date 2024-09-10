@@ -31,6 +31,7 @@ BUILDINGS = {
     "farm",
     "warehouse",
     "wall",
+    "watchtower",
 }
 
 

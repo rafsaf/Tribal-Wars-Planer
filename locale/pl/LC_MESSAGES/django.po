@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-10 12:18+0200\n"
+"POT-Creation-Date: 2024-09-10 13:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr "Data"
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:51 base/models/outline.py:156 base/models/outline.py:323
+#: base/forms.py:51 base/models/outline.py:157 base/models/outline.py:324
 #: base/models/profile.py:35
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Village in this line is duplicated: %s"
 msgstr "Wioska w tej linii jest podwojona: %s"
 
-#: base/forms.py:134 base/models/outline.py:157 base/models/outline.py:325
+#: base/forms.py:134 base/models/outline.py:158 base/models/outline.py:326
 #: base/models/profile.py:36
 msgid "Deff collection "
 msgstr "Zbiórka Obrona"
@@ -685,66 +685,71 @@ msgstr "Spichlerz"
 
 #: base/models/outline.py:120 base/models/weight_model.py:45
 #: base/templates/base/new_outline/new_outline_initial_period1.html:468
-msgid "wall"
+msgid "Wall"
 msgstr "Mur"
 
-#: base/models/outline.py:124
+#: base/models/outline.py:121 base/models/weight_model.py:46
+#: base/templates/base/new_outline/new_outline_initial_period1.html:468
+msgid "Watchtower"
+msgstr "Wieża Strażnicza"
+
+#: base/models/outline.py:125
 msgid "Average greater than 8k"
 msgstr "Średnio powyżej 8k"
 
-#: base/models/outline.py:125
+#: base/models/outline.py:126
 msgid "Average 5-8k"
 msgstr "Średnio 5-8k"
 
-#: base/models/outline.py:138
+#: base/models/outline.py:139
 msgid "Fakes only from off villages"
 msgstr "Fejki tylko z wiosek z pełnym offem"
 
-#: base/models/outline.py:139
+#: base/models/outline.py:140
 msgid "Fakes from all villages"
 msgstr "Fejki z wszystkich wiosek"
 
-#: base/models/outline.py:145
+#: base/models/outline.py:146
 msgid "(Default) Auto generated, fully equipped safe links"
 msgstr "(Domyślne) Automatycznie wygenerowane bezpieczne linki"
 
-#: base/models/outline.py:147
+#: base/models/outline.py:148
 msgid "Text simple directly in message"
 msgstr "Tekst prosty bezpośrednio w wiadomości"
 
-#: base/models/outline.py:148
+#: base/models/outline.py:149
 msgid "New text extended directly in message"
 msgstr "Nowy tekst rozszerzony bezpośrednio w wiadomości"
 
-#: base/models/outline.py:149
+#: base/models/outline.py:150
 msgid "Old text extended directly in message"
 msgstr "Stary tekst rozszerzony bezpośrednio w wiadomości"
 
-#: base/models/outline.py:150
+#: base/models/outline.py:151
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:300 base/models/profile.py:60
+#: base/models/outline.py:301 base/models/profile.py:60
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:328
+#: base/models/outline.py:329
 msgid "Name"
 msgstr "Nazwa"
 
-#: base/models/outline.py:428
+#: base/models/outline.py:429
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:433
+#: base/models/outline.py:434
 msgid "never"
 msgstr "nigdy"
 
-#: base/models/outline.py:445
+#: base/models/outline.py:446
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:447
+#: base/models/outline.py:448
 msgid "days"
 msgstr "dni"
 
@@ -3140,6 +3145,9 @@ msgstr "Wioska"
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "wall"
+#~ msgstr "Mur"
 
 #~ msgid "All targets below"
 #~ msgstr "Wszystkie cele na stronie"

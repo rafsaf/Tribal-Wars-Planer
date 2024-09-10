@@ -42,7 +42,8 @@ class WeightModel(models.Model):
         ("iron_mine", gettext_lazy("Iron mine")),
         ("farm", gettext_lazy("Farm")),
         ("warehouse", gettext_lazy("Warehouse")),
-        ("wall", gettext_lazy("wall")),
+        ("wall", gettext_lazy("Wall")),
+        ("watchtower", gettext_lazy("Watchtower")),
     ]
 
     target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE, db_index=True)

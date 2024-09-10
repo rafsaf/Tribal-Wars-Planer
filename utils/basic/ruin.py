@@ -35,6 +35,7 @@ class RuinHandle:
         "farm": 30,
         "warehouse": 30,
         "wall": 20,
+        "watchtower": 20,
     }
     SMALL_LEVELS: dict[str, int] = {
         "headquarters": 20,
@@ -52,6 +53,7 @@ class RuinHandle:
         "farm": 25,
         "warehouse": 24,
         "wall": 20,
+        "watchtower": 10,
     }
     LEVEL_DICTIONARY: dict[tuple[int, int], int] = {
         (20, 1): 0,
