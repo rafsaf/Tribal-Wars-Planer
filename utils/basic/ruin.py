@@ -16,6 +16,7 @@
 from collections.abc import Iterator
 
 from base.models import Outline, WeightMaximum
+from base.models.weight_maximum import FastWeightMaximum
 
 
 class RuinHandle:
@@ -264,7 +265,7 @@ class RuinHandle:
             raise ValueError("Current level cannot be none")
         return self.LEVEL_DICTIONARY[(catapults, self.current_level)]
 
-    def best_catapult(self, weight_max: WeightMaximum) -> int:  # noqa: PLR0912
+    def best_catapult(self, weight_max: WeightMaximum | FastWeightMaximum) -> int:  # noqa: PLR0912
         """
         For given weight_max match best catapult number possible
         Also take care about current levels and building name

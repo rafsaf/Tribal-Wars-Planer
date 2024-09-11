@@ -22,6 +22,7 @@ from django.utils.translation import activate
 from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
 from base.models.target_vertex import TargetVertex
+from base.models.weight_maximum import FastWeightMaximum
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils.outline_initial import MakeOutline
@@ -35,12 +36,12 @@ class TestWriteNobleTarget(TestCase):
         self.outline: Outline = Outline.objects.get(id=1)
         make_outline: MakeOutline = MakeOutline(self.outline)
         make_outline()
-        self.weight0: WeightMaximum = WeightMaximum.objects.get(start="500|500")
-        self.weight1: WeightMaximum = WeightMaximum.objects.get(start="500|501")
-        self.weight2: WeightMaximum = WeightMaximum.objects.get(start="500|502")
-        self.weight3: WeightMaximum = WeightMaximum.objects.get(start="500|503")
-        self.weight4: WeightMaximum = WeightMaximum.objects.get(start="500|504")
-        self.weight5: WeightMaximum = WeightMaximum.objects.get(start="500|505")
+        self.weight0 = FastWeightMaximum(WeightMaximum.objects.get(start="500|500"), 0)
+        self.weight1 = FastWeightMaximum(WeightMaximum.objects.get(start="500|501"), 0)
+        self.weight2 = FastWeightMaximum(WeightMaximum.objects.get(start="500|502"), 0)
+        self.weight3 = FastWeightMaximum(WeightMaximum.objects.get(start="500|503"), 0)
+        self.weight4 = FastWeightMaximum(WeightMaximum.objects.get(start="500|504"), 0)
+        self.weight5 = FastWeightMaximum(WeightMaximum.objects.get(start="500|505"), 0)
         self.random = SystemRandom("test_write_noble")
 
     def target(self, coord: str = "500|499") -> TargetVertex:
@@ -49,9 +50,9 @@ class TestWriteNobleTarget(TestCase):
         )
         return target
 
-    def get_weight_max_lst(self, target: TargetVertex) -> list[WeightMaximum]:
+    def get_weight_max_lst(self, target: TargetVertex) -> list[FastWeightMaximum]:
         coord = target.coord_tuple()
-        return list(
+        weights = list(
             WeightMaximum.objects.filter(
                 outline=self.outline, too_far_away=False
             ).annotate(
@@ -62,6 +63,10 @@ class TestWriteNobleTarget(TestCase):
                 )
             )
         )
+        lst = [FastWeightMaximum(weight, 0) for weight in weights]
+        for i, weight in enumerate(lst):
+            weight.distance = weights[i].distance
+        return lst
 
     def get_write_noble(self, target: TargetVertex) -> WriteNobleTarget:
         write_noble = WriteNobleTarget(
@@ -254,7 +259,7 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_divide(self):
         target: Target = self.target()
         write_noble = self.get_write_noble(target)
-        weight: WeightMaximum = self.weight0
+        weight = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
         write_noble.target.mode_division = "divide"
@@ -266,7 +271,7 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_not_divide(self):
         target: Target = self.target()
         write_noble = self.get_write_noble(target)
-        weight: WeightMaximum = self.weight0
+        weight = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
 
@@ -279,7 +284,7 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_separatly(self):
         target: Target = self.target()
         write_noble = self.get_write_noble(target)
-        weight: WeightMaximum = self.weight0
+        weight = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
 
@@ -292,7 +297,7 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_low_off_is_divide_for_every_mode_division(self):
         target: Target = self.target()
         write_noble = self.get_write_noble(target)
-        weight: WeightMaximum = self.weight0
+        weight = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 500
 
@@ -316,7 +321,7 @@ class TestWriteNobleTarget(TestCase):
         target: Target = self.target()
         target.fake = True
         write_noble = self.get_write_noble(target)
-        weight: WeightMaximum = self.weight0
+        weight = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 500
 
@@ -345,7 +350,8 @@ class TestWriteNobleTargetNew(MiniSetup):
         outline.world.save()
         self.create_target_on_test_world(outline=outline)
         target = Target.objects.get(target="200|200")
-        weight_max = self.create_weight_maximum(outline=outline)
+        real_weight_max = self.create_weight_maximum(outline=outline)
+        weight_max = FastWeightMaximum(real_weight_max, 0)
 
         write_noble = WriteNobleTarget(
             target=target,

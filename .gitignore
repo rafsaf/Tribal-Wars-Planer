@@ -1,6 +1,7 @@
 # perf
 perf.data
 perf.data.old
+out.profile*
 # mkdocs
 docs/generated/en/*
 docs/generated/pl/*
