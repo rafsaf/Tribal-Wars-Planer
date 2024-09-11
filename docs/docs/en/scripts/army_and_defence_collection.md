@@ -1,13 +1,19 @@
 # Army and Defense Collection Script
 
-| Server             | Tribal Wars Forum                                                                                                                                                    | Allowed | Code                                                                                                             |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------- |
-| plemiona-planer.pl | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/) | YES     | [Code on GitHub (v2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/collect_troops_v2.js) |
+| Server             | Tribal Wars Forum                                                                                                                                                    | Allowed | Code                                                                                                                |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
+| tribalwars.net     | [https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/](https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/)         | YES     | [Code on GitHub (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-09-2/src/collect_troops_v2.1.ts) |
+| plemiona-planer.pl | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/) | YES     | [Code on GitHub (v2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/collect_troops_v2.js)    |
 
 !!! warning
 
     Using on other language versions of the game **where the script is not allowed** by the support may result in account suspension. Use at your own risk.
 
+=== "tribalwars.net"
+
+    ```title="Army and Defense Collection Script"
+    --8<-- "army_script_tribalwars_net_en.txt"
+    ```
 === "plemiona.pl"
 
     ```title="Army and Defense Collection Script"
