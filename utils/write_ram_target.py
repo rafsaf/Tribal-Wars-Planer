@@ -18,8 +18,9 @@ from collections.abc import Callable, Generator
 from secrets import SystemRandom
 from statistics import mean
 
-from base.models import Outline, WeightMaximum, WeightModel
+from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
+from base.models.weight_maximum import FastWeightMaximum
 from utils.basic.ruin import RuinHandle
 
 
@@ -30,10 +31,10 @@ class WriteRamTarget:
 
     if self.ruin is True, we assume that ONLY ruin attacks are there
 
-    1. Quering self.default_query (get WeightMaximum, first query)
+    1. Quering self.default_query (get FastWeightMaximum, first query)
     Result depend on targets specifications
 
-    2. Then update states (update WeightMaximum, second query)
+    2. Then update states (update FastWeightMaximum, second query)
 
     3. Finally return list[WeightModel] ready to create orders
     """
@@ -42,15 +43,15 @@ class WriteRamTarget:
         self,
         target: Target,
         outline: Outline,
-        weight_max_list: list[WeightMaximum],
+        weight_max_list: list[FastWeightMaximum],
         random: SystemRandom,
         ruin: bool = False,
     ):
         self.target: Target = target
         self.outline: Outline = outline
         self.index: int = 0
-        self.weight_max_list: list[WeightMaximum] = weight_max_list
-        self.filters: list[Callable[[WeightMaximum], bool]] = []
+        self.weight_max_list: list[FastWeightMaximum] = weight_max_list
+        self.filters: list[Callable[[FastWeightMaximum], bool]] = []
         self.ruin: bool = ruin
         self.ruin_handle: RuinHandle | None = None
         self.building_generator: Generator | None = None
@@ -62,9 +63,30 @@ class WriteRamTarget:
             self.outline.world.speed_world * self.outline.world.speed_units * 2
         )
 
-    def sorted_weights_offs(self, catapults: int = 50) -> list[WeightMaximum]:
-        self.filters.append(self._only_closer_than_maximum_off_dist())
+        self.initial_outline_maximum_off_dist = (
+            self.outline.initial_outline_maximum_off_dist
+        )
+        self.initial_outline_catapult_min_value = (
+            self.outline.initial_outline_catapult_min_value
+        )
+        self.initial_outline_catapult_max_value = (
+            self.outline.initial_outline_catapult_max_value
+        )
+        self.initial_outline_buildings = self.outline.initial_outline_buildings
+        self.initial_outline_min_off = self.outline.initial_outline_min_off
+        self.initial_outline_fake_mode = self.outline.initial_outline_fake_mode
+        self.initial_outline_max_off = self.outline.initial_outline_max_off
+        self.initial_outline_off_left_catapult = (
+            self.outline.initial_outline_off_left_catapult
+        )
+        self.morale_on_targets_greater_than = (
+            self.outline.morale_on_targets_greater_than
+        )
+        self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
+        self.initial_outline_front_dist = self.outline.initial_outline_front_dist
 
+    def sorted_weights_offs(self, catapults: int = 50) -> list[FastWeightMaximum]:
+        self.filters.append(self._only_closer_than_maximum_off_dist())
         if self.outline.world.casual_attack_block_ratio is not None:
             self.filters.append(self._casual_attack_block_ratio())
 
@@ -109,19 +131,19 @@ class WriteRamTarget:
         weights_create_lst: list[WeightModel] = []
         self._set_building_generator()
         if self.ruin:
-            ruins_set: set[WeightMaximum] = set()
+            ruins_set: set[FastWeightMaximum] = set()
             for catapult_val in [200, 150, 100, 75, 50, 25]:
                 if (
-                    self.outline.initial_outline_catapult_min_value
+                    self.initial_outline_catapult_min_value
                     <= catapult_val
-                    <= self.outline.initial_outline_catapult_max_value
+                    <= self.initial_outline_catapult_max_value
                 ):
                     ruins_set |= set(self.sorted_weights_offs(catapult_val))
                     self.filters = []
                     if len(ruins_set) >= self.target.required_off:
                         break
 
-            off_lst: list[WeightMaximum] = list(ruins_set)
+            off_lst: list[FastWeightMaximum] = list(ruins_set)
 
             off_lst.sort(key=lambda weight: -weight.catapult_left)
             off_lst = off_lst[: self.target.required_off]
@@ -129,7 +151,7 @@ class WriteRamTarget:
         else:
             off_lst = self.sorted_weights_offs()
         i: int
-        weight_max: WeightMaximum
+        weight_max: FastWeightMaximum
         for i, weight_max in enumerate(off_lst):
             try:
                 catapult: int = self._catapult(weight_max)
@@ -147,7 +169,7 @@ class WriteRamTarget:
         return weights_create_lst
 
     def _set_building_generator(self) -> None:
-        if self.ruin and len(self.outline.initial_outline_buildings) > 0:
+        if self.ruin and len(self.initial_outline_buildings) > 0:
             ruin_handle: RuinHandle = RuinHandle(outline=self.outline)
             self.ruin_handle = ruin_handle
 
@@ -157,7 +179,7 @@ class WriteRamTarget:
             return building
         return None
 
-    def _off(self, weight_max: WeightMaximum, catapult: int) -> int:
+    def _off(self, weight_max: FastWeightMaximum, catapult: int) -> int:
         if self.target.fake:
             return 100
         elif self.ruin:
@@ -171,7 +193,7 @@ class WriteRamTarget:
         else:
             return 0
 
-    def _catapult(self, weight_max: WeightMaximum) -> int:
+    def _catapult(self, weight_max: FastWeightMaximum) -> int:
         if self.target.fake:
             return 0
         elif self.ruin:
@@ -183,22 +205,22 @@ class WriteRamTarget:
 
     def _weight_model(
         self,
-        weight_max: WeightMaximum,
+        weight_max: FastWeightMaximum,
         off: int,
         catapult: int,
         building: str | None,
         order: int,
     ) -> WeightModel:
         return WeightModel(
-            target=self.target,
+            target_id=self.target.pk,
             player=weight_max.player,
             start=weight_max.start,
-            state=weight_max,
+            state_id=weight_max.pk,
             off=off,
             catapult=catapult,
             ruin=self.ruin,
             building=building,
-            distance=weight_max.distance,  # type: ignore
+            distance=weight_max.distance,
             nobleman=0,
             order=order + self.index,
             first_line=weight_max.first_line,
@@ -206,8 +228,8 @@ class WriteRamTarget:
 
     @staticmethod
     def _update_weight_max(
-        weight_max: WeightMaximum, off: int, catapult: int, fake_limit: int
-    ) -> WeightMaximum:
+        weight_max: FastWeightMaximum, off: int, catapult: int, fake_limit: int
+    ) -> FastWeightMaximum:
         weight_max.off_state += off
         weight_max.off_left -= off
         weight_max.catapult_state += catapult
@@ -216,27 +238,30 @@ class WriteRamTarget:
 
         return weight_max
 
-    def _get_filtered_weight_max_list(self) -> list[WeightMaximum]:
+    def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
+        def filter_func(weight_max: FastWeightMaximum) -> bool:
+            for filter_func in self.filters:
+                if not filter_func(weight_max):
+                    return False
+            return True
+
         return [
-            weight
-            for weight in self.weight_max_list
-            if all(filter_func(weight) for filter_func in self.filters)
+            weight for weight in self.weight_max_list if filter_func(weight_max=weight)
         ]
 
-    def _only_closer_than_maximum_off_dist(self) -> Callable[[WeightMaximum], bool]:
-        def filter_closer_than_maximum_off_dist(weight_max: WeightMaximum) -> bool:
-            distance: int = getattr(weight_max, "distance")
-            return distance <= self.outline.initial_outline_maximum_off_dist
+    def _only_closer_than_maximum_off_dist(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_closer_than_maximum_off_dist(weight_max: FastWeightMaximum) -> bool:
+            return weight_max.distance <= self.outline.initial_outline_maximum_off_dist
 
         return filter_closer_than_maximum_off_dist
 
-    def _fake_query(self) -> Callable[[WeightMaximum], bool]:
-        def filter_fake(weight_max: WeightMaximum) -> bool:
-            if self.outline.initial_outline_fake_mode == "off":
+    def _fake_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_fake(weight_max: FastWeightMaximum) -> bool:
+            if self.initial_outline_fake_mode == "off":
                 return (
                     weight_max.fake_limit >= 1
-                    and weight_max.off_left >= self.outline.initial_outline_min_off
-                    and weight_max.off_left <= self.outline.initial_outline_max_off
+                    and weight_max.off_left >= self.initial_outline_min_off
+                    and weight_max.off_left <= self.initial_outline_max_off
                 )
             else:
                 return (
@@ -246,35 +271,35 @@ class WriteRamTarget:
 
         return filter_fake
 
-    def _ruin_query(self, catapults: int = 50) -> Callable[[WeightMaximum], bool]:
-        def filter_ruin(weight_max: WeightMaximum) -> bool:
+    def _ruin_query(self, catapults: int = 50) -> Callable[[FastWeightMaximum], bool]:
+        def filter_ruin(weight_max: FastWeightMaximum) -> bool:
             return (
                 weight_max.catapult_left >= catapults
                 and (
-                    weight_max.off_left < self.outline.initial_outline_min_off
-                    or weight_max.off_left > self.outline.initial_outline_max_off
+                    weight_max.off_left < self.initial_outline_min_off
+                    or weight_max.off_left > self.initial_outline_max_off
                 )
             ) or (
                 weight_max.catapult_left
-                >= (catapults + self.outline.initial_outline_off_left_catapult)
-                and weight_max.off_left >= self.outline.initial_outline_min_off
-                and weight_max.off_left <= self.outline.initial_outline_max_off
+                >= (catapults + self.initial_outline_off_left_catapult)
+                and weight_max.off_left >= self.initial_outline_min_off
+                and weight_max.off_left <= self.initial_outline_max_off
             )
 
         return filter_ruin
 
-    def _morale_query(self) -> Callable[[WeightMaximum], bool]:
-        def filter_morale(weight_max: WeightMaximum) -> bool:
-            return weight_max.morale >= self.outline.morale_on_targets_greater_than
+    def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_morale(weight_max: FastWeightMaximum) -> bool:
+            return weight_max.morale >= self.morale_on_targets_greater_than
 
         return filter_morale
 
-    def _casual_attack_block_ratio(self) -> Callable[[WeightMaximum], bool]:
-        if self.outline.world.casual_attack_block_ratio is None:
+    def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
+        if self.casual_attack_block_ratio is None:
             raise RuntimeError("expected world casual_attack_block_ratio to be int")
-        world_ratio = (100 + self.outline.world.casual_attack_block_ratio) / 100
+        world_ratio = (100 + self.casual_attack_block_ratio) / 100
 
-        def filter_casual_attack_block_ratio(weight_max: WeightMaximum) -> bool:
+        def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:
             if self.target.player == "":
                 # special case barbarians
                 return True
@@ -285,18 +310,18 @@ class WriteRamTarget:
 
         return filter_casual_attack_block_ratio
 
-    def _off_query(self) -> Callable[[WeightMaximum], bool]:
-        def filter_off(weight_max: WeightMaximum) -> bool:
+    def _off_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_off(weight_max: FastWeightMaximum) -> bool:
             return (
-                weight_max.off_left >= self.outline.initial_outline_min_off
-                and weight_max.off_left <= self.outline.initial_outline_max_off
+                weight_max.off_left >= self.initial_outline_min_off
+                and weight_max.off_left <= self.initial_outline_max_off
             )
 
         return filter_off
 
-    def _add_night_bonus_annotations(self, weight_lst: list[WeightMaximum]) -> None:
+    def _add_night_bonus_annotations(self, weight_lst: list[FastWeightMaximum]) -> None:
         for weight_max in weight_lst:
-            time_hours: int = getattr(weight_max, "distance") / self.dividier
+            time_hours = weight_max.distance / self.dividier
             time_mod = time_hours % 24
             night_score = (self.avg_dist - time_mod + 24) % 24
             if (
@@ -308,38 +333,35 @@ class WriteRamTarget:
                 score = 2
             else:
                 score = 1
-            setattr(weight_max, "night_bool", score)
+            weight_max.night_bool = score
 
-    def _first_line_false_query(self) -> Callable[[WeightMaximum], bool]:
-        def filter_first_line_false(weight_max: WeightMaximum) -> bool:
+    def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:
             if (
                 not weight_max.first_line
-                and getattr(weight_max, "distance")
-                >= self.outline.initial_outline_front_dist
+                and weight_max.distance >= self.initial_outline_front_dist
             ):
                 return True
             return False
 
         return filter_first_line_false
 
-    def _closest_weight_lst(self) -> list[WeightMaximum]:
+    def _closest_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
-        filtered_weight_max.sort(key=lambda weigth: weigth.distance)  # type: ignore
+        filtered_weight_max.sort(key=lambda weigth: weigth.distance)
         weight_list = filtered_weight_max[: 1 * self.target.required_off]
-        weight_list.sort(key=lambda weight: -weight.distance)  # type: ignore
+        weight_list.sort(key=lambda weight: -weight.distance)
         return weight_list
 
-    def _close_weight_lst(self) -> list[WeightMaximum]:
+    def _close_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
         if self.target.night_bonus:
             self._add_night_bonus_annotations(filtered_weight_max)
-            filtered_weight_max.sort(
-                key=lambda i: (-getattr(i, "night_bool"), getattr(i, "distance"))
-            )
+            filtered_weight_max.sort(key=lambda i: (-i.night_bool, i.distance))
         else:
-            filtered_weight_max.sort(key=lambda i: getattr(i, "distance"))
+            filtered_weight_max.sort(key=lambda i: i.distance)
 
-        weight_list: list[WeightMaximum] = list(
+        weight_list: list[FastWeightMaximum] = list(
             filtered_weight_max[: 2 * self.target.required_off]
         )
 
@@ -348,21 +370,21 @@ class WriteRamTarget:
         else:
             required = self.target.required_off
 
-        sampled_weight_lst: list[WeightMaximum] = self.random.sample(
+        sampled_weight_lst: list[FastWeightMaximum] = self.random.sample(
             weight_list, required
         )
 
         return sorted(
             sampled_weight_lst,
-            key=lambda item: item.distance,  # type: ignore
+            key=lambda item: item.distance,
             reverse=True,
         )
 
     def _random_query(
-        self, weight_max_lst: list[WeightMaximum], night_bool: int | None
+        self, weight_max_lst: list[FastWeightMaximum], night_bool: int | None
     ):
-        def filter_night_bool(weight_max: WeightMaximum):
-            if getattr(weight_max, "night_bool") == night_bool:
+        def filter_night_bool(weight_max: FastWeightMaximum):
+            if weight_max.night_bool == night_bool:
                 return True
             return False
 
@@ -373,14 +395,14 @@ class WriteRamTarget:
         self.random.shuffle(filtered_list)
         return filtered_list
 
-    def _random_weight_lst(self) -> list[WeightMaximum]:
+    def _random_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
         if self.target.night_bonus:
             self._add_night_bonus_annotations(filtered_weight_max)
-            result_lst: list[WeightMaximum] = []
+            result_lst: list[FastWeightMaximum] = []
             left_offs: int = self.target.required_off
 
-            weight_list_3: list[WeightMaximum] = list(
+            weight_list_3: list[FastWeightMaximum] = list(
                 self._random_query(filtered_weight_max, night_bool=3)[:left_offs]
             )
 
@@ -388,7 +410,7 @@ class WriteRamTarget:
             left_offs -= len(weight_list_3)
 
             if left_offs > 0:
-                weight_list_2: list[WeightMaximum] = list(
+                weight_list_2: list[FastWeightMaximum] = list(
                     self._random_query(filtered_weight_max, night_bool=2)[:left_offs]
                 )
 
@@ -396,7 +418,7 @@ class WriteRamTarget:
                 left_offs -= len(weight_list_2)
 
                 if left_offs > 0:
-                    weight_list_1: list[WeightMaximum] = list(
+                    weight_list_1: list[FastWeightMaximum] = list(
                         self._random_query(filtered_weight_max, night_bool=1)[
                             :left_offs
                         ]
@@ -414,22 +436,20 @@ class WriteRamTarget:
 
         return sorted(
             result_lst,
-            key=lambda item: item.distance,  # type: ignore
+            key=lambda item: item.distance,
             reverse=True,
         )
 
-    def _far_weight_lst(self) -> list[WeightMaximum]:
+    def _far_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
 
         if self.target.night_bonus:
             self._add_night_bonus_annotations(filtered_weight_max)
-            filtered_weight_max.sort(
-                key=lambda i: (-getattr(i, "night_bool"), -getattr(i, "distance"))
-            )
+            filtered_weight_max.sort(key=lambda i: (-i.night_bool, -i.distance))
         else:
-            filtered_weight_max.sort(key=lambda i: -getattr(i, "distance"))
+            filtered_weight_max.sort(key=lambda i: -i.distance)
 
-        weight_list: list[WeightMaximum] = list(
+        weight_list: list[FastWeightMaximum] = list(
             filtered_weight_max[: 3 * self.target.required_off]
         )
         if len(weight_list) < self.target.required_off:
@@ -437,12 +457,12 @@ class WriteRamTarget:
         else:
             required = self.target.required_off
 
-        sampled_weight_lst: list[WeightMaximum] = self.random.sample(
+        sampled_weight_lst: list[FastWeightMaximum] = self.random.sample(
             weight_list, required
         )
 
         return sorted(
             sampled_weight_lst,
-            key=lambda item: item.distance,  # type: ignore
+            key=lambda item: item.distance,
             reverse=True,
         )

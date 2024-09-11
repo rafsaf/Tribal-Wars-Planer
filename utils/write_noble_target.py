@@ -17,8 +17,9 @@ import math
 from collections.abc import Callable
 from secrets import SystemRandom
 
-from base.models import Outline, WeightMaximum, WeightModel
+from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
+from base.models.weight_maximum import FastWeightMaximum
 
 
 class WriteNobleTarget:
@@ -26,13 +27,13 @@ class WriteNobleTarget:
     Single step in making auto outline for given target
     Only NOBLE, NOBLE FAKE
 
-    self.deafult_create_list is list of tuples (WeightMaximum, int) which
+    self.deafult_create_list is list of tuples (FastWeightMaximum, int) which
     represents Villages with number of wirtten out nobles
 
-    1. Quering self.default_query (get WeightMaximum, first query)
+    1. Quering self.default_query (get FastWeightMaximum, first query)
     Result depend on targets specifications
 
-    2. Then update states (update WeightMaximum, second query)
+    2. Then update states (update FastWeightMaximum, second query)
 
     MODE_DIVISION = [
         "divide", "Divide off with nobles",
@@ -64,28 +65,41 @@ class WriteNobleTarget:
         self,
         target: Target,
         outline: Outline,
-        weight_max_list: list[WeightMaximum],
+        weight_max_list: list[FastWeightMaximum],
         random: SystemRandom,
     ):
         self.target: Target = target
         self.outline: Outline = outline
         self.index: int = 0
-        self.weight_max_list: list[WeightMaximum] = weight_max_list
-        self.filters: list[Callable[[WeightMaximum], bool]] = []
-        self.default_create_list: list[tuple[WeightMaximum, int]] = []
+        self.weight_max_list: list[FastWeightMaximum] = weight_max_list
+        self.filters: list[Callable[[FastWeightMaximum], bool]] = []
+        self.default_create_list: list[tuple[FastWeightMaximum, int]] = []
         self.random = random
 
-    def sorted_weights_nobles(self) -> list[WeightMaximum]:
-        self.filters.append(self._noble_query())
-        self.filters.append(self._only_closer_than_target_dist())
+        self.initial_outline_minimum_noble_troops = (
+            self.outline.initial_outline_minimum_noble_troops
+        )
+        self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
+        self.morale = self.outline.world.morale
+        self.morale_on = self.outline.morale_on
+        self.mode_split = self.outline.mode_split
+        self.morale_on_targets_greater_than = (
+            self.outline.morale_on_targets_greater_than
+        )
+        self.initial_outline_target_dist = self.outline.initial_outline_target_dist
+        self.initial_outline_front_dist = self.outline.initial_outline_front_dist
 
-        if self.outline.world.casual_attack_block_ratio is not None:
+    def sorted_weights_nobles(self) -> list[FastWeightMaximum]:
+        self.filters.append(self._only_closer_than_target_dist())
+        self.filters.append(self._noble_query())
+
+        if self.casual_attack_block_ratio is not None:
             self.filters.append(self._casual_attack_block_ratio())
 
         if not self.target.fake:
             self.filters.append(self._minimal_noble_off())
 
-        if self.outline.morale_on and self.outline.world.morale > 0:
+        if self.morale_on and self.morale > 0:
             self.filters.append(self._morale_query())
 
         if self.target.mode_noble == "closest":
@@ -124,7 +138,7 @@ class WriteNobleTarget:
         self._order_distance_default_list()
 
         i: int
-        weight_max: WeightMaximum
+        weight_max: FastWeightMaximum
         noble_number: int
         for i, (weight_max, noble_number) in enumerate(self.default_create_list):
             off: int = self._off(weight_max)
@@ -136,7 +150,7 @@ class WriteNobleTarget:
                 weight_max, catapult, noble_number
             )
 
-            if self.outline.mode_split == "split":
+            if self.mode_split == "split":
                 for index in range(noble_number):
                     if index == 0:
                         off_troops = first_off
@@ -154,7 +168,7 @@ class WriteNobleTarget:
                     )
                     weights_create_lst.append(weight)
 
-            else:  # self.outline.mode_split == "together":
+            else:  # self.mode_split == "together":
                 weight = self._weight_model(
                     weight_max=weight_max,
                     off=first_off + (noble_number - 1) * off,
@@ -172,20 +186,20 @@ class WriteNobleTarget:
 
     def _weight_model(
         self,
-        weight_max: WeightMaximum,
+        weight_max: FastWeightMaximum,
         off: int,
         catapult: int,
         noble: int,
         order: int,
     ) -> WeightModel:
         return WeightModel(
-            target=self.target,
+            target_id=self.target.pk,
             player=weight_max.player,
             start=weight_max.start,
-            state=weight_max,
+            state_id=weight_max.pk,
             off=off,
             catapult=catapult,
-            distance=weight_max.distance,  # type: ignore
+            distance=weight_max.distance,
             nobleman=noble,
             order=order + self.index,
             first_line=weight_max.first_line,
@@ -193,11 +207,11 @@ class WriteNobleTarget:
 
     @staticmethod
     def _update_weight_max(
-        weight_max: WeightMaximum,
+        weight_max: FastWeightMaximum,
         off_to_left: int,
         catapult_to_left: int,
         noble_number: int,
-    ) -> WeightMaximum:
+    ) -> FastWeightMaximum:
         weight_max.off_state += weight_max.off_left - off_to_left
         weight_max.off_left = off_to_left
         weight_max.catapult_state += weight_max.catapult_left - catapult_to_left
@@ -209,14 +223,13 @@ class WriteNobleTarget:
         return weight_max
 
     def _order_distance_default_list(self) -> None:
-        def order_func(weight_tuple: tuple[WeightMaximum, int]) -> int:
-            weight_max: WeightMaximum = weight_tuple[0]
-            return -weight_max.distance  # type: ignore
+        def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:
+            return -weight_tuple[0].distance
 
         self.default_create_list.sort(key=order_func)
 
-    def _fill_default_list(self, sorted_list: list[WeightMaximum]) -> None:
-        weight_max: WeightMaximum
+    def _fill_default_list(self, sorted_list: list[FastWeightMaximum]) -> None:
+        weight_max: FastWeightMaximum
         for weight_max in sorted_list:
             if self.target.required_noble > 0:
                 if self.target.mode_guide == "single":
@@ -235,7 +248,7 @@ class WriteNobleTarget:
                     self.default_create_list.append((weight_max, nobles))
                     self.target.required_noble -= nobles
 
-    def _mode_guide_is_one(self, weight_max_list: list[WeightMaximum]) -> None:
+    def _mode_guide_is_one(self, weight_max_list: list[FastWeightMaximum]) -> None:
         """
         Updates self.default_create_list attribute
 
@@ -245,36 +258,36 @@ class WriteNobleTarget:
         Then we use weight_max with (required nobles -1) nobles and so on (-2, -3...)
         """
 
-        def sort_func(weight_max: WeightMaximum) -> tuple[int, float, int, int]:
+        def sort_func(weight_max: FastWeightMaximum) -> tuple[int, float, int, int]:
             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)
-            distance: float = float(weight_max.distance)  # type: ignore
+            distance: float = float(weight_max.distance)
             off: int = -int(weight_max.off_left)
             number: int = -int(weight_max.nobleman_left)
             return (fit, distance, off, number)
 
-        sorted_weight_max_lst: list[WeightMaximum] = sorted(
+        sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
             weight_max_list, key=sort_func
         )
         self._fill_default_list(sorted_weight_max_lst)
 
-    def _mode_guide_is_many(self, weight_max_list: list[WeightMaximum]) -> None:
+    def _mode_guide_is_many(self, weight_max_list: list[FastWeightMaximum]) -> None:
         """
         Updates self.default_create_list attribute
 
         This case represents OPTIMAL FIT, depend of off troops and distance
         """
 
-        def sort_func(weight_max: WeightMaximum) -> tuple[float, int]:
+        def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:
             off: int = -int(weight_max.off_left)
-            distance: float = float(weight_max.distance)  # type: ignore
+            distance: float = float(weight_max.distance)
             return (distance, off)
 
-        sorted_weight_max_lst: list[WeightMaximum] = sorted(
+        sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
             weight_max_list, key=sort_func
         )
         self._fill_default_list(sorted_weight_max_lst)
 
-    def _mode_guide_is_single(self, weight_max_list: list[WeightMaximum]) -> None:
+    def _mode_guide_is_single(self, weight_max_list: list[FastWeightMaximum]) -> None:
         """
         Updates self.default_create_list attribute
 
@@ -282,17 +295,17 @@ class WriteNobleTarget:
         Later we decide to use only one noble from every village
         """
 
-        def sort_func(weight_max: WeightMaximum) -> tuple[float, int]:
+        def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:
             off: int = -int(weight_max.off_left)
-            distance: float = float(weight_max.distance)  # type: ignore
+            distance: float = float(weight_max.distance)
             return (distance, off)
 
-        sorted_weight_max_lst: list[WeightMaximum] = sorted(
+        sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
             weight_max_list, key=sort_func
         )
         self._fill_default_list(sorted_weight_max_lst)
 
-    def _off(self, weight_max: WeightMaximum) -> int:
+    def _off(self, weight_max: FastWeightMaximum) -> int:
         if self.target.fake:
             return 0
 
@@ -308,7 +321,7 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return 200
 
-    def _first_off(self, weight_max: WeightMaximum, off: int) -> int:
+    def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:
         if self.target.fake:
             return 0
 
@@ -324,7 +337,7 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return 200
 
-    def _catapult(self, weight_max: WeightMaximum) -> int:
+    def _catapult(self, weight_max: FastWeightMaximum) -> int:
         if self.target.fake:
             return 0
 
@@ -340,7 +353,7 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return 0
 
-    def _first_catapult(self, weight_max: WeightMaximum, catapult: int) -> int:
+    def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:
         if self.target.fake:
             return 0
 
@@ -361,7 +374,7 @@ class WriteNobleTarget:
             return 0
 
     def _off_to_left(  # noqa: PLR0911
-        self, weight_max: WeightMaximum, off: int, noble: int
+        self, weight_max: FastWeightMaximum, off: int, noble: int
     ) -> int:
         if self.target.fake:
             return weight_max.off_left
@@ -385,7 +398,7 @@ class WriteNobleTarget:
             return weight_max.off_left - (off * (noble))
 
     def _catapult_to_left(  # noqa: PLR0911
-        self, weight_max: WeightMaximum, catapult: int, noble: int
+        self, weight_max: FastWeightMaximum, catapult: int, noble: int
     ) -> int:
         if self.target.fake:
             return weight_max.catapult_left
@@ -406,32 +419,30 @@ class WriteNobleTarget:
         else:  # self.target.mode_division == "separatly"
             return weight_max.catapult_left
 
-    def _morale_query(self) -> Callable[[WeightMaximum], bool]:
-        def filter_morale(weight_max: WeightMaximum) -> bool:
-            return weight_max.morale >= self.outline.morale_on_targets_greater_than
+    def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_morale(weight_max: FastWeightMaximum) -> bool:
+            return weight_max.morale >= self.morale_on_targets_greater_than
 
         return filter_morale
 
-    def _noble_query(self) -> Callable[[WeightMaximum], bool]:
-        def filter_noble(weight_max: WeightMaximum) -> bool:
+    def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_noble(weight_max: FastWeightMaximum) -> bool:
             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
 
         return filter_noble
 
-    def _minimal_noble_off(self) -> Callable[[WeightMaximum], bool]:
-        def filter_noble(weight_max: WeightMaximum) -> bool:
-            return (
-                weight_max.off_left >= self.outline.initial_outline_minimum_noble_troops
-            )
+    def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_noble(weight_max: FastWeightMaximum) -> bool:
+            return weight_max.off_left >= self.initial_outline_minimum_noble_troops
 
         return filter_noble
 
-    def _casual_attack_block_ratio(self) -> Callable[[WeightMaximum], bool]:
-        if self.outline.world.casual_attack_block_ratio is None:
+    def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
+        if self.casual_attack_block_ratio is None:
             raise RuntimeError("expected world casual_attack_block_ratio to be int")
-        world_ratio = (100 + self.outline.world.casual_attack_block_ratio) / 100
+        world_ratio = (100 + self.casual_attack_block_ratio) / 100
 
-        def filter_casual_attack_block_ratio(weight_max: WeightMaximum) -> bool:
+        def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:
             if self.target.player == "":
                 # special case barbarians
                 return True
@@ -442,62 +453,62 @@ class WriteNobleTarget:
 
         return filter_casual_attack_block_ratio
 
-    def _only_closer_than_target_dist(self) -> Callable[[WeightMaximum], bool]:
-        def filter_close_than_target_dist(weight_max: WeightMaximum) -> bool:
-            return (
-                getattr(weight_max, "distance")
-                <= self.outline.initial_outline_target_dist
-            )
+    def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
+        def filter_func(weight_max: FastWeightMaximum) -> bool:
+            for filter_func in self.filters:
+                if not filter_func(weight_max):
+                    return False
+            return True
+
+        return [
+            weight for weight in self.weight_max_list if filter_func(weight_max=weight)
+        ]
+
+    def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:
+            return weight_max.distance <= self.outline.initial_outline_target_dist
 
         return filter_close_than_target_dist
 
-    def _get_filtered_weight_max_list(self) -> list[WeightMaximum]:
-        return [
-            weight
-            for weight in self.weight_max_list
-            if all(filter_func(weight) for filter_func in self.filters)
-        ]
-
-    def _first_line_false_query(self) -> Callable[[WeightMaximum], bool]:
-        def filter_first_line_false(weight_max: WeightMaximum) -> bool:
+    def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:
             return (
                 not weight_max.first_line
-                and getattr(weight_max, "distance")
-                >= self.outline.initial_outline_front_dist
+                and weight_max.distance >= self.initial_outline_front_dist
             )
 
         return filter_first_line_false
 
-    def _closest_weight_lst(self) -> list[WeightMaximum]:
+    def _closest_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
-        filtered_weight_max.sort(key=lambda weight: getattr(weight, "distance"))
+        filtered_weight_max.sort(key=lambda weight: weight.distance)
 
-        weight_list: list[WeightMaximum] = filtered_weight_max[:15]
+        weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
         return weight_list
 
-    def _close_weight_lst(self) -> list[WeightMaximum]:
+    def _close_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
-        filtered_weight_max.sort(key=lambda weight: getattr(weight, "distance"))
+        filtered_weight_max.sort(key=lambda weight: weight.distance)
 
-        weight_list: list[WeightMaximum] = filtered_weight_max[:15]
+        weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
         return weight_list
 
-    def _random_weight_lst(self) -> list[WeightMaximum]:
+    def _random_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
         self.random.shuffle(filtered_weight_max)
 
-        weight_list: list[WeightMaximum] = filtered_weight_max[:15]
+        weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
         return sorted(
             weight_list,
-            key=lambda item: item.distance,  # type: ignore
+            key=lambda item: item.distance,
         )
 
-    def _far_weight_lst(self) -> list[WeightMaximum]:
+    def _far_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
-        filtered_weight_max.sort(key=lambda weight: -getattr(weight, "distance"))
+        filtered_weight_max.sort(key=lambda weight: -weight.distance)
 
-        weight_list: list[WeightMaximum] = filtered_weight_max[:15]
+        weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
         return sorted(
             weight_list,
-            key=lambda item: item.distance,  # type: ignore
+            key=lambda item: item.distance,
         )

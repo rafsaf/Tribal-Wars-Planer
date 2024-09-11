@@ -26,12 +26,13 @@ from scipy.spatial.distance import cdist
 
 from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
+from base.models.weight_maximum import FastWeightMaximum
 from utils.basic import generate_morale_dict
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
 
 
-def generate_distance_matrix(outline: Outline, weight_max_lst: list[WeightMaximum]):
+def generate_distance_matrix(outline: Outline, weight_max_lst: list[FastWeightMaximum]):
     """
     Generates and returns matrix with distances between all targets and (available weight max villages) at once.
     For example for targets: [T1, T2], weights_max (W1, W2, W3)
@@ -67,7 +68,7 @@ def generate_distance_matrix(outline: Outline, weight_max_lst: list[WeightMaximu
 
     dist_matrix = cdist(
         np.array(list_of_coords),
-        np.array([np.array(i.coord_tuple()) for i in weight_max_lst]),
+        np.array([np.array(i.coord_tuple) for i in weight_max_lst]),
         "euclidean",
     )
     return dist_matrix, coord_to_id
@@ -94,10 +95,11 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
     targets = get_targets(outline, False, False)
     fakes = get_targets(outline, True, False)
     ruins = get_targets(outline, False, True)
-    weight_max_lst = list(
+    real_weight_max_lst = list(
         WeightMaximum.objects.select_related("outline")
         .filter(outline=outline, too_far_away=False)
         .only(
+            "pk",
             "player",
             "start",
             "points",
@@ -116,11 +118,16 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
         )
     )
 
-    for weight_max in weight_max_lst:
+    for weight_max in real_weight_max_lst:
         for field in WeightMaximum.CHANGES_TRACKED_FIELDS:
             setattr(
                 weight_max, f"_original_{field}", deepcopy(getattr(weight_max, field))
             )
+
+    weight_max_lst = [
+        FastWeightMaximum(weight_max, index)
+        for index, weight_max in enumerate(real_weight_max_lst)
+    ]
 
     dist_matrix, coord_to_id_in_matrix = generate_distance_matrix(
         outline=outline, weight_max_lst=weight_max_lst
@@ -206,8 +213,14 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
         ruin=False,
     )
     weight_max_lst = create_fake_nobles()
+
+    for fast_weight_max in weight_max_lst:
+        weight_max = real_weight_max_lst[fast_weight_max.index]
+        for field in WeightMaximum.CHANGES_TRACKED_FIELDS:
+            setattr(weight_max, field, getattr(fast_weight_max, field))
+
     WeightMaximum.objects.bulk_update(
-        [weight for weight in weight_max_lst if weight.has_changed is True],
+        [weight for weight in real_weight_max_lst if weight.has_changed is True],
         fields=[
             "off_state",
             "off_left",
@@ -218,7 +231,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
             "fake_limit",
             "nobles_limit",
         ],
-        batch_size=1000,
+        batch_size=5000,
     )
 
 
@@ -228,7 +241,7 @@ class CreateWeights:
         random: SystemRandom,
         targets: QuerySet[Target],
         outline: Outline,
-        weight_max_list: list[WeightMaximum],
+        weight_max_list: list[FastWeightMaximum],
         dist_matrix: NDArray[np.floating[Any]] | None,
         coord_to_id_in_matrix: dict[tuple[int, int], int],
         morale_dict: defaultdict[tuple[str, str], int] | None,
@@ -356,14 +369,14 @@ class CreateWeights:
             target_coord = target.coord_tuple()
             target_row_in_C = self.coord_to_id_in_matrix[target_coord]
             for index, distance in enumerate(self.dist_matrix[target_row_in_C]):
-                setattr(self.weight_max_list[index], "distance", distance)
+                self.weight_max_list[index].distance = distance
                 if self.morale_dict is not None:
                     morale = self.morale_dict[
                         (target.player, self.weight_max_list[index].player)
                     ]
-                    setattr(self.weight_max_list[index], "morale", morale)
+                    self.weight_max_list[index].morale = morale
 
-    def __call__(self) -> list[WeightMaximum]:
+    def __call__(self) -> list[FastWeightMaximum]:
         # note that .iterator() prevents from caching querysets
         # which can possibly cause overwriting some targets attributes
 
@@ -376,5 +389,5 @@ class CreateWeights:
             else:
                 self._ram_write(target)
 
-        WeightModel.objects.bulk_create(self.weight_create_lst, batch_size=2000)
+        WeightModel.objects.bulk_create(self.weight_create_lst, batch_size=5000)
         return self.weight_max_list
