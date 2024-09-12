@@ -70,11 +70,10 @@ class OffTroopsForm(forms.ModelForm):
             return None
 
         villages = set(
-            village.coord
-            for village in VillageModel.objects.filter(
+            VillageModel.objects.filter(
                 player__tribe__tag__in=self.outline.ally_tribe_tag,
                 world=self.outline.world,
-            ).only("coord")
+            ).values_list("coord", flat=True)
         )
         evidence = basic.world_evidence(self.outline.world)
 
@@ -159,11 +158,10 @@ class DeffTroopsForm(forms.ModelForm):
             return None
 
         villages = set(
-            village.coord
-            for village in VillageModel.objects.filter(
+            VillageModel.objects.filter(
                 player__tribe__tag__in=self.outline.ally_tribe_tag,
                 world=self.outline.world,
-            ).only("coord")
+            ).values_list("coord", flat=True)
         )
         evidence = basic.world_evidence(self.outline.world)
 
