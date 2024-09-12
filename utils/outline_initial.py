@@ -79,7 +79,20 @@ class MakeOutline:
         self.outline.avaiable_nobles_near = []
         self.outline.available_catapults = []
         self.outline.avaiable_ruins = None
-        self.outline.save()
+        self.outline.save(
+            update_fields=[
+                "avaiable_nobles_near",
+                "avaiable_offs_near",
+                "avaiable_nobles",
+                "avaiable_offs",
+                "available_catapults",
+                "avaiable_ruins",
+                "off_troops_weightmodels_hash",
+                "deff_troops_weightmodels_hash",
+                "deff_collection_text_in_village",
+                "deff_collection_text_enroute",
+            ]
+        )
 
     def _add_weight_max(self, army: Army | Defence, player: Player) -> None:
         self.weight_max_create_list.append(

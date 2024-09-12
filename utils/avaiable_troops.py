@@ -129,7 +129,7 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
 
     outline.avaiable_nobles = [all_noble, front_noble, back_noble, too_far_noble]
     outline.avaiable_offs = [all_off, front_off, back_off, too_far_off]
-    outline.save()
+    outline.save(update_fields=["avaiable_nobles", "avaiable_offs"])
 
     # #
     # #
@@ -143,7 +143,6 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
             max_radius=target_radius,
         ).result()
     else:
-        outline.save()
         return
 
     close_starts: list[str] = [f"{coord[0]}|{coord[1]}" for coord in close_array]
@@ -196,7 +195,7 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
 
     outline.avaiable_nobles_near = [all_noble, front_noble, back_noble, too_far_off]
     outline.avaiable_offs_near = [all_off, front_off, back_off, too_far_noble]
-    outline.save()
+    outline.save(update_fields=["avaiable_nobles_near", "avaiable_offs_near"])
 
 
 def get_available_catapults_lst(outline: models.Outline) -> list[int]:
@@ -256,4 +255,4 @@ def get_available_ruins(outline: models.Outline) -> int:
 def update_available_ruins(outline: models.Outline) -> None:
     outline.avaiable_ruins = get_available_ruins(outline=outline)
     outline.available_catapults = get_available_catapults_lst(outline=outline)
-    outline.save()
+    outline.save(update_fields=["avaiable_ruins", "available_catapults"])

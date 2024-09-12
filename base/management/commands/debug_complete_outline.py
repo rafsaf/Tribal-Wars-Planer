@@ -36,7 +36,7 @@ class Command(BaseCommand):
             complete_outline_write(outline=outline)
             outline.actions.click_outline_write(outline)
             outline.written = "active"
-            outline.save()
+            outline.save(update_fields=["written"])
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument("outline_pk", type=int)

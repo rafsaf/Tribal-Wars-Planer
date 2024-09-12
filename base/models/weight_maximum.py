@@ -107,7 +107,7 @@ class FastWeightMaximum:
     and it's really slow. It's completely not designed for such a high number of accesses.
     """
 
-    def __init__(self, weight_max: WeightMaximum, index: int) -> None:
+    def __init__(self, weight_max: WeightMaximum, index: int, outline: Outline) -> None:
         # index is a list index in the outline list of real WeightMaximum objects
         # so they can be updated in the same place after calculations
         self.index: int = index
@@ -130,7 +130,7 @@ class FastWeightMaximum:
         self.night_bool: int = 0
         self.morale: int = 0
         self.initial_outline_minimum_noble_troops: int = (
-            weight_max.outline.initial_outline_minimum_noble_troops
+            outline.initial_outline_minimum_noble_troops
         )
 
     def __eq__(self, other: Self) -> bool:

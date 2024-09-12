@@ -43,9 +43,16 @@ def coord_to_player_model_from_string(
     village_dictionary = {}
     village_list: list[str] = village_coord_list.split()
 
-    villages: QuerySet[VillageModel] = VillageModel.objects.select_related(
-        "player"
-    ).filter(world=world, coord__in=village_list)
+    villages: QuerySet[VillageModel] = (
+        VillageModel.objects.select_related("player")
+        .filter(world=world, coord__in=village_list)
+        .only(
+            "coord",
+            "player__name",
+            "player__points",
+            "player__created_at",
+        )
+    )
 
     for village in villages:
         village_dictionary[village.coord] = village.player

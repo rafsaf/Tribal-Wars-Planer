@@ -46,13 +46,13 @@ class TargetsData:
         self.validate_villages_database()
 
     def validate_villages_database(self):
-        village_models = models.VillageModel.objects.select_related().filter(
-            world=self.world, coord__in=self.villages_coord
+        villages_ids_set = set(
+            models.VillageModel.objects.filter(
+                world=self.world, coord__in=self.villages_coord
+            ).values_list("coord", flat=True)
         )
 
-        if len(set(self.villages_coord)) != village_models.count():
-            villages_ids_set = {village.coord for village in village_models}
-
+        if len(set(self.villages_coord)) != len(villages_ids_set):
             for village in self.villages_coord:
                 if village not in villages_ids_set:
                     self.errors_ids.add(self.vill_id_line[village])

@@ -190,7 +190,7 @@ def change_buildings_array(request: Request):
         )
         outline.initial_outline_buildings = req.data["buildings"]
         outline.actions.form_building_order_change(outline)
-        outline.save()
+        outline.save(update_fields=["initial_outline_buildings"])
         return Response(status=status.HTTP_200_OK)
 
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
