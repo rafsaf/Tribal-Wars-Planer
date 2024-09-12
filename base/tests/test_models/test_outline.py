@@ -77,7 +77,7 @@ class RemoveUserOutline(MiniSetup):
         assert result.results_sum_up == ""
         assert result.results_export == ""
 
-    def test_delete_all_weights_and_outline_times_and_update_overviews(self):
+    def test_not_delete_all_weights_and_outline_times_and_update_overviews(self):
         outline = self.get_outline(add_result=True, test_world=True)
         self.create_target_on_test_world(outline)
         target = models.TargetVertex.objects.get(target="200|200")
@@ -99,8 +99,8 @@ class RemoveUserOutline(MiniSetup):
         assert overview.removed is True
         assert models.WeightModel.objects.count() == 0
         assert models.OutlineTime.objects.count() == 1
-        assert models.WeightMaximum.objects.count() == 0
-        assert models.TargetVertex.objects.count() == 0
+        assert models.WeightMaximum.objects.count() == 1
+        assert models.TargetVertex.objects.count() == 1
 
     def test_weight_max_still_exists_but_is_updated_correctly_and_target_deleted(self):
         outline = self.get_outline(add_result=True, test_world=True)
