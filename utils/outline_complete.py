@@ -74,10 +74,6 @@ def generate_distance_matrix(outline: Outline, weight_max_lst: list[FastWeightMa
     return dist_matrix, coord_to_id
 
 
-def get_targets(outline: Outline, fake: bool, ruin: bool) -> QuerySet[Target]:
-    return Target.objects.filter(outline=outline, fake=fake, ruin=ruin).order_by("id")
-
-
 def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
     """
     Auto write out given outline
@@ -91,14 +87,14 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
     in each step writting the step's target and updating weights max
     """
     random = SystemRandom(salt)
+    all_targets = Target.objects.filter(outline=outline).order_by("id")
 
-    targets = get_targets(outline, False, False)
-    fakes = get_targets(outline, True, False)
-    ruins = get_targets(outline, False, True)
+    targets = [target for target in all_targets if not target.ruin and not target.fake]
+    fakes = [target for target in all_targets if target.fake and not target.ruin]
+    ruins = [target for target in all_targets if target.ruin and not target.fake]
+
     real_weight_max_lst = list(
-        WeightMaximum.objects.select_related("outline")
-        .filter(outline=outline, too_far_away=False)
-        .only(
+        WeightMaximum.objects.filter(outline=outline, too_far_away=False).only(
             "pk",
             "player",
             "start",
@@ -114,7 +110,6 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
             "fake_limit",
             "nobles_limit",
             "first_line",
-            "outline__initial_outline_minimum_noble_troops",
         )
     )
 
@@ -125,7 +120,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
             )
 
     weight_max_lst = [
-        FastWeightMaximum(weight_max, index)
+        FastWeightMaximum(weight_max, index, outline)
         for index, weight_max in enumerate(real_weight_max_lst)
     ]
 
@@ -138,7 +133,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
         morale_dict = None
     create_fakes = CreateWeights(
         random,
-        fakes,
+        deepcopy(fakes),
         outline,
         weight_max_lst,
         dist_matrix,
@@ -151,7 +146,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
 
     create_ruins = CreateWeights(
         random,
-        ruins,
+        deepcopy(ruins),
         outline,
         weight_max_lst,
         dist_matrix,
@@ -164,7 +159,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
 
     create_nobles = CreateWeights(
         random,
-        targets,
+        deepcopy(targets),
         outline,
         weight_max_lst,
         dist_matrix,
@@ -177,7 +172,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
 
     create_offs = CreateWeights(
         random,
-        targets,
+        deepcopy(targets),
         outline,
         weight_max_lst,
         dist_matrix,
@@ -190,7 +185,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
 
     create_ruin_offs = CreateWeights(
         random,
-        ruins,
+        deepcopy(ruins),
         outline,
         weight_max_lst,
         dist_matrix,
@@ -203,7 +198,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
 
     create_fake_nobles = CreateWeights(
         random,
-        fakes,
+        deepcopy(fakes),
         outline,
         weight_max_lst,
         dist_matrix,
@@ -231,7 +226,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
             "fake_limit",
             "nobles_limit",
         ],
-        batch_size=5000,
+        batch_size=2000,
     )
 
 
@@ -239,7 +234,7 @@ class CreateWeights:
     def __init__(
         self,
         random: SystemRandom,
-        targets: QuerySet[Target],
+        targets: list[Target],
         outline: Outline,
         weight_max_list: list[FastWeightMaximum],
         dist_matrix: NDArray[np.floating[Any]] | None,
@@ -249,7 +244,7 @@ class CreateWeights:
         ruin: bool = False,
     ) -> None:
         self.random = random
-        self.targets: QuerySet[Target] = targets
+        self.targets: list[Target] = targets
         self.outline: Outline = outline
         self.noble: bool = noble
         self.ruin: bool = ruin
@@ -377,11 +372,8 @@ class CreateWeights:
                     self.weight_max_list[index].morale = morale
 
     def __call__(self) -> list[FastWeightMaximum]:
-        # note that .iterator() prevents from caching querysets
-        # which can possibly cause overwriting some targets attributes
-
         target: Target
-        for target in self.targets.iterator():
+        for target in self.targets:
             if self.noble:
                 self._noble_write(target)
             elif self.ruin:
@@ -389,5 +381,5 @@ class CreateWeights:
             else:
                 self._ram_write(target)
 
-        WeightModel.objects.bulk_create(self.weight_create_lst, batch_size=5000)
+        WeightModel.objects.bulk_create(self.weight_create_lst, batch_size=2000)
         return self.weight_max_list

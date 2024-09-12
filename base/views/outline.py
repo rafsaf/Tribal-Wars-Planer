@@ -87,11 +87,11 @@ def inactive_outline(request: HttpRequest, _id: int) -> HttpResponse:
     outline = get_object_or_404(models.Outline, id=_id, owner=request.user)
     if outline.status == "active":
         outline.status = "inactive"
-        outline.save()
+        outline.save(update_fields=["status"])
         return redirect("base:planer")
     else:
         outline.status = "active"
-        outline.save()
+        outline.save(update_fields=["status"])
         return redirect("base:planer_all")
 
 
@@ -139,7 +139,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:  # noqa: PLR
                 instance.off_troops_hash = instance.get_or_set_off_troops_hash(
                     force_recalculate=True
                 )
-                instance.save()
+                instance.save(update_fields=["off_troops", "off_troops_hash"])
                 request.session["message-off-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:
@@ -153,10 +153,10 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:  # noqa: PLR
             instance.actions.save_deff_troops(instance)
             if form20.is_valid():
                 instance.deff_troops = request.POST["deff_troops"]
-                instance.save()
                 instance.deff_troops_hash = instance.get_or_set_deff_troops_hash(
                     force_recalculate=True
                 )
+                instance.save(update_fields=["deff_troops", "deff_troops_hash"])
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:

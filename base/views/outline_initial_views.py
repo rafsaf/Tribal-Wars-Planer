@@ -278,26 +278,10 @@ def initial_form(  # noqa: PLR0912,PLR0911
                 max_to_add=max_to_add,
             )
             if form1.is_valid():
-                if instance.input_data_type == models.Outline.ARMY_COLLECTION:
-                    off_form = forms.OffTroopsForm(
-                        {"off_troops": instance.off_troops}, outline=instance
-                    )
-                    if not off_form.is_valid():
-                        return trigger_off_troops_update_redirect(
-                            request=request, outline=instance
-                        )
-                else:
-                    deff_form = forms.DeffTroopsForm(
-                        {"deff_troops": instance.deff_troops}, outline=instance
-                    )
-                    if not deff_form.is_valid():
-                        return trigger_off_troops_update_redirect(
-                            request=request, outline=instance
-                        )
-
-                instance.save()
                 create_targets = OutlineCreateTargets(instance, target_mode)
                 create_targets()
+                # instance.save() is already in form validation
+                # and runs only if targets are created
                 if target_mode.is_real:
                     instance.actions.save_real_targets(instance)
                 elif target_mode.is_fake:
@@ -314,7 +298,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
             form2 = forms.AvailableTroopsForm(request.POST, instance=instance)
             if form2.is_valid():
                 instance.actions.form_available_troops(instance)
-                form2.save()
+                instance.save(update_fields=forms.AvailableTroopsForm.Meta.fields)
                 instance.refresh_from_db()
                 avaiable_troops.get_legal_coords_outline(outline=instance)
                 avaiable_troops.update_available_ruins(outline=instance)
@@ -327,7 +311,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
             form3 = forms.SettingDateForm(request.POST, instance=instance)
             if form3.is_valid():
                 instance.actions.form_date_change(instance)
-                form3.save()
+                instance.save(update_fields=forms.SettingDateForm.Meta.fields)
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
@@ -337,7 +321,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
             form4 = forms.ModeOutlineForm(request.POST, instance=instance)
             if form4.is_valid():
                 instance.actions.form_settings_change(instance)
-                form4.save()
+                instance.save(update_fields=forms.ModeOutlineForm.Meta.fields)
                 instance.refresh_from_db()
                 models.TargetVertex.objects.filter(outline=instance).update(
                     mode_off=instance.mode_off,
@@ -359,7 +343,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
             form5 = forms.NightBonusSetForm(request.POST, instance=instance)
             if form5.is_valid():
                 instance.actions.form_night_change(instance)
-                form5.save()
+                instance.save(update_fields=forms.NightBonusSetForm.Meta.fields)
                 instance.refresh_from_db()
                 models.TargetVertex.objects.filter(outline=instance).update(
                     night_bonus=instance.night_bonus,
@@ -375,7 +359,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
             form6 = forms.RuiningOutlineForm(request.POST, instance=instance)
             if form6.is_valid():
                 instance.actions.form_ruin_change(instance)
-                form6.save()
+                instance.save(update_fields=forms.RuiningOutlineForm.Meta.fields)
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
@@ -384,8 +368,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
         if "form7" in request.POST:
             form7 = forms.MoraleOutlineForm(request.POST, instance=instance)
             if form7.is_valid():
-                instance = form7.save(commit=False)
-                instance.save()
+                instance.save(update_fields=forms.MoraleOutlineForm.Meta.fields)
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
@@ -446,16 +429,9 @@ def initial_planer(  # noqa: PLR0912,PLR0911
             return redirect("base:planer_initial_form", _id)
 
         if "form-filter-targets" in request.POST:
-            filter_form = forms.SetTargetsMenuFilters(request.POST)
+            filter_form = forms.SetTargetsMenuFilters(request.POST, instance=instance)
             if filter_form.is_valid():
-                cards = int(request.POST["filter_targets_number"])
-                if request.POST.get("simple_textures") == "on":
-                    textures = True
-                else:
-                    textures = False
-                instance.filter_targets_number = cards
-                instance.simple_textures = textures
-                instance.save()
+                instance.save(update_fields=forms.SetTargetsMenuFilters.Meta.fields)
                 return redirect(
                     reverse("base:planer_initial", args=[_id])
                     + f"?page={page_number}&mode={mode}&filtr={filtr}"
@@ -785,7 +761,13 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
     if outline.default_ruin_time_id == outline_time.pk:
         outline.default_ruin_time_id = None
 
-    outline.save()
+    outline.save(
+        update_fields=[
+            "default_off_time_id",
+            "default_fake_time_id",
+            "default_ruin_time_id",
+        ]
+    )
     outline_time.delete()
     return redirect(
         reverse("base:planer_initial", args=[outline.pk]) + f"?page={page}&mode={mode}"
@@ -821,7 +803,13 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
         outline=outline, fake=fake_state, ruin=ruin_state
     )
     targets.update(outline_time=outline_time)
-    outline.save()
+    outline.save(
+        update_fields=[
+            "default_off_time_id",
+            "default_fake_time_id",
+            "default_ruin_time_id",
+        ]
+    )
 
     return redirect(
         reverse("base:planer_initial", args=[outline.pk]) + f"?page={page}&mode={mode}"
@@ -896,7 +884,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
             complete_outline_write(outline=instance)
             instance.actions.click_outline_write(instance)
             instance.written = "active"
-            instance.save()
+            instance.save(update_fields=["written"])
     except Exception as err:
         log.error("outline_complete_write unknown error: %s", err, exc_info=True)
         metrics.ERRORS.labels("complete_outline_unkown_error").inc()

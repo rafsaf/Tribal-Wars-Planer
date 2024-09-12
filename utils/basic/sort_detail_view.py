@@ -63,7 +63,7 @@ class SortAndPaginRequest:
 
         if self.sort != self.outline.choice_sort:
             self.outline.choice_sort = self.sort
-            self.outline.save()
+            self.outline.save(update_fields=["choice_sort"])
 
     def _nonused(self):
         query = (

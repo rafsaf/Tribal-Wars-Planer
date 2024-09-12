@@ -69,7 +69,13 @@ class OffTroopsForm(forms.ModelForm):
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
 
-        player_dictionary = basic.coord_to_player(self.outline)
+        villages = set(
+            village.coord
+            for village in VillageModel.objects.filter(
+                player__tribe__tag__in=self.outline.ally_tribe_tag,
+                world=self.outline.world,
+            ).only("coord")
+        )
         evidence = basic.world_evidence(self.outline.world)
 
         already_used_villages = set()
@@ -77,7 +83,7 @@ class OffTroopsForm(forms.ModelForm):
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Army(text_army=text_line, evidence=evidence)
             try:
-                army.clean_init(player_dictionary, self.outline.ally_tribe_tag)
+                army.clean_init(villages, self.outline.ally_tribe_tag)
             except basic.ArmyError as error:
                 if not self.first_error_message:
                     self.first_error_message = str(error)
@@ -152,7 +158,13 @@ class DeffTroopsForm(forms.ModelForm):
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
 
-        player_dictionary = basic.coord_to_player(self.outline)
+        villages = set(
+            village.coord
+            for village in VillageModel.objects.filter(
+                player__tribe__tag__in=self.outline.ally_tribe_tag,
+                world=self.outline.world,
+            ).only("coord")
+        )
         evidence = basic.world_evidence(self.outline.world)
 
         already_used_villages: dict[str, int] = {}
@@ -160,7 +172,7 @@ class DeffTroopsForm(forms.ModelForm):
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Defence(text_army=text_line, evidence=evidence)
             try:
-                army.clean_init(player_dictionary, self.outline.ally_tribe_tag)
+                army.clean_init(villages, self.outline.ally_tribe_tag)
             except basic.DefenceError as error:
                 if not self.first_error_message:
                     self.first_error_message = str(error)
@@ -313,19 +325,19 @@ class InitialOutlineForm(forms.Form):
                 and self.outline.initial_outline_targets != new_data
             ):
                 self.outline.initial_outline_targets = new_data
-                self.outline.save()
+                self.outline.save(update_fields=["initial_outline_targets"])
             elif (
                 self.target_mode.is_fake
                 and self.outline.initial_outline_fakes != new_data
             ):
                 self.outline.initial_outline_fakes = new_data
-                self.outline.save()
+                self.outline.save(update_fields=["initial_outline_fakes"])
             elif (
                 self.target_mode.is_ruin
                 and self.outline.initial_outline_ruins != new_data
             ):
                 self.outline.initial_outline_ruins = new_data
-                self.outline.save()
+                self.outline.save(update_fields=["initial_outline_ruins"])
 
         if len(data_lines.lines) > self.max_to_add:
             self.add_error(

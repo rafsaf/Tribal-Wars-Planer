@@ -16,12 +16,11 @@
 """Army and Defence tools"""
 
 from functools import cached_property
-from typing import Literal, NamedTuple, TypedDict
+from typing import Any, Literal, NamedTuple, TypedDict
 
 from django.utils.translation import gettext
 
 from base import models
-from base.models.player import Player
 from utils import basic
 
 TROOPS_TYPES = [
@@ -148,7 +147,9 @@ class Army:
         self.index_dict = ARMY_INDEX.get_index_dict(self.world_evidence)
 
     def clean_init(
-        self, player_dictionary: dict[str, Player], ally_tribes: list[str] | None = None
+        self,
+        player_dictionary: set[str] | dict[str, Any],
+        ally_tribes: list[str] | None = None,
     ):
         """Text army validation"""
 

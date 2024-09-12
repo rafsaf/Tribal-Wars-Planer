@@ -36,12 +36,24 @@ class TestWriteNobleTarget(TestCase):
         self.outline: Outline = Outline.objects.get(id=1)
         make_outline: MakeOutline = MakeOutline(self.outline)
         make_outline()
-        self.weight0 = FastWeightMaximum(WeightMaximum.objects.get(start="500|500"), 0)
-        self.weight1 = FastWeightMaximum(WeightMaximum.objects.get(start="500|501"), 0)
-        self.weight2 = FastWeightMaximum(WeightMaximum.objects.get(start="500|502"), 0)
-        self.weight3 = FastWeightMaximum(WeightMaximum.objects.get(start="500|503"), 0)
-        self.weight4 = FastWeightMaximum(WeightMaximum.objects.get(start="500|504"), 0)
-        self.weight5 = FastWeightMaximum(WeightMaximum.objects.get(start="500|505"), 0)
+        self.weight0 = FastWeightMaximum(
+            WeightMaximum.objects.get(start="500|500"), 0, self.outline
+        )
+        self.weight1 = FastWeightMaximum(
+            WeightMaximum.objects.get(start="500|501"), 0, self.outline
+        )
+        self.weight2 = FastWeightMaximum(
+            WeightMaximum.objects.get(start="500|502"), 0, self.outline
+        )
+        self.weight3 = FastWeightMaximum(
+            WeightMaximum.objects.get(start="500|503"), 0, self.outline
+        )
+        self.weight4 = FastWeightMaximum(
+            WeightMaximum.objects.get(start="500|504"), 0, self.outline
+        )
+        self.weight5 = FastWeightMaximum(
+            WeightMaximum.objects.get(start="500|505"), 0, self.outline
+        )
         self.random = SystemRandom("test_write_noble")
 
     def target(self, coord: str = "500|499") -> TargetVertex:
@@ -63,7 +75,7 @@ class TestWriteNobleTarget(TestCase):
                 )
             )
         )
-        lst = [FastWeightMaximum(weight, 0) for weight in weights]
+        lst = [FastWeightMaximum(weight, 0, self.outline) for weight in weights]
         for i, weight in enumerate(lst):
             weight.distance = weights[i].distance
         return lst
@@ -351,7 +363,7 @@ class TestWriteNobleTargetNew(MiniSetup):
         self.create_target_on_test_world(outline=outline)
         target = Target.objects.get(target="200|200")
         real_weight_max = self.create_weight_maximum(outline=outline)
-        weight_max = FastWeightMaximum(real_weight_max, 0)
+        weight_max = FastWeightMaximum(real_weight_max, 0, outline)
 
         write_noble = WriteNobleTarget(
             target=target,

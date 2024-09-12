@@ -335,7 +335,7 @@ class Outline(models.Model):
                 self.off_troops.encode(), usedforsecurity=False
             ).hexdigest()
             self.off_troops_hash = new_hash
-            self.save()
+            self.save(update_fields=["off_troops_hash"])
             return new_hash
         return self.off_troops_hash
 
@@ -345,7 +345,7 @@ class Outline(models.Model):
                 self.deff_troops.encode(), usedforsecurity=False
             ).hexdigest()
             self.deff_troops_hash = new_hash
-            self.save()
+            self.save(update_fields=["deff_troops_hash"])
             return new_hash
         return self.deff_troops_hash
 
@@ -380,41 +380,36 @@ class Outline(models.Model):
 
         WeightModel.objects.filter(target__outline=self).delete()
 
-        off_form = forms.OffTroopsForm({"off_troops": self.off_troops}, outline=self)
-        if not off_form.is_valid():
-            WeightMaximum.objects.filter(outline=self).delete()
+        WeightMaximum.objects.filter(outline=self).update(
+            off_left=F("off_max"),
+            off_state=0,
+            nobleman_left=F("nobleman_max"),
+            nobleman_state=0,
+            catapult_left=F("catapult_max"),
+            catapult_state=0,
+            hidden=False,
+            first_line=False,
+            too_far_away=False,
+            fake_limit=self.initial_outline_fake_limit,
+            nobles_limit=self.initial_outline_nobles_limit,
+        )
+        form1 = forms.InitialOutlineForm(
+            {"target": self.initial_outline_targets},
+            outline=self,
+            target_mode=TargetMode("real"),
+        )
+        form2 = forms.InitialOutlineForm(
+            {"target": self.initial_outline_fakes},
+            outline=self,
+            target_mode=TargetMode("fake"),
+        )
+        form3 = forms.InitialOutlineForm(
+            {"target": self.initial_outline_ruins},
+            outline=self,
+            target_mode=TargetMode("ruin"),
+        )
+        if not form1.is_valid() or not form2.is_valid() or not form3.is_valid():
             TargetVertex.objects.filter(outline=self).delete()
-        else:
-            WeightMaximum.objects.filter(outline=self).update(
-                off_left=F("off_max"),
-                off_state=0,
-                nobleman_left=F("nobleman_max"),
-                nobleman_state=0,
-                catapult_left=F("catapult_max"),
-                catapult_state=0,
-                hidden=False,
-                first_line=False,
-                too_far_away=False,
-                fake_limit=self.initial_outline_fake_limit,
-                nobles_limit=self.initial_outline_nobles_limit,
-            )
-            form1 = forms.InitialOutlineForm(
-                {"target": self.initial_outline_targets},
-                outline=self,
-                target_mode=TargetMode("real"),
-            )
-            form2 = forms.InitialOutlineForm(
-                {"target": self.initial_outline_fakes},
-                outline=self,
-                target_mode=TargetMode("fake"),
-            )
-            form3 = forms.InitialOutlineForm(
-                {"target": self.initial_outline_ruins},
-                outline=self,
-                target_mode=TargetMode("ruin"),
-            )
-            if not form1.is_valid() or not form2.is_valid() or not form3.is_valid():
-                TargetVertex.objects.filter(outline=self).delete()
 
         Overview.objects.filter(outline=self, removed=False).update(removed=True)
         result: Result = Result.objects.get(outline=self)
@@ -422,8 +417,34 @@ class Outline(models.Model):
         result.results_players = ""
         result.results_sum_up = ""
         result.results_export = ""
-        result.save()
-        self.save()
+        result.save(
+            update_fields=[
+                "results_outline",
+                "results_players",
+                "results_sum_up",
+                "results_export",
+            ]
+        )
+        self.save(
+            update_fields=[
+                "written",
+                "avaiable_offs",
+                "avaiable_offs_near",
+                "avaiable_nobles",
+                "avaiable_nobles_near",
+                "available_catapults",
+                "avaiable_ruins",
+                "filter_weights_min",
+                "filter_weights_catapults_min",
+                "filter_weights_nobles_min",
+                "filter_weights_max",
+                "filter_hide_front",
+                "choice_sort",
+                "default_off_time_id",
+                "default_fake_time_id",
+                "default_ruin_time_id",
+            ]
+        )
 
     def expires_in(self) -> str:
         base: str = gettext_lazy("Expires ")

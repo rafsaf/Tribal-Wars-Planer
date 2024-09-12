@@ -90,7 +90,7 @@ class OutlineCreateTargets:
                     exact_noble=exact_noble,
                 )
             )
-        TargetVertex.objects.bulk_create(targets, batch_size=500)
+        TargetVertex.objects.bulk_create(targets, batch_size=2000)
 
     def _target(
         self,
