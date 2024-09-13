@@ -495,9 +495,10 @@ class WriteNobleTarget:
 
     def _random_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
-        self.random.shuffle(filtered_weight_max)
+        weight_list: list[FastWeightMaximum] = self.random.sample(
+            filtered_weight_max, min(15, len(filtered_weight_max))
+        )
 
-        weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
         return sorted(
             weight_list,
             key=lambda item: item.distance,

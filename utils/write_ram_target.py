@@ -385,9 +385,9 @@ class WriteRamTarget:
         )
 
     def _random_query(
-        self, weight_max_lst: list[FastWeightMaximum], night_bool: int | None
-    ):
-        def filter_night_bool(weight_max: FastWeightMaximum):
+        self, weight_max_lst: list[FastWeightMaximum], night_bool: int | None, offs: int
+    ) -> list[FastWeightMaximum]:
+        def filter_night_bool(weight_max: FastWeightMaximum) -> bool:
             if weight_max.night_bool == night_bool:
                 return True
             return False
@@ -396,8 +396,7 @@ class WriteRamTarget:
             filtered_list = [i for i in weight_max_lst if filter_night_bool(i)]
         else:
             filtered_list = weight_max_lst
-        self.random.shuffle(filtered_list)
-        return filtered_list
+        return self.random.sample(filtered_list, min(offs, len(filtered_list)))
 
     def _random_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
@@ -406,36 +405,32 @@ class WriteRamTarget:
             result_lst: list[FastWeightMaximum] = []
             left_offs: int = self.target.required_off
 
-            weight_list_3: list[FastWeightMaximum] = list(
-                self._random_query(filtered_weight_max, night_bool=3)[:left_offs]
+            weight_list_3: list[FastWeightMaximum] = self._random_query(
+                filtered_weight_max, night_bool=3, offs=left_offs
             )
 
             result_lst += weight_list_3
             left_offs -= len(weight_list_3)
 
             if left_offs > 0:
-                weight_list_2: list[FastWeightMaximum] = list(
-                    self._random_query(filtered_weight_max, night_bool=2)[:left_offs]
+                weight_list_2: list[FastWeightMaximum] = self._random_query(
+                    filtered_weight_max, night_bool=2, offs=left_offs
                 )
 
                 result_lst += weight_list_2
                 left_offs -= len(weight_list_2)
 
                 if left_offs > 0:
-                    weight_list_1: list[FastWeightMaximum] = list(
-                        self._random_query(filtered_weight_max, night_bool=1)[
-                            :left_offs
-                        ]
+                    weight_list_1: list[FastWeightMaximum] = self._random_query(
+                        filtered_weight_max, night_bool=1, offs=left_offs
                     )
 
                     result_lst += weight_list_1
                     left_offs -= len(weight_list_1)
 
         else:
-            result_lst = list(
-                self._random_query(filtered_weight_max, night_bool=None)[
-                    : self.target.required_off
-                ]
+            result_lst = self._random_query(
+                filtered_weight_max, night_bool=None, offs=self.target.required_off
             )
 
         return sorted(
