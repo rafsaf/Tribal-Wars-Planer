@@ -1,9 +1,12 @@
 from typing import Any
 
+import cython
+
 from base.models.outline import Outline
 from base.models.weight_maximum import WeightMaximum
 
 
+@cython.cclass
 class FastWeightMaximum:
     """
     Why this class exists?
@@ -17,15 +20,36 @@ class FastWeightMaximum:
     and it's really slow. It's completely not designed for such a high number of accesses.
     """
 
+    cython.declare(
+        index=cython.int,
+        pk=cython.int,
+        start=cython.char,
+        player=cython.char,
+        points=cython.int,
+        off_state=cython.int,
+        off_left=cython.int,
+        nobleman_state=cython.int,
+        nobleman_left=cython.int,
+        catapult_state=cython.int,
+        catapult_left=cython.int,
+        first_line=cython.bint,
+        fake_limit=cython.int,
+        nobles_limit=cython.int,
+        distance=cython.double,
+        night_bool=cython.int,
+        morale=cython.int,
+        initial_outline_minimum_noble_troops=cython.int,
+    )
+
     def __init__(self, weight_max: WeightMaximum, index: int, outline: Outline) -> None:
         # index is a list index in the outline list of real WeightMaximum objects
         # so they can be updated in the same place after calculations
-        self.index: int = index
+        self.index: cython.int = index
 
-        self.pk: int = weight_max.pk
-        self.start: str = weight_max.start
+        self.pk = weight_max.pk
+        self.start = weight_max.start
         self.coord_tuple: tuple[int, int] = (weight_max.x_coord, weight_max.y_coord)
-        self.player: str = weight_max.player
+        self.player = weight_max.player
         self.points: int = weight_max.points
         self.off_state: int = weight_max.off_state
         self.off_left: int = weight_max.off_left
@@ -44,14 +68,15 @@ class FastWeightMaximum:
         )
 
     def __eq__(self, other: Any) -> bool:
-        if not isinstance(other, FastWeightMaximum):
-            raise NotImplementedError
         return self.pk == other.pk
 
     def __hash__(self) -> int:
         return hash(self.pk)
 
-    @property
+    @cython.cfunc
+    @cython.returns(cython.int)
+    @cython.locals(possible_nobles_by_min_off=cython.int)
+    @cython.cdivision(True)
     def nobles_allowed_to_use(self) -> int:
         if self.initial_outline_minimum_noble_troops == 0:
             possible_nobles_by_min_off = self.nobleman_left

@@ -17,11 +17,14 @@ import math
 from collections.abc import Callable
 from secrets import SystemRandom
 
+import cython
+
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
 from utils.fast_weight_maximum import FastWeightMaximum
 
 
+@cython.cclass
 class WriteNobleTarget:
     """
     Single step in making auto outline for given target
@@ -237,7 +240,7 @@ class WriteNobleTarget:
                 elif self.target.fake:
                     nobles = min(weight_max.nobleman_left, weight_max.nobles_limit)
                 else:
-                    nobles = weight_max.nobles_allowed_to_use
+                    nobles = weight_max.nobles_allowed_to_use()
 
                 if nobles >= self.target.required_noble:
                     self.default_create_list.append(
@@ -309,11 +312,11 @@ class WriteNobleTarget:
         if self.target.fake:
             return 0
 
-        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
-            return weight_max.off_left // weight_max.nobles_allowed_to_use
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
+            return weight_max.off_left // weight_max.nobles_allowed_to_use()
 
         elif self.target.mode_division == "divide":
-            return weight_max.off_left // weight_max.nobles_allowed_to_use
+            return weight_max.off_left // weight_max.nobles_allowed_to_use()
 
         elif self.target.mode_division == "not_divide":
             return 200
@@ -325,14 +328,20 @@ class WriteNobleTarget:
         if self.target.fake:
             return 0
 
-        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
-            return weight_max.off_left - (off * (weight_max.nobles_allowed_to_use - 1))
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
+            return weight_max.off_left - (
+                off * (weight_max.nobles_allowed_to_use() - 1)
+            )
 
         elif self.target.mode_division == "divide":
-            return weight_max.off_left - (off * (weight_max.nobles_allowed_to_use - 1))
+            return weight_max.off_left - (
+                off * (weight_max.nobles_allowed_to_use() - 1)
+            )
 
         elif self.target.mode_division == "not_divide":
-            return weight_max.off_left - (off * (weight_max.nobles_allowed_to_use - 1))
+            return weight_max.off_left - (
+                off * (weight_max.nobles_allowed_to_use() - 1)
+            )
 
         else:  # self.target.mode_division == "separatly"
             return 200
@@ -341,11 +350,11 @@ class WriteNobleTarget:
         if self.target.fake:
             return 0
 
-        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
-            return weight_max.catapult_left // weight_max.nobles_allowed_to_use
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
+            return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
 
         elif self.target.mode_division == "divide":
-            return weight_max.catapult_left // weight_max.nobles_allowed_to_use
+            return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
 
         elif self.target.mode_division == "not_divide":
             return 0
@@ -357,14 +366,14 @@ class WriteNobleTarget:
         if self.target.fake:
             return 0
 
-        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
             return weight_max.catapult_left - (
-                catapult * (weight_max.nobles_allowed_to_use - 1)
+                catapult * (weight_max.nobles_allowed_to_use() - 1)
             )
 
         elif self.target.mode_division == "divide":
             return weight_max.catapult_left - (
-                catapult * (weight_max.nobles_allowed_to_use - 1)
+                catapult * (weight_max.nobles_allowed_to_use() - 1)
             )
 
         elif self.target.mode_division == "not_divide":
@@ -379,19 +388,19 @@ class WriteNobleTarget:
         if self.target.fake:
             return weight_max.off_left
 
-        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
-            if weight_max.nobles_allowed_to_use > noble:
-                return off * (weight_max.nobles_allowed_to_use - noble)
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
+            if weight_max.nobles_allowed_to_use() > noble:
+                return off * (weight_max.nobles_allowed_to_use() - noble)
             return 0
 
         elif self.target.mode_division == "divide":
-            if weight_max.nobles_allowed_to_use > noble:
-                return off * (weight_max.nobles_allowed_to_use - noble)
+            if weight_max.nobles_allowed_to_use() > noble:
+                return off * (weight_max.nobles_allowed_to_use() - noble)
             return 0
 
         elif self.target.mode_division == "not_divide":
-            if weight_max.nobles_allowed_to_use > noble:
-                return 200 * (weight_max.nobles_allowed_to_use - noble)
+            if weight_max.nobles_allowed_to_use() > noble:
+                return 200 * (weight_max.nobles_allowed_to_use() - noble)
             return 0
 
         else:  # self.target.mode_division == "separatly"
@@ -403,14 +412,14 @@ class WriteNobleTarget:
         if self.target.fake:
             return weight_max.catapult_left
 
-        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use:
-            if weight_max.nobles_allowed_to_use > noble:
-                return catapult * (weight_max.nobles_allowed_to_use - noble)
+        elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
+            if weight_max.nobles_allowed_to_use() > noble:
+                return catapult * (weight_max.nobles_allowed_to_use() - noble)
             return 0
 
         elif self.target.mode_division == "divide":
-            if weight_max.nobles_allowed_to_use > noble:
-                return catapult * (weight_max.nobles_allowed_to_use - noble)
+            if weight_max.nobles_allowed_to_use() > noble:
+                return catapult * (weight_max.nobles_allowed_to_use() - noble)
             return 0
 
         elif self.target.mode_division == "not_divide":

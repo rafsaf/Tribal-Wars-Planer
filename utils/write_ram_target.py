@@ -18,12 +18,15 @@ from collections.abc import Callable, Generator
 from secrets import SystemRandom
 from statistics import mean
 
+import cython
+
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
 from utils.basic.ruin import RuinHandle
 from utils.fast_weight_maximum import FastWeightMaximum
 
 
+@cython.cclass
 class WriteRamTarget:
     """
     Single step in making auto outline for given target
@@ -38,6 +41,23 @@ class WriteRamTarget:
 
     3. Finally return list[WeightModel] ready to create orders
     """
+
+    cython.declare(
+        index=cython.int,
+        ruin=cython.bint,
+        avg_dist=cython.double,
+        interval_dist=cython.double,
+        dividier=cython.double,
+        initial_outline_maximum_off_dist=cython.int,
+        initial_outline_catapult_min_value=cython.int,
+        initial_outline_catapult_max_value=cython.int,
+        initial_outline_min_off=cython.int,
+        initial_outline_fake_mode=cython.char,
+        initial_outline_max_off=cython.int,
+        initial_outline_off_left_catapult=cython.int,
+        morale_on_targets_greater_than=cython.int,
+        initial_outline_front_dist=cython.int,
+    )
 
     def __init__(
         self,
@@ -242,8 +262,12 @@ class WriteRamTarget:
 
         return weight_max
 
+    @cython.cfunc
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
-        def filter_func(weight_max: FastWeightMaximum) -> bool:
+        @cython.cfunc
+        def filter_func(weight_max: FastWeightMaximum) -> cython.bint:
             for filter_func in self.filters:
                 if not filter_func(weight_max):
                     return False
