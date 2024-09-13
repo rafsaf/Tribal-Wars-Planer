@@ -132,12 +132,13 @@ def initial_form(  # noqa: PLR0912,PLR0911
     else:
         premium_error = False
     error = request.session.get("error")
+    weights_len = models.WeightMaximum.objects.filter(outline=instance).count()
 
     if error is not None:
         pass
     elif instance.input_data_type == models.Outline.ARMY_COLLECTION:
         if (
-            models.WeightMaximum.objects.filter(outline=instance).count() == 0
+            weights_len == 0
             or instance.get_or_set_off_troops_hash()
             != instance.off_troops_weightmodels_hash
         ):
@@ -184,7 +185,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
                     request=request, outline=instance
                 )
     elif (
-        models.WeightMaximum.objects.filter(outline=instance).count() == 0
+        weights_len == 0
         or instance.get_or_set_deff_troops_hash()
         != instance.deff_troops_weightmodels_hash
     ):
@@ -241,7 +242,9 @@ def initial_form(  # noqa: PLR0912,PLR0911
     calc: basic.TargetsCalculations = basic.TargetsCalculations(
         outline=instance, target_mode=target_mode
     )
-    estimated_time = 10 * (calc.len_real + calc.len_fake) + 18 * calc.len_ruin
+    estimated_time = (10 * (calc.len_real + calc.len_fake) + 18 * calc.len_ruin) * max(
+        weights_len / 10000, 0.5
+    )
 
     if instance.morale_on and instance.world.morale > 0:
         morale_dict = basic.generate_morale_dict(instance)

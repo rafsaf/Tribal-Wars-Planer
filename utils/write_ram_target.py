@@ -20,8 +20,8 @@ from statistics import mean
 
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
-from base.models.weight_maximum import FastWeightMaximum
 from utils.basic.ruin import RuinHandle
+from utils.fast_weight_maximum import FastWeightMaximum
 
 
 class WriteRamTarget:
@@ -46,7 +46,7 @@ class WriteRamTarget:
         weight_max_list: list[FastWeightMaximum],
         random: SystemRandom,
         ruin: bool = False,
-    ):
+    ) -> None:
         self.target: Target = target
         self.outline: Outline = outline
         self.index: int = 0
@@ -63,31 +63,35 @@ class WriteRamTarget:
             self.outline.world.speed_world * self.outline.world.speed_units * 2
         )
 
-        self.initial_outline_maximum_off_dist = (
+        self.initial_outline_maximum_off_dist: int = (
             self.outline.initial_outline_maximum_off_dist
         )
-        self.initial_outline_catapult_min_value = (
+        self.initial_outline_catapult_min_value: int = (
             self.outline.initial_outline_catapult_min_value
         )
-        self.initial_outline_catapult_max_value = (
+        self.initial_outline_catapult_max_value: int = (
             self.outline.initial_outline_catapult_max_value
         )
-        self.initial_outline_buildings = self.outline.initial_outline_buildings
-        self.initial_outline_min_off = self.outline.initial_outline_min_off
-        self.initial_outline_fake_mode = self.outline.initial_outline_fake_mode
-        self.initial_outline_max_off = self.outline.initial_outline_max_off
-        self.initial_outline_off_left_catapult = (
+        self.initial_outline_buildings: list[str] = (
+            self.outline.initial_outline_buildings
+        )
+        self.initial_outline_min_off: int = self.outline.initial_outline_min_off
+        self.initial_outline_fake_mode: str = self.outline.initial_outline_fake_mode
+        self.initial_outline_max_off: int = self.outline.initial_outline_max_off
+        self.initial_outline_off_left_catapult: int = (
             self.outline.initial_outline_off_left_catapult
         )
-        self.morale_on_targets_greater_than = (
+        self.morale_on_targets_greater_than: int = (
             self.outline.morale_on_targets_greater_than
         )
-        self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
-        self.initial_outline_front_dist = self.outline.initial_outline_front_dist
+        self.casual_attack_block_ratio: int | None = (
+            self.outline.world.casual_attack_block_ratio
+        )
+        self.initial_outline_front_dist: int = self.outline.initial_outline_front_dist
 
     def sorted_weights_offs(self, catapults: int = 50) -> list[FastWeightMaximum]:
         self.filters.append(self._only_closer_than_maximum_off_dist())
-        if self.outline.world.casual_attack_block_ratio is not None:
+        if self.casual_attack_block_ratio is not None:
             self.filters.append(self._casual_attack_block_ratio())
 
         if self.target.fake:
@@ -251,7 +255,7 @@ class WriteRamTarget:
 
     def _only_closer_than_maximum_off_dist(self) -> Callable[[FastWeightMaximum], bool]:
         def filter_closer_than_maximum_off_dist(weight_max: FastWeightMaximum) -> bool:
-            return weight_max.distance <= self.outline.initial_outline_maximum_off_dist
+            return weight_max.distance <= self.initial_outline_maximum_off_dist
 
         return filter_closer_than_maximum_off_dist
 
@@ -381,9 +385,9 @@ class WriteRamTarget:
         )
 
     def _random_query(
-        self, weight_max_lst: list[FastWeightMaximum], night_bool: int | None
-    ):
-        def filter_night_bool(weight_max: FastWeightMaximum):
+        self, weight_max_lst: list[FastWeightMaximum], night_bool: int | None, offs: int
+    ) -> list[FastWeightMaximum]:
+        def filter_night_bool(weight_max: FastWeightMaximum) -> bool:
             if weight_max.night_bool == night_bool:
                 return True
             return False
@@ -392,8 +396,7 @@ class WriteRamTarget:
             filtered_list = [i for i in weight_max_lst if filter_night_bool(i)]
         else:
             filtered_list = weight_max_lst
-        self.random.shuffle(filtered_list)
-        return filtered_list
+        return self.random.sample(filtered_list, min(offs, len(filtered_list)))
 
     def _random_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
@@ -402,36 +405,32 @@ class WriteRamTarget:
             result_lst: list[FastWeightMaximum] = []
             left_offs: int = self.target.required_off
 
-            weight_list_3: list[FastWeightMaximum] = list(
-                self._random_query(filtered_weight_max, night_bool=3)[:left_offs]
+            weight_list_3: list[FastWeightMaximum] = self._random_query(
+                filtered_weight_max, night_bool=3, offs=left_offs
             )
 
             result_lst += weight_list_3
             left_offs -= len(weight_list_3)
 
             if left_offs > 0:
-                weight_list_2: list[FastWeightMaximum] = list(
-                    self._random_query(filtered_weight_max, night_bool=2)[:left_offs]
+                weight_list_2: list[FastWeightMaximum] = self._random_query(
+                    filtered_weight_max, night_bool=2, offs=left_offs
                 )
 
                 result_lst += weight_list_2
                 left_offs -= len(weight_list_2)
 
                 if left_offs > 0:
-                    weight_list_1: list[FastWeightMaximum] = list(
-                        self._random_query(filtered_weight_max, night_bool=1)[
-                            :left_offs
-                        ]
+                    weight_list_1: list[FastWeightMaximum] = self._random_query(
+                        filtered_weight_max, night_bool=1, offs=left_offs
                     )
 
                     result_lst += weight_list_1
                     left_offs -= len(weight_list_1)
 
         else:
-            result_lst = list(
-                self._random_query(filtered_weight_max, night_bool=None)[
-                    : self.target.required_off
-                ]
+            result_lst = self._random_query(
+                filtered_weight_max, night_bool=None, offs=self.target.required_off
             )
 
         return sorted(

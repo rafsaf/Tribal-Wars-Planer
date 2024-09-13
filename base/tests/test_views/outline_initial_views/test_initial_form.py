@@ -239,7 +239,7 @@ class InitialForm(MiniSetup):
             {"target": "999|999", "lines": "3"}
         ]
         assert response.context["calc"].ruin_barbarians == []
-        assert response.context.get("estimated_time") == 162
+        assert response.context.get("estimated_time") == 81.0
         assert response.context.get("mode") == "real"
 
     @freeze_time("2022-11-26")

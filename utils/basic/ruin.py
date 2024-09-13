@@ -15,8 +15,8 @@
 
 from collections.abc import Iterator
 
-from base.models import Outline, WeightMaximum
-from base.models.weight_maximum import FastWeightMaximum
+from base.models import Outline
+from utils.fast_weight_maximum import FastWeightMaximum
 
 
 class RuinHandle:
@@ -248,7 +248,7 @@ class RuinHandle:
 
     def __init__(self, outline: Outline) -> None:
         self.outline: Outline = outline
-        self.building_is_not_set = True
+        self.building_is_not_set: bool = True
         self.current_level: int | None = None
         self.current_building: str | None = None
         self.destroying_order: Iterator[str] = iter(
@@ -256,16 +256,16 @@ class RuinHandle:
         )
 
         if self.outline.initial_outline_average_ruining_points == "big":
-            self.levels = self.BIG_LEVELS
+            self.levels: dict[str, int] = self.BIG_LEVELS
         else:
-            self.levels = self.SMALL_LEVELS
+            self.levels: dict[str, int] = self.SMALL_LEVELS
 
     def _next_level(self, catapults: int) -> int:
         if self.current_level is None:
             raise ValueError("Current level cannot be none")
         return self.LEVEL_DICTIONARY[(catapults, self.current_level)]
 
-    def best_catapult(self, weight_max: WeightMaximum | FastWeightMaximum) -> int:  # noqa: PLR0912
+    def best_catapult(self, weight_max: FastWeightMaximum) -> int:  # noqa: PLR0912
         """
         For given weight_max match best catapult number possible
         Also take care about current levels and building name
@@ -275,7 +275,7 @@ class RuinHandle:
             self.building_is_not_set = False
             self.current_level = self.levels[self.current_building]
 
-        best: int
+        best: int = 0
         available_cats: int = weight_max.catapult_left
         if self.current_level is None:
             raise ValueError("current level is None")

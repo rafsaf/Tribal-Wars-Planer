@@ -22,9 +22,9 @@ from django.utils.translation import activate
 from base.models import Outline, WeightMaximum
 from base.models import TargetVertex as Target
 from base.models.target_vertex import TargetVertex
-from base.models.weight_maximum import FastWeightMaximum
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from base.tests.test_utils.mini_setup import MiniSetup
+from utils.fast_weight_maximum import FastWeightMaximum
 from utils.outline_initial import MakeOutline
 from utils.write_ram_target import WriteRamTarget
 
