@@ -20,19 +20,20 @@ from secrets import SystemRandom
 from typing import Any
 
 import numpy as np
-from django.db.models.query import QuerySet
 from numpy.typing import NDArray
 from scipy.spatial.distance import cdist
 
 from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
-from base.models.weight_maximum import FastWeightMaximum
 from utils.basic import generate_morale_dict
+from utils.fast_weight_maximum import FastWeightMaximum
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
 
 
-def generate_distance_matrix(outline: Outline, weight_max_lst: list[FastWeightMaximum]):
+def generate_distance_matrix(
+    outline: Outline, weight_max_lst: list[FastWeightMaximum], targets: list[Target]
+) -> tuple[NDArray[np.floating[Any]] | None, dict[tuple[int, int], int]]:
     """
     Generates and returns matrix with distances between all targets and (available weight max villages) at once.
     For example for targets: [T1, T2], weights_max (W1, W2, W3)
@@ -51,11 +52,9 @@ def generate_distance_matrix(outline: Outline, weight_max_lst: list[FastWeightMa
     if not len(weight_max_lst):
         return None, {}
 
-    targets: QuerySet[Target] = Target.objects.filter(outline=outline).order_by("id")
-
     coord_to_id = {}
     list_of_coords: list[Any] = []
-    for target in targets.only("target"):
+    for target in targets:
         coord = target.coord_tuple()
         if coord in coord_to_id:
             continue
@@ -74,7 +73,7 @@ def generate_distance_matrix(outline: Outline, weight_max_lst: list[FastWeightMa
     return dist_matrix, coord_to_id
 
 
-def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
+def complete_outline_write(outline: Outline, salt: bytes | str | None = None) -> None:
     """
     Auto write out given outline
     1. Fake Rams
@@ -87,7 +86,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
     in each step writting the step's target and updating weights max
     """
     random = SystemRandom(salt)
-    all_targets = Target.objects.filter(outline=outline).order_by("id")
+    all_targets = list(Target.objects.filter(outline=outline).order_by("id"))
 
     targets = [target for target in all_targets if not target.ruin and not target.fake]
     fakes = [target for target in all_targets if target.fake and not target.ruin]
@@ -125,7 +124,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None):
     ]
 
     dist_matrix, coord_to_id_in_matrix = generate_distance_matrix(
-        outline=outline, weight_max_lst=weight_max_lst
+        outline=outline, weight_max_lst=weight_max_lst, targets=all_targets
     )
     if outline.morale_on:
         morale_dict = generate_morale_dict(outline)

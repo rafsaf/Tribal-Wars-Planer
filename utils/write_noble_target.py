@@ -19,7 +19,7 @@ from secrets import SystemRandom
 
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
-from base.models.weight_maximum import FastWeightMaximum
+from utils.fast_weight_maximum import FastWeightMaximum
 
 
 class WriteNobleTarget:

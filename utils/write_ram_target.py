@@ -20,8 +20,8 @@ from statistics import mean
 
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
-from base.models.weight_maximum import FastWeightMaximum
 from utils.basic.ruin import RuinHandle
+from utils.fast_weight_maximum import FastWeightMaximum
 
 
 class WriteRamTarget:
@@ -46,7 +46,7 @@ class WriteRamTarget:
         weight_max_list: list[FastWeightMaximum],
         random: SystemRandom,
         ruin: bool = False,
-    ):
+    ) -> None:
         self.target: Target = target
         self.outline: Outline = outline
         self.index: int = 0
@@ -63,27 +63,31 @@ class WriteRamTarget:
             self.outline.world.speed_world * self.outline.world.speed_units * 2
         )
 
-        self.initial_outline_maximum_off_dist = (
+        self.initial_outline_maximum_off_dist: int = (
             self.outline.initial_outline_maximum_off_dist
         )
-        self.initial_outline_catapult_min_value = (
+        self.initial_outline_catapult_min_value: int = (
             self.outline.initial_outline_catapult_min_value
         )
-        self.initial_outline_catapult_max_value = (
+        self.initial_outline_catapult_max_value: int = (
             self.outline.initial_outline_catapult_max_value
         )
-        self.initial_outline_buildings = self.outline.initial_outline_buildings
-        self.initial_outline_min_off = self.outline.initial_outline_min_off
-        self.initial_outline_fake_mode = self.outline.initial_outline_fake_mode
-        self.initial_outline_max_off = self.outline.initial_outline_max_off
-        self.initial_outline_off_left_catapult = (
+        self.initial_outline_buildings: list[str] = (
+            self.outline.initial_outline_buildings
+        )
+        self.initial_outline_min_off: int = self.outline.initial_outline_min_off
+        self.initial_outline_fake_mode: str = self.outline.initial_outline_fake_mode
+        self.initial_outline_max_off: int = self.outline.initial_outline_max_off
+        self.initial_outline_off_left_catapult: int = (
             self.outline.initial_outline_off_left_catapult
         )
-        self.morale_on_targets_greater_than = (
+        self.morale_on_targets_greater_than: int = (
             self.outline.morale_on_targets_greater_than
         )
-        self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
-        self.initial_outline_front_dist = self.outline.initial_outline_front_dist
+        self.casual_attack_block_ratio: int | None = (
+            self.outline.world.casual_attack_block_ratio
+        )
+        self.initial_outline_front_dist: int = self.outline.initial_outline_front_dist
 
     def sorted_weights_offs(self, catapults: int = 50) -> list[FastWeightMaximum]:
         self.filters.append(self._only_closer_than_maximum_off_dist())
