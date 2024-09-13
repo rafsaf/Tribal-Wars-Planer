@@ -51,6 +51,8 @@ COPY templates templates
 COPY tribal_wars_planer tribal_wars_planer
 COPY utils utils
 
+RUN python setup.py build_ext --inplace
+
 RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build
 CMD /build/scripts/init_webserver.sh
 EXPOSE 80
