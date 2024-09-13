@@ -50,6 +50,7 @@ COPY LICENSE .
 COPY templates templates
 COPY tribal_wars_planer tribal_wars_planer
 COPY utils utils
+COPY setup.py setup.py
 
 RUN python setup.py build_ext --inplace
 
