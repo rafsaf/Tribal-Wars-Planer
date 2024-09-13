@@ -17,14 +17,11 @@ import math
 from collections.abc import Callable
 from secrets import SystemRandom
 
-import cython
-
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
 from utils.fast_weight_maximum import FastWeightMaximum
 
 
-@cython.cclass
 class WriteNobleTarget:
     """
     Single step in making auto outline for given target
@@ -475,7 +472,7 @@ class WriteNobleTarget:
 
     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:
         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:
-            return weight_max.distance <= self.outline.initial_outline_target_dist
+            return weight_max.distance <= self.initial_outline_target_dist
 
         return filter_close_than_target_dist
 

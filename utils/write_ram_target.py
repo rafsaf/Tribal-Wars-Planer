@@ -18,15 +18,12 @@ from collections.abc import Callable, Generator
 from secrets import SystemRandom
 from statistics import mean
 
-import cython
-
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
 from utils.basic.ruin import RuinHandle
 from utils.fast_weight_maximum import FastWeightMaximum
 
 
-@cython.cclass
 class WriteRamTarget:
     """
     Single step in making auto outline for given target
@@ -41,23 +38,6 @@ class WriteRamTarget:
 
     3. Finally return list[WeightModel] ready to create orders
     """
-
-    cython.declare(
-        index=cython.int,
-        ruin=cython.bint,
-        avg_dist=cython.double,
-        interval_dist=cython.double,
-        dividier=cython.double,
-        initial_outline_maximum_off_dist=cython.int,
-        initial_outline_catapult_min_value=cython.int,
-        initial_outline_catapult_max_value=cython.int,
-        initial_outline_min_off=cython.int,
-        initial_outline_fake_mode=cython.char,
-        initial_outline_max_off=cython.int,
-        initial_outline_off_left_catapult=cython.int,
-        morale_on_targets_greater_than=cython.int,
-        initial_outline_front_dist=cython.int,
-    )
 
     def __init__(
         self,
@@ -111,7 +91,7 @@ class WriteRamTarget:
 
     def sorted_weights_offs(self, catapults: int = 50) -> list[FastWeightMaximum]:
         self.filters.append(self._only_closer_than_maximum_off_dist())
-        if self.outline.world.casual_attack_block_ratio is not None:
+        if self.casual_attack_block_ratio is not None:
             self.filters.append(self._casual_attack_block_ratio())
 
         if self.target.fake:
@@ -262,12 +242,8 @@ class WriteRamTarget:
 
         return weight_max
 
-    @cython.cfunc
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
-        @cython.cfunc
-        def filter_func(weight_max: FastWeightMaximum) -> cython.bint:
+        def filter_func(weight_max: FastWeightMaximum) -> bool:
             for filter_func in self.filters:
                 if not filter_func(weight_max):
                     return False
@@ -279,7 +255,7 @@ class WriteRamTarget:
 
     def _only_closer_than_maximum_off_dist(self) -> Callable[[FastWeightMaximum], bool]:
         def filter_closer_than_maximum_off_dist(weight_max: FastWeightMaximum) -> bool:
-            return weight_max.distance <= self.outline.initial_outline_maximum_off_dist
+            return weight_max.distance <= self.initial_outline_maximum_off_dist
 
         return filter_closer_than_maximum_off_dist
 
