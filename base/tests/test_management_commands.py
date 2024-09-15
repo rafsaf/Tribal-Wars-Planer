@@ -14,13 +14,16 @@
 # ==============================================================================
 
 
+import datetime
+
 from django.conf import settings
 from django.core.management import call_command
 
-from base.models import Server, World
+from base.models import Outline, OutlineOverview, Overview, Server, World
+from base.tests.test_utils.create_user import create_user
 
 
-def test_create_servers_command():
+def test_create_servers_command() -> None:
     call_command("createservers")
 
     assert Server.objects.all().count() == len(settings.TRIBAL_WARS_SUPPORTED_SERVERS)
@@ -29,3 +32,48 @@ def test_create_servers_command():
         worlds: list[World] = list(World.objects.filter(server=server))
         assert len(worlds) == 1
         assert worlds[0].postfix == "Test"
+
+
+def test_orphanedoutlineoverviewsdelete_no_delete_with_outline() -> None:
+    Server.objects.create(
+        dns="testserver",
+        prefix="te",
+    )
+    world = World.objects.get(postfix="Test")
+    outline = Outline.objects.create(
+        name="",
+        date=datetime.date.today(),
+        world=world,
+        owner=create_user("user", "password"),
+    )
+    OutlineOverview.objects.create(outline=outline)
+
+    call_command("orphanedoutlineoverviewsdelete")
+
+    assert OutlineOverview.objects.count() == 1
+
+
+def test_orphanedoutlineoverviewsdelete_no_delete_with_overview() -> None:
+    outline_overview = OutlineOverview.objects.create(outline=None)
+    Overview.objects.create(
+        outline_overview=outline_overview,
+        outline=None,
+        player="xxxx",
+        token="abcd",
+        table="xxxx",
+        string="xxxx",
+        deputy="xxxx",
+        extended="xxxx",
+    )
+
+    call_command("orphanedoutlineoverviewsdelete")
+
+    assert OutlineOverview.objects.count() == 1
+
+
+def test_orphanedoutlineoverviewsdelete_delete() -> None:
+    OutlineOverview.objects.create(outline=None)
+
+    call_command("orphanedoutlineoverviewsdelete")
+
+    assert OutlineOverview.objects.count() == 0

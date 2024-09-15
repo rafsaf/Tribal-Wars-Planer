@@ -19,7 +19,7 @@ from django.contrib.auth.models import User
 from base.models import Profile
 
 
-def create_user(username: str, password: str, is_superuser: bool = False) -> None:
+def create_user(username: str, password: str, is_superuser: bool = False) -> User:
     User.objects.bulk_create(
         [
             User(
@@ -33,3 +33,4 @@ def create_user(username: str, password: str, is_superuser: bool = False) -> Non
     )
     user = User.objects.get(username=username)
     Profile.objects.create(user=user)
+    return user
