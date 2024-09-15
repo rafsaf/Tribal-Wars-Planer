@@ -13,9 +13,14 @@
 # limitations under the License.
 # ==============================================================================
 
+import typing
+
 from django.db import models
 
 from base.models.outline import Outline
+
+if typing.TYPE_CHECKING:
+    from base.models.overview import Overview
 
 
 class OutlineOverview(models.Model):
@@ -24,3 +29,6 @@ class OutlineOverview(models.Model):
     )
     weights_json = models.TextField(default="", blank=True)
     targets_json = models.TextField(default="", blank=True)
+
+    if typing.TYPE_CHECKING:
+        overview_set: models.Manager[Overview]
