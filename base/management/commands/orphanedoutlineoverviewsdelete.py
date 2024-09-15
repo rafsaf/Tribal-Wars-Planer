@@ -15,28 +15,25 @@
 
 
 import logging
-from datetime import timedelta
 
 from django.core.management.base import BaseCommand
-from django.db.models.query import QuerySet
-from django.utils.timezone import now
+from django.db.models import Count
 
 from base.management.commands.utils import job_logs_and_metrics
-from base.models import Outline
+from base.models import OutlineOverview
 
 log = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    help = "Delete outlines older than 35 days except test World"
+    help = "Delete orphaned outlineoverview without outline and links"
 
     @job_logs_and_metrics(log)
-    def handle(self, *args, **options):
-        expiration_date = now() - timedelta(days=35)
-        expired: QuerySet[Outline] = (
-            Outline.objects.select_related("world")
-            .filter(created__lt=expiration_date)
-            .exclude(world__postfix="Test")
+    def handle(self, *args, **options) -> None:
+        orphaned = (
+            OutlineOverview.objects.filter(outline=None)
+            .annotate(num_of_overviews=Count("overview"))
+            .filter(num_of_overviews=0)
         )
-        deleted = expired.delete()
+        deleted = orphaned.delete()
         log.info(deleted)

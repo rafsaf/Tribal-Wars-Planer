@@ -33,4 +33,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         expiration_date = now() - timedelta(days=30)
         expired = Overview.objects.filter(created__lt=expiration_date)
-        expired.delete()
+        deleted = expired.delete()
+        log.info(deleted)

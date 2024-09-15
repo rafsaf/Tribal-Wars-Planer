@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from diskcache.fanout import FanoutCache
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -177,6 +178,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+class PytestPBKDF2PasswordHasher(PBKDF2PasswordHasher):
+    """
+    A subclass of PBKDF2PasswordHasher that uses 1 iteration.
+    """
+
+    iterations = 1
+
+
+if DEBUG and TESTING:
+    PASSWORD_HASHERS = [
+        "tribal_wars_planer.settings.PytestPBKDF2PasswordHasher",
+    ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

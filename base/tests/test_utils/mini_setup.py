@@ -104,33 +104,38 @@ class MiniSetup(TestCase):
         self.password: str = self.random_lower_string()
         self.username_foreign: str = self.random_lower_string()
         self.password_foreign: str = self.random_lower_string()
-        create_user(self.username, self.password)
+        self.user_me: User | None = None
+        self.user_foreign: User | None = None
         self.session = self.client.session
 
     def login_me(self) -> None:
+        self.me()
         login = self.client.login(username=self.username, password=self.password)
         if login is False:
             raise ValueError("Loging is not possible")
 
     def me(self) -> User:
-        return User.objects.get(username=self.username)
+        if self.user_me is None:
+            user = create_user(self.username, self.password)
+            self.user_me = user
+            return user
+
+        return self.user_me
 
     def foreign_user(self) -> User:
-        try:
-            return User.objects.get(username=self.username_foreign)
-        except User.DoesNotExist:
-            create_user(self.username_foreign, self.password_foreign)
-            return User.objects.get(username=self.username_foreign)
+        if self.user_foreign is None:
+            user = create_user(self.username_foreign, self.password_foreign)
+            self.user_foreign = user
+            return user
+        return self.user_foreign
 
     def login_foreign_user(self) -> None:
+        self.foreign_user()
         login = self.client.login(
             username=self.username_foreign, password=self.password_foreign
         )
         if login is False:
-            create_user(self.username_foreign, self.password_foreign)
-            self.client.login(
-                username=self.username_foreign, password=self.password_foreign
-            )
+            raise ValueError("Foreign loging is not possible")
 
     def login_page_path(self, next: str | None) -> str:
         main_path = reverse("login")
