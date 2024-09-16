@@ -28,7 +28,7 @@ python-dotenv = "^1.0.1"
 schedule = "^1.2.1"
 scipy = "^1.14.1"
 setuptools = "^74.1.2"
-stripe = "^10.10.0"
+stripe = "^10.11.0"
 uwsgi = "^2.0.25"
 
 [tool.poetry.group.dev.dependencies]
