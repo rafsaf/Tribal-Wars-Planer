@@ -2080,13 +2080,13 @@ doc = ["sphinx"]
 
 [[package]]
 name = "stripe"
-version = "10.11.0"
+version = "10.12.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-10.11.0-py2.py3-none-any.whl", hash = "sha256:24300df559e547f58989e880c1f006460ed322d1c963d7b833562632b5eb956a"},
-    {file = "stripe-10.11.0.tar.gz", hash = "sha256:d18e1b498331fefd7738f7f72a8c0e852d7b933be9639604f81c8d575f44a1d7"},
+    {file = "stripe-10.12.0-py2.py3-none-any.whl", hash = "sha256:0c79c1f3a844533c8d30cc283b43afb622aaa402539fca19167a9004fea3471c"},
+    {file = "stripe-10.12.0.tar.gz", hash = "sha256:5abec44548d3814bc1e070aa1852bcb3fc5cc029e947c0f733156eb1f8c87030"},
 ]
 
 [package.dependencies]
@@ -2210,12 +2210,12 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "uwsgi"
-version = "2.0.26"
+version = "2.0.27"
 description = "The uWSGI server"
 optional = false
 python-versions = "*"
 files = [
-    {file = "uwsgi-2.0.26.tar.gz", hash = "sha256:86e6bfcd4dc20529665f5b7777193cdc48622fb2c59f0a7f1e3dc32b3882e7f9"},
+    {file = "uwsgi-2.0.27.tar.gz", hash = "sha256:3ee5bfb7e6e9c93478c22aa8183eef35b95a2d5b14cca16172e67f135565c458"},
 ]
 
 [[package]]
@@ -2294,4 +2294,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "f27a2b418c0c3c0e3ba1009e1e14ac7958e2b557ff7ffcb3c1bf2b0c16e03d44"
+content-hash = "b8ae026234f3efc1ee2a827a8a03e973e634c9dca62e971e111d506ed779aa11"
