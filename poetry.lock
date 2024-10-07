@@ -707,13 +707,13 @@ tests = ["coverage", "tomli"]
 
 [[package]]
 name = "django-ses"
-version = "4.1.1"
+version = "4.2.0"
 description = "A Django email backend for Amazon's Simple Email Service (SES)"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "django_ses-4.1.1-py3-none-any.whl", hash = "sha256:83bb09d2b149dbc1a67a89f66a6681a99e32b8253f47ff4b7fae241d05344cc8"},
-    {file = "django_ses-4.1.1.tar.gz", hash = "sha256:28f9931df1251660eaf976b7413a42e7b0d25a18043316b96c721d8add7bf7b8"},
+    {file = "django_ses-4.2.0-py3-none-any.whl", hash = "sha256:2344f2650b699417c0f2b6197800580f5022aaccf0083c2a1b640b7ff7366067"},
+    {file = "django_ses-4.2.0.tar.gz", hash = "sha256:6167401bd3fc2b29a33b35e4f6f124dc738f6612e3a926ff5533143e75c71ff1"},
 ]
 
 [package.dependencies]
@@ -2080,13 +2080,13 @@ doc = ["sphinx"]
 
 [[package]]
 name = "stripe"
-version = "10.12.0"
+version = "11.1.0"
 description = "Python bindings for the Stripe API"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "stripe-10.12.0-py2.py3-none-any.whl", hash = "sha256:0c79c1f3a844533c8d30cc283b43afb622aaa402539fca19167a9004fea3471c"},
-    {file = "stripe-10.12.0.tar.gz", hash = "sha256:5abec44548d3814bc1e070aa1852bcb3fc5cc029e947c0f733156eb1f8c87030"},
+    {file = "stripe-11.1.0-py2.py3-none-any.whl", hash = "sha256:2cd09ca015dc5ce9d80cf5bbe81cd6a4d528997ddedadd53844e183f36211ace"},
+    {file = "stripe-11.1.0.tar.gz", hash = "sha256:1fac660dcc3014268cafc94a45ebeac66f1a752365f60019d2263e0c1e0f965b"},
 ]
 
 [package.dependencies]
@@ -2294,4 +2294,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "b8ae026234f3efc1ee2a827a8a03e973e634c9dca62e971e111d506ed779aa11"
+content-hash = "fc108c9bd64776e27ba12370aa06c7c4b5780bf72cdf65927b874939558e5ba4"
