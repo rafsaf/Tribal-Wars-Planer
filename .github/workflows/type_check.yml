@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         check: ["ruff check", "ruff format --check", "djhtml --check"]
-        python-version: ["3.12.6"]
 
     runs-on: ubuntu-latest
     steps:
@@ -20,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.13.0"
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -34,7 +33,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /opt/venv
-          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+          key: venv-${{ runner.os }}-3.13.0-${{ hashFiles('poetry.lock') }}
 
       - name: Install dependencies and actiavte virtualenv
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
