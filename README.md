@@ -30,7 +30,7 @@ Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal
 
 If you want to run it in development you will need
 
-- [python](https://www.python.org/downloads/) == 3.12
+- [python](https://www.python.org/downloads/) == 3.13
 - [poetry](https://python-poetry.org/)
 - [docker](https://www.docker.com/get-started)
 
@@ -100,7 +100,7 @@ This project maintains one docker images, the same one for server and for schedu
 
 Note, there are also other tags like `stage` or `stable`, but **latest** should be prefered choice.
 
-Contains TWP Django server based on `python:3.12.6-bullseye` docker image, with [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks and many more open source software.
+Contains TWP Django server based on `python:3.13.0` docker image, with [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks and many more open source software.
 
 Environment variables:
 

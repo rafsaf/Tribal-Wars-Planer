@@ -58,7 +58,7 @@ class OffTroopsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.outline: Outline = kwargs.pop("outline")
         super().__init__(*args, **kwargs)
-        self.fields["off_troops"].strip = False
+        self.fields["off_troops"].strip = False  # type: ignore
         self.first_error_message: str = ""
         self.second_error_message: str = ""
 
@@ -146,7 +146,7 @@ class DeffTroopsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.outline: Outline = kwargs.pop("outline")
         super().__init__(*args, **kwargs)
-        self.fields["deff_troops"].strip = False
+        self.fields["deff_troops"].strip = False  # type: ignore
         self.first_error_message: str = ""
         self.second_error_message: str = ""
 

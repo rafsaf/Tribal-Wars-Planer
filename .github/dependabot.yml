@@ -5,36 +5,20 @@ updates:
     directory: /
     schedule:
       interval: weekly
-    open-pull-requests-limit: 15
+    open-pull-requests-limit: 2
     allow:
       - dependency-type: "all"
     groups:
-      dev-dependencies:
+      all-dependencies:
         patterns:
           - "*"
-        exclude-patterns:
-          - "django"
-          - "django-crispy-forms"
-          - "django-registration"
-          - "django-ses"
-          - "djangorestframework"
-          - "schedule"
-          - "stripe"
-          - "tw-complex"
-          - "uwsgi"
-      main-dependencies:
-        patterns:
-          - "django"
-          - "django-crispy-forms"
-          - "django-registration"
-          - "django-ses"
-          - "djangorestframework"
-          - "schedule"
-          - "stripe"
-          - "tw-complex"
-          - "uwsgi"
 
   - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: docker
     directory: /
     schedule:
       interval: monthly
