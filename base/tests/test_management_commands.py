@@ -16,10 +16,11 @@
 
 import datetime
 
+import pytest
 from django.conf import settings
 from django.core.management import call_command
 
-from base.models import Outline, OutlineOverview, Overview, Server, World
+from base.models import Outline, OutlineOverview, Overview, Payment, Server, World
 from base.tests.test_utils.create_user import create_user
 
 
@@ -77,3 +78,34 @@ def test_orphanedoutlineoverviewsdelete_delete() -> None:
     call_command("orphanedoutlineoverviewsdelete")
 
     assert OutlineOverview.objects.count() == 0
+
+
+@pytest.mark.parametrize(
+    "send_mail,mail_sent,user,mail_send_after",
+    [
+        (False, False, False, False),
+        (True, True, False, True),
+        (True, False, False, False),
+        (False, True, False, True),
+        (True, True, True, True),
+        (True, False, True, True),
+    ],
+)
+def test_missedemailssend_no_delete_with_overview(
+    send_mail: bool, mail_sent: bool, user: bool, mail_send_after: bool
+) -> None:
+    user_acc = create_user("user", "password")
+
+    payment = Payment.objects.create(
+        amount=1,
+        event_id="x",
+        payment_date=datetime.date(2024, 10, 12),
+        send_mail=send_mail,
+        mail_sent=mail_sent,
+        user=user_acc if user else None,
+    )
+
+    call_command("missedemailssend")
+
+    payment.refresh_from_db()
+    assert payment.mail_sent == mail_send_after

@@ -45,7 +45,7 @@ def PrometheusAfterMiddleware(get_response: Callable):
         ).inc()
         response: HttpResponse = get_response(request)
 
-        if response.status_code >= 400:
+        if response.status_code >= 500:
             metrics.ERRORS.labels(f"{match.view_name} {response.status_code}").inc()
 
         metrics.REQUEST_LATENCY.labels(

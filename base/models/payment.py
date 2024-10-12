@@ -39,6 +39,7 @@ class Payment(models.Model):
     status = models.CharField(max_length=30, choices=STATUS, default="finished")
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     send_mail = models.BooleanField(default=True)
+    mail_sent = models.BooleanField(default=False)
     amount = models.FloatField()
     exchange_rate = models.FloatField(default=None, null=True, blank=True)
     amount_pln = models.FloatField(default=0, blank=True)
