@@ -4,7 +4,7 @@ from textwrap import dedent
 working_dir = pathlib.Path(__file__).parent.parent.absolute()
 license_short_text = dedent(
     """
-    # Copyright 2023 Rafał Safin (rafsaf). All Rights Reserved.
+    # Copyright 2024 Rafał Safin (rafsaf). All Rights Reserved.
     #
     # Licensed under the Apache License, Version 2.0 (the "License");
     # you may not use this file except in compliance with the License.
