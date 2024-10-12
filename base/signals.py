@@ -17,17 +17,15 @@ import datetime
 import logging
 
 from dateutil.relativedelta import relativedelta
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.db import transaction
 from django.db.models import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.translation import activate
 
+import metrics
+from base.emails import send_payment_email
 from base.models import Message, Payment, Profile, Server
 from utils.basic import create_test_world
 
@@ -65,7 +63,13 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
             if instance.new_date is not None:
                 log.info("payment instance %s already is completed", instance)
                 return
-            user: User = instance.user  # type: ignore
+
+            user = instance.user
+            if user is None:
+                log.critical("payment user is none, cannot proceed: %s", instance)
+                metrics.ERRORS.labels("handle_payment").inc()
+                return
+
             user_profile: Profile = Profile.objects.get(user=user)
 
             current_date: datetime.date = timezone.localdate()
@@ -80,27 +84,15 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
                     user_profile.validity_date + relative_months + day
                 )
 
+            if instance.send_mail:
+                try:
+                    send_payment_email(payment=instance, user=user)
+                except Exception as e:
+                    log.critical("unexpected error in send_payment_email: %s", e)
+                    metrics.ERRORS.labels("handle_payment").inc()
+                else:
+                    instance.mail_sent = True
+
             instance.new_date = user_profile.validity_date
             user_profile.save()
             instance.save()
-
-        if instance.send_mail:
-            activate(instance.language)
-            title = render_to_string(
-                "email_payment_title.html",
-                {"instance": instance},
-            )
-            msg_html = render_to_string(
-                "email_payment_body.html",
-                {
-                    "instance": instance,
-                    "domain": settings.MAIN_DOMAIN,
-                },
-            )
-            send_mail(
-                title,
-                "",
-                "plemionaplaner.pl@gmail.com",
-                recipient_list=[user.email],
-                html_message=msg_html,
-            )
