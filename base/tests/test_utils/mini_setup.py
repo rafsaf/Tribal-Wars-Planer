@@ -138,7 +138,7 @@ class MiniSetup(TestCase):
             raise ValueError("Foreign loging is not possible")
 
     def login_page_path(self, next: str | None) -> str:
-        main_path = reverse("login")
+        main_path = reverse("two_factor:login")
         if next is not None:
             return main_path + f"?next={next}"
         return main_path
