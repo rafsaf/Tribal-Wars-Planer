@@ -33,10 +33,15 @@ from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import views
 from django.urls import include, path
 from django.views.generic.base import TemplateView
-from django_registration.backends.one_step.views import RegistrationView
+from django_registration.backends.activation.views import (
+    ActivationView,
+    RegistrationView,
+)
 from django_registration.forms import RegistrationFormUniqueEmail
+from two_factor.urls import urlpatterns as tf_urls
 
 urlpatterns = [
     path("api/", include("rest_api.urls")),
@@ -45,7 +50,20 @@ urlpatterns = [
 urlpatterns += i18n_patterns(  # type: ignore
     path("admin/", admin.site.urls),
     path("", include("base.urls")),
+    path("", include(tf_urls)),
     path("i18n/", include("django.conf.urls.i18n")),
+    path(
+        "activate/complete/",
+        TemplateView.as_view(
+            template_name="django_registration/activation_complete.html"
+        ),
+        name="django_registration_activation_complete",
+    ),
+    path(
+        "activate/<str:activation_key>/",
+        ActivationView.as_view(),
+        name="django_registration_activate",
+    ),
     path(
         "register/",
         RegistrationView.as_view(form_class=RegistrationFormUniqueEmail),
@@ -58,13 +76,37 @@ urlpatterns += i18n_patterns(  # type: ignore
         ),
         name="django_registration_complete",
     ),
-    path("", include("django.contrib.auth.urls")),
     path(
         "register/disallowed/",
         TemplateView.as_view(
             template_name="django_registration/registration_disallowed.html"
         ),
         name="django_registration_disallowed",
+    ),
+    path("logout/", views.LogoutView.as_view(), name="logout"),
+    path(
+        "password_change/", views.PasswordChangeView.as_view(), name="password_change"
+    ),
+    path(
+        "password_change/done/",
+        views.PasswordChangeDoneView.as_view(),
+        name="password_change_done",
+    ),
+    path("password_reset/", views.PasswordResetView.as_view(), name="password_reset"),
+    path(
+        "password_reset/done/",
+        views.PasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        views.PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset/done/",
+        views.PasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
     ),
 )
 

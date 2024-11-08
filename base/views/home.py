@@ -24,6 +24,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone, translation
+from two_factor.utils import default_device
 
 from base import models
 from base.models import PDFPaymentSummary
@@ -67,7 +68,11 @@ def base_view(request):
 
     stats["orders"] = orders
 
-    context = {"stats": stats, "registration_open": settings.REGISTRATION_OPEN}
+    context = {
+        "stats": stats,
+        "registration_open": settings.REGISTRATION_OPEN,
+        "enabled_2fa": default_device(request.user),
+    }
 
     return render(request, "base/base.html", context)
 
