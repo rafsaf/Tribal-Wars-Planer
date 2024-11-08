@@ -1,0 +1,19 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container-md py-5" style="min-height: 70vh; max-width:900px !important; font-size:larger;">
+        <div style="margin-left:-15px;margin-right:-15px;">
+            <h2>{% trans 'Congratulations, account was activated, you can log in!' %}</h2>
+            <br>
+
+            <li class="mt-1">{% trans "You can optionally enable two factor authentication in tab 'My account'." %}</li>
+            <li class="mt-1">{% trans 'You can change the language version and log in and out by expanding <b>Menu</b> in the navigation bar.' %}</li>
+            <li class="mt-1">{% trans 'To create a first outline, go to the tab <span class="md-error">Create new outline</span>.' %}</li>
+            <li class="mt-1">{% trans "Don't forget to join <b><a target='_blank' href='https://discord.gg/g5pcsCteCT'>Discord</a></b>, there you will find all the help and can make suggestions and bugs." %}</li>
+            <h5 class="mt-3">{% trans 'You should start by reading:' %}</h5>
+            <h5><a target="_blank" href="/{{ request.get_full_path|slice:'1:3' }}/documentation/first_steps/">{% trans 'The test world that is first steps with Planer' %}</a></h5>
+
+        </div>
+    </div>
+{% endblock %}

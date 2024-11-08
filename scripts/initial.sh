@@ -31,3 +31,6 @@ python manage.py createservers
 echo "init stripe products and prices"
 python manage.py initstripe
 
+echo "init 2fa"
+python manage.py init2fa
+

@@ -90,6 +90,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_otp",
+    "django_otp.plugins.otp_static",
+    "django_otp.plugins.otp_totp",
+    "django_otp.plugins.otp_email",
+    "otp_yubikey",
+    "two_factor",
+    "two_factor.plugins.email",
+    "two_factor.plugins.yubikey",
 ]
 
 REST_FRAMEWORK = {
@@ -112,6 +120,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "tribal_wars_planer.middlewares.PrometheusAfterMiddleware",
@@ -229,7 +238,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_REDIRECT_URL = "base:base"
-LOGIN_URL = "login"
+LOGIN_URL = "two_factor:login"
 LOGOUT_REDIRECT_URL = "base:base"
 
 EMAIL_BACKEND = os.environ.get(
@@ -290,11 +299,19 @@ SUPPORTED_CURRENCIES_CHOICES = [
     (currency, currency) for currency in SUPPORTED_CURRENCIES
 ]
 
+ACCOUNT_ACTIVATION_DAYS = 2
 env_registration_open = os.environ.get("REGISTRATION_OPEN", True)
 if env_registration_open in ["False", "false"]:
     REGISTRATION_OPEN = False
 else:
     REGISTRATION_OPEN = True
+
+YUBICO_VALIDATION_SERVICE_API_ID = int(
+    os.environ.get("YUBICO_VALIDATION_SERVICE_API_ID", True)
+)
+YUBICO_VALIDATION_SERVICE_API_KEY = os.environ.get(
+    "YUBICO_VALIDATION_SERVICE_API_KEY", ""
+)
 
 DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "INFO")
 DJANGO_LOG_HANDLERS = ["error", "info", "warning", "debug"]

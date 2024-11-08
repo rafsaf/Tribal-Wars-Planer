@@ -1,0 +1,1 @@
+{% load i18n %}{% trans 'Activate account in plemiona-planer.pl - '%}{{ user.username }}

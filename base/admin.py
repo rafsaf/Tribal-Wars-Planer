@@ -18,11 +18,14 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 
+# Register your models here.
+from two_factor.admin import AdminSiteOTPRequired
+
 from base.models.world import World
 
 from . import models
 
-# Register your models here.
+admin.site.__class__ = AdminSiteOTPRequired
 
 
 admin.site.register(models.PeriodModel)

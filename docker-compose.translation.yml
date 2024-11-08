@@ -7,5 +7,7 @@ services:
       context: ./
     env_file:
       - .env.example
+    environment:
+      - DEBUG_TOOLBAR=0
     volumes: 
       - ./:/build

@@ -1,0 +1,10 @@
+{% load crispy_forms_tags %}
+{% load i18n %}
+<table class="mb-3">
+  {{ wizard.management_form }}
+  {{ wizard.form|crispy }}
+  {% if request.get_full_path|slice:'3:17' == '/account/login' %}
+    <p>{% trans "Don't have an account? "  %}<a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
+    <p><a href="{% url 'password_reset' %}">{% trans 'Password recovery' %}</a></p>
+  {% endif %}
+</table>
