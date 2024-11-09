@@ -15,6 +15,7 @@
 
 from django.conf import settings
 from django.http.request import HttpRequest
+from django.utils.crypto import constant_time_compare
 from rest_framework import permissions
 
 
@@ -24,7 +25,9 @@ class MetricsExportSecretPermission(permissions.BasePermission):
     """
 
     def has_permission(self, request: HttpRequest, view):
-        if request.GET.get("token") == settings.METRICS_EXPORT_ENDPOINT_SECRET:
+        if constant_time_compare(
+            request.GET.get("token") or "", settings.METRICS_EXPORT_ENDPOINT_SECRET
+        ):
             return True
 
         return False
