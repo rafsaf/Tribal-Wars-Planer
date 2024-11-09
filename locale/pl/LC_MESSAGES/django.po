@@ -884,7 +884,7 @@ msgstr "Język"
 
 #: base/templates/base/base.html:179
 msgid "You can now setup two factor authentication in "
-msgstr "Możesz teraz ustawić uwierzytelnianie dwuskładnikowe"
+msgstr "Możesz teraz ustawić uwierzytelnianie dwuskładnikowe w "
 
 #: base/templates/base/base.html:179
 msgid "Account settings"
