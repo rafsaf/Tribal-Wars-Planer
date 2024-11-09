@@ -18,6 +18,7 @@ import tomllib
 from pathlib import Path
 from typing import Any
 
+import sentry_sdk
 from diskcache.fanout import FanoutCache
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 from dotenv import load_dotenv
@@ -74,6 +75,19 @@ if env_world_update_fetch_all in ["True", "true"]:
 else:
     WORLD_UPDATE_FETCH_ALL = False
 
+env_sentry_sdk_active = os.environ.get("SENTRY_SDK_ACTIVE", False)
+if env_sentry_sdk_active in ["True", "true"]:
+    SENTRY_SDK_ACTIVE = True
+else:
+    SENTRY_SDK_ACTIVE = False
+
+if SENTRY_SDK_ACTIVE:
+    sentry_sdk.init(
+        dsn=os.environ["SENTRY_DSN"],
+        server_name=MAIN_DOMAIN,
+        environment=os.environ.get("SENTRY_ENVIRONMENT", "local"),
+    )
+
 ADMINS = [("admin", DEFAULT_FROM_EMAIL)]
 
 INSTALLED_APPS = [
@@ -90,6 +104,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_ses",
     "django_otp",
     "django_otp.plugins.otp_static",
     "django_otp.plugins.otp_totp",

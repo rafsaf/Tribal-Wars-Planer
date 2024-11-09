@@ -32,6 +32,7 @@ stripe = "^11.1.0"
 uwsgi = "^2.0.27"
 django-otp-yubikey = "^1.1.0"
 django-two-factor-auth = {extras = ["phonenumberslite"], version = "^1.17.0"}
+sentry-sdk = {extras = ["django"], version = "^2.18.0"}
 
 [tool.poetry.group.dev.dependencies]
 coverage = "^7.6.1"

@@ -28,7 +28,7 @@ from django.utils import timezone, translation
 from prometheus_client import multiprocess
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -373,3 +373,11 @@ def metrics_export(request: Request):
     return HttpResponse(
         metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST, status=200
     )
+
+
+@api_view(["GET"])
+@permission_classes([IsAdminUser])
+def trigger_error(request) -> HttpResponse:
+    division_by_zero = 1 / 0  # type: ignore # noqa: F841
+
+    return HttpResponse()
