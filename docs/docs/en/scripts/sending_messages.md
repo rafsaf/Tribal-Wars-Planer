@@ -29,6 +29,21 @@ To use the scripts, you must first install the appropriate browser extension (mo
 
 Then create a new user script and paste the code below.
 
+If you choose Tampermonkey, Chromium-based browsers have, for some time, required additional authorization for extensions that run extra code, such as all scripts for Tampermonkey. This can be done at the link [chrome://extensions](chrome://extensions).
+
+<figure markdown="span">
+  ![activate developer mode](image-3.png)
+  <figcaption>Go to chrome://extensions and activate "Developer mode"</figcaption>
+</figure>
+
+## How to check if the extension is working
+
+Go to "Mail" -> "Write Message" on any world.
+
+Make sure that the Tampermonkey extension is enabled, and the "GET message autocomplete" extension is active.
+
+![tampermonkey](image-4.png)
+
 ## Usage Instructions
 
 1. Go to the Results tab of the completed schedule, [see this chapter on the results tab](./../first_steps/step_7_results_tab.md)
