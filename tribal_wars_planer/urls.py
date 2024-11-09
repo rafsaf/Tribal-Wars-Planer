@@ -40,7 +40,7 @@ from django_registration.backends.activation.views import (
     ActivationView,
     RegistrationView,
 )
-from django_registration.forms import RegistrationFormUniqueEmail
+from django_registration.forms import RegistrationFormCaseInsensitive
 from two_factor.urls import urlpatterns as tf_urls
 
 urlpatterns = [
@@ -66,7 +66,7 @@ urlpatterns += i18n_patterns(  # type: ignore
     ),
     path(
         "register/",
-        RegistrationView.as_view(form_class=RegistrationFormUniqueEmail),
+        RegistrationView.as_view(form_class=RegistrationFormCaseInsensitive),
         name="django_registration_register",
     ),
     path(
