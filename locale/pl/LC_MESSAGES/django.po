@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-09 00:06+0100\n"
+"POT-Creation-Date: 2024-11-09 18:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -596,7 +596,7 @@ msgstr "Front"
 
 #: base/models/outline.py:100
 #: base/templates/base/new_outline/new_outline_initial_period1.html:167
-msgid "Back"
+msgid "Back (Rear)"
 msgstr "Zaplecze"
 
 #: base/models/outline.py:101
@@ -2609,7 +2609,9 @@ msgstr "Gratulację, konto zostało aktywowane, możesz się zalogować!"
 #: templates/django_registration/activation_complete.html:10
 msgid ""
 "You can optionally enable two factor authentication in tab 'My account'."
-msgstr "Możesz opcjonalnie ustawić uwierzytelnianie dwuskładnikowe w zakładce 'Moje konto'."
+msgstr ""
+"Możesz opcjonalnie ustawić uwierzytelnianie dwuskładnikowe w zakładce 'Moje "
+"konto'."
 
 #: templates/django_registration/activation_complete.html:11
 msgid ""
@@ -2656,7 +2658,8 @@ msgid ""
 "We received a request to register the account for this email address. To "
 "activate, click the link below."
 msgstr ""
-"Otrzymaliśmy prośbę o zarejestrowanie konta z tym adresem email. Aby aktywować swoje konto, kliknij na link poniżej."
+"Otrzymaliśmy prośbę o zarejestrowanie konta z tym adresem email. Aby "
+"aktywować swoje konto, kliknij na link poniżej."
 
 #: templates/django_registration/activation_email_body.txt:6
 #: templates/registration/password_reset_email.html:7
@@ -2689,8 +2692,8 @@ msgid ""
 "Please check you email, you should get activation url in a second. The link "
 "is valid for 2 days."
 msgstr ""
-"Proszę sprawdź swoją skrzynkę pocztową, powinien zostać tam wysłany link do aktywacji konta. "
-"Link ważny jest 2 dni"
+"Proszę sprawdź swoją skrzynkę pocztową, powinien zostać tam wysłany link do "
+"aktywacji konta. Link ważny jest 2 dni"
 
 #: templates/django_registration/registration_disallowed.html:9
 msgid ""
@@ -3187,6 +3190,9 @@ msgstr "Wioska"
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "Back"
+#~ msgstr "Zaplecze"
 
 #~ msgid "Sign in and create tribal wars proffesional outlines."
 #~ msgstr ""

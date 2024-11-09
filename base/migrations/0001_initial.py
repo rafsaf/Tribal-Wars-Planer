@@ -275,7 +275,7 @@ class Migration(migrations.Migration):
                         choices=[
                             ("all", "All"),
                             ("front", "Front"),
-                            ("back", "Back"),
+                            ("back", "Back (Rear)"),
                             ("hidden", "Hidden"),
                         ],
                         default="all",
