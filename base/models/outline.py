@@ -97,7 +97,7 @@ class Outline(models.Model):
     HIDE_CHOICES: list[tuple[str, str]] = [
         ("all", gettext_lazy("All")),
         ("front", gettext_lazy("Front")),
-        ("back", gettext_lazy("Back")),
+        ("back", gettext_lazy("Back (Rear)")),
         ("away", gettext_lazy("Away")),
         ("hidden", gettext_lazy("Hidden")),
     ]
