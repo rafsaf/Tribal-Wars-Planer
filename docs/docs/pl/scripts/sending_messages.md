@@ -1,9 +1,9 @@
 # Skrypt Auto uzupełnianie wiadomości
 
-| Serwer             | Forum plemion                                                                                                                                                                            | Dozwolony                      | Kod                                                                                                                                    |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| plemiona.pl | [https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/](https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/) | TAK                            | [Kod na GitHubie (v2.0)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/GET_message_autocomplete.js)             |
-| inne serwery       | -                                                                                                                                                                                        | NIE (brak możliwości wykrycia) | [Kod na GitHubie (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/GET_message_autocomplete_v2.1_global.js) |
+| Serwer       | Forum plemion                                                                                                                                                                            | Dozwolony                      | Kod                                                                                                                                    |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| plemiona.pl  | [https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/](https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/) | TAK                            | [Kod na GitHubie (v2.0)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/GET_message_autocomplete.js)             |
+| inne serwery | -                                                                                                                                                                                        | NIE (brak możliwości wykrycia) | [Kod na GitHubie (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/GET_message_autocomplete_v2.1_global.js) |
 
 !!! warning
 
@@ -28,6 +28,21 @@ Aby korzystać ze skryptów należy zainstalować najpierw odpowiedni dodatek do
 - [Greasmonkey](https://addons.mozilla.org/pl/firefox/addon/greasemonkey/) (Firefox)
 
 Następnie utworzyć nowy skrypt użytkownika i wkleić poniższy kod.
+
+W przypadku wyboru Tampermonkey, od dłuższego czasu przeglądarki bazujące na Chromium wymuszają dodatkową autoryzację w przypadku dodatków wykonujących dodatkowy kod jak wszystkie skrypty do Tampermonkey'a. Można to zrobić pod linkiem [chrome://extensions](chrome://extensions).
+
+<figure markdown="span">
+  ![activate developer mode](image-3.png)
+  <figcaption>Należy przejść do chrome://extensions i aktywować "Developer mode"</figcaption>
+</figure>
+
+## Jak sprawdzić czy dodatek działa
+
+Przejdź do "Wiadomości" -> "Napisz wiadomość" na dowolnym świecie.
+
+Upewnij się że dodatek tampermonkey jest aktywowany, "dodatek "GET message autocomplete" jest aktywny.
+
+![tampermonkey](image-4.png)
 
 ## Instrukcja użycia
 
