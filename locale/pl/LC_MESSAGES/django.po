@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-09 18:35+0100\n"
+"POT-Creation-Date: 2024-11-10 12:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2682,6 +2682,22 @@ msgstr "plemiona-planer.pl"
 #: templates/django_registration/activation_email_subject.txt:1
 msgid "Activate account in plemiona-planer.pl - "
 msgstr "Aktywuj konto w plemiona-planer.pl - "
+
+#: templates/django_registration/activation_failed.html:7
+msgid "Activation failed!"
+msgstr "Aktywacja nie powiodła się!"
+
+#: templates/django_registration/activation_failed.html:9
+msgid ""
+"Activation failed! It looks like your account is already activated, link is "
+"already expired or username does not correspond to any user account."
+msgstr ""
+"Aktywacja nie powiodła się. Wygląda na to że Twoje konto jest już aktywowane, "
+"link wygasł lub nazwa konta z linku nie odnosi się do żadnego konta użytkownika."
+
+#: templates/django_registration/activation_failed.html:11
+msgid "Code: "
+msgstr "Kod błędu: "
 
 #: templates/django_registration/registration_complete.html:7
 msgid "Congratulations, you have successfully registered!"

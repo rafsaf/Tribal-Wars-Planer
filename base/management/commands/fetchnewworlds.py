@@ -104,6 +104,21 @@ def fetch_and_add_new_worlds() -> None:
 
                     sleep(1)
                     continue
+
+                errors = world_form.errors.get_json_data().get("__all__")
+                if errors is not None:
+                    try:
+                        if errors[0]["code"] == "does_not_exists":
+                            sleep(1)
+                            continue
+                    except (KeyError, IndexError) as e:
+                        log.error(
+                            "unexpected error at %s: %s",
+                            world_form.errors.get_json_data(),
+                            e,
+                            exc_info=True,
+                        )
+                sleep(1)
                 log.error(
                     "adding world %s,%s failed: %s",
                     server.dns,
