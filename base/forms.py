@@ -975,7 +975,10 @@ class AddNewWorldForm(forms.ModelForm):
         result = world_query.check_if_world_exist_and_try_create()
         if result[1] == "error":
             raise forms.ValidationError(
-                gettext_lazy("Connection error, world does not exists or is archived!")
+                code="does_not_exists",
+                message=gettext_lazy(
+                    "Connection error, world does not exists or is archived!"
+                ),
             )
         elif result[1] == "added":
             raise forms.ValidationError(gettext_lazy("World is already added!"))
