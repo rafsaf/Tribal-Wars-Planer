@@ -33,6 +33,7 @@ letsencrypt
 /webhook/hooks.json
 # Diskcache
 /disk_cache/
+/default_disk_cache/
 
 # Distribution / packaging
 .Python

@@ -8,11 +8,13 @@ mkdir prometheus_multi_proc_dir || true
 mkdir media || true
 mkdir logs || true
 mkdir disk_cache || true
+mkdir default_disk_cache || true
 
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/logs
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/media
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/prometheus_multi_proc_dir
 chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/disk_cache
+chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/default_disk_cache
 
 ### 2. Run metrics on :8050 in the background
 echo "start metrics thread"

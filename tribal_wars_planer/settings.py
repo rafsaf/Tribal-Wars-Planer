@@ -394,3 +394,16 @@ LOGGING = {
 fanout_cache = FanoutCache(
     directory=BASE_DIR / "disk_cache", shards=20, timeout=1, size_limit=20 * 2**30
 )
+
+CACHES = {
+    "default": {
+        "BACKEND": "diskcache.DjangoCache",
+        "LOCATION": str(BASE_DIR / "default_disk_cache"),
+        "TIMEOUT": 300,
+        # ^-- Django setting for default timeout of each key.
+        "SHARDS": 8,
+        "DATABASE_TIMEOUT": 0.010,  # 10 milliseconds
+        # ^-- Timeout for each DjangoCache database transaction.
+        "OPTIONS": {"size_limit": 2 * 2**30},  # 2 gigabyte
+    },
+}
