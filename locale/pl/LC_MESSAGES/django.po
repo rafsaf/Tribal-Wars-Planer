@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-10 12:34+0100\n"
+"POT-Creation-Date: 2024-11-10 15:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,11 +205,11 @@ msgstr "Tytuł wiadomości"
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:458 base/forms.py:1015
+#: base/forms.py:458 base/forms.py:1018
 msgid "Sending Options:"
 msgstr "Opcje wysyłki"
 
-#: base/forms.py:459 base/forms.py:1016
+#: base/forms.py:459 base/forms.py:1019
 msgid "Add links to direct messages:"
 msgstr "Linki do celów w bezpośrednich wiadomościach:"
 
@@ -496,36 +496,36 @@ msgstr "Przedrostek świata"
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr "Niedozwolone znaki w podanym przedrostku, sprwadź jego poprawność"
 
-#: base/forms.py:978
+#: base/forms.py:980
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:981
+#: base/forms.py:984
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:993 base/forms.py:1009
+#: base/forms.py:996 base/forms.py:1012
 msgid "Please select your server:"
 msgstr "Ustaw swój serwer:"
 
-#: base/forms.py:1011
+#: base/forms.py:1014
 msgid "Turn on morale calculations in every outline by default:"
 msgstr ""
 "Włącz domyślną obsługę morali dla każdej nowej rozpiski (domyślnie wyłączone)"
 
-#: base/forms.py:1013
+#: base/forms.py:1016
 msgid "Default input type for planer"
 msgstr "Wybierz typ danych dla planera"
 
-#: base/forms.py:1014
+#: base/forms.py:1017
 msgid "Please select your currency:"
 msgstr "Ustaw swoją walutę płatności:"
 
-#: base/forms.py:1019
+#: base/forms.py:1022
 msgid "Prefered sending option in Results tab"
 msgstr "Preferowana opcja wysyłki wiadomości w zakładce Wyniki"
 
-#: base/forms.py:1021
+#: base/forms.py:1024
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
@@ -874,7 +874,7 @@ msgid "Sign in"
 msgstr "Zaloguj się"
 
 #: base/templates/base/base.html:106 base/templates/base/base.html:197
-#: base/templates/base/base.html:209 templates/two_factor/_wizard_forms.html:7
+#: base/templates/base/base.html:209 templates/two_factor/_wizard_forms.html:10
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
@@ -900,7 +900,7 @@ msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
 #: base/templates/base/base.html:197 base/templates/base/base.html:207
-#: templates/two_factor/_wizard_forms.html:7
+#: templates/two_factor/_wizard_forms.html:10
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
@@ -2692,8 +2692,9 @@ msgid ""
 "Activation failed! It looks like your account is already activated, link is "
 "already expired or username does not correspond to any user account."
 msgstr ""
-"Aktywacja nie powiodła się. Wygląda na to że Twoje konto jest już aktywowane, "
-"link wygasł lub nazwa konta z linku nie odnosi się do żadnego konta użytkownika."
+"Aktywacja nie powiodła się. Wygląda na to że Twoje konto jest już "
+"aktywowane, link wygasł lub nazwa konta z linku nie odnosi się do żadnego "
+"konta użytkownika."
 
 #: templates/django_registration/activation_failed.html:11
 msgid "Code: "
@@ -2829,7 +2830,11 @@ msgid ""
 msgstr ""
 "Prośba o zmianę hasła do konta plemiona-planer.pl - link do zmiany hasła"
 
-#: templates/two_factor/_wizard_forms.html:8
+#: templates/two_factor/_wizard_forms.html:4
+msgid "You are already logged in as"
+msgstr "Jesteś obecnie zalogowany jako"
+
+#: templates/two_factor/_wizard_forms.html:11
 msgid "Password recovery"
 msgstr "Przywracanie zapomnianego hasła"
 
@@ -3213,9 +3218,6 @@ msgstr "nie istnieje"
 #~ msgid "Sign in and create tribal wars proffesional outlines."
 #~ msgstr ""
 #~ "Zaloguj się i twórz profesjonalne rozpiski offów w Plemiona Planerze."
-
-#~ msgid "You are already logged in as"
-#~ msgstr "Jesteś obecnie zalogowany jako"
 
 #~ msgid "Login"
 #~ msgstr "Login"

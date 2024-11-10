@@ -1,5 +1,8 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
+{% if user.is_authenticated and request.get_full_path|slice:'3:17' == '/account/login' %}
+  <div class="alert alert-primary" style="font-size: large;cursor:default;" role="alert">{% trans 'You are already logged in as' %} <span style="text-decoration: underline;">{{user.username}}</span>!</div>
+{% endif %}
 <table class="mb-3">
   {{ wizard.management_form }}
   {{ wizard.form|crispy }}
