@@ -113,6 +113,7 @@ INSTALLED_APPS = [
     "two_factor",
     "two_factor.plugins.email",
     "two_factor.plugins.yubikey",
+    "drf_spectacular",
 ]
 
 REST_FRAMEWORK = {
@@ -123,6 +124,16 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication"
     ],
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_THROTTLE_RATES": {"anon": "60/min"},
+    "NUM_PROXIES": 2,
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Tribal Wars Planer API",
+    "DESCRIPTION": "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators.",
+    "VERSION": BUILD_TAG,
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]

@@ -18,6 +18,8 @@ import random
 from collections import deque
 from math import inf
 
+from django.utils import timezone
+
 from base import models
 from utils import basic
 
@@ -30,7 +32,10 @@ class FromPeriods:
         date: datetime.date,
     ):
         self.date_time: datetime.datetime = datetime.datetime(
-            year=date.year, month=date.month, day=date.day
+            year=date.year,
+            month=date.month,
+            day=date.day,
+            tzinfo=timezone.get_current_timezone(),
         )
         self.world: models.World = world
 

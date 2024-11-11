@@ -14,20 +14,23 @@
 # ==============================================================================
 
 import logging
+import zoneinfo
 from collections.abc import Callable
 from time import time
+from typing import Any
 
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.urls import resolve
+from django.utils import timezone
 
 import metrics
 
 log = logging.getLogger(__name__)
 
 
-def PrometheusBeforeMiddleware(get_response: Callable):
-    def middleware(request: HttpRequest):
+def PrometheusBeforeMiddleware(get_response: Callable) -> Callable[..., Any]:
+    def middleware(request: HttpRequest) -> Any:
         setattr(request, "_metrics_process_time_start", time())
         response = get_response(request)
 
@@ -36,8 +39,10 @@ def PrometheusBeforeMiddleware(get_response: Callable):
     return middleware
 
 
-def PrometheusAfterMiddleware(get_response: Callable):
-    def middleware(request: HttpRequest):
+def PrometheusAfterMiddleware(
+    get_response: Callable,
+) -> Callable[..., Any | HttpResponse]:
+    def middleware(request: HttpRequest) -> Any | HttpResponse:
         match = resolve(request.path)
 
         metrics.REQUEST_COUNT.labels(
@@ -51,6 +56,20 @@ def PrometheusAfterMiddleware(get_response: Callable):
         metrics.REQUEST_LATENCY.labels(
             view_name=match.view_name, method=request.method
         ).observe(time() - getattr(request, "_metrics_process_time_start"))
+
+        return response
+
+    return middleware
+
+
+def TimezoneMiddleware(get_response: Callable) -> Callable[..., Any]:
+    def middleware(request: HttpRequest) -> Any:
+        tz = request.COOKIES.get("mytz")
+        if tz:
+            timezone.activate(zoneinfo.ZoneInfo(tz))
+        else:
+            timezone.activate(zoneinfo.ZoneInfo("UTC"))
+        response = get_response(request)
 
         return response
 

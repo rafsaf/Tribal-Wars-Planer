@@ -40,7 +40,7 @@ from base.models import (
     WeightModel,
 )
 from utils import basic
-from utils.basic import info_generatation
+from utils.basic import Unit, info_generatation
 
 log = logging.getLogger(__name__)
 
@@ -172,21 +172,30 @@ class MakeFinalOutline:
 
     @staticmethod
     def _json_weight(weight: WeightModel):
-        result = model_to_dict(
-            weight,
-            fields=[
-                "start",
-                "player",
-                "off",
-                "nobleman",
-                "catapult",
-                "ruin",
-                "distance",
-            ],
-        )
-        result["t1"] = weight.t1.time() if weight.t1 else None
-        result["t2"] = weight.t2.time() if weight.t2 else None
-        return result
+        return {
+            "id": weight.pk,
+            "start": weight.start,
+            "player": weight.player,
+            "off": weight.off,
+            "nobleman": weight.nobleman,
+            "catapult": weight.catapult,
+            "ruin": weight.ruin,
+            "distance": weight.distance,
+            "time_seconds": round(
+                weight.distance
+                / weight.state.outline.world.speed_world
+                / weight.state.outline.world.speed_units
+                * Unit("ram").speed
+                if weight.nobleman == 0
+                else Unit("nobleman").speed * 60
+            ),
+            "t1": weight.t1.replace(tzinfo=None),
+            "t2": weight.t2.replace(tzinfo=None),
+            "delivery_t1": weight.t1,
+            "delivery_t2": weight.t2,
+            "shipment_t1": weight.sh_t1,
+            "shipment_t2": weight.sh_t2,
+        }
 
     def _outline_overview(
         self, json_weight_dict: str, json_targets: str
@@ -195,7 +204,17 @@ class MakeFinalOutline:
             outline=self.outline,
             weights_json=json_weight_dict,
             targets_json=json_targets,
+            world_json={
+                "id": self.outline.world.pk,
+                "full_game_name": self.outline.world.full_game_name,
+                "server": self.outline.world.server.dns,
+                "name": str(self.outline.world),
+                "speed_world": self.outline.world.speed_world,
+                "speed_units": self.outline.world.speed_units,
+            },
+            outline_json=model_to_dict(self.outline, fields=["id", "date"]),
         )
+
         return outline_overview
 
     def _calculate_period_dictionary(self) -> None:
@@ -301,6 +320,7 @@ class MakeFinalOutline:
         target: models.TargetVertex
         for target in self.targets:
             context[target.pk] = {
+                "id": target.pk,
                 "target": target.target,
                 "player": target.player,
                 "fake": target.fake,

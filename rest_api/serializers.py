@@ -80,3 +80,53 @@ class ChangeWeightBuildingSerializer(serializers.Serializer):
         if value not in BUILDINGS:
             raise serializers.ValidationError(f"Invalid building: {value}")
         return value
+
+
+class OutlineSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    date = serializers.DateField()
+
+
+class WorldSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    server = serializers.CharField()
+    full_game_name = serializers.CharField(allow_blank=True)
+    speed_units = serializers.FloatField()
+    speed_world = serializers.FloatField()
+
+
+class TargetSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    target = serializers.CharField()
+    player = serializers.CharField(allow_blank=True)
+    fake = serializers.BooleanField()
+    ruin = serializers.BooleanField()
+
+
+class WeightSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    start = serializers.CharField()
+    player = serializers.CharField()
+    off = serializers.IntegerField()
+    nobleman = serializers.IntegerField()
+    catapult = serializers.IntegerField()
+    ruin = serializers.BooleanField()
+    distance = serializers.FloatField()
+    time_seconds = serializers.IntegerField()
+    delivery_t1 = serializers.DateTimeField()
+    delivery_t2 = serializers.DateTimeField()
+    shipment_t1 = serializers.DateTimeField()
+    shipment_t2 = serializers.DateTimeField()
+
+
+class TargetOrdersSerializer(serializers.Serializer):
+    target = TargetSerializer()
+    my_orders = WeightSerializer(many=True)
+    other_orders = WeightSerializer(many=True)
+
+
+class OverviewSerializer(serializers.Serializer):
+    outline = OutlineSerializer()
+    world = WorldSerializer()
+    targets = TargetOrdersSerializer(many=True)

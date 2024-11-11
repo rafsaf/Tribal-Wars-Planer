@@ -15,6 +15,7 @@
 
 import typing
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 
 from base.models.outline import Outline
@@ -29,6 +30,8 @@ class OutlineOverview(models.Model):
     )
     weights_json = models.TextField(default="", blank=True)
     targets_json = models.TextField(default="", blank=True)
+    world_json = models.JSONField(default=dict, blank=True, encoder=DjangoJSONEncoder)
+    outline_json = models.JSONField(default=dict, blank=True, encoder=DjangoJSONEncoder)
 
     if typing.TYPE_CHECKING:
         overview_set: models.Manager[Overview]

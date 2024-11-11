@@ -41,10 +41,26 @@ from django_registration.backends.activation.views import (
     RegistrationView,
 )
 from django_registration.forms import RegistrationFormCaseInsensitive
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 from two_factor.urls import urlpatterns as tf_urls
 
 urlpatterns = [
     path("api/", include("rest_api.urls")),
+    path("api/public/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/public/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/public/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]
 
 urlpatterns += i18n_patterns(  # type: ignore
