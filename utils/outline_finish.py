@@ -40,7 +40,7 @@ from base.models import (
     WeightModel,
 )
 from utils import basic
-from utils.basic import Unit, info_generatation
+from utils.basic import info_generatation
 
 log = logging.getLogger(__name__)
 
@@ -181,14 +181,7 @@ class MakeFinalOutline:
             "catapult": weight.catapult,
             "ruin": weight.ruin,
             "distance": weight.distance,
-            "time_seconds": round(
-                weight.distance
-                / weight.state.outline.world.speed_world
-                / weight.state.outline.world.speed_units
-                * Unit("ram").speed
-                if weight.nobleman == 0
-                else Unit("nobleman").speed * 60
-            ),
+            "time_seconds": (weight.sh_t1 - weight.t1).seconds,
             "t1": weight.t1.replace(tzinfo=None),
             "t2": weight.t2.replace(tzinfo=None),
             "delivery_t1": weight.t1,
