@@ -59,6 +59,8 @@ class FastWeightMaximum:
         self.initial_outline_minimum_noble_troops: int = (
             outline.initial_outline_minimum_noble_troops
         )
+        self.village_id: int = weight_max.village_id
+        self.player_id: int = weight_max.player_id
 
     def __eq__(self, other: Any) -> bool:
         return self.pk == other.pk

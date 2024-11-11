@@ -16,7 +16,7 @@
 
 from base import models
 from base.models import Outline, WeightMaximum
-from base.models.player import Player
+from base.models.village_model import VillageModel
 from utils import basic
 from utils.basic import Army, Defence
 
@@ -36,18 +36,18 @@ class MakeOutline:
     def __init__(self, outline: models.Outline) -> None:
         self.outline: Outline = outline
         self.evidence = basic.world_evidence(world=outline.world)
-        self.village_dictionary: dict[str, Player] = basic.coord_to_player(
-            outline=outline
-        )
+
+        self.villages_map: dict[str, VillageModel] = {}
         self.weight_max_create_list: list[WeightMaximum] = []
+
+        self._fill_villages_map()
 
     def __call__(self) -> None:
         WeightMaximum.objects.filter(outline=self.outline).delete()
         if self.outline.input_data_type == models.Outline.ARMY_COLLECTION:
             for line in self.outline.off_troops.split("\r\n"):
                 army = Army(line, self.evidence)
-                player: Player = self.village_dictionary[army.coord]
-                self._add_weight_max(army=army, player=player)
+                self._add_weight_max(army=army, village=self.villages_map[army.coord])
             self.outline.off_troops_weightmodels_hash = (
                 self.outline.get_or_set_off_troops_hash()
             )
@@ -67,8 +67,7 @@ class MakeOutline:
                         army.deff_collection_text
                     )
 
-                player = self.village_dictionary[army.coord]
-                self._add_weight_max(army=army, player=player)
+                self._add_weight_max(army=army, village=self.villages_map[army.coord])
             self.outline.deff_troops_weightmodels_hash = (
                 self.outline.get_or_set_deff_troops_hash()
             )
@@ -94,11 +93,19 @@ class MakeOutline:
             ]
         )
 
-    def _add_weight_max(self, army: Army | Defence, player: Player) -> None:
+    def _add_weight_max(self, army: Army | Defence, village: VillageModel) -> None:
+        if village.player is None:
+            raise RuntimeError(
+                "unexpected None player in outline %s village %s for %s",
+                self.outline,
+                village,
+                army.coord,
+            )
+
         self.weight_max_create_list.append(
             WeightMaximum(
                 outline=self.outline,
-                player=player.name,
+                player=village.player.name,
                 start=army.coord,
                 x_coord=int(army.coord[0:3]),
                 y_coord=int(army.coord[4:7]),
@@ -111,6 +118,26 @@ class MakeOutline:
                 first_line=False,
                 fake_limit=self.outline.initial_outline_fake_limit,
                 nobles_limit=self.outline.initial_outline_nobles_limit,
-                points=player.points,
+                points=village.player.points,
+                player_id=village.player.player_id,
+                village_id=village.village_id,
             )
         )
+
+    def _fill_villages_map(self) -> None:
+        villages = (
+            VillageModel.objects.select_related("player")
+            .filter(
+                player__tribe__tag__in=self.outline.ally_tribe_tag,
+                world=self.outline.world,
+            )
+            .only(
+                "coord",
+                "village_id",
+                "player__name",
+                "player__points",
+                "player__player_id",
+            )
+        )
+
+        self.villages_map = {village.coord: village for village in villages}

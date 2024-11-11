@@ -132,7 +132,7 @@ class TestMakeFinalOutline(TestCase):
         time_periods = self.make_final._time_periods(target)
         time_periods.adjust_time([weight1])
         new_weight = time_periods.next(weight1)
-        res = self.make_final._json_weight(new_weight)
+        res = self.make_final._json_weight(new_weight, target.village_id)
         expected = {
             "start": "500|500",
             "off": 5000,

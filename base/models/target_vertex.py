@@ -60,8 +60,10 @@ class TargetVertex(models.Model):
         OutlineTime, on_delete=models.SET_NULL, null=True, default=None
     )
     target = models.CharField(max_length=7)
+    village_id = models.IntegerField(default=0)
     player = models.CharField(max_length=30)
     player_created_at = models.DateTimeField(default=now)
+    player_id = models.IntegerField(default=0, null=True, blank=True)
     points = models.IntegerField(default=0)
     fake = models.BooleanField(default=False)
     ruin = models.BooleanField(default=False)

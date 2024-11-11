@@ -19,7 +19,6 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from base import models
-from base.models.player import Player
 from utils import basic
 
 
@@ -197,32 +196,3 @@ class TestCoordToPlayerAndFromCoordFunctions(TestCase):
             {coord: coord_player_map[coord].points for coord in coord_player_map},
             expected_dict,
         )
-
-    def test_coord_from_string_for_tribe1_result_dict_is_correct(self):
-        player: Player = Player.objects.get(name="player0")
-        expected_dict = {
-            "500|500": player,
-            "500|501": player,
-            "500|502": player,
-            "500|503": player,
-            "500|504": player,
-            "500|505": player,
-        }
-        string_villages = (
-            "500|500 " + "500|501 " + "500|502 " + "500|503 " + "500|504 " + "500|505 "
-        )
-        self.assertEqual(
-            basic.coord_to_player_model_from_string(
-                string_villages, world=self.outline.world
-            ),
-            expected_dict,
-        )
-
-    def test_coord_from_string_queries_first_are_equal(self):
-        string_villages = (
-            "500|500 " + "500|501 " + "500|502 " + "500|503 " + "500|504 " + "500|505 "
-        )
-        with self.assertNumQueries(1):
-            basic.coord_to_player_model_from_string(
-                string_villages, world=self.outline.world
-            )

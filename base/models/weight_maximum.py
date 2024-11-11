@@ -26,9 +26,11 @@ class WeightMaximum(models.Model):
 
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE, db_index=True)
     start = models.CharField(max_length=7)
+    village_id = models.IntegerField(default=0)
     x_coord = models.IntegerField(default=0)
     y_coord = models.IntegerField(default=0)
     player = models.CharField(max_length=30)
+    player_id = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
 
     off_max = models.IntegerField()

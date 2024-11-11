@@ -102,6 +102,8 @@ class TargetSerializer(serializers.Serializer):
     player = serializers.CharField(allow_blank=True)
     fake = serializers.BooleanField()
     ruin = serializers.BooleanField()
+    village_id = serializers.IntegerField()
+    player_id = serializers.IntegerField(allow_null=True)
 
 
 class WeightSerializer(serializers.Serializer):
@@ -118,6 +120,9 @@ class WeightSerializer(serializers.Serializer):
     delivery_t2 = serializers.DateTimeField()
     shipment_t1 = serializers.DateTimeField()
     shipment_t2 = serializers.DateTimeField()
+    village_id = serializers.IntegerField()
+    player_id = serializers.IntegerField()
+    send_url = serializers.CharField()
 
 
 class TargetOrdersSerializer(serializers.Serializer):

@@ -624,6 +624,8 @@ class Outline(models.Model):
             player_created_at=(
                 village.player.created_at if village.player else timezone.now()
             ),
+            player_id=village.player.player_id if village.player else None,
+            village_id=village.village_id,
             target=coord,
             fake=fake,
             ruin=ruin,

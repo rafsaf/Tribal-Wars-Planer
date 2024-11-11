@@ -203,6 +203,8 @@ class WriteNobleTarget:
             nobleman=noble,
             order=order + self.index,
             first_line=weight_max.first_line,
+            village_id=weight_max.village_id,
+            player_id=weight_max.player_id,
         )
 
     @staticmethod
