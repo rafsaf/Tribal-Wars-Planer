@@ -37,7 +37,7 @@ from rest_framework.decorators import api_view, permission_classes, throttle_cla
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.throttling import AnonRateThrottle
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 import metrics
 from base import models
@@ -411,7 +411,7 @@ def trigger_error(_: Request) -> HttpResponse:
 )
 @api_view(["GET"])
 @permission_classes([AllowAny])
-@throttle_classes([AnonRateThrottle])
+@throttle_classes([AnonRateThrottle, UserRateThrottle])
 def public_overview(request: Request) -> HttpResponse:
     token = request.query_params.get("token")
 

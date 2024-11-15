@@ -125,7 +125,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_THROTTLE_RATES": {"anon": "60/min"},
+    "DEFAULT_THROTTLE_RATES": {"anon": "25/min", "user": "25/min"},
     "NUM_PROXIES": 2,
 }
 
