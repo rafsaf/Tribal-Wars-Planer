@@ -15,9 +15,7 @@
 
 """functions to generate coord-to-player dictionaries"""
 
-from django.db.models.query import QuerySet
-
-from base.models import Outline, Player, VillageModel, World
+from base.models import Outline, Player, VillageModel
 
 
 def coord_to_player(outline: Outline) -> dict[str, Player]:
@@ -28,33 +26,6 @@ def coord_to_player(outline: Outline) -> dict[str, Player]:
     village_dictionary: dict[str, Player] = {}
     for village in ally_villages.iterator(chunk_size=10000):
         assert village.player
-        village_dictionary[village.coord] = village.player
-
-    return village_dictionary
-
-
-def coord_to_player_model_from_string(
-    village_coord_list: str, world: World
-) -> dict[str, Player]:
-    """Dictionary coord : player model for villages in coord_list
-
-    We assume for those coords player cant be none
-    """
-    village_dictionary = {}
-    village_list: list[str] = village_coord_list.split()
-
-    villages: QuerySet[VillageModel] = (
-        VillageModel.objects.select_related("player")
-        .filter(world=world, coord__in=village_list)
-        .only(
-            "coord",
-            "player__name",
-            "player__points",
-            "player__created_at",
-        )
-    )
-
-    for village in villages:
         village_dictionary[village.coord] = village.player
 
     return village_dictionary

@@ -14,8 +14,11 @@
 # ==============================================================================
 
 import datetime
+import json
+import zoneinfo
 
 from django.test import TestCase
+from django.urls import reverse
 from django.utils.translation import activate
 
 from base.models import Outline, OutlineOverview, Overview, PeriodModel, WeightModel
@@ -54,10 +57,17 @@ class TestMakeFinalOutline(TestCase):
         target = Target.objects.get(target="500|499")
         self.make_final.targets = Target.objects.filter(target="500|499")
 
-        assert (
-            self.make_final.targets_json_format()
-            == f'{{"{target.pk}": {{"target": "500|499", "player": "player1", "fake": false, "ruin": false}}}}'
-        )
+        assert json.loads(self.make_final.targets_json_format()) == {
+            f"{target.pk}": {
+                "id": target.pk,
+                "target": "500|499",
+                "player": "player1",
+                "fake": False,
+                "ruin": False,
+                "village_id": 0,
+                "player_id": 0,
+            }
+        }
 
     def test_ally_id(self):
         self.make_final._calculate_villages_id_dictionary()
@@ -132,17 +142,34 @@ class TestMakeFinalOutline(TestCase):
         time_periods = self.make_final._time_periods(target)
         time_periods.adjust_time([weight1])
         new_weight = time_periods.next(weight1)
-        res = self.make_final._json_weight(new_weight)
+        res = self.make_final._json_weight(new_weight, target.village_id)
         expected = {
+            "id": new_weight.pk,
             "start": "500|500",
+            "player": "player0",
             "off": 5000,
-            "distance": 1.0,
             "nobleman": 1,
             "catapult": 0,
             "ruin": False,
-            "player": "player0",
-            "t1": datetime.time(hour=9),
-            "t2": datetime.time(hour=10),
+            "distance": 1.0,
+            "time_seconds": 84300,
+            "t1": datetime.time(9, 0),
+            "t2": datetime.time(10, 0),
+            "delivery_t1": datetime.datetime(
+                2021, 3, 3, 9, 0, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
+            ),
+            "delivery_t2": datetime.datetime(
+                2021, 3, 3, 10, 0, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
+            ),
+            "shipment_t1": datetime.datetime(
+                2021, 3, 3, 8, 25, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
+            ),
+            "shipment_t2": datetime.datetime(
+                2021, 3, 3, 9, 25, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
+            ),
+            "village_id": 0,
+            "player_id": 0,
+            "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
         }
         self.assertEqual(expected, res)
 
@@ -248,16 +275,125 @@ class TestMakeFinalOutline(TestCase):
         self.assertEqual(overview.show_hidden, False)
         self.assertEqual(overview.outline_overview, outline_overview)
         target = Target.objects.get(target="500|499")
-        weights = (
-            '{"'
-            + f"{target.pk}"
-            + '": [{"start": "500|501", "off": 100, "distance": 2.0, "nobleman": 0, "catapult": 0, "ruin": false, "player": "player0", "t1": "07:00:00", "t2": "09:00:00"}, {"start": "500|502", "off": 19000, "distance": 3.0, "nobleman": 0, "catapult": 0, "ruin": false, "player": "player0", "t1": "07:00:00", "t2": "09:00:00"}, {"start": "500|500", "off": 5000, "distance": 1.0, "nobleman": 1, "catapult": 0, "ruin": false, "player": "player0", "t1": "09:00:00", "t2": "10:00:00"}]}'
-        )
-        self.assertEqual(outline_overview.weights_json, weights)
 
-        targets = (
-            '{"'
-            + f"{target.pk}"
-            + '": {"target": "500|499", "player": "player1", "fake": false, "ruin": false}}'
+        expected_weights_json = {
+            f"{target.pk}": [
+                {
+                    "id": WeightModel.objects.get(state__outline=outline, off=100).pk,
+                    "start": "500|501",
+                    "player": "player0",
+                    "off": 100,
+                    "nobleman": 0,
+                    "catapult": 0,
+                    "ruin": False,
+                    "distance": 2.0,
+                    "time_seconds": 82800,
+                    "t1": "07:00:00",
+                    "t2": "09:00:00",
+                    "delivery_t1": "2021-03-03T07:00:00+01:00",
+                    "delivery_t2": "2021-03-03T09:00:00+01:00",
+                    "shipment_t1": "2021-03-03T06:00:00+01:00",
+                    "shipment_t2": "2021-03-03T08:00:00+01:00",
+                    "village_id": 0,
+                    "player_id": 0,
+                    "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                },
+                {
+                    "id": WeightModel.objects.get(state__outline=outline, off=19000).pk,
+                    "start": "500|502",
+                    "player": "player0",
+                    "off": 19000,
+                    "nobleman": 0,
+                    "catapult": 0,
+                    "ruin": False,
+                    "distance": 3.0,
+                    "time_seconds": 81000,
+                    "t1": "07:00:00",
+                    "t2": "09:00:00",
+                    "delivery_t1": "2021-03-03T07:00:00+01:00",
+                    "delivery_t2": "2021-03-03T09:00:00+01:00",
+                    "shipment_t1": "2021-03-03T05:30:00+01:00",
+                    "shipment_t2": "2021-03-03T07:30:00+01:00",
+                    "village_id": 0,
+                    "player_id": 0,
+                    "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                },
+                {
+                    "id": WeightModel.objects.get(state__outline=outline, off=5000).pk,
+                    "start": "500|500",
+                    "player": "player0",
+                    "off": 5000,
+                    "nobleman": 1,
+                    "catapult": 0,
+                    "ruin": False,
+                    "distance": 1.0,
+                    "time_seconds": 84300,
+                    "t1": "09:00:00",
+                    "t2": "10:00:00",
+                    "delivery_t1": "2021-03-03T09:00:00+01:00",
+                    "delivery_t2": "2021-03-03T10:00:00+01:00",
+                    "shipment_t1": "2021-03-03T08:25:00+01:00",
+                    "shipment_t2": "2021-03-03T09:25:00+01:00",
+                    "village_id": 0,
+                    "player_id": 0,
+                    "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                },
+            ]
+        }
+        self.assertEqual(
+            json.loads(outline_overview.weights_json), expected_weights_json
         )
-        self.assertEqual(outline_overview.targets_json, targets)
+
+        expected_target_json = {
+            f"{target.pk}": {
+                "id": target.pk,
+                "target": "500|499",
+                "player": "player1",
+                "fake": False,
+                "ruin": False,
+                "village_id": 0,
+                "player_id": 0,
+            }
+        }
+        self.assertEqual(
+            json.loads(outline_overview.targets_json),
+            expected_target_json,
+        )
+
+        expected_world_json = {
+            "id": outline.world.pk,
+            "name": "te1",
+            "server": "testserver",
+            "speed_units": 1.0,
+            "speed_world": 1.0,
+            "full_game_name": "",
+        }
+        self.assertEqual(
+            outline_overview.world_json,
+            expected_world_json,
+        )
+
+        expected_outline_json = {"id": outline.pk, "date": "2021-03-03"}
+        self.assertEqual(
+            outline_overview.outline_json,
+            expected_outline_json,
+        )
+
+        ## small rest for rest api public_outline_overview view
+        PATH = reverse("rest_api:public_outline_overview")
+        response = self.client.get(f"{PATH}?token={overview.token}")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json(),
+            {
+                "outline": expected_outline_json,
+                "world": expected_world_json,
+                "targets": [
+                    {
+                        "target": expected_target_json[f"{target.pk}"],
+                        "my_orders": expected_weights_json[f"{target.pk}"],
+                        "other_orders": [],
+                    }
+                ],
+            },
+        )

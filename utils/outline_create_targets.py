@@ -16,7 +16,8 @@
 
 from django.utils.timezone import now
 
-from base.models import Outline, Player, TargetVertex
+from base.models import Outline, TargetVertex
+from base.models.village_model import VillageModel
 from utils import basic
 
 
@@ -38,7 +39,7 @@ class OutlineCreateTargets:
         self.outline: Outline = outline
         self.target_mode: basic.TargetMode = target_mode
         self.target_text: list[str] = []
-        self.village_dict: dict[str, Player] = {}
+        self.villages_map: dict[str, VillageModel] = {}
 
     def _fill_target_text(self) -> None:
         if self.target_mode.is_fake:
@@ -60,7 +61,7 @@ class OutlineCreateTargets:
         if self.target_text == [""]:
             return None
 
-        self._fill_village_dict()
+        self._fill_villages_map()
         targets: list[TargetVertex] = []
 
         line: str
@@ -100,15 +101,17 @@ class OutlineCreateTargets:
         exact_off: list[str],
         exact_noble: list[str],
     ) -> TargetVertex:
-        player = self.village_dict[coord]
+        village = self.villages_map[coord]
         target = TargetVertex(
             outline=self.outline,
             target=coord,
             fake=self.target_mode.is_fake,
             ruin=self.target_mode.is_ruin,
-            player=player.name if player else "",
-            points=player.points if player else 0,
-            player_created_at=player.created_at if player else now(),
+            player=village.player.name if village.player else "",
+            points=village.player.points if village.player else 0,
+            player_created_at=village.player.created_at if village.player else now(),
+            player_id=village.player.player_id if village.player else None,
+            village_id=village.village_id,
             required_off=off,
             required_noble=noble,
             exact_off=exact_off,
@@ -123,12 +126,22 @@ class OutlineCreateTargets:
         )
         return target
 
-    def _fill_village_dict(self) -> None:
+    def _fill_villages_map(self) -> None:
         """Create a dictionary with player models"""
 
         coords: list[str] = [line.split(":")[0] for line in self.target_text]
-        village_long_str: str = " ".join(coords)
 
-        self.village_dict = basic.coord_to_player_model_from_string(
-            village_coord_list=village_long_str, world=self.outline.world
+        villages = (
+            VillageModel.objects.select_related("player")
+            .filter(world=self.outline.world, coord__in=coords)
+            .only(
+                "coord",
+                "village_id",
+                "player__name",
+                "player__points",
+                "player__created_at",
+                "player__player_id",
+            )
         )
+
+        self.villages_map = {village.coord: village for village in villages}

@@ -18,7 +18,7 @@
 from .army import Army, ArmyError, Defence, DefenceError, world_evidence  # noqa
 from .target_calculations import TargetsCalculations  # noqa
 from .create_test_world import create_test_world  # noqa
-from .dictionary import coord_to_player, coord_to_player_model_from_string  # noqa
+from .dictionary import coord_to_player  # noqa
 from .draw_table import draw_table  # noqa
 from .encode_component import encode_component  # noqa
 from .info_generatation import OutlineInfo, TargetCount  # noqa

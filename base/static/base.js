@@ -1071,3 +1071,11 @@ const changeWeightBuildingDirect = async (changingElement, outline_id) => {
     nameOfBuilding.innerHTML = `<b>${data.name}</b>`;
   }
 };
+
+const activateTimezoneInfo = () => {
+  let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  if (!tz) {
+    tz = "UTC";
+  }
+  document.cookie = "mytz=" + tz + ";path=/";
+};

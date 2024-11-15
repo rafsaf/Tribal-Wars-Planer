@@ -14,6 +14,7 @@
 # ==============================================================================
 
 import datetime
+import json
 import logging
 
 import prometheus_client
@@ -25,14 +26,21 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone, translation
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+)
 from prometheus_client import multiprocess
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, throttle_classes
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 import metrics
+from base import models
 from base.management.commands.initstripe import synchronize_stripe
 from base.models import (
     Outline,
@@ -45,6 +53,7 @@ from base.models import (
     WeightMaximum,
     WeightModel,
 )
+from rest_api import serializers
 from rest_api.permissions import MetricsExportSecretPermission
 from rest_api.serializers import (
     ChangeBuildingsArraySerializer,
@@ -60,12 +69,14 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 log = logging.getLogger(__name__)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def healthcheck(request: Request):
     return Response(status=status.HTTP_200_OK)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def target_time_update(request: Request):
@@ -99,6 +110,7 @@ def target_time_update(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_target(request: Request):
@@ -132,6 +144,7 @@ def delete_target(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def overview_state_update(request: Request):
@@ -156,6 +169,7 @@ def overview_state_update(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def change_weight_model_buildings(request: Request):
@@ -177,6 +191,7 @@ def change_weight_model_buildings(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def change_buildings_array(request: Request):
@@ -196,6 +211,7 @@ def change_buildings_array(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def reset_user_messages(request: Request):
@@ -208,6 +224,7 @@ def reset_user_messages(request: Request):
     return Response(status=status.HTTP_200_OK)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def stripe_config(request: Request):
@@ -215,6 +232,7 @@ def stripe_config(request: Request):
     return Response(stripe_config, status=status.HTTP_200_OK)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def stripe_checkout_session(request: Request):  # pragma: no cover
@@ -277,6 +295,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
@@ -364,6 +383,7 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(tags=["internal"])
 @api_view(["GET"])
 @permission_classes([AllowAny, MetricsExportSecretPermission])
 def metrics_export(request: Request):
@@ -375,9 +395,90 @@ def metrics_export(request: Request):
     )
 
 
+@extend_schema(tags=["internal"])
 @api_view(["GET"])
 @permission_classes([IsAdminUser])
-def trigger_error(request) -> HttpResponse:
+def trigger_error(_: Request) -> HttpResponse:
     division_by_zero = 1 / 0  # type: ignore # noqa: F841
 
     return HttpResponse()
+
+
+@extend_schema(
+    tags=["public"],
+    parameters=[OpenApiParameter(name="token", type=OpenApiTypes.STR)],
+    responses={200: serializers.OverviewSerializer, 400: {}},
+)
+@api_view(["GET"])
+@permission_classes([AllowAny])
+@throttle_classes([AnonRateThrottle, UserRateThrottle])
+def public_overview(request: Request) -> HttpResponse:
+    token = request.query_params.get("token")
+
+    overview: models.Overview = get_object_or_404(
+        models.Overview.objects.select_related("outline_overview").filter(pk=token)
+    )
+    outline_overview: models.OutlineOverview = overview.outline_overview
+
+    query = []
+    targets = json.loads(outline_overview.targets_json)
+    weights = json.loads(outline_overview.weights_json)
+
+    if overview.show_hidden:
+        for target, lst in weights.items():
+            for weight in lst:
+                if weight["player"] == overview.player:
+                    query.append(
+                        {
+                            "target": targets[target],
+                            "my_orders": [
+                                weight
+                                for weight in lst
+                                if weight["player"] == overview.player
+                            ],
+                            "other_orders": [
+                                weight
+                                for weight in lst
+                                if weight["player"] != overview.player
+                            ],
+                        }
+                    )
+                    break
+
+    else:
+        for target, lst in weights.items():
+            owns = [weight for weight in lst if weight["player"] == overview.player]
+
+            if len(owns) > 0:
+                alls = False
+                for weight in owns:
+                    if weight["nobleman"] > 0 and weight["distance"] < 14:
+                        alls = True
+                        break
+                if alls:
+                    others = [
+                        weight for weight in lst if weight["player"] != overview.player
+                    ]
+                else:
+                    others = []
+
+                query.append(
+                    {
+                        "target": targets[target],
+                        "my_orders": owns,
+                        "other_orders": others,
+                    }
+                )
+    output = serializers.OverviewSerializer(
+        data={
+            "outline": outline_overview.outline_json,
+            "world": outline_overview.world_json,
+            "targets": query,
+        }
+    )
+    if not output.is_valid():
+        return Response(data=output.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(
+        data=output.data,
+        status=status.HTTP_200_OK,
+    )

@@ -6,6 +6,7 @@ mkdir prometheus_multi_proc_dir || true
 mkdir media || true
 mkdir logs || true
 mkdir disk_cache || true
+mkdir default_disk_cache || true
 
 echo "staticfiles collection"
 python manage.py collectstatic --no-input

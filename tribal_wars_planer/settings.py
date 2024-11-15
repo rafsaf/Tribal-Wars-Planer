@@ -113,6 +113,7 @@ INSTALLED_APPS = [
     "two_factor",
     "two_factor.plugins.email",
     "two_factor.plugins.yubikey",
+    "drf_spectacular",
 ]
 
 REST_FRAMEWORK = {
@@ -123,6 +124,16 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication"
     ],
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_THROTTLE_RATES": {"anon": "25/min", "user": "25/min"},
+    "NUM_PROXIES": 2,
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Tribal Wars Planer API",
+    "DESCRIPTION": "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators.",
+    "VERSION": BUILD_TAG,
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
@@ -394,3 +405,16 @@ LOGGING = {
 fanout_cache = FanoutCache(
     directory=BASE_DIR / "disk_cache", shards=20, timeout=1, size_limit=20 * 2**30
 )
+
+CACHES = {
+    "default": {
+        "BACKEND": "diskcache.DjangoCache",
+        "LOCATION": str(BASE_DIR / "default_disk_cache"),
+        "TIMEOUT": 300,
+        # ^-- Django setting for default timeout of each key.
+        "SHARDS": 8,
+        "DATABASE_TIMEOUT": 0.010,  # 10 milliseconds
+        # ^-- Timeout for each DjangoCache database transaction.
+        "OPTIONS": {"size_limit": 2 * 2**30},  # 2 gigabyte
+    },
+}

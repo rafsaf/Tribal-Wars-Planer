@@ -49,6 +49,7 @@ class WeightModel(models.Model):
     target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE, db_index=True)
     state = models.ForeignKey(WeightMaximum, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
+    village_id = models.IntegerField(default=0)
     off = models.IntegerField()
     distance = models.FloatField()
     nobleman = models.IntegerField()
@@ -59,6 +60,7 @@ class WeightModel(models.Model):
     )
     order = models.IntegerField()
     player = models.CharField(max_length=40)
+    player_id = models.IntegerField(default=0)
     first_line = models.BooleanField(default=False)
 
     t1: datetime

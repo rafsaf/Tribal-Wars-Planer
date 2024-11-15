@@ -80,6 +80,7 @@ class MakeFinalOutline:
         self.player_id_dictionary: dict[str, str] = {}
         self.village_id_dictionary: dict[str, str] = {}
         self.target_period_dict: dict[TargetVertex, list[PeriodModel]] = {}
+        self.game_url = outline.world.link_to_game()
 
         self.targets: QuerySet[TargetVertex] = (
             (
@@ -170,23 +171,27 @@ class MakeFinalOutline:
         )
         return time_periods
 
-    @staticmethod
-    def _json_weight(weight: WeightModel):
-        result = model_to_dict(
-            weight,
-            fields=[
-                "start",
-                "player",
-                "off",
-                "nobleman",
-                "catapult",
-                "ruin",
-                "distance",
-            ],
-        )
-        result["t1"] = weight.t1.time() if weight.t1 else None
-        result["t2"] = weight.t2.time() if weight.t2 else None
-        return result
+    def _json_weight(self, weight: WeightModel, target_village_id: int):
+        return {
+            "id": weight.pk,
+            "start": weight.start,
+            "player": weight.player,
+            "off": weight.off,
+            "nobleman": weight.nobleman,
+            "catapult": weight.catapult,
+            "ruin": weight.ruin,
+            "distance": weight.distance,
+            "time_seconds": (weight.sh_t1 - weight.t1).seconds,
+            "t1": weight.t1.time(),
+            "t2": weight.t2.time(),
+            "delivery_t1": weight.t1,
+            "delivery_t2": weight.t2,
+            "shipment_t1": weight.sh_t1,
+            "shipment_t2": weight.sh_t2,
+            "village_id": weight.village_id,
+            "player_id": weight.player_id,
+            "send_url": f"{self.game_url}/game.php?village={weight.village_id}&screen=place&target={target_village_id}",
+        }
 
     def _outline_overview(
         self, json_weight_dict: str, json_targets: str
@@ -195,7 +200,17 @@ class MakeFinalOutline:
             outline=self.outline,
             weights_json=json_weight_dict,
             targets_json=json_targets,
+            world_json={
+                "id": self.outline.world.pk,
+                "full_game_name": self.outline.world.full_game_name,
+                "server": self.outline.world.server.dns,
+                "name": str(self.outline.world),
+                "speed_world": self.outline.world.speed_world,
+                "speed_units": self.outline.world.speed_units,
+            },
+            outline_json=model_to_dict(self.outline, fields=["id", "date"]),
         )
+
         return outline_overview
 
     def _calculate_period_dictionary(self) -> None:
@@ -238,7 +253,9 @@ class MakeFinalOutline:
 
                 for weight in lst:
                     weight_lst.append(weight)
-                    json_weights[target.pk].append(self._json_weight(weight))
+                    json_weights[target.pk].append(
+                        self._json_weight(weight, target.village_id)
+                    )
 
             text.create_weights(weight_lst)
 
@@ -301,10 +318,13 @@ class MakeFinalOutline:
         target: models.TargetVertex
         for target in self.targets:
             context[target.pk] = {
+                "id": target.pk,
                 "target": target.target,
                 "player": target.player,
                 "fake": target.fake,
                 "ruin": target.ruin,
+                "village_id": target.village_id,
+                "player_id": target.player_id,
             }
         return json.dumps(context)
 
