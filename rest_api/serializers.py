@@ -116,6 +116,8 @@ class WeightSerializer(serializers.Serializer):
     ruin = serializers.BooleanField()
     distance = serializers.FloatField()
     time_seconds = serializers.IntegerField()
+    t1 = serializers.TimeField()
+    t2 = serializers.TimeField()
     delivery_t1 = serializers.DateTimeField()
     delivery_t2 = serializers.DateTimeField()
     shipment_t1 = serializers.DateTimeField()
