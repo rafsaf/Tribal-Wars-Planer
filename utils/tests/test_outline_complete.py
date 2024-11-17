@@ -1011,7 +1011,10 @@ class TestOutlineCreateTargets(TestCase):
     def test_ruin_type_outline_smithy(self):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"
-        self.outline.initial_outline_buildings = [BUILDING.SMITHY.value, "clay_pit"]
+        self.outline.initial_outline_buildings = [
+            BUILDING.SMITHY.value,
+            BUILDING.CLAY_PIT.value,
+        ]
         self.outline.initial_outline_catapult_max_value = 200
         self.outline.initial_outline_off_left_catapult = 0
         self.outline.save()
@@ -1063,7 +1066,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[2].start, "500|503")
         self.assertEqual(created[2].off, 800)
         self.assertEqual(created[2].catapult, 100)
-        self.assertEqual(created[2].building, "clay_pit")
+        self.assertEqual(created[2].building, BUILDING.CLAY_PIT.value)
         self.assertEqual(created[2].nobleman, 0)
         self.assertEqual(created[2].distance, 4)
         self.assertEqual(created[2].state.off_left, 20100)
