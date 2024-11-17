@@ -77,7 +77,7 @@ def healthcheck(request: Request):
     return Response(status=status.HTTP_200_OK)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def target_time_update(request: Request):
@@ -111,7 +111,7 @@ def target_time_update(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_target(request: Request):
@@ -145,7 +145,7 @@ def delete_target(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def overview_state_update(request: Request):
@@ -170,7 +170,7 @@ def overview_state_update(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def change_weight_model_buildings(request: Request):
@@ -192,7 +192,7 @@ def change_weight_model_buildings(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def change_buildings_array(request: Request):
@@ -212,7 +212,7 @@ def change_buildings_array(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def reset_user_messages(request: Request):
@@ -225,7 +225,7 @@ def reset_user_messages(request: Request):
     return Response(status=status.HTTP_200_OK)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def stripe_config(request: Request):
@@ -233,7 +233,7 @@ def stripe_config(request: Request):
     return Response(stripe_config, status=status.HTTP_200_OK)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def stripe_checkout_session(request: Request):  # pragma: no cover
@@ -296,7 +296,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
@@ -384,7 +384,7 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["GET"])
 @permission_classes([AllowAny, MetricsExportSecretPermission])
 def metrics_export(request: Request):
@@ -396,7 +396,7 @@ def metrics_export(request: Request):
     )
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(exclude=True)
 @api_view(["GET"])
 @permission_classes([IsAdminUser])
 def trigger_error(_: Request) -> HttpResponse:
@@ -406,8 +406,11 @@ def trigger_error(_: Request) -> HttpResponse:
 
 
 @extend_schema(
-    tags=["public"],
-    parameters=[OpenApiParameter(name="token", type=OpenApiTypes.STR)],
+    tags=["overview"],
+    parameters=[
+        OpenApiParameter(name="token", type=OpenApiTypes.STR),
+        OpenApiParameter(name="language", type=OpenApiTypes.STR, enum=list(LANGUAGES)),
+    ],
     responses={200: serializers.OverviewSerializer, 400: {}},
 )
 @api_view(["GET"])

@@ -134,6 +134,7 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators.",
     "VERSION": BUILD_TAG,
     "SERVE_INCLUDE_SCHEMA": False,
+    "EXTERNAL_DOCS": {"url": "https://plemiona-planer.pl/en/documentation/developers/"},
 }
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
