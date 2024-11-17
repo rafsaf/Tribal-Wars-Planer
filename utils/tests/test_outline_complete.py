@@ -25,8 +25,8 @@ from base.models import TargetVertex as Target
 from base.models.player import Player
 from base.models.result import Result
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
-from rest_api.serializers import BUILDINGS
 from utils.avaiable_troops import get_legal_coords_outline
+from utils.buildings import BUILDING, BUILDINGS_TRANSLATION
 from utils.outline_complete import complete_outline_write
 from utils.outline_initial import MakeOutline
 
@@ -934,7 +934,7 @@ class TestOutlineCreateTargets(TestCase):
     def test_ruin_type_outline_headquarters(self):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"
-        self.outline.initial_outline_buildings = ["headquarters"]
+        self.outline.initial_outline_buildings = [BUILDING.HEADQUARTERS.value]
         self.outline.initial_outline_catapult_max_value = 100
         self.outline.initial_outline_off_left_catapult = 0
         self.outline.save()
@@ -950,7 +950,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[0].start, "500|505")
         self.assertEqual(created[0].off, 800)
         self.assertEqual(created[0].catapult, 100)
-        self.assertEqual(created[0].building, "headquarters")
+        self.assertEqual(created[0].building, BUILDING.HEADQUARTERS.value)
         self.assertEqual(created[0].nobleman, 0)
         self.assertEqual(created[0].distance, 6)
         self.assertEqual(created[0].state.off_left, 20000)
@@ -965,7 +965,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[1].start, "500|504")
         self.assertEqual(created[1].off, 800)
         self.assertEqual(created[1].catapult, 100)
-        self.assertEqual(created[1].building, "headquarters")
+        self.assertEqual(created[1].building, BUILDING.HEADQUARTERS.value)
         self.assertEqual(created[1].nobleman, 0)
         self.assertEqual(created[1].distance, 5)
         self.assertEqual(created[1].state.off_left, 20000)
@@ -980,7 +980,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[2].start, "500|503")
         self.assertEqual(created[2].catapult, 25)
         self.assertEqual(created[2].off, 200)
-        self.assertEqual(created[2].building, "headquarters")
+        self.assertEqual(created[2].building, BUILDING.HEADQUARTERS.value)
         self.assertEqual(created[2].nobleman, 0)
         self.assertEqual(created[2].distance, 4)
         self.assertEqual(created[2].state.off_left, 20700)
@@ -991,7 +991,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[2].state.nobleman_state, 0)
         self.assertEqual(created[2].state.fake_limit, 4)
 
-    @parameterized.expand(sorted(BUILDINGS))
+    @parameterized.expand(sorted(BUILDINGS_TRANSLATION.keys()))
     def test_ruin_type_outline_all_buidlings_are_supported(self, building: str):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"
@@ -1011,7 +1011,7 @@ class TestOutlineCreateTargets(TestCase):
     def test_ruin_type_outline_smithy(self):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"
-        self.outline.initial_outline_buildings = ["smithy", "clay_pit"]
+        self.outline.initial_outline_buildings = [BUILDING.SMITHY.value, "clay_pit"]
         self.outline.initial_outline_catapult_max_value = 200
         self.outline.initial_outline_off_left_catapult = 0
         self.outline.save()
@@ -1033,7 +1033,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[0].start, "500|505")
         self.assertEqual(created[0].off, 1600)
         self.assertEqual(created[0].catapult, 200)
-        self.assertEqual(created[0].building, "smithy")
+        self.assertEqual(created[0].building, BUILDING.SMITHY.value)
         self.assertEqual(created[0].nobleman, 0)
         self.assertEqual(created[0].distance, 6)
         self.assertEqual(created[0].state.off_left, 20000)
@@ -1048,7 +1048,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[1].start, "500|504")
         self.assertEqual(created[1].off, 400)
         self.assertEqual(created[1].catapult, 50)
-        self.assertEqual(created[1].building, "smithy")
+        self.assertEqual(created[1].building, BUILDING.SMITHY.value)
         self.assertEqual(created[1].nobleman, 0)
         self.assertEqual(created[1].distance, 5)
         self.assertEqual(created[1].state.off_left, 20400)

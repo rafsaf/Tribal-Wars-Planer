@@ -15,24 +15,7 @@
 
 from rest_framework import serializers
 
-BUILDINGS = {
-    "headquarters",
-    "barracks",
-    "stable",
-    "workshop",
-    "academy",
-    "smithy",
-    "rally_point",
-    "statue",
-    "market",
-    "timber_camp",
-    "clay_pit",
-    "iron_mine",
-    "farm",
-    "warehouse",
-    "wall",
-    "watchtower",
-}
+from utils.buildings import BUILDINGS_TRANSLATION
 
 
 class TargetTimeUpdateSerializer(serializers.Serializer):
@@ -60,7 +43,7 @@ class ChangeBuildingsArraySerializer(serializers.Serializer):
     def validate_buildings(self, value):
         applied_buildings = []
         for item in value:
-            if item not in BUILDINGS:
+            if item not in BUILDINGS_TRANSLATION:
                 raise serializers.ValidationError(f"Invalid building: {item}")
             elif item in applied_buildings:
                 raise serializers.ValidationError(
@@ -77,7 +60,7 @@ class ChangeWeightBuildingSerializer(serializers.Serializer):
     weight_id = serializers.IntegerField()
 
     def validate_building(self, value):
-        if value not in BUILDINGS:
+        if value not in BUILDINGS_TRANSLATION:
             raise serializers.ValidationError(f"Invalid building: {value}")
         return value
 

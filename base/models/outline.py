@@ -28,13 +28,14 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy
 
 from base.models.world import World
+from utils.buildings import BUILDING, BUILDINGS_TRANSLATION
 
 
 def building_default_list() -> list[str]:
     return [
-        "farm",
-        "headquarters",
-        "smithy",
+        BUILDING.FARM.value,
+        BUILDING.HEADQUARTERS.value,
+        BUILDING.SMITHY.value,
     ]
 
 
@@ -102,24 +103,7 @@ class Outline(models.Model):
         ("hidden", gettext_lazy("Hidden")),
     ]
 
-    BUILDINGS: list[tuple[str, str]] = [
-        ("headquarters", gettext_lazy("Headquarters")),
-        ("barracks", gettext_lazy("Barracks")),
-        ("stable", gettext_lazy("Stable")),
-        ("workshop", gettext_lazy("Workshop")),
-        ("academy", gettext_lazy("Academy")),
-        ("smithy", gettext_lazy("Smithy")),
-        ("rally_point", gettext_lazy("Rally point")),
-        ("statue", gettext_lazy("Statue")),
-        ("market", gettext_lazy("Market")),
-        ("timber_camp", gettext_lazy("Timber camp")),
-        ("clay_pit", gettext_lazy("Clay pit")),
-        ("iron_mine", gettext_lazy("Iron mine")),
-        ("farm", gettext_lazy("Farm")),
-        ("warehouse", gettext_lazy("Warehouse")),
-        ("wall", gettext_lazy("Wall")),
-        ("watchtower", gettext_lazy("Watchtower")),
-    ]
+    BUILDINGS = BUILDINGS_TRANSLATION.items()
 
     RUINED_VILLAGES_POINTS: list[tuple[str, str]] = [
         ("big", gettext_lazy("Average greater than 8k")),
