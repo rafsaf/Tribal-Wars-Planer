@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+from typing import Any
+
 from rest_framework import serializers
 
 from utils.buildings import BUILDINGS_TRANSLATION
@@ -101,6 +103,8 @@ class WeightSerializer(serializers.Serializer):
     time_seconds = serializers.IntegerField()
     t1 = serializers.TimeField()
     t2 = serializers.TimeField()
+    building = serializers.CharField(allow_blank=True, allow_null=True)
+    building_name = serializers.SerializerMethodField()
     delivery_t1 = serializers.DateTimeField()
     delivery_t2 = serializers.DateTimeField()
     shipment_t1 = serializers.DateTimeField()
@@ -108,6 +112,9 @@ class WeightSerializer(serializers.Serializer):
     village_id = serializers.IntegerField()
     player_id = serializers.IntegerField()
     send_url = serializers.CharField()
+
+    def get_building_name(self, obj: Any) -> str | None:
+        return BUILDINGS_TRANSLATION.get(obj.get("building"))
 
 
 class TargetOrdersSerializer(serializers.Serializer):
