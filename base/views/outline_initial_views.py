@@ -504,11 +504,13 @@ def initial_planer(  # noqa: PLR0912,PLR0911
     outline_time_dict = instance.get_outline_times()
 
     select_formset = formset_factory(
-        form=forms.ChooseOutlineTimeForm, extra=12, max_num=12
+        form=forms.ChooseOutlineTimeForm,  # type: ignore
+        extra=12,
+        max_num=12,
     )
 
     create_formset = formset_factory(
-        form=forms.PeriodForm,
+        form=forms.PeriodForm,  # type: ignore
         formset=forms.BasePeriodFormSet,
         extra=6,
         min_num=2,
@@ -542,7 +544,7 @@ def initial_planer(  # noqa: PLR0912,PLR0911
             return redirect("base:planer_detail_results", _id)
 
         if "formset" in request.POST:
-            create_formset = create_formset(request.POST)
+            create_formset = create_formset(request.POST)  # type: ignore
             select_formset = select_formset()
             if create_formset.is_valid():
                 instance.actions.save_time_created(instance)

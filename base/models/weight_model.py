@@ -18,33 +18,16 @@ from datetime import datetime
 from math import sqrt
 
 from django.db import models
-from django.utils.translation import gettext_lazy
 
 from base.models.target_vertex import TargetVertex
 from base.models.weight_maximum import WeightMaximum
+from utils.buildings import BUILDINGS_TRANSLATION
 
 
 class WeightModel(models.Model):
     """Command between start and target"""
 
-    BUILDINGS: list[tuple[str, str]] = [
-        ("headquarters", gettext_lazy("Headquarters")),
-        ("barracks", gettext_lazy("Barracks")),
-        ("stable", gettext_lazy("Stable")),
-        ("workshop", gettext_lazy("Workshop")),
-        ("academy", gettext_lazy("Academy")),
-        ("smithy", gettext_lazy("Smithy")),
-        ("rally_point", gettext_lazy("Rally point")),
-        ("statue", gettext_lazy("Statue")),
-        ("market", gettext_lazy("Market")),
-        ("timber_camp", gettext_lazy("Timber camp")),
-        ("clay_pit", gettext_lazy("Clay pit")),
-        ("iron_mine", gettext_lazy("Iron mine")),
-        ("farm", gettext_lazy("Farm")),
-        ("warehouse", gettext_lazy("Warehouse")),
-        ("wall", gettext_lazy("Wall")),
-        ("watchtower", gettext_lazy("Watchtower")),
-    ]
+    BUILDINGS = BUILDINGS_TRANSLATION.items()
 
     target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE, db_index=True)
     state = models.ForeignKey(WeightMaximum, on_delete=models.CASCADE)

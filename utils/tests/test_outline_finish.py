@@ -161,6 +161,7 @@ class TestMakeFinalOutline(TestCase):
             "delivery_t2": datetime.datetime(
                 2021, 3, 3, 10, 0, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
             ),
+            "building": None,
             "shipment_t1": datetime.datetime(
                 2021, 3, 3, 8, 25, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
             ),
@@ -292,6 +293,7 @@ class TestMakeFinalOutline(TestCase):
                     "t2": "09:00:00",
                     "delivery_t1": "2021-03-03T07:00:00+01:00",
                     "delivery_t2": "2021-03-03T09:00:00+01:00",
+                    "building": None,
                     "shipment_t1": "2021-03-03T06:00:00+01:00",
                     "shipment_t2": "2021-03-03T08:00:00+01:00",
                     "village_id": 0,
@@ -312,6 +314,7 @@ class TestMakeFinalOutline(TestCase):
                     "t2": "09:00:00",
                     "delivery_t1": "2021-03-03T07:00:00+01:00",
                     "delivery_t2": "2021-03-03T09:00:00+01:00",
+                    "building": None,
                     "shipment_t1": "2021-03-03T05:30:00+01:00",
                     "shipment_t2": "2021-03-03T07:30:00+01:00",
                     "village_id": 0,
@@ -332,6 +335,7 @@ class TestMakeFinalOutline(TestCase):
                     "t2": "10:00:00",
                     "delivery_t1": "2021-03-03T09:00:00+01:00",
                     "delivery_t2": "2021-03-03T10:00:00+01:00",
+                    "building": None,
                     "shipment_t1": "2021-03-03T08:25:00+01:00",
                     "shipment_t2": "2021-03-03T09:25:00+01:00",
                     "village_id": 0,
@@ -383,6 +387,11 @@ class TestMakeFinalOutline(TestCase):
         PATH = reverse("rest_api:public_outline_overview")
         response = self.client.get(f"{PATH}?token={overview.token}")
         self.assertEqual(response.status_code, 200)
+
+        # hack building name that is computed dynamicly
+        for item in expected_weights_json[f"{target.pk}"]:
+            item["building_name"] = None
+
         self.assertEqual(
             response.json(),
             {

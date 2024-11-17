@@ -18,6 +18,7 @@ import json
 from django.urls import reverse
 
 from base.tests.test_utils.mini_setup import MiniSetup
+from utils.buildings import BUILDING
 
 
 class ChangeBuildingsArray(MiniSetup):
@@ -29,7 +30,12 @@ class ChangeBuildingsArray(MiniSetup):
             PATH,
             data=json.dumps(
                 {
-                    "buildings": ["stable", "workshop", "academy", "smithy"],
+                    "buildings": [
+                        BUILDING.STABLE.value,
+                        BUILDING.WORKSHOP.value,
+                        BUILDING.ACADEMY.value,
+                        BUILDING.SMITHY.value,
+                    ],
                     "outline_id": outline.pk,
                 }
             ),
@@ -47,7 +53,12 @@ class ChangeBuildingsArray(MiniSetup):
             PATH,
             data=json.dumps(
                 {
-                    "buildings": ["stable", "workshop", "academy", "smithy"],
+                    "buildings": [
+                        BUILDING.STABLE.value,
+                        BUILDING.WORKSHOP.value,
+                        BUILDING.ACADEMY.value,
+                        BUILDING.SMITHY.value,
+                    ],
                     "outline_id": outline.pk,
                 }
             ),
@@ -65,7 +76,12 @@ class ChangeBuildingsArray(MiniSetup):
             PATH,
             data=json.dumps(
                 {
-                    "buildings": ["stable", "workshop", "academy", "smithy"],
+                    "buildings": [
+                        BUILDING.STABLE.value,
+                        BUILDING.WORKSHOP.value,
+                        BUILDING.ACADEMY.value,
+                        BUILDING.SMITHY.value,
+                    ],
                     "outline_id": outline.pk,
                 }
             ),
@@ -75,10 +91,10 @@ class ChangeBuildingsArray(MiniSetup):
         assert response.status_code == 200
         outline.refresh_from_db()
         assert outline.initial_outline_buildings == [
-            "stable",
-            "workshop",
-            "academy",
-            "smithy",
+            BUILDING.STABLE.value,
+            BUILDING.WORKSHOP.value,
+            BUILDING.ACADEMY.value,
+            BUILDING.SMITHY.value,
         ]
 
     def test_change_buildings_array___400_invalid_building_name(self):
@@ -116,7 +132,7 @@ class ChangeBuildingsArray(MiniSetup):
             PATH,
             data=json.dumps(
                 {
-                    "buildings": ["stable", "stable"],
+                    "buildings": [BUILDING.STABLE.value, BUILDING.STABLE.value],
                     "outline_id": outline.pk,
                 }
             ),

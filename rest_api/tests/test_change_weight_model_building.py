@@ -19,6 +19,7 @@ from django.urls import reverse
 
 from base.models import TargetVertex
 from base.tests.test_utils.mini_setup import MiniSetup
+from utils.buildings import BUILDING, BUILDINGS_TRANSLATION
 
 
 class ChangeWeightModelBuilding(MiniSetup):
@@ -35,7 +36,7 @@ class ChangeWeightModelBuilding(MiniSetup):
             PATH,
             data=json.dumps(
                 {
-                    "building": "headquarters",
+                    "building": BUILDING.HEADQUARTERS.value,
                     "outline_id": outline.pk,
                     "weight_id": weight.pk,
                 }
@@ -59,7 +60,7 @@ class ChangeWeightModelBuilding(MiniSetup):
             PATH,
             data=json.dumps(
                 {
-                    "building": "headquarters",
+                    "building": BUILDING.HEADQUARTERS.value,
                     "outline_id": outline.pk,
                     "weight_id": weight.pk,
                 }
@@ -82,18 +83,20 @@ class ChangeWeightModelBuilding(MiniSetup):
             PATH,
             data=json.dumps(
                 {
-                    "building": "headquarters",
+                    "building": BUILDING.HEADQUARTERS.value,
                     "outline_id": outline.pk,
                     "weight_id": weight.pk,
                 }
             ),
             content_type="application/json",
         )
-        assert response.json() == {"name": "Headquarters"}
+        assert response.json() == {
+            "name": BUILDINGS_TRANSLATION[BUILDING.HEADQUARTERS.value]
+        }
 
         assert response.status_code == 200
         weight.refresh_from_db()
-        assert weight.building == "headquarters"
+        assert weight.building == BUILDING.HEADQUARTERS.value
 
     def test_change_weight_building___400_building_name_invalid(self):
         outline = self.get_outline()

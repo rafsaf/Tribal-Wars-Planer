@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-
 import datetime
 import json
 import logging
@@ -26,6 +25,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone, translation
+from django.utils.translation import activate
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -64,6 +64,7 @@ from rest_api.serializers import (
     TargetTimeUpdateSerializer,
 )
 
+LANGUAGES: set[str] = set(lang[0] for lang in settings.LANGUAGES)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 log = logging.getLogger(__name__)
@@ -414,6 +415,11 @@ def trigger_error(_: Request) -> HttpResponse:
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
 def public_overview(request: Request) -> HttpResponse:
     token = request.query_params.get("token")
+    language = request.query_params.get("language", "en")
+    if language not in LANGUAGES:
+        language = "en"
+
+    activate(language)
 
     overview: models.Overview = get_object_or_404(
         models.Overview.objects.select_related("outline_overview").filter(pk=token)

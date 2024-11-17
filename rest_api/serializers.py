@@ -13,26 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
+from typing import Any
+
 from rest_framework import serializers
 
-BUILDINGS = {
-    "headquarters",
-    "barracks",
-    "stable",
-    "workshop",
-    "academy",
-    "smithy",
-    "rally_point",
-    "statue",
-    "market",
-    "timber_camp",
-    "clay_pit",
-    "iron_mine",
-    "farm",
-    "warehouse",
-    "wall",
-    "watchtower",
-}
+from utils.buildings import BUILDINGS_TRANSLATION
 
 
 class TargetTimeUpdateSerializer(serializers.Serializer):
@@ -60,7 +45,7 @@ class ChangeBuildingsArraySerializer(serializers.Serializer):
     def validate_buildings(self, value):
         applied_buildings = []
         for item in value:
-            if item not in BUILDINGS:
+            if item not in BUILDINGS_TRANSLATION:
                 raise serializers.ValidationError(f"Invalid building: {item}")
             elif item in applied_buildings:
                 raise serializers.ValidationError(
@@ -77,7 +62,7 @@ class ChangeWeightBuildingSerializer(serializers.Serializer):
     weight_id = serializers.IntegerField()
 
     def validate_building(self, value):
-        if value not in BUILDINGS:
+        if value not in BUILDINGS_TRANSLATION:
             raise serializers.ValidationError(f"Invalid building: {value}")
         return value
 
@@ -118,6 +103,8 @@ class WeightSerializer(serializers.Serializer):
     time_seconds = serializers.IntegerField()
     t1 = serializers.TimeField()
     t2 = serializers.TimeField()
+    building = serializers.CharField(allow_blank=True, allow_null=True)
+    building_name = serializers.SerializerMethodField()
     delivery_t1 = serializers.DateTimeField()
     delivery_t2 = serializers.DateTimeField()
     shipment_t1 = serializers.DateTimeField()
@@ -125,6 +112,9 @@ class WeightSerializer(serializers.Serializer):
     village_id = serializers.IntegerField()
     player_id = serializers.IntegerField()
     send_url = serializers.CharField()
+
+    def get_building_name(self, obj: Any) -> str | None:
+        return BUILDINGS_TRANSLATION.get(obj.get("building"))
 
 
 class TargetOrdersSerializer(serializers.Serializer):

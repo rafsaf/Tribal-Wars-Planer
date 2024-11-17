@@ -184,6 +184,7 @@ class MakeFinalOutline:
             "time_seconds": (weight.sh_t1 - weight.t1).seconds,
             "t1": weight.t1.time(),
             "t2": weight.t2.time(),
+            "building": weight.building,
             "delivery_t1": weight.t1,
             "delivery_t2": weight.t2,
             "shipment_t1": weight.sh_t1,
