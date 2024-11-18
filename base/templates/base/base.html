@@ -354,8 +354,8 @@
                         <footer class="footer-center">
                             <div>
                                 <p>{% trans 'This site is free of 3rd party trackers, we belive in privacy, refer to '%} <a target="_blank" href="{% static 'privacy-policy-04-02-2023.pdf' %}">{% trans 'our privacy policy and regulations.' %}</a></p>
-                                <p>Build version: <i>{{ BUILD_TAG }}</i></p>
-                                <p class="footer-link">&copy; 2020-2024 <a href='https://www.rafsaf.pl'>rafsaf.pl</a></p>
+                                <p>{% trans 'Version' %}: <i>{{ BUILD_TAG }}</i></p>
+                                <p class="footer-link">&copy; <span id="footer-years">2020 </span> <a href='https://www.rafsaf.pl'>rafsaf.pl</a></p>
                             </div>
                         </footer>
                     {% endblock %}
@@ -375,7 +375,7 @@
             <script async src="https://js.stripe.com/v3/" type="text/javascript"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha512-xeUh+KxNyTufZOje++oQHstlMQ8/rpyzPuM+gjMFYK3z5ILJGE7l2NvYL+XfliKURMpBIKKp1XoPN/qswlSMFA==" crossorigin="anonymous" referrerpolicy="no-referrer" type="text/javascript"></script>
             <script src="{% static 'min.base.js' %}" type="text/javascript"></script>
-            <script>activateTooltips();menu_toggle();activateTimezoneInfo();</script>
+            <script>activateTooltips();menu_toggle();activateTimezoneInfo();setFooterYears();</script>
             {% block scripts %}
             {% endblock %}
         {% endspaceless %}

@@ -1079,3 +1079,8 @@ const activateTimezoneInfo = () => {
   }
   document.cookie = "mytz=" + tz + ";path=/";
 };
+
+const setFooterYears = () => {
+  const footerYearEl = document.getElementById("footer-years");
+  footerYearEl.innerText = `2020-${new Date().getFullYear()} `;
+};
