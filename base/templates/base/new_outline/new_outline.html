@@ -59,9 +59,6 @@
                 <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'Last world update: ' %}{{instance.world.update}}</div>
             </div>
 
-            <script src="{% static 'codemirror-min.js' %}"></script>
-            <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
-
             <div class="row">
 
                 <div class="col-12">
@@ -89,7 +86,7 @@
 
                             {{ form1.off_troops }}
                             {% if off_troops.errors %}
-                                <script>codemirrorValidation(`{{off_troops.get_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
+                                <script type="module">codemirrorValidation(`{{off_troops.get_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
 
                                 <div class="error-text mb-1">
                                     <p class="mb-0">{% trans 'Incorrect data in' %} {{off_troops.errors|length}} {% trans 'lines.' %}</p>
@@ -105,7 +102,7 @@
                                 <div class="error-text mb-3">
                                     {% trans 'The text cannot be empty' %}.
                                 </div>
-                                <script>
+                                <script type="module">
                                     document.addEventListener("DOMContentLoaded", function(event) {
                                         $('.cm-s-off-troops-codemirror').addClass('CodeMirror-Invalid');
                                     });
@@ -115,7 +112,7 @@
                         <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}</button>
                     </form>
                 </div>
-                <script>
+                <script type="module">
                     var editor1 = CodeMirror.fromTextArea(document.getElementById("id_off_troops"), {
                         theme: 'off-troops-codemirror',
                         lineNumbers: true,
@@ -150,8 +147,8 @@
 
                             {% if deff_troops.errors %}
 
-                                <script>codemirrorValidation(`{{deff_troops.get_json|safe}}`, `.cm-s-deff-troops-codemirror`);</script>
-                                <script>
+                                <script type="module">codemirrorValidation(`{{deff_troops.get_json|safe}}`, `.cm-s-deff-troops-codemirror`);</script>
+                                <script type="module">
                                     document.addEventListener("DOMContentLoaded", function(event) {
                                         document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
                                     });
@@ -171,7 +168,7 @@
                                 <div class="error-text mb-3">
                                     {% trans 'The text cannot be empty' %}.
                                 </div>
-                                <script>
+                                <script type="module">
                                     document.addEventListener("DOMContentLoaded", function(event) {
                                         $('.cm-s-deff-troops-codemirror').addClass('CodeMirror-Invalid');
                                     });
@@ -181,7 +178,7 @@
                         <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3">{% trans 'Submit' %}</button>
                     </form>
                 </div>
-                <script>
+                <script type="module">
                     var editor2 = CodeMirror.fromTextArea(document.getElementById("id_deff_troops"), {
                         theme: 'deff-troops-codemirror',
                         lineNumbers: true,
@@ -189,7 +186,7 @@
                     editor2.replaceSelection(`{{deff_troops.troops}}`)
                 </script>
                 {% if not deff_troops.errors and not message_deff %}
-                    <script>window.scrollTo(0,0)</script>
+                    <script type="module">window.scrollTo(0,0)</script>
                 {% endif %}
             </div>
         </div>
@@ -245,6 +242,8 @@
         </script>
 
     {% endif %}
+{% endblock %}
+{% block scripts %}
     {% get_current_language as LANG %}
     <script>
         loadDocsPage(8, "planer-docs-scripts-info", "{% static 'markdown/'|add:LANG|add:'/planer_scripts_info.md' %}");

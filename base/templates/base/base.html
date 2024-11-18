@@ -8,20 +8,22 @@
 
         {% block meta-content %}<meta name="description" content="{% trans 'Tribal Wars Planer, professional tool for creating outlines for off-game coordinators.' %}"/>{% endblock %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css" integrity="sha512-kKZ/XwW91zX5u2On9zBR4yAyVb3TXr39ndgkBajTyc4ReR+uYKp7JVimYxrUanPfsYAeJlqyA/OhaI+C60AhuA==" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" integrity="sha512-/Ae8qSd9X8ajHk6Zty0m8yfnKJPlelk42HTJjOHDWs1Tjr41RfsSkceZ/8yyJGLkxALGMIYd5L2oGemy/x1PLg==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
         <link rel="stylesheet" href="{% static 'min.base.css' %}">
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha512-xeUh+KxNyTufZOje++oQHstlMQ8/rpyzPuM+gjMFYK3z5ILJGE7l2NvYL+XfliKURMpBIKKp1XoPN/qswlSMFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script type="text/javascript" src="{% static 'min.base.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         {% block extra_media %}{% endblock %}
         {% block media_overwrite %}{% endblock %}
     </head>
 
     <body>
+
         <div class="d-flex" id="wrapper">{% spaceless %}
             <div class="d-none d-lg-flex">
                 {% if user.is_authenticated %}
@@ -360,11 +362,22 @@
                 </div>
             </div>
             </div>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.pl.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+            <script src="{% static 'codemirror-min.js' %}" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.pl.min.js" integrity="sha512-ScqJL8X5IqP89pKmQnXULodix6OkrTtcWiTdJxPGPGdrncyJkI7KOwNRPqzZ6lWnTk/u5xboSjEeYQgeyOHyhQ==" crossorigin="anonymous" type="text/javascript"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" type="text/javascript"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" type="text/javascript"></script>
+            <script src="{% static 'multi-select-min.js' %}" type="text/javascript"></script>
+            <script src="https://kit.fontawesome.com/dc3f7108e7.js" integrity="sha512-cMPWAldNVrDFlwDaQCSENXt9XtBTGYupm5oDKcE7Mx28X/BUGpgCb80BIJgsjAg434/aSwperytDqUxZ3W6guA==" crossorigin="anonymous" type="text/javascript"></script>
+            <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js" integrity="sha512-U1GSlF9WmXVJYXaTMtWir7B4uonAtyyhMhCAeOgGdFbWziocfexf33WUFYgXXEq+i29ptsFMGF0i1UR50XL7xA==" crossorigin="anonymous" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js" integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA==" crossorigin="anonymous" type="text/javascript"></script>
+            <script src="https://use.fontawesome.com/0cd1dfa084.js" integrity="sha512-XSA7J/2GxUaMIJDzp7A2wdLpeLM92mubLDuQH8s9RZ4EF6RQ2c2kn6fVcDf4ePc5yxpRhRfbGGswTHZmRnmwxQ==" crossorigin="anonymous" type="text/javascript"></script>
+            <script async src="https://js.stripe.com/v3/" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha512-xeUh+KxNyTufZOje++oQHstlMQ8/rpyzPuM+gjMFYK3z5ILJGE7l2NvYL+XfliKURMpBIKKp1XoPN/qswlSMFA==" crossorigin="anonymous" referrerpolicy="no-referrer" type="text/javascript"></script>
+            <script src="{% static 'min.base.js' %}" type="text/javascript"></script>
             <script>activateTooltips();menu_toggle();activateTimezoneInfo();</script>
+            {% block scripts %}
+            {% endblock %}
         {% endspaceless %}
         </body>
     </html>

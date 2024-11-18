@@ -478,6 +478,11 @@
             </div>
         </div>
     </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block scripts %}
     <script>
         scroll_content_outline();
         modal();
@@ -486,7 +491,4 @@
         var tabPlanerMenuHasBeenHidden = false;
         document.addEventListener("visibilitychange", handlePlanerMenuVisibilityChange, false);
     </script>
-
-{% endblock %}
-{% block footer %}
 {% endblock %}

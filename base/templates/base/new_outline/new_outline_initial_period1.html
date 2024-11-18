@@ -6,14 +6,6 @@
   {% load crispy_forms_tags %}
   {% get_current_language as LANG %}
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
-  <link rel="stylesheet" href="{% static 'codemirror-min.css' %}">
-  <script src="{% static 'codemirror-min.js' %}"></script>
-  <script src="{% static 'multi-select-min.js' %}"></script>
-  <script src="https://kit.fontawesome.com/dc3f7108e7.js" crossorigin="anonymous"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
-
-
   <div class="row mb-5 mt-2" style="margin-bottom: 12rem!important;">
     <div class="col-12 col-lg-7">
       <div class="w-100">
@@ -128,7 +120,7 @@
           {{ form1.target }}
 
           {% if form1.target.errors %}
-            <script>codemirrorValidation(`{{form1.target.errors.as_json|safe}}`, `.CodeMirror`);</script>
+            <script type="module">codemirrorValidation(`{{form1.target.errors.as_json|safe}}`, `.CodeMirror`);</script>
 
             <div class="error-text">
               <p>{% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}<br><br>{% trans 'Valid lines looks like (assuming that such a village 000|000 exists):' %}<br>{% trans '"000|000" - clean coords' %}<br>{% trans '"000|000:0:0" - coords with :off:noble numbers' %}<br>{% trans '"000|000:0|0|0|0:0" - additional off info, list instead of number' %}<br>{% trans '"000|000:0|0|0|0:0|0|0|0" - max info that can be passed about offs and nobles' %}<br></p>
@@ -140,7 +132,7 @@
             {% for error in form1.non_field_errors %}
               <div class="error-text mb-3">{{error|safe}}</div>
 
-              <script>document.addEventListener("DOMContentLoaded", function(event) {$('.CodeMirror').addClass('CodeMirror-Invalid');});</script>
+              <script type="module">document.addEventListener("DOMContentLoaded", function(event) {$('.CodeMirror').addClass('CodeMirror-Invalid');});</script>
 
             {% endfor %}
 
@@ -462,16 +454,6 @@
       </div>
     </div>
     {{instance.initial_outline_buildings|json_script:"initial-buildings"}}
-    <script>
-      var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});
-      var instance = new SelectPure(".multi-select", {
-        options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "Wall" %}`,`{% trans "Watchtower" %}`),
-        multiple: true,
-        value: JSON.parse(document.getElementById('initial-buildings').textContent),
-        icon: "fa fa-times",
-        onChange: value => { changeBuildingsArray(`{{instance.pk}}`,instance.value()); }
-      });
-    </script>
   </div>
 
   {% if premium_error %}
@@ -526,8 +508,18 @@
 
     </script>
   {% endif %}
+{% endblock %}
+{% block scripts %}
   {% get_current_language as LANG %}
   <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});
+    var instance = new SelectPure(".multi-select", {
+      options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "Wall" %}`,`{% trans "Watchtower" %}`),
+      multiple: true,
+      value: JSON.parse(document.getElementById('initial-buildings').textContent),
+      icon: "fa fa-times",
+      onChange: value => { changeBuildingsArray(`{{instance.pk}}`,instance.value()); }
+    });
     loadDocsPage(6, "planer-docs-form-info", "{% static 'markdown/'|add:LANG|add:'/planer_form_info.md' %}");
     loadDocsPage(7, "planer-docs-form-example", "{% static 'markdown/'|add:LANG|add:'/planer_form_example.md' %}");
     $(document).ready( function () {

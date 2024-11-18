@@ -72,11 +72,11 @@
         </div>
         <script>document.addEventListener("DOMContentLoaded", function(event) {$('#ValidationModal').modal('show');});</script>
     {% endif %}
+{% endblock %}
+{% block scripts %}
     {% get_current_language as LANG %}
     <script>
         loadDocsPage(2, "planer-docs-info", "{% static 'markdown/'|add:LANG|add:'/planer_create_info.md' %}");
         loadDocsPage(3, "planer-docs-example", "{% static 'markdown/'|add:LANG|add:'/planer_create_example.md' %}");
     </script>
-
-
 {% endblock %}
