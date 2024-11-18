@@ -473,7 +473,7 @@
       </div>
     </div>
 
-    <script>document.addEventListener("DOMContentLoaded", function(event) {$('.bd-example-modal-lg').modal('show');});</script>
+    <script type="module">document.addEventListener("DOMContentLoaded", function(event) {$('.bd-example-modal-lg').modal('show');});</script>
 
   {% endif %}
   {% if error != None %}
@@ -493,7 +493,7 @@
         </div>
       </div>
     </div>
-    <script>
+    <script type="module">
       document.addEventListener("DOMContentLoaded", function(event) {
         $('.bd-example-modal-lg2').modal({backdrop: 'static', keyboard: false}, 'show');
       });

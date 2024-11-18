@@ -73,7 +73,7 @@
                                     <div style="display: inline-block;" id="message_off" class="alert alert-success my-0 py-0" role="alert">
                                         <span style="font-size: small !important;">{% trans 'Army troops have been successfully added.' %}</span>
                                     </div>
-                                    <script>
+                                    <script type="module">
                                         document.addEventListener("DOMContentLoaded", function(event) {
                                             const message = document.getElementById('message_off');
                                             setTimeout(() => {
@@ -132,7 +132,7 @@
                                     <div style="display: inline-block;" id="message_deff" class="alert alert-success my-0 py-0" role="alert">
                                         <span style="font-size: small !important;">{% trans 'Deff troops have been successfully added.' %}</span>
                                     </div>
-                                    <script>
+                                    <script type="module">
                                         document.addEventListener("DOMContentLoaded", function(event) {
                                             document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});
                                             const message = document.getElementById('message_deff');
@@ -233,7 +233,7 @@
 
 
 
-        <script>
+        <script type="module">
             document.addEventListener("DOMContentLoaded", function(event) {
                 $('.bd-example-modal-lg').modal('show');
 
