@@ -333,7 +333,7 @@
                   <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean" id="form7-btn" >{% trans 'Save' %}</button>
                 </form>
               {% endif %}
-              {% if morale_dict %}
+              {% if instance.morale_on and morale_dict %}
                 <div class="my-3 mt-5">
                   <table id="morale-table" class="table-bordered ">
                     <thead>
@@ -354,7 +354,7 @@
                     </tbody>
                   </table>
                 </div>
-              {% else %}
+              {% elif instance.morale_on and not morale_dict %}
                 <div class="my-3">
                   <h4 class="md-correct2">{% trans "Congratulations! No morale issues found for selected targets." %}</h4>
                 </div>
