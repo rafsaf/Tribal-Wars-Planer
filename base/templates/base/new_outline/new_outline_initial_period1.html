@@ -335,20 +335,20 @@
               {% endif %}
               {% if morale_dict %}
                 <div class="my-3 mt-5">
-                  <table id="morale-table">
+                  <table id="morale-table" class="table-bordered ">
                     <thead>
                       <tr>
-                        <th scope="col">{% trans 'Attacker' %}</th>
-                        <th scope="col">{% trans 'Defender' %}</th>
-                        <th scope="col">{% trans 'Morale value' %}</th>
+                        <th scope="col" class="px-1 py-1">{% trans 'Attacker' %}</th>
+                        <th scope="col" class="px-1 py-1">{% trans 'Defender' %}</th>
+                        <th scope="col" class="px-1 py-1">{% trans 'Morale value' %}</th>
                       </tr>
                     </thead>
                     <tbody>
                       {% for players, morale in morale_dict %}
                         <tr>
-                          <th>{{players.1}}</th>
-                          <th>{{players.0}}</th>
-                          <th>{{morale}}</th>
+                          <th class="px-1 py-1">{{players.1}}</th>
+                          <th class="px-1 py-1">{{players.0}}</th>
+                          <th class="px-1 py-1">{{morale}}</th>
                         </tr>
                       {% endfor %}
                     </tbody>
@@ -522,8 +522,7 @@
     });
     loadDocsPage(6, "planer-docs-form-info", "{% static 'markdown/'|add:LANG|add:'/planer_form_info.md' %}");
     loadDocsPage(7, "planer-docs-form-example", "{% static 'markdown/'|add:LANG|add:'/planer_form_example.md' %}");
-    $(document).ready( function () {
-      $('#morale-table').DataTable();
-    } );
+
+    setupDataTable("#morale-table");
   </script>
 {% endblock %}
