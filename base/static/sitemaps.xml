@@ -60,30 +60,30 @@
     href="https://plemiona-planer.pl/pl/documentation/"/>
 </url>
 <url>
-  <loc>https://plemiona-planer.pl/en/login/</loc>
+  <loc>https://plemiona-planer.pl/en/account/login/</loc>
   <lastmod>2024-09-08T10:11:41+00:00</lastmod>
   <priority>0.80</priority>
   <xhtml:link
     rel="alternate"
     hreflang="en"
-    href="https://plemiona-planer.pl/en/login/"/>
+    href="https://plemiona-planer.pl/en/account/login/"/>
   <xhtml:link
     rel="alternate"
     hreflang="pl"
-    href="https://plemiona-planer.pl/pl/login/"/>
+    href="https://plemiona-planer.pl/pl/account/login/"/>
 </url>
 <url>
-  <loc>https://plemiona-planer.pl/pl/login/</loc>
+  <loc>https://plemiona-planer.pl/pl/account/login/</loc>
   <lastmod>2024-09-08T10:11:41+00:00</lastmod>
   <priority>0.80</priority>
   <xhtml:link
     rel="alternate"
     hreflang="en"
-    href="https://plemiona-planer.pl/en/login/"/>
+    href="https://plemiona-planer.pl/en/account/login/"/>
   <xhtml:link
     rel="alternate"
     hreflang="pl"
-    href="https://plemiona-planer.pl/pl/login/"/>
+    href="https://plemiona-planer.pl/pl/account/login/"/>
 </url>
 <url>
   <loc>https://plemiona-planer.pl/en/register/</loc>
