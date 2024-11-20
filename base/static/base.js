@@ -1079,3 +1079,18 @@ const activateTimezoneInfo = () => {
   }
   document.cookie = "mytz=" + tz + ";path=/";
 };
+
+const setFooterYears = () => {
+  const footerYearEl = document.getElementById("footer-years");
+  footerYearEl.innerText = `2020-${new Date().getFullYear()} `;
+};
+
+const setupDataTable = (elementId) => {
+  const data = {};
+  if (getLanguage() === "pl") {
+    data["language"] = {
+      url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/pl.json",
+    };
+  }
+  new DataTable(elementId, data);
+};

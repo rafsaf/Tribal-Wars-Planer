@@ -4,9 +4,6 @@
 {% block title %}{% trans 'Premium' %}{% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <script src="https://js.stripe.com/v3/"></script>
-
-
     <div class="fixed-scrollbar-container">
         <div class="container py-1" style="min-height: 70vh;font-size: large;">
             <div style="margin-right:-15px;margin-left:-15px;">
@@ -89,5 +86,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
     <script>initializePaymentProcess(`{{prices.0.amount}}`);</script>
 {% endblock %}

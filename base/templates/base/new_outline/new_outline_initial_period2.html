@@ -187,7 +187,7 @@
                                 {% trans 'Target added successfully!' %}
                             </small>
                         </div>
-                        <script>
+                        <script type="module">
                             setTimeout(()=>{
                                 const message=document.getElementById("s-message");
                                 message.style.display = 'none';
@@ -369,9 +369,11 @@
             </div>
         </div>
     {% endblock %}
+
+{% endblock %}
+{% block scripts %}
     <script>
         var tabPlanerMenuHasBeenHidden = false;
         document.addEventListener("visibilitychange", handlePlanerMenuVisibilityChange, false);
     </script>
-
 {% endblock %}

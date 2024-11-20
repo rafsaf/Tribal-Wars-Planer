@@ -89,16 +89,6 @@
         <div class="container-fluid" style="margin-left:-13px;margin-right:-13px">
             <div class="row">
                 <div class="col-12 col-lg-7 mt-2">
-                    <script
-                        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"
-                        integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA=="
-                        crossorigin="anonymous"></script>
-                    <link rel="stylesheet"
-                          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css"
-                          integrity="sha512-/Ae8qSd9X8ajHk6Zty0m8yfnKJPlelk42HTJjOHDWs1Tjr41RfsSkceZ/8yyJGLkxALGMIYd5L2oGemy/x1PLg=="
-                          crossorigin="anonymous" />
-                    <script src="https://use.fontawesome.com/0cd1dfa084.js"></script>
-
                     <form method="post">
                         <input type="hidden" name="formset" value="">
                         {% csrf_token %}
@@ -358,13 +348,14 @@
                 </div>
             </div>
         </div>
-        <script>document.addEventListener("DOMContentLoaded", function (event) {$('.bd-example-modal-lg').modal('show');});</script>
+        <script type="module">document.addEventListener("DOMContentLoaded", function (event) {$('.bd-example-modal-lg').modal('show');});</script>
     {% endif %}
-
-    <script>handleAllFormsetSelect();</script>
 
     {% block outline_go_back %}
         {{block.super}}
     {% endblock %}
 
+{% endblock %}
+{% block scripts %}
+    <script>handleAllFormsetSelect();</script>
 {% endblock %}
