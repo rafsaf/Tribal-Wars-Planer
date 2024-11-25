@@ -138,6 +138,9 @@
 
           {% endif %}
         </form>
+        <script>
+          var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});
+        </script>
 
         <form id="form-complete" method="POST" action="{% url 'base:planer_complete' instance.id %}">{% csrf_token %}</form>
 
@@ -512,7 +515,6 @@
 {% block scripts %}
   {% get_current_language as LANG %}
   <script>
-    var editor = CodeMirror.fromTextArea(document.getElementById("id_target"), {lineNumbers: true,});
     var instance = new SelectPure(".multi-select", {
       options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "Wall" %}`,`{% trans "Watchtower" %}`),
       multiple: true,
