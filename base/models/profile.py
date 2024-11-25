@@ -28,7 +28,6 @@ if TYPE_CHECKING:
 
 from base.models.outline import Outline
 from base.models.server import Server
-from base.models.world import server_choices
 
 
 class Profile(models.Model):
@@ -39,11 +38,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     server = models.ForeignKey(
-        Server,
-        on_delete=models.SET_NULL,
-        null=True,
-        default=None,
-        choices=server_choices,
+        Server, on_delete=models.SET_NULL, null=True, default=None
     )
     validity_date = models.DateField(
         default=datetime.date(year=2021, month=2, day=25), blank=True, null=True

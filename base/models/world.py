@@ -14,19 +14,10 @@
 # ==============================================================================
 
 
-from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy
 
 from base.models.server import Server
-
-server_choices = [
-    (
-        data[0],
-        gettext_lazy("%(dns)s (timezone: %(tz)s)") % {"dns": data[0], "tz": data[2]},
-    )
-    for data in sorted(settings.TRIBAL_WARS_SUPPORTED_SERVERS, key=lambda t: t[0])
-]
 
 
 class World(models.Model):
@@ -36,7 +27,7 @@ class World(models.Model):
         ("active", "Active"),
         ("inactive", "Inactive"),
     ]
-    server = models.ForeignKey(Server, on_delete=models.CASCADE, choices=server_choices)
+    server = models.ForeignKey(Server, on_delete=models.CASCADE)
     postfix = models.CharField(max_length=10)
     connection_errors = models.IntegerField(default=0)
     speed_world = models.FloatField(default=1)
