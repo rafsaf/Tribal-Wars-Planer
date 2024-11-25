@@ -295,7 +295,7 @@ PREMIUM_ACCOUNT_MAX_TARGETS_FREE = int(
 )
 
 TRIBAL_WARS_SUPPORTED_SERVERS = [
-    ("plemiona.pl", "pl"),
+    ("plemiona.pl", "pl", "Europe/Warsaw"),
     ("tribalwars.net", "en"),
     ("die-staemme.de", "de"),
     ("staemme.ch", "ch"),
