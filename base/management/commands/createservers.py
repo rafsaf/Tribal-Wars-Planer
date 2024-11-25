@@ -42,10 +42,13 @@ class Command(BaseCommand):
             if server.prefix != server_info[1]:
                 server.prefix = server_info[1]
                 save = True
-            if server.tz != server_info[2]:
+            if str(server.tz) != server_info[2]:
                 server.tz = server_info[2]
                 save = True
             if save:
+                self.stdout.write(
+                    self.style.SUCCESS(f"Updated: Server: {server_info[0]}")
+                )
                 server.save()
 
             self.stdout.write(
