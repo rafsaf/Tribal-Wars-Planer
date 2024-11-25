@@ -18,8 +18,6 @@ import random
 from collections import deque
 from math import inf
 
-from django.utils import timezone
-
 from base import models
 from utils import basic
 
@@ -31,11 +29,10 @@ class FromPeriods:
         world: models.World,
         date: datetime.date,
     ):
-        self.date_time: datetime.datetime = datetime.datetime(
+        self.date: datetime.date = datetime.date(
             year=date.year,
             month=date.month,
             day=date.day,
-            tzinfo=timezone.get_current_timezone(),
         )
         self.world: models.World = world
 
@@ -119,16 +116,12 @@ class FromPeriods:
     def overwrite_weight(
         self, period: models.PeriodModel, weight: models.WeightModel
     ) -> models.WeightModel:
-        t1 = period.from_time
-        t2 = period.to_time
-        time_d1 = datetime.timedelta(
-            hours=t1.hour, minutes=t1.minute, seconds=t1.second
+        t1 = datetime.datetime.combine(
+            self.date, period.from_time, tzinfo=self.world.server.tz
         )
-        time_d2 = datetime.timedelta(
-            hours=t2.hour, minutes=t2.minute, seconds=t2.second
+        t2 = datetime.datetime.combine(
+            self.date, period.to_time, tzinfo=self.world.server.tz
         )
-        t1 = self.date_time + time_d1
-        t2 = self.date_time + time_d2
 
         village1 = basic.Village(weight.start)
         village2 = basic.Village(weight.target.target)
