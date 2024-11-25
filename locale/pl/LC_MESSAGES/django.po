@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 20:29+0100\n"
+"POT-Creation-Date: 2024-11-25 22:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgid "World"
 msgstr "Świat"
 
 #: base/forms.py:51 base/models/outline.py:141 base/models/outline.py:308
-#: base/models/profile.py:35
+#: base/models/profile.py:36
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
 
@@ -64,7 +64,7 @@ msgid "Village in this line is duplicated: %s"
 msgstr "Wioska w tej linii jest podwojona: %s"
 
 #: base/forms.py:139 base/models/outline.py:142 base/models/outline.py:310
-#: base/models/profile.py:36
+#: base/models/profile.py:37
 msgid "Deff collection "
 msgstr "Zbiórka Obrona"
 
@@ -644,7 +644,7 @@ msgstr "Stary tekst rozszerzony bezpośrednio w wiadomości"
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:285 base/models/profile.py:60
+#: base/models/outline.py:285 base/models/profile.py:65
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
@@ -705,7 +705,12 @@ msgstr "Premium na 1 miesiąc"
 msgid "Premium %s months"
 msgstr "Premium na %s miesiące"
 
-#: base/models/world.py:63
+#: base/models/world.py:28
+#, python-format
+msgid "%(dns)s (timezone: %(tz)s)"
+msgstr "%(dns)s (czas: %(tz)s)"
+
+#: base/models/world.py:74
 msgid "World "
 msgstr "Świat "
 
@@ -3215,26 +3220,3 @@ msgstr "Wioska"
 #: utils/outline_finish.py:76
 msgid "does not exists"
 msgstr "nie istnieje"
-
-#~ msgid "Back"
-#~ msgstr "Zaplecze"
-
-#~ msgid "Sign in and create tribal wars proffesional outlines."
-#~ msgstr ""
-#~ "Zaloguj się i twórz profesjonalne rozpiski offów w Plemiona Planerze."
-
-#~ msgid "Login"
-#~ msgstr "Login"
-
-#, fuzzy
-#~| msgid ""
-#~| "By checking this option, players will see the commands of all other "
-#~| "players for their own targets. By default, it's not turned on and "
-#~| "players only see their commands."
-#~ msgid ""
-#~ "By checking this option, players will see the commands of all other "
-#~ "players for their own targets. By default, it"
-#~ msgstr ""
-#~ "Zaznaczając tą opcję, gracze zobaczą komendy wszystkich innych graczy na "
-#~ "swoich celach. Domyślnie jest wyłączona, czyli gracze widzą tylko swoje "
-#~ "komendy."

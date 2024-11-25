@@ -14,11 +14,13 @@
 # ==============================================================================
 
 from django.db import models
+from timezone_field import TimeZoneField
 
 
 class Server(models.Model):
     dns = models.CharField(max_length=50, primary_key=True)
     prefix = models.CharField(max_length=2)
+    tz = TimeZoneField(use_pytz=False, default="Europe/Warsaw")
 
     def __str__(self):
         return self.dns

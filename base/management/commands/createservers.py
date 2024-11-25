@@ -32,11 +32,25 @@ class Command(BaseCommand):
     @job_logs_and_metrics(log)
     def handle(self, *args, **options):
         metrics.CRONTASK.labels("createservers").inc()
-        server_info: tuple[str, str]
+        server_info: tuple[str, str, str]
         for server_info in settings.TRIBAL_WARS_SUPPORTED_SERVERS:
-            _, created = Server.objects.get_or_create(
-                dns=server_info[0], prefix=server_info[1]
+            server, created = Server.objects.get_or_create(
+                dns=server_info[0],
+                defaults={"prefix": server_info[1], "tz": server_info[2]},
             )
+            save = False
+            if server.prefix != server_info[1]:
+                server.prefix = server_info[1]
+                save = True
+            if str(server.tz) != server_info[2]:
+                server.tz = server_info[2]
+                save = True
+            if save:
+                self.stdout.write(
+                    self.style.SUCCESS(f"Updated: Server: {server_info[0]}")
+                )
+                server.save()
+
             self.stdout.write(
                 self.style.SUCCESS(f"Created: {created}, Server: {server_info[0]}")
             )
