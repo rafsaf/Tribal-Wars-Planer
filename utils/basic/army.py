@@ -16,7 +16,7 @@
 """Army and Defence tools"""
 
 from functools import cached_property
-from typing import Any, Literal, NamedTuple, TypedDict
+from typing import Any, Literal, NamedTuple, Self, TypedDict
 
 from django.utils.translation import gettext
 
@@ -292,8 +292,31 @@ class Defence(Army):
     def deff_collection_text(self) -> str:
         return self.text_army[1]
 
-    def clean_init(self, player_dictionary, ally_tribes: list[str] | None = None):
+    def clean_init(
+        self,
+        player_dictionary,
+        ally_tribes: list[str] | None = None,
+        previous: Self | None = None,
+    ):
         """Text army validation"""
+
+        # handle new "Points" column being added to only every "in-villages" row but not away
+        # insert second element of previous Defence on second place in text_army list
+        # this was caused by 2024-11-26 new game version
+        if (
+            previous is not None
+            and self.coord == previous.coord
+            and len(self.text_army) < len(previous.text_army)
+        ):
+            try:
+                if all(
+                    chr.isalpha() or chr.isspace() for chr in self.text_army[1]
+                ) and all(
+                    chr.isalpha() or chr.isspace() for chr in previous.text_army[2]
+                ):
+                    self.text_army.insert(1, previous.text_army[1])
+            except KeyError:
+                pass
 
         text_army_length = len(self.text_army)
 

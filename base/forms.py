@@ -166,11 +166,14 @@ class DeffTroopsForm(forms.ModelForm):
         evidence = basic.world_evidence(self.outline.world)
 
         already_used_villages: dict[str, int] = {}
+        previous_army = basic.Defence(text_army="", evidence=evidence)
 
         for i, text_line in enumerate(text.split("\r\n")):
             army = basic.Defence(text_army=text_line, evidence=evidence)
             try:
-                army.clean_init(villages, self.outline.ally_tribe_tag)
+                army.clean_init(
+                    villages, self.outline.ally_tribe_tag, previous=previous_army
+                )
             except basic.DefenceError as error:
                 if not self.first_error_message:
                     self.first_error_message = str(error)
@@ -204,6 +207,9 @@ class DeffTroopsForm(forms.ModelForm):
                             }
                 self.add_error("deff_troops", i)  # type: ignore
                 continue
+
+            previous_army = army
+
             if army.coord in already_used_villages:
                 already_used_villages[army.coord] += 1
                 if already_used_villages[army.coord] > 2:
