@@ -991,7 +991,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[2].state.nobleman_state, 0)
         self.assertEqual(created[2].state.fake_limit, 4)
 
-    @parameterized.expand(sorted(BUILDINGS_TRANSLATION.keys()))
+    @parameterized.expand(sorted([str(name) for name in BUILDINGS_TRANSLATION.keys()]))
     def test_ruin_type_outline_all_buidlings_are_supported(self, building: str):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"

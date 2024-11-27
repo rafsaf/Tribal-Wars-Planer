@@ -89,9 +89,9 @@ class OutlineDetailGetDeff(MiniSetup):
         )
         self.login_me()
 
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.deff_troops = (
-            "100|100,w wiosce,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,"
+            "100|100,55,w wiosce,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,"
         )
         outline.save()
 

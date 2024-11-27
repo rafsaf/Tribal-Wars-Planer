@@ -104,7 +104,7 @@ class RemoveUserOutline(MiniSetup):
 
     def test_weight_max_still_exists_but_is_updated_correctly_and_target_deleted(self):
         outline = self.get_outline(add_result=True, test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = self.random_lower_string()
         outline.initial_outline_fake_limit = 10
         outline.save()
@@ -159,7 +159,7 @@ class RemoveUserOutline(MiniSetup):
 
     def test_weight_max_ok_real_target_bad(self):
         outline = self.get_outline(add_result=True, test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = "200|200:4:4"
         outline.initial_outline_fakes = "201|201:4:4"
         outline.initial_outline_ruins = "202|202:4:4"
@@ -181,7 +181,7 @@ class RemoveUserOutline(MiniSetup):
 
     def test_weight_max_ok_fake_target_bad(self):
         outline = self.get_outline(add_result=True, test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = "200|200:4:4"
         outline.initial_outline_fakes = "201|201:4:4"
         outline.initial_outline_ruins = "202|202:4:4"
@@ -203,7 +203,7 @@ class RemoveUserOutline(MiniSetup):
 
     def test_weight_max_ok_ruin_target_bad(self):
         outline = self.get_outline(add_result=True, test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = "200|200:4:4"
         outline.initial_outline_fakes = "201|201:4:4"
         outline.initial_outline_ruins = "202|202:4:4"

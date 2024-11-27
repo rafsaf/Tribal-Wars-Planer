@@ -64,7 +64,7 @@ class InactiveOutline(MiniSetup):
         assert stats.off_troops == 0
 
         PATH = reverse("base:planer_detail", args=[outline.pk])
-        TROOPS = "100|100,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,"
+        TROOPS = "100|100,55,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,"
         self.login_me()
         response = self.client.post(
             PATH,
@@ -82,7 +82,7 @@ class InactiveOutline(MiniSetup):
         assert outline.off_troops == TROOPS
         assert (
             outline.off_troops_hash
-            == "6e229ad27b9bdfbf5fa635fd7291d3a61899ec0da9064c08c516ac2e7749d544"
+            == "203255114f98acd85ee53165cbad53e110860dedb0912a88a1adf53bd4aaffec"
         )
 
     def test_planer_detail___302_auth_works_ok_on_Test_world_deff_troops(self):
@@ -91,7 +91,7 @@ class InactiveOutline(MiniSetup):
         stats: Stats = Stats.objects.get(outline=outline)
         assert stats.deff_troops == 0
         PATH = reverse("base:planer_detail", args=[outline.pk])
-        DEFF = "101|101,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,"
+        DEFF = "101|101,5<span class='grey'>.</span>803,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,"
         self.login_me()
         response = self.client.post(
             PATH,
@@ -109,7 +109,7 @@ class InactiveOutline(MiniSetup):
         assert outline.deff_troops == DEFF
         assert (
             outline.deff_troops_hash
-            == "f2f2d2b0a9f51cd2def7c25571b1b07b0ce835359902ac46700b6731e0cb5da4"
+            == "62302bd2554b824414a91995ac879839bad2a89958d0f470ff719a6df98f789e"
         )
 
     def test_planer_detail___200_auth_form_error_when_nonsense(self):
