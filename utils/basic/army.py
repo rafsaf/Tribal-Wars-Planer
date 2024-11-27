@@ -16,7 +16,7 @@
 """Army and Defence tools"""
 
 from functools import cached_property
-from typing import Any, Literal, NamedTuple, TypedDict
+from typing import Any, Literal, NamedTuple, Self, TypedDict
 
 from django.utils.translation import gettext
 
@@ -76,9 +76,9 @@ class TroopsIndex:
         }
         for evidence in self.result_mapping:
             if army == "army":
-                start_index = 1
-            else:
                 start_index = 2
+            else:
+                start_index = 3
             troops_indexes = self.result_mapping[evidence]
             for troop in TROOPS_TYPES:
                 if not evidence.archer and troop in {"archer", "mounted_archer"}:
@@ -131,14 +131,14 @@ class Army:
     """Off line in off troops"""
 
     EVIDENCE_DICTIONARY: dict[tuple[int, int, int], set[int]] = {
-        (1, 1, 1): {16, 17},
-        (1, 1, 0): {15, 16},
-        (0, 1, 1): {15, 16},
-        (1, 0, 1): {14, 15},
-        (1, 0, 0): {13, 14},
-        (0, 0, 1): {13, 14},
-        (0, 1, 0): {14, 15},
-        (0, 0, 0): {12, 13},
+        (1, 1, 1): {17, 18},
+        (1, 1, 0): {16, 17},
+        (0, 1, 1): {16, 17},
+        (1, 0, 1): {15, 16},
+        (1, 0, 0): {14, 15},
+        (0, 0, 1): {14, 15},
+        (0, 1, 0): {15, 16},
+        (0, 0, 0): {13, 14},
     }
 
     def __init__(self, text_army: str, evidence: WorldEvidence):
@@ -182,7 +182,7 @@ class Army:
                     % {"coord": village.coord, "tribes": ally_tribes},
                     coord=village.coord,
                 )
-        for army_element in self.text_army[1:-1]:
+        for army_element in self.text_army[2:-1]:
             if not army_element.isnumeric():
                 raise ArmyError(
                     gettext("One of line elements is not a number: %s") % army_element
@@ -273,14 +273,14 @@ class Defence(Army):
     """Deff line in deff troops"""
 
     EVIDENCE_DICTIONARY: dict[tuple[int, int, int], set[int]] = {
-        (1, 1, 1): {16, 17},
-        (1, 1, 0): {15, 16},
-        (0, 1, 1): {15, 16},
-        (1, 0, 1): {14, 15},
-        (1, 0, 0): {13, 14},
-        (0, 0, 1): {13, 14},
-        (0, 1, 0): {14, 15},
-        (0, 0, 0): {12, 13},
+        (1, 1, 1): {17, 18},
+        (1, 1, 0): {16, 17},
+        (0, 1, 1): {16, 17},
+        (1, 0, 1): {15, 16},
+        (1, 0, 0): {14, 15},
+        (0, 0, 1): {14, 15},
+        (0, 1, 0): {15, 16},
+        (0, 0, 0): {13, 14},
     }
 
     def __init__(self, text_army: str, evidence):
@@ -292,8 +292,31 @@ class Defence(Army):
     def deff_collection_text(self) -> str:
         return self.text_army[1]
 
-    def clean_init(self, player_dictionary, ally_tribes: list[str] | None = None):
+    def clean_init(
+        self,
+        player_dictionary,
+        ally_tribes: list[str] | None = None,
+        previous: Self | None = None,
+    ):
         """Text army validation"""
+
+        # handle new "Points" column being added to only every "in-villages" row but not away
+        # insert second element of previous Defence on second place in text_army list
+        # this was caused by 2024-11-26 new game version
+        if (
+            previous is not None
+            and self.coord == previous.coord
+            and len(self.text_army) < len(previous.text_army)
+        ):
+            try:
+                if all(
+                    chr.isalpha() or chr.isspace() for chr in self.text_army[1]
+                ) and all(
+                    chr.isalpha() or chr.isspace() for chr in previous.text_army[2]
+                ):
+                    self.text_army.insert(1, previous.text_army[1])
+            except KeyError:
+                pass
 
         text_army_length = len(self.text_army)
 
@@ -324,15 +347,14 @@ class Defence(Army):
                     % {"coord": village.coord, "tribes": ally_tribes},
                     coord=village.coord,
                 )
-        for army_element in self.text_army[2:-1]:
+        for army_element in self.text_army[3:-1]:
             if not army_element.isnumeric():
                 raise DefenceError(
                     gettext("One of line elements is not a number: %s") % army_element
                 )
-        if not all(chr.isalpha() or chr.isspace() for chr in self.text_army[1]):
+        if not all(chr.isalpha() or chr.isspace() for chr in self.text_army[2]):
             raise DefenceError(
-                gettext("Second element of line must be a text: %s")
-                % self.text_army[1],
+                gettext("Third element of line must be a text: %s") % self.text_army[1],
             )
         if self.text_army[-1] != "":
             raise DefenceError(

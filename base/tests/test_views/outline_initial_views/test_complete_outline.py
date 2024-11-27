@@ -47,7 +47,7 @@ class CompleteOutline(MiniSetup):
         settings.PREMIUM_ACCOUNT_VALIDATION_ON = True
         settings.PREMIUM_ACCOUNT_MAX_TARGETS_FREE = 25
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         self.create_target_on_test_world(outline=outline, many=26)
 
@@ -90,7 +90,7 @@ class CompleteOutline(MiniSetup):
 
     def test_planer_complete___302_ok_even_when_ally_player_not_updated(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on = True
         outline.save()
         self.create_target_on_test_world(outline=outline, many=1, off=5, noble=5)
@@ -114,7 +114,7 @@ class CompleteOutline(MiniSetup):
 
     def test_planer_complete___302_ok_even_when_target_player_not_updated(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on = True
         outline.save()
         self.create_target_on_test_world(outline=outline, many=1, off=5, noble=5)

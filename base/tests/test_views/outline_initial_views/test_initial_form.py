@@ -63,7 +63,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___302_redirect_when_deff_troops_empty(self):
         outline = self.get_outline()
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.deff_troops = ""
         outline.input_data_type = Outline.DEFF_COLLECTION
         outline.save()
@@ -118,7 +118,7 @@ class InitialForm(MiniSetup):
         self,
     ):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
 
@@ -158,7 +158,7 @@ class InitialForm(MiniSetup):
     ):
         outline = self.get_outline(test_world=True)
         outline.deff_troops = (
-            "102|102,w wiosce,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,"
+            "102|102,55,w wiosce,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,"
         )
         outline.input_data_type = Outline.DEFF_COLLECTION
         outline.save()
@@ -197,7 +197,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___200_show_lens_and_duplicates_correct(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
         self.create_target_on_test_world(outline=outline)
@@ -282,7 +282,7 @@ class InitialForm(MiniSetup):
         outline.morale_on_targets_greater_than = morale_on_targets_greater_than
         outline.morale_on = morale_on
         outline.date = date
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = initial_outline_targets
         outline.initial_outline_fakes = initial_outline_fakes
         outline.initial_outline_ruins = initial_outline_ruins
@@ -429,7 +429,7 @@ class InitialForm(MiniSetup):
         outline.morale_on_targets_greater_than = morale_on_targets_greater_than
         outline.morale_on = morale_on
         outline.date = date
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.initial_outline_targets = initial_outline_targets
         outline.initial_outline_fakes = initial_outline_fakes
         outline.initial_outline_ruins = initial_outline_ruins
@@ -538,7 +538,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___302_test_form1_real(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
         self.login_me()
@@ -562,7 +562,7 @@ class InitialForm(MiniSetup):
         assert getattr(response, "url") == REDIRECT
         assert TargetVertex.objects.filter(fake=False, ruin=False).count() == 0
 
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
 
         # VALID TRY 1
@@ -577,7 +577,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___302_test_form1_fake(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         PATH = reverse("base:planer_initial_form", args=[outline.pk]) + "?t=fake"
         self.login_me()
@@ -601,7 +601,7 @@ class InitialForm(MiniSetup):
         assert getattr(response, "url") == REDIRECT
         assert TargetVertex.objects.filter(fake=True, ruin=False).count() == 0
 
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
 
         # VALID TRY 1
@@ -616,7 +616,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___302_test_form1_ruin(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         PATH = reverse("base:planer_initial_form", args=[outline.pk]) + "?t=ruin"
         self.login_me()
@@ -640,7 +640,7 @@ class InitialForm(MiniSetup):
         assert getattr(response, "url") == REDIRECT
         assert TargetVertex.objects.filter(fake=False, ruin=True).count() == 0
 
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
 
         # VALID TRY 1
@@ -694,7 +694,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___302_test_form3(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
 
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
@@ -715,7 +715,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___302_test_form4(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         self.create_target_on_test_world(outline)
 
@@ -774,7 +774,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___200_test_form5(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         self.create_target_on_test_world(outline)
 
@@ -803,7 +803,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___200_test_form6(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.save()
         self.create_target_on_test_world(outline)
 
@@ -847,7 +847,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___200_test_form7(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on_targets_greater_than = 50
         outline.morale_on = True
         outline.save()
@@ -875,7 +875,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___200_ok_when_ally_player_not_updated(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on = True
         outline.save()
 
@@ -895,7 +895,7 @@ class InitialForm(MiniSetup):
 
     def test_planer_initial_form___200_ok_tab_when_target_player_not_updated(self):
         outline = self.get_outline(test_world=True)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.morale_on = True
         outline.save()
 
@@ -917,7 +917,7 @@ class InitialForm(MiniSetup):
         outline = self.get_outline(test_world=True)
         outline.create_stats()
         stats: Stats = Stats.objects.get(outline=outline)
-        outline.off_troops = "102|102,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.off_troops_hash = outline.get_or_set_off_troops_hash()
         outline.avaiable_offs = [1, 2, 3, 4]
         outline.avaiable_offs_near = [1, 2, 3, 4]
