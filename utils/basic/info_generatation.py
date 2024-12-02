@@ -23,20 +23,10 @@ from django.utils.translation import gettext as _
 
 from base import models
 from utils import basic
+from utils.basic.army import ARMY_INDEX, DEFENCE_INDEX, Army, ArmyIndexDict
 
 
 class OutlineInfo:
-    evidence_dictionary: dict[tuple[int, int, int], int] = {
-        (1, 1, 1): 16,
-        (1, 1, 0): 15,
-        (0, 1, 1): 15,
-        (1, 0, 1): 14,
-        (1, 0, 0): 13,
-        (0, 0, 1): 13,
-        (0, 1, 0): 14,
-        (0, 0, 0): 12,
-    }
-
     def __init__(self, outline: models.Outline) -> None:
         """
         Generate basic informations about outline like targets coords
@@ -47,9 +37,7 @@ class OutlineInfo:
         self.ruin_message: dict[int, str] = defaultdict(str)
         self.fake_message: dict[int, str] = defaultdict(str)
         self.target_message: dict[int, str] = defaultdict(str)
-        self.world_evidence: tuple[int, int, int] = basic.world_evidence(
-            self.outline.world
-        )
+        self.world_evidence = basic.world_evidence(self.outline.world)
         self.order_counter = {
             "ruins": 0,
             "fakes": 0,
@@ -186,57 +174,44 @@ class OutlineInfo:
     def parse_weight_to_army_line(
         weight_max: models.WeightMaximum,
         line_lst: list[str],
-        noble_index: int,
-        catapult_index: int,
+        index: ArmyIndexDict,
         deff_collection_text: str | None = None,
     ) -> str:
         army_line_lst = line_lst.copy()
-        army_line_lst[0] = str(weight_max.start) + ","
-        army_line_lst[3] = str(weight_max.off_left - weight_max.catapult_left * 8) + ","
-        army_line_lst[noble_index] = str(weight_max.nobleman_left) + ","
-        army_line_lst[catapult_index] = str(weight_max.catapult_left) + ","
+        army_line_lst[index["coord"]] = weight_max.start
+        army_line_lst[index["axeman"]] = str(
+            weight_max.off_left - weight_max.catapult_left * 8
+        )
+        army_line_lst[index["nobleman"]] = str(weight_max.nobleman_left)
+        army_line_lst[index["catapult"]] = str(weight_max.catapult_left)
 
-        if deff_collection_text is not None:
-            army_line_lst.insert(1, f"{deff_collection_text},")
-            army_line_lst.pop()
+        if deff_collection_text is not None and index["enroute_text"] is not None:
+            army_line_lst[index["enroute_text"]] = deff_collection_text
 
-        return "".join(army_line_lst)
+        return ",".join(army_line_lst) + ","
 
     def show_export_troops(self) -> str:
         sum_text: str = ""
-        line_length: int = self.evidence_dictionary[self.world_evidence]
 
-        line_lst: list[str] = ["0," for _ in range(line_length)]
+        army_index_dict = ARMY_INDEX.get_index_dict(self.world_evidence)
+        defence_index_dict = DEFENCE_INDEX.get_index_dict(self.world_evidence)
 
-        catapult_index: int
-        noble_index: int
-
-        if self.world_evidence[1] == 0:
-            catapult_index = 8
-            if self.world_evidence[0] == 0:
-                noble_index = 9
-            else:
-                noble_index = 10
-        elif self.world_evidence[0] == 0:
-            catapult_index = 10
-            noble_index = 11
-        else:
-            catapult_index = 10
-            noble_index = 12
+        line_lst: list[str] = [
+            "0" for _ in range(min(Army.EVIDENCE_DICTIONARY[self.world_evidence]))
+        ]
 
         for weight_max in models.WeightMaximum.objects.filter(
             outline=self.outline
         ).iterator():
             if self.outline.input_data_type == self.outline.ARMY_COLLECTION:
                 sum_text += self.parse_weight_to_army_line(
-                    weight_max, line_lst, noble_index, catapult_index
+                    weight_max, line_lst, index=army_index_dict
                 )
             else:
                 sum_text += self.parse_weight_to_army_line(
                     weight_max,
                     line_lst,
-                    noble_index,
-                    catapult_index,
+                    index=defence_index_dict,
                     deff_collection_text=self.outline.deff_collection_text_in_village,
                 )
                 sum_text += "\r\n"
@@ -250,8 +225,7 @@ class OutlineInfo:
                 sum_text += self.parse_weight_to_army_line(
                     weight_max,
                     line_lst,
-                    noble_index,
-                    catapult_index,
+                    index=defence_index_dict,
                     deff_collection_text=self.outline.deff_collection_text_enroute,
                 )
 
