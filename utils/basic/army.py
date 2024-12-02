@@ -47,6 +47,9 @@ class WorldEvidence(NamedTuple):
 
 
 class ArmyIndexDict(TypedDict):
+    coord: int
+    village_points: int
+    enroute_text: int | None
     spear: int
     swordsman: int
     axeman: int
@@ -64,7 +67,7 @@ class ArmyIndexDict(TypedDict):
 
 class TroopsIndex:
     def __init__(self, army: Literal["army", "defence"]) -> None:
-        self.result_mapping: dict[WorldEvidence, dict[str, int | None]] = {
+        self.result_mapping: dict[WorldEvidence, ArmyIndexDict] = {  # type: ignore
             WorldEvidence(1, 1, 1): {},
             WorldEvidence(1, 1, 0): {},
             WorldEvidence(0, 1, 1): {},
@@ -75,11 +78,16 @@ class TroopsIndex:
             WorldEvidence(0, 0, 0): {},
         }
         for evidence in self.result_mapping:
+            troops_indexes = self.result_mapping[evidence]
+            troops_indexes["coord"] = 0
+            troops_indexes["village_points"] = 1
             if army == "army":
                 start_index = 2
+                troops_indexes["enroute_text"] = None
             else:
                 start_index = 3
-            troops_indexes = self.result_mapping[evidence]
+                troops_indexes["enroute_text"] = 2
+
             for troop in TROOPS_TYPES:
                 if not evidence.archer and troop in {"archer", "mounted_archer"}:
                     troops_indexes[troop] = None
@@ -201,7 +209,7 @@ class Army:
     @property
     def coord(self) -> str:
         """Coords of village"""
-        return self.text_army[0]
+        return self.text_army[self.index_dict["coord"]]
 
     @cached_property
     def nobleman(self):
@@ -290,7 +298,11 @@ class Defence(Army):
 
     @property
     def deff_collection_text(self) -> str:
-        return self.text_army[1]
+        if self.index_dict["enroute_text"] is None:
+            raise RuntimeError(
+                "index dict cannot be none: %s %s", self.text_army, self.world_evidence
+            )
+        return self.text_army[self.index_dict["enroute_text"]]
 
     def clean_init(
         self,
