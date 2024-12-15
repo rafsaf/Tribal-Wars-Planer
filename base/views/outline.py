@@ -25,6 +25,8 @@ from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 
 from base import forms, models
+from base.models.outline_time import OutlineTime
+from base.models.period_model import PeriodModel
 from base.models.profile import Profile
 from utils.basic import Troops
 
@@ -78,6 +80,7 @@ def outline_list(request: HttpRequest) -> HttpResponse:
                 old_outline = get_object_or_404(
                     models.Outline, id=instance.parent_outline_id, owner=request.user
                 )
+                old_pk = old_outline.pk
                 old_result: models.Result = old_outline.result  # type: ignore
                 unused_troops = request.POST.get("unused_troops") == "on"
                 with transaction.atomic():
@@ -124,6 +127,24 @@ def outline_list(request: HttpRequest) -> HttpResponse:
                             "initial_outline_ruins",
                         ]
                     )
+
+                    periods = PeriodModel.objects.filter(
+                        outline_time__outline_id=old_pk
+                    )
+                    for outline_time in OutlineTime.objects.filter(outline_id=old_pk):
+                        old_outline_time_id = outline_time.pk
+
+                        new_outline_time = outline_time
+                        new_outline_time.pk = None
+                        new_outline_time.outline = new_outline
+                        new_outline_time.save()
+
+                        for period in periods:
+                            if period.outline_time_id != old_outline_time_id:
+                                continue
+                            period.pk = None
+                            period.outline_time = new_outline_time
+                            period.save()
 
                 return redirect(
                     reverse("base:planer") + f"?show-hidden={str(show_hidden).lower()}"

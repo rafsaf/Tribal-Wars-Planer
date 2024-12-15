@@ -18,6 +18,8 @@ import datetime
 from django.urls import reverse
 
 from base.models import Outline
+from base.models.outline_time import OutlineTime
+from base.models.period_model import PeriodModel
 from base.models.result import Result
 from base.tests.test_utils.mini_setup import MiniSetup
 
@@ -229,3 +231,28 @@ class OutlineList(MiniSetup):
         context_outline = response.context["outlines"][0]
         form = getattr(context_outline, "duplicate_form")
         assert form.errors is not None
+
+    def test_planer___302_duplicate_form_properly_copy_periods(self):
+        PATH = reverse("base:planer")
+        outline = self.get_outline(editable="inactive", add_result=True)
+        self.create_period_model(outline)
+        self.create_period_model(outline)
+        self.create_period_model(outline)
+
+        self.login_me()
+        response = self.client.post(
+            PATH,
+            data={
+                "form1": "",
+                "name": "name123_duplicate",
+                "date": datetime.date.today(),
+                "parent_outline": str(outline.pk),
+                "unused_troops": "on",
+            },
+        )
+        assert response.status_code == 302
+
+        assert Outline.objects.count() == 2
+        assert Outline.objects.filter(name="name123_duplicate").exists()
+        assert PeriodModel.objects.count() == 6
+        assert OutlineTime.objects.count() == 6
