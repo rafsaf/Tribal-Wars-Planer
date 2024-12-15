@@ -30,7 +30,7 @@
                 {% if user.is_authenticated %}
                     <div class="bg-light border-right {% block showsidebar %}{% endblock %}" id="sidebar-wrapper">
                         <div class="sidebar-heading">{% trans 'User Panel' %}</div>
-                        <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' or request.resolver_match.url_name == 'planer_all' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
+                        <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
                             {% block sidebar %}
                             {% endblock %}
                         </div>
@@ -220,13 +220,6 @@
                                                 <h2 class=" py-3 font-nav">{% trans 'Planer in numbers' %}</h2>
                                                 <table style="font-size: larger;" class="table table-bordered">
                                                     <tbody>
-                                                        <tr>
-                                                            <th>
-                                                                <img src="{% static 'images/clock.svg' %}">
-                                                            </th>
-                                                            <th><span class="badge badge-secondary">{{stats.days}}</span></th>
-                                                            <th>{% trans 'Project days' %}</th>
-                                                        </tr>
                                                         <tr>
                                                             <th><img src="{% static 'images/users.svg' %}"></th>
                                                             <th><span class="badge badge-secondary">{{stats.users}}</span></th>

@@ -44,6 +44,7 @@ class Stats(models.Model):
     go_back_clicked = models.IntegerField(default=0)
     finish_outline_clicked = models.IntegerField(default=0)
     overview_visited = models.IntegerField(default=0)
+    outline_duplicated = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Statistic"

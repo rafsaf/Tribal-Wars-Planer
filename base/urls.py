@@ -22,11 +22,10 @@ from base.views.home import (
     payment_sum_up_view,
 )
 from base.views.outline import (
-    OutlineList,
-    OutlineListShowAll,
     inactive_outline,
     outline_delete,
     outline_detail,
+    outline_list,
 )
 from base.views.outline_create import (
     new_outline_create,
@@ -78,8 +77,7 @@ urlpatterns = [
         name="payment_summary",
     ),
     path("overview/<str:token>", overview_view, name="overview"),
-    path("planer/", OutlineList.as_view(), name="planer"),
-    path("planer/show-all", OutlineListShowAll.as_view(), name="planer_all"),
+    path("planer/", outline_list, name="planer"),
     path("planer/create/", new_outline_create, name="planer_create"),
     path("planer/<int:_id>/status", inactive_outline, name="planer_status"),
     path("planer/<int:_id>", outline_detail, name="planer_detail"),

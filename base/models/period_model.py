@@ -14,6 +14,7 @@
 # ==============================================================================
 
 import datetime
+import typing
 
 from django.db import models
 from django.utils.translation import gettext_lazy
@@ -40,3 +41,6 @@ class PeriodModel(models.Model):
     to_number = models.IntegerField(null=True, default=None, blank=True)
     from_time = models.TimeField(default=datetime.time(hour=7))
     to_time = models.TimeField(default=datetime.time(hour=7))
+
+    if typing.TYPE_CHECKING:
+        outline_time_id: int

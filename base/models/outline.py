@@ -14,12 +14,16 @@
 # ==============================================================================
 
 import datetime
+import typing
 from hashlib import sha256
 
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.core.paginator import Paginator
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator,
+)
 from django.db import models, transaction
 from django.db.models import Count, F, Q, Sum
 from django.db.models.query import QuerySet
@@ -144,7 +148,10 @@ class Outline(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=timezone.now)
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=24)
+    parent_outline = models.ForeignKey(
+        "Outline", on_delete=models.SET_NULL, null=True, blank=True, default=None
+    )
     world = models.ForeignKey(World, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=8, default="active")
@@ -300,6 +307,9 @@ class Outline(models.Model):
         max_length=256, default="", blank=True
     )
 
+    if typing.TYPE_CHECKING:
+        parent_outline_id: int
+
     class Meta:
         ordering = ("-created",)
 
@@ -434,9 +444,6 @@ class Outline(models.Model):
         base: str = gettext_lazy("Expires ")
         postfix: str = "</small>"
 
-        if self.world.postfix == "Test":
-            prefix: str = "<small class='md-correct2'>"
-            return prefix + base + gettext_lazy("never") + postfix
         minus_35_days = timezone.now() - datetime.timedelta(days=35)
         expire: datetime.timedelta = self.created - minus_35_days
 

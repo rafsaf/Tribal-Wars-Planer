@@ -34,12 +34,34 @@ class OutlineForm(forms.Form):
     """New Outline Form"""
 
     name = forms.CharField(
-        max_length=20,
+        max_length=24,
         label=gettext_lazy("Outline Name"),
-        widget=forms.Textarea,
     )
     date = forms.DateField(label=gettext_lazy("Date"), input_formats=["%Y-%m-%d"])
     world = forms.ChoiceField(choices=[], label=gettext_lazy("World"))
+
+
+class OutlineDuplicateForm(forms.ModelForm):
+    class Meta:
+        model = models.Outline
+        fields = ["name", "date", "parent_outline"]
+        widgets = {
+            "parent_outline": forms.HiddenInput(),
+            "date": forms.DateInput(format="%Y-%m-%d"),
+        }
+        labels = {
+            "name": gettext_lazy("Outline Name"),
+            "date": gettext_lazy("Date"),
+        }
+
+    unused_troops = forms.BooleanField(
+        label=gettext_lazy("Use unused troops"),
+        required=False,
+        initial=True,
+        help_text=gettext_lazy(
+            "Use unused army or deff troops from result tab from parent outline in Troops data tab"
+        ),
+    )
 
 
 class OffTroopsForm(forms.ModelForm):

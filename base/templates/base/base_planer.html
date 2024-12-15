@@ -2,6 +2,7 @@
 {% load i18n %}
 {% block title %}{% trans 'My outlines' %}{% endblock %}
 {% block content %}
+    {% load crispy_forms_tags %}
     <div class="table-responsive">
         <table class="table table-striped mt-3">
             <thead style="background-color: teal;">
@@ -13,15 +14,19 @@
                     <th scope="col" style="border:1px solid teal">{% trans 'Ally' %}</th>
                     <th scope="col" style="border:1px solid teal">{% trans 'Enemy' %}</th>
                     <th scope="col" style="border:1px solid teal">{% trans 'Hide' %}</th>
+                    <th scope="col" style="border:1px solid teal">{% trans 'Duplicate' %}</th>
                     <th scope="col" style="border:1px solid teal">{% trans 'Delete' %}</th>
                 </tr>
             </thead>
             <tbody>
 
-                {% for instance in object_list %}
-                    <tr>
+                {% for instance in outlines %}
+                    <tr class="{% if instance.status != 'active' %}row-expired{% endif %}">
                         <td>
                             <a class="btn btn-secondary my-2" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+                            {% if instance.parent_outline_id %}
+                                <br><small>{% trans '(Copied from ' %}{{instance.parent_outline_name}})</small>
+                            {% endif %}
                         </td>
                         <td><p class="my-2 mt-3">{{instance.date}}</p></td>
                         <td><p class="my-2 mt-3">{{instance.created}}<br>{{instance.expires_in|safe}}</p></td>
@@ -31,20 +36,60 @@
                         <td>
                             {% if instance.status == 'active' %}
 
-                                <form action="{% url 'base:planer_status' instance.id %}" method="POST">
+                                <form action="{% url 'base:planer_status' instance.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                     {% csrf_token %}
                                     <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2">{% trans 'Hide' %}</button>
                                 </form>
 
                             {% else %}
 
-                                <form action="{% url 'base:planer_status' instance.id %}" method="POST">
+                                <form action="{% url 'base:planer_status' instance.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                     {% csrf_token %}
                                     <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2">{% trans 'Show' %}</button>
                                 </form>
 
                             {% endif %}
 
+                        </td>
+                        <td>
+                            <div>
+                                <button type="button" class="btn btn-secondary my-2" data-toggle="modal" data-target="#Duplicate-{{instance.id}}">{% trans 'Duplicate' %}</button>
+                            </div>
+
+                            <div class="modal fade" id="Duplicate-{{instance.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">{% trans 'Duplicate an outline' %}</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="md-correct2">{{instance.name}}</h4>
+                                            <p>{% trans "You are about to create a copy of this outline. Ally and enemy tribes cannot be changed." %}</p>
+
+                                            <form id="duplicate-{{instance.id}}-form" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="form1" value="">
+                                                {{ instance.duplicate_form | crispy }}
+                                            </form>
+
+                                        </div>
+                                        <div class="modal-footer">
+
+                                            <button id="duplicate-{{instance.id}}-btn" type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <b>{% trans 'Close' %}</b>
+                                            </button>
+                                            <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`duplicate-{{instance.id}}-form`,``,true);" class="btn btn-ocean">{% trans 'Duplicate' %}</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if instance.duplicate_form.errors %}
+                                <script type="module">document.addEventListener("DOMContentLoaded", function(event) {$('#Duplicate-{{instance.id}}').modal('show');});</script>
+                            {% endif %}
                         </td>
                         <td>
                             <div>
@@ -73,7 +118,7 @@
                                                 <b>{% trans 'Close' %}</b>
                                             </button>
 
-                                            <form id="form-{{instance.id}}-form" action="{% url 'base:planer_delete' instance.id %}" method="POST">
+                                            <form id="form-{{instance.id}}-form" action="{% url 'base:planer_delete' instance.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                                 {% csrf_token %}
                                                 <button onclick="removeOutline(this,`dismiss-{{instance.id}}-btn`,`form-{{instance.id}}-form`,`{% trans 'Processing...' %}`)" class="btn btn-danger">{% trans 'Delete forever' %}</button>
 
@@ -88,10 +133,10 @@
         </table>
     </div>
 
-    {% if show_all == True %}
-        <p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer' %}" role="button">{% trans "Don't show hidden" %}</a></p>
+    {% if show_hidden %}
+        <p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer' %}?show-hidden=false" role="button">{% trans "Don't show hidden" %}</a></p>
     {% else %}
-        <p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer_all' %}" role="button">{% trans 'Show hidden' %}</a></p>
+        <p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer' %}?show-hidden=true" role="button">{% trans 'Show hidden' %}</a></p>
     {% endif %}
 
 {% endblock %}

@@ -13,18 +13,19 @@
 # limitations under the License.
 # ==============================================================================
 
+
 import json
 import logging
-from datetime import date
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Max
+from django.db.models.functions import Coalesce
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone, translation
-from two_factor.utils import default_device
+from django.utils import translation
 
 from base import models
 from base.models import PDFPaymentSummary
@@ -34,44 +35,23 @@ from utils.basic.pdf import generate_pdf_summary
 log = logging.getLogger(__name__)
 
 
-def base_view(request):
-    """base view"""
-    stats: dict[str, int | None] = {}
-    INITIAL_DATE = date(year=2020, month=9, day=1)
-    days: int = (timezone.localdate() - INITIAL_DATE).days
-    stats["days"] = days
-    try:
-        users: int | None = User.objects.latest("pk").pk
-    except User.DoesNotExist:
-        users = 0
-
-    stats["users"] = users
-
-    try:
-        outlines: int = models.Outline.objects.latest("pk").pk
-    except models.Outline.DoesNotExist:
-        outlines = 0
-
-    stats["outlines"] = outlines
-
-    try:
-        targets: int = models.TargetVertex.objects.latest("pk").pk
-    except models.TargetVertex.DoesNotExist:
-        targets = 0
-
-    stats["targets"] = targets
-
-    try:
-        orders: int = models.WeightModel.objects.latest("pk").pk
-    except models.WeightModel.DoesNotExist:
-        orders = 0
-
-    stats["orders"] = orders
+def base_view(request) -> HttpResponse:
+    stats = {
+        "users": User.objects.aggregate(latest_pk=Coalesce(Max("pk"), 0))["latest_pk"],
+        "outlines": models.Outline.objects.aggregate(latest_pk=Coalesce(Max("pk"), 0))[
+            "latest_pk"
+        ],
+        "targets": models.TargetVertex.objects.aggregate(
+            latest_pk=Coalesce(Max("pk"), 0)
+        )["latest_pk"],
+        "orders": models.WeightModel.objects.aggregate(
+            latest_pk=Coalesce(Max("pk"), 0)
+        )["latest_pk"],
+    }
 
     context = {
         "stats": stats,
         "registration_open": settings.REGISTRATION_OPEN,
-        "enabled_2fa": default_device(request.user),
     }
 
     return render(request, "base/base.html", context)

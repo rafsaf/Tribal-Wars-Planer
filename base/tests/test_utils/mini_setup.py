@@ -39,6 +39,7 @@ from base.models import (
     WeightModel,
     World,
 )
+from base.models.period_model import PeriodModel
 from base.tests.test_utils.create_user import create_user
 
 
@@ -270,6 +271,16 @@ class MiniSetup(TestCase):
 
     def create_outline_time(self, outline: Outline) -> OutlineTime:
         return OutlineTime.objects.create(outline=outline)
+
+    def create_period_model(self, outline: Outline) -> PeriodModel:
+        return PeriodModel.objects.create(
+            status="all", unit="ram", outline_time=self.create_outline_time(outline)
+        )
+
+    def create_period_model_from_time(self, outline_time: OutlineTime) -> PeriodModel:
+        return PeriodModel.objects.create(
+            status="all", unit="ram", outline_time=outline_time
+        )
 
     def create_overview(
         self,
