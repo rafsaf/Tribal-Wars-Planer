@@ -444,9 +444,6 @@ class Outline(models.Model):
         base: str = gettext_lazy("Expires ")
         postfix: str = "</small>"
 
-        if self.world.postfix == "Test":
-            prefix: str = "<small class='md-correct2'>"
-            return prefix + base + gettext_lazy("never") + postfix
         minus_35_days = timezone.now() - datetime.timedelta(days=35)
         expire: datetime.timedelta = self.created - minus_35_days
 

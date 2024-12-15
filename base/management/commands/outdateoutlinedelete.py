@@ -33,10 +33,8 @@ class Command(BaseCommand):
     @job_logs_and_metrics(log)
     def handle(self, *args, **options):
         expiration_date = now() - timedelta(days=35)
-        expired: QuerySet[Outline] = (
-            Outline.objects.select_related("world")
-            .filter(created__lt=expiration_date)
-            .exclude(world__postfix="Test")
+        expired: QuerySet[Outline] = Outline.objects.select_related("world").filter(
+            created__lt=expiration_date
         )
         deleted = expired.delete()
         log.info(deleted)
