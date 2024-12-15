@@ -137,7 +137,7 @@ def outline_list(request: HttpRequest) -> HttpResponse:
                     )
                     break
 
-    context = {"form1": form1, "show_hidden": show_hidden, "outlines": outlines}
+    context = {"show_hidden": show_hidden, "outlines": outlines}
     return render(request, "base/base_planer.html", context)
 
 

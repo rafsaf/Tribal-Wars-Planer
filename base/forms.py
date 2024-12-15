@@ -56,6 +56,8 @@ class OutlineDuplicateForm(forms.ModelForm):
 
     unused_troops = forms.BooleanField(
         label=gettext_lazy("Use unused troops"),
+        required=False,
+        initial=True,
         help_text=gettext_lazy(
             "Use unused army or deff troops from result tab from parent outline in Troops data tab"
         ),
