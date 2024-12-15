@@ -47,7 +47,7 @@ class OutlineDelete(MiniSetup):
         outline = self.get_outline()
         self.create_foreign_outline()
         PATH = reverse("base:planer_delete", args=[outline.pk])
-        REDIRECT = reverse("base:planer")
+        REDIRECT = reverse("base:planer") + "?show-hidden=false"
 
         assert Outline.objects.count() == 2
         self.login_me()

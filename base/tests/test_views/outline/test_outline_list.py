@@ -49,7 +49,7 @@ class OutlineList(MiniSetup):
         assert Outline.objects.count() == 2
         response = self.client.get(PATH)
         assert response.status_code == 200
-        query = response.context["object_list"]
+        query = response.context["outlines"]
         assert len(query) == 0
         assert Outline.objects.count() == 1
 
@@ -63,12 +63,12 @@ class OutlineList(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 200
-        query = response.context["object_list"]
+        query = response.context["outlines"]
         assert len(query) == 1
         assert Outline.objects.count() == 1
 
     def test_planer___200_auth_not_show_inactive_outline(self):
-        PATH = reverse("base:planer")
+        PATH = reverse("base:planer") + "?show-hidden=false"
         outline = self.get_outline()
         outline.status = "inactive"
         outline.editable = "inactive"
@@ -77,6 +77,20 @@ class OutlineList(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 200
-        query = response.context["object_list"]
+        query = response.context["outlines"]
         assert len(query) == 0
+        assert Outline.objects.count() == 1
+
+    def test_planer___200_auth_show_inactive_outline_with_show_hidden(self):
+        PATH = reverse("base:planer") + "?show-hidden=true"
+        outline = self.get_outline()
+        outline.status = "inactive"
+        outline.editable = "inactive"
+        outline.save()
+
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.status_code == 200
+        query = response.context["outlines"]
+        assert len(query) == 1
         assert Outline.objects.count() == 1

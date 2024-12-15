@@ -49,6 +49,10 @@ class OutlineDuplicateForm(forms.ModelForm):
             "parent_outline": forms.HiddenInput(),
             "date": forms.DateInput(format="%Y-%m-%d"),
         }
+        labels = {
+            "name": gettext_lazy("Outline Name"),
+            "date": gettext_lazy("Date"),
+        }
 
     unused_troops = forms.BooleanField(
         label=gettext_lazy("Use unused troops"),

@@ -47,8 +47,8 @@ class InactiveOutline(MiniSetup):
         outline.status = "active"
         outline.save()
 
-        PATH = reverse("base:planer_status", args=[outline.pk])
-        REDIRECT = reverse("base:planer")
+        PATH = reverse("base:planer_status", args=[outline.pk]) + "?show-hidden=true"
+        REDIRECT = reverse("base:planer") + "?show-hidden=true"
 
         self.login_me()
         response = self.client.get(PATH)
@@ -67,7 +67,7 @@ class InactiveOutline(MiniSetup):
         outline.save()
 
         PATH = reverse("base:planer_status", args=[outline.pk])
-        REDIRECT = reverse("base:planer_all")
+        REDIRECT = reverse("base:planer") + "?show-hidden=false"
 
         self.login_me()
         response = self.client.get(PATH)
