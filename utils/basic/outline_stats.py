@@ -86,5 +86,10 @@ class Action:
             overview_visited=F("overview_visited") + 1
         )
 
+    def outline_duplicated(self, outline: Outline) -> None:
+        Stats.objects.filter(outline=outline).update(
+            overview_visited=F("outline_duplicated") + 1
+        )
+
 
 action: Action = Action()

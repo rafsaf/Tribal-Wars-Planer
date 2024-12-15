@@ -16,67 +16,129 @@
 from time import time
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
+from django.db.models import F
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
-from django.views.generic import ListView
 
 from base import forms, models
 from base.models.profile import Profile
 from utils.basic import Troops
 
 
-class OutlineList(LoginRequiredMixin, ListView):
-    """login required view /planer"""
+def get_show_hidden(request: HttpRequest) -> bool:
+    match request.GET.get("show-hidden"):
+        case "true":
+            return True
+        case _:
+            return False
 
-    template_name = "base/base_planer.html"
 
-    def get_queryset(self):
-        models.Outline.objects.filter(
-            editable="active", owner=self.request.user
-        ).delete()
-        query = (
-            models.Outline.objects.select_related("world", "world__server")
-            .filter(owner=self.request.user)
-            .filter(status="active")
+@login_required
+def outline_list(request: HttpRequest) -> HttpResponse:
+    show_hidden = get_show_hidden(request)
+
+    models.Outline.objects.filter(editable="active", owner=request.user).delete()
+
+    outlines = (
+        models.Outline.objects.select_related("world", "world__server")
+        .filter(owner=request.user)
+        .annotate(parent_outline_name=F("parent_outline__name"))
+    )
+    if not show_hidden:
+        outlines = outlines.filter(status="active")
+
+    for outline in outlines:
+        # overwrite attributes
+        setattr(outline, "world_human", outline.world.game_name(prefix=True))
+        setattr(outline, "ally_tribe_tag", ", ".join(outline.ally_tribe_tag))
+        setattr(outline, "enemy_tribe_tag", ", ".join(outline.enemy_tribe_tag))
+        setattr(
+            outline,
+            "duplicate_form",
+            forms.OutlineDuplicateForm(
+                initial={
+                    "unused_troops": True,
+                    "parent_outline": outline,
+                    "date": outline.date,
+                }
+            ),
         )
 
-        for outline in query:
-            # overwrite attributes
-            setattr(outline, "world_human", outline.world.game_name(prefix=True))
-            setattr(outline, "ally_tribe_tag", ", ".join(outline.ally_tribe_tag))
-            setattr(outline, "enemy_tribe_tag", ", ".join(outline.enemy_tribe_tag))
+    form1 = forms.OutlineDuplicateForm(None)
 
-        return query
+    if request.method == "POST":
+        if "form1" in request.POST:
+            form1 = forms.OutlineDuplicateForm(request.POST)
+            if form1.is_valid():
+                instance: models.Outline = form1.save(commit=False)
+                old_outline = get_object_or_404(
+                    models.Outline, id=instance.parent_outline_id, owner=request.user
+                )
+                old_result: models.Result = old_outline.result  # type: ignore
+                unused_troops = request.POST.get("unused_troops") == "on"
+                with transaction.atomic():
+                    old_outline.actions.outline_duplicated(old_outline)
+                    new_outline = old_outline
+                    new_outline.pk = None
+                    new_outline.name = instance.name
+                    new_outline.date = instance.date
+                    new_outline.parent_outline_id = instance.parent_outline_id
+                    new_outline.off_troops = ""
+                    new_outline.off_troops_hash = ""
+                    new_outline.off_troops_weightmodels_hash = ""
+                    new_outline.deff_troops = ""
+                    new_outline.deff_troops_hash = ""
+                    new_outline.deff_troops_weightmodels_hash = ""
+                    new_outline.save()
+                    if unused_troops and old_result.results_export:
+                        if old_outline.input_data_type == old_outline.ARMY_COLLECTION:
+                            new_outline.off_troops = old_result.results_export
+                            new_outline.save(update_fields=["off_troops"])
+                            new_outline.get_or_set_off_troops_hash(
+                                force_recalculate=True
+                            )
+                        else:
+                            new_outline.deff_troops = old_result.results_export
+                            new_outline.save(update_fields=["deff_troops"])
+                            new_outline.get_or_set_deff_troops_hash(
+                                force_recalculate=True
+                            )
 
+                    result = models.Result(outline=new_outline)
+                    result.save()
+                    new_outline.create_stats()
 
-class OutlineListShowAll(LoginRequiredMixin, ListView):
-    """login required view which shows hidden instances /planer/show_all"""
+                    new_outline.remove_user_outline()
 
-    template_name = "base/base_planer.html"
+                    new_outline.initial_outline_targets = ""
+                    new_outline.initial_outline_fakes = ""
+                    new_outline.initial_outline_ruins = ""
+                    new_outline.save(
+                        update_fields=[
+                            "initial_outline_targets",
+                            "initial_outline_fakes",
+                            "initial_outline_ruins",
+                        ]
+                    )
 
-    def get_queryset(self):
-        models.Outline.objects.filter(
-            editable="active", owner=self.request.user
-        ).delete()
-        query = models.Outline.objects.select_related("world", "world__server").filter(
-            owner=self.request.user
-        )
+                return redirect(
+                    reverse("base:planer") + f"?show-hidden={str(show_hidden).lower()}"
+                )
+            for outline in outlines:
+                if request.POST.get("parent_outline") == str(outline.pk):
+                    setattr(
+                        outline,
+                        "duplicate_form",
+                        form1,
+                    )
+                    break
 
-        for outline in query:
-            # overwrite attributes
-            setattr(outline, "world_human", outline.world.game_name(prefix=True))
-            setattr(outline, "ally_tribe_tag", ", ".join(outline.ally_tribe_tag))
-            setattr(outline, "enemy_tribe_tag", ", ".join(outline.enemy_tribe_tag))
-
-        return query
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["show_all"] = True
-        return context
+    context = {"form1": form1, "show_hidden": show_hidden, "outlines": outlines}
+    return render(request, "base/base_planer.html", context)
 
 
 @login_required
@@ -85,22 +147,26 @@ def inactive_outline(request: HttpRequest, _id: int) -> HttpResponse:
     """class based view makeing outline with id=id inavtive/active, post and login required"""
 
     outline = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    show_hidden = get_show_hidden(request)
+
     if outline.status == "active":
         outline.status = "inactive"
         outline.save(update_fields=["status"])
-        return redirect("base:planer")
     else:
         outline.status = "active"
         outline.save(update_fields=["status"])
-        return redirect("base:planer_all")
+
+    return redirect(reverse("base:planer") + f"?show-hidden={str(show_hidden).lower()}")
 
 
 @login_required
 @require_POST
 def outline_delete(request: HttpRequest, _id: int) -> HttpResponse:
     outline = get_object_or_404(models.Outline, id=_id, owner=request.user)
+    show_hidden = get_show_hidden(request)
+
     outline.delete()
-    return redirect("base:planer")
+    return redirect(reverse("base:planer") + f"?show-hidden={str(show_hidden).lower()}")
 
 
 @login_required

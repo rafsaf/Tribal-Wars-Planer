@@ -792,3 +792,6 @@ a.nav-link.nav-link-pills.last-nav-link {
 .fancy-building-True {
   background: #dbe7e5a4;
 }
+.row-expired {
+  opacity: 0.6;
+}
