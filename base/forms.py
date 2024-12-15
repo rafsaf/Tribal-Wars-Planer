@@ -640,6 +640,8 @@ class RuiningOutlineForm(forms.ModelForm):
             "initial_outline_catapult_max_value",
             "initial_outline_off_left_catapult",
             "initial_outline_average_ruining_points",
+            "initial_outline_ruins_min_off",
+            "initial_outline_ruins_max_off",
         ]
         labels = {
             "initial_outline_catapult_min_value": gettext_lazy(
@@ -653,6 +655,20 @@ class RuiningOutlineForm(forms.ModelForm):
             ),
             "initial_outline_average_ruining_points": gettext_lazy(
                 "How many points on average do demolished targets have:"
+            ),
+            "initial_outline_ruins_min_off": gettext_lazy(
+                "Min. off units number in ruin attacks"
+            ),
+            "initial_outline_ruins_max_off": gettext_lazy(
+                "Max. off units number in ruin attacks"
+            ),
+        }
+        help_texts = {
+            "initial_outline_ruins_min_off": gettext_lazy(
+                "Greater than or equal to 1 and less than or equal to 28000. Only offs above this value will used in ruin attacks."
+            ),
+            "initial_outline_ruins_max_off": gettext_lazy(
+                "Defaults to 28000. Similar to minimum off units number, must be greater than it."
             ),
         }
 
