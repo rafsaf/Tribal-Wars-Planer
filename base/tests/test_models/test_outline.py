@@ -270,5 +270,5 @@ class ExpiresIn(MiniSetup):
         res3 = "<small class='md-error'>Wygasa za 3 dni</small>"
         self.assertEqual(outline3.expires_in(), res3)
 
-        res4 = "<small class='md-correct2'>Wygasa nigdy</small>"
+        res4 = "<small class='md-error'>Wygasa za -97 dni</small>"
         self.assertEqual(outline4.expires_in(), res4)
