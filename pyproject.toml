@@ -8,50 +8,50 @@ version = "5.9.0"
 python = ">=3.13,<3.14"
 
 crispy-bootstrap4 = "^2024.1"
-django = "^5.1.1"
+django = "^5.1.5"
 django-crispy-forms = "^2.3"
 django-registration = "^5.1.0"
-django-ses = "^4.1.1"
+django-ses = "^4.3.2"
 djangorestframework = "^3.15.2"
 
 beautifulsoup4 = "^4.12.3"
-botocore = "^1.35.93"
+botocore = "^1.36.7"
 cython = "^3.0.11"
 diskcache = "^5.6.3"
 django-otp-yubikey = "^1.1.0"
-django-timezone-field = "^7.0"
+django-timezone-field = "^7.1"
 django-two-factor-auth = { extras = ["phonenumberslite"], version = "^1.17.0" }
 drf-spectacular = "^0.28.0"
 fpdf = "^1.7.2"
-numpy = "^2.2.1"
+numpy = "^2.2.2"
 prometheus-client = "^0.21.0"
 psutil = "^6.1.1"
-psycopg = { extras = ["c"], version = "^3.2.2" }
+psycopg = { extras = ["c"], version = "^3.2.4" }
 python-dateutil = "^2.9.0"
 python-dotenv = "^1.0.1"
 schedule = "^1.2.1"
-scipy = "^1.15.0"
-sentry-sdk = { extras = ["django"], version = "^2.18.0" }
-setuptools = "^75.7.0"
-stripe = "^11.4.1"
+scipy = "^1.15.1"
+sentry-sdk = { extras = ["django"], version = "^2.20.0" }
+setuptools = "^75.8.0"
+stripe = "^11.5.0"
 uwsgi = "^2.0.27"
 
 [tool.poetry.group.dev.dependencies]
 coverage = "^7.6.10"
-django-debug-toolbar = "^4.4.6"
-django-stubs = "^5.1.0"
+django-debug-toolbar = "^5.0.1"
+django-stubs = "^5.1.2"
 django-stubs-ext = "^5.0.2"
 djangorestframework-stubs = "^3.15.1"
 djhtml = "^3.0.6"
 freezegun = "^1.2.2"
 mypy = "^1.14.1"
 parameterized = "^0.9.0"
-pre-commit = "^4.0.1"
+pre-commit = "^4.1.0"
 pytest-cov = "^6.0.0"
 pytest-django = "^4.9.0"
 pytest-xdist = "^3.1.0"
 requests-mock = "^1.12.1"
-ruff = "^0.8.6"
+ruff = "^0.9.3"
 types-markdown = "^3.7.0.20240822"
 types-python-dateutil = "^2.9.0.20240906"
 types-pytz = "^2024.2.0.20241221"
@@ -60,7 +60,7 @@ types-requests = "^2.32.0.20240914"
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["i18n"], version = "^1.6.1" }
 mkdocs-glightbox = "^0.4.0"
-mkdocs-material = { extras = ["imaging"], version = "^9.5.49" }
+mkdocs-material = { extras = ["imaging"], version = "^9.5.50" }
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
