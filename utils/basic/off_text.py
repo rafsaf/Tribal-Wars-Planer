@@ -71,7 +71,7 @@ class NewOffsText:
         self.results += simplified + self.newline
 
     def full_decription(self) -> str:
-        return "\r\nNICK, FRONT, ZAPLECZE\r\n" f"{self.results}"
+        return f"\r\nNICK, FRONT, ZAPLECZE\r\n{self.results}"
 
     def text(self) -> str:
         return str(

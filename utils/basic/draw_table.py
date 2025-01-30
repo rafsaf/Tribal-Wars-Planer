@@ -122,10 +122,7 @@ class Table:
         )
 
         return (
-            "{row_sep}{newline}"
-            "{header}{newline}"
-            "{header_sep}{newline}"
-            "{data_rows}"
+            "{row_sep}{newline}{header}{newline}{header_sep}{newline}{data_rows}"
         ).format(
             row_sep=self.row_separator,
             header=self._build_row(self.headers),

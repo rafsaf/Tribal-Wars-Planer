@@ -55,4 +55,4 @@ class WorldTest(MiniSetup):
         world = self.get_world()
         link = world.tw_stats_link_to_village("1000")
 
-        assert link == ("https://nt.twstats.com/nt1/index.php?" "page=village&id=1000")
+        assert link == "https://nt.twstats.com/nt1/index.php?page=village&id=1000"
