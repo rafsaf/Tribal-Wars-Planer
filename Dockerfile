@@ -20,7 +20,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get update && apt-get install -y python3-pip nginx postgresql-client
 
 FROM base AS poetry
-RUN --mount=type=cache,target=/root/.cache/pip pip install poetry==1.8.2
+RUN --mount=type=cache,target=/root/.cache/pip pip install poetry==2.0.1
+RUN --mount=type=cache,target=/root/.cache/pip poetry self add poetry-plugin-export
 COPY poetry.lock pyproject.toml ./
 RUN poetry export -o  /requirements.txt --without-hashes --without="dev" --without="docs"
 RUN poetry export -o /requirements-docs.txt --without-hashes --only="docs"

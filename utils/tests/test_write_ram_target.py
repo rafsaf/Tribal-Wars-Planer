@@ -196,6 +196,6 @@ class TestWriteRamTarget(TestCase):
                 target.enter_t2 = case[4]
                 write_target = self.get_write_target(target)
                 write_target._add_night_bonus_annotations(write_target.weight_max_list)
-                assert (
-                    write_target.weight_max_list[0].night_bool == case[5]
-                ), f"case {i} {write_target.weight_max_list[0].start}"
+                assert write_target.weight_max_list[0].night_bool == case[5], (
+                    f"case {i} {write_target.weight_max_list[0].start}"
+                )

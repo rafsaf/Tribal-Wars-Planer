@@ -73,7 +73,7 @@ class World(models.Model):
         return self.human(prefix=prefix)
 
     def link_to_game(self, addition: str = ""):
-        return f"https://{str(self)}." f"{self.server.dns}" f"{addition}"
+        return f"https://{str(self)}.{self.server.dns}{addition}"
 
     def tw_stats_link_to_village(self, village_id: str | int):
         return (

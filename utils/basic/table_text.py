@@ -113,9 +113,7 @@ class TableText:
         t1_part = datetime1.time()
         t2_part = datetime2.time()
 
-        return (
-            f"\r\n[b]{date_part} [color=#ff0000]{t1_part} " f"- {t2_part}[/color][/b]"
-        )
+        return f"\r\n[b]{date_part} [color=#ff0000]{t1_part} - {t2_part}[/color][/b]"
 
     def __weight_table(
         self,
