@@ -72,7 +72,10 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 log = logging.getLogger(__name__)
 
 
-@extend_schema(tags=["internal"])
+@extend_schema(
+    tags=["internal"],
+    responses={200: OpenApiResponse(response=None, description="alive")},
+)
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def healthcheck(request: Request):
