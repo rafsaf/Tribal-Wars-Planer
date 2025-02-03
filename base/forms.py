@@ -141,7 +141,7 @@ class OffTroopsForm(forms.ModelForm):
                 if not self.first_error_message:
                     self.first_error_message = gettext_lazy(
                         "Village in this line is duplicated: %(coord)s"
-                    ) % {army.coord}
+                    ) % {"coord": army.coord}
 
                 self.add_error("off_troops", str(i))
                 continue
