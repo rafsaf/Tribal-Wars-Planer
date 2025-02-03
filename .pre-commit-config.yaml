@@ -5,12 +5,12 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.3
+    rev: v0.9.4
     hooks:
       - id: ruff-format
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.3
+    rev: v0.9.4
     hooks:
       - id: ruff
         args: [--fix]
@@ -24,6 +24,6 @@ repos:
           - https://github.com/rafsaf/Tribal-Wars-Planer
 
   - repo: https://github.com/rtts/djhtml
-    rev: "3.0.6"
+    rev: "3.0.7"
     hooks:
       - id: djhtml

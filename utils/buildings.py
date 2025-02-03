@@ -22,7 +22,7 @@ class BUILDING(enum.StrEnum):
     WATCHTOWER = "watchtower"
 
 
-BUILDINGS_TRANSLATION: dict[str, str] = {
+BUILDINGS_TRANSLATION = {
     BUILDING.HEADQUARTERS.value: gettext_lazy("Headquarters"),
     BUILDING.BARRACKS.value: gettext_lazy("Barracks"),
     BUILDING.STABLE.value: gettext_lazy("Stable"),

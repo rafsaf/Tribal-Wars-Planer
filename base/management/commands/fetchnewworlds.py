@@ -48,14 +48,14 @@ def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
     )
     soup = BeautifulSoup(res.text, features="html.parser")
     worlds_div = soup.find_all("div", attrs={"class": "content-selector"})[1]
-    for world_li in worlds_div.ul.find_all("li"):
-        world_url: str = world_li.a["href"]
+    for world_li in worlds_div.ul.find_all("li"):  # type: ignore
+        world_url: str = world_li.a["href"]  # type: ignore
         world_postfix = (
             world_url.removeprefix("https://")
             .split(".")[0]
             .removeprefix(tw_server.prefix)
         )
-        worlds[world_postfix] = world_li.a.text.strip()
+        worlds[world_postfix] = world_li.a.text.strip()  # type: ignore
     return worlds
 
 

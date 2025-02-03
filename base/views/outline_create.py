@@ -30,7 +30,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
     form1 = forms.OutlineForm(None)
     form2 = forms.ChangeServerForm(None)
 
-    form1.fields["world"].choices = [
+    form1.fields["world"].choices = [  # type: ignore
         (f"{world.pk}", f"{world.game_name()}")
         for world in models.World.objects.filter(
             server=profile.server, pending_delete=False
@@ -39,7 +39,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         if "form1" in request.POST:
             form1 = forms.OutlineForm(request.POST)
-            form1.fields["world"].choices = [
+            form1.fields["world"].choices = [  # type: ignore
                 (f"{world.pk}", world.game_name())
                 for world in models.World.objects.filter(
                     server=profile.server, pending_delete=False
@@ -139,9 +139,9 @@ def new_outline_create_select(  # noqa: PLR0912
     if request.method == "POST":
         if "tribe1" in request.POST:
             form1 = forms.MyTribeTagForm(request.POST)
-            form1.fields["tribe1"].choices = choices
+            form1.fields["tribe1"].choices = choices  # type: ignore
             form2 = forms.EnemyTribeTagForm()
-            form2.fields["tribe2"].choices = choices
+            form2.fields["tribe2"].choices = choices  # type: ignore
 
             if form1.is_valid():
                 tribe = request.POST["tribe1"]
@@ -150,9 +150,9 @@ def new_outline_create_select(  # noqa: PLR0912
                 return redirect("base:planer_create_select", _id)
         elif "tribe2" in request.POST:
             form1 = forms.MyTribeTagForm()
-            form1.fields["tribe1"].choices = choices
+            form1.fields["tribe1"].choices = choices  # type: ignore
             form2 = forms.EnemyTribeTagForm(request.POST)
-            form2.fields["tribe2"].choices = choices
+            form2.fields["tribe2"].choices = choices  # type: ignore
 
             if form2.is_valid():
                 tribe = request.POST["tribe2"]
@@ -161,15 +161,15 @@ def new_outline_create_select(  # noqa: PLR0912
                 return redirect("base:planer_create_select", _id)
         else:
             form1 = forms.MyTribeTagForm()
-            form1.fields["tribe1"].choices = choices
+            form1.fields["tribe1"].choices = choices  # type: ignore
             form2 = forms.EnemyTribeTagForm()
-            form2.fields["tribe2"].choices = choices
+            form2.fields["tribe2"].choices = choices  # type: ignore
 
     else:
         form1 = forms.MyTribeTagForm()
-        form1.fields["tribe1"].choices = choices
+        form1.fields["tribe1"].choices = choices  # type: ignore
         form2 = forms.EnemyTribeTagForm()
-        form2.fields["tribe2"].choices = choices
+        form2.fields["tribe2"].choices = choices  # type: ignore
 
     context = {
         "instance": instance,

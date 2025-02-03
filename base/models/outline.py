@@ -68,38 +68,38 @@ class Outline(models.Model):
         ("inactive", "Inactive"),
     ]
 
-    MODE_OFF: list[tuple[str, str]] = [
+    MODE_OFF = [
         ("closest", gettext_lazy("Closest Front")),
         ("close", gettext_lazy("Close Back")),
         ("random", gettext_lazy("Random Back")),
         ("far", gettext_lazy("Far Back")),
     ]
 
-    MODE_NOBLE: list[tuple[str, str]] = [
+    MODE_NOBLE = [
         ("closest", gettext_lazy("Closest Front")),
         ("close", gettext_lazy("Close Back")),
         ("random", gettext_lazy("Random Back")),
         ("far", gettext_lazy("Far Back")),
     ]
 
-    MODE_DIVISION: list[tuple[str, str]] = [
+    MODE_DIVISION = [
         ("divide", gettext_lazy("Divide off with nobles")),
         ("not_divide", gettext_lazy("Dont't divide off")),
         ("separatly", gettext_lazy("Off and nobles separatly")),
     ]
 
-    MODE_SPLIT: list[tuple[str, str]] = [
+    MODE_SPLIT = [
         ("together", gettext_lazy("Nobles from one village as one command")),
         ("split", gettext_lazy("Nobles from one village as many commands")),
     ]
 
-    NOBLE_GUIDELINES: list[tuple[str, str]] = [
+    NOBLE_GUIDELINES = [
         ("one", gettext_lazy("Try send all nobles to one target")),
         ("many", gettext_lazy("Nobles to one or many targets")),
         ("single", gettext_lazy("Try single nobles from many villages")),
     ]
 
-    HIDE_CHOICES: list[tuple[str, str]] = [
+    HIDE_CHOICES = [
         ("all", gettext_lazy("All")),
         ("front", gettext_lazy("Front")),
         ("back", gettext_lazy("Back (Rear)")),
@@ -109,7 +109,7 @@ class Outline(models.Model):
 
     BUILDINGS = BUILDINGS_TRANSLATION.items()
 
-    RUINED_VILLAGES_POINTS: list[tuple[str, str]] = [
+    RUINED_VILLAGES_POINTS = [
         ("big", gettext_lazy("Average greater than 8k")),
         ("medium", gettext_lazy("Average 5-8k")),
     ]
@@ -123,12 +123,12 @@ class Outline(models.Model):
         (200, "200"),
     ]
 
-    FAKE_MIN_OFF_CHOICES: list[tuple[str, str]] = [
+    FAKE_MIN_OFF_CHOICES = [
         ("off", gettext_lazy("Fakes only from off villages")),
         ("all", gettext_lazy("Fakes from all villages")),
     ]
 
-    SENDING_OPTIONS: list[tuple[str, str]] = [
+    SENDING_OPTIONS = [
         (
             "default",
             gettext_lazy("(Default) Auto generated, fully equipped safe links"),
@@ -141,7 +141,7 @@ class Outline(models.Model):
 
     ARMY_COLLECTION = "Army collection"
     DEFF_COLLECTION = "Deff collection"
-    INPUT_DATA_TYPES: list[tuple[str, str]] = [
+    INPUT_DATA_TYPES = [
         (ARMY_COLLECTION, gettext_lazy("Army collection")),
         (DEFF_COLLECTION, gettext_lazy("Deff collection ")),
     ]
@@ -441,7 +441,7 @@ class Outline(models.Model):
         )
 
     def expires_in(self) -> str:
-        base: str = gettext_lazy("Expires ")
+        base = gettext_lazy("Expires ")
         postfix: str = "</small>"
 
         minus_35_days = timezone.now() - datetime.timedelta(days=35)
