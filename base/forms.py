@@ -114,14 +114,12 @@ class OffTroopsForm(forms.ModelForm):
                         ).first()
                         if not village:
                             self.second_error_message = gettext_lazy(
-                                gettext_lazy(
-                                    "[coord: %(coord)s] - [world: %(world)s]: no such village"
-                                )
-                                % {
-                                    "coord": error.coord,
-                                    "world": self.outline.world.game_name(),
-                                }
-                            )
+                                "[coord: %(coord)s] - [world: %(world)s]: no such village"
+                            ) % {
+                                "coord": error.coord,
+                                "world": self.outline.world.game_name(),
+                            }
+
                         else:
                             self.second_error_message = gettext_lazy(
                                 "[coord: %(coord)s] - "
@@ -142,8 +140,9 @@ class OffTroopsForm(forms.ModelForm):
             if army.coord in already_used_villages:
                 if not self.first_error_message:
                     self.first_error_message = gettext_lazy(
-                        "Village in this line is duplicated: %s" % army.coord  # noqa: UP031
-                    )
+                        "Village in this line is duplicated: %(coord)s"
+                    ) % {"coord": army.coord}
+
                 self.add_error("off_troops", str(i))
                 continue
             else:
@@ -205,14 +204,12 @@ class DeffTroopsForm(forms.ModelForm):
                         ).first()
                         if not village:
                             self.second_error_message = gettext_lazy(
-                                gettext_lazy(
-                                    "[coord: %(coord)s] - [world: %(world)s]: no such village"
-                                )
-                                % {
-                                    "coord": error.coord,
-                                    "world": self.outline.world.game_name(),
-                                }
-                            )
+                                "[coord: %(coord)s] - [world: %(world)s]: no such village"
+                            ) % {
+                                "coord": error.coord,
+                                "world": self.outline.world.game_name(),
+                            }
+
                         else:
                             self.second_error_message = gettext_lazy(
                                 "[coord: %(coord)s] - "
@@ -237,8 +234,9 @@ class DeffTroopsForm(forms.ModelForm):
                 if already_used_villages[army.coord] > 2:
                     if not self.first_error_message:
                         self.first_error_message = gettext_lazy(
-                            "Village in this line is duplicated: %s" % army.coord  # noqa: UP031
-                        )
+                            "Village in this line is duplicated: %(coord)s"
+                        ) % {"coord": army.coord}
+
                     self.add_error("deff_troops", i)  # type: ignore
             else:
                 already_used_villages[army.coord] = 1

@@ -18,7 +18,6 @@ import tomllib
 from pathlib import Path
 from typing import Any
 
-import sentry_sdk
 from diskcache.fanout import FanoutCache
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 from dotenv import load_dotenv
@@ -82,6 +81,8 @@ else:
     SENTRY_SDK_ACTIVE = False
 
 if SENTRY_SDK_ACTIVE:
+    import sentry_sdk
+
     sentry_sdk.init(
         dsn=os.environ["SENTRY_DSN"],
         server_name=MAIN_DOMAIN,
@@ -125,7 +126,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_THROTTLE_RATES": {"anon": "25/min", "user": "25/min"},
+    "DEFAULT_THROTTLE_RATES": {"anon": "50/min", "user": "50/min"},
     "NUM_PROXIES": 2,
 }
 

@@ -1,13 +1,13 @@
-# Public API
+# Publiczne API  
 
-There is an option to use the public API. I would be very grateful for reasonable rate limiting and not DDOSing the Tribes Planer servers.
+Istnieje możliwość korzystania z publicznego API. Będę bardzo wdzięczny za rozsądne ograniczenie liczby zapytań i unikanie DOSów na serwery Plemiona Planer.
 
-Links:
+Linki:  
 
-- [OpenAPI schema - Swagger UI](https://plemiona-planer.pl/api/public/schema/swagger-ui/)
-- [OpenAPI schema - Redoc UI](https://plemiona-planer.pl/api/public/schema/redoc/)
-- [OpenAPI schema spec yaml file](https://plemiona-planer.pl/api/public/schema)
+- [Schemat OpenAPI - Swagger UI](https://plemiona-planer.pl/api/public/schema/swagger-ui/)  
+- [Schemat OpenAPI - Redoc UI](https://plemiona-planer.pl/api/public/schema/redoc/)  
+- [Plik specyfikacji schematu OpenAPI (yaml)](https://plemiona-planer.pl/api/public/schema)  
 
-At the time of writing this article, an endpoint has been added for retrieving full data from the public outline links.
+W momencie pisania tego artykułu dodano endpoint umożliwiający pobieranie pełnych danych z publicznych linków.  
 
 <br>

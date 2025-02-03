@@ -33,11 +33,11 @@ class TestPublicOutlineOverview(MiniSetup):
         response = self.client.get(f"{PATH}?token=wrong")
         assert response.status_code == 404
 
-    def test_public_outline_overview___400_invalid_data_in_db(self):
+    def test_public_outline_overview___500_invalid_data_in_db(self):
         PATH = reverse("rest_api:public_outline_overview")
         overview = self.create_overview(self.get_outline())
         overview.outline_overview.targets_json = "{}"
         overview.outline_overview.weights_json = "{}"
         overview.outline_overview.save()
         response = self.client.get(f"{PATH}?token={overview.token}")
-        assert response.status_code == 400
+        assert response.status_code == 500

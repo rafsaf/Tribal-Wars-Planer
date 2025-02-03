@@ -113,8 +113,8 @@ class WeightSerializer(serializers.Serializer):
     player_id = serializers.IntegerField()
     send_url = serializers.CharField()
 
-    def get_building_name(self, obj: Any) -> str | None:
-        return BUILDINGS_TRANSLATION.get(obj.get("building"))
+    def get_building_name(self, obj: Any) -> str:
+        return BUILDINGS_TRANSLATION.get(obj.get("building"))  # type: ignore
 
 
 class TargetOrdersSerializer(serializers.Serializer):
@@ -127,3 +127,7 @@ class OverviewSerializer(serializers.Serializer):
     outline = OutlineSerializer()
     world = WorldSerializer()
     targets = TargetOrdersSerializer(many=True)
+
+
+class ErrorDetailSerializer(serializers.Serializer):
+    detail = serializers.CharField()

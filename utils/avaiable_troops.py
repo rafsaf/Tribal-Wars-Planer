@@ -15,8 +15,7 @@
 
 
 import numpy as np
-from django.db.models import F, Sum
-from django.db.models.query import Q, QuerySet
+from django.db.models import F, Q, QuerySet, Sum
 
 from base import models
 from utils.basic.cdist_brute import CDistBrute

@@ -29,27 +29,27 @@ from base.models.outline_time import OutlineTime
 class TargetVertex(models.Model):
     """Target Village"""
 
-    MODE_OFF: list[tuple[str, str]] = [
+    MODE_OFF = [
         ("closest", gettext_lazy("Closest Front")),
         ("close", gettext_lazy("Close Back")),
         ("random", gettext_lazy("Random Back")),
         ("far", gettext_lazy("Far Back")),
     ]
 
-    MODE_NOBLE: list[tuple[str, str]] = [
+    MODE_NOBLE = [
         ("closest", gettext_lazy("Closest Front")),
         ("close", gettext_lazy("Close Back")),
         ("random", gettext_lazy("Random Back")),
         ("far", gettext_lazy("Far Back")),
     ]
 
-    MODE_DIVISION: list[tuple[str, str]] = [
+    MODE_DIVISION = [
         ("divide", gettext_lazy("Divide off with nobles")),
         ("not_divide", gettext_lazy("Dont't divide off")),
         ("separatly", gettext_lazy("Off and nobles separatly")),
     ]
 
-    NOBLE_GUIDELINES: list[tuple[str, str]] = [
+    NOBLE_GUIDELINES = [
         ("one", gettext_lazy("Try send all nobles to one target")),
         ("many", gettext_lazy("Nobles to one or many targets")),
         ("single", gettext_lazy("Try single nobles from many villages")),
