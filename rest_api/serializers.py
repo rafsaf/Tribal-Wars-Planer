@@ -127,3 +127,7 @@ class OverviewSerializer(serializers.Serializer):
     outline = OutlineSerializer()
     world = WorldSerializer()
     targets = TargetOrdersSerializer(many=True)
+
+
+class ErrorDetailSerializer(serializers.Serializer):
+    detail = serializers.CharField()

@@ -1,6 +1,6 @@
 # Public API
 
-There is an option to use the public API. I would be very grateful for reasonable rate limiting and not DDOSing the Tribes Planer servers.
+There is an option to use the public API. I would be very grateful for reasonable rate limiting and not DOSing the Tribes Planer servers.
 
 Links:
 

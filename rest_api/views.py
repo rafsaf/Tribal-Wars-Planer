@@ -28,7 +28,9 @@ from django.utils import timezone, translation
 from django.utils.translation import activate
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
+    OpenApiExample,
     OpenApiParameter,
+    OpenApiResponse,
     extend_schema,
 )
 from prometheus_client import multiprocess
@@ -407,11 +409,50 @@ def trigger_error(_: Request) -> HttpResponse:
 
 @extend_schema(
     tags=["overview"],
+    description="Endpoint (anonymous) to get overview data by it's unique token, the same overview can be seen in graphical version using path: `https://plemiona-planer.pl/en/overview/{token}`",
     parameters=[
         OpenApiParameter(name="token", type=OpenApiTypes.STR),
         OpenApiParameter(name="language", type=OpenApiTypes.STR, enum=list(LANGUAGES)),
     ],
-    responses={200: serializers.OverviewSerializer, 400: {}},
+    responses={
+        200: OpenApiResponse(
+            response=serializers.OverviewSerializer, description="success"
+        ),
+        404: OpenApiResponse(
+            response=serializers.ErrorDetailSerializer,
+            description="there is no overview in database for provided token",
+            examples=[
+                OpenApiExample(
+                    name="overview not found",
+                    value={"detail": "No Overview matches the given query."},
+                )
+            ],
+        ),
+        429: OpenApiResponse(
+            response=serializers.ErrorDetailSerializer,
+            description=f"too many requests, limit is {settings.REST_FRAMEWORK['DEFAULT_THROTTLE_RATES']['anon']} per IP",
+            examples=[
+                OpenApiExample(
+                    name="too many requests",
+                    value={
+                        "detail": "Request was throttled. Expected available in 16 seconds."
+                    },
+                )
+            ],
+        ),
+        500: OpenApiResponse(
+            response=serializers.ErrorDetailSerializer,
+            description="server error - report it",
+            examples=[
+                OpenApiExample(
+                    name="inconsistent data",
+                    value={
+                        "detail": "Inconsistent data in database: {'outline': {'date': [ErrorDetail(string='This field is required.', code='required')]}}"
+                    },
+                )
+            ],
+        ),
+    },
 )
 @api_view(["GET"])
 @permission_classes([AllowAny])
@@ -486,7 +527,11 @@ def public_overview(request: Request) -> HttpResponse:
         }
     )
     if not output.is_valid():
-        return Response(data=output.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            data={"detail": f"Inconsistent data in database: {output.errors}"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
     return Response(
         data=output.data,
         status=status.HTTP_200_OK,
