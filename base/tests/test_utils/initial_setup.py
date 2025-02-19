@@ -412,7 +412,7 @@ def create_initial_data():
         state=weight_max1,
         distance=1,
         off=5000,
-        nobleman=1,
+        nobleman=0,
     )
 
     weight2 = models.WeightModel(
@@ -435,7 +435,7 @@ def create_initial_data():
         state=weight_max3,
         distance=3,
         off=19000,
-        nobleman=0,
+        nobleman=1,
     )
 
     weight1.save()

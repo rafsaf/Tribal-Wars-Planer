@@ -222,7 +222,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:  # noqa: PLR
             form10 = forms.OffTroopsForm(request.POST, outline=instance)
             instance.actions.save_off_troops(instance)
             if form10.is_valid():
-                instance.off_troops = request.POST["off_troops"]
+                instance.off_troops = form10.cleaned_data["off_troops"]
                 instance.off_troops_hash = instance.get_or_set_off_troops_hash(
                     force_recalculate=True
                 )
@@ -239,7 +239,7 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:  # noqa: PLR
             form20 = forms.DeffTroopsForm(request.POST, outline=instance)
             instance.actions.save_deff_troops(instance)
             if form20.is_valid():
-                instance.deff_troops = request.POST["deff_troops"]
+                instance.deff_troops = form20.cleaned_data["deff_troops"]
                 instance.deff_troops_hash = instance.get_or_set_deff_troops_hash(
                     force_recalculate=True
                 )

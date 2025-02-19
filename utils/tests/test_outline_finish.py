@@ -37,19 +37,19 @@ class TestMakeFinalOutline(TestCase):
 
     def test_add_target_error(self):
         coord = "500|499"
-        self.make_final._add_target_error(coord)
+        self.make_final._add_target_warning(coord)
         expected = {"Cel 500|499 nie istnieje"}
         self.assertEqual(expected, self.make_final.warnings)
 
     def test_add_village_player_error(self):
         coord = "500|499"
-        self.make_final._add_village_error(coord)
+        self.make_final._add_village_warning(coord)
         expected = {"Wioska 500|499 nie istnieje"}
         self.assertEqual(expected, self.make_final.warnings)
 
     def test_add_player_error(self):
         player = "player"
-        self.make_final._add_player_error(player)
+        self.make_final._add_player_warning(player)
         expected = {"Gracz player nie istnieje"}
         self.assertEqual(expected, self.make_final.warnings)
 
@@ -148,25 +148,25 @@ class TestMakeFinalOutline(TestCase):
             "start": "500|500",
             "player": "player0",
             "off": 5000,
-            "nobleman": 1,
+            "nobleman": 0,
             "catapult": 0,
             "ruin": False,
             "distance": 1.0,
-            "time_seconds": 84300,
-            "t1": datetime.time(9, 0),
-            "t2": datetime.time(10, 0),
+            "time_seconds": 84600,
+            "t1": datetime.time(7, 0),
+            "t2": datetime.time(9, 0),
             "delivery_t1": datetime.datetime(
-                2021, 3, 3, 9, 0, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
+                2021, 3, 3, 7, 0, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
             ),
             "delivery_t2": datetime.datetime(
-                2021, 3, 3, 10, 0, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
+                2021, 3, 3, 9, 0, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
             ),
             "building": None,
             "shipment_t1": datetime.datetime(
-                2021, 3, 3, 8, 25, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
+                2021, 3, 3, 6, 30, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
             ),
             "shipment_t2": datetime.datetime(
-                2021, 3, 3, 9, 25, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
+                2021, 3, 3, 8, 30, tzinfo=zoneinfo.ZoneInfo(key="Europe/Warsaw")
             ),
             "village_id": 0,
             "player_id": 0,
@@ -190,87 +190,87 @@ class TestMakeFinalOutline(TestCase):
         overview: Overview = Overview.objects.get(outline=outline)
         self.assertEqual(overview.player, "player0")
         table = (
-            "\r\n\r\n[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z WIOSKI[||]CEL[/**][*]1[|][url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url][|]19000[|]0[|]2021-03-03"
-            "\n[b][color=#0e5e5e]05:30:00[/color][/b]-[b][color=#ff0000]07:30:00[/color][/b][|]2021-03-03"
-            "\n[b][color=#0e5e5e]07:00:00[/color][/b]-[b][color=#ff0000]09:00:00[/color][/b][|][coord]500|502[/coord][|][coord]500|499[/coord][*]2[|][url=https://te1.testserver/game.php?village=1&screen=place&target=6]Wyślij OFF[/url][|]100[|]0[|]2021-03-03"
+            "\r\n\r\n[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z WIOSKI[||]CEL[/**][*]1[|][url=https://te1.testserver/game.php?village=1&screen=place&target=6]Wyślij OFF[/url][|]100[|]0[|]2021-03-03"
             "\n[b][color=#0e5e5e]06:00:00[/color][/b]-[b][color=#ff0000]08:00:00[/color][/b][|]2021-03-03"
-            "\n[b][color=#0e5e5e]07:00:00[/color][/b]-[b][color=#ff0000]09:00:00[/color][/b][|][coord]500|501[/coord][|][coord]500|499[/coord][*]3[|][url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url][|]5000[|]1[|]2021-03-03"
-            "\n[b][color=#0e5e5e]08:25:00[/color][/b]-[b][color=#ff0000]09:25:00[/color][/b][|]2021-03-03"
-            "\n[b][color=#0e5e5e]09:00:00[/color][/b]-[b][color=#ff0000]10:00:00[/color][/b][|][coord]500|500[/coord][|][coord]500|499[/coord][/table]"
+            "\n[b][color=#0e5e5e]07:00:00[/color][/b]-[b][color=#ff0000]09:00:00[/color][/b][|][coord]500|501[/coord][|][coord]500|499[/coord][*]2[|][url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url][|]5000[|]0[|]2021-03-03"
+            "\n[b][color=#0e5e5e]06:30:00[/color][/b]-[b][color=#ff0000]08:30:00[/color][/b][|]2021-03-03"
+            "\n[b][color=#0e5e5e]07:00:00[/color][/b]-[b][color=#ff0000]09:00:00[/color][/b][|][coord]500|500[/coord][|][coord]500|499[/coord][*]3[|][url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url][|]19000[|]1[|]2021-03-03"
+            "\n[b][color=#0e5e5e]07:15:00[/color][/b]-[b][color=#ff0000]08:15:00[/color][/b][|]2021-03-03"
+            "\n[b][color=#0e5e5e]09:00:00[/color][/b]-[b][color=#ff0000]10:00:00[/color][/b][|][coord]500|502[/coord][|][coord]500|499[/coord][/table]"
         )
         self.assertEqual(overview.table, table)
         extended = (
-            "\r\n\r\n1. [size=12][b]OFF[/b][/size] (Off-19000) z wioski 500|502 na 500|499\r\n"
-            "[b]2021-03-03 [color=#ff0000]05:30:00 - 07:30:00[/color][/b]\n"
-            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url]\r\n"
-            "\r\n"
-            "2. [size=12][b]OFF[/b][/size] (Off-100) z wioski 500|501 na 500|499\r\n"
+            "\r\n\r\n1. [size=12][b]OFF[/b][/size] (Off-100) z wioski 500|501 na 500|499\r\n"
             "[b]2021-03-03 [color=#ff0000]06:00:00 - 08:00:00[/color][/b]\n"
             "[url=https://te1.testserver/game.php?village=1&screen=place&target=6]Wyślij OFF[/url]\r\n"
             "\r\n"
-            "3. [color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color] (Off-5000, Szlachcice-1)  z wioski 500|500 na 500|499\r\n"
-            "[b]2021-03-03 [color=#ff0000]08:25:00 - 09:25:00[/color][/b]\n"
-            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url]\r\n\r\n"
+            "2. [size=12][b]OFF[/b][/size] (Off-5000) z wioski 500|500 na 500|499\r\n"
+            "[b]2021-03-03 [color=#ff0000]06:30:00 - 08:30:00[/color][/b]\n"
+            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url]\r\n"
+            "\r\n"
+            "3. [color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color] (Off-19000, Szlachcice-1)  z wioski 500|502 na 500|499\r\n"
+            "[b]2021-03-03 [color=#ff0000]07:15:00 - 08:15:00[/color][/b]\n"
+            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url]\r\n\r\n"
         )
 
         self.assertEqual(overview.extended, extended)
         new_extended = (
             "\r\n\r\n[b]----------------2021-03-03 (Środa)----------------[/b]\r\n"
-            "1. [b][color=#a50000]Wyślij OFF[19000 off][/color] (1 z 1)[/b]\n"
-            "\r\n"
-            "[b]2021-03-03 [color=#ff0000]05:30:00 - 07:30:00[/color][/b]\n"
-            "500|502 [b]->[/b] 500|499\n"
-            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url]\r\n"
-            "\r\n"
-            "2. [b][color=#a50000]Wyślij OFF[100 off][/color] (1 z 1)[/b]\n"
+            "1. [b][color=#a50000]Wyślij OFF[100 off][/color] (1 z 1)[/b]\n"
             "\r\n"
             "[b]2021-03-03 [color=#ff0000]06:00:00 - 08:00:00[/color][/b]\n"
             "500|501 [b]->[/b] 500|499\n"
             "[url=https://te1.testserver/game.php?village=1&screen=place&target=6]Wyślij OFF[/url]\r\n"
             "\r\n"
-            "3. [b][color=#a500a5]Wyślij SZLACHCIC[5000 off + 1 szlachcic][/color] (1 z 1)[/b]\n"
+            "2. [b][color=#a50000]Wyślij OFF[5000 off][/color] (1 z 1)[/b]\n"
             "\r\n"
-            "[b]2021-03-03 [color=#ff0000]08:25:00 - 09:25:00[/color][/b]\n"
+            "[b]2021-03-03 [color=#ff0000]06:30:00 - 08:30:00[/color][/b]\n"
             "500|500 [b]->[/b] 500|499\n"
-            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij SZLACHCIC[/url]\r\n\r\n"
+            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url]\r\n"
+            "\r\n"
+            "3. [b][color=#a500a5]Wyślij SZLACHCIC[19000 off + 1 szlachcic][/color] (1 z 1)[/b]\n"
+            "\r\n"
+            "[b]2021-03-03 [color=#ff0000]07:15:00 - 08:15:00[/color][/b]\n"
+            "500|502 [b]->[/b] 500|499\n"
+            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij SZLACHCIC[/url]\r\n\r\n"
         )
 
         self.assertEqual(overview.new_extended, new_extended)
 
         string = (
-            "\r\n\r\n1. [size=12][b]OFF[/b][/size] (Off-19000)\r\n"
-            "[b]2021-03-03 [color=#ff0000]05:30:00 - 07:30:00[/color][/b]\n"
-            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url]\r\n"
-            "\r\n"
-            "2. [size=12][b]OFF[/b][/size] (Off-100)\r\n"
+            "\r\n\r\n1. [size=12][b]OFF[/b][/size] (Off-100)\r\n"
             "[b]2021-03-03 [color=#ff0000]06:00:00 - 08:00:00[/color][/b]\n"
             "[url=https://te1.testserver/game.php?village=1&screen=place&target=6]Wyślij OFF[/url]\r\n"
             "\r\n"
-            "3. [color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color] (Off-5000, Szlachcice-1) \r\n"
-            "[b]2021-03-03 [color=#ff0000]08:25:00 - 09:25:00[/color][/b]\n"
-            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url]\r\n\r\n"
+            "2. [size=12][b]OFF[/b][/size] (Off-5000)\r\n"
+            "[b]2021-03-03 [color=#ff0000]06:30:00 - 08:30:00[/color][/b]\n"
+            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url]\r\n"
+            "\r\n"
+            "3. [color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color] (Off-19000, Szlachcice-1) \r\n"
+            "[b]2021-03-03 [color=#ff0000]07:15:00 - 08:15:00[/color][/b]\n"
+            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url]\r\n\r\n"
         )
         self.assertEqual(overview.string, string)
 
         deputy = (
             "\r\n\r\n[b]----------------2021-03-03 (Środa)----------------[/b]\r\n"
-            "1. [b][color=#a50000]Wyślij OFF[19000 off][/color] (1 z 1)[/b]\n"
-            "\r\n"
-            "[b]2021-03-03 [color=#ff0000]05:30:00 - 07:30:00[/color][/b]\n"
-            "500|502 [b]->[/b] 500|499\n"
-            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6&t=0]Wyślij OFF[/url]\r\n"
-            "\r\n"
-            "2. [b][color=#a50000]Wyślij OFF[100 off][/color] (1 z 1)[/b]\n"
+            "1. [b][color=#a50000]Wyślij OFF[100 off][/color] (1 z 1)[/b]\n"
             "\r\n"
             "[b]2021-03-03 [color=#ff0000]06:00:00 - 08:00:00[/color][/b]\n"
             "500|501 [b]->[/b] 500|499\n"
             "[url=https://te1.testserver/game.php?village=1&screen=place&target=6&t=0]Wyślij OFF[/url]\r\n"
             "\r\n"
-            "3. [b][color=#a500a5]Wyślij SZLACHCIC[5000 off + 1 szlachcic][/color] (1 z 1)[/b]\n"
+            "2. [b][color=#a50000]Wyślij OFF[5000 off][/color] (1 z 1)[/b]\n"
             "\r\n"
-            "[b]2021-03-03 [color=#ff0000]08:25:00 - 09:25:00[/color][/b]\n"
+            "[b]2021-03-03 [color=#ff0000]06:30:00 - 08:30:00[/color][/b]\n"
             "500|500 [b]->[/b] 500|499\n"
-            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6&t=0]Wyślij SZLACHCIC[/url]\r\n\r\n"
+            "[url=https://te1.testserver/game.php?village=0&screen=place&target=6&t=0]Wyślij OFF[/url]\r\n"
+            "\r\n"
+            "3. [b][color=#a500a5]Wyślij SZLACHCIC[19000 off + 1 szlachcic][/color] (1 z 1)[/b]\n"
+            "\r\n"
+            "[b]2021-03-03 [color=#ff0000]07:15:00 - 08:15:00[/color][/b]\n"
+            "500|502 [b]->[/b] 500|499\n"
+            "[url=https://te1.testserver/game.php?village=2&screen=place&target=6&t=0]Wyślij SZLACHCIC[/url]\r\n\r\n"
         )
         self.assertEqual(overview.deputy, deputy)
         self.assertEqual(overview.show_hidden, False)
@@ -279,6 +279,27 @@ class TestMakeFinalOutline(TestCase):
 
         expected_weights_json = {
             f"{target.pk}": [
+                {
+                    "id": WeightModel.objects.get(state__outline=outline, off=5000).pk,
+                    "start": "500|500",
+                    "player": "player0",
+                    "off": 5000,
+                    "nobleman": 0,
+                    "catapult": 0,
+                    "ruin": False,
+                    "distance": 1.0,
+                    "time_seconds": 84600,
+                    "t1": "07:00:00",
+                    "t2": "09:00:00",
+                    "building": None,
+                    "delivery_t1": "2021-03-03T07:00:00+01:00",
+                    "delivery_t2": "2021-03-03T09:00:00+01:00",
+                    "shipment_t1": "2021-03-03T06:30:00+01:00",
+                    "shipment_t2": "2021-03-03T08:30:00+01:00",
+                    "village_id": 0,
+                    "player_id": 0,
+                    "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                },
                 {
                     "id": WeightModel.objects.get(state__outline=outline, off=100).pk,
                     "start": "500|501",
@@ -291,9 +312,9 @@ class TestMakeFinalOutline(TestCase):
                     "time_seconds": 82800,
                     "t1": "07:00:00",
                     "t2": "09:00:00",
+                    "building": None,
                     "delivery_t1": "2021-03-03T07:00:00+01:00",
                     "delivery_t2": "2021-03-03T09:00:00+01:00",
-                    "building": None,
                     "shipment_t1": "2021-03-03T06:00:00+01:00",
                     "shipment_t2": "2021-03-03T08:00:00+01:00",
                     "village_id": 0,
@@ -305,39 +326,18 @@ class TestMakeFinalOutline(TestCase):
                     "start": "500|502",
                     "player": "player0",
                     "off": 19000,
-                    "nobleman": 0,
-                    "catapult": 0,
-                    "ruin": False,
-                    "distance": 3.0,
-                    "time_seconds": 81000,
-                    "t1": "07:00:00",
-                    "t2": "09:00:00",
-                    "delivery_t1": "2021-03-03T07:00:00+01:00",
-                    "delivery_t2": "2021-03-03T09:00:00+01:00",
-                    "building": None,
-                    "shipment_t1": "2021-03-03T05:30:00+01:00",
-                    "shipment_t2": "2021-03-03T07:30:00+01:00",
-                    "village_id": 0,
-                    "player_id": 0,
-                    "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
-                },
-                {
-                    "id": WeightModel.objects.get(state__outline=outline, off=5000).pk,
-                    "start": "500|500",
-                    "player": "player0",
-                    "off": 5000,
                     "nobleman": 1,
                     "catapult": 0,
                     "ruin": False,
-                    "distance": 1.0,
-                    "time_seconds": 84300,
+                    "distance": 3.0,
+                    "time_seconds": 80100,
                     "t1": "09:00:00",
                     "t2": "10:00:00",
+                    "building": None,
                     "delivery_t1": "2021-03-03T09:00:00+01:00",
                     "delivery_t2": "2021-03-03T10:00:00+01:00",
-                    "building": None,
-                    "shipment_t1": "2021-03-03T08:25:00+01:00",
-                    "shipment_t2": "2021-03-03T09:25:00+01:00",
+                    "shipment_t1": "2021-03-03T07:15:00+01:00",
+                    "shipment_t2": "2021-03-03T08:15:00+01:00",
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
