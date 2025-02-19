@@ -19,6 +19,7 @@ import secrets
 from typing import Any
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db import transaction
 from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.forms.models import model_to_dict
@@ -46,7 +47,43 @@ log = logging.getLogger(__name__)
 
 
 class OutdatedData(Exception):
-    """Raised when village or player are delted permanently from db"""
+    """Raised when village or player are deleted permanently from db"""
+
+
+class InvalidOrder(Exception):
+    """Raised order of weights for target makes no sense after OutlineTime was applied"""
+
+
+def check_order_of_weight_lst(
+    target: TargetVertex, weight_lst: list[WeightModel]
+) -> None:
+    """Check if weight lst sorted by order is correct and raise InvalidOrder if not"""
+
+    if not weight_lst:
+        return
+
+    current_weight = weight_lst[0]
+
+    for weight in weight_lst:
+        if weight.t1 < current_weight.t1:
+            error_msg = _(
+                "Invalid time applied on target %(target)s: "
+                "Order %(weight_index)s with coords %(weight_coord)s "
+                "has delivery time from %(weight_t1)s where previous one "
+                "with coords %(previous_coord)s has delivery time from %(previous_t1)s. "
+                "Please ensure that later orders are scheduled after previous ones."
+            ) % {
+                "target": target.target,
+                "weight_index": weight_lst.index(weight) + 1,
+                "weight_coord": weight.start,
+                "weight_t1": weight.t1.time(),
+                "previous_coord": current_weight.start,
+                "previous_t1": current_weight.t1.time(),
+            }
+
+            raise InvalidOrder(error_msg)
+
+        current_weight = weight
 
 
 class MakeFinalOutline:
@@ -76,7 +113,7 @@ class MakeFinalOutline:
         self.not_exist_msg = _("does not exists")
 
         self.outline: Outline = outline
-        self.error_messages_set: set[str] = set()
+        self.warnings: set[str] = set()
         self.player_id_dictionary: dict[str, str] = {}
         self.village_id_dictionary: dict[str, str] = {}
         self.target_period_dict: dict[TargetVertex, list[PeriodModel]] = {}
@@ -95,35 +132,33 @@ class MakeFinalOutline:
             .filter(num_of_weights__gt=0)
         )
 
-    def _add_target_error(self, target: str) -> None:
-        self.error_messages_set.add(f"{self.target_msg} {target} {self.not_exist_msg}")
+    def _add_target_warning(self, target: str) -> None:
+        self.warnings.add(f"{self.target_msg} {target} {self.not_exist_msg}")
 
-    def _add_village_error(self, village: str) -> None:
-        self.error_messages_set.add(
-            f"{self.village_msg} {village} {self.not_exist_msg}"
-        )
+    def _add_village_warning(self, village: str) -> None:
+        self.warnings.add(f"{self.village_msg} {village} {self.not_exist_msg}")
 
-    def _add_player_error(self, player: str) -> None:
-        self.error_messages_set.add(f"{self.player_msg} {player} {self.not_exist_msg}")
+    def _add_player_warning(self, player: str) -> None:
+        self.warnings.add(f"{self.player_msg} {player} {self.not_exist_msg}")
 
     def _enemy_id(self, target: str) -> str:
         enemy_id: str | None = self.village_id_dictionary.get(target)
         if enemy_id is None:
-            self._add_target_error(target)
+            self._add_target_warning(target)
             raise OutdatedData
         return enemy_id
 
     def _ally_id(self, village: str) -> str:
         ally_id: str | None = self.village_id_dictionary.get(village)
         if ally_id is None:
-            self._add_village_error(village)
+            self._add_village_warning(village)
             raise OutdatedData
         return ally_id
 
     def _player_id(self, player: str) -> str:
         player_id: str | None = self.player_id_dictionary.get(player)
         if player_id is None:
-            self._add_player_error(player)
+            self._add_player_warning(player)
             raise OutdatedData
         return player_id
 
@@ -218,6 +253,7 @@ class MakeFinalOutline:
         # target - lst[period1, period2, ...]
         self.target_period_dict = self.target_period_dictionary()
 
+    @transaction.atomic
     def __call__(self) -> set[str]:
         self._calculate_player_id_dictionary()
         self._calculate_villages_id_dictionary()
@@ -243,14 +279,7 @@ class MakeFinalOutline:
                 for weight in lst:
                     time_periods.next(weight=weight)
 
-                lst.sort(
-                    key=lambda weight: (
-                        weight.t1,
-                        weight.nobleman > 0,
-                        weight.t2,
-                        weight.start,
-                    )
-                )
+                check_order_of_weight_lst(target, lst)
 
                 for weight in lst:
                     weight_lst.append(weight)
@@ -312,7 +341,7 @@ class MakeFinalOutline:
                 )
             )
         Overview.objects.bulk_create(overviews)
-        return self.error_messages_set
+        return self.warnings
 
     def targets_json_format(self):
         context = {}

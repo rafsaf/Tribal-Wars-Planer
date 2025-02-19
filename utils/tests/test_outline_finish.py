@@ -39,19 +39,19 @@ class TestMakeFinalOutline(TestCase):
         coord = "500|499"
         self.make_final._add_target_error(coord)
         expected = {"Cel 500|499 nie istnieje"}
-        self.assertEqual(expected, self.make_final.error_messages_set)
+        self.assertEqual(expected, self.make_final.warnings)
 
     def test_add_village_player_error(self):
         coord = "500|499"
         self.make_final._add_village_error(coord)
         expected = {"Wioska 500|499 nie istnieje"}
-        self.assertEqual(expected, self.make_final.error_messages_set)
+        self.assertEqual(expected, self.make_final.warnings)
 
     def test_add_player_error(self):
         player = "player"
         self.make_final._add_player_error(player)
         expected = {"Gracz player nie istnieje"}
-        self.assertEqual(expected, self.make_final.error_messages_set)
+        self.assertEqual(expected, self.make_final.warnings)
 
     def test_targets_json_format(self):
         target = Target.objects.get(target="500|499")
@@ -82,7 +82,7 @@ class TestMakeFinalOutline(TestCase):
         with self.assertRaises(OutdatedData):
             self.make_final._ally_id(coord3)
         expected = {"Wioska 100|100 nie istnieje"}
-        self.assertEqual(expected, self.make_final.error_messages_set)
+        self.assertEqual(expected, self.make_final.warnings)
 
     def test_enemy_id(self):
         self.make_final._calculate_villages_id_dictionary()
@@ -97,7 +97,7 @@ class TestMakeFinalOutline(TestCase):
         with self.assertRaises(OutdatedData):
             self.make_final._enemy_id(coord3)
         expected = {"Cel 100|100 nie istnieje"}
-        self.assertEqual(expected, self.make_final.error_messages_set)
+        self.assertEqual(expected, self.make_final.warnings)
 
     def test_player_id(self):
         self.make_final._calculate_player_id_dictionary()
@@ -110,7 +110,7 @@ class TestMakeFinalOutline(TestCase):
         with self.assertRaises(OutdatedData):
             self.make_final._player_id(player2)
         expected = {"Gracz aaa nie istnieje"}
-        self.assertEqual(expected, self.make_final.error_messages_set)
+        self.assertEqual(expected, self.make_final.warnings)
 
     def test_calculate_player_id_dictionary(self):
         self.make_final._calculate_player_id_dictionary()

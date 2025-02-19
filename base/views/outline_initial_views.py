@@ -42,7 +42,7 @@ from base.models.target_vertex import TargetVertex
 from utils import avaiable_troops, basic
 from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
-from utils.outline_finish import MakeFinalOutline
+from utils.outline_finish import InvalidOrder, MakeFinalOutline
 from utils.outline_initial import MakeOutline
 
 log = logging.getLogger(__name__)
@@ -533,10 +533,18 @@ def initial_planer(  # noqa: PLR0912,PLR0911
                 return redirect(
                     reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
                 )
+
             models.Overview.objects.filter(outline=instance).update(removed=True)
             make_final_outline = MakeFinalOutline(instance)
 
-            error_messages = make_final_outline()
+            try:
+                error_messages = make_final_outline()
+            except InvalidOrder as e:
+                request.session["outline_error"] = str(e)
+                return redirect(
+                    reverse("base:planer_initial", args=[_id]) + "?page=1&mode=time"
+                )
+
             if len(error_messages) > 0:
                 request.session["error_messages"] = ",".join(error_messages)
             instance.actions.click_outline_finish(instance)
