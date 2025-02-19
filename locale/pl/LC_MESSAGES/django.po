@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-03 20:44+0100\n"
+"POT-Creation-Date: 2025-02-19 12:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1872,7 +1872,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
 #: base/templates/base/overview.html:220 utils/basic/mode.py:60
-#: utils/outline_finish.py:73
+#: utils/outline_finish.py:109
 msgid "Target"
 msgstr "Cel"
 
@@ -1916,7 +1916,7 @@ msgstr "Podziel na 4"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:136
 #: base/templates/base/new_outline/new_outline_results.html:87
 #: base/templates/base/new_outline/new_outline_results.html:130
-#: utils/outline_finish.py:75
+#: utils/outline_finish.py:111
 msgid "Player"
 msgstr "Gracz"
 
@@ -3235,11 +3235,25 @@ msgstr "Znak"
 msgid "Is not equal to '|'!"
 msgstr "Nie jest równy '|'!"
 
-#: utils/outline_finish.py:74
+#: utils/outline_finish.py:69
+#, python-format
+msgid ""
+"Invalid time applied on target %(target)s: Order %(weight_index)s with "
+"coords %(weight_coord)s has delivery time from %(weight_t1)s where previous "
+"one with coords %(previous_coord)s has delivery time from %(previous_t1)s. "
+"Please ensure that later orders are scheduled after previous ones."
+msgstr ""
+"Niepoprawny czas przypisany do celu %(target)s: Atak %(weight_index)s z "
+"wioski %(weight_coord)s ma czas wejścia od %(weight_t1)s gdzie poprzedni "
+"atak z wioski %(previous_coord)s ma czas wejścia od %(previous_t1)s. Upewnij "
+"się że późniejszy w ustalonej kolejności atak ma czas wejścia nie mniejszy "
+"niż poprzedni."
+
+#: utils/outline_finish.py:110
 msgid "Village"
 msgstr "Wioska"
 
-#: utils/outline_finish.py:76
+#: utils/outline_finish.py:112
 msgid "does not exists"
 msgstr "nie istnieje"
 

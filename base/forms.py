@@ -174,6 +174,8 @@ class DeffTroopsForm(forms.ModelForm):
     def clean_deff_troops(self):
         """User's input from script"""
         text = self.cleaned_data["deff_troops"]
+        out_lines: list[str] = []
+
         if text == "":
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
@@ -195,6 +197,8 @@ class DeffTroopsForm(forms.ModelForm):
                 army.clean_init(
                     villages, self.outline.ally_tribe_tag, previous=previous_army
                 )
+                out_lines.append(",".join(army.text_army))
+
             except basic.DefenceError as error:
                 if not self.first_error_message:
                     self.first_error_message = str(error)
@@ -240,8 +244,7 @@ class DeffTroopsForm(forms.ModelForm):
                     self.add_error("deff_troops", i)  # type: ignore
             else:
                 already_used_villages[army.coord] = 1
-
-        return text
+        return "\r\n".join(out_lines)
 
 
 class MyTribeTagForm(forms.Form):

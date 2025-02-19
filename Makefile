@@ -45,3 +45,7 @@ docs_serve_en:
 .PHONY: docs_build_en
 docs_build_en:
 	mkdocs build -f docs/config/en/mkdocs.yml
+
+.PHONY: build_cython
+build_cython:
+	python setup.py build_ext --inplace
