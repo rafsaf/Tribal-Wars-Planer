@@ -279,7 +279,7 @@ class MakeFinalOutline:
                 for weight in lst:
                     time_periods.next(weight=weight)
 
-                check_order_of_weight_lst(target, lst)
+                lst.sort(key=lambda weight: (weight.t1, weight.order))
 
                 for weight in lst:
                     weight_lst.append(weight)
