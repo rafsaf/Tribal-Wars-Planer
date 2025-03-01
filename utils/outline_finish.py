@@ -50,42 +50,6 @@ class OutdatedData(Exception):
     """Raised when village or player are deleted permanently from db"""
 
 
-class InvalidOrder(Exception):
-    """Raised order of weights for target makes no sense after OutlineTime was applied"""
-
-
-def check_order_of_weight_lst(
-    target: TargetVertex, weight_lst: list[WeightModel]
-) -> None:
-    """Check if weight lst sorted by order is correct and raise InvalidOrder if not"""
-
-    if not weight_lst:
-        return
-
-    current_weight = weight_lst[0]
-
-    for weight in weight_lst:
-        if weight.t1 < current_weight.t1:
-            error_msg = _(
-                "Invalid time applied on target %(target)s: "
-                "Order %(weight_index)s with coords %(weight_coord)s "
-                "has delivery time from %(weight_t1)s where previous one "
-                "with coords %(previous_coord)s has delivery time from %(previous_t1)s. "
-                "Please ensure that later orders are scheduled after previous ones."
-            ) % {
-                "target": target.target,
-                "weight_index": weight_lst.index(weight) + 1,
-                "weight_coord": weight.start,
-                "weight_t1": weight.t1.time(),
-                "previous_coord": current_weight.start,
-                "previous_t1": current_weight.t1.time(),
-            }
-
-            raise InvalidOrder(error_msg)
-
-        current_weight = weight
-
-
 class MakeFinalOutline:
     """
     The final step in creating outline, returns set with error messages (if any occured)
