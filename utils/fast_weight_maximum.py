@@ -59,6 +59,9 @@ class FastWeightMaximum:
         self.initial_outline_minimum_noble_troops: int = (
             outline.initial_outline_minimum_noble_troops
         )
+        self.initial_outline_minimum_fake_noble_troops: int = (
+            outline.initial_outline_minimum_fake_noble_troops
+        )
         self.village_id: int = weight_max.village_id
         self.player_id: int = weight_max.player_id
 
@@ -74,5 +77,14 @@ class FastWeightMaximum:
         else:
             possible_nobles_by_min_off = (
                 self.off_left // self.initial_outline_minimum_noble_troops
+            )
+        return min(self.nobleman_left, self.nobles_limit, possible_nobles_by_min_off)
+
+    def fake_nobles_allowed_to_use(self) -> int:
+        if self.initial_outline_minimum_fake_noble_troops == 0:
+            possible_nobles_by_min_off = self.nobleman_left
+        else:
+            possible_nobles_by_min_off = (
+                self.off_left // self.initial_outline_minimum_fake_noble_troops
             )
         return min(self.nobleman_left, self.nobles_limit, possible_nobles_by_min_off)

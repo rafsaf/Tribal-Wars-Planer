@@ -211,6 +211,10 @@ class Outline(models.Model):
         default=100,
         validators=[MinValueValidator(0), MaxValueValidator(28000)],
     )
+    initial_outline_minimum_fake_noble_troops = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(28000)],
+    )
     initial_outline_nobles_limit = models.IntegerField(
         default=10,
         validators=[MinValueValidator(1), MaxValueValidator(250)],

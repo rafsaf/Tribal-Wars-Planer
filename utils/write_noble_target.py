@@ -79,6 +79,9 @@ class WriteNobleTarget:
         self.initial_outline_minimum_noble_troops = (
             self.outline.initial_outline_minimum_noble_troops
         )
+        self.initial_outline_minimum_fake_noble_troops = (
+            self.outline.initial_outline_minimum_fake_noble_troops
+        )
         self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
         self.morale = self.outline.world.morale
         self.morale_on = self.outline.morale_on
@@ -97,6 +100,8 @@ class WriteNobleTarget:
             self.filters.append(self._casual_attack_block_ratio())
 
         if not self.target.fake:
+            self.filters.append(self._minimal_fake_noble_off())
+        else:
             self.filters.append(self._minimal_noble_off())
 
         if self.morale_on and self.morale > 0:
@@ -237,7 +242,7 @@ class WriteNobleTarget:
                 if self.target.mode_guide == "single":
                     nobles: int = 1
                 elif self.target.fake:
-                    nobles = min(weight_max.nobleman_left, weight_max.nobles_limit)
+                    nobles = weight_max.fake_nobles_allowed_to_use()
                 else:
                     nobles = weight_max.nobles_allowed_to_use()
 
@@ -309,7 +314,7 @@ class WriteNobleTarget:
 
     def _off(self, weight_max: FastWeightMaximum) -> int:
         if self.target.fake:
-            return 0
+            return self.initial_outline_minimum_fake_noble_troops
 
         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
             return weight_max.off_left // weight_max.nobles_allowed_to_use()
@@ -325,7 +330,7 @@ class WriteNobleTarget:
 
     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:
         if self.target.fake:
-            return 0
+            return self.initial_outline_minimum_fake_noble_troops
 
         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
             return weight_max.off_left - (
@@ -385,7 +390,7 @@ class WriteNobleTarget:
         self, weight_max: FastWeightMaximum, off: int, noble: int
     ) -> int:
         if self.target.fake:
-            return weight_max.off_left
+            return weight_max.off_left - off * noble
 
         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
             if weight_max.nobles_allowed_to_use() > noble:
@@ -409,7 +414,7 @@ class WriteNobleTarget:
         self, weight_max: FastWeightMaximum, catapult: int, noble: int
     ) -> int:
         if self.target.fake:
-            return weight_max.catapult_left
+            return weight_max.catapult_left - catapult * noble
 
         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
             if weight_max.nobles_allowed_to_use() > noble:
@@ -441,9 +446,22 @@ class WriteNobleTarget:
 
     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
         def filter_noble(weight_max: FastWeightMaximum) -> bool:
-            return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+            return (
+                weight_max.off_left
+                >= self.initial_outline_minimum_noble_troops * weight_max.nobleman_left
+            )
 
         return filter_noble
+
+    def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:
+            return (
+                weight_max.off_left
+                >= self.initial_outline_minimum_fake_noble_troops
+                * weight_max.nobleman_left
+            )
+
+        return filter_fake_noble
 
     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
         if self.casual_attack_block_ratio is None:
