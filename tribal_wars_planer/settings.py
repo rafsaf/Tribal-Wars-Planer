@@ -31,14 +31,14 @@ BUILD_TAG = pyproject_toml["tool"]["poetry"]["version"]
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
-env_debug = os.environ.get("DEBUG", False)
+env_debug = os.environ.get("DEBUG", "false")
 if env_debug in ["True", "true"]:
     DEBUG = True
 else:
     DEBUG = False
 
 TESTING = "pytest" in sys.modules
-DEBUG_TOOLBAR = DEBUG and int(os.environ.get("DEBUG_TOOLBAR", 0)) == 1 and not TESTING
+DEBUG_TOOLBAR = DEBUG and int(os.environ.get("DEBUG_TOOLBAR", "0")) == 1 and not TESTING
 MAIN_DOMAIN = os.environ.get("MAIN_DOMAIN", "localhost")
 SUB_DOMAIN = os.environ.get("SUB_DOMAIN", "")
 ALLOWED_HOSTS = [MAIN_DOMAIN]
@@ -64,17 +64,17 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "example@example.com")
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-JOB_MIN_INTERVAL = int(os.environ.get("JOB_MIN_INTERVAL", 10))
-JOB_MAX_INTERVAL = int(os.environ.get("JOB_MAX_INTERVAL", 15))
-WORLD_UPDATE_TRY_COUNT = int(os.environ.get("WORLD_UPDATE_TRY_COUNT", 1))
-WORLD_UPDATE_THREADS = int(os.environ.get("WORLD_UPDATE_THREADS", 1))
-env_world_update_fetch_all = os.environ.get("WORLD_UPDATE_FETCH_ALL", False)
+JOB_MIN_INTERVAL = int(os.environ.get("JOB_MIN_INTERVAL", "10"))
+JOB_MAX_INTERVAL = int(os.environ.get("JOB_MAX_INTERVAL", "15"))
+WORLD_UPDATE_TRY_COUNT = int(os.environ.get("WORLD_UPDATE_TRY_COUNT", "1"))
+WORLD_UPDATE_THREADS = int(os.environ.get("WORLD_UPDATE_THREADS", "1"))
+env_world_update_fetch_all = os.environ.get("WORLD_UPDATE_FETCH_ALL", "false")
 if env_world_update_fetch_all in ["True", "true"]:
     WORLD_UPDATE_FETCH_ALL = True
 else:
     WORLD_UPDATE_FETCH_ALL = False
 
-env_sentry_sdk_active = os.environ.get("SENTRY_SDK_ACTIVE", False)
+env_sentry_sdk_active = os.environ.get("SENTRY_SDK_ACTIVE", "false")
 if env_sentry_sdk_active in ["True", "true"]:
     SENTRY_SDK_ACTIVE = True
 else:
@@ -190,8 +190,8 @@ DATABASES: dict[str, dict[str, Any]] = {
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
         "HOST": os.environ.get("POSTGRES_HOST", "postgres"),
-        "PORT": os.environ.get("POSTGRES_PORT", 5432),
-        "CONN_MAX_AGE": int(os.environ.get("CONN_MAX_AGE", 120)),
+        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
+        "CONN_MAX_AGE": int(os.environ.get("CONN_MAX_AGE", "120")),
         "CONN_HEALTH_CHECKS": True,
     }
 }
@@ -276,7 +276,7 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "")
 AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT", "")
-INPUT_OUTLINE_MAX_TARGETS = int(os.environ.get("INPUT_OUTLINE_MAX_TARGETS", 5000))
+INPUT_OUTLINE_MAX_TARGETS = int(os.environ.get("INPUT_OUTLINE_MAX_TARGETS", "5000"))
 
 TRIBALWARS_ANDROID_APP_NAME = "air.com.innogames.staemme"
 METRICS_EXPORT_ENDPOINT_SECRET = os.environ.get(
@@ -284,7 +284,7 @@ METRICS_EXPORT_ENDPOINT_SECRET = os.environ.get(
 )
 
 env_premium_acount_validation_on = os.environ.get(
-    "PREMIUM_ACCOUNT_VALIDATION_ON", False
+    "PREMIUM_ACCOUNT_VALIDATION_ON", "false"
 )
 if env_premium_acount_validation_on in ["True", "true"]:
     PREMIUM_ACCOUNT_VALIDATION_ON = True
@@ -292,7 +292,7 @@ else:
     PREMIUM_ACCOUNT_VALIDATION_ON = False
 
 PREMIUM_ACCOUNT_MAX_TARGETS_FREE = int(
-    os.environ.get("PREMIUM_ACCOUNT_MAX_TARGETS_FREE", 25)
+    os.environ.get("PREMIUM_ACCOUNT_MAX_TARGETS_FREE", "25")
 )
 
 TRIBAL_WARS_SUPPORTED_SERVERS = [
@@ -328,14 +328,14 @@ SUPPORTED_CURRENCIES_CHOICES = [
 ]
 
 ACCOUNT_ACTIVATION_DAYS = 2
-env_registration_open = os.environ.get("REGISTRATION_OPEN", True)
+env_registration_open = os.environ.get("REGISTRATION_OPEN", "true")
 if env_registration_open in ["False", "false"]:
     REGISTRATION_OPEN = False
 else:
     REGISTRATION_OPEN = True
 
 YUBICO_VALIDATION_SERVICE_API_ID = int(
-    os.environ.get("YUBICO_VALIDATION_SERVICE_API_ID", True)
+    os.environ.get("YUBICO_VALIDATION_SERVICE_API_ID", "0")
 )
 YUBICO_VALIDATION_SERVICE_API_KEY = os.environ.get(
     "YUBICO_VALIDATION_SERVICE_API_KEY", ""
