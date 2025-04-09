@@ -37,12 +37,6 @@ class WorldUpdateHandlerTest(MiniSetup):
         super().setUp()
         self.world = self.get_world(save=False)
 
-    def test_already_added(self) -> None:
-        world = self.world
-        world.save()
-        world_query = WorldUpdateHandler(world=world)
-        assert world_query.check_if_world_exist_and_try_create() == (None, "added")
-
     def test_connection_error_get_config(self) -> None:
         world = self.world
         world_query = WorldUpdateHandler(world=world)
@@ -51,7 +45,7 @@ class WorldUpdateHandlerTest(MiniSetup):
                 world.link_to_game("/interface.php?func=get_config"),
                 exc=requests.exceptions.ConnectionError,
             )
-            assert world_query.check_if_world_exist_and_try_create() == (None, "error")
+            assert not world_query.create_or_update_config()
 
     def test_connection_bad_status_get_config(self) -> None:
         world = self.world
@@ -60,7 +54,7 @@ class WorldUpdateHandlerTest(MiniSetup):
             mock.get(
                 world.link_to_game("/interface.php?func=get_config"), status_code=400
             )
-            assert world_query.check_if_world_exist_and_try_create() == (None, "error")
+            assert not world_query.create_or_update_config()
 
     def test_connection_redirect_get_config(self) -> None:
         world = self.world
@@ -79,7 +73,7 @@ class WorldUpdateHandlerTest(MiniSetup):
                     },
                 ],
             )
-            assert world_query.check_if_world_exist_and_try_create() == (None, "error")
+            assert not world_query.create_or_update_config()
 
     def test_connection_error_get_unit_info(self) -> None:
         world = self.world
@@ -98,7 +92,7 @@ class WorldUpdateHandlerTest(MiniSetup):
                 world.link_to_game("/interface.php?func=get_unit_info"),
                 exc=requests.exceptions.ConnectionError,
             )
-            assert world_query.check_if_world_exist_and_try_create() == (None, "error")
+            assert not world_query.create_or_update_config()
 
     def test_connection_bad_status_get_unit_info(self) -> None:
         world = self.world
@@ -122,7 +116,7 @@ class WorldUpdateHandlerTest(MiniSetup):
                     }
                 ],
             )
-            assert world_query.check_if_world_exist_and_try_create() == (None, "error")
+            assert not world_query.create_or_update_config()
 
     def test_connection_redirect_get_unit_info(self) -> None:
         world = self.world
@@ -150,10 +144,10 @@ class WorldUpdateHandlerTest(MiniSetup):
                     },
                 ],
             )
-            assert world_query.check_if_world_exist_and_try_create() == (None, "error")
+            assert not world_query.create_or_update_config()
 
     @freeze_time("2022-05-08 07:00:00")
-    def test_check_if_world_exist_and_try_create(self) -> None:
+    def test_create_or_update_config(self) -> None:
         world = self.world
         world_query = WorldUpdateHandler(world=world)
         assert world_query.world.paladin == "inactive"
@@ -186,10 +180,7 @@ class WorldUpdateHandlerTest(MiniSetup):
                     "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
                 },
             )
-            assert world_query.check_if_world_exist_and_try_create() == (
-                world_query.world,
-                "success",
-            )
+            assert world_query.create_or_update_config()
         world_query.world.refresh_from_db()
         assert world_query.world.speed_world == 1.6
         assert world_query.world.speed_units == 0.625
@@ -198,7 +189,7 @@ class WorldUpdateHandlerTest(MiniSetup):
         assert world_query.world.militia == "active"
 
     @freeze_time("2022-05-11 07:00:00")
-    def test_check_if_world_exist_and_try_create_wont_create_old_world(self) -> None:
+    def test_create_or_update_config_wont_create_old_world(self) -> None:
         world_query = WorldUpdateHandler(world=self.world)
         with requests_mock.Mocker() as mock:
             mock.get(
@@ -227,10 +218,7 @@ class WorldUpdateHandlerTest(MiniSetup):
                     "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
                 },
             )
-            assert world_query.check_if_world_exist_and_try_create() == (
-                None,
-                "error",
-            )
+            assert not world_query.create_or_update_config()
         assert World.objects.all().count() == 0
 
     def test_if_world_if_archived1(self) -> None:
@@ -248,6 +236,7 @@ class WorldUpdateHandlerTest(MiniSetup):
         world_query = WorldUpdateHandler(world=world)
         world_query.check_if_world_is_archived("https://example.com/archive/nope")
         assert World.objects.filter(pk=world.pk).exists()
+        world_query.world.refresh_from_db()
         assert world_query.world.connection_errors == 1
 
     def test_last_modified(self) -> None:
@@ -295,6 +284,17 @@ class WorldUpdateHandlerTest(MiniSetup):
                 self.world.refresh_from_db()
                 date2 = self.world.updated_at
                 assert date2 > date1
+            assert (
+                self.world.fanout_key_text_player
+                == "nt1_/map/player.txt.gz_1651990520.0"
+            )
+            assert (
+                self.world.fanout_key_text_tribe == "nt1_/map/ally.txt.gz_1651990520.0"
+            )
+            assert (
+                self.world.fanout_key_text_village
+                == "nt1_/map/village.txt.gz_1651990520.0"
+            )
 
     @freeze_time("2022-05-22 07:00:00")
     @patch("time.sleep", return_value=None)

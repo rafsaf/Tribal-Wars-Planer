@@ -1001,20 +1001,23 @@ class AddNewWorldForm(forms.ModelForm):
         world = models.World(server=server, postfix=postfix.lower())
         world_query = database_update.WorldUpdateHandler(world=world)
 
-        result = world_query.check_if_world_exist_and_try_create()
-        if result[1] == "error":
+        if models.World.objects.filter(
+            server=world.server, postfix=world.postfix
+        ).exists():
+            raise forms.ValidationError(gettext_lazy("World is already added!"))
+
+        success = world_query.create_or_update_config()
+
+        if not success:
             raise forms.ValidationError(
                 code="does_not_exists",
                 message=gettext_lazy(
                     "Connection error, world does not exists or is archived!"
                 ),
             )
-        elif result[1] == "added":
-            raise forms.ValidationError(gettext_lazy("World is already added!"))
 
-        elif result[1] == "success":
-            world_query.update_all(download_try=1)
-            world_query.world.save()
+        world_query.update_all(download_try=1)
+        world_query.world.save()
 
 
 class ChangeServerForm(forms.ModelForm):

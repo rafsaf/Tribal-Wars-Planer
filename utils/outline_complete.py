@@ -62,7 +62,7 @@ def generate_distance_matrix(
         coord_to_id[coord] = list_coords_len
         list_of_coords.append(np.array(coord))
 
-    if not len(list_of_coords):
+    if not list_of_coords:
         return None, {}
 
     dist_matrix = cdist(

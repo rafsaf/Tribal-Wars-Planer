@@ -71,6 +71,9 @@ class Command(BaseCommand):
             schedule.every(5).to(10).minutes.do(
                 run_threaded, call_command, command_name="missedemailssend"
             )
+            schedule.every(11).to(13).hours.do(
+                run_threaded, call_command, command_name="updateworldsconfiguration"
+            )
             if settings.WORLD_UPDATE_FETCH_ALL:
                 schedule.every(5).to(7).hours.do(
                     run_threaded, call_command, command_name="fetchnewworlds"

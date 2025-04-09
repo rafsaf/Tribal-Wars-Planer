@@ -15,6 +15,7 @@
 
 
 import datetime
+from typing import Literal
 
 import pytest
 from django.conf import settings
@@ -22,6 +23,7 @@ from django.core.management import call_command
 
 from base.models import Outline, OutlineOverview, Overview, Payment, Server, World
 from base.tests.test_utils.create_user import create_user
+from utils.database_update import WorldUpdateHandler
 
 
 def test_create_servers_command() -> None:
@@ -109,3 +111,31 @@ def test_missedemailssend_no_delete_with_overview(
 
     payment.refresh_from_db()
     assert payment.mail_sent == mail_send_after
+
+
+def test_updateworldsconfiguration(monkeypatch: pytest.MonkeyPatch) -> None:
+    server = Server.objects.create(
+        dns="testserver",
+        prefix="te",
+    )
+    world = World.objects.create(
+        server=server,
+        postfix="1",
+        paladin="inactive",
+        archer="inactive",
+        militia="active",
+    )
+
+    def fake_config_update(*args) -> Literal[True]:
+        world.archer = "active"
+        world.save()
+        return True
+
+    monkeypatch.setattr(
+        WorldUpdateHandler, "create_or_update_config", fake_config_update
+    )
+
+    call_command("updateworldsconfiguration")
+
+    world.refresh_from_db()
+    assert world.archer == "active"
