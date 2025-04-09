@@ -589,7 +589,7 @@ class Outline(models.Model):
             .order_by("order")
         )
         for weight in weights:
-            weight.distance = round(weight.distance_to_village(weight.target.target), 1)
+            weight.distance = weight.distance_to_village(weight.target.target)
             weight.off = f"{round(weight.off / 1000, 1)}k"  # type: ignore
             result[weight.target].append(weight)
         return result.items()
