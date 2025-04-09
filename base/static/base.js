@@ -207,21 +207,20 @@ const prettifyTimeDistance = (secs) => {
 
 const calculate_distance = (element) => {
   const world_speed = parseFloat(
-    String(document.getElementById("speed_world").value).replace(",", ".")
+    String(document.getElementById("speed_world").value)
   );
   const units_speed = parseFloat(
-    String(document.getElementById("speed_units").value).replace(",", ".")
+    String(document.getElementById("speed_units").value)
   );
+  let distance = parseFloat(element.dataset.distance);
 
   if (element.clicked) {
-    element.innerHTML = String(element.distance).replace(".", ",");
+    element.innerText = String(distance.toFixed(1));
     element.clicked = false;
     element.style.cursor = "zoom-in";
   } else {
-    element.distance = parseFloat(element.innerHTML.replace(",", "."));
-    let secs_ram = (element.distance / units_speed / world_speed) * 30 * 60;
-
-    let secs_noble = (element.distance / units_speed / world_speed) * 35 * 60;
+    let secs_ram = (distance / units_speed / world_speed) * 30 * 60;
+    let secs_noble = (distance / units_speed / world_speed) * 35 * 60;
 
     element.innerHTML = `<span class='text-nowrap'>${prettifyTimeDistance(
       secs_ram
