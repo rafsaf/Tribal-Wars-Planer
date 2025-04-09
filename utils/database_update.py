@@ -25,9 +25,10 @@ from xml.etree import ElementTree
 import requests
 from django.conf import settings
 from django.db import transaction
-from django.db.models import Count
-from django.utils.timezone import now
+from django.db.models import Count, F
+from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError, Timeout
+from urllib3.util import Retry
 
 import metrics
 from base.models import Outline, Player, Tribe, VillageModel, World
@@ -39,6 +40,9 @@ MAX_LAST_MODIFIED_EXISTING = 14
 MAX_LAST_MODIFIED_NEW = 3
 STATUS_200 = 200
 
+retry_strategy = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
+global_adapter = HTTPAdapter(max_retries=retry_strategy)
+
 
 class WorldUpdateHandler:
     VILLAGE_DATA: Literal["/map/village.txt.gz"] = "/map/village.txt.gz"
@@ -48,36 +52,29 @@ class WorldUpdateHandler:
         "/map/village.txt.gz", "/map/ally.txt.gz", "/map/player.txt.gz"
     ]
 
-    def __init__(self, world: World):
+    def __init__(self, world: World) -> None:
         self.deleted: bool = False
         self.world = world
         self.player_log_msg: str | None = None
         self.tribe_log_msg: str | None = None
         self.village_log_msg: str | None = None
 
-    def check_if_world_exist_and_try_create(  # noqa: PLR0912,PLR0911
+    def create_or_update_config(  # noqa: PLR0912,PLR0911
         self,
-    ) -> tuple[World | None, str]:
-        """
-        Check if world exists in game
-        if world is already added, return tuple None, 'added'
-        if yes, return tuple World instance, 'success'
-        if no, return tuple None, 'error'
-        """
-        if World.objects.filter(
-            server=self.world.server, postfix=self.world.postfix
-        ).exists():
-            return (None, "added")
+    ) -> bool:
         try:
-            req = requests.get(
-                self.world.link_to_game("/interface.php?func=get_config"), timeout=3.05
-            )
+            with requests.Session() as session:
+                session.mount("https://", global_adapter)
+                req = session.get(
+                    self.world.link_to_game("/interface.php?func=get_config"),
+                    timeout=3.05,
+                )
         except (Timeout, ConnectionError):
-            return (None, "error")
+            return False
         if req.history:
-            return (None, "error")
+            return False
         if req.status_code != STATUS_200:
-            return (None, "error")
+            return False
 
         tree = ElementTree.fromstring(req.content)
 
@@ -132,16 +129,18 @@ class WorldUpdateHandler:
         self.world.max_noble_distance = int(max_noble_distance)
 
         try:
-            req_units = requests.get(
-                self.world.link_to_game("/interface.php?func=get_unit_info"),
-                timeout=3.05,
-            )
+            with requests.Session() as session:
+                session.mount("https://", global_adapter)
+                req_units = session.get(
+                    self.world.link_to_game("/interface.php?func=get_unit_info"),
+                    timeout=3.05,
+                )
         except (Timeout, ConnectionError):
-            return (None, "error")
+            return False
         if req_units.history:
-            return (None, "error")
+            return False
         if req_units.status_code != STATUS_200:
-            return (None, "error")
+            return False
 
         tree_units = ElementTree.fromstring(req_units.content)
 
@@ -157,18 +156,20 @@ class WorldUpdateHandler:
             self.world.militia = "inactive"
 
         try:
-            req_data = requests.get(
-                self.world.link_to_game(self.VILLAGE_DATA),
-                stream=True,
-                timeout=3.05,
-            )
-            req_data.close()
+            with requests.Session() as session:
+                session.mount("https://", global_adapter)
+                req_data = session.get(
+                    self.world.link_to_game(self.VILLAGE_DATA),
+                    stream=True,
+                    timeout=3.05,
+                )
+                req_data.close()
         except (Timeout, ConnectionError):
-            return (None, "error")
+            return False
         if req_data.history:
-            return (None, "error")
+            return False
         if req_data.status_code != STATUS_200:
-            return (None, "error")
+            return False
 
         # handle last-modified header without accessing body
         last_modified = WorldUpdateHandler.last_modified(
@@ -182,10 +183,10 @@ class WorldUpdateHandler:
                 last_modified,
                 MAX_LAST_MODIFIED_NEW,
             )
-            return (None, "error")
+            return False
 
         self.world.save()
-        return (self.world, "success")
+        return True
 
     @staticmethod
     def delete_world(world: World) -> bool:
@@ -230,9 +231,9 @@ class WorldUpdateHandler:
     def handle_connection_error(self) -> None:
         msg = f"conn error {self.world.link_to_game()}"
         metrics.ERRORS.labels(msg).inc()
-        log.error(msg)
-        self.world.connection_errors += 1
-        self.world.save()
+        World.objects.filter(pk=self.world.pk).update(
+            connection_errors=F("connection_errors") + 1
+        )
 
     @staticmethod
     def last_modified(datetime_string: str) -> datetime:
@@ -243,7 +244,7 @@ class WorldUpdateHandler:
         last_modified_datetime = last_modified_datetime.replace(tzinfo=UTC)
         return last_modified_datetime
 
-    def update_all(self, download_try: int = settings.WORLD_UPDATE_TRY_COUNT):
+    def update_all(self, download_try: int = settings.WORLD_UPDATE_TRY_COUNT) -> str:
         """Synchronize Tribe, Village, Player tables with latest data from game."""
         count = 0
         log.info("%s start download_and_save data from tribal wars", self.world)
@@ -265,7 +266,7 @@ class WorldUpdateHandler:
             tribe_cache_key = self.get_latest_data_key(self.TRIBE_DATA)
             log.info("%s tribe_cache_key is %s", self.world, tribe_cache_key)
             if tribe_cache_key != self.world.fanout_key_text_tribe:
-                tribe_text = fanout_cache.get(tribe_cache_key)
+                tribe_text = fanout_cache.get(tribe_cache_key, retry=True)
                 self.world.fanout_key_text_tribe = tribe_cache_key
                 self.update_tribes(text=tribe_text)  # type: ignore
             log.info("%s finish update_tribes", self.world)
@@ -273,7 +274,7 @@ class WorldUpdateHandler:
             player_cache_key = self.get_latest_data_key(self.PLAYER_DATA)
             log.info("%s player_cache_key is %s", self.world, player_cache_key)
             if player_cache_key != self.world.fanout_key_text_player:
-                player_text = fanout_cache.get(player_cache_key)
+                player_text = fanout_cache.get(player_cache_key, retry=True)
                 self.world.fanout_key_text_player = player_cache_key
                 self.update_players(text=player_text)  # type: ignore
             log.info("%s finish update_players", self.world)
@@ -281,7 +282,7 @@ class WorldUpdateHandler:
             village_cache_key = self.get_latest_data_key(self.VILLAGE_DATA)
             log.info("%s village_cache_key is %s", self.world, village_cache_key)
             if village_cache_key != self.world.fanout_key_text_village:
-                village_text = fanout_cache.get(village_cache_key)
+                village_text = fanout_cache.get(village_cache_key, retry=True)
                 self.world.fanout_key_text_village = village_cache_key
                 self.update_villages(text=village_text)  # type: ignore
             log.info("%s finish update_villages", self.world)
@@ -291,68 +292,78 @@ class WorldUpdateHandler:
                 f" village_update: {self.tribe_log_msg} |"
                 f" player_update: {self.tribe_log_msg}"
             )
-            self.world.created_at = now()
-            self.world.save()
+            self.world.save(
+                update_fields=[
+                    "fanout_key_text_tribe",
+                    "fanout_key_text_player",
+                    "fanout_key_text_village",
+                    "updated_at",
+                ]
+            )
 
         return message
 
-    def download_and_save(self, data_type: "WorldUpdateHandler.DATA_TYPES"):
+    def download_and_save(self, data_type: "WorldUpdateHandler.DATA_TYPES") -> None:
         """Download data (NOT ALWAYS latest) from game API in text format and save in disk cache"""
         if self.deleted:
             return
         log.info("%s download_and_save: %s", self.world, data_type)
-        try:
-            res = requests.get(
-                self.world.link_to_game(data_type),
-                stream=True,
-                timeout=3.05,
-            )
-            if res.history:
-                log.warning(
-                    "World %s got redirect when requested %s",
-                    self.world,
+        with requests.Session() as session:
+            session.mount("https://", global_adapter)
+            try:
+                res = session.get(
                     self.world.link_to_game(data_type),
+                    stream=True,
+                    timeout=3.05,
                 )
-                res.close()
-                return self.check_if_world_is_archived(res.url)
-            if res.status_code != STATUS_200:
-                log.error(
-                    "%s download_and_save: %s: unexpected status code %d",
-                    self.world,
-                    data_type,
-                    res.status_code,
+                if res.history:
+                    log.warning(
+                        "World %s got redirect when requested %s",
+                        self.world,
+                        self.world.link_to_game(data_type),
+                    )
+                    res.close()
+                    return self.check_if_world_is_archived(res.url)
+                if res.status_code != STATUS_200:
+                    log.error(
+                        "%s download_and_save: %s: unexpected status code %d",
+                        self.world,
+                        data_type,
+                        res.status_code,
+                    )
+                    res.close()
+                    return self.handle_connection_error()
+                # handle last-modified header without accessing body
+                last_modified = WorldUpdateHandler.last_modified(
+                    res.headers["last-modified"]
                 )
-                res.close()
-                return self.handle_connection_error()
-            # handle last-modified header without accessing body
-            last_modified = WorldUpdateHandler.last_modified(
-                res.headers["last-modified"]
-            )
-            now = datetime.now(UTC)
-            if last_modified < now - timedelta(days=MAX_LAST_MODIFIED_EXISTING):
-                log.warning(
-                    "world %s: last modified is %s that is over %dd old",
-                    self.world,
-                    last_modified,
-                    MAX_LAST_MODIFIED_EXISTING,
-                )
-                res.close()
-                self.deleted = self.delete_world(self.world)
-                return
+                now = datetime.now(UTC)
+                if last_modified < now - timedelta(days=MAX_LAST_MODIFIED_EXISTING):
+                    log.warning(
+                        "world %s: last modified is %s that is over %dd old",
+                        self.world,
+                        last_modified,
+                        MAX_LAST_MODIFIED_EXISTING,
+                    )
+                    res.close()
+                    self.deleted = self.delete_world(self.world)
+                    return
 
-            unique_cache_key = f"{self.world}_{data_type}_{last_modified.timestamp()}"
-            if unique_cache_key in fanout_cache:
+                unique_cache_key = (
+                    f"{self.world}_{data_type}_{last_modified.timestamp()}"
+                )
+                if unique_cache_key in fanout_cache:
+                    res.close()
+                    return
+                # only now make another request to get body
+                text = gzip.decompress(res.content).decode()
                 res.close()
-                return
-            # only now make another request to get body
-            text = gzip.decompress(res.content).decode()
-            res.close()
-            log.info(f"setting cache key {unique_cache_key}")
-            fanout_cache.set(unique_cache_key, text, 3 * 60 * 60)
+                log.info(f"setting cache key {unique_cache_key}")
+                fanout_cache.set(unique_cache_key, text, expire=3 * 60 * 60, retry=True)
 
-        except (Timeout, ConnectionError) as err:
-            log.error(err, exc_info=True)
-            self.handle_connection_error()
+            except (Timeout, ConnectionError) as err:
+                log.error(err, exc_info=True)
+                self.handle_connection_error()
 
     def get_latest_data_key(self, data_type: "WorldUpdateHandler.DATA_TYPES") -> str:
         """Get latest key (by 'last-modified' datetime) from disk cache"""
@@ -365,7 +376,7 @@ class WorldUpdateHandler:
         result_list.sort(reverse=True)
         return result_list[0]
 
-    def update_villages(self, text: str):
+    def update_villages(self, text: str) -> None:
         create_list: list[VillageModel] = []
 
         players = Player.objects.filter(world=self.world)
@@ -446,7 +457,7 @@ class WorldUpdateHandler:
         )
         self.village_log_msg = f"C-{len(create_list)},D-{len(village_ids_to_remove)}"
 
-    def update_tribes(self, text: str):
+    def update_tribes(self, text: str) -> None:
         create_list: list[Tribe] = []
 
         tribe_set: set[tuple[int, str]] = set(
@@ -479,7 +490,7 @@ class WorldUpdateHandler:
         )
         self.tribe_log_msg = f"C-{len(create_list)},D-{len(tribe_set)}"
 
-    def update_players(self, text: str):
+    def update_players(self, text: str) -> None:
         create_list: list[Player] = []
         update_list: list[Player] = []
 
