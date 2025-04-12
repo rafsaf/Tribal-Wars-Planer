@@ -26,6 +26,7 @@ from requests.adapters import HTTPAdapter, Retry
 from base import forms
 from base.management.commands.utils import job_logs_and_metrics
 from base.models import Server, World
+from utils import database_update
 from utils.database_update import WorldUpdateHandler
 
 log = logging.getLogger(__name__)
@@ -63,7 +64,7 @@ def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
 
 def fetch_and_add_new_worlds() -> None:
     db_worlds = World.objects.all().select_related("server")
-    servers = Server.objects.all()
+    servers = Server.objects.all().order_by("pk")
     for server in servers:
         log.info("processing server: %s", server.dns)
         try:
@@ -91,9 +92,14 @@ def fetch_and_add_new_worlds() -> None:
                         world = World.objects.select_for_update().get(pk=world.pk)
                         world.full_game_name = available_worlds_postfixes[world_postfix]
                         world_handler = WorldUpdateHandler(world=world)
-                        success = world_handler.create_or_update_config()
-                        if not success:
-                            log.error("failed to update world %s", world)
+                        try:
+                            world_handler.create_or_update_config()
+                        except database_update.WorldOutdatedError as err:
+                            log.warning("world %s is outdated: %s", world, err)
+                            continue
+                        except database_update.DatabaseUpdateError as err:
+                            log.error("failed to update world %s: %s", world, err)
+                            continue
                 continue
             log.info("adding world %s:%s", server.dns, world_postfix)
             try:

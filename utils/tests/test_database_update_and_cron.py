@@ -22,11 +22,16 @@ from freezegun import freeze_time
 
 from base.models import Player, Tribe, VillageModel, World
 from base.tests.test_utils.mini_setup import MiniSetup
+from utils import database_update
 from utils.database_update import WorldUpdateHandler
 
 CURRENT_DIRECTORY = Path(__file__).parent
 GET_CONFIG = (CURRENT_DIRECTORY / "database_update/get_config.xml").read_text()
+GET_CONFIG_2 = (CURRENT_DIRECTORY / "database_update/get_config_2.xml").read_text()
 GET_UNIT_INFO = (CURRENT_DIRECTORY / "database_update/get_unit_info.xml").read_text()
+GET_UNIT_INFO_2 = (
+    CURRENT_DIRECTORY / "database_update/get_unit_info_2.xml"
+).read_text()
 TRIBES = (CURRENT_DIRECTORY / "database_update/ally.txt.gz").read_bytes()
 PLAYERS = (CURRENT_DIRECTORY / "database_update/player.txt.gz").read_bytes()
 VILLAGES = (CURRENT_DIRECTORY / "database_update/village.txt.gz").read_bytes()
@@ -45,7 +50,8 @@ class WorldUpdateHandlerTest(MiniSetup):
                 world.link_to_game("/interface.php?func=get_config"),
                 exc=requests.exceptions.ConnectionError,
             )
-            assert not world_query.create_or_update_config()
+            with self.assertRaises(database_update.DatabaseUpdateError):
+                world_query.create_or_update_config()
 
     def test_connection_bad_status_get_config(self) -> None:
         world = self.world
@@ -54,7 +60,8 @@ class WorldUpdateHandlerTest(MiniSetup):
             mock.get(
                 world.link_to_game("/interface.php?func=get_config"), status_code=400
             )
-            assert not world_query.create_or_update_config()
+            with self.assertRaises(database_update.DatabaseUpdateError):
+                world_query.create_or_update_config()
 
     def test_connection_redirect_get_config(self) -> None:
         world = self.world
@@ -73,7 +80,8 @@ class WorldUpdateHandlerTest(MiniSetup):
                     },
                 ],
             )
-            assert not world_query.create_or_update_config()
+            with self.assertRaises(database_update.DatabaseUpdateError):
+                world_query.create_or_update_config()
 
     def test_connection_error_get_unit_info(self) -> None:
         world = self.world
@@ -92,7 +100,8 @@ class WorldUpdateHandlerTest(MiniSetup):
                 world.link_to_game("/interface.php?func=get_unit_info"),
                 exc=requests.exceptions.ConnectionError,
             )
-            assert not world_query.create_or_update_config()
+            with self.assertRaises(database_update.DatabaseUpdateError):
+                world_query.create_or_update_config()
 
     def test_connection_bad_status_get_unit_info(self) -> None:
         world = self.world
@@ -116,7 +125,8 @@ class WorldUpdateHandlerTest(MiniSetup):
                     }
                 ],
             )
-            assert not world_query.create_or_update_config()
+            with self.assertRaises(database_update.DatabaseUpdateError):
+                world_query.create_or_update_config()
 
     def test_connection_redirect_get_unit_info(self) -> None:
         world = self.world
@@ -144,7 +154,8 @@ class WorldUpdateHandlerTest(MiniSetup):
                     },
                 ],
             )
-            assert not world_query.create_or_update_config()
+            with self.assertRaises(database_update.DatabaseUpdateError):
+                world_query.create_or_update_config()
 
     @freeze_time("2022-05-08 07:00:00")
     def test_create_or_update_config(self) -> None:
@@ -180,13 +191,67 @@ class WorldUpdateHandlerTest(MiniSetup):
                     "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
                 },
             )
-            assert world_query.create_or_update_config()
+            world_query.create_or_update_config()
+
         world_query.world.refresh_from_db()
         assert world_query.world.speed_world == 1.6
         assert world_query.world.speed_units == 0.625
         assert world_query.world.paladin == "active"
         assert world_query.world.archer == "active"
         assert world_query.world.militia == "active"
+        assert world_query.world.morale == 1
+        assert world_query.world.max_noble_distance == 100
+        assert world_query.world.fanout_key_text_player == "__0"
+        assert world_query.world.fanout_key_text_tribe == "__0"
+        assert world_query.world.fanout_key_text_village == "__0"
+
+    @freeze_time("2022-05-08 07:00:00")
+    def test_create_or_update_config_case2(self) -> None:
+        world = self.world
+        world_query = WorldUpdateHandler(world=world)
+        assert world_query.world.paladin == "inactive"
+        assert world_query.world.archer == "inactive"
+        assert world_query.world.militia == "inactive"
+        with requests_mock.Mocker() as mock:
+            mock.get(
+                self.world.link_to_game("/interface.php?func=get_config"),
+                [
+                    {
+                        "text": GET_CONFIG_2,
+                        "status_code": 200,
+                    },
+                ],
+            )
+            mock.get(
+                self.world.link_to_game("/interface.php?func=get_unit_info"),
+                [
+                    {
+                        "text": GET_UNIT_INFO_2,
+                        "status_code": 200,
+                    },
+                ],
+            )
+            mock.get(
+                world_query.world.link_to_game("/map/village.txt.gz"),
+                content=VILLAGES,
+                headers={
+                    "etag": "12345",
+                    "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
+                },
+            )
+            world_query.create_or_update_config()
+
+        world_query.world.refresh_from_db()
+        assert world_query.world.speed_world == 4.0
+        assert world_query.world.speed_units == 0.5
+        assert world_query.world.paladin == "active"
+        assert world_query.world.archer == "inactive"
+        assert world_query.world.militia == "inactive"
+        assert world_query.world.morale == 2
+        assert world_query.world.max_noble_distance == 500
+        assert world_query.world.fanout_key_text_player == "__0"
+        assert world_query.world.fanout_key_text_tribe == "__0"
+        assert world_query.world.fanout_key_text_village == "__0"
 
     @freeze_time("2022-05-11 07:00:00")
     def test_create_or_update_config_wont_create_old_world(self) -> None:
@@ -218,7 +283,8 @@ class WorldUpdateHandlerTest(MiniSetup):
                     "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
                 },
             )
-            assert not world_query.create_or_update_config()
+            with self.assertRaises(database_update.DatabaseUpdateError):
+                world_query.create_or_update_config()
         assert World.objects.all().count() == 0
 
     def test_if_world_if_archived1(self) -> None:

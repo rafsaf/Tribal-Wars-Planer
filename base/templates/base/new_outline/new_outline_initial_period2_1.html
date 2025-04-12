@@ -2,8 +2,8 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-    <input id="speed_world" type="hidden" value="{{instance.world.speed_world}}">
-    <input id="speed_units" type="hidden" value="{{instance.world.speed_units}}">
+    <input id="speed_world" type="hidden" value="{{instance.world.speed_world|stringformat:'.17f'}}">
+    <input id="speed_units" type="hidden" value="{{instance.world.speed_units|stringformat:'.17f'}}">
 
     <div>
         {% block outline_navbar %}
@@ -294,7 +294,7 @@
                                             {% else %}
                                                 <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.nobleman}}</p>
                                             {% endif %}
-                                            <p class="text-nowrap px-2 p-2" style="font-size: small;cursor: zoom-in;" data-distance="{{weight.distance}}" onclick="calculate_distance(this);">{{weight.distance|floatformat:1}}</p>
+                                            <p class="text-nowrap px-2 p-2" style="font-size: small;cursor: zoom-in;" data-distance="{{weight.distance|stringformat:'.17f'}}" onclick="calculate_distance(this);">{{weight.distance|stringformat:'.1f'}}</p>
                                         {% else %}
                                             <table class="table table-sm">
                                                 <tr>
@@ -312,7 +312,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg></th>
-                                                    <th style="font-size: small;cursor: zoom-in;" data-distance="{{weight.distance}}" onclick="calculate_distance(this);">{{weight.distance|floatformat:1}}</th>
+                                                    <th style="font-size: small;cursor: zoom-in;" data-distance="{{weight.distance|stringformat:'.17f'}}" onclick="calculate_distance(this);">{{weight.distance|stringformat:'.1f'}}</th>
                                                 </tr>
                                                 {% if weight.ruin %}
                                                     <tr>

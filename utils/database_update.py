@@ -18,7 +18,7 @@ import logging
 import time
 from datetime import UTC, datetime, timedelta
 from random import randint
-from typing import Literal
+from typing import Literal, TypeVar
 from urllib.parse import unquote, unquote_plus
 from xml.etree import ElementTree
 
@@ -44,6 +44,30 @@ retry_strategy = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 50
 global_adapter = HTTPAdapter(max_retries=retry_strategy)
 
 
+class DatabaseUpdateError(Exception):
+    pass
+
+
+class WorldOutdatedError(DatabaseUpdateError):
+    pass
+
+
+# Helper function to safely get and convert XML values
+T = TypeVar("T", int, float, str)
+
+
+def get_xml_value(parent: ElementTree.Element, tag: str, convert_type: type[T]) -> T:
+    element = parent.find(tag)
+    if element is None:
+        raise DatabaseUpdateError(f"Missing required XML tag: {tag}")
+    if element.text is None:
+        raise DatabaseUpdateError(f"Empty value for XML tag: {tag}")
+    try:
+        return convert_type(element.text)
+    except ValueError:
+        raise DatabaseUpdateError(f"Invalid value for {tag}: {element.text}")
+
+
 class WorldUpdateHandler:
     VILLAGE_DATA: Literal["/map/village.txt.gz"] = "/map/village.txt.gz"
     TRIBE_DATA: Literal["/map/ally.txt.gz"] = "/map/ally.txt.gz"
@@ -59,9 +83,7 @@ class WorldUpdateHandler:
         self.tribe_log_msg: str | None = None
         self.village_log_msg: str | None = None
 
-    def create_or_update_config(  # noqa: PLR0912,PLR0911
-        self,
-    ) -> bool:
+    def create_or_update_config(self) -> None:
         try:
             with requests.Session() as session:
                 session.mount("https://", global_adapter)
@@ -69,65 +91,49 @@ class WorldUpdateHandler:
                     self.world.link_to_game("/interface.php?func=get_config"),
                     timeout=3.05,
                 )
-        except (Timeout, ConnectionError):
-            return False
+        except (Timeout, ConnectionError) as e:
+            raise DatabaseUpdateError(f"Connection error: {str(e)}")
+
         if req.history:
-            return False
+            raise DatabaseUpdateError("Request was redirected")
+
         if req.status_code != STATUS_200:
-            return False
+            raise DatabaseUpdateError(f"Invalid status code: {req.status_code}")
 
-        tree = ElementTree.fromstring(req.content)
+        try:
+            tree = ElementTree.fromstring(req.content)
+        except ElementTree.ParseError as e:
+            raise DatabaseUpdateError(f"Failed to parse XML: {str(e)}")
 
-        speed_world_tag = tree.find("speed")
-        assert speed_world_tag is not None
-        speed_world = speed_world_tag.text
-        assert speed_world is not None
+        # Get main config values
+        speed_world = get_xml_value(tree, "speed", float)
+        speed_units = get_xml_value(tree, "unit_speed", float)
+        morale = get_xml_value(tree, "moral", int)
 
-        speed_units_tag = tree.find("unit_speed")
-        assert speed_units_tag is not None
-        speed_units = speed_units_tag.text
-        assert speed_units is not None
-
-        morale_tag = tree.find("moral")
-        assert morale_tag is not None
-        morale = morale_tag.text
-        assert morale is not None
-
+        # Get game section values
         game_tag = tree.find("game")
-        assert game_tag is not None
+        if game_tag is None:
+            raise DatabaseUpdateError("Missing game section in XML")
 
-        paladin_tag = game_tag.find("knight")
-        assert paladin_tag is not None
-        paladin = paladin_tag.text
-        assert paladin is not None
+        paladin = get_xml_value(game_tag, "knight", int)
+        archer = get_xml_value(game_tag, "archer", int)
 
-        archer_tag = game_tag.find("archer")
-        assert archer_tag is not None
-        archer = archer_tag.text
-        assert archer is not None
-
+        # Get nobleman section values
         nobleman_tag = tree.find("snob")
-        assert nobleman_tag is not None
-        max_noble_distance_tag = nobleman_tag.find("max_dist")
-        assert max_noble_distance_tag is not None
-        max_noble_distance = max_noble_distance_tag.text
-        assert max_noble_distance is not None
+        if nobleman_tag is None:
+            raise DatabaseUpdateError("Missing snob section in XML")
 
-        self.world.speed_world = float(speed_world)
-        self.world.speed_units = float(speed_units)
-        self.world.morale = int(morale)
-        if bool(int(paladin)):
-            self.world.paladin = "active"
-        else:
-            self.world.paladin = "inactive"
+        max_noble_distance = get_xml_value(nobleman_tag, "max_dist", int)
 
-        if bool(int(archer)):
-            self.world.archer = "active"
-        else:
-            self.world.archer = "inactive"
+        # Update world object
+        self.world.speed_world = speed_world
+        self.world.speed_units = speed_units
+        self.world.morale = morale
+        self.world.paladin = "active" if bool(paladin) else "inactive"
+        self.world.archer = "active" if bool(archer) else "inactive"
+        self.world.max_noble_distance = max_noble_distance
 
-        self.world.max_noble_distance = int(max_noble_distance)
-
+        # Get unit info
         try:
             with requests.Session() as session:
                 session.mount("https://", global_adapter)
@@ -135,26 +141,25 @@ class WorldUpdateHandler:
                     self.world.link_to_game("/interface.php?func=get_unit_info"),
                     timeout=3.05,
                 )
-        except (Timeout, ConnectionError):
-            return False
+        except (Timeout, ConnectionError) as e:
+            raise DatabaseUpdateError(f"Connection error getting unit info: {str(e)}")
+
         if req_units.history:
-            return False
+            raise DatabaseUpdateError("Unit info request was redirected")
         if req_units.status_code != STATUS_200:
-            return False
+            raise DatabaseUpdateError(
+                f"Invalid status code for unit info: {req_units.status_code}"
+            )
 
-        tree_units = ElementTree.fromstring(req_units.content)
+        try:
+            tree_units = ElementTree.fromstring(req_units.content)
+        except ElementTree.ParseError as e:
+            raise DatabaseUpdateError(f"Failed to parse unit info XML: {str(e)}")
 
-        militia_found = False
-        for child in tree_units:
-            if child.tag == "militia":
-                militia_found = True
-                break
+        militia_found = any(child.tag == "militia" for child in tree_units)
+        self.world.militia = "active" if militia_found else "inactive"
 
-        if militia_found:
-            self.world.militia = "active"
-        else:
-            self.world.militia = "inactive"
-
+        # Check village data availability
         try:
             with requests.Session() as session:
                 session.mount("https://", global_adapter)
@@ -164,29 +169,35 @@ class WorldUpdateHandler:
                     timeout=3.05,
                 )
                 req_data.close()
-        except (Timeout, ConnectionError):
-            return False
-        if req_data.history:
-            return False
-        if req_data.status_code != STATUS_200:
-            return False
 
-        # handle last-modified header without accessing body
-        last_modified = WorldUpdateHandler.last_modified(
-            req_data.headers["last-modified"]
-        )
+        except (Timeout, ConnectionError) as e:
+            raise DatabaseUpdateError(
+                f"Connection error checking village data: {str(e)}"
+            )
+
+        if req_data.history:
+            raise DatabaseUpdateError("Village data request was redirected")
+        if req_data.status_code != STATUS_200:
+            raise DatabaseUpdateError(
+                f"Invalid status code for village data: {req_data.status_code}"
+            )
+
+        # Check last modified date
+        try:
+            last_modified = WorldUpdateHandler.last_modified(
+                req_data.headers["last-modified"]
+            )
+        except (KeyError, ValueError) as e:
+            raise DatabaseUpdateError(f"Invalid last-modified header: {str(e)}")
+
         now = datetime.now(UTC)
         if last_modified < now - timedelta(days=MAX_LAST_MODIFIED_NEW):
-            log.warning(
-                "cannot save world %s: last modified is %s that is over %dd old",
-                self.world,
-                last_modified,
-                MAX_LAST_MODIFIED_NEW,
+            raise WorldOutdatedError(
+                f"World data too old: last modified is {last_modified}, "
+                f"which is over {MAX_LAST_MODIFIED_NEW} days old"
             )
-            return False
 
         self.world.save()
-        return True
 
     @staticmethod
     def delete_world(world: World) -> bool:
