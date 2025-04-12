@@ -99,7 +99,7 @@ class WriteNobleTarget:
         if self.casual_attack_block_ratio is not None:
             self.filters.append(self._casual_attack_block_ratio())
 
-        if not self.target.fake:
+        if self.target.fake:
             self.filters.append(self._minimal_fake_noble_off())
         else:
             self.filters.append(self._minimal_noble_off())
