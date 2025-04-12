@@ -152,8 +152,8 @@ class TestWriteNobleTarget(TestCase):
 
         updated_weight = write_noble._update_weight_max(
             weight_max=self.weight4,
-            off_to_left=1000,
-            catapult_to_left=10,
+            off_used=19800,
+            catapults_used=90,
             noble_number=1,
         )
         self.assertEqual(updated_weight.off_left, 1000)
@@ -273,6 +273,7 @@ class TestWriteNobleTarget(TestCase):
         write_noble = self.get_write_noble(target)
         weight = self.weight0
         weight.nobleman_left = 3
+        weight.catapult_left = 0
         weight.off_left = 1000
         write_noble.target.mode_division = "divide"
         off1 = write_noble._off(weight)
@@ -283,6 +284,7 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_not_divide(self):
         target: Target = self.target()
         write_noble = self.get_write_noble(target)
+        write_noble.initial_outline_minimum_noble_troops = 200
         weight = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
@@ -296,6 +298,7 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_separatly(self):
         target: Target = self.target()
         write_noble = self.get_write_noble(target)
+        write_noble.initial_outline_minimum_noble_troops = 200
         weight = self.weight0
         weight.nobleman_left = 3
         weight.off_left = 1000
@@ -309,15 +312,17 @@ class TestWriteNobleTarget(TestCase):
     def test_off_and_first_off_low_off_is_divide_for_every_mode_division(self):
         target: Target = self.target()
         write_noble = self.get_write_noble(target)
+        write_noble.initial_outline_minimum_noble_troops = 70
         weight = self.weight0
+        weight.catapult_left = 0
         weight.nobleman_left = 3
         weight.off_left = 500
 
         write_noble.target.mode_division = "not_divide"
         off5 = write_noble._off(weight)
-        self.assertEqual(off5, 166)
+        self.assertEqual(off5, 70)
         off6 = write_noble._first_off(weight, off5)
-        self.assertEqual(off6, 168)
+        self.assertEqual(off6, 360)
         write_noble.target.mode_division = "divide"
         off5 = write_noble._off(weight)
         self.assertEqual(off5, 166)
@@ -325,9 +330,9 @@ class TestWriteNobleTarget(TestCase):
         self.assertEqual(off6, 168)
         write_noble.target.mode_division = "separatly"
         off5 = write_noble._off(weight)
-        self.assertEqual(off5, 166)
+        self.assertEqual(off5, 70)
         off6 = write_noble._first_off(weight, off5)
-        self.assertEqual(off6, 168)
+        self.assertEqual(off6, 70)
 
     def test_off_and_first_off_fake_target(self):
         target: Target = self.target()

@@ -731,6 +731,7 @@ class InitialForm(MiniSetup):
         initial_outline_fake_mode = "all"
         initial_outline_nobles_limit = 15
         initial_outline_minimum_noble_troops = 222
+        initial_outline_minimum_fake_noble_troops = 55
 
         response = self.client.post(
             PATH,
@@ -745,6 +746,7 @@ class InitialForm(MiniSetup):
                 "initial_outline_fake_mode": initial_outline_fake_mode,
                 "initial_outline_nobles_limit": initial_outline_nobles_limit,
                 "initial_outline_minimum_noble_troops": initial_outline_minimum_noble_troops,
+                "initial_outline_minimum_fake_noble_troops": initial_outline_minimum_fake_noble_troops,
             },
         )
         assert response.status_code == 302

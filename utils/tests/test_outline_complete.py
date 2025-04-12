@@ -192,7 +192,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[3].order, 110000)
         self.assertEqual(created[3].off, 5400)
         self.assertEqual(created[3].start, "500|500")
-        self.assertEqual(created[3].catapult, 50)
+        self.assertEqual(created[3].catapult, 100)
         self.assertEqual(created[3].nobleman, 1)
         self.assertEqual(created[3].distance, 1)
         self.assertEqual(created[3].state.off_left, 0)
@@ -206,7 +206,7 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[4].order, 110001)
         self.assertEqual(created[4].start, "500|500")
         self.assertEqual(created[4].off, 5400)
-        self.assertEqual(created[4].catapult, 50)
+        self.assertEqual(created[4].catapult, 0)
         self.assertEqual(created[4].nobleman, 1)
         self.assertEqual(created[4].distance, 1)
         self.assertEqual(created[4].state.off_left, 0)
@@ -315,7 +315,7 @@ class TestOutlineCreateTargets(TestCase):
 
         self.assertEqual(created[1].order, 90000)
         self.assertEqual(created[1].start, "500|505")
-        self.assertEqual(created[1].off, 20600)
+        self.assertEqual(created[1].off, 20700)
         self.assertEqual(created[1].catapult, 100)
         self.assertEqual(created[1].nobleman, 1)
         self.assertEqual(created[1].distance, 6)
@@ -329,7 +329,7 @@ class TestOutlineCreateTargets(TestCase):
 
         self.assertEqual(created[2].order, 90001)
         self.assertEqual(created[2].start, "500|505")
-        self.assertEqual(created[2].off, 200)
+        self.assertEqual(created[2].off, 100)
         self.assertEqual(created[2].catapult, 0)
         self.assertEqual(created[2].nobleman, 1)
         self.assertEqual(created[2].distance, 6)
@@ -343,7 +343,7 @@ class TestOutlineCreateTargets(TestCase):
 
         self.assertEqual(created[3].order, 90015)
         self.assertEqual(created[3].start, "500|504")
-        self.assertEqual(created[3].off, 20200)
+        self.assertEqual(created[3].off, 20500)
         self.assertEqual(created[3].catapult, 100)
         self.assertEqual(created[3].nobleman, 1)
         self.assertEqual(created[3].distance, 5)
@@ -357,7 +357,7 @@ class TestOutlineCreateTargets(TestCase):
 
         self.assertEqual(created[4].order, 90016)
         self.assertEqual(created[4].start, "500|504")
-        self.assertEqual(created[4].off, 200)
+        self.assertEqual(created[4].off, 100)
         self.assertEqual(created[4].catapult, 0)
         self.assertEqual(created[4].nobleman, 1)
         self.assertEqual(created[4].distance, 5)
@@ -371,7 +371,7 @@ class TestOutlineCreateTargets(TestCase):
 
         self.assertEqual(created[5].order, 90017)
         self.assertEqual(created[5].start, "500|504")
-        self.assertEqual(created[5].off, 200)
+        self.assertEqual(created[5].off, 100)
         self.assertEqual(created[5].catapult, 0)
         self.assertEqual(created[5].nobleman, 1)
         self.assertEqual(created[5].distance, 5)
@@ -385,7 +385,7 @@ class TestOutlineCreateTargets(TestCase):
 
         self.assertEqual(created[6].order, 90018)
         self.assertEqual(created[6].start, "500|504")
-        self.assertEqual(created[6].off, 200)
+        self.assertEqual(created[6].off, 100)
         self.assertEqual(created[6].catapult, 0)
         self.assertEqual(created[6].nobleman, 1)
         self.assertEqual(created[6].distance, 5)

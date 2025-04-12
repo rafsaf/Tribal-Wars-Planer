@@ -76,8 +76,8 @@ class FastWeightMaximum:
             possible_nobles_by_min_off = self.nobleman_left
         else:
             possible_nobles_by_min_off = (
-                self.off_left // self.initial_outline_minimum_noble_troops
-            )
+                self.off_left
+            ) // self.initial_outline_minimum_noble_troops
         return min(self.nobleman_left, self.nobles_limit, possible_nobles_by_min_off)
 
     def fake_nobles_allowed_to_use(self) -> int:
@@ -85,6 +85,6 @@ class FastWeightMaximum:
             possible_nobles_by_min_off = self.nobleman_left
         else:
             possible_nobles_by_min_off = (
-                self.off_left // self.initial_outline_minimum_fake_noble_troops
-            )
+                self.off_left
+            ) // self.initial_outline_minimum_fake_noble_troops
         return min(self.nobleman_left, self.nobles_limit, possible_nobles_by_min_off)
