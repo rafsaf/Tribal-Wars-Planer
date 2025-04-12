@@ -42,8 +42,10 @@ class ChangeBuildingsArraySerializer(serializers.Serializer):
     buildings = serializers.ListField(child=serializers.CharField(max_length=100))
     outline_id = serializers.IntegerField()
 
-    def validate_buildings(self, value):
-        applied_buildings = []
+    def validate_buildings(self, value: list[str]) -> list[str]:
+        applied_buildings: set[str] = set()
+        if not len(value):
+            raise serializers.ValidationError("Buildings list is empty")
         for item in value:
             if item not in BUILDINGS_TRANSLATION:
                 raise serializers.ValidationError(f"Invalid building: {item}")
@@ -52,7 +54,7 @@ class ChangeBuildingsArraySerializer(serializers.Serializer):
                     f"Building occured more than once: {item}"
                 )
             else:
-                applied_buildings.append(item)
+                applied_buildings.add(item)
         return value
 
 

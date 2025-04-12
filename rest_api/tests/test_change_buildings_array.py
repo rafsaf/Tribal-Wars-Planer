@@ -143,3 +143,24 @@ class ChangeBuildingsArray(MiniSetup):
         assert response.json() == {
             "buildings": ["Building occured more than once: stable"]
         }
+
+    def test_change_buildings_array___400_empty_list(self) -> None:
+        outline = self.get_outline()
+
+        PATH = reverse("rest_api:change_buildings_array")
+
+        self.login_me()
+
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "buildings": [],
+                    "outline_id": outline.pk,
+                }
+            ),
+            content_type="application/json",
+        )
+
+        assert response.status_code == 400
+        assert response.json() == {"buildings": ["Buildings list is empty"]}

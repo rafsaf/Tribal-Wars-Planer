@@ -515,12 +515,21 @@
 {% block scripts %}
   {% get_current_language as LANG %}
   <script>
+    var currentBuildings = JSON.parse(document.getElementById('initial-buildings').textContent);
     var instance = new SelectPure(".multi-select", {
       options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "Wall" %}`,`{% trans "Watchtower" %}`),
       multiple: true,
       value: JSON.parse(document.getElementById('initial-buildings').textContent),
       icon: "fa fa-times",
-      onChange: value => { changeBuildingsArray(`{{instance.pk}}`,instance.value()); }
+      onChange: newValue => {
+        if (newValue.length === 0) {
+          alert(`{% trans "At least one building must remain selected." %}`);
+          instance._setValue(currentBuildings, false, true);
+          return;
+        }
+        changeBuildingsArray(`{{instance.pk}}`, newValue);
+        currentBuildings = newValue;
+      }
     });
     loadDocsPage(6, "planer-docs-form-info", "{% static 'markdown/'|add:LANG|add:'/planer_form_info.md' %}");
     loadDocsPage(7, "planer-docs-form-example", "{% static 'markdown/'|add:LANG|add:'/planer_form_example.md' %}");
