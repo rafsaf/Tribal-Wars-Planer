@@ -82,11 +82,15 @@ else:
 
 if SENTRY_SDK_ACTIVE:
     import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
 
     sentry_sdk.init(
+        integrations=[DjangoIntegration()],
         dsn=os.environ["SENTRY_DSN"],
         server_name=MAIN_DOMAIN,
         environment=os.environ.get("SENTRY_ENVIRONMENT", "local"),
+        release=BUILD_TAG,
+        traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "0.2")),
     )
 
 ADMINS = [("admin", DEFAULT_FROM_EMAIL)]
