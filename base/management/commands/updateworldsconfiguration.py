@@ -19,9 +19,11 @@ from time import sleep
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.db.models import Q
 
 from base.management.commands.utils import job_logs_and_metrics
 from base.models import World
+from utils import database_update
 from utils.database_update import WorldUpdateHandler
 
 log = logging.getLogger(__name__)
@@ -32,15 +34,19 @@ class Command(BaseCommand):
 
     @job_logs_and_metrics(log)
     def handle(self, *args, **options) -> None:
-        db_worlds = World.objects.exclude(postfix="Test")
+        db_worlds = World.objects.exclude(Q(postfix="Test") | Q(pending_delete=True))
 
         for db_world in db_worlds:
             with transaction.atomic():
                 world = World.objects.select_for_update().get(pk=db_world.pk)
                 world_handler = WorldUpdateHandler(world=world)
-                success = world_handler.create_or_update_config()
-                if not success:
-                    log.error("failed to update world %s", world)
-                log.info("world %s configuration up to date", db_world)
+                try:
+                    world_handler.create_or_update_config()
+                except database_update.WorldOutdatedError as err:
+                    log.warning("world %s is outdated: %s", world, err)
+                    continue
+                except database_update.DatabaseUpdateError as err:
+                    log.error("failed to update world %s: %s", world, err)
+                    continue
             log.info("updated world configuration %s", db_world)
             sleep(0.2)

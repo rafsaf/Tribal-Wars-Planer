@@ -15,7 +15,6 @@
 
 
 import datetime
-from typing import Literal
 
 import pytest
 from django.conf import settings
@@ -126,10 +125,9 @@ def test_updateworldsconfiguration(monkeypatch: pytest.MonkeyPatch) -> None:
         militia="active",
     )
 
-    def fake_config_update(*args) -> Literal[True]:
+    def fake_config_update(*args) -> None:
         world.archer = "active"
         world.save()
-        return True
 
     monkeypatch.setattr(
         WorldUpdateHandler, "create_or_update_config", fake_config_update

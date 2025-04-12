@@ -15,6 +15,7 @@
 
 """App forms"""
 
+import logging
 import re
 
 from django import forms
@@ -28,6 +29,8 @@ from base.models.village_model import VillageModel
 from utils import basic, database_update
 
 from . import models
+
+log = logging.getLogger(__name__)
 
 
 class OutlineForm(forms.Form):
@@ -1006,9 +1009,20 @@ class AddNewWorldForm(forms.ModelForm):
         ).exists():
             raise forms.ValidationError(gettext_lazy("World is already added!"))
 
-        success = world_query.create_or_update_config()
-
-        if not success:
+        try:
+            world_query.create_or_update_config()
+        except database_update.WorldOutdatedError:
+            raise forms.ValidationError(
+                code="does_not_exists",
+                message=gettext_lazy(
+                    "Connection error, world does not exists or is archived!"
+                ),
+            )
+        except database_update.DatabaseUpdateError as err:
+            log.error(
+                "Error during world create_or_update_config: %s",
+                err,
+            )
             raise forms.ValidationError(
                 code="does_not_exists",
                 message=gettext_lazy(
