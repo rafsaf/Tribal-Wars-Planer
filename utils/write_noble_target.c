@@ -1494,13 +1494,18 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one;
 struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_1__morale_query;
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off;
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio;
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list;
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist;
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query;
+struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio;
+struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list;
+struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist;
+struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query;
+struct __pyx_defaults;
+typedef struct __pyx_defaults __pyx_defaults;
+struct __pyx_defaults {
+  PyObject *__pyx_arg_noble_used;
+  PyObject *__pyx_arg_fake_noble_used;
+};
 
-/* "utils/write_noble_target.py":253
+/* "utils/write_noble_target.py":297
  *                     self.target.required_noble -= nobles
  * 
  *     def _mode_guide_is_one(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -1513,8 +1518,8 @@ struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_
 };
 
 
-/* "utils/write_noble_target.py":430
- *             return weight_max.catapult_left
+/* "utils/write_noble_target.py":416
+ *         )
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:
@@ -1526,67 +1531,54 @@ struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_1__morale_query 
 };
 
 
-/* "utils/write_noble_target.py":442
- *         return filter_noble
- * 
- *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
- */
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off {
-  PyObject_HEAD
-  PyObject *__pyx_v_self;
-};
-
-
-/* "utils/write_noble_target.py":448
- *         return filter_noble
+/* "utils/write_noble_target.py":434
+ *         return filter_fake_noble
  * 
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         if self.casual_attack_block_ratio is None:
  *             raise RuntimeError("expected world casual_attack_block_ratio to be int")
  */
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio {
+struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio {
   PyObject_HEAD
   PyObject *__pyx_v_self;
   PyObject *__pyx_v_world_ratio;
 };
 
 
-/* "utils/write_noble_target.py":464
+/* "utils/write_noble_target.py":450
  *         return filter_casual_attack_block_ratio
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:
  *             for filter_func in self.filters:
  */
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list {
+struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list {
   PyObject_HEAD
   PyObject *__pyx_v_self;
 };
 
 
-/* "utils/write_noble_target.py":475
+/* "utils/write_noble_target.py":461
  *         ]
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:
  *             return weight_max.distance <= self.initial_outline_target_dist
  */
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist {
+struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist {
   PyObject_HEAD
   PyObject *__pyx_v_self;
 };
 
 
-/* "utils/write_noble_target.py":481
+/* "utils/write_noble_target.py":467
  *         return filter_close_than_target_dist
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:
  *             return (
  */
-struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query {
+struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query {
   PyObject_HEAD
   PyObject *__pyx_v_self;
 };
@@ -1930,6 +1922,14 @@ static CYTHON_INLINE int __Pyx_IterFinish(void);
 
 /* UnpackItemEndCheck.proto */
 static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected);
+
+/* PyIntBinop.proto */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject* __Pyx_PyInt_MultiplyObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
+#else
+#define __Pyx_PyInt_MultiplyObjC(op1, op2, intval, inplace, zerodivision_check)\
+    (inplace ? PyNumber_InPlaceMultiply(op1, op2) : PyNumber_Multiply(op1, op2))
+#endif
 
 /* PyDictVersioning.proto */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
@@ -2335,13 +2335,8 @@ static double __Pyx__PyObject_AsDouble(PyObject* obj);
  PyLong_AsDouble(obj) : __Pyx__PyObject_AsDouble(obj))
 #endif
 
-/* PyIntBinop.proto */
-#if !CYTHON_COMPILING_IN_PYPY
-static PyObject* __Pyx_PyInt_MultiplyCObj(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
-#else
-#define __Pyx_PyInt_MultiplyCObj(op1, op2, intval, inplace, zerodivision_check)\
-    (inplace ? PyNumber_InPlaceMultiply(op1, op2) : PyNumber_Multiply(op1, op2))
-#endif
+/* RaiseException.proto */
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
 
 /* PyIntBinop.proto */
 #if !CYTHON_COMPILING_IN_PYPY
@@ -2350,9 +2345,6 @@ static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long int
 #define __Pyx_PyInt_SubtractObjC(op1, op2, intval, inplace, zerodivision_check)\
     (inplace ? PyNumber_InPlaceSubtract(op1, op2) : PyNumber_Subtract(op1, op2))
 #endif
-
-/* RaiseException.proto */
-static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
 
 /* PyIntBinop.proto */
 #if !CYTHON_COMPILING_IN_PYPY
@@ -2554,6 +2546,7 @@ static PyObject *__pyx_builtin_staticmethod;
 static PyObject *__pyx_builtin_enumerate;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_sorted;
+static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 /* #### Code section: string_decls ### */
 static const char __pyx_k_i[] = "i";
@@ -2562,7 +2555,7 @@ static const char __pyx_k_pk[] = "pk";
 static const char __pyx_k__12[] = "";
 static const char __pyx_k__21[] = "*";
 static const char __pyx_k__22[] = ".";
-static const char __pyx_k__70[] = "?";
+static const char __pyx_k__64[] = "?";
 static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_fit[] = "fit";
 static const char __pyx_k_int[] = "int";
@@ -2621,27 +2614,33 @@ static const char __pyx_k_outline[] = "outline";
 static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_secrets[] = "secrets";
 static const char __pyx_k_Callable[] = "Callable";
-static const char __pyx_k_catapult[] = "_catapult";
+static const char __pyx_k_catapult[] = "catapult";
 static const char __pyx_k_distance[] = "distance";
+static const char __pyx_k_max_next[] = "max_next";
 static const char __pyx_k_nobleman[] = "nobleman";
 static const char __pyx_k_off_left[] = "off_left";
+static const char __pyx_k_off_used[] = "off_used";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_set_name[] = "__set_name__";
 static const char __pyx_k_state_id[] = "state_id";
 static const char __pyx_k_enumerate[] = "enumerate";
 static const char __pyx_k_first_off[] = "_first_off";
 static const char __pyx_k_isenabled[] = "isenabled";
+static const char __pyx_k_max_first[] = "max_first";
 static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_morale_on[] = "morale_on";
 static const char __pyx_k_off_state[] = "off_state";
 static const char __pyx_k_player_id[] = "player_id";
+static const char __pyx_k_separatly[] = "separatly";
 static const char __pyx_k_sort_func[] = "sort_func";
 static const char __pyx_k_target_id[] = "target_id";
-static const char __pyx_k_catapult_2[] = "catapult";
+static const char __pyx_k_total_off[] = "total_off";
+static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_first_line[] = "first_line";
 static const char __pyx_k_mode_guide[] = "mode_guide";
 static const char __pyx_k_mode_noble[] = "mode_noble";
 static const char __pyx_k_mode_split[] = "mode_split";
+static const char __pyx_k_noble_used[] = "noble_used";
 static const char __pyx_k_not_divide[] = "not_divide";
 static const char __pyx_k_off_troops[] = "off_troops";
 static const char __pyx_k_order_func[] = "order_func";
@@ -2649,17 +2648,15 @@ static const char __pyx_k_village_id[] = "village_id";
 static const char __pyx_k_weight_max[] = "weight_max";
 static const char __pyx_k_WeightModel[] = "WeightModel";
 static const char __pyx_k_base_models[] = "base.models";
+static const char __pyx_k_equal_split[] = "equal_split";
 static const char __pyx_k_filter_func[] = "filter_func";
 static const char __pyx_k_first_off_2[] = "first_off";
-static const char __pyx_k_noble_query[] = "_noble_query";
-static const char __pyx_k_off_to_left[] = "_off_to_left";
 static const char __pyx_k_sorted_list[] = "sorted_list";
 static const char __pyx_k_weight_list[] = "weight_list";
 static const char __pyx_k_world_ratio[] = "world_ratio";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_SystemRandom[] = "SystemRandom";
 static const char __pyx_k_TargetVertex[] = "TargetVertex";
-static const char __pyx_k_filter_noble[] = "filter_noble";
 static const char __pyx_k_initializing[] = "_initializing";
 static const char __pyx_k_is_coroutine[] = "_is_coroutine";
 static const char __pyx_k_max_possible[] = "max_possible";
@@ -2675,30 +2672,32 @@ static const char __pyx_k_filter_morale[] = "filter_morale";
 static const char __pyx_k_init_subclass[] = "__init_subclass__";
 static const char __pyx_k_mode_division[] = "mode_division";
 static const char __pyx_k_nobleman_left[] = "nobleman_left";
-static const char __pyx_k_off_to_left_2[] = "off_to_left";
 static const char __pyx_k_catapult_state[] = "catapult_state";
+static const char __pyx_k_catapults_used[] = "catapults_used";
 static const char __pyx_k_far_weight_lst[] = "_far_weight_lst";
-static const char __pyx_k_first_catapult[] = "_first_catapult";
+static const char __pyx_k_first_catapult[] = "first_catapult";
 static const char __pyx_k_nobleman_state[] = "nobleman_state";
 static const char __pyx_k_required_noble[] = "required_noble";
 static const char __pyx_k_smaller_points[] = "smaller_points";
 static const char __pyx_k_catapult_troops[] = "catapult_troops";
 static const char __pyx_k_collections_abc[] = "collections.abc";
+static const char __pyx_k_fake_noble_used[] = "fake_noble_used";
+static const char __pyx_k_total_catapults[] = "total_catapults";
 static const char __pyx_k_tuple_float_int[] = "tuple[float, int]";
 static const char __pyx_k_weight_max_list[] = "weight_max_list";
 static const char __pyx_k_WriteNobleTarget[] = "WriteNobleTarget";
-static const char __pyx_k_catapult_to_left[] = "_catapult_to_left";
 static const char __pyx_k_close_weight_lst[] = "_close_weight_lst";
-static const char __pyx_k_first_catapult_2[] = "first_catapult";
+static const char __pyx_k_filter_noble_off[] = "filter_noble_off";
 static const char __pyx_k_list_WeightModel[] = "list[WeightModel]";
 static const char __pyx_k_FastWeightMaximum[] = "FastWeightMaximum";
+static const char __pyx_k_fake_nobles_limit[] = "fake_nobles_limit";
 static const char __pyx_k_fill_default_list[] = "_fill_default_list";
+static const char __pyx_k_filter_fake_noble[] = "filter_fake_noble";
 static const char __pyx_k_minimal_noble_off[] = "_minimal_noble_off";
 static const char __pyx_k_mode_guide_is_one[] = "_mode_guide_is_one";
 static const char __pyx_k_random_weight_lst[] = "_random_weight_lst";
 static const char __pyx_k_update_weight_max[] = "_update_weight_max";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
-static const char __pyx_k_catapult_to_left_2[] = "catapult_to_left";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_closest_weight_lst[] = "_closest_weight_lst";
 static const char __pyx_k_mode_guide_is_many[] = "_mode_guide_is_many";
@@ -2713,13 +2712,14 @@ static const char __pyx_k_sorted_weight_max_lst[] = "sorted_weight_max_lst";
 static const char __pyx_k_sorted_weights_nobles[] = "sorted_weights_nobles";
 static const char __pyx_k_first_line_false_query[] = "_first_line_false_query";
 static const char __pyx_k_list_FastWeightMaximum[] = "list[FastWeightMaximum]";
+static const char __pyx_k_minimal_fake_noble_off[] = "_minimal_fake_noble_off";
 static const char __pyx_k_WriteNobleTarget___init[] = "WriteNobleTarget.__init__";
 static const char __pyx_k_filter_first_line_false[] = "filter_first_line_false";
 static const char __pyx_k_tuple_int_float_int_int[] = "tuple[int, float, int, int]";
 static const char __pyx_k_utils_write_noble_target[] = "utils.write_noble_target";
 static const char __pyx_k_casual_attack_block_ratio[] = "casual_attack_block_ratio";
 static const char __pyx_k_utils_fast_weight_maximum[] = "utils.fast_weight_maximum";
-static const char __pyx_k_WriteNobleTarget__catapult[] = "WriteNobleTarget._catapult";
+static const char __pyx_k_fake_nobles_allowed_to_use[] = "fake_nobles_allowed_to_use";
 static const char __pyx_k_initial_outline_front_dist[] = "initial_outline_front_dist";
 static const char __pyx_k_WriteNobleTarget__first_off[] = "WriteNobleTarget._first_off";
 static const char __pyx_k_casual_attack_block_ratio_2[] = "_casual_attack_block_ratio";
@@ -2728,9 +2728,8 @@ static const char __pyx_k_order_distance_default_list[] = "_order_distance_defau
 static const char __pyx_k_tuple_FastWeightMaximum_int[] = "tuple[FastWeightMaximum, int]";
 static const char __pyx_k_utils_write_noble_target_py[] = "utils/write_noble_target.py";
 static const char __pyx_k_get_filtered_weight_max_list[] = "_get_filtered_weight_max_list";
+static const char __pyx_k_impossible_configuration_s_s[] = "impossible configuration: %s: %s";
 static const char __pyx_k_only_closer_than_target_dist[] = "_only_closer_than_target_dist";
-static const char __pyx_k_WriteNobleTarget__noble_query[] = "WriteNobleTarget._noble_query";
-static const char __pyx_k_WriteNobleTarget__off_to_left[] = "WriteNobleTarget._off_to_left";
 static const char __pyx_k_filter_close_than_target_dist[] = "filter_close_than_target_dist";
 static const char __pyx_k_WriteNobleTarget__morale_query[] = "WriteNobleTarget._morale_query";
 static const char __pyx_k_WriteNobleTarget__weight_model[] = "WriteNobleTarget._weight_model";
@@ -2738,26 +2737,25 @@ static const char __pyx_k_morale_on_targets_greater_than[] = "morale_on_targets_
 static const char __pyx_k_Callable_FastWeightMaximum_bool[] = "Callable[[FastWeightMaximum], bool]";
 static const char __pyx_k_Single_step_in_making_auto_outl[] = "\n    Single step in making auto outline for given target\n    Only NOBLE, NOBLE FAKE\n\n    self.deafult_create_list is list of tuples (FastWeightMaximum, int) which\n    represents Villages with number of wirtten out nobles\n\n    1. Quering self.default_query (get FastWeightMaximum, first query)\n    Result depend on targets specifications\n\n    2. Then update states (update FastWeightMaximum, second query)\n\n    MODE_DIVISION = [\n        \"divide\", \"Divide off with nobles\",\n\n        \"not_divide\", \"Dont't divide off\",\n\n        \"separatly\", \"Off and nobles separatly\",\n    ]\n\n    MODE_SPLIT = [\n        \"together\", \"Nobles from one village as one command\",\n\n        \"split\", \"Nobles from one village as many commands\",\n    ]\n\n    NOBLE_GUIDELINES = [\n        \"one\", \"Try send all nobles to one target\",\n\n        \"many\", \"Nobles to one or many targets\",\n\n        \"single\", \"Try single nobles from many villages\",\n    ]\n\n    3. Finally return list[WeightModel] ready to create orders\n\n    ";
 static const char __pyx_k_WriteNobleTarget__casual_attack[] = "WriteNobleTarget._casual_attack_block_ratio.<locals>.filter_casual_attack_block_ratio";
-static const char __pyx_k_WriteNobleTarget__minimal_noble[] = "WriteNobleTarget._minimal_noble_off.<locals>.filter_noble";
+static const char __pyx_k_WriteNobleTarget__minimal_noble[] = "WriteNobleTarget._minimal_noble_off.<locals>.filter_noble_off";
 static const char __pyx_k_WriteNobleTarget__mode_guide_is[] = "WriteNobleTarget._mode_guide_is_one.<locals>.sort_func";
 static const char __pyx_k_WriteNobleTarget__random_weight[] = "WriteNobleTarget._random_weight_lst.<locals>.<lambda>";
 static const char __pyx_k_WriteNobleTarget__update_weight[] = "WriteNobleTarget._update_weight_max";
 static const char __pyx_k_WriteNobleTarget_sorted_weights[] = "WriteNobleTarget.sorted_weights_nobles";
-static const char __pyx_k_WriteNobleTarget__catapult_to_le[] = "WriteNobleTarget._catapult_to_left";
 static const char __pyx_k_WriteNobleTarget__close_weight_l[] = "WriteNobleTarget._close_weight_lst.<locals>.<lambda>";
 static const char __pyx_k_WriteNobleTarget__closest_weight[] = "WriteNobleTarget._closest_weight_lst.<locals>.<lambda>";
 static const char __pyx_k_WriteNobleTarget__far_weight_lst[] = "WriteNobleTarget._far_weight_lst.<locals>.<lambda>";
 static const char __pyx_k_WriteNobleTarget__fill_default_l[] = "WriteNobleTarget._fill_default_list";
-static const char __pyx_k_WriteNobleTarget__first_catapult[] = "WriteNobleTarget._first_catapult";
 static const char __pyx_k_WriteNobleTarget__first_line_fal[] = "WriteNobleTarget._first_line_false_query.<locals>.filter_first_line_false";
 static const char __pyx_k_WriteNobleTarget__get_filtered_w[] = "WriteNobleTarget._get_filtered_weight_max_list.<locals>.filter_func";
+static const char __pyx_k_WriteNobleTarget__minimal_fake_n[] = "WriteNobleTarget._minimal_fake_noble_off.<locals>.filter_fake_noble";
 static const char __pyx_k_WriteNobleTarget__morale_query_l[] = "WriteNobleTarget._morale_query.<locals>.filter_morale";
-static const char __pyx_k_WriteNobleTarget__noble_query_lo[] = "WriteNobleTarget._noble_query.<locals>.filter_noble";
 static const char __pyx_k_WriteNobleTarget__only_closer_th[] = "WriteNobleTarget._only_closer_than_target_dist.<locals>.filter_close_than_target_dist";
 static const char __pyx_k_WriteNobleTarget__order_distance[] = "WriteNobleTarget._order_distance_default_list.<locals>.order_func";
 static const char __pyx_k_WriteNobleTarget_weight_create_l[] = "WriteNobleTarget.weight_create_list";
 static const char __pyx_k_expected_world_casual_attack_blo[] = "expected world casual_attack_block_ratio to be int";
 static const char __pyx_k_filter_casual_attack_block_ratio[] = "filter_casual_attack_block_ratio";
+static const char __pyx_k_initial_outline_minimum_fake_nob[] = "initial_outline_minimum_fake_noble_troops";
 static const char __pyx_k_initial_outline_minimum_noble_tr[] = "initial_outline_minimum_noble_troops";
 static const char __pyx_k_WriteNobleTarget__casual_attack_2[] = "WriteNobleTarget._casual_attack_block_ratio";
 static const char __pyx_k_WriteNobleTarget__minimal_noble_2[] = "WriteNobleTarget._minimal_noble_off";
@@ -2772,6 +2770,7 @@ static const char __pyx_k_WriteNobleTarget__closest_weight_2[] = "WriteNobleTarg
 static const char __pyx_k_WriteNobleTarget__far_weight_lst_2[] = "WriteNobleTarget._far_weight_lst";
 static const char __pyx_k_WriteNobleTarget__first_line_fal_2[] = "WriteNobleTarget._first_line_false_query";
 static const char __pyx_k_WriteNobleTarget__get_filtered_w_2[] = "WriteNobleTarget._get_filtered_weight_max_list";
+static const char __pyx_k_WriteNobleTarget__minimal_fake_n_2[] = "WriteNobleTarget._minimal_fake_noble_off";
 static const char __pyx_k_WriteNobleTarget__only_closer_th_2[] = "WriteNobleTarget._only_closer_than_target_dist";
 static const char __pyx_k_WriteNobleTarget__order_distance_2[] = "WriteNobleTarget._order_distance_default_list";
 /* #### Code section: decls ### */
@@ -2779,7 +2778,8 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget___init_
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted_weights_nobles(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight_create_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_6_weight_model(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off, PyObject *__pyx_v_catapult, PyObject *__pyx_v_noble, PyObject *__pyx_v_order); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_update_weight_max(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off_to_left, PyObject *__pyx_v_catapult_to_left, PyObject *__pyx_v_noble_number); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target___defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_update_weight_max(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off_used, PyObject *__pyx_v_catapults_used, PyObject *__pyx_v_noble_used, PyObject *__pyx_v_fake_noble_used); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_order_distance_default_list_order_func(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_tuple); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_10_order_distance_default_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill_default_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sorted_list); /* proto */
@@ -2789,42 +2789,37 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_19_mode
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_16_mode_guide_is_many(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max_list); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_21_mode_guide_is_single_sort_func(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mode_guide_is_single(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max_list); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_20_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_22_first_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_24_catapult(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_first_catapult(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_catapult); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_off_to_left(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off, PyObject *__pyx_v_noble); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_30_catapult_to_left(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_catapult, PyObject *__pyx_v_noble); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_20_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_noble_number); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_22_first_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off, PyObject *__pyx_v_noble_number); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_13_morale_query_filter_morale(PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_morale_query(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_noble_query_filter_noble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_34_noble_query(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_filter_noble(PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_minimal_noble_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_24_morale_query(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_filter_noble_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_minimal_noble_off(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_minimal_fake_noble_off_filter_fake_noble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_minimal_fake_noble_off(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casual_attack_block_ratio_filter_casual_attack_block_ratio(PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casual_attack_block_ratio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_30_casual_attack_block_ratio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_filtered_weight_max_list_filter_func(PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_filtered_weight_max_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_get_filtered_weight_max_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_only_closer_than_target_dist_filter_close_than_target_dist(PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_only_closer_than_target_dist(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_34_only_closer_than_target_dist(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_first_line_false_query_filter_first_line_false(PyObject *__pyx_self, PyObject *__pyx_v_weight_max); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_first_line_false_query(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_first_line_false_query(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_46_closest_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_closest_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_lambda_funcdef_lambda1(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_48_close_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_close_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_lambda_funcdef_lambda2(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_item); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_random_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_random_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_lambda_funcdef_lambda3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight); /* proto */
 static PyObject *__pyx_lambda_funcdef_lambda4(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_item); /* proto */
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_52_far_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_far_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_1__morale_query(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 typedef struct {
@@ -2855,19 +2850,17 @@ typedef struct {
   #if CYTHON_USE_MODULE_STATE
   PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one;
   PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query;
-  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off;
-  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio;
-  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list;
-  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist;
-  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query;
+  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio;
+  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list;
+  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist;
+  PyObject *__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query;
   #endif
   PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one;
   PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query;
-  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off;
-  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio;
-  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list;
-  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist;
-  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query;
+  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio;
+  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list;
+  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist;
+  PyTypeObject *__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query;
   PyObject *__pyx_n_s_Callable;
   PyObject *__pyx_kp_s_Callable_FastWeightMaximum_bool;
   PyObject *__pyx_n_s_FastWeightMaximum;
@@ -2878,13 +2871,12 @@ typedef struct {
   PyObject *__pyx_n_s_SystemRandom;
   PyObject *__pyx_n_s_Target;
   PyObject *__pyx_n_s_TargetVertex;
+  PyObject *__pyx_n_s_ValueError;
   PyObject *__pyx_n_s_WeightModel;
   PyObject *__pyx_n_s_WriteNobleTarget;
   PyObject *__pyx_n_s_WriteNobleTarget___init;
   PyObject *__pyx_n_s_WriteNobleTarget__casual_attack;
   PyObject *__pyx_n_s_WriteNobleTarget__casual_attack_2;
-  PyObject *__pyx_n_s_WriteNobleTarget__catapult;
-  PyObject *__pyx_n_s_WriteNobleTarget__catapult_to_le;
   PyObject *__pyx_n_s_WriteNobleTarget__close_weight_l;
   PyObject *__pyx_n_s_WriteNobleTarget__close_weight_l_2;
   PyObject *__pyx_n_s_WriteNobleTarget__closest_weight;
@@ -2892,12 +2884,13 @@ typedef struct {
   PyObject *__pyx_n_s_WriteNobleTarget__far_weight_lst;
   PyObject *__pyx_n_s_WriteNobleTarget__far_weight_lst_2;
   PyObject *__pyx_n_s_WriteNobleTarget__fill_default_l;
-  PyObject *__pyx_n_s_WriteNobleTarget__first_catapult;
   PyObject *__pyx_n_s_WriteNobleTarget__first_line_fal;
   PyObject *__pyx_n_s_WriteNobleTarget__first_line_fal_2;
   PyObject *__pyx_n_s_WriteNobleTarget__first_off;
   PyObject *__pyx_n_s_WriteNobleTarget__get_filtered_w;
   PyObject *__pyx_n_s_WriteNobleTarget__get_filtered_w_2;
+  PyObject *__pyx_n_s_WriteNobleTarget__minimal_fake_n;
+  PyObject *__pyx_n_s_WriteNobleTarget__minimal_fake_n_2;
   PyObject *__pyx_n_s_WriteNobleTarget__minimal_noble;
   PyObject *__pyx_n_s_WriteNobleTarget__minimal_noble_2;
   PyObject *__pyx_n_s_WriteNobleTarget__mode_guide_is;
@@ -2908,10 +2901,7 @@ typedef struct {
   PyObject *__pyx_n_s_WriteNobleTarget__mode_guide_is_6;
   PyObject *__pyx_n_s_WriteNobleTarget__morale_query;
   PyObject *__pyx_n_s_WriteNobleTarget__morale_query_l;
-  PyObject *__pyx_n_s_WriteNobleTarget__noble_query;
-  PyObject *__pyx_n_s_WriteNobleTarget__noble_query_lo;
   PyObject *__pyx_n_s_WriteNobleTarget__off;
-  PyObject *__pyx_n_s_WriteNobleTarget__off_to_left;
   PyObject *__pyx_n_s_WriteNobleTarget__only_closer_th;
   PyObject *__pyx_n_s_WriteNobleTarget__only_closer_th_2;
   PyObject *__pyx_n_s_WriteNobleTarget__order_distance;
@@ -2925,7 +2915,7 @@ typedef struct {
   PyObject *__pyx_kp_u__12;
   PyObject *__pyx_n_s__21;
   PyObject *__pyx_kp_u__22;
-  PyObject *__pyx_n_s__70;
+  PyObject *__pyx_n_s__64;
   PyObject *__pyx_n_s_append;
   PyObject *__pyx_n_s_asyncio_coroutines;
   PyObject *__pyx_n_s_base_models;
@@ -2934,12 +2924,10 @@ typedef struct {
   PyObject *__pyx_n_s_casual_attack_block_ratio;
   PyObject *__pyx_n_s_casual_attack_block_ratio_2;
   PyObject *__pyx_n_s_catapult;
-  PyObject *__pyx_n_s_catapult_2;
   PyObject *__pyx_n_s_catapult_left;
   PyObject *__pyx_n_s_catapult_state;
-  PyObject *__pyx_n_s_catapult_to_left;
-  PyObject *__pyx_n_s_catapult_to_left_2;
   PyObject *__pyx_n_s_catapult_troops;
+  PyObject *__pyx_n_s_catapults_used;
   PyObject *__pyx_n_s_cline_in_traceback;
   PyObject *__pyx_n_u_close;
   PyObject *__pyx_n_s_close_weight_lst;
@@ -2954,20 +2942,24 @@ typedef struct {
   PyObject *__pyx_n_s_doc;
   PyObject *__pyx_kp_u_enable;
   PyObject *__pyx_n_s_enumerate;
+  PyObject *__pyx_n_s_equal_split;
   PyObject *__pyx_kp_u_expected_world_casual_attack_blo;
   PyObject *__pyx_n_s_fake;
+  PyObject *__pyx_n_s_fake_noble_used;
+  PyObject *__pyx_n_s_fake_nobles_allowed_to_use;
+  PyObject *__pyx_n_s_fake_nobles_limit;
   PyObject *__pyx_n_s_far_weight_lst;
   PyObject *__pyx_n_s_fill_default_list;
   PyObject *__pyx_n_s_filter_casual_attack_block_ratio;
   PyObject *__pyx_n_s_filter_close_than_target_dist;
+  PyObject *__pyx_n_s_filter_fake_noble;
   PyObject *__pyx_n_s_filter_first_line_false;
   PyObject *__pyx_n_s_filter_func;
   PyObject *__pyx_n_s_filter_morale;
-  PyObject *__pyx_n_s_filter_noble;
+  PyObject *__pyx_n_s_filter_noble_off;
   PyObject *__pyx_n_s_filtered_weight_max;
   PyObject *__pyx_n_s_filters;
   PyObject *__pyx_n_s_first_catapult;
-  PyObject *__pyx_n_s_first_catapult_2;
   PyObject *__pyx_n_s_first_line;
   PyObject *__pyx_n_s_first_line_false_query;
   PyObject *__pyx_n_s_first_off;
@@ -2979,10 +2971,12 @@ typedef struct {
   PyObject *__pyx_n_s_get_filtered_weight_max_list;
   PyObject *__pyx_n_s_i;
   PyObject *__pyx_n_s_import;
+  PyObject *__pyx_kp_u_impossible_configuration_s_s;
   PyObject *__pyx_n_s_index;
   PyObject *__pyx_n_s_init;
   PyObject *__pyx_n_s_init_subclass;
   PyObject *__pyx_n_s_initial_outline_front_dist;
+  PyObject *__pyx_n_s_initial_outline_minimum_fake_nob;
   PyObject *__pyx_n_s_initial_outline_minimum_noble_tr;
   PyObject *__pyx_n_s_initial_outline_target_dist;
   PyObject *__pyx_n_s_initializing;
@@ -2996,8 +2990,11 @@ typedef struct {
   PyObject *__pyx_n_s_main;
   PyObject *__pyx_n_u_many;
   PyObject *__pyx_n_s_math;
+  PyObject *__pyx_n_s_max_first;
+  PyObject *__pyx_n_s_max_next;
   PyObject *__pyx_n_s_max_possible;
   PyObject *__pyx_n_s_metaclass;
+  PyObject *__pyx_n_s_minimal_fake_noble_off;
   PyObject *__pyx_n_s_minimal_noble_off;
   PyObject *__pyx_n_s_mode_division;
   PyObject *__pyx_n_s_mode_guide;
@@ -3014,7 +3011,7 @@ typedef struct {
   PyObject *__pyx_n_s_name;
   PyObject *__pyx_n_s_noble;
   PyObject *__pyx_n_s_noble_number;
-  PyObject *__pyx_n_s_noble_query;
+  PyObject *__pyx_n_s_noble_used;
   PyObject *__pyx_n_s_nobleman;
   PyObject *__pyx_n_s_nobleman_left;
   PyObject *__pyx_n_s_nobleman_state;
@@ -3027,9 +3024,8 @@ typedef struct {
   PyObject *__pyx_n_s_off_2;
   PyObject *__pyx_n_s_off_left;
   PyObject *__pyx_n_s_off_state;
-  PyObject *__pyx_n_s_off_to_left;
-  PyObject *__pyx_n_s_off_to_left_2;
   PyObject *__pyx_n_s_off_troops;
+  PyObject *__pyx_n_s_off_used;
   PyObject *__pyx_n_u_one;
   PyObject *__pyx_n_s_only_closer_than_target_dist;
   PyObject *__pyx_n_s_order;
@@ -3051,6 +3047,7 @@ typedef struct {
   PyObject *__pyx_n_s_sample;
   PyObject *__pyx_n_s_secrets;
   PyObject *__pyx_n_s_self;
+  PyObject *__pyx_n_u_separatly;
   PyObject *__pyx_n_s_set_name;
   PyObject *__pyx_n_u_single;
   PyObject *__pyx_n_s_smaller_points;
@@ -3069,6 +3066,8 @@ typedef struct {
   PyObject *__pyx_n_s_target;
   PyObject *__pyx_n_s_target_id;
   PyObject *__pyx_n_s_test;
+  PyObject *__pyx_n_s_total_catapults;
+  PyObject *__pyx_n_s_total_off;
   PyObject *__pyx_kp_s_tuple_FastWeightMaximum_int;
   PyObject *__pyx_kp_s_tuple_float_int;
   PyObject *__pyx_kp_s_tuple_int_float_int_int;
@@ -3089,9 +3088,9 @@ typedef struct {
   PyObject *__pyx_n_s_world_ratio;
   PyObject *__pyx_int_0;
   PyObject *__pyx_int_1;
+  PyObject *__pyx_int_8;
   PyObject *__pyx_int_15;
   PyObject *__pyx_int_100;
-  PyObject *__pyx_int_200;
   PyObject *__pyx_int_80000;
   PyObject *__pyx_int_90000;
   PyObject *__pyx_int_100000;
@@ -3114,16 +3113,14 @@ typedef struct {
   PyObject *__pyx_tuple__37;
   PyObject *__pyx_tuple__41;
   PyObject *__pyx_tuple__43;
-  PyObject *__pyx_tuple__46;
-  PyObject *__pyx_tuple__48;
-  PyObject *__pyx_tuple__50;
-  PyObject *__pyx_tuple__52;
-  PyObject *__pyx_tuple__54;
+  PyObject *__pyx_tuple__45;
+  PyObject *__pyx_tuple__47;
+  PyObject *__pyx_tuple__49;
+  PyObject *__pyx_tuple__51;
+  PyObject *__pyx_tuple__53;
+  PyObject *__pyx_tuple__55;
   PyObject *__pyx_tuple__57;
   PyObject *__pyx_tuple__59;
-  PyObject *__pyx_tuple__61;
-  PyObject *__pyx_tuple__63;
-  PyObject *__pyx_tuple__65;
   PyObject *__pyx_codeobj__2;
   PyObject *__pyx_codeobj__4;
   PyObject *__pyx_codeobj__6;
@@ -3147,21 +3144,17 @@ typedef struct {
   PyObject *__pyx_codeobj__40;
   PyObject *__pyx_codeobj__42;
   PyObject *__pyx_codeobj__44;
-  PyObject *__pyx_codeobj__45;
-  PyObject *__pyx_codeobj__47;
-  PyObject *__pyx_codeobj__49;
-  PyObject *__pyx_codeobj__51;
-  PyObject *__pyx_codeobj__53;
-  PyObject *__pyx_codeobj__55;
+  PyObject *__pyx_codeobj__46;
+  PyObject *__pyx_codeobj__48;
+  PyObject *__pyx_codeobj__50;
+  PyObject *__pyx_codeobj__52;
+  PyObject *__pyx_codeobj__54;
   PyObject *__pyx_codeobj__56;
   PyObject *__pyx_codeobj__58;
   PyObject *__pyx_codeobj__60;
+  PyObject *__pyx_codeobj__61;
   PyObject *__pyx_codeobj__62;
-  PyObject *__pyx_codeobj__64;
-  PyObject *__pyx_codeobj__66;
-  PyObject *__pyx_codeobj__67;
-  PyObject *__pyx_codeobj__68;
-  PyObject *__pyx_codeobj__69;
+  PyObject *__pyx_codeobj__63;
 } __pyx_mstate;
 
 #if CYTHON_USE_MODULE_STATE
@@ -3208,16 +3201,14 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one);
   Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query);
   Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query);
-  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off);
-  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off);
-  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio);
-  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio);
-  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list);
-  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list);
-  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist);
-  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist);
-  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query);
-  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query);
+  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio);
+  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio);
+  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list);
+  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list);
+  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist);
+  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist);
+  Py_CLEAR(clear_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query);
+  Py_CLEAR(clear_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query);
   Py_CLEAR(clear_module_state->__pyx_n_s_Callable);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Callable_FastWeightMaximum_bool);
   Py_CLEAR(clear_module_state->__pyx_n_s_FastWeightMaximum);
@@ -3228,13 +3219,12 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_SystemRandom);
   Py_CLEAR(clear_module_state->__pyx_n_s_Target);
   Py_CLEAR(clear_module_state->__pyx_n_s_TargetVertex);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ValueError);
   Py_CLEAR(clear_module_state->__pyx_n_s_WeightModel);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget___init);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__casual_attack);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__casual_attack_2);
-  Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__catapult);
-  Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__catapult_to_le);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__close_weight_l);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__close_weight_l_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__closest_weight);
@@ -3242,12 +3232,13 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__far_weight_lst);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__far_weight_lst_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__fill_default_l);
-  Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__first_catapult);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__first_line_fal);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__first_line_fal_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__first_off);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__get_filtered_w);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__get_filtered_w_2);
+  Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__minimal_fake_n);
+  Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__minimal_fake_n_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__minimal_noble);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__minimal_noble_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__mode_guide_is);
@@ -3258,10 +3249,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__mode_guide_is_6);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__morale_query);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__morale_query_l);
-  Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__noble_query);
-  Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__noble_query_lo);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__off);
-  Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__off_to_left);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__only_closer_th);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__only_closer_th_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_WriteNobleTarget__order_distance);
@@ -3275,7 +3263,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_u__12);
   Py_CLEAR(clear_module_state->__pyx_n_s__21);
   Py_CLEAR(clear_module_state->__pyx_kp_u__22);
-  Py_CLEAR(clear_module_state->__pyx_n_s__70);
+  Py_CLEAR(clear_module_state->__pyx_n_s__64);
   Py_CLEAR(clear_module_state->__pyx_n_s_append);
   Py_CLEAR(clear_module_state->__pyx_n_s_asyncio_coroutines);
   Py_CLEAR(clear_module_state->__pyx_n_s_base_models);
@@ -3284,12 +3272,10 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_casual_attack_block_ratio);
   Py_CLEAR(clear_module_state->__pyx_n_s_casual_attack_block_ratio_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_catapult);
-  Py_CLEAR(clear_module_state->__pyx_n_s_catapult_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_catapult_left);
   Py_CLEAR(clear_module_state->__pyx_n_s_catapult_state);
-  Py_CLEAR(clear_module_state->__pyx_n_s_catapult_to_left);
-  Py_CLEAR(clear_module_state->__pyx_n_s_catapult_to_left_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_catapult_troops);
+  Py_CLEAR(clear_module_state->__pyx_n_s_catapults_used);
   Py_CLEAR(clear_module_state->__pyx_n_s_cline_in_traceback);
   Py_CLEAR(clear_module_state->__pyx_n_u_close);
   Py_CLEAR(clear_module_state->__pyx_n_s_close_weight_lst);
@@ -3304,20 +3290,24 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_doc);
   Py_CLEAR(clear_module_state->__pyx_kp_u_enable);
   Py_CLEAR(clear_module_state->__pyx_n_s_enumerate);
+  Py_CLEAR(clear_module_state->__pyx_n_s_equal_split);
   Py_CLEAR(clear_module_state->__pyx_kp_u_expected_world_casual_attack_blo);
   Py_CLEAR(clear_module_state->__pyx_n_s_fake);
+  Py_CLEAR(clear_module_state->__pyx_n_s_fake_noble_used);
+  Py_CLEAR(clear_module_state->__pyx_n_s_fake_nobles_allowed_to_use);
+  Py_CLEAR(clear_module_state->__pyx_n_s_fake_nobles_limit);
   Py_CLEAR(clear_module_state->__pyx_n_s_far_weight_lst);
   Py_CLEAR(clear_module_state->__pyx_n_s_fill_default_list);
   Py_CLEAR(clear_module_state->__pyx_n_s_filter_casual_attack_block_ratio);
   Py_CLEAR(clear_module_state->__pyx_n_s_filter_close_than_target_dist);
+  Py_CLEAR(clear_module_state->__pyx_n_s_filter_fake_noble);
   Py_CLEAR(clear_module_state->__pyx_n_s_filter_first_line_false);
   Py_CLEAR(clear_module_state->__pyx_n_s_filter_func);
   Py_CLEAR(clear_module_state->__pyx_n_s_filter_morale);
-  Py_CLEAR(clear_module_state->__pyx_n_s_filter_noble);
+  Py_CLEAR(clear_module_state->__pyx_n_s_filter_noble_off);
   Py_CLEAR(clear_module_state->__pyx_n_s_filtered_weight_max);
   Py_CLEAR(clear_module_state->__pyx_n_s_filters);
   Py_CLEAR(clear_module_state->__pyx_n_s_first_catapult);
-  Py_CLEAR(clear_module_state->__pyx_n_s_first_catapult_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_first_line);
   Py_CLEAR(clear_module_state->__pyx_n_s_first_line_false_query);
   Py_CLEAR(clear_module_state->__pyx_n_s_first_off);
@@ -3329,10 +3319,12 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_get_filtered_weight_max_list);
   Py_CLEAR(clear_module_state->__pyx_n_s_i);
   Py_CLEAR(clear_module_state->__pyx_n_s_import);
+  Py_CLEAR(clear_module_state->__pyx_kp_u_impossible_configuration_s_s);
   Py_CLEAR(clear_module_state->__pyx_n_s_index);
   Py_CLEAR(clear_module_state->__pyx_n_s_init);
   Py_CLEAR(clear_module_state->__pyx_n_s_init_subclass);
   Py_CLEAR(clear_module_state->__pyx_n_s_initial_outline_front_dist);
+  Py_CLEAR(clear_module_state->__pyx_n_s_initial_outline_minimum_fake_nob);
   Py_CLEAR(clear_module_state->__pyx_n_s_initial_outline_minimum_noble_tr);
   Py_CLEAR(clear_module_state->__pyx_n_s_initial_outline_target_dist);
   Py_CLEAR(clear_module_state->__pyx_n_s_initializing);
@@ -3346,8 +3338,11 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
   Py_CLEAR(clear_module_state->__pyx_n_u_many);
   Py_CLEAR(clear_module_state->__pyx_n_s_math);
+  Py_CLEAR(clear_module_state->__pyx_n_s_max_first);
+  Py_CLEAR(clear_module_state->__pyx_n_s_max_next);
   Py_CLEAR(clear_module_state->__pyx_n_s_max_possible);
   Py_CLEAR(clear_module_state->__pyx_n_s_metaclass);
+  Py_CLEAR(clear_module_state->__pyx_n_s_minimal_fake_noble_off);
   Py_CLEAR(clear_module_state->__pyx_n_s_minimal_noble_off);
   Py_CLEAR(clear_module_state->__pyx_n_s_mode_division);
   Py_CLEAR(clear_module_state->__pyx_n_s_mode_guide);
@@ -3364,7 +3359,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_name);
   Py_CLEAR(clear_module_state->__pyx_n_s_noble);
   Py_CLEAR(clear_module_state->__pyx_n_s_noble_number);
-  Py_CLEAR(clear_module_state->__pyx_n_s_noble_query);
+  Py_CLEAR(clear_module_state->__pyx_n_s_noble_used);
   Py_CLEAR(clear_module_state->__pyx_n_s_nobleman);
   Py_CLEAR(clear_module_state->__pyx_n_s_nobleman_left);
   Py_CLEAR(clear_module_state->__pyx_n_s_nobleman_state);
@@ -3377,9 +3372,8 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_off_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_off_left);
   Py_CLEAR(clear_module_state->__pyx_n_s_off_state);
-  Py_CLEAR(clear_module_state->__pyx_n_s_off_to_left);
-  Py_CLEAR(clear_module_state->__pyx_n_s_off_to_left_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_off_troops);
+  Py_CLEAR(clear_module_state->__pyx_n_s_off_used);
   Py_CLEAR(clear_module_state->__pyx_n_u_one);
   Py_CLEAR(clear_module_state->__pyx_n_s_only_closer_than_target_dist);
   Py_CLEAR(clear_module_state->__pyx_n_s_order);
@@ -3401,6 +3395,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_sample);
   Py_CLEAR(clear_module_state->__pyx_n_s_secrets);
   Py_CLEAR(clear_module_state->__pyx_n_s_self);
+  Py_CLEAR(clear_module_state->__pyx_n_u_separatly);
   Py_CLEAR(clear_module_state->__pyx_n_s_set_name);
   Py_CLEAR(clear_module_state->__pyx_n_u_single);
   Py_CLEAR(clear_module_state->__pyx_n_s_smaller_points);
@@ -3419,6 +3414,8 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_target);
   Py_CLEAR(clear_module_state->__pyx_n_s_target_id);
   Py_CLEAR(clear_module_state->__pyx_n_s_test);
+  Py_CLEAR(clear_module_state->__pyx_n_s_total_catapults);
+  Py_CLEAR(clear_module_state->__pyx_n_s_total_off);
   Py_CLEAR(clear_module_state->__pyx_kp_s_tuple_FastWeightMaximum_int);
   Py_CLEAR(clear_module_state->__pyx_kp_s_tuple_float_int);
   Py_CLEAR(clear_module_state->__pyx_kp_s_tuple_int_float_int_int);
@@ -3439,9 +3436,9 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_world_ratio);
   Py_CLEAR(clear_module_state->__pyx_int_0);
   Py_CLEAR(clear_module_state->__pyx_int_1);
+  Py_CLEAR(clear_module_state->__pyx_int_8);
   Py_CLEAR(clear_module_state->__pyx_int_15);
   Py_CLEAR(clear_module_state->__pyx_int_100);
-  Py_CLEAR(clear_module_state->__pyx_int_200);
   Py_CLEAR(clear_module_state->__pyx_int_80000);
   Py_CLEAR(clear_module_state->__pyx_int_90000);
   Py_CLEAR(clear_module_state->__pyx_int_100000);
@@ -3464,16 +3461,14 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_tuple__37);
   Py_CLEAR(clear_module_state->__pyx_tuple__41);
   Py_CLEAR(clear_module_state->__pyx_tuple__43);
-  Py_CLEAR(clear_module_state->__pyx_tuple__46);
-  Py_CLEAR(clear_module_state->__pyx_tuple__48);
-  Py_CLEAR(clear_module_state->__pyx_tuple__50);
-  Py_CLEAR(clear_module_state->__pyx_tuple__52);
-  Py_CLEAR(clear_module_state->__pyx_tuple__54);
+  Py_CLEAR(clear_module_state->__pyx_tuple__45);
+  Py_CLEAR(clear_module_state->__pyx_tuple__47);
+  Py_CLEAR(clear_module_state->__pyx_tuple__49);
+  Py_CLEAR(clear_module_state->__pyx_tuple__51);
+  Py_CLEAR(clear_module_state->__pyx_tuple__53);
+  Py_CLEAR(clear_module_state->__pyx_tuple__55);
   Py_CLEAR(clear_module_state->__pyx_tuple__57);
   Py_CLEAR(clear_module_state->__pyx_tuple__59);
-  Py_CLEAR(clear_module_state->__pyx_tuple__61);
-  Py_CLEAR(clear_module_state->__pyx_tuple__63);
-  Py_CLEAR(clear_module_state->__pyx_tuple__65);
   Py_CLEAR(clear_module_state->__pyx_codeobj__2);
   Py_CLEAR(clear_module_state->__pyx_codeobj__4);
   Py_CLEAR(clear_module_state->__pyx_codeobj__6);
@@ -3497,21 +3492,17 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_codeobj__40);
   Py_CLEAR(clear_module_state->__pyx_codeobj__42);
   Py_CLEAR(clear_module_state->__pyx_codeobj__44);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__45);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__47);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__49);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__51);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__53);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__55);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__46);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__48);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__50);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__52);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__54);
   Py_CLEAR(clear_module_state->__pyx_codeobj__56);
   Py_CLEAR(clear_module_state->__pyx_codeobj__58);
   Py_CLEAR(clear_module_state->__pyx_codeobj__60);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__61);
   Py_CLEAR(clear_module_state->__pyx_codeobj__62);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__64);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__66);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__67);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__68);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__69);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__63);
   return 0;
 }
 #endif
@@ -3536,16 +3527,14 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one);
   Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query);
   Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query);
-  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off);
-  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off);
-  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio);
-  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio);
-  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list);
-  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list);
-  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist);
-  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist);
-  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query);
-  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query);
+  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio);
+  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio);
+  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list);
+  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list);
+  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist);
+  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist);
+  Py_VISIT(traverse_module_state->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query);
+  Py_VISIT(traverse_module_state->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query);
   Py_VISIT(traverse_module_state->__pyx_n_s_Callable);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Callable_FastWeightMaximum_bool);
   Py_VISIT(traverse_module_state->__pyx_n_s_FastWeightMaximum);
@@ -3556,13 +3545,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_SystemRandom);
   Py_VISIT(traverse_module_state->__pyx_n_s_Target);
   Py_VISIT(traverse_module_state->__pyx_n_s_TargetVertex);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ValueError);
   Py_VISIT(traverse_module_state->__pyx_n_s_WeightModel);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget___init);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__casual_attack);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__casual_attack_2);
-  Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__catapult);
-  Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__catapult_to_le);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__close_weight_l);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__close_weight_l_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__closest_weight);
@@ -3570,12 +3558,13 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__far_weight_lst);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__far_weight_lst_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__fill_default_l);
-  Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__first_catapult);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__first_line_fal);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__first_line_fal_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__first_off);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__get_filtered_w);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__get_filtered_w_2);
+  Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__minimal_fake_n);
+  Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__minimal_fake_n_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__minimal_noble);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__minimal_noble_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__mode_guide_is);
@@ -3586,10 +3575,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__mode_guide_is_6);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__morale_query);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__morale_query_l);
-  Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__noble_query);
-  Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__noble_query_lo);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__off);
-  Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__off_to_left);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__only_closer_th);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__only_closer_th_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_WriteNobleTarget__order_distance);
@@ -3603,7 +3589,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_u__12);
   Py_VISIT(traverse_module_state->__pyx_n_s__21);
   Py_VISIT(traverse_module_state->__pyx_kp_u__22);
-  Py_VISIT(traverse_module_state->__pyx_n_s__70);
+  Py_VISIT(traverse_module_state->__pyx_n_s__64);
   Py_VISIT(traverse_module_state->__pyx_n_s_append);
   Py_VISIT(traverse_module_state->__pyx_n_s_asyncio_coroutines);
   Py_VISIT(traverse_module_state->__pyx_n_s_base_models);
@@ -3612,12 +3598,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_casual_attack_block_ratio);
   Py_VISIT(traverse_module_state->__pyx_n_s_casual_attack_block_ratio_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_catapult);
-  Py_VISIT(traverse_module_state->__pyx_n_s_catapult_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_catapult_left);
   Py_VISIT(traverse_module_state->__pyx_n_s_catapult_state);
-  Py_VISIT(traverse_module_state->__pyx_n_s_catapult_to_left);
-  Py_VISIT(traverse_module_state->__pyx_n_s_catapult_to_left_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_catapult_troops);
+  Py_VISIT(traverse_module_state->__pyx_n_s_catapults_used);
   Py_VISIT(traverse_module_state->__pyx_n_s_cline_in_traceback);
   Py_VISIT(traverse_module_state->__pyx_n_u_close);
   Py_VISIT(traverse_module_state->__pyx_n_s_close_weight_lst);
@@ -3632,20 +3616,24 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_doc);
   Py_VISIT(traverse_module_state->__pyx_kp_u_enable);
   Py_VISIT(traverse_module_state->__pyx_n_s_enumerate);
+  Py_VISIT(traverse_module_state->__pyx_n_s_equal_split);
   Py_VISIT(traverse_module_state->__pyx_kp_u_expected_world_casual_attack_blo);
   Py_VISIT(traverse_module_state->__pyx_n_s_fake);
+  Py_VISIT(traverse_module_state->__pyx_n_s_fake_noble_used);
+  Py_VISIT(traverse_module_state->__pyx_n_s_fake_nobles_allowed_to_use);
+  Py_VISIT(traverse_module_state->__pyx_n_s_fake_nobles_limit);
   Py_VISIT(traverse_module_state->__pyx_n_s_far_weight_lst);
   Py_VISIT(traverse_module_state->__pyx_n_s_fill_default_list);
   Py_VISIT(traverse_module_state->__pyx_n_s_filter_casual_attack_block_ratio);
   Py_VISIT(traverse_module_state->__pyx_n_s_filter_close_than_target_dist);
+  Py_VISIT(traverse_module_state->__pyx_n_s_filter_fake_noble);
   Py_VISIT(traverse_module_state->__pyx_n_s_filter_first_line_false);
   Py_VISIT(traverse_module_state->__pyx_n_s_filter_func);
   Py_VISIT(traverse_module_state->__pyx_n_s_filter_morale);
-  Py_VISIT(traverse_module_state->__pyx_n_s_filter_noble);
+  Py_VISIT(traverse_module_state->__pyx_n_s_filter_noble_off);
   Py_VISIT(traverse_module_state->__pyx_n_s_filtered_weight_max);
   Py_VISIT(traverse_module_state->__pyx_n_s_filters);
   Py_VISIT(traverse_module_state->__pyx_n_s_first_catapult);
-  Py_VISIT(traverse_module_state->__pyx_n_s_first_catapult_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_first_line);
   Py_VISIT(traverse_module_state->__pyx_n_s_first_line_false_query);
   Py_VISIT(traverse_module_state->__pyx_n_s_first_off);
@@ -3657,10 +3645,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_get_filtered_weight_max_list);
   Py_VISIT(traverse_module_state->__pyx_n_s_i);
   Py_VISIT(traverse_module_state->__pyx_n_s_import);
+  Py_VISIT(traverse_module_state->__pyx_kp_u_impossible_configuration_s_s);
   Py_VISIT(traverse_module_state->__pyx_n_s_index);
   Py_VISIT(traverse_module_state->__pyx_n_s_init);
   Py_VISIT(traverse_module_state->__pyx_n_s_init_subclass);
   Py_VISIT(traverse_module_state->__pyx_n_s_initial_outline_front_dist);
+  Py_VISIT(traverse_module_state->__pyx_n_s_initial_outline_minimum_fake_nob);
   Py_VISIT(traverse_module_state->__pyx_n_s_initial_outline_minimum_noble_tr);
   Py_VISIT(traverse_module_state->__pyx_n_s_initial_outline_target_dist);
   Py_VISIT(traverse_module_state->__pyx_n_s_initializing);
@@ -3674,8 +3664,11 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
   Py_VISIT(traverse_module_state->__pyx_n_u_many);
   Py_VISIT(traverse_module_state->__pyx_n_s_math);
+  Py_VISIT(traverse_module_state->__pyx_n_s_max_first);
+  Py_VISIT(traverse_module_state->__pyx_n_s_max_next);
   Py_VISIT(traverse_module_state->__pyx_n_s_max_possible);
   Py_VISIT(traverse_module_state->__pyx_n_s_metaclass);
+  Py_VISIT(traverse_module_state->__pyx_n_s_minimal_fake_noble_off);
   Py_VISIT(traverse_module_state->__pyx_n_s_minimal_noble_off);
   Py_VISIT(traverse_module_state->__pyx_n_s_mode_division);
   Py_VISIT(traverse_module_state->__pyx_n_s_mode_guide);
@@ -3692,7 +3685,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_name);
   Py_VISIT(traverse_module_state->__pyx_n_s_noble);
   Py_VISIT(traverse_module_state->__pyx_n_s_noble_number);
-  Py_VISIT(traverse_module_state->__pyx_n_s_noble_query);
+  Py_VISIT(traverse_module_state->__pyx_n_s_noble_used);
   Py_VISIT(traverse_module_state->__pyx_n_s_nobleman);
   Py_VISIT(traverse_module_state->__pyx_n_s_nobleman_left);
   Py_VISIT(traverse_module_state->__pyx_n_s_nobleman_state);
@@ -3705,9 +3698,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_off_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_off_left);
   Py_VISIT(traverse_module_state->__pyx_n_s_off_state);
-  Py_VISIT(traverse_module_state->__pyx_n_s_off_to_left);
-  Py_VISIT(traverse_module_state->__pyx_n_s_off_to_left_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_off_troops);
+  Py_VISIT(traverse_module_state->__pyx_n_s_off_used);
   Py_VISIT(traverse_module_state->__pyx_n_u_one);
   Py_VISIT(traverse_module_state->__pyx_n_s_only_closer_than_target_dist);
   Py_VISIT(traverse_module_state->__pyx_n_s_order);
@@ -3729,6 +3721,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_sample);
   Py_VISIT(traverse_module_state->__pyx_n_s_secrets);
   Py_VISIT(traverse_module_state->__pyx_n_s_self);
+  Py_VISIT(traverse_module_state->__pyx_n_u_separatly);
   Py_VISIT(traverse_module_state->__pyx_n_s_set_name);
   Py_VISIT(traverse_module_state->__pyx_n_u_single);
   Py_VISIT(traverse_module_state->__pyx_n_s_smaller_points);
@@ -3747,6 +3740,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_target);
   Py_VISIT(traverse_module_state->__pyx_n_s_target_id);
   Py_VISIT(traverse_module_state->__pyx_n_s_test);
+  Py_VISIT(traverse_module_state->__pyx_n_s_total_catapults);
+  Py_VISIT(traverse_module_state->__pyx_n_s_total_off);
   Py_VISIT(traverse_module_state->__pyx_kp_s_tuple_FastWeightMaximum_int);
   Py_VISIT(traverse_module_state->__pyx_kp_s_tuple_float_int);
   Py_VISIT(traverse_module_state->__pyx_kp_s_tuple_int_float_int_int);
@@ -3767,9 +3762,9 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_world_ratio);
   Py_VISIT(traverse_module_state->__pyx_int_0);
   Py_VISIT(traverse_module_state->__pyx_int_1);
+  Py_VISIT(traverse_module_state->__pyx_int_8);
   Py_VISIT(traverse_module_state->__pyx_int_15);
   Py_VISIT(traverse_module_state->__pyx_int_100);
-  Py_VISIT(traverse_module_state->__pyx_int_200);
   Py_VISIT(traverse_module_state->__pyx_int_80000);
   Py_VISIT(traverse_module_state->__pyx_int_90000);
   Py_VISIT(traverse_module_state->__pyx_int_100000);
@@ -3792,16 +3787,14 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_tuple__37);
   Py_VISIT(traverse_module_state->__pyx_tuple__41);
   Py_VISIT(traverse_module_state->__pyx_tuple__43);
-  Py_VISIT(traverse_module_state->__pyx_tuple__46);
-  Py_VISIT(traverse_module_state->__pyx_tuple__48);
-  Py_VISIT(traverse_module_state->__pyx_tuple__50);
-  Py_VISIT(traverse_module_state->__pyx_tuple__52);
-  Py_VISIT(traverse_module_state->__pyx_tuple__54);
+  Py_VISIT(traverse_module_state->__pyx_tuple__45);
+  Py_VISIT(traverse_module_state->__pyx_tuple__47);
+  Py_VISIT(traverse_module_state->__pyx_tuple__49);
+  Py_VISIT(traverse_module_state->__pyx_tuple__51);
+  Py_VISIT(traverse_module_state->__pyx_tuple__53);
+  Py_VISIT(traverse_module_state->__pyx_tuple__55);
   Py_VISIT(traverse_module_state->__pyx_tuple__57);
   Py_VISIT(traverse_module_state->__pyx_tuple__59);
-  Py_VISIT(traverse_module_state->__pyx_tuple__61);
-  Py_VISIT(traverse_module_state->__pyx_tuple__63);
-  Py_VISIT(traverse_module_state->__pyx_tuple__65);
   Py_VISIT(traverse_module_state->__pyx_codeobj__2);
   Py_VISIT(traverse_module_state->__pyx_codeobj__4);
   Py_VISIT(traverse_module_state->__pyx_codeobj__6);
@@ -3825,21 +3818,17 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_codeobj__40);
   Py_VISIT(traverse_module_state->__pyx_codeobj__42);
   Py_VISIT(traverse_module_state->__pyx_codeobj__44);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__45);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__47);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__49);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__51);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__53);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__55);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__46);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__48);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__50);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__52);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__54);
   Py_VISIT(traverse_module_state->__pyx_codeobj__56);
   Py_VISIT(traverse_module_state->__pyx_codeobj__58);
   Py_VISIT(traverse_module_state->__pyx_codeobj__60);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__61);
   Py_VISIT(traverse_module_state->__pyx_codeobj__62);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__64);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__66);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__67);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__68);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__69);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__63);
   return 0;
 }
 #endif
@@ -3871,19 +3860,17 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #if CYTHON_USE_MODULE_STATE
 #define __pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one
 #define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query
-#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off
-#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio
-#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list
-#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist
-#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query
+#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio
+#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list
+#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist
+#define __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query __pyx_mstate_global->__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query
 #endif
 #define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one
 #define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query
-#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off
-#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio
-#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list
-#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist
-#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query
+#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio
+#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list
+#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist
+#define __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query __pyx_mstate_global->__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query
 #define __pyx_n_s_Callable __pyx_mstate_global->__pyx_n_s_Callable
 #define __pyx_kp_s_Callable_FastWeightMaximum_bool __pyx_mstate_global->__pyx_kp_s_Callable_FastWeightMaximum_bool
 #define __pyx_n_s_FastWeightMaximum __pyx_mstate_global->__pyx_n_s_FastWeightMaximum
@@ -3894,13 +3881,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_SystemRandom __pyx_mstate_global->__pyx_n_s_SystemRandom
 #define __pyx_n_s_Target __pyx_mstate_global->__pyx_n_s_Target
 #define __pyx_n_s_TargetVertex __pyx_mstate_global->__pyx_n_s_TargetVertex
+#define __pyx_n_s_ValueError __pyx_mstate_global->__pyx_n_s_ValueError
 #define __pyx_n_s_WeightModel __pyx_mstate_global->__pyx_n_s_WeightModel
 #define __pyx_n_s_WriteNobleTarget __pyx_mstate_global->__pyx_n_s_WriteNobleTarget
 #define __pyx_n_s_WriteNobleTarget___init __pyx_mstate_global->__pyx_n_s_WriteNobleTarget___init
 #define __pyx_n_s_WriteNobleTarget__casual_attack __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__casual_attack
 #define __pyx_n_s_WriteNobleTarget__casual_attack_2 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__casual_attack_2
-#define __pyx_n_s_WriteNobleTarget__catapult __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__catapult
-#define __pyx_n_s_WriteNobleTarget__catapult_to_le __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__catapult_to_le
 #define __pyx_n_s_WriteNobleTarget__close_weight_l __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__close_weight_l
 #define __pyx_n_s_WriteNobleTarget__close_weight_l_2 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__close_weight_l_2
 #define __pyx_n_s_WriteNobleTarget__closest_weight __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__closest_weight
@@ -3908,12 +3894,13 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_WriteNobleTarget__far_weight_lst __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__far_weight_lst
 #define __pyx_n_s_WriteNobleTarget__far_weight_lst_2 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__far_weight_lst_2
 #define __pyx_n_s_WriteNobleTarget__fill_default_l __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__fill_default_l
-#define __pyx_n_s_WriteNobleTarget__first_catapult __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__first_catapult
 #define __pyx_n_s_WriteNobleTarget__first_line_fal __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__first_line_fal
 #define __pyx_n_s_WriteNobleTarget__first_line_fal_2 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__first_line_fal_2
 #define __pyx_n_s_WriteNobleTarget__first_off __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__first_off
 #define __pyx_n_s_WriteNobleTarget__get_filtered_w __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__get_filtered_w
 #define __pyx_n_s_WriteNobleTarget__get_filtered_w_2 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__get_filtered_w_2
+#define __pyx_n_s_WriteNobleTarget__minimal_fake_n __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__minimal_fake_n
+#define __pyx_n_s_WriteNobleTarget__minimal_fake_n_2 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__minimal_fake_n_2
 #define __pyx_n_s_WriteNobleTarget__minimal_noble __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__minimal_noble
 #define __pyx_n_s_WriteNobleTarget__minimal_noble_2 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__minimal_noble_2
 #define __pyx_n_s_WriteNobleTarget__mode_guide_is __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__mode_guide_is
@@ -3924,10 +3911,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_WriteNobleTarget__mode_guide_is_6 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__mode_guide_is_6
 #define __pyx_n_s_WriteNobleTarget__morale_query __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__morale_query
 #define __pyx_n_s_WriteNobleTarget__morale_query_l __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__morale_query_l
-#define __pyx_n_s_WriteNobleTarget__noble_query __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__noble_query
-#define __pyx_n_s_WriteNobleTarget__noble_query_lo __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__noble_query_lo
 #define __pyx_n_s_WriteNobleTarget__off __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__off
-#define __pyx_n_s_WriteNobleTarget__off_to_left __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__off_to_left
 #define __pyx_n_s_WriteNobleTarget__only_closer_th __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__only_closer_th
 #define __pyx_n_s_WriteNobleTarget__only_closer_th_2 __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__only_closer_th_2
 #define __pyx_n_s_WriteNobleTarget__order_distance __pyx_mstate_global->__pyx_n_s_WriteNobleTarget__order_distance
@@ -3941,7 +3925,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_u__12 __pyx_mstate_global->__pyx_kp_u__12
 #define __pyx_n_s__21 __pyx_mstate_global->__pyx_n_s__21
 #define __pyx_kp_u__22 __pyx_mstate_global->__pyx_kp_u__22
-#define __pyx_n_s__70 __pyx_mstate_global->__pyx_n_s__70
+#define __pyx_n_s__64 __pyx_mstate_global->__pyx_n_s__64
 #define __pyx_n_s_append __pyx_mstate_global->__pyx_n_s_append
 #define __pyx_n_s_asyncio_coroutines __pyx_mstate_global->__pyx_n_s_asyncio_coroutines
 #define __pyx_n_s_base_models __pyx_mstate_global->__pyx_n_s_base_models
@@ -3950,12 +3934,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_casual_attack_block_ratio __pyx_mstate_global->__pyx_n_s_casual_attack_block_ratio
 #define __pyx_n_s_casual_attack_block_ratio_2 __pyx_mstate_global->__pyx_n_s_casual_attack_block_ratio_2
 #define __pyx_n_s_catapult __pyx_mstate_global->__pyx_n_s_catapult
-#define __pyx_n_s_catapult_2 __pyx_mstate_global->__pyx_n_s_catapult_2
 #define __pyx_n_s_catapult_left __pyx_mstate_global->__pyx_n_s_catapult_left
 #define __pyx_n_s_catapult_state __pyx_mstate_global->__pyx_n_s_catapult_state
-#define __pyx_n_s_catapult_to_left __pyx_mstate_global->__pyx_n_s_catapult_to_left
-#define __pyx_n_s_catapult_to_left_2 __pyx_mstate_global->__pyx_n_s_catapult_to_left_2
 #define __pyx_n_s_catapult_troops __pyx_mstate_global->__pyx_n_s_catapult_troops
+#define __pyx_n_s_catapults_used __pyx_mstate_global->__pyx_n_s_catapults_used
 #define __pyx_n_s_cline_in_traceback __pyx_mstate_global->__pyx_n_s_cline_in_traceback
 #define __pyx_n_u_close __pyx_mstate_global->__pyx_n_u_close
 #define __pyx_n_s_close_weight_lst __pyx_mstate_global->__pyx_n_s_close_weight_lst
@@ -3970,20 +3952,24 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_doc __pyx_mstate_global->__pyx_n_s_doc
 #define __pyx_kp_u_enable __pyx_mstate_global->__pyx_kp_u_enable
 #define __pyx_n_s_enumerate __pyx_mstate_global->__pyx_n_s_enumerate
+#define __pyx_n_s_equal_split __pyx_mstate_global->__pyx_n_s_equal_split
 #define __pyx_kp_u_expected_world_casual_attack_blo __pyx_mstate_global->__pyx_kp_u_expected_world_casual_attack_blo
 #define __pyx_n_s_fake __pyx_mstate_global->__pyx_n_s_fake
+#define __pyx_n_s_fake_noble_used __pyx_mstate_global->__pyx_n_s_fake_noble_used
+#define __pyx_n_s_fake_nobles_allowed_to_use __pyx_mstate_global->__pyx_n_s_fake_nobles_allowed_to_use
+#define __pyx_n_s_fake_nobles_limit __pyx_mstate_global->__pyx_n_s_fake_nobles_limit
 #define __pyx_n_s_far_weight_lst __pyx_mstate_global->__pyx_n_s_far_weight_lst
 #define __pyx_n_s_fill_default_list __pyx_mstate_global->__pyx_n_s_fill_default_list
 #define __pyx_n_s_filter_casual_attack_block_ratio __pyx_mstate_global->__pyx_n_s_filter_casual_attack_block_ratio
 #define __pyx_n_s_filter_close_than_target_dist __pyx_mstate_global->__pyx_n_s_filter_close_than_target_dist
+#define __pyx_n_s_filter_fake_noble __pyx_mstate_global->__pyx_n_s_filter_fake_noble
 #define __pyx_n_s_filter_first_line_false __pyx_mstate_global->__pyx_n_s_filter_first_line_false
 #define __pyx_n_s_filter_func __pyx_mstate_global->__pyx_n_s_filter_func
 #define __pyx_n_s_filter_morale __pyx_mstate_global->__pyx_n_s_filter_morale
-#define __pyx_n_s_filter_noble __pyx_mstate_global->__pyx_n_s_filter_noble
+#define __pyx_n_s_filter_noble_off __pyx_mstate_global->__pyx_n_s_filter_noble_off
 #define __pyx_n_s_filtered_weight_max __pyx_mstate_global->__pyx_n_s_filtered_weight_max
 #define __pyx_n_s_filters __pyx_mstate_global->__pyx_n_s_filters
 #define __pyx_n_s_first_catapult __pyx_mstate_global->__pyx_n_s_first_catapult
-#define __pyx_n_s_first_catapult_2 __pyx_mstate_global->__pyx_n_s_first_catapult_2
 #define __pyx_n_s_first_line __pyx_mstate_global->__pyx_n_s_first_line
 #define __pyx_n_s_first_line_false_query __pyx_mstate_global->__pyx_n_s_first_line_false_query
 #define __pyx_n_s_first_off __pyx_mstate_global->__pyx_n_s_first_off
@@ -3995,10 +3981,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_get_filtered_weight_max_list __pyx_mstate_global->__pyx_n_s_get_filtered_weight_max_list
 #define __pyx_n_s_i __pyx_mstate_global->__pyx_n_s_i
 #define __pyx_n_s_import __pyx_mstate_global->__pyx_n_s_import
+#define __pyx_kp_u_impossible_configuration_s_s __pyx_mstate_global->__pyx_kp_u_impossible_configuration_s_s
 #define __pyx_n_s_index __pyx_mstate_global->__pyx_n_s_index
 #define __pyx_n_s_init __pyx_mstate_global->__pyx_n_s_init
 #define __pyx_n_s_init_subclass __pyx_mstate_global->__pyx_n_s_init_subclass
 #define __pyx_n_s_initial_outline_front_dist __pyx_mstate_global->__pyx_n_s_initial_outline_front_dist
+#define __pyx_n_s_initial_outline_minimum_fake_nob __pyx_mstate_global->__pyx_n_s_initial_outline_minimum_fake_nob
 #define __pyx_n_s_initial_outline_minimum_noble_tr __pyx_mstate_global->__pyx_n_s_initial_outline_minimum_noble_tr
 #define __pyx_n_s_initial_outline_target_dist __pyx_mstate_global->__pyx_n_s_initial_outline_target_dist
 #define __pyx_n_s_initializing __pyx_mstate_global->__pyx_n_s_initializing
@@ -4012,8 +4000,11 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
 #define __pyx_n_u_many __pyx_mstate_global->__pyx_n_u_many
 #define __pyx_n_s_math __pyx_mstate_global->__pyx_n_s_math
+#define __pyx_n_s_max_first __pyx_mstate_global->__pyx_n_s_max_first
+#define __pyx_n_s_max_next __pyx_mstate_global->__pyx_n_s_max_next
 #define __pyx_n_s_max_possible __pyx_mstate_global->__pyx_n_s_max_possible
 #define __pyx_n_s_metaclass __pyx_mstate_global->__pyx_n_s_metaclass
+#define __pyx_n_s_minimal_fake_noble_off __pyx_mstate_global->__pyx_n_s_minimal_fake_noble_off
 #define __pyx_n_s_minimal_noble_off __pyx_mstate_global->__pyx_n_s_minimal_noble_off
 #define __pyx_n_s_mode_division __pyx_mstate_global->__pyx_n_s_mode_division
 #define __pyx_n_s_mode_guide __pyx_mstate_global->__pyx_n_s_mode_guide
@@ -4030,7 +4021,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_name __pyx_mstate_global->__pyx_n_s_name
 #define __pyx_n_s_noble __pyx_mstate_global->__pyx_n_s_noble
 #define __pyx_n_s_noble_number __pyx_mstate_global->__pyx_n_s_noble_number
-#define __pyx_n_s_noble_query __pyx_mstate_global->__pyx_n_s_noble_query
+#define __pyx_n_s_noble_used __pyx_mstate_global->__pyx_n_s_noble_used
 #define __pyx_n_s_nobleman __pyx_mstate_global->__pyx_n_s_nobleman
 #define __pyx_n_s_nobleman_left __pyx_mstate_global->__pyx_n_s_nobleman_left
 #define __pyx_n_s_nobleman_state __pyx_mstate_global->__pyx_n_s_nobleman_state
@@ -4043,9 +4034,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_off_2 __pyx_mstate_global->__pyx_n_s_off_2
 #define __pyx_n_s_off_left __pyx_mstate_global->__pyx_n_s_off_left
 #define __pyx_n_s_off_state __pyx_mstate_global->__pyx_n_s_off_state
-#define __pyx_n_s_off_to_left __pyx_mstate_global->__pyx_n_s_off_to_left
-#define __pyx_n_s_off_to_left_2 __pyx_mstate_global->__pyx_n_s_off_to_left_2
 #define __pyx_n_s_off_troops __pyx_mstate_global->__pyx_n_s_off_troops
+#define __pyx_n_s_off_used __pyx_mstate_global->__pyx_n_s_off_used
 #define __pyx_n_u_one __pyx_mstate_global->__pyx_n_u_one
 #define __pyx_n_s_only_closer_than_target_dist __pyx_mstate_global->__pyx_n_s_only_closer_than_target_dist
 #define __pyx_n_s_order __pyx_mstate_global->__pyx_n_s_order
@@ -4067,6 +4057,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_sample __pyx_mstate_global->__pyx_n_s_sample
 #define __pyx_n_s_secrets __pyx_mstate_global->__pyx_n_s_secrets
 #define __pyx_n_s_self __pyx_mstate_global->__pyx_n_s_self
+#define __pyx_n_u_separatly __pyx_mstate_global->__pyx_n_u_separatly
 #define __pyx_n_s_set_name __pyx_mstate_global->__pyx_n_s_set_name
 #define __pyx_n_u_single __pyx_mstate_global->__pyx_n_u_single
 #define __pyx_n_s_smaller_points __pyx_mstate_global->__pyx_n_s_smaller_points
@@ -4085,6 +4076,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_target __pyx_mstate_global->__pyx_n_s_target
 #define __pyx_n_s_target_id __pyx_mstate_global->__pyx_n_s_target_id
 #define __pyx_n_s_test __pyx_mstate_global->__pyx_n_s_test
+#define __pyx_n_s_total_catapults __pyx_mstate_global->__pyx_n_s_total_catapults
+#define __pyx_n_s_total_off __pyx_mstate_global->__pyx_n_s_total_off
 #define __pyx_kp_s_tuple_FastWeightMaximum_int __pyx_mstate_global->__pyx_kp_s_tuple_FastWeightMaximum_int
 #define __pyx_kp_s_tuple_float_int __pyx_mstate_global->__pyx_kp_s_tuple_float_int
 #define __pyx_kp_s_tuple_int_float_int_int __pyx_mstate_global->__pyx_kp_s_tuple_int_float_int_int
@@ -4105,9 +4098,9 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_world_ratio __pyx_mstate_global->__pyx_n_s_world_ratio
 #define __pyx_int_0 __pyx_mstate_global->__pyx_int_0
 #define __pyx_int_1 __pyx_mstate_global->__pyx_int_1
+#define __pyx_int_8 __pyx_mstate_global->__pyx_int_8
 #define __pyx_int_15 __pyx_mstate_global->__pyx_int_15
 #define __pyx_int_100 __pyx_mstate_global->__pyx_int_100
-#define __pyx_int_200 __pyx_mstate_global->__pyx_int_200
 #define __pyx_int_80000 __pyx_mstate_global->__pyx_int_80000
 #define __pyx_int_90000 __pyx_mstate_global->__pyx_int_90000
 #define __pyx_int_100000 __pyx_mstate_global->__pyx_int_100000
@@ -4130,16 +4123,14 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_tuple__37 __pyx_mstate_global->__pyx_tuple__37
 #define __pyx_tuple__41 __pyx_mstate_global->__pyx_tuple__41
 #define __pyx_tuple__43 __pyx_mstate_global->__pyx_tuple__43
-#define __pyx_tuple__46 __pyx_mstate_global->__pyx_tuple__46
-#define __pyx_tuple__48 __pyx_mstate_global->__pyx_tuple__48
-#define __pyx_tuple__50 __pyx_mstate_global->__pyx_tuple__50
-#define __pyx_tuple__52 __pyx_mstate_global->__pyx_tuple__52
-#define __pyx_tuple__54 __pyx_mstate_global->__pyx_tuple__54
+#define __pyx_tuple__45 __pyx_mstate_global->__pyx_tuple__45
+#define __pyx_tuple__47 __pyx_mstate_global->__pyx_tuple__47
+#define __pyx_tuple__49 __pyx_mstate_global->__pyx_tuple__49
+#define __pyx_tuple__51 __pyx_mstate_global->__pyx_tuple__51
+#define __pyx_tuple__53 __pyx_mstate_global->__pyx_tuple__53
+#define __pyx_tuple__55 __pyx_mstate_global->__pyx_tuple__55
 #define __pyx_tuple__57 __pyx_mstate_global->__pyx_tuple__57
 #define __pyx_tuple__59 __pyx_mstate_global->__pyx_tuple__59
-#define __pyx_tuple__61 __pyx_mstate_global->__pyx_tuple__61
-#define __pyx_tuple__63 __pyx_mstate_global->__pyx_tuple__63
-#define __pyx_tuple__65 __pyx_mstate_global->__pyx_tuple__65
 #define __pyx_codeobj__2 __pyx_mstate_global->__pyx_codeobj__2
 #define __pyx_codeobj__4 __pyx_mstate_global->__pyx_codeobj__4
 #define __pyx_codeobj__6 __pyx_mstate_global->__pyx_codeobj__6
@@ -4163,21 +4154,17 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_codeobj__40 __pyx_mstate_global->__pyx_codeobj__40
 #define __pyx_codeobj__42 __pyx_mstate_global->__pyx_codeobj__42
 #define __pyx_codeobj__44 __pyx_mstate_global->__pyx_codeobj__44
-#define __pyx_codeobj__45 __pyx_mstate_global->__pyx_codeobj__45
-#define __pyx_codeobj__47 __pyx_mstate_global->__pyx_codeobj__47
-#define __pyx_codeobj__49 __pyx_mstate_global->__pyx_codeobj__49
-#define __pyx_codeobj__51 __pyx_mstate_global->__pyx_codeobj__51
-#define __pyx_codeobj__53 __pyx_mstate_global->__pyx_codeobj__53
-#define __pyx_codeobj__55 __pyx_mstate_global->__pyx_codeobj__55
+#define __pyx_codeobj__46 __pyx_mstate_global->__pyx_codeobj__46
+#define __pyx_codeobj__48 __pyx_mstate_global->__pyx_codeobj__48
+#define __pyx_codeobj__50 __pyx_mstate_global->__pyx_codeobj__50
+#define __pyx_codeobj__52 __pyx_mstate_global->__pyx_codeobj__52
+#define __pyx_codeobj__54 __pyx_mstate_global->__pyx_codeobj__54
 #define __pyx_codeobj__56 __pyx_mstate_global->__pyx_codeobj__56
 #define __pyx_codeobj__58 __pyx_mstate_global->__pyx_codeobj__58
 #define __pyx_codeobj__60 __pyx_mstate_global->__pyx_codeobj__60
+#define __pyx_codeobj__61 __pyx_mstate_global->__pyx_codeobj__61
 #define __pyx_codeobj__62 __pyx_mstate_global->__pyx_codeobj__62
-#define __pyx_codeobj__64 __pyx_mstate_global->__pyx_codeobj__64
-#define __pyx_codeobj__66 __pyx_mstate_global->__pyx_codeobj__66
-#define __pyx_codeobj__67 __pyx_mstate_global->__pyx_codeobj__67
-#define __pyx_codeobj__68 __pyx_mstate_global->__pyx_codeobj__68
-#define __pyx_codeobj__69 __pyx_mstate_global->__pyx_codeobj__69
+#define __pyx_codeobj__63 __pyx_mstate_global->__pyx_codeobj__63
 /* #### Code section: module_code ### */
 
 /* "utils/write_noble_target.py":64
@@ -4433,7 +4420,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget___init_
  *         self.initial_outline_minimum_noble_troops = (
  *             self.outline.initial_outline_minimum_noble_troops             # <<<<<<<<<<<<<<
  *         )
- *         self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
+ *         self.initial_outline_minimum_fake_noble_troops = (
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -4451,124 +4438,147 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget___init_
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_noble_tr, __pyx_t_2) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
+  /* "utils/write_noble_target.py":83
+ *         )
+ *         self.initial_outline_minimum_fake_noble_troops = (
+ *             self.outline.initial_outline_minimum_fake_noble_troops             # <<<<<<<<<<<<<<
+ *         )
+ *         self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_initial_outline_minimum_fake_nob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
   /* "utils/write_noble_target.py":82
  *             self.outline.initial_outline_minimum_noble_troops
+ *         )
+ *         self.initial_outline_minimum_fake_noble_troops = (             # <<<<<<<<<<<<<<
+ *             self.outline.initial_outline_minimum_fake_noble_troops
+ *         )
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_fake_nob, __pyx_t_1) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "utils/write_noble_target.py":85
+ *             self.outline.initial_outline_minimum_fake_noble_troops
  *         )
  *         self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio             # <<<<<<<<<<<<<<
  *         self.morale = self.outline.world.morale
  *         self.morale_on = self.outline.morale_on
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_world); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_casual_attack_block_ratio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_world); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_casual_attack_block_ratio, __pyx_t_2) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_casual_attack_block_ratio); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_casual_attack_block_ratio, __pyx_t_1) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":83
+  /* "utils/write_noble_target.py":86
  *         )
  *         self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
  *         self.morale = self.outline.world.morale             # <<<<<<<<<<<<<<
  *         self.morale_on = self.outline.morale_on
  *         self.mode_split = self.outline.mode_split
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_world); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_morale); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_world); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_morale, __pyx_t_2) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_morale); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_morale, __pyx_t_1) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":84
+  /* "utils/write_noble_target.py":87
  *         self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
  *         self.morale = self.outline.world.morale
  *         self.morale_on = self.outline.morale_on             # <<<<<<<<<<<<<<
  *         self.mode_split = self.outline.mode_split
  *         self.morale_on_targets_greater_than = (
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_morale_on); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_morale_on, __pyx_t_1) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_morale_on); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_morale_on, __pyx_t_2) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":85
+  /* "utils/write_noble_target.py":88
  *         self.morale = self.outline.world.morale
  *         self.morale_on = self.outline.morale_on
  *         self.mode_split = self.outline.mode_split             # <<<<<<<<<<<<<<
  *         self.morale_on_targets_greater_than = (
  *             self.outline.morale_on_targets_greater_than
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_mode_split, __pyx_t_2) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_mode_split, __pyx_t_1) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":87
+  /* "utils/write_noble_target.py":90
  *         self.mode_split = self.outline.mode_split
  *         self.morale_on_targets_greater_than = (
  *             self.outline.morale_on_targets_greater_than             # <<<<<<<<<<<<<<
  *         )
  *         self.initial_outline_target_dist = self.outline.initial_outline_target_dist
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_morale_on_targets_greater_than); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_morale_on_targets_greater_than); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":86
+  /* "utils/write_noble_target.py":89
  *         self.morale_on = self.outline.morale_on
  *         self.mode_split = self.outline.mode_split
  *         self.morale_on_targets_greater_than = (             # <<<<<<<<<<<<<<
  *             self.outline.morale_on_targets_greater_than
  *         )
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_morale_on_targets_greater_than, __pyx_t_1) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_morale_on_targets_greater_than, __pyx_t_2) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":89
+  /* "utils/write_noble_target.py":92
  *             self.outline.morale_on_targets_greater_than
  *         )
  *         self.initial_outline_target_dist = self.outline.initial_outline_target_dist             # <<<<<<<<<<<<<<
  *         self.initial_outline_front_dist = self.outline.initial_outline_front_dist
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_initial_outline_target_dist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_target_dist, __pyx_t_2) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_initial_outline_target_dist); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_target_dist, __pyx_t_1) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":90
+  /* "utils/write_noble_target.py":93
  *         )
  *         self.initial_outline_target_dist = self.outline.initial_outline_target_dist
  *         self.initial_outline_front_dist = self.outline.initial_outline_front_dist             # <<<<<<<<<<<<<<
  * 
  *     def sorted_weights_nobles(self) -> list[FastWeightMaximum]:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_initial_outline_front_dist); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_front_dist, __pyx_t_1) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_initial_outline_front_dist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_front_dist, __pyx_t_2) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "utils/write_noble_target.py":64
  *     """
@@ -4592,12 +4602,12 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget___init_
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":92
+/* "utils/write_noble_target.py":95
  *         self.initial_outline_front_dist = self.outline.initial_outline_front_dist
  * 
  *     def sorted_weights_nobles(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         self.filters.append(self._only_closer_than_target_dist())
- *         self.filters.append(self._noble_query())
+ * 
  */
 
 /* Python wrapper */
@@ -4653,12 +4663,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 92, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 95, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sorted_weights_nobles") < 0)) __PYX_ERR(0, 92, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sorted_weights_nobles") < 0)) __PYX_ERR(0, 95, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -4669,7 +4679,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sorted_weights_nobles", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 92, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sorted_weights_nobles", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 95, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -4712,16 +4722,16 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("sorted_weights_nobles", 1);
 
-  /* "utils/write_noble_target.py":93
+  /* "utils/write_noble_target.py":96
  * 
  *     def sorted_weights_nobles(self) -> list[FastWeightMaximum]:
  *         self.filters.append(self._only_closer_than_target_dist())             # <<<<<<<<<<<<<<
- *         self.filters.append(self._noble_query())
  * 
+ *         if self.casual_attack_block_ratio is not None:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_only_closer_than_target_dist); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_only_closer_than_target_dist); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -4741,74 +4751,37 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
     PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":94
- *     def sorted_weights_nobles(self) -> list[FastWeightMaximum]:
+  /* "utils/write_noble_target.py":98
  *         self.filters.append(self._only_closer_than_target_dist())
- *         self.filters.append(self._noble_query())             # <<<<<<<<<<<<<<
- * 
- *         if self.casual_attack_block_ratio is not None:
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_noble_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = NULL;
-  __pyx_t_5 = 0;
-  #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-      __pyx_t_5 = 1;
-    }
-  }
-  #endif
-  {
-    PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  }
-  __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 94, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "utils/write_noble_target.py":96
- *         self.filters.append(self._noble_query())
  * 
  *         if self.casual_attack_block_ratio is not None:             # <<<<<<<<<<<<<<
  *             self.filters.append(self._casual_attack_block_ratio())
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_casual_attack_block_ratio); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = (__pyx_t_1 != Py_None);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_casual_attack_block_ratio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_7 = (__pyx_t_2 != Py_None);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_7) {
 
-    /* "utils/write_noble_target.py":97
+    /* "utils/write_noble_target.py":99
  * 
  *         if self.casual_attack_block_ratio is not None:
  *             self.filters.append(self._casual_attack_block_ratio())             # <<<<<<<<<<<<<<
  * 
- *         if not self.target.fake:
+ *         if self.target.fake:
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_casual_attack_block_ratio_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_casual_attack_block_ratio_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -4826,18 +4799,18 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
     #endif
     {
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
-      __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
+      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
-    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 97, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 99, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":96
- *         self.filters.append(self._noble_query())
+    /* "utils/write_noble_target.py":98
+ *         self.filters.append(self._only_closer_than_target_dist())
  * 
  *         if self.casual_attack_block_ratio is not None:             # <<<<<<<<<<<<<<
  *             self.filters.append(self._casual_attack_block_ratio())
@@ -4845,33 +4818,80 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  */
   }
 
-  /* "utils/write_noble_target.py":99
+  /* "utils/write_noble_target.py":101
  *             self.filters.append(self._casual_attack_block_ratio())
  * 
- *         if not self.target.fake:             # <<<<<<<<<<<<<<
- *             self.filters.append(self._minimal_noble_off())
- * 
+ *         if self.target.fake:             # <<<<<<<<<<<<<<
+ *             self.filters.append(self._minimal_fake_noble_off())
+ *         else:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_fake); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_8 = (!__pyx_t_7);
-  if (__pyx_t_8) {
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 101, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__pyx_t_7) {
 
-    /* "utils/write_noble_target.py":100
+    /* "utils/write_noble_target.py":102
  * 
- *         if not self.target.fake:
+ *         if self.target.fake:
+ *             self.filters.append(self._minimal_fake_noble_off())             # <<<<<<<<<<<<<<
+ *         else:
+ *             self.filters.append(self._minimal_noble_off())
+ */
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_minimal_fake_noble_off); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 102, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_4 = NULL;
+    __pyx_t_5 = 0;
+    #if CYTHON_UNPACK_METHODS
+    if (likely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
+        __pyx_t_5 = 1;
+      }
+    }
+    #endif
+    {
+      PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
+      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    }
+    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 102, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "utils/write_noble_target.py":101
+ *             self.filters.append(self._casual_attack_block_ratio())
+ * 
+ *         if self.target.fake:             # <<<<<<<<<<<<<<
+ *             self.filters.append(self._minimal_fake_noble_off())
+ *         else:
+ */
+    goto __pyx_L4;
+  }
+
+  /* "utils/write_noble_target.py":104
+ *             self.filters.append(self._minimal_fake_noble_off())
+ *         else:
  *             self.filters.append(self._minimal_noble_off())             # <<<<<<<<<<<<<<
  * 
  *         if self.morale_on and self.morale > 0:
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  /*else*/ {
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_minimal_noble_off); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 100, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_minimal_noble_off); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -4891,59 +4911,52 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
-    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 100, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 104, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "utils/write_noble_target.py":99
- *             self.filters.append(self._casual_attack_block_ratio())
- * 
- *         if not self.target.fake:             # <<<<<<<<<<<<<<
- *             self.filters.append(self._minimal_noble_off())
- * 
- */
   }
+  __pyx_L4:;
 
-  /* "utils/write_noble_target.py":102
+  /* "utils/write_noble_target.py":106
  *             self.filters.append(self._minimal_noble_off())
  * 
  *         if self.morale_on and self.morale > 0:             # <<<<<<<<<<<<<<
  *             self.filters.append(self._morale_query())
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_morale_on); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_morale_on); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_7) {
+  if (__pyx_t_8) {
   } else {
-    __pyx_t_8 = __pyx_t_7;
+    __pyx_t_7 = __pyx_t_8;
     goto __pyx_L6_bool_binop_done;
   }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_morale); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_morale); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_8 = __pyx_t_7;
+  __pyx_t_7 = __pyx_t_8;
   __pyx_L6_bool_binop_done:;
-  if (__pyx_t_8) {
+  if (__pyx_t_7) {
 
-    /* "utils/write_noble_target.py":103
+    /* "utils/write_noble_target.py":107
  * 
  *         if self.morale_on and self.morale > 0:
  *             self.filters.append(self._morale_query())             # <<<<<<<<<<<<<<
  * 
  *         if self.target.mode_noble == "closest":
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_morale_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_morale_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -4963,15 +4976,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
-    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 103, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "utils/write_noble_target.py":102
+    /* "utils/write_noble_target.py":106
  *             self.filters.append(self._minimal_noble_off())
  * 
  *         if self.morale_on and self.morale > 0:             # <<<<<<<<<<<<<<
@@ -4980,32 +4993,32 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  */
   }
 
-  /* "utils/write_noble_target.py":105
+  /* "utils/write_noble_target.py":109
  *             self.filters.append(self._morale_query())
  * 
  *         if self.target.mode_noble == "closest":             # <<<<<<<<<<<<<<
  *             self.index = 110000
  *             return self._closest_weight_lst()
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_noble); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_noble); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_8 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_closest, Py_EQ)); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_7 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_closest, Py_EQ)); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_8) {
+  if (__pyx_t_7) {
 
-    /* "utils/write_noble_target.py":106
+    /* "utils/write_noble_target.py":110
  * 
  *         if self.target.mode_noble == "closest":
  *             self.index = 110000             # <<<<<<<<<<<<<<
  *             return self._closest_weight_lst()
  * 
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_index, __pyx_int_110000) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_index, __pyx_int_110000) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
 
-    /* "utils/write_noble_target.py":107
+    /* "utils/write_noble_target.py":111
  *         if self.target.mode_noble == "closest":
  *             self.index = 110000
  *             return self._closest_weight_lst()             # <<<<<<<<<<<<<<
@@ -5013,7 +5026,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  *         elif self.target.mode_noble == "close":
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_closest_weight_lst); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_closest_weight_lst); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     __pyx_t_5 = 0;
@@ -5033,16 +5046,16 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
-    if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 107, __pyx_L1_error)
+    if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 111, __pyx_L1_error)
     __pyx_r = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "utils/write_noble_target.py":105
+    /* "utils/write_noble_target.py":109
  *             self.filters.append(self._morale_query())
  * 
  *         if self.target.mode_noble == "closest":             # <<<<<<<<<<<<<<
@@ -5051,32 +5064,32 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  */
   }
 
-  /* "utils/write_noble_target.py":109
+  /* "utils/write_noble_target.py":113
  *             return self._closest_weight_lst()
  * 
  *         elif self.target.mode_noble == "close":             # <<<<<<<<<<<<<<
  *             self.filters.append(self._first_line_false_query())
  *             self.index = 100000
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_noble); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_noble); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_8 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_close, Py_EQ)); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_7 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_close, Py_EQ)); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_8) {
+  if (__pyx_t_7) {
 
-    /* "utils/write_noble_target.py":110
+    /* "utils/write_noble_target.py":114
  * 
  *         elif self.target.mode_noble == "close":
  *             self.filters.append(self._first_line_false_query())             # <<<<<<<<<<<<<<
  *             self.index = 100000
  *             return self._close_weight_lst()
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_line_false_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_line_false_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -5096,24 +5109,24 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
-    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":111
+    /* "utils/write_noble_target.py":115
  *         elif self.target.mode_noble == "close":
  *             self.filters.append(self._first_line_false_query())
  *             self.index = 100000             # <<<<<<<<<<<<<<
  *             return self._close_weight_lst()
  * 
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_index, __pyx_int_100000) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_index, __pyx_int_100000) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
 
-    /* "utils/write_noble_target.py":112
+    /* "utils/write_noble_target.py":116
  *             self.filters.append(self._first_line_false_query())
  *             self.index = 100000
  *             return self._close_weight_lst()             # <<<<<<<<<<<<<<
@@ -5121,7 +5134,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  *         elif self.target.mode_noble == "random":
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_close_weight_lst); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_close_weight_lst); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     __pyx_t_5 = 0;
@@ -5141,16 +5154,16 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
-    if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 112, __pyx_L1_error)
+    if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 116, __pyx_L1_error)
     __pyx_r = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "utils/write_noble_target.py":109
+    /* "utils/write_noble_target.py":113
  *             return self._closest_weight_lst()
  * 
  *         elif self.target.mode_noble == "close":             # <<<<<<<<<<<<<<
@@ -5159,32 +5172,32 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  */
   }
 
-  /* "utils/write_noble_target.py":114
+  /* "utils/write_noble_target.py":118
  *             return self._close_weight_lst()
  * 
  *         elif self.target.mode_noble == "random":             # <<<<<<<<<<<<<<
  *             self.filters.append(self._first_line_false_query())
  *             self.index = 90000
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_noble); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_noble); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_8 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_random, Py_EQ)); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_7 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_random, Py_EQ)); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_8) {
+  if (__pyx_t_7) {
 
-    /* "utils/write_noble_target.py":115
+    /* "utils/write_noble_target.py":119
  * 
  *         elif self.target.mode_noble == "random":
  *             self.filters.append(self._first_line_false_query())             # <<<<<<<<<<<<<<
  *             self.index = 90000
  *             return self._random_weight_lst()
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_line_false_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_line_false_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -5204,24 +5217,24 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
-    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":116
+    /* "utils/write_noble_target.py":120
  *         elif self.target.mode_noble == "random":
  *             self.filters.append(self._first_line_false_query())
  *             self.index = 90000             # <<<<<<<<<<<<<<
  *             return self._random_weight_lst()
  * 
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_index, __pyx_int_90000) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_index, __pyx_int_90000) < 0) __PYX_ERR(0, 120, __pyx_L1_error)
 
-    /* "utils/write_noble_target.py":117
+    /* "utils/write_noble_target.py":121
  *             self.filters.append(self._first_line_false_query())
  *             self.index = 90000
  *             return self._random_weight_lst()             # <<<<<<<<<<<<<<
@@ -5229,7 +5242,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  *         else:  # self.target.mode_off == "far":
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_random_weight_lst); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_random_weight_lst); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     __pyx_t_5 = 0;
@@ -5249,16 +5262,16 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
-    if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 117, __pyx_L1_error)
+    if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 121, __pyx_L1_error)
     __pyx_r = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "utils/write_noble_target.py":114
+    /* "utils/write_noble_target.py":118
  *             return self._close_weight_lst()
  * 
  *         elif self.target.mode_noble == "random":             # <<<<<<<<<<<<<<
@@ -5267,7 +5280,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  */
   }
 
-  /* "utils/write_noble_target.py":120
+  /* "utils/write_noble_target.py":124
  * 
  *         else:  # self.target.mode_off == "far":
  *             self.filters.append(self._first_line_false_query())             # <<<<<<<<<<<<<<
@@ -5275,9 +5288,9 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  *             return self._far_weight_lst()
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_line_false_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_line_false_query); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -5297,24 +5310,24 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 120, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 124, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
-    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 120, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 124, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "utils/write_noble_target.py":121
+    /* "utils/write_noble_target.py":125
  *         else:  # self.target.mode_off == "far":
  *             self.filters.append(self._first_line_false_query())
  *             self.index = 80000             # <<<<<<<<<<<<<<
  *             return self._far_weight_lst()
  * 
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_index, __pyx_int_80000) < 0) __PYX_ERR(0, 121, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_index, __pyx_int_80000) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
 
-    /* "utils/write_noble_target.py":122
+    /* "utils/write_noble_target.py":126
  *             self.filters.append(self._first_line_false_query())
  *             self.index = 80000
  *             return self._far_weight_lst()             # <<<<<<<<<<<<<<
@@ -5322,7 +5335,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
  *     def weight_create_list(self) -> list[WeightModel]:
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_far_weight_lst); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_far_weight_lst); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     __pyx_t_5 = 0;
@@ -5342,22 +5355,22 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 122, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 126, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
-    if (!(likely(PyList_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_2))) __PYX_ERR(0, 122, __pyx_L1_error)
+    if (!(likely(PyList_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_2))) __PYX_ERR(0, 126, __pyx_L1_error)
     __pyx_r = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
     goto __pyx_L0;
   }
 
-  /* "utils/write_noble_target.py":92
+  /* "utils/write_noble_target.py":95
  *         self.initial_outline_front_dist = self.outline.initial_outline_front_dist
  * 
  *     def sorted_weights_nobles(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         self.filters.append(self._only_closer_than_target_dist())
- *         self.filters.append(self._noble_query())
+ * 
  */
 
   /* function exit code */
@@ -5374,7 +5387,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_2sorted
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":124
+/* "utils/write_noble_target.py":128
  *             return self._far_weight_lst()
  * 
  *     def weight_create_list(self) -> list[WeightModel]:             # <<<<<<<<<<<<<<
@@ -5435,12 +5448,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 124, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 128, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "weight_create_list") < 0)) __PYX_ERR(0, 124, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "weight_create_list") < 0)) __PYX_ERR(0, 128, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -5451,7 +5464,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("weight_create_list", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 124, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("weight_create_list", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 128, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5485,11 +5498,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
   PyObject *__pyx_v_weight_max = 0;
   PyObject *__pyx_v_noble_number = 0;
   PyObject *__pyx_v_off = 0;
-  PyObject *__pyx_v_catapult = 0;
   PyObject *__pyx_v_first_off = 0;
-  PyObject *__pyx_v_first_catapult = 0;
-  PyObject *__pyx_v_off_to_left = 0;
-  PyObject *__pyx_v_catapult_to_left = 0;
+  PyObject *__pyx_v_total_off = NULL;
+  PyObject *__pyx_v_first_catapult = NULL;
+  PyObject *__pyx_v_catapult = NULL;
+  PyObject *__pyx_v_max_first = NULL;
+  PyObject *__pyx_v_max_next = NULL;
+  PyObject *__pyx_v_equal_split = NULL;
+  PyObject *__pyx_v_total_catapults = NULL;
   PyObject *__pyx_v_index = NULL;
   PyObject *__pyx_v_off_troops = NULL;
   PyObject *__pyx_v_catapult_troops = NULL;
@@ -5511,31 +5527,32 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
   PyObject *(*__pyx_t_13)(PyObject *);
   PyObject *__pyx_t_14 = NULL;
   int __pyx_t_15;
+  int __pyx_t_16;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("weight_create_list", 1);
 
-  /* "utils/write_noble_target.py":125
+  /* "utils/write_noble_target.py":129
  * 
  *     def weight_create_list(self) -> list[WeightModel]:
  *         weights_create_lst: list[WeightModel] = []             # <<<<<<<<<<<<<<
  * 
  *         weight_max_list = self.sorted_weights_nobles()
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_weights_create_lst = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":127
+  /* "utils/write_noble_target.py":131
  *         weights_create_lst: list[WeightModel] = []
  * 
  *         weight_max_list = self.sorted_weights_nobles()             # <<<<<<<<<<<<<<
  * 
  *         if self.target.mode_guide == "one":  # (one weight)-(one target) prefer
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sorted_weights_nobles); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sorted_weights_nobles); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -5555,37 +5572,37 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_weight_max_list = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":129
+  /* "utils/write_noble_target.py":133
  *         weight_max_list = self.sorted_weights_nobles()
  * 
  *         if self.target.mode_guide == "one":  # (one weight)-(one target) prefer             # <<<<<<<<<<<<<<
  *             self._mode_guide_is_one(weight_max_list)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_guide); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_guide); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_one, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_one, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_5) {
 
-    /* "utils/write_noble_target.py":130
+    /* "utils/write_noble_target.py":134
  * 
  *         if self.target.mode_guide == "one":  # (one weight)-(one target) prefer
  *             self._mode_guide_is_one(weight_max_list)             # <<<<<<<<<<<<<<
  * 
  *         elif self.target.mode_guide == "many":  # optimal- one or many
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mode_guide_is_one); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mode_guide_is_one); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     __pyx_t_4 = 0;
@@ -5605,13 +5622,13 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
       PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_weight_max_list};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "utils/write_noble_target.py":129
+    /* "utils/write_noble_target.py":133
  *         weight_max_list = self.sorted_weights_nobles()
  * 
  *         if self.target.mode_guide == "one":  # (one weight)-(one target) prefer             # <<<<<<<<<<<<<<
@@ -5621,30 +5638,30 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
     goto __pyx_L3;
   }
 
-  /* "utils/write_noble_target.py":132
+  /* "utils/write_noble_target.py":136
  *             self._mode_guide_is_one(weight_max_list)
  * 
  *         elif self.target.mode_guide == "many":  # optimal- one or many             # <<<<<<<<<<<<<<
  *             self._mode_guide_is_many(weight_max_list)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_guide); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_guide); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_many, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_many, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_5) {
 
-    /* "utils/write_noble_target.py":133
+    /* "utils/write_noble_target.py":137
  * 
  *         elif self.target.mode_guide == "many":  # optimal- one or many
  *             self._mode_guide_is_many(weight_max_list)             # <<<<<<<<<<<<<<
  * 
  *         else:  # self.target.mode_guide == "single" # only single nobles from many weights
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mode_guide_is_many); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mode_guide_is_many); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     __pyx_t_4 = 0;
@@ -5664,13 +5681,13 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
       PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_weight_max_list};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":132
+    /* "utils/write_noble_target.py":136
  *             self._mode_guide_is_one(weight_max_list)
  * 
  *         elif self.target.mode_guide == "many":  # optimal- one or many             # <<<<<<<<<<<<<<
@@ -5680,7 +5697,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
     goto __pyx_L3;
   }
 
-  /* "utils/write_noble_target.py":136
+  /* "utils/write_noble_target.py":140
  * 
  *         else:  # self.target.mode_guide == "single" # only single nobles from many weights
  *             self._mode_guide_is_single(weight_max_list)             # <<<<<<<<<<<<<<
@@ -5688,7 +5705,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
  *         self._order_distance_default_list()
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mode_guide_is_single); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mode_guide_is_single); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     __pyx_t_4 = 0;
@@ -5708,7 +5725,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
       PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_weight_max_list};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
@@ -5716,14 +5733,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
   }
   __pyx_L3:;
 
-  /* "utils/write_noble_target.py":138
+  /* "utils/write_noble_target.py":142
  *             self._mode_guide_is_single(weight_max_list)
  * 
  *         self._order_distance_default_list()             # <<<<<<<<<<<<<<
  * 
  *         i: int
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_order_distance_default_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_order_distance_default_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -5743,31 +5760,31 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":143
+  /* "utils/write_noble_target.py":147
  *         weight_max: FastWeightMaximum
  *         noble_number: int
  *         for i, (weight_max, noble_number) in enumerate(self.default_create_list):             # <<<<<<<<<<<<<<
- *             off: int = self._off(weight_max)
- *             catapult: int = self._catapult(weight_max)
+ *             off: int = self._off(weight_max, noble_number)
+ *             first_off: int = self._first_off(weight_max, off, noble_number)
  */
   __Pyx_INCREF(__pyx_int_0);
   __pyx_t_6 = __pyx_int_0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_default_create_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_default_create_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2);
     __pyx_t_7 = 0;
     __pyx_t_8 = NULL;
   } else {
-    __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_8 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -5776,28 +5793,28 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 143, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 147, __pyx_L1_error)
           #endif
           if (__pyx_t_7 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 143, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 147, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         {
           Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 143, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 147, __pyx_L1_error)
           #endif
           if (__pyx_t_7 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 143, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 147, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -5807,7 +5824,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 143, __pyx_L1_error)
+          else __PYX_ERR(0, 147, __pyx_L1_error)
         }
         break;
       }
@@ -5819,7 +5836,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 143, __pyx_L1_error)
+        __PYX_ERR(0, 147, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -5832,15 +5849,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_9);
       #else
-      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_9 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_9 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_10 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_10 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_11 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_10);
@@ -5848,7 +5865,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
       __Pyx_GOTREF(__pyx_t_3);
       index = 1; __pyx_t_9 = __pyx_t_11(__pyx_t_10); if (unlikely(!__pyx_t_9)) goto __pyx_L6_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_9);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_11(__pyx_t_10), 2) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_11(__pyx_t_10), 2) < 0) __PYX_ERR(0, 147, __pyx_L1_error)
       __pyx_t_11 = NULL;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       goto __pyx_L7_unpacking_done;
@@ -5856,30 +5873,30 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __pyx_t_11 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 143, __pyx_L1_error)
+      __PYX_ERR(0, 147, __pyx_L1_error)
       __pyx_L7_unpacking_done:;
     }
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_9))||((__pyx_t_9) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_9))) __PYX_ERR(0, 143, __pyx_L1_error)
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_9))||((__pyx_t_9) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_9))) __PYX_ERR(0, 147, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_weight_max, __pyx_t_3);
     __pyx_t_3 = 0;
     __Pyx_XDECREF_SET(__pyx_v_noble_number, ((PyObject*)__pyx_t_9));
     __pyx_t_9 = 0;
     __Pyx_INCREF(__pyx_t_6);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_6);
-    __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_int_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_int_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6);
     __pyx_t_6 = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":144
+    /* "utils/write_noble_target.py":148
  *         noble_number: int
  *         for i, (weight_max, noble_number) in enumerate(self.default_create_list):
- *             off: int = self._off(weight_max)             # <<<<<<<<<<<<<<
- *             catapult: int = self._catapult(weight_max)
- *             first_off: int = self._first_off(weight_max, off)
+ *             off: int = self._off(weight_max, noble_number)             # <<<<<<<<<<<<<<
+ *             first_off: int = self._first_off(weight_max, off, noble_number)
+ * 
  */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_off); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 144, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_off); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_3 = NULL;
     __pyx_t_4 = 0;
@@ -5896,130 +5913,25 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_weight_max};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
+      PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_v_weight_max, __pyx_v_noble_number};
+      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_4, 2+__pyx_t_4);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 144, __pyx_L1_error)
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_off, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":145
+    /* "utils/write_noble_target.py":149
  *         for i, (weight_max, noble_number) in enumerate(self.default_create_list):
- *             off: int = self._off(weight_max)
- *             catapult: int = self._catapult(weight_max)             # <<<<<<<<<<<<<<
- *             first_off: int = self._first_off(weight_max, off)
- *             first_catapult: int = self._first_catapult(weight_max, catapult)
+ *             off: int = self._off(weight_max, noble_number)
+ *             first_off: int = self._first_off(weight_max, off, noble_number)             # <<<<<<<<<<<<<<
+ * 
+ *             total_off = first_off + (noble_number - 1) * off
  */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_catapult); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 145, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_3 = NULL;
-    __pyx_t_4 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_9))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_9);
-      if (likely(__pyx_t_3)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
-        __Pyx_INCREF(__pyx_t_3);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_9, function);
-        __pyx_t_4 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_weight_max};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    }
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 145, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_catapult, ((PyObject*)__pyx_t_1));
-    __pyx_t_1 = 0;
-
-    /* "utils/write_noble_target.py":146
- *             off: int = self._off(weight_max)
- *             catapult: int = self._catapult(weight_max)
- *             first_off: int = self._first_off(weight_max, off)             # <<<<<<<<<<<<<<
- *             first_catapult: int = self._first_catapult(weight_max, catapult)
- *             off_to_left: int = self._off_to_left(weight_max, off, noble_number)
- */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_off); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 146, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_3 = NULL;
-    __pyx_t_4 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_9))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_9);
-      if (likely(__pyx_t_3)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
-        __Pyx_INCREF(__pyx_t_3);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_9, function);
-        __pyx_t_4 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_v_weight_max, __pyx_v_off};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_4, 2+__pyx_t_4);
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    }
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 146, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_first_off, ((PyObject*)__pyx_t_1));
-    __pyx_t_1 = 0;
-
-    /* "utils/write_noble_target.py":147
- *             catapult: int = self._catapult(weight_max)
- *             first_off: int = self._first_off(weight_max, off)
- *             first_catapult: int = self._first_catapult(weight_max, catapult)             # <<<<<<<<<<<<<<
- *             off_to_left: int = self._off_to_left(weight_max, off, noble_number)
- *             catapult_to_left: int = self._catapult_to_left(
- */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_catapult); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 147, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_3 = NULL;
-    __pyx_t_4 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_9))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_9);
-      if (likely(__pyx_t_3)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
-        __Pyx_INCREF(__pyx_t_3);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_9, function);
-        __pyx_t_4 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_v_weight_max, __pyx_v_catapult};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_4, 2+__pyx_t_4);
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    }
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 147, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_first_catapult, ((PyObject*)__pyx_t_1));
-    __pyx_t_1 = 0;
-
-    /* "utils/write_noble_target.py":148
- *             first_off: int = self._first_off(weight_max, off)
- *             first_catapult: int = self._first_catapult(weight_max, catapult)
- *             off_to_left: int = self._off_to_left(weight_max, off, noble_number)             # <<<<<<<<<<<<<<
- *             catapult_to_left: int = self._catapult_to_left(
- *                 weight_max, catapult, noble_number
- */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_off_to_left); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_first_off); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_3 = NULL;
     __pyx_t_4 = 0;
@@ -6039,157 +5951,462 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
       PyObject *__pyx_callargs[4] = {__pyx_t_3, __pyx_v_weight_max, __pyx_v_off, __pyx_v_noble_number};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_4, 3+__pyx_t_4);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    }
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_off_to_left, ((PyObject*)__pyx_t_1));
-    __pyx_t_1 = 0;
-
-    /* "utils/write_noble_target.py":149
- *             first_catapult: int = self._first_catapult(weight_max, catapult)
- *             off_to_left: int = self._off_to_left(weight_max, off, noble_number)
- *             catapult_to_left: int = self._catapult_to_left(             # <<<<<<<<<<<<<<
- *                 weight_max, catapult, noble_number
- *             )
- */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_catapult_to_left); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-
-    /* "utils/write_noble_target.py":150
- *             off_to_left: int = self._off_to_left(weight_max, off, noble_number)
- *             catapult_to_left: int = self._catapult_to_left(
- *                 weight_max, catapult, noble_number             # <<<<<<<<<<<<<<
- *             )
- * 
- */
-    __pyx_t_3 = NULL;
-    __pyx_t_4 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_9))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_9);
-      if (likely(__pyx_t_3)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
-        __Pyx_INCREF(__pyx_t_3);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_9, function);
-        __pyx_t_4 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[4] = {__pyx_t_3, __pyx_v_weight_max, __pyx_v_catapult, __pyx_v_noble_number};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_4, 3+__pyx_t_4);
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
-
-    /* "utils/write_noble_target.py":149
- *             first_catapult: int = self._first_catapult(weight_max, catapult)
- *             off_to_left: int = self._off_to_left(weight_max, off, noble_number)
- *             catapult_to_left: int = self._catapult_to_left(             # <<<<<<<<<<<<<<
- *                 weight_max, catapult, noble_number
- *             )
- */
     if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 149, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_catapult_to_left, ((PyObject*)__pyx_t_1));
+    __Pyx_XDECREF_SET(__pyx_v_first_off, ((PyObject*)__pyx_t_1));
+    __pyx_t_1 = 0;
+
+    /* "utils/write_noble_target.py":151
+ *             first_off: int = self._first_off(weight_max, off, noble_number)
+ * 
+ *             total_off = first_off + (noble_number - 1) * off             # <<<<<<<<<<<<<<
+ * 
+ *             first_catapult = 0
+ */
+    __pyx_t_1 = PyNumber_Subtract(__pyx_v_noble_number, __pyx_int_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = PyNumber_Multiply(__pyx_t_1, __pyx_v_off); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 151, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Add(__pyx_v_first_off, __pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_total_off, __pyx_t_1);
     __pyx_t_1 = 0;
 
     /* "utils/write_noble_target.py":153
- *             )
+ *             total_off = first_off + (noble_number - 1) * off
+ * 
+ *             first_catapult = 0             # <<<<<<<<<<<<<<
+ *             catapult = 0
+ * 
+ */
+    __Pyx_INCREF(__pyx_int_0);
+    __Pyx_XDECREF_SET(__pyx_v_first_catapult, __pyx_int_0);
+
+    /* "utils/write_noble_target.py":154
+ * 
+ *             first_catapult = 0
+ *             catapult = 0             # <<<<<<<<<<<<<<
+ * 
+ *             # if you wonder why we must deal with catapults in this way
+ */
+    __Pyx_INCREF(__pyx_int_0);
+    __Pyx_XDECREF_SET(__pyx_v_catapult, __pyx_int_0);
+
+    /* "utils/write_noble_target.py":161
+ *             # if total off plus all remaining catapults off
+ *             # is more than actually available units in a village...
+ *             if total_off + weight_max.catapult_left * 8 > weight_max.off_left:             # <<<<<<<<<<<<<<
+ *                 # we need to use some catapults for first attack
+ *                 max_first = first_off // 8
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyInt_MultiplyObjC(__pyx_t_1, __pyx_int_8, 8, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Add(__pyx_v_total_off, __pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_9, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 161, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (__pyx_t_5) {
+
+      /* "utils/write_noble_target.py":163
+ *             if total_off + weight_max.catapult_left * 8 > weight_max.off_left:
+ *                 # we need to use some catapults for first attack
+ *                 max_first = first_off // 8             # <<<<<<<<<<<<<<
+ *                 first_catapult = min(weight_max.catapult_left, max_first)
+ *             # if this is still not enough...
+ */
+      __pyx_t_3 = PyNumber_FloorDivide(__pyx_v_first_off, __pyx_int_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_XDECREF_SET(__pyx_v_max_first, __pyx_t_3);
+      __pyx_t_3 = 0;
+
+      /* "utils/write_noble_target.py":164
+ *                 # we need to use some catapults for first attack
+ *                 max_first = first_off // 8
+ *                 first_catapult = min(weight_max.catapult_left, max_first)             # <<<<<<<<<<<<<<
+ *             # if this is still not enough...
+ *             if (
+ */
+      __Pyx_INCREF(__pyx_v_max_first);
+      __pyx_t_3 = __pyx_v_max_first;
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 164, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_10 = PyObject_RichCompare(__pyx_t_3, __pyx_t_9, Py_LT); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 164, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 164, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      if (__pyx_t_5) {
+        __Pyx_INCREF(__pyx_t_3);
+        __pyx_t_1 = __pyx_t_3;
+      } else {
+        __Pyx_INCREF(__pyx_t_9);
+        __pyx_t_1 = __pyx_t_9;
+      }
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = __pyx_t_1;
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF_SET(__pyx_v_first_catapult, __pyx_t_3);
+      __pyx_t_3 = 0;
+
+      /* "utils/write_noble_target.py":161
+ *             # if total off plus all remaining catapults off
+ *             # is more than actually available units in a village...
+ *             if total_off + weight_max.catapult_left * 8 > weight_max.off_left:             # <<<<<<<<<<<<<<
+ *                 # we need to use some catapults for first attack
+ *                 max_first = first_off // 8
+ */
+    }
+
+    /* "utils/write_noble_target.py":167
+ *             # if this is still not enough...
+ *             if (
+ *                 total_off + (weight_max.catapult_left - first_catapult) * 8             # <<<<<<<<<<<<<<
+ *                 > weight_max.off_left
+ *             ):
+ */
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_v_first_catapult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyInt_MultiplyObjC(__pyx_t_1, __pyx_int_8, 8, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Add(__pyx_v_total_off, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "utils/write_noble_target.py":168
+ *             if (
+ *                 total_off + (weight_max.catapult_left - first_catapult) * 8
+ *                 > weight_max.off_left             # <<<<<<<<<<<<<<
+ *             ):
+ *                 # we distribute leftovers to other attacks
+ */
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_9 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GT); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 168, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 168, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "utils/write_noble_target.py":166
+ *                 first_catapult = min(weight_max.catapult_left, max_first)
+ *             # if this is still not enough...
+ *             if (             # <<<<<<<<<<<<<<
+ *                 total_off + (weight_max.catapult_left - first_catapult) * 8
+ *                 > weight_max.off_left
+ */
+    if (__pyx_t_5) {
+
+      /* "utils/write_noble_target.py":171
+ *             ):
+ *                 # we distribute leftovers to other attacks
+ *                 max_next = off // 8             # <<<<<<<<<<<<<<
+ *                 equal_split = (weight_max.catapult_left - first_catapult) // (
+ *                     noble_number - 1
+ */
+      __pyx_t_9 = PyNumber_FloorDivide(__pyx_v_off, __pyx_int_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 171, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_XDECREF_SET(__pyx_v_max_next, __pyx_t_9);
+      __pyx_t_9 = 0;
+
+      /* "utils/write_noble_target.py":172
+ *                 # we distribute leftovers to other attacks
+ *                 max_next = off // 8
+ *                 equal_split = (weight_max.catapult_left - first_catapult) // (             # <<<<<<<<<<<<<<
+ *                     noble_number - 1
+ *                 )
+ */
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 172, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_3 = PyNumber_Subtract(__pyx_t_9, __pyx_v_first_catapult); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+      /* "utils/write_noble_target.py":173
+ *                 max_next = off // 8
+ *                 equal_split = (weight_max.catapult_left - first_catapult) // (
+ *                     noble_number - 1             # <<<<<<<<<<<<<<
+ *                 )
+ *                 catapult = min(equal_split, max_next)
+ */
+      __pyx_t_9 = PyNumber_Subtract(__pyx_v_noble_number, __pyx_int_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 173, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+
+      /* "utils/write_noble_target.py":172
+ *                 # we distribute leftovers to other attacks
+ *                 max_next = off // 8
+ *                 equal_split = (weight_max.catapult_left - first_catapult) // (             # <<<<<<<<<<<<<<
+ *                     noble_number - 1
+ *                 )
+ */
+      __pyx_t_1 = PyNumber_FloorDivide(__pyx_t_3, __pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_equal_split, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "utils/write_noble_target.py":175
+ *                     noble_number - 1
+ *                 )
+ *                 catapult = min(equal_split, max_next)             # <<<<<<<<<<<<<<
+ * 
+ *             total_catapults = first_catapult + (noble_number - 1) * catapult
+ */
+      __Pyx_INCREF(__pyx_v_max_next);
+      __pyx_t_1 = __pyx_v_max_next;
+      __Pyx_INCREF(__pyx_v_equal_split);
+      __pyx_t_9 = __pyx_v_equal_split;
+      __pyx_t_10 = PyObject_RichCompare(__pyx_t_1, __pyx_t_9, Py_LT); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 175, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 175, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      if (__pyx_t_5) {
+        __Pyx_INCREF(__pyx_t_1);
+        __pyx_t_3 = __pyx_t_1;
+      } else {
+        __Pyx_INCREF(__pyx_t_9);
+        __pyx_t_3 = __pyx_t_9;
+      }
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __pyx_t_3;
+      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF_SET(__pyx_v_catapult, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "utils/write_noble_target.py":166
+ *                 first_catapult = min(weight_max.catapult_left, max_first)
+ *             # if this is still not enough...
+ *             if (             # <<<<<<<<<<<<<<
+ *                 total_off + (weight_max.catapult_left - first_catapult) * 8
+ *                 > weight_max.off_left
+ */
+    }
+
+    /* "utils/write_noble_target.py":177
+ *                 catapult = min(equal_split, max_next)
+ * 
+ *             total_catapults = first_catapult + (noble_number - 1) * catapult             # <<<<<<<<<<<<<<
+ * 
+ *             # if this is still not enough...
+ */
+    __pyx_t_1 = PyNumber_Subtract(__pyx_v_noble_number, __pyx_int_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_v_catapult); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Add(__pyx_v_first_catapult, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_total_catapults, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "utils/write_noble_target.py":181
+ *             # if this is still not enough...
+ *             if (
+ *                 total_off + (weight_max.catapult_left - total_catapults) * 8             # <<<<<<<<<<<<<<
+ *                 > weight_max.off_left
+ *             ):
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = PyNumber_Subtract(__pyx_t_1, __pyx_v_total_catapults); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyInt_MultiplyObjC(__pyx_t_3, __pyx_int_8, 8, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = PyNumber_Add(__pyx_v_total_off, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "utils/write_noble_target.py":182
+ *             if (
+ *                 total_off + (weight_max.catapult_left - total_catapults) * 8
+ *                 > weight_max.off_left             # <<<<<<<<<<<<<<
+ *             ):
+ *                 # we give up and just use few less troops
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = PyObject_RichCompare(__pyx_t_3, __pyx_t_1, Py_GT); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "utils/write_noble_target.py":180
+ * 
+ *             # if this is still not enough...
+ *             if (             # <<<<<<<<<<<<<<
+ *                 total_off + (weight_max.catapult_left - total_catapults) * 8
+ *                 > weight_max.off_left
+ */
+    if (__pyx_t_5) {
+
+      /* "utils/write_noble_target.py":185
+ *             ):
+ *                 # we give up and just use few less troops
+ *                 first_off = first_catapult * 8             # <<<<<<<<<<<<<<
+ *                 off = catapult * 8
+ *                 total_off = first_off + (noble_number - 1) * off
+ */
+      __pyx_t_9 = __Pyx_PyInt_MultiplyObjC(__pyx_v_first_catapult, __pyx_int_8, 8, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 185, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_9))||((__pyx_t_9) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_9))) __PYX_ERR(0, 185, __pyx_L1_error)
+      __Pyx_DECREF_SET(__pyx_v_first_off, ((PyObject*)__pyx_t_9));
+      __pyx_t_9 = 0;
+
+      /* "utils/write_noble_target.py":186
+ *                 # we give up and just use few less troops
+ *                 first_off = first_catapult * 8
+ *                 off = catapult * 8             # <<<<<<<<<<<<<<
+ *                 total_off = first_off + (noble_number - 1) * off
+ * 
+ */
+      __pyx_t_9 = __Pyx_PyInt_MultiplyObjC(__pyx_v_catapult, __pyx_int_8, 8, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 186, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_9))||((__pyx_t_9) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_9))) __PYX_ERR(0, 186, __pyx_L1_error)
+      __Pyx_DECREF_SET(__pyx_v_off, ((PyObject*)__pyx_t_9));
+      __pyx_t_9 = 0;
+
+      /* "utils/write_noble_target.py":187
+ *                 first_off = first_catapult * 8
+ *                 off = catapult * 8
+ *                 total_off = first_off + (noble_number - 1) * off             # <<<<<<<<<<<<<<
+ * 
+ *             if self.mode_split == "split":
+ */
+      __pyx_t_9 = PyNumber_Subtract(__pyx_v_noble_number, __pyx_int_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 187, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_1 = PyNumber_Multiply(__pyx_t_9, __pyx_v_off); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __pyx_t_9 = PyNumber_Add(__pyx_v_first_off, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 187, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF_SET(__pyx_v_total_off, __pyx_t_9);
+      __pyx_t_9 = 0;
+
+      /* "utils/write_noble_target.py":180
+ * 
+ *             # if this is still not enough...
+ *             if (             # <<<<<<<<<<<<<<
+ *                 total_off + (weight_max.catapult_left - total_catapults) * 8
+ *                 > weight_max.off_left
+ */
+    }
+
+    /* "utils/write_noble_target.py":189
+ *                 total_off = first_off + (noble_number - 1) * off
  * 
  *             if self.mode_split == "split":             # <<<<<<<<<<<<<<
  *                 for index in range(noble_number):
  *                     if index == 0:
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mode_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_split, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 153, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_mode_split); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_9, __pyx_n_u_split, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 189, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     if (__pyx_t_5) {
 
-      /* "utils/write_noble_target.py":154
+      /* "utils/write_noble_target.py":190
  * 
  *             if self.mode_split == "split":
  *                 for index in range(noble_number):             # <<<<<<<<<<<<<<
  *                     if index == 0:
  *                         off_troops = first_off
  */
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_noble_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
-        __pyx_t_9 = __pyx_t_1; __Pyx_INCREF(__pyx_t_9);
+      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_noble_number); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      if (likely(PyList_CheckExact(__pyx_t_9)) || PyTuple_CheckExact(__pyx_t_9)) {
+        __pyx_t_1 = __pyx_t_9; __Pyx_INCREF(__pyx_t_1);
         __pyx_t_12 = 0;
         __pyx_t_13 = NULL;
       } else {
-        __pyx_t_12 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 154, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_13 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_9); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_12 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_13 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 190, __pyx_L1_error)
       }
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       for (;;) {
         if (likely(!__pyx_t_13)) {
-          if (likely(PyList_CheckExact(__pyx_t_9))) {
+          if (likely(PyList_CheckExact(__pyx_t_1))) {
             {
-              Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_9);
+              Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 154, __pyx_L1_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 190, __pyx_L1_error)
               #endif
               if (__pyx_t_12 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_1 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_12); __Pyx_INCREF(__pyx_t_1); __pyx_t_12++; if (unlikely((0 < 0))) __PYX_ERR(0, 154, __pyx_L1_error)
+            __pyx_t_9 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_12); __Pyx_INCREF(__pyx_t_9); __pyx_t_12++; if (unlikely((0 < 0))) __PYX_ERR(0, 190, __pyx_L1_error)
             #else
-            __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_9, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_9 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 190, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_9);
             #endif
           } else {
             {
-              Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_9);
+              Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_1);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 154, __pyx_L1_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 190, __pyx_L1_error)
               #endif
               if (__pyx_t_12 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_12); __Pyx_INCREF(__pyx_t_1); __pyx_t_12++; if (unlikely((0 < 0))) __PYX_ERR(0, 154, __pyx_L1_error)
+            __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_12); __Pyx_INCREF(__pyx_t_9); __pyx_t_12++; if (unlikely((0 < 0))) __PYX_ERR(0, 190, __pyx_L1_error)
             #else
-            __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_9, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_9 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 190, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_9);
             #endif
           }
         } else {
-          __pyx_t_1 = __pyx_t_13(__pyx_t_9);
-          if (unlikely(!__pyx_t_1)) {
+          __pyx_t_9 = __pyx_t_13(__pyx_t_1);
+          if (unlikely(!__pyx_t_9)) {
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 154, __pyx_L1_error)
+              else __PYX_ERR(0, 190, __pyx_L1_error)
             }
             break;
           }
-          __Pyx_GOTREF(__pyx_t_1);
+          __Pyx_GOTREF(__pyx_t_9);
         }
-        if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 154, __pyx_L1_error)
-        __Pyx_XDECREF_SET(__pyx_v_index, ((PyObject*)__pyx_t_1));
-        __pyx_t_1 = 0;
+        if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_9))||((__pyx_t_9) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_9))) __PYX_ERR(0, 190, __pyx_L1_error)
+        __Pyx_XDECREF_SET(__pyx_v_index, ((PyObject*)__pyx_t_9));
+        __pyx_t_9 = 0;
 
-        /* "utils/write_noble_target.py":155
+        /* "utils/write_noble_target.py":191
  *             if self.mode_split == "split":
  *                 for index in range(noble_number):
  *                     if index == 0:             # <<<<<<<<<<<<<<
  *                         off_troops = first_off
  *                         catapult_troops = first_catapult
  */
-        __pyx_t_1 = PyObject_RichCompare(__pyx_v_index, __pyx_int_0, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
-        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 155, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_9 = PyObject_RichCompare(__pyx_v_index, __pyx_int_0, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 191, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 191, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         if (__pyx_t_5) {
 
-          /* "utils/write_noble_target.py":156
+          /* "utils/write_noble_target.py":192
  *                 for index in range(noble_number):
  *                     if index == 0:
  *                         off_troops = first_off             # <<<<<<<<<<<<<<
@@ -6199,7 +6416,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
           __Pyx_INCREF(__pyx_v_first_off);
           __Pyx_XDECREF_SET(__pyx_v_off_troops, __pyx_v_first_off);
 
-          /* "utils/write_noble_target.py":157
+          /* "utils/write_noble_target.py":193
  *                     if index == 0:
  *                         off_troops = first_off
  *                         catapult_troops = first_catapult             # <<<<<<<<<<<<<<
@@ -6209,17 +6426,17 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
           __Pyx_INCREF(__pyx_v_first_catapult);
           __Pyx_XDECREF_SET(__pyx_v_catapult_troops, __pyx_v_first_catapult);
 
-          /* "utils/write_noble_target.py":155
+          /* "utils/write_noble_target.py":191
  *             if self.mode_split == "split":
  *                 for index in range(noble_number):
  *                     if index == 0:             # <<<<<<<<<<<<<<
  *                         off_troops = first_off
  *                         catapult_troops = first_catapult
  */
-          goto __pyx_L11;
+          goto __pyx_L14;
         }
 
-        /* "utils/write_noble_target.py":159
+        /* "utils/write_noble_target.py":195
  *                         catapult_troops = first_catapult
  *                     else:
  *                         off_troops = off             # <<<<<<<<<<<<<<
@@ -6230,7 +6447,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
           __Pyx_INCREF(__pyx_v_off);
           __Pyx_XDECREF_SET(__pyx_v_off_troops, __pyx_v_off);
 
-          /* "utils/write_noble_target.py":160
+          /* "utils/write_noble_target.py":196
  *                     else:
  *                         off_troops = off
  *                         catapult_troops = catapult             # <<<<<<<<<<<<<<
@@ -6240,87 +6457,87 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
           __Pyx_INCREF(__pyx_v_catapult);
           __Pyx_XDECREF_SET(__pyx_v_catapult_troops, __pyx_v_catapult);
         }
-        __pyx_L11:;
+        __pyx_L14:;
 
-        /* "utils/write_noble_target.py":162
+        /* "utils/write_noble_target.py":198
  *                         catapult_troops = catapult
  * 
  *                     weight: WeightModel = self._weight_model(             # <<<<<<<<<<<<<<
  *                         weight_max=weight_max,
  *                         off=off_troops,
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weight_model); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weight_model); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 198, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
 
-        /* "utils/write_noble_target.py":163
+        /* "utils/write_noble_target.py":199
  * 
  *                     weight: WeightModel = self._weight_model(
  *                         weight_max=weight_max,             # <<<<<<<<<<<<<<
  *                         off=off_troops,
  *                         catapult=catapult_troops,
  */
-        __pyx_t_3 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_weight_max, __pyx_v_weight_max) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_weight_max, __pyx_v_weight_max) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
 
-        /* "utils/write_noble_target.py":164
+        /* "utils/write_noble_target.py":200
  *                     weight: WeightModel = self._weight_model(
  *                         weight_max=weight_max,
  *                         off=off_troops,             # <<<<<<<<<<<<<<
  *                         catapult=catapult_troops,
  *                         noble=1,
  */
-        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_off_2, __pyx_v_off_troops) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_off_2, __pyx_v_off_troops) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
 
-        /* "utils/write_noble_target.py":165
+        /* "utils/write_noble_target.py":201
  *                         weight_max=weight_max,
  *                         off=off_troops,
  *                         catapult=catapult_troops,             # <<<<<<<<<<<<<<
  *                         noble=1,
  *                         order=i * 15 + index,
  */
-        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_catapult_2, __pyx_v_catapult_troops) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
-        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_noble, __pyx_int_1) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_catapult, __pyx_v_catapult_troops) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_noble, __pyx_int_1) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
 
-        /* "utils/write_noble_target.py":167
+        /* "utils/write_noble_target.py":203
  *                         catapult=catapult_troops,
  *                         noble=1,
  *                         order=i * 15 + index,             # <<<<<<<<<<<<<<
  *                     )
  *                     weights_create_lst.append(weight)
  */
-        __pyx_t_10 = PyNumber_Multiply(__pyx_v_i, __pyx_int_15); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 167, __pyx_L1_error)
+        __pyx_t_10 = PyNumber_Multiply(__pyx_v_i, __pyx_int_15); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_14 = PyNumber_Add(__pyx_t_10, __pyx_v_index); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 167, __pyx_L1_error)
+        __pyx_t_14 = PyNumber_Add(__pyx_t_10, __pyx_v_index); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_order, __pyx_t_14) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_order, __pyx_t_14) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-        /* "utils/write_noble_target.py":162
+        /* "utils/write_noble_target.py":198
  *                         catapult_troops = catapult
  * 
  *                     weight: WeightModel = self._weight_model(             # <<<<<<<<<<<<<<
  *                         weight_max=weight_max,
  *                         off=off_troops,
  */
-        __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 162, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 198, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_XDECREF_SET(__pyx_v_weight, __pyx_t_14);
         __pyx_t_14 = 0;
 
-        /* "utils/write_noble_target.py":169
+        /* "utils/write_noble_target.py":205
  *                         order=i * 15 + index,
  *                     )
  *                     weights_create_lst.append(weight)             # <<<<<<<<<<<<<<
  * 
  *             else:  # self.mode_split == "together":
  */
-        __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_weights_create_lst, __pyx_v_weight); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 169, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_weights_create_lst, __pyx_v_weight); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 205, __pyx_L1_error)
 
-        /* "utils/write_noble_target.py":154
+        /* "utils/write_noble_target.py":190
  * 
  *             if self.mode_split == "split":
  *                 for index in range(noble_number):             # <<<<<<<<<<<<<<
@@ -6328,172 +6545,214 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
  *                         off_troops = first_off
  */
       }
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "utils/write_noble_target.py":153
- *             )
+      /* "utils/write_noble_target.py":189
+ *                 total_off = first_off + (noble_number - 1) * off
  * 
  *             if self.mode_split == "split":             # <<<<<<<<<<<<<<
  *                 for index in range(noble_number):
  *                     if index == 0:
  */
-      goto __pyx_L8;
+      goto __pyx_L11;
     }
 
-    /* "utils/write_noble_target.py":172
+    /* "utils/write_noble_target.py":208
  * 
  *             else:  # self.mode_split == "together":
  *                 weight = self._weight_model(             # <<<<<<<<<<<<<<
  *                     weight_max=weight_max,
- *                     off=first_off + (noble_number - 1) * off,
+ *                     off=total_off,
  */
     /*else*/ {
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weight_model); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 172, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weight_model); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
 
-      /* "utils/write_noble_target.py":173
+      /* "utils/write_noble_target.py":209
  *             else:  # self.mode_split == "together":
  *                 weight = self._weight_model(
  *                     weight_max=weight_max,             # <<<<<<<<<<<<<<
- *                     off=first_off + (noble_number - 1) * off,
- *                     catapult=first_catapult + (noble_number - 1) * catapult,
+ *                     off=total_off,
+ *                     catapult=total_catapults,
  */
-      __pyx_t_14 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 173, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 209, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_weight_max, __pyx_v_weight_max) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_weight_max, __pyx_v_weight_max) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
 
-      /* "utils/write_noble_target.py":174
+      /* "utils/write_noble_target.py":210
  *                 weight = self._weight_model(
  *                     weight_max=weight_max,
- *                     off=first_off + (noble_number - 1) * off,             # <<<<<<<<<<<<<<
- *                     catapult=first_catapult + (noble_number - 1) * catapult,
+ *                     off=total_off,             # <<<<<<<<<<<<<<
+ *                     catapult=total_catapults,
  *                     noble=noble_number,
  */
-      __pyx_t_3 = PyNumber_Subtract(__pyx_v_noble_number, __pyx_int_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_v_off); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyNumber_Add(__pyx_v_first_off, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_off_2, __pyx_t_3) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_off_2, __pyx_v_total_off) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
 
-      /* "utils/write_noble_target.py":175
+      /* "utils/write_noble_target.py":211
  *                     weight_max=weight_max,
- *                     off=first_off + (noble_number - 1) * off,
- *                     catapult=first_catapult + (noble_number - 1) * catapult,             # <<<<<<<<<<<<<<
+ *                     off=total_off,
+ *                     catapult=total_catapults,             # <<<<<<<<<<<<<<
  *                     noble=noble_number,
  *                     order=i,
  */
-      __pyx_t_3 = PyNumber_Subtract(__pyx_v_noble_number, __pyx_int_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_v_catapult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyNumber_Add(__pyx_v_first_catapult, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_catapult_2, __pyx_t_3) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_catapult, __pyx_v_total_catapults) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
 
-      /* "utils/write_noble_target.py":176
- *                     off=first_off + (noble_number - 1) * off,
- *                     catapult=first_catapult + (noble_number - 1) * catapult,
+      /* "utils/write_noble_target.py":212
+ *                     off=total_off,
+ *                     catapult=total_catapults,
  *                     noble=noble_number,             # <<<<<<<<<<<<<<
  *                     order=i,
  *                 )
  */
-      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_noble, __pyx_v_noble_number) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_noble, __pyx_v_noble_number) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
 
-      /* "utils/write_noble_target.py":177
- *                     catapult=first_catapult + (noble_number - 1) * catapult,
+      /* "utils/write_noble_target.py":213
+ *                     catapult=total_catapults,
  *                     noble=noble_number,
  *                     order=i,             # <<<<<<<<<<<<<<
  *                 )
  *                 weights_create_lst.append(weight)
  */
-      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_order, __pyx_v_i) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_order, __pyx_v_i) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
 
-      /* "utils/write_noble_target.py":172
+      /* "utils/write_noble_target.py":208
  * 
  *             else:  # self.mode_split == "together":
  *                 weight = self._weight_model(             # <<<<<<<<<<<<<<
  *                     weight_max=weight_max,
- *                     off=first_off + (noble_number - 1) * off,
+ *                     off=total_off,
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_empty_tuple, __pyx_t_14); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_14); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       __Pyx_XDECREF_SET(__pyx_v_weight, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "utils/write_noble_target.py":179
+      /* "utils/write_noble_target.py":215
  *                     order=i,
  *                 )
  *                 weights_create_lst.append(weight)             # <<<<<<<<<<<<<<
  * 
  *             self._update_weight_max(
  */
-      __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_weights_create_lst, __pyx_v_weight); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 179, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyList_Append(__pyx_v_weights_create_lst, __pyx_v_weight); if (unlikely(__pyx_t_15 == ((int)-1))) __PYX_ERR(0, 215, __pyx_L1_error)
     }
-    __pyx_L8:;
+    __pyx_L11:;
 
-    /* "utils/write_noble_target.py":181
+    /* "utils/write_noble_target.py":217
  *                 weights_create_lst.append(weight)
  * 
  *             self._update_weight_max(             # <<<<<<<<<<<<<<
- *                 weight_max, off_to_left, catapult_to_left, noble_number
- *             )
+ *                 weight_max=weight_max,
+ *                 off_used=total_off,
  */
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_update_weight_max); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 181, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_14);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_update_weight_max); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 217, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
 
-    /* "utils/write_noble_target.py":182
+    /* "utils/write_noble_target.py":218
  * 
  *             self._update_weight_max(
- *                 weight_max, off_to_left, catapult_to_left, noble_number             # <<<<<<<<<<<<<<
+ *                 weight_max=weight_max,             # <<<<<<<<<<<<<<
+ *                 off_used=total_off,
+ *                 catapults_used=total_catapults,
+ */
+    __pyx_t_14 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 218, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_14);
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_weight_max, __pyx_v_weight_max) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
+
+    /* "utils/write_noble_target.py":219
+ *             self._update_weight_max(
+ *                 weight_max=weight_max,
+ *                 off_used=total_off,             # <<<<<<<<<<<<<<
+ *                 catapults_used=total_catapults,
+ *                 noble_used=noble_number if not self.target.fake else 0,
+ */
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_off_used, __pyx_v_total_off) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
+
+    /* "utils/write_noble_target.py":220
+ *                 weight_max=weight_max,
+ *                 off_used=total_off,
+ *                 catapults_used=total_catapults,             # <<<<<<<<<<<<<<
+ *                 noble_used=noble_number if not self.target.fake else 0,
+ *                 fake_noble_used=noble_number if self.target.fake else 0,
+ */
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_catapults_used, __pyx_v_total_catapults) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
+
+    /* "utils/write_noble_target.py":221
+ *                 off_used=total_off,
+ *                 catapults_used=total_catapults,
+ *                 noble_used=noble_number if not self.target.fake else 0,             # <<<<<<<<<<<<<<
+ *                 fake_noble_used=noble_number if self.target.fake else 0,
+ *             )
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 221, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_fake); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 221, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 221, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_16 = (!__pyx_t_5);
+    if (__pyx_t_16) {
+      __Pyx_INCREF(__pyx_v_noble_number);
+      __pyx_t_1 = __pyx_v_noble_number;
+    } else {
+      __Pyx_INCREF(__pyx_int_0);
+      __pyx_t_1 = __pyx_int_0;
+    }
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_noble_used, __pyx_t_1) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "utils/write_noble_target.py":222
+ *                 catapults_used=total_catapults,
+ *                 noble_used=noble_number if not self.target.fake else 0,
+ *                 fake_noble_used=noble_number if self.target.fake else 0,             # <<<<<<<<<<<<<<
  *             )
  * 
  */
-    __pyx_t_9 = NULL;
-    __pyx_t_4 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_14))) {
-      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_14);
-      if (likely(__pyx_t_9)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
-        __Pyx_INCREF(__pyx_t_9);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_14, function);
-        __pyx_t_4 = 1;
-      }
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 222, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_fake); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 222, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_16 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely((__pyx_t_16 < 0))) __PYX_ERR(0, 222, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    if (__pyx_t_16) {
+      __Pyx_INCREF(__pyx_v_noble_number);
+      __pyx_t_1 = __pyx_v_noble_number;
+    } else {
+      __Pyx_INCREF(__pyx_int_0);
+      __pyx_t_1 = __pyx_int_0;
     }
-    #endif
-    {
-      PyObject *__pyx_callargs[5] = {__pyx_t_9, __pyx_v_weight_max, __pyx_v_off_to_left, __pyx_v_catapult_to_left, __pyx_v_noble_number};
-      __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_14, __pyx_callargs+1-__pyx_t_4, 4+__pyx_t_4);
-      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    }
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_fake_noble_used, __pyx_t_1) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":143
+    /* "utils/write_noble_target.py":217
+ *                 weights_create_lst.append(weight)
+ * 
+ *             self._update_weight_max(             # <<<<<<<<<<<<<<
+ *                 weight_max=weight_max,
+ *                 off_used=total_off,
+ */
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_14); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "utils/write_noble_target.py":147
  *         weight_max: FastWeightMaximum
  *         noble_number: int
  *         for i, (weight_max, noble_number) in enumerate(self.default_create_list):             # <<<<<<<<<<<<<<
- *             off: int = self._off(weight_max)
- *             catapult: int = self._catapult(weight_max)
+ *             off: int = self._off(weight_max, noble_number)
+ *             first_off: int = self._first_off(weight_max, off, noble_number)
  */
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "utils/write_noble_target.py":185
+  /* "utils/write_noble_target.py":225
  *             )
  * 
  *         return weights_create_lst             # <<<<<<<<<<<<<<
@@ -6505,7 +6764,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
   __pyx_r = __pyx_v_weights_create_lst;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":124
+  /* "utils/write_noble_target.py":128
  *             return self._far_weight_lst()
  * 
  *     def weight_create_list(self) -> list[WeightModel]:             # <<<<<<<<<<<<<<
@@ -6531,11 +6790,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
   __Pyx_XDECREF(__pyx_v_weight_max);
   __Pyx_XDECREF(__pyx_v_noble_number);
   __Pyx_XDECREF(__pyx_v_off);
-  __Pyx_XDECREF(__pyx_v_catapult);
   __Pyx_XDECREF(__pyx_v_first_off);
+  __Pyx_XDECREF(__pyx_v_total_off);
   __Pyx_XDECREF(__pyx_v_first_catapult);
-  __Pyx_XDECREF(__pyx_v_off_to_left);
-  __Pyx_XDECREF(__pyx_v_catapult_to_left);
+  __Pyx_XDECREF(__pyx_v_catapult);
+  __Pyx_XDECREF(__pyx_v_max_first);
+  __Pyx_XDECREF(__pyx_v_max_next);
+  __Pyx_XDECREF(__pyx_v_equal_split);
+  __Pyx_XDECREF(__pyx_v_total_catapults);
   __Pyx_XDECREF(__pyx_v_index);
   __Pyx_XDECREF(__pyx_v_off_troops);
   __Pyx_XDECREF(__pyx_v_catapult_troops);
@@ -6545,7 +6807,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_4weight
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":187
+/* "utils/write_noble_target.py":227
  *         return weights_create_lst
  * 
  *     def _weight_model(             # <<<<<<<<<<<<<<
@@ -6595,7 +6857,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   #endif
   __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
   {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,&__pyx_n_s_off_2,&__pyx_n_s_catapult_2,&__pyx_n_s_noble,&__pyx_n_s_order,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,&__pyx_n_s_off_2,&__pyx_n_s_catapult,&__pyx_n_s_noble,&__pyx_n_s_order,0};
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
@@ -6621,7 +6883,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -6629,9 +6891,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 1); __PYX_ERR(0, 187, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 1); __PYX_ERR(0, 227, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -6639,19 +6901,19 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 2); __PYX_ERR(0, 187, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 2); __PYX_ERR(0, 227, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
-        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_catapult_2)) != 0)) {
+        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_catapult)) != 0)) {
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 3); __PYX_ERR(0, 187, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 3); __PYX_ERR(0, 227, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -6659,9 +6921,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 4); __PYX_ERR(0, 187, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 4); __PYX_ERR(0, 227, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -6669,14 +6931,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[5]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 5); __PYX_ERR(0, 187, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, 5); __PYX_ERR(0, 227, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_weight_model") < 0)) __PYX_ERR(0, 187, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_weight_model") < 0)) __PYX_ERR(0, 227, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 6)) {
       goto __pyx_L5_argtuple_error;
@@ -6697,7 +6959,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, __pyx_nargs); __PYX_ERR(0, 187, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_weight_model", 1, 6, 6, __pyx_nargs); __PYX_ERR(0, 227, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -6711,10 +6973,10 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_off), (&PyInt_Type), 0, "off", 1))) __PYX_ERR(0, 190, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catapult), (&PyInt_Type), 0, "catapult", 1))) __PYX_ERR(0, 191, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noble), (&PyInt_Type), 0, "noble", 1))) __PYX_ERR(0, 192, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_order), (&PyInt_Type), 0, "order", 1))) __PYX_ERR(0, 193, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_off), (&PyInt_Type), 0, "off", 1))) __PYX_ERR(0, 230, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catapult), (&PyInt_Type), 0, "catapult", 1))) __PYX_ERR(0, 231, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noble), (&PyInt_Type), 0, "noble", 1))) __PYX_ERR(0, 232, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_order), (&PyInt_Type), 0, "order", 1))) __PYX_ERR(0, 233, __pyx_L1_error)
   __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_6_weight_model(__pyx_self, __pyx_v_self, __pyx_v_weight_max, __pyx_v_off, __pyx_v_catapult, __pyx_v_noble, __pyx_v_order);
 
   /* function exit code */
@@ -6744,7 +7006,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_6_weigh
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_weight_model", 1);
 
-  /* "utils/write_noble_target.py":195
+  /* "utils/write_noble_target.py":235
  *         order: int,
  *     ) -> WeightModel:
  *         return WeightModel(             # <<<<<<<<<<<<<<
@@ -6752,160 +7014,160 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_6_weigh
  *             player=weight_max.player,
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_WeightModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_WeightModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "utils/write_noble_target.py":196
+  /* "utils/write_noble_target.py":236
  *     ) -> WeightModel:
  *         return WeightModel(
  *             target_id=self.target.pk,             # <<<<<<<<<<<<<<
  *             player=weight_max.player,
  *             start=weight_max.start,
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_pk); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_pk); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_target_id, __pyx_t_4) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_target_id, __pyx_t_4) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":197
+  /* "utils/write_noble_target.py":237
  *         return WeightModel(
  *             target_id=self.target.pk,
  *             player=weight_max.player,             # <<<<<<<<<<<<<<
  *             start=weight_max.start,
  *             state_id=weight_max.pk,
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_player); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_player); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_player, __pyx_t_4) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_player, __pyx_t_4) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":198
+  /* "utils/write_noble_target.py":238
  *             target_id=self.target.pk,
  *             player=weight_max.player,
  *             start=weight_max.start,             # <<<<<<<<<<<<<<
  *             state_id=weight_max.pk,
  *             off=off,
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_start); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_start); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_start, __pyx_t_4) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_start, __pyx_t_4) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":199
+  /* "utils/write_noble_target.py":239
  *             player=weight_max.player,
  *             start=weight_max.start,
  *             state_id=weight_max.pk,             # <<<<<<<<<<<<<<
  *             off=off,
  *             catapult=catapult,
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_pk); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_pk); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_state_id, __pyx_t_4) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_state_id, __pyx_t_4) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":200
+  /* "utils/write_noble_target.py":240
  *             start=weight_max.start,
  *             state_id=weight_max.pk,
  *             off=off,             # <<<<<<<<<<<<<<
  *             catapult=catapult,
  *             distance=weight_max.distance,
  */
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_off_2, __pyx_v_off) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_off_2, __pyx_v_off) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":201
+  /* "utils/write_noble_target.py":241
  *             state_id=weight_max.pk,
  *             off=off,
  *             catapult=catapult,             # <<<<<<<<<<<<<<
  *             distance=weight_max.distance,
  *             nobleman=noble,
  */
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_catapult_2, __pyx_v_catapult) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_catapult, __pyx_v_catapult) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":202
+  /* "utils/write_noble_target.py":242
  *             off=off,
  *             catapult=catapult,
  *             distance=weight_max.distance,             # <<<<<<<<<<<<<<
  *             nobleman=noble,
  *             order=order + self.index,
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 202, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_distance, __pyx_t_4) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_distance, __pyx_t_4) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":203
+  /* "utils/write_noble_target.py":243
  *             catapult=catapult,
  *             distance=weight_max.distance,
  *             nobleman=noble,             # <<<<<<<<<<<<<<
  *             order=order + self.index,
  *             first_line=weight_max.first_line,
  */
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_nobleman, __pyx_v_noble) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_nobleman, __pyx_v_noble) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":204
+  /* "utils/write_noble_target.py":244
  *             distance=weight_max.distance,
  *             nobleman=noble,
  *             order=order + self.index,             # <<<<<<<<<<<<<<
  *             first_line=weight_max.first_line,
  *             village_id=weight_max.village_id,
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyNumber_Add(__pyx_v_order, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_v_order, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_order, __pyx_t_3) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_order, __pyx_t_3) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":205
+  /* "utils/write_noble_target.py":245
  *             nobleman=noble,
  *             order=order + self.index,
  *             first_line=weight_max.first_line,             # <<<<<<<<<<<<<<
  *             village_id=weight_max.village_id,
  *             player_id=weight_max.player_id,
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_first_line); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 205, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_first_line); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_first_line, __pyx_t_3) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_first_line, __pyx_t_3) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":206
+  /* "utils/write_noble_target.py":246
  *             order=order + self.index,
  *             first_line=weight_max.first_line,
  *             village_id=weight_max.village_id,             # <<<<<<<<<<<<<<
  *             player_id=weight_max.player_id,
  *         )
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_village_id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 206, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_village_id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_village_id, __pyx_t_3) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_village_id, __pyx_t_3) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":207
+  /* "utils/write_noble_target.py":247
  *             first_line=weight_max.first_line,
  *             village_id=weight_max.village_id,
  *             player_id=weight_max.player_id,             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_player_id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_player_id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_player_id, __pyx_t_3) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_player_id, __pyx_t_3) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":195
+  /* "utils/write_noble_target.py":235
  *         order: int,
  *     ) -> WeightModel:
  *         return WeightModel(             # <<<<<<<<<<<<<<
  *             target_id=self.target.pk,
  *             player=weight_max.player,
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 235, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -6913,7 +7175,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_6_weigh
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":187
+  /* "utils/write_noble_target.py":227
  *         return weights_create_lst
  * 
  *     def _weight_model(             # <<<<<<<<<<<<<<
@@ -6935,13 +7197,55 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_6_weigh
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":210
+/* "utils/write_noble_target.py":250
  *         )
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def _update_weight_max(
  *         weight_max: FastWeightMaximum,
  */
+
+static PyObject *__pyx_pf_5utils_18write_noble_target___defaults__(CYTHON_UNUSED PyObject *__pyx_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__defaults__", 1);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 250, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_noble_used);
+  __Pyx_GIVEREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_noble_used);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_noble_used)) __PYX_ERR(0, 250, __pyx_L1_error);
+  __Pyx_INCREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_fake_noble_used);
+  __Pyx_GIVEREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_fake_noble_used);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_fake_noble_used)) __PYX_ERR(0, 250, __pyx_L1_error);
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_1);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1)) __PYX_ERR(0, 250, __pyx_L1_error);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, Py_None)) __PYX_ERR(0, 250, __pyx_L1_error);
+  __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("utils.write_noble_target.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_9_update_weight_max(PyObject *__pyx_self, 
@@ -6960,14 +7264,15 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ) {
   PyObject *__pyx_v_weight_max = 0;
-  PyObject *__pyx_v_off_to_left = 0;
-  PyObject *__pyx_v_catapult_to_left = 0;
-  PyObject *__pyx_v_noble_number = 0;
+  PyObject *__pyx_v_off_used = 0;
+  PyObject *__pyx_v_catapults_used = 0;
+  PyObject *__pyx_v_noble_used = 0;
+  PyObject *__pyx_v_fake_noble_used = 0;
   #if !CYTHON_METH_FASTCALL
   CYTHON_UNUSED Py_ssize_t __pyx_nargs;
   #endif
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[4] = {0,0,0,0};
+  PyObject* values[5] = {0,0,0,0,0};
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -6983,10 +7288,15 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   #endif
   __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
   {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_weight_max,&__pyx_n_s_off_to_left_2,&__pyx_n_s_catapult_to_left_2,&__pyx_n_s_noble_number,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_weight_max,&__pyx_n_s_off_used,&__pyx_n_s_catapults_used,&__pyx_n_s_noble_used,&__pyx_n_s_fake_noble_used,0};
+    __pyx_defaults *__pyx_dynamic_args = __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self);
+    values[3] = __Pyx_Arg_NewRef_FASTCALL(__pyx_dynamic_args->__pyx_arg_noble_used);
+    values[4] = __Pyx_Arg_NewRef_FASTCALL(__pyx_dynamic_args->__pyx_arg_fake_noble_used);
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
+        case  5: values[4] = __Pyx_Arg_FASTCALL(__pyx_args, 4);
+        CYTHON_FALLTHROUGH;
         case  4: values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
         CYTHON_FALLTHROUGH;
         case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
@@ -7005,59 +7315,69 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 210, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 250, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_off_to_left_2)) != 0)) {
+        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_off_used)) != 0)) {
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 210, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 250, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_update_weight_max", 1, 4, 4, 1); __PYX_ERR(0, 210, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_update_weight_max", 0, 3, 5, 1); __PYX_ERR(0, 250, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_catapult_to_left_2)) != 0)) {
+        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_catapults_used)) != 0)) {
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 210, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 250, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_update_weight_max", 1, 4, 4, 2); __PYX_ERR(0, 210, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_update_weight_max", 0, 3, 5, 2); __PYX_ERR(0, 250, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
-        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_noble_number)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
-          kw_args--;
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_noble_used);
+          if (value) { values[3] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 250, __pyx_L3_error)
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 210, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_update_weight_max", 1, 4, 4, 3); __PYX_ERR(0, 210, __pyx_L3_error)
+        CYTHON_FALLTHROUGH;
+        case  4:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fake_noble_used);
+          if (value) { values[4] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 250, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_update_weight_max") < 0)) __PYX_ERR(0, 210, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_update_weight_max") < 0)) __PYX_ERR(0, 250, __pyx_L3_error)
       }
-    } else if (unlikely(__pyx_nargs != 4)) {
-      goto __pyx_L5_argtuple_error;
     } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-      values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-      values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-      values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
+      switch (__pyx_nargs) {
+        case  5: values[4] = __Pyx_Arg_FASTCALL(__pyx_args, 4);
+        CYTHON_FALLTHROUGH;
+        case  4: values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
+        values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
+        values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
     }
     __pyx_v_weight_max = values[0];
-    __pyx_v_off_to_left = ((PyObject*)values[1]);
-    __pyx_v_catapult_to_left = ((PyObject*)values[2]);
-    __pyx_v_noble_number = ((PyObject*)values[3]);
+    __pyx_v_off_used = ((PyObject*)values[1]);
+    __pyx_v_catapults_used = ((PyObject*)values[2]);
+    __pyx_v_noble_used = ((PyObject*)values[3]);
+    __pyx_v_fake_noble_used = ((PyObject*)values[4]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_update_weight_max", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 210, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_update_weight_max", 0, 3, 5, __pyx_nargs); __PYX_ERR(0, 250, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7071,10 +7391,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_off_to_left), (&PyInt_Type), 0, "off_to_left", 1))) __PYX_ERR(0, 213, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catapult_to_left), (&PyInt_Type), 0, "catapult_to_left", 1))) __PYX_ERR(0, 214, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noble_number), (&PyInt_Type), 0, "noble_number", 1))) __PYX_ERR(0, 215, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_update_weight_max(__pyx_self, __pyx_v_weight_max, __pyx_v_off_to_left, __pyx_v_catapult_to_left, __pyx_v_noble_number);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_off_used), (&PyInt_Type), 0, "off_used", 1))) __PYX_ERR(0, 253, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catapults_used), (&PyInt_Type), 0, "catapults_used", 1))) __PYX_ERR(0, 254, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noble_used), (&PyInt_Type), 0, "noble_used", 1))) __PYX_ERR(0, 255, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fake_noble_used), (&PyInt_Type), 0, "fake_noble_used", 1))) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_update_weight_max(__pyx_self, __pyx_v_weight_max, __pyx_v_off_used, __pyx_v_catapults_used, __pyx_v_noble_used, __pyx_v_fake_noble_used);
 
   /* function exit code */
   goto __pyx_L0;
@@ -7091,124 +7412,168 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_update_weight_max(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off_to_left, PyObject *__pyx_v_catapult_to_left, PyObject *__pyx_v_noble_number) {
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_update_weight_max(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off_used, PyObject *__pyx_v_catapults_used, PyObject *__pyx_v_noble_used, PyObject *__pyx_v_fake_noble_used) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_update_weight_max", 1);
 
-  /* "utils/write_noble_target.py":217
- *         noble_number: int,
+  /* "utils/write_noble_target.py":258
+ *         fake_noble_used: int = 0,
  *     ) -> FastWeightMaximum:
- *         weight_max.off_state += weight_max.off_left - off_to_left             # <<<<<<<<<<<<<<
- *         weight_max.off_left = off_to_left
- *         weight_max.catapult_state += weight_max.catapult_left - catapult_to_left
+ *         weight_max.off_state += off_used             # <<<<<<<<<<<<<<
+ *         weight_max.off_left -= off_used
+ *         weight_max.catapult_state += catapults_used
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Subtract(__pyx_t_2, __pyx_v_off_to_left); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 217, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_v_off_used); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_state, __pyx_t_2) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_state, __pyx_t_2) < 0) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":218
+  /* "utils/write_noble_target.py":259
  *     ) -> FastWeightMaximum:
- *         weight_max.off_state += weight_max.off_left - off_to_left
- *         weight_max.off_left = off_to_left             # <<<<<<<<<<<<<<
- *         weight_max.catapult_state += weight_max.catapult_left - catapult_to_left
- *         weight_max.catapult_left = catapult_to_left
+ *         weight_max.off_state += off_used
+ *         weight_max.off_left -= off_used             # <<<<<<<<<<<<<<
+ *         weight_max.catapult_state += catapults_used
+ *         weight_max.catapult_left -= catapults_used
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left, __pyx_v_off_to_left) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
-
-  /* "utils/write_noble_target.py":219
- *         weight_max.off_state += weight_max.off_left - off_to_left
- *         weight_max.off_left = off_to_left
- *         weight_max.catapult_state += weight_max.catapult_left - catapult_to_left             # <<<<<<<<<<<<<<
- *         weight_max.catapult_left = catapult_to_left
- *         weight_max.nobleman_state += noble_number
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_state); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyNumber_Subtract(__pyx_t_3, __pyx_v_catapult_to_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_InPlaceSubtract(__pyx_t_2, __pyx_v_off_used); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left, __pyx_t_1) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_state, __pyx_t_3) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":220
- *         weight_max.off_left = off_to_left
- *         weight_max.catapult_state += weight_max.catapult_left - catapult_to_left
- *         weight_max.catapult_left = catapult_to_left             # <<<<<<<<<<<<<<
- *         weight_max.nobleman_state += noble_number
- *         weight_max.nobleman_left = weight_max.nobleman_left - noble_number
+  /* "utils/write_noble_target.py":260
+ *         weight_max.off_state += off_used
+ *         weight_max.off_left -= off_used
+ *         weight_max.catapult_state += catapults_used             # <<<<<<<<<<<<<<
+ *         weight_max.catapult_left -= catapults_used
+ *         weight_max.nobleman_state += noble_used
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left, __pyx_v_catapult_to_left) < 0) __PYX_ERR(0, 220, __pyx_L1_error)
-
-  /* "utils/write_noble_target.py":221
- *         weight_max.catapult_state += weight_max.catapult_left - catapult_to_left
- *         weight_max.catapult_left = catapult_to_left
- *         weight_max.nobleman_state += noble_number             # <<<<<<<<<<<<<<
- *         weight_max.nobleman_left = weight_max.nobleman_left - noble_number
- *         weight_max.nobles_limit -= noble_number
- */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 221, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_3, __pyx_v_noble_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_state, __pyx_t_1) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_v_catapults_used); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_state, __pyx_t_2) < 0) __PYX_ERR(0, 260, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "utils/write_noble_target.py":261
+ *         weight_max.off_left -= off_used
+ *         weight_max.catapult_state += catapults_used
+ *         weight_max.catapult_left -= catapults_used             # <<<<<<<<<<<<<<
+ *         weight_max.nobleman_state += noble_used
+ *         weight_max.nobleman_left -= noble_used
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyNumber_InPlaceSubtract(__pyx_t_2, __pyx_v_catapults_used); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left, __pyx_t_1) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":222
- *         weight_max.catapult_left = catapult_to_left
- *         weight_max.nobleman_state += noble_number
- *         weight_max.nobleman_left = weight_max.nobleman_left - noble_number             # <<<<<<<<<<<<<<
- *         weight_max.nobles_limit -= noble_number
+  /* "utils/write_noble_target.py":262
+ *         weight_max.catapult_state += catapults_used
+ *         weight_max.catapult_left -= catapults_used
+ *         weight_max.nobleman_state += noble_used             # <<<<<<<<<<<<<<
+ *         weight_max.nobleman_left -= noble_used
+ *         weight_max.nobles_limit -= noble_used
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_v_noble_used); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_state, __pyx_t_2) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "utils/write_noble_target.py":263
+ *         weight_max.catapult_left -= catapults_used
+ *         weight_max.nobleman_state += noble_used
+ *         weight_max.nobleman_left -= noble_used             # <<<<<<<<<<<<<<
+ *         weight_max.nobles_limit -= noble_used
+ *         weight_max.nobleman_state += fake_noble_used
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyNumber_InPlaceSubtract(__pyx_t_2, __pyx_v_noble_used); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left, __pyx_t_1) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "utils/write_noble_target.py":264
+ *         weight_max.nobleman_state += noble_used
+ *         weight_max.nobleman_left -= noble_used
+ *         weight_max.nobles_limit -= noble_used             # <<<<<<<<<<<<<<
+ *         weight_max.nobleman_state += fake_noble_used
+ *         weight_max.nobleman_left -= fake_noble_used
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_limit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyNumber_InPlaceSubtract(__pyx_t_1, __pyx_v_noble_used); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_limit, __pyx_t_2) < 0) __PYX_ERR(0, 264, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "utils/write_noble_target.py":265
+ *         weight_max.nobleman_left -= noble_used
+ *         weight_max.nobles_limit -= noble_used
+ *         weight_max.nobleman_state += fake_noble_used             # <<<<<<<<<<<<<<
+ *         weight_max.nobleman_left -= fake_noble_used
+ *         weight_max.fake_nobles_limit -= fake_noble_used
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_state); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_v_fake_noble_used); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_state, __pyx_t_1) < 0) __PYX_ERR(0, 265, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "utils/write_noble_target.py":266
+ *         weight_max.nobles_limit -= noble_used
+ *         weight_max.nobleman_state += fake_noble_used
+ *         weight_max.nobleman_left -= fake_noble_used             # <<<<<<<<<<<<<<
+ *         weight_max.fake_nobles_limit -= fake_noble_used
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyNumber_Subtract(__pyx_t_1, __pyx_v_noble_number); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyNumber_InPlaceSubtract(__pyx_t_1, __pyx_v_fake_noble_used); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left, __pyx_t_3) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left, __pyx_t_2) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":223
- *         weight_max.nobleman_state += noble_number
- *         weight_max.nobleman_left = weight_max.nobleman_left - noble_number
- *         weight_max.nobles_limit -= noble_number             # <<<<<<<<<<<<<<
+  /* "utils/write_noble_target.py":267
+ *         weight_max.nobleman_state += fake_noble_used
+ *         weight_max.nobleman_left -= fake_noble_used
+ *         weight_max.fake_nobles_limit -= fake_noble_used             # <<<<<<<<<<<<<<
  * 
  *         return weight_max
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_limit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 223, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyNumber_InPlaceSubtract(__pyx_t_3, __pyx_v_noble_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_fake_nobles_limit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyNumber_InPlaceSubtract(__pyx_t_2, __pyx_v_fake_noble_used); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_limit, __pyx_t_1) < 0) __PYX_ERR(0, 223, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_weight_max, __pyx_n_s_fake_nobles_limit, __pyx_t_1) < 0) __PYX_ERR(0, 267, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":225
- *         weight_max.nobles_limit -= noble_number
+  /* "utils/write_noble_target.py":269
+ *         weight_max.fake_nobles_limit -= fake_noble_used
  * 
  *         return weight_max             # <<<<<<<<<<<<<<
  * 
@@ -7219,7 +7584,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_updat
   __pyx_r = __pyx_v_weight_max;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":210
+  /* "utils/write_noble_target.py":250
  *         )
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
@@ -7231,7 +7596,6 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_updat
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._update_weight_max", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -7240,7 +7604,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_8_updat
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":227
+/* "utils/write_noble_target.py":271
  *         return weight_max
  * 
  *     def _order_distance_default_list(self) -> None:             # <<<<<<<<<<<<<<
@@ -7301,12 +7665,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 271, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_order_distance_default_list") < 0)) __PYX_ERR(0, 227, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_order_distance_default_list") < 0)) __PYX_ERR(0, 271, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -7317,7 +7681,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_order_distance_default_list", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 227, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_order_distance_default_list", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 271, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7344,7 +7708,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":228
+/* "utils/write_noble_target.py":272
  * 
  *     def _order_distance_default_list(self) -> None:
  *         def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:             # <<<<<<<<<<<<<<
@@ -7405,12 +7769,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 228, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 272, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "order_func") < 0)) __PYX_ERR(0, 228, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "order_func") < 0)) __PYX_ERR(0, 272, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -7421,7 +7785,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("order_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 228, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("order_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 272, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7435,7 +7799,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weight_tuple), (&PyTuple_Type), 0, "weight_tuple", 1))) __PYX_ERR(0, 228, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weight_tuple), (&PyTuple_Type), 0, "weight_tuple", 1))) __PYX_ERR(0, 272, __pyx_L1_error)
   __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_order_distance_default_list_order_func(__pyx_self, __pyx_v_weight_tuple);
 
   /* function exit code */
@@ -7463,7 +7827,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_orde
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("order_func", 1);
 
-  /* "utils/write_noble_target.py":229
+  /* "utils/write_noble_target.py":273
  *     def _order_distance_default_list(self) -> None:
  *         def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:
  *             return -weight_tuple[0].distance             # <<<<<<<<<<<<<<
@@ -7471,19 +7835,19 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_orde
  *         self.default_create_list.sort(key=order_func)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_weight_tuple, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_weight_tuple, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_distance); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_distance); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":228
+  /* "utils/write_noble_target.py":272
  * 
  *     def _order_distance_default_list(self) -> None:
  *         def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:             # <<<<<<<<<<<<<<
@@ -7503,7 +7867,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_orde
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":227
+/* "utils/write_noble_target.py":271
  *         return weight_max
  * 
  *     def _order_distance_default_list(self) -> None:             # <<<<<<<<<<<<<<
@@ -7523,46 +7887,46 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_10_orde
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_order_distance_default_list", 1);
 
-  /* "utils/write_noble_target.py":228
+  /* "utils/write_noble_target.py":272
  * 
  *     def _order_distance_default_list(self) -> None:
  *         def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:             # <<<<<<<<<<<<<<
  *             return -weight_tuple[0].distance
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_tuple, __pyx_kp_s_tuple_FastWeightMaximum_int) < 0) __PYX_ERR(0, 228, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 228, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_28_order_distance_default_list_1order_func, 0, __pyx_n_s_WriteNobleTarget__order_distance, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_tuple, __pyx_kp_s_tuple_FastWeightMaximum_int) < 0) __PYX_ERR(0, 272, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_28_order_distance_default_list_1order_func, 0, __pyx_n_s_WriteNobleTarget__order_distance, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_order_func = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":231
+  /* "utils/write_noble_target.py":275
  *             return -weight_tuple[0].distance
  * 
  *         self.default_create_list.sort(key=order_func)             # <<<<<<<<<<<<<<
  * 
  *     def _fill_default_list(self, sorted_list: list[FastWeightMaximum]) -> None:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_default_create_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_default_create_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sort); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sort); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_v_order_func) < 0) __PYX_ERR(0, 231, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_v_order_func) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":227
+  /* "utils/write_noble_target.py":271
  *         return weight_max
  * 
  *     def _order_distance_default_list(self) -> None:             # <<<<<<<<<<<<<<
@@ -7586,7 +7950,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_10_orde
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":233
+/* "utils/write_noble_target.py":277
  *         self.default_create_list.sort(key=order_func)
  * 
  *     def _fill_default_list(self, sorted_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -7650,7 +8014,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 233, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -7658,14 +8022,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 233, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_fill_default_list", 1, 2, 2, 1); __PYX_ERR(0, 233, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_fill_default_list", 1, 2, 2, 1); __PYX_ERR(0, 277, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_fill_default_list") < 0)) __PYX_ERR(0, 233, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_fill_default_list") < 0)) __PYX_ERR(0, 277, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -7678,7 +8042,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_fill_default_list", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 233, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_fill_default_list", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 277, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7692,7 +8056,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sorted_list), (&PyList_Type), 0, "sorted_list", 1))) __PYX_ERR(0, 233, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sorted_list), (&PyList_Type), 0, "sorted_list", 1))) __PYX_ERR(0, 277, __pyx_L1_error)
   __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill_default_list(__pyx_self, __pyx_v_self, __pyx_v_sorted_list);
 
   /* function exit code */
@@ -7721,15 +8085,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
   PyObject *__pyx_t_4 = NULL;
   int __pyx_t_5;
   PyObject *__pyx_t_6 = NULL;
-  PyObject *__pyx_t_7 = NULL;
-  unsigned int __pyx_t_8;
-  int __pyx_t_9;
+  unsigned int __pyx_t_7;
+  int __pyx_t_8;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_fill_default_list", 1);
 
-  /* "utils/write_noble_target.py":235
+  /* "utils/write_noble_target.py":279
  *     def _fill_default_list(self, sorted_list: list[FastWeightMaximum]) -> None:
  *         weight_max: FastWeightMaximum
  *         for weight_max in sorted_list:             # <<<<<<<<<<<<<<
@@ -7742,67 +8105,67 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
     {
       Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
       #if !CYTHON_ASSUME_SAFE_MACROS
-      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 235, __pyx_L1_error)
+      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 279, __pyx_L1_error)
       #endif
       if (__pyx_t_2 >= __pyx_temp) break;
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely((0 < 0))) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely((0 < 0))) __PYX_ERR(0, 279, __pyx_L1_error)
     #else
-    __pyx_t_3 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 279, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_weight_max, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "utils/write_noble_target.py":236
+    /* "utils/write_noble_target.py":280
  *         weight_max: FastWeightMaximum
  *         for weight_max in sorted_list:
  *             if self.target.required_noble > 0:             # <<<<<<<<<<<<<<
  *                 if self.target.mode_guide == "single":
  *                     nobles: int = 1
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyObject_RichCompare(__pyx_t_4, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_3 = PyObject_RichCompare(__pyx_t_4, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_5) {
 
-      /* "utils/write_noble_target.py":237
+      /* "utils/write_noble_target.py":281
  *         for weight_max in sorted_list:
  *             if self.target.required_noble > 0:
  *                 if self.target.mode_guide == "single":             # <<<<<<<<<<<<<<
  *                     nobles: int = 1
  *                 elif self.target.fake:
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 237, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 281, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_mode_guide); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 237, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_mode_guide); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_n_u_single, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 237, __pyx_L1_error)
+      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_n_u_single, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 281, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_5) {
 
-        /* "utils/write_noble_target.py":238
+        /* "utils/write_noble_target.py":282
  *             if self.target.required_noble > 0:
  *                 if self.target.mode_guide == "single":
  *                     nobles: int = 1             # <<<<<<<<<<<<<<
  *                 elif self.target.fake:
- *                     nobles = min(weight_max.nobleman_left, weight_max.nobles_limit)
+ *                     nobles = weight_max.fake_nobles_allowed_to_use()
  */
-        if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_1)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_1))) __PYX_ERR(0, 238, __pyx_L1_error)
+        if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_1)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_1))) __PYX_ERR(0, 282, __pyx_L1_error)
         __pyx_t_4 = __pyx_int_1;
         __Pyx_INCREF(__pyx_t_4);
         __Pyx_XDECREF_SET(__pyx_v_nobles, ((PyObject*)__pyx_t_4));
         __pyx_t_4 = 0;
 
-        /* "utils/write_noble_target.py":237
+        /* "utils/write_noble_target.py":281
  *         for weight_max in sorted_list:
  *             if self.target.required_noble > 0:
  *                 if self.target.mode_guide == "single":             # <<<<<<<<<<<<<<
@@ -7812,173 +8175,178 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
         goto __pyx_L6;
       }
 
-      /* "utils/write_noble_target.py":239
+      /* "utils/write_noble_target.py":283
  *                 if self.target.mode_guide == "single":
  *                     nobles: int = 1
  *                 elif self.target.fake:             # <<<<<<<<<<<<<<
- *                     nobles = min(weight_max.nobleman_left, weight_max.nobles_limit)
+ *                     nobles = weight_max.fake_nobles_allowed_to_use()
  *                 else:
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 239, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_fake); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 239, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_fake); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 283, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 239, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 283, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_5) {
 
-        /* "utils/write_noble_target.py":240
+        /* "utils/write_noble_target.py":284
  *                     nobles: int = 1
  *                 elif self.target.fake:
- *                     nobles = min(weight_max.nobleman_left, weight_max.nobles_limit)             # <<<<<<<<<<<<<<
+ *                     nobles = weight_max.fake_nobles_allowed_to_use()             # <<<<<<<<<<<<<<
  *                 else:
  *                     nobles = weight_max.nobles_allowed_to_use()
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_limit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_fake_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_7 = PyObject_RichCompare(__pyx_t_3, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
-        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 240, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (__pyx_t_5) {
-          __Pyx_INCREF(__pyx_t_3);
-          __pyx_t_6 = __pyx_t_3;
-        } else {
-          __Pyx_INCREF(__pyx_t_4);
-          __pyx_t_6 = __pyx_t_4;
+        __pyx_t_6 = NULL;
+        __pyx_t_7 = 0;
+        #if CYTHON_UNPACK_METHODS
+        if (likely(PyMethod_Check(__pyx_t_4))) {
+          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
+          if (likely(__pyx_t_6)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_6);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_4, function);
+            __pyx_t_7 = 1;
+          }
         }
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_6))||((__pyx_t_6) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_6))) __PYX_ERR(0, 240, __pyx_L1_error)
-        __pyx_t_3 = __pyx_t_6;
-        __Pyx_INCREF(__pyx_t_3);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        #endif
+        {
+          PyObject *__pyx_callargs[2] = {__pyx_t_6, NULL};
+          __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_7, 0+__pyx_t_7);
+          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 284, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        }
+        if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 284, __pyx_L1_error)
         __Pyx_XDECREF_SET(__pyx_v_nobles, ((PyObject*)__pyx_t_3));
         __pyx_t_3 = 0;
 
-        /* "utils/write_noble_target.py":239
+        /* "utils/write_noble_target.py":283
  *                 if self.target.mode_guide == "single":
  *                     nobles: int = 1
  *                 elif self.target.fake:             # <<<<<<<<<<<<<<
- *                     nobles = min(weight_max.nobleman_left, weight_max.nobles_limit)
+ *                     nobles = weight_max.fake_nobles_allowed_to_use()
  *                 else:
  */
         goto __pyx_L6;
       }
 
-      /* "utils/write_noble_target.py":242
- *                     nobles = min(weight_max.nobleman_left, weight_max.nobles_limit)
+      /* "utils/write_noble_target.py":286
+ *                     nobles = weight_max.fake_nobles_allowed_to_use()
  *                 else:
  *                     nobles = weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
  * 
  *                 if nobles >= self.target.required_noble:
  */
       /*else*/ {
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 242, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_4 = NULL;
-        __pyx_t_8 = 0;
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 286, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_6 = NULL;
+        __pyx_t_7 = 0;
         #if CYTHON_UNPACK_METHODS
-        if (likely(PyMethod_Check(__pyx_t_6))) {
-          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_6);
-          if (likely(__pyx_t_4)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-            __Pyx_INCREF(__pyx_t_4);
+        if (likely(PyMethod_Check(__pyx_t_4))) {
+          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
+          if (likely(__pyx_t_6)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_6);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_6, function);
-            __pyx_t_8 = 1;
+            __Pyx_DECREF_SET(__pyx_t_4, function);
+            __pyx_t_7 = 1;
           }
         }
         #endif
         {
-          PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
-          __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_8, 0+__pyx_t_8);
-          __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
+          PyObject *__pyx_callargs[2] = {__pyx_t_6, NULL};
+          __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_7, 0+__pyx_t_7);
+          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 286, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         }
-        if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 242, __pyx_L1_error)
+        if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 286, __pyx_L1_error)
         __Pyx_XDECREF_SET(__pyx_v_nobles, ((PyObject*)__pyx_t_3));
         __pyx_t_3 = 0;
       }
       __pyx_L6:;
 
-      /* "utils/write_noble_target.py":244
+      /* "utils/write_noble_target.py":288
  *                     nobles = weight_max.nobles_allowed_to_use()
  * 
  *                 if nobles >= self.target.required_noble:             # <<<<<<<<<<<<<<
  *                     self.default_create_list.append(
  *                         (weight_max, self.target.required_noble)
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 288, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 244, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 288, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyObject_RichCompare(__pyx_v_nobles, __pyx_t_6, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 244, __pyx_L1_error)
+      __pyx_t_3 = PyObject_RichCompare(__pyx_v_nobles, __pyx_t_4, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 288, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 288, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_5) {
 
-        /* "utils/write_noble_target.py":245
+        /* "utils/write_noble_target.py":289
  * 
  *                 if nobles >= self.target.required_noble:
  *                     self.default_create_list.append(             # <<<<<<<<<<<<<<
  *                         (weight_max, self.target.required_noble)
  *                     )
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_default_create_list); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 245, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_default_create_list); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 289, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
 
-        /* "utils/write_noble_target.py":246
+        /* "utils/write_noble_target.py":290
  *                 if nobles >= self.target.required_noble:
  *                     self.default_create_list.append(
  *                         (weight_max, self.target.required_noble)             # <<<<<<<<<<<<<<
  *                     )
  *                     self.target.required_noble = 0
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 246, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 246, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 246, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 290, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_v_weight_max);
         __Pyx_GIVEREF(__pyx_v_weight_max);
-        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_weight_max)) __PYX_ERR(0, 246, __pyx_L1_error);
-        __Pyx_GIVEREF(__pyx_t_4);
-        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_4)) __PYX_ERR(0, 246, __pyx_L1_error);
-        __pyx_t_4 = 0;
+        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_weight_max)) __PYX_ERR(0, 290, __pyx_L1_error);
+        __Pyx_GIVEREF(__pyx_t_6);
+        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_6)) __PYX_ERR(0, 290, __pyx_L1_error);
+        __pyx_t_6 = 0;
 
-        /* "utils/write_noble_target.py":245
+        /* "utils/write_noble_target.py":289
  * 
  *                 if nobles >= self.target.required_noble:
  *                     self.default_create_list.append(             # <<<<<<<<<<<<<<
  *                         (weight_max, self.target.required_noble)
  *                     )
  */
-        __pyx_t_9 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_6); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 245, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_4); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 289, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "utils/write_noble_target.py":248
+        /* "utils/write_noble_target.py":292
  *                         (weight_max, self.target.required_noble)
  *                     )
  *                     self.target.required_noble = 0             # <<<<<<<<<<<<<<
  *                 else:
  *                     self.default_create_list.append((weight_max, nobles))
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_required_noble, __pyx_int_0) < 0) __PYX_ERR(0, 248, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 292, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_required_noble, __pyx_int_0) < 0) __PYX_ERR(0, 292, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "utils/write_noble_target.py":244
+        /* "utils/write_noble_target.py":288
  *                     nobles = weight_max.nobles_allowed_to_use()
  * 
  *                 if nobles >= self.target.required_noble:             # <<<<<<<<<<<<<<
@@ -7988,7 +8356,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
         goto __pyx_L7;
       }
 
-      /* "utils/write_noble_target.py":250
+      /* "utils/write_noble_target.py":294
  *                     self.target.required_noble = 0
  *                 else:
  *                     self.default_create_list.append((weight_max, nobles))             # <<<<<<<<<<<<<<
@@ -7996,41 +8364,41 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
  * 
  */
       /*else*/ {
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_default_create_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 250, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_default_create_list); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_v_weight_max);
         __Pyx_GIVEREF(__pyx_v_weight_max);
-        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_weight_max)) __PYX_ERR(0, 250, __pyx_L1_error);
+        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_weight_max)) __PYX_ERR(0, 294, __pyx_L1_error);
         __Pyx_INCREF(__pyx_v_nobles);
         __Pyx_GIVEREF(__pyx_v_nobles);
-        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_nobles)) __PYX_ERR(0, 250, __pyx_L1_error);
-        __pyx_t_9 = __Pyx_PyObject_Append(__pyx_t_6, __pyx_t_3); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 250, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_nobles)) __PYX_ERR(0, 294, __pyx_L1_error);
+        __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_4, __pyx_t_3); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 294, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "utils/write_noble_target.py":251
+        /* "utils/write_noble_target.py":295
  *                 else:
  *                     self.default_create_list.append((weight_max, nobles))
  *                     self.target.required_noble -= nobles             # <<<<<<<<<<<<<<
  * 
  *     def _mode_guide_is_one(self, weight_max_list: list[FastWeightMaximum]) -> None:
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 295, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 251, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_4 = PyNumber_InPlaceSubtract(__pyx_t_6, __pyx_v_nobles); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 295, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_required_noble, __pyx_t_4) < 0) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_6 = PyNumber_InPlaceSubtract(__pyx_t_4, __pyx_v_nobles); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_required_noble, __pyx_t_6) < 0) __PYX_ERR(0, 295, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
       __pyx_L7:;
 
-      /* "utils/write_noble_target.py":236
+      /* "utils/write_noble_target.py":280
  *         weight_max: FastWeightMaximum
  *         for weight_max in sorted_list:
  *             if self.target.required_noble > 0:             # <<<<<<<<<<<<<<
@@ -8039,7 +8407,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
  */
     }
 
-    /* "utils/write_noble_target.py":235
+    /* "utils/write_noble_target.py":279
  *     def _fill_default_list(self, sorted_list: list[FastWeightMaximum]) -> None:
  *         weight_max: FastWeightMaximum
  *         for weight_max in sorted_list:             # <<<<<<<<<<<<<<
@@ -8049,7 +8417,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":233
+  /* "utils/write_noble_target.py":277
  *         self.default_create_list.sort(key=order_func)
  * 
  *     def _fill_default_list(self, sorted_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -8065,7 +8433,6 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._fill_default_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -8076,7 +8443,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_fill
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":253
+/* "utils/write_noble_target.py":297
  *                     self.target.required_noble -= nobles
  * 
  *     def _mode_guide_is_one(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -8141,7 +8508,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 253, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 297, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -8149,14 +8516,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 253, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 297, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_mode_guide_is_one", 1, 2, 2, 1); __PYX_ERR(0, 253, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_mode_guide_is_one", 1, 2, 2, 1); __PYX_ERR(0, 297, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_mode_guide_is_one") < 0)) __PYX_ERR(0, 253, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_mode_guide_is_one") < 0)) __PYX_ERR(0, 297, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -8169,7 +8536,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_mode_guide_is_one", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 253, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_mode_guide_is_one", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 297, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8183,7 +8550,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weight_max_list), (&PyList_Type), 0, "weight_max_list", 1))) __PYX_ERR(0, 253, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weight_max_list), (&PyList_Type), 0, "weight_max_list", 1))) __PYX_ERR(0, 297, __pyx_L1_error)
   __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_14_mode_guide_is_one(__pyx_self, __pyx_v_self, __pyx_v_weight_max_list);
 
   /* function exit code */
@@ -8201,7 +8568,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":263
+/* "utils/write_noble_target.py":307
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[int, float, int, int]:             # <<<<<<<<<<<<<<
@@ -8262,12 +8629,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 263, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 307, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sort_func") < 0)) __PYX_ERR(0, 263, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sort_func") < 0)) __PYX_ERR(0, 307, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -8278,7 +8645,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sort_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 263, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sort_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 307, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8325,84 +8692,84 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mode
   __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "utils/write_noble_target.py":264
+  /* "utils/write_noble_target.py":308
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[int, float, int, int]:
  *             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)             # <<<<<<<<<<<<<<
  *             distance: float = float(weight_max.distance)
  *             off: int = -int(weight_max.off_left)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 264, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 308, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_required_noble); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyNumber_Absolute(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyNumber_Absolute(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 264, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 308, __pyx_L1_error)
   __pyx_v_fit = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":265
+  /* "utils/write_noble_target.py":309
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[int, float, int, int]:
  *             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)
  *             distance: float = float(weight_max.distance)             # <<<<<<<<<<<<<<
  *             off: int = -int(weight_max.off_left)
  *             number: int = -int(weight_max.nobleman_left)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_AsDouble(__pyx_t_3); if (unlikely(__pyx_t_4 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 265, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_AsDouble(__pyx_t_3); if (unlikely(__pyx_t_4 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 309, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_distance = __pyx_t_4;
 
-  /* "utils/write_noble_target.py":266
+  /* "utils/write_noble_target.py":310
  *             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)
  *             distance: float = float(weight_max.distance)
  *             off: int = -int(weight_max.off_left)             # <<<<<<<<<<<<<<
  *             number: int = -int(weight_max.nobleman_left)
  *             return (fit, distance, off, number)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 310, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 310, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 310, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 266, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 310, __pyx_L1_error)
   __pyx_v_off = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":267
+  /* "utils/write_noble_target.py":311
  *             distance: float = float(weight_max.distance)
  *             off: int = -int(weight_max.off_left)
  *             number: int = -int(weight_max.nobleman_left)             # <<<<<<<<<<<<<<
  *             return (fit, distance, off, number)
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 267, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_3))) __PYX_ERR(0, 311, __pyx_L1_error)
   __pyx_v_number = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":268
+  /* "utils/write_noble_target.py":312
  *             off: int = -int(weight_max.off_left)
  *             number: int = -int(weight_max.nobleman_left)
  *             return (fit, distance, off, number)             # <<<<<<<<<<<<<<
@@ -8410,27 +8777,27 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mode
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_distance); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_distance); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_fit);
   __Pyx_GIVEREF(__pyx_v_fit);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_fit)) __PYX_ERR(0, 268, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_fit)) __PYX_ERR(0, 312, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_3)) __PYX_ERR(0, 268, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_off);
   __Pyx_GIVEREF(__pyx_v_off);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_off)) __PYX_ERR(0, 268, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_off)) __PYX_ERR(0, 312, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_number);
   __Pyx_GIVEREF(__pyx_v_number);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_v_number)) __PYX_ERR(0, 268, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_v_number)) __PYX_ERR(0, 312, __pyx_L1_error);
   __pyx_t_3 = 0;
   __pyx_r = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":263
+  /* "utils/write_noble_target.py":307
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[int, float, int, int]:             # <<<<<<<<<<<<<<
@@ -8454,7 +8821,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mode
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":253
+/* "utils/write_noble_target.py":297
  *                     self.target.required_noble -= nobles
  * 
  *     def _mode_guide_is_one(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -8480,7 +8847,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_14_mode
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 253, __pyx_L1_error)
+    __PYX_ERR(0, 297, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -8488,71 +8855,71 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_14_mode
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "utils/write_noble_target.py":263
+  /* "utils/write_noble_target.py":307
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[int, float, int, int]:             # <<<<<<<<<<<<<<
  *             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)
  *             distance: float = float(weight_max.distance)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_kp_s_tuple_int_float_int_int) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_18_mode_guide_is_one_1sort_func, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_kp_s_tuple_int_float_int_int) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_18_mode_guide_is_one_1sort_func, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 307, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_sort_func = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":270
+  /* "utils/write_noble_target.py":314
  *             return (fit, distance, off, number)
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(             # <<<<<<<<<<<<<<
  *             weight_max_list, key=sort_func
  *         )
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 314, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_weight_max_list);
   __Pyx_GIVEREF(__pyx_v_weight_max_list);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_weight_max_list)) __PYX_ERR(0, 270, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_weight_max_list)) __PYX_ERR(0, 314, __pyx_L1_error);
 
-  /* "utils/write_noble_target.py":271
+  /* "utils/write_noble_target.py":315
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
  *             weight_max_list, key=sort_func             # <<<<<<<<<<<<<<
  *         )
  *         self._fill_default_list(sorted_weight_max_lst)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_key, __pyx_v_sort_func) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_key, __pyx_v_sort_func) < 0) __PYX_ERR(0, 315, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":270
+  /* "utils/write_noble_target.py":314
  *             return (fit, distance, off, number)
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(             # <<<<<<<<<<<<<<
  *             weight_max_list, key=sort_func
  *         )
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 314, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 270, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 314, __pyx_L1_error)
   __pyx_v_sorted_weight_max_lst = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":273
+  /* "utils/write_noble_target.py":317
  *             weight_max_list, key=sort_func
  *         )
  *         self._fill_default_list(sorted_weight_max_lst)             # <<<<<<<<<<<<<<
  * 
  *     def _mode_guide_is_many(self, weight_max_list: list[FastWeightMaximum]) -> None:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_fill_default_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_fill_default_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = NULL;
   __pyx_t_4 = 0;
@@ -8572,13 +8939,13 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_14_mode
     PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_sorted_weight_max_lst};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 317, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":253
+  /* "utils/write_noble_target.py":297
  *                     self.target.required_noble -= nobles
  * 
  *     def _mode_guide_is_one(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -8604,7 +8971,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_14_mode
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":275
+/* "utils/write_noble_target.py":319
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_many(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -8669,7 +9036,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 275, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 319, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -8677,14 +9044,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 275, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 319, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_mode_guide_is_many", 1, 2, 2, 1); __PYX_ERR(0, 275, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_mode_guide_is_many", 1, 2, 2, 1); __PYX_ERR(0, 319, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_mode_guide_is_many") < 0)) __PYX_ERR(0, 275, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_mode_guide_is_many") < 0)) __PYX_ERR(0, 319, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -8697,7 +9064,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_mode_guide_is_many", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 275, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_mode_guide_is_many", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 319, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8711,7 +9078,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weight_max_list), (&PyList_Type), 0, "weight_max_list", 1))) __PYX_ERR(0, 275, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weight_max_list), (&PyList_Type), 0, "weight_max_list", 1))) __PYX_ERR(0, 319, __pyx_L1_error)
   __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_16_mode_guide_is_many(__pyx_self, __pyx_v_self, __pyx_v_weight_max_list);
 
   /* function exit code */
@@ -8729,7 +9096,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":282
+/* "utils/write_noble_target.py":326
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:             # <<<<<<<<<<<<<<
@@ -8790,12 +9157,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 282, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 326, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sort_func") < 0)) __PYX_ERR(0, 282, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sort_func") < 0)) __PYX_ERR(0, 326, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -8806,7 +9173,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sort_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 282, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sort_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 326, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8846,39 +9213,39 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_19_mode
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("sort_func", 1);
 
-  /* "utils/write_noble_target.py":283
+  /* "utils/write_noble_target.py":327
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:
  *             off: int = -int(weight_max.off_left)             # <<<<<<<<<<<<<<
  *             distance: float = float(weight_max.distance)
  *             return (distance, off)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 283, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 327, __pyx_L1_error)
   __pyx_v_off = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":284
+  /* "utils/write_noble_target.py":328
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:
  *             off: int = -int(weight_max.off_left)
  *             distance: float = float(weight_max.distance)             # <<<<<<<<<<<<<<
  *             return (distance, off)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_AsDouble(__pyx_t_1); if (unlikely(__pyx_t_3 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 284, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_AsDouble(__pyx_t_1); if (unlikely(__pyx_t_3 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_distance = __pyx_t_3;
 
-  /* "utils/write_noble_target.py":285
+  /* "utils/write_noble_target.py":329
  *             off: int = -int(weight_max.off_left)
  *             distance: float = float(weight_max.distance)
  *             return (distance, off)             # <<<<<<<<<<<<<<
@@ -8886,21 +9253,21 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_19_mode
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 329, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 329, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1)) __PYX_ERR(0, 285, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1)) __PYX_ERR(0, 329, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_off);
   __Pyx_GIVEREF(__pyx_v_off);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_off)) __PYX_ERR(0, 285, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_off)) __PYX_ERR(0, 329, __pyx_L1_error);
   __pyx_t_1 = 0;
   __pyx_r = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":282
+  /* "utils/write_noble_target.py":326
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:             # <<<<<<<<<<<<<<
@@ -8921,7 +9288,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_19_mode
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":275
+/* "utils/write_noble_target.py":319
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_many(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -8943,71 +9310,71 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_16_mode
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_mode_guide_is_many", 1);
 
-  /* "utils/write_noble_target.py":282
+  /* "utils/write_noble_target.py":326
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:             # <<<<<<<<<<<<<<
  *             off: int = -int(weight_max.off_left)
  *             distance: float = float(weight_max.distance)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 282, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_kp_s_tuple_float_int) < 0) __PYX_ERR(0, 282, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_19_mode_guide_is_many_1sort_func, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_kp_s_tuple_float_int) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_19_mode_guide_is_many_1sort_func, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_sort_func = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":287
+  /* "utils/write_noble_target.py":331
  *             return (distance, off)
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(             # <<<<<<<<<<<<<<
  *             weight_max_list, key=sort_func
  *         )
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 287, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 331, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_weight_max_list);
   __Pyx_GIVEREF(__pyx_v_weight_max_list);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_weight_max_list)) __PYX_ERR(0, 287, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_weight_max_list)) __PYX_ERR(0, 331, __pyx_L1_error);
 
-  /* "utils/write_noble_target.py":288
+  /* "utils/write_noble_target.py":332
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
  *             weight_max_list, key=sort_func             # <<<<<<<<<<<<<<
  *         )
  *         self._fill_default_list(sorted_weight_max_lst)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 288, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_key, __pyx_v_sort_func) < 0) __PYX_ERR(0, 288, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_key, __pyx_v_sort_func) < 0) __PYX_ERR(0, 332, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":287
+  /* "utils/write_noble_target.py":331
  *             return (distance, off)
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(             # <<<<<<<<<<<<<<
  *             weight_max_list, key=sort_func
  *         )
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 287, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 331, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 287, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 331, __pyx_L1_error)
   __pyx_v_sorted_weight_max_lst = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":290
+  /* "utils/write_noble_target.py":334
  *             weight_max_list, key=sort_func
  *         )
  *         self._fill_default_list(sorted_weight_max_lst)             # <<<<<<<<<<<<<<
  * 
  *     def _mode_guide_is_single(self, weight_max_list: list[FastWeightMaximum]) -> None:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_default_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_default_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 334, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = NULL;
   __pyx_t_4 = 0;
@@ -9027,13 +9394,13 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_16_mode
     PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_sorted_weight_max_lst};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 290, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 334, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":275
+  /* "utils/write_noble_target.py":319
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_many(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -9058,7 +9425,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_16_mode
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":292
+/* "utils/write_noble_target.py":336
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_single(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -9123,7 +9490,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 292, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 336, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -9131,14 +9498,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 292, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 336, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_mode_guide_is_single", 1, 2, 2, 1); __PYX_ERR(0, 292, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_mode_guide_is_single", 1, 2, 2, 1); __PYX_ERR(0, 336, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_mode_guide_is_single") < 0)) __PYX_ERR(0, 292, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_mode_guide_is_single") < 0)) __PYX_ERR(0, 336, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -9151,7 +9518,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_mode_guide_is_single", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 292, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_mode_guide_is_single", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 336, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -9165,7 +9532,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weight_max_list), (&PyList_Type), 0, "weight_max_list", 1))) __PYX_ERR(0, 292, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weight_max_list), (&PyList_Type), 0, "weight_max_list", 1))) __PYX_ERR(0, 336, __pyx_L1_error)
   __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mode_guide_is_single(__pyx_self, __pyx_v_self, __pyx_v_weight_max_list);
 
   /* function exit code */
@@ -9183,7 +9550,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":300
+/* "utils/write_noble_target.py":344
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:             # <<<<<<<<<<<<<<
@@ -9244,12 +9611,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 300, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 344, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sort_func") < 0)) __PYX_ERR(0, 300, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sort_func") < 0)) __PYX_ERR(0, 344, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -9260,7 +9627,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sort_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 300, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sort_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 344, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -9300,39 +9667,39 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_21_mode
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("sort_func", 1);
 
-  /* "utils/write_noble_target.py":301
+  /* "utils/write_noble_target.py":345
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:
  *             off: int = -int(weight_max.off_left)             # <<<<<<<<<<<<<<
  *             distance: float = float(weight_max.distance)
  *             return (distance, off)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 301, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 345, __pyx_L1_error)
   __pyx_v_off = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":302
+  /* "utils/write_noble_target.py":346
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:
  *             off: int = -int(weight_max.off_left)
  *             distance: float = float(weight_max.distance)             # <<<<<<<<<<<<<<
  *             return (distance, off)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_AsDouble(__pyx_t_1); if (unlikely(__pyx_t_3 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 302, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_AsDouble(__pyx_t_1); if (unlikely(__pyx_t_3 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 346, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_distance = __pyx_t_3;
 
-  /* "utils/write_noble_target.py":303
+  /* "utils/write_noble_target.py":347
  *             off: int = -int(weight_max.off_left)
  *             distance: float = float(weight_max.distance)
  *             return (distance, off)             # <<<<<<<<<<<<<<
@@ -9340,21 +9707,21 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_21_mode
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1)) __PYX_ERR(0, 303, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1)) __PYX_ERR(0, 347, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_off);
   __Pyx_GIVEREF(__pyx_v_off);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_off)) __PYX_ERR(0, 303, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_off)) __PYX_ERR(0, 347, __pyx_L1_error);
   __pyx_t_1 = 0;
   __pyx_r = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":300
+  /* "utils/write_noble_target.py":344
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:             # <<<<<<<<<<<<<<
@@ -9375,7 +9742,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_21_mode
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":292
+/* "utils/write_noble_target.py":336
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_single(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -9397,71 +9764,71 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mode
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_mode_guide_is_single", 1);
 
-  /* "utils/write_noble_target.py":300
+  /* "utils/write_noble_target.py":344
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:             # <<<<<<<<<<<<<<
  *             off: int = -int(weight_max.off_left)
  *             distance: float = float(weight_max.distance)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_kp_s_tuple_float_int) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_21_mode_guide_is_single_1sort_func, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_3, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 344, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_kp_s_tuple_float_int) < 0) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_21_mode_guide_is_single_1sort_func, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_3, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 344, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_sort_func = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":305
+  /* "utils/write_noble_target.py":349
  *             return (distance, off)
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(             # <<<<<<<<<<<<<<
  *             weight_max_list, key=sort_func
  *         )
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 305, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_weight_max_list);
   __Pyx_GIVEREF(__pyx_v_weight_max_list);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_weight_max_list)) __PYX_ERR(0, 305, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_weight_max_list)) __PYX_ERR(0, 349, __pyx_L1_error);
 
-  /* "utils/write_noble_target.py":306
+  /* "utils/write_noble_target.py":350
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(
  *             weight_max_list, key=sort_func             # <<<<<<<<<<<<<<
  *         )
  *         self._fill_default_list(sorted_weight_max_lst)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 350, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_key, __pyx_v_sort_func) < 0) __PYX_ERR(0, 306, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_key, __pyx_v_sort_func) < 0) __PYX_ERR(0, 350, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":305
+  /* "utils/write_noble_target.py":349
  *             return (distance, off)
  * 
  *         sorted_weight_max_lst: list[FastWeightMaximum] = sorted(             # <<<<<<<<<<<<<<
  *             weight_max_list, key=sort_func
  *         )
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 305, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 305, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 349, __pyx_L1_error)
   __pyx_v_sorted_weight_max_lst = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":308
+  /* "utils/write_noble_target.py":352
  *             weight_max_list, key=sort_func
  *         )
  *         self._fill_default_list(sorted_weight_max_lst)             # <<<<<<<<<<<<<<
  * 
- *     def _off(self, weight_max: FastWeightMaximum) -> int:
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_default_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fill_default_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = NULL;
   __pyx_t_4 = 0;
@@ -9481,13 +9848,13 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mode
     PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_sorted_weight_max_lst};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 308, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 352, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":292
+  /* "utils/write_noble_target.py":336
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_single(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
@@ -9512,12 +9879,12 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mode
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":310
+/* "utils/write_noble_target.py":354
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
- *     def _off(self, weight_max: FastWeightMaximum) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:             # <<<<<<<<<<<<<<
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (
  */
 
 /* Python wrapper */
@@ -9538,11 +9905,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 ) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_weight_max = 0;
+  PyObject *__pyx_v_noble_number = 0;
   #if !CYTHON_METH_FASTCALL
   CYTHON_UNUSED Py_ssize_t __pyx_nargs;
   #endif
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[2] = {0,0};
+  PyObject* values[3] = {0,0,0};
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -9558,10 +9926,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   #endif
   __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
   {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,&__pyx_n_s_noble_number,0};
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
+        case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
         case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
@@ -9576,7 +9946,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 310, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 354, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -9584,27 +9954,39 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 310, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 354, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_off", 1, 2, 2, 1); __PYX_ERR(0, 310, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_off", 1, 3, 3, 1); __PYX_ERR(0, 354, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_noble_number)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 354, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("_off", 1, 3, 3, 2); __PYX_ERR(0, 354, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_off") < 0)) __PYX_ERR(0, 310, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_off") < 0)) __PYX_ERR(0, 354, __pyx_L3_error)
       }
-    } else if (unlikely(__pyx_nargs != 2)) {
+    } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
+      values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
     }
     __pyx_v_self = values[0];
     __pyx_v_weight_max = values[1];
+    __pyx_v_noble_number = ((PyObject*)values[2]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_off", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 310, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_off", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 354, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -9618,9 +10000,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_20_off(__pyx_self, __pyx_v_self, __pyx_v_weight_max);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noble_number), (&PyInt_Type), 0, "noble_number", 1))) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_20_off(__pyx_self, __pyx_v_self, __pyx_v_weight_max, __pyx_v_noble_number);
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -9631,302 +10018,505 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_20_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max) {
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_20_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_noble_number) {
+  PyObject *__pyx_v_off_left = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  unsigned int __pyx_t_6;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  unsigned int __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_off", 1);
 
-  /* "utils/write_noble_target.py":311
+  /* "utils/write_noble_target.py":355
  * 
- *     def _off(self, weight_max: FastWeightMaximum) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return 0
- * 
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:
+ *         off_left = weight_max.off_left             # <<<<<<<<<<<<<<
+ *         if not self.target.fake and (
+ *             off_left
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 311, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 355, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 311, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_v_off_left = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "utils/write_noble_target.py":356
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (             # <<<<<<<<<<<<<<
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 356, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 356, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 311, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":312
- *     def _off(self, weight_max: FastWeightMaximum) -> int:
- *         if self.target.fake:
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 312, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":311
- * 
- *     def _off(self, weight_max: FastWeightMaximum) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 356, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = (!__pyx_t_4);
+  if (__pyx_t_5) {
+  } else {
+    __pyx_t_2 = __pyx_t_5;
+    goto __pyx_L4_bool_binop_done;
   }
 
-  /* "utils/write_noble_target.py":314
- *             return 0
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()
- * 
+  /* "utils/write_noble_target.py":358
+ *         if not self.target.fake and (
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)             # <<<<<<<<<<<<<<
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 314, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 314, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = NULL;
-  __pyx_t_6 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_fake_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 358, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_6 = NULL;
+  __pyx_t_7 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_5);
+  if (likely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_6)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_6);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-      __pyx_t_6 = 1;
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+      __pyx_t_7 = 1;
     }
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  }
-  __pyx_t_4 = __Pyx_PyInt_MultiplyCObj(__pyx_int_200, __pyx_t_1, 0xC8, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 314, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 314, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":315
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
- * 
- *         elif self.target.mode_division == "divide":
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 315, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 315, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    }
-    __pyx_t_2 = PyNumber_FloorDivide(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 315, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
+    PyObject *__pyx_callargs[2] = {__pyx_t_6, __pyx_v_noble_number};
+    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_7, 1+__pyx_t_7);
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 358, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 315, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":314
- *             return 0
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()
- * 
- */
   }
 
-  /* "utils/write_noble_target.py":317
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()
- * 
+  /* "utils/write_noble_target.py":359
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ *             * self.initial_outline_minimum_fake_noble_troops             # <<<<<<<<<<<<<<
+ *             > weight_max.nobles_allowed_to_use()
+ *             * self.initial_outline_minimum_noble_troops
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_n_u_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__pyx_t_3) {
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_fake_nob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 359, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_6 = PyNumber_Multiply(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 359, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":318
- * 
- *         elif self.target.mode_division == "divide":
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
- * 
- *         elif self.target.mode_division == "not_divide":
+  /* "utils/write_noble_target.py":358
+ *         if not self.target.fake and (
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)             # <<<<<<<<<<<<<<
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()
  */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 318, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
+  __pyx_t_1 = PyNumber_Subtract(__pyx_v_off_left, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 358, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+  /* "utils/write_noble_target.py":360
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
+ *             * self.initial_outline_minimum_noble_troops
+ *         ):
+ */
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 360, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_8 = NULL;
+  __pyx_t_7 = 0;
+  #if CYTHON_UNPACK_METHODS
+  if (likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_8)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_8);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __pyx_t_7 = 1;
+    }
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_8, NULL};
+    __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_7, 0+__pyx_t_7);
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 360, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  }
+
+  /* "utils/write_noble_target.py":361
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()
+ *             * self.initial_outline_minimum_noble_troops             # <<<<<<<<<<<<<<
+ *         ):
+ *             off_left -= (
+ */
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_noble_tr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 361, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_8 = PyNumber_Multiply(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 361, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_8, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 360, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+  /* "utils/write_noble_target.py":360
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
+ *             * self.initial_outline_minimum_noble_troops
+ *         ):
+ */
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 360, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __pyx_t_5;
+  __pyx_L4_bool_binop_done:;
+
+  /* "utils/write_noble_target.py":356
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (             # <<<<<<<<<<<<<<
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ */
+  if (__pyx_t_2) {
+
+    /* "utils/write_noble_target.py":364
+ *         ):
+ *             off_left -= (
+ *                 weight_max.fake_nobles_allowed_to_use(noble_number)             # <<<<<<<<<<<<<<
+ *                 * self.initial_outline_minimum_fake_noble_troops
+ *             )
+ */
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_fake_nobles_allowed_to_use); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_1 = NULL;
+    __pyx_t_7 = 0;
     #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_5);
+    if (likely(PyMethod_Check(__pyx_t_8))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+        __Pyx_INCREF(__pyx_t_1);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-        __pyx_t_6 = 1;
+        __Pyx_DECREF_SET(__pyx_t_8, function);
+        __pyx_t_7 = 1;
       }
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 318, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_v_noble_number};
+      __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_7, 1+__pyx_t_7);
+      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
-    __pyx_t_1 = PyNumber_FloorDivide(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+
+    /* "utils/write_noble_target.py":365
+ *             off_left -= (
+ *                 weight_max.fake_nobles_allowed_to_use(noble_number)
+ *                 * self.initial_outline_minimum_fake_noble_troops             # <<<<<<<<<<<<<<
+ *             )
+ * 
+ */
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_fake_nob); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 318, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+    /* "utils/write_noble_target.py":363
+ *             * self.initial_outline_minimum_noble_troops
+ *         ):
+ *             off_left -= (             # <<<<<<<<<<<<<<
+ *                 weight_max.fake_nobles_allowed_to_use(noble_number)
+ *                 * self.initial_outline_minimum_fake_noble_troops
+ */
+    __pyx_t_8 = PyNumber_InPlaceSubtract(__pyx_v_off_left, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 363, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF_SET(__pyx_v_off_left, __pyx_t_8);
+    __pyx_t_8 = 0;
+
+    /* "utils/write_noble_target.py":356
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (             # <<<<<<<<<<<<<<
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ */
+  }
+
+  /* "utils/write_noble_target.py":368
+ *             )
+ * 
+ *         if self.target.fake:             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_fake_noble_troops
+ * 
+ */
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 368, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_fake); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 368, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 368, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "utils/write_noble_target.py":369
+ * 
+ *         if self.target.fake:
+ *             return self.initial_outline_minimum_fake_noble_troops             # <<<<<<<<<<<<<<
+ * 
+ *         if self.target.mode_division == "divide":
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_fake_nob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 369, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 369, __pyx_L1_error)
     __pyx_r = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "utils/write_noble_target.py":317
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()
+    /* "utils/write_noble_target.py":368
+ *             )
  * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()
+ *         if self.target.fake:             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_fake_noble_troops
  * 
  */
   }
 
-  /* "utils/write_noble_target.py":320
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()
+  /* "utils/write_noble_target.py":371
+ *             return self.initial_outline_minimum_fake_noble_troops
  * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return 200
+ *         if self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
+ *             return off_left // weight_max.nobles_allowed_to_use()
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 371, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 320, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 371, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_not_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 320, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_t_8, __pyx_n_u_divide, Py_EQ)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 371, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (__pyx_t_2) {
 
-    /* "utils/write_noble_target.py":321
+    /* "utils/write_noble_target.py":372
  * 
- *         elif self.target.mode_division == "not_divide":
- *             return 200             # <<<<<<<<<<<<<<
+ *         if self.target.mode_division == "divide":
+ *             return off_left // weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
  * 
- *         else:  # self.target.mode_division == "separatly"
+ *         if self.target.mode_division == "not_divide":
  */
     __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_200)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_200))) __PYX_ERR(0, 321, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_200);
-    __pyx_r = ((PyObject*)__pyx_int_200);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 372, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = NULL;
+    __pyx_t_7 = 0;
+    #if CYTHON_UNPACK_METHODS
+    if (likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_3)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_3);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+        __pyx_t_7 = 1;
+      }
+    }
+    #endif
+    {
+      PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
+      __pyx_t_8 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_7, 0+__pyx_t_7);
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 372, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    }
+    __pyx_t_1 = PyNumber_FloorDivide(__pyx_v_off_left, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 372, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 372, __pyx_L1_error)
+    __pyx_r = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "utils/write_noble_target.py":320
- *             return weight_max.off_left // weight_max.nobles_allowed_to_use()
+    /* "utils/write_noble_target.py":371
+ *             return self.initial_outline_minimum_fake_noble_troops
  * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return 200
+ *         if self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
+ *             return off_left // weight_max.nobles_allowed_to_use()
  * 
  */
   }
 
-  /* "utils/write_noble_target.py":324
+  /* "utils/write_noble_target.py":374
+ *             return off_left // weight_max.nobles_allowed_to_use()
  * 
- *         else:  # self.target.mode_division == "separatly"
- *             return 200             # <<<<<<<<<<<<<<
+ *         if self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_noble_troops
  * 
- *     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:
  */
-  /*else*/ {
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 374, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 374, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_t_8, __pyx_n_u_not_divide, Py_EQ)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 374, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (__pyx_t_2) {
+
+    /* "utils/write_noble_target.py":375
+ * 
+ *         if self.target.mode_division == "not_divide":
+ *             return self.initial_outline_minimum_noble_troops             # <<<<<<<<<<<<<<
+ * 
+ *         if self.target.mode_division == "separatly":
+ */
     __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_200)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_200))) __PYX_ERR(0, 324, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_200);
-    __pyx_r = ((PyObject*)__pyx_int_200);
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_noble_tr); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 375, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_8))||((__pyx_t_8) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_8))) __PYX_ERR(0, 375, __pyx_L1_error)
+    __pyx_r = ((PyObject*)__pyx_t_8);
+    __pyx_t_8 = 0;
     goto __pyx_L0;
+
+    /* "utils/write_noble_target.py":374
+ *             return off_left // weight_max.nobles_allowed_to_use()
+ * 
+ *         if self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ */
   }
 
-  /* "utils/write_noble_target.py":310
+  /* "utils/write_noble_target.py":377
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ *         if self.target.mode_division == "separatly":             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ */
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 377, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 377, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_separatly, Py_EQ)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 377, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "utils/write_noble_target.py":378
+ * 
+ *         if self.target.mode_division == "separatly":
+ *             return self.initial_outline_minimum_noble_troops             # <<<<<<<<<<<<<<
+ * 
+ *         raise ValueError(
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_noble_tr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 378, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 378, __pyx_L1_error)
+    __pyx_r = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+
+    /* "utils/write_noble_target.py":377
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ *         if self.target.mode_division == "separatly":             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ */
+  }
+
+  /* "utils/write_noble_target.py":381
+ * 
+ *         raise ValueError(
+ *             "impossible configuration: %s: %s", weight_max.pk, self.outline.pk             # <<<<<<<<<<<<<<
+ *         )
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_pk); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 381, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_pk); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+  /* "utils/write_noble_target.py":380
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             "impossible configuration: %s: %s", weight_max.pk, self.outline.pk
+ *         )
+ */
+  __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 380, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_INCREF(__pyx_kp_u_impossible_configuration_s_s);
+  __Pyx_GIVEREF(__pyx_kp_u_impossible_configuration_s_s);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_kp_u_impossible_configuration_s_s)) __PYX_ERR(0, 380, __pyx_L1_error);
+  __Pyx_GIVEREF(__pyx_t_1);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_1)) __PYX_ERR(0, 380, __pyx_L1_error);
+  __Pyx_GIVEREF(__pyx_t_3);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_3)) __PYX_ERR(0, 380, __pyx_L1_error);
+  __pyx_t_1 = 0;
+  __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 380, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __PYX_ERR(0, 380, __pyx_L1_error)
+
+  /* "utils/write_noble_target.py":354
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
- *     def _off(self, weight_max: FastWeightMaximum) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:             # <<<<<<<<<<<<<<
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
   __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._off", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_off_left);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":326
- *             return 200
+/* "utils/write_noble_target.py":384
+ *         )
  * 
- *     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
+ *     def _first_off(             # <<<<<<<<<<<<<<
+ *         self, weight_max: FastWeightMaximum, off: int, noble_number: int
+ *     ) -> int:
  */
 
 /* Python wrapper */
@@ -9948,11 +10538,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_weight_max = 0;
   PyObject *__pyx_v_off = 0;
+  PyObject *__pyx_v_noble_number = 0;
   #if !CYTHON_METH_FASTCALL
   CYTHON_UNUSED Py_ssize_t __pyx_nargs;
   #endif
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[3] = {0,0,0};
+  PyObject* values[4] = {0,0,0,0};
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -9968,10 +10559,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   #endif
   __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
   {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,&__pyx_n_s_off_2,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,&__pyx_n_s_off_2,&__pyx_n_s_noble_number,0};
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
+        case  4: values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
         case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
@@ -9988,7 +10581,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 326, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -9996,9 +10589,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 326, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_first_off", 1, 3, 3, 1); __PYX_ERR(0, 326, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_first_off", 1, 4, 4, 1); __PYX_ERR(0, 384, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -10006,29 +10599,41 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 326, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("_first_off", 1, 3, 3, 2); __PYX_ERR(0, 326, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_first_off", 1, 4, 4, 2); __PYX_ERR(0, 384, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_noble_number)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("_first_off", 1, 4, 4, 3); __PYX_ERR(0, 384, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_first_off") < 0)) __PYX_ERR(0, 326, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_first_off") < 0)) __PYX_ERR(0, 384, __pyx_L3_error)
       }
-    } else if (unlikely(__pyx_nargs != 3)) {
+    } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
+      values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
     __pyx_v_self = values[0];
     __pyx_v_weight_max = values[1];
     __pyx_v_off = ((PyObject*)values[2]);
+    __pyx_v_noble_number = ((PyObject*)values[3]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_first_off", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 326, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_first_off", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 384, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -10042,8 +10647,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_off), (&PyInt_Type), 0, "off", 1))) __PYX_ERR(0, 326, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_22_first_off(__pyx_self, __pyx_v_self, __pyx_v_weight_max, __pyx_v_off);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_off), (&PyInt_Type), 0, "off", 1))) __PYX_ERR(0, 385, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noble_number), (&PyInt_Type), 0, "noble_number", 1))) __PYX_ERR(0, 385, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_22_first_off(__pyx_self, __pyx_v_self, __pyx_v_weight_max, __pyx_v_off, __pyx_v_noble_number);
 
   /* function exit code */
   goto __pyx_L0;
@@ -10060,2507 +10666,538 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_22_first_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off) {
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_22_first_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off, PyObject *__pyx_v_noble_number) {
+  PyObject *__pyx_v_off_left = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  unsigned int __pyx_t_6;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  unsigned int __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_first_off", 1);
 
-  /* "utils/write_noble_target.py":327
- * 
- *     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 327, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":328
- *     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:
- *         if self.target.fake:
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 328, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":327
- * 
- *     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":330
- *             return 0
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 330, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = NULL;
-  __pyx_t_6 = 0;
-  #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-      __pyx_t_6 = 1;
-    }
-  }
-  #endif
-  {
-    PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 330, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  }
-  __pyx_t_4 = __Pyx_PyInt_MultiplyCObj(__pyx_int_200, __pyx_t_1, 0xC8, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 330, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 330, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 330, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":331
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             return weight_max.off_left - (             # <<<<<<<<<<<<<<
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 331, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-
-    /* "utils/write_noble_target.py":332
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)             # <<<<<<<<<<<<<<
- *             )
- * 
- */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 332, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 332, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    }
-    __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_t_4, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 332, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_Multiply(__pyx_v_off, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 332, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "utils/write_noble_target.py":331
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             return weight_max.off_left - (             # <<<<<<<<<<<<<<
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 331, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 331, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":330
- *             return 0
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- */
-  }
-
-  /* "utils/write_noble_target.py":335
- *             )
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 335, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 335, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_n_u_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 335, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":336
- * 
- *         elif self.target.mode_division == "divide":
- *             return weight_max.off_left - (             # <<<<<<<<<<<<<<
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 336, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-
-    /* "utils/write_noble_target.py":337
- *         elif self.target.mode_division == "divide":
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)             # <<<<<<<<<<<<<<
- *             )
- * 
- */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 337, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    }
-    __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_t_2, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Multiply(__pyx_v_off, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 337, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "utils/write_noble_target.py":336
- * 
- *         elif self.target.mode_division == "divide":
- *             return weight_max.off_left - (             # <<<<<<<<<<<<<<
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __pyx_t_1 = PyNumber_Subtract(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 336, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 336, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_1);
-    __pyx_t_1 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":335
- *             )
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- */
-  }
-
-  /* "utils/write_noble_target.py":340
- *             )
- * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 340, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_not_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 340, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":341
- * 
- *         elif self.target.mode_division == "not_divide":
- *             return weight_max.off_left - (             # <<<<<<<<<<<<<<
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 341, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-
-    /* "utils/write_noble_target.py":342
- *         elif self.target.mode_division == "not_divide":
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)             # <<<<<<<<<<<<<<
- *             )
- * 
- */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    }
-    __pyx_t_4 = __Pyx_PyInt_SubtractObjC(__pyx_t_1, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Multiply(__pyx_v_off, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-    /* "utils/write_noble_target.py":341
- * 
- *         elif self.target.mode_division == "not_divide":
- *             return weight_max.off_left - (             # <<<<<<<<<<<<<<
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __pyx_t_4 = PyNumber_Subtract(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 341, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_4))) __PYX_ERR(0, 341, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_4);
-    __pyx_t_4 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":340
- *             )
- * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return weight_max.off_left - (
- *                 off * (weight_max.nobles_allowed_to_use() - 1)
- */
-  }
-
-  /* "utils/write_noble_target.py":346
- * 
- *         else:  # self.target.mode_division == "separatly"
- *             return 200             # <<<<<<<<<<<<<<
- * 
- *     def _catapult(self, weight_max: FastWeightMaximum) -> int:
- */
-  /*else*/ {
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_200)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_200))) __PYX_ERR(0, 346, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_200);
-    __pyx_r = ((PyObject*)__pyx_int_200);
-    goto __pyx_L0;
-  }
-
-  /* "utils/write_noble_target.py":326
- *             return 200
- * 
- *     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._first_off", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "utils/write_noble_target.py":348
- *             return 200
- * 
- *     def _catapult(self, weight_max: FastWeightMaximum) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_25_catapult(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_25_catapult = {"_catapult", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_25_catapult, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_25_catapult(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-) {
-  PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_weight_max = 0;
-  #if !CYTHON_METH_FASTCALL
-  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
-  #endif
-  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[2] = {0,0};
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_catapult (wrapper)", 0);
-  #if !CYTHON_METH_FASTCALL
-  #if CYTHON_ASSUME_SAFE_MACROS
-  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
-  #else
-  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
-  #endif
-  #endif
-  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
-  {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,0};
-    if (__pyx_kwds) {
-      Py_ssize_t kw_args;
-      switch (__pyx_nargs) {
-        case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
-      switch (__pyx_nargs) {
-        case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_self)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L3_error)
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_weight_max)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_catapult", 1, 2, 2, 1); __PYX_ERR(0, 348, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_catapult") < 0)) __PYX_ERR(0, 348, __pyx_L3_error)
-      }
-    } else if (unlikely(__pyx_nargs != 2)) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-      values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-    }
-    __pyx_v_self = values[0];
-    __pyx_v_weight_max = values[1];
-  }
-  goto __pyx_L6_skip;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_catapult", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 348, __pyx_L3_error)
-  __pyx_L6_skip:;
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._catapult", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_24_catapult(__pyx_self, __pyx_v_self, __pyx_v_weight_max);
-
-  /* function exit code */
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_24_catapult(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  unsigned int __pyx_t_6;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_catapult", 1);
-
-  /* "utils/write_noble_target.py":349
- * 
- *     def _catapult(self, weight_max: FastWeightMaximum) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 349, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 349, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 349, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":350
- *     def _catapult(self, weight_max: FastWeightMaximum) -> int:
- *         if self.target.fake:
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 350, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":349
- * 
- *     def _catapult(self, weight_max: FastWeightMaximum) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":352
- *             return 0
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
- * 
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 352, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 352, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = NULL;
-  __pyx_t_6 = 0;
-  #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-      __pyx_t_6 = 1;
-    }
-  }
-  #endif
-  {
-    PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  }
-  __pyx_t_4 = __Pyx_PyInt_MultiplyCObj(__pyx_int_200, __pyx_t_1, 0xC8, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 352, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 352, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":353
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
- * 
- *         elif self.target.mode_division == "divide":
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 353, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 353, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 353, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    }
-    __pyx_t_2 = PyNumber_FloorDivide(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 353, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 353, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":352
- *             return 0
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":355
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
- * 
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 355, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 355, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_n_u_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 355, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":356
- * 
- *         elif self.target.mode_division == "divide":
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
- * 
- *         elif self.target.mode_division == "not_divide":
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 356, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 356, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 356, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    }
-    __pyx_t_1 = PyNumber_FloorDivide(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 356, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 356, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_1);
-    __pyx_t_1 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":355
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":358
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
- * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 358, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 358, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_not_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 358, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":359
- * 
- *         elif self.target.mode_division == "not_divide":
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         else:  # self.target.mode_division == "separatly"
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 359, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":358
- *             return weight_max.catapult_left // weight_max.nobles_allowed_to_use()
- * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":362
- * 
- *         else:  # self.target.mode_division == "separatly"
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *     def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:
- */
-  /*else*/ {
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 362, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-  }
-
-  /* "utils/write_noble_target.py":348
- *             return 200
- * 
- *     def _catapult(self, weight_max: FastWeightMaximum) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._catapult", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "utils/write_noble_target.py":364
- *             return 0
- * 
- *     def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_27_first_catapult(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_27_first_catapult = {"_first_catapult", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_27_first_catapult, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_27_first_catapult(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-) {
-  PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_weight_max = 0;
-  PyObject *__pyx_v_catapult = 0;
-  #if !CYTHON_METH_FASTCALL
-  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
-  #endif
-  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[3] = {0,0,0};
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_first_catapult (wrapper)", 0);
-  #if !CYTHON_METH_FASTCALL
-  #if CYTHON_ASSUME_SAFE_MACROS
-  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
-  #else
-  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
-  #endif
-  #endif
-  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
-  {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,&__pyx_n_s_catapult_2,0};
-    if (__pyx_kwds) {
-      Py_ssize_t kw_args;
-      switch (__pyx_nargs) {
-        case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
-      switch (__pyx_nargs) {
-        case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_self)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 364, __pyx_L3_error)
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_weight_max)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 364, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_first_catapult", 1, 3, 3, 1); __PYX_ERR(0, 364, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_catapult_2)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 364, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_first_catapult", 1, 3, 3, 2); __PYX_ERR(0, 364, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_first_catapult") < 0)) __PYX_ERR(0, 364, __pyx_L3_error)
-      }
-    } else if (unlikely(__pyx_nargs != 3)) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-      values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-      values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-    }
-    __pyx_v_self = values[0];
-    __pyx_v_weight_max = values[1];
-    __pyx_v_catapult = ((PyObject*)values[2]);
-  }
-  goto __pyx_L6_skip;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_first_catapult", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 364, __pyx_L3_error)
-  __pyx_L6_skip:;
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._first_catapult", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catapult), (&PyInt_Type), 0, "catapult", 1))) __PYX_ERR(0, 364, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_first_catapult(__pyx_self, __pyx_v_self, __pyx_v_weight_max, __pyx_v_catapult);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_first_catapult(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_catapult) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  unsigned int __pyx_t_6;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_first_catapult", 1);
-
-  /* "utils/write_noble_target.py":365
- * 
- *     def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 365, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 365, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":366
- *     def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:
- *         if self.target.fake:
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 366, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":365
- * 
- *     def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":368
- *             return 0
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left - (
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 368, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = NULL;
-  __pyx_t_6 = 0;
-  #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-      __pyx_t_6 = 1;
-    }
-  }
-  #endif
-  {
-    PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 368, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  }
-  __pyx_t_4 = __Pyx_PyInt_MultiplyCObj(__pyx_int_200, __pyx_t_1, 0xC8, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 368, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 368, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 368, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":369
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             return weight_max.catapult_left - (             # <<<<<<<<<<<<<<
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 369, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-
-    /* "utils/write_noble_target.py":370
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             return weight_max.catapult_left - (
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)             # <<<<<<<<<<<<<<
- *             )
- * 
- */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 370, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 370, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    }
-    __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_t_4, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 370, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_Multiply(__pyx_v_catapult, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 370, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "utils/write_noble_target.py":369
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             return weight_max.catapult_left - (             # <<<<<<<<<<<<<<
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 369, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 369, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":368
- *             return 0
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left - (
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)
- */
-  }
-
-  /* "utils/write_noble_target.py":373
- *             )
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left - (
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 373, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 373, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_n_u_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 373, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":374
- * 
- *         elif self.target.mode_division == "divide":
- *             return weight_max.catapult_left - (             # <<<<<<<<<<<<<<
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 374, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-
-    /* "utils/write_noble_target.py":375
- *         elif self.target.mode_division == "divide":
- *             return weight_max.catapult_left - (
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)             # <<<<<<<<<<<<<<
- *             )
- * 
- */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 375, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-      __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 375, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    }
-    __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_t_2, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 375, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Multiply(__pyx_v_catapult, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 375, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "utils/write_noble_target.py":374
- * 
- *         elif self.target.mode_division == "divide":
- *             return weight_max.catapult_left - (             # <<<<<<<<<<<<<<
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)
- *             )
- */
-    __pyx_t_1 = PyNumber_Subtract(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 374, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 374, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_1);
-    __pyx_t_1 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":373
- *             )
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left - (
- *                 catapult * (weight_max.nobles_allowed_to_use() - 1)
- */
-  }
-
-  /* "utils/write_noble_target.py":378
- *             )
- * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 378, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 378, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_not_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 378, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":379
- * 
- *         elif self.target.mode_division == "not_divide":
- *             return weight_max.catapult_left             # <<<<<<<<<<<<<<
- * 
- *         else:  # self.target.mode_division == "separatly"
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 379, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 379, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":378
- *             )
- * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":382
- * 
- *         else:  # self.target.mode_division == "separatly"
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *     def _off_to_left(  # noqa: PLR0911
- */
-  /*else*/ {
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 382, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-  }
-
-  /* "utils/write_noble_target.py":364
- *             return 0
- * 
- *     def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._first_catapult", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "utils/write_noble_target.py":384
- *             return 0
- * 
- *     def _off_to_left(  # noqa: PLR0911             # <<<<<<<<<<<<<<
- *         self, weight_max: FastWeightMaximum, off: int, noble: int
- *     ) -> int:
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_29_off_to_left(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_29_off_to_left = {"_off_to_left", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_29_off_to_left, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_29_off_to_left(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-) {
-  PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_weight_max = 0;
-  PyObject *__pyx_v_off = 0;
-  PyObject *__pyx_v_noble = 0;
-  #if !CYTHON_METH_FASTCALL
-  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
-  #endif
-  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[4] = {0,0,0,0};
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_off_to_left (wrapper)", 0);
-  #if !CYTHON_METH_FASTCALL
-  #if CYTHON_ASSUME_SAFE_MACROS
-  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
-  #else
-  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
-  #endif
-  #endif
-  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
-  {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,&__pyx_n_s_off_2,&__pyx_n_s_noble,0};
-    if (__pyx_kwds) {
-      Py_ssize_t kw_args;
-      switch (__pyx_nargs) {
-        case  4: values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
-        case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
-      switch (__pyx_nargs) {
-        case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_self)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_weight_max)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_off_to_left", 1, 4, 4, 1); __PYX_ERR(0, 384, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_off_2)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_off_to_left", 1, 4, 4, 2); __PYX_ERR(0, 384, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  3:
-        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_noble)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_off_to_left", 1, 4, 4, 3); __PYX_ERR(0, 384, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_off_to_left") < 0)) __PYX_ERR(0, 384, __pyx_L3_error)
-      }
-    } else if (unlikely(__pyx_nargs != 4)) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-      values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-      values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-      values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
-    }
-    __pyx_v_self = values[0];
-    __pyx_v_weight_max = values[1];
-    __pyx_v_off = ((PyObject*)values[2]);
-    __pyx_v_noble = ((PyObject*)values[3]);
-  }
-  goto __pyx_L6_skip;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_off_to_left", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 384, __pyx_L3_error)
-  __pyx_L6_skip:;
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._off_to_left", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_off), (&PyInt_Type), 0, "off", 1))) __PYX_ERR(0, 385, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noble), (&PyInt_Type), 0, "noble", 1))) __PYX_ERR(0, 385, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_off_to_left(__pyx_self, __pyx_v_self, __pyx_v_weight_max, __pyx_v_off, __pyx_v_noble);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_off_to_left(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_off, PyObject *__pyx_v_noble) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  unsigned int __pyx_t_6;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_off_to_left", 1);
-
   /* "utils/write_noble_target.py":387
- *         self, weight_max: FastWeightMaximum, off: int, noble: int
+ *         self, weight_max: FastWeightMaximum, off: int, noble_number: int
  *     ) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return weight_max.off_left
- * 
+ *         off_left = weight_max.off_left             # <<<<<<<<<<<<<<
+ *         if not self.target.fake and (
+ *             off_left
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 387, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 387, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 387, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_v_off_left = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "utils/write_noble_target.py":388
+ *     ) -> int:
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (             # <<<<<<<<<<<<<<
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 388, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 388, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 387, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":388
- *     ) -> int:
- *         if self.target.fake:
- *             return weight_max.off_left             # <<<<<<<<<<<<<<
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 388, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 388, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":387
- *         self, weight_max: FastWeightMaximum, off: int, noble: int
- *     ) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return weight_max.off_left
- * 
- */
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 388, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = (!__pyx_t_4);
+  if (__pyx_t_5) {
+  } else {
+    __pyx_t_2 = __pyx_t_5;
+    goto __pyx_L4_bool_binop_done;
   }
 
   /* "utils/write_noble_target.py":390
- *             return weight_max.off_left
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
+ *         if not self.target.fake and (
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)             # <<<<<<<<<<<<<<
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 390, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 390, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = NULL;
-  __pyx_t_6 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_fake_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 390, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_6 = NULL;
+  __pyx_t_7 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_5);
+  if (likely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_6)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_6);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-      __pyx_t_6 = 1;
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+      __pyx_t_7 = 1;
     }
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 390, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  }
-  __pyx_t_4 = __Pyx_PyInt_MultiplyCObj(__pyx_int_200, __pyx_t_1, 0xC8, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 390, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 390, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 390, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":391
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
- */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 391, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_2);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 391, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    }
-    __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_v_noble, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 391, __pyx_L1_error)
+    PyObject *__pyx_callargs[2] = {__pyx_t_6, __pyx_v_noble_number};
+    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_7, 1+__pyx_t_7);
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 390, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 391, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (__pyx_t_3) {
-
-      /* "utils/write_noble_target.py":392
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-      __Pyx_XDECREF(__pyx_r);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 392, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = NULL;
-      __pyx_t_6 = 0;
-      #if CYTHON_UNPACK_METHODS
-      if (likely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_2);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_1, function);
-          __pyx_t_6 = 1;
-        }
-      }
-      #endif
-      {
-        PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-        __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 392, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      }
-      __pyx_t_1 = PyNumber_Subtract(__pyx_t_4, __pyx_v_noble); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 392, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyNumber_Multiply(__pyx_v_off, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 392, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_4))) __PYX_ERR(0, 392, __pyx_L1_error)
-      __pyx_r = ((PyObject*)__pyx_t_4);
-      __pyx_t_4 = 0;
-      goto __pyx_L0;
-
-      /* "utils/write_noble_target.py":391
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
- */
-    }
-
-    /* "utils/write_noble_target.py":393
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         elif self.target.mode_division == "divide":
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 393, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":390
- *             return weight_max.off_left
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
- */
   }
 
-  /* "utils/write_noble_target.py":395
- *             return 0
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
+  /* "utils/write_noble_target.py":391
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ *             * self.initial_outline_minimum_fake_noble_troops             # <<<<<<<<<<<<<<
+ *             > weight_max.nobles_allowed_to_use()
+ *             * self.initial_outline_minimum_noble_troops
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 395, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_fake_nob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 391, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Multiply(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 391, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
+
+  /* "utils/write_noble_target.py":390
+ *         if not self.target.fake and (
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)             # <<<<<<<<<<<<<<
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()
+ */
+  __pyx_t_1 = PyNumber_Subtract(__pyx_v_off_left, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 390, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+  /* "utils/write_noble_target.py":392
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
+ *             * self.initial_outline_minimum_noble_troops
+ *         ):
+ */
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_8 = NULL;
+  __pyx_t_7 = 0;
+  #if CYTHON_UNPACK_METHODS
+  if (likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_8)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_8);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __pyx_t_7 = 1;
+    }
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_8, NULL};
+    __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_7, 0+__pyx_t_7);
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 392, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  }
+
+  /* "utils/write_noble_target.py":393
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()
+ *             * self.initial_outline_minimum_noble_troops             # <<<<<<<<<<<<<<
+ *         ):
+ *             off_left -= (
+ */
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_noble_tr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 393, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_8 = PyNumber_Multiply(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 393, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_8, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+  /* "utils/write_noble_target.py":392
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ *             * self.initial_outline_minimum_fake_noble_troops
+ *             > weight_max.nobles_allowed_to_use()             # <<<<<<<<<<<<<<
+ *             * self.initial_outline_minimum_noble_troops
+ *         ):
+ */
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 392, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __pyx_t_5;
+  __pyx_L4_bool_binop_done:;
+
+  /* "utils/write_noble_target.py":388
+ *     ) -> int:
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (             # <<<<<<<<<<<<<<
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
+ */
+  if (__pyx_t_2) {
 
     /* "utils/write_noble_target.py":396
- * 
- *         elif self.target.mode_division == "divide":
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
+ *         ):
+ *             off_left -= (
+ *                 weight_max.fake_nobles_allowed_to_use(noble_number)             # <<<<<<<<<<<<<<
+ *                 * self.initial_outline_minimum_fake_noble_troops
+ *             )
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 396, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = NULL;
-    __pyx_t_6 = 0;
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_fake_nobles_allowed_to_use); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 396, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_1 = NULL;
+    __pyx_t_7 = 0;
     #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_2);
+    if (likely(PyMethod_Check(__pyx_t_8))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+        __Pyx_INCREF(__pyx_t_1);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-        __pyx_t_6 = 1;
+        __Pyx_DECREF_SET(__pyx_t_8, function);
+        __pyx_t_7 = 1;
       }
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 396, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    }
-    __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_v_noble, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 396, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 396, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (__pyx_t_3) {
-
-      /* "utils/write_noble_target.py":397
- *         elif self.target.mode_division == "divide":
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-      __Pyx_XDECREF(__pyx_r);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 397, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = NULL;
-      __pyx_t_6 = 0;
-      #if CYTHON_UNPACK_METHODS
-      if (likely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_2);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_1, function);
-          __pyx_t_6 = 1;
-        }
-      }
-      #endif
-      {
-        PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-        __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 397, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      }
-      __pyx_t_1 = PyNumber_Subtract(__pyx_t_4, __pyx_v_noble); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 397, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyNumber_Multiply(__pyx_v_off, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 397, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_4))) __PYX_ERR(0, 397, __pyx_L1_error)
-      __pyx_r = ((PyObject*)__pyx_t_4);
-      __pyx_t_4 = 0;
-      goto __pyx_L0;
-
-      /* "utils/write_noble_target.py":396
- * 
- *         elif self.target.mode_division == "divide":
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
- */
+      PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_v_noble_number};
+      __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_7, 1+__pyx_t_7);
+      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 396, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
 
-    /* "utils/write_noble_target.py":398
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0             # <<<<<<<<<<<<<<
+    /* "utils/write_noble_target.py":397
+ *             off_left -= (
+ *                 weight_max.fake_nobles_allowed_to_use(noble_number)
+ *                 * self.initial_outline_minimum_fake_noble_troops             # <<<<<<<<<<<<<<
+ *             )
  * 
- *         elif self.target.mode_division == "not_divide":
  */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 398, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_fake_nob); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 397, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 397, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
     /* "utils/write_noble_target.py":395
- *             return 0
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return off * (weight_max.nobles_allowed_to_use() - noble)
+ *             * self.initial_outline_minimum_noble_troops
+ *         ):
+ *             off_left -= (             # <<<<<<<<<<<<<<
+ *                 weight_max.fake_nobles_allowed_to_use(noble_number)
+ *                 * self.initial_outline_minimum_fake_noble_troops
+ */
+    __pyx_t_8 = PyNumber_InPlaceSubtract(__pyx_v_off_left, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 395, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF_SET(__pyx_v_off_left, __pyx_t_8);
+    __pyx_t_8 = 0;
+
+    /* "utils/write_noble_target.py":388
+ *     ) -> int:
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (             # <<<<<<<<<<<<<<
+ *             off_left
+ *             - weight_max.fake_nobles_allowed_to_use(noble_number)
  */
   }
 
   /* "utils/write_noble_target.py":400
- *             return 0
+ *             )
  * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return 200 * (weight_max.nobles_allowed_to_use() - noble)
+ *         if self.target.fake:             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_fake_noble_troops
+ * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 400, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_fake); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 400, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_not_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 400, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 400, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
+  if (__pyx_t_2) {
 
     /* "utils/write_noble_target.py":401
  * 
- *         elif self.target.mode_division == "not_divide":
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return 200 * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
+ *         if self.target.fake:
+ *             return self.initial_outline_minimum_fake_noble_troops             # <<<<<<<<<<<<<<
+ * 
+ *         if self.target.mode_division == "divide":
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = NULL;
-    __pyx_t_6 = 0;
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_fake_nob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 401, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 401, __pyx_L1_error)
+    __pyx_r = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+
+    /* "utils/write_noble_target.py":400
+ *             )
+ * 
+ *         if self.target.fake:             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_fake_noble_troops
+ * 
+ */
+  }
+
+  /* "utils/write_noble_target.py":403
+ *             return self.initial_outline_minimum_fake_noble_troops
+ * 
+ *         if self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 403, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 403, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_t_8, __pyx_n_u_divide, Py_EQ)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 403, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (__pyx_t_2) {
+
+    /* "utils/write_noble_target.py":404
+ * 
+ *         if self.target.mode_division == "divide":
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))             # <<<<<<<<<<<<<<
+ * 
+ *         if self.target.mode_division == "not_divide":
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 404, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = NULL;
+    __pyx_t_7 = 0;
     #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_2);
+    if (likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_3)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_3);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-        __pyx_t_6 = 1;
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+        __pyx_t_7 = 1;
       }
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 401, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    }
-    __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_v_noble, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 401, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 401, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (__pyx_t_3) {
-
-      /* "utils/write_noble_target.py":402
- *         elif self.target.mode_division == "not_divide":
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return 200 * (weight_max.nobles_allowed_to_use() - noble)             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-      __Pyx_XDECREF(__pyx_r);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 402, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = NULL;
-      __pyx_t_6 = 0;
-      #if CYTHON_UNPACK_METHODS
-      if (likely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_2);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_1, function);
-          __pyx_t_6 = 1;
-        }
-      }
-      #endif
-      {
-        PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-        __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 402, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      }
-      __pyx_t_1 = PyNumber_Subtract(__pyx_t_4, __pyx_v_noble); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 402, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyInt_MultiplyCObj(__pyx_int_200, __pyx_t_1, 0xC8, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 402, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
+      __pyx_t_8 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_7, 0+__pyx_t_7);
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 404, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_4))) __PYX_ERR(0, 402, __pyx_L1_error)
-      __pyx_r = ((PyObject*)__pyx_t_4);
-      __pyx_t_4 = 0;
-      goto __pyx_L0;
-
-      /* "utils/write_noble_target.py":401
- * 
- *         elif self.target.mode_division == "not_divide":
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return 200 * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
- */
     }
-
-    /* "utils/write_noble_target.py":403
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return 200 * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         else:  # self.target.mode_division == "separatly"
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 403, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
+    __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_t_8, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 404, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_8 = PyNumber_Multiply(__pyx_v_off, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 404, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Subtract(__pyx_v_off_left, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 404, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 404, __pyx_L1_error)
+    __pyx_r = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "utils/write_noble_target.py":400
- *             return 0
+    /* "utils/write_noble_target.py":403
+ *             return self.initial_outline_minimum_fake_noble_troops
  * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return 200 * (weight_max.nobles_allowed_to_use() - noble)
+ *         if self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
+ * 
  */
   }
 
   /* "utils/write_noble_target.py":406
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
  * 
- *         else:  # self.target.mode_division == "separatly"
- *             return weight_max.off_left - (off * (noble))             # <<<<<<<<<<<<<<
- * 
- *     def _catapult_to_left(  # noqa: PLR0911
- */
-  /*else*/ {
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 406, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = PyNumber_Multiply(__pyx_v_off, __pyx_v_noble); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 406, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = PyNumber_Subtract(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 406, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 406, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-  }
-
-  /* "utils/write_noble_target.py":384
- *             return 0
- * 
- *     def _off_to_left(  # noqa: PLR0911             # <<<<<<<<<<<<<<
- *         self, weight_max: FastWeightMaximum, off: int, noble: int
- *     ) -> int:
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._off_to_left", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "utils/write_noble_target.py":408
- *             return weight_max.off_left - (off * (noble))
- * 
- *     def _catapult_to_left(  # noqa: PLR0911             # <<<<<<<<<<<<<<
- *         self, weight_max: FastWeightMaximum, catapult: int, noble: int
- *     ) -> int:
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_31_catapult_to_left(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_31_catapult_to_left = {"_catapult_to_left", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_31_catapult_to_left, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_31_catapult_to_left(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-) {
-  PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_weight_max = 0;
-  PyObject *__pyx_v_catapult = 0;
-  PyObject *__pyx_v_noble = 0;
-  #if !CYTHON_METH_FASTCALL
-  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
-  #endif
-  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[4] = {0,0,0,0};
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_catapult_to_left (wrapper)", 0);
-  #if !CYTHON_METH_FASTCALL
-  #if CYTHON_ASSUME_SAFE_MACROS
-  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
-  #else
-  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
-  #endif
-  #endif
-  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
-  {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_weight_max,&__pyx_n_s_catapult_2,&__pyx_n_s_noble,0};
-    if (__pyx_kwds) {
-      Py_ssize_t kw_args;
-      switch (__pyx_nargs) {
-        case  4: values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
-        case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
-      switch (__pyx_nargs) {
-        case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_self)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 408, __pyx_L3_error)
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_weight_max)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 408, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_catapult_to_left", 1, 4, 4, 1); __PYX_ERR(0, 408, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_catapult_2)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 408, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_catapult_to_left", 1, 4, 4, 2); __PYX_ERR(0, 408, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  3:
-        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_noble)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 408, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("_catapult_to_left", 1, 4, 4, 3); __PYX_ERR(0, 408, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_catapult_to_left") < 0)) __PYX_ERR(0, 408, __pyx_L3_error)
-      }
-    } else if (unlikely(__pyx_nargs != 4)) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-      values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-      values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-      values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
-    }
-    __pyx_v_self = values[0];
-    __pyx_v_weight_max = values[1];
-    __pyx_v_catapult = ((PyObject*)values[2]);
-    __pyx_v_noble = ((PyObject*)values[3]);
-  }
-  goto __pyx_L6_skip;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_catapult_to_left", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 408, __pyx_L3_error)
-  __pyx_L6_skip:;
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._catapult_to_left", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_catapult), (&PyInt_Type), 0, "catapult", 1))) __PYX_ERR(0, 409, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_noble), (&PyInt_Type), 0, "noble", 1))) __PYX_ERR(0, 409, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_30_catapult_to_left(__pyx_self, __pyx_v_self, __pyx_v_weight_max, __pyx_v_catapult, __pyx_v_noble);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_30_catapult_to_left(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight_max, PyObject *__pyx_v_catapult, PyObject *__pyx_v_noble) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  unsigned int __pyx_t_6;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_catapult_to_left", 1);
-
-  /* "utils/write_noble_target.py":411
- *         self, weight_max: FastWeightMaximum, catapult: int, noble: int
- *     ) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left
+ *         if self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 411, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 406, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_fake); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 411, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 406, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 411, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_t_8, __pyx_n_u_not_divide, Py_EQ)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 406, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (__pyx_t_2) {
 
-    /* "utils/write_noble_target.py":412
- *     ) -> int:
- *         if self.target.fake:
- *             return weight_max.catapult_left             # <<<<<<<<<<<<<<
+    /* "utils/write_noble_target.py":407
  * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
+ *         if self.target.mode_division == "not_divide":
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))             # <<<<<<<<<<<<<<
+ * 
+ *         if self.target.mode_division == "separatly":
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 412, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 412, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":411
- *         self, weight_max: FastWeightMaximum, catapult: int, noble: int
- *     ) -> int:
- *         if self.target.fake:             # <<<<<<<<<<<<<<
- *             return weight_max.catapult_left
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":414
- *             return weight_max.catapult_left
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 414, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = NULL;
-  __pyx_t_6 = 0;
-  #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-      __pyx_t_6 = 1;
-    }
-  }
-  #endif
-  {
-    PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 414, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 407, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  }
-  __pyx_t_4 = __Pyx_PyInt_MultiplyCObj(__pyx_int_200, __pyx_t_1, 0xC8, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 414, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 414, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":415
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
- */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 415, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = NULL;
-    __pyx_t_6 = 0;
+    __pyx_t_3 = NULL;
+    __pyx_t_7 = 0;
     #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_2);
+    if (likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_3)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_3);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-        __pyx_t_6 = 1;
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+        __pyx_t_7 = 1;
       }
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 415, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    }
-    __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_v_noble, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 415, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 415, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (__pyx_t_3) {
-
-      /* "utils/write_noble_target.py":416
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-      __Pyx_XDECREF(__pyx_r);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 416, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = NULL;
-      __pyx_t_6 = 0;
-      #if CYTHON_UNPACK_METHODS
-      if (likely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_2);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_1, function);
-          __pyx_t_6 = 1;
-        }
-      }
-      #endif
-      {
-        PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-        __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 416, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      }
-      __pyx_t_1 = PyNumber_Subtract(__pyx_t_4, __pyx_v_noble); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 416, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyNumber_Multiply(__pyx_v_catapult, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 416, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
+      __pyx_t_8 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_7, 0+__pyx_t_7);
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 407, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_4))) __PYX_ERR(0, 416, __pyx_L1_error)
-      __pyx_r = ((PyObject*)__pyx_t_4);
-      __pyx_t_4 = 0;
-      goto __pyx_L0;
-
-      /* "utils/write_noble_target.py":415
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
- */
     }
-
-    /* "utils/write_noble_target.py":417
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         elif self.target.mode_division == "divide":
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 417, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":414
- *             return weight_max.catapult_left
- * 
- *         elif weight_max.off_left < 200 * weight_max.nobles_allowed_to_use():             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- */
-  }
-
-  /* "utils/write_noble_target.py":419
- *             return 0
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 419, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 419, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 419, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":420
- * 
- *         elif self.target.mode_division == "divide":
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
- */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 420, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = NULL;
-    __pyx_t_6 = 0;
-    #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_2);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #endif
-    {
-      PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 420, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    }
-    __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_v_noble, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 420, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 420, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (__pyx_t_3) {
-
-      /* "utils/write_noble_target.py":421
- *         elif self.target.mode_division == "divide":
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-      __Pyx_XDECREF(__pyx_r);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 421, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = NULL;
-      __pyx_t_6 = 0;
-      #if CYTHON_UNPACK_METHODS
-      if (likely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-        if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-          __Pyx_INCREF(__pyx_t_2);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_1, function);
-          __pyx_t_6 = 1;
-        }
-      }
-      #endif
-      {
-        PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-        __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 421, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      }
-      __pyx_t_1 = PyNumber_Subtract(__pyx_t_4, __pyx_v_noble); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 421, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyNumber_Multiply(__pyx_v_catapult, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 421, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_4))) __PYX_ERR(0, 421, __pyx_L1_error)
-      __pyx_r = ((PyObject*)__pyx_t_4);
-      __pyx_t_4 = 0;
-      goto __pyx_L0;
-
-      /* "utils/write_noble_target.py":420
- * 
- *         elif self.target.mode_division == "divide":
- *             if weight_max.nobles_allowed_to_use() > noble:             # <<<<<<<<<<<<<<
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0
- */
-    }
-
-    /* "utils/write_noble_target.py":422
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         elif self.target.mode_division == "not_divide":
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 422, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":419
- *             return 0
- * 
- *         elif self.target.mode_division == "divide":             # <<<<<<<<<<<<<<
- *             if weight_max.nobles_allowed_to_use() > noble:
- *                 return catapult * (weight_max.nobles_allowed_to_use() - noble)
- */
-  }
-
-  /* "utils/write_noble_target.py":424
- *             return 0
- * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 424, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 424, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_n_u_not_divide, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 424, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-
-    /* "utils/write_noble_target.py":425
- * 
- *         elif self.target.mode_division == "not_divide":
- *             return 0             # <<<<<<<<<<<<<<
- * 
- *         else:  # self.target.mode_division == "separatly"
- */
-    __Pyx_XDECREF(__pyx_r);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 425, __pyx_L1_error)
-    __Pyx_INCREF(__pyx_int_0);
-    __pyx_r = ((PyObject*)__pyx_int_0);
-    goto __pyx_L0;
-
-    /* "utils/write_noble_target.py":424
- *             return 0
- * 
- *         elif self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
- *             return 0
- * 
- */
-  }
-
-  /* "utils/write_noble_target.py":428
- * 
- *         else:  # self.target.mode_division == "separatly"
- *             return weight_max.catapult_left             # <<<<<<<<<<<<<<
- * 
- *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:
- */
-  /*else*/ {
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 428, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_t_8, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 407, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 428, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_8 = PyNumber_Multiply(__pyx_v_off, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 407, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Subtract(__pyx_v_off_left, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 407, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 407, __pyx_L1_error)
     __pyx_r = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
     goto __pyx_L0;
+
+    /* "utils/write_noble_target.py":406
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
+ * 
+ *         if self.target.mode_division == "not_divide":             # <<<<<<<<<<<<<<
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
+ * 
+ */
   }
 
-  /* "utils/write_noble_target.py":408
- *             return weight_max.off_left - (off * (noble))
+  /* "utils/write_noble_target.py":409
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
  * 
- *     def _catapult_to_left(  # noqa: PLR0911             # <<<<<<<<<<<<<<
- *         self, weight_max: FastWeightMaximum, catapult: int, noble: int
+ *         if self.target.mode_division == "separatly":             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 409, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_mode_division); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 409, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_t_8, __pyx_n_u_separatly, Py_EQ)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 409, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (__pyx_t_2) {
+
+    /* "utils/write_noble_target.py":410
+ * 
+ *         if self.target.mode_division == "separatly":
+ *             return self.initial_outline_minimum_noble_troops             # <<<<<<<<<<<<<<
+ * 
+ *         raise ValueError(
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_initial_outline_minimum_noble_tr); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 410, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_8))||((__pyx_t_8) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_8))) __PYX_ERR(0, 410, __pyx_L1_error)
+    __pyx_r = ((PyObject*)__pyx_t_8);
+    __pyx_t_8 = 0;
+    goto __pyx_L0;
+
+    /* "utils/write_noble_target.py":409
+ *             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
+ * 
+ *         if self.target.mode_division == "separatly":             # <<<<<<<<<<<<<<
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ */
+  }
+
+  /* "utils/write_noble_target.py":413
+ * 
+ *         raise ValueError(
+ *             "impossible configuration: %s: %s", weight_max.pk, self.outline.pk             # <<<<<<<<<<<<<<
+ *         )
+ * 
+ */
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_pk); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_pk); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "utils/write_noble_target.py":412
+ *             return self.initial_outline_minimum_noble_troops
+ * 
+ *         raise ValueError(             # <<<<<<<<<<<<<<
+ *             "impossible configuration: %s: %s", weight_max.pk, self.outline.pk
+ *         )
+ */
+  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 412, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_kp_u_impossible_configuration_s_s);
+  __Pyx_GIVEREF(__pyx_kp_u_impossible_configuration_s_s);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_kp_u_impossible_configuration_s_s)) __PYX_ERR(0, 412, __pyx_L1_error);
+  __Pyx_GIVEREF(__pyx_t_8);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_8)) __PYX_ERR(0, 412, __pyx_L1_error);
+  __Pyx_GIVEREF(__pyx_t_3);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_t_3)) __PYX_ERR(0, 412, __pyx_L1_error);
+  __pyx_t_8 = 0;
+  __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 412, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __PYX_ERR(0, 412, __pyx_L1_error)
+
+  /* "utils/write_noble_target.py":384
+ *         )
+ * 
+ *     def _first_off(             # <<<<<<<<<<<<<<
+ *         self, weight_max: FastWeightMaximum, off: int, noble_number: int
  *     ) -> int:
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._catapult_to_left", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._first_off", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_off_left);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":430
- *             return weight_max.catapult_left
+/* "utils/write_noble_target.py":416
+ *         )
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:
@@ -12568,15 +11205,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_30_cata
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_33_morale_query(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_25_morale_query(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_33_morale_query = {"_morale_query", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_33_morale_query, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_33_morale_query(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_25_morale_query = {"_morale_query", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_25_morale_query, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_25_morale_query(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -12620,12 +11257,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 416, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_morale_query") < 0)) __PYX_ERR(0, 430, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_morale_query") < 0)) __PYX_ERR(0, 416, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -12636,7 +11273,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_morale_query", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 430, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_morale_query", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 416, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -12650,7 +11287,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_morale_query(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_24_morale_query(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -12663,7 +11300,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":431
+/* "utils/write_noble_target.py":417
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -12724,12 +11361,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 431, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 417, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_morale") < 0)) __PYX_ERR(0, 431, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_morale") < 0)) __PYX_ERR(0, 417, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -12740,7 +11377,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("filter_morale", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 431, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("filter_morale", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 417, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -12782,7 +11419,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_13_mora
   __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_1__morale_query *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "utils/write_noble_target.py":432
+  /* "utils/write_noble_target.py":418
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:
  *             return weight_max.morale >= self.morale_on_targets_greater_than             # <<<<<<<<<<<<<<
@@ -12790,19 +11427,19 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_13_mora
  *         return filter_morale
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_morale); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 432, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_morale); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 418, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 432, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_morale_on_targets_greater_than); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 432, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 418, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_morale_on_targets_greater_than); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 418, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 432, __pyx_L1_error)
+  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 418, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":431
+  /* "utils/write_noble_target.py":417
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -12823,15 +11460,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_13_mora
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":430
- *             return weight_max.catapult_left
+/* "utils/write_noble_target.py":416
+ *         )
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:
  *             return weight_max.morale >= self.morale_on_targets_greater_than
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_morale_query(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_24_morale_query(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_1__morale_query *__pyx_cur_scope;
   PyObject *__pyx_v_filter_morale = 0;
   PyObject *__pyx_r = NULL;
@@ -12846,7 +11483,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_mora
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_1__morale_query *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 430, __pyx_L1_error)
+    __PYX_ERR(0, 416, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -12854,38 +11491,38 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_mora
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "utils/write_noble_target.py":431
+  /* "utils/write_noble_target.py":417
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             return weight_max.morale >= self.morale_on_targets_greater_than
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 417, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 431, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 431, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_13_morale_query_1filter_morale, 0, __pyx_n_s_WriteNobleTarget__morale_query_l, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 417, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 417, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_13_morale_query_1filter_morale, 0, __pyx_n_s_WriteNobleTarget__morale_query_l, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 417, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_filter_morale = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":434
+  /* "utils/write_noble_target.py":420
  *             return weight_max.morale >= self.morale_on_targets_greater_than
  * 
  *         return filter_morale             # <<<<<<<<<<<<<<
  * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:
+ *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_filter_morale);
   __pyx_r = __pyx_v_filter_morale;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":430
- *             return weight_max.catapult_left
+  /* "utils/write_noble_target.py":416
+ *         )
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:
@@ -12906,24 +11543,24 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_mora
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":436
+/* "utils/write_noble_target.py":422
  *         return filter_morale
  * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
+ *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.nobles_allowed_to_use() > 0
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_35_noble_query(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_27_minimal_noble_off(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_35_noble_query = {"_noble_query", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_35_noble_query, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_35_noble_query(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_27_minimal_noble_off = {"_minimal_noble_off", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_27_minimal_noble_off, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_27_minimal_noble_off(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -12931,350 +11568,6 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
-  #if !CYTHON_METH_FASTCALL
-  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
-  #endif
-  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[1] = {0};
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_noble_query (wrapper)", 0);
-  #if !CYTHON_METH_FASTCALL
-  #if CYTHON_ASSUME_SAFE_MACROS
-  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
-  #else
-  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
-  #endif
-  #endif
-  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
-  {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,0};
-    if (__pyx_kwds) {
-      Py_ssize_t kw_args;
-      switch (__pyx_nargs) {
-        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
-      switch (__pyx_nargs) {
-        case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_self)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 436, __pyx_L3_error)
-        else goto __pyx_L5_argtuple_error;
-      }
-      if (unlikely(kw_args > 0)) {
-        const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_noble_query") < 0)) __PYX_ERR(0, 436, __pyx_L3_error)
-      }
-    } else if (unlikely(__pyx_nargs != 1)) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-    }
-    __pyx_v_self = values[0];
-  }
-  goto __pyx_L6_skip;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_noble_query", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 436, __pyx_L3_error)
-  __pyx_L6_skip:;
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._noble_query", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_34_noble_query(__pyx_self, __pyx_v_self);
-
-  /* function exit code */
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "utils/write_noble_target.py":437
- * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_12_noble_query_1filter_noble(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_12_noble_query_1filter_noble = {"filter_noble", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_12_noble_query_1filter_noble, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_12_noble_query_1filter_noble(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-) {
-  PyObject *__pyx_v_weight_max = 0;
-  #if !CYTHON_METH_FASTCALL
-  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
-  #endif
-  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[1] = {0};
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("filter_noble (wrapper)", 0);
-  #if !CYTHON_METH_FASTCALL
-  #if CYTHON_ASSUME_SAFE_MACROS
-  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
-  #else
-  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
-  #endif
-  #endif
-  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
-  {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_weight_max,0};
-    if (__pyx_kwds) {
-      Py_ssize_t kw_args;
-      switch (__pyx_nargs) {
-        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
-      switch (__pyx_nargs) {
-        case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_weight_max)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 437, __pyx_L3_error)
-        else goto __pyx_L5_argtuple_error;
-      }
-      if (unlikely(kw_args > 0)) {
-        const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_noble") < 0)) __PYX_ERR(0, 437, __pyx_L3_error)
-      }
-    } else if (unlikely(__pyx_nargs != 1)) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-    }
-    __pyx_v_weight_max = values[0];
-  }
-  goto __pyx_L6_skip;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("filter_noble", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 437, __pyx_L3_error)
-  __pyx_L6_skip:;
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._noble_query.filter_noble", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_noble_query_filter_noble(__pyx_self, __pyx_v_weight_max);
-
-  /* function exit code */
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_12_noble_query_filter_noble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  int __pyx_t_4;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("filter_noble", 1);
-
-  /* "utils/write_noble_target.py":438
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1             # <<<<<<<<<<<<<<
- * 
- *         return filter_noble
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobleman_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_int_1, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 438, __pyx_L1_error)
-  if (__pyx_t_4) {
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  } else {
-    __Pyx_INCREF(__pyx_t_3);
-    __pyx_t_1 = __pyx_t_3;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L3_bool_binop_done;
-  }
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_limit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyObject_RichCompare(__pyx_t_3, __pyx_int_1, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_INCREF(__pyx_t_2);
-  __pyx_t_1 = __pyx_t_2;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_L3_bool_binop_done:;
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "utils/write_noble_target.py":437
- * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._noble_query.filter_noble", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "utils/write_noble_target.py":436
- *         return filter_morale
- * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
- */
-
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_34_noble_query(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
-  PyObject *__pyx_v_filter_noble = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_noble_query", 1);
-
-  /* "utils/write_noble_target.py":437
- * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
- * 
- */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 437, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 437, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 437, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_12_noble_query_1filter_noble, 0, __pyx_n_s_WriteNobleTarget__noble_query_lo, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 437, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_filter_noble = __pyx_t_2;
-  __pyx_t_2 = 0;
-
-  /* "utils/write_noble_target.py":440
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
- * 
- *         return filter_noble             # <<<<<<<<<<<<<<
- * 
- *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
- */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(__pyx_v_filter_noble);
-  __pyx_r = __pyx_v_filter_noble;
-  goto __pyx_L0;
-
-  /* "utils/write_noble_target.py":436
- *         return filter_morale
- * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._noble_query", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_filter_noble);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "utils/write_noble_target.py":442
- *         return filter_noble
- * 
- *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_37_minimal_noble_off(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_37_minimal_noble_off = {"_minimal_noble_off", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_37_minimal_noble_off, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_37_minimal_noble_off(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-) {
-  PyObject *__pyx_v_self = 0;
   #if !CYTHON_METH_FASTCALL
   CYTHON_UNUSED Py_ssize_t __pyx_nargs;
   #endif
@@ -13311,12 +11604,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 442, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 422, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_minimal_noble_off") < 0)) __PYX_ERR(0, 442, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_minimal_noble_off") < 0)) __PYX_ERR(0, 422, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -13327,7 +11620,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_minimal_noble_off", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 442, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_minimal_noble_off", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 422, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -13341,7 +11634,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_minimal_noble_off(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_minimal_noble_off(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -13354,24 +11647,24 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":443
+/* "utils/write_noble_target.py":423
  * 
  *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
+ *             return weight_max.nobles_allowed_to_use() > 0
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble_off(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble = {"filter_noble", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble_off = {"filter_noble_off", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble_off, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble_off(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -13389,7 +11682,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("filter_noble (wrapper)", 0);
+  __Pyx_RefNannySetupContext("filter_noble_off (wrapper)", 0);
   #if !CYTHON_METH_FASTCALL
   #if CYTHON_ASSUME_SAFE_MACROS
   __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
@@ -13415,12 +11708,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 443, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 423, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_noble") < 0)) __PYX_ERR(0, 443, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_noble_off") < 0)) __PYX_ERR(0, 423, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -13431,7 +11724,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("filter_noble", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 443, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("filter_noble_off", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 423, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -13441,11 +11734,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_noble_off.filter_noble", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_noble_off.filter_noble_off", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_filter_noble(__pyx_self, __pyx_v_weight_max);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_filter_noble_off(__pyx_self, __pyx_v_weight_max);
 
   /* function exit code */
   {
@@ -13458,46 +11751,61 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_filter_noble(PyObject *__pyx_self, PyObject *__pyx_v_weight_max) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *__pyx_cur_scope;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *__pyx_outer_scope;
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_filter_noble_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
+  unsigned int __pyx_t_4;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("filter_noble", 1);
-  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *) __Pyx_CyFunction_GetClosure(__pyx_self);
-  __pyx_cur_scope = __pyx_outer_scope;
+  __Pyx_RefNannySetupContext("filter_noble_off", 1);
 
-  /* "utils/write_noble_target.py":444
+  /* "utils/write_noble_target.py":424
  *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops             # <<<<<<<<<<<<<<
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.nobles_allowed_to_use() > 0             # <<<<<<<<<<<<<<
  * 
- *         return filter_noble
+ *         return filter_noble_off
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_off_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 444, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 444, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_initial_outline_minimum_noble_tr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 444, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_nobles_allowed_to_use); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 444, __pyx_L1_error)
+  __pyx_t_3 = NULL;
+  __pyx_t_4 = 0;
+  #if CYTHON_UNPACK_METHODS
+  if (likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_3;
-  __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":443
+  /* "utils/write_noble_target.py":423
  * 
  *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
+ *             return weight_max.nobles_allowed_to_use() > 0
  * 
  */
 
@@ -13506,7 +11814,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mini
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_noble_off.filter_noble", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_noble_off.filter_noble_off", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -13514,17 +11822,16 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_18_mini
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":442
- *         return filter_noble
+/* "utils/write_noble_target.py":422
+ *         return filter_morale
  * 
  *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.nobles_allowed_to_use() > 0
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_minimal_noble_off(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *__pyx_cur_scope;
-  PyObject *__pyx_v_filter_noble = 0;
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_minimal_noble_off(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+  PyObject *__pyx_v_filter_noble_off = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -13532,55 +11839,44 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_mini
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_minimal_noble_off", 0);
-  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off, __pyx_empty_tuple, NULL);
-  if (unlikely(!__pyx_cur_scope)) {
-    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *)Py_None);
-    __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 442, __pyx_L1_error)
-  } else {
-    __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
-  }
-  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
-  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
-  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
+  __Pyx_RefNannySetupContext("_minimal_noble_off", 1);
 
-  /* "utils/write_noble_target.py":443
+  /* "utils/write_noble_target.py":423
  * 
  *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
+ *             return weight_max.nobles_allowed_to_use() > 0
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 443, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 443, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 443, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble, 0, __pyx_n_s_WriteNobleTarget__minimal_noble, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 443, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 423, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_18_minimal_noble_off_1filter_noble_off, 0, __pyx_n_s_WriteNobleTarget__minimal_noble, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_filter_noble = __pyx_t_2;
+  __pyx_v_filter_noble_off = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":446
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+  /* "utils/write_noble_target.py":426
+ *             return weight_max.nobles_allowed_to_use() > 0
  * 
- *         return filter_noble             # <<<<<<<<<<<<<<
+ *         return filter_noble_off             # <<<<<<<<<<<<<<
  * 
- *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(__pyx_v_filter_noble);
-  __pyx_r = __pyx_v_filter_noble;
+  __Pyx_INCREF(__pyx_v_filter_noble_off);
+  __pyx_r = __pyx_v_filter_noble_off;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":442
- *         return filter_noble
+  /* "utils/write_noble_target.py":422
+ *         return filter_morale
  * 
  *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.nobles_allowed_to_use() > 0
  */
 
   /* function exit code */
@@ -13590,15 +11886,363 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_mini
   __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_noble_off", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_filter_noble);
-  __Pyx_DECREF((PyObject *)__pyx_cur_scope);
+  __Pyx_XDECREF(__pyx_v_filter_noble_off);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":448
- *         return filter_noble
+/* "utils/write_noble_target.py":428
+ *         return filter_noble_off
+ * 
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_29_minimal_fake_noble_off(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_29_minimal_fake_noble_off = {"_minimal_fake_noble_off", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_29_minimal_fake_noble_off, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_29_minimal_fake_noble_off(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  CYTHON_UNUSED PyObject *__pyx_v_self = 0;
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject* values[1] = {0};
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("_minimal_fake_noble_off (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_MACROS
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  {
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,0};
+    if (__pyx_kwds) {
+      Py_ssize_t kw_args;
+      switch (__pyx_nargs) {
+        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
+      switch (__pyx_nargs) {
+        case  0:
+        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_self)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 428, __pyx_L3_error)
+        else goto __pyx_L5_argtuple_error;
+      }
+      if (unlikely(kw_args > 0)) {
+        const Py_ssize_t kwd_pos_args = __pyx_nargs;
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_minimal_fake_noble_off") < 0)) __PYX_ERR(0, 428, __pyx_L3_error)
+      }
+    } else if (unlikely(__pyx_nargs != 1)) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+    }
+    __pyx_v_self = values[0];
+  }
+  goto __pyx_L6_skip;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("_minimal_fake_noble_off", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 428, __pyx_L3_error)
+  __pyx_L6_skip:;
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  {
+    Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
+    }
+  }
+  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_fake_noble_off", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_minimal_fake_noble_off(__pyx_self, __pyx_v_self);
+
+  /* function exit code */
+  {
+    Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
+    }
+  }
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "utils/write_noble_target.py":429
+ * 
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_23_minimal_fake_noble_off_1filter_fake_noble(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_23_minimal_fake_noble_off_1filter_fake_noble = {"filter_fake_noble", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_23_minimal_fake_noble_off_1filter_fake_noble, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_23_minimal_fake_noble_off_1filter_fake_noble(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  PyObject *__pyx_v_weight_max = 0;
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject* values[1] = {0};
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("filter_fake_noble (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_MACROS
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  {
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_weight_max,0};
+    if (__pyx_kwds) {
+      Py_ssize_t kw_args;
+      switch (__pyx_nargs) {
+        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
+      switch (__pyx_nargs) {
+        case  0:
+        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_weight_max)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 429, __pyx_L3_error)
+        else goto __pyx_L5_argtuple_error;
+      }
+      if (unlikely(kw_args > 0)) {
+        const Py_ssize_t kwd_pos_args = __pyx_nargs;
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_fake_noble") < 0)) __PYX_ERR(0, 429, __pyx_L3_error)
+      }
+    } else if (unlikely(__pyx_nargs != 1)) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+    }
+    __pyx_v_weight_max = values[0];
+  }
+  goto __pyx_L6_skip;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("filter_fake_noble", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 429, __pyx_L3_error)
+  __pyx_L6_skip:;
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  {
+    Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
+    }
+  }
+  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_fake_noble_off.filter_fake_noble", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_minimal_fake_noble_off_filter_fake_noble(__pyx_self, __pyx_v_weight_max);
+
+  /* function exit code */
+  {
+    Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
+    }
+  }
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_minimal_fake_noble_off_filter_fake_noble(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_weight_max) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  unsigned int __pyx_t_4;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("filter_fake_noble", 1);
+
+  /* "utils/write_noble_target.py":430
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.fake_nobles_allowed_to_use() > 0             # <<<<<<<<<<<<<<
+ * 
+ *         return filter_fake_noble
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_fake_nobles_allowed_to_use); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 430, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  __pyx_t_4 = 0;
+  #if CYTHON_UNPACK_METHODS
+  if (likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 430, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 430, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "utils/write_noble_target.py":429
+ * 
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_fake_noble_off.filter_fake_noble", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "utils/write_noble_target.py":428
+ *         return filter_noble_off
+ * 
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ */
+
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_28_minimal_fake_noble_off(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+  PyObject *__pyx_v_filter_fake_noble = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("_minimal_fake_noble_off", 1);
+
+  /* "utils/write_noble_target.py":429
+ * 
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 429, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 429, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_23_minimal_fake_noble_off_1filter_fake_noble, 0, __pyx_n_s_WriteNobleTarget__minimal_fake_n, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 429, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_filter_fake_noble = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "utils/write_noble_target.py":432
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ * 
+ *         return filter_fake_noble             # <<<<<<<<<<<<<<
+ * 
+ *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_filter_fake_noble);
+  __pyx_r = __pyx_v_filter_fake_noble;
+  goto __pyx_L0;
+
+  /* "utils/write_noble_target.py":428
+ *         return filter_noble_off
+ * 
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("utils.write_noble_target.WriteNobleTarget._minimal_fake_noble_off", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_filter_fake_noble);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "utils/write_noble_target.py":434
+ *         return filter_fake_noble
  * 
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         if self.casual_attack_block_ratio is None:
@@ -13606,15 +12250,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_mini
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_39_casual_attack_block_ratio(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_31_casual_attack_block_ratio(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_39_casual_attack_block_ratio = {"_casual_attack_block_ratio", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_39_casual_attack_block_ratio, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_39_casual_attack_block_ratio(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_31_casual_attack_block_ratio = {"_casual_attack_block_ratio", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_31_casual_attack_block_ratio, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_31_casual_attack_block_ratio(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -13658,12 +12302,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 448, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 434, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_casual_attack_block_ratio") < 0)) __PYX_ERR(0, 448, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_casual_attack_block_ratio") < 0)) __PYX_ERR(0, 434, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -13674,7 +12318,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_casual_attack_block_ratio", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 448, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_casual_attack_block_ratio", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 434, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -13688,7 +12332,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casual_attack_block_ratio(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_30_casual_attack_block_ratio(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -13701,7 +12345,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":453
+/* "utils/write_noble_target.py":439
  *         world_ratio = (100 + self.casual_attack_block_ratio) / 100
  * 
  *         def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -13762,12 +12406,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 453, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 439, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_casual_attack_block_ratio") < 0)) __PYX_ERR(0, 453, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_casual_attack_block_ratio") < 0)) __PYX_ERR(0, 439, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -13778,7 +12422,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("filter_casual_attack_block_ratio", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 453, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("filter_casual_attack_block_ratio", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 439, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -13806,8 +12450,8 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casual_attack_block_ratio_filter_casual_attack_block_ratio(PyObject *__pyx_self, PyObject *__pyx_v_weight_max) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *__pyx_cur_scope;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *__pyx_outer_scope;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *__pyx_cur_scope;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *__pyx_outer_scope;
   PyObject *__pyx_v_smaller_points = NULL;
   PyObject *__pyx_v_bigger_points = NULL;
   PyObject *__pyx_v_max_possible = NULL;
@@ -13823,27 +12467,27 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casu
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("filter_casual_attack_block_ratio", 1);
-  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "utils/write_noble_target.py":454
+  /* "utils/write_noble_target.py":440
  * 
  *         def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:
  *             if self.target.player == "":             # <<<<<<<<<<<<<<
  *                 # special case barbarians
  *                 return True
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 454, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 440, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_player); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_player); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_kp_u__12, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 454, __pyx_L1_error)
+  __pyx_t_3 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_kp_u__12, Py_EQ)); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "utils/write_noble_target.py":456
+    /* "utils/write_noble_target.py":442
  *             if self.target.player == "":
  *                 # special case barbarians
  *                 return True             # <<<<<<<<<<<<<<
@@ -13855,7 +12499,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casu
     __pyx_r = Py_True;
     goto __pyx_L0;
 
-    /* "utils/write_noble_target.py":454
+    /* "utils/write_noble_target.py":440
  * 
  *         def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:
  *             if self.target.player == "":             # <<<<<<<<<<<<<<
@@ -13864,23 +12508,23 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casu
  */
   }
 
-  /* "utils/write_noble_target.py":457
+  /* "utils/write_noble_target.py":443
  *                 # special case barbarians
  *                 return True
  *             smaller_points = min(weight_max.points, self.target.points)             # <<<<<<<<<<<<<<
  *             bigger_points = max(weight_max.points, self.target.points)
  *             max_possible = math.floor(world_ratio * smaller_points)
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 457, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 443, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 443, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_points); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 457, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_points); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 443, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_points); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_points); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 443, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 457, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 457, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 443, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 443, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_3) {
     __Pyx_INCREF(__pyx_t_1);
@@ -13897,23 +12541,23 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casu
   __pyx_v_smaller_points = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":458
+  /* "utils/write_noble_target.py":444
  *                 return True
  *             smaller_points = min(weight_max.points, self.target.points)
  *             bigger_points = max(weight_max.points, self.target.points)             # <<<<<<<<<<<<<<
  *             max_possible = math.floor(world_ratio * smaller_points)
  *             return bigger_points <= max_possible
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 458, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 444, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_points); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_points); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_points); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_points); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_1, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 458, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_1, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 444, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_3) {
     __Pyx_INCREF(__pyx_t_4);
@@ -13930,20 +12574,20 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casu
   __pyx_v_bigger_points = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":459
+  /* "utils/write_noble_target.py":445
  *             smaller_points = min(weight_max.points, self.target.points)
  *             bigger_points = max(weight_max.points, self.target.points)
  *             max_possible = math.floor(world_ratio * smaller_points)             # <<<<<<<<<<<<<<
  *             return bigger_points <= max_possible
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_math); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 459, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_math); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_floor); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 459, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_floor); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_cur_scope->__pyx_v_world_ratio)) { __Pyx_RaiseClosureNameError("world_ratio"); __PYX_ERR(0, 459, __pyx_L1_error) }
-  __pyx_t_2 = PyNumber_Multiply(__pyx_cur_scope->__pyx_v_world_ratio, __pyx_v_smaller_points); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 459, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_world_ratio)) { __Pyx_RaiseClosureNameError("world_ratio"); __PYX_ERR(0, 445, __pyx_L1_error) }
+  __pyx_t_2 = PyNumber_Multiply(__pyx_cur_scope->__pyx_v_world_ratio, __pyx_v_smaller_points); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -13964,14 +12608,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casu
     __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 459, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 445, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __pyx_v_max_possible = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":460
+  /* "utils/write_noble_target.py":446
  *             bigger_points = max(weight_max.points, self.target.points)
  *             max_possible = math.floor(world_ratio * smaller_points)
  *             return bigger_points <= max_possible             # <<<<<<<<<<<<<<
@@ -13979,12 +12623,12 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casu
  *         return filter_casual_attack_block_ratio
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_v_bigger_points, __pyx_v_max_possible, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 460, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_v_bigger_points, __pyx_v_max_possible, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 446, __pyx_L1_error)
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":453
+  /* "utils/write_noble_target.py":439
  *         world_ratio = (100 + self.casual_attack_block_ratio) / 100
  * 
  *         def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -14009,16 +12653,16 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_26_casu
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":448
- *         return filter_noble
+/* "utils/write_noble_target.py":434
+ *         return filter_fake_noble
  * 
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         if self.casual_attack_block_ratio is None:
  *             raise RuntimeError("expected world casual_attack_block_ratio to be int")
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casual_attack_block_ratio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *__pyx_cur_scope;
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_30_casual_attack_block_ratio(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *__pyx_cur_scope;
   PyObject *__pyx_v_filter_casual_attack_block_ratio = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -14029,11 +12673,11 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casu
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_casual_attack_block_ratio", 0);
-  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
-    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *)Py_None);
+    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 448, __pyx_L1_error)
+    __PYX_ERR(0, 434, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -14041,33 +12685,33 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casu
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "utils/write_noble_target.py":449
+  /* "utils/write_noble_target.py":435
  * 
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
  *         if self.casual_attack_block_ratio is None:             # <<<<<<<<<<<<<<
  *             raise RuntimeError("expected world casual_attack_block_ratio to be int")
  *         world_ratio = (100 + self.casual_attack_block_ratio) / 100
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_casual_attack_block_ratio); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 449, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_casual_attack_block_ratio); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 435, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = (__pyx_t_1 == Py_None);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (unlikely(__pyx_t_2)) {
 
-    /* "utils/write_noble_target.py":450
+    /* "utils/write_noble_target.py":436
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
  *         if self.casual_attack_block_ratio is None:
  *             raise RuntimeError("expected world casual_attack_block_ratio to be int")             # <<<<<<<<<<<<<<
  *         world_ratio = (100 + self.casual_attack_block_ratio) / 100
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 450, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 436, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 450, __pyx_L1_error)
+    __PYX_ERR(0, 436, __pyx_L1_error)
 
-    /* "utils/write_noble_target.py":449
+    /* "utils/write_noble_target.py":435
  * 
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
  *         if self.casual_attack_block_ratio is None:             # <<<<<<<<<<<<<<
@@ -14076,44 +12720,44 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casu
  */
   }
 
-  /* "utils/write_noble_target.py":451
+  /* "utils/write_noble_target.py":437
  *         if self.casual_attack_block_ratio is None:
  *             raise RuntimeError("expected world casual_attack_block_ratio to be int")
  *         world_ratio = (100 + self.casual_attack_block_ratio) / 100             # <<<<<<<<<<<<<<
  * 
  *         def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_casual_attack_block_ratio); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 451, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_casual_attack_block_ratio); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyInt_AddCObj(__pyx_int_100, __pyx_t_1, 0x64, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 451, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_AddCObj(__pyx_int_100, __pyx_t_1, 0x64, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_TrueDivideObjC(__pyx_t_3, __pyx_int_100, 0x64, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 451, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_TrueDivideObjC(__pyx_t_3, __pyx_int_100, 0x64, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_world_ratio = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":453
+  /* "utils/write_noble_target.py":439
  *         world_ratio = (100 + self.casual_attack_block_ratio) / 100
  * 
  *         def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             if self.target.player == "":
  *                 # special case barbarians
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 453, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 453, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_26_casual_attack_block_ratio_1filter_casual_attack_block_ratio, 0, __pyx_n_s_WriteNobleTarget__casual_attack, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 453, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 439, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 439, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_26_casual_attack_block_ratio_1filter_casual_attack_block_ratio, 0, __pyx_n_s_WriteNobleTarget__casual_attack, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_filter_casual_attack_block_ratio = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":462
+  /* "utils/write_noble_target.py":448
  *             return bigger_points <= max_possible
  * 
  *         return filter_casual_attack_block_ratio             # <<<<<<<<<<<<<<
@@ -14125,8 +12769,8 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casu
   __pyx_r = __pyx_v_filter_casual_attack_block_ratio;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":448
- *         return filter_noble
+  /* "utils/write_noble_target.py":434
+ *         return filter_fake_noble
  * 
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         if self.casual_attack_block_ratio is None:
@@ -14147,7 +12791,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casu
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":464
+/* "utils/write_noble_target.py":450
  *         return filter_casual_attack_block_ratio
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -14156,15 +12800,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_casu
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_41_get_filtered_weight_max_list(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_33_get_filtered_weight_max_list(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_41_get_filtered_weight_max_list = {"_get_filtered_weight_max_list", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_41_get_filtered_weight_max_list, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_41_get_filtered_weight_max_list(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_33_get_filtered_weight_max_list = {"_get_filtered_weight_max_list", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_33_get_filtered_weight_max_list, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_33_get_filtered_weight_max_list(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -14208,12 +12852,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 464, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 450, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_get_filtered_weight_max_list") < 0)) __PYX_ERR(0, 464, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_get_filtered_weight_max_list") < 0)) __PYX_ERR(0, 450, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -14224,7 +12868,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_get_filtered_weight_max_list", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 464, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_get_filtered_weight_max_list", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 450, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -14238,7 +12882,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_filtered_weight_max_list(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_get_filtered_weight_max_list(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -14251,7 +12895,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":465
+/* "utils/write_noble_target.py":451
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -14312,12 +12956,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 465, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 451, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_func") < 0)) __PYX_ERR(0, 465, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_func") < 0)) __PYX_ERR(0, 451, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -14328,7 +12972,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("filter_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 465, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("filter_func", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 451, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -14356,8 +13000,8 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_filtered_weight_max_list_filter_func(PyObject *__pyx_self, PyObject *__pyx_v_weight_max) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *__pyx_cur_scope;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *__pyx_outer_scope;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *__pyx_cur_scope;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *__pyx_outer_scope;
   PyObject *__pyx_v_filter_func = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -14374,27 +13018,27 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("filter_func", 1);
-  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "utils/write_noble_target.py":466
+  /* "utils/write_noble_target.py":452
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:
  *             for filter_func in self.filters:             # <<<<<<<<<<<<<<
  *                 if not filter_func(weight_max):
  *                     return False
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 466, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 466, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 452, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_filters); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2);
     __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 452, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 466, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 452, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -14403,28 +13047,28 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 466, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 452, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 452, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 452, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         {
           Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 466, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 452, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 452, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 452, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -14434,7 +13078,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 466, __pyx_L1_error)
+          else __PYX_ERR(0, 452, __pyx_L1_error)
         }
         break;
       }
@@ -14443,7 +13087,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
     __Pyx_XDECREF_SET(__pyx_v_filter_func, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "utils/write_noble_target.py":467
+    /* "utils/write_noble_target.py":453
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:
  *             for filter_func in self.filters:
  *                 if not filter_func(weight_max):             # <<<<<<<<<<<<<<
@@ -14469,16 +13113,16 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
       PyObject *__pyx_callargs[2] = {__pyx_t_6, __pyx_v_weight_max};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_7, 1+__pyx_t_7);
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 467, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 453, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
-    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 467, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 453, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_9 = (!__pyx_t_8);
     if (__pyx_t_9) {
 
-      /* "utils/write_noble_target.py":468
+      /* "utils/write_noble_target.py":454
  *             for filter_func in self.filters:
  *                 if not filter_func(weight_max):
  *                     return False             # <<<<<<<<<<<<<<
@@ -14491,7 +13135,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       goto __pyx_L0;
 
-      /* "utils/write_noble_target.py":467
+      /* "utils/write_noble_target.py":453
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:
  *             for filter_func in self.filters:
  *                 if not filter_func(weight_max):             # <<<<<<<<<<<<<<
@@ -14500,7 +13144,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
  */
     }
 
-    /* "utils/write_noble_target.py":466
+    /* "utils/write_noble_target.py":452
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:
  *             for filter_func in self.filters:             # <<<<<<<<<<<<<<
@@ -14510,7 +13154,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":469
+  /* "utils/write_noble_target.py":455
  *                 if not filter_func(weight_max):
  *                     return False
  *             return True             # <<<<<<<<<<<<<<
@@ -14522,7 +13166,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
   __pyx_r = Py_True;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":465
+  /* "utils/write_noble_target.py":451
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -14545,7 +13189,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":464
+/* "utils/write_noble_target.py":450
  *         return filter_casual_attack_block_ratio
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -14553,8 +13197,8 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_get_
  *             for filter_func in self.filters:
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_filtered_weight_max_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *__pyx_cur_scope;
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_32_get_filtered_weight_max_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *__pyx_cur_scope;
   PyObject *__pyx_v_filter_func = 0;
   PyObject *__pyx_7genexpr__pyx_v_weight = NULL;
   PyObject *__pyx_r = NULL;
@@ -14570,11 +13214,11 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_get_filtered_weight_max_list", 0);
-  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
-    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *)Py_None);
+    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 464, __pyx_L1_error)
+    __PYX_ERR(0, 450, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -14582,25 +13226,25 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "utils/write_noble_target.py":465
+  /* "utils/write_noble_target.py":451
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             for filter_func in self.filters:
  *                 if not filter_func(weight_max):
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 465, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_29_get_filtered_weight_max_list_1filter_func, 0, __pyx_n_s_WriteNobleTarget__get_filtered_w, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 465, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 451, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 451, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_29_get_filtered_weight_max_list_1filter_func, 0, __pyx_n_s_WriteNobleTarget__get_filtered_w, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_filter_func = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":471
+  /* "utils/write_noble_target.py":457
  *             return True
  * 
  *         return [             # <<<<<<<<<<<<<<
@@ -14609,26 +13253,26 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
  */
   __Pyx_XDECREF(__pyx_r);
   { /* enter inner scope */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 471, __pyx_L5_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L5_error)
     __Pyx_GOTREF(__pyx_t_2);
 
-    /* "utils/write_noble_target.py":472
+    /* "utils/write_noble_target.py":458
  * 
  *         return [
  *             weight for weight in self.weight_max_list if filter_func(weight_max=weight)             # <<<<<<<<<<<<<<
  *         ]
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_weight_max_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 472, __pyx_L5_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_weight_max_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L5_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
       __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3);
       __pyx_t_4 = 0;
       __pyx_t_5 = NULL;
     } else {
-      __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 472, __pyx_L5_error)
+      __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 458, __pyx_L5_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_5 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 472, __pyx_L5_error)
+      __pyx_t_5 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 458, __pyx_L5_error)
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     for (;;) {
@@ -14637,28 +13281,28 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
           {
             Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 472, __pyx_L5_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 458, __pyx_L5_error)
             #endif
             if (__pyx_t_4 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 472, __pyx_L5_error)
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 458, __pyx_L5_error)
           #else
-          __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 472, __pyx_L5_error)
+          __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         } else {
           {
             Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_3);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 472, __pyx_L5_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 458, __pyx_L5_error)
             #endif
             if (__pyx_t_4 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 472, __pyx_L5_error)
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely((0 < 0))) __PYX_ERR(0, 458, __pyx_L5_error)
           #else
-          __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 472, __pyx_L5_error)
+          __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         }
@@ -14668,7 +13312,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 472, __pyx_L5_error)
+            else __PYX_ERR(0, 458, __pyx_L5_error)
           }
           break;
         }
@@ -14676,16 +13320,16 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
       }
       __Pyx_XDECREF_SET(__pyx_7genexpr__pyx_v_weight, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 472, __pyx_L5_error)
+      __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L5_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_7genexpr__pyx_v_weight) < 0) __PYX_ERR(0, 472, __pyx_L5_error)
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_v_filter_func, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 472, __pyx_L5_error)
+      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_7genexpr__pyx_v_weight) < 0) __PYX_ERR(0, 458, __pyx_L5_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_v_filter_func, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L5_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 472, __pyx_L5_error)
+      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 458, __pyx_L5_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       if (__pyx_t_7) {
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_7genexpr__pyx_v_weight))) __PYX_ERR(0, 471, __pyx_L5_error)
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_7genexpr__pyx_v_weight))) __PYX_ERR(0, 457, __pyx_L5_error)
       }
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -14700,7 +13344,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":464
+  /* "utils/write_noble_target.py":450
  *         return filter_casual_attack_block_ratio
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -14725,7 +13369,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":475
+/* "utils/write_noble_target.py":461
  *         ]
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
@@ -14734,15 +13378,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_get_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_43_only_closer_than_target_dist(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_35_only_closer_than_target_dist(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_43_only_closer_than_target_dist = {"_only_closer_than_target_dist", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_43_only_closer_than_target_dist, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_43_only_closer_than_target_dist(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_35_only_closer_than_target_dist = {"_only_closer_than_target_dist", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_35_only_closer_than_target_dist, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_35_only_closer_than_target_dist(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -14786,12 +13430,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 461, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_only_closer_than_target_dist") < 0)) __PYX_ERR(0, 475, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_only_closer_than_target_dist") < 0)) __PYX_ERR(0, 461, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -14802,7 +13446,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_only_closer_than_target_dist", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 475, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_only_closer_than_target_dist", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 461, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -14816,7 +13460,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_only_closer_than_target_dist(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_34_only_closer_than_target_dist(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -14829,7 +13473,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":476
+/* "utils/write_noble_target.py":462
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -14890,12 +13534,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 476, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 462, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_close_than_target_dist") < 0)) __PYX_ERR(0, 476, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_close_than_target_dist") < 0)) __PYX_ERR(0, 462, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -14906,7 +13550,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("filter_close_than_target_dist", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 476, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("filter_close_than_target_dist", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 462, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -14934,8 +13578,8 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_only_closer_than_target_dist_filter_close_than_target_dist(PyObject *__pyx_self, PyObject *__pyx_v_weight_max) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *__pyx_cur_scope;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *__pyx_outer_scope;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *__pyx_cur_scope;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *__pyx_outer_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -14945,10 +13589,10 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_only
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("filter_close_than_target_dist", 1);
-  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "utils/write_noble_target.py":477
+  /* "utils/write_noble_target.py":463
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:
  *             return weight_max.distance <= self.initial_outline_target_dist             # <<<<<<<<<<<<<<
@@ -14956,19 +13600,19 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_only
  *         return filter_close_than_target_dist
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 477, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 477, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_initial_outline_target_dist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 477, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 463, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_initial_outline_target_dist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 477, __pyx_L1_error)
+  __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":476
+  /* "utils/write_noble_target.py":462
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -14989,7 +13633,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_only
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":475
+/* "utils/write_noble_target.py":461
  *         ]
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
@@ -14997,8 +13641,8 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_29_only
  *             return weight_max.distance <= self.initial_outline_target_dist
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_only_closer_than_target_dist(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *__pyx_cur_scope;
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_34_only_closer_than_target_dist(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *__pyx_cur_scope;
   PyObject *__pyx_v_filter_close_than_target_dist = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -15008,11 +13652,11 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_only
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_only_closer_than_target_dist", 0);
-  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
-    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *)Py_None);
+    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 475, __pyx_L1_error)
+    __PYX_ERR(0, 461, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -15020,25 +13664,25 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_only
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "utils/write_noble_target.py":476
+  /* "utils/write_noble_target.py":462
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             return weight_max.distance <= self.initial_outline_target_dist
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 476, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 462, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 476, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 476, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_29_only_closer_than_target_dist_1filter_close_than_target_dist, 0, __pyx_n_s_WriteNobleTarget__only_closer_th, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 476, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 462, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 462, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_29_only_closer_than_target_dist_1filter_close_than_target_dist, 0, __pyx_n_s_WriteNobleTarget__only_closer_th, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 462, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_filter_close_than_target_dist = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":479
+  /* "utils/write_noble_target.py":465
  *             return weight_max.distance <= self.initial_outline_target_dist
  * 
  *         return filter_close_than_target_dist             # <<<<<<<<<<<<<<
@@ -15050,7 +13694,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_only
   __pyx_r = __pyx_v_filter_close_than_target_dist;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":475
+  /* "utils/write_noble_target.py":461
  *         ]
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
@@ -15072,7 +13716,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_only
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":481
+/* "utils/write_noble_target.py":467
  *         return filter_close_than_target_dist
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
@@ -15081,15 +13725,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_only
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_45_first_line_false_query(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_37_first_line_false_query(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_45_first_line_false_query = {"_first_line_false_query", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_45_first_line_false_query, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_45_first_line_false_query(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_37_first_line_false_query = {"_first_line_false_query", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_37_first_line_false_query, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_37_first_line_false_query(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -15133,12 +13777,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 481, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 467, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_first_line_false_query") < 0)) __PYX_ERR(0, 481, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_first_line_false_query") < 0)) __PYX_ERR(0, 467, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -15149,7 +13793,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_first_line_false_query", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 481, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_first_line_false_query", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 467, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -15163,7 +13807,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_first_line_false_query(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_first_line_false_query(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -15176,7 +13820,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":482
+/* "utils/write_noble_target.py":468
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -15237,12 +13881,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 482, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 468, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_first_line_false") < 0)) __PYX_ERR(0, 482, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "filter_first_line_false") < 0)) __PYX_ERR(0, 468, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -15253,7 +13897,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("filter_first_line_false", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 482, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("filter_first_line_false", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 468, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -15281,8 +13925,8 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 
 static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_first_line_false_query_filter_first_line_false(PyObject *__pyx_self, PyObject *__pyx_v_weight_max) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *__pyx_cur_scope;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *__pyx_outer_scope;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *__pyx_cur_scope;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *__pyx_outer_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -15295,10 +13939,10 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_firs
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("filter_first_line_false", 1);
-  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_outer_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "utils/write_noble_target.py":483
+  /* "utils/write_noble_target.py":469
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:
  *             return (             # <<<<<<<<<<<<<<
@@ -15307,40 +13951,40 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_firs
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "utils/write_noble_target.py":484
+  /* "utils/write_noble_target.py":470
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:
  *             return (
  *                 not weight_max.first_line             # <<<<<<<<<<<<<<
  *                 and weight_max.distance >= self.initial_outline_front_dist
  *             )
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_first_line); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 484, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_first_line); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 470, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 484, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 470, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = (!__pyx_t_3);
   if (__pyx_t_4) {
   } else {
-    __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 484, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 470, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_1 = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L3_bool_binop_done;
   }
 
-  /* "utils/write_noble_target.py":485
+  /* "utils/write_noble_target.py":471
  *             return (
  *                 not weight_max.first_line
  *                 and weight_max.distance >= self.initial_outline_front_dist             # <<<<<<<<<<<<<<
  *             )
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_distance); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 471, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 485, __pyx_L1_error) }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_initial_outline_front_dist); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 485, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 471, __pyx_L1_error) }
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_initial_outline_front_dist); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 471, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __pyx_t_6 = PyObject_RichCompare(__pyx_t_2, __pyx_t_5, Py_GE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 471, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_INCREF(__pyx_t_6);
@@ -15351,7 +13995,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_firs
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":482
+  /* "utils/write_noble_target.py":468
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
@@ -15373,7 +14017,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_firs
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":481
+/* "utils/write_noble_target.py":467
  *         return filter_close_than_target_dist
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
@@ -15381,8 +14025,8 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_23_firs
  *             return (
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_first_line_false_query(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *__pyx_cur_scope;
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_36_first_line_false_query(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *__pyx_cur_scope;
   PyObject *__pyx_v_filter_first_line_false = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -15392,11 +14036,11 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_firs
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_first_line_false_query", 0);
-  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
-    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *)Py_None);
+    __pyx_cur_scope = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 481, __pyx_L1_error)
+    __PYX_ERR(0, 467, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -15404,25 +14048,25 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_firs
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "utils/write_noble_target.py":482
+  /* "utils/write_noble_target.py":468
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             return (
  *                 not weight_max.first_line
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 482, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 468, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 482, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 482, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_23_first_line_false_query_1filter_first_line_false, 0, __pyx_n_s_WriteNobleTarget__first_line_fal, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 482, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 468, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_return, __pyx_n_s_bool) < 0) __PYX_ERR(0, 468, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_23_first_line_false_query_1filter_first_line_false, 0, __pyx_n_s_WriteNobleTarget__first_line_fal, ((PyObject*)__pyx_cur_scope), __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 468, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_filter_first_line_false = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":488
+  /* "utils/write_noble_target.py":474
  *             )
  * 
  *         return filter_first_line_false             # <<<<<<<<<<<<<<
@@ -15434,7 +14078,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_firs
   __pyx_r = __pyx_v_filter_first_line_false;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":481
+  /* "utils/write_noble_target.py":467
  *         return filter_close_than_target_dist
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
@@ -15456,7 +14100,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_firs
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":490
+/* "utils/write_noble_target.py":476
  *         return filter_first_line_false
  * 
  *     def _closest_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -15465,15 +14109,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_firs
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_47_closest_weight_lst(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_39_closest_weight_lst(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_47_closest_weight_lst = {"_closest_weight_lst", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_47_closest_weight_lst, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_47_closest_weight_lst(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_39_closest_weight_lst = {"_closest_weight_lst", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_39_closest_weight_lst, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_39_closest_weight_lst(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -15517,12 +14161,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 490, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 476, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_closest_weight_lst") < 0)) __PYX_ERR(0, 490, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_closest_weight_lst") < 0)) __PYX_ERR(0, 476, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -15533,7 +14177,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_closest_weight_lst", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 490, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_closest_weight_lst", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 476, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -15547,7 +14191,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_46_closest_weight_lst(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_closest_weight_lst(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -15560,7 +14204,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":492
+/* "utils/write_noble_target.py":478
  *     def _closest_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)             # <<<<<<<<<<<<<<
@@ -15621,12 +14265,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 492, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 478, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda") < 0)) __PYX_ERR(0, 492, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda") < 0)) __PYX_ERR(0, 478, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -15637,7 +14281,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lambda", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 492, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lambda", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 478, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -15673,7 +14317,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("lambda", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15690,7 +14334,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self,
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":490
+/* "utils/write_noble_target.py":476
  *         return filter_first_line_false
  * 
  *     def _closest_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -15698,7 +14342,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self,
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_46_closest_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_38_closest_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_filtered_weight_max = NULL;
   PyObject *__pyx_v_weight_list = 0;
   PyObject *__pyx_r = NULL;
@@ -15712,14 +14356,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_46_clos
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_closest_weight_lst", 1);
 
-  /* "utils/write_noble_target.py":491
+  /* "utils/write_noble_target.py":477
  * 
  *     def _closest_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()             # <<<<<<<<<<<<<<
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 477, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -15739,48 +14383,48 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_46_clos
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 491, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 477, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_filtered_weight_max = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":492
+  /* "utils/write_noble_target.py":478
  *     def _closest_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)             # <<<<<<<<<<<<<<
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_filtered_weight_max, __pyx_n_s_sort); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_filtered_weight_max, __pyx_n_s_sort); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_19_closest_weight_lst_lambda, 0, __pyx_n_s_WriteNobleTarget__closest_weight, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_19_closest_weight_lst_lambda, 0, __pyx_n_s_WriteNobleTarget__closest_weight, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_3) < 0) __PYX_ERR(0, 492, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_3) < 0) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":494
+  /* "utils/write_noble_target.py":480
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]             # <<<<<<<<<<<<<<
  *         return weight_list
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_filtered_weight_max, 0, 15, NULL, NULL, &__pyx_slice__20, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 494, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_filtered_weight_max, 0, 15, NULL, NULL, &__pyx_slice__20, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 480, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 494, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 480, __pyx_L1_error)
   __pyx_v_weight_list = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":495
+  /* "utils/write_noble_target.py":481
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
  *         return weight_list             # <<<<<<<<<<<<<<
@@ -15792,7 +14436,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_46_clos
   __pyx_r = __pyx_v_weight_list;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":490
+  /* "utils/write_noble_target.py":476
  *         return filter_first_line_false
  * 
  *     def _closest_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -15815,7 +14459,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_46_clos
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":497
+/* "utils/write_noble_target.py":483
  *         return weight_list
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -15824,15 +14468,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_46_clos
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_49_close_weight_lst(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_41_close_weight_lst(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_49_close_weight_lst = {"_close_weight_lst", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_49_close_weight_lst, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_49_close_weight_lst(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_41_close_weight_lst = {"_close_weight_lst", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_41_close_weight_lst, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_41_close_weight_lst(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -15876,12 +14520,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 497, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 483, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_close_weight_lst") < 0)) __PYX_ERR(0, 497, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_close_weight_lst") < 0)) __PYX_ERR(0, 483, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -15892,7 +14536,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_close_weight_lst", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 497, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_close_weight_lst", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 483, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -15906,7 +14550,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_48_close_weight_lst(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_close_weight_lst(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -15919,7 +14563,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":499
+/* "utils/write_noble_target.py":485
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)             # <<<<<<<<<<<<<<
@@ -15980,12 +14624,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 499, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 485, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda1") < 0)) __PYX_ERR(0, 499, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda1") < 0)) __PYX_ERR(0, 485, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -15996,7 +14640,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lambda1", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 499, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lambda1", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 485, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -16032,7 +14676,7 @@ static PyObject *__pyx_lambda_funcdef_lambda1(CYTHON_UNUSED PyObject *__pyx_self
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("lambda1", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 499, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16049,7 +14693,7 @@ static PyObject *__pyx_lambda_funcdef_lambda1(CYTHON_UNUSED PyObject *__pyx_self
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":497
+/* "utils/write_noble_target.py":483
  *         return weight_list
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -16057,7 +14701,7 @@ static PyObject *__pyx_lambda_funcdef_lambda1(CYTHON_UNUSED PyObject *__pyx_self
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_48_close_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_40_close_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_filtered_weight_max = NULL;
   PyObject *__pyx_v_weight_list = 0;
   PyObject *__pyx_r = NULL;
@@ -16071,14 +14715,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_48_clos
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_close_weight_lst", 1);
 
-  /* "utils/write_noble_target.py":498
+  /* "utils/write_noble_target.py":484
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()             # <<<<<<<<<<<<<<
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -16098,48 +14742,48 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_48_clos
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 498, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 484, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_filtered_weight_max = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":499
+  /* "utils/write_noble_target.py":485
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)             # <<<<<<<<<<<<<<
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_filtered_weight_max, __pyx_n_s_sort); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 499, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_filtered_weight_max, __pyx_n_s_sort); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 499, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_17_close_weight_lst_lambda1, 0, __pyx_n_s_WriteNobleTarget__close_weight_l, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 499, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_17_close_weight_lst_lambda1, 0, __pyx_n_s_WriteNobleTarget__close_weight_l, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_3) < 0) __PYX_ERR(0, 499, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_3) < 0) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 499, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":501
+  /* "utils/write_noble_target.py":487
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]             # <<<<<<<<<<<<<<
  *         return weight_list
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_filtered_weight_max, 0, 15, NULL, NULL, &__pyx_slice__20, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 501, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_filtered_weight_max, 0, 15, NULL, NULL, &__pyx_slice__20, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 487, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 501, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 487, __pyx_L1_error)
   __pyx_v_weight_list = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":502
+  /* "utils/write_noble_target.py":488
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
  *         return weight_list             # <<<<<<<<<<<<<<
@@ -16151,7 +14795,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_48_clos
   __pyx_r = __pyx_v_weight_list;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":497
+  /* "utils/write_noble_target.py":483
  *         return weight_list
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -16174,7 +14818,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_48_clos
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":504
+/* "utils/write_noble_target.py":490
  *         return weight_list
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -16183,15 +14827,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_48_clos
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_51_random_weight_lst(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_43_random_weight_lst(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_51_random_weight_lst = {"_random_weight_lst", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_51_random_weight_lst, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_51_random_weight_lst(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_43_random_weight_lst = {"_random_weight_lst", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_43_random_weight_lst, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_43_random_weight_lst(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -16235,12 +14879,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 504, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 490, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_random_weight_lst") < 0)) __PYX_ERR(0, 504, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_random_weight_lst") < 0)) __PYX_ERR(0, 490, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -16251,7 +14895,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_random_weight_lst", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 504, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_random_weight_lst", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 490, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -16265,7 +14909,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_random_weight_lst(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_random_weight_lst(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -16278,7 +14922,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":512
+/* "utils/write_noble_target.py":498
  *         return sorted(
  *             weight_list,
  *             key=lambda item: item.distance,             # <<<<<<<<<<<<<<
@@ -16339,12 +14983,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 512, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 498, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda2") < 0)) __PYX_ERR(0, 512, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda2") < 0)) __PYX_ERR(0, 498, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -16355,7 +14999,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lambda2", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 512, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lambda2", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 498, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -16391,7 +15035,7 @@ static PyObject *__pyx_lambda_funcdef_lambda2(CYTHON_UNUSED PyObject *__pyx_self
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("lambda2", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 512, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16408,7 +15052,7 @@ static PyObject *__pyx_lambda_funcdef_lambda2(CYTHON_UNUSED PyObject *__pyx_self
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":504
+/* "utils/write_noble_target.py":490
  *         return weight_list
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -16416,7 +15060,7 @@ static PyObject *__pyx_lambda_funcdef_lambda2(CYTHON_UNUSED PyObject *__pyx_self
  *         weight_list: list[FastWeightMaximum] = self.random.sample(
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_random_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_42_random_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_filtered_weight_max = NULL;
   PyObject *__pyx_v_weight_list = 0;
   PyObject *__pyx_r = NULL;
@@ -16435,14 +15079,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_rand
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_random_weight_lst", 1);
 
-  /* "utils/write_noble_target.py":505
+  /* "utils/write_noble_target.py":491
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()             # <<<<<<<<<<<<<<
  *         weight_list: list[FastWeightMaximum] = self.random.sample(
  *             filtered_weight_max, min(15, len(filtered_weight_max))
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 505, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -16462,34 +15106,34 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_rand
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 505, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 491, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_filtered_weight_max = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":506
+  /* "utils/write_noble_target.py":492
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         weight_list: list[FastWeightMaximum] = self.random.sample(             # <<<<<<<<<<<<<<
  *             filtered_weight_max, min(15, len(filtered_weight_max))
  *         )
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 506, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 492, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sample); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 506, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sample); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 492, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":507
+  /* "utils/write_noble_target.py":493
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         weight_list: list[FastWeightMaximum] = self.random.sample(
  *             filtered_weight_max, min(15, len(filtered_weight_max))             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_5 = PyObject_Length(__pyx_v_filtered_weight_max); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 507, __pyx_L1_error)
+  __pyx_t_5 = PyObject_Length(__pyx_v_filtered_weight_max); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 493, __pyx_L1_error)
   __pyx_t_6 = 15;
   __pyx_t_8 = (__pyx_t_5 < __pyx_t_6);
   if (__pyx_t_8) {
@@ -16497,7 +15141,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_rand
   } else {
     __pyx_t_7 = __pyx_t_6;
   }
-  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 507, __pyx_L1_error)
+  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_9 = NULL;
   __pyx_t_4 = 0;
@@ -16518,23 +15162,23 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_rand
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 2+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 506, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
 
-  /* "utils/write_noble_target.py":506
+  /* "utils/write_noble_target.py":492
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         weight_list: list[FastWeightMaximum] = self.random.sample(             # <<<<<<<<<<<<<<
  *             filtered_weight_max, min(15, len(filtered_weight_max))
  *         )
  */
-  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 506, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 492, __pyx_L1_error)
   __pyx_v_weight_list = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":510
+  /* "utils/write_noble_target.py":496
  *         )
  * 
  *         return sorted(             # <<<<<<<<<<<<<<
@@ -16543,50 +15187,50 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_rand
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "utils/write_noble_target.py":511
+  /* "utils/write_noble_target.py":497
  * 
  *         return sorted(
  *             weight_list,             # <<<<<<<<<<<<<<
  *             key=lambda item: item.distance,
  *         )
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 510, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 496, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_weight_list);
   __Pyx_GIVEREF(__pyx_v_weight_list);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_weight_list)) __PYX_ERR(0, 510, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_weight_list)) __PYX_ERR(0, 496, __pyx_L1_error);
 
-  /* "utils/write_noble_target.py":512
+  /* "utils/write_noble_target.py":498
  *         return sorted(
  *             weight_list,
  *             key=lambda item: item.distance,             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 512, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_18_random_weight_lst_lambda2, 0, __pyx_n_s_WriteNobleTarget__random_weight, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 512, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_18_random_weight_lst_lambda2, 0, __pyx_n_s_WriteNobleTarget__random_weight, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_key, __pyx_t_2) < 0) __PYX_ERR(0, 512, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_key, __pyx_t_2) < 0) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":510
+  /* "utils/write_noble_target.py":496
  *         )
  * 
  *         return sorted(             # <<<<<<<<<<<<<<
  *             weight_list,
  *             key=lambda item: item.distance,
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 510, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_2))) __PYX_ERR(0, 510, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_2))) __PYX_ERR(0, 496, __pyx_L1_error)
   __pyx_r = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":504
+  /* "utils/write_noble_target.py":490
  *         return weight_list
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -16610,7 +15254,7 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_rand
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":515
+/* "utils/write_noble_target.py":501
  *         )
  * 
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -16619,15 +15263,15 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_50_rand
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_53_far_weight_lst(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_45_far_weight_lst(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_53_far_weight_lst = {"_far_weight_lst", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_53_far_weight_lst, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_53_far_weight_lst(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_45_far_weight_lst = {"_far_weight_lst", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_45_far_weight_lst, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_18write_noble_target_16WriteNobleTarget_45_far_weight_lst(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -16671,12 +15315,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 515, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 501, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_far_weight_lst") < 0)) __PYX_ERR(0, 515, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "_far_weight_lst") < 0)) __PYX_ERR(0, 501, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -16687,7 +15331,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_far_weight_lst", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 515, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_far_weight_lst", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 501, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -16701,7 +15345,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_52_far_weight_lst(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_far_weight_lst(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -16714,7 +15358,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":517
+/* "utils/write_noble_target.py":503
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: -weight.distance)             # <<<<<<<<<<<<<<
@@ -16775,12 +15419,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 517, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 503, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda3") < 0)) __PYX_ERR(0, 517, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda3") < 0)) __PYX_ERR(0, 503, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -16791,7 +15435,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lambda3", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 517, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lambda3", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 503, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -16828,9 +15472,9 @@ static PyObject *__pyx_lambda_funcdef_lambda3(CYTHON_UNUSED PyObject *__pyx_self
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("lambda3", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Negative(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Negative(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
@@ -16849,7 +15493,7 @@ static PyObject *__pyx_lambda_funcdef_lambda3(CYTHON_UNUSED PyObject *__pyx_self
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":522
+/* "utils/write_noble_target.py":508
  *         return sorted(
  *             weight_list,
  *             key=lambda item: item.distance,             # <<<<<<<<<<<<<<
@@ -16909,12 +15553,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 522, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 508, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda4") < 0)) __PYX_ERR(0, 522, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "lambda4") < 0)) __PYX_ERR(0, 508, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -16925,7 +15569,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lambda4", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 522, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lambda4", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 508, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -16961,7 +15605,7 @@ static PyObject *__pyx_lambda_funcdef_lambda4(CYTHON_UNUSED PyObject *__pyx_self
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("lambda4", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 522, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16978,7 +15622,7 @@ static PyObject *__pyx_lambda_funcdef_lambda4(CYTHON_UNUSED PyObject *__pyx_self
   return __pyx_r;
 }
 
-/* "utils/write_noble_target.py":515
+/* "utils/write_noble_target.py":501
  *         )
  * 
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -16986,7 +15630,7 @@ static PyObject *__pyx_lambda_funcdef_lambda4(CYTHON_UNUSED PyObject *__pyx_self
  *         filtered_weight_max.sort(key=lambda weight: -weight.distance)
  */
 
-static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_52_far_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_44_far_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_filtered_weight_max = NULL;
   PyObject *__pyx_v_weight_list = 0;
   PyObject *__pyx_r = NULL;
@@ -17000,14 +15644,14 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_52_far_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_far_weight_lst", 1);
 
-  /* "utils/write_noble_target.py":516
+  /* "utils/write_noble_target.py":502
  * 
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()             # <<<<<<<<<<<<<<
  *         filtered_weight_max.sort(key=lambda weight: -weight.distance)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 516, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 502, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -17027,48 +15671,48 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_52_far_
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 516, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 502, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_filtered_weight_max = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":517
+  /* "utils/write_noble_target.py":503
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: -weight.distance)             # <<<<<<<<<<<<<<
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_filtered_weight_max, __pyx_n_s_sort); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_filtered_weight_max, __pyx_n_s_sort); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_15_far_weight_lst_lambda3, 0, __pyx_n_s_WriteNobleTarget__far_weight_lst, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_15_far_weight_lst_lambda3, 0, __pyx_n_s_WriteNobleTarget__far_weight_lst, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_3) < 0) __PYX_ERR(0, 517, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_3) < 0) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":519
+  /* "utils/write_noble_target.py":505
  *         filtered_weight_max.sort(key=lambda weight: -weight.distance)
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]             # <<<<<<<<<<<<<<
  *         return sorted(
  *             weight_list,
  */
-  __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_filtered_weight_max, 0, 15, NULL, NULL, &__pyx_slice__20, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 519, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_filtered_weight_max, 0, 15, NULL, NULL, &__pyx_slice__20, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 505, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 519, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 505, __pyx_L1_error)
   __pyx_v_weight_list = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "utils/write_noble_target.py":520
+  /* "utils/write_noble_target.py":506
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
  *         return sorted(             # <<<<<<<<<<<<<<
@@ -17077,49 +15721,49 @@ static PyObject *__pyx_pf_5utils_18write_noble_target_16WriteNobleTarget_52_far_
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "utils/write_noble_target.py":521
+  /* "utils/write_noble_target.py":507
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
  *         return sorted(
  *             weight_list,             # <<<<<<<<<<<<<<
  *             key=lambda item: item.distance,
  *         )
  */
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 506, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_weight_list);
   __Pyx_GIVEREF(__pyx_v_weight_list);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_weight_list)) __PYX_ERR(0, 520, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_weight_list)) __PYX_ERR(0, 506, __pyx_L1_error);
 
-  /* "utils/write_noble_target.py":522
+  /* "utils/write_noble_target.py":508
  *         return sorted(
  *             weight_list,
  *             key=lambda item: item.distance,             # <<<<<<<<<<<<<<
  *         )
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 522, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_15_far_weight_lst_1lambda4, 0, __pyx_n_s_WriteNobleTarget__far_weight_lst, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 522, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_15_far_weight_lst_1lambda4, 0, __pyx_n_s_WriteNobleTarget__far_weight_lst, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_1) < 0) __PYX_ERR(0, 522, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_key, __pyx_t_1) < 0) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "utils/write_noble_target.py":520
+  /* "utils/write_noble_target.py":506
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]
  *         return sorted(             # <<<<<<<<<<<<<<
  *             weight_list,
  *             key=lambda item: item.distance,
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 520, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_sorted, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 506, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 520, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_1))) __PYX_ERR(0, 506, __pyx_L1_error)
   __pyx_r = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "utils/write_noble_target.py":515
+  /* "utils/write_noble_target.py":501
  *         )
  * 
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
@@ -17491,20 +16135,20 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_1_
 #endif
 
 #if CYTHON_USE_FREELISTS
-static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off[8];
-static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off = 0;
+static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio[8];
+static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio = 0;
 #endif
 
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   #if CYTHON_COMPILING_IN_LIMITED_API
   allocfunc alloc_func = (allocfunc)PyType_GetSlot(t, Py_tp_alloc);
   o = alloc_func(t, 0);
   #else
   #if CYTHON_USE_FREELISTS
-  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off)))) {
-    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off];
-    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off));
+  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio)))) {
+    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio];
+    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else
@@ -17517,185 +16161,11 @@ static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__
   return o;
 }
 
-static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off(PyObject *o) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *)o;
+static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio(PyObject *o) {
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *)o;
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely((PY_VERSION_HEX >= 0x03080000 || __Pyx_PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE)) && __Pyx_PyObject_GetSlot(o, tp_finalize, destructor)) && !__Pyx_PyObject_GC_IsFinalized(o)) {
-    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off) {
-      if (PyObject_CallFinalizerFromDealloc(o)) return;
-    }
-  }
-  #endif
-  PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->__pyx_v_self);
-  #if CYTHON_USE_FREELISTS
-  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off)))) {
-    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *)o);
-  } else
-  #endif
-  {
-    #if CYTHON_USE_TYPE_SLOTS || CYTHON_COMPILING_IN_PYPY
-    (*Py_TYPE(o)->tp_free)(o);
-    #else
-    {
-      freefunc tp_free = (freefunc)PyType_GetSlot(Py_TYPE(o), Py_tp_free);
-      if (tp_free) tp_free(o);
-    }
-    #endif
-  }
-}
-
-static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off(PyObject *o, visitproc v, void *a) {
-  int e;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *)o;
-  if (p->__pyx_v_self) {
-    e = (*v)(p->__pyx_v_self, a); if (e) return e;
-  }
-  return 0;
-}
-
-static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off(PyObject *o) {
-  PyObject* tmp;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off *)o;
-  tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = Py_None; Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  return 0;
-}
-#if CYTHON_USE_TYPE_SPECS
-static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off_slots[] = {
-  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off},
-  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off},
-  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off},
-  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off},
-  {0, 0},
-};
-static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off_spec = {
-  "utils.write_noble_target.__pyx_scope_struct_2__minimal_noble_off",
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off),
-  0,
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE,
-  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off_slots,
-};
-#else
-
-static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off = {
-  PyVarObject_HEAD_INIT(0, 0)
-  "utils.write_noble_target.""__pyx_scope_struct_2__minimal_noble_off", /*tp_name*/
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off, /*tp_dealloc*/
-  #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
-  #endif
-  #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
-  #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
-  #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
-  #endif
-  #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
-  #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off, /*tp_traverse*/
-  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
-  #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
-  #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
-  #if PY_VERSION_HEX >= 0x030400a1
-  #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
-  #else
-  NULL, /*tp_finalize*/
-  #endif
-  #endif
-  #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
-  #endif
-  #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
-  #endif
-  #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
-  #endif
-  #if PY_VERSION_HEX >= 0x030d00A4
-  0, /*tp_versions_used*/
-  #endif
-  #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
-  #endif
-};
-#endif
-
-#if CYTHON_USE_FREELISTS
-static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio[8];
-static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio = 0;
-#endif
-
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  PyObject *o;
-  #if CYTHON_COMPILING_IN_LIMITED_API
-  allocfunc alloc_func = (allocfunc)PyType_GetSlot(t, Py_tp_alloc);
-  o = alloc_func(t, 0);
-  #else
-  #if CYTHON_USE_FREELISTS
-  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio)))) {
-    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio];
-    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio));
-    (void) PyObject_INIT(o, t);
-    PyObject_GC_Track(o);
-  } else
-  #endif
-  {
-    o = (*t->tp_alloc)(t, 0);
-    if (unlikely(!o)) return 0;
-  }
-  #endif
-  return o;
-}
-
-static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio(PyObject *o) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *)o;
-  #if CYTHON_USE_TP_FINALIZE
-  if (unlikely((PY_VERSION_HEX >= 0x03080000 || __Pyx_PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE)) && __Pyx_PyObject_GetSlot(o, tp_finalize, destructor)) && !__Pyx_PyObject_GC_IsFinalized(o)) {
-    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio) {
+    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio) {
       if (PyObject_CallFinalizerFromDealloc(o)) return;
     }
   }
@@ -17704,8 +16174,8 @@ static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__c
   Py_CLEAR(p->__pyx_v_self);
   Py_CLEAR(p->__pyx_v_world_ratio);
   #if CYTHON_USE_FREELISTS
-  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio)))) {
-    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *)o);
+  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio)))) {
+    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *)o);
   } else
   #endif
   {
@@ -17720,9 +16190,9 @@ static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__c
   }
 }
 
-static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *)o;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *)o;
   if (p->__pyx_v_self) {
     e = (*v)(p->__pyx_v_self, a); if (e) return e;
   }
@@ -17732,9 +16202,9 @@ static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_3__c
   return 0;
 }
 
-static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio(PyObject *o) {
+static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio *)o;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
   p->__pyx_v_self = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
@@ -17744,28 +16214,28 @@ static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_3__casu
   return 0;
 }
 #if CYTHON_USE_TYPE_SPECS
-static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio_slots[] = {
-  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio},
-  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio},
-  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio},
-  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio},
+static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio_slots[] = {
+  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio},
+  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio},
+  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio},
+  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio},
   {0, 0},
 };
-static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio_spec = {
-  "utils.write_noble_target.__pyx_scope_struct_3__casual_attack_block_ratio",
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio),
+static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio_spec = {
+  "utils.write_noble_target.__pyx_scope_struct_2__casual_attack_block_ratio",
+  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE,
-  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio_slots,
+  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio_slots,
 };
 #else
 
-static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio = {
+static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio = {
   PyVarObject_HEAD_INIT(0, 0)
-  "utils.write_noble_target.""__pyx_scope_struct_3__casual_attack_block_ratio", /*tp_name*/
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio), /*tp_basicsize*/
+  "utils.write_noble_target.""__pyx_scope_struct_2__casual_attack_block_ratio", /*tp_name*/
+  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio, /*tp_dealloc*/
+  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -17792,8 +16262,8 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3_
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio, /*tp_traverse*/
-  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio, /*tp_clear*/
+  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio, /*tp_traverse*/
+  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -17810,7 +16280,7 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3_
   #endif
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio, /*tp_new*/
+  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -17846,20 +16316,20 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3_
 #endif
 
 #if CYTHON_USE_FREELISTS
-static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list[8];
-static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list = 0;
+static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list[8];
+static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list = 0;
 #endif
 
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   #if CYTHON_COMPILING_IN_LIMITED_API
   allocfunc alloc_func = (allocfunc)PyType_GetSlot(t, Py_tp_alloc);
   o = alloc_func(t, 0);
   #else
   #if CYTHON_USE_FREELISTS
-  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list)))) {
-    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list];
-    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list));
+  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list)))) {
+    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list];
+    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else
@@ -17872,11 +16342,11 @@ static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__
   return o;
 }
 
-static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list(PyObject *o) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *)o;
+static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list(PyObject *o) {
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *)o;
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely((PY_VERSION_HEX >= 0x03080000 || __Pyx_PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE)) && __Pyx_PyObject_GetSlot(o, tp_finalize, destructor)) && !__Pyx_PyObject_GC_IsFinalized(o)) {
-    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list) {
+    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list) {
       if (PyObject_CallFinalizerFromDealloc(o)) return;
     }
   }
@@ -17884,8 +16354,8 @@ static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__g
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->__pyx_v_self);
   #if CYTHON_USE_FREELISTS
-  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list)))) {
-    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *)o);
+  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list)))) {
+    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *)o);
   } else
   #endif
   {
@@ -17900,46 +16370,46 @@ static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__g
   }
 }
 
-static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *)o;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *)o;
   if (p->__pyx_v_self) {
     e = (*v)(p->__pyx_v_self, a); if (e) return e;
   }
   return 0;
 }
 
-static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list(PyObject *o) {
+static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list *)o;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
   p->__pyx_v_self = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
 #if CYTHON_USE_TYPE_SPECS
-static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list_slots[] = {
-  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list},
-  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list},
-  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list},
-  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list},
+static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list_slots[] = {
+  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list},
+  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list},
+  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list},
+  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list},
   {0, 0},
 };
-static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list_spec = {
-  "utils.write_noble_target.__pyx_scope_struct_4__get_filtered_weight_max_list",
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list),
+static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list_spec = {
+  "utils.write_noble_target.__pyx_scope_struct_3__get_filtered_weight_max_list",
+  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE,
-  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list_slots,
+  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list_slots,
 };
 #else
 
-static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list = {
+static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list = {
   PyVarObject_HEAD_INIT(0, 0)
-  "utils.write_noble_target.""__pyx_scope_struct_4__get_filtered_weight_max_list", /*tp_name*/
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list), /*tp_basicsize*/
+  "utils.write_noble_target.""__pyx_scope_struct_3__get_filtered_weight_max_list", /*tp_name*/
+  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list, /*tp_dealloc*/
+  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -17966,8 +16436,8 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4_
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list, /*tp_traverse*/
-  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list, /*tp_clear*/
+  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list, /*tp_traverse*/
+  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -17984,7 +16454,7 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4_
   #endif
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list, /*tp_new*/
+  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -18020,20 +16490,20 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4_
 #endif
 
 #if CYTHON_USE_FREELISTS
-static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist[8];
-static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist = 0;
+static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist[8];
+static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist = 0;
 #endif
 
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   #if CYTHON_COMPILING_IN_LIMITED_API
   allocfunc alloc_func = (allocfunc)PyType_GetSlot(t, Py_tp_alloc);
   o = alloc_func(t, 0);
   #else
   #if CYTHON_USE_FREELISTS
-  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist)))) {
-    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist];
-    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist));
+  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist)))) {
+    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist];
+    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else
@@ -18046,11 +16516,11 @@ static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__
   return o;
 }
 
-static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist(PyObject *o) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *)o;
+static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist(PyObject *o) {
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *)o;
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely((PY_VERSION_HEX >= 0x03080000 || __Pyx_PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE)) && __Pyx_PyObject_GetSlot(o, tp_finalize, destructor)) && !__Pyx_PyObject_GC_IsFinalized(o)) {
-    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist) {
+    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist) {
       if (PyObject_CallFinalizerFromDealloc(o)) return;
     }
   }
@@ -18058,8 +16528,8 @@ static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__o
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->__pyx_v_self);
   #if CYTHON_USE_FREELISTS
-  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist)))) {
-    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *)o);
+  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist)))) {
+    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *)o);
   } else
   #endif
   {
@@ -18074,46 +16544,46 @@ static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__o
   }
 }
 
-static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *)o;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *)o;
   if (p->__pyx_v_self) {
     e = (*v)(p->__pyx_v_self, a); if (e) return e;
   }
   return 0;
 }
 
-static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist(PyObject *o) {
+static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist *)o;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
   p->__pyx_v_self = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
 #if CYTHON_USE_TYPE_SPECS
-static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist_slots[] = {
-  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist},
-  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist},
-  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist},
-  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist},
+static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist_slots[] = {
+  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist},
+  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist},
+  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist},
+  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist},
   {0, 0},
 };
-static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist_spec = {
-  "utils.write_noble_target.__pyx_scope_struct_5__only_closer_than_target_dist",
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist),
+static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist_spec = {
+  "utils.write_noble_target.__pyx_scope_struct_4__only_closer_than_target_dist",
+  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE,
-  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist_slots,
+  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist_slots,
 };
 #else
 
-static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist = {
+static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist = {
   PyVarObject_HEAD_INIT(0, 0)
-  "utils.write_noble_target.""__pyx_scope_struct_5__only_closer_than_target_dist", /*tp_name*/
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist), /*tp_basicsize*/
+  "utils.write_noble_target.""__pyx_scope_struct_4__only_closer_than_target_dist", /*tp_name*/
+  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist, /*tp_dealloc*/
+  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -18140,8 +16610,8 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5_
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist, /*tp_traverse*/
-  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist, /*tp_clear*/
+  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist, /*tp_traverse*/
+  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -18158,7 +16628,7 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5_
   #endif
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist, /*tp_new*/
+  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -18194,20 +16664,20 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5_
 #endif
 
 #if CYTHON_USE_FREELISTS
-static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query[8];
-static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query = 0;
+static struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query[8];
+static int __pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query = 0;
 #endif
 
-static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   #if CYTHON_COMPILING_IN_LIMITED_API
   allocfunc alloc_func = (allocfunc)PyType_GetSlot(t, Py_tp_alloc);
   o = alloc_func(t, 0);
   #else
   #if CYTHON_USE_FREELISTS
-  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query)))) {
-    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query];
-    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query));
+  if (likely((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query > 0) & (int)(t->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query)))) {
+    o = (PyObject*)__pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query[--__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query];
+    memset(o, 0, sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else
@@ -18220,11 +16690,11 @@ static PyObject *__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_6__
   return o;
 }
 
-static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query(PyObject *o) {
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *)o;
+static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query(PyObject *o) {
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *)o;
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely((PY_VERSION_HEX >= 0x03080000 || __Pyx_PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE)) && __Pyx_PyObject_GetSlot(o, tp_finalize, destructor)) && !__Pyx_PyObject_GC_IsFinalized(o)) {
-    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query) {
+    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query) {
       if (PyObject_CallFinalizerFromDealloc(o)) return;
     }
   }
@@ -18232,8 +16702,8 @@ static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_6__f
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->__pyx_v_self);
   #if CYTHON_USE_FREELISTS
-  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query)))) {
-    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *)o);
+  if (((int)(__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query < 8) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query)))) {
+    __pyx_freelist_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query[__pyx_freecount_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query++] = ((struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *)o);
   } else
   #endif
   {
@@ -18248,46 +16718,46 @@ static void __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_6__f
   }
 }
 
-static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *)o;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *)o;
   if (p->__pyx_v_self) {
     e = (*v)(p->__pyx_v_self, a); if (e) return e;
   }
   return 0;
 }
 
-static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query(PyObject *o) {
+static int __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query *)o;
+  struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *p = (struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
   p->__pyx_v_self = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
 #if CYTHON_USE_TYPE_SPECS
-static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query_slots[] = {
-  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query},
-  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query},
-  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query},
-  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query},
+static PyType_Slot __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query_slots[] = {
+  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query},
+  {Py_tp_traverse, (void *)__pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query},
+  {Py_tp_clear, (void *)__pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query},
+  {Py_tp_new, (void *)__pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query},
   {0, 0},
 };
-static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query_spec = {
-  "utils.write_noble_target.__pyx_scope_struct_6__first_line_false_query",
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query),
+static PyType_Spec __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query_spec = {
+  "utils.write_noble_target.__pyx_scope_struct_5__first_line_false_query",
+  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE,
-  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query_slots,
+  __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query_slots,
 };
 #else
 
-static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query = {
+static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query = {
   PyVarObject_HEAD_INIT(0, 0)
-  "utils.write_noble_target.""__pyx_scope_struct_6__first_line_false_query", /*tp_name*/
-  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query), /*tp_basicsize*/
+  "utils.write_noble_target.""__pyx_scope_struct_5__first_line_false_query", /*tp_name*/
+  sizeof(struct __pyx_obj_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query, /*tp_dealloc*/
+  __pyx_tp_dealloc_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -18314,8 +16784,8 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_6_
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query, /*tp_traverse*/
-  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query, /*tp_clear*/
+  __pyx_tp_traverse_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query, /*tp_traverse*/
+  __pyx_tp_clear_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -18332,7 +16802,7 @@ static PyTypeObject __pyx_type_5utils_18write_noble_target___pyx_scope_struct_6_
   #endif
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query, /*tp_new*/
+  __pyx_tp_new_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -18393,13 +16863,12 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_SystemRandom, __pyx_k_SystemRandom, sizeof(__pyx_k_SystemRandom), 0, 0, 1, 1},
     {&__pyx_n_s_Target, __pyx_k_Target, sizeof(__pyx_k_Target), 0, 0, 1, 1},
     {&__pyx_n_s_TargetVertex, __pyx_k_TargetVertex, sizeof(__pyx_k_TargetVertex), 0, 0, 1, 1},
+    {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
     {&__pyx_n_s_WeightModel, __pyx_k_WeightModel, sizeof(__pyx_k_WeightModel), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget, __pyx_k_WriteNobleTarget, sizeof(__pyx_k_WriteNobleTarget), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget___init, __pyx_k_WriteNobleTarget___init, sizeof(__pyx_k_WriteNobleTarget___init), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__casual_attack, __pyx_k_WriteNobleTarget__casual_attack, sizeof(__pyx_k_WriteNobleTarget__casual_attack), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__casual_attack_2, __pyx_k_WriteNobleTarget__casual_attack_2, sizeof(__pyx_k_WriteNobleTarget__casual_attack_2), 0, 0, 1, 1},
-    {&__pyx_n_s_WriteNobleTarget__catapult, __pyx_k_WriteNobleTarget__catapult, sizeof(__pyx_k_WriteNobleTarget__catapult), 0, 0, 1, 1},
-    {&__pyx_n_s_WriteNobleTarget__catapult_to_le, __pyx_k_WriteNobleTarget__catapult_to_le, sizeof(__pyx_k_WriteNobleTarget__catapult_to_le), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__close_weight_l, __pyx_k_WriteNobleTarget__close_weight_l, sizeof(__pyx_k_WriteNobleTarget__close_weight_l), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__close_weight_l_2, __pyx_k_WriteNobleTarget__close_weight_l_2, sizeof(__pyx_k_WriteNobleTarget__close_weight_l_2), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__closest_weight, __pyx_k_WriteNobleTarget__closest_weight, sizeof(__pyx_k_WriteNobleTarget__closest_weight), 0, 0, 1, 1},
@@ -18407,12 +16876,13 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_WriteNobleTarget__far_weight_lst, __pyx_k_WriteNobleTarget__far_weight_lst, sizeof(__pyx_k_WriteNobleTarget__far_weight_lst), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__far_weight_lst_2, __pyx_k_WriteNobleTarget__far_weight_lst_2, sizeof(__pyx_k_WriteNobleTarget__far_weight_lst_2), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__fill_default_l, __pyx_k_WriteNobleTarget__fill_default_l, sizeof(__pyx_k_WriteNobleTarget__fill_default_l), 0, 0, 1, 1},
-    {&__pyx_n_s_WriteNobleTarget__first_catapult, __pyx_k_WriteNobleTarget__first_catapult, sizeof(__pyx_k_WriteNobleTarget__first_catapult), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__first_line_fal, __pyx_k_WriteNobleTarget__first_line_fal, sizeof(__pyx_k_WriteNobleTarget__first_line_fal), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__first_line_fal_2, __pyx_k_WriteNobleTarget__first_line_fal_2, sizeof(__pyx_k_WriteNobleTarget__first_line_fal_2), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__first_off, __pyx_k_WriteNobleTarget__first_off, sizeof(__pyx_k_WriteNobleTarget__first_off), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__get_filtered_w, __pyx_k_WriteNobleTarget__get_filtered_w, sizeof(__pyx_k_WriteNobleTarget__get_filtered_w), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__get_filtered_w_2, __pyx_k_WriteNobleTarget__get_filtered_w_2, sizeof(__pyx_k_WriteNobleTarget__get_filtered_w_2), 0, 0, 1, 1},
+    {&__pyx_n_s_WriteNobleTarget__minimal_fake_n, __pyx_k_WriteNobleTarget__minimal_fake_n, sizeof(__pyx_k_WriteNobleTarget__minimal_fake_n), 0, 0, 1, 1},
+    {&__pyx_n_s_WriteNobleTarget__minimal_fake_n_2, __pyx_k_WriteNobleTarget__minimal_fake_n_2, sizeof(__pyx_k_WriteNobleTarget__minimal_fake_n_2), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__minimal_noble, __pyx_k_WriteNobleTarget__minimal_noble, sizeof(__pyx_k_WriteNobleTarget__minimal_noble), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__minimal_noble_2, __pyx_k_WriteNobleTarget__minimal_noble_2, sizeof(__pyx_k_WriteNobleTarget__minimal_noble_2), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__mode_guide_is, __pyx_k_WriteNobleTarget__mode_guide_is, sizeof(__pyx_k_WriteNobleTarget__mode_guide_is), 0, 0, 1, 1},
@@ -18423,10 +16893,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_WriteNobleTarget__mode_guide_is_6, __pyx_k_WriteNobleTarget__mode_guide_is_6, sizeof(__pyx_k_WriteNobleTarget__mode_guide_is_6), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__morale_query, __pyx_k_WriteNobleTarget__morale_query, sizeof(__pyx_k_WriteNobleTarget__morale_query), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__morale_query_l, __pyx_k_WriteNobleTarget__morale_query_l, sizeof(__pyx_k_WriteNobleTarget__morale_query_l), 0, 0, 1, 1},
-    {&__pyx_n_s_WriteNobleTarget__noble_query, __pyx_k_WriteNobleTarget__noble_query, sizeof(__pyx_k_WriteNobleTarget__noble_query), 0, 0, 1, 1},
-    {&__pyx_n_s_WriteNobleTarget__noble_query_lo, __pyx_k_WriteNobleTarget__noble_query_lo, sizeof(__pyx_k_WriteNobleTarget__noble_query_lo), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__off, __pyx_k_WriteNobleTarget__off, sizeof(__pyx_k_WriteNobleTarget__off), 0, 0, 1, 1},
-    {&__pyx_n_s_WriteNobleTarget__off_to_left, __pyx_k_WriteNobleTarget__off_to_left, sizeof(__pyx_k_WriteNobleTarget__off_to_left), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__only_closer_th, __pyx_k_WriteNobleTarget__only_closer_th, sizeof(__pyx_k_WriteNobleTarget__only_closer_th), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__only_closer_th_2, __pyx_k_WriteNobleTarget__only_closer_th_2, sizeof(__pyx_k_WriteNobleTarget__only_closer_th_2), 0, 0, 1, 1},
     {&__pyx_n_s_WriteNobleTarget__order_distance, __pyx_k_WriteNobleTarget__order_distance, sizeof(__pyx_k_WriteNobleTarget__order_distance), 0, 0, 1, 1},
@@ -18440,7 +16907,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_u__12, __pyx_k__12, sizeof(__pyx_k__12), 0, 1, 0, 0},
     {&__pyx_n_s__21, __pyx_k__21, sizeof(__pyx_k__21), 0, 0, 1, 1},
     {&__pyx_kp_u__22, __pyx_k__22, sizeof(__pyx_k__22), 0, 1, 0, 0},
-    {&__pyx_n_s__70, __pyx_k__70, sizeof(__pyx_k__70), 0, 0, 1, 1},
+    {&__pyx_n_s__64, __pyx_k__64, sizeof(__pyx_k__64), 0, 0, 1, 1},
     {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
     {&__pyx_n_s_asyncio_coroutines, __pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 0, 1, 1},
     {&__pyx_n_s_base_models, __pyx_k_base_models, sizeof(__pyx_k_base_models), 0, 0, 1, 1},
@@ -18449,12 +16916,10 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_casual_attack_block_ratio, __pyx_k_casual_attack_block_ratio, sizeof(__pyx_k_casual_attack_block_ratio), 0, 0, 1, 1},
     {&__pyx_n_s_casual_attack_block_ratio_2, __pyx_k_casual_attack_block_ratio_2, sizeof(__pyx_k_casual_attack_block_ratio_2), 0, 0, 1, 1},
     {&__pyx_n_s_catapult, __pyx_k_catapult, sizeof(__pyx_k_catapult), 0, 0, 1, 1},
-    {&__pyx_n_s_catapult_2, __pyx_k_catapult_2, sizeof(__pyx_k_catapult_2), 0, 0, 1, 1},
     {&__pyx_n_s_catapult_left, __pyx_k_catapult_left, sizeof(__pyx_k_catapult_left), 0, 0, 1, 1},
     {&__pyx_n_s_catapult_state, __pyx_k_catapult_state, sizeof(__pyx_k_catapult_state), 0, 0, 1, 1},
-    {&__pyx_n_s_catapult_to_left, __pyx_k_catapult_to_left, sizeof(__pyx_k_catapult_to_left), 0, 0, 1, 1},
-    {&__pyx_n_s_catapult_to_left_2, __pyx_k_catapult_to_left_2, sizeof(__pyx_k_catapult_to_left_2), 0, 0, 1, 1},
     {&__pyx_n_s_catapult_troops, __pyx_k_catapult_troops, sizeof(__pyx_k_catapult_troops), 0, 0, 1, 1},
+    {&__pyx_n_s_catapults_used, __pyx_k_catapults_used, sizeof(__pyx_k_catapults_used), 0, 0, 1, 1},
     {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
     {&__pyx_n_u_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 1, 0, 1},
     {&__pyx_n_s_close_weight_lst, __pyx_k_close_weight_lst, sizeof(__pyx_k_close_weight_lst), 0, 0, 1, 1},
@@ -18469,20 +16934,24 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
     {&__pyx_kp_u_enable, __pyx_k_enable, sizeof(__pyx_k_enable), 0, 1, 0, 0},
     {&__pyx_n_s_enumerate, __pyx_k_enumerate, sizeof(__pyx_k_enumerate), 0, 0, 1, 1},
+    {&__pyx_n_s_equal_split, __pyx_k_equal_split, sizeof(__pyx_k_equal_split), 0, 0, 1, 1},
     {&__pyx_kp_u_expected_world_casual_attack_blo, __pyx_k_expected_world_casual_attack_blo, sizeof(__pyx_k_expected_world_casual_attack_blo), 0, 1, 0, 0},
     {&__pyx_n_s_fake, __pyx_k_fake, sizeof(__pyx_k_fake), 0, 0, 1, 1},
+    {&__pyx_n_s_fake_noble_used, __pyx_k_fake_noble_used, sizeof(__pyx_k_fake_noble_used), 0, 0, 1, 1},
+    {&__pyx_n_s_fake_nobles_allowed_to_use, __pyx_k_fake_nobles_allowed_to_use, sizeof(__pyx_k_fake_nobles_allowed_to_use), 0, 0, 1, 1},
+    {&__pyx_n_s_fake_nobles_limit, __pyx_k_fake_nobles_limit, sizeof(__pyx_k_fake_nobles_limit), 0, 0, 1, 1},
     {&__pyx_n_s_far_weight_lst, __pyx_k_far_weight_lst, sizeof(__pyx_k_far_weight_lst), 0, 0, 1, 1},
     {&__pyx_n_s_fill_default_list, __pyx_k_fill_default_list, sizeof(__pyx_k_fill_default_list), 0, 0, 1, 1},
     {&__pyx_n_s_filter_casual_attack_block_ratio, __pyx_k_filter_casual_attack_block_ratio, sizeof(__pyx_k_filter_casual_attack_block_ratio), 0, 0, 1, 1},
     {&__pyx_n_s_filter_close_than_target_dist, __pyx_k_filter_close_than_target_dist, sizeof(__pyx_k_filter_close_than_target_dist), 0, 0, 1, 1},
+    {&__pyx_n_s_filter_fake_noble, __pyx_k_filter_fake_noble, sizeof(__pyx_k_filter_fake_noble), 0, 0, 1, 1},
     {&__pyx_n_s_filter_first_line_false, __pyx_k_filter_first_line_false, sizeof(__pyx_k_filter_first_line_false), 0, 0, 1, 1},
     {&__pyx_n_s_filter_func, __pyx_k_filter_func, sizeof(__pyx_k_filter_func), 0, 0, 1, 1},
     {&__pyx_n_s_filter_morale, __pyx_k_filter_morale, sizeof(__pyx_k_filter_morale), 0, 0, 1, 1},
-    {&__pyx_n_s_filter_noble, __pyx_k_filter_noble, sizeof(__pyx_k_filter_noble), 0, 0, 1, 1},
+    {&__pyx_n_s_filter_noble_off, __pyx_k_filter_noble_off, sizeof(__pyx_k_filter_noble_off), 0, 0, 1, 1},
     {&__pyx_n_s_filtered_weight_max, __pyx_k_filtered_weight_max, sizeof(__pyx_k_filtered_weight_max), 0, 0, 1, 1},
     {&__pyx_n_s_filters, __pyx_k_filters, sizeof(__pyx_k_filters), 0, 0, 1, 1},
     {&__pyx_n_s_first_catapult, __pyx_k_first_catapult, sizeof(__pyx_k_first_catapult), 0, 0, 1, 1},
-    {&__pyx_n_s_first_catapult_2, __pyx_k_first_catapult_2, sizeof(__pyx_k_first_catapult_2), 0, 0, 1, 1},
     {&__pyx_n_s_first_line, __pyx_k_first_line, sizeof(__pyx_k_first_line), 0, 0, 1, 1},
     {&__pyx_n_s_first_line_false_query, __pyx_k_first_line_false_query, sizeof(__pyx_k_first_line_false_query), 0, 0, 1, 1},
     {&__pyx_n_s_first_off, __pyx_k_first_off, sizeof(__pyx_k_first_off), 0, 0, 1, 1},
@@ -18494,10 +16963,12 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_get_filtered_weight_max_list, __pyx_k_get_filtered_weight_max_list, sizeof(__pyx_k_get_filtered_weight_max_list), 0, 0, 1, 1},
     {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
     {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+    {&__pyx_kp_u_impossible_configuration_s_s, __pyx_k_impossible_configuration_s_s, sizeof(__pyx_k_impossible_configuration_s_s), 0, 1, 0, 0},
     {&__pyx_n_s_index, __pyx_k_index, sizeof(__pyx_k_index), 0, 0, 1, 1},
     {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
     {&__pyx_n_s_init_subclass, __pyx_k_init_subclass, sizeof(__pyx_k_init_subclass), 0, 0, 1, 1},
     {&__pyx_n_s_initial_outline_front_dist, __pyx_k_initial_outline_front_dist, sizeof(__pyx_k_initial_outline_front_dist), 0, 0, 1, 1},
+    {&__pyx_n_s_initial_outline_minimum_fake_nob, __pyx_k_initial_outline_minimum_fake_nob, sizeof(__pyx_k_initial_outline_minimum_fake_nob), 0, 0, 1, 1},
     {&__pyx_n_s_initial_outline_minimum_noble_tr, __pyx_k_initial_outline_minimum_noble_tr, sizeof(__pyx_k_initial_outline_minimum_noble_tr), 0, 0, 1, 1},
     {&__pyx_n_s_initial_outline_target_dist, __pyx_k_initial_outline_target_dist, sizeof(__pyx_k_initial_outline_target_dist), 0, 0, 1, 1},
     {&__pyx_n_s_initializing, __pyx_k_initializing, sizeof(__pyx_k_initializing), 0, 0, 1, 1},
@@ -18511,8 +16982,11 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
     {&__pyx_n_u_many, __pyx_k_many, sizeof(__pyx_k_many), 0, 1, 0, 1},
     {&__pyx_n_s_math, __pyx_k_math, sizeof(__pyx_k_math), 0, 0, 1, 1},
+    {&__pyx_n_s_max_first, __pyx_k_max_first, sizeof(__pyx_k_max_first), 0, 0, 1, 1},
+    {&__pyx_n_s_max_next, __pyx_k_max_next, sizeof(__pyx_k_max_next), 0, 0, 1, 1},
     {&__pyx_n_s_max_possible, __pyx_k_max_possible, sizeof(__pyx_k_max_possible), 0, 0, 1, 1},
     {&__pyx_n_s_metaclass, __pyx_k_metaclass, sizeof(__pyx_k_metaclass), 0, 0, 1, 1},
+    {&__pyx_n_s_minimal_fake_noble_off, __pyx_k_minimal_fake_noble_off, sizeof(__pyx_k_minimal_fake_noble_off), 0, 0, 1, 1},
     {&__pyx_n_s_minimal_noble_off, __pyx_k_minimal_noble_off, sizeof(__pyx_k_minimal_noble_off), 0, 0, 1, 1},
     {&__pyx_n_s_mode_division, __pyx_k_mode_division, sizeof(__pyx_k_mode_division), 0, 0, 1, 1},
     {&__pyx_n_s_mode_guide, __pyx_k_mode_guide, sizeof(__pyx_k_mode_guide), 0, 0, 1, 1},
@@ -18529,7 +17003,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
     {&__pyx_n_s_noble, __pyx_k_noble, sizeof(__pyx_k_noble), 0, 0, 1, 1},
     {&__pyx_n_s_noble_number, __pyx_k_noble_number, sizeof(__pyx_k_noble_number), 0, 0, 1, 1},
-    {&__pyx_n_s_noble_query, __pyx_k_noble_query, sizeof(__pyx_k_noble_query), 0, 0, 1, 1},
+    {&__pyx_n_s_noble_used, __pyx_k_noble_used, sizeof(__pyx_k_noble_used), 0, 0, 1, 1},
     {&__pyx_n_s_nobleman, __pyx_k_nobleman, sizeof(__pyx_k_nobleman), 0, 0, 1, 1},
     {&__pyx_n_s_nobleman_left, __pyx_k_nobleman_left, sizeof(__pyx_k_nobleman_left), 0, 0, 1, 1},
     {&__pyx_n_s_nobleman_state, __pyx_k_nobleman_state, sizeof(__pyx_k_nobleman_state), 0, 0, 1, 1},
@@ -18542,9 +17016,8 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_off_2, __pyx_k_off_2, sizeof(__pyx_k_off_2), 0, 0, 1, 1},
     {&__pyx_n_s_off_left, __pyx_k_off_left, sizeof(__pyx_k_off_left), 0, 0, 1, 1},
     {&__pyx_n_s_off_state, __pyx_k_off_state, sizeof(__pyx_k_off_state), 0, 0, 1, 1},
-    {&__pyx_n_s_off_to_left, __pyx_k_off_to_left, sizeof(__pyx_k_off_to_left), 0, 0, 1, 1},
-    {&__pyx_n_s_off_to_left_2, __pyx_k_off_to_left_2, sizeof(__pyx_k_off_to_left_2), 0, 0, 1, 1},
     {&__pyx_n_s_off_troops, __pyx_k_off_troops, sizeof(__pyx_k_off_troops), 0, 0, 1, 1},
+    {&__pyx_n_s_off_used, __pyx_k_off_used, sizeof(__pyx_k_off_used), 0, 0, 1, 1},
     {&__pyx_n_u_one, __pyx_k_one, sizeof(__pyx_k_one), 0, 1, 0, 1},
     {&__pyx_n_s_only_closer_than_target_dist, __pyx_k_only_closer_than_target_dist, sizeof(__pyx_k_only_closer_than_target_dist), 0, 0, 1, 1},
     {&__pyx_n_s_order, __pyx_k_order, sizeof(__pyx_k_order), 0, 0, 1, 1},
@@ -18566,6 +17039,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_sample, __pyx_k_sample, sizeof(__pyx_k_sample), 0, 0, 1, 1},
     {&__pyx_n_s_secrets, __pyx_k_secrets, sizeof(__pyx_k_secrets), 0, 0, 1, 1},
     {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
+    {&__pyx_n_u_separatly, __pyx_k_separatly, sizeof(__pyx_k_separatly), 0, 1, 0, 1},
     {&__pyx_n_s_set_name, __pyx_k_set_name, sizeof(__pyx_k_set_name), 0, 0, 1, 1},
     {&__pyx_n_u_single, __pyx_k_single, sizeof(__pyx_k_single), 0, 1, 0, 1},
     {&__pyx_n_s_smaller_points, __pyx_k_smaller_points, sizeof(__pyx_k_smaller_points), 0, 0, 1, 1},
@@ -18584,6 +17058,8 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_target, __pyx_k_target, sizeof(__pyx_k_target), 0, 0, 1, 1},
     {&__pyx_n_s_target_id, __pyx_k_target_id, sizeof(__pyx_k_target_id), 0, 0, 1, 1},
     {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+    {&__pyx_n_s_total_catapults, __pyx_k_total_catapults, sizeof(__pyx_k_total_catapults), 0, 0, 1, 1},
+    {&__pyx_n_s_total_off, __pyx_k_total_off, sizeof(__pyx_k_total_off), 0, 0, 1, 1},
     {&__pyx_kp_s_tuple_FastWeightMaximum_int, __pyx_k_tuple_FastWeightMaximum_int, sizeof(__pyx_k_tuple_FastWeightMaximum_int), 0, 0, 1, 0},
     {&__pyx_kp_s_tuple_float_int, __pyx_k_tuple_float_int, sizeof(__pyx_k_tuple_float_int), 0, 0, 1, 0},
     {&__pyx_kp_s_tuple_int_float_int_int, __pyx_k_tuple_int_float_int_int, sizeof(__pyx_k_tuple_int_float_int_int), 0, 0, 1, 0},
@@ -18608,11 +17084,12 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_staticmethod = __Pyx_GetBuiltinName(__pyx_n_s_staticmethod); if (!__pyx_builtin_staticmethod) __PYX_ERR(0, 210, __pyx_L1_error)
-  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 143, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 154, __pyx_L1_error)
-  __pyx_builtin_sorted = __Pyx_GetBuiltinName(__pyx_n_s_sorted); if (!__pyx_builtin_sorted) __PYX_ERR(0, 270, __pyx_L1_error)
-  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_builtin_staticmethod = __Pyx_GetBuiltinName(__pyx_n_s_staticmethod); if (!__pyx_builtin_staticmethod) __PYX_ERR(0, 250, __pyx_L1_error)
+  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_builtin_sorted = __Pyx_GetBuiltinName(__pyx_n_s_sorted); if (!__pyx_builtin_sorted) __PYX_ERR(0, 314, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 380, __pyx_L1_error)
+  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 436, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -18623,142 +17100,142 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "utils/write_noble_target.py":228
+  /* "utils/write_noble_target.py":272
  * 
  *     def _order_distance_default_list(self) -> None:
  *         def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:             # <<<<<<<<<<<<<<
  *             return -weight_tuple[0].distance
  * 
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_weight_tuple); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_weight_tuple); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_order_func, 228, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_order_func, 272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 272, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":263
+  /* "utils/write_noble_target.py":307
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[int, float, int, int]:             # <<<<<<<<<<<<<<
  *             fit: int = abs(weight_max.nobleman_left - self.target.required_noble)
  *             distance: float = float(weight_max.distance)
  */
-  __pyx_tuple__3 = PyTuple_Pack(5, __pyx_n_s_weight_max, __pyx_n_s_fit, __pyx_n_s_distance, __pyx_n_s_off_2, __pyx_n_s_number); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(5, __pyx_n_s_weight_max, __pyx_n_s_fit, __pyx_n_s_distance, __pyx_n_s_off_2, __pyx_n_s_number); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 307, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_sort_func, 263, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_sort_func, 307, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 307, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":282
+  /* "utils/write_noble_target.py":326
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:             # <<<<<<<<<<<<<<
  *             off: int = -int(weight_max.off_left)
  *             distance: float = float(weight_max.distance)
  */
-  __pyx_tuple__5 = PyTuple_Pack(3, __pyx_n_s_weight_max, __pyx_n_s_off_2, __pyx_n_s_distance); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(3, __pyx_n_s_weight_max, __pyx_n_s_off_2, __pyx_n_s_distance); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_sort_func, 282, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_sort_func, 326, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 326, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":300
+  /* "utils/write_noble_target.py":344
  *         """
  * 
  *         def sort_func(weight_max: FastWeightMaximum) -> tuple[float, int]:             # <<<<<<<<<<<<<<
  *             off: int = -int(weight_max.off_left)
  *             distance: float = float(weight_max.distance)
  */
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_sort_func, 300, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 300, __pyx_L1_error)
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_sort_func, 344, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 344, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":431
+  /* "utils/write_noble_target.py":417
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             return weight_max.morale >= self.morale_on_targets_greater_than
  * 
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_n_s_weight_max); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_n_s_weight_max); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 417, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_morale, 431, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_morale, 417, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 417, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":437
- * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
- * 
- */
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_noble, 437, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 437, __pyx_L1_error)
-
-  /* "utils/write_noble_target.py":443
+  /* "utils/write_noble_target.py":423
  * 
  *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
+ *             return weight_max.nobles_allowed_to_use() > 0
  * 
  */
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_noble, 443, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 443, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_noble_off, 423, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 423, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":450
+  /* "utils/write_noble_target.py":429
+ * 
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ * 
+ */
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_fake_noble, 429, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 429, __pyx_L1_error)
+
+  /* "utils/write_noble_target.py":436
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
  *         if self.casual_attack_block_ratio is None:
  *             raise RuntimeError("expected world casual_attack_block_ratio to be int")             # <<<<<<<<<<<<<<
  *         world_ratio = (100 + self.casual_attack_block_ratio) / 100
  * 
  */
-  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_u_expected_world_casual_attack_blo); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_u_expected_world_casual_attack_blo); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 436, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
 
-  /* "utils/write_noble_target.py":453
+  /* "utils/write_noble_target.py":439
  *         world_ratio = (100 + self.casual_attack_block_ratio) / 100
  * 
  *         def filter_casual_attack_block_ratio(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             if self.target.player == "":
  *                 # special case barbarians
  */
-  __pyx_tuple__14 = PyTuple_Pack(4, __pyx_n_s_weight_max, __pyx_n_s_smaller_points, __pyx_n_s_bigger_points, __pyx_n_s_max_possible); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(4, __pyx_n_s_weight_max, __pyx_n_s_smaller_points, __pyx_n_s_bigger_points, __pyx_n_s_max_possible); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_casual_attack_block_ratio, 453, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_casual_attack_block_ratio, 439, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 439, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":465
+  /* "utils/write_noble_target.py":451
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             for filter_func in self.filters:
  *                 if not filter_func(weight_max):
  */
-  __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_weight_max, __pyx_n_s_filter_func); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 465, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_weight_max, __pyx_n_s_filter_func); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_func, 465, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 465, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_func, 451, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 451, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":476
+  /* "utils/write_noble_target.py":462
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             return weight_max.distance <= self.initial_outline_target_dist
  * 
  */
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_close_than_target_dist, 476, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 476, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_close_than_target_dist, 462, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 462, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":482
+  /* "utils/write_noble_target.py":468
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:             # <<<<<<<<<<<<<<
  *             return (
  *                 not weight_max.first_line
  */
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_first_line_false, 482, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 482, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_filter_first_line_false, 468, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 468, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":494
+  /* "utils/write_noble_target.py":480
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  * 
  *         weight_list: list[FastWeightMaximum] = filtered_weight_max[:15]             # <<<<<<<<<<<<<<
  *         return weight_list
  * 
  */
-  __pyx_slice__20 = PySlice_New(Py_None, __pyx_int_15, Py_None); if (unlikely(!__pyx_slice__20)) __PYX_ERR(0, 494, __pyx_L1_error)
+  __pyx_slice__20 = PySlice_New(Py_None, __pyx_int_15, Py_None); if (unlikely(!__pyx_slice__20)) __PYX_ERR(0, 480, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__20);
   __Pyx_GIVEREF(__pyx_slice__20);
 
@@ -18774,296 +17251,254 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__23);
   __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_init, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 64, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":92
+  /* "utils/write_noble_target.py":95
  *         self.initial_outline_front_dist = self.outline.initial_outline_front_dist
  * 
  *     def sorted_weights_nobles(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         self.filters.append(self._only_closer_than_target_dist())
- *         self.filters.append(self._noble_query())
+ * 
  */
-  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_sorted_weights_nobles, 92, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_sorted_weights_nobles, 95, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 95, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":124
+  /* "utils/write_noble_target.py":128
  *             return self._far_weight_lst()
  * 
  *     def weight_create_list(self) -> list[WeightModel]:             # <<<<<<<<<<<<<<
  *         weights_create_lst: list[WeightModel] = []
  * 
  */
-  __pyx_tuple__27 = PyTuple_Pack(16, __pyx_n_s_self, __pyx_n_s_weights_create_lst, __pyx_n_s_weight_max_list, __pyx_n_s_i, __pyx_n_s_weight_max, __pyx_n_s_noble_number, __pyx_n_s_off_2, __pyx_n_s_catapult_2, __pyx_n_s_first_off_2, __pyx_n_s_first_catapult_2, __pyx_n_s_off_to_left_2, __pyx_n_s_catapult_to_left_2, __pyx_n_s_index, __pyx_n_s_off_troops, __pyx_n_s_catapult_troops, __pyx_n_s_weight); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(19, __pyx_n_s_self, __pyx_n_s_weights_create_lst, __pyx_n_s_weight_max_list, __pyx_n_s_i, __pyx_n_s_weight_max, __pyx_n_s_noble_number, __pyx_n_s_off_2, __pyx_n_s_first_off_2, __pyx_n_s_total_off, __pyx_n_s_first_catapult, __pyx_n_s_catapult, __pyx_n_s_max_first, __pyx_n_s_max_next, __pyx_n_s_equal_split, __pyx_n_s_total_catapults, __pyx_n_s_index, __pyx_n_s_off_troops, __pyx_n_s_catapult_troops, __pyx_n_s_weight); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 16, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_weight_create_list, 124, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 19, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_weight_create_list, 128, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 128, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":187
+  /* "utils/write_noble_target.py":227
  *         return weights_create_lst
  * 
  *     def _weight_model(             # <<<<<<<<<<<<<<
  *         self,
  *         weight_max: FastWeightMaximum,
  */
-  __pyx_tuple__29 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_weight_max, __pyx_n_s_off_2, __pyx_n_s_catapult_2, __pyx_n_s_noble, __pyx_n_s_order); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_weight_max, __pyx_n_s_off_2, __pyx_n_s_catapult, __pyx_n_s_noble, __pyx_n_s_order); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(6, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_weight_model, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(6, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_weight_model, 227, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 227, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":210
+  /* "utils/write_noble_target.py":250
  *         )
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def _update_weight_max(
  *         weight_max: FastWeightMaximum,
  */
-  __pyx_tuple__31 = PyTuple_Pack(4, __pyx_n_s_weight_max, __pyx_n_s_off_to_left_2, __pyx_n_s_catapult_to_left_2, __pyx_n_s_noble_number); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 210, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(5, __pyx_n_s_weight_max, __pyx_n_s_off_used, __pyx_n_s_catapults_used, __pyx_n_s_noble_used, __pyx_n_s_fake_noble_used); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_update_weight_max, 210, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 210, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_update_weight_max, 250, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 250, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":227
+  /* "utils/write_noble_target.py":271
  *         return weight_max
  * 
  *     def _order_distance_default_list(self) -> None:             # <<<<<<<<<<<<<<
  *         def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:
  *             return -weight_tuple[0].distance
  */
-  __pyx_tuple__33 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_order_func, __pyx_n_s_order_func); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_order_func, __pyx_n_s_order_func); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_order_distance_default_list, 227, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_order_distance_default_list, 271, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":233
+  /* "utils/write_noble_target.py":277
  *         self.default_create_list.sort(key=order_func)
  * 
  *     def _fill_default_list(self, sorted_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
  *         weight_max: FastWeightMaximum
  *         for weight_max in sorted_list:
  */
-  __pyx_tuple__35 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_sorted_list, __pyx_n_s_weight_max, __pyx_n_s_nobles); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_sorted_list, __pyx_n_s_weight_max, __pyx_n_s_nobles); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_fill_default_list, 233, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_fill_default_list, 277, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 277, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":253
+  /* "utils/write_noble_target.py":297
  *                     self.target.required_noble -= nobles
  * 
  *     def _mode_guide_is_one(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
  *         """
  *         Updates self.default_create_list attribute
  */
-  __pyx_tuple__37 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_weight_max_list, __pyx_n_s_sort_func, __pyx_n_s_sort_func, __pyx_n_s_sorted_weight_max_lst); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_weight_max_list, __pyx_n_s_sort_func, __pyx_n_s_sort_func, __pyx_n_s_sorted_weight_max_lst); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 297, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_mode_guide_is_one, 253, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_mode_guide_is_one, 297, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 297, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":275
+  /* "utils/write_noble_target.py":319
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_many(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
  *         """
  *         Updates self.default_create_list attribute
  */
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_mode_guide_is_many, 275, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_mode_guide_is_many, 319, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 319, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":292
+  /* "utils/write_noble_target.py":336
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_single(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
  *         """
  *         Updates self.default_create_list attribute
  */
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_mode_guide_is_single, 292, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 292, __pyx_L1_error)
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_mode_guide_is_single, 336, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 336, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":310
+  /* "utils/write_noble_target.py":354
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
- *     def _off(self, weight_max: FastWeightMaximum) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:             # <<<<<<<<<<<<<<
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (
  */
-  __pyx_tuple__41 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_weight_max); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 310, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_weight_max, __pyx_n_s_noble_number, __pyx_n_s_off_left); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_off, 310, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 310, __pyx_L1_error)
-
-  /* "utils/write_noble_target.py":326
- *             return 200
- * 
- *     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-  __pyx_tuple__43 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_weight_max, __pyx_n_s_off_2); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 326, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__43);
-  __Pyx_GIVEREF(__pyx_tuple__43);
-  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_first_off, 326, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 326, __pyx_L1_error)
-
-  /* "utils/write_noble_target.py":348
- *             return 200
- * 
- *     def _catapult(self, weight_max: FastWeightMaximum) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_catapult, 348, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 348, __pyx_L1_error)
-
-  /* "utils/write_noble_target.py":364
- *             return 0
- * 
- *     def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-  __pyx_tuple__46 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_weight_max, __pyx_n_s_catapult_2); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 364, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__46);
-  __Pyx_GIVEREF(__pyx_tuple__46);
-  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_first_catapult, 364, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 364, __pyx_L1_error)
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_off, 354, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 354, __pyx_L1_error)
 
   /* "utils/write_noble_target.py":384
- *             return 0
+ *         )
  * 
- *     def _off_to_left(  # noqa: PLR0911             # <<<<<<<<<<<<<<
- *         self, weight_max: FastWeightMaximum, off: int, noble: int
+ *     def _first_off(             # <<<<<<<<<<<<<<
+ *         self, weight_max: FastWeightMaximum, off: int, noble_number: int
  *     ) -> int:
  */
-  __pyx_tuple__48 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_weight_max, __pyx_n_s_off_2, __pyx_n_s_noble); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 384, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__48);
-  __Pyx_GIVEREF(__pyx_tuple__48);
-  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_off_to_left, 384, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 384, __pyx_L1_error)
+  __pyx_tuple__43 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_weight_max, __pyx_n_s_off_2, __pyx_n_s_noble_number, __pyx_n_s_off_left); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 384, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__43);
+  __Pyx_GIVEREF(__pyx_tuple__43);
+  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_first_off, 384, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 384, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":408
- *             return weight_max.off_left - (off * (noble))
- * 
- *     def _catapult_to_left(  # noqa: PLR0911             # <<<<<<<<<<<<<<
- *         self, weight_max: FastWeightMaximum, catapult: int, noble: int
- *     ) -> int:
- */
-  __pyx_tuple__50 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_weight_max, __pyx_n_s_catapult_2, __pyx_n_s_noble); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 408, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__50);
-  __Pyx_GIVEREF(__pyx_tuple__50);
-  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_catapult_to_left, 408, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 408, __pyx_L1_error)
-
-  /* "utils/write_noble_target.py":430
- *             return weight_max.catapult_left
+  /* "utils/write_noble_target.py":416
+ *         )
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:
  *             return weight_max.morale >= self.morale_on_targets_greater_than
  */
-  __pyx_tuple__52 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_morale, __pyx_n_s_filter_morale); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(0, 430, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__52);
-  __Pyx_GIVEREF(__pyx_tuple__52);
-  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__52, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_morale_query, 430, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 430, __pyx_L1_error)
+  __pyx_tuple__45 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_morale, __pyx_n_s_filter_morale); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 416, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__45);
+  __Pyx_GIVEREF(__pyx_tuple__45);
+  __pyx_codeobj__46 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__45, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_morale_query, 416, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__46)) __PYX_ERR(0, 416, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":436
+  /* "utils/write_noble_target.py":422
  *         return filter_morale
  * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
- */
-  __pyx_tuple__54 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_noble, __pyx_n_s_filter_noble); if (unlikely(!__pyx_tuple__54)) __PYX_ERR(0, 436, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__54);
-  __Pyx_GIVEREF(__pyx_tuple__54);
-  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_noble_query, 436, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 436, __pyx_L1_error)
-
-  /* "utils/write_noble_target.py":442
- *         return filter_noble
- * 
  *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.nobles_allowed_to_use() > 0
  */
-  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_minimal_noble_off, 442, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 442, __pyx_L1_error)
+  __pyx_tuple__47 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_noble_off, __pyx_n_s_filter_noble_off); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 422, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__47);
+  __Pyx_GIVEREF(__pyx_tuple__47);
+  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_minimal_noble_off, 422, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 422, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":448
- *         return filter_noble
+  /* "utils/write_noble_target.py":428
+ *         return filter_noble_off
+ * 
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
+ */
+  __pyx_tuple__49 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_fake_noble, __pyx_n_s_filter_fake_noble); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 428, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__49);
+  __Pyx_GIVEREF(__pyx_tuple__49);
+  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_minimal_fake_noble_off, 428, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 428, __pyx_L1_error)
+
+  /* "utils/write_noble_target.py":434
+ *         return filter_fake_noble
  * 
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         if self.casual_attack_block_ratio is None:
  *             raise RuntimeError("expected world casual_attack_block_ratio to be int")
  */
-  __pyx_tuple__57 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_world_ratio, __pyx_n_s_filter_casual_attack_block_ratio, __pyx_n_s_filter_casual_attack_block_ratio); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(0, 448, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__57);
-  __Pyx_GIVEREF(__pyx_tuple__57);
-  __pyx_codeobj__58 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__57, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_casual_attack_block_ratio_2, 448, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__58)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_tuple__51 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_world_ratio, __pyx_n_s_filter_casual_attack_block_ratio, __pyx_n_s_filter_casual_attack_block_ratio); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 434, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__51);
+  __Pyx_GIVEREF(__pyx_tuple__51);
+  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_casual_attack_block_ratio_2, 434, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 434, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":464
+  /* "utils/write_noble_target.py":450
  *         return filter_casual_attack_block_ratio
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:
  *             for filter_func in self.filters:
  */
-  __pyx_tuple__59 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_filter_func, __pyx_n_s_filter_func, __pyx_n_s_weight); if (unlikely(!__pyx_tuple__59)) __PYX_ERR(0, 464, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__59);
-  __Pyx_GIVEREF(__pyx_tuple__59);
-  __pyx_codeobj__60 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__59, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_get_filtered_weight_max_list, 464, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__60)) __PYX_ERR(0, 464, __pyx_L1_error)
+  __pyx_tuple__53 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_filter_func, __pyx_n_s_filter_func, __pyx_n_s_weight); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__53);
+  __Pyx_GIVEREF(__pyx_tuple__53);
+  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__53, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_get_filtered_weight_max_list, 450, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 450, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":475
+  /* "utils/write_noble_target.py":461
  *         ]
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:
  *             return weight_max.distance <= self.initial_outline_target_dist
  */
-  __pyx_tuple__61 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_close_than_target_dist, __pyx_n_s_filter_close_than_target_dist); if (unlikely(!__pyx_tuple__61)) __PYX_ERR(0, 475, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__61);
-  __Pyx_GIVEREF(__pyx_tuple__61);
-  __pyx_codeobj__62 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__61, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_only_closer_than_target_dist, 475, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__62)) __PYX_ERR(0, 475, __pyx_L1_error)
+  __pyx_tuple__55 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_close_than_target_dist, __pyx_n_s_filter_close_than_target_dist); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 461, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__55);
+  __Pyx_GIVEREF(__pyx_tuple__55);
+  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_only_closer_than_target_dist, 461, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 461, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":481
+  /* "utils/write_noble_target.py":467
  *         return filter_close_than_target_dist
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:
  *             return (
  */
-  __pyx_tuple__63 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_first_line_false, __pyx_n_s_filter_first_line_false); if (unlikely(!__pyx_tuple__63)) __PYX_ERR(0, 481, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__63);
-  __Pyx_GIVEREF(__pyx_tuple__63);
-  __pyx_codeobj__64 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__63, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_first_line_false_query, 481, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__64)) __PYX_ERR(0, 481, __pyx_L1_error)
+  __pyx_tuple__57 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filter_first_line_false, __pyx_n_s_filter_first_line_false); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(0, 467, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__57);
+  __Pyx_GIVEREF(__pyx_tuple__57);
+  __pyx_codeobj__58 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__57, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_first_line_false_query, 467, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__58)) __PYX_ERR(0, 467, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":490
+  /* "utils/write_noble_target.py":476
  *         return filter_first_line_false
  * 
  *     def _closest_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  */
-  __pyx_tuple__65 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filtered_weight_max, __pyx_n_s_weight_list); if (unlikely(!__pyx_tuple__65)) __PYX_ERR(0, 490, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__65);
-  __Pyx_GIVEREF(__pyx_tuple__65);
-  __pyx_codeobj__66 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__65, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_closest_weight_lst, 490, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__66)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_tuple__59 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_filtered_weight_max, __pyx_n_s_weight_list); if (unlikely(!__pyx_tuple__59)) __PYX_ERR(0, 476, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__59);
+  __Pyx_GIVEREF(__pyx_tuple__59);
+  __pyx_codeobj__60 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__59, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_closest_weight_lst, 476, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__60)) __PYX_ERR(0, 476, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":497
+  /* "utils/write_noble_target.py":483
  *         return weight_list
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  */
-  __pyx_codeobj__67 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__65, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_close_weight_lst, 497, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__67)) __PYX_ERR(0, 497, __pyx_L1_error)
+  __pyx_codeobj__61 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__59, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_close_weight_lst, 483, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__61)) __PYX_ERR(0, 483, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":504
+  /* "utils/write_noble_target.py":490
  *         return weight_list
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         weight_list: list[FastWeightMaximum] = self.random.sample(
  */
-  __pyx_codeobj__68 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__65, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_random_weight_lst, 504, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__68)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __pyx_codeobj__62 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__59, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_random_weight_lst, 490, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__62)) __PYX_ERR(0, 490, __pyx_L1_error)
 
-  /* "utils/write_noble_target.py":515
+  /* "utils/write_noble_target.py":501
  *         )
  * 
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: -weight.distance)
  */
-  __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__65, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_far_weight_lst, 515, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 515, __pyx_L1_error)
+  __pyx_codeobj__63 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__59, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_utils_write_noble_target_py, __pyx_n_s_far_weight_lst, 501, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__63)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -19076,9 +17511,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitConstants(void) {
   if (__Pyx_CreateStringTabAndInitStrings() < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_8 = PyInt_FromLong(8); if (unlikely(!__pyx_int_8)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_15 = PyInt_FromLong(15); if (unlikely(!__pyx_int_15)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_100 = PyInt_FromLong(100); if (unlikely(!__pyx_int_100)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_200 = PyInt_FromLong(200); if (unlikely(!__pyx_int_200)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_80000 = PyInt_FromLong(80000L); if (unlikely(!__pyx_int_80000)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_90000 = PyInt_FromLong(90000L); if (unlikely(!__pyx_int_90000)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_100000 = PyInt_FromLong(100000L); if (unlikely(!__pyx_int_100000)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -19134,15 +17569,15 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one)) __PYX_ERR(0, 253, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one) < 0) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one)) __PYX_ERR(0, 297, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one) < 0) __PYX_ERR(0, 297, __pyx_L1_error)
   #else
   __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one) < 0) __PYX_ERR(0, 253, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one) < 0) __PYX_ERR(0, 297, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct___mode_guide_is_one->tp_print = 0;
@@ -19153,15 +17588,15 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #endif
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query)) __PYX_ERR(0, 430, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query)) __PYX_ERR(0, 416, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query) < 0) __PYX_ERR(0, 416, __pyx_L1_error)
   #else
   __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_1__morale_query;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query) < 0) __PYX_ERR(0, 416, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_1__morale_query->tp_print = 0;
@@ -19172,98 +17607,79 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #endif
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off)) __PYX_ERR(0, 442, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio)) __PYX_ERR(0, 434, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio) < 0) __PYX_ERR(0, 434, __pyx_L1_error)
   #else
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off;
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio) < 0) __PYX_ERR(0, 434, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off->tp_print = 0;
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio->tp_print = 0;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off->tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__minimal_noble_off->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio->tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_2__casual_attack_block_ratio->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   #endif
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio)) __PYX_ERR(0, 448, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio) < 0) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list)) __PYX_ERR(0, 450, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list) < 0) __PYX_ERR(0, 450, __pyx_L1_error)
   #else
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio;
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio) < 0) __PYX_ERR(0, 448, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list) < 0) __PYX_ERR(0, 450, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio->tp_print = 0;
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list->tp_print = 0;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio->tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__casual_attack_block_ratio->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list->tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_3__get_filtered_weight_max_list->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   #endif
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list)) __PYX_ERR(0, 464, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist)) __PYX_ERR(0, 461, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist) < 0) __PYX_ERR(0, 461, __pyx_L1_error)
   #else
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list;
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist) < 0) __PYX_ERR(0, 461, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list->tp_print = 0;
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist->tp_print = 0;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list->tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__get_filtered_weight_max_list->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist->tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_4__only_closer_than_target_dist->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   #endif
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist)) __PYX_ERR(0, 475, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist) < 0) __PYX_ERR(0, 475, __pyx_L1_error)
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query)) __PYX_ERR(0, 467, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query) < 0) __PYX_ERR(0, 467, __pyx_L1_error)
   #else
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist;
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist) < 0) __PYX_ERR(0, 475, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query) < 0) __PYX_ERR(0, 467, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist->tp_print = 0;
+  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query->tp_print = 0;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist->tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__only_closer_than_target_dist->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
-  }
-  #endif
-  #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query_spec, NULL); if (unlikely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query)) __PYX_ERR(0, 481, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query_spec, __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query) < 0) __PYX_ERR(0, 481, __pyx_L1_error)
-  #else
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query = &__pyx_type_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query;
-  #endif
-  #if !CYTHON_COMPILING_IN_LIMITED_API
-  #endif
-  #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query) < 0) __PYX_ERR(0, 481, __pyx_L1_error)
-  #endif
-  #if PY_MAJOR_VERSION < 3
-  __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query->tp_print = 0;
-  #endif
-  #if !CYTHON_COMPILING_IN_LIMITED_API
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query->tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_6__first_line_false_query->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query->tp_dictoffset && __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query->tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_ptype_5utils_18write_noble_target___pyx_scope_struct_5__first_line_false_query->tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   #endif
   __Pyx_RefNannyFinishContext();
@@ -19731,474 +18147,434 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":92
+  /* "utils/write_noble_target.py":95
  *         self.initial_outline_front_dist = self.outline.initial_outline_front_dist
  * 
  *     def sorted_weights_nobles(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         self.filters.append(self._only_closer_than_target_dist())
- *         self.filters.append(self._noble_query())
+ * 
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_3sorted_weights_nobles, 0, __pyx_n_s_WriteNobleTarget_sorted_weights, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_3sorted_weights_nobles, 0, __pyx_n_s_WriteNobleTarget_sorted_weights, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_sorted_weights_nobles, __pyx_t_2) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_sorted_weights_nobles, __pyx_t_2) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":124
+  /* "utils/write_noble_target.py":128
  *             return self._far_weight_lst()
  * 
  *     def weight_create_list(self) -> list[WeightModel]:             # <<<<<<<<<<<<<<
  *         weights_create_lst: list[WeightModel] = []
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_list_WeightModel) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_5weight_create_list, 0, __pyx_n_s_WriteNobleTarget_weight_create_l, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 124, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_list_WeightModel) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_5weight_create_list, 0, __pyx_n_s_WriteNobleTarget_weight_create_l, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_weight_create_list, __pyx_t_4) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_weight_create_list, __pyx_t_4) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":187
+  /* "utils/write_noble_target.py":227
  *         return weights_create_lst
  * 
  *     def _weight_model(             # <<<<<<<<<<<<<<
  *         self,
  *         weight_max: FastWeightMaximum,
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_off_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_catapult_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_noble, __pyx_n_s_int) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_s_int) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_WeightModel) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_7_weight_model, 0, __pyx_n_s_WriteNobleTarget__weight_model, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_off_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_catapult, __pyx_n_s_int) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_noble, __pyx_n_s_int) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_s_int) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_WeightModel) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_7_weight_model, 0, __pyx_n_s_WriteNobleTarget__weight_model, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_weight_model, __pyx_t_2) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_weight_model, __pyx_t_2) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":210
+  /* "utils/write_noble_target.py":250
  *         )
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def _update_weight_max(
  *         weight_max: FastWeightMaximum,
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 210, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_off_to_left_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_catapult_to_left_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_noble_number, __pyx_n_s_int) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_9_update_weight_max, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_WriteNobleTarget__update_weight, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_off_used, __pyx_n_s_int) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_catapults_used, __pyx_n_s_int) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_noble_used, __pyx_n_s_int) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_fake_noble_used, __pyx_n_s_int) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_9_update_weight_max, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_WriteNobleTarget__update_weight, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_4, sizeof(__pyx_defaults), 2)) __PYX_ERR(0, 250, __pyx_L1_error)
+
+  /* "utils/write_noble_target.py":255
+ *         off_used: int,
+ *         catapults_used: int,
+ *         noble_used: int = 0,             # <<<<<<<<<<<<<<
+ *         fake_noble_used: int = 0,
+ *     ) -> FastWeightMaximum:
+ */
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 255, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_int_0);
+  __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_4)->__pyx_arg_noble_used = ((PyObject*)__pyx_int_0);
+  __Pyx_GIVEREF(__pyx_int_0);
+
+  /* "utils/write_noble_target.py":256
+ *         catapults_used: int,
+ *         noble_used: int = 0,
+ *         fake_noble_used: int = 0,             # <<<<<<<<<<<<<<
+ *     ) -> FastWeightMaximum:
+ *         weight_max.off_state += off_used
+ */
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 256, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_int_0);
+  __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_4)->__pyx_arg_fake_noble_used = ((PyObject*)__pyx_int_0);
+  __Pyx_GIVEREF(__pyx_int_0);
+  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_4, __pyx_pf_5utils_18write_noble_target___defaults__);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 210, __pyx_L1_error)
+
+  /* "utils/write_noble_target.py":250
+ *         )
+ * 
+ *     @staticmethod             # <<<<<<<<<<<<<<
+ *     def _update_weight_max(
+ *         weight_max: FastWeightMaximum,
+ */
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_staticmethod, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_update_weight_max, __pyx_t_2) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_update_weight_max, __pyx_t_2) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":227
+  /* "utils/write_noble_target.py":271
  *         return weight_max
  * 
  *     def _order_distance_default_list(self) -> None:             # <<<<<<<<<<<<<<
  *         def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:
  *             return -weight_tuple[0].distance
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_11_order_distance_default_list, 0, __pyx_n_s_WriteNobleTarget__order_distance_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_11_order_distance_default_list, 0, __pyx_n_s_WriteNobleTarget__order_distance_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_order_distance_default_list, __pyx_t_4) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_order_distance_default_list, __pyx_t_4) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":233
+  /* "utils/write_noble_target.py":277
  *         self.default_create_list.sort(key=order_func)
  * 
  *     def _fill_default_list(self, sorted_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
  *         weight_max: FastWeightMaximum
  *         for weight_max in sorted_list:
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_sorted_list, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 233, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 233, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_13_fill_default_list, 0, __pyx_n_s_WriteNobleTarget__fill_default_l, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 233, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_sorted_list, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 277, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 277, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_13_fill_default_list, 0, __pyx_n_s_WriteNobleTarget__fill_default_l, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_fill_default_list, __pyx_t_2) < 0) __PYX_ERR(0, 233, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_fill_default_list, __pyx_t_2) < 0) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":253
+  /* "utils/write_noble_target.py":297
  *                     self.target.required_noble -= nobles
  * 
  *     def _mode_guide_is_one(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
  *         """
  *         Updates self.default_create_list attribute
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 297, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max_list, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 253, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 253, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_15_mode_guide_is_one, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_4, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 253, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max_list, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 297, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 297, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_15_mode_guide_is_one, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_4, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 297, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_mode_guide_is_one, __pyx_t_4) < 0) __PYX_ERR(0, 253, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_mode_guide_is_one, __pyx_t_4) < 0) __PYX_ERR(0, 297, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":275
+  /* "utils/write_noble_target.py":319
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_many(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
  *         """
  *         Updates self.default_create_list attribute
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_weight_max_list, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_17_mode_guide_is_many, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_5, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 275, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_weight_max_list, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_17_mode_guide_is_many, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_5, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_mode_guide_is_many, __pyx_t_2) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_mode_guide_is_many, __pyx_t_2) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":292
+  /* "utils/write_noble_target.py":336
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
  *     def _mode_guide_is_single(self, weight_max_list: list[FastWeightMaximum]) -> None:             # <<<<<<<<<<<<<<
  *         """
  *         Updates self.default_create_list attribute
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 292, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 336, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max_list, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 292, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 292, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_19_mode_guide_is_single, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_6, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 292, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max_list, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 336, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 336, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_19_mode_guide_is_single, 0, __pyx_n_s_WriteNobleTarget__mode_guide_is_6, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 336, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_mode_guide_is_single, __pyx_t_4) < 0) __PYX_ERR(0, 292, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_mode_guide_is_single, __pyx_t_4) < 0) __PYX_ERR(0, 336, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":310
+  /* "utils/write_noble_target.py":354
  *         self._fill_default_list(sorted_weight_max_lst)
  * 
- *     def _off(self, weight_max: FastWeightMaximum) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
+ *     def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:             # <<<<<<<<<<<<<<
+ *         off_left = weight_max.off_left
+ *         if not self.target.fake and (
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 310, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 310, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_int) < 0) __PYX_ERR(0, 310, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_21_off, 0, __pyx_n_s_WriteNobleTarget__off, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 310, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 354, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_noble_number, __pyx_n_s_int) < 0) __PYX_ERR(0, 354, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_int) < 0) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_21_off, 0, __pyx_n_s_WriteNobleTarget__off, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_off, __pyx_t_2) < 0) __PYX_ERR(0, 310, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_off, __pyx_t_2) < 0) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "utils/write_noble_target.py":326
- *             return 200
- * 
- *     def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_off_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_int) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_23_first_off, 0, __pyx_n_s_WriteNobleTarget__first_off, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 326, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_first_off, __pyx_t_4) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-  /* "utils/write_noble_target.py":348
- *             return 200
- * 
- *     def _catapult(self, weight_max: FastWeightMaximum) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 348, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_int) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_25_catapult, 0, __pyx_n_s_WriteNobleTarget__catapult, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 348, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_catapult, __pyx_t_2) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "utils/write_noble_target.py":364
- *             return 0
- * 
- *     def _first_catapult(self, weight_max: FastWeightMaximum, catapult: int) -> int:             # <<<<<<<<<<<<<<
- *         if self.target.fake:
- *             return 0
- */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 364, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_catapult_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_int) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_27_first_catapult, 0, __pyx_n_s_WriteNobleTarget__first_catapult, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_first_catapult, __pyx_t_4) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "utils/write_noble_target.py":384
- *             return 0
+ *         )
  * 
- *     def _off_to_left(  # noqa: PLR0911             # <<<<<<<<<<<<<<
- *         self, weight_max: FastWeightMaximum, off: int, noble: int
+ *     def _first_off(             # <<<<<<<<<<<<<<
+ *         self, weight_max: FastWeightMaximum, off: int, noble_number: int
  *     ) -> int:
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 384, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_off_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_noble, __pyx_n_s_int) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_int) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_29_off_to_left, 0, __pyx_n_s_WriteNobleTarget__off_to_left, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 384, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_off_to_left, __pyx_t_2) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "utils/write_noble_target.py":408
- *             return weight_max.off_left - (off * (noble))
- * 
- *     def _catapult_to_left(  # noqa: PLR0911             # <<<<<<<<<<<<<<
- *         self, weight_max: FastWeightMaximum, catapult: int, noble: int
- *     ) -> int:
- */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 408, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_catapult_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_noble, __pyx_n_s_int) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_int) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_31_catapult_to_left, 0, __pyx_n_s_WriteNobleTarget__catapult_to_le, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 408, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_weight_max, __pyx_n_s_FastWeightMaximum) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_off_2, __pyx_n_s_int) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_noble_number, __pyx_n_s_int) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_n_s_int) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_23_first_off, 0, __pyx_n_s_WriteNobleTarget__first_off, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_catapult_to_left, __pyx_t_4) < 0) __PYX_ERR(0, 408, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_first_off, __pyx_t_4) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":430
- *             return weight_max.catapult_left
+  /* "utils/write_noble_target.py":416
+ *         )
  * 
  *     def _morale_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_morale(weight_max: FastWeightMaximum) -> bool:
  *             return weight_max.morale >= self.morale_on_targets_greater_than
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 430, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 416, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_33_morale_query, 0, __pyx_n_s_WriteNobleTarget__morale_query, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__53)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 430, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 416, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_25_morale_query, 0, __pyx_n_s_WriteNobleTarget__morale_query, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__46)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 416, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_morale_query, __pyx_t_2) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_morale_query, __pyx_t_2) < 0) __PYX_ERR(0, 416, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":436
+  /* "utils/write_noble_target.py":422
  *         return filter_morale
  * 
- *     def _noble_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.nobleman_left >= 1 and weight_max.nobles_limit >= 1
+ *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
+ *         def filter_noble_off(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.nobles_allowed_to_use() > 0
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 436, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 436, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_35_noble_query, 0, __pyx_n_s_WriteNobleTarget__noble_query, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__55)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 436, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_27_minimal_noble_off, 0, __pyx_n_s_WriteNobleTarget__minimal_noble_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__48)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_noble_query, __pyx_t_4) < 0) __PYX_ERR(0, 436, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_minimal_noble_off, __pyx_t_4) < 0) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":442
- *         return filter_noble
+  /* "utils/write_noble_target.py":428
+ *         return filter_noble_off
  * 
- *     def _minimal_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
- *         def filter_noble(weight_max: FastWeightMaximum) -> bool:
- *             return weight_max.off_left >= self.initial_outline_minimum_noble_troops
+ *     def _minimal_fake_noble_off(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
+ *         def filter_fake_noble(weight_max: FastWeightMaximum) -> bool:
+ *             return weight_max.fake_nobles_allowed_to_use() > 0
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 442, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 428, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_37_minimal_noble_off, 0, __pyx_n_s_WriteNobleTarget__minimal_noble_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 442, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 428, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_29_minimal_fake_noble_off, 0, __pyx_n_s_WriteNobleTarget__minimal_fake_n_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__50)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 428, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_minimal_noble_off, __pyx_t_2) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_minimal_fake_noble_off, __pyx_t_2) < 0) __PYX_ERR(0, 428, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":448
- *         return filter_noble
+  /* "utils/write_noble_target.py":434
+ *         return filter_fake_noble
  * 
  *     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         if self.casual_attack_block_ratio is None:
  *             raise RuntimeError("expected world casual_attack_block_ratio to be int")
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 434, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 448, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_39_casual_attack_block_ratio, 0, __pyx_n_s_WriteNobleTarget__casual_attack_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 448, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 434, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_31_casual_attack_block_ratio, 0, __pyx_n_s_WriteNobleTarget__casual_attack_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 434, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_casual_attack_block_ratio_2, __pyx_t_4) < 0) __PYX_ERR(0, 448, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_casual_attack_block_ratio_2, __pyx_t_4) < 0) __PYX_ERR(0, 434, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":464
+  /* "utils/write_noble_target.py":450
  *         return filter_casual_attack_block_ratio
  * 
  *     def _get_filtered_weight_max_list(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         def filter_func(weight_max: FastWeightMaximum) -> bool:
  *             for filter_func in self.filters:
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 464, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 450, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_41_get_filtered_weight_max_list, 0, __pyx_n_s_WriteNobleTarget__get_filtered_w_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_33_get_filtered_weight_max_list, 0, __pyx_n_s_WriteNobleTarget__get_filtered_w_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 450, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_filtered_weight_max_list, __pyx_t_2) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_filtered_weight_max_list, __pyx_t_2) < 0) __PYX_ERR(0, 450, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":475
+  /* "utils/write_noble_target.py":461
  *         ]
  * 
  *     def _only_closer_than_target_dist(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_close_than_target_dist(weight_max: FastWeightMaximum) -> bool:
  *             return weight_max.distance <= self.initial_outline_target_dist
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 475, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 475, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_43_only_closer_than_target_dist, 0, __pyx_n_s_WriteNobleTarget__only_closer_th_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__62)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 475, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 461, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_35_only_closer_than_target_dist, 0, __pyx_n_s_WriteNobleTarget__only_closer_th_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_only_closer_than_target_dist, __pyx_t_4) < 0) __PYX_ERR(0, 475, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_only_closer_than_target_dist, __pyx_t_4) < 0) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":481
+  /* "utils/write_noble_target.py":467
  *         return filter_close_than_target_dist
  * 
  *     def _first_line_false_query(self) -> Callable[[FastWeightMaximum], bool]:             # <<<<<<<<<<<<<<
  *         def filter_first_line_false(weight_max: FastWeightMaximum) -> bool:
  *             return (
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 481, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 467, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 481, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_45_first_line_false_query, 0, __pyx_n_s_WriteNobleTarget__first_line_fal_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__64)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 481, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_Callable_FastWeightMaximum_bool) < 0) __PYX_ERR(0, 467, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_37_first_line_false_query, 0, __pyx_n_s_WriteNobleTarget__first_line_fal_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 467, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_first_line_false_query, __pyx_t_2) < 0) __PYX_ERR(0, 481, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_first_line_false_query, __pyx_t_2) < 0) __PYX_ERR(0, 467, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":490
+  /* "utils/write_noble_target.py":476
  *         return filter_first_line_false
  * 
  *     def _closest_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 476, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 490, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_47_closest_weight_lst, 0, __pyx_n_s_WriteNobleTarget__closest_weight_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__66)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 490, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 476, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_39_closest_weight_lst, 0, __pyx_n_s_WriteNobleTarget__closest_weight_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 476, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_closest_weight_lst, __pyx_t_4) < 0) __PYX_ERR(0, 490, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_closest_weight_lst, __pyx_t_4) < 0) __PYX_ERR(0, 476, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":497
+  /* "utils/write_noble_target.py":483
  *         return weight_list
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: weight.distance)
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 497, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 483, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 497, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_49_close_weight_lst, 0, __pyx_n_s_WriteNobleTarget__close_weight_l_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__67)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 497, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 483, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_41_close_weight_lst, 0, __pyx_n_s_WriteNobleTarget__close_weight_l_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__61)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 483, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_close_weight_lst, __pyx_t_2) < 0) __PYX_ERR(0, 497, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_close_weight_lst, __pyx_t_2) < 0) __PYX_ERR(0, 483, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "utils/write_noble_target.py":504
+  /* "utils/write_noble_target.py":490
  *         return weight_list
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         weight_list: list[FastWeightMaximum] = self.random.sample(
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 490, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 504, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_51_random_weight_lst, 0, __pyx_n_s_WriteNobleTarget__random_weight_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__68)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 504, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 490, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_43_random_weight_lst, 0, __pyx_n_s_WriteNobleTarget__random_weight_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__62)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 490, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_random_weight_lst, __pyx_t_4) < 0) __PYX_ERR(0, 504, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_random_weight_lst, __pyx_t_4) < 0) __PYX_ERR(0, 490, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "utils/write_noble_target.py":515
+  /* "utils/write_noble_target.py":501
  *         )
  * 
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  *         filtered_weight_max.sort(key=lambda weight: -weight.distance)
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 515, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 515, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_53_far_weight_lst, 0, __pyx_n_s_WriteNobleTarget__far_weight_lst_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__69)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 515, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_kp_s_list_FastWeightMaximum) < 0) __PYX_ERR(0, 501, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_5utils_18write_noble_target_16WriteNobleTarget_45_far_weight_lst, 0, __pyx_n_s_WriteNobleTarget__far_weight_lst_2, NULL, __pyx_n_s_utils_write_noble_target, __pyx_d, ((PyObject *)__pyx_codeobj__63)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_far_weight_lst, __pyx_t_2) < 0) __PYX_ERR(0, 515, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_far_weight_lst, __pyx_t_2) < 0) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "utils/write_noble_target.py":25
@@ -21368,6 +19744,153 @@ static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected) {
     }
     return __Pyx_IterFinish();
 }
+
+/* PyIntBinop */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject* __Pyx_PyInt_MultiplyObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check) {
+    CYTHON_MAYBE_UNUSED_VAR(intval);
+    CYTHON_MAYBE_UNUSED_VAR(inplace);
+    CYTHON_UNUSED_VAR(zerodivision_check);
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long a = PyInt_AS_LONG(op1);
+        
+#ifdef HAVE_LONG_LONG
+            if (sizeof(PY_LONG_LONG) > sizeof(long)) {
+                PY_LONG_LONG result = (PY_LONG_LONG)a * (PY_LONG_LONG)b;
+                return (result >= LONG_MIN && result <= LONG_MAX) ?
+                    PyInt_FromLong((long)result) : PyLong_FromLongLong(result);
+            }
+#endif
+#if CYTHON_USE_TYPE_SLOTS
+            return PyInt_Type.tp_as_number->nb_multiply(op1, op2);
+#else
+            return PyNumber_Multiply(op1, op2);
+#endif
+    }
+    #endif
+    #if CYTHON_USE_PYLONG_INTERNALS
+    if (likely(PyLong_CheckExact(op1))) {
+        const long b = intval;
+        long a, x;
+#ifdef HAVE_LONG_LONG
+        const PY_LONG_LONG llb = intval;
+        PY_LONG_LONG lla, llx;
+#endif
+        if (unlikely(__Pyx_PyLong_IsZero(op1))) {
+            return __Pyx_NewRef(op1);
+        }
+        if (likely(__Pyx_PyLong_IsCompact(op1))) {
+            a = __Pyx_PyLong_CompactValue(op1);
+        } else {
+            const digit* digits = __Pyx_PyLong_Digits(op1);
+            const Py_ssize_t size = __Pyx_PyLong_SignedDigitCount(op1);
+            switch (size) {
+                case -2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT+30) {
+                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT+30) {
+                        lla = -(PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT+30) {
+                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT+30) {
+                        lla = (PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case -3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT+30) {
+                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT+30) {
+                        lla = -(PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT+30) {
+                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT+30) {
+                        lla = (PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case -4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT+30) {
+                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT+30) {
+                        lla = -(PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT+30) {
+                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT+30) {
+                        lla = (PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                default: return PyLong_Type.tp_as_number->nb_multiply(op1, op2);
+            }
+        }
+                CYTHON_UNUSED_VAR(a);
+                CYTHON_UNUSED_VAR(b);
+                #ifdef HAVE_LONG_LONG
+                lla = a;
+                goto long_long;
+                #else
+                return PyLong_Type.tp_as_number->nb_multiply(op1, op2);
+                #endif
+            return PyLong_FromLong(x);
+#ifdef HAVE_LONG_LONG
+        long_long:
+                llx = lla * llb;
+            return PyLong_FromLongLong(llx);
+#endif
+        
+        
+    }
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+#if CYTHON_COMPILING_IN_LIMITED_API
+        double a = __pyx_PyFloat_AsDouble(op1);
+#else
+        double a = PyFloat_AS_DOUBLE(op1);
+#endif
+            double result;
+            
+            PyFPE_START_PROTECT("multiply", return NULL)
+            result = ((double)a) * (double)b;
+            PyFPE_END_PROTECT(result)
+            return PyFloat_FromDouble(result);
+    }
+    return (inplace ? PyNumber_InPlaceMultiply : PyNumber_Multiply)(op1, op2);
+}
+#endif
 
 /* PyDictVersioning */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
@@ -22981,286 +21504,6 @@ bad:
     return (double)-1;
 }
 
-/* PyIntBinop */
-#if !CYTHON_COMPILING_IN_PYPY
-static PyObject* __Pyx_PyInt_MultiplyCObj(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check) {
-    CYTHON_MAYBE_UNUSED_VAR(intval);
-    CYTHON_MAYBE_UNUSED_VAR(inplace);
-    CYTHON_UNUSED_VAR(zerodivision_check);
-    #if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_CheckExact(op2))) {
-        const long a = intval;
-        long b = PyInt_AS_LONG(op2);
-        
-#ifdef HAVE_LONG_LONG
-            if (sizeof(PY_LONG_LONG) > sizeof(long)) {
-                PY_LONG_LONG result = (PY_LONG_LONG)a * (PY_LONG_LONG)b;
-                return (result >= LONG_MIN && result <= LONG_MAX) ?
-                    PyInt_FromLong((long)result) : PyLong_FromLongLong(result);
-            }
-#endif
-#if CYTHON_USE_TYPE_SLOTS
-            return PyInt_Type.tp_as_number->nb_multiply(op1, op2);
-#else
-            return PyNumber_Multiply(op1, op2);
-#endif
-    }
-    #endif
-    #if CYTHON_USE_PYLONG_INTERNALS
-    if (likely(PyLong_CheckExact(op2))) {
-        const long a = intval;
-        long b, x;
-#ifdef HAVE_LONG_LONG
-        const PY_LONG_LONG lla = intval;
-        PY_LONG_LONG llb, llx;
-#endif
-        if (unlikely(__Pyx_PyLong_IsZero(op2))) {
-            return __Pyx_NewRef(op2);
-        }
-        if (likely(__Pyx_PyLong_IsCompact(op2))) {
-            b = __Pyx_PyLong_CompactValue(op2);
-        } else {
-            const digit* digits = __Pyx_PyLong_Digits(op2);
-            const Py_ssize_t size = __Pyx_PyLong_SignedDigitCount(op2);
-            switch (size) {
-                case -2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT+30) {
-                        b = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT+30) {
-                        llb = -(PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT+30) {
-                        b = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT+30) {
-                        llb = (PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case -3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT+30) {
-                        b = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT+30) {
-                        llb = -(PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT+30) {
-                        b = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT+30) {
-                        llb = (PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case -4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT+30) {
-                        b = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT+30) {
-                        llb = -(PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT+30) {
-                        b = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT+30) {
-                        llb = (PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                default: return PyLong_Type.tp_as_number->nb_multiply(op1, op2);
-            }
-        }
-                CYTHON_UNUSED_VAR(a);
-                CYTHON_UNUSED_VAR(b);
-                #ifdef HAVE_LONG_LONG
-                llb = b;
-                goto long_long;
-                #else
-                return PyLong_Type.tp_as_number->nb_multiply(op1, op2);
-                #endif
-            return PyLong_FromLong(x);
-#ifdef HAVE_LONG_LONG
-        long_long:
-                llx = lla * llb;
-            return PyLong_FromLongLong(llx);
-#endif
-        
-        
-    }
-    #endif
-    if (PyFloat_CheckExact(op2)) {
-        const long a = intval;
-#if CYTHON_COMPILING_IN_LIMITED_API
-        double b = __pyx_PyFloat_AsDouble(op2);
-#else
-        double b = PyFloat_AS_DOUBLE(op2);
-#endif
-            double result;
-            
-            PyFPE_START_PROTECT("multiply", return NULL)
-            result = ((double)a) * (double)b;
-            PyFPE_END_PROTECT(result)
-            return PyFloat_FromDouble(result);
-    }
-    return (inplace ? PyNumber_InPlaceMultiply : PyNumber_Multiply)(op1, op2);
-}
-#endif
-
-/* PyIntBinop */
-#if !CYTHON_COMPILING_IN_PYPY
-static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check) {
-    CYTHON_MAYBE_UNUSED_VAR(intval);
-    CYTHON_MAYBE_UNUSED_VAR(inplace);
-    CYTHON_UNUSED_VAR(zerodivision_check);
-    #if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_CheckExact(op1))) {
-        const long b = intval;
-        long x;
-        long a = PyInt_AS_LONG(op1);
-        
-            x = (long)((unsigned long)a - (unsigned long)b);
-            if (likely((x^a) >= 0 || (x^~b) >= 0))
-                return PyInt_FromLong(x);
-            return PyLong_Type.tp_as_number->nb_subtract(op1, op2);
-    }
-    #endif
-    #if CYTHON_USE_PYLONG_INTERNALS
-    if (likely(PyLong_CheckExact(op1))) {
-        const long b = intval;
-        long a, x;
-#ifdef HAVE_LONG_LONG
-        const PY_LONG_LONG llb = intval;
-        PY_LONG_LONG lla, llx;
-#endif
-        if (unlikely(__Pyx_PyLong_IsZero(op1))) {
-            return PyLong_FromLong(-intval);
-        }
-        if (likely(__Pyx_PyLong_IsCompact(op1))) {
-            a = __Pyx_PyLong_CompactValue(op1);
-        } else {
-            const digit* digits = __Pyx_PyLong_Digits(op1);
-            const Py_ssize_t size = __Pyx_PyLong_SignedDigitCount(op1);
-            switch (size) {
-                case -2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
-                        lla = -(PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
-                        lla = (PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case -3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
-                        lla = -(PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
-                        lla = (PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case -4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
-                        lla = -(PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    #ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
-                        lla = (PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-                    #endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                default: return PyLong_Type.tp_as_number->nb_subtract(op1, op2);
-            }
-        }
-                x = a - b;
-            return PyLong_FromLong(x);
-#ifdef HAVE_LONG_LONG
-        long_long:
-                llx = lla - llb;
-            return PyLong_FromLongLong(llx);
-#endif
-        
-        
-    }
-    #endif
-    if (PyFloat_CheckExact(op1)) {
-        const long b = intval;
-#if CYTHON_COMPILING_IN_LIMITED_API
-        double a = __pyx_PyFloat_AsDouble(op1);
-#else
-        double a = PyFloat_AS_DOUBLE(op1);
-#endif
-            double result;
-            
-            PyFPE_START_PROTECT("subtract", return NULL)
-            result = ((double)a) - (double)b;
-            PyFPE_END_PROTECT(result)
-            return PyFloat_FromDouble(result);
-    }
-    return (inplace ? PyNumber_InPlaceSubtract : PyNumber_Subtract)(op1, op2);
-}
-#endif
-
 /* RaiseException */
 #if PY_MAJOR_VERSION < 3
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause) {
@@ -23419,6 +21662,139 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
 bad:
     Py_XDECREF(owned_instance);
     return;
+}
+#endif
+
+/* PyIntBinop */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check) {
+    CYTHON_MAYBE_UNUSED_VAR(intval);
+    CYTHON_MAYBE_UNUSED_VAR(inplace);
+    CYTHON_UNUSED_VAR(zerodivision_check);
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long x;
+        long a = PyInt_AS_LONG(op1);
+        
+            x = (long)((unsigned long)a - (unsigned long)b);
+            if (likely((x^a) >= 0 || (x^~b) >= 0))
+                return PyInt_FromLong(x);
+            return PyLong_Type.tp_as_number->nb_subtract(op1, op2);
+    }
+    #endif
+    #if CYTHON_USE_PYLONG_INTERNALS
+    if (likely(PyLong_CheckExact(op1))) {
+        const long b = intval;
+        long a, x;
+#ifdef HAVE_LONG_LONG
+        const PY_LONG_LONG llb = intval;
+        PY_LONG_LONG lla, llx;
+#endif
+        if (unlikely(__Pyx_PyLong_IsZero(op1))) {
+            return PyLong_FromLong(-intval);
+        }
+        if (likely(__Pyx_PyLong_IsCompact(op1))) {
+            a = __Pyx_PyLong_CompactValue(op1);
+        } else {
+            const digit* digits = __Pyx_PyLong_Digits(op1);
+            const Py_ssize_t size = __Pyx_PyLong_SignedDigitCount(op1);
+            switch (size) {
+                case -2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case -3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case -4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    #ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    #endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                default: return PyLong_Type.tp_as_number->nb_subtract(op1, op2);
+            }
+        }
+                x = a - b;
+            return PyLong_FromLong(x);
+#ifdef HAVE_LONG_LONG
+        long_long:
+                llx = lla - llb;
+            return PyLong_FromLongLong(llx);
+#endif
+        
+        
+    }
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+#if CYTHON_COMPILING_IN_LIMITED_API
+        double a = __pyx_PyFloat_AsDouble(op1);
+#else
+        double a = PyFloat_AS_DOUBLE(op1);
+#endif
+            double result;
+            
+            PyFPE_START_PROTECT("subtract", return NULL)
+            result = ((double)a) - (double)b;
+            PyFPE_END_PROTECT(result)
+            return PyFloat_FromDouble(result);
+    }
+    return (inplace ? PyNumber_InPlaceSubtract : PyNumber_Subtract)(op1, op2);
 }
 #endif
 
@@ -24893,7 +23269,7 @@ __Pyx_PyType_GetName(PyTypeObject* tp)
     if (unlikely(name == NULL) || unlikely(!PyUnicode_Check(name))) {
         PyErr_Clear();
         Py_XDECREF(name);
-        name = __Pyx_NewRef(__pyx_n_s__70);
+        name = __Pyx_NewRef(__pyx_n_s__64);
     }
     return name;
 }

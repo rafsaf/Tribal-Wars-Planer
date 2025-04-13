@@ -731,6 +731,7 @@ class InitialForm(MiniSetup):
         initial_outline_fake_mode = "all"
         initial_outline_nobles_limit = 15
         initial_outline_minimum_noble_troops = 222
+        initial_outline_minimum_fake_noble_troops = 55
 
         response = self.client.post(
             PATH,
@@ -745,6 +746,7 @@ class InitialForm(MiniSetup):
                 "initial_outline_fake_mode": initial_outline_fake_mode,
                 "initial_outline_nobles_limit": initial_outline_nobles_limit,
                 "initial_outline_minimum_noble_troops": initial_outline_minimum_noble_troops,
+                "initial_outline_minimum_fake_noble_troops": initial_outline_minimum_fake_noble_troops,
             },
         )
         assert response.status_code == 302
@@ -768,9 +770,6 @@ class InitialForm(MiniSetup):
         assert target.mode_noble == mode_noble
         assert target.mode_division == mode_division
         assert target.mode_guide == mode_guide
-
-        weight_max: WeightMaximum = WeightMaximum.objects.get(start="102|102")
-        assert weight_max.fake_limit == initial_outline_fake_limit
 
     def test_planer_initial_form___200_test_form5(self):
         outline = self.get_outline(test_world=True)

@@ -275,7 +275,6 @@ def create_initial_data():
         nobleman_left=1,
         nobleman_state=1,
         first_line=True,
-        fake_limit=2,
     )
 
     weight_max2 = models.WeightMaximum.objects.create(
@@ -290,7 +289,6 @@ def create_initial_data():
         nobleman_max=0,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2,
     )
 
     weight_max3 = models.WeightMaximum.objects.create(
@@ -305,7 +303,6 @@ def create_initial_data():
         nobleman_max=0,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2,
     )
 
     models.WeightMaximum.objects.create(
@@ -320,7 +317,6 @@ def create_initial_data():
         nobleman_max=0,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2,
     )
 
     models.WeightMaximum.objects.create(
@@ -335,7 +331,6 @@ def create_initial_data():
         nobleman_max=2,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2,
     )
 
     models.WeightMaximum.objects.create(
@@ -350,7 +345,6 @@ def create_initial_data():
         nobleman_max=2,
         nobleman_left=0,
         first_line=True,
-        fake_limit=2,
     )
 
     outlinetime1 = models.OutlineTime.objects.create(outline=outline1)

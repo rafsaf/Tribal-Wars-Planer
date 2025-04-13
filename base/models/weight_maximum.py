@@ -15,7 +15,6 @@
 
 from typing import TYPE_CHECKING
 
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from base.models.outline import Outline
@@ -48,13 +47,6 @@ class WeightMaximum(models.Model):
     hidden = models.BooleanField(default=False)
     first_line = models.BooleanField(default=False)
     too_far_away = models.BooleanField(default=False)
-    fake_limit = models.IntegerField(
-        default=4, validators=[MinValueValidator(0), MaxValueValidator(20)]
-    )
-    nobles_limit = models.IntegerField(
-        default=10,
-        validators=[MinValueValidator(1), MaxValueValidator(250)],
-    )
 
     if TYPE_CHECKING:
         distance: float
@@ -68,8 +60,6 @@ class WeightMaximum(models.Model):
         "nobleman_state",
         "catapult_left",
         "catapult_state",
-        "fake_limit",
-        "nobles_limit",
     ]
 
     def __str__(self):
@@ -86,7 +76,11 @@ class WeightMaximum(models.Model):
             possible_nobles_by_min_off = (
                 self.off_left // self.outline.initial_outline_minimum_noble_troops
             )
-        return min(self.nobleman_left, self.nobles_limit, possible_nobles_by_min_off)
+        return min(
+            self.nobleman_left,
+            self.outline.initial_outline_nobles_limit,
+            possible_nobles_by_min_off,
+        )
 
     @property
     def has_changed(self):

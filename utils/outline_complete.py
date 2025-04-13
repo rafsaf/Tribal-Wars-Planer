@@ -106,8 +106,6 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
             "catapult_left",
             "nobleman_state",
             "nobleman_left",
-            "fake_limit",
-            "nobles_limit",
             "first_line",
         )
     )
@@ -169,6 +167,19 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
     )
     weight_max_lst = create_nobles()
 
+    create_fake_nobles = CreateWeights(
+        random,
+        deepcopy(fakes),
+        outline,
+        weight_max_lst,
+        dist_matrix,
+        coord_to_id_in_matrix,
+        morale_dict,
+        noble=True,
+        ruin=False,
+    )
+    weight_max_lst = create_fake_nobles()
+
     create_offs = CreateWeights(
         random,
         deepcopy(targets),
@@ -195,19 +206,6 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
     )
     weight_max_lst = create_ruin_offs()
 
-    create_fake_nobles = CreateWeights(
-        random,
-        deepcopy(fakes),
-        outline,
-        weight_max_lst,
-        dist_matrix,
-        coord_to_id_in_matrix,
-        morale_dict,
-        noble=True,
-        ruin=False,
-    )
-    weight_max_lst = create_fake_nobles()
-
     for fast_weight_max in weight_max_lst:
         weight_max = real_weight_max_lst[fast_weight_max.index]
         for field in WeightMaximum.CHANGES_TRACKED_FIELDS:
@@ -222,8 +220,6 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
             "catapult_left",
             "nobleman_state",
             "nobleman_left",
-            "fake_limit",
-            "nobles_limit",
         ],
         batch_size=2000,
     )
