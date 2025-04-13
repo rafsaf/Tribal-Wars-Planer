@@ -247,6 +247,9 @@ class Outline(models.Model):
     available_catapults = ArrayField(
         models.IntegerField(), default=list, blank=True, max_length=4
     )
+    available_full_noble_offs = ArrayField(
+        models.IntegerField(), default=list, blank=True, max_length=4
+    )
     available_ruins = models.IntegerField(default=None, null=True, blank=True)
 
     mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
@@ -364,6 +367,7 @@ class Outline(models.Model):
         self.available_offs_near = []
         self.available_nobles = []
         self.available_nobles_near = []
+        self.available_full_noble_offs = []
         self.available_catapults = []
         self.available_ruins = None
         self.filter_weights_min = 0
@@ -428,6 +432,7 @@ class Outline(models.Model):
                 "available_offs_near",
                 "available_nobles",
                 "available_nobles_near",
+                "available_full_noble_offs",
                 "available_catapults",
                 "available_ruins",
                 "filter_weights_min",

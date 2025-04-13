@@ -685,7 +685,8 @@ class InitialForm(MiniSetup):
         assert outline.available_offs == [50, 13, 18, 19]
         assert outline.available_nobles == [60, 46, 14, 0]
         assert outline.available_offs_near == [20, 13, 7, 0]
-        assert outline.available_nobles_near == [60, 46, 14, 0]
+        assert outline.available_nobles_near == [50, 13, 18, 19]
+        assert outline.available_full_noble_offs == [50, 13, 18, 19]
         assert outline.available_catapults == [5000, 1300, 1800, 1900]
         assert outline.available_ruins == 1800 - 18 * 50
 
@@ -922,6 +923,7 @@ class InitialForm(MiniSetup):
         outline.available_offs_near = [1, 2, 3, 4]
         outline.available_nobles = [4, 4, 4]
         outline.available_nobles_near = [4, 4, 4]
+        outline.available_full_noble_offs = [4, 4, 4]
         outline.available_catapults = [4, 4, 4]
         outline.available_ruins = 1555
         outline.save()
@@ -939,6 +941,7 @@ class InitialForm(MiniSetup):
         assert outline.available_offs_near == []
         assert outline.available_nobles == [0, 0, 0, 0]
         assert outline.available_nobles_near == []
+        assert outline.available_full_noble_offs == [0, 0, 0, 0]
         assert outline.available_catapults == [100, 0, 0, 100]
         assert outline.available_ruins == 0
         assert stats.troops_refreshed == 1

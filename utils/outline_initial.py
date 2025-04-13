@@ -76,11 +76,13 @@ class MakeOutline:
         self.outline.available_offs_near = []
         self.outline.available_nobles = []
         self.outline.available_nobles_near = []
+        self.outline.available_full_noble_offs = []
         self.outline.available_catapults = []
         self.outline.available_ruins = None
         self.outline.save(
             update_fields=[
                 "available_nobles_near",
+                "available_full_noble_offs",
                 "available_offs_near",
                 "available_nobles",
                 "available_offs",

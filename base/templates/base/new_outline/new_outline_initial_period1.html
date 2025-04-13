@@ -198,6 +198,18 @@
             {% endfor %}
           </tr>
           <tr>
+            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Full offs with at least 1 nobleman (there can be more)' %}." class="text-nowrap" scope="col">{% trans 'Full offs with 1 noble' %} <i class="bi bi-question-square"></i></th>
+
+            {% for item in instance.available_full_noble_offs %}
+              <th>{{ item }}</th>
+            {% empty %}
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            {% endfor %}
+          </tr>
+          <tr>
             <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Offs close to real targets' %} <i class="bi bi-question-square"></i></th>
 
             {% for item in instance.available_offs_near %}
