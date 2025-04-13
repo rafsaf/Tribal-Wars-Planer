@@ -100,7 +100,7 @@ This project maintains one docker images, the same one for server and for schedu
 
 Note, there are also other tags like `stage` or `stable`, but **latest** should be prefered choice.
 
-Contains TWP Django server based on `python:3.13.0` docker image, with [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks and many more open source software.
+Contains TWP Django server based on `python:3.13.3` docker image, with [nginx/1.18.0](https://www.nginx.com/) + [uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/) for webserver stack and tiny Python cron-like lib [schedule](https://schedule.readthedocs.io/en/stable/) for tasks and many more open source software.
 
 Environment variables:
 
