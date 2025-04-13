@@ -171,7 +171,6 @@ class TestMakeFinalOutline(TestCase):
             "village_id": 0,
             "player_id": 0,
             "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
-            "deputy_send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0&t=0",
         }
         self.assertEqual(expected, res)
 
@@ -292,7 +291,6 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
-                    "deputy_send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0&t=0",
                 },
                 {
                     "id": WeightModel.objects.get(state__outline=outline, off=100).pk,
@@ -314,7 +312,6 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
-                    "deputy_send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0&t=0",
                 },
                 {
                     "id": WeightModel.objects.get(state__outline=outline, off=19000).pk,
@@ -336,7 +333,6 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
-                    "deputy_send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0&t=0",
                 },
             ]
         }
