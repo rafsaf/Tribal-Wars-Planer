@@ -771,9 +771,6 @@ class InitialForm(MiniSetup):
         assert target.mode_division == mode_division
         assert target.mode_guide == mode_guide
 
-        weight_max: WeightMaximum = WeightMaximum.objects.get(start="102|102")
-        assert weight_max.fake_limit == initial_outline_fake_limit
-
     def test_planer_initial_form___200_test_form5(self):
         outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"

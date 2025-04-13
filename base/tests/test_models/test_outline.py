@@ -127,7 +127,6 @@ class RemoveUserOutline(MiniSetup):
         weight_max.hidden = True
         weight_max.first_line = True
         weight_max.too_far_away = True
-        weight_max.fake_limit = 0
         weight_max.save()
 
         assert models.WeightMaximum.objects.count() == 1
@@ -155,7 +154,6 @@ class RemoveUserOutline(MiniSetup):
         assert weight_max.hidden is False
         assert weight_max.first_line is False
         assert weight_max.too_far_away is False
-        assert weight_max.fake_limit == 10
 
     def test_weight_max_ok_real_target_bad(self):
         outline = self.get_outline(add_result=True, test_world=True)

@@ -154,7 +154,8 @@ class TestWriteNobleTarget(TestCase):
             weight_max=self.weight4,
             off_used=19800,
             catapults_used=90,
-            noble_number=1,
+            noble_used=1,
+            fake_noble_used=0,
         )
         self.assertEqual(updated_weight.off_left, 1000)
         self.assertEqual(updated_weight.off_state, 19800)

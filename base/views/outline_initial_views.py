@@ -332,10 +332,6 @@ def initial_form(  # noqa: PLR0912,PLR0911
                     mode_division=instance.mode_division,
                     mode_guide=instance.mode_guide,
                 )
-                models.WeightMaximum.objects.filter(outline=instance).update(
-                    fake_limit=instance.initial_outline_fake_limit,
-                    nobles_limit=instance.initial_outline_nobles_limit,
-                )
 
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
