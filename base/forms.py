@@ -644,10 +644,11 @@ class ModeOutlineForm(forms.ModelForm):
                 'For 20000 troops and 4 nobles in village, first option would try to use 4 x 5000, second 1 x 19700 + 3 x 100, and last 4 x 100, where 100 can be changed in "Min. off units for every noble".'
             ),
             "initial_outline_nobles_limit": gettext_lazy(
-                "Defaults to 16. Between 1 and 250. "
+                "Defaults to 8. Between 0 and 250. "
                 "For example you may want only 4 nobles from single "
                 "village or even 1 (with full off). "
-                'Best works with "Min. off units for every noble" below.'
+                'Best works with "Min. off units for every noble" below. '
+                "The same limit is respected for fake nobles."
             ),
             "initial_outline_minimum_noble_troops": gettext_lazy(
                 "Defaults to just 100. Must be between 0 and 28000. This is strict minimum so if village have nobles, but not enough off units, Planer won't use it. Use with caution as it can change drastically how other options behave. For example, if you have 4x nobles and 250 off units, and this option is set to 100, only 2 nobles can be ever used. Other 2 will be always ignored."

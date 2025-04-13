@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-12 20:03+0200\n"
+"POT-Creation-Date: 2025-04-13 14:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -212,11 +212,11 @@ msgstr "Tytuł wiadomości"
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:490 base/forms.py:1071
+#: base/forms.py:490 base/forms.py:1072
 msgid "Sending Options:"
 msgstr "Opcje wysyłki"
 
-#: base/forms.py:491 base/forms.py:1072
+#: base/forms.py:491 base/forms.py:1073
 msgid "Add links to direct messages:"
 msgstr "Linki do celów w bezpośrednich wiadomościach:"
 
@@ -347,15 +347,15 @@ msgstr ""
 
 #: base/forms.py:647
 msgid ""
-"Defaults to 16. Between 1 and 250. For example you may want only 4 nobles "
+"Defaults to 8. Between 0 and 250. For example you may want only 4 nobles "
 "from single village or even 1 (with full off). Best works with \"Min. off "
-"units for every noble\" below."
+"units for every noble\" below. The same limit is respected for fake nobles."
 msgstr ""
-"Domyślnie 16. Pomiędzy 1 a 250. Na przykład chcesz wymusić wysyłkę max 4 "
+"Domyślnie 8. Pomiędzy 1 a 250. Na przykład chcesz wymusić wysyłkę max 4 "
 "szlachiców z jednej wioski (nawet jeśli jest ich tam więcej), lub nawet "
-"tylko 1-2 co wymusi pełną lub połowę obstawy (przy dzieleniu offa). "
+"tylko 1 co wymusi offoszlachtę. Taki sam limit zostanie użyty do fake szlachciców."
 
-#: base/forms.py:653
+#: base/forms.py:654
 msgid ""
 "Defaults to just 100. Must be between 0 and 28000. This is strict minimum so "
 "if village have nobles, but not enough off units, Planer won't use it. Use "
@@ -366,72 +366,74 @@ msgstr ""
 "Domyślnie jedynie 100. Musi być pomiędzy 0 a 28000. Jest to <b>ścisły</b> "
 "limit więc jeśli wioska ma szlachciców, ale niewystarczająco jednostek, "
 "planer nie użyje jej! Należy używać ostrożnie ponieważ może drastycznie "
-"zmienić rozpiskę i działanie innych opcji. Na przykład, jeśli masz 4x szlachciców i 250 jednostek off, a ta opcja to 100, tylko 2 szlachciców będzie kiedykolwiek użytych do ataku."
+"zmienić rozpiskę i działanie innych opcji. Na przykład, jeśli masz 4x "
+"szlachciców i 250 jednostek off, a ta opcja to 100, tylko 2 szlachciców "
+"będzie kiedykolwiek użytych do ataku."
 
-#: base/forms.py:656
+#: base/forms.py:657
 msgid ""
 "Defaults to 0. You probably don't want to waste troops for fake nobles, but "
 "there are cases where this makes sense."
 msgstr ""
 
-#: base/forms.py:679
+#: base/forms.py:680
 msgid "MIN number of catapults in one ruin attack:"
 msgstr "MIN liczba katapult w każdym burzaku:"
 
-#: base/forms.py:682
+#: base/forms.py:683
 msgid "MAX number of catapults in one ruin attack:"
 msgstr "MAX liczba katapult w każdym burzaku:"
 
-#: base/forms.py:685
+#: base/forms.py:686
 msgid "Number of catapults that will always be left in full offs:"
 msgstr "Liczba katapult, która zawsze pozostanie w pełnych offach:"
 
-#: base/forms.py:688
+#: base/forms.py:689
 msgid "How many points on average do demolished targets have:"
 msgstr "Jak dużo punktów mają średnio burzone cele:"
 
-#: base/forms.py:702
+#: base/forms.py:703
 msgid "Only attackers ABOVE this morale value can be used:"
 msgstr "Tylko atakujący POWYŻEJ tej wartości morale mogą zostać rozpisani"
 
-#: base/forms.py:704
+#: base/forms.py:705
 msgid "Is morale calculation active in this outline:"
 msgstr "Bierz pod uwagę morale w tej rozpisce"
 
-#: base/forms.py:742
+#: base/forms.py:743
 msgid "Choose whether to avoid the night bonus"
 msgstr "Wybierz czy wysyłki powinny omijać bonus nocny"
 
-#: base/forms.py:748
+#: base/forms.py:749
 msgid "Approximate hours of entry"
 msgstr "Przybliżone czasy wejścia akcji"
 
-#: base/forms.py:755
+#: base/forms.py:756
 msgid "Approximate hours of the last entry"
 msgstr "Przybliżone ostatnie czasy wejścia akcji"
 
-#: base/forms.py:768
+#: base/forms.py:769
 msgid "First value must be less or equal to second!"
 msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 
-#: base/forms.py:779
+#: base/forms.py:780
 msgid "Sum of off"
 msgstr "Suma całego offa"
 
-#: base/forms.py:785
+#: base/forms.py:786
 msgid "Off without catapults"
 msgstr "Off bez katapult"
 
-#: base/forms.py:791
+#: base/forms.py:792
 #: base/templates/base/new_outline/new_outline_initial_period1.html:190
 msgid "Catapults"
 msgstr "Katapulty"
 
-#: base/forms.py:797 base/models/period_model.py:34
+#: base/forms.py:798 base/models/period_model.py:34
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:807 base/forms.py:818
+#: base/forms.py:808 base/forms.py:819
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:101
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:168
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:210
@@ -439,7 +441,7 @@ msgstr "Szlachcic"
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:810 base/forms.py:819
+#: base/forms.py:811 base/forms.py:820
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:102
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
@@ -447,7 +449,7 @@ msgstr "Od"
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:817
+#: base/forms.py:818
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:97
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:163
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:205
@@ -455,7 +457,7 @@ msgstr "Do"
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:820
+#: base/forms.py:821
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:98
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:207
@@ -463,7 +465,7 @@ msgstr "Tryb"
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:821
+#: base/forms.py:822
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:99
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
@@ -471,7 +473,7 @@ msgstr "Jednostka"
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:822
+#: base/forms.py:823
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:100
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
@@ -479,23 +481,23 @@ msgstr "Min. czas"
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:898 base/forms.py:908
+#: base/forms.py:899 base/forms.py:909
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:916
+#: base/forms.py:917
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:956
+#: base/forms.py:957
 msgid "You need a premium account to add more targets here."
 msgstr "Potrzebujesz konta premium by dodawać cele w tym miejscu."
 
-#: base/forms.py:966
+#: base/forms.py:967
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:973
+#: base/forms.py:974
 msgid ""
 "Found more than one village in database, this is the bug. Write me: <rafal."
 "safin@rafsaf.pl>"
@@ -503,48 +505,48 @@ msgstr ""
 "Znaleziono więcej niż 1 wioskę w bazie, jest to błąd. Napisz do mnie: <rafal."
 "safin@rafsaf.pl>"
 
-#: base/forms.py:985
+#: base/forms.py:986
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:986
+#: base/forms.py:987
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:997
+#: base/forms.py:998
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr "Niedozwolone znaki w podanym przedrostku, sprwadź jego poprawność"
 
-#: base/forms.py:1017
+#: base/forms.py:1018
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:1025 base/forms.py:1036
+#: base/forms.py:1026 base/forms.py:1037
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:1049 base/forms.py:1065
+#: base/forms.py:1050 base/forms.py:1066
 msgid "Please select your server:"
 msgstr "Ustaw swój serwer:"
 
-#: base/forms.py:1067
+#: base/forms.py:1068
 msgid "Turn on morale calculations in every outline by default:"
 msgstr ""
 "Włącz domyślną obsługę morali dla każdej nowej rozpiski (domyślnie wyłączone)"
 
-#: base/forms.py:1069
+#: base/forms.py:1070
 msgid "Default input type for planer"
 msgstr "Wybierz typ danych dla planera"
 
-#: base/forms.py:1070
+#: base/forms.py:1071
 msgid "Please select your currency:"
 msgstr "Ustaw swoją walutę płatności:"
 
-#: base/forms.py:1075
+#: base/forms.py:1076
 msgid "Prefered sending option in Results tab"
 msgstr "Preferowana opcja wysyłki wiadomości w zakładce Wyniki"
 
-#: base/forms.py:1077
+#: base/forms.py:1078
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
@@ -671,15 +673,15 @@ msgstr "Cele Akcja"
 msgid "Name"
 msgstr "Nazwa"
 
-#: base/models/outline.py:448
+#: base/models/outline.py:446
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:462
+#: base/models/outline.py:460
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:464
+#: base/models/outline.py:462
 msgid "days"
 msgstr "dni"
 
@@ -2608,11 +2610,11 @@ msgstr "<h5>Zbiórka Wojska jest pusta!</h5>"
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Zbiórka Obrona jest pusta!</h5>"
 
-#: base/views/outline_initial_views.py:524
+#: base/views/outline_initial_views.py:520
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Wszystkie cele muszą mieć przypisany czas.</h5>"
 
-#: base/views/outline_initial_views.py:531
+#: base/views/outline_initial_views.py:527
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Musi istnieć co najmniej jeden Czas.</h5>"
 

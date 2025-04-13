@@ -145,8 +145,8 @@ class WriteNobleTarget:
         weight_max: FastWeightMaximum
         noble_number: int
         for i, (weight_max, noble_number) in enumerate(self.default_create_list):
-            off: int = self._off(weight_max)
-            first_off: int = self._first_off(weight_max, off)
+            off: int = self._off(weight_max, noble_number)
+            first_off: int = self._first_off(weight_max, off, noble_number)
 
             total_off = first_off + (noble_number - 1) * off
 
@@ -351,17 +351,17 @@ class WriteNobleTarget:
         )
         self._fill_default_list(sorted_weight_max_lst)
 
-    def _off(self, weight_max: FastWeightMaximum) -> int:
+    def _off(self, weight_max: FastWeightMaximum, noble_number: int) -> int:
         off_left = weight_max.off_left
         if not self.target.fake and (
             off_left
-            - weight_max.fake_nobles_allowed_to_use()
+            - weight_max.fake_nobles_allowed_to_use(noble_number)
             * self.initial_outline_minimum_fake_noble_troops
             > weight_max.nobles_allowed_to_use()
             * self.initial_outline_minimum_noble_troops
         ):
             off_left -= (
-                weight_max.fake_nobles_allowed_to_use()
+                weight_max.fake_nobles_allowed_to_use(noble_number)
                 * self.initial_outline_minimum_fake_noble_troops
             )
 
@@ -381,17 +381,19 @@ class WriteNobleTarget:
             "impossible configuration: %s: %s", weight_max.pk, self.outline.pk
         )
 
-    def _first_off(self, weight_max: FastWeightMaximum, off: int) -> int:
+    def _first_off(
+        self, weight_max: FastWeightMaximum, off: int, noble_number: int
+    ) -> int:
         off_left = weight_max.off_left
         if not self.target.fake and (
             off_left
-            - weight_max.fake_nobles_allowed_to_use()
+            - weight_max.fake_nobles_allowed_to_use(noble_number)
             * self.initial_outline_minimum_fake_noble_troops
             > weight_max.nobles_allowed_to_use()
             * self.initial_outline_minimum_noble_troops
         ):
             off_left -= (
-                weight_max.fake_nobles_allowed_to_use()
+                weight_max.fake_nobles_allowed_to_use(noble_number)
                 * self.initial_outline_minimum_fake_noble_troops
             )
 
