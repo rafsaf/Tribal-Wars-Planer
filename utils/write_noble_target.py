@@ -398,7 +398,7 @@ class WriteNobleTarget:
         if self.target.fake:
             return self.initial_outline_minimum_fake_noble_troops
 
-        elif self.target.mode_division == "divide":
+        if self.target.mode_division == "divide":
             return off_left - (off * (weight_max.nobles_allowed_to_use() - 1))
 
         if self.target.mode_division == "not_divide":
