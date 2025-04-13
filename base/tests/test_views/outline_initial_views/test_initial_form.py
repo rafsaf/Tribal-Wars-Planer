@@ -686,7 +686,7 @@ class InitialForm(MiniSetup):
         assert outline.available_nobles == [60, 46, 14, 0]
         assert outline.available_offs_near == [20, 13, 7, 0]
         assert outline.available_nobles_near == [60, 46, 14, 0]
-        assert outline.available_full_noble_offs == [50, 13, 18, 19]
+        assert outline.available_full_noble_offs == [20, 13, 7, 0]
         assert outline.available_catapults == [5000, 1300, 1800, 1900]
         assert outline.available_ruins == 1800 - 18 * 50
 

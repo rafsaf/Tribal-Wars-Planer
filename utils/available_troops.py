@@ -170,30 +170,17 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     too_far_off = 0
     back_off = 0
 
-    if len(close_starts) > 1000:
-        close_iterations = len(close_starts) // 1000 + 1
-        for i in range(close_iterations):
-            close_batch = close_starts[i * 1000 : (i + 1) * 1000]
-            batch_weights: QuerySet[models.WeightMaximum] = (
-                models.WeightMaximum.objects.filter(
-                    outline=outline,
-                    off_left__gte=outline.initial_outline_min_off,
-                    off_left__lte=outline.initial_outline_max_off,
-                ).filter(start__in=close_batch)
-            )
-            all_off += batch_weights.count()
-            front_off += batch_weights.filter(first_line=True).count()
-            too_far_off += batch_weights.filter(too_far_away=True).count()
-
-    else:
-        all_weights = models.WeightMaximum.objects.filter(
+    for i in range(0, len(close_starts), batch_size):
+        batch = close_starts[i : i + batch_size]
+        batch_weights = models.WeightMaximum.objects.filter(
             outline=outline,
+            start__in=batch,
             off_left__gte=outline.initial_outline_min_off,
             off_left__lte=outline.initial_outline_max_off,
-        ).filter(start__in=close_starts)
-        all_off += all_weights.count()
-        front_off += all_weights.filter(first_line=True).count()
-        too_far_off += all_weights.filter(too_far_away=True).count()
+        )
+        all_off += batch_weights.count()
+        front_off += batch_weights.filter(first_line=True).count()
+        too_far_off += batch_weights.filter(too_far_away=True).count()
 
     back_off = all_off - front_off - too_far_off
 
