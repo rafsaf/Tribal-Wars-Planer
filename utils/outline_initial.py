@@ -72,20 +72,20 @@ class MakeOutline:
                 self.outline.get_or_set_deff_troops_hash()
             )
         WeightMaximum.objects.bulk_create(self.weight_max_create_list)
-        self.outline.avaiable_offs = []
-        self.outline.avaiable_offs_near = []
-        self.outline.avaiable_nobles = []
-        self.outline.avaiable_nobles_near = []
+        self.outline.available_offs = []
+        self.outline.available_offs_near = []
+        self.outline.available_nobles = []
+        self.outline.available_nobles_near = []
         self.outline.available_catapults = []
-        self.outline.avaiable_ruins = None
+        self.outline.available_ruins = None
         self.outline.save(
             update_fields=[
-                "avaiable_nobles_near",
-                "avaiable_offs_near",
-                "avaiable_nobles",
-                "avaiable_offs",
+                "available_nobles_near",
+                "available_offs_near",
+                "available_nobles",
+                "available_offs",
                 "available_catapults",
-                "avaiable_ruins",
+                "available_ruins",
                 "off_troops_weightmodels_hash",
                 "deff_troops_weightmodels_hash",
                 "deff_collection_text_in_village",

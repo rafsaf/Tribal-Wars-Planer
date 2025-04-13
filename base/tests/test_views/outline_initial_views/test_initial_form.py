@@ -682,12 +682,12 @@ class InitialForm(MiniSetup):
         assert outline.initial_outline_maximum_off_dist == 115
         assert outline.initial_outline_excluded_coords == "250|250 251|251"
         # also table is filled correctly
-        assert outline.avaiable_offs == [50, 13, 18, 19]
-        assert outline.avaiable_nobles == [60, 46, 14, 0]
-        assert outline.avaiable_offs_near == [20, 13, 7, 0]
-        assert outline.avaiable_nobles_near == [60, 46, 14, 0]
+        assert outline.available_offs == [50, 13, 18, 19]
+        assert outline.available_nobles == [60, 46, 14, 0]
+        assert outline.available_offs_near == [20, 13, 7, 0]
+        assert outline.available_nobles_near == [60, 46, 14, 0]
         assert outline.available_catapults == [5000, 1300, 1800, 1900]
-        assert outline.avaiable_ruins == 1800 - 18 * 50
+        assert outline.available_ruins == 1800 - 18 * 50
 
         assert WeightMaximum.objects.filter(too_far_away=True).count() == 19
         assert WeightMaximum.objects.filter(first_line=True).count() == 13
@@ -918,12 +918,12 @@ class InitialForm(MiniSetup):
         stats: Stats = Stats.objects.get(outline=outline)
         outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
         outline.off_troops_hash = outline.get_or_set_off_troops_hash()
-        outline.avaiable_offs = [1, 2, 3, 4]
-        outline.avaiable_offs_near = [1, 2, 3, 4]
-        outline.avaiable_nobles = [4, 4, 4]
-        outline.avaiable_nobles_near = [4, 4, 4]
+        outline.available_offs = [1, 2, 3, 4]
+        outline.available_offs_near = [1, 2, 3, 4]
+        outline.available_nobles = [4, 4, 4]
+        outline.available_nobles_near = [4, 4, 4]
         outline.available_catapults = [4, 4, 4]
-        outline.avaiable_ruins = 1555
+        outline.available_ruins = 1555
         outline.save()
 
         PATH = reverse("base:planer_initial_form", args=[outline.pk])
@@ -935,12 +935,12 @@ class InitialForm(MiniSetup):
         assert WeightMaximum.objects.count() == 1
         outline.refresh_from_db()
         stats.refresh_from_db()
-        assert outline.avaiable_offs == [1, 0, 0, 1]
-        assert outline.avaiable_offs_near == []
-        assert outline.avaiable_nobles == [0, 0, 0, 0]
-        assert outline.avaiable_nobles_near == []
+        assert outline.available_offs == [1, 0, 0, 1]
+        assert outline.available_offs_near == []
+        assert outline.available_nobles == [0, 0, 0, 0]
+        assert outline.available_nobles_near == []
         assert outline.available_catapults == [100, 0, 0, 100]
-        assert outline.avaiable_ruins == 0
+        assert outline.available_ruins == 0
         assert stats.troops_refreshed == 1
         assert outline.off_troops_weightmodels_hash == outline.off_troops_hash
 

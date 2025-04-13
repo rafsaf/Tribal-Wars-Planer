@@ -39,7 +39,7 @@ from django.views.decorators.http import require_POST
 import metrics
 from base import forms, models
 from base.models.target_vertex import TargetVertex
-from utils import avaiable_troops, basic
+from utils import available_troops, basic
 from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
 from utils.outline_finish import MakeFinalOutline
@@ -303,8 +303,8 @@ def initial_form(  # noqa: PLR0912,PLR0911
                 instance.actions.form_available_troops(instance)
                 instance.save(update_fields=forms.AvailableTroopsForm.Meta.fields)
                 instance.refresh_from_db()
-                avaiable_troops.get_legal_coords_outline(outline=instance)
-                avaiable_troops.update_available_ruins(outline=instance)
+                available_troops.get_legal_coords_outline(outline=instance)
+                available_troops.add_extra_available_troops_data(outline=instance)
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
@@ -373,9 +373,9 @@ def initial_form(  # noqa: PLR0912,PLR0911
                     + f"?t={target_mode.mode}"
                 )
 
-    if not instance.avaiable_offs:
-        avaiable_troops.get_legal_coords_outline(outline=instance)
-        avaiable_troops.update_available_ruins(outline=instance)
+    if not instance.available_offs:
+        available_troops.get_legal_coords_outline(outline=instance)
+        available_troops.add_extra_available_troops_data(outline=instance)
 
     context = {
         "instance": instance,

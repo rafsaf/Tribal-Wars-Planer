@@ -27,12 +27,12 @@ class RemoveUserOutline(MiniSetup):
         outline = self.get_outline(add_result=True)
         outline_time = self.create_outline_time(outline)
         outline.written = "active"
-        outline.avaiable_offs = [1, 23, 5]
-        outline.avaiable_offs_near = [123, 123, 5]
-        outline.avaiable_nobles = [1]
-        outline.avaiable_nobles_near = [55]
+        outline.available_offs = [1, 23, 5]
+        outline.available_offs_near = [123, 123, 5]
+        outline.available_nobles = [1]
+        outline.available_nobles_near = [55]
         outline.available_catapults = [55]
-        outline.avaiable_ruins = 66
+        outline.available_ruins = 66
         outline.filter_weights_min = 15000
         outline.filter_weights_max = 15001
         outline.filter_card_number = 25
@@ -45,12 +45,12 @@ class RemoveUserOutline(MiniSetup):
         outline.remove_user_outline()
 
         assert outline.written == "inactive"
-        assert outline.avaiable_offs == []
-        assert outline.avaiable_offs_near == []
-        assert outline.avaiable_nobles == []
-        assert outline.avaiable_nobles_near == []
+        assert outline.available_offs == []
+        assert outline.available_offs_near == []
+        assert outline.available_nobles == []
+        assert outline.available_nobles_near == []
         assert outline.available_catapults == []
-        assert outline.avaiable_ruins is None
+        assert outline.available_ruins is None
         assert outline.filter_weights_min == 0
         assert outline.filter_weights_max == 30000
         assert outline.filter_card_number == 25

@@ -126,9 +126,9 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     )
     back_noble = all_noble - front_noble - too_far_noble
 
-    outline.avaiable_nobles = [all_noble, front_noble, back_noble, too_far_noble]
-    outline.avaiable_offs = [all_off, front_off, back_off, too_far_off]
-    outline.save(update_fields=["avaiable_nobles", "avaiable_offs"])
+    outline.available_nobles = [all_noble, front_noble, back_noble, too_far_noble]
+    outline.available_offs = [all_off, front_off, back_off, too_far_off]
+    outline.save(update_fields=["available_nobles", "available_offs"])
 
     # #
     # #
@@ -192,9 +192,9 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     )
     back_noble = all_noble - front_noble - too_far_noble
 
-    outline.avaiable_nobles_near = [all_noble, front_noble, back_noble, too_far_off]
-    outline.avaiable_offs_near = [all_off, front_off, back_off, too_far_noble]
-    outline.save(update_fields=["avaiable_nobles_near", "avaiable_offs_near"])
+    outline.available_nobles_near = [all_noble, front_noble, back_noble, too_far_off]
+    outline.available_offs_near = [all_off, front_off, back_off, too_far_noble]
+    outline.save(update_fields=["available_nobles_near", "available_offs_near"])
 
 
 def get_available_catapults_lst(outline: models.Outline) -> list[int]:
@@ -251,7 +251,7 @@ def get_available_ruins(outline: models.Outline) -> int:
     return available_ruins_from_other + available_ruins_from_offs
 
 
-def update_available_ruins(outline: models.Outline) -> None:
-    outline.avaiable_ruins = get_available_ruins(outline=outline)
+def add_extra_available_troops_data(outline: models.Outline) -> None:
+    outline.available_ruins = get_available_ruins(outline=outline)
     outline.available_catapults = get_available_catapults_lst(outline=outline)
-    outline.save(update_fields=["avaiable_ruins", "available_catapults"])
+    outline.save(update_fields=["available_ruins", "available_catapults"])
