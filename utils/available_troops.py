@@ -15,7 +15,7 @@
 
 
 import numpy as np
-from django.db.models import F, Q, QuerySet, Sum
+from django.db.models import QuerySet, Sum
 
 from base import models
 from utils.basic.cdist_brute import CDistBrute
@@ -223,38 +223,16 @@ def get_available_catapults_lst(outline: models.Outline) -> list[int]:
 
 
 def get_available_ruins(outline: models.Outline) -> int:
-    available_ruins_from_other: int = (
+    return (
         models.WeightMaximum.objects.filter(
             first_line=False,
             too_far_away=False,
             outline=outline,
             catapult_left__gte=outline.initial_outline_catapult_min_value,
-        )
-        .filter(
-            Q(off_left__lt=outline.initial_outline_min_off)
-            | Q(off_left__gt=outline.initial_outline_max_off)
-        )
-        .aggregate(ruin_sum=Sum("catapult_left"))["ruin_sum"]
+            off_left__gte=outline.initial_outline_min_ruin_attack_off,
+        ).aggregate(ruin_sum=Sum("catapult_left"))["ruin_sum"]
         or 0
     )
-
-    available_ruins_from_offs: int = (
-        models.WeightMaximum.objects.filter(
-            outline=outline,
-            first_line=False,
-            too_far_away=False,
-            catapult_left__gte=outline.initial_outline_off_left_catapult
-            + outline.initial_outline_catapult_min_value,
-            off_left__gte=outline.initial_outline_min_off,
-            off_left__lte=outline.initial_outline_max_off,
-        )
-        .annotate(
-            ruin_number=(F("catapult_left") - outline.initial_outline_off_left_catapult)
-        )
-        .aggregate(ruin_sum=Sum("ruin_number"))["ruin_sum"]
-        or 0
-    )
-    return available_ruins_from_other + available_ruins_from_offs
 
 
 def add_extra_available_troops_data(outline: models.Outline) -> None:

@@ -17,6 +17,7 @@
 from django.db import models
 from django.http import HttpRequest
 from django.urls import reverse
+from django.utils import translation
 from django.utils.translation import gettext_lazy
 
 from base.models.outline import Outline
@@ -46,6 +47,13 @@ class Overview(models.Model):
 
     def get_absolute_url(self):
         return reverse("base:overview", args=[self.token])
+
+    def get_api_url(self) -> str:
+        lg = translation.get_language()
+        return (
+            reverse("rest_api:public_outline_overview")
+            + f"?language={lg}&token={self.token}"
+        )
 
     def extend_with_encodeURIComponent(
         self, instance: "Outline", request: HttpRequest

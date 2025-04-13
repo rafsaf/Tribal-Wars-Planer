@@ -141,22 +141,9 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
     )
     weight_max_lst = create_fakes()
 
-    create_ruins = CreateWeights(
-        random,
-        deepcopy(ruins),
-        outline,
-        weight_max_lst,
-        dist_matrix,
-        coord_to_id_in_matrix,
-        morale_dict,
-        noble=False,
-        ruin=True,
-    )
-    weight_max_lst = create_ruins()
-
     create_nobles = CreateWeights(
         random,
-        deepcopy(targets),
+        targets,
         outline,
         weight_max_lst,
         dist_matrix,
@@ -169,7 +156,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
 
     create_fake_nobles = CreateWeights(
         random,
-        deepcopy(fakes),
+        fakes,
         outline,
         weight_max_lst,
         dist_matrix,
@@ -182,7 +169,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
 
     create_offs = CreateWeights(
         random,
-        deepcopy(targets),
+        targets,
         outline,
         weight_max_lst,
         dist_matrix,
@@ -195,7 +182,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
 
     create_ruin_offs = CreateWeights(
         random,
-        deepcopy(ruins),
+        ruins,
         outline,
         weight_max_lst,
         dist_matrix,
@@ -205,6 +192,19 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         ruin=False,
     )
     weight_max_lst = create_ruin_offs()
+
+    create_ruins = CreateWeights(
+        random,
+        ruins,
+        outline,
+        weight_max_lst,
+        dist_matrix,
+        coord_to_id_in_matrix,
+        morale_dict,
+        noble=False,
+        ruin=True,
+    )
+    weight_max_lst = create_ruins()
 
     for fast_weight_max in weight_max_lst:
         weight_max = real_weight_max_lst[fast_weight_max.index]
@@ -369,12 +369,22 @@ class CreateWeights:
     def __call__(self) -> list[FastWeightMaximum]:
         target: Target
         for target in self.targets:
+            original_required_off = target.required_off
+            original_required_noble = target.required_noble
+            original_mode_noble = target.mode_noble
+            original_mode_off = target.mode_off
+
             if self.noble:
                 self._noble_write(target)
             elif self.ruin:
                 self._ruin_write(target)
             else:
                 self._ram_write(target)
+
+            target.required_off = original_required_off
+            target.required_noble = original_required_noble
+            target.mode_noble = original_mode_noble
+            target.mode_off = original_mode_off
 
         WeightModel.objects.bulk_create(self.weight_create_lst, batch_size=2000)
         return self.weight_max_list

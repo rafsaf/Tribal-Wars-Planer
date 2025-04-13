@@ -173,11 +173,12 @@ class Outline(models.Model):
     initial_outline_catapult_min_value = models.IntegerField(
         default=25, choices=CATAPULTS_NUMBER
     )
-    initial_outline_off_left_catapult = models.IntegerField(
-        default=50, validators=[MinValueValidator(0), MaxValueValidator(400)]
-    )
     initial_outline_average_ruining_points = models.CharField(
         max_length=150, choices=RUINED_VILLAGES_POINTS, default="big"
+    )
+    initial_outline_min_ruin_attack_off = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(28000)],
     )
     initial_outline_buildings = ArrayField(
         models.CharField(max_length=100, choices=BUILDINGS),

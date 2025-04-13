@@ -286,10 +286,10 @@
                             </th>
                             {% for weight in lst %}
                                 <th class="front-{{weight.first_line}}">
-                                    <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>{% if weight.ruin %}<h5 style='text-align:center'>{{weight.get_building_display}}</h5>{% endif %}" rel="popover" data-placement="top" data-trigger="hover">
+                                    <div class="popoverData" data-html="true" data-content="<h4><span class='badge badge-pill badge-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge badge badge-secondary'>{{weight.start}}</span></h5></div>{% if target.ruin %}<h5 style='text-align:center'>{{weight.get_building_display|default_if_none:'-'}}</h5>{% endif %}" rel="popover" data-placement="top" data-trigger="hover">
                                         {% if instance.simple_textures %}
                                             <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.off}}</p>
-                                            {% if weight.ruin %}
+                                            {% if target.ruin %}
                                                 <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.catapult}}</p>
                                             {% else %}
                                                 <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.nobleman}}</p>
@@ -302,7 +302,7 @@
                                                     <th style="font-size: small;cursor:default;">{{weight.off}}</th>
                                                 </tr>
                                                 <tr>
-                                                    {% if weight.ruin %}
+                                                    {% if target.ruin %}
                                                         <th><img src='{% static "images/catapult.avif" %}' alt="cat"></th>
                                                         <th style="font-size: small;cursor:default;">{{weight.catapult}}</th>
                                                     {% else %}
@@ -314,9 +314,9 @@
                                                     <th><svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg></th>
                                                     <th style="font-size: small;cursor: zoom-in;" data-distance="{{weight.distance|stringformat:'.17f'}}" onclick="calculate_distance(this);">{{weight.distance|stringformat:'.1f'}}</th>
                                                 </tr>
-                                                {% if weight.ruin %}
+                                                {% if target.ruin %}
                                                     <tr>
-                                                        <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display}}</b></small></th>
+                                                        <th colspan="3" style="position:relative;"><small id="building-name-{{weight.pk}}"><b>{{weight.get_building_display|default_if_none:"-"}}</b></small></th>
                                                     </tr>
                                                 {% endif %}
                                             </table>

@@ -20,6 +20,8 @@ import re
 
 from django import forms
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import Model
 from django.db.models.query import QuerySet
 from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
@@ -31,6 +33,29 @@ from utils import basic, database_update
 from . import models
 
 log = logging.getLogger(__name__)
+
+
+def get_field_default(m: type[Model], field: str) -> str:
+    model_field = m._meta.get_field(field)
+    return str(model_field.default)
+
+
+def get_field_min(m: type[Model], field: str) -> str:
+    model_field = m._meta.get_field(field)
+    for validator in model_field.validators:
+        if isinstance(validator, MinValueValidator):
+            return str(validator.limit_value)
+
+    raise ValueError(f"field {field} does not have MinValueValidator: {m}")
+
+
+def get_field_max(m: type[Model], field: str) -> str:
+    model_field = m._meta.get_field(field)
+    for validator in model_field.validators:
+        if isinstance(validator, MaxValueValidator):
+            return str(validator.limit_value)
+
+    raise ValueError(f"field {field} does not have MaxValueValidator: {m}")
 
 
 class OutlineForm(forms.Form):
@@ -672,8 +697,8 @@ class RuiningOutlineForm(forms.ModelForm):
         fields = [
             "initial_outline_catapult_min_value",
             "initial_outline_catapult_max_value",
-            "initial_outline_off_left_catapult",
             "initial_outline_average_ruining_points",
+            "initial_outline_min_ruin_attack_off",
         ]
         labels = {
             "initial_outline_catapult_min_value": gettext_lazy(
@@ -682,12 +707,28 @@ class RuiningOutlineForm(forms.ModelForm):
             "initial_outline_catapult_max_value": gettext_lazy(
                 "MAX number of catapults in one ruin attack:"
             ),
-            "initial_outline_off_left_catapult": gettext_lazy(
-                "Number of catapults that will always be left in full offs:"
-            ),
             "initial_outline_average_ruining_points": gettext_lazy(
                 "How many points on average do demolished targets have:"
             ),
+            "initial_outline_min_ruin_attack_off": gettext_lazy(
+                "Minimum off units for every ruin attack:"
+            ),
+        }
+        help_texts = {
+            "initial_outline_min_ruin_attack_off": gettext_lazy(
+                "Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that will be added to every ruin attack. If 0, it means only catapults are send."
+            )
+            % {
+                "default": get_field_default(
+                    models.Outline, "initial_outline_min_ruin_attack_off"
+                ),
+                "min": get_field_min(
+                    models.Outline, "initial_outline_min_ruin_attack_off"
+                ),
+                "max": get_field_max(
+                    models.Outline, "initial_outline_min_ruin_attack_off"
+                ),
+            },
         }
 
 

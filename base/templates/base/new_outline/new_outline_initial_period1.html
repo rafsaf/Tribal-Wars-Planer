@@ -235,8 +235,8 @@
           </tr>
           <tr>
             <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="
-                                                                                           {% blocktrans with initial_outline_off_left_catapult=instance.initial_outline_off_left_catapult initial_outline_maximum_off_dist=instance.initial_outline_maximum_off_dist %}
-                                                                                             Catapults from villages that are not front, minus what must be left in off villages ({{initial_outline_off_left_catapult}} catapults per village, see 6.). Only villages at maximum distance that are not far away (now more than {{initial_outline_maximum_off_dist}}, see 1.).
+                                                                                           {% blocktrans with initial_outline_min_ruin_attack_off=instance.initial_outline_min_ruin_attack_off initial_outline_maximum_off_dist=instance.initial_outline_maximum_off_dist %}
+                                                                                             Catapults from villages that are not front, with at least {{initial_outline_min_ruin_attack_off}} off troops in village (without catapults), see 6.). Only villages at maximum distance that are not far away (now more than {{initial_outline_maximum_off_dist}}, see 1.).
                                                                                            {% endblocktrans %}" class="text-nowrap" scope="col">{% trans 'Available catapults to use' %} <i class="bi bi-question-square"></i></th>
             <th>
               {% if instance.available_ruins %}

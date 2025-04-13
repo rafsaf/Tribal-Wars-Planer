@@ -70,53 +70,90 @@ class ChangeWeightBuildingSerializer(serializers.Serializer):
 
 
 class OutlineSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    date = serializers.DateField()
+    id = serializers.IntegerField(help_text="Primary key in database for this outline.")
+    date = serializers.DateField(help_text="Date of outline execution.")
 
 
 class WorldSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    name = serializers.CharField()
-    server = serializers.CharField()
-    full_game_name = serializers.CharField(allow_blank=True)
-    speed_units = serializers.FloatField()
-    speed_world = serializers.FloatField()
+    id = serializers.IntegerField(help_text="Primary key in database for this world.")
+    name = serializers.CharField(
+        help_text="Prefix name of the world, for example 'pl180' or 'csc1'."
+    )
+    server = serializers.CharField(help_text="Server domain name.")
+    full_game_name = serializers.CharField(
+        allow_blank=True,
+        help_text="Pretty, human readable name of the game server. This value is directly scraped from Tribal Wars.",
+    )
+    speed_units = serializers.FloatField(
+        help_text="Speed multiplier for units on this world."
+    )
+    speed_world = serializers.FloatField(
+        help_text="Speed multiplier for world settings."
+    )
 
 
 class TargetSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    target = serializers.CharField()
-    player = serializers.CharField(allow_blank=True)
-    fake = serializers.BooleanField()
-    ruin = serializers.BooleanField()
-    village_id = serializers.IntegerField()
-    player_id = serializers.IntegerField(allow_null=True)
+    id = serializers.IntegerField(help_text="Primary key in database for this target.")
+    target = serializers.CharField(help_text="Coords of village.")
+    player = serializers.CharField(
+        allow_blank=True, help_text="Name of the player owning the village."
+    )
+    fake = serializers.BooleanField(help_text="Whether this is a fake attack target.")
+    ruin = serializers.BooleanField(help_text="Whether this target is ruin target.")
+    village_id = serializers.IntegerField(help_text="Game ID of the village.")
+    player_id = serializers.IntegerField(
+        allow_null=True, help_text="Game ID of the player."
+    )
 
 
 class WeightSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    start = serializers.CharField()
-    player = serializers.CharField()
-    off = serializers.IntegerField()
-    nobleman = serializers.IntegerField()
-    catapult = serializers.IntegerField()
-    ruin = serializers.BooleanField()
-    distance = serializers.FloatField()
-    time_seconds = serializers.IntegerField()
-    t1 = serializers.TimeField()
-    t2 = serializers.TimeField()
-    building = serializers.CharField(allow_blank=True, allow_null=True)
-    building_name = serializers.SerializerMethodField()
-    delivery_t1 = serializers.DateTimeField()
-    delivery_t2 = serializers.DateTimeField()
-    shipment_t1 = serializers.DateTimeField()
-    shipment_t2 = serializers.DateTimeField()
-    village_id = serializers.IntegerField()
-    player_id = serializers.IntegerField()
-    send_url = serializers.CharField()
+    id = serializers.IntegerField(help_text="Primary key in database for this order.")
+    start = serializers.CharField(help_text="Coords of village.")
+    player = serializers.CharField(help_text="Name of the player owning the village.")
+    off = serializers.IntegerField(
+        help_text="Number of offensive units including catapults. Substract catapult * 8 to get sum of other troops"
+    )
+    nobleman = serializers.IntegerField(help_text="Number of nobleman units.")
+    catapult = serializers.IntegerField(help_text="Number of catapult units.")
+    ruin = serializers.BooleanField(help_text="Whether the order is ruin attack.")
+    distance = serializers.FloatField(
+        help_text="Distance between this village and target one."
+    )
+    time_seconds = serializers.IntegerField(help_text="Travel time in seconds.")
+    t1 = serializers.TimeField(help_text="Time only part of `delivery_t1`.")
+    t2 = serializers.TimeField(help_text="Time only part of `delivery_t2`.")
+    building = serializers.CharField(
+        allow_blank=True,
+        allow_null=True,
+        help_text="Target building code. Lowercase, exactly the same as in game, for example 'barracks'.",
+    )
+    building_name = serializers.SerializerMethodField(
+        help_text="Translated and prettified name of the target building in given language."
+    )
+    delivery_t1 = serializers.DateTimeField(
+        help_text="Earliest delivery time in ISO 8601."
+    )
+    delivery_t2 = serializers.DateTimeField(
+        help_text="Latest delivery time in ISO 8601."
+    )
+    shipment_t1 = serializers.DateTimeField(
+        help_text="Earliest shipment time in ISO 8601."
+    )
+    shipment_t2 = serializers.DateTimeField(
+        help_text="Latest shipment time in ISO 8601."
+    )
+    village_id = serializers.IntegerField(help_text="Game ID of the village.")
+    player_id = serializers.IntegerField(help_text="Game ID of the player.")
+    send_url = serializers.CharField(help_text="URL for sending the attack.")
+    deputy_send_url = serializers.SerializerMethodField(
+        help_text="URL for deputy to send the attack."
+    )
 
     def get_building_name(self, obj: Any) -> str:
         return BUILDINGS_TRANSLATION.get(obj.get("building"))  # type: ignore
+
+    def get_deputy_send_url(self, obj: Any) -> str:
+        return f"{obj.get('send_url')}?t={obj.get('player_id')}"
 
 
 class TargetOrdersSerializer(serializers.Serializer):

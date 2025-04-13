@@ -26,7 +26,6 @@ from base.models.weight_model import WeightModel
 class TableText:
     NEXT_LINE = "\r\n"
     NEXT_LINE_DOUBLE = "\r\n\r\n"
-    POSTFIX = "[/table]"
     WEEKDAY_PAUZES = "-" * 16
     WEEKDAYS = {
         0: gettext_lazy("Monday"),
@@ -39,17 +38,12 @@ class TableText:
     }
 
     def __init__(self, outline: models.Outline):
-        self.PREFIX = _(
-            "[table][**][||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
-        )
         self.result: defaultdict[str, list[WeightModel]] = defaultdict(list)
-        self.table_result: dict[str, str] = {}
         self.string_result: dict[str, str] = {}
         self.deputy_result: dict[str, str] = {}
         self.extended_result: dict[str, str] = {}
         self.new_extended_result: dict[str, str] = {}
 
-        self.weight_table: dict[WeightModel, str] = {}
         self.weight_string: dict[WeightModel, str] = {}
         self.weight_deputy: dict[WeightModel, str] = {}
         self.weight_extended: dict[WeightModel, str] = {}
@@ -94,19 +88,6 @@ class TableText:
             f"target={enemy_village_id}{t}]{send}[/url]"
         )
 
-    def __date_table(self, datetime1, datetime2):
-        date_part = datetime1.date()
-
-        t1_part = datetime1.time()
-        t2_part = datetime2.time()
-
-        return (
-            f"{date_part}"
-            f"\n"
-            f"[b][color=#0e5e5e]{t1_part}[/color][/b]-"
-            f"[b][color=#ff0000]{t2_part}[/color][/b]"
-        )
-
     def __date_string(self, datetime1, datetime2):
         date_part = datetime1.date()
 
@@ -114,36 +95,6 @@ class TableText:
         t2_part = datetime2.time()
 
         return f"\r\n[b]{date_part} [color=#ff0000]{t1_part} - {t2_part}[/color][/b]"
-
-    def __weight_table(
-        self,
-        weight: models.WeightModel,
-        ally_id,
-        enemy_id,
-        fake,
-        deputy=None,
-    ):
-        if fake and weight.nobleman > 0:
-            send = _("fake noble")
-        elif fake and weight.nobleman == 0:
-            send = _("fake")
-        elif weight.ruin:
-            send = _("Catapults-")
-            if weight.building is not None:
-                building = "- " + weight.get_building_display()  # type: ignore
-            else:
-                building = ""
-            send = f"{send}{weight.catapult}{building}"
-        else:
-            send = f"{weight.off}"
-
-        return (
-            f"[|]{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
-            f"[|]{send}[|]{weight.nobleman}"
-            f"[|]{self.__date_table(weight.sh_t1, weight.sh_t2)}"  # type: ignore
-            f"[|]{self.__date_table(weight.t1, weight.t2)}"
-            f"[|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord]"
-        )
 
     def __new_weight_string(
         self,
@@ -165,6 +116,7 @@ class TableText:
             "weight_count_all": len(all_weights_from_this_village),
             "noble_number": weight.nobleman,
             "off_number": weight.off,
+            "extra_off_number": weight.off - weight.catapult * 8,
             "catapults_number": weight.catapult,
             "date": self.__date_string(weight.sh_t1, weight.sh_t2),
             "start_coord": weight.start,
@@ -205,7 +157,7 @@ class TableText:
         elif weight.ruin:
             return (
                 _(
-                    "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s][/color] "
+                    "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s + %(extra_off_number)s extra off][/color] "
                     "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
                     "%(date)s\n"
                     "%(start_coord)s [b]->[/b] %(target_coord)s\n"
@@ -225,6 +177,19 @@ class TableText:
                     "[url=%(game_url)s/game.php?"
                     "village=%(ally_id)s&screen=place&"
                     "target=%(enemy_id)s%(deputy_link_part)s]Send NOBLE[/url]"
+                )
+                % data
+            )
+        elif weight.building is not None:
+            return (
+                _(
+                    "[b][color=#a50000]Send OFF[%(off_number)s off + %(catapults_number)sc on %(building)s][/color] "
+                    "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
+                    "[url=%(game_url)s/game.php?"
+                    "village=%(ally_id)s&screen=place&"
+                    "target=%(enemy_id)s%(deputy_link_part)s]Send OFF[/url]"
                 )
                 % data
             )
@@ -261,12 +226,21 @@ class TableText:
             text = _("[color=#00a500][b]Send fake[/b][/color]")
             send = f"{text}"
         elif weight.ruin:
-            text = _("[color=#0e0eff][b]Ruin[/b][/color] (Catapults-")
-            if weight.building is not None:
-                building = "[b]" + weight.get_building_display() + "[/b]"
-            else:
-                building = ""
-            send = f"{text}{weight.catapult} {building})"
+            send = _(
+                "[color=#0e0eff][b]Ruin[/b][/color] (Extra off-%(off)d, Catapults-%(catapult)d [b]%(building)s[/b])"
+            ) % {
+                "off": weight.off - weight.catapult * 8,
+                "catapult": weight.catapult,
+                "building": weight.get_building_display() or "",
+            }
+        elif weight.nobleman == 0 and weight.building is not None:
+            send = _(
+                "[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d [b]%(building)s[/b])"
+            ) % {
+                "off": weight.off,
+                "catapult": weight.catapult,
+                "building": weight.get_building_display() or "",
+            }
         elif weight.nobleman == 0:
             text = _("[size=12][b]OFF[/b][/size] (Off-")
             send = f"{text}{weight.off})"
@@ -290,10 +264,6 @@ class TableText:
     def add_weight(
         self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None
     ):
-        self.weight_table[weight] = str(
-            self.__weight_table(weight, ally_id, enemy_id, fake)
-        )
-
         self.weight_string[weight] = str(
             self.__weight_string(weight, ally_id, enemy_id, fake, simple=True)
         )
@@ -317,23 +287,6 @@ class TableText:
             lst.sort(
                 key=lambda weight: (weight.sh_t1, weight.start, weight.target.target)
             )
-
-    def __create_table(self):
-        for player, lst in self.result.items():
-            table = str(self.NEXT_LINE + self.NEXT_LINE + self.PREFIX)
-            for i, weight in enumerate(lst):
-                table += f"[*]{i + 1}" + self.weight_table[weight]
-                if i % 31 == 0 and i != 0:
-                    table += (
-                        self.POSTFIX
-                        + self.NEXT_LINE_DOUBLE
-                        + self.NEXT_LINE_DOUBLE
-                        + self.NEXT_LINE_DOUBLE
-                        + self.PREFIX
-                    )
-
-            table += self.POSTFIX
-            self.table_result[player] = table
 
     def __create_string(self):
         for player, lst in self.result.items():
@@ -418,7 +371,6 @@ class TableText:
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         self.__sort_weights()
-        self.__create_table()
         self.__create_string()
         self.__create_deputy()
         self.__create_extended()
@@ -428,7 +380,6 @@ class TableText:
         for player in self.result:
             yield (
                 player,
-                self.table_result[player],
                 self.string_result[player],
                 self.deputy_result[player],
                 self.extended_result[player],
