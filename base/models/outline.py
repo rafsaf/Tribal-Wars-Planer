@@ -240,14 +240,17 @@ class Outline(models.Model):
         max_length=64, default="", blank=True
     )
 
-    avaiable_offs = ArrayField(models.IntegerField(), default=list, blank=True)
-    avaiable_nobles = ArrayField(models.IntegerField(), default=list, blank=True)
-    avaiable_offs_near = ArrayField(models.IntegerField(), default=list, blank=True)
-    avaiable_nobles_near = ArrayField(models.IntegerField(), default=list, blank=True)
+    available_offs = ArrayField(models.IntegerField(), default=list, blank=True)
+    available_nobles = ArrayField(models.IntegerField(), default=list, blank=True)
+    available_offs_near = ArrayField(models.IntegerField(), default=list, blank=True)
+    available_nobles_near = ArrayField(models.IntegerField(), default=list, blank=True)
     available_catapults = ArrayField(
         models.IntegerField(), default=list, blank=True, max_length=4
     )
-    avaiable_ruins = models.IntegerField(default=None, null=True, blank=True)
+    available_full_noble_offs = ArrayField(
+        models.IntegerField(), default=list, blank=True, max_length=4
+    )
+    available_ruins = models.IntegerField(default=None, null=True, blank=True)
 
     mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
     mode_noble = models.CharField(max_length=15, choices=MODE_NOBLE, default="closest")
@@ -360,12 +363,13 @@ class Outline(models.Model):
         from utils.basic import TargetMode
 
         self.written = "inactive"
-        self.avaiable_offs = []
-        self.avaiable_offs_near = []
-        self.avaiable_nobles = []
-        self.avaiable_nobles_near = []
+        self.available_offs = []
+        self.available_offs_near = []
+        self.available_nobles = []
+        self.available_nobles_near = []
+        self.available_full_noble_offs = []
         self.available_catapults = []
-        self.avaiable_ruins = None
+        self.available_ruins = None
         self.filter_weights_min = 0
         self.filter_weights_catapults_min = 0
         self.filter_weights_nobles_min = 0
@@ -424,12 +428,13 @@ class Outline(models.Model):
         self.save(
             update_fields=[
                 "written",
-                "avaiable_offs",
-                "avaiable_offs_near",
-                "avaiable_nobles",
-                "avaiable_nobles_near",
+                "available_offs",
+                "available_offs_near",
+                "available_nobles",
+                "available_nobles_near",
+                "available_full_noble_offs",
                 "available_catapults",
-                "avaiable_ruins",
+                "available_ruins",
                 "filter_weights_min",
                 "filter_weights_catapults_min",
                 "filter_weights_nobles_min",
@@ -519,7 +524,7 @@ class Outline(models.Model):
         )
 
     def count_catapults(self) -> int:
-        from utils.avaiable_troops import get_available_ruins
+        from utils.available_troops import get_available_ruins
 
         return get_available_ruins(self)
 

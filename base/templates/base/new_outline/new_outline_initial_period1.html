@@ -166,7 +166,7 @@
         <tbody>
           <tr>
             <th style="cursor: default;">{% trans 'Offs' %}</th>
-            {% for item in instance.avaiable_offs %}
+            {% for item in instance.available_offs %}
               <th style="cursor: default;"> {{ item }} </th>
             {% empty %}
               <th></th>
@@ -177,7 +177,7 @@
           </tr>
           <tr>
             <th style="cursor: default;">{% trans 'Nobles' %}</th>
-            {% for item in instance.avaiable_nobles %}
+            {% for item in instance.available_nobles %}
               <th>{{ item }}</th>
             {% empty %}
               <th></th>
@@ -198,9 +198,21 @@
             {% endfor %}
           </tr>
           <tr>
+            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Full offs with at least 1 nobleman (there can be more)' %}." class="text-nowrap" scope="col">{% trans 'Full offs with 1 noble' %} <i class="bi bi-question-square"></i></th>
+
+            {% for item in instance.available_full_noble_offs %}
+              <th>{{ item }}</th>
+            {% empty %}
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            {% endfor %}
+          </tr>
+          <tr>
             <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Offs close to real targets' %} <i class="bi bi-question-square"></i></th>
 
-            {% for item in instance.avaiable_offs_near %}
+            {% for item in instance.available_offs_near %}
               <th>{{ item }}</th>
             {% empty %}
               <th></th>
@@ -212,7 +224,7 @@
           <tr>
             <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Nobles around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Nobles close to real targets' %} <i class="bi bi-question-square"></i></th>
 
-            {% for item in instance.avaiable_nobles_near %}
+            {% for item in instance.available_nobles_near %}
               <th>{{ item }}</th>
             {% empty %}
               <th></th>
@@ -227,8 +239,8 @@
                                                                                              Catapults from villages that are not front, minus what must be left in off villages ({{initial_outline_off_left_catapult}} catapults per village, see 6.). Only villages at maximum distance that are not far away (now more than {{initial_outline_maximum_off_dist}}, see 1.).
                                                                                            {% endblocktrans %}" class="text-nowrap" scope="col">{% trans 'Available catapults to use' %} <i class="bi bi-question-square"></i></th>
             <th>
-              {% if instance.avaiable_ruins %}
-                {{instance.avaiable_ruins}}
+              {% if instance.available_ruins %}
+                {{instance.available_ruins}}
               {% endif %}
             </th>
           </tr>

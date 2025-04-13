@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13.0"
+          python-version: "3.13.3"
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /opt/venv
-          key: venv-${{ runner.os }}-3.13.0-${{ hashFiles('poetry.lock') }}
+          key: venv-${{ runner.os }}-3.13.3-${{ hashFiles('poetry.lock') }}
 
       - name: Install dependencies and actiavte virtualenv
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'

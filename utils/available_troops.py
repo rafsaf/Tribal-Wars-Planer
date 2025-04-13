@@ -78,29 +78,18 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     models.WeightMaximum.objects.filter(outline=outline).update(
         first_line=False, too_far_away=False
     )
-    if len(front_starts) > 1000:
-        front_iterations = len(front_starts) // 1000 + 1
-        for i in range(front_iterations):
-            starts_batch = front_starts[i * 1000 : (i + 1) * 1000]
-            models.WeightMaximum.objects.filter(
-                outline=outline, start__in=starts_batch
-            ).update(first_line=True)
-    else:
-        models.WeightMaximum.objects.filter(
-            outline=outline, start__in=front_starts
-        ).update(first_line=True)
 
-    if len(away_starts) > 1000:
-        away_iterations = len(away_starts) // 1000 + 1
-        for i in range(away_iterations):
-            away_batch = away_starts[i * 1000 : (i + 1) * 1000]
-            models.WeightMaximum.objects.filter(
-                outline=outline, start__in=away_batch
-            ).update(too_far_away=True)
-    else:
-        models.WeightMaximum.objects.filter(
-            outline=outline, start__in=away_starts
-        ).update(too_far_away=True)
+    batch_size = 1000
+    for i in range(0, len(front_starts), batch_size):
+        batch = front_starts[i : i + batch_size]
+        models.WeightMaximum.objects.filter(outline=outline, start__in=batch).update(
+            first_line=True
+        )
+    for i in range(0, len(away_starts), batch_size):
+        batch = away_starts[i : i + batch_size]
+        models.WeightMaximum.objects.filter(outline=outline, start__in=batch).update(
+            too_far_away=True
+        )
 
     all_weights: QuerySet[models.WeightMaximum] = models.WeightMaximum.objects.filter(
         outline=outline,
@@ -112,6 +101,24 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     front_off: int = all_weights.filter(first_line=True).count()
     too_far_off: int = all_weights.filter(too_far_away=True).count()
     back_off: int = all_off - front_off - too_far_off
+
+    all_full_noble_weights: QuerySet[models.WeightMaximum] = (
+        models.WeightMaximum.objects.filter(
+            outline=outline,
+            off_left__gte=outline.initial_outline_min_off,
+            off_left__lte=outline.initial_outline_max_off,
+            nobleman_left__gte=1,
+        )
+    )
+
+    all_full_noble_off: int = all_full_noble_weights.count()
+    front_full_noble_off: int = all_full_noble_weights.filter(first_line=True).count()
+    too_far_full_noble_off: int = all_full_noble_weights.filter(
+        too_far_away=True
+    ).count()
+    back_full_noble_off: int = (
+        all_full_noble_off - front_full_noble_off - too_far_full_noble_off
+    )
 
     n_query: QuerySet[models.WeightMaximum] = models.WeightMaximum.objects.filter(
         outline=outline, nobleman_left__gte=1
@@ -126,9 +133,21 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     )
     back_noble = all_noble - front_noble - too_far_noble
 
-    outline.avaiable_nobles = [all_noble, front_noble, back_noble, too_far_noble]
-    outline.avaiable_offs = [all_off, front_off, back_off, too_far_off]
-    outline.save(update_fields=["avaiable_nobles", "avaiable_offs"])
+    outline.available_nobles = [all_noble, front_noble, back_noble, too_far_noble]
+    outline.available_offs = [all_off, front_off, back_off, too_far_off]
+    outline.available_full_noble_offs = [
+        all_full_noble_off,
+        front_full_noble_off,
+        back_full_noble_off,
+        too_far_full_noble_off,
+    ]
+    outline.save(
+        update_fields=[
+            "available_nobles",
+            "available_offs",
+            "available_full_noble_offs",
+        ]
+    )
 
     # #
     # #
@@ -151,30 +170,17 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     too_far_off = 0
     back_off = 0
 
-    if len(close_starts) > 1000:
-        close_iterations = len(close_starts) // 1000 + 1
-        for i in range(close_iterations):
-            close_batch = close_starts[i * 1000 : (i + 1) * 1000]
-            batch_weights: QuerySet[models.WeightMaximum] = (
-                models.WeightMaximum.objects.filter(
-                    outline=outline,
-                    off_left__gte=outline.initial_outline_min_off,
-                    off_left__lte=outline.initial_outline_max_off,
-                ).filter(start__in=close_batch)
-            )
-            all_off += batch_weights.count()
-            front_off += batch_weights.filter(first_line=True).count()
-            too_far_off += batch_weights.filter(too_far_away=True).count()
-
-    else:
-        all_weights = models.WeightMaximum.objects.filter(
+    for i in range(0, len(close_starts), batch_size):
+        batch = close_starts[i : i + batch_size]
+        batch_weights = models.WeightMaximum.objects.filter(
             outline=outline,
+            start__in=batch,
             off_left__gte=outline.initial_outline_min_off,
             off_left__lte=outline.initial_outline_max_off,
-        ).filter(start__in=close_starts)
-        all_off += all_weights.count()
-        front_off += all_weights.filter(first_line=True).count()
-        too_far_off += all_weights.filter(too_far_away=True).count()
+        )
+        all_off += batch_weights.count()
+        front_off += batch_weights.filter(first_line=True).count()
+        too_far_off += batch_weights.filter(too_far_away=True).count()
 
     back_off = all_off - front_off - too_far_off
 
@@ -192,9 +198,9 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
     )
     back_noble = all_noble - front_noble - too_far_noble
 
-    outline.avaiable_nobles_near = [all_noble, front_noble, back_noble, too_far_off]
-    outline.avaiable_offs_near = [all_off, front_off, back_off, too_far_noble]
-    outline.save(update_fields=["avaiable_nobles_near", "avaiable_offs_near"])
+    outline.available_nobles_near = [all_noble, front_noble, back_noble, too_far_off]
+    outline.available_offs_near = [all_off, front_off, back_off, too_far_noble]
+    outline.save(update_fields=["available_nobles_near", "available_offs_near"])
 
 
 def get_available_catapults_lst(outline: models.Outline) -> list[int]:
@@ -251,7 +257,7 @@ def get_available_ruins(outline: models.Outline) -> int:
     return available_ruins_from_other + available_ruins_from_offs
 
 
-def update_available_ruins(outline: models.Outline) -> None:
-    outline.avaiable_ruins = get_available_ruins(outline=outline)
+def add_extra_available_troops_data(outline: models.Outline) -> None:
+    outline.available_ruins = get_available_ruins(outline=outline)
     outline.available_catapults = get_available_catapults_lst(outline=outline)
-    outline.save(update_fields=["avaiable_ruins", "available_catapults"])
+    outline.save(update_fields=["available_ruins", "available_catapults"])
