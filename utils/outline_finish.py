@@ -282,7 +282,6 @@ class MakeFinalOutline:
 
         for (
             player,
-            table,
             string,
             deputy,
             extended,
@@ -296,7 +295,7 @@ class MakeFinalOutline:
                     player=player,
                     token=token,
                     outline_overview=outline_overview,
-                    table=table,
+                    table="",
                     extended=extended,
                     new_extended=new_extended,
                     string=string,

@@ -111,7 +111,16 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(created[7].order, 110000)
 
     def test_indexes_are_correct_in_every_distance_ruin_target(self):
-        self.outline.initial_outline_min_off = 500
+        # we have no enough troops to make 4/4
+        # therefore let's simply duplicate all weight_max to fix it
+        # this is no perfect...
+        # but here we test orders only
+        all_weight_max = WeightMaximum.objects.all()
+        for weight_max in all_weight_max:
+            weight_max.pk = None
+            weight_max.save()
+
+        self.outline.initial_outline_min_off = 100
         self.outline.initial_outline_catapult_max_value = 50
         self.outline.save()
         target = self.target()
@@ -942,7 +951,6 @@ class TestOutlineCreateTargets(TestCase):
         self.outline.mode_split = "split"
         self.outline.initial_outline_buildings = [BUILDING.HEADQUARTERS.value]
         self.outline.initial_outline_catapult_max_value = 100
-        self.outline.initial_outline_off_left_catapult = 0
         self.outline.save()
         target = self.target()
         target.ruin = True
@@ -1000,7 +1008,6 @@ class TestOutlineCreateTargets(TestCase):
         self.outline.mode_split = "split"
         self.outline.initial_outline_buildings = [building]
         self.outline.initial_outline_catapult_max_value = 100
-        self.outline.initial_outline_off_left_catapult = 0
         self.outline.save()
         target = self.target()
         target.ruin = True
@@ -1019,7 +1026,6 @@ class TestOutlineCreateTargets(TestCase):
             BUILDING.CLAY_PIT.value,
         ]
         self.outline.initial_outline_catapult_max_value = 200
-        self.outline.initial_outline_off_left_catapult = 0
         self.outline.save()
         target = self.target()
         target.ruin = True

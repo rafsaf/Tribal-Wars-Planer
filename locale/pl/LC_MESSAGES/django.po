@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 15:51+0200\n"
+"POT-Creation-Date: 2025-04-14 01:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,45 +18,45 @@ msgstr ""
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: base/forms.py:41 base/forms.py:56 base/templates/base/base_planer.html:10
+#: base/forms.py:66 base/forms.py:81 base/templates/base/base_planer.html:10
 msgid "Outline Name"
 msgstr "Nazwa Rozpiski"
 
-#: base/forms.py:43 base/forms.py:57 base/templates/base/base_planer.html:11
+#: base/forms.py:68 base/forms.py:82 base/templates/base/base_planer.html:11
 #: utils/basic/info_generatation.py:151
 msgid "Date"
 msgstr "Data"
 
-#: base/forms.py:44 base/templates/base/base_planer.html:13
+#: base/forms.py:69 base/templates/base/base_planer.html:13
 msgid "World"
 msgstr "Świat"
 
-#: base/forms.py:61
+#: base/forms.py:86
 msgid "Use unused troops"
 msgstr "Użyj niewykorzystane wojska"
 
-#: base/forms.py:65
+#: base/forms.py:90
 msgid ""
 "Use unused army or deff troops from result tab from parent outline in Troops "
 "data tab"
 msgstr ""
 "Użyj niewykorzystane wojska z klonowanej rozpiski w zakładce Dane o wojsku"
 
-#: base/forms.py:76 base/models/outline.py:145 base/models/outline.py:325
+#: base/forms.py:101 base/models/outline.py:145 base/models/outline.py:326
 #: base/models/profile.py:35
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
 
-#: base/forms.py:94 base/forms.py:183
+#: base/forms.py:119 base/forms.py:208
 msgid "Text cannot be empty!"
 msgstr "Tekst nie może być pusty!"
 
-#: base/forms.py:120 base/forms.py:214
+#: base/forms.py:145 base/forms.py:239
 #, python-format
 msgid "[coord: %(coord)s] - [world: %(world)s]: no such village"
 msgstr "[wioska: %(coord)s] - [świat: %(world)s]: taka wioska nie istnieje!"
 
-#: base/forms.py:128 base/forms.py:222
+#: base/forms.py:153 base/forms.py:247
 #, python-format
 msgid ""
 "[coord: %(coord)s] - [world: %(world)s] - [player: %(player)s] - [tribe: "
@@ -65,51 +65,51 @@ msgstr ""
 "[wioska: %(coord)s] - [świat: %(world)s] - [gracz: %(player)s] - [plemię: "
 "%(tribe)s]"
 
-#: base/forms.py:146 base/forms.py:244
+#: base/forms.py:171 base/forms.py:269
 #, python-format
 msgid "Village in this line is duplicated: %(coord)s"
 msgstr "Wioska w tej linii jest podwojona: %(coord)s"
 
-#: base/forms.py:163 base/models/outline.py:146 base/models/outline.py:327
+#: base/forms.py:188 base/models/outline.py:146 base/models/outline.py:328
 #: base/models/profile.py:36
 msgid "Deff collection "
 msgstr "Zbiórka Obrona"
 
-#: base/forms.py:257
+#: base/forms.py:282
 msgid "Ally tribe"
 msgstr "Własne plemiona"
 
-#: base/forms.py:264 base/forms.py:280
+#: base/forms.py:289 base/forms.py:305
 msgid "Select tribe from list"
 msgstr "Wybierz plemię z listy"
 
-#: base/forms.py:273
+#: base/forms.py:298
 msgid "Enemy tribe"
 msgstr "Przeciwne plemiona"
 
-#: base/forms.py:291
+#: base/forms.py:316
 msgid "Radius"
 msgstr "Promień"
 
-#: base/forms.py:294
+#: base/forms.py:319
 msgid "Greater than or equal to 0 and less than or equal to 1000."
 msgstr "Większa lub równa 0 i mniejsza lub równa 1000."
 
-#: base/forms.py:302
+#: base/forms.py:327
 msgid "Excluded enemy villages"
 msgstr "Wykluczone wysunięte wioski wroga"
 
-#: base/forms.py:304
+#: base/forms.py:329
 msgid "Exact coords separated by a space or an entry."
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:328 base/templates/base/base.html:237
+#: base/forms.py:353 base/templates/base/base.html:237
 #: base/templates/base/new_outline/new_outline_initial_period2.html:32
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
 msgid "Targets"
 msgstr "Cele"
 
-#: base/forms.py:376
+#: base/forms.py:401
 #, python-format
 msgid ""
 "You are trying to mantain more than %s targets in total - that is global "
@@ -119,27 +119,27 @@ msgstr ""
 "możliwą ilość celów aby chronić stronę przed nadużyciami.<br> Prosimy o "
 "zmniejszenie ilości celów poniżej limitu lub kontakt z administracją."
 
-#: base/forms.py:399
+#: base/forms.py:424
 msgid "Min. off units number"
 msgstr "Minimalna liczba jednostek w offie"
 
-#: base/forms.py:400
+#: base/forms.py:425
 msgid "Max. off units number"
 msgstr "Maksymalna liczba jednostek w offie"
 
-#: base/forms.py:402
+#: base/forms.py:427
 msgid "Minimum distance from front line"
 msgstr "Minimalna odległość od linii frontu"
 
-#: base/forms.py:404
+#: base/forms.py:429
 msgid "Max Distance for nobles"
 msgstr "Maksymalna odległość dla szlachciców"
 
-#: base/forms.py:406
+#: base/forms.py:431
 msgid "Max Distance for offs and ruins"
 msgstr "Maksymalna odległość dla offów (i burzaków)"
 
-#: base/forms.py:411
+#: base/forms.py:436
 msgid ""
 "Greater than or equal to 1 and less than or equal to 28000. Only offs above "
 "this value will be considered full offs and will be written out."
@@ -147,7 +147,7 @@ msgstr ""
 "Większa lub równa 1 i mniejsza lub równa 28000. Tylko offy powyżej tej "
 "wielkości będą uznane za pełne offy i rozpisane"
 
-#: base/forms.py:414
+#: base/forms.py:439
 msgid ""
 "Defaults to 28000. Similar to minimum off units number, must be greater than "
 "it."
@@ -155,7 +155,7 @@ msgstr ""
 "Domyślnie rozsądnie duże 28000. Podobna do minimalnej liczby jednostek w "
 "offie, ale musi być większa niż ona."
 
-#: base/forms.py:417
+#: base/forms.py:442
 msgid ""
 "Greater than or equal to 0 and less than or equal to 500. Villages closer to "
 "the enemy than this value will be considered front-line and not written out "
@@ -165,7 +165,7 @@ msgstr ""
 "najbliższego wroga od tej wartości będą uznane za frontowe i nie będą "
 "domyślnie rozpisane"
 
-#: base/forms.py:420
+#: base/forms.py:445
 msgid ""
 "Greater than or equal to 0 and less than or equal to 1000. This is STRICT "
 "limit of distance for any OFF regardless of distance from the front line."
@@ -174,16 +174,16 @@ msgstr ""
 "limit odległości dla każdego OFFA bez względu na ustawienia dotyczące frontu "
 "i odległości od niego."
 
-#: base/forms.py:425
+#: base/forms.py:450
 msgid "Excluded enemy villages coords (secluded villages)"
 msgstr ""
 "Nieuwzględniane przy liczeniu frontowych offów wioski wroga (diody itp.)"
 
-#: base/forms.py:429
+#: base/forms.py:454
 msgid "Exact coords separated by a space or an entry"
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:437
+#: base/forms.py:462
 #, python-format
 msgid ""
 "Greater than or equal to 0 and less than or equal to your world maximum: "
@@ -195,32 +195,32 @@ msgstr ""
 "każdego SZLACHCICA bez względu na ustawienia dotyczące frontu i odległości "
 "od niego."
 
-#: base/forms.py:445
+#: base/forms.py:470
 #, python-format
 msgid "Ensure this value is less than or equal to %(value)s."
 msgstr "Upewnij się, że wartość jest mniejsza bądź równa %(value)s."
 
-#: base/forms.py:487
+#: base/forms.py:512
 msgid "Show all hidden"
 msgstr "Pokaż wszystkie ukryte"
 
-#: base/forms.py:488
+#: base/forms.py:513
 msgid "Title of message:"
 msgstr "Tytuł wiadomości"
 
-#: base/forms.py:489
+#: base/forms.py:514
 msgid "Content of message:"
 msgstr "Zawartość wiadomości"
 
-#: base/forms.py:490 base/forms.py:1072
+#: base/forms.py:515 base/forms.py:1113
 msgid "Sending Options:"
 msgstr "Opcje wysyłki"
 
-#: base/forms.py:491 base/forms.py:1073
+#: base/forms.py:516 base/forms.py:1114
 msgid "Add links to direct messages:"
 msgstr "Linki do celów w bezpośrednich wiadomościach:"
 
-#: base/forms.py:495
+#: base/forms.py:520
 #: base/templates/base/new_outline/new_outline_results.html:132
 msgid ""
 "By checking this option, players will see the commands of all other players "
@@ -231,11 +231,11 @@ msgstr ""
 "swoich celach. Domyślnie jest wyłączona, czyli gracze widzą tylko swoje "
 "komendy."
 
-#: base/forms.py:497
+#: base/forms.py:522
 msgid "Title, maximum length 200."
 msgstr "Tytuł, maksymalna długość 200."
 
-#: base/forms.py:499
+#: base/forms.py:524
 msgid ""
 "BBCode message, maximum length 2000. Hint: Format text in game and paste "
 "here."
@@ -243,7 +243,7 @@ msgstr ""
 "BBCode tekst wiadomości, maksymalna długość 2000. Wskazówka: Sformatuj "
 "wiadomość w grze i następnie wklej ją tutaj."
 
-#: base/forms.py:502
+#: base/forms.py:527
 msgid ""
 "Directly messages will bahave poorly with many (more than 80-100) commands"
 msgstr ""
@@ -251,22 +251,22 @@ msgstr ""
 "ilości rozkazów (więcej niż 80-100) z racji ograniczeń znaków w wiadomości w "
 "grze."
 
-#: base/forms.py:505
+#: base/forms.py:530
 msgid ""
 "If checked, direct messages from options above will have safe link to planer"
 msgstr ""
 "Jeśli opcja jest zaznaczona, bezpośrednie wiadomości będą zawierać "
 "indywidualny link do celów graczy"
 
-#: base/forms.py:515
+#: base/forms.py:540
 msgid "Set sending option as default choice for next outlines"
 msgstr "Ustaw opcję wysyłki wiadomości jako domyślna dla następnych rozpisek"
 
-#: base/forms.py:527
+#: base/forms.py:552
 msgid "Input type for planer"
 msgstr "Wykorzystywane dane dla zakładki Planer"
 
-#: base/forms.py:531 base/templates/base/new_outline/new_outline.html:33
+#: base/forms.py:556 base/templates/base/new_outline/new_outline.html:33
 msgid ""
 "Data for planer tab may be from Army or Defence tabs. Army - all troops "
 "(also that are outside of villages), Defence - only troops from villages."
@@ -275,55 +275,55 @@ msgstr ""
 "Pierwsza bierze wszystkie jednostki (także spoza wiosek!) zaś Zbiórka Obrona "
 "tylko te z wiosek."
 
-#: base/forms.py:541
+#: base/forms.py:566
 msgid "Set as default choice for next outlines"
 msgstr "Domyślny wybór dla następnych rozpisek"
 
-#: base/forms.py:552
+#: base/forms.py:577
 msgid "Set new date"
 msgstr "Wybierz nową datę"
 
-#: base/forms.py:611
+#: base/forms.py:636
 msgid "Choose the default distance of the written offs:"
 msgstr "Wybierz domyślny dystans dla rozpisywanych offów:"
 
-#: base/forms.py:614
+#: base/forms.py:639
 msgid "Choose the default distance of the written nobles:"
 msgstr "Wybierz domyślny dystans dla rozpisywanych szlachciców:"
 
-#: base/forms.py:616
+#: base/forms.py:641
 msgid "Choose how to split offs with nobles:"
 msgstr "Wybierz jak powinny być dzielone offy z szlachciami:"
 
-#: base/forms.py:618
+#: base/forms.py:643
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Wybierz preferowany sposób rozpisywania wymaganych szlachiców:"
 
-#: base/forms.py:621
+#: base/forms.py:646
 msgid "Choose how noble commands should be written out:"
 msgstr "Wybierz jak komendy z wiosek z szlachtą powinny być rozpisane:"
 
-#: base/forms.py:624
+#: base/forms.py:649
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maksymalna ilość fejk taranów z jednej wioski:"
 
-#: base/forms.py:627
+#: base/forms.py:652
 msgid "Determine which villages to write fake attacks from:"
 msgstr "Wybierz z jakich wiosek rozpisywać fejki:"
 
-#: base/forms.py:630
+#: base/forms.py:655
 msgid "Max. number of nobles send per village:"
 msgstr "Maksymalna ilość szlachciców z jednej wioski:"
 
-#: base/forms.py:633
+#: base/forms.py:658
 msgid "Min. off units for every noble"
 msgstr "Min. liczba jednostek w obstawie każdego szlachcica"
 
-#: base/forms.py:636
+#: base/forms.py:661
 msgid "Min. off units for every fake noble"
 msgstr "Min. liczba jednostek w obstawie każdego fake szlachcica"
 
-#: base/forms.py:641
+#: base/forms.py:666
 msgid ""
 "For 4 nobles in village, first option would <b>try</b> to send them all 4x "
 "on target X, second would randomly send from 1 to 4 nobles to single target "
@@ -335,7 +335,7 @@ msgstr ""
 "lub wiele celów (w ramach potrzeb), ostatnia zaś wyśle po 1 na cele X1,X2,X3,"
 "X4 (offoszlachty)."
 
-#: base/forms.py:644
+#: base/forms.py:669
 msgid ""
 "For 20000 troops and 4 nobles in village, first option would try to use 4 x "
 "5000, second 1 x 19700 + 3 x 100, and last 4 x 100, where 100 can be changed "
@@ -345,7 +345,7 @@ msgstr ""
 "druga 1 x 19700 + 3 x 100, ostatnia zaś 4 x 100, gdzie \"100\" może być "
 "zmienione w opcji \"Min. liczba jednostek w obstawie każdego szlachcica\"."
 
-#: base/forms.py:647
+#: base/forms.py:672
 msgid ""
 "Defaults to 8. Between 0 and 250. For example you may want only 4 nobles "
 "from single village or even 1 (with full off). Best works with \"Min. off "
@@ -356,7 +356,7 @@ msgstr ""
 "tylko 1 co wymusi offoszlachtę. Taki sam limit zostanie użyty do fake "
 "szlachciców."
 
-#: base/forms.py:654
+#: base/forms.py:679
 msgid ""
 "Defaults to just 100. Must be between 0 and 28000. This is strict minimum so "
 "if village have nobles, but not enough off units, Planer won't use it. Use "
@@ -371,70 +371,82 @@ msgstr ""
 "szlachciców i 250 jednostek off, a ta opcja to 100, tylko 2 szlachciców "
 "będzie kiedykolwiek użytych do ataku."
 
-#: base/forms.py:657
+#: base/forms.py:682
 msgid ""
 "Defaults to 0. Must be between 0 and 200. You probably don't want to waste "
 "troops for fake nobles, but there are cases where this makes sense."
-msgstr "Domyślnie 0. Pomiędzy 0 a 200. Zwykle nie warto marnować jednostek na użytek fake szlachciców, ale są przypadki gdzie może mieć to sens."
+msgstr ""
+"Domyślnie 0. Pomiędzy 0 a 200. Zwykle nie warto marnować jednostek na użytek "
+"fake szlachciców, ale są przypadki gdzie może mieć to sens."
 
-#: base/forms.py:680
+#: base/forms.py:705
 msgid "MIN number of catapults in one ruin attack:"
 msgstr "MIN liczba katapult w każdym burzaku:"
 
-#: base/forms.py:683
+#: base/forms.py:708
 msgid "MAX number of catapults in one ruin attack:"
 msgstr "MAX liczba katapult w każdym burzaku:"
 
-#: base/forms.py:686
-msgid "Number of catapults that will always be left in full offs:"
-msgstr "Liczba katapult, która zawsze pozostanie w pełnych offach:"
-
-#: base/forms.py:689
+#: base/forms.py:711
 msgid "How many points on average do demolished targets have:"
 msgstr "Jak dużo punktów mają średnio burzone cele:"
 
-#: base/forms.py:703
+#: base/forms.py:714
+msgid "Minimum off units for every ruin attack:"
+msgstr "Min. liczba jednostek w obstawie każdego burzaka"
+
+#: base/forms.py:719
+#, python-format
+msgid ""
+"Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that "
+"will be added to every ruin attack. If 0, it means only catapults are send."
+msgstr ""
+"Domyślnie %(default)s (pomiędzy %(min)s-%(max)s). Minimalna liczba jednostek "
+"off, która zostanie dodana do każdego burzaka. Jeśli 0, oznacza to że "
+"wysyłane są tylko katapulty."
+
+#: base/forms.py:744
 msgid "Only attackers ABOVE this morale value can be used:"
 msgstr "Tylko atakujący POWYŻEJ tej wartości morale mogą zostać rozpisani"
 
-#: base/forms.py:705
+#: base/forms.py:746
 msgid "Is morale calculation active in this outline:"
 msgstr "Bierz pod uwagę morale w tej rozpisce"
 
-#: base/forms.py:743
+#: base/forms.py:784
 msgid "Choose whether to avoid the night bonus"
 msgstr "Wybierz czy wysyłki powinny omijać bonus nocny"
 
-#: base/forms.py:749
+#: base/forms.py:790
 msgid "Approximate hours of entry"
 msgstr "Przybliżone czasy wejścia akcji"
 
-#: base/forms.py:756
+#: base/forms.py:797
 msgid "Approximate hours of the last entry"
 msgstr "Przybliżone ostatnie czasy wejścia akcji"
 
-#: base/forms.py:769
+#: base/forms.py:810
 msgid "First value must be less or equal to second!"
 msgstr "Pierwsza godzina musi być mniejsza lub równa drugiej!"
 
-#: base/forms.py:780
+#: base/forms.py:821
 msgid "Sum of off"
 msgstr "Suma całego offa"
 
-#: base/forms.py:786
+#: base/forms.py:827
 msgid "Off without catapults"
 msgstr "Off bez katapult"
 
-#: base/forms.py:792
+#: base/forms.py:833
 #: base/templates/base/new_outline/new_outline_initial_period1.html:190
 msgid "Catapults"
 msgstr "Katapulty"
 
-#: base/forms.py:798 base/models/period_model.py:34
+#: base/forms.py:839 base/models/period_model.py:34
 msgid "Noble"
 msgstr "Szlachcic"
 
-#: base/forms.py:808 base/forms.py:819
+#: base/forms.py:849 base/forms.py:860
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:101
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:168
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:210
@@ -442,7 +454,7 @@ msgstr "Szlachcic"
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:811 base/forms.py:820
+#: base/forms.py:852 base/forms.py:861
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:102
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
@@ -450,7 +462,7 @@ msgstr "Od"
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:818
+#: base/forms.py:859
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:97
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:163
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:205
@@ -458,7 +470,7 @@ msgstr "Do"
 msgid "Mode"
 msgstr "Tryb"
 
-#: base/forms.py:821
+#: base/forms.py:862
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:98
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:207
@@ -466,7 +478,7 @@ msgstr "Tryb"
 msgid "Unit"
 msgstr "Jednostka"
 
-#: base/forms.py:822
+#: base/forms.py:863
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:99
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
@@ -474,7 +486,7 @@ msgstr "Jednostka"
 msgid "Min. time"
 msgstr "Min. czas"
 
-#: base/forms.py:823
+#: base/forms.py:864
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:100
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
@@ -482,23 +494,23 @@ msgstr "Min. czas"
 msgid "Max. time"
 msgstr "Max. czas"
 
-#: base/forms.py:899 base/forms.py:909
+#: base/forms.py:940 base/forms.py:950
 msgid "Mode All can be used only once per unit"
 msgstr "Tryb Wszystkie może być użyty tylko raz dla obu jednostek"
 
-#: base/forms.py:917
+#: base/forms.py:958
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Tryb Wszystkie musi być użyty dokładnie raz dla szlachty oraz taranów."
 
-#: base/forms.py:957
+#: base/forms.py:998
 msgid "You need a premium account to add more targets here."
 msgstr "Potrzebujesz konta premium by dodawać cele w tym miejscu."
 
-#: base/forms.py:967
+#: base/forms.py:1008
 msgid "Village with that coords did not found."
 msgstr "Wioska o podanych kordach nie istnieje."
 
-#: base/forms.py:974
+#: base/forms.py:1015
 msgid ""
 "Found more than one village in database, this is the bug. Write me: <rafal."
 "safin@rafsaf.pl>"
@@ -506,48 +518,48 @@ msgstr ""
 "Znaleziono więcej niż 1 wioskę w bazie, jest to błąd. Napisz do mnie: <rafal."
 "safin@rafsaf.pl>"
 
-#: base/forms.py:986
+#: base/forms.py:1027
 msgid "Choose server"
 msgstr "Wybierz serwer"
 
-#: base/forms.py:987
+#: base/forms.py:1028
 msgid "World prefix"
 msgstr "Przedrostek świata"
 
-#: base/forms.py:998
+#: base/forms.py:1039
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr "Niedozwolone znaki w podanym przedrostku, sprwadź jego poprawność"
 
-#: base/forms.py:1018
+#: base/forms.py:1059
 msgid "World is already added!"
 msgstr "Ten świat już został dodany!"
 
-#: base/forms.py:1026 base/forms.py:1037
+#: base/forms.py:1067 base/forms.py:1078
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Błąd połączenia, świat nie istnieje lub jest archiwalny!"
 
-#: base/forms.py:1050 base/forms.py:1066
+#: base/forms.py:1091 base/forms.py:1107
 msgid "Please select your server:"
 msgstr "Ustaw swój serwer:"
 
-#: base/forms.py:1068
+#: base/forms.py:1109
 msgid "Turn on morale calculations in every outline by default:"
 msgstr ""
 "Włącz domyślną obsługę morali dla każdej nowej rozpiski (domyślnie wyłączone)"
 
-#: base/forms.py:1070
+#: base/forms.py:1111
 msgid "Default input type for planer"
 msgstr "Wybierz typ danych dla planera"
 
-#: base/forms.py:1071
+#: base/forms.py:1112
 msgid "Please select your currency:"
 msgstr "Ustaw swoją walutę płatności:"
 
-#: base/forms.py:1076
+#: base/forms.py:1117
 msgid "Prefered sending option in Results tab"
 msgstr "Preferowana opcja wysyłki wiadomości w zakładce Wyniki"
 
-#: base/forms.py:1078
+#: base/forms.py:1119
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
@@ -555,34 +567,34 @@ msgstr ""
 "będą zawierać linki do celów"
 
 #: base/models/outline.py:72 base/models/outline.py:79
-#: base/models/target_vertex.py:33 base/models/target_vertex.py:40
+#: base/models/target_vertex.py:36 base/models/target_vertex.py:43
 msgid "Closest Front"
 msgstr "Front Najbliżej"
 
 #: base/models/outline.py:73 base/models/outline.py:80
-#: base/models/target_vertex.py:34 base/models/target_vertex.py:41
+#: base/models/target_vertex.py:37 base/models/target_vertex.py:44
 msgid "Close Back"
 msgstr "Zaplecze Blisko"
 
 #: base/models/outline.py:74 base/models/outline.py:81
-#: base/models/target_vertex.py:35 base/models/target_vertex.py:42
+#: base/models/target_vertex.py:38 base/models/target_vertex.py:45
 msgid "Random Back"
 msgstr "Zaplecze Losowo"
 
 #: base/models/outline.py:75 base/models/outline.py:82
-#: base/models/target_vertex.py:36 base/models/target_vertex.py:43
+#: base/models/target_vertex.py:39 base/models/target_vertex.py:46
 msgid "Far Back"
 msgstr "Zaplecze Daleko"
 
-#: base/models/outline.py:86 base/models/target_vertex.py:47
+#: base/models/outline.py:86 base/models/target_vertex.py:50
 msgid "Divide off with nobles"
 msgstr "Dziel offy z szlachtą"
 
-#: base/models/outline.py:87 base/models/target_vertex.py:48
+#: base/models/outline.py:87 base/models/target_vertex.py:51
 msgid "Dont't divide off"
 msgstr "Nie dziel offów z szlachtą"
 
-#: base/models/outline.py:88 base/models/target_vertex.py:49
+#: base/models/outline.py:88 base/models/target_vertex.py:52
 msgid "Off and nobles separatly"
 msgstr "Offy i szlachta osobno"
 
@@ -594,15 +606,15 @@ msgstr "Szlachta z jednej wioski jako jeden rozkaz"
 msgid "Nobles from one village as many commands"
 msgstr "Szlachta z jednej wioski jako wiele rozkazów"
 
-#: base/models/outline.py:97 base/models/target_vertex.py:53
+#: base/models/outline.py:97 base/models/target_vertex.py:56
 msgid "Try send all nobles to one target"
 msgstr "Rozpisuj szlachtę możliwie na jedną wioskę"
 
-#: base/models/outline.py:98 base/models/target_vertex.py:54
+#: base/models/outline.py:98 base/models/target_vertex.py:57
 msgid "Nobles to one or many targets"
 msgstr "Szlachta na jedną lub wiele wiosek (optymalnie)"
 
-#: base/models/outline.py:99 base/models/target_vertex.py:55
+#: base/models/outline.py:99 base/models/target_vertex.py:58
 msgid "Try single nobles from many villages"
 msgstr "Rozpisuj szlachtę na cel możliwie z pojedynczych wiosek"
 
@@ -666,27 +678,27 @@ msgstr "Stary tekst rozszerzony bezpośrednio w wiadomości"
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:299 base/models/profile.py:60
+#: base/models/outline.py:300 base/models/profile.py:60
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:330
+#: base/models/outline.py:331
 msgid "Name"
 msgstr "Nazwa"
 
-#: base/models/outline.py:451
+#: base/models/outline.py:452
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:465
+#: base/models/outline.py:466
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:467
+#: base/models/outline.py:468
 msgid "days"
 msgstr "dni"
 
-#: base/models/overview.py:58
+#: base/models/overview.py:66
 msgid "Unique link to your targets on plemiona-planer.pl"
 msgstr "Unikalny link do Twoich celów na plemiona-planer.pl"
 
@@ -764,7 +776,7 @@ msgstr "Strona Główna"
 msgid "Planer"
 msgstr "Planer"
 
-#: base/templates/base/base.html:74
+#: base/templates/base/base.html:74 base/templates/base/overview.html:252
 msgid "Documentation"
 msgstr "Dokumentacja"
 
@@ -1487,16 +1499,16 @@ msgstr "Szlachta blisko celów"
 msgid ""
 "\n"
 "                                                                                             Catapults "
-"from villages that are not front, minus what must be left in off villages "
-"(%(initial_outline_off_left_catapult)s catapults per village, see 6.). Only "
-"villages at maximum distance that are not far away (now more than "
-"%(initial_outline_maximum_off_dist)s, see 1.).\n"
+"from villages that are not front, with at least "
+"%(initial_outline_min_ruin_attack_off)s off troops in village (without "
+"catapults), see 6.). Only villages at maximum distance that are not far away "
+"(now more than %(initial_outline_maximum_off_dist)s, see 1.).\n"
 "                                                                                           "
 msgstr ""
 "\n"
-"          Katapulty z wiosek poza Frontem, nie licząc tych, które muszą "
-"zostać w wioskach offowych (%(initial_outline_off_left_catapult)s katapult "
-"na wioskę, zob. 6.). Pomijane są także wioski Poza (obecnie powyżej "
+"          Katapulty z wiosek poza Frontem, z przynajmniej "
+"%(initial_outline_min_ruin_attack_off)s wojska w wiosce (bez katapult), zob. "
+"6.). Pomijane są także wioski Poza (obecnie powyżej "
 "%(initial_outline_maximum_off_dist)s, zob. 1.).\n"
 "          "
 
@@ -1898,7 +1910,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
-#: base/templates/base/overview.html:220 utils/basic/mode.py:60
+#: base/templates/base/overview.html:173 utils/basic/mode.py:60
 #: utils/outline_finish.py:74
 msgid "Target"
 msgstr "Cel"
@@ -1908,7 +1920,7 @@ msgid "Select Time"
 msgstr "Wybierz Czas"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:252
-#: base/templates/base/overview.html:221 utils/basic/mode.py:67
+#: base/templates/base/overview.html:174 utils/basic/mode.py:67
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -2037,7 +2049,7 @@ msgid "Previous"
 msgstr "Poprzednia"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:267
-#: base/templates/base/overview.html:74 base/templates/base/overview.html:188
+#: base/templates/base/overview.html:53 base/templates/base/overview.html:86
 msgid "of"
 msgstr "z"
 
@@ -2155,15 +2167,19 @@ msgstr ""
 "Niektóre z rozpisanych rozkazów zostały pominięte w związku z następującymi "
 "problemami"
 
-#: base/templates/base/overview.html:16
+#: base/templates/base/overview.html:17
 msgid "Copy"
 msgstr "Kopiuj"
 
-#: base/templates/base/overview.html:19
+#: base/templates/base/overview.html:20
 msgid "Details"
 msgstr "Szczegóły"
 
-#: base/templates/base/overview.html:28
+#: base/templates/base/overview.html:23 base/templates/base/overview.html:249
+msgid "Source"
+msgstr "Źródło"
+
+#: base/templates/base/overview.html:32
 msgid ""
 "The contents below shows your targets, please copy the one you like to your "
 "in-game notes."
@@ -2171,149 +2187,110 @@ msgstr ""
 "Poniższe pola tekstowe zawierają Twoje cele, skopiuj zawartość wybranego do "
 "swoich notatek w grze. "
 
-#: base/templates/base/overview.html:33
-msgid "Text simple"
-msgstr "Tekst prosty"
+#: base/templates/base/overview.html:38
+msgid "Standard"
+msgstr "Standardowy"
 
-#: base/templates/base/overview.html:35 base/templates/base/overview.html:61
-#: base/templates/base/overview.html:95 base/templates/base/overview.html:122
-#: base/templates/base/overview.html:176
+#: base/templates/base/overview.html:40 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:107 base/templates/base/overview.html:133
 msgid "Copy content from textarea below"
 msgstr "Skopiuj tekst z pola tekstowego poniżej"
 
-#: base/templates/base/overview.html:37 base/templates/base/overview.html:63
-#: base/templates/base/overview.html:97 base/templates/base/overview.html:124
-#: base/templates/base/overview.html:178
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
 msgid "Successfully copied!"
 msgstr "Pomyślnie skopiowano!"
 
-#: base/templates/base/overview.html:37 base/templates/base/overview.html:63
-#: base/templates/base/overview.html:97 base/templates/base/overview.html:124
-#: base/templates/base/overview.html:178
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
 msgid "Click to copy again"
 msgstr "Kliknij by ponownie skopiować"
 
-#: base/templates/base/overview.html:37 base/templates/base/overview.html:63
-#: base/templates/base/overview.html:97 base/templates/base/overview.html:124
-#: base/templates/base/overview.html:178
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
 msgid "Error! Please copy the textarea below"
 msgstr "Błąd! Skopiuj tekst z pola tekstowego poniżej"
 
-#: base/templates/base/overview.html:37 base/templates/base/overview.html:63
-#: base/templates/base/overview.html:97 base/templates/base/overview.html:124
-#: base/templates/base/overview.html:178
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
 msgid "Copy to clipboard"
 msgstr "Kopiuj do schowka"
 
-#: base/templates/base/overview.html:42 base/templates/base/overview.html:69
-#: base/templates/base/overview.html:103 base/templates/base/overview.html:129
-#: base/templates/base/overview.html:183
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:81
+#: base/templates/base/overview.html:114 base/templates/base/overview.html:141
 msgid "This is what this form of orders looks like when pasted into a notebook"
 msgstr "Ten typ rozkazów tak będzie wyglądał po wklejeniu do notatek w grze"
 
-#: base/templates/base/overview.html:47 base/templates/base/overview.html:74
-#: base/templates/base/overview.html:81 base/templates/base/overview.html:108
-#: base/templates/base/overview.html:146 base/templates/base/overview.html:188
-#: base/templates/base/overview.html:195 utils/basic/table_text.py:88
-msgid "Send OFF"
-msgstr "Wyślij OFF"
-
-#: base/templates/base/overview.html:53 base/templates/base/overview.html:87
-#: base/templates/base/overview.html:114 base/templates/base/overview.html:168
-#: base/templates/base/overview.html:201
-msgid "A link to your targets on plemiona-planer.pl."
-msgstr "Link do Twoich celów na plemiona-planer.pl."
-
-#: base/templates/base/overview.html:59
-msgid "New Text extended"
-msgstr "Nowy tekst rozszerzony"
-
-#: base/templates/base/overview.html:72 base/templates/base/overview.html:186
-#: utils/basic/table_text.py:33
+#: base/templates/base/overview.html:51 base/templates/base/overview.html:84
+#: utils/basic/table_text.py:32
 msgid "Tuesday"
 msgstr "Wtorek"
 
-#: base/templates/base/overview.html:79 base/templates/base/overview.html:105
-#: base/templates/base/overview.html:157 base/templates/base/overview.html:193
+#: base/templates/base/overview.html:53 base/templates/base/overview.html:60
+#: base/templates/base/overview.html:86 base/templates/base/overview.html:93
+#: base/templates/base/overview.html:119 base/templates/base/overview.html:146
+#: utils/basic/table_text.py:82
+msgid "Send OFF"
+msgstr "Wyślij OFF"
+
+#: base/templates/base/overview.html:58 base/templates/base/overview.html:91
+#: base/templates/base/overview.html:143
 msgid "Remember this is only the example"
 msgstr "Pamiętaj, że to tylko przykład"
 
-#: base/templates/base/overview.html:79 base/templates/base/overview.html:105
-#: base/templates/base/overview.html:160 base/templates/base/overview.html:193
+#: base/templates/base/overview.html:58 base/templates/base/overview.html:91
+#: base/templates/base/overview.html:143
 msgid "Plemiona Planer is the best"
 msgstr "Plemiona Planer jest najlepszy"
 
-#: base/templates/base/overview.html:93
-msgid "Old Text extended"
-msgstr "Stary tekst rozszerzony"
+#: base/templates/base/overview.html:66 base/templates/base/overview.html:99
+#: base/templates/base/overview.html:125 base/templates/base/overview.html:152
+msgid "A link to your targets on plemiona-planer.pl."
+msgstr "Link do Twoich celów na plemiona-planer.pl."
 
-#: base/templates/base/overview.html:105 utils/basic/table_text.py:255
-msgid "from village"
-msgstr "z wioski"
+#: base/templates/base/overview.html:72
+msgid "Standard - for deputy"
+msgstr "Standardowy - dla zastępcy"
 
-#: base/templates/base/overview.html:105 utils/basic/table_text.py:256
-msgid "to "
-msgstr "na "
-
-#: base/templates/base/overview.html:120
-msgid "Table"
-msgstr "Tabela"
-
-#: base/templates/base/overview.html:127
-msgid "Hint: Use Text format if u have many commands. "
-msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
-
-#: base/templates/base/overview.html:135
-msgid "SEND"
-msgstr "WYŚLIJ"
-
-#: base/templates/base/overview.html:136
-msgid "OFF"
-msgstr "OFF"
-
-#: base/templates/base/overview.html:137
-msgid "NOBLE"
-msgstr "GRUBE"
-
-#: base/templates/base/overview.html:138
-msgid "SENDING"
-msgstr "WYSYŁKA"
-
-#: base/templates/base/overview.html:139
-msgid "ENTER"
-msgstr "WEJŚCIE"
-
-#: base/templates/base/overview.html:140
-msgid "FROM"
-msgstr "Z WIOSKI"
-
-#: base/templates/base/overview.html:141
-msgid "TARGET"
-msgstr "CEL"
-
-#: base/templates/base/overview.html:174
-msgid "Text for deputy"
-msgstr "Tekst dla zastępcy"
-
-#: base/templates/base/overview.html:182
+#: base/templates/base/overview.html:80
 msgid "Hint: Use this one when someone else will send this commands."
 msgstr ""
 "Wskazówka: Użyj tej formy jeśli ktoś inny będzie za Ciebie wysyłał ataki z "
 "zastępstwa."
 
-#: base/templates/base/overview.html:211
+#: base/templates/base/overview.html:105
+msgid "Simple"
+msgstr "Prosty"
+
+#: base/templates/base/overview.html:131
+msgid "Old"
+msgstr "Stary"
+
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:220
+msgid "from village"
+msgstr "z wioski"
+
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:221
+msgid "to "
+msgstr "na "
+
+#: base/templates/base/overview.html:164
 msgid "Alert! The order in the list below matters and is fixed."
 msgstr ""
 "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
 "ustalona."
 
-#: base/templates/base/overview.html:237
+#: base/templates/base/overview.html:190
 msgid "Ruin"
 msgstr "Burzenie"
 
-#: base/templates/base/overview.html:239
+#: base/templates/base/overview.html:192
 msgid "Off"
 msgstr "Off"
+
+#: base/templates/base/overview.html:250
+msgid "Source in JSON format available under API link:"
+msgstr "Źródło w formacie JSON dostępne w API pod linkiem:"
 
 #: base/templates/base/user/add_world.html:9
 #: base/templates/base/user/add_world.html:26
@@ -3058,63 +3035,43 @@ msgstr "- W wiosce- "
 msgid "(All deff"
 msgstr "(Cały deff"
 
-#: utils/basic/table_text.py:32
+#: utils/basic/table_text.py:31
 msgid "Monday"
 msgstr "Poniedziałek"
 
-#: utils/basic/table_text.py:34
+#: utils/basic/table_text.py:33
 msgid "Wednesday"
 msgstr "Środa"
 
-#: utils/basic/table_text.py:35
+#: utils/basic/table_text.py:34
 msgid "Thursday"
 msgstr "Czwartek"
 
-#: utils/basic/table_text.py:36
+#: utils/basic/table_text.py:35
 msgid "Friday"
 msgstr "Piątek"
 
-#: utils/basic/table_text.py:37
+#: utils/basic/table_text.py:36
 msgid "Saturday"
 msgstr "Sobota"
 
-#: utils/basic/table_text.py:38
+#: utils/basic/table_text.py:37
 msgid "Sunday"
 msgstr "Niedziela"
 
-#: utils/basic/table_text.py:43
-msgid ""
-"[table][**][||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/"
-"**]"
-msgstr ""
-"[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z "
-"WIOSKI[||]CEL[/**]"
-
-#: utils/basic/table_text.py:84
+#: utils/basic/table_text.py:78
 msgid "Send fake"
 msgstr "Wyślij fejk"
 
-#: utils/basic/table_text.py:86
+#: utils/basic/table_text.py:80
 msgid "Send ruin"
 msgstr "Wyślij burzak"
 
-#: utils/basic/table_text.py:90
+#: utils/basic/table_text.py:84
 msgid "Send NOBLE"
 msgstr "Wyślij SZLACHCIC"
 
-#: utils/basic/table_text.py:127
-msgid "fake noble"
-msgstr "fake gruby"
-
-#: utils/basic/table_text.py:129
-msgid "fake"
-msgstr "fake"
-
-#: utils/basic/table_text.py:131
-msgid "Catapults-"
-msgstr "Katapulty-"
-
-#: utils/basic/table_text.py:184
+#: utils/basic/table_text.py:136
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] "
@@ -3133,7 +3090,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "FEJK SZLACHCIC[/url]"
 
-#: utils/basic/table_text.py:196
+#: utils/basic/table_text.py:148
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3152,26 +3109,28 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "FEJK[/url]"
 
-#: utils/basic/table_text.py:208
+#: utils/basic/table_text.py:160
 #, python-format
 msgid ""
-"[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s][/color] "
-"(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+"[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s + "
+"%(extra_off_number)s extra off][/color] (%(weight_count)s of "
+"%(weight_count_all)s)[/b]\n"
 "%(date)s\n"
 "%(start_coord)s [b]->[/b] %(target_coord)s\n"
 "[url=%(game_url)s/game.php?"
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
 "RUIN[/url]"
 msgstr ""
-"[b][color=#0e0eff]Wyślij BURZAK[%(catapults_number)sk na %(building)s][/"
-"color] (%(weight_count)s z %(weight_count_all)s)[/b]\n"
+"[b][color=#0e0eff]Wyślij BURZAK[%(catapults_number)sk na %(building)s + "
+"%(extra_off_number)s wojska][/color] (%(weight_count)s z "
+"%(weight_count_all)s)[/b]\n"
 "%(date)s\n"
 "%(start_coord)s [b]->[/b] %(target_coord)s\n"
 "[url=%(game_url)s/game.php?"
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "BURZAK[/url]"
 
-#: utils/basic/table_text.py:221
+#: utils/basic/table_text.py:173
 #, python-format
 msgid ""
 "[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/"
@@ -3190,7 +3149,26 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "SZLACHCIC[/url]"
 
-#: utils/basic/table_text.py:234
+#: utils/basic/table_text.py:186
+#, python-format
+msgid ""
+"[b][color=#a50000]Send OFF[%(off_number)s off + %(catapults_number)sc on "
+"%(building)s][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"OFF[/url]"
+msgstr ""
+"[b][color=#a50000]Wyślij OFF[%(off_number)s off + %(catapults_number)sk na "
+"%(building)s][/color] (%(weight_count)s z %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
+"OFF[/url]"
+
+#: utils/basic/table_text.py:199
 #, python-format
 msgid ""
 "[b][color=#a50000]Send OFF[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3209,27 +3187,41 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "OFF[/url]"
 
-#: utils/basic/table_text.py:254
+#: utils/basic/table_text.py:219
 msgid "Nobles-"
 msgstr "Szlachcice-"
 
-#: utils/basic/table_text.py:258
+#: utils/basic/table_text.py:223
 msgid "[color=#00a500][b]Send fake noble[/b][/color] (1 noble)"
 msgstr "[color=#00a500][b]Wyślij fejk szlachcic[/b][/color] (1 szlachcic)"
 
-#: utils/basic/table_text.py:261
+#: utils/basic/table_text.py:226
 msgid "[color=#00a500][b]Send fake[/b][/color]"
 msgstr "[color=#00a500][b]Wyślij fejk[/b][/color]"
 
-#: utils/basic/table_text.py:264
-msgid "[color=#0e0eff][b]Ruin[/b][/color] (Catapults-"
-msgstr "[color=#0e0eff][b]Burzak[/b][/color] (Katapulty-"
+#: utils/basic/table_text.py:230
+#, python-format
+msgid ""
+"[color=#0e0eff][b]Ruin[/b][/color] (Extra off-%(off)d, Catapults-"
+"%(catapult)d [b]%(building)s[/b])"
+msgstr ""
+"[color=#0e0eff][b]Burzak[/b][/color] (Wojsko-%(off)d, Katapulty-%(catapult)d "
+"[b]%(building)s[/b])"
 
-#: utils/basic/table_text.py:271
+#: utils/basic/table_text.py:238
+#, python-format
+msgid ""
+"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d "
+"[b]%(building)s[/b])"
+msgstr ""
+"[size=12][b]OFF[/b][/size] (Off-%(off)d, Katapulty-%(catapult)d "
+"[b]%(building)s[/b])"
+
+#: utils/basic/table_text.py:245
 msgid "[size=12][b]OFF[/b][/size] (Off-"
 msgstr "[size=12][b]OFF[/b][/size] (Off-"
 
-#: utils/basic/table_text.py:274
+#: utils/basic/table_text.py:248
 msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
 msgstr "[color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color]"
 
@@ -3269,3 +3261,58 @@ msgstr "Wioska"
 #: utils/outline_finish.py:77
 msgid "does not exists"
 msgstr "nie istnieje"
+
+#~ msgid "Number of catapults that will always be left in full offs:"
+#~ msgstr "Liczba katapult, która zawsze pozostanie w pełnych offach:"
+
+#~ msgid "Text simple"
+#~ msgstr "Tekst prosty"
+
+#~ msgid "New Text extended"
+#~ msgstr "Nowy tekst rozszerzony"
+
+#~ msgid "Old Text extended"
+#~ msgstr "Stary tekst rozszerzony"
+
+#~ msgid "Table"
+#~ msgstr "Tabela"
+
+#~ msgid "Hint: Use Text format if u have many commands. "
+#~ msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
+
+#~ msgid "SEND"
+#~ msgstr "WYŚLIJ"
+
+#~ msgid "OFF"
+#~ msgstr "OFF"
+
+#~ msgid "NOBLE"
+#~ msgstr "GRUBE"
+
+#~ msgid "SENDING"
+#~ msgstr "WYSYŁKA"
+
+#~ msgid "ENTER"
+#~ msgstr "WEJŚCIE"
+
+#~ msgid "FROM"
+#~ msgstr "Z WIOSKI"
+
+#~ msgid "TARGET"
+#~ msgstr "CEL"
+
+#~ msgid ""
+#~ "[table][**]"
+#~ "[||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
+#~ msgstr ""
+#~ "[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z "
+#~ "WIOSKI[||]CEL[/**]"
+
+#~ msgid "fake noble"
+#~ msgstr "fake gruby"
+
+#~ msgid "fake"
+#~ msgstr "fake"
+
+#~ msgid "Catapults-"
+#~ msgstr "Katapulty-"

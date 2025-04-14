@@ -25,6 +25,9 @@ from django.utils.translation import gettext_lazy
 from base.models.outline import Outline
 from base.models.outline_time import OutlineTime
 
+if TYPE_CHECKING:
+    from utils.basic.ruin import RuinHandle
+
 
 class TargetVertex(models.Model):
     """Target Village"""
@@ -104,3 +107,15 @@ class TargetVertex(models.Model):
 
     def coord_tuple(self):
         return (int(self.target[0:3]), int(self.target[4:7]))
+
+    @property
+    def ruin_handle(self) -> "RuinHandle | None":
+        from utils.basic.ruin import RuinHandle
+
+        if not self.ruin:
+            return None
+        if hasattr(self, "_ruin_handle"):
+            return self._ruin_handle
+
+        self._ruin_handle = RuinHandle(self.outline)
+        return self._ruin_handle

@@ -35,7 +35,7 @@ class TestWriteRamTargetNew(MiniSetup):
         outline = self.get_outline(test_world=True)
         outline.initial_outline_min_off = 9000
         outline.initial_outline_max_off = 13500
-        outline.initial_outline_off_left_catapult = 30
+        outline.initial_outline_min_ruin_attack_off = 200
         self.create_target_on_test_world(outline=outline)
         target = Target.objects.get(target="200|200")
         real_weight_max = self.create_weight_maximum(outline=outline)
@@ -50,29 +50,30 @@ class TestWriteRamTargetNew(MiniSetup):
 
         ruin_filter = write_ram._ruin_query(catapults=50)
 
-        # case 1 weight max off below 9000
         weight_max.off_left = 5000
-        weight_max.catapult_left = 500
-        assert ruin_filter(weight_max)
-        weight_max.catapult_left = 49
-        assert not ruin_filter(weight_max)
-
-        # case 2 weight max off below 9000 - 13500
-        weight_max.off_left = 10000
-        weight_max.catapult_left = 500
-        assert ruin_filter(weight_max)
-        weight_max.catapult_left = 60
-        assert not ruin_filter(weight_max)
-        weight_max.catapult_left = 80
-        assert ruin_filter(weight_max)
-
-        # case 3 weight max off below 13500+
-        weight_max.off_left = 18000
-        weight_max.catapult_left = 500
-        assert ruin_filter(weight_max)
-        weight_max.catapult_left = 49
-        assert not ruin_filter(weight_max)
         weight_max.catapult_left = 50
+        assert ruin_filter(weight_max)
+        weight_max.catapult_left = 49
+        assert not ruin_filter(weight_max)
+        weight_max.catapult_left = 500
+        weight_max.off_left = 4000
+        assert not ruin_filter(weight_max)
+        weight_max.catapult_left = 500
+        weight_max.off_left = 4200
+        assert ruin_filter(weight_max)
+
+        ruin_filter = write_ram._ruin_query(catapults=150)
+
+        weight_max.off_left = 5000
+        weight_max.catapult_left = 50
+        assert not ruin_filter(weight_max)
+        weight_max.catapult_left = 49
+        assert not ruin_filter(weight_max)
+        weight_max.catapult_left = 500
+        weight_max.off_left = 4000
+        assert not ruin_filter(weight_max)
+        weight_max.catapult_left = 500
+        weight_max.off_left = 4200
         assert ruin_filter(weight_max)
 
     def test_ram_filter_casual_attack_block_ratio(self) -> None:

@@ -14,13 +14,12 @@
 # ==============================================================================
 
 import math
-from collections.abc import Callable, Generator
+from collections.abc import Callable
 from secrets import SystemRandom
 from statistics import mean
 
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
-from utils.basic.ruin import RuinHandle
 from utils.fast_weight_maximum import FastWeightMaximum
 
 
@@ -53,8 +52,6 @@ class WriteRamTarget:
         self.weight_max_list: list[FastWeightMaximum] = weight_max_list
         self.filters: list[Callable[[FastWeightMaximum], bool]] = []
         self.ruin: bool = ruin
-        self.ruin_handle: RuinHandle | None = None
-        self.building_generator: Generator | None = None
 
         self.random = random
         self.avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
@@ -78,9 +75,6 @@ class WriteRamTarget:
         self.initial_outline_min_off: int = self.outline.initial_outline_min_off
         self.initial_outline_fake_mode: str = self.outline.initial_outline_fake_mode
         self.initial_outline_max_off: int = self.outline.initial_outline_max_off
-        self.initial_outline_off_left_catapult: int = (
-            self.outline.initial_outline_off_left_catapult
-        )
         self.morale_on_targets_greater_than: int = (
             self.outline.morale_on_targets_greater_than
         )
@@ -88,6 +82,9 @@ class WriteRamTarget:
             self.outline.world.casual_attack_block_ratio
         )
         self.initial_outline_front_dist: int = self.outline.initial_outline_front_dist
+        self.initial_outline_min_ruin_attack_off: int = (
+            self.outline.initial_outline_min_ruin_attack_off
+        )
 
     def sorted_weights_offs(self, catapults: int = 50) -> list[FastWeightMaximum]:
         self.filters.append(self._only_closer_than_maximum_off_dist())
@@ -133,7 +130,6 @@ class WriteRamTarget:
 
     def weight_create_list(self) -> list[WeightModel]:
         weights_create_lst: list[WeightModel] = []
-        self._set_building_generator()
         if self.ruin:
             ruins_set: set[FastWeightMaximum] = set()
             for catapult_val in [200, 150, 100, 75, 50, 25]:
@@ -172,14 +168,9 @@ class WriteRamTarget:
 
         return weights_create_lst
 
-    def _set_building_generator(self) -> None:
-        if self.ruin and len(self.initial_outline_buildings) > 0:
-            ruin_handle: RuinHandle = RuinHandle(outline=self.outline)
-            self.ruin_handle = ruin_handle
-
     def _building(self) -> str | None:
-        if self.ruin_handle is not None:
-            building: str = self.ruin_handle.building()
+        if self.target.ruin_handle is not None:
+            building: str = self.target.ruin_handle.building()
             return building
         return None
 
@@ -187,7 +178,7 @@ class WriteRamTarget:
         if self.target.fake:
             return 100
         elif self.ruin:
-            return catapult * 8
+            return catapult * 8 + self.initial_outline_min_ruin_attack_off
         else:  # real
             return weight_max.off_left
 
@@ -200,10 +191,10 @@ class WriteRamTarget:
     def _catapult(self, weight_max: FastWeightMaximum) -> int:
         if self.target.fake:
             return 0
-        elif self.ruin:
-            if self.ruin_handle is None:
+        elif self.target.ruin:
+            if self.target.ruin_handle is None:
                 raise ValueError("ruin handle var is none")
-            return self.ruin_handle.best_catapult(weight_max)
+            return self.target.ruin_handle.best_catapult(weight_max)
         else:  # real
             return weight_max.catapult_left
 
@@ -281,15 +272,8 @@ class WriteRamTarget:
         def filter_ruin(weight_max: FastWeightMaximum) -> bool:
             return (
                 weight_max.catapult_left >= catapults
-                and (
-                    weight_max.off_left < self.initial_outline_min_off
-                    or weight_max.off_left > self.initial_outline_max_off
-                )
-            ) or (
-                weight_max.catapult_left
-                >= (catapults + self.initial_outline_off_left_catapult)
-                and weight_max.off_left >= self.initial_outline_min_off
-                and weight_max.off_left <= self.initial_outline_max_off
+                and weight_max.off_left - weight_max.catapult_left * 8
+                >= self.initial_outline_min_ruin_attack_off
             )
 
         return filter_ruin

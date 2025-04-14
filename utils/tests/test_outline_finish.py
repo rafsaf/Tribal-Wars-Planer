@@ -189,16 +189,8 @@ class TestMakeFinalOutline(TestCase):
         outline_overview: OutlineOverview = OutlineOverview.objects.get(outline=outline)
         overview: Overview = Overview.objects.get(outline=outline)
         self.assertEqual(overview.player, "player0")
-        table = (
-            "\r\n\r\n[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z WIOSKI[||]CEL[/**][*]1[|][url=https://te1.testserver/game.php?village=1&screen=place&target=6]Wyślij OFF[/url][|]100[|]0[|]2021-03-03"
-            "\n[b][color=#0e5e5e]06:00:00[/color][/b]-[b][color=#ff0000]08:00:00[/color][/b][|]2021-03-03"
-            "\n[b][color=#0e5e5e]07:00:00[/color][/b]-[b][color=#ff0000]09:00:00[/color][/b][|][coord]500|501[/coord][|][coord]500|499[/coord][*]2[|][url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url][|]5000[|]0[|]2021-03-03"
-            "\n[b][color=#0e5e5e]06:30:00[/color][/b]-[b][color=#ff0000]08:30:00[/color][/b][|]2021-03-03"
-            "\n[b][color=#0e5e5e]07:00:00[/color][/b]-[b][color=#ff0000]09:00:00[/color][/b][|][coord]500|500[/coord][|][coord]500|499[/coord][*]3[|][url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url][|]19000[|]1[|]2021-03-03"
-            "\n[b][color=#0e5e5e]07:15:00[/color][/b]-[b][color=#ff0000]08:15:00[/color][/b][|]2021-03-03"
-            "\n[b][color=#0e5e5e]09:00:00[/color][/b]-[b][color=#ff0000]10:00:00[/color][/b][|][coord]500|502[/coord][|][coord]500|499[/coord][/table]"
-        )
-        self.assertEqual(overview.table, table)
+        self.assertEqual(overview.table, "")
+
         extended = (
             "\r\n\r\n1. [size=12][b]OFF[/b][/size] (Off-100) z wioski 500|501 na 500|499\r\n"
             "[b]2021-03-03 [color=#ff0000]06:00:00 - 08:00:00[/color][/b]\n"
@@ -391,6 +383,7 @@ class TestMakeFinalOutline(TestCase):
         # hack building name that is computed dynamicly
         for item in expected_weights_json[f"{target.pk}"]:
             item["building_name"] = None
+            item["deputy_send_url"] = item["send_url"] + f"?t={item['player_id']}"
 
         self.assertEqual(
             response.json(),
