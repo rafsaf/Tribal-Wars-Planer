@@ -383,6 +383,7 @@ class TestMakeFinalOutline(TestCase):
         # hack building name that is computed dynamicly
         for item in expected_weights_json[f"{target.pk}"]:
             item["building_name"] = None
+            item["deputy_send_url"] = item["send_url"] + f"t={item['player_id']}"
 
         self.assertEqual(
             response.json(),
