@@ -69,20 +69,6 @@ class WeightMaximum(models.Model):
         return (self.x_coord, self.y_coord)
 
     @property
-    def nobles_allowed_to_use(self) -> int:
-        if self.outline.initial_outline_minimum_noble_troops == 0:
-            possible_nobles_by_min_off = self.nobleman_left
-        else:
-            possible_nobles_by_min_off = (
-                self.off_left // self.outline.initial_outline_minimum_noble_troops
-            )
-        return min(
-            self.nobleman_left,
-            self.outline.initial_outline_nobles_limit,
-            possible_nobles_by_min_off,
-        )
-
-    @property
     def has_changed(self):
         for field in self.CHANGES_TRACKED_FIELDS:
             if getattr(self, f"_original_{field}") != getattr(self, field):
