@@ -31,6 +31,10 @@
                     <div class="bg-light border-right {% block showsidebar %}{% endblock %}" id="sidebar-wrapper">
                         <div class="sidebar-heading">{% trans 'User Panel' %}</div>
                         <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
+                            {% if DEBUG %}
+                                <a href="{% url 'shipments:my_shipments' %}"
+                                   class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'my_shipments' %}focus-side-link{% endif %}">{%trans 'My shipments' %}</a>
+                            {% endif %}
                             {% block sidebar %}
                             {% endblock %}
                         </div>

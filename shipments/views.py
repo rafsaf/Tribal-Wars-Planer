@@ -1,4 +1,4 @@
-# Copyright 2023 Rafał Safin (rafsaf). All Rights Reserved.
+# Copyright 2025 Rafał Safin (rafsaf). All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,8 +13,16 @@
 # limitations under the License.
 # ==============================================================================
 
-from django.conf import settings
+
+import logging
+
+from django.http import HttpResponse
+from django.shortcuts import render
+
+log = logging.getLogger(__name__)
 
 
-def build_tag(request):
-    return {"BUILD_TAG": settings.BUILD_TAG, "DEBUG": settings.DEBUG}
+def my_shipments(request) -> HttpResponse:
+    context = {}
+
+    return render(request, "orders/my_shipments.html", context)

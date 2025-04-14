@@ -1,4 +1,4 @@
-# Copyright 2023 Rafał Safin (rafsaf). All Rights Reserved.
+# Copyright 2021 Rafał Safin (rafsaf). All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,8 +13,12 @@
 # limitations under the License.
 # ==============================================================================
 
-from django.conf import settings
+from django.urls import path
 
+from shipments import views
 
-def build_tag(request):
-    return {"BUILD_TAG": settings.BUILD_TAG, "DEBUG": settings.DEBUG}
+app_name = "shipments"
+
+urlpatterns = [
+    path("my", views.my_shipments, name="my_shipments"),
+]
