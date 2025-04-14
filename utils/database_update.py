@@ -95,7 +95,7 @@ class WorldUpdateHandler:
             raise DatabaseUpdateError(f"Connection error: {str(e)}")
 
         if req.history:
-            raise DatabaseUpdateError("Request was redirected")
+            raise WorldOutdatedError("Request was redirected")
 
         if req.status_code != STATUS_200:
             raise DatabaseUpdateError(f"Invalid status code: {req.status_code}")
@@ -145,7 +145,7 @@ class WorldUpdateHandler:
             raise DatabaseUpdateError(f"Connection error getting unit info: {str(e)}")
 
         if req_units.history:
-            raise DatabaseUpdateError("Unit info request was redirected")
+            raise WorldOutdatedError("Unit info request was redirected")
         if req_units.status_code != STATUS_200:
             raise DatabaseUpdateError(
                 f"Invalid status code for unit info: {req_units.status_code}"
@@ -176,7 +176,7 @@ class WorldUpdateHandler:
             )
 
         if req_data.history:
-            raise DatabaseUpdateError("Village data request was redirected")
+            raise WorldOutdatedError("Village data request was redirected")
         if req_data.status_code != STATUS_200:
             raise DatabaseUpdateError(
                 f"Invalid status code for village data: {req_data.status_code}"
