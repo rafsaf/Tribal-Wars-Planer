@@ -99,6 +99,7 @@ INSTALLED_APPS = [
     "base",
     "rest_api",
     "utils",
+    "shipments",
     "crispy_forms",
     "crispy_bootstrap4",
     "django_registration",

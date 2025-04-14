@@ -66,6 +66,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(  # type: ignore
     path("admin/", admin.site.urls),
     path("", include("base.urls")),
+    path("shipments/", include("shipments.urls")),
     path("", include(tf_urls)),
     path("i18n/", include("django.conf.urls.i18n")),
     path(
