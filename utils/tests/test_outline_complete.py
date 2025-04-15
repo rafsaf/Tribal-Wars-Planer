@@ -16,6 +16,8 @@
 
 import itertools
 
+import pytest_benchmark
+import pytest_benchmark.fixture
 from django.test import TestCase
 from django.utils.translation import activate
 from parameterized import parameterized
@@ -45,6 +47,130 @@ from utils.outline_initial import MakeOutline
 #    "500|504,0,0,20000,0,0,0,0,100,4,0,0,\r\n" - back
 #    "500|505,0,0,20000,0,0,0,0,100,2,0,0," - back
 # )
+
+
+def test_complete_outline_write_queries(
+    django_assert_max_num_queries,
+) -> None:
+    create_initial_data_write_outline()
+
+    outline: Outline = Outline.objects.get(id=1)
+    Result.objects.create(outline=outline)
+    # weights max create
+    make_outline = MakeOutline(outline)
+    make_outline()
+
+    back_weight = WeightMaximum.objects.get(start="500|505")
+    back_weight.pk = None
+    WeightMaximum.objects.bulk_create([back_weight for _ in range(300)])
+
+    Target.objects.bulk_create(
+        [
+            Target(
+                outline=outline,
+                target="500|499",
+                player="player1",
+                required_off=2,
+                required_noble=2,
+            )
+            for _ in range(25)
+        ]
+    )
+    Target.objects.bulk_create(
+        [
+            Target(
+                outline=outline,
+                fake=True,
+                target="500|499",
+                player="player1",
+                required_off=2,
+                required_noble=2,
+            )
+            for _ in range(25)
+        ]
+    )
+    Target.objects.bulk_create(
+        [
+            Target(
+                outline=outline,
+                ruin=True,
+                target="500|499",
+                player="player1",
+                required_off=2,
+                required_noble=2,
+            )
+            for _ in range(25)
+        ]
+    )
+
+    with django_assert_max_num_queries(34):
+        complete_outline_write(outline, salt="django_assert_max_num_queries")
+
+
+def test_complete_outline_write_benchmark(
+    benchmark: pytest_benchmark.fixture.BenchmarkFixture,
+) -> None:
+    create_initial_data_write_outline()
+
+    outline: Outline = Outline.objects.get(id=1)
+    Result.objects.create(outline=outline)
+    # weights max create
+    make_outline = MakeOutline(outline)
+    make_outline()
+
+    back_weight = WeightMaximum.objects.get(start="500|505")
+    back_weight.pk = None
+    WeightMaximum.objects.bulk_create([back_weight for _ in range(300)])
+
+    Target.objects.bulk_create(
+        [
+            Target(
+                outline=outline,
+                target="500|499",
+                player="player1",
+                required_off=2,
+                required_noble=2,
+            )
+            for _ in range(25)
+        ]
+    )
+    Target.objects.bulk_create(
+        [
+            Target(
+                outline=outline,
+                fake=True,
+                target="500|499",
+                player="player1",
+                required_off=2,
+                required_noble=2,
+            )
+            for _ in range(25)
+        ]
+    )
+    Target.objects.bulk_create(
+        [
+            Target(
+                outline=outline,
+                ruin=True,
+                target="500|499",
+                player="player1",
+                required_off=2,
+                required_noble=2,
+            )
+            for _ in range(25)
+        ]
+    )
+
+    benchmark.pedantic(
+        target=complete_outline_write,
+        setup=outline.remove_user_outline,
+        rounds=30,
+        warmup_rounds=2,
+        args=(
+            outline,
+            "benchmark_test",
+        ),
+    )
 
 
 class TestOutlineCreateTargets(TestCase):
