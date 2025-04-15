@@ -166,6 +166,7 @@ class WriteNobleTarget:
             if (
                 total_off + (weight_max.catapult_left - first_catapult) * 8
                 > weight_max.off_left
+                and noble_number > 1
             ):
                 # we distribute leftovers to other attacks
                 max_next = off // 8
