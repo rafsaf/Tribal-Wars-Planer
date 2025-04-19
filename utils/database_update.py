@@ -276,32 +276,47 @@ class WorldUpdateHandler:
         with transaction.atomic():
             tribe_cache_key = self.get_latest_data_key(self.TRIBE_DATA)
             log.info("%s tribe_cache_key is %s", self.world, tribe_cache_key)
-            if tribe_cache_key != self.world.fanout_key_text_tribe:
+            if (
+                tribe_cache_key is not None
+                and tribe_cache_key != self.world.fanout_key_text_tribe
+            ):
                 tribe_text = fanout_cache.get(tribe_cache_key, retry=True)
                 self.world.fanout_key_text_tribe = tribe_cache_key
                 self.update_tribes(text=tribe_text)  # type: ignore
-            log.info("%s finish update_tribes", self.world)
+                log.info("%s finish update_tribes", self.world)
+            else:
+                log.info("%s no update_tribes")
 
             player_cache_key = self.get_latest_data_key(self.PLAYER_DATA)
             log.info("%s player_cache_key is %s", self.world, player_cache_key)
-            if player_cache_key != self.world.fanout_key_text_player:
+            if (
+                player_cache_key is not None
+                and player_cache_key != self.world.fanout_key_text_player
+            ):
                 player_text = fanout_cache.get(player_cache_key, retry=True)
                 self.world.fanout_key_text_player = player_cache_key
                 self.update_players(text=player_text)  # type: ignore
-            log.info("%s finish update_players", self.world)
+                log.info("%s finish update_players", self.world)
+            else:
+                log.info("%s no update_players")
 
             village_cache_key = self.get_latest_data_key(self.VILLAGE_DATA)
             log.info("%s village_cache_key is %s", self.world, village_cache_key)
-            if village_cache_key != self.world.fanout_key_text_village:
+            if (
+                village_cache_key is not None
+                and village_cache_key != self.world.fanout_key_text_village
+            ):
                 village_text = fanout_cache.get(village_cache_key, retry=True)
                 self.world.fanout_key_text_village = village_cache_key
                 self.update_villages(text=village_text)  # type: ignore
-            log.info("%s finish update_villages", self.world)
+                log.info("%s finish update_villages", self.world)
+            else:
+                log.info("%s no update_villages")
 
             message = (
                 f"{self.world} | tribe_updated: {self.tribe_log_msg} |"
-                f" village_update: {self.tribe_log_msg} |"
-                f" player_update: {self.tribe_log_msg}"
+                f" village_update: {self.village_log_msg} |"
+                f" player_update: {self.player_log_msg}"
             )
             self.world.save(
                 update_fields=[
@@ -365,6 +380,7 @@ class WorldUpdateHandler:
                 )
                 if unique_cache_key in fanout_cache:
                     res.close()
+                    fanout_cache.touch(unique_cache_key, expire=3 * 60 * 60, retry=True)
                     return
                 # only now make another request to get body
                 text = gzip.decompress(res.content).decode()
@@ -376,14 +392,18 @@ class WorldUpdateHandler:
                 log.error(err, exc_info=True)
                 self.handle_connection_error()
 
-    def get_latest_data_key(self, data_type: "WorldUpdateHandler.DATA_TYPES") -> str:
+    def get_latest_data_key(
+        self, data_type: "WorldUpdateHandler.DATA_TYPES"
+    ) -> str | None:
         """Get latest key (by 'last-modified' datetime) from disk cache"""
         cache_key_prefix = f"{self.world}_{data_type}_"
         result_list: list[str] = []
         for key in fanout_cache:
             if str(key).startswith(cache_key_prefix):
                 result_list.append(str(key))
-
+        if not result_list:
+            log.warning("latest data is empty for %s", cache_key_prefix)
+            return None
         result_list.sort(reverse=True)
         return result_list[0]
 
