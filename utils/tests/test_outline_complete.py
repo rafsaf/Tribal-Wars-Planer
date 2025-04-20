@@ -56,6 +56,9 @@ def test_complete_outline_write_queries(
     create_initial_data_write_outline()
 
     outline: Outline = Outline.objects.get(id=1)
+    outline.night_bonus = True
+    outline.morale_on = True
+    outline.save()
     Result.objects.create(outline=outline)
     # weights max create
     make_outline = MakeOutline(outline)

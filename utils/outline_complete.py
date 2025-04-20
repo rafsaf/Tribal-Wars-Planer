@@ -139,6 +139,8 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
             "mode_guide",
             "mode_split",
             "night_bonus",
+            "enter_t1",
+            "enter_t2",
             # For world fields accessed in logic:
             "world_id",
             "world__speed_world",
@@ -156,6 +158,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
             "target",
             "village_id",
             "player",
+            "player_created_at",
             "player_id",
             "points",
             "fake",
@@ -211,7 +214,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         weight_max_lst=weight_max_lst, targets=all_targets
     )
     if outline.morale_on:
-        morale_dict = generate_morale_dict(outline)
+        morale_dict = generate_morale_dict(outline, all_targets, weight_max_lst)
     else:
         morale_dict = None
 

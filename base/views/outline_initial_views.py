@@ -247,7 +247,19 @@ def initial_form(  # noqa: PLR0912,PLR0911
     )
 
     if instance.morale_on and instance.world.morale > 0:
-        morale_dict = basic.generate_morale_dict(instance)
+        morale_dict = basic.generate_morale_dict(
+            instance,
+            list(
+                TargetVertex.objects.filter(outline=instance)
+                .order_by("player")
+                .distinct("player")
+            ),
+            list(
+                models.WeightMaximum.objects.filter(outline=instance)
+                .order_by("player")
+                .distinct("player")
+            ),
+        )
     else:
         morale_dict = None
 
