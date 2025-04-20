@@ -28,11 +28,10 @@ RUN poetry export -o /requirements-docs.txt --without-hashes --only="docs"
 
 FROM base AS docs
 COPY docs docs
-COPY Makefile .
 COPY --from=poetry /requirements-docs.txt .
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements-docs.txt
-RUN make docs_build_pl
-RUN make docs_build_en
+RUN mkdocs build -f docs/config/pl/mkdocs.yml
+RUN mkdocs build -f docs/config/en/mkdocs.yml
 
 FROM base AS build
 COPY --from=docs /build/generated_docs generated_docs

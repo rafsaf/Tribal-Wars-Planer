@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - "**"
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -53,6 +56,7 @@ jobs:
         run: |
           cp .env.example .env
           poetry run python manage.py collectstatic --no-input
+          make build_cython
 
       - name: Coverage full tests
         env:
