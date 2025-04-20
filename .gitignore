@@ -141,3 +141,7 @@ media/
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# pytest
+.benchmarks/
+.codspeed
