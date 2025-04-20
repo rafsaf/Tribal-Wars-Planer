@@ -1,4 +1,4 @@
-name: Run pytest based tests
+name: benchmarks
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - "**"
 
 jobs:
-  build:
+  run_benchmarks:
     runs-on: ubuntu-latest
 
     services:
