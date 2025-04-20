@@ -57,6 +57,8 @@ jobs:
           cp .env.example .env
           poetry run python manage.py collectstatic --no-input
           make build_cython
+          rm utils/write_noble_target.py
+          rm utils/write_ram_target.py
 
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v3
