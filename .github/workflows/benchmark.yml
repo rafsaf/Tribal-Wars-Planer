@@ -1,11 +1,9 @@
 name: Run pytest based tests
 
 on:
-  push:
+  pull_request:
     branches:
       - "**"
-    tags-ignore:
-      - "*.*"
 
 jobs:
   build:
