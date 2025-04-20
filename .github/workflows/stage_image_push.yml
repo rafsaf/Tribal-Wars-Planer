@@ -1,17 +1,12 @@
 name: Push stage images to dockerhub and redeploy stage
 
 on:
-  workflow_run:
-    workflows:
-      - "Run pytest based tests"
+  push:
     branches:
       - master
-    types:
-      - completed
 
 jobs:
   push_stage_image_to_dockerhub:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

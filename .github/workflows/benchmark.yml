@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - "**"
+  push:
+    branches:
+      - master
 
 jobs:
   run_benchmarks:
@@ -53,7 +56,6 @@ jobs:
         run: |
           cp .env.example .env
           poetry run python manage.py collectstatic --no-input
-          make build_cython
 
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v3
