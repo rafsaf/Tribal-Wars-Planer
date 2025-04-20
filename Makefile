@@ -32,23 +32,23 @@ to_avif:
 	
 .PHONY: docs_serve_pl
 docs_serve_pl:
-	mkdocs serve -f docs/config/pl/mkdocs.yml
+	poetry run mkdocs serve -f docs/config/pl/mkdocs.yml
 	
 .PHONY: docs_build_pl
 docs_build_pl:
-	mkdocs build -f docs/config/pl/mkdocs.yml
+	poetry run mkdocs build -f docs/config/pl/mkdocs.yml
 
 .PHONY: docs_serve_en
 docs_serve_en:
-	mkdocs serve -f docs/config/en/mkdocs.yml
+	poetry run mkdocs serve -f docs/config/en/mkdocs.yml
 
 .PHONY: docs_build_en
 docs_build_en:
-	mkdocs build -f docs/config/en/mkdocs.yml
+	poetry run mkdocs build -f docs/config/en/mkdocs.yml
 
 .PHONY: build_cython
 build_cython:
-	python setup.py build_ext --inplace
+	poetry run python setup.py build_ext --inplace
 
 .PHONY: test
 test:
