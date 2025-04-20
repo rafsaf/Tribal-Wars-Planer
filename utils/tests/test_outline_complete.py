@@ -104,7 +104,7 @@ def test_complete_outline_write_queries(
         ]
     )
 
-    with django_assert_max_num_queries(34):
+    with django_assert_max_num_queries(6):
         complete_outline_write(outline, salt="django_assert_max_num_queries")
 
 
@@ -1308,7 +1308,6 @@ class TestOutlineCreateTargets(TransactionTestCase):
             target.mode_guide = test_input[3]
             target.required_off = 1
             target.required_noble = 1
-            target.night_bonus = test_input[7]
             target.save()
             self.outline.mode_split = test_input[4]
             self.outline.initial_outline_average_ruining_points = test_input[5]

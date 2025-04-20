@@ -85,9 +85,6 @@ class TargetVertex(models.Model):
     mode_guide = models.CharField(
         max_length=15, choices=NOBLE_GUIDELINES, default="one"
     )
-    night_bonus = models.BooleanField(default=False)
-    enter_t1 = models.IntegerField(default=7)
-    enter_t2 = models.IntegerField(default=12)
 
     if TYPE_CHECKING:
         from base.models.weight_model import WeightModel
@@ -108,8 +105,7 @@ class TargetVertex(models.Model):
     def coord_tuple(self):
         return (int(self.target[0:3]), int(self.target[4:7]))
 
-    @property
-    def ruin_handle(self) -> "RuinHandle | None":
+    def ruin_handle(self, outline: Outline) -> "RuinHandle | None":
         from utils.basic.ruin import RuinHandle
 
         if not self.ruin:
@@ -117,5 +113,5 @@ class TargetVertex(models.Model):
         if hasattr(self, "_ruin_handle"):
             return self._ruin_handle
 
-        self._ruin_handle = RuinHandle(self.outline)
+        self._ruin_handle = RuinHandle(outline)
         return self._ruin_handle

@@ -111,8 +111,68 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
     in each step writting the step's target and updating weights max
     """
     random = SystemRandom(salt)
+    outline = (
+        Outline.objects.select_related("world")
+        .filter(pk=outline.pk)
+        .only(
+            "pk",
+            "morale_on",
+            "initial_outline_minimum_noble_troops",
+            "initial_outline_minimum_fake_noble_troops",
+            "initial_outline_nobles_limit",
+            "initial_outline_fake_limit",
+            "initial_outline_min_off",
+            "initial_outline_max_off",
+            "initial_outline_maximum_off_dist",
+            "initial_outline_catapult_min_value",
+            "initial_outline_catapult_max_value",
+            "initial_outline_buildings",
+            "initial_outline_front_dist",
+            "initial_outline_target_dist",
+            "initial_outline_average_ruining_points",
+            "initial_outline_min_ruin_attack_off",
+            "initial_outline_fake_mode",
+            "morale_on_targets_greater_than",
+            "mode_off",
+            "mode_noble",
+            "mode_division",
+            "mode_guide",
+            "mode_split",
+            "night_bonus",
+            # For world fields accessed in logic:
+            "world_id",
+            "world__speed_world",
+            "world__speed_units",
+            "world__casual_attack_block_ratio",
+            "world__morale",
+        )
+        .get()
+    )
+
     all_targets = list(
-        Target.objects.select_related("outline").filter(outline=outline).order_by("id")
+        Target.objects.filter(outline=outline)
+        .only(
+            "pk",
+            "target",
+            "village_id",
+            "player",
+            "player_id",
+            "points",
+            "fake",
+            "ruin",
+            "required_off",
+            "required_noble",
+            "exact_off",
+            "exact_noble",
+            "mode_off",
+            "mode_noble",
+            "mode_division",
+            "mode_guide",
+            "night_bonus",
+            "enter_t1",
+            "enter_t2",
+        )
+        .order_by("id")
     )
 
     targets = [target for target in all_targets if not target.ruin and not target.fake]

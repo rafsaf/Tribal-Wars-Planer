@@ -193,8 +193,8 @@ class TestWriteRamTarget(TestCase):
                 target = self.target(case[0])
                 self.outline.world.speed_world = case[1]
                 self.outline.world.speed_units = case[2]
-                target.enter_t1 = case[3]
-                target.enter_t2 = case[4]
+                self.outline.enter_t1 = case[3]
+                self.outline.enter_t2 = case[4]
                 write_target = self.get_write_target(target)
                 write_target._add_night_bonus_annotations(write_target.weight_max_list)
                 assert write_target.weight_max_list[0].night_bool == case[5], (
