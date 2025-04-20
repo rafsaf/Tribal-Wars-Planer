@@ -168,9 +168,6 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
             "mode_noble",
             "mode_division",
             "mode_guide",
-            "night_bonus",
-            "enter_t1",
-            "enter_t2",
         )
         .order_by("id")
     )
