@@ -18,7 +18,7 @@ import itertools
 from unittest.mock import Mock
 
 import pytest
-from django.test import TestCase
+from django.test import TransactionTestCase
 from django.utils.translation import activate
 from parameterized import parameterized
 
@@ -49,6 +49,7 @@ from utils.outline_initial import MakeOutline
 # )
 
 
+@pytest.mark.django_db(transaction=True)
 def test_complete_outline_write_queries(
     django_assert_max_num_queries,
 ) -> None:
@@ -62,7 +63,7 @@ def test_complete_outline_write_queries(
 
     back_weight = WeightMaximum.objects.get(start="500|505")
     back_weight.pk = None
-    WeightMaximum.objects.bulk_create([back_weight for _ in range(300)])
+    WeightMaximum.objects.bulk_create([back_weight for _ in range(600)])
 
     Target.objects.bulk_create(
         [
@@ -99,7 +100,7 @@ def test_complete_outline_write_queries(
                 required_off=2,
                 required_noble=2,
             )
-            for _ in range(25)
+            for _ in range(50)
         ]
     )
 
@@ -169,7 +170,10 @@ def test_complete_outline_write_benchmark(
     weight_max_mock.only.return_value = list(WeightMaximum.objects.all())
     target_mock = Mock()
     target_mock.filter.return_value = target_mock
-    target_mock.order_by.return_value = list(Target.objects.all().order_by("id"))
+    target_mock.select_related.return_value = target_mock
+    target_mock.order_by.return_value = list(
+        Target.objects.select_related("outline").all().order_by("id")
+    )
 
     monkeypatch.setattr(WeightModel, "objects", Mock())
     monkeypatch.setattr(WeightMaximum, "objects", weight_max_mock)
@@ -180,7 +184,7 @@ def test_complete_outline_write_benchmark(
         complete_outline_write(outline, salt="benchmark_test")
 
 
-class TestOutlineCreateTargets(TestCase):
+class TestOutlineCreateTargets(TransactionTestCase):
     def setUp(self):
         activate("pl")
         create_initial_data_write_outline()

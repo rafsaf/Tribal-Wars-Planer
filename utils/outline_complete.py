@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+import queue
+import threading
 from collections import defaultdict
 from collections.abc import Generator
 from copy import deepcopy
@@ -20,6 +22,7 @@ from secrets import SystemRandom
 from typing import Any
 
 import numpy as np
+from django.db import connection
 from numpy.typing import NDArray
 from scipy.spatial.distance import cdist
 
@@ -29,6 +32,29 @@ from utils.basic import generate_morale_dict
 from utils.fast_weight_maximum import FastWeightMaximum
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
+
+
+class WeightCreateThread(threading.Thread):
+    def __init__(self, weight_create_queue: queue.Queue[WeightModel | None]) -> None:
+        super().__init__()
+        self.weight_create_queue = weight_create_queue
+
+    def run(self) -> None:
+        weight_create_lst: list[WeightModel] = []
+
+        while True:
+            weight = self.weight_create_queue.get()
+            if weight is None:
+                self.weight_create_queue.task_done()
+                break
+            weight_create_lst.append(weight)
+            if len(weight_create_lst) >= 500:
+                WeightModel.objects.bulk_create(weight_create_lst)
+                weight_create_lst = []
+            self.weight_create_queue.task_done()
+
+        WeightModel.objects.bulk_create(weight_create_lst)
+        connection.close()
 
 
 def generate_distance_matrix(
@@ -86,7 +112,9 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
     in each step writting the step's target and updating weights max
     """
     random = SystemRandom(salt)
-    all_targets = list(Target.objects.filter(outline=outline).order_by("id"))
+    all_targets = list(
+        Target.objects.select_related("outline").filter(outline=outline).order_by("id")
+    )
 
     targets = [target for target in all_targets if not target.ruin and not target.fake]
     fakes = [target for target in all_targets if target.fake and not target.ruin]
@@ -130,6 +158,11 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         morale_dict = generate_morale_dict(outline)
     else:
         morale_dict = None
+
+    weight_create_queue: queue.Queue[WeightModel | None] = queue.Queue()
+    weight_create_thread = WeightCreateThread(weight_create_queue)
+    weight_create_thread.start()
+
     create_fakes = CreateWeights(
         random,
         deepcopy(fakes),
@@ -138,6 +171,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         dist_matrix,
         coord_to_id_in_matrix,
         morale_dict,
+        weight_create_queue,
         noble=False,
         ruin=False,
     )
@@ -151,6 +185,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         dist_matrix,
         coord_to_id_in_matrix,
         morale_dict,
+        weight_create_queue,
         noble=True,
         ruin=False,
     )
@@ -164,6 +199,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         dist_matrix,
         coord_to_id_in_matrix,
         morale_dict,
+        weight_create_queue,
         noble=True,
         ruin=False,
     )
@@ -177,6 +213,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         dist_matrix,
         coord_to_id_in_matrix,
         morale_dict,
+        weight_create_queue,
         noble=False,
         ruin=False,
     )
@@ -190,6 +227,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         dist_matrix,
         coord_to_id_in_matrix,
         morale_dict,
+        weight_create_queue,
         noble=False,
         ruin=False,
     )
@@ -203,10 +241,13 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         dist_matrix,
         coord_to_id_in_matrix,
         morale_dict,
+        weight_create_queue,
         noble=False,
         ruin=True,
     )
     weight_max_lst = create_ruins()
+
+    weight_create_queue.put(None)
 
     for fast_weight_max in weight_max_lst:
         weight_max = real_weight_max_lst[fast_weight_max.index]
@@ -226,6 +267,9 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         batch_size=2000,
     )
 
+    weight_create_queue.join()
+    weight_create_thread.join()
+
 
 class CreateWeights:
     def __init__(
@@ -237,6 +281,7 @@ class CreateWeights:
         dist_matrix: NDArray[np.floating[Any]] | None,
         coord_to_id_in_matrix: dict[tuple[int, int], int],
         morale_dict: defaultdict[tuple[str, str], int] | None,
+        weight_create_queue: queue.Queue[WeightModel | None],
         noble: bool = False,
         ruin: bool = False,
     ) -> None:
@@ -249,7 +294,7 @@ class CreateWeights:
         self.dist_matrix = dist_matrix
         self.coord_to_id_in_matrix = coord_to_id_in_matrix
         self.modes_list = ["closest", "close", "random", "far"]
-        self.weight_create_lst: list[WeightModel] = []
+        self.weight_create_queue = weight_create_queue
         self.weight_max_list = weight_max_list
 
     @staticmethod
@@ -286,7 +331,8 @@ class CreateWeights:
                     outline=self.outline,
                     weight_max_list=self.weight_max_list,
                 )
-                self.weight_create_lst += weight_noble.weight_create_list()
+                for weight in weight_noble.weight_create_list():
+                    self.weight_create_queue.put(weight)
 
         elif target.required_noble > 0:
             self._annotate_distances_and_morale_for_target(target)
@@ -296,7 +342,8 @@ class CreateWeights:
                 outline=self.outline,
                 weight_max_list=self.weight_max_list,
             )
-            self.weight_create_lst += weight_noble.weight_create_list()
+            for weight in weight_noble.weight_create_list():
+                self.weight_create_queue.put(weight)
 
     def _ruin_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
@@ -313,7 +360,8 @@ class CreateWeights:
                     weight_max_list=self.weight_max_list,
                     ruin=True,
                 )
-                self.weight_create_lst += weight_ram.weight_create_list()
+                for weight in weight_ram.weight_create_list():
+                    self.weight_create_queue.put(weight)
 
         else:
             target.required_off = target.required_noble
@@ -326,7 +374,8 @@ class CreateWeights:
                     weight_max_list=self.weight_max_list,
                     ruin=True,
                 )
-                self.weight_create_lst += weight_ram.weight_create_list()
+                for weight in weight_ram.weight_create_list():
+                    self.weight_create_queue.put(weight)
 
     def _ram_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=False):
@@ -343,7 +392,8 @@ class CreateWeights:
                     weight_max_list=self.weight_max_list,
                     ruin=False,
                 )
-                self.weight_create_lst += weight_ram.weight_create_list()
+                for weight in weight_ram.weight_create_list():
+                    self.weight_create_queue.put(weight)
 
         elif target.required_off > 0:
             self._annotate_distances_and_morale_for_target(target)
@@ -354,7 +404,8 @@ class CreateWeights:
                 weight_max_list=self.weight_max_list,
                 ruin=False,
             )
-            self.weight_create_lst += weight_ram.weight_create_list()
+            for weight in weight_ram.weight_create_list():
+                self.weight_create_queue.put(weight)
 
     def _annotate_distances_and_morale_for_target(self, target: Target) -> None:
         if self.dist_matrix is not None:
@@ -388,5 +439,4 @@ class CreateWeights:
             target.mode_noble = original_mode_noble
             target.mode_off = original_mode_off
 
-        WeightModel.objects.bulk_create(self.weight_create_lst, batch_size=2000)
         return self.weight_max_list

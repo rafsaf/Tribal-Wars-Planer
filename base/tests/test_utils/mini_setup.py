@@ -21,7 +21,7 @@ from random import randint
 from typing import Literal
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 
 from base.models import (
@@ -43,7 +43,7 @@ from base.models.period_model import PeriodModel
 from base.tests.test_utils.create_user import create_user
 
 
-class MiniSetup(TestCase):
+class TransactionMiniSetup(TransactionTestCase):
     TEST_WORLD_DATA = (
         "100|100,55,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,\r\n"
         "101|101,55,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,0,\r\n"
@@ -97,10 +97,8 @@ class MiniSetup(TestCase):
         "149|149,55,100,100,7049,0,100,2849,0,0,350,100,0,4,0,0,0,"
     )
 
-    def __init__(self, methodName: str) -> None:
-        super().__init__(methodName=methodName)
-
     def setUp(self):
+        super().setUp()
         self.username: str = self.random_lower_string()
         self.password: str = self.random_lower_string()
         self.username_foreign: str = self.random_lower_string()
@@ -344,3 +342,7 @@ class MiniSetup(TestCase):
             months=random_months,
             event_id=secrets.token_urlsafe(),
         )
+
+
+class MiniSetup(TransactionMiniSetup, TestCase):
+    pass
