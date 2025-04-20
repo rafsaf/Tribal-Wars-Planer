@@ -5,9 +5,12 @@ ESBUILD_PATH=./bin/esbuild
 .PHONY: up
 up:
 	docker compose up -d postgres_dev
-	python manage.py migrate
-	DJANGO_SUPERUSER_PASSWORD=admin python manage.py createsuperuser --noinput --username admin --email admin@admin.admin || true
-	python manage.py runserver
+	poetry run python manage.py migrate
+	DJANGO_SUPERUSER_PASSWORD=admin poetry run python manage.py createsuperuser --noinput --username admin --email admin@admin.admin || true
+	poetry run python manage.py runserver
+
+.PHONY: run
+run: up
 
 .PHONY: trans
 trans:
@@ -52,7 +55,7 @@ build_cython:
 
 .PHONY: test
 test:
-	poetry run pytest -v --cov --cov-report xml --cov-report term-missing -n auto 
+	poetry run pytest base -v --cov --cov-report xml --cov-report term-missing -n auto 
 
 .PHONY: benchmark
 benchmark:
