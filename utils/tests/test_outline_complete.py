@@ -15,9 +15,9 @@
 
 
 import itertools
+from unittest.mock import Mock
 
-import pytest_benchmark
-import pytest_benchmark.fixture
+import pytest
 from django.test import TestCase
 from django.utils.translation import activate
 from parameterized import parameterized
@@ -108,11 +108,14 @@ def test_complete_outline_write_queries(
 
 
 def test_complete_outline_write_benchmark(
-    benchmark: pytest_benchmark.fixture.BenchmarkFixture,
+    codspeed_benchmark, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     create_initial_data_write_outline()
 
     outline: Outline = Outline.objects.get(id=1)
+    outline.night_bonus = True
+    outline.save()
+
     Result.objects.create(outline=outline)
     # weights max create
     make_outline = MakeOutline(outline)
@@ -161,16 +164,20 @@ def test_complete_outline_write_benchmark(
         ]
     )
 
-    benchmark.pedantic(
-        target=complete_outline_write,
-        setup=outline.remove_user_outline,
-        rounds=30,
-        warmup_rounds=2,
-        args=(
-            outline,
-            "benchmark_test",
-        ),
-    )
+    weight_max_mock = Mock()
+    weight_max_mock.filter.return_value = weight_max_mock
+    weight_max_mock.only.return_value = list(WeightMaximum.objects.all())
+    target_mock = Mock()
+    target_mock.filter.return_value = target_mock
+    target_mock.order_by.return_value = list(Target.objects.all().order_by("id"))
+
+    monkeypatch.setattr(WeightModel, "objects", Mock())
+    monkeypatch.setattr(WeightMaximum, "objects", weight_max_mock)
+    monkeypatch.setattr(Target, "objects", target_mock)
+
+    @codspeed_benchmark
+    def bench():
+        complete_outline_write(outline, salt="benchmark_test")
 
 
 class TestOutlineCreateTargets(TestCase):

@@ -49,3 +49,11 @@ docs_build_en:
 .PHONY: build_cython
 build_cython:
 	python setup.py build_ext --inplace
+
+.PHONY: test
+test:
+	poetry run pytest -v --cov --cov-report xml --cov-report term-missing -n auto 
+
+.PHONY: benchmark
+benchmark:
+	poetry run pytest --codspeed

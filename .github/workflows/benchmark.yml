@@ -55,16 +55,10 @@ jobs:
         run: |
           cp .env.example .env
 
-      - name: Coverage full tests
-        env:
-          POSTGRES_HOST: localhost
-        run: |
-          poetry run bash scripts/initial.sh
-          make test
-
-      - name: Upload coverage result to Codecov
-        uses: codecov/codecov-action@v5
+      - name: Run benchmarks
+        uses: CodSpeedHQ/action@v3
         with:
-          flags: unittests
-          files: coverage.xml
-          fail_ci_if_error: false
+          token: ${{ secrets.CODSPEED_TOKEN }}
+          run: |
+            poetry run bash scripts/initial.sh
+            make benchmark
