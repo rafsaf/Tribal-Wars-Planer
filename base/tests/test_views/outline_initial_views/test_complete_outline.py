@@ -17,11 +17,11 @@ from django.conf import settings
 from django.urls import reverse
 
 from base.models import Player, WeightModel
-from base.tests.test_utils.mini_setup import MiniSetup
+from base.tests.test_utils.mini_setup import MiniSetupTransactional
 from utils.outline_initial import MakeOutline
 
 
-class CompleteOutline(MiniSetup):
+class CompleteOutline(MiniSetupTransactional):
     def test_planer_complete___302_not_auth_redirect_login(self):
         outline = self.get_outline()
         PATH = reverse("base:planer_complete", args=[outline.pk])

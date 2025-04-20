@@ -21,7 +21,7 @@ from random import randint
 from typing import Literal
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 
 from base.models import (
@@ -344,3 +344,7 @@ class MiniSetup(TestCase):
             months=random_months,
             event_id=secrets.token_urlsafe(),
         )
+
+
+class MiniSetupTransactional(MiniSetup, TransactionTestCase):
+    pass
