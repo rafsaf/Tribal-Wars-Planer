@@ -49,15 +49,15 @@ jobs:
         run: |
           poetry install --no-interaction --no-root
 
-      - name: Create .env file from example env file
+      - name: Create .env file from example env file and staticfiles
         run: |
           cp .env.example .env
+          poetry run python manage.py collectstatic --no-input
 
       - name: Coverage full tests
         env:
           POSTGRES_HOST: localhost
         run: |
-          poetry run bash scripts/initial.sh
           make test
 
       - name: Upload coverage result to Codecov

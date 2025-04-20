@@ -354,6 +354,8 @@ if DJANGO_LOG_LEVEL == "DEBUG":
 os.makedirs("logs", exist_ok=True)
 os.makedirs("prometheus_multi_proc_dir", exist_ok=True)
 os.makedirs("media", exist_ok=True)
+os.makedirs("disk_cache", exist_ok=True)
+os.makedirs("default_disk_cache", exist_ok=True)
 
 LOGGING = {
     "version": 1,

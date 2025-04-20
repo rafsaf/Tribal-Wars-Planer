@@ -49,14 +49,14 @@ jobs:
         run: |
           poetry install --no-interaction --no-root
 
-      - name: Create .env file from example env file
+      - name: Create .env file from example env file and staticfiles
         run: |
           cp .env.example .env
+          poetry run python manage.py collectstatic --no-input
 
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v3
         with:
           token: ${{ secrets.CODSPEED_TOKEN }}
           run: |
-            poetry run bash scripts/initial.sh
             make benchmark
