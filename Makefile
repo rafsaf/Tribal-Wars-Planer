@@ -60,3 +60,9 @@ test:
 .PHONY: benchmark
 benchmark:
 	poetry run pytest --codspeed
+
+.PHONY: debug_available_troops
+debug_available_troops:
+	poetry run python -m cProfile -o debug_available_troops.prof manage.py debug_available_troops 3
+	poetry run snakeviz debug_available_troops.prof
+

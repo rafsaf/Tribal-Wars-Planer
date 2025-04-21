@@ -58,6 +58,7 @@ types-requests = "^2.32.0.20250328"
 pytest-codspeed = "^3.2.0"
 pytest = "^8.3.5"
 pytest-benchmark = "^5.1.0"
+snakeviz = "^2.2.2"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["i18n"], version = "^1.6.1" }

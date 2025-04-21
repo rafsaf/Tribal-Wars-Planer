@@ -316,8 +316,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
                 instance.actions.form_available_troops(instance)
                 instance.save(update_fields=forms.AvailableTroopsForm.Meta.fields)
                 instance.refresh_from_db()
-                available_troops.get_legal_coords_outline(outline=instance)
-                available_troops.add_extra_available_troops_data(outline=instance)
+                available_troops.calculate_and_update_available_troops(outline=instance)
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"
@@ -381,8 +380,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
                 )
 
     if not instance.available_offs:
-        available_troops.get_legal_coords_outline(outline=instance)
-        available_troops.add_extra_available_troops_data(outline=instance)
+        available_troops.calculate_and_update_available_troops(outline=instance)
 
     context = {
         "instance": instance,

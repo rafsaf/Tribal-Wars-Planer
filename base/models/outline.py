@@ -525,9 +525,18 @@ class Outline(models.Model):
         )
 
     def count_catapults(self) -> int:
-        from utils.available_troops import get_available_ruins
+        from base.models import WeightMaximum
 
-        return get_available_ruins(self)
+        return (
+            WeightMaximum.objects.filter(
+                first_line=False,
+                too_far_away=False,
+                outline=self,
+                catapult_left__gte=self.initial_outline_catapult_min_value,
+                off_left__gte=self.initial_outline_min_ruin_attack_off,
+            ).aggregate(ruin_sum=Sum("catapult_left"))["ruin_sum"]
+            or 0
+        )
 
     def pagin_targets(  # noqa: PLR0912
         self,
