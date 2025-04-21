@@ -59,6 +59,7 @@ jobs:
           make build_cython
           rm utils/write_noble_target.py
           rm utils/write_ram_target.py
+          rm utils/fast_weight_maximum.py
 
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v3

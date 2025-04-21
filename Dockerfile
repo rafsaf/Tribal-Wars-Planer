@@ -55,6 +55,7 @@ COPY shipments shipments
 
 RUN python setup.py build_ext --inplace
 RUN rm utils/write_ram_target.py
+RUN rm utils/fast_weight_maximum.py
 RUN rm utils/write_noble_target.py
 
 RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build
