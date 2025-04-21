@@ -39,6 +39,7 @@ from django.views.decorators.http import require_POST
 import metrics
 from base import forms, models
 from base.models.target_vertex import TargetVertex
+from base.models.weight_model import WeightModel
 from utils import available_troops, basic
 from utils.outline_complete import complete_outline_write
 from utils.outline_create_targets import OutlineCreateTargets
@@ -889,6 +890,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     if not created:
         return outline_being_written_error(instance, request, lock)
     try:
+        WeightModel.objects.filter(target__outline=instance).delete()
         with transaction.atomic():
             complete_outline_write(outline=instance)
             instance.actions.click_outline_write(instance)

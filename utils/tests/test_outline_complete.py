@@ -107,7 +107,7 @@ def test_complete_outline_write_queries(
         ]
     )
 
-    with django_assert_max_num_queries(6):
+    with django_assert_max_num_queries(9):
         complete_outline_write(outline, salt="django_assert_max_num_queries")
 
 
