@@ -80,12 +80,12 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
     ]
 
     if len(enemy_villages_coords) > 0:
-        front_set, away_set = CDistBrute(
+        front_set, _, away_set = CDistBrute(
             ally_villages=ally_villages_coords,
             enemy_villages=enemy_villages_coords,  # type: ignore[assignment]
             min_radius=min_radius,
             max_radius=max_radius,
-        ).double_result()
+        ).triple_result()
     else:
         front_set = set()
         away_set = set()
@@ -104,12 +104,12 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
 
     target_radius = float(outline.initial_outline_target_dist)
     if len(target_villages_coords) > 0:
-        front_set_near, _ = CDistBrute(
+        front_set_near, _, _ = CDistBrute(
             ally_villages=ally_villages_coords,
             enemy_villages=target_villages_coords,
             min_radius=target_radius,
             max_radius=target_radius,
-        ).double_result()
+        ).triple_result()
     else:
         front_set_near = set()
 

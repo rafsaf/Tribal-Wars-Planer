@@ -36,61 +36,6 @@ class CDistBrute:
         self.min_radius = min_radius
         self.max_radius = max_radius
 
-    def double_result(
-        self, batch_size: int = 36, mode: Literal["for", "numpy"] = "for"
-    ) -> tuple[set[tuple[int, int]], set[tuple[int, int]]]:
-        """
-        Brute force. This is detailed version of result method.
-
-        Returns
-        -------
-        tuple of np.ndarray is returned:
-
-        (below `x` is minimum of distances to every enemy village)
-
-        `front_lst` : array with coords `x <= min_radius`
-
-        `away_lst` : array with coords `min_radius >= max_radius`
-
-        NOTES
-        -----
-        For given in class init enemy villages `N` and ally villages `M`
-        - Step 1: Iterate over the `M` in `i` batches `k` of size `batch_size` where `i` is ceil from `len(M)/batch_size`
-        - Step 2: For every batch k1, k2 calculate matrix of sq euclidean distances k x N allies from enemies
-        - Step 3: Append villages in to front, back or away list
-        """
-
-        sq_min_radius = np.float32(self.min_radius**2)
-        sq_max_radius = np.float32(self.max_radius**2)
-
-        total_front: set[tuple[int, int]] = set()
-        total_away: set[tuple[int, int]] = set()
-
-        if mode == "for":
-            for i in range(int(np.ceil(len(self.all_ally) / batch_size))):
-                batch_ally = self.all_ally[i * batch_size : (i + 1) * batch_size]
-
-                C = cdist(batch_ally, self.all_enemy, "sqeuclidean").min(axis=1)
-
-                for index, x in np.ndenumerate(C):
-                    if x <= sq_min_radius:
-                        total_front.add(tuple(batch_ally[index]))
-                    else:
-                        total_away.add(tuple(batch_ally[index]))
-
-        if mode == "numpy":
-            for i in range(int(np.ceil(len(self.all_ally) / batch_size))):
-                batch_ally = self.all_ally[i * batch_size : (i + 1) * batch_size]
-
-                C = cdist(batch_ally, self.all_enemy, "sqeuclidean").min(axis=1)
-
-                mask_front = C <= sq_min_radius
-                mask_away = C >= sq_max_radius
-                total_front.update(map(tuple, batch_ally[mask_front].astype(np.int32)))
-                total_away.update(map(tuple, batch_ally[mask_away].astype(np.int32)))
-
-        return (total_front, total_away)
-
     def triple_result(
         self, batch_size: int = 36, mode: Literal["for", "numpy"] = "for"
     ) -> tuple[set[tuple[int, int]], set[tuple[int, int]], set[tuple[int, int]]]:
