@@ -40,6 +40,7 @@ def generate_morale_dict(
     they have 0 points.
     """
     now = datetime.now(UTC)
+
     map_player_tuple_to_morale: defaultdict[tuple[str, str], int] = defaultdict(
         _return_100
     )
