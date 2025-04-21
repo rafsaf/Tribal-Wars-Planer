@@ -120,9 +120,6 @@ class OutlineCreateTargets:
             mode_noble=self.outline.mode_noble,
             mode_division=self.outline.mode_division,
             mode_guide=self.outline.mode_guide,
-            night_bonus=self.outline.night_bonus,
-            enter_t1=self.outline.enter_t1,
-            enter_t2=self.outline.enter_t2,
         )
         return target
 

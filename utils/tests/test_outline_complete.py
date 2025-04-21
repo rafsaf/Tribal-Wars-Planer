@@ -56,6 +56,9 @@ def test_complete_outline_write_queries(
     create_initial_data_write_outline()
 
     outline: Outline = Outline.objects.get(id=1)
+    outline.night_bonus = True
+    outline.morale_on = True
+    outline.save()
     Result.objects.create(outline=outline)
     # weights max create
     make_outline = MakeOutline(outline)
@@ -104,7 +107,7 @@ def test_complete_outline_write_queries(
         ]
     )
 
-    with django_assert_max_num_queries(34):
+    with django_assert_max_num_queries(6):
         complete_outline_write(outline, salt="django_assert_max_num_queries")
 
 
@@ -170,10 +173,9 @@ def test_complete_outline_write_benchmark(
     weight_max_mock.only.return_value = list(WeightMaximum.objects.all())
     target_mock = Mock()
     target_mock.filter.return_value = target_mock
+    target_mock.only.return_value = target_mock
     target_mock.select_related.return_value = target_mock
-    target_mock.order_by.return_value = list(
-        Target.objects.select_related("outline").all().order_by("id")
-    )
+    target_mock.order_by.return_value = list(Target.objects.all().order_by("id"))
 
     monkeypatch.setattr(WeightModel, "objects", Mock())
     monkeypatch.setattr(WeightMaximum, "objects", weight_max_mock)
@@ -1308,7 +1310,6 @@ class TestOutlineCreateTargets(TransactionTestCase):
             target.mode_guide = test_input[3]
             target.required_off = 1
             target.required_noble = 1
-            target.night_bonus = test_input[7]
             target.save()
             self.outline.mode_split = test_input[4]
             self.outline.initial_outline_average_ruining_points = test_input[5]

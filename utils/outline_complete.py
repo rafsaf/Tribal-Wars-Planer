@@ -58,7 +58,7 @@ class WeightCreateThread(threading.Thread):
 
 
 def generate_distance_matrix(
-    outline: Outline, weight_max_lst: list[FastWeightMaximum], targets: list[Target]
+    weight_max_lst: list[FastWeightMaximum], targets: list[Target]
 ) -> tuple[NDArray[np.floating[Any]] | None, dict[tuple[int, int], int]]:
     """
     Generates and returns matrix with distances between all targets and (available weight max villages) at once.
@@ -75,27 +75,26 @@ def generate_distance_matrix(
 
     dist_matrix[coord_to_id[coord of target]]
     """
-    if not len(weight_max_lst):
+    if not weight_max_lst:
         return None, {}
 
     coord_to_id = {}
-    list_of_coords: list[Any] = []
+    coords = []
     for target in targets:
         coord = target.coord_tuple()
         if coord in coord_to_id:
             continue
-        list_coords_len = len(list_of_coords)
-        coord_to_id[coord] = list_coords_len
-        list_of_coords.append(np.array(coord))
+        coord_to_id[coord] = len(coords)
+        coords.append(coord)
 
-    if not list_of_coords:
+    if not coords:
         return None, {}
 
-    dist_matrix = cdist(
-        np.array(list_of_coords),
-        np.array([np.array(i.coord_tuple) for i in weight_max_lst]),
-        "euclidean",
+    coords_arr = np.array(coords, dtype=np.float32)
+    weight_coords_arr = np.array(
+        [i.coord_tuple for i in weight_max_lst], dtype=np.float32
     )
+    dist_matrix = cdist(coords_arr, weight_coords_arr, "euclidean")
     return dist_matrix, coord_to_id
 
 
@@ -112,8 +111,68 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
     in each step writting the step's target and updating weights max
     """
     random = SystemRandom(salt)
+    outline = (
+        Outline.objects.select_related("world")
+        .filter(pk=outline.pk)
+        .only(
+            "pk",
+            "morale_on",
+            "initial_outline_minimum_noble_troops",
+            "initial_outline_minimum_fake_noble_troops",
+            "initial_outline_nobles_limit",
+            "initial_outline_fake_limit",
+            "initial_outline_min_off",
+            "initial_outline_max_off",
+            "initial_outline_maximum_off_dist",
+            "initial_outline_catapult_min_value",
+            "initial_outline_catapult_max_value",
+            "initial_outline_buildings",
+            "initial_outline_front_dist",
+            "initial_outline_target_dist",
+            "initial_outline_average_ruining_points",
+            "initial_outline_min_ruin_attack_off",
+            "initial_outline_fake_mode",
+            "morale_on_targets_greater_than",
+            "mode_off",
+            "mode_noble",
+            "mode_division",
+            "mode_guide",
+            "mode_split",
+            "night_bonus",
+            "enter_t1",
+            "enter_t2",
+            # For world fields accessed in logic:
+            "world_id",
+            "world__speed_world",
+            "world__speed_units",
+            "world__casual_attack_block_ratio",
+            "world__morale",
+        )
+        .get()
+    )
+
     all_targets = list(
-        Target.objects.select_related("outline").filter(outline=outline).order_by("id")
+        Target.objects.filter(outline=outline)
+        .only(
+            "pk",
+            "target",
+            "village_id",
+            "player",
+            "player_created_at",
+            "player_id",
+            "points",
+            "fake",
+            "ruin",
+            "required_off",
+            "required_noble",
+            "exact_off",
+            "exact_noble",
+            "mode_off",
+            "mode_noble",
+            "mode_division",
+            "mode_guide",
+        )
+        .order_by("id")
     )
 
     targets = [target for target in all_targets if not target.ruin and not target.fake]
@@ -152,14 +211,14 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
     ]
 
     dist_matrix, coord_to_id_in_matrix = generate_distance_matrix(
-        outline=outline, weight_max_lst=weight_max_lst, targets=all_targets
+        weight_max_lst=weight_max_lst, targets=all_targets
     )
     if outline.morale_on:
-        morale_dict = generate_morale_dict(outline)
+        morale_dict = generate_morale_dict(outline, all_targets, weight_max_lst)
     else:
         morale_dict = None
 
-    weight_create_queue: queue.Queue[WeightModel | None] = queue.Queue()
+    weight_create_queue: queue.Queue[WeightModel | None] = queue.Queue(maxsize=1000)
     weight_create_thread = WeightCreateThread(weight_create_queue)
     weight_create_thread.start()
 
@@ -175,7 +234,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         noble=False,
         ruin=False,
     )
-    weight_max_lst = create_fakes()
+    create_fakes()
 
     create_nobles = CreateWeights(
         random,
@@ -189,7 +248,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         noble=True,
         ruin=False,
     )
-    weight_max_lst = create_nobles()
+    create_nobles()
 
     create_fake_nobles = CreateWeights(
         random,
@@ -203,7 +262,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         noble=True,
         ruin=False,
     )
-    weight_max_lst = create_fake_nobles()
+    create_fake_nobles()
 
     create_offs = CreateWeights(
         random,
@@ -217,7 +276,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         noble=False,
         ruin=False,
     )
-    weight_max_lst = create_offs()
+    create_offs()
 
     create_ruin_offs = CreateWeights(
         random,
@@ -231,7 +290,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         noble=False,
         ruin=False,
     )
-    weight_max_lst = create_ruin_offs()
+    create_ruin_offs()
 
     create_ruins = CreateWeights(
         random,
@@ -245,7 +304,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
         noble=False,
         ruin=True,
     )
-    weight_max_lst = create_ruins()
+    create_ruins()
 
     weight_create_queue.put(None)
 
@@ -411,7 +470,9 @@ class CreateWeights:
         if self.dist_matrix is not None:
             target_coord = target.coord_tuple()
             target_row_in_C = self.coord_to_id_in_matrix[target_coord]
-            for index, distance in enumerate(self.dist_matrix[target_row_in_C]):
+            for index, distance in enumerate(
+                self.dist_matrix[target_row_in_C].tolist()
+            ):
                 self.weight_max_list[index].distance = distance
                 if self.morale_dict is not None:
                     morale = self.morale_dict[
@@ -419,7 +480,7 @@ class CreateWeights:
                     ]
                     self.weight_max_list[index].morale = morale
 
-    def __call__(self) -> list[FastWeightMaximum]:
+    def __call__(self):
         target: Target
         for target in self.targets:
             original_required_off = target.required_off
@@ -438,5 +499,3 @@ class CreateWeights:
             target.required_noble = original_required_noble
             target.mode_noble = original_mode_noble
             target.mode_off = original_mode_off
-
-        return self.weight_max_list

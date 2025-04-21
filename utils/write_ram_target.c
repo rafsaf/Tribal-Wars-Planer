@@ -4409,26 +4409,26 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget___init__(CY
  *         self.ruin: bool = ruin
  * 
  *         self.random = random             # <<<<<<<<<<<<<<
- *         self.avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
- *         self.interval_dist = self.target.enter_t2 - self.avg_dist
+ *         self.avg_dist: float = mean((self.outline.enter_t1, self.outline.enter_t2))
+ *         self.interval_dist = self.outline.enter_t2 - self.avg_dist
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_random, __pyx_v_random) < 0) __PYX_ERR(0, 56, __pyx_L1_error)
 
   /* "utils/write_ram_target.py":57
  * 
  *         self.random = random
- *         self.avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))             # <<<<<<<<<<<<<<
- *         self.interval_dist = self.target.enter_t2 - self.avg_dist
+ *         self.avg_dist: float = mean((self.outline.enter_t1, self.outline.enter_t2))             # <<<<<<<<<<<<<<
+ *         self.interval_dist = self.outline.enter_t2 - self.avg_dist
  *         self.dividier = (
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_mean); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_enter_t1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_enter_t2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
@@ -4469,12 +4469,12 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget___init__(CY
 
   /* "utils/write_ram_target.py":58
  *         self.random = random
- *         self.avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
- *         self.interval_dist = self.target.enter_t2 - self.avg_dist             # <<<<<<<<<<<<<<
+ *         self.avg_dist: float = mean((self.outline.enter_t1, self.outline.enter_t2))
+ *         self.interval_dist = self.outline.enter_t2 - self.avg_dist             # <<<<<<<<<<<<<<
  *         self.dividier = (
  *             self.outline.world.speed_world * self.outline.world.speed_units * 2
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_enter_t2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -4489,7 +4489,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget___init__(CY
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "utils/write_ram_target.py":60
- *         self.interval_dist = self.target.enter_t2 - self.avg_dist
+ *         self.interval_dist = self.outline.enter_t2 - self.avg_dist
  *         self.dividier = (
  *             self.outline.world.speed_world * self.outline.world.speed_units * 2             # <<<<<<<<<<<<<<
  *         )
@@ -4520,8 +4520,8 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget___init__(CY
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "utils/write_ram_target.py":59
- *         self.avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
- *         self.interval_dist = self.target.enter_t2 - self.avg_dist
+ *         self.avg_dist: float = mean((self.outline.enter_t1, self.outline.enter_t2))
+ *         self.interval_dist = self.outline.enter_t2 - self.avg_dist
  *         self.dividier = (             # <<<<<<<<<<<<<<
  *             self.outline.world.speed_world * self.outline.world.speed_units * 2
  *         )
@@ -6997,8 +6997,8 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_4weight_cre
  *         return weights_create_lst
  * 
  *     def _building(self) -> str | None:             # <<<<<<<<<<<<<<
- *         if self.target.ruin_handle is not None:
- *             building: str = self.target.ruin_handle.building()
+ *         if self.target.ruin_handle(self.outline) is not None:
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
  */
 
 /* Python wrapper */
@@ -7103,9 +7103,11 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_6_building(
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
+  PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   unsigned int __pyx_t_5;
+  int __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -7114,63 +7116,113 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_6_building(
   /* "utils/write_ram_target.py":172
  * 
  *     def _building(self) -> str | None:
- *         if self.target.ruin_handle is not None:             # <<<<<<<<<<<<<<
- *             building: str = self.target.ruin_handle.building()
+ *         if self.target.ruin_handle(self.outline) is not None:             # <<<<<<<<<<<<<<
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
  *             return building
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ruin_handle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = (__pyx_t_2 != Py_None);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ruin_handle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  __pyx_t_5 = 0;
+  #if CYTHON_UNPACK_METHODS
+  if (likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __pyx_t_5 = 1;
+    }
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_t_2};
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  }
+  __pyx_t_6 = (__pyx_t_1 != Py_None);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_6) {
 
     /* "utils/write_ram_target.py":173
  *     def _building(self) -> str | None:
- *         if self.target.ruin_handle is not None:
- *             building: str = self.target.ruin_handle.building()             # <<<<<<<<<<<<<<
+ *         if self.target.ruin_handle(self.outline) is not None:
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore             # <<<<<<<<<<<<<<
  *             return building
  *         return None
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ruin_handle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ruin_handle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_building_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = NULL;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_7 = NULL;
     __pyx_t_5 = 0;
     #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_4)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_4);
+    if (likely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_7);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
         __pyx_t_5 = 1;
       }
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
-      __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_t_2};
+      __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
-    if (!(likely(PyUnicode_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("unicode", __pyx_t_2))) __PYX_ERR(0, 173, __pyx_L1_error)
-    __pyx_v_building = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_building_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = NULL;
+    __pyx_t_5 = 0;
+    #if CYTHON_UNPACK_METHODS
+    if (likely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_3)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_3);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+        __pyx_t_5 = 1;
+      }
+    }
+    #endif
+    {
+      PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
+      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    }
+    if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("unicode", __pyx_t_1))) __PYX_ERR(0, 173, __pyx_L1_error)
+    __pyx_v_building = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
 
     /* "utils/write_ram_target.py":174
- *         if self.target.ruin_handle is not None:
- *             building: str = self.target.ruin_handle.building()
+ *         if self.target.ruin_handle(self.outline) is not None:
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
  *             return building             # <<<<<<<<<<<<<<
  *         return None
  * 
@@ -7183,14 +7235,14 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_6_building(
     /* "utils/write_ram_target.py":172
  * 
  *     def _building(self) -> str | None:
- *         if self.target.ruin_handle is not None:             # <<<<<<<<<<<<<<
- *             building: str = self.target.ruin_handle.building()
+ *         if self.target.ruin_handle(self.outline) is not None:             # <<<<<<<<<<<<<<
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
  *             return building
  */
   }
 
   /* "utils/write_ram_target.py":175
- *             building: str = self.target.ruin_handle.building()
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
  *             return building
  *         return None             # <<<<<<<<<<<<<<
  * 
@@ -7204,15 +7256,17 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_6_building(
  *         return weights_create_lst
  * 
  *     def _building(self) -> str | None:             # <<<<<<<<<<<<<<
- *         if self.target.ruin_handle is not None:
- *             building: str = self.target.ruin_handle.building()
+ *         if self.target.ruin_handle(self.outline) is not None:
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("utils.write_ram_target.WriteRamTarget._building", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -7806,7 +7860,9 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_12_catapult
   PyObject *__pyx_t_2 = NULL;
   int __pyx_t_3;
   PyObject *__pyx_t_4 = NULL;
-  unsigned int __pyx_t_5;
+  PyObject *__pyx_t_5 = NULL;
+  unsigned int __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -7833,7 +7889,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_12_catapult
  *         if self.target.fake:
  *             return 0             # <<<<<<<<<<<<<<
  *         elif self.target.ruin:
- *             if self.target.ruin_handle is None:
+ *             if self.target.ruin_handle(self.outline) is None:
  */
     __Pyx_XDECREF(__pyx_r);
     if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_0)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_0))) __PYX_ERR(0, 193, __pyx_L1_error)
@@ -7854,7 +7910,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_12_catapult
  *         if self.target.fake:
  *             return 0
  *         elif self.target.ruin:             # <<<<<<<<<<<<<<
- *             if self.target.ruin_handle is None:
+ *             if self.target.ruin_handle(self.outline) is None:
  *                 raise ValueError("ruin handle var is none")
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
@@ -7869,95 +7925,145 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_12_catapult
     /* "utils/write_ram_target.py":195
  *             return 0
  *         elif self.target.ruin:
- *             if self.target.ruin_handle is None:             # <<<<<<<<<<<<<<
+ *             if self.target.ruin_handle(self.outline) is None:             # <<<<<<<<<<<<<<
  *                 raise ValueError("ruin handle var is none")
- *             return self.target.ruin_handle.best_catapult(weight_max)
+ *             return self.target.ruin_handle(self.outline).best_catapult(weight_max)  # type: ignore
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ruin_handle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 195, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = (__pyx_t_2 == Py_None);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ruin_handle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = NULL;
+    __pyx_t_6 = 0;
+    #if CYTHON_UNPACK_METHODS
+    if (likely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+        __pyx_t_6 = 1;
+      }
+    }
+    #endif
+    {
+      PyObject *__pyx_callargs[2] = {__pyx_t_5, __pyx_t_2};
+      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    }
+    __pyx_t_3 = (__pyx_t_1 == Py_None);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(__pyx_t_3)) {
 
       /* "utils/write_ram_target.py":196
  *         elif self.target.ruin:
- *             if self.target.ruin_handle is None:
+ *             if self.target.ruin_handle(self.outline) is None:
  *                 raise ValueError("ruin handle var is none")             # <<<<<<<<<<<<<<
- *             return self.target.ruin_handle.best_catapult(weight_max)
+ *             return self.target.ruin_handle(self.outline).best_catapult(weight_max)  # type: ignore
  *         else:  # real
  */
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 196, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_Raise(__pyx_t_2, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __PYX_ERR(0, 196, __pyx_L1_error)
 
       /* "utils/write_ram_target.py":195
  *             return 0
  *         elif self.target.ruin:
- *             if self.target.ruin_handle is None:             # <<<<<<<<<<<<<<
+ *             if self.target.ruin_handle(self.outline) is None:             # <<<<<<<<<<<<<<
  *                 raise ValueError("ruin handle var is none")
- *             return self.target.ruin_handle.best_catapult(weight_max)
+ *             return self.target.ruin_handle(self.outline).best_catapult(weight_max)  # type: ignore
  */
     }
 
     /* "utils/write_ram_target.py":197
- *             if self.target.ruin_handle is None:
+ *             if self.target.ruin_handle(self.outline) is None:
  *                 raise ValueError("ruin handle var is none")
- *             return self.target.ruin_handle.best_catapult(weight_max)             # <<<<<<<<<<<<<<
+ *             return self.target.ruin_handle(self.outline).best_catapult(weight_max)  # type: ignore             # <<<<<<<<<<<<<<
  *         else:  # real
  *             return weight_max.catapult_left
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ruin_handle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_best_catapult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ruin_handle); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_7 = NULL;
+    __pyx_t_6 = 0;
+    #if CYTHON_UNPACK_METHODS
+    if (likely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+        __pyx_t_6 = 1;
+      }
+    }
+    #endif
+    {
+      PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_t_2};
+      __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    }
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_best_catapult); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
-    __pyx_t_5 = 0;
+    __pyx_t_6 = 0;
     #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
       if (likely(__pyx_t_4)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
         __Pyx_INCREF(__pyx_t_4);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-        __pyx_t_5 = 1;
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+        __pyx_t_6 = 1;
       }
     }
     #endif
     {
       PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_v_weight_max};
-      __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
+      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 197, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 197, __pyx_L1_error)
+    __pyx_r = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
     goto __pyx_L0;
 
     /* "utils/write_ram_target.py":194
  *         if self.target.fake:
  *             return 0
  *         elif self.target.ruin:             # <<<<<<<<<<<<<<
- *             if self.target.ruin_handle is None:
+ *             if self.target.ruin_handle(self.outline) is None:
  *                 raise ValueError("ruin handle var is none")
  */
   }
 
   /* "utils/write_ram_target.py":199
- *             return self.target.ruin_handle.best_catapult(weight_max)
+ *             return self.target.ruin_handle(self.outline).best_catapult(weight_max)  # type: ignore
  *         else:  # real
  *             return weight_max.catapult_left             # <<<<<<<<<<<<<<
  * 
@@ -7965,11 +8071,11 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_12_catapult
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_2))) __PYX_ERR(0, 199, __pyx_L1_error)
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_weight_max, __pyx_n_s_catapult_left); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_t_1))) __PYX_ERR(0, 199, __pyx_L1_error)
+    __pyx_r = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
     goto __pyx_L0;
   }
 
@@ -7986,6 +8092,8 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_12_catapult
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("utils.write_ram_target.WriteRamTarget._catapult", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -13172,7 +13280,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_36_closest_
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
 
 /* Python wrapper */
@@ -13272,7 +13380,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 
 /* "utils/write_ram_target.py":350
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, i.distance))             # <<<<<<<<<<<<<<
  *         else:
@@ -13683,7 +13791,7 @@ static PyObject *__pyx_lambda_funcdef_lambda6(CYTHON_UNUSED PyObject *__pyx_self
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
 
 static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_38_close_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
@@ -13708,7 +13816,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_38_close_we
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()             # <<<<<<<<<<<<<<
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 347, __pyx_L1_error)
@@ -13741,11 +13849,11 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_38_close_we
   /* "utils/write_ram_target.py":348
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:             # <<<<<<<<<<<<<<
+ *         if self.outline.night_bonus:             # <<<<<<<<<<<<<<
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, i.distance))
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 348, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_night_bonus); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 348, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -13756,7 +13864,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_38_close_we
 
     /* "utils/write_ram_target.py":349
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)             # <<<<<<<<<<<<<<
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, i.distance))
  *         else:
@@ -13788,7 +13896,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_38_close_we
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
     /* "utils/write_ram_target.py":350
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, i.distance))             # <<<<<<<<<<<<<<
  *         else:
@@ -13811,7 +13919,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_38_close_we
     /* "utils/write_ram_target.py":348
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:             # <<<<<<<<<<<<<<
+ *         if self.outline.night_bonus:             # <<<<<<<<<<<<<<
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, i.distance))
  */
@@ -14059,7 +14167,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_38_close_we
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
 
   /* function exit code */
@@ -14653,7 +14761,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_40_random_q
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
 
 /* Python wrapper */
@@ -14887,7 +14995,7 @@ static PyObject *__pyx_lambda_funcdef_lambda7(CYTHON_UNUSED PyObject *__pyx_self
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
 
 static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_42_random_weight_lst(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
@@ -14916,7 +15024,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_42_random_w
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()             # <<<<<<<<<<<<<<
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 388, __pyx_L1_error)
@@ -14949,11 +15057,11 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_42_random_w
   /* "utils/write_ram_target.py":389
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:             # <<<<<<<<<<<<<<
+ *         if self.outline.night_bonus:             # <<<<<<<<<<<<<<
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             result_lst: list[FastWeightMaximum] = []
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 389, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_night_bonus); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -14964,7 +15072,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_42_random_w
 
     /* "utils/write_ram_target.py":390
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)             # <<<<<<<<<<<<<<
  *             result_lst: list[FastWeightMaximum] = []
  *             left_offs: int = self.target.required_off
@@ -14996,7 +15104,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_42_random_w
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
     /* "utils/write_ram_target.py":391
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             result_lst: list[FastWeightMaximum] = []             # <<<<<<<<<<<<<<
  *             left_offs: int = self.target.required_off
@@ -15296,7 +15404,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_42_random_w
     /* "utils/write_ram_target.py":389
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:             # <<<<<<<<<<<<<<
+ *         if self.outline.night_bonus:             # <<<<<<<<<<<<<<
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             result_lst: list[FastWeightMaximum] = []
  */
@@ -15421,7 +15529,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_42_random_w
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
 
   /* function exit code */
@@ -15550,7 +15658,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 
 /* "utils/write_ram_target.py":433
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, -i.distance))             # <<<<<<<<<<<<<<
  *         else:
@@ -15995,7 +16103,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_44_far_weig
  *     def _far_weight_lst(self) -> list[FastWeightMaximum]:
  *         filtered_weight_max = self._get_filtered_weight_max_list()             # <<<<<<<<<<<<<<
  * 
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_filtered_weight_max_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 429, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -16027,11 +16135,11 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_44_far_weig
   /* "utils/write_ram_target.py":431
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  * 
- *         if self.target.night_bonus:             # <<<<<<<<<<<<<<
+ *         if self.outline.night_bonus:             # <<<<<<<<<<<<<<
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, -i.distance))
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_target); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_outline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_night_bonus); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -16042,7 +16150,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_44_far_weig
 
     /* "utils/write_ram_target.py":432
  * 
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)             # <<<<<<<<<<<<<<
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, -i.distance))
  *         else:
@@ -16074,7 +16182,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_44_far_weig
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
     /* "utils/write_ram_target.py":433
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, -i.distance))             # <<<<<<<<<<<<<<
  *         else:
@@ -16097,7 +16205,7 @@ static PyObject *__pyx_pf_5utils_16write_ram_target_14WriteRamTarget_44_far_weig
     /* "utils/write_ram_target.py":431
  *         filtered_weight_max = self._get_filtered_weight_max_list()
  * 
- *         if self.target.night_bonus:             # <<<<<<<<<<<<<<
+ *         if self.outline.night_bonus:             # <<<<<<<<<<<<<<
  *             self._add_night_bonus_annotations(filtered_weight_max)
  *             filtered_weight_max.sort(key=lambda i: (-i.night_bool, -i.distance))
  */
@@ -18216,9 +18324,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
   /* "utils/write_ram_target.py":196
  *         elif self.target.ruin:
- *             if self.target.ruin_handle is None:
+ *             if self.target.ruin_handle(self.outline) is None:
  *                 raise ValueError("ruin handle var is none")             # <<<<<<<<<<<<<<
- *             return self.target.ruin_handle.best_catapult(weight_max)
+ *             return self.target.ruin_handle(self.outline).best_catapult(weight_max)  # type: ignore
  *         else:  # real
  */
   __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_ruin_handle_var_is_none); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 196, __pyx_L1_error)
@@ -18369,8 +18477,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         return weights_create_lst
  * 
  *     def _building(self) -> str | None:             # <<<<<<<<<<<<<<
- *         if self.target.ruin_handle is not None:
- *             building: str = self.target.ruin_handle.building()
+ *         if self.target.ruin_handle(self.outline) is not None:
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
  */
   __pyx_tuple__26 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_building_2); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__26);
@@ -18562,7 +18670,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
   __pyx_tuple__58 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_filtered_weight_max, __pyx_n_s_weight_list, __pyx_n_s_required, __pyx_n_s_sampled_weight_lst); if (unlikely(!__pyx_tuple__58)) __PYX_ERR(0, 346, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__58);
@@ -18586,7 +18694,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
   __pyx_tuple__62 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_filtered_weight_max, __pyx_n_s_result_lst, __pyx_n_s_left_offs, __pyx_n_s_weight_list_3, __pyx_n_s_weight_list_2, __pyx_n_s_weight_list_1); if (unlikely(!__pyx_tuple__62)) __PYX_ERR(0, 387, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__62);
@@ -19383,8 +19491,8 @@ if (!__Pyx_RefNanny) {
  *         return weights_create_lst
  * 
  *     def _building(self) -> str | None:             # <<<<<<<<<<<<<<
- *         if self.target.ruin_handle is not None:
- *             building: str = self.target.ruin_handle.building()
+ *         if self.target.ruin_handle(self.outline) is not None:
+ *             building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
  */
   __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -19679,7 +19787,7 @@ if (!__Pyx_RefNanny) {
  * 
  *     def _close_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
   __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 346, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -19716,7 +19824,7 @@ if (!__Pyx_RefNanny) {
  * 
  *     def _random_weight_lst(self) -> list[FastWeightMaximum]:             # <<<<<<<<<<<<<<
  *         filtered_weight_max = self._get_filtered_weight_max_list()
- *         if self.target.night_bonus:
+ *         if self.outline.night_bonus:
  */
   __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 387, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);

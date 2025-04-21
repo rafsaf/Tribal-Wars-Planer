@@ -247,7 +247,19 @@ def initial_form(  # noqa: PLR0912,PLR0911
     )
 
     if instance.morale_on and instance.world.morale > 0:
-        morale_dict = basic.generate_morale_dict(instance)
+        morale_dict = basic.generate_morale_dict(
+            instance,
+            list(
+                TargetVertex.objects.filter(outline=instance)
+                .order_by("player")
+                .distinct("player")
+            ),
+            list(
+                models.WeightMaximum.objects.filter(outline=instance)
+                .order_by("player")
+                .distinct("player")
+            ),
+        )
     else:
         morale_dict = None
 
@@ -343,12 +355,6 @@ def initial_form(  # noqa: PLR0912,PLR0911
             if form5.is_valid():
                 instance.actions.form_night_change(instance)
                 instance.save(update_fields=forms.NightBonusSetForm.Meta.fields)
-                instance.refresh_from_db()
-                models.TargetVertex.objects.filter(outline=instance).update(
-                    night_bonus=instance.night_bonus,
-                    enter_t1=instance.enter_t1,
-                    enter_t2=instance.enter_t2,
-                )
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
                     + f"?t={target_mode.mode}"

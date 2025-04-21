@@ -54,8 +54,8 @@ class WriteRamTarget:
         self.ruin: bool = ruin
 
         self.random = random
-        self.avg_dist: float = mean((self.target.enter_t1, self.target.enter_t2))
-        self.interval_dist = self.target.enter_t2 - self.avg_dist
+        self.avg_dist: float = mean((self.outline.enter_t1, self.outline.enter_t2))
+        self.interval_dist = self.outline.enter_t2 - self.avg_dist
         self.dividier = (
             self.outline.world.speed_world * self.outline.world.speed_units * 2
         )
@@ -169,8 +169,8 @@ class WriteRamTarget:
         return weights_create_lst
 
     def _building(self) -> str | None:
-        if self.target.ruin_handle is not None:
-            building: str = self.target.ruin_handle.building()
+        if self.target.ruin_handle(self.outline) is not None:
+            building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
             return building
         return None
 
@@ -192,9 +192,9 @@ class WriteRamTarget:
         if self.target.fake:
             return 0
         elif self.target.ruin:
-            if self.target.ruin_handle is None:
+            if self.target.ruin_handle(self.outline) is None:
                 raise ValueError("ruin handle var is none")
-            return self.target.ruin_handle.best_catapult(weight_max)
+            return self.target.ruin_handle(self.outline).best_catapult(weight_max)  # type: ignore
         else:  # real
             return weight_max.catapult_left
 
@@ -345,7 +345,7 @@ class WriteRamTarget:
 
     def _close_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
-        if self.target.night_bonus:
+        if self.outline.night_bonus:
             self._add_night_bonus_annotations(filtered_weight_max)
             filtered_weight_max.sort(key=lambda i: (-i.night_bool, i.distance))
         else:
@@ -386,7 +386,7 @@ class WriteRamTarget:
 
     def _random_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
-        if self.target.night_bonus:
+        if self.outline.night_bonus:
             self._add_night_bonus_annotations(filtered_weight_max)
             result_lst: list[FastWeightMaximum] = []
             left_offs: int = self.target.required_off
@@ -428,7 +428,7 @@ class WriteRamTarget:
     def _far_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
 
-        if self.target.night_bonus:
+        if self.outline.night_bonus:
             self._add_night_bonus_annotations(filtered_weight_max)
             filtered_weight_max.sort(key=lambda i: (-i.night_bool, -i.distance))
         else:
