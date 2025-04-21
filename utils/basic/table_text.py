@@ -26,6 +26,7 @@ from base.models.weight_model import WeightModel
 class TableText:
     NEXT_LINE = "\r\n"
     NEXT_LINE_DOUBLE = "\r\n\r\n"
+    POSTFIX = "[/table]"
     WEEKDAY_PAUZES = "-" * 16
     WEEKDAYS = {
         0: gettext_lazy("Monday"),
@@ -38,12 +39,17 @@ class TableText:
     }
 
     def __init__(self, outline: models.Outline):
+        self.PREFIX = _(
+            "[table][**][||]SEND[||]OFF[||]NOBLE[||]RUIN[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
+        )
         self.result: defaultdict[str, list[WeightModel]] = defaultdict(list)
+        self.table_result: dict[str, str] = {}
         self.string_result: dict[str, str] = {}
         self.deputy_result: dict[str, str] = {}
         self.extended_result: dict[str, str] = {}
         self.new_extended_result: dict[str, str] = {}
 
+        self.weight_table: dict[WeightModel, str] = {}
         self.weight_string: dict[WeightModel, str] = {}
         self.weight_deputy: dict[WeightModel, str] = {}
         self.weight_extended: dict[WeightModel, str] = {}
@@ -88,6 +94,19 @@ class TableText:
             f"target={enemy_village_id}{t}]{send}[/url]"
         )
 
+    def __date_table(self, datetime1, datetime2):
+        date_part = datetime1.date()
+
+        t1_part = datetime1.time()
+        t2_part = datetime2.time()
+
+        return (
+            f"{date_part}"
+            f"\n"
+            f"[b][color=#0e5e5e]{t1_part}[/color][/b]-"
+            f"[b][color=#ff0000]{t2_part}[/color][/b]"
+        )
+
     def __date_string(self, datetime1, datetime2):
         date_part = datetime1.date()
 
@@ -95,6 +114,33 @@ class TableText:
         t2_part = datetime2.time()
 
         return f"\r\n[b]{date_part} [color=#ff0000]{t1_part} - {t2_part}[/color][/b]"
+
+    def __weight_table(
+        self,
+        weight: models.WeightModel,
+        ally_id,
+        enemy_id,
+        fake,
+        deputy=None,
+    ):
+        if weight.building is not None:
+            building = weight.get_building_display().upper()  # type: ignore
+            ruin = _("%(catapults_number)sc on %(building)s") % {
+                "catapults_number": weight.catapult,
+                "building": building,
+            }
+        else:
+            ruin = "-"
+
+        return (
+            f"[|]{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
+            f"[|]{weight.off - 8 * weight.catapult if weight.ruin else weight.off}"
+            f"[|]{weight.nobleman}"
+            f"[|]{ruin}"
+            f"[|]{self.__date_table(weight.sh_t1, weight.sh_t2)}"  # type: ignore
+            f"[|]{self.__date_table(weight.t1, weight.t2)}"
+            f"[|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord]"
+        )
 
     def __new_weight_string(
         self,
@@ -125,9 +171,9 @@ class TableText:
             "ally_id": ally_id,
             "enemy_id": enemy_id,
             "deputy_link_part": deputy_link_part,
-            "building": weight.get_building_display().upper()
-            if weight.building
-            else None,
+            "building": (
+                weight.get_building_display().upper() if weight.building else None
+            ),
         }
 
         if fake and weight.nobleman > 0:
@@ -264,6 +310,9 @@ class TableText:
     def add_weight(
         self, weight: models.WeightModel, ally_id, enemy_id, fake, deputy=None
     ):
+        self.weight_table[weight] = str(
+            self.__weight_table(weight, ally_id, enemy_id, fake)
+        )
         self.weight_string[weight] = str(
             self.__weight_string(weight, ally_id, enemy_id, fake, simple=True)
         )
@@ -287,6 +336,23 @@ class TableText:
             lst.sort(
                 key=lambda weight: (weight.sh_t1, weight.start, weight.target.target)
             )
+
+    def __create_table(self):
+        for player, lst in self.result.items():
+            table = str(self.NEXT_LINE + self.NEXT_LINE + self.PREFIX)
+            for i, weight in enumerate(lst):
+                table += f"[*]{i + 1}" + self.weight_table[weight]
+                if i % 150 == 0 and i != 0:
+                    table += (
+                        self.POSTFIX
+                        + self.NEXT_LINE_DOUBLE
+                        + self.NEXT_LINE_DOUBLE
+                        + self.NEXT_LINE_DOUBLE
+                        + self.PREFIX
+                    )
+
+            table += self.POSTFIX
+            self.table_result[player] = table
 
     def __create_string(self):
         for player, lst in self.result.items():
@@ -371,6 +437,7 @@ class TableText:
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         self.__sort_weights()
+        self.__create_table()
         self.__create_string()
         self.__create_deputy()
         self.__create_extended()
@@ -380,6 +447,7 @@ class TableText:
         for player in self.result:
             yield (
                 player,
+                self.table_result[player],
                 self.string_result[player],
                 self.deputy_result[player],
                 self.extended_result[player],
