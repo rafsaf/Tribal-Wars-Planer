@@ -14,124 +14,215 @@
 # ==============================================================================
 
 
-import numpy as np
-from django.db.models import QuerySet, Sum
-
 from base import models
 from utils.basic.cdist_brute import CDistBrute
 
 
-def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
-    """Create set with ally_vill without enemy_vill closer than radius"""
+def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR0912
     excluded_coords_text: str = outline.initial_outline_excluded_coords
-    excluded_coords: list[str] = excluded_coords_text.split()
+    excluded_coords = set(
+        (int(coord[0:3]), int(coord[4:7])) for coord in excluded_coords_text.split()
+    )
 
     min_radius: float = float(outline.initial_outline_front_dist)
     max_radius: float = float(outline.initial_outline_maximum_off_dist)
 
-    ally_villages: list[str] = [
-        start
-        for start in models.WeightMaximum.objects.filter(outline=outline).values_list(
-            "start", flat=True
-        )
-    ]
-    target_villages: list[str] = [
-        target
-        for target in models.TargetVertex.objects.filter(
-            outline=outline, fake=False, ruin=False
-        ).values_list("target", flat=True)
-    ]
+    [
+        all_noble,
+        front_noble,
+        back_noble,
+        too_far_noble,
+        all_off,
+        front_off,
+        back_off,
+        too_far_off,
+        all_full_noble_off,
+        front_full_noble_off,
+        back_full_noble_off,
+        too_far_full_noble_off,
+        all_noble_near,
+        front_noble_near,
+        back_noble_near,
+        too_far_noble_near,
+        all_off_near,
+        front_off_near,
+        back_off_near,
+        too_far_off_near,
+        all_catapults,
+        front_catapults,
+        back_catapults,
+        too_far_catapults,
+        available_ruins,
+    ] = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-    all_ally: np.ndarray = np.array(
-        models.VillageModel.objects.filter(
-            coord__in=ally_villages, world=outline.world
-        ).values_list("x_coord", "y_coord")
+    ally_villages = models.WeightMaximum.objects.filter(outline=outline).only(
+        "pk",
+        "x_coord",
+        "y_coord",
+        "off_left",
+        "nobleman_left",
+        "catapult_left",
+        "first_line",
+        "too_far_away",
     )
 
-    all_enemy: np.ndarray = np.array(
+    ally_villages_coords = [
+        (village.x_coord, village.y_coord) for village in ally_villages
+    ]
+
+    enemy_villages_coords = (
         models.VillageModel.objects.select_related()
-        .exclude(coord__in=excluded_coords)
         .filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world)
         .values_list("x_coord", "y_coord")
     )
+    enemy_villages_coords = [
+        coord for coord in enemy_villages_coords if coord not in excluded_coords
+    ]
 
-    real_target_enemy: np.ndarray = np.array(
-        models.VillageModel.objects.exclude(coord__in=excluded_coords)
-        .filter(coord__in=target_villages, world=outline.world)
-        .values_list("x_coord", "y_coord")
-    )
-
-    if all_enemy.size > 0:
-        front_array, back_array, away_array = CDistBrute(
-            ally_villages=all_ally,
-            enemy_villages=all_enemy,
+    if len(enemy_villages_coords) > 0:
+        front_set, away_set = CDistBrute(
+            ally_villages=ally_villages_coords,
+            enemy_villages=enemy_villages_coords,  # type: ignore[assignment]
             min_radius=min_radius,
             max_radius=max_radius,
-        ).triple_result()
+        ).double_result()
     else:
-        front_array = np.array([])
-        away_array = np.array([])
+        front_set = set()
+        away_set = set()
 
-    front_starts: list[str] = [f"{coord[0]}|{coord[1]}" for coord in front_array]
-    away_starts: list[str] = [f"{coord[0]}|{coord[1]}" for coord in away_array]
+    target_villages_coords = [
+        target.coord_tuple()
+        for target in models.TargetVertex.objects.filter(outline=outline).only(
+            "target",
+        )
+    ]
+    target_villages_coords = [
+        coord for coord in target_villages_coords if coord not in excluded_coords
+    ]
 
-    models.WeightMaximum.objects.filter(outline=outline).update(
-        first_line=False, too_far_away=False
-    )
+    target_radius = float(outline.initial_outline_target_dist)
+    if len(target_villages_coords) > 0:
+        front_set_near, _ = CDistBrute(
+            ally_villages=ally_villages_coords,
+            enemy_villages=target_villages_coords,
+            min_radius=target_radius,
+            max_radius=target_radius,
+        ).double_result()
+    else:
+        front_set_near = set()
+
+    front_pk: list[int] = []
+    back_pk: list[int] = []
+    away_pk: list[int] = []
+
+    for weight_max in ally_villages:
+        coords = weight_max.coord_tuple()
+        if coords in front_set:
+            front_noble += weight_max.nobleman_left
+            all_noble += weight_max.nobleman_left
+            all_catapults += weight_max.catapult_left
+            front_catapults += weight_max.catapult_left
+            if (
+                weight_max.off_left >= outline.initial_outline_min_off
+                and weight_max.off_left <= outline.initial_outline_max_off
+            ):
+                all_off += 1
+                front_off += 1
+                if weight_max.nobleman_left >= 1:
+                    all_full_noble_off += 1
+                    front_full_noble_off += 1
+
+            if not weight_max.first_line:
+                front_pk.append(weight_max.pk)
+
+            if coords in front_set_near:
+                front_noble_near += weight_max.nobleman_left
+                all_noble_near += weight_max.nobleman_left
+                if (
+                    weight_max.off_left >= outline.initial_outline_min_off
+                    and weight_max.off_left <= outline.initial_outline_max_off
+                ):
+                    all_off_near += 1
+                    front_off_near += 1
+
+        elif coords in away_set:
+            too_far_noble += weight_max.nobleman_left
+            all_noble += weight_max.nobleman_left
+            all_catapults += weight_max.catapult_left
+            too_far_catapults += weight_max.catapult_left
+            if (
+                weight_max.off_left >= outline.initial_outline_min_off
+                and weight_max.off_left <= outline.initial_outline_max_off
+            ):
+                all_off += 1
+                too_far_off += 1
+                if weight_max.nobleman_left >= 1:
+                    all_full_noble_off += 1
+                    too_far_full_noble_off += 1
+
+            if not weight_max.too_far_away:
+                away_pk.append(weight_max.pk)
+
+            if coords in front_set_near:
+                too_far_noble_near += weight_max.nobleman_left
+                all_noble_near += weight_max.nobleman_left
+                if (
+                    weight_max.off_left >= outline.initial_outline_min_off
+                    and weight_max.off_left <= outline.initial_outline_max_off
+                ):
+                    all_off_near += 1
+                    too_far_off_near += 1
+
+        else:
+            back_noble += weight_max.nobleman_left
+            all_noble += weight_max.nobleman_left
+            all_catapults += weight_max.catapult_left
+            back_catapults += weight_max.catapult_left
+            if (
+                weight_max.off_left >= outline.initial_outline_min_off
+                and weight_max.off_left <= outline.initial_outline_max_off
+            ):
+                all_off += 1
+                back_off += 1
+                if weight_max.nobleman_left >= 1:
+                    all_full_noble_off += 1
+                    back_full_noble_off += 1
+            if (
+                weight_max.off_left >= outline.initial_outline_min_ruin_attack_off
+                and weight_max.catapult_left
+                >= outline.initial_outline_catapult_min_value
+            ):
+                available_ruins += weight_max.catapult_left
+
+            if coords in front_set_near:
+                back_noble_near += weight_max.nobleman_left
+                all_noble_near += weight_max.nobleman_left
+                if (
+                    weight_max.off_left >= outline.initial_outline_min_off
+                    and weight_max.off_left <= outline.initial_outline_max_off
+                ):
+                    all_off_near += 1
+                    back_off_near += 1
+
+            if weight_max.first_line or weight_max.too_far_away:
+                back_pk.append(weight_max.pk)
 
     batch_size = 1000
-    for i in range(0, len(front_starts), batch_size):
-        batch = front_starts[i : i + batch_size]
-        models.WeightMaximum.objects.filter(outline=outline, start__in=batch).update(
-            first_line=True
+    for i in range(0, len(front_pk), batch_size):
+        batch = front_pk[i : i + batch_size]
+        models.WeightMaximum.objects.filter(outline=outline, pk__in=batch).update(
+            first_line=True, too_far_away=False
         )
-    for i in range(0, len(away_starts), batch_size):
-        batch = away_starts[i : i + batch_size]
-        models.WeightMaximum.objects.filter(outline=outline, start__in=batch).update(
-            too_far_away=True
+    for i in range(0, len(back_pk), batch_size):
+        batch = back_pk[i : i + batch_size]
+        models.WeightMaximum.objects.filter(outline=outline, pk__in=batch).update(
+            first_line=False, too_far_away=False
         )
-
-    all_weights: QuerySet[models.WeightMaximum] = models.WeightMaximum.objects.filter(
-        outline=outline,
-        off_left__gte=outline.initial_outline_min_off,
-        off_left__lte=outline.initial_outline_max_off,
-    )
-
-    all_off: int = all_weights.count()
-    front_off: int = all_weights.filter(first_line=True).count()
-    too_far_off: int = all_weights.filter(too_far_away=True).count()
-    back_off: int = all_off - front_off - too_far_off
-
-    all_full_noble_weights: QuerySet[models.WeightMaximum] = (
-        models.WeightMaximum.objects.filter(
-            outline=outline,
-            off_left__gte=outline.initial_outline_min_off,
-            off_left__lte=outline.initial_outline_max_off,
-            nobleman_left__gte=1,
+    for i in range(0, len(away_pk), batch_size):
+        batch = away_pk[i : i + batch_size]
+        models.WeightMaximum.objects.filter(outline=outline, pk__in=batch).update(
+            first_line=False, too_far_away=True
         )
-    )
-
-    all_full_noble_off: int = all_full_noble_weights.count()
-    front_full_noble_off: int = all_full_noble_weights.filter(first_line=True).count()
-    too_far_full_noble_off: int = all_full_noble_weights.filter(
-        too_far_away=True
-    ).count()
-    back_full_noble_off: int = (
-        all_full_noble_off - front_full_noble_off - too_far_full_noble_off
-    )
-
-    n_query: QuerySet[models.WeightMaximum] = models.WeightMaximum.objects.filter(
-        outline=outline, nobleman_left__gte=1
-    )
-
-    all_noble: int = n_query.aggregate(n=Sum("nobleman_left"))["n"] or 0
-    front_noble: int = (
-        n_query.filter(first_line=True).aggregate(n=Sum("nobleman_left"))["n"] or 0
-    )
-    too_far_noble: int = (
-        n_query.filter(too_far_away=True).aggregate(n=Sum("nobleman_left"))["n"] or 0
-    )
-    back_noble = all_noble - front_noble - too_far_noble
 
     outline.available_nobles = [all_noble, front_noble, back_noble, too_far_noble]
     outline.available_offs = [all_off, front_off, back_off, too_far_off]
@@ -141,101 +232,33 @@ def get_legal_coords_outline(outline: models.Outline):  # noqa: PLR0912
         back_full_noble_off,
         too_far_full_noble_off,
     ]
-    outline.save(
-        update_fields=[
-            "available_nobles",
-            "available_offs",
-            "available_full_noble_offs",
-        ]
-    )
-
-    # #
-    # #
-    # AROUND TARGETS
-    target_radius = float(outline.initial_outline_target_dist)
-    if real_target_enemy.size > 0:
-        close_array, _ = CDistBrute(
-            ally_villages=all_ally,
-            enemy_villages=real_target_enemy,
-            min_radius=target_radius,
-            max_radius=target_radius,
-        ).result()
-    else:
-        return
-
-    close_starts: list[str] = [f"{coord[0]}|{coord[1]}" for coord in close_array]
-
-    all_off = 0
-    front_off = 0
-    too_far_off = 0
-    back_off = 0
-
-    for i in range(0, len(close_starts), batch_size):
-        batch = close_starts[i : i + batch_size]
-        batch_weights = models.WeightMaximum.objects.filter(
-            outline=outline,
-            start__in=batch,
-            off_left__gte=outline.initial_outline_min_off,
-            off_left__lte=outline.initial_outline_max_off,
-        )
-        all_off += batch_weights.count()
-        front_off += batch_weights.filter(first_line=True).count()
-        too_far_off += batch_weights.filter(too_far_away=True).count()
-
-    back_off = all_off - front_off - too_far_off
-
-    snob_weights = models.WeightMaximum.objects.filter(
-        outline=outline, nobleman_left__gte=1, too_far_away=False
-    ).filter(start__in=close_starts)
-
-    all_noble = snob_weights.aggregate(n=Sum("nobleman_left"))["n"] or 0
-    front_noble = (
-        snob_weights.filter(first_line=True).aggregate(n=Sum("nobleman_left"))["n"] or 0
-    )
-    too_far_noble = (
-        snob_weights.filter(too_far_away=True).aggregate(n=Sum("nobleman_left"))["n"]
-        or 0
-    )
-    back_noble = all_noble - front_noble - too_far_noble
-
-    outline.available_nobles_near = [all_noble, front_noble, back_noble, too_far_off]
-    outline.available_offs_near = [all_off, front_off, back_off, too_far_noble]
-    outline.save(update_fields=["available_nobles_near", "available_offs_near"])
-
-
-def get_available_catapults_lst(outline: models.Outline) -> list[int]:
-    catapults = models.WeightMaximum.objects.filter(outline=outline)
-    all_catapults: int = catapults.aggregate(n=Sum("catapult_left"))["n"] or 0
-    front_catapults: int = (
-        catapults.filter(first_line=True).aggregate(n=Sum("catapult_left"))["n"] or 0
-    )
-    too_far_catapults: int = (
-        catapults.filter(too_far_away=True).aggregate(n=Sum("catapult_left"))["n"] or 0
-    )
-    back_catapults: int = all_catapults - front_catapults - too_far_catapults
-    available_catapults_lst = [
+    outline.available_nobles_near = [
+        all_noble_near,
+        front_noble_near,
+        back_noble_near,
+        too_far_noble_near,
+    ]
+    outline.available_offs_near = [
+        all_off_near,
+        front_off_near,
+        back_off_near,
+        too_far_off_near,
+    ]
+    outline.available_catapults = [
         all_catapults,
         front_catapults,
         back_catapults,
         too_far_catapults,
     ]
-    return available_catapults_lst
-
-
-def get_available_ruins(outline: models.Outline) -> int:
-    return (
-        models.WeightMaximum.objects.filter(
-            first_line=False,
-            too_far_away=False,
-            outline=outline,
-            catapult_left__gte=outline.initial_outline_catapult_min_value,
-            off_left__gte=outline.initial_outline_min_ruin_attack_off,
-        ).aggregate(ruin_sum=Sum("catapult_left"))["ruin_sum"]
-        or 0
+    outline.available_ruins = available_ruins
+    outline.save(
+        update_fields=[
+            "available_nobles",
+            "available_offs",
+            "available_full_noble_offs",
+            "available_nobles_near",
+            "available_offs_near",
+            "available_catapults",
+            "available_ruins",
+        ]
     )
-
-
-def add_extra_available_troops_data(outline: models.Outline) -> None:
-    outline.available_ruins = get_available_ruins(outline=outline)
-    outline.available_catapults = get_available_catapults_lst(outline=outline)
-    outline.save(update_fields=["available_ruins", "available_catapults"])

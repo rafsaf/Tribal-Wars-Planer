@@ -27,7 +27,7 @@ from base.models import TargetVertex as Target
 from base.models.player import Player
 from base.models.result import Result
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
-from utils.available_troops import get_legal_coords_outline
+from utils.available_troops import calculate_and_update_available_troops
 from utils.buildings import BUILDING, BUILDINGS_TRANSLATION
 from utils.outline_complete import complete_outline_write
 from utils.outline_initial import MakeOutline
@@ -195,7 +195,7 @@ class TestOutlineCreateTargets(TransactionTestCase):
         # weights max create
         make_outline = MakeOutline(self.outline)
         make_outline()
-        get_legal_coords_outline(self.outline)
+        calculate_and_update_available_troops(self.outline)
         self.salt = "test_outline_complete"
 
     def target(self) -> Target:

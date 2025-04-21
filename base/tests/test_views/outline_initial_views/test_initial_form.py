@@ -252,7 +252,7 @@ class InitialForm(MiniSetup):
         initial_outline_front_dist = self.random_integer()
         initial_outline_target_dist = self.random_integer()
         initial_outline_min_off = self.random_integer()
-        initial_outline_excluded_coords = self.random_lower_string()
+        initial_outline_excluded_coords = "500|500 501|501 502|502"
         # form3
         date = timezone.now().date()
         # form4
@@ -401,7 +401,7 @@ class InitialForm(MiniSetup):
         initial_outline_front_dist = self.random_integer()
         initial_outline_target_dist = self.random_integer()
         initial_outline_min_off = self.random_integer()
-        initial_outline_excluded_coords = self.random_lower_string()
+        initial_outline_excluded_coords = "500|500 501|501 502|502"
         # form3
         date = timezone.now().date()
         # form4
@@ -942,9 +942,9 @@ class InitialForm(MiniSetup):
         outline.refresh_from_db()
         stats.refresh_from_db()
         assert outline.available_offs == [1, 0, 0, 1]
-        assert outline.available_offs_near == []
+        assert outline.available_offs_near == [0, 0, 0, 0]
         assert outline.available_nobles == [0, 0, 0, 0]
-        assert outline.available_nobles_near == []
+        assert outline.available_nobles_near == [0, 0, 0, 0]
         assert outline.available_full_noble_offs == [0, 0, 0, 0]
         assert outline.available_catapults == [100, 0, 0, 100]
         assert outline.available_ruins == 0

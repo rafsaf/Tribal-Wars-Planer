@@ -63,17 +63,15 @@ def get_deff(
     )
 
 
-def get_set_of_villages(
-    ally_villages: np.ndarray, enemy_villages: np.ndarray, radius: int
-):
+def get_set_of_villages(ally_villages, enemy_villages, radius: int):
     """get list of legal villages from ally villages"""
     if enemy_villages.size > 0:
-        _, back_array = CDistBrute(
+        _, back_array, _ = CDistBrute(
             ally_villages=ally_villages,
             enemy_villages=enemy_villages,
             min_radius=radius,
             max_radius=1000,
-        ).result()
+        ).triple_result()
     else:
         back_array = ally_villages
 
