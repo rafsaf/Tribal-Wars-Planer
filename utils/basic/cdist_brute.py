@@ -16,6 +16,10 @@
 import numpy as np
 from scipy.spatial.distance import cdist
 
+# Define a structured dtype for tuple (float32, float32)
+Tuple2Float32 = np.dtype([("x", np.float32), ("y", np.float32)])
+ArrayOfTuple2Float32 = np.ndarray[tuple[int, 2], Tuple2Float32]
+
 
 class CDistBrute:
     def __init__(
