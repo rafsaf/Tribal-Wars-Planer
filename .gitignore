@@ -2,6 +2,7 @@
 perf.data
 perf.data.old
 out.profile*
+*.prof
 # mkdocs
 docs/generated/en/*
 docs/generated/pl/*

@@ -37,7 +37,7 @@ class CDistBrute:
         self.max_radius = max_radius
 
     def double_result(
-        self, batch_size: int = 1000, mode: Literal["for", "numpy"] = "numpy"
+        self, batch_size: int = 36, mode: Literal["for", "numpy"] = "for"
     ) -> tuple[set[tuple[int, int]], set[tuple[int, int]]]:
         """
         Brute force. This is detailed version of result method.
@@ -92,7 +92,7 @@ class CDistBrute:
         return (total_front, total_away)
 
     def triple_result(
-        self, batch_size: int = 1000, mode: Literal["for", "numpy"] = "numpy"
+        self, batch_size: int = 36, mode: Literal["for", "numpy"] = "for"
     ) -> tuple[set[tuple[int, int]], set[tuple[int, int]], set[tuple[int, int]]]:
         """
         Brute force. This is detailed version of result method.
