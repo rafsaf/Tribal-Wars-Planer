@@ -92,7 +92,9 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
 
     target_villages_coords = [
         target.coord_tuple()
-        for target in models.TargetVertex.objects.filter(outline=outline).only(
+        for target in models.TargetVertex.objects.filter(
+            outline=outline, fake=False, ruin=False
+        ).only(
             "target",
         )
     ]
