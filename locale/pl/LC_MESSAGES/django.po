@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-21 13:12+0200\n"
+"POT-Creation-Date: 2025-04-21 13:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -767,10 +767,8 @@ msgstr "Stwórz nową rozpiskę"
 
 #: base/templates/base/base.html:36
 #: shipments/templates/orders/my_shipments.html:3
-#, fuzzy
-#| msgid "My settings"
 msgid "My shipments"
-msgstr "Ustawienia"
+msgstr "Moje wysyłki"
 
 #: base/templates/base/base.html:72
 msgid "Home"
@@ -783,7 +781,7 @@ msgstr "Strona Główna"
 msgid "Planer"
 msgstr "Planer"
 
-#: base/templates/base/base.html:78 base/templates/base/overview.html:252
+#: base/templates/base/base.html:78 base/templates/base/overview.html:306
 msgid "Documentation"
 msgstr "Dokumentacja"
 
@@ -1919,7 +1917,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
-#: base/templates/base/overview.html:173
+#: base/templates/base/overview.html:227
 #: shipments/templates/orders/my_shipments.html:16
 #: shipments/templates/orders/my_shipments.html:54 utils/basic/mode.py:60
 #: utils/outline_finish.py:74
@@ -1931,7 +1929,7 @@ msgid "Select Time"
 msgstr "Wybierz Czas"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:252
-#: base/templates/base/overview.html:174 utils/basic/mode.py:67
+#: base/templates/base/overview.html:228 utils/basic/mode.py:67
 msgid "Outline"
 msgstr "Rozpiska"
 
@@ -2186,7 +2184,7 @@ msgstr "Kopiuj"
 msgid "Details"
 msgstr "Szczegóły"
 
-#: base/templates/base/overview.html:23 base/templates/base/overview.html:249
+#: base/templates/base/overview.html:23 base/templates/base/overview.html:303
 msgid "Source"
 msgstr "Źródło"
 
@@ -2204,31 +2202,37 @@ msgstr "Standardowy"
 
 #: base/templates/base/overview.html:40 base/templates/base/overview.html:74
 #: base/templates/base/overview.html:107 base/templates/base/overview.html:133
+#: base/templates/base/overview.html:160
 msgid "Copy content from textarea below"
 msgstr "Skopiuj tekst z pola tekstowego poniżej"
 
 #: base/templates/base/overview.html:42 base/templates/base/overview.html:76
 #: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
 msgid "Successfully copied!"
 msgstr "Pomyślnie skopiowano!"
 
 #: base/templates/base/overview.html:42 base/templates/base/overview.html:76
 #: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
 msgid "Click to copy again"
 msgstr "Kliknij by ponownie skopiować"
 
 #: base/templates/base/overview.html:42 base/templates/base/overview.html:76
 #: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
 msgid "Error! Please copy the textarea below"
 msgstr "Błąd! Skopiuj tekst z pola tekstowego poniżej"
 
 #: base/templates/base/overview.html:42 base/templates/base/overview.html:76
 #: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
 msgid "Copy to clipboard"
 msgstr "Kopiuj do schowka"
 
 #: base/templates/base/overview.html:48 base/templates/base/overview.html:81
 #: base/templates/base/overview.html:114 base/templates/base/overview.html:141
+#: base/templates/base/overview.html:167
 msgid "This is what this form of orders looks like when pasted into a notebook"
 msgstr "Ten typ rozkazów tak będzie wyglądał po wklejeniu do notatek w grze"
 
@@ -2240,22 +2244,23 @@ msgstr "Wtorek"
 #: base/templates/base/overview.html:53 base/templates/base/overview.html:60
 #: base/templates/base/overview.html:86 base/templates/base/overview.html:93
 #: base/templates/base/overview.html:119 base/templates/base/overview.html:146
-#: utils/basic/table_text.py:88
+#: base/templates/base/overview.html:185 utils/basic/table_text.py:88
 msgid "Send OFF"
 msgstr "Wyślij OFF"
 
 #: base/templates/base/overview.html:58 base/templates/base/overview.html:91
-#: base/templates/base/overview.html:143
+#: base/templates/base/overview.html:143 base/templates/base/overview.html:197
 msgid "Remember this is only the example"
 msgstr "Pamiętaj, że to tylko przykład"
 
 #: base/templates/base/overview.html:58 base/templates/base/overview.html:91
-#: base/templates/base/overview.html:143
+#: base/templates/base/overview.html:143 base/templates/base/overview.html:200
 msgid "Plemiona Planer is the best"
 msgstr "Plemiona Planer jest najlepszy"
 
 #: base/templates/base/overview.html:66 base/templates/base/overview.html:99
 #: base/templates/base/overview.html:125 base/templates/base/overview.html:152
+#: base/templates/base/overview.html:208
 msgid "A link to your targets on plemiona-planer.pl."
 msgstr "Link do Twoich celów na plemiona-planer.pl."
 
@@ -2277,31 +2282,71 @@ msgstr "Prosty"
 msgid "Old"
 msgstr "Stary"
 
-#: base/templates/base/overview.html:143 utils/basic/table_text.py:267
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:266
 msgid "from village"
 msgstr "z wioski"
 
-#: base/templates/base/overview.html:143 utils/basic/table_text.py:268
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:267
 msgid "to "
 msgstr "na "
 
-#: base/templates/base/overview.html:164
+#: base/templates/base/overview.html:158
+msgid "Table"
+msgstr "Tabela"
+
+#: base/templates/base/overview.html:165
+msgid "Hint: Use Text format if u have many commands. "
+msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
+
+#: base/templates/base/overview.html:173
+msgid "SEND"
+msgstr "WYŚLIJ"
+
+#: base/templates/base/overview.html:174
+msgid "OFF"
+msgstr "OFF"
+
+#: base/templates/base/overview.html:175
+msgid "NOBLE"
+msgstr "GRUBE"
+
+#: base/templates/base/overview.html:176
+msgid "RUIN"
+msgstr "BURZENIE"
+
+#: base/templates/base/overview.html:177
+msgid "SENDING"
+msgstr "WYSYŁKA"
+
+#: base/templates/base/overview.html:178
+msgid "ENTER"
+msgstr "WEJŚCIE"
+
+#: base/templates/base/overview.html:179
+msgid "FROM"
+msgstr "Z WIOSKI"
+
+#: base/templates/base/overview.html:180
+msgid "TARGET"
+msgstr "CEL"
+
+#: base/templates/base/overview.html:218
 msgid "Alert! The order in the list below matters and is fixed."
 msgstr ""
 "Uwaga! Kolejność w rozkazach poniżej MA znaczenie i została dokładnie tak "
 "ustalona."
 
-#: base/templates/base/overview.html:190
+#: base/templates/base/overview.html:244
 msgid "Ruin"
 msgstr "Burzenie"
 
-#: base/templates/base/overview.html:192
+#: base/templates/base/overview.html:246
 #: shipments/templates/orders/my_shipments.html:12
 #: shipments/templates/orders/my_shipments.html:50
 msgid "Off"
 msgstr "Off"
 
-#: base/templates/base/overview.html:250
+#: base/templates/base/overview.html:304
 msgid "Source in JSON format available under API link:"
 msgstr "Źródło w formacie JSON dostępne w API pod linkiem:"
 
@@ -2633,47 +2678,37 @@ msgstr ""
 #: shipments/templates/orders/my_shipments.html:10
 #: shipments/templates/orders/my_shipments.html:48
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: shipments/templates/orders/my_shipments.html:11
 #: shipments/templates/orders/my_shipments.html:49
 msgid "Start"
-msgstr ""
+msgstr "Z wioski"
 
 #: shipments/templates/orders/my_shipments.html:13
 #: shipments/templates/orders/my_shipments.html:51
-#, fuzzy
-#| msgid "Noble"
 msgid "Nobleman"
 msgstr "Szlachcic"
 
 #: shipments/templates/orders/my_shipments.html:14
 #: shipments/templates/orders/my_shipments.html:52
-#, fuzzy
-#| msgid "Catapults"
 msgid "Catapult"
 msgstr "Katapulty"
 
 #: shipments/templates/orders/my_shipments.html:17
 #: shipments/templates/orders/my_shipments.html:55
-#, fuzzy
-#| msgid "Send ruin"
 msgid "Send min."
-msgstr "Wyślij burzak"
+msgstr "Wyślij min."
 
 #: shipments/templates/orders/my_shipments.html:18
 #: shipments/templates/orders/my_shipments.html:56
-#, fuzzy
-#| msgid "Send message"
 msgid "Send max."
-msgstr "Wyślij wiadomość"
+msgstr "Wyślij max."
 
 #: shipments/templates/orders/my_shipments.html:19
 #: shipments/templates/orders/my_shipments.html:59
-#, fuzzy
-#| msgid "Send ruin"
 msgid "Send Link"
-msgstr "Wyślij burzak"
+msgstr "Wyślij"
 
 #: templates/404.html:8
 msgid ""
@@ -3118,15 +3153,11 @@ msgid "Sunday"
 msgstr "Niedziela"
 
 #: utils/basic/table_text.py:43
-#, fuzzy
-#| msgid ""
-#| "[table][**]"
-#| "[||]SEND[||]OFF[||]NOBLE[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
 msgid ""
 "[table][**]"
 "[||]SEND[||]OFF[||]NOBLE[||]RUIN[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
 msgstr ""
-"[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]WYSYŁKA[||]WEJŚCIE[||]Z "
+"[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]BURZENIE[||]WYSYŁKA[||]WEJŚCIE[||]Z "
 "WIOSKI[||]CEL[/**]"
 
 #: utils/basic/table_text.py:84
@@ -3141,12 +3172,12 @@ msgstr "Wyślij burzak"
 msgid "Send NOBLE"
 msgstr "Wyślij SZLACHCIC"
 
-#: utils/basic/table_text.py:129
+#: utils/basic/table_text.py:128
 #, python-format
 msgid "%(catapults_number)sc on %(building)s"
-msgstr ""
+msgstr "%(catapults_number)sk na %(building)s"
 
-#: utils/basic/table_text.py:183
+#: utils/basic/table_text.py:182
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] "
@@ -3165,7 +3196,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "FEJK SZLACHCIC[/url]"
 
-#: utils/basic/table_text.py:195
+#: utils/basic/table_text.py:194
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3184,7 +3215,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "FEJK[/url]"
 
-#: utils/basic/table_text.py:207
+#: utils/basic/table_text.py:206
 #, python-format
 msgid ""
 "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s + "
@@ -3205,7 +3236,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "BURZAK[/url]"
 
-#: utils/basic/table_text.py:220
+#: utils/basic/table_text.py:219
 #, python-format
 msgid ""
 "[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/"
@@ -3224,7 +3255,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "SZLACHCIC[/url]"
 
-#: utils/basic/table_text.py:233
+#: utils/basic/table_text.py:232
 #, python-format
 msgid ""
 "[b][color=#a50000]Send OFF[%(off_number)s off + %(catapults_number)sc on "
@@ -3243,7 +3274,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "OFF[/url]"
 
-#: utils/basic/table_text.py:246
+#: utils/basic/table_text.py:245
 #, python-format
 msgid ""
 "[b][color=#a50000]Send OFF[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3262,19 +3293,19 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Wyślij "
 "OFF[/url]"
 
-#: utils/basic/table_text.py:266
+#: utils/basic/table_text.py:265
 msgid "Nobles-"
 msgstr "Szlachcice-"
 
-#: utils/basic/table_text.py:270
+#: utils/basic/table_text.py:269
 msgid "[color=#00a500][b]Send fake noble[/b][/color] (1 noble)"
 msgstr "[color=#00a500][b]Wyślij fejk szlachcic[/b][/color] (1 szlachcic)"
 
-#: utils/basic/table_text.py:273
+#: utils/basic/table_text.py:272
 msgid "[color=#00a500][b]Send fake[/b][/color]"
 msgstr "[color=#00a500][b]Wyślij fejk[/b][/color]"
 
-#: utils/basic/table_text.py:277
+#: utils/basic/table_text.py:276
 #, python-format
 msgid ""
 "[color=#0e0eff][b]Ruin[/b][/color] (Extra off-%(off)d, Catapults-"
@@ -3283,7 +3314,7 @@ msgstr ""
 "[color=#0e0eff][b]Burzak[/b][/color] (Wojsko-%(off)d, Katapulty-%(catapult)d "
 "[b]%(building)s[/b])"
 
-#: utils/basic/table_text.py:285
+#: utils/basic/table_text.py:284
 #, python-format
 msgid ""
 "[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d "
@@ -3292,11 +3323,11 @@ msgstr ""
 "[size=12][b]OFF[/b][/size] (Off-%(off)d, Katapulty-%(catapult)d "
 "[b]%(building)s[/b])"
 
-#: utils/basic/table_text.py:292
+#: utils/basic/table_text.py:291
 msgid "[size=12][b]OFF[/b][/size] (Off-"
 msgstr "[size=12][b]OFF[/b][/size] (Off-"
 
-#: utils/basic/table_text.py:295
+#: utils/basic/table_text.py:294
 msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
 msgstr "[color=#a500a5][size=12][b]SZLACHCIC[/b][/size][/color]"
 
@@ -3336,56 +3367,3 @@ msgstr "Wioska"
 #: utils/outline_finish.py:77
 msgid "does not exists"
 msgstr "nie istnieje"
-
-#, fuzzy
-#~| msgid "Orders"
-#~ msgid "My orders"
-#~ msgstr "Rozkazy"
-
-#~ msgid "Number of catapults that will always be left in full offs:"
-#~ msgstr "Liczba katapult, która zawsze pozostanie w pełnych offach:"
-
-#~ msgid "Text simple"
-#~ msgstr "Tekst prosty"
-
-#~ msgid "New Text extended"
-#~ msgstr "Nowy tekst rozszerzony"
-
-#~ msgid "Old Text extended"
-#~ msgstr "Stary tekst rozszerzony"
-
-#~ msgid "Table"
-#~ msgstr "Tabela"
-
-#~ msgid "Hint: Use Text format if u have many commands. "
-#~ msgstr "Wskazówka: Użyj tekstowej formy jeśli masz wiele wysyłek. "
-
-#~ msgid "SEND"
-#~ msgstr "WYŚLIJ"
-
-#~ msgid "OFF"
-#~ msgstr "OFF"
-
-#~ msgid "NOBLE"
-#~ msgstr "GRUBE"
-
-#~ msgid "SENDING"
-#~ msgstr "WYSYŁKA"
-
-#~ msgid "ENTER"
-#~ msgstr "WEJŚCIE"
-
-#~ msgid "FROM"
-#~ msgstr "Z WIOSKI"
-
-#~ msgid "TARGET"
-#~ msgstr "CEL"
-
-#~ msgid "fake noble"
-#~ msgstr "fake gruby"
-
-#~ msgid "fake"
-#~ msgstr "fake"
-
-#~ msgid "Catapults-"
-#~ msgstr "Katapulty-"
