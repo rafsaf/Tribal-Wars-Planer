@@ -173,10 +173,9 @@ def test_complete_outline_write_benchmark(
     weight_max_mock.only.return_value = list(WeightMaximum.objects.all())
     target_mock = Mock()
     target_mock.filter.return_value = target_mock
+    target_mock.only.return_value = target_mock
     target_mock.select_related.return_value = target_mock
-    target_mock.order_by.return_value = list(
-        Target.objects.select_related("outline").all().order_by("id")
-    )
+    target_mock.order_by.return_value = list(Target.objects.all().order_by("id"))
 
     monkeypatch.setattr(WeightModel, "objects", Mock())
     monkeypatch.setattr(WeightMaximum, "objects", weight_max_mock)
