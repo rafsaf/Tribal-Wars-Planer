@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 import datetime
-import json
 import logging
 
 import prometheus_client
@@ -56,6 +55,7 @@ from base.models import (
     WeightModel,
 )
 from rest_api import serializers
+from rest_api.overview_data import get_overview_data
 from rest_api.permissions import MetricsExportSecretPermission
 from rest_api.serializers import (
     ChangeBuildingsArraySerializer,
@@ -469,66 +469,17 @@ def public_overview(request: Request) -> HttpResponse:
     activate(language)
 
     overview: models.Overview = get_object_or_404(
-        models.Overview.objects.select_related("outline_overview").filter(pk=token)
+        models.Overview.objects.filter(pk=token)
     )
-    outline_overview: models.OutlineOverview = overview.outline_overview
 
-    query = []
-    targets = json.loads(outline_overview.targets_json)
-    weights = json.loads(outline_overview.weights_json)
-
-    if overview.show_hidden:
-        for target, lst in weights.items():
-            for weight in lst:
-                if weight["player"] == overview.player:
-                    query.append(
-                        {
-                            "target": targets[target],
-                            "my_orders": [
-                                weight
-                                for weight in lst
-                                if weight["player"] == overview.player
-                            ],
-                            "other_orders": [
-                                weight
-                                for weight in lst
-                                if weight["player"] != overview.player
-                            ],
-                        }
-                    )
-                    break
-
-    else:
-        for target, lst in weights.items():
-            owns = [weight for weight in lst if weight["player"] == overview.player]
-
-            if len(owns) > 0:
-                alls = False
-                for weight in owns:
-                    if weight["nobleman"] > 0 and weight["distance"] < 14:
-                        alls = True
-                        break
-                if alls:
-                    others = [
-                        weight for weight in lst if weight["player"] != overview.player
-                    ]
-                else:
-                    others = []
-
-                query.append(
-                    {
-                        "target": targets[target],
-                        "my_orders": owns,
-                        "other_orders": others,
-                    }
-                )
-    output = serializers.OverviewSerializer(
-        data={
-            "outline": outline_overview.outline_json,
-            "world": outline_overview.world_json,
-            "targets": query,
-        }
+    output = get_overview_data(
+        overview.outline_overview_id,
+        show_hidden=overview.show_hidden,
+        player=overview.player,
+        language=language,
+        version=1,
     )
+
     if not output.is_valid():
         return Response(
             data={"detail": f"Inconsistent data in database: {output.errors}"},

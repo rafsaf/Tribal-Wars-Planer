@@ -21,4 +21,6 @@ app_name = "shipments"
 
 urlpatterns = [
     path("my", views.my_shipments, name="my_shipments"),
+    path("<int:pk>", views.shipment, name="shipment"),
+    path("add", views.add_shipment, name="add_shipment"),
 ]

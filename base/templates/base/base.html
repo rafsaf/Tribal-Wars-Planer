@@ -34,6 +34,8 @@
                             {% if DEBUG %}
                                 <a href="{% url 'shipments:my_shipments' %}"
                                    class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'my_shipments' %}focus-side-link{% endif %}">{%trans 'My shipments' %}</a>
+                                <a href="{% url 'shipments:add_shipment' %}"
+                                   class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'add_shipment' %}focus-side-link{% endif %}">{%trans 'Add shipment' %}</a>
                             {% endif %}
                             {% block sidebar %}
                             {% endblock %}
