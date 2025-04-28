@@ -21,6 +21,9 @@ app_name = "rest_api"
 
 urlpatterns = [
     path("public/v1/overview/", views.public_overview, name="public_outline_overview"),
+    path(
+        "shipment/<int:pk/overviews/", views.public_overview, name="shipment_overviews"
+    ),
     path("stripe-key/", views.stripe_config, name="stripe_key"),
     path("stripe-session/", views.stripe_checkout_session, name="stripe_session"),
     path("stripe-webhook/", views.stripe_webhook, name="stripe_webhook"),

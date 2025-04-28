@@ -65,6 +65,7 @@ from rest_api.serializers import (
     TargetDeleteSerializer,
     TargetTimeUpdateSerializer,
 )
+from shipments.models import Shipment
 
 LANGUAGES: set[str] = set(lang[0] for lang in settings.LANGUAGES)
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -469,7 +470,9 @@ def public_overview(request: Request) -> HttpResponse:
     activate(language)
 
     overview: models.Overview = get_object_or_404(
-        models.Overview.objects.filter(pk=token)
+        models.Overview.objects.filter(pk=token).only(
+            "outline_overview_id", "show_hidden", "player"
+        ),
     )
 
     output = get_overview_data(
@@ -485,6 +488,83 @@ def public_overview(request: Request) -> HttpResponse:
             data={"detail": f"Inconsistent data in database: {output.errors}"},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+    return Response(
+        data=output.data,
+        status=status.HTTP_200_OK,
+    )
+
+
+# from collections import defaultdict
+
+# def merge_dicts(*dicts):
+#     merged = defaultdict(list)
+#     for d in dicts:
+#         for key, value in d.items():
+#             merged[key].extend(value)
+#     return dict(merged)
+
+
+@extend_schema(exclude=True)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def shipment_overviews(request: Request, pk: int) -> HttpResponse:
+    language = request.query_params.get("language", "en")
+    if language not in LANGUAGES:
+        language = "en"
+
+    activate(language)
+
+    shipment = get_object_or_404(
+        Shipment.objects.prefetch_related("overviews"),
+        pk=pk,
+        owner=request.user,
+    )
+
+    outputs = []
+    for overview in shipment.overviews.all():
+        output = get_overview_data(
+            overview.outline_overview_id,
+            show_hidden=overview.show_hidden,
+            player=overview.player,
+            language=language,
+            version=1,
+        )
+
+        if not output.is_valid():
+            return Response(
+                data={"detail": f"Inconsistent data in database: {output.errors}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+        outputs.append(output.data)
+
+    if not outputs:
+        return Response(
+            data={"detail": "No overviews found."},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    # Assume all outlines/worlds are the same, merge targets
+    combined_outline = outputs[0]["outline"]
+    combined_world = outputs[0]["world"]
+    combined_targets = []
+
+    for out in outputs:
+        combined_targets.extend(out.get("targets", []))
+
+    combined_result = {
+        "outline": combined_outline,
+        "world": combined_world,
+        "targets": combined_targets,
+    }
+
+    serializer = serializers.OverviewSerializer(data=combined_result)
+    serializer.is_valid(raise_exception=True)
+
+    return Response(
+        data=serializer.data,
+        status=status.HTTP_200_OK,
+    )
 
     return Response(
         data=output.data,
