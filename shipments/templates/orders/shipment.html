@@ -1,33 +1,35 @@
 {% extends 'base/base.html' %}
 {% load i18n %}
-{% block title %}{% trans 'My shipments' %}{% endblock %}
+{% block sidebar %}
+    <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>
+    <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
+{% endblock %}
+
+{% block phonesidebar %}
+    <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>
+    <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
+{% endblock %}
+
+{% block title %}{% trans 'Shipment' %} {{shipment.name|capfirst}} {{shipment.pk}}{% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
     <div class="table-container" style="margin: 20px auto; overflow-x: auto; max-width: 100%;">
-        <table class="table table-striped table-bordered" id="my-orders" style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>{% trans 'ID' %}</th>
-                    <th>{% trans 'Start' %}</th>
-                    <th>{% trans 'Off' %}</th>
-                    <th>{% trans 'Nobleman' %}</th>
-                    <th>{% trans 'Catapult' %}</th>
-                    <th>{% trans 'Enemy' %}</th>
-                    <th>{% trans 'Target' %}</th>
-                    <th>{% trans 'Send min.' %}</th>
-                    <th>{% trans 'Send max.' %}</th>
-                    <th>{% trans 'Send Link' %}</th>
-                </tr>
-            </thead>
+        <table class="table table-sm table-striped table-bordered" id="my-orders" style="width: 100%;">
         </table>
     </div>
 
 {% endblock %}
 {% block scripts %}
+    {% get_current_language as LANG %}
     <script>
         const data = {
             ajax: {
-                url: '/api/public/v1/overview/?language=pl&token=AuUGKXI1f9Q1pqJsyA06gtvopTjfLRSct3uUPaUDNA4',
+                url: `/api/shipment/{{ shipment.pk }}/overviews/?language={{ LANG }}`,
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken"),
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
                 dataSrc: function (json) {
                     const orders = [];
                     json.targets.forEach(target => {
@@ -45,27 +47,91 @@
                 }
             },
             columns: [
-                { data: 'id', title: '{% trans "ID" %}' },
-                { data: 'start', title: '{% trans "Start" %}' },
+                {
+                    data: 'min_send_time',
+                    title: '{% trans "Send in" %}',
+                    render: function (data, type, row, meta) {
+                        const shipmentTime = new Date(row.shipment_t1);
+                        const shipmentTime2 = new Date(row.shipment_t2);
+
+                        const updateCountdown = () => {
+                            const now = new Date();
+                            let prefix = "";
+                            let diff = shipmentTime.getTime() - now.getTime();
+                            let color = 'blue'; // Default: before shipment_t1
+                            if (diff <= 0) {
+                                diff = shipmentTime2.getTime() - now.getTime();
+                                if (diff > 0) {
+                                    color = 'yellow'; // Between shipment_t1 and shipment_t2
+                                } else {
+                                    color = 'red'; // After shipment_t2
+                                }
+                            }
+
+                            if (diff < 0) {
+                                prefix = "-";
+                            }
+
+                            diff = Math.abs(diff);
+
+                            let hours = Math.floor(diff / (1000 * 60 * 60));
+                            let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                            let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                            hours = hours < 10 ? "0" + hours : hours;
+                            minutes = minutes < 10 ? "0" + minutes : minutes;
+                            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                            const countdown = `${prefix}${hours}:${minutes}:${seconds}`;
+
+                            // Update the cell with the countdown and color
+                            if (meta.settings && meta.settings.aoData && meta.settings.aoData[meta.row] && meta.settings.aoData[meta.row].anCells && meta.settings.aoData[meta.row].anCells[meta.col]) {
+                                const cell = meta.settings.aoData[meta.row].anCells[meta.col];
+                                cell.textContent = countdown;
+                                cell.style.color = color;
+                            }
+
+                            return countdown
+                        }
+
+                        return updateCountdown();
+                    }
+                },
+                {
+                    data: 'send_url',
+                    title: '{% trans "Link" %}',
+                    render: function (data, type, row) {
+                        return `<a href="${data}" target="_blank">${row.send_url_name}</a>`;
+                    }
+                },
                 { data: 'off', title: '{% trans "Off" %}' },
                 { data: 'nobleman', title: '{% trans "Nobleman" %}' },
                 { data: 'catapult', title: '{% trans "Catapult" %}' },
-                { data: 'target_player', title: '{% trans "Enemy" %}' },
+                { data: 'building_name', title: '{% trans "Building" %}' },
+                { data: 'start', title: '{% trans "Start" %}' },
                 { data: 'target_coords', title: '{% trans "Target" %}' },
-                { data: 'min_send_time', title: '{% trans "Send min." %}' },
-                { data: 'max_send_time', title: '{% trans "Send max." %}' },
+                { data: 'target_player', title: '{% trans "Enemy" %}' },
                 {
-                    data: 'send_url',
-                    title: '{% trans "Send Link" %}',
-                    render: function (data, type, row) {
-                        return `<a href="${data}" target="_blank">Send</a>`;
-                    }
-                }
+                    data: 'shipment_t1',
+                    title: '{% trans "Send min." %}',
+                    render: function(data) {
+                        const shipmentTime = new Date(data);
+                        const dateString = shipmentTime.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        const timeString = shipmentTime.toLocaleTimeString('en-CA', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                        return `${dateString}<br>${timeString}`;
+                    },
+                },
+                { data: 'shipment_t2', title: '{% trans "Send max." %}',render: function(data) {
+                    const shipmentTime = new Date(data);
+                    const dateString = shipmentTime.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                    const timeString = shipmentTime.toLocaleTimeString('en-CA', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    return `${dateString}<br>${timeString}`;
+                }, },
+                { data: 'id', title: '{% trans "ID" %}' },
             ],
-            order: [[7, 'asc']], // Sort by "Send min." column (index 7) in ascending order
-            pageLength: 50,
+            order: [[0, 'asc']], // Sort by "Send in" column (index 0) in ascending order
+            pageLength: 25,
             responsive: true,
-            dom: 'Bfrtip',
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             dom: '<"top"f>rt<"bottom"lp><"clear">', // Adjust layout (filter on top, pagination on bottom)
             autoWidth: false,
@@ -91,6 +157,12 @@
                 url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/pl.json",
             };
         }
-        new DataTable('#my-orders', data);
+        const table = new DataTable('#my-orders', data);
+        setInterval(() => {
+            table.rows().every(function () {
+                this.invalidate();
+            });
+            table.draw(false);
+        }, 1000);
     </script>
 {% endblock %}

@@ -19,7 +19,7 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.forms.utils import ErrorList
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import translation
 
@@ -34,23 +34,30 @@ log = logging.getLogger(__name__)
 
 @login_required
 def my_shipments(request: HttpRequest) -> HttpResponse:
-    context = {}
+    shipments = Shipment.objects.filter(owner=request.user)
+    context = {"shipments": shipments}
 
     return render(request, "orders/my_shipments.html", context)
 
 
 @login_required
 def shipment(request: HttpRequest, pk: int) -> HttpResponse:
-    context = {}
+    shipment = get_object_or_404(
+        Shipment,
+        pk=pk,
+        owner=request.user,
+    )
 
-    return render(request, "orders/my_shipments.html", context)
+    context = {"shipment": shipment}
+
+    return render(request, "orders/shipment.html", context)
 
 
 @login_required
 def add_shipment(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = ShipmentCreateForm(request.POST)
-        formset = ShipmentOverviewTokenFormSet(request.POST)
+        formset = ShipmentOverviewTokenFormSet(request.POST)  # type: ignore
 
         if form.is_valid() and formset.is_valid():
             name = form.cleaned_data["name"]
@@ -90,7 +97,7 @@ def add_shipment(request: HttpRequest) -> HttpResponse:
                 serializer.is_valid()
                 data = serializer.data
                 if data["world"]["id"] != world_id or data["outline"]["date"] != date:
-                    formset._non_form_errors = ErrorList(
+                    formset._non_form_errors = ErrorList(  # type: ignore
                         ["All overviews must belong to the same world and date."]
                     )
                     context = {

@@ -62,6 +62,7 @@ class Profile(models.Model):
     send_message_text_message = models.CharField(
         max_length=2000, default="", blank=True
     )
+    feature_flag_shipments = models.BooleanField(default=False)
 
     def is_premium(self) -> bool:
         if settings.PREMIUM_ACCOUNT_VALIDATION_ON:

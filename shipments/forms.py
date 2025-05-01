@@ -21,7 +21,7 @@ class BaseShipmentOverviewTokenFormSet(BaseFormSet):
         super().clean()
         tokens = []
         for form in self.forms:
-            if self.can_delete and self._should_delete_form(form):
+            if self.can_delete and self._should_delete_form(form):  # type: ignore
                 continue
             token = form.cleaned_data.get("token")
             if not Overview.objects.filter(token=token).exists():

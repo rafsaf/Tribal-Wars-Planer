@@ -55,7 +55,7 @@ from base.models import (
     WeightModel,
 )
 from rest_api import serializers
-from rest_api.overview_data import get_overview_data
+from rest_api.overview_data import get_overview_data, get_overview_data_many
 from rest_api.permissions import MetricsExportSecretPermission
 from rest_api.serializers import (
     ChangeBuildingsArraySerializer,
@@ -480,7 +480,7 @@ def public_overview(request: Request) -> HttpResponse:
         show_hidden=overview.show_hidden,
         player=overview.player,
         language=language,
-        version=1,
+        version=4,
     )
 
     if not output.is_valid():
@@ -495,16 +495,6 @@ def public_overview(request: Request) -> HttpResponse:
     )
 
 
-# from collections import defaultdict
-
-# def merge_dicts(*dicts):
-#     merged = defaultdict(list)
-#     for d in dicts:
-#         for key, value in d.items():
-#             merged[key].extend(value)
-#     return dict(merged)
-
-
 @extend_schema(exclude=True)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -516,55 +506,37 @@ def shipment_overviews(request: Request, pk: int) -> HttpResponse:
     activate(language)
 
     shipment = get_object_or_404(
-        Shipment.objects.prefetch_related("overviews"),
+        Shipment.objects.prefetch_related("overviews").only(
+            "overviews__player", "overviews__outline_overview_id"
+        ),
         pk=pk,
         owner=request.user,
     )
+    overviews = list(shipment.overviews.all())
 
-    outputs = []
-    for overview in shipment.overviews.all():
-        output = get_overview_data(
-            overview.outline_overview_id,
-            show_hidden=overview.show_hidden,
-            player=overview.player,
-            language=language,
-            version=1,
-        )
-
-        if not output.is_valid():
-            return Response(
-                data={"detail": f"Inconsistent data in database: {output.errors}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
-        outputs.append(output.data)
-
-    if not outputs:
+    if not overviews:
         return Response(
             data={"detail": "No overviews found."},
             status=status.HTTP_404_NOT_FOUND,
         )
 
-    # Assume all outlines/worlds are the same, merge targets
-    combined_outline = outputs[0]["outline"]
-    combined_world = outputs[0]["world"]
-    combined_targets = []
-
-    for out in outputs:
-        combined_targets.extend(out.get("targets", []))
-
-    combined_result = {
-        "outline": combined_outline,
-        "world": combined_world,
-        "targets": combined_targets,
-    }
-
-    serializer = serializers.OverviewSerializer(data=combined_result)
-    serializer.is_valid(raise_exception=True)
-
-    return Response(
-        data=serializer.data,
-        status=status.HTTP_200_OK,
+    outline_overviews = sorted(
+        set([overview.outline_overview_id for overview in overviews])
     )
+
+    output = get_overview_data_many(
+        outline_overviews,
+        show_hidden=False,
+        player=overviews[0].player,
+        language=language,
+        version=4,
+    )
+
+    if not output.is_valid():
+        return Response(
+            data={"detail": f"Inconsistent data in database: {output.errors}"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
     return Response(
         data=output.data,

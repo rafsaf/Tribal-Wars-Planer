@@ -56,6 +56,7 @@ class OutlineProfileSettings(MiniSetup):
                 "currency": "PLN",
                 "sending_option": "default",
                 "send_message_with_url": True,
+                "feature_flag_shipments": True,
             },
         )
         assert response.status_code == 200
@@ -70,6 +71,7 @@ class OutlineProfileSettings(MiniSetup):
         me = self.me()
         profile: Profile = Profile.objects.get(user=me)
         profile.default_morale_on = True
+        profile.feature_flag_shipments = True
         profile.server = None
         profile.input_data_type = Outline.ARMY_COLLECTION
         profile.save()
@@ -82,6 +84,7 @@ class OutlineProfileSettings(MiniSetup):
                 "currency": "EUR",
                 "input_data_type": Outline.DEFF_COLLECTION,
                 "default_morale_on": False,
+                "feature_flag_shipments": False,
                 "sending_option": "extended",
                 "send_message_with_url": False,
                 "form1": "",
@@ -95,5 +98,6 @@ class OutlineProfileSettings(MiniSetup):
         assert profile_2.server is not None
         assert profile_2.server.dns == "nottestserver"
         assert not profile_2.default_morale_on
+        assert not profile_2.feature_flag_shipments
         assert profile_2.sending_option == "extended"
         assert not profile_2.send_message_with_url

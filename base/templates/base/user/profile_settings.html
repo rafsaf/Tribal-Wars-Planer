@@ -51,6 +51,10 @@
                                 {% endif %}
                             </th>
                         </tr>
+                        <tr>
+                            <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Shipments feature enabled' %}</th>
+                            <th style="min-width: 45vh;" class="text-nowrap">{{ user.profile.feature_flag_shipments }}</th>
+                        </tr>
                         {% if user.profile.is_premium %}
                             <tr>
                                 <th style="min-width: 45vh;" class="text-nowrap">{% trans 'Premium validity' %}</th>

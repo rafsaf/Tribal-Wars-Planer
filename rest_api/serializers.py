@@ -18,6 +18,7 @@ from typing import Any
 from rest_framework import serializers
 
 from utils.buildings import BUILDINGS_TRANSLATION
+from utils.send_text import SEND_TEXT_TRANSLATION
 
 
 class TargetTimeUpdateSerializer(serializers.Serializer):
@@ -145,12 +146,21 @@ class WeightSerializer(serializers.Serializer):
     village_id = serializers.IntegerField(help_text="Game ID of the village.")
     player_id = serializers.IntegerField(help_text="Game ID of the player.")
     send_url = serializers.CharField(help_text="URL for sending the attack.")
+    send_url_text = serializers.CharField(write_only=True)
+    send_url_name = serializers.SerializerMethodField(
+        help_text='Translated suggested name to display for send_url. Always "" if overview generated before 5.11.0.',
+    )
     deputy_send_url = serializers.SerializerMethodField(
         help_text="URL for deputy to send the attack."
     )
 
     def get_building_name(self, obj: Any) -> str:
         return BUILDINGS_TRANSLATION.get(obj.get("building"))  # type: ignore
+
+    def get_send_url_name(self, obj: Any) -> str:
+        if obj.get("send_url_text"):
+            return SEND_TEXT_TRANSLATION.get(obj.get("send_url_text"))  # type: ignore
+        return ""
 
     def get_deputy_send_url(self, obj: Any) -> str:
         return f"{obj.get('send_url')}?t={obj.get('player_id')}"
