@@ -58,14 +58,14 @@
                     visible: false,
                     render: function (data, type, row) {
                         const now = Date.now();
-                        const t1 = new Date(row.shipment_t1).getTime();
+                        const t2 = new Date(row.shipment_t2).getTime();
 
                         if (row.is_send) {
-                            // Sent: sort by shipment_t1 directly
-                            return t1;
+                            // Sent: sort by shipment_t2 directly
+                            return t2;
                         } else {
                             // Not sent: sort by diff (negative comes first)
-                            return t1 - now;
+                            return t2 - now;
                         }
                     }
                 },
@@ -185,7 +185,7 @@
                 if (diff <= 0) {
                     diff = t2.getTime() - now.getTime();
                     if (diff > 0) {
-                        color = 'yellow';
+                        color = '#e67e00';
                     } else {
                         color = 'red';
                     }
