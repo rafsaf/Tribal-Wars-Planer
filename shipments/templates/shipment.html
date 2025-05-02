@@ -55,11 +55,44 @@
                 },
                 {
                     data: null,
-                    title: '{% trans "Send in" %}',
+                    visible: false,
                     render: function (data, type, row) {
-                        const shipmentTime = new Date(row.shipment_t1).toISOString();
-                        const shipmentTime2 = new Date(row.shipment_t2).toISOString();
-                        return `<span id="countdown-${row.id}" data-t1="${shipmentTime}" data-t2="${shipmentTime2}">--:--:--</span>`;
+                        const now = Date.now();
+                        const t1 = new Date(row.shipment_t1).getTime();
+
+                        if (row.is_send) {
+                            // Sent: sort by shipment_t1 directly
+                            return t1;
+                        } else {
+                            // Not sent: sort by diff (negative comes first)
+                            return t1 - now;
+                        }
+                    }
+                },
+                {
+                    data: null,
+                    title: '{% trans "Send in" %}',
+                    orderable: false,
+                    render: function (data, type, row) {
+                        const shipmentTime = new Date(row.shipment_t1);
+                        const shipmentTime2 = new Date(row.shipment_t2);
+                        const now = new Date();
+
+                        let prefix = "";
+                        let diff = shipmentTime.getTime() - now.getTime();
+
+                        if (diff <= 0) {
+                            diff = shipmentTime2.getTime() - now.getTime();
+                        }
+
+                        if (diff < 0) prefix = "-";
+
+                        diff = Math.abs(diff);
+                        let hours = Math.floor(diff / (1000 * 60 * 60));
+                        let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                        return `<span id="countdown-${row.id}" data-t1="${shipmentTime.toISOString()}" data-t2="${shipmentTime2.toISOString()}">${prefix}${hours}:${minutes}:${seconds}</span>`;
                     }
                 },
                 {
@@ -108,6 +141,9 @@
                 }
             },
             order: [[0, 'asc'],[1, 'asc']], // Sort by "Send in" column (index 0) in ascending order
+            orderFixed: {
+                pre: [[0, 'asc']]
+            },
             pageLength: 25,
             responsive: true,
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
