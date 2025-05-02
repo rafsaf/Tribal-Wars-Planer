@@ -1,0 +1,224 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block sidebar %}
+    <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>
+    <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
+    <a href="{% url 'shipments:edit_shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'edit_shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Edit' %}</span></a>
+{% endblock %}
+
+{% block phonesidebar %}
+    <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>
+    <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
+    <a href="{% url 'shipments:edit_shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'edit_shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Edit' %}</span></a>
+{% endblock %}
+
+{% block title %}{% trans 'Shipment' %} {{shipment.name|capfirst}} {{shipment.pk}}{% endblock %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <div class="table-container" style="margin: 20px auto; overflow-x: auto; max-width: 100%;">
+        <table class="table table-sm table-striped table-bordered" id="my-orders" style="width: 100%;">
+        </table>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    {% get_current_language as LANG %}
+    <script>
+        const sendList = {{ shipment.sent_lst}};
+        const data = {
+            ajax: {
+                url: `/api/shipment/{{ shipment.pk }}/overviews/?language={{ LANG }}`,
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken"),
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                dataSrc: function (json) {
+                    const orders = [];
+                    json.targets.forEach(target => {
+                        target.my_orders.forEach(order => {
+                            orders.push({
+                                ...order,
+                                target_player: target.target.player,
+                                target_coords: target.target.target,
+                                is_send: sendList.includes(order.id)
+                            });
+                        });
+                    });
+                    return orders;
+                }
+            },
+            columns: [
+                {
+                    data: 'is_send', // hidden column, used for ordering
+                    visible: false
+                },
+                {
+                    data: null,
+                    title: '{% trans "Send in" %}',
+                    render: function (data, type, row) {
+                        const shipmentTime = new Date(row.shipment_t1).toISOString();
+                        const shipmentTime2 = new Date(row.shipment_t2).toISOString();
+                        return `<span id="countdown-${row.id}" data-t1="${shipmentTime}" data-t2="${shipmentTime2}">--:--:--</span>`;
+                    }
+                },
+                {
+                    data: 'send_url',
+                    title: '{% trans "Link" %}',
+                    render: function (data, type, row) {
+                        return `<a href="${data}" target="_blank">${row.send_url_name}</a>`;
+                    }
+                },
+                {
+                    data: null,
+                    title: '{% trans "Action" %}',
+                    render: (data, type, row) => {
+                        return `<button id='send-btn-${row.id}' ${row.is_send ? 'disabled' : ''} class="send-btn btn btn-light-no-border btn-light" data-id="${row.id}">{% trans "Mark send" %}</button>`;
+                    },
+                    orderable: false
+                },
+                { data: 'off', title: '{% trans "Off" %}' },
+                { data: 'nobleman', title: '{% trans "Nobleman" %}' },
+                { data: 'catapult', title: '{% trans "Catapult" %}' },
+                { data: 'building_name', title: '{% trans "Building" %}' },
+                { data: 'start', title: '{% trans "Start" %}' },
+                { data: 'target_coords', title: '{% trans "Target" %}' },
+                { data: 'target_player', title: '{% trans "Enemy" %}' },
+                {
+                    data: 'shipment_t1',
+                    title: '{% trans "Send min." %}',
+                    render: function(data) {
+                        const shipmentTime = new Date(data);
+                        const dateString = shipmentTime.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        const timeString = shipmentTime.toLocaleTimeString('en-CA', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                        return `${dateString}<br>${timeString}`;
+                    },
+                },
+                { data: 'shipment_t2', title: '{% trans "Send max." %}',render: function(data) {
+                    const shipmentTime = new Date(data);
+                    const dateString = shipmentTime.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                    const timeString = shipmentTime.toLocaleTimeString('en-CA', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    return `${dateString}<br>${timeString}`;
+                }, },
+                { data: 'id', title: '{% trans "ID" %}' },
+            ],
+            rowCallback: (row, data) => {
+                if (data.is_send) {
+                    row.style.opacity = '50%'; // hide during initialization
+                }
+            },
+            order: [[0, 'asc'],[1, 'asc']], // Sort by "Send in" column (index 0) in ascending order
+            pageLength: 25,
+            responsive: true,
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            dom: '<"top"f>rt<"bottom"lp><"clear">', // Adjust layout (filter on top, pagination on bottom)
+            autoWidth: false,
+            columnDefs: [
+                { targets: '_all', className: 'text-center' }
+            ],
+            initComplete: function () {
+                this.api().table().container().querySelector('.top').style.marginTop = "1rem";
+                this.api().table().container().querySelector('.top').style.marginBottom = "1rem";
+                this.api().table().container().querySelector('.bottom').style.marginTop = "1rem";
+                this.api().table().container().querySelectorAll('.bottom div').forEach(div => {
+                    div.style.marginBottom = "1rem";
+                });
+                this.api().columns().every(function () {
+                    const column = this;
+                    $(column.header()).css('padding', '0.1rem');
+                });
+            },
+            processing: true
+        };
+        if (getLanguage() === "pl") {
+            data["language"] = {
+                url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/pl.json",
+            };
+        }
+        const table = new DataTable('#my-orders', data);
+        setInterval(() => {
+            document.querySelectorAll('[id^="countdown-"]').forEach(el => {
+                const t1 = new Date(el.dataset.t1);
+                const t2 = new Date(el.dataset.t2);
+                const now = new Date();
+
+                let prefix = "";
+                let diff = t1.getTime() - now.getTime();
+                let color = 'blue';
+
+                if (diff <= 0) {
+                    diff = t2.getTime() - now.getTime();
+                    if (diff > 0) {
+                        color = 'yellow';
+                    } else {
+                        color = 'red';
+                    }
+                }
+
+                if (diff < 0) prefix = "-";
+
+                diff = Math.abs(diff);
+                let hours = Math.floor(diff / (1000 * 60 * 60));
+                let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                el.textContent = `${prefix}${hours}:${minutes}:${seconds}`;
+                el.style.color = color;
+            });
+        }, 1000);
+        document.querySelector('#my-orders').addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.classList.contains('send-btn')) {
+                const rowElement = target.closest('tr');
+                const id = parseInt(target.dataset.id, 10);
+                const btn = document.getElementById(`send-btn-${id}`)
+
+                const actualInnerHTML = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
+
+                fetch(`/api/shipment/{{ shipment.pk }}/add-to-send-lst/`, {
+                    method: "POST",
+                    credentials: "same-origin",
+                    body: JSON.stringify({ id: id }),
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    signal: AbortSignal.timeout(3200)
+                }).then(response => {
+                    if (response.status !== 200) {
+                        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
+                        setTimeout(() => {
+                            btn.innerHTML = actualInnerHTML;
+                            btn.blur();
+                            btn.disabled = false;
+                        }, 2000);
+                    } else {
+                  // Add to sendList if needed
+                        if (!sendList.includes(id)) sendList.push(id);
+                  // Hide the row
+                        rowElement.style.opacity = '50%';
+                        btn.innerHTML = actualInnerHTML;
+                        btn.blur();
+                    }
+                }).catch(error => {
+                    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
+                    setTimeout(() => {
+                        btn.innerHTML = actualInnerHTML;
+                        btn.blur();
+                        btn.disabled = false;
+                    }, 2000);
+                })
+
+
+            }
+        });
+
+    </script>
+{% endblock %}

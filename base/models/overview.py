@@ -14,6 +14,8 @@
 # ==============================================================================
 
 
+import typing
+
 from django.db import models
 from django.http import HttpRequest
 from django.urls import reverse
@@ -41,6 +43,9 @@ class Overview(models.Model):
     deputy = models.TextField(default="")
     show_hidden = models.BooleanField(default=False)
     removed = models.BooleanField(default=False)
+
+    if typing.TYPE_CHECKING:
+        outline_overview_id: int
 
     class Meta:
         ordering = ("-created",)

@@ -13,7 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 import datetime
-import json
 import logging
 
 import prometheus_client
@@ -21,6 +20,7 @@ import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.db.models import Prefetch
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -56,15 +56,18 @@ from base.models import (
     WeightModel,
 )
 from rest_api import serializers
+from rest_api.overview_data import get_overview_data, get_overview_data_many
 from rest_api.permissions import MetricsExportSecretPermission
 from rest_api.serializers import (
     ChangeBuildingsArraySerializer,
     ChangeWeightBuildingSerializer,
     OverwiewStateHideSerializer,
+    ShipmentUpdateSendListSerializer,
     StripeSessionAmount,
     TargetDeleteSerializer,
     TargetTimeUpdateSerializer,
 )
+from shipments.models import Shipment
 
 LANGUAGES: set[str] = set(lang[0] for lang in settings.LANGUAGES)
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -469,66 +472,19 @@ def public_overview(request: Request) -> HttpResponse:
     activate(language)
 
     overview: models.Overview = get_object_or_404(
-        models.Overview.objects.select_related("outline_overview").filter(pk=token)
+        models.Overview.objects.filter(pk=token).only(
+            "outline_overview_id", "show_hidden", "player"
+        ),
     )
-    outline_overview: models.OutlineOverview = overview.outline_overview
 
-    query = []
-    targets = json.loads(outline_overview.targets_json)
-    weights = json.loads(outline_overview.weights_json)
-
-    if overview.show_hidden:
-        for target, lst in weights.items():
-            for weight in lst:
-                if weight["player"] == overview.player:
-                    query.append(
-                        {
-                            "target": targets[target],
-                            "my_orders": [
-                                weight
-                                for weight in lst
-                                if weight["player"] == overview.player
-                            ],
-                            "other_orders": [
-                                weight
-                                for weight in lst
-                                if weight["player"] != overview.player
-                            ],
-                        }
-                    )
-                    break
-
-    else:
-        for target, lst in weights.items():
-            owns = [weight for weight in lst if weight["player"] == overview.player]
-
-            if len(owns) > 0:
-                alls = False
-                for weight in owns:
-                    if weight["nobleman"] > 0 and weight["distance"] < 14:
-                        alls = True
-                        break
-                if alls:
-                    others = [
-                        weight for weight in lst if weight["player"] != overview.player
-                    ]
-                else:
-                    others = []
-
-                query.append(
-                    {
-                        "target": targets[target],
-                        "my_orders": owns,
-                        "other_orders": others,
-                    }
-                )
-    output = serializers.OverviewSerializer(
-        data={
-            "outline": outline_overview.outline_json,
-            "world": outline_overview.world_json,
-            "targets": query,
-        }
+    output = get_overview_data(
+        overview.outline_overview_id,
+        show_hidden=overview.show_hidden,
+        player=overview.player,
+        language=language,
+        version=4,
     )
+
     if not output.is_valid():
         return Response(
             data={"detail": f"Inconsistent data in database: {output.errors}"},
@@ -539,3 +495,74 @@ def public_overview(request: Request) -> HttpResponse:
         data=output.data,
         status=status.HTTP_200_OK,
     )
+
+
+@extend_schema(exclude=True)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def shipment_overviews(request: Request, pk: int) -> HttpResponse:
+    language = request.query_params.get("language", "en")
+    if language not in LANGUAGES:
+        language = "en"
+
+    activate(language)
+
+    shipment = get_object_or_404(
+        Shipment.objects.prefetch_related(
+            Prefetch(
+                "overviews",
+                queryset=Overview.objects.only("player", "outline_overview_id"),
+            )
+        ),
+        pk=pk,
+        owner=request.user,
+    )
+    overviews = list(shipment.overviews.all())
+
+    if not overviews:
+        return Response(
+            data={"detail": "No overviews found."},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    outline_overviews = sorted(
+        set([overview.outline_overview_id for overview in overviews])
+    )
+
+    output = get_overview_data_many(
+        outline_overviews,
+        show_hidden=False,
+        player=overviews[0].player,
+        language=language,
+        version=4,
+    )
+
+    if not output.is_valid():
+        return Response(
+            data={"detail": f"Inconsistent data in database: {output.errors}"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+    return Response(
+        data=output.data,
+        status=status.HTTP_200_OK,
+    )
+
+
+@extend_schema(exclude=True)
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def shipment_add_to_send_lst(request: Request, pk: int) -> HttpResponse:
+    req = ShipmentUpdateSendListSerializer(data=request.data)  # type: ignore
+    if req.is_valid():
+        shipment = get_object_or_404(
+            Shipment,
+            pk=pk,
+            owner=request.user,
+        )
+        if req.data["id"] not in shipment.sent_lst:
+            shipment.sent_lst.append(req.data["id"])
+            shipment.save(update_fields=["sent_lst"])
+        return Response(status=status.HTTP_200_OK)
+
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)

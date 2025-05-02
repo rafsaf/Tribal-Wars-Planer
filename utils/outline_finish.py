@@ -42,6 +42,7 @@ from base.models import (
 )
 from utils import basic
 from utils.basic import info_generatation
+from utils.send_text import SEND_TEXT
 
 log = logging.getLogger(__name__)
 
@@ -170,7 +171,18 @@ class MakeFinalOutline:
         )
         return time_periods
 
-    def _json_weight(self, weight: WeightModel, target_village_id: int):
+    def _json_weight(self, weight: WeightModel, target: TargetVertex):
+        if target.fake and weight.nobleman > 0:
+            send_url_text = SEND_TEXT.FAKE_NOBLE.value
+        elif target.fake and weight.nobleman == 0:
+            send_url_text = SEND_TEXT.FAKE.value
+        elif weight.ruin:
+            send_url_text = SEND_TEXT.RUIN.value
+        elif weight.nobleman > 0:
+            send_url_text = SEND_TEXT.NOBLE.value
+        else:
+            send_url_text = SEND_TEXT.OFF.value
+
         return {
             "id": weight.pk,
             "start": weight.start,
@@ -190,7 +202,8 @@ class MakeFinalOutline:
             "shipment_t2": weight.sh_t2,
             "village_id": weight.village_id,
             "player_id": weight.player_id,
-            "send_url": f"{self.game_url}/game.php?village={weight.village_id}&screen=place&target={target_village_id}",
+            "send_url": f"{self.game_url}/game.php?village={weight.village_id}&screen=place&target={target.village_id}",
+            "send_url_text": send_url_text,
         }
 
     def _outline_overview(
@@ -247,9 +260,7 @@ class MakeFinalOutline:
 
                 for weight in lst:
                     weight_lst.append(weight)
-                    json_weights[target.pk].append(
-                        self._json_weight(weight, target.village_id)
-                    )
+                    json_weights[target.pk].append(self._json_weight(weight, target))
 
             text.create_weights(weight_lst)
 

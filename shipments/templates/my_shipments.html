@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block title %}{% trans 'My shipments' %}{% endblock %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <div class="table-responsive">
+        <table class="table table-striped mt-3">
+            <thead style="background-color: teal;">
+                <tr style="color: white;">
+                    <th class='text-nowrap' scope="col" style="border:1px solid teal">{% trans 'Name of shipment' %}</th>
+                    <th scope="col" style="border:1px solid teal">{% trans 'Date' %}</th>
+                    <th scope="col" style="border:1px solid teal">{% trans 'Created' %}</th>
+                    <th scope="col" style="border:1px solid teal">{% trans 'World' %}</th>
+                    <th scope="col" style="border:1px solid teal">{% trans 'Tokens' %}</th>
+                    <th scope="col" style="border:1px solid teal">{% trans 'Hide' %}</th>
+                    <th scope="col" style="border:1px solid teal">{% trans 'Delete' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for shipment in shipments %}
+                    <tr>
+                        <td>
+                            <a class="btn btn-secondary my-2" href="{% url 'shipments:shipment' shipment.pk %}" role="button">{{shipment.name}}</a>
+                        </td>
+                        <td><p class="my-2 mt-3">{{shipment.date}}</p></td>
+                        <td><p class="my-2 mt-3">{{shipment.created_at}}</p></td>
+                        <td><p class="my-2 mt-3">{{shipment.world.game_name}}</p></td>
+                        <td>
+                            {% for overview in shipment.overviews.all %}
+                                <a href="{{ overview.get_absolute_url }}">{{overview.token}}</a><br>
+                            {% endfor %}
+                        </td>
+
+                        <td>
+                            {% if not shipment.hidden %}
+
+                                <form action="{% url 'shipments:shipment_hide' shipment.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
+                                    {% csrf_token %}
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2">{% trans 'Hide' %}</button>
+                                </form>
+
+                            {% else %}
+
+                                <form action="{% url 'shipments:shipment_hide' shipment.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
+                                    {% csrf_token %}
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2">{% trans 'Show' %}</button>
+                                </form>
+
+                            {% endif %}
+
+                        </td>
+                        <td>
+                            <div>
+                                <button type="button" class="btn btn-secondary my-2" data-toggle="modal" data-target="#ValidationModal-{{shipment.id}}">{% trans 'Delete' %}</button>
+                            </div>
+
+                            <div class="modal fade" id="ValidationModal-{{shipment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">{% trans 'Warning' %}</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="md-correct2">{{shipment.name}}</h4>
+
+                                            <h5 class="md-error mt-2">{% trans "This operation cannot be undone!" %}</h5>
+
+                                        </div>
+                                        <div class="modal-footer">
+
+                                            <button id="dismiss-{{shipment.pk}}-btn" type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <b>{% trans 'Close' %}</b>
+                                            </button>
+
+                                            <form id="form-{{shipment.id}}-form" action="{% url 'shipments:shipment_delete' shipment.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
+                                                {% csrf_token %}
+                                                <button onclick="removeOutline(this,`dismiss-{{shipment.id}}-btn`,`form-{{shipment.id}}-form`,`{% trans 'Processing...' %}`)" class="btn btn-danger">{% trans 'Delete forever' %}</button>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if show_hidden %}
+        <p><a class="btn btn-outline-ocean my-3" href="{% url 'shipments:my_shipments' %}?show-hidden=false" role="button">{% trans "Don't show hidden" %}</a></p>
+    {% else %}
+        <p><a class="btn btn-outline-ocean my-3" href="{% url 'shipments:my_shipments' %}?show-hidden=true" role="button">{% trans 'Show hidden' %}</a></p>
+    {% endif %}
+
+{% endblock %}

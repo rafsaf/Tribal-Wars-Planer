@@ -1102,6 +1102,7 @@ class ChangeProfileForm(forms.ModelForm):
             "default_morale_on",
             "send_message_with_url",
             "sending_option",
+            "feature_flag_shipments",
         ]
         labels = {
             "server": gettext_lazy("Please select your server:"),
@@ -1112,6 +1113,7 @@ class ChangeProfileForm(forms.ModelForm):
             "currency": gettext_lazy("Please select your currency:"),
             "sending_option": gettext_lazy("Sending Options:"),
             "send_message_with_url": gettext_lazy("Add links to direct messages:"),
+            "feature_flag_shipments": gettext_lazy("Enable shipments feature:"),
         }
         help_texts = {
             "sending_option": gettext_lazy("Prefered sending option in Results tab"),
