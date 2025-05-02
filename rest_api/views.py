@@ -20,6 +20,7 @@ import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.db.models import Prefetch
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -507,8 +508,11 @@ def shipment_overviews(request: Request, pk: int) -> HttpResponse:
     activate(language)
 
     shipment = get_object_or_404(
-        Shipment.objects.prefetch_related("overviews").only(
-            "overviews__player", "overviews__outline_overview_id"
+        Shipment.objects.prefetch_related(
+            Prefetch(
+                "overviews",
+                queryset=Overview.objects.only("player", "outline_overview_id"),
+            )
         ),
         pk=pk,
         owner=request.user,

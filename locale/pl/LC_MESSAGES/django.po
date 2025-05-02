@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 11:59+0200\n"
+"POT-Creation-Date: 2025-05-02 13:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1083,7 +1083,7 @@ msgstr "Sojusznik"
 
 #: base/templates/base/base_planer.html:15
 #: base/templates/base/new_outline/new_outline_create_select.html:78
-#: shipments/templates/shipment.html:115
+#: shipments/templates/shipment.html:86
 msgid "Enemy"
 msgstr "Wróg"
 
@@ -1947,7 +1947,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
-#: base/templates/base/overview.html:227 shipments/templates/shipment.html:114
+#: base/templates/base/overview.html:227 shipments/templates/shipment.html:85
 #: utils/basic/mode.py:60 utils/outline_finish.py:75
 msgid "Target"
 msgstr "Cel"
@@ -2369,7 +2369,7 @@ msgstr ""
 msgid "Ruin"
 msgstr "Burzenie"
 
-#: base/templates/base/overview.html:246 shipments/templates/shipment.html:109
+#: base/templates/base/overview.html:246 shipments/templates/shipment.html:80
 msgid "Off"
 msgstr "Off"
 
@@ -2778,53 +2778,61 @@ msgstr "Tokeny"
 msgid "Shipment"
 msgstr "Wysyłka"
 
-#: shipments/templates/shipment.html:54
+#: shipments/templates/shipment.html:58
 msgid "Send in"
 msgstr "Wyślij za"
 
-#: shipments/templates/shipment.html:104
+#: shipments/templates/shipment.html:67
 msgid "Link"
 msgstr "Link"
 
-#: shipments/templates/shipment.html:110
+#: shipments/templates/shipment.html:74
+msgid "Action"
+msgstr "Akcja"
+
+#: shipments/templates/shipment.html:76
+msgid "Mark send"
+msgstr "Wysłane"
+
+#: shipments/templates/shipment.html:81
 msgid "Nobleman"
 msgstr "Szlachcic"
 
-#: shipments/templates/shipment.html:111
+#: shipments/templates/shipment.html:82
 msgid "Catapult"
 msgstr "Katapulty"
 
-#: shipments/templates/shipment.html:112
+#: shipments/templates/shipment.html:83
 msgid "Building"
 msgstr "Budynek"
 
-#: shipments/templates/shipment.html:113
+#: shipments/templates/shipment.html:84
 msgid "Start"
 msgstr "Z wioski"
 
-#: shipments/templates/shipment.html:118
+#: shipments/templates/shipment.html:89
 msgid "Send min."
 msgstr "Wyślij min."
 
-#: shipments/templates/shipment.html:126
+#: shipments/templates/shipment.html:97
 msgid "Send max."
 msgstr "Wyślij max."
 
-#: shipments/templates/shipment.html:132
+#: shipments/templates/shipment.html:103
 msgid "ID"
 msgstr "ID"
 
-#: shipments/views.py:142
+#: shipments/views.py:143
 msgid "All overviews must belong to the same world."
 msgstr ""
 "Wszystkie tokeny muszą być wynikami rozpisek dla tego samego świata w grze."
 
-#: shipments/views.py:156
+#: shipments/views.py:157
 msgid "All overviews must be for the same player."
 msgstr ""
 "Wszystkie tokeny muszą być wynikami rozpisek dla tego samego gracza w grze."
 
-#: shipments/views.py:158
+#: shipments/views.py:159
 msgid "does not match"
 msgstr "różni się od"
 

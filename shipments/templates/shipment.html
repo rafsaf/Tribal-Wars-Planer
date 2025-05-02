@@ -41,8 +41,6 @@
                                 ...order,
                                 target_player: target.target.player,
                                 target_coords: target.target.target,
-                                min_send_time: order.shipment_t1.split('T')[1].split('+')[0],
-                                max_send_time: order.shipment_t2.split('T')[1].split('+')[0],
                                 is_send: sendList.includes(order.id)
                             });
                         });
@@ -56,57 +54,16 @@
                     visible: false
                 },
                 {
-                    data: 'min_send_time',
+                    data: null,
                     title: '{% trans "Send in" %}',
-                    render: function (data, type, row, meta) {
-                        const shipmentTime = new Date(row.shipment_t1);
-                        const shipmentTime2 = new Date(row.shipment_t2);
-
-                        const updateCountdown = () => {
-                            const now = new Date();
-                            let prefix = "";
-                            let diff = shipmentTime.getTime() - now.getTime();
-                            let color = 'blue'; // Default: before shipment_t1
-                            if (diff <= 0) {
-                                diff = shipmentTime2.getTime() - now.getTime();
-                                if (diff > 0) {
-                                    color = 'yellow'; // Between shipment_t1 and shipment_t2
-                                } else {
-                                    color = 'red'; // After shipment_t2
-                                }
-                            }
-
-                            if (diff < 0) {
-                                prefix = "-";
-                            }
-
-                            diff = Math.abs(diff);
-
-                            let hours = Math.floor(diff / (1000 * 60 * 60));
-                            let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                            let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                            hours = hours < 10 ? "0" + hours : hours;
-                            minutes = minutes < 10 ? "0" + minutes : minutes;
-                            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                            const countdown = `${prefix}${hours}:${minutes}:${seconds}`;
-
-                            // Update the cell with the countdown and color
-                            if (meta.settings && meta.settings.aoData && meta.settings.aoData[meta.row] && meta.settings.aoData[meta.row].anCells && meta.settings.aoData[meta.row].anCells[meta.col]) {
-                                const cell = meta.settings.aoData[meta.row].anCells[meta.col];
-                                cell.textContent = countdown;
-                                cell.style.color = color;
-                            }
-
-                            return countdown
-                        }
-
-                        return updateCountdown();
+                    render: function (data, type, row) {
+                        const shipmentTime = new Date(row.shipment_t1).toISOString();
+                        const shipmentTime2 = new Date(row.shipment_t2).toISOString();
+                        return `<span id="countdown-${row.id}" data-t1="${shipmentTime}" data-t2="${shipmentTime2}">--:--:--</span>`;
                     }
                 },
                 {
-                    data: 'send_url',
+                    data: null,
                     title: '{% trans "Link" %}',
                     render: function (data, type, row) {
                         return `<a href="${data}" target="_blank">${row.send_url_name}</a>`;
@@ -114,7 +71,7 @@
                 },
                 {
                     data: null,
-                    title: 'Action',
+                    title: '{% trans "Action" %}',
                     render: (data, type, row) => {
                         return `<button id='send-btn-${row.id}' class="send-btn btn btn-light-no-border btn-light" data-id="${row.id}">{% trans "Mark send" %}</button>`;
                     },
@@ -180,10 +137,38 @@
         }
         const table = new DataTable('#my-orders', data);
         setInterval(() => {
-            table.rows().every(function () {
-                this.invalidate();
+            document.querySelectorAll('[id^="countdown-"]').forEach(el => {
+                const t1 = new Date(el.dataset.t1);
+                const t2 = new Date(el.dataset.t2);
+                const now = new Date();
+
+                let prefix = "";
+                let diff = t1.getTime() - now.getTime();
+                let color = 'blue';
+
+                if (diff <= 0) {
+                    diff = t2.getTime() - now.getTime();
+                    if (diff > 0) {
+                        color = 'yellow';
+                    } else {
+                        color = 'red';
+                    }
+                }
+
+                if (diff < 0) prefix = "-";
+
+                diff = Math.abs(diff);
+                let hours = Math.floor(diff / (1000 * 60 * 60));
+                let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                el.textContent = `${prefix}${hours}:${minutes}:${seconds}`;
+                el.style.color = color;
             });
-            table.draw(false);
         }, 1000);
         document.querySelector('#my-orders').addEventListener('click', (event) => {
             const target = event.target;
@@ -217,6 +202,7 @@
                         if (!sendList.includes(id)) sendList.push(id);
                   // Hide the row
                         rowElement.style.opacity = '50%';
+                        btn.innerHTML = actualInnerHTML;
                         btn.blur();
                     }
                 })
