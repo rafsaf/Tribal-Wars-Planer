@@ -560,8 +560,9 @@ def shipment_add_to_send_lst(request: Request, pk: int) -> HttpResponse:
             pk=pk,
             owner=request.user,
         )
-        shipment.sent_lst.append(req.data["id"])
-        shipment.save(update_fields=["sent_lst"])
+        if req.data["id"] not in shipment.sent_lst:
+            shipment.sent_lst.append(req.data["id"])
+            shipment.save(update_fields=["sent_lst"])
         return Response(status=status.HTTP_200_OK)
 
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
