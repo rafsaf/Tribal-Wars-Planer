@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import BaseFormSet, formset_factory
+from django.utils.translation import gettext_lazy
 
 from base.models.overview import Overview
 
@@ -26,15 +27,24 @@ class BaseShipmentOverviewTokenFormSet(BaseFormSet):
             token = form.cleaned_data.get("token")
             if not Overview.objects.filter(token=token).exists():
                 form.add_error("token", "")
-                raise forms.ValidationError(f"Invalid overview token: {token}")
+                raise forms.ValidationError(
+                    gettext_lazy("Invalid overview token: %(token)s") % {"token": token}
+                )
             tokens.append(token)
 
         if not tokens:
-            raise forms.ValidationError("At least one overview token is required.")
+            raise forms.ValidationError(
+                gettext_lazy("At least one overview token is required.")
+            )
         if len(tokens) > MAX_OVERVIEWS:
-            raise forms.ValidationError(f"Maximum {MAX_OVERVIEWS} overviews allowed.")
+            raise forms.ValidationError(
+                gettext_lazy("Maximum %(MAX_OVERVIEWS)d overviews allowed.")
+                % {"MAX_OVERVIEWS": MAX_OVERVIEWS}
+            )
         if len(tokens) != len(set(tokens)):
-            raise forms.ValidationError("Duplicate overview tokens are not allowed.")
+            raise forms.ValidationError(
+                gettext_lazy("Duplicate overview tokens are not allowed.")
+            )
 
 
 ShipmentOverviewTokenFormSet = formset_factory(

@@ -14,5 +14,6 @@ class Shipment(models.Model):
     world = models.ForeignKey(World, on_delete=models.CASCADE)
     overviews = models.ManyToManyField(Overview, blank=True)
     sent_lst = ArrayField(models.BigIntegerField(), blank=True, default=list)
+    hidden = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

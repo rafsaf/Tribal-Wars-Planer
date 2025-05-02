@@ -21,6 +21,9 @@ app_name = "shipments"
 
 urlpatterns = [
     path("my", views.my_shipments, name="my_shipments"),
-    path("<int:pk>", views.shipment, name="shipment"),
-    path("add", views.add_shipment, name="add_shipment"),
+    path("<int:pk>", views.shipment_send, name="shipment"),
+    path("add", views.add_edit_shipment, name="add_shipment"),
+    path("<int:pk>/edit", views.add_edit_shipment, name="edit_shipment"),
+    path("<int:pk>/hide", views.shipment_hide, name="shipment_hide"),
+    path("<int:pk>/delete", views.shipment_delete, name="shipment_delete"),
 ]

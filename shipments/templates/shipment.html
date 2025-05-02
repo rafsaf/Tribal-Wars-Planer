@@ -3,11 +3,13 @@
 {% block sidebar %}
     <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>
     <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
+    <a href="{% url 'shipments:edit_shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'edit_shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Edit' %}</span></a>
 {% endblock %}
 
 {% block phonesidebar %}
     <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>
     <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
+    <a href="{% url 'shipments:edit_shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'edit_shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Edit' %}</span></a>
 {% endblock %}
 
 {% block title %}{% trans 'Shipment' %} {{shipment.name|capfirst}} {{shipment.pk}}{% endblock %}

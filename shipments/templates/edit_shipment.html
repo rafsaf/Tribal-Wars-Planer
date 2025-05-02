@@ -1,0 +1,159 @@
+{% extends 'shipment.html' %}
+{% load i18n %}
+{% block title %}{% trans 'Edit shipment' %}{% endblock %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <div class="row mt-3 mb-4">
+        <div class="col-12 col-lg-7">
+            <div class="p-3 mb-2 bg-light text-dark">
+                <i class="bi bi-info-square"></i>
+                {% trans 'Create a new shipment and add overview tokens. You can add up to 10 overviews.' %}
+            </div>
+            {% if formset.non_form_errors %}
+                <div class="w-100 mb-2">
+                    <div class="border border-danger rounded bg-white text-danger p-2">
+                        {% for error in formset.non_form_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <form method="POST" autocomplete="off" id="shipment-form">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                {% trans 'Overviews' %}
+
+                <div id="formset-container">
+                    {% for form in formset.forms %}
+                        <div class="formset-item mb-2">
+                            <div class="d-flex align-items-center" style="gap: 0.5rem;">
+                                <div class="flex-grow-1">
+                                    {{ form.token|as_crispy_field }}
+                                </div>
+                                <button type="button"
+                                        class="btn btn-outline-danger btn-sm remove-formset d-flex align-items-center justify-content-center"
+                                        title="{% trans 'Remove' %}" style="height: 100%;">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    <button type="button" class="btn btn-outline-ocean btn-sm" id="add-formset">
+                        <i class="bi bi-plus"></i> {% trans 'Add overview token' %}
+                    </button>
+                </div>
+                {{ formset.management_form }}
+                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mt-2">
+                    {% trans 'Save' %}
+                </button>
+            </form>
+        </div>
+        <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
+            <div class="h-100">
+                <div class="p-3 mb-2 bg-light text-dark">
+                    <i class="bi bi-info-square"></i>
+                    {% trans 'Each overview token must be valid. You can remove or add more fields as needed.' %}
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Hidden empty form template for JS cloning -->
+    <div id="empty-formset" class="d-none">
+        <div class="formset-item mb-2">
+            <div class="d-flex align-items-center" style="gap: 0.5rem;">
+                <div class="flex-grow-1">
+                    {{ formset.empty_form.token|as_crispy_field }}
+                </div>
+                <button type="button"
+                        class="btn btn-outline-danger btn-sm remove-formset d-flex align-items-center justify-content-center"
+                        title="{% trans 'Remove' %}" style="height: 100%;">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<style>
+    /* Ensure button and input are the same height */
+    .formset-item .form-control {
+        height: 38px;
+    }
+
+    .formset-item .btn.remove-formset {
+        height: 38px;
+    }
+</style>
+
+{% block scripts %}
+    <script>
+        (function () {
+        // Get elements
+            const container = document.getElementById('formset-container');
+            const addBtn = document.getElementById('add-formset');
+            const emptyFormDiv = document.getElementById('empty-formset').innerHTML;
+            const totalForms = document.getElementById('id_form-TOTAL_FORMS');
+            const maxForms = parseInt(`{{ formset.max_num }}`, 10);
+            const minForms = parseInt(`{{ formset.min_num }}`, 10);
+        // Add new formset item
+            addBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                let formCount = parseInt(totalForms.value, 10);
+                if (formCount >= maxForms) return;
+                let newFormHtml = emptyFormDiv.replace(/__prefix__/g, formCount);
+                container.insertAdjacentHTML('beforeend', newFormHtml);
+                totalForms.value = formCount + 1;
+            });
+        // Remove formset item
+            container.addEventListener('click', function (e) {
+                if (e.target.closest('.remove-formset')) {
+                    e.preventDefault();
+                    let formCount = parseInt(totalForms.value, 10);
+                    if (formCount <= minForms) return;
+                    const item = e.target.closest('.formset-item');
+                    item.remove();
+                // Re-index forms
+                    let forms = container.querySelectorAll('.formset-item');
+                    forms.forEach(function (form, idx) {
+                        form.querySelectorAll('input, label').forEach(function (el) {
+                            if (el.name) el.name = el.name.replace(/form-(\d+)-/, 'form-' + idx + '-');
+                            if (el.id) el.id = el.id.replace(/form-(\d+)-/, 'form-' + idx + '-');
+                            if (el.htmlFor) el.htmlFor = el.htmlFor.replace(/form-(\d+)-/, 'form-' + idx + '-');
+                        });
+                    });
+                    totalForms.value = forms.length;
+                }
+            });
+        })();
+    </script>
+    <script>
+    // Remove margin-bottom from crispy's .form-group for inline alignment
+        function removeFormGroupMargins() {
+            document.querySelectorAll('.formset-item .form-group').forEach(function (el) {
+                el.classList.remove('mb-3', 'mb-4', 'mb-2');
+                el.style.marginBottom = '0';
+            });
+        }
+
+    // Remove all <p class="invalid-feedback"> elements inside formset items
+        function removeInvalidFeedback() {
+            document.querySelectorAll('.formset-item .invalid-feedback').forEach(function (el) {
+                el.remove();
+            });
+        }
+
+        function cleanupFormsetUI() {
+            removeFormGroupMargins();
+            removeInvalidFeedback();
+        }
+
+        document.addEventListener('DOMContentLoaded', cleanupFormsetUI);
+
+        document.getElementById('add-formset').addEventListener('click', function () {
+        // Wait for the new form to be added to the DOM
+            setTimeout(cleanupFormsetUI, 0);
+        });
+    </script>
+{% endblock %}</div>

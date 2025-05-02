@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 01:06+0200\n"
+"POT-Creation-Date: 2025-05-02 11:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,13 +23,13 @@ msgid "Outline Name"
 msgstr "Nazwa Rozpiski"
 
 #: base/forms.py:68 base/forms.py:82 base/templates/base/base_planer.html:11
-#: shipments/templates/orders/my_shipments.html:11
+#: shipments/templates/my_shipments.html:11
 #: utils/basic/info_generatation.py:151
 msgid "Date"
 msgstr "Data"
 
 #: base/forms.py:69 base/templates/base/base_planer.html:13
-#: shipments/templates/orders/my_shipments.html:13
+#: shipments/templates/my_shipments.html:13
 msgid "World"
 msgstr "Świat"
 
@@ -777,12 +777,12 @@ msgid "beta"
 msgstr "beta"
 
 #: base/templates/base/base.html:36 base/templates/base/base.html:63
-#: shipments/templates/orders/my_shipments.html:3
+#: shipments/templates/my_shipments.html:3
 msgid "My shipments"
 msgstr "Moje wysyłki"
 
 #: base/templates/base/base.html:38 base/templates/base/base.html:65
-#: shipments/templates/orders/add_shipment.html:3
+#: shipments/templates/add_shipment.html:3
 msgid "Add shipment"
 msgstr "Dodaj wysyłkę"
 
@@ -1072,7 +1072,7 @@ msgstr "Wersja"
 
 #: base/templates/base/base_planer.html:12
 #: base/templates/base/new_outline/new_outline_results.html:86
-#: shipments/templates/orders/my_shipments.html:12
+#: shipments/templates/my_shipments.html:12
 msgid "Created"
 msgstr "Utworzono"
 
@@ -1083,12 +1083,14 @@ msgstr "Sojusznik"
 
 #: base/templates/base/base_planer.html:15
 #: base/templates/base/new_outline/new_outline_create_select.html:78
-#: shipments/templates/orders/shipment.html:113
+#: shipments/templates/shipment.html:115
 msgid "Enemy"
 msgstr "Wróg"
 
 #: base/templates/base/base_planer.html:16
 #: base/templates/base/base_planer.html:41
+#: shipments/templates/my_shipments.html:15
+#: shipments/templates/my_shipments.html:39
 msgid "Hide"
 msgstr "Ukryj"
 
@@ -1103,6 +1105,8 @@ msgstr "Duplikuj"
 #: base/templates/base/new_outline/new_outline_initial_period2.html:279
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:236
+#: shipments/templates/my_shipments.html:16
+#: shipments/templates/my_shipments.html:54
 msgid "Delete"
 msgstr "Usuń"
 
@@ -1112,6 +1116,7 @@ msgstr "(Kopia "
 
 #: base/templates/base/base_planer.html:48
 #: base/templates/base/new_outline/new_outline_initial_period3.html:143
+#: shipments/templates/my_shipments.html:46
 msgid "Show"
 msgstr "Pokaż"
 
@@ -1132,6 +1137,7 @@ msgstr ""
 #: base/templates/base/new_outline/new_outline_create_select.html:134
 #: base/templates/base/new_outline/new_outline_initial_period2.html:361
 #: base/templates/base/new_outline/new_outline_initial_period3.html:24
+#: shipments/templates/my_shipments.html:75
 msgid "Close"
 msgstr "Zamknij"
 
@@ -1148,6 +1154,7 @@ msgstr "Zapisywanie..."
 #: base/templates/base/base_planer.html:103
 #: base/templates/base/new_outline/new_outline_create_select.html:119
 #: base/templates/base/new_outline/new_outline_initial_period2.html:354
+#: shipments/templates/my_shipments.html:61
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
@@ -1166,6 +1173,7 @@ msgstr ""
 "rozważyć ukrycie tej rozpiski zamiast jej usuwania."
 
 #: base/templates/base/base_planer.html:112
+#: shipments/templates/my_shipments.html:69
 msgid "This operation cannot be undone!"
 msgstr "Tej operacji nie można cofnąć!"
 
@@ -1175,18 +1183,22 @@ msgstr "Tej operacji nie można cofnąć!"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:272
 #: base/templates/base/new_outline/new_outline_initial_period2.html:365
 #: base/templates/base/user/add_world.html:25
+#: shipments/templates/my_shipments.html:80
 msgid "Processing..."
 msgstr "Przetwarzanie..."
 
 #: base/templates/base/base_planer.html:123
+#: shipments/templates/my_shipments.html:80
 msgid "Delete forever"
 msgstr "Usuń na zawsze"
 
 #: base/templates/base/base_planer.html:137
+#: shipments/templates/my_shipments.html:94
 msgid "Don't show hidden"
 msgstr "Nie pokazuj ukrytych"
 
 #: base/templates/base/base_planer.html:139
+#: shipments/templates/my_shipments.html:96
 msgid "Show hidden"
 msgstr "Pokaż ukryte"
 
@@ -1232,6 +1244,7 @@ msgstr "Planer wybierze dane wklejone w:"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:207
 #: base/templates/base/new_outline/new_outline_results.html:62
 #: base/templates/base/user/profile_settings.html:74
+#: shipments/templates/edit_shipment.html:50
 msgid "Save"
 msgstr "Zapisz"
 
@@ -1895,6 +1908,7 @@ msgid "Create Ruin"
 msgstr "Utwórz Burzący"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:274
+#: shipments/templates/shipment.html:6 shipments/templates/shipment.html:12
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -1933,9 +1947,8 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
-#: base/templates/base/overview.html:227
-#: shipments/templates/orders/shipment.html:112 utils/basic/mode.py:60
-#: utils/outline_finish.py:75
+#: base/templates/base/overview.html:227 shipments/templates/shipment.html:114
+#: utils/basic/mode.py:60 utils/outline_finish.py:75
 msgid "Target"
 msgstr "Cel"
 
@@ -2356,8 +2369,7 @@ msgstr ""
 msgid "Ruin"
 msgstr "Burzenie"
 
-#: base/templates/base/overview.html:246
-#: shipments/templates/orders/shipment.html:107
+#: base/templates/base/overview.html:246 shipments/templates/shipment.html:109
 msgid "Off"
 msgstr "Off"
 
@@ -2694,7 +2706,26 @@ msgstr ""
 "<p>2. Powróć do zakładki <b>Zbiórka Deffa</b>.</p> <p>3. Spróbuj ponownie.</"
 "p>"
 
-#: shipments/templates/orders/add_shipment.html:10
+#: shipments/forms.py:31
+#, python-format
+msgid "Invalid overview token: %(token)s"
+msgstr "Token jest nieprawidłowy: %(token)s"
+
+#: shipments/forms.py:37
+msgid "At least one overview token is required."
+msgstr "Przynajmniej jeden token jest wymagany."
+
+#: shipments/forms.py:41
+#, python-format
+msgid "Maximum %(MAX_OVERVIEWS)d overviews allowed."
+msgstr "Można użyć maksymalnie %(MAX_OVERVIEWS)d tokenów."
+
+#: shipments/forms.py:46
+msgid "Duplicate overview tokens are not allowed."
+msgstr "Nie można użyć tych samych tokenów wielokrotnie."
+
+#: shipments/templates/add_shipment.html:10
+#: shipments/templates/edit_shipment.html:10
 msgid ""
 "Create a new shipment and add overview tokens. You can add up to 10 "
 "overviews."
@@ -2702,74 +2733,100 @@ msgstr ""
 "Utwórz nową wysyłkę i dodaj unikalne tokeny z linku celów. Możesz dodać do "
 "10 tokenów."
 
-#: shipments/templates/orders/add_shipment.html:25
+#: shipments/templates/add_shipment.html:25
+#: shipments/templates/edit_shipment.html:25
 msgid "Overviews"
 msgstr "Tokeny"
 
-#: shipments/templates/orders/add_shipment.html:36
-#: shipments/templates/orders/add_shipment.html:72
+#: shipments/templates/add_shipment.html:36
+#: shipments/templates/add_shipment.html:72
+#: shipments/templates/edit_shipment.html:36
+#: shipments/templates/edit_shipment.html:72
 msgid "Remove"
 msgstr "Usuń"
 
-#: shipments/templates/orders/add_shipment.html:45
+#: shipments/templates/add_shipment.html:45
+#: shipments/templates/edit_shipment.html:45
 msgid "Add overview token"
 msgstr "Dodaj token"
 
-#: shipments/templates/orders/add_shipment.html:50
+#: shipments/templates/add_shipment.html:50
 msgid "Create shipment"
 msgstr "Utwórz wysyłkę"
 
-#: shipments/templates/orders/add_shipment.html:58
+#: shipments/templates/add_shipment.html:58
+#: shipments/templates/edit_shipment.html:58
 msgid ""
 "Each overview token must be valid. You can remove or add more fields as "
 "needed."
 msgstr "Każdy token musi być prawidłowy. Możesz dodać i usuwać pola."
 
-#: shipments/templates/orders/my_shipments.html:10
+#: shipments/templates/edit_shipment.html:3
+msgid "Edit shipment"
+msgstr "Edytuj wysyłkę"
+
+#: shipments/templates/my_shipments.html:10
 msgid "Name of shipment"
 msgstr "Nazwa wysyłki"
 
-#: shipments/templates/orders/shipment.html:5
-#: shipments/templates/orders/shipment.html:10
-#: shipments/templates/orders/shipment.html:13
+#: shipments/templates/my_shipments.html:14
+msgid "Tokens"
+msgstr "Tokeny"
+
+#: shipments/templates/shipment.html:5 shipments/templates/shipment.html:11
+#: shipments/templates/shipment.html:15
 msgid "Shipment"
 msgstr "Wysyłka"
 
-#: shipments/templates/orders/shipment.html:52
+#: shipments/templates/shipment.html:54
 msgid "Send in"
 msgstr "Wyślij za"
 
-#: shipments/templates/orders/shipment.html:102
+#: shipments/templates/shipment.html:104
 msgid "Link"
 msgstr "Link"
 
-#: shipments/templates/orders/shipment.html:108
+#: shipments/templates/shipment.html:110
 msgid "Nobleman"
 msgstr "Szlachcic"
 
-#: shipments/templates/orders/shipment.html:109
+#: shipments/templates/shipment.html:111
 msgid "Catapult"
 msgstr "Katapulty"
 
-#: shipments/templates/orders/shipment.html:110
+#: shipments/templates/shipment.html:112
 msgid "Building"
 msgstr "Budynek"
 
-#: shipments/templates/orders/shipment.html:111
+#: shipments/templates/shipment.html:113
 msgid "Start"
 msgstr "Z wioski"
 
-#: shipments/templates/orders/shipment.html:116
+#: shipments/templates/shipment.html:118
 msgid "Send min."
 msgstr "Wyślij min."
 
-#: shipments/templates/orders/shipment.html:124
+#: shipments/templates/shipment.html:126
 msgid "Send max."
 msgstr "Wyślij max."
 
-#: shipments/templates/orders/shipment.html:130
+#: shipments/templates/shipment.html:132
 msgid "ID"
 msgstr "ID"
+
+#: shipments/views.py:142
+msgid "All overviews must belong to the same world."
+msgstr ""
+"Wszystkie tokeny muszą być wynikami rozpisek dla tego samego świata w grze."
+
+#: shipments/views.py:156
+msgid "All overviews must be for the same player."
+msgstr ""
+"Wszystkie tokeny muszą być wynikami rozpisek dla tego samego gracza w grze."
+
+#: shipments/views.py:158
+msgid "does not match"
+msgstr "różni się od"
 
 #: templates/404.html:8
 msgid ""
