@@ -15,6 +15,7 @@
 
 from typing import Any
 
+from django.utils.translation import gettext_lazy
 from rest_framework import serializers
 
 from utils.buildings import BUILDINGS_TRANSLATION
@@ -150,7 +151,7 @@ class WeightSerializer(serializers.Serializer):
     village_id = serializers.IntegerField(help_text="Game ID of the village.")
     player_id = serializers.IntegerField(help_text="Game ID of the player.")
     send_url = serializers.CharField(help_text="URL for sending the attack.")
-    send_url_text = serializers.CharField(write_only=True)
+    send_url_text = serializers.CharField(write_only=True, default="")
     send_url_name = serializers.SerializerMethodField(
         help_text='Translated suggested name to display for send_url. Always "" if overview generated before 5.11.0.',
     )
@@ -164,7 +165,7 @@ class WeightSerializer(serializers.Serializer):
     def get_send_url_name(self, obj: Any) -> str:
         if obj.get("send_url_text"):
             return SEND_TEXT_TRANSLATION.get(obj.get("send_url_text"))  # type: ignore
-        return ""
+        return gettext_lazy("Send")
 
     def get_deputy_send_url(self, obj: Any) -> str:
         return f"{obj.get('send_url')}?t={obj.get('player_id')}"

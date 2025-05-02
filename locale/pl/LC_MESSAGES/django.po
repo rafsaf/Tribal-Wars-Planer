@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 13:12+0200\n"
+"POT-Creation-Date: 2025-05-02 14:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2182,6 +2182,7 @@ msgstr "Wysłano!"
 #: base/templates/base/new_outline/new_outline_results.html:115
 #: base/templates/base/new_outline/new_outline_results.html:158
 #: base/templates/base/new_outline/new_outline_results.html:160
+#: rest_api/serializers.py:167
 msgid "Send"
 msgstr "Wyślij"
 
