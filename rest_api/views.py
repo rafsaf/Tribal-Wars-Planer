@@ -61,6 +61,7 @@ from rest_api.serializers import (
     ChangeBuildingsArraySerializer,
     ChangeWeightBuildingSerializer,
     OverwiewStateHideSerializer,
+    ShipmentUpdateSendListSerializer,
     StripeSessionAmount,
     TargetDeleteSerializer,
     TargetTimeUpdateSerializer,
@@ -542,3 +543,21 @@ def shipment_overviews(request: Request, pk: int) -> HttpResponse:
         data=output.data,
         status=status.HTTP_200_OK,
     )
+
+
+@extend_schema(exclude=True)
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def shipment_add_to_send_lst(request: Request, pk: int) -> HttpResponse:
+    req = ShipmentUpdateSendListSerializer(data=request.data)  # type: ignore
+    if req.is_valid():
+        shipment = get_object_or_404(
+            Shipment,
+            pk=pk,
+            owner=request.user,
+        )
+        shipment.sent_lst.append(req.data["id"])
+        shipment.save(update_fields=["sent_lst"])
+        return Response(status=status.HTTP_200_OK)
+
+    return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)

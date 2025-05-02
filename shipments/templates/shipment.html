@@ -24,6 +24,7 @@
 {% block scripts %}
     {% get_current_language as LANG %}
     <script>
+        const sendList = {{ shipment.sent_lst}};
         const data = {
             ajax: {
                 url: `/api/shipment/{{ shipment.pk }}/overviews/?language={{ LANG }}`,
@@ -41,7 +42,8 @@
                                 target_player: target.target.player,
                                 target_coords: target.target.target,
                                 min_send_time: order.shipment_t1.split('T')[1].split('+')[0],
-                                max_send_time: order.shipment_t2.split('T')[1].split('+')[0]
+                                max_send_time: order.shipment_t2.split('T')[1].split('+')[0],
+                                is_send: sendList.includes(order.id)
                             });
                         });
                     });
@@ -49,6 +51,10 @@
                 }
             },
             columns: [
+                {
+                    data: 'is_send', // hidden column, used for ordering
+                    visible: false
+                },
                 {
                     data: 'min_send_time',
                     title: '{% trans "Send in" %}',
@@ -106,6 +112,14 @@
                         return `<a href="${data}" target="_blank">${row.send_url_name}</a>`;
                     }
                 },
+                {
+                    data: null,
+                    title: 'Action',
+                    render: (data, type, row) => {
+                        return `<button id='send-btn-${row.id}' class="send-btn btn btn-light-no-border btn-light" data-id="${row.id}">{% trans "Mark send" %}</button>`;
+                    },
+                    orderable: false
+                },
                 { data: 'off', title: '{% trans "Off" %}' },
                 { data: 'nobleman', title: '{% trans "Nobleman" %}' },
                 { data: 'catapult', title: '{% trans "Catapult" %}' },
@@ -131,7 +145,12 @@
                 }, },
                 { data: 'id', title: '{% trans "ID" %}' },
             ],
-            order: [[0, 'asc']], // Sort by "Send in" column (index 0) in ascending order
+            rowCallback: (row, data) => {
+                if (data.is_send) {
+                    row.style.opacity = '50%'; // hide during initialization
+                }
+            },
+            order: [[0, 'asc'],[1, 'asc']], // Sort by "Send in" column (index 0) in ascending order
             pageLength: 25,
             responsive: true,
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -166,5 +185,45 @@
             });
             table.draw(false);
         }, 1000);
+        document.querySelector('#my-orders').addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.classList.contains('send-btn')) {
+                const rowElement = target.closest('tr');
+                const id = parseInt(target.dataset.id, 10);
+                const btn = document.getElementById(`send-btn-${id}`)
+
+                const actualInnerHTML = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
+
+                fetch(`/api/shipment/{{ shipment.pk }}/add-to-send-lst/`, {
+                    method: "POST",
+                    credentials: "same-origin",
+                    body: JSON.stringify({ id: id }),
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                }).then(response => {
+                    if (response.status !== 200) {
+                        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
+                        setTimeout(() => {
+                            btn.innerHTML = actualInnerHTML;
+                            btn.blur();
+                        }, 2000);
+                    } else {
+                  // Add to sendList if needed
+                        if (!sendList.includes(id)) sendList.push(id);
+                  // Hide the row
+                        rowElement.style.opacity = '50%';
+                        btn.blur();
+                    }
+                })
+
+
+            }
+        });
+
     </script>
 {% endblock %}

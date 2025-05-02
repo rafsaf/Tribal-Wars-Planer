@@ -39,6 +39,10 @@ class OverwiewStateHideSerializer(serializers.Serializer):
     token = serializers.CharField()
 
 
+class ShipmentUpdateSendListSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+
+
 class ChangeBuildingsArraySerializer(serializers.Serializer):
     buildings = serializers.ListField(child=serializers.CharField(max_length=100))
     outline_id = serializers.IntegerField()

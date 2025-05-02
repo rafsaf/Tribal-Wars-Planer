@@ -26,6 +26,11 @@ urlpatterns = [
         views.shipment_overviews,
         name="shipment_overviews",
     ),
+    path(
+        "shipment/<int:pk>/add-to-send-lst/",
+        views.shipment_add_to_send_lst,
+        name="shipment_add_to_send_lst",
+    ),
     path("stripe-key/", views.stripe_config, name="stripe_key"),
     path("stripe-session/", views.stripe_checkout_session, name="stripe_session"),
     path("stripe-webhook/", views.stripe_webhook, name="stripe_webhook"),
