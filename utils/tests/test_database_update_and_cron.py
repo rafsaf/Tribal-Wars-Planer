@@ -35,6 +35,15 @@ GET_UNIT_INFO_2 = (
 TRIBES = (CURRENT_DIRECTORY / "database_update/ally.txt.gz").read_bytes()
 PLAYERS = (CURRENT_DIRECTORY / "database_update/player.txt.gz").read_bytes()
 VILLAGES = (CURRENT_DIRECTORY / "database_update/village.txt.gz").read_bytes()
+TRIBES_UPDATED = (
+    CURRENT_DIRECTORY / "database_update/ally_updated.txt.gz"
+).read_bytes()
+PLAYERS_UPDATED = (
+    CURRENT_DIRECTORY / "database_update/player_updated.txt.gz"
+).read_bytes()
+VILLAGES_UPDATED = (
+    CURRENT_DIRECTORY / "database_update/village_updated.txt.gz"
+).read_bytes()
 
 
 class WorldUpdateHandlerTest(MiniSetup):
@@ -361,6 +370,96 @@ class WorldUpdateHandlerTest(MiniSetup):
                 self.world.fanout_key_text_village
                 == "nt1_/map/village.txt.gz_1651990520.0"
             )
+            village_1 = VillageModel.objects.get(village_id=1)
+            assert village_1.player is not None
+            assert village_1.player.player_id == 698870390
+            assert village_1.world.pk == self.world.pk
+            assert village_1.coord == "508|396"
+            assert village_1.x_coord == 508
+            assert village_1.y_coord == 396
+            village_2 = VillageModel.objects.get(village_id=2)
+            assert village_2.player is not None
+            assert village_2.player.player_id == 2358891
+            assert village_2.world.pk == self.world.pk
+            assert village_2.coord == "546|483"
+            assert village_2.x_coord == 546
+            assert village_2.y_coord == 483
+            village_41460 = VillageModel.objects.get(village_id=41460)
+            assert village_41460.player is None
+            assert village_41460.world.pk == self.world.pk
+            assert village_41460.coord == "385|654"
+            assert village_41460.x_coord == 385
+            assert village_41460.y_coord == 654
+            assert not VillageModel.objects.filter(village_id=41475).exists()
+
+        with requests_mock.Mocker() as mock:
+            world_query = WorldUpdateHandler(world=self.world)
+            mock.get(
+                world_query.world.link_to_game("/map/player.txt.gz"),
+                content=PLAYERS_UPDATED,
+                headers={
+                    "etag": "123456",
+                    "last-modified": "Sun, 09 May 2022 06:15:20 GMT",
+                },
+            )
+            mock.get(
+                world_query.world.link_to_game("/map/ally.txt.gz"),
+                content=TRIBES_UPDATED,
+                headers={
+                    "etag": "123456",
+                    "last-modified": "Sun, 09 May 2022 06:15:20 GMT",
+                },
+            )
+            mock.get(
+                world_query.world.link_to_game("/map/village.txt.gz"),
+                content=VILLAGES_UPDATED,
+                headers={
+                    "etag": "123456",
+                    "last-modified": "Sun, 09 May 2022 06:15:20 GMT",
+                },
+            )
+
+            world_query.update_all()
+            self.world.refresh_from_db()
+            assert (
+                self.world.fanout_key_text_player
+                == "nt1_/map/player.txt.gz_1651990520.0"
+            )
+            assert (
+                self.world.fanout_key_text_tribe == "nt1_/map/ally.txt.gz_1651990520.0"
+            )
+            assert (
+                self.world.fanout_key_text_village
+                == "nt1_/map/village.txt.gz_1651990520.0"
+            )
+            village_1 = VillageModel.objects.get(village_id=1)
+            assert village_1.player is not None
+            assert village_1.player.player_id == 849015399
+            assert village_1.player.name == "rafsaf"
+            assert village_1.world.pk == self.world.pk
+            assert village_1.coord == "508|396"
+            assert village_1.x_coord == 508
+            assert village_1.y_coord == 396
+            village_2 = VillageModel.objects.get(village_id=2)
+            assert village_2.player is None
+            assert village_2.world.pk == self.world.pk
+            assert village_2.coord == "546|483"
+            assert village_2.x_coord == 546
+            assert village_2.y_coord == 483
+            village_41460 = VillageModel.objects.get(village_id=41460)
+            assert village_41460.player is not None
+            assert village_41460.player.player_id == 6121024
+            assert village_41460.world.pk == self.world.pk
+            assert village_41460.coord == "385|654"
+            assert village_41460.x_coord == 385
+            assert village_41460.y_coord == 654
+            village_41475 = VillageModel.objects.get(village_id=41475)
+            assert village_41475.player is not None
+            assert village_41475.player.player_id == 8728803
+            assert village_41475.world.pk == self.world.pk
+            assert village_41475.coord == "3010|3010"
+            assert village_41475.x_coord == 3010
+            assert village_41475.y_coord == 3010
 
     @freeze_time("2022-05-22 07:00:00")
     @patch("time.sleep", return_value=None)

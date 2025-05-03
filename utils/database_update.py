@@ -465,16 +465,7 @@ class WorldUpdateHandler:
                 continue
 
             village = villages[village_id]
-            if any(
-                [
-                    village.x_coord != x,
-                    village.y_coord != y,
-                    village.player != player,
-                ]
-            ):
-                village.x_coord = x
-                village.y_coord = y
-                village.coord = f"{x}|{y}"
+            if village.player != player:
                 if player is None:
                     village.player = None
                 else:
