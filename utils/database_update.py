@@ -491,7 +491,7 @@ class WorldUpdateHandler:
         VillageModel.objects.bulk_update(
             update_list, ["x_coord", "y_coord", "coord", "player"], batch_size=500
         )
-        VillageModel.objects.bulk_create(create_list, batch_size=1000)
+        VillageModel.objects.bulk_create(create_list, batch_size=2000)
         metrics.DBUPDATE.labels("village", self.world.postfix, "create").inc(
             len(create_list)
         )
@@ -525,7 +525,7 @@ class WorldUpdateHandler:
         for i in range(0, len(tribe_ids_to_remove), 2000):
             batch = tribe_ids_to_remove[i : i + 2000]
             Tribe.objects.filter(tribe_id__in=batch, world=self.world).delete()
-        Tribe.objects.bulk_create(create_list, batch_size=1000)
+        Tribe.objects.bulk_create(create_list, batch_size=2000)
         metrics.DBUPDATE.labels("tribe", self.world.postfix, "create").inc(
             len(create_list)
         )
@@ -619,7 +619,7 @@ class WorldUpdateHandler:
         for i in range(0, len(player_ids_to_remove), 2000):
             batch = player_ids_to_remove[i : i + 2000]
             Player.objects.filter(world=self.world, player_id__in=batch).delete()
-        Player.objects.bulk_create(create_list, batch_size=1000)
+        Player.objects.bulk_create(create_list, batch_size=2000)
         metrics.DBUPDATE.labels("player", self.world.postfix, "create").inc(
             len(create_list)
         )
