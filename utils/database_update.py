@@ -340,7 +340,7 @@ class WorldUpdateHandler:
                 res = session.get(
                     self.world.link_to_game(data_type),
                     stream=True,
-                    timeout=5,
+                    timeout=3.05,
                 )
                 if res.history:
                     log.warning(
