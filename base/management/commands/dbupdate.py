@@ -23,6 +23,7 @@ from django.core.management.base import BaseCommand
 import metrics
 from base.management.commands.utils import job_logs_and_metrics
 from base.models import World
+from base.models.outline import Outline
 from utils.database_update import WorldUpdateHandler
 
 log = logging.getLogger(__name__)
@@ -31,7 +32,12 @@ log = logging.getLogger(__name__)
 def update_world(world: World, command: BaseCommand):
     try:
         world_handler = WorldUpdateHandler(world=world)
-        message = world_handler.update_all()
+        have_outlines = Outline.objects.filter(world=world).exists()
+        if have_outlines:
+            download_try = settings.WORLD_UPDATE_TRY_COUNT
+        else:
+            download_try = 1
+        message = world_handler.update_all(download_try=download_try)
         command.stdout.write(command.style.SUCCESS(message))
         log.info(message)
     except Exception as error:
