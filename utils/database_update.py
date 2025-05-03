@@ -40,7 +40,7 @@ MAX_LAST_MODIFIED_EXISTING = 14
 MAX_LAST_MODIFIED_NEW = 3
 STATUS_200 = 200
 
-retry_strategy = Retry(total=4, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
+retry_strategy = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
 global_adapter = HTTPAdapter(max_retries=retry_strategy)
 
 
