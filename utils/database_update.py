@@ -479,9 +479,7 @@ class WorldUpdateHandler:
         for i in range(0, len(village_ids_to_remove), 2000):
             batch = village_ids_to_remove[i : i + 2000]
             VillageModel.objects.filter(village_id__in=batch, world=self.world).delete()
-        VillageModel.objects.bulk_update(
-            update_list, ["x_coord", "y_coord", "coord", "player"], batch_size=500
-        )
+        VillageModel.objects.bulk_update(update_list, ["player"], batch_size=500)
         VillageModel.objects.bulk_create(create_list, batch_size=2000)
         metrics.DBUPDATE.labels("village", self.world.postfix, "create").inc(
             len(create_list)
