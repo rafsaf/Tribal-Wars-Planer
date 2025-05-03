@@ -462,8 +462,6 @@ class WorldUpdateHandler:
                 )
 
                 create_list.append(village)
-                del villages[village_id]
-
                 continue
 
             village = villages[village_id]
