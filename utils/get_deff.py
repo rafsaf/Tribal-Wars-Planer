@@ -75,7 +75,7 @@ def get_set_of_villages(ally_villages, enemy_villages, radius: int):
     else:
         back_array = ally_villages
 
-    return {f"{coord[0]}|{coord[1]}" for coord in back_array}
+    return {f"{int(coord[0])}|{int(coord[1])}" for coord in back_array}
 
 
 def deff_text(  # noqa: PLR0912

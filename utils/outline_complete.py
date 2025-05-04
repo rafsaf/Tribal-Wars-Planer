@@ -413,7 +413,7 @@ class CreateWeights:
                     weight_max_list=self.weight_max_list,
                     ruin=True,
                 )
-            self.weight_create_lst += weight_ram.weight_create_list()
+                self.weight_create_lst += weight_ram.weight_create_list()
 
         else:
             target.required_off = target.required_noble
