@@ -385,6 +385,56 @@ class WorldUpdateHandlerTest(MiniSetup):
                 self.world.fanout_key_text_village
                 == "nt1_/map/village.txt.gz_1651990520.0"
             )
+            tribe_1 = Tribe.objects.get(tribe_id=30)
+            assert tribe_1.world == self.world
+            assert tribe_1.tag == "BNAB"
+            tribe_2 = Tribe.objects.get(tribe_id=35)
+            assert tribe_2.world == self.world
+            assert tribe_2.tag == "BG"
+            assert not Tribe.objects.filter(tribe_id=2000).exists()
+            assert Tribe.objects.filter(tribe_id=1826).exists()
+
+            player_1 = Player.objects.get(player_id=11480)
+            assert player_1.name == "Nakon"
+            assert player_1.world.pk == self.world.pk
+            assert player_1.villages == 0
+            assert player_1.points == 0
+            assert player_1.tribe is not None
+            assert player_1.tribe.tribe_id == 1097
+            player_2 = Player.objects.get(player_id=39848)
+            assert player_2.name == "polakumie"
+            assert player_2.world.pk == self.world.pk
+            assert player_2.villages == 21
+            assert player_2.points == 217132
+            assert player_2.tribe is not None
+            assert player_2.tribe.tribe_id == 67
+            player_3 = Player.objects.get(player_id=17714)
+            assert player_3.name == "skobol"
+            assert player_3.world.pk == self.world.pk
+            assert player_3.villages == 0
+            assert player_3.points == 0
+            assert player_3.tribe is not None
+            assert player_3.tribe.tribe_id == 89
+            player_4 = Player.objects.get(player_id=18244)
+            assert player_4.name == "komar75"
+            assert player_4.world.pk == self.world.pk
+            assert player_4.villages == 1
+            assert player_4.points == 2454
+            assert player_4.tribe is not None
+            assert player_4.tribe.tribe_id == 794
+            player_5 = Player.objects.get(player_id=849015179)
+            assert player_5.name == "szkutooMC"
+            assert player_5.world.pk == self.world.pk
+            assert player_5.villages == 1
+            assert player_5.points == 200
+            assert player_5.tribe is not None
+            assert player_5.tribe.tribe_id == 381
+
+            player_to_delete = Player.objects.filter(player_id=849015369)
+            assert player_to_delete.exists()
+            player_to_create = Player.objects.filter(player_id=849015399)
+            assert not player_to_create.exists()
+
             village_1 = VillageModel.objects.get(village_id=1)
             assert village_1.player is not None
             assert village_1.player.player_id == 698870390
@@ -436,8 +486,8 @@ class WorldUpdateHandlerTest(MiniSetup):
 
             world_query.update_all()
             self.world.refresh_from_db()
-            assert VillageModel.objects.count() == 38220
-            assert Player.objects.count() == 10235
+            assert VillageModel.objects.count() == 38218
+            assert Player.objects.count() == 10233
             assert Tribe.objects.count() == 534
             assert (
                 self.world.fanout_key_text_player
@@ -450,6 +500,62 @@ class WorldUpdateHandlerTest(MiniSetup):
                 self.world.fanout_key_text_village
                 == "nt1_/map/village.txt.gz_1652076920.0"
             )
+
+            tribe_1 = Tribe.objects.get(tribe_id=30)
+            assert tribe_1.world == self.world
+            assert tribe_1.tag == "BNAp"
+            tribe_2 = Tribe.objects.get(tribe_id=35)
+            assert tribe_2.world == self.world
+            assert tribe_2.tag == "BG"
+            assert Tribe.objects.filter(tribe_id=2000).exists()
+            assert not Tribe.objects.filter(tribe_id=1826).exists()
+
+            player_1 = Player.objects.get(player_id=11480)
+            assert player_1.name == "Nakon"
+            assert player_1.world.pk == self.world.pk
+            assert player_1.villages == 1
+            assert player_1.points == 30
+            assert player_1.tribe is not None
+            assert player_1.tribe.tribe_id == 1097
+            player_2 = Player.objects.get(player_id=39848)
+            assert player_2.name == "polakumie"
+            assert player_2.world.pk == self.world.pk
+            assert player_2.villages == 21
+            assert player_2.points == 257132
+            assert player_2.tribe is not None
+            assert player_2.tribe.tribe_id == 67
+            player_3 = Player.objects.get(player_id=17714)
+            assert player_3.name == "skobol235"
+            assert player_3.world.pk == self.world.pk
+            assert player_3.villages == 0
+            assert player_3.points == 0
+            assert player_3.tribe is not None
+            assert player_3.tribe.tribe_id == 89
+            player_4 = Player.objects.get(player_id=18244)
+            assert player_4.name == "komar75"
+            assert player_4.world.pk == self.world.pk
+            assert player_4.villages == 1
+            assert player_4.points == 3000
+            assert player_4.tribe is not None
+            assert player_4.tribe.tribe_id == 2000
+            player_5 = Player.objects.get(player_id=849015179)
+            assert player_5.name == "szkutooMC"
+            assert player_5.world.pk == self.world.pk
+            assert player_5.villages == 1
+            assert player_5.points == 200
+            assert player_5.tribe is not None
+            assert player_5.tribe.tribe_id == 381
+
+            player_to_delete = Player.objects.filter(player_id=849015369)
+            assert not player_to_delete.exists()
+
+            player_created = Player.objects.get(player_id=849015399)
+            assert player_created.name == "rafsaf"
+            assert player_created.world.pk == self.world.pk
+            assert player_created.villages == 1
+            assert player_created.points == 70
+            assert player_created.tribe is None
+
             village_1 = VillageModel.objects.get(village_id=1)
             assert village_1.player is not None
             assert village_1.player.player_id == 849015399

@@ -576,8 +576,6 @@ class WorldUpdateHandler:
                 continue
 
             player_id = int(line[0])
-            if player_id == 84901537400:
-                raise ValueError(line)
             name = unquote(unquote_plus(line[1]))
             tribe_id = int(line[2])
             villages = int(line[3])
