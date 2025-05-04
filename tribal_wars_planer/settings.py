@@ -411,7 +411,7 @@ LOGGING = {
 }
 
 # disk cache im temp dir, 20gb limit
-fanout_cache = FanoutCache(
+FANOUT_CACHE = FanoutCache(
     directory=BASE_DIR / "disk_cache", shards=20, timeout=1, size_limit=20 * 2**30
 )
 

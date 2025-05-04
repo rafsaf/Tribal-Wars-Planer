@@ -16,14 +16,25 @@
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 import requests
 import requests_mock
+from diskcache import Cache
 from freezegun import freeze_time
 
 from base.models import Player, Tribe, VillageModel, World
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils import database_update
 from utils.database_update import WorldUpdateHandler
+
+
+@pytest.fixture(autouse=True)
+def mock_cache(settings, tmp_path: Path) -> None:
+    """Clear the disk cache"""
+    path = tmp_path / "cache"
+    path.mkdir(parents=True, exist_ok=True)
+    settings.FANOUT_CACHE = Cache(directory=path, timeout=1, size_limit=1 * 2**30)
+
 
 CURRENT_DIRECTORY = Path(__file__).parent
 GET_CONFIG = (CURRENT_DIRECTORY / "database_update/get_config.xml").read_text()
@@ -322,6 +333,7 @@ class WorldUpdateHandlerTest(MiniSetup):
     @patch("time.sleep", return_value=None)
     def test_db_update_cron_job(self, patched_time_sleep) -> None:
         self.world.save()
+
         with requests_mock.Mocker() as mock:
             world_query = WorldUpdateHandler(world=self.world)
             mock.get(
@@ -357,6 +369,9 @@ class WorldUpdateHandlerTest(MiniSetup):
             with freeze_time("2022-05-08 07:00:01"):
                 world_query.update_all()
                 self.world.refresh_from_db()
+                assert VillageModel.objects.count() == 38219
+                assert Player.objects.count() == 10234
+                assert Tribe.objects.count() == 534
                 date2 = self.world.updated_at
                 assert date2 > date1
             assert (
@@ -399,7 +414,7 @@ class WorldUpdateHandlerTest(MiniSetup):
                 content=PLAYERS_UPDATED,
                 headers={
                     "etag": "123456",
-                    "last-modified": "Sun, 09 May 2022 06:15:20 GMT",
+                    "last-modified": "Mon, 09 May 2022 06:15:20 GMT",
                 },
             )
             mock.get(
@@ -407,7 +422,7 @@ class WorldUpdateHandlerTest(MiniSetup):
                 content=TRIBES_UPDATED,
                 headers={
                     "etag": "123456",
-                    "last-modified": "Sun, 09 May 2022 06:15:20 GMT",
+                    "last-modified": "Mon, 09 May 2022 06:15:20 GMT",
                 },
             )
             mock.get(
@@ -415,22 +430,25 @@ class WorldUpdateHandlerTest(MiniSetup):
                 content=VILLAGES_UPDATED,
                 headers={
                     "etag": "123456",
-                    "last-modified": "Sun, 09 May 2022 06:15:20 GMT",
+                    "last-modified": "Mon, 09 May 2022 06:15:20 GMT",
                 },
             )
 
             world_query.update_all()
             self.world.refresh_from_db()
+            assert VillageModel.objects.count() == 38220
+            assert Player.objects.count() == 10235
+            assert Tribe.objects.count() == 534
             assert (
                 self.world.fanout_key_text_player
-                == "nt1_/map/player.txt.gz_1651990520.0"
+                == "nt1_/map/player.txt.gz_1652076920.0"
             )
             assert (
-                self.world.fanout_key_text_tribe == "nt1_/map/ally.txt.gz_1651990520.0"
+                self.world.fanout_key_text_tribe == "nt1_/map/ally.txt.gz_1652076920.0"
             )
             assert (
                 self.world.fanout_key_text_village
-                == "nt1_/map/village.txt.gz_1651990520.0"
+                == "nt1_/map/village.txt.gz_1652076920.0"
             )
             village_1 = VillageModel.objects.get(village_id=1)
             assert village_1.player is not None
@@ -457,9 +475,9 @@ class WorldUpdateHandlerTest(MiniSetup):
             assert village_41475.player is not None
             assert village_41475.player.player_id == 8728803
             assert village_41475.world.pk == self.world.pk
-            assert village_41475.coord == "3010|3010"
-            assert village_41475.x_coord == 3010
-            assert village_41475.y_coord == 3010
+            assert village_41475.coord == "309|496"
+            assert village_41475.x_coord == 309
+            assert village_41475.y_coord == 496
 
     @freeze_time("2022-05-22 07:00:00")
     @patch("time.sleep", return_value=None)

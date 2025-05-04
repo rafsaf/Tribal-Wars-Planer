@@ -32,7 +32,6 @@ from urllib3.util import Retry
 
 import metrics
 from base.models import Outline, Player, Tribe, VillageModel, World
-from tribal_wars_planer.settings import fanout_cache
 
 log = logging.getLogger(__name__)
 
@@ -280,7 +279,7 @@ class WorldUpdateHandler:
                 tribe_cache_key is not None
                 and tribe_cache_key != self.world.fanout_key_text_tribe
             ):
-                tribe_text = fanout_cache.get(tribe_cache_key, retry=True)
+                tribe_text = settings.FANOUT_CACHE.get(tribe_cache_key, retry=True)
                 self.world.fanout_key_text_tribe = tribe_cache_key
                 self.update_tribes(text=tribe_text)  # type: ignore
                 log.info("%s finish update_tribes", self.world)
@@ -293,7 +292,7 @@ class WorldUpdateHandler:
                 player_cache_key is not None
                 and player_cache_key != self.world.fanout_key_text_player
             ):
-                player_text = fanout_cache.get(player_cache_key, retry=True)
+                player_text = settings.FANOUT_CACHE.get(player_cache_key, retry=True)
                 self.world.fanout_key_text_player = player_cache_key
                 self.update_players(text=player_text)  # type: ignore
                 log.info("%s finish update_players", self.world)
@@ -306,7 +305,7 @@ class WorldUpdateHandler:
                 village_cache_key is not None
                 and village_cache_key != self.world.fanout_key_text_village
             ):
-                village_text = fanout_cache.get(village_cache_key, retry=True)
+                village_text = settings.FANOUT_CACHE.get(village_cache_key, retry=True)
                 self.world.fanout_key_text_village = village_cache_key
                 self.update_villages(text=village_text)  # type: ignore
                 log.info("%s finish update_villages", self.world)
@@ -379,15 +378,19 @@ class WorldUpdateHandler:
                 unique_cache_key = (
                     f"{self.world}_{data_type}_{last_modified.timestamp()}"
                 )
-                if unique_cache_key in fanout_cache:
+                if unique_cache_key in settings.FANOUT_CACHE:
                     res.close()
-                    fanout_cache.touch(unique_cache_key, expire=3 * 60 * 60, retry=True)
+                    settings.FANOUT_CACHE.touch(
+                        unique_cache_key, expire=3 * 60 * 60, retry=True
+                    )
                     return
                 # only now make another request to get body
                 text = gzip.decompress(res.content).decode()
                 res.close()
                 log.info(f"setting cache key {unique_cache_key}")
-                fanout_cache.set(unique_cache_key, text, expire=3 * 60 * 60, retry=True)
+                settings.FANOUT_CACHE.set(
+                    unique_cache_key, text, expire=3 * 60 * 60, retry=True
+                )
 
             except (Timeout, ConnectionError) as err:
                 log.error(err, exc_info=True)
@@ -399,7 +402,7 @@ class WorldUpdateHandler:
         """Get latest key (by 'last-modified' datetime) from disk cache"""
         cache_key_prefix = f"{self.world}_{data_type}_"
         result_list: list[str] = []
-        for key in fanout_cache:
+        for key in settings.FANOUT_CACHE:
             if str(key).startswith(cache_key_prefix):
                 result_list.append(str(key))
         if not result_list:
@@ -473,7 +476,7 @@ class WorldUpdateHandler:
                     village.player = player
 
                 update_list.append(village)
-                del villages[village_id]
+            del villages[village_id]
 
         village_ids_to_remove = list(villages.keys())
 
@@ -497,10 +500,11 @@ class WorldUpdateHandler:
 
     def update_tribes(self, text: str) -> None:
         create_list: list[Tribe] = []
+        update_list: list[Tribe] = []
 
-        tribe_set: set[tuple[int, str]] = set(
-            Tribe.objects.filter(world=self.world).values_list("tribe_id", "tag")
-        )
+        tribes: dict[int, Tribe] = {
+            tribe.tribe_id: tribe for tribe in Tribe.objects.filter(world=self.world)
+        }
 
         for line in [i.split(",") for i in text.split("\n")]:
             if line == [""]:
@@ -509,25 +513,36 @@ class WorldUpdateHandler:
             tribe_id = int(line[0])
             tag = unquote(unquote_plus(line[2]))
 
-            if (tribe_id, tag) in tribe_set:
-                tribe_set.remove((tribe_id, tag))
-
-            else:
+            if tribe_id not in tribes:
                 tribe = Tribe(tribe_id=tribe_id, tag=tag, world=self.world)
                 create_list.append(tribe)
+                continue
 
-        tribe_ids_to_remove = [item[0] for item in tribe_set]
+            tribe = tribes[tribe_id]
+            if tribe.tag != tag:
+                tribe.tag = tag
+                update_list.append(tribe)
+
+            del tribes[tribe_id]
+
+        tribe_ids_to_remove = list(tribes.keys())
         for i in range(0, len(tribe_ids_to_remove), 2000):
             batch = tribe_ids_to_remove[i : i + 2000]
             Tribe.objects.filter(tribe_id__in=batch, world=self.world).delete()
         Tribe.objects.bulk_create(create_list, batch_size=2000)
+        Tribe.objects.bulk_update(update_list, batch_size=500, fields=["tag"])
         metrics.DBUPDATE.labels("tribe", self.world.postfix, "create").inc(
             len(create_list)
         )
-        metrics.DBUPDATE.labels("tribe", self.world.postfix, "delete").inc(
-            len(tribe_set)
+        metrics.DBUPDATE.labels("tribe", self.world.postfix, "update").inc(
+            len(update_list)
         )
-        self.tribe_log_msg = f"C-{len(create_list)},D-{len(tribe_set)}"
+        metrics.DBUPDATE.labels("tribe", self.world.postfix, "delete").inc(
+            len(tribe_ids_to_remove)
+        )
+        self.tribe_log_msg = (
+            f"C-{len(create_list)},D-{len(tribe_ids_to_remove)},U-{len(update_list)}"
+        )
 
     def update_players(self, text: str) -> None:
         create_list: list[Player] = []
@@ -561,6 +576,8 @@ class WorldUpdateHandler:
                 continue
 
             player_id = int(line[0])
+            if player_id == 84901537400:
+                raise ValueError(line)
             name = unquote(unquote_plus(line[1]))
             tribe_id = int(line[2])
             villages = int(line[3])
@@ -591,16 +608,18 @@ class WorldUpdateHandler:
 
             if player_id in player_ids_map:
                 player = player_ids_map[player_id]
-                player.points = points
                 if player.tribe != tribe or player.name != name:
+                    player.points = points
                     player.tribe = tribe
                     player.name = name
                     player.villages = villages
                     update_list_full.append(player)
                 elif player.villages != villages:
+                    player.points = points
                     player.villages = villages
                     update_list_villages.append(player)
                 elif player.points != points:
+                    player.points = points
                     update_list_points.append(player)
                 else:
                     raise RuntimeError("Player not updated: %s", player.__dict__)
