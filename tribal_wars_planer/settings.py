@@ -391,7 +391,7 @@ LOGGING = {
         "info": {
             "class": "logging.FileHandler",
             "filename": BASE_DIR / "logs/django_info.log",
-            "formatter": "simple",
+            "formatter": "verbose",
             "level": "INFO",
         },
         "debug": {

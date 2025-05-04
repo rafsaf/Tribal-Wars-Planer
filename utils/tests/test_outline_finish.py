@@ -17,7 +17,6 @@ import datetime
 import json
 import zoneinfo
 
-import pytest
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import activate
@@ -26,6 +25,15 @@ from base.models import Outline, OutlineOverview, Overview, PeriodModel, WeightM
 from base.models import TargetVertex as Target
 from base.tests.test_utils.initial_setup import create_initial_data
 from utils.outline_finish import MakeFinalOutline, OutdatedData
+from utils.send_text import SEND_TEXT
+
+table = """\r\n\r\n[table][**][||]WYŚLIJ[||]OFF[||]GRUBE[||]BURZENIE[||]WYSYŁKA[||]WEJŚCIE[||]Z WIOSKI[||]CEL[/**][*]1[|][url=https://te1.testserver/game.php?village=1&screen=place&target=6]Wyślij OFF[/url][|]100[|]0[|]-[|]2021-03-03
+[b][color=#0e5e5e]06:00:00[/color][/b]-[b][color=#ff0000]08:00:00[/color][/b][|]2021-03-03
+[b][color=#0e5e5e]07:00:00[/color][/b]-[b][color=#ff0000]09:00:00[/color][/b][|][coord]500|501[/coord][|][coord]500|499[/coord][*]2[|][url=https://te1.testserver/game.php?village=0&screen=place&target=6]Wyślij OFF[/url][|]5000[|]0[|]-[|]2021-03-03
+[b][color=#0e5e5e]06:30:00[/color][/b]-[b][color=#ff0000]08:30:00[/color][/b][|]2021-03-03
+[b][color=#0e5e5e]07:00:00[/color][/b]-[b][color=#ff0000]09:00:00[/color][/b][|][coord]500|500[/coord][|][coord]500|499[/coord][*]3[|][url=https://te1.testserver/game.php?village=2&screen=place&target=6]Wyślij OFF[/url][|]19000[|]1[|]-[|]2021-03-03
+[b][color=#0e5e5e]07:15:00[/color][/b]-[b][color=#ff0000]08:15:00[/color][/b][|]2021-03-03
+[b][color=#0e5e5e]09:00:00[/color][/b]-[b][color=#ff0000]10:00:00[/color][/b][|][coord]500|502[/coord][|][coord]500|499[/coord][/table]"""
 
 
 class TestMakeFinalOutline(TestCase):
@@ -136,7 +144,6 @@ class TestMakeFinalOutline(TestCase):
         res = list(self.make_final._weights_list(target))
         self.assertEqual([weight1, weight2, weight3], res)
 
-    @pytest.mark.xfail
     def test_json_weight(self):
         self.make_final._calculate_period_dictionary()
         target = Target.objects.get(target="500|499")
@@ -173,6 +180,7 @@ class TestMakeFinalOutline(TestCase):
             "village_id": 0,
             "player_id": 0,
             "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+            "send_url_text": SEND_TEXT.OFF.value,
         }
         self.assertEqual(expected, res)
 
@@ -184,7 +192,6 @@ class TestMakeFinalOutline(TestCase):
         expected = {target: [period1, period2]}
         self.assertEqual(expected, self.make_final.target_period_dict)
 
-    @pytest.mark.xfail
     def test_call_main_method_works_as_expected(self):
         outline = Outline.objects.get(id=1)
         error_msg = self.make_final()
@@ -192,7 +199,7 @@ class TestMakeFinalOutline(TestCase):
         outline_overview: OutlineOverview = OutlineOverview.objects.get(outline=outline)
         overview: Overview = Overview.objects.get(outline=outline)
         self.assertEqual(overview.player, "player0")
-        self.assertEqual(overview.table, "")
+        self.assertEqual(overview.table, table)
 
         extended = (
             "\r\n\r\n1. [size=12][b]OFF[/b][/size] (Off-100) z wioski 500|501 na 500|499\r\n"
@@ -294,6 +301,7 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                    "send_url_text": SEND_TEXT.OFF.value,
                 },
                 {
                     "id": WeightModel.objects.get(state__outline=outline, off=100).pk,
@@ -315,6 +323,7 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                    "send_url_text": SEND_TEXT.OFF.value,
                 },
                 {
                     "id": WeightModel.objects.get(state__outline=outline, off=19000).pk,
@@ -336,6 +345,7 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                    "send_url_text": SEND_TEXT.NOBLE.value,
                 },
             ]
         }
@@ -387,6 +397,8 @@ class TestMakeFinalOutline(TestCase):
         for item in expected_weights_json[f"{target.pk}"]:
             item["building_name"] = None
             item["deputy_send_url"] = item["send_url"] + f"?t={item['player_id']}"
+            item["send_url_name"] = item["send_url_text"]
+            del item["send_url_text"]
 
         self.assertEqual(
             response.json(),
