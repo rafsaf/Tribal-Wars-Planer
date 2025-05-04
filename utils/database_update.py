@@ -32,6 +32,7 @@ from urllib3.util import Retry
 
 import metrics
 from base.models import Outline, Player, Tribe, VillageModel, World
+from tribal_wars_planer import settings as tw_settings
 
 log = logging.getLogger(__name__)
 
@@ -279,7 +280,7 @@ class WorldUpdateHandler:
                 tribe_cache_key is not None
                 and tribe_cache_key != self.world.fanout_key_text_tribe
             ):
-                tribe_text = settings.FANOUT_CACHE.get(tribe_cache_key, retry=True)
+                tribe_text = tw_settings.FANOUT_CACHE.get(tribe_cache_key, retry=True)
                 self.world.fanout_key_text_tribe = tribe_cache_key
                 self.update_tribes(text=tribe_text)  # type: ignore
                 log.info("%s finish update_tribes", self.world)
@@ -292,7 +293,7 @@ class WorldUpdateHandler:
                 player_cache_key is not None
                 and player_cache_key != self.world.fanout_key_text_player
             ):
-                player_text = settings.FANOUT_CACHE.get(player_cache_key, retry=True)
+                player_text = tw_settings.FANOUT_CACHE.get(player_cache_key, retry=True)
                 self.world.fanout_key_text_player = player_cache_key
                 self.update_players(text=player_text)  # type: ignore
                 log.info("%s finish update_players", self.world)
@@ -305,7 +306,9 @@ class WorldUpdateHandler:
                 village_cache_key is not None
                 and village_cache_key != self.world.fanout_key_text_village
             ):
-                village_text = settings.FANOUT_CACHE.get(village_cache_key, retry=True)
+                village_text = tw_settings.FANOUT_CACHE.get(
+                    village_cache_key, retry=True
+                )
                 self.world.fanout_key_text_village = village_cache_key
                 self.update_villages(text=village_text)  # type: ignore
                 log.info("%s finish update_villages", self.world)
@@ -378,9 +381,9 @@ class WorldUpdateHandler:
                 unique_cache_key = (
                     f"{self.world}_{data_type}_{last_modified.timestamp()}"
                 )
-                if unique_cache_key in settings.FANOUT_CACHE:
+                if unique_cache_key in tw_settings.FANOUT_CACHE:
                     res.close()
-                    settings.FANOUT_CACHE.touch(
+                    tw_settings.FANOUT_CACHE.touch(
                         unique_cache_key, expire=3 * 60 * 60, retry=True
                     )
                     return
@@ -388,7 +391,7 @@ class WorldUpdateHandler:
                 text = gzip.decompress(res.content).decode()
                 res.close()
                 log.info(f"setting cache key {unique_cache_key}")
-                settings.FANOUT_CACHE.set(
+                tw_settings.FANOUT_CACHE.set(
                     unique_cache_key, text, expire=3 * 60 * 60, retry=True
                 )
 
@@ -402,7 +405,7 @@ class WorldUpdateHandler:
         """Get latest key (by 'last-modified' datetime) from disk cache"""
         cache_key_prefix = f"{self.world}_{data_type}_"
         result_list: list[str] = []
-        for key in settings.FANOUT_CACHE:
+        for key in tw_settings.FANOUT_CACHE:
             if str(key).startswith(cache_key_prefix):
                 result_list.append(str(key))
         if not result_list:

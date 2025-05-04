@@ -19,21 +19,26 @@ from unittest.mock import patch
 import pytest
 import requests
 import requests_mock
-from diskcache import Cache
+from diskcache import FanoutCache
 from freezegun import freeze_time
 
 from base.models import Player, Tribe, VillageModel, World
 from base.tests.test_utils.mini_setup import MiniSetup
+from tribal_wars_planer import settings as tw_settings
 from utils import database_update
 from utils.database_update import WorldUpdateHandler
 
 
 @pytest.fixture(autouse=True)
-def mock_cache(settings, tmp_path: Path) -> None:
+def mock_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Clear the disk cache"""
     path = tmp_path / "cache"
     path.mkdir(parents=True, exist_ok=True)
-    settings.FANOUT_CACHE = Cache(directory=path, timeout=1, size_limit=1 * 2**30)
+    monkeypatch.setattr(
+        tw_settings,
+        "FANOUT_CACHE",
+        FanoutCache(directory=path, timeout=1, shards=2, size_limit=1 * 2**30),
+    )
 
 
 CURRENT_DIRECTORY = Path(__file__).parent
