@@ -79,7 +79,7 @@ omit = [
   "tribal_wars_planer/asgi.py",
   "tribal_wars_planer/wsgi.py",
 ]
-source = ["base", "rest_api", "tribal_wars_planer", "utils"]
+source = ["base", "rest_api", "shipments", "tribal_wars_planer", "utils"]
 
 [tool.ruff]
 target-version = "py312"
