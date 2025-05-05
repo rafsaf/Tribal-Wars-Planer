@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 14:35+0200\n"
+"POT-Creation-Date: 2025-05-05 18:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -773,8 +773,8 @@ msgstr "Stwórz nową rozpiskę"
 
 #: base/templates/base/base.html:36 base/templates/base/base.html:38
 #: base/templates/base/base.html:63 base/templates/base/base.html:65
-msgid "beta"
-msgstr "beta"
+msgid "Beta"
+msgstr "Beta"
 
 #: base/templates/base/base.html:36 base/templates/base/base.html:63
 #: shipments/templates/my_shipments.html:3
@@ -1083,7 +1083,7 @@ msgstr "Sojusznik"
 
 #: base/templates/base/base_planer.html:15
 #: base/templates/base/new_outline/new_outline_create_select.html:78
-#: shipments/templates/shipment.html:86
+#: shipments/templates/shipment.html:119
 msgid "Enemy"
 msgstr "Wróg"
 
@@ -1204,8 +1204,8 @@ msgstr "Pokaż ukryte"
 
 #: base/templates/base/new_outline/new_outline.html:8
 #: base/templates/base/new_outline/new_outline.html:16
-msgid "other"
-msgstr "inne"
+msgid "Other"
+msgstr "Inne"
 
 #: base/templates/base/new_outline/new_outline.html:8
 #: base/templates/base/new_outline/new_outline.html:16
@@ -1947,7 +1947,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
-#: base/templates/base/overview.html:227 shipments/templates/shipment.html:85
+#: base/templates/base/overview.html:227 shipments/templates/shipment.html:118
 #: utils/basic/mode.py:60 utils/outline_finish.py:75
 msgid "Target"
 msgstr "Cel"
@@ -2182,7 +2182,7 @@ msgstr "Wysłano!"
 #: base/templates/base/new_outline/new_outline_results.html:115
 #: base/templates/base/new_outline/new_outline_results.html:158
 #: base/templates/base/new_outline/new_outline_results.html:160
-#: rest_api/serializers.py:167
+#: rest_api/serializers.py:168
 msgid "Send"
 msgstr "Wyślij"
 
@@ -2370,7 +2370,7 @@ msgstr ""
 msgid "Ruin"
 msgstr "Burzenie"
 
-#: base/templates/base/overview.html:246 shipments/templates/shipment.html:80
+#: base/templates/base/overview.html:246 shipments/templates/shipment.html:113
 msgid "Off"
 msgstr "Off"
 
@@ -2779,47 +2779,47 @@ msgstr "Tokeny"
 msgid "Shipment"
 msgstr "Wysyłka"
 
-#: shipments/templates/shipment.html:58
+#: shipments/templates/shipment.html:74
 msgid "Send in"
 msgstr "Wyślij za"
 
-#: shipments/templates/shipment.html:67
+#: shipments/templates/shipment.html:100
 msgid "Link"
 msgstr "Link"
 
-#: shipments/templates/shipment.html:74
+#: shipments/templates/shipment.html:107
 msgid "Action"
 msgstr "Akcja"
 
-#: shipments/templates/shipment.html:76
+#: shipments/templates/shipment.html:109
 msgid "Mark send"
 msgstr "Wysłane"
 
-#: shipments/templates/shipment.html:81
+#: shipments/templates/shipment.html:114
 msgid "Nobleman"
 msgstr "Szlachcic"
 
-#: shipments/templates/shipment.html:82
+#: shipments/templates/shipment.html:115
 msgid "Catapult"
 msgstr "Katapulty"
 
-#: shipments/templates/shipment.html:83
+#: shipments/templates/shipment.html:116
 msgid "Building"
 msgstr "Budynek"
 
-#: shipments/templates/shipment.html:84
+#: shipments/templates/shipment.html:117
 msgid "Start"
 msgstr "Z wioski"
 
-#: shipments/templates/shipment.html:89
+#: shipments/templates/shipment.html:122
 msgid "Send min."
 msgstr "Wyślij min."
 
-#: shipments/templates/shipment.html:97
+#: shipments/templates/shipment.html:130
 msgid "Send max."
 msgstr "Wyślij max."
 
-#: shipments/templates/shipment.html:103
+#: shipments/templates/shipment.html:136
 msgid "ID"
 msgstr "ID"
 
@@ -3501,7 +3501,7 @@ msgstr "Wyślij FAKE SZLACHCIC"
 
 #: utils/send_text.py:16
 msgid "Send FAKE"
-msgstr "Wyślij OFF"
+msgstr "Wyślij FAKE"
 
 #: utils/send_text.py:17
 msgid "Send RUIN"

@@ -36,7 +36,7 @@ def mock_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     path.mkdir(parents=True, exist_ok=True)
     monkeypatch.setattr(
         tw_settings,
-        "FANOUT_CACHE",
+        "fanout_cache",
         FanoutCache(directory=path, timeout=1, shards=2, size_limit=1 * 2**30),
     )
 
