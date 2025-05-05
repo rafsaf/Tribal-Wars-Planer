@@ -69,7 +69,7 @@ mkdocs-material = { extras = ["imaging"], version = "^9.6.11" }
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
 addopts = "--no-migrations -s"
 minversion = "6.0"
-testpaths = ["base", "rest_api", "tribal_wars_planer", "utils"]
+testpaths = ["base", "rest_api", "shipments", "tribal_wars_planer", "utils"]
 
 [tool.coverage.run]
 omit = [

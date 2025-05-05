@@ -74,8 +74,8 @@ def get_overview_data_many(
     output = output_data(
         targets=all_targets,
         weights=all_weights,
-        outline=outline_overview.outline_json,
-        world=outline_overview.world_json,
+        outline=outline_overviews[0].outline_json,
+        world=outline_overviews[0].world_json,
         show_hidden=show_hidden,
         player=player,
     )

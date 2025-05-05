@@ -42,12 +42,37 @@ class TestMyShipmentsView(MiniSetup):
             world=self.get_world(),
             date=datetime.date.today(),
         )
-        response = self.client.get(PATH)
+        with self.assertNumQueries(6):
+            response = self.client.get(PATH)
         assert response.status_code == 200
         shipments = response.context["shipments"]
         assert len(shipments) == 2
         assert shipment1 in shipments
         assert shipment2 in shipments
+
+        shipment3 = Shipment.objects.create(
+            owner=self.me(),
+            name="Shipment 3",
+            world=self.get_world(),
+            date=datetime.date.today(),
+        )
+        shipment4 = Shipment.objects.create(
+            owner=self.me(),
+            name="Shipment 4",
+            world=self.get_world(),
+            date=datetime.date.today(),
+        )
+
+        with self.assertNumQueries(6):
+            response = self.client.get(PATH)
+        assert response.status_code == 200
+
+        shipments = response.context["shipments"]
+        assert len(shipments) == 4
+        assert shipment1 in shipments
+        assert shipment2 in shipments
+        assert shipment3 in shipments
+        assert shipment4 in shipments
 
     def test_my_shipments___200_auth_hides_hidden_shipments_by_default(self):
         self.login_me()
