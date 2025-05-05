@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-05 18:17+0200\n"
+"POT-Creation-Date: 2025-05-05 22:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -688,7 +688,7 @@ msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:331
+#: base/models/outline.py:331 shipments/forms.py:12
 msgid "Name"
 msgstr "Nazwa"
 
@@ -782,7 +782,7 @@ msgid "My shipments"
 msgstr "Moje wysyłki"
 
 #: base/templates/base/base.html:38 base/templates/base/base.html:65
-#: shipments/templates/add_shipment.html:3
+#: shipments/templates/add_shipment.html:4
 msgid "Add shipment"
 msgstr "Dodaj wysyłkę"
 
@@ -1083,7 +1083,7 @@ msgstr "Sojusznik"
 
 #: base/templates/base/base_planer.html:15
 #: base/templates/base/new_outline/new_outline_create_select.html:78
-#: shipments/templates/shipment.html:119
+#: shipments/templates/shipment.html:133
 msgid "Enemy"
 msgstr "Wróg"
 
@@ -1947,7 +1947,7 @@ msgstr "Utwórz najpierw co najmniej jeden Czas poniżej"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
 #: base/templates/base/new_outline/new_outline_initial_period3.html:137
-#: base/templates/base/overview.html:227 shipments/templates/shipment.html:118
+#: base/templates/base/overview.html:227 shipments/templates/shipment.html:126
 #: utils/basic/mode.py:60 utils/outline_finish.py:75
 msgid "Target"
 msgstr "Cel"
@@ -2182,7 +2182,7 @@ msgstr "Wysłano!"
 #: base/templates/base/new_outline/new_outline_results.html:115
 #: base/templates/base/new_outline/new_outline_results.html:158
 #: base/templates/base/new_outline/new_outline_results.html:160
-#: rest_api/serializers.py:168
+#: rest_api/serializers.py:177
 msgid "Send"
 msgstr "Wyślij"
 
@@ -2707,25 +2707,16 @@ msgstr ""
 "<p>2. Powróć do zakładki <b>Zbiórka Deffa</b>.</p> <p>3. Spróbuj ponownie.</"
 "p>"
 
-#: shipments/forms.py:31
+#: shipments/forms.py:35
 #, python-format
 msgid "Invalid overview token: %(token)s"
 msgstr "Token jest nieprawidłowy: %(token)s"
 
-#: shipments/forms.py:37
-msgid "At least one overview token is required."
-msgstr "Przynajmniej jeden token jest wymagany."
-
 #: shipments/forms.py:41
-#, python-format
-msgid "Maximum %(MAX_OVERVIEWS)d overviews allowed."
-msgstr "Można użyć maksymalnie %(MAX_OVERVIEWS)d tokenów."
-
-#: shipments/forms.py:46
 msgid "Duplicate overview tokens are not allowed."
 msgstr "Nie można użyć tych samych tokenów wielokrotnie."
 
-#: shipments/templates/add_shipment.html:10
+#: shipments/templates/add_shipment.html:11
 #: shipments/templates/edit_shipment.html:10
 msgid ""
 "Create a new shipment and add overview tokens. You can add up to 10 "
@@ -2734,37 +2725,36 @@ msgstr ""
 "Utwórz nową wysyłkę i dodaj unikalne tokeny z linku celów. Możesz dodać do "
 "10 tokenów."
 
-#: shipments/templates/add_shipment.html:25
+#: shipments/templates/add_shipment.html:26
 #: shipments/templates/edit_shipment.html:25
 msgid "Overviews"
 msgstr "Tokeny"
 
-#: shipments/templates/add_shipment.html:36
-#: shipments/templates/add_shipment.html:72
+#: shipments/templates/add_shipment.html:37
+#: shipments/templates/add_shipment.html:70
 #: shipments/templates/edit_shipment.html:36
 #: shipments/templates/edit_shipment.html:72
 msgid "Remove"
 msgstr "Usuń"
 
-#: shipments/templates/add_shipment.html:45
+#: shipments/templates/add_shipment.html:46
 #: shipments/templates/edit_shipment.html:45
 msgid "Add overview token"
 msgstr "Dodaj token"
 
-#: shipments/templates/add_shipment.html:50
+#: shipments/templates/add_shipment.html:51
 msgid "Create shipment"
 msgstr "Utwórz wysyłkę"
 
-#: shipments/templates/add_shipment.html:58
+#: shipments/templates/edit_shipment.html:3
+msgid "Edit shipment"
+msgstr "Edytuj wysyłkę"
+
 #: shipments/templates/edit_shipment.html:58
 msgid ""
 "Each overview token must be valid. You can remove or add more fields as "
 "needed."
 msgstr "Każdy token musi być prawidłowy. Możesz dodać i usuwać pola."
-
-#: shipments/templates/edit_shipment.html:3
-msgid "Edit shipment"
-msgstr "Edytuj wysyłkę"
 
 #: shipments/templates/my_shipments.html:10
 msgid "Name of shipment"
@@ -2807,19 +2797,19 @@ msgstr "Katapulty"
 msgid "Building"
 msgstr "Budynek"
 
-#: shipments/templates/shipment.html:117
+#: shipments/templates/shipment.html:119
 msgid "Start"
 msgstr "Z wioski"
 
-#: shipments/templates/shipment.html:122
+#: shipments/templates/shipment.html:140
 msgid "Send min."
 msgstr "Wyślij min."
 
-#: shipments/templates/shipment.html:130
+#: shipments/templates/shipment.html:148
 msgid "Send max."
 msgstr "Wyślij max."
 
-#: shipments/templates/shipment.html:136
+#: shipments/templates/shipment.html:154
 msgid "ID"
 msgstr "ID"
 

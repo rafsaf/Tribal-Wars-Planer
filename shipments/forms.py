@@ -9,7 +9,7 @@ MAX_OVERVIEWS = 10
 
 # Form for creating a new Shipment (only name)
 class ShipmentCreateForm(forms.Form):
-    name = forms.CharField(max_length=24)
+    name = forms.CharField(max_length=24, label=gettext_lazy("Name"))
 
 
 # Form for entering overview tokens (used in formset)
