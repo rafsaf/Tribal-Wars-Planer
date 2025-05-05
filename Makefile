@@ -55,7 +55,7 @@ build_cython:
 
 .PHONY: test
 test:
-	poetry run pytest -v --cov --cov-report xml --cov-report term-missing -n auto 
+	poetry run pytest -vv --cov --cov-report xml --cov-report term-missing -n auto 
 
 .PHONY: benchmark
 benchmark:

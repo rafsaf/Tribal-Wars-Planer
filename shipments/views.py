@@ -55,11 +55,11 @@ def my_shipments(request: HttpRequest) -> HttpResponse:
                     "player",
                     "show_hidden",
                     "removed",
-                    "created",
-                ),
+                ).order_by("-created"),
             )
         )
         .select_related("world")
+        .order_by("-created_at")
     )
 
     if not show_hidden:

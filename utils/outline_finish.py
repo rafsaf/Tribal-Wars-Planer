@@ -203,6 +203,9 @@ class MakeFinalOutline:
             "village_id": weight.village_id,
             "player_id": weight.player_id,
             "send_url": f"{self.game_url}/game.php?village={weight.village_id}&screen=place&target={target.village_id}",
+            "start_village_preview_game_url": f"{self.game_url}/game.php?screen=info_village&id={weight.village_id}",
+            "enemy_village_preview_game_url": f"{self.game_url}/game.php?screen=info_village&id={target.village_id}",
+            "enemy_player_preview_game_url": f"{self.game_url}/game.php?screen=info_player&id={target.player_id}",
             "send_url_text": send_url_text,
         }
 
