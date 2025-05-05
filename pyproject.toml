@@ -67,7 +67,7 @@ mkdocs-material = { extras = ["imaging"], version = "^9.6.11" }
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
-addopts = "--no-migrations -s"
+addopts = "--no-migrations"
 minversion = "6.0"
 testpaths = ["base", "rest_api", "shipments", "tribal_wars_planer", "utils"]
 
