@@ -114,9 +114,27 @@
                 { data: 'nobleman', title: '{% trans "Nobleman" %}' },
                 { data: 'catapult', title: '{% trans "Catapult" %}' },
                 { data: 'building_name', title: '{% trans "Building" %}' },
-                { data: 'start', title: '{% trans "Start" %}' },
-                { data: 'target_coords', title: '{% trans "Target" %}' },
-                { data: 'target_player', title: '{% trans "Enemy" %}' },
+                {
+                    data: 'start',
+                    title: '{% trans "Start" %}' ,
+                    render: function (data, type, row) {
+                        return `<a style="color:black" href="${row.start_village_preview_game_url}" target="_blank">${data}</a>`;
+                    },
+                },
+                {
+                    data: 'target_coords',
+                    title: '{% trans "Target" %}',
+                    render: function (data, type, row) {
+                        return `<a style="color:black" href="${row.enemy_village_preview_game_url}" target="_blank">${data}</a>`;
+                    },
+                },
+                {
+                    data: 'target_player',
+                    title: '{% trans "Enemy" %}',
+                    render: function (data, type, row) {
+                        return `<a style="color:black" href="${row.enemy_player_preview_game_url}" target="_blank">${data}</a>`;
+                    },
+                },
                 {
                     data: 'shipment_t1',
                     title: '{% trans "Send min." %}',

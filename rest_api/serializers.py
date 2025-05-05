@@ -158,6 +158,15 @@ class WeightSerializer(serializers.Serializer):
     deputy_send_url = serializers.SerializerMethodField(
         help_text="URL for deputy to send the attack."
     )
+    start_village_preview_game_url = serializers.CharField(
+        help_text="URL to sender's village.", default=""
+    )
+    enemy_village_preview_game_url = serializers.CharField(
+        help_text="URL to enemy village.", default=""
+    )
+    enemy_player_preview_game_url = serializers.CharField(
+        help_text="URL to enemy player.", default=""
+    )
 
     def get_building_name(self, obj: Any) -> str:
         return BUILDINGS_TRANSLATION.get(obj.get("building"))  # type: ignore

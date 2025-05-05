@@ -180,6 +180,9 @@ class TestMakeFinalOutline(TestCase):
             "village_id": 0,
             "player_id": 0,
             "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+            "start_village_preview_game_url": "https://te1.testserver/game.php?screen=info_village&id=0",
+            "enemy_village_preview_game_url": "https://te1.testserver/game.php?screen=info_village&id=0",
+            "enemy_player_preview_game_url": "https://te1.testserver/game.php?screen=info_player&id=0",
             "send_url_text": SEND_TEXT.OFF.value,
         }
         self.assertEqual(expected, res)
@@ -301,6 +304,9 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                    "start_village_preview_game_url": "https://te1.testserver/game.php?screen=info_village&id=0",
+                    "enemy_village_preview_game_url": "https://te1.testserver/game.php?screen=info_village&id=0",
+                    "enemy_player_preview_game_url": "https://te1.testserver/game.php?screen=info_player&id=0",
                     "send_url_text": SEND_TEXT.OFF.value,
                 },
                 {
@@ -323,6 +329,9 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                    "start_village_preview_game_url": "https://te1.testserver/game.php?screen=info_village&id=0",
+                    "enemy_village_preview_game_url": "https://te1.testserver/game.php?screen=info_village&id=0",
+                    "enemy_player_preview_game_url": "https://te1.testserver/game.php?screen=info_player&id=0",
                     "send_url_text": SEND_TEXT.OFF.value,
                 },
                 {
@@ -345,6 +354,9 @@ class TestMakeFinalOutline(TestCase):
                     "village_id": 0,
                     "player_id": 0,
                     "send_url": "https://te1.testserver/game.php?village=0&screen=place&target=0",
+                    "start_village_preview_game_url": "https://te1.testserver/game.php?screen=info_village&id=0",
+                    "enemy_village_preview_game_url": "https://te1.testserver/game.php?screen=info_village&id=0",
+                    "enemy_player_preview_game_url": "https://te1.testserver/game.php?screen=info_player&id=0",
                     "send_url_text": SEND_TEXT.NOBLE.value,
                 },
             ]
