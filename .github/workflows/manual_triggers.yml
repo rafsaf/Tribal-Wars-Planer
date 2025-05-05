@@ -1,0 +1,39 @@
+name: Manual triggers for server actions
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Action on server"
+        required: true
+        type: choice
+        default: "redeploy"
+        options:
+          - "redeploy"
+          - "restart"
+          - "reboot"
+      environment:
+        description: "Target environment"
+        required: true
+        type: choice
+        default: "prod"
+        options:
+          - "prod"
+          - "stage"
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    env:
+      is_prod: ${{ github.event.inputs.environment == 'prod' }}
+      is_stage: ${{ github.event.inputs.environment == 'stage' }}
+    steps:
+      - name: Trigger prod server - ${{ github.event.inputs.action }}
+        if: ${{ env.is_prod }}
+        run: |
+          curl -k -X POST https://${{ secrets.PROD_HOOK_IP }}:9000/hooks/${{ github.event.inputs.action }} -H "Content-Type: application/json" -d '{"secret": "${{ secrets.PROD_HOOK_SECRET }}"}'
+
+      - name: Trigger stage server - ${{ github.event.inputs.action }}
+        if: ${{ env.is_stage }}
+        run: |
+          curl -k -X POST https://${{ secrets.STAGE_HOOK_IP }}:9000/hooks/${{ github.event.inputs.action }} -H "Content-Type: application/json" -d '{"secret": "${{ secrets.STAGE_HOOK_SECRET }}"}'
