@@ -24,7 +24,11 @@ class BaseShipmentOverviewTokenFormSet(BaseFormSet):
         for form in self.forms:
             if self.can_delete and self._should_delete_form(form):  # type: ignore
                 continue
+            if form.errors:
+                return
+
             token = form.cleaned_data.get("token")
+
             if not Overview.objects.filter(token=token).exists():
                 form.add_error("token", "")
                 raise forms.ValidationError(
@@ -32,15 +36,6 @@ class BaseShipmentOverviewTokenFormSet(BaseFormSet):
                 )
             tokens.append(token)
 
-        if not tokens:
-            raise forms.ValidationError(
-                gettext_lazy("At least one overview token is required.")
-            )
-        if len(tokens) > MAX_OVERVIEWS:
-            raise forms.ValidationError(
-                gettext_lazy("Maximum %(MAX_OVERVIEWS)d overviews allowed.")
-                % {"MAX_OVERVIEWS": MAX_OVERVIEWS}
-            )
         if len(tokens) != len(set(tokens)):
             raise forms.ValidationError(
                 gettext_lazy("Duplicate overview tokens are not allowed.")
@@ -54,4 +49,6 @@ ShipmentOverviewTokenFormSet = formset_factory(
     min_num=1,
     max_num=MAX_OVERVIEWS,
     can_delete=True,
+    validate_min=True,
+    validate_max=True,
 )
