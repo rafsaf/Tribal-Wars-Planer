@@ -1,5 +1,6 @@
 {% extends 'shipment.html' %}
 {% load i18n %}
+{% load static %}
 {% block title %}{% trans 'Edit shipment' %}{% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
@@ -53,10 +54,7 @@
         </div>
         <div class="col-12 col-lg-5" style="border-left: 1px solid #ddd;">
             <div class="h-100">
-                <div class="p-3 mb-2 bg-light text-dark">
-                    <i class="bi bi-info-square"></i>
-                    {% trans 'Each overview token must be valid. You can remove or add more fields as needed.' %}
-                </div>
+                <div id="shipment-docs-info"></div>
             </div>
         </div>
     </div>
@@ -88,6 +86,8 @@
 </style>
 
 {% block scripts %}
+    {% get_current_language as LANG %}
+
     <script>
         (function () {
         // Get elements
@@ -155,5 +155,8 @@
         // Wait for the new form to be added to the DOM
             setTimeout(cleanupFormsetUI, 0);
         });
+    </script>
+    <script>
+        loadDocsPage(10, "shipment-docs-info", "{% static 'markdown/'|add:LANG|add:'/shipment_create_info.md' %}");
     </script>
 {% endblock %}</div>
