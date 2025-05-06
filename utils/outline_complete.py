@@ -364,7 +364,7 @@ class CreateWeights:
 
     def _extended_syntax(
         self, target: Target, noble_or_ruin: bool = False
-    ) -> Generator[tuple[int, str], None, None]:
+    ) -> Generator[tuple[int, str]]:
         # closest, close, random, far
 
         if noble_or_ruin:

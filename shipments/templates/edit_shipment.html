@@ -1,7 +1,7 @@
 {% extends 'shipment.html' %}
 {% load i18n %}
 {% load static %}
-{% block title %}{% trans 'Edit shipment' %}{% endblock %}
+{% block title %}{% trans 'Edit shipment' %} {{shipment.name|capfirst}} {{shipment.pk}}{% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
     <div class="row mt-3 mb-4">

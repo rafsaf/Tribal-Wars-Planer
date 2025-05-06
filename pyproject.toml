@@ -82,7 +82,7 @@ omit = [
 source = ["base", "rest_api", "shipments", "tribal_wars_planer", "utils"]
 
 [tool.ruff]
-target-version = "py312"
+target-version = "py313"
 
 [tool.ruff.lint]
 # pycodestyle, pyflakes, isort, pylint, pyupgrade
