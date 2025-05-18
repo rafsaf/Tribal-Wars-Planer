@@ -492,8 +492,6 @@ class WorldUpdateHandler:
                     village.player = player
 
                 update_list_only_players.append(village)
-            else:
-                raise RuntimeError("Village not updated: %s", village.__dict__)
 
             del villages[village_id]
 
