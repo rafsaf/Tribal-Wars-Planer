@@ -478,18 +478,13 @@ class WorldUpdateHandler:
                 village.x_coord = x
                 village.y_coord = y
                 village.coord = f"{x}|{y}"
-                if player is None:
-                    village.player = None
-                else:
-                    village.player = player
+
+                village.player = player
 
                 update_list_all_fields.append(village)
 
             elif village.player != player:
-                if player is None:
-                    village.player = None
-                else:
-                    village.player = player
+                village.player = player
 
                 update_list_only_players.append(village)
 
