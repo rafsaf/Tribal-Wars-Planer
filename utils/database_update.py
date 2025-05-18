@@ -416,7 +416,8 @@ class WorldUpdateHandler:
 
     def update_villages(self, text: str) -> None:
         create_list: list[VillageModel] = []
-        update_list: list[VillageModel] = []
+        update_list_only_players: list[VillageModel] = []
+        update_list_all_fields: list[VillageModel] = []
 
         players = Player.objects.filter(world=self.world)
         player_ids_map: dict[int, Player] = {
@@ -472,13 +473,21 @@ class WorldUpdateHandler:
                 continue
 
             village = villages[village_id]
-            if village.player != player:
-                if player is None:
-                    village.player = None
-                else:
-                    village.player = player
 
-                update_list.append(village)
+            if village.x_coord != x or village.y_coord != y:
+                village.x_coord = x
+                village.y_coord = y
+                village.coord = f"{x}|{y}"
+
+                village.player = player
+
+                update_list_all_fields.append(village)
+
+            elif village.player != player:
+                village.player = player
+
+                update_list_only_players.append(village)
+
             del villages[village_id]
 
         village_ids_to_remove = list(villages.keys())
@@ -486,7 +495,18 @@ class WorldUpdateHandler:
         for i in range(0, len(village_ids_to_remove), 2000):
             batch = village_ids_to_remove[i : i + 2000]
             VillageModel.objects.filter(village_id__in=batch, world=self.world).delete()
-        VillageModel.objects.bulk_update(update_list, ["player"], batch_size=500)
+
+        VillageModel.objects.bulk_update(
+            update_list_all_fields,
+            ["player", "x_coord", "y_coord", "coord"],
+            batch_size=500,
+        )
+        VillageModel.objects.bulk_update(
+            update_list_only_players,
+            ["player"],
+            batch_size=500,
+        )
+
         VillageModel.objects.bulk_create(create_list, batch_size=2000)
         metrics.DBUPDATE.labels("village", self.world.postfix, "create").inc(
             len(create_list)
@@ -495,10 +515,12 @@ class WorldUpdateHandler:
             len(village_ids_to_remove)
         )
         metrics.DBUPDATE.labels("village", self.world.postfix, "update").inc(
-            len(update_list)
+            len(update_list_only_players) + len(update_list_all_fields)
         )
         self.village_log_msg = (
-            f"C-{len(create_list)},D-{len(village_ids_to_remove)},U-{len(update_list)}"
+            f"C-{len(create_list)},"
+            f"D-{len(village_ids_to_remove)},"
+            f"U-{len(update_list_only_players) + len(update_list_all_fields)}"
         )
 
     def update_tribes(self, text: str) -> None:
