@@ -56,7 +56,7 @@ class WorldOutdatedError(DatabaseUpdateError):
 T = TypeVar("T", int, float, str)
 
 
-def get_xml_value(parent: ElementTree.Element, tag: str, convert_type: type[T]) -> T:
+def get_xml_value(parent: ElementTree.Element, tag: str, convert_type: type[T]) -> T:  # noqa: UP047
     element = parent.find(tag)
     if element is None:
         raise DatabaseUpdateError(f"Missing required XML tag: {tag}")

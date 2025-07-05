@@ -1,5 +1,7 @@
 name: Manual triggers for server actions
 
+permissions: {}
+
 on:
   workflow_dispatch:
     inputs:
