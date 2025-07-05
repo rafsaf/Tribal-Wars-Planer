@@ -25,6 +25,8 @@ jobs:
         ports:
           - 5432:5432
     steps:
+      - uses: actions/checkout@v4
+
       - name: Setup Python and Poetry Environment
         uses: ./.github/actions/setup-python-poetry
 
