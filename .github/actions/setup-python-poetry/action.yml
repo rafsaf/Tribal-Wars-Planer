@@ -1,0 +1,31 @@
+name: "Setup Python and Poetry Environment"
+description: "Checks out code, sets up Python, installs Poetry, and caches/installs dependencies."
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.13.3
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.13.3"
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: false
+        virtualenvs-path: /opt/venv
+
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v4
+      with:
+        path: /opt/venv
+        key: venv-${{ runner.os }}-3.13.3-${{ hashFiles('poetry.lock') }}
+
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      shell: bash
+      run: poetry install --no-interaction --no-root

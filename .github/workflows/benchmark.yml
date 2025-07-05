@@ -11,7 +11,6 @@ on:
 jobs:
   run_benchmarks:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres:17
@@ -26,31 +25,8 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python 3.13.3
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13.3"
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: false
-          virtualenvs-path: /opt/venv
-
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v4
-        with:
-          path: /opt/venv
-          key: venv-${{ runner.os }}-3.13.3-${{ hashFiles('poetry.lock') }}
-
-      - name: Install dependencies and actiavte virtualenv
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: |
-          poetry install --no-interaction --no-root
+      - name: Setup Python and Poetry Environment
+        uses: ./.github/actions/setup-python-poetry
 
       - name: Create .env file from example env file and staticfiles
         run: |
