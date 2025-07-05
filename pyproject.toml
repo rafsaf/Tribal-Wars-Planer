@@ -86,7 +86,7 @@ target-version = "py313"
 
 [tool.ruff.lint]
 # pycodestyle, pyflakes, isort, pylint, pyupgrade
-ignore = ["E501", "PLR0915", "PLR2004"]
+ignore = ["E501", "PLC0415", "PLR0915", "PLR2004"]
 select = ["E", "F", "I", "PL", "UP", "W"]
 
 [tool.ruff.lint.pylint]

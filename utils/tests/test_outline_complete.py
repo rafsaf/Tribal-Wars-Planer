@@ -870,9 +870,7 @@ class TestOutlineCreateTargets(TransactionTestCase):
         target.save()
         complete_outline_write(self.outline, salt=self.salt)
         created = self.weights()
-        import pprint
 
-        pprint.pprint([w.__dict__ for w in created])
         self.assertEqual(len(created), 5)
 
         self.assertEqual(created[0].order, 30000)

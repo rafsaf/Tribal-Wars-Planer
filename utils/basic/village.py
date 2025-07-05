@@ -148,6 +148,9 @@ class Village:
     def __eq__(self, other):
         return self.coord == other.coord
 
+    def __hash__(self):
+        return hash(self.coord)
+
 
 def many_villages(coord_many: str):
     """List of Villages"""
