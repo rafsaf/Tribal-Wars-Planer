@@ -14,8 +14,8 @@ django-registration = "^5.2.1"
 django-ses = "^4.3.2"
 djangorestframework = "^3.16.1"
 
-beautifulsoup4 = "^4.13.3"
-botocore = "^1.40.12"
+beautifulsoup4 = "^4.13.5"
+botocore = "^1.40.17"
 cython = "^3.1.3"
 diskcache = "^5.6.3"
 django-otp-yubikey = "^1.1.0"
@@ -37,7 +37,7 @@ stripe = "^12.4.0"
 uwsgi = "^2.0.30"
 
 [tool.poetry.group.dev.dependencies]
-coverage = "^7.10.4"
+coverage = "^7.10.5"
 django-debug-toolbar = "^6.0.0"
 django-types = "^0.22.0"
 djangorestframework-stubs = "^3.16.2"
@@ -53,17 +53,17 @@ pytest-cov = "^6.2.1"
 pytest-django = "^4.11.1"
 pytest-xdist = "^3.8.0"
 requests-mock = "^1.12.1"
-ruff = "^0.12.9"
+ruff = "^0.12.10"
 snakeviz = "^2.2.2"
 types-markdown = "^3.8.0.20250809"
-types-python-dateutil = "^2.9.0.20250809"
+types-python-dateutil = "^2.9.0.20250822"
 types-pytz = "^2025.2.0.20250809"
 types-requests = "^2.32.4.20250809"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["i18n"], version = "^1.6.1" }
 mkdocs-glightbox = "^0.4.0"
-mkdocs-material = { extras = ["imaging"], version = "^9.6.17" }
+mkdocs-material = { extras = ["imaging"], version = "^9.6.18" }
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
