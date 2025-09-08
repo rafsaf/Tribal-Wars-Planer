@@ -8,14 +8,14 @@ version = "5.12.3"
 python = ">=3.13,<3.14"
 
 crispy-bootstrap4 = "^2025.6"
-django = "^5.2.5"
+django = "^5.2.6"
 django-crispy-forms = "^2.3"
 django-registration = "^5.2.1"
 django-ses = "^4.3.2"
 djangorestframework = "^3.16.1"
 
 beautifulsoup4 = "^4.13.5"
-botocore = "^1.40.21"
+botocore = "^1.40.26"
 cython = "^3.1.3"
 diskcache = "^5.6.3"
 django-otp-yubikey = "^1.1.0"
@@ -26,14 +26,14 @@ fpdf = "^1.7.2"
 numpy = "^2.3.2"
 prometheus-client = "^0.22.1"
 psutil = "^7.0.0"
-psycopg = { extras = ["c"], version = "^3.2.9" }
+psycopg = { extras = ["c"], version = "^3.2.10" }
 python-dateutil = "^2.9.0"
 python-dotenv = "^1.1.1"
 schedule = "^1.2.1"
 scipy = "^1.16.1"
-sentry-sdk = { extras = ["django"], version = "^2.35.2" }
+sentry-sdk = { extras = ["django"], version = "^2.37.0" }
 setuptools = "^80.9.0"
-stripe = "^12.5.0"
+stripe = "^12.5.1"
 uwsgi = "^2.0.30"
 
 [tool.poetry.group.dev.dependencies]
@@ -46,24 +46,24 @@ freezegun = "^1.5.5"
 mypy = "^1.17.1"
 parameterized = "^0.9.0"
 pre-commit = "^4.3.0"
-pytest = "^8.4.1"
+pytest = "^8.4.2"
 pytest-benchmark = "^5.1.0"
 pytest-codspeed = "^4.0.0"
-pytest-cov = "^6.2.1"
+pytest-cov = "^6.3.0"
 pytest-django = "^4.11.1"
 pytest-xdist = "^3.8.0"
 requests-mock = "^1.12.1"
-ruff = "^0.12.11"
+ruff = "^0.12.12"
 snakeviz = "^2.2.2"
-types-markdown = "^3.8.0.20250809"
+types-markdown = "^3.9.0.20250906"
 types-python-dateutil = "^2.9.0.20250822"
 types-pytz = "^2025.2.0.20250809"
 types-requests = "^2.32.4.20250809"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["i18n"], version = "^1.6.1" }
-mkdocs-glightbox = "^0.4.0"
-mkdocs-material = { extras = ["imaging"], version = "^9.6.18" }
+mkdocs-glightbox = "^0.5.1"
+mkdocs-material = { extras = ["imaging"], version = "^9.6.19" }
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
