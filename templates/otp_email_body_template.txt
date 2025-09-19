@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% trans "Hello," %} <b>{{ user.username }}</b>
+
+{% trans "To complete your login, please use the following one-time code:" %}
+
+{{ token }}
+
+{% blocktrans %}This code is for your eyes only and will expire in a few minutes. Do not share it with anyone.{% endblocktrans %}
+
+{% blocktrans %}If you did not attempt to log in, you can safely ignore this email.{% endblocktrans %}
+
+---
+
+{% trans "This is an automated message. Please do not reply to this email." %}
+{% trans "If you have any questions, you can contact us at: rafal.safin@rafsaf.pl" %}
+
+{% trans "Thank you," %}
+plemiona-planer.pl
