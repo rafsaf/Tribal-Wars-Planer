@@ -38,7 +38,7 @@ def send_payment_email(payment: Payment, user: User) -> None:
     send_mail(
         title,
         "",
-        "plemionaplaner.pl@gmail.com",
+        from_email=None,
         recipient_list=[user.email],
         html_message=msg_html,
     )
