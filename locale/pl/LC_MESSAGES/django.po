@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-02 20:55+0200\n"
+"POT-Creation-Date: 2025-09-20 15:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3015,7 +3015,9 @@ msgstr "Aby dokończyć logowanie, użyj poniższego jednorazowego kodu:"
 msgid ""
 "This code is for your eyes only and will expire in a few minutes. Do not "
 "share it with anyone."
-msgstr "Ten kod jest przeznaczony wyłącznie dla Ciebie i wygaśnie za parę minut. Nie udostępniaj go nikomu."
+msgstr ""
+"Ten kod jest przeznaczony wyłącznie dla Ciebie i wygaśnie za parę minut. Nie "
+"udostępniaj go nikomu."
 
 #: templates/otp_email_body_template.html:20
 #: templates/otp_email_body_template.txt:11
@@ -3040,11 +3042,6 @@ msgstr ""
 #: templates/otp_email_body_template.txt:18
 msgid "Thank you,"
 msgstr "Z pozdrowieniami,"
-
-#: templates/otp_email_body_template.html:32
-#: templates/otp_email_body_template.txt:19
-msgid "The Plemiona Planer Team"
-msgstr "Zespół Plemiona Planer"
 
 #: templates/otp_email_body_template.txt:16
 msgid "If you have any questions, you can contact us at: rafal.safin@rafsaf.pl"
@@ -3544,6 +3541,9 @@ msgstr "Wyślij FAKE"
 #: utils/send_text.py:17
 msgid "Send RUIN"
 msgstr "Wyślij BURZAK"
+
+#~ msgid "The Plemiona Planer Team"
+#~ msgstr "Zespół Plemiona Planer"
 
 #~ msgid "Hello!"
 #~ msgstr "Witaj!"
