@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<p>
+    {% trans "Hello," %}
+</p>
+
+<p>
+    {% trans "To complete your login, please use the following one-time code:" %}
+</p>
+
+<h2 style="font-size: 24px; font-weight: bold; margin: 20px 0; padding: 10px; background-color: #f0f0f0; border-radius: 5px; text-align: center;">
+    {{ token }}
+</h2>
+
+<p>
+    {% blocktrans %}This code is for your eyes only and will expire in a few minutes. Do not share it with anyone.{% endblocktrans %}
+</p>
+
+<p>
+    {% blocktrans %}If you did not attempt to log in, you can safely ignore this email.{% endblocktrans %}
+</p>
+
+<hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+
+<p>
+    {% trans "This is an automated message. Please do not reply to this email." %}
+    {% blocktrans %}If you have any questions, you can contact us at: <a href="mailto:rafal.safin@rafsaf.pl" style="color: #0066cc;">rafal.safin@rafsaf.pl</a>{% endblocktrans %}
+</p>
+
+<p>
+    {% trans "Thank you," %}<br>
+    plemiona-planer.pl
+</p>

@@ -20,6 +20,7 @@ from typing import Any
 
 from diskcache.fanout import FanoutCache
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
+from django.utils.translation import gettext_lazy
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -434,3 +435,7 @@ else:
             "OPTIONS": {"size_limit": 2 * 2**30},  # 2 gigabyte
         },
     }
+
+OTP_EMAIL_BODY_TEMPLATE_PATH = "otp_email_body_template.txt"
+OTP_EMAIL_BODY_HTML_TEMPLATE_PATH = "otp_email_body_template.html"
+OTP_EMAIL_SUBJECT = gettext_lazy("Your Plemiona Planer Login Code")

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-05 22:27+0200\n"
+"POT-Creation-Date: 2025-09-20 15:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1244,7 +1244,7 @@ msgstr "Planer wybierze dane wklejone w:"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:207
 #: base/templates/base/new_outline/new_outline_results.html:62
 #: base/templates/base/user/profile_settings.html:74
-#: shipments/templates/edit_shipment.html:50
+#: shipments/templates/edit_shipment.html:51
 msgid "Save"
 msgstr "Zapisz"
 
@@ -2717,7 +2717,7 @@ msgid "Duplicate overview tokens are not allowed."
 msgstr "Nie można użyć tych samych tokenów wielokrotnie."
 
 #: shipments/templates/add_shipment.html:11
-#: shipments/templates/edit_shipment.html:10
+#: shipments/templates/edit_shipment.html:11
 msgid ""
 "Create a new shipment and add overview tokens. You can add up to 10 "
 "overviews."
@@ -2726,19 +2726,19 @@ msgstr ""
 "10 tokenów."
 
 #: shipments/templates/add_shipment.html:26
-#: shipments/templates/edit_shipment.html:25
+#: shipments/templates/edit_shipment.html:26
 msgid "Overviews"
 msgstr "Tokeny"
 
 #: shipments/templates/add_shipment.html:37
 #: shipments/templates/add_shipment.html:70
-#: shipments/templates/edit_shipment.html:36
-#: shipments/templates/edit_shipment.html:72
+#: shipments/templates/edit_shipment.html:37
+#: shipments/templates/edit_shipment.html:70
 msgid "Remove"
 msgstr "Usuń"
 
 #: shipments/templates/add_shipment.html:46
-#: shipments/templates/edit_shipment.html:45
+#: shipments/templates/edit_shipment.html:46
 msgid "Add overview token"
 msgstr "Dodaj token"
 
@@ -2746,15 +2746,9 @@ msgstr "Dodaj token"
 msgid "Create shipment"
 msgstr "Utwórz wysyłkę"
 
-#: shipments/templates/edit_shipment.html:3
+#: shipments/templates/edit_shipment.html:4
 msgid "Edit shipment"
 msgstr "Edytuj wysyłkę"
-
-#: shipments/templates/edit_shipment.html:58
-msgid ""
-"Each overview token must be valid. You can remove or add more fields as "
-"needed."
-msgstr "Każdy token musi być prawidłowy. Możesz dodać i usuwać pola."
 
 #: shipments/templates/my_shipments.html:10
 msgid "Name of shipment"
@@ -3006,6 +3000,53 @@ msgstr "Jeśli masz pytania, użyj maila kontaktowego: rafal.safin@rafsaf.pl"
 msgid "[Premium] Successful completion of the payment on"
 msgstr "[Premium] Pomyślne zakończenie płatności z dnia"
 
+#: templates/otp_email_body_template.html:4
+#: templates/otp_email_body_template.txt:3
+msgid "Hello,"
+msgstr "Witaj,"
+
+#: templates/otp_email_body_template.html:8
+#: templates/otp_email_body_template.txt:5
+msgid "To complete your login, please use the following one-time code:"
+msgstr "Aby dokończyć logowanie, użyj poniższego jednorazowego kodu:"
+
+#: templates/otp_email_body_template.html:16
+#: templates/otp_email_body_template.txt:9
+msgid ""
+"This code is for your eyes only and will expire in a few minutes. Do not "
+"share it with anyone."
+msgstr ""
+"Ten kod jest przeznaczony wyłącznie dla Ciebie i wygaśnie za parę minut. Nie "
+"udostępniaj go nikomu."
+
+#: templates/otp_email_body_template.html:20
+#: templates/otp_email_body_template.txt:11
+msgid "If you did not attempt to log in, you can safely ignore this email."
+msgstr "Jeśli nie próbowałeś/aś się zalogować, możesz zignorować tę wiadomość."
+
+#: templates/otp_email_body_template.html:26
+#: templates/otp_email_body_template.txt:15
+msgid "This is an automated message. Please do not reply to this email."
+msgstr ""
+"Jest to wiadomość generowana automatycznie. Prosimy na nią nie odpowiadać."
+
+#: templates/otp_email_body_template.html:27
+msgid ""
+"If you have any questions, you can contact us at: <a href=\"mailto:rafal."
+"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+msgstr ""
+"W przypadku pytań, skontaktuj się z nami pod adresem: <a href=\"mailto:rafal."
+"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+
+#: templates/otp_email_body_template.html:31
+#: templates/otp_email_body_template.txt:18
+msgid "Thank you,"
+msgstr "Z pozdrowieniami,"
+
+#: templates/otp_email_body_template.txt:16
+msgid "If you have any questions, you can contact us at: rafal.safin@rafsaf.pl"
+msgstr "Jeśli masz pytania, użyj maila kontaktowego: rafal.safin@rafsaf.pl"
+
 #: templates/registration/password_change_done.html:7
 #: templates/registration/password_reset_complete.html:6
 msgid "You have successfully changed your password."
@@ -3082,6 +3123,10 @@ msgstr "Jesteś obecnie zalogowany jako"
 #: templates/two_factor/_wizard_forms.html:11
 msgid "Password recovery"
 msgstr "Przywracanie zapomnianego hasła"
+
+#: tribal_wars_planer/settings.py:441
+msgid "Your Plemiona Planer Login Code"
+msgstr "Plemiona Planer: Twój kod logowania"
 
 #: utils/basic/army.py:169 utils/basic/army.py:338
 #, python-format
@@ -3496,3 +3541,23 @@ msgstr "Wyślij FAKE"
 #: utils/send_text.py:17
 msgid "Send RUIN"
 msgstr "Wyślij BURZAK"
+
+#~ msgid "The Plemiona Planer Team"
+#~ msgstr "Zespół Plemiona Planer"
+
+#~ msgid "Hello!"
+#~ msgstr "Witaj!"
+
+#~ msgid "Your login token is: "
+#~ msgstr "Twój token do logowania to: "
+
+#~ msgid "Sincerely, plemiona-planer.pl."
+#~ msgstr "Z pozdrowieniami, plemiona-planer.pl."
+
+#~ msgid "Plemiona Planer - Your one-time password"
+#~ msgstr "Plemiona Planer - jednorazowe hasło do logowania"
+
+#~ msgid ""
+#~ "Each overview token must be valid. You can remove or add more fields as "
+#~ "needed."
+#~ msgstr "Każdy token musi być prawidłowy. Możesz dodać i usuwać pola."
