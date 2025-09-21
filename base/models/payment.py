@@ -55,6 +55,8 @@ class Payment(models.Model):
     months = models.IntegerField(default=1)
     comment = models.CharField(max_length=150, default="", blank=True)
     new_date = models.DateField(default=None, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def value(self) -> str:
         return f"{self.amount} {self.currency}"

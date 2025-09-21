@@ -14,6 +14,7 @@
 # ==============================================================================
 
 
+import datetime
 import logging
 from time import sleep
 
@@ -36,14 +37,21 @@ class Command(BaseCommand):  # pragma: no cover
     @job_logs_and_metrics(log)
     def handle(self, *args, **options):
         processed = 0
-        payment_without_new_date = Payment.objects.filter(new_date=None)
+        ten_minutes_ago = datetime.datetime.now(tz=datetime.UTC) - datetime.timedelta(
+            minutes=10
+        )
+        payment_without_new_date = Payment.objects.filter(
+            new_date=None, created_at__lte=ten_minutes_ago
+        )
         for payment in payment_without_new_date:
             metrics.ERRORS.labels("payment_without_new_date found").inc()
             payment.save()  # signal handle_payment will be executed
             processed += 1
             sleep(0.5)
 
-        payments_to_process = Payment.objects.filter(promotion=False, amount_pln=0)
+        payments_to_process = Payment.objects.filter(
+            promotion=False, amount_pln=0, created_at__lte=ten_minutes_ago
+        )
         for payment in payments_to_process:
             if payment.from_stripe:
                 if not payment.payment_intent_id:
@@ -65,6 +73,13 @@ class Command(BaseCommand):  # pragma: no cover
                     continue
 
                 balance_transaction_id = intent["latest_charge"]["balance_transaction"]
+                if balance_transaction_id is None:
+                    log.error(
+                        f"balance_transaction is None in payment, intent:{intent_id}, pk:{payment.pk}"
+                    )
+                    metrics.ERRORS.labels("job:calculate_payment_fees").inc()
+                    continue
+
                 balance_transaction = stripe.BalanceTransaction.retrieve(
                     balance_transaction_id
                 )
