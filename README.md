@@ -2,9 +2,8 @@
 
 ![Codecov](https://img.shields.io/codecov/c/github/rafsaf/Tribal-Wars-Planer)
 ![GitHub](https://img.shields.io/github/license/rafsaf/Tribal-Wars-Planer)
-![tests](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/tests.yml/badge.svg)
-![stage_image_push.yml](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/stage_image_push.yml/badge.svg)
-![latest_image_push.yml](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/latest_image_push.yml/badge.svg)
+![tests.yml](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/tests.yml/badge.svg)
+![build_and_release.yml](https://github.com/rafsaf/Tribal-Wars-Planer/actions/workflows/build_and_release.yml/badge.svg)
 
 # Official Site and Discord
 
@@ -19,8 +18,8 @@ Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal
 # Table of contents
 
 - [Official Site and Discord](#official-site-and-discord)
-    - [Discord channel: discord.gg/g5pcsCteCT](#discord-channel-discordggg5pcsctect)
-    - [Production server: plemiona-planer.pl](#production-server-plemiona-planerpl)
+  - [Discord channel: discord.gg/g5pcsCteCT](#discord-channel-discordggg5pcsctect)
+  - [Production server: plemiona-planer.pl](#production-server-plemiona-planerpl)
 - [Table of contents](#table-of-contents)
 - [Development](#development)
 - [Dockerfile reference](#dockerfile-reference)
