@@ -242,6 +242,7 @@ LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("en", "English"),
     ("pl", "Polish"),
+    ("hu", "Hungarian"),
 ]
 
 LANGUAGE_COOKIE_AGE = 31104000

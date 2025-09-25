@@ -1,0 +1,3546 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-24 21:49+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: base/forms.py:66 base/forms.py:81 base/templates/base/base_planer.html:10
+msgid "Outline Name"
+msgstr "Terv neve"
+
+#: base/forms.py:68 base/forms.py:82 base/templates/base/base_planer.html:11
+#: shipments/templates/my_shipments.html:11
+#: utils/basic/info_generatation.py:151
+msgid "Date"
+msgstr "Dátum"
+
+#: base/forms.py:69 base/templates/base/base_planer.html:13
+#: shipments/templates/my_shipments.html:13
+msgid "World"
+msgstr "Világ"
+
+#: base/forms.py:86
+msgid "Use unused troops"
+msgstr "Fel nem használt csapatok használata"
+
+#: base/forms.py:90
+msgid ""
+"Use unused army or deff troops from result tab from parent outline in Troops "
+"data tab"
+msgstr ""
+"Használja a fel nem használt sereget vagy védő csapatokat a szülő terv "
+"eredmény lapjáról a Csapatok adat lapon"
+
+#: base/forms.py:101 base/models/outline.py:145 base/models/outline.py:326
+#: base/models/profile.py:35
+msgid "Army collection"
+msgstr "Sereg gyűjtemény"
+
+#: base/forms.py:119 base/forms.py:208
+msgid "Text cannot be empty!"
+msgstr "A szöveg nem lehet üres!"
+
+#: base/forms.py:145 base/forms.py:239
+#, python-format
+msgid "[coord: %(coord)s] - [world: %(world)s]: no such village"
+msgstr "[koordináta: %(coord)s] - [világ: %(world)s]: nincs ilyen falu"
+
+#: base/forms.py:153 base/forms.py:247
+#, python-format
+msgid ""
+"[coord: %(coord)s] - [world: %(world)s] - [player: %(player)s] - [tribe: "
+"%(tribe)s]"
+msgstr ""
+"[koordináta: %(coord)s] - [világ: %(world)s] - [játékos: %(player)s] - "
+"[klán: %(tribe)s]"
+
+#: base/forms.py:171 base/forms.py:269
+#, python-format
+msgid "Village in this line is duplicated: %(coord)s"
+msgstr "A falu ebben a sorban duplikálva van: %(coord)s"
+
+#: base/forms.py:188 base/models/outline.py:146 base/models/outline.py:328
+#: base/models/profile.py:36
+msgid "Deff collection "
+msgstr "Védő gyűjtemény "
+
+#: base/forms.py:282
+msgid "Ally tribe"
+msgstr "Szövetséges klán"
+
+#: base/forms.py:289 base/forms.py:305
+msgid "Select tribe from list"
+msgstr "Válasszon klánt a listából"
+
+#: base/forms.py:298
+msgid "Enemy tribe"
+msgstr "Ellenséges klán"
+
+#: base/forms.py:316
+msgid "Radius"
+msgstr "Sugár"
+
+#: base/forms.py:319
+msgid "Greater than or equal to 0 and less than or equal to 1000."
+msgstr "Nagyobb vagy egyenlő, mint 0 és kisebb vagy egyenlő, mint 1000."
+
+#: base/forms.py:327
+msgid "Excluded enemy villages"
+msgstr "Kizárt ellenséges falvak"
+
+#: base/forms.py:329
+msgid "Exact coords separated by a space or an entry."
+msgstr "Pontos koordináták szóközzel vagy bejegyzéssel elválasztva."
+
+#: base/forms.py:353 base/templates/base/base.html:249
+#: base/templates/base/new_outline/new_outline_initial_period2.html:32
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
+msgid "Targets"
+msgstr "Célpontok"
+
+#: base/forms.py:401
+#, python-format
+msgid ""
+"You are trying to mantain more than %s targets in total - that is global "
+"limit for targets number.<br> Please decrease the total number of targets."
+msgstr ""
+"Több mint %s célpontot próbál fenntartani összesen - ez a célpontok számának "
+"globális korlátja.<br> Kérjük, csökkentse a célpontok teljes számát."
+
+#: base/forms.py:424
+msgid "Min. off units number"
+msgstr "Min. támadó egységek száma"
+
+#: base/forms.py:425
+msgid "Max. off units number"
+msgstr "Max. támadó egységek száma"
+
+#: base/forms.py:427
+msgid "Minimum distance from front line"
+msgstr "Minimális távolság a frontvonaltól"
+
+#: base/forms.py:429
+msgid "Max Distance for nobles"
+msgstr "Max távolság a nemesek számára"
+
+#: base/forms.py:431
+msgid "Max Distance for offs and ruins"
+msgstr "Max távolság a támadók és rombolások számára"
+
+#: base/forms.py:436
+msgid ""
+"Greater than or equal to 1 and less than or equal to 28000. Only offs above "
+"this value will be considered full offs and will be written out."
+msgstr ""
+"Nagyobb vagy egyenlő, mint 1 és kisebb vagy egyenlő, mint 28000. Csak az e "
+"feletti támadók számítanak teljes támadónak, és kerülnek kiírásra."
+
+#: base/forms.py:439
+msgid ""
+"Defaults to 28000. Similar to minimum off units number, must be greater than "
+"it."
+msgstr ""
+"Alapértelmezés szerint 28000. Hasonló a minimális támadó egységek számához, "
+"nagyobbnak kell lennie annál."
+
+#: base/forms.py:442
+msgid ""
+"Greater than or equal to 0 and less than or equal to 500. Villages closer to "
+"the enemy than this value will be considered front-line and not written out "
+"by default."
+msgstr ""
+"Nagyobb vagy egyenlő, mint 0 és kisebb vagy egyenlő, mint 500. Az "
+"ellenséghez ennél közelebbi falvak frontvonali falvaknak minősülnek, és "
+"alapértelmezés szerint nem kerülnek kiírásra."
+
+#: base/forms.py:445
+msgid ""
+"Greater than or equal to 0 and less than or equal to 1000. This is STRICT "
+"limit of distance for any OFF regardless of distance from the front line."
+msgstr ""
+"Nagyobb vagy egyenlő, mint 0 és kisebb vagy egyenlő, mint 1000. Ez SZIGORÚ "
+"távolsági korlát minden TÁMADÓ számára, függetlenül a frontvonaltól való "
+"távolságtól."
+
+#: base/forms.py:450
+msgid "Excluded enemy villages coords (secluded villages)"
+msgstr "Kizárt ellenséges falvak koordinátái (elzárt falvak)"
+
+#: base/forms.py:454
+msgid "Exact coords separated by a space or an entry"
+msgstr "Pontos koordináták szóközzel vagy bejegyzéssel elválasztva"
+
+#: base/forms.py:462
+#, python-format
+msgid ""
+"Greater than or equal to 0 and less than or equal to your world maximum: "
+"%(max_noble_distance)s. This is STRICT limit of distance for any NOBLE "
+"regardless of distance from the front line."
+msgstr ""
+"Nagyobb vagy egyenlő, mint 0 és kisebb vagy egyenlő, mint a világ maximuma: "
+"%(max_noble_distance)s. Ez SZIGORÚ távolsági korlát minden NEMES számára, "
+"függetlenül a frontvonaltól való távolságtól."
+
+#: base/forms.py:470
+#, python-format
+msgid "Ensure this value is less than or equal to %(value)s."
+msgstr ""
+"Győződjön meg róla, hogy ez az érték kisebb vagy egyenlő, mint %(value)s."
+
+#: base/forms.py:512
+msgid "Show all hidden"
+msgstr "Összes rejtett mutatása"
+
+#: base/forms.py:513
+msgid "Title of message:"
+msgstr "Üzenet címe:"
+
+#: base/forms.py:514
+msgid "Content of message:"
+msgstr "Üzenet tartalma:"
+
+#: base/forms.py:515 base/forms.py:1114
+msgid "Sending Options:"
+msgstr "Küldési opciók:"
+
+#: base/forms.py:516 base/forms.py:1115
+msgid "Add links to direct messages:"
+msgstr "Linkek hozzáadása a közvetlen üzenetekhez:"
+
+#: base/forms.py:520
+#: base/templates/base/new_outline/new_outline_results.html:132
+msgid ""
+"By checking this option, players will see the commands of all other players "
+"for their own targets. By default, it’s not turned on and players only see "
+"their commands."
+msgstr ""
+"Ezt az opciót bejelölve a játékosok látni fogják az összes többi játékos "
+"parancsát a saját célpontjaikra. Alapértelmezés szerint ez nincs "
+"bekapcsolva, és a játékosok csak a saját parancsaikat látják."
+
+#: base/forms.py:522
+msgid "Title, maximum length 200."
+msgstr "Cím, maximális hossz 200."
+
+#: base/forms.py:524
+msgid ""
+"BBCode message, maximum length 2000. Hint: Format text in game and paste "
+"here."
+msgstr ""
+"BBCode üzenet, maximális hossz 2000. Tipp: Formázza a szöveget a játékban, "
+"és illessze be ide."
+
+#: base/forms.py:527
+msgid ""
+"Directly messages will bahave poorly with many (more than 80-100) commands"
+msgstr ""
+"A közvetlen üzenetek rosszul fognak működni sok (több mint 80-100) paranccsal"
+
+#: base/forms.py:530
+msgid ""
+"If checked, direct messages from options above will have safe link to planer"
+msgstr ""
+"Ha be van jelölve, a fenti opciókból származó közvetlen üzenetek biztonságos "
+"linket tartalmaznak a tervezőhöz"
+
+#: base/forms.py:540
+msgid "Set sending option as default choice for next outlines"
+msgstr ""
+"Küldési opció beállítása alapértelmezett választásként a következő tervekhez"
+
+#: base/forms.py:552
+msgid "Input type for planer"
+msgstr "Bemeneti típus a tervezőhöz"
+
+#: base/forms.py:556 base/templates/base/new_outline/new_outline.html:33
+msgid ""
+"Data for planer tab may be from Army or Defence tabs. Army - all troops "
+"(also that are outside of villages), Defence - only troops from villages."
+msgstr ""
+"A tervező lap adatai a Sereg vagy a Védelem lapokról származhatnak. Sereg - "
+"minden csapat (azok is, amelyek a falvakon kívül vannak), Védelem - csak a "
+"falvakból származó csapatok."
+
+#: base/forms.py:566
+msgid "Set as default choice for next outlines"
+msgstr "Beállítás alapértelmezett választásként a következő tervekhez"
+
+#: base/forms.py:577
+msgid "Set new date"
+msgstr "Új dátum beállítása"
+
+#: base/forms.py:636
+msgid "Choose the default distance of the written offs:"
+msgstr "Válassza ki az írott támadók alapértelmezett távolságát:"
+
+#: base/forms.py:639
+msgid "Choose the default distance of the written nobles:"
+msgstr "Válassza ki az írott nemesek alapértelmezett távolságát:"
+
+#: base/forms.py:641
+msgid "Choose how to split offs with nobles:"
+msgstr "Válassza ki, hogyan ossza fel a támadókat nemesekkel:"
+
+#: base/forms.py:643
+msgid "Choose prefered way of writing required nobles:"
+msgstr "Válassza ki a kívánt nemesek írásának preferált módját:"
+
+#: base/forms.py:646
+msgid "Choose how noble commands should be written out:"
+msgstr "Válassza ki, hogyan kell kiírni a nemes parancsokat:"
+
+#: base/forms.py:649
+msgid "Maximum number of fakes from one off village:"
+msgstr "Maximális fake-ek száma egy támadó faluból:"
+
+#: base/forms.py:652
+msgid "Determine which villages to write fake attacks from:"
+msgstr "Határozza meg, mely falvakból írjon fake támadásokat:"
+
+#: base/forms.py:655
+msgid "Max. number of nobles send per village:"
+msgstr "Max. nemesek száma falvanként:"
+
+#: base/forms.py:658
+msgid "Min. off units for every noble"
+msgstr "Min. támadó egységek minden nemeshez"
+
+#: base/forms.py:661
+msgid "Min. off units for every fake noble"
+msgstr "Min. támadó egységek minden fake nemeshez"
+
+#: base/forms.py:666
+msgid ""
+"For 4 nobles in village, first option would <b>try</b> to send them all 4x "
+"on target X, second would randomly send from 1 to 4 nobles to single target "
+"or many targets (as needed), and last option would send 1x on X1,X2,X2,X4 "
+"(one noble per target)."
+msgstr ""
+"4 nemes esetén egy faluban az első opció <b>megpróbálná</b> mind a 4-et X "
+"célpontra küldeni, a második véletlenszerűen 1-től 4 nemest küldene egyetlen "
+"célpontra vagy több célpontra (szükség szerint), az utolsó opció pedig 1x-et "
+"küldene X1, X2, X2, X4-re (egy nemes célpontonként)."
+
+#: base/forms.py:669
+msgid ""
+"For 20000 troops and 4 nobles in village, first option would try to use 4 x "
+"5000, second 1 x 19700 + 3 x 100, and last 4 x 100, where 100 can be changed "
+"in \"Min. off units for every noble\"."
+msgstr ""
+"20000 csapat és 4 nemes esetén egy faluban az első opció 4 x 5000-et "
+"próbálna használni, a második 1 x 19700 + 3 x 100-at, az utolsó pedig 4 x "
+"100-at, ahol a 100 megváltoztatható a \"Min. támadó egységek minden "
+"nemeshez\"-ben."
+
+#: base/forms.py:672
+msgid ""
+"Defaults to 8. Between 0 and 250. For example you may want only 4 nobles "
+"from single village or even 1 (with full off). Best works with \"Min. off "
+"units for every noble\" below. The same limit is respected for fake nobles."
+msgstr ""
+"Alapértelmezés szerint 8. 0 és 250 között. Például lehet, hogy csak 4 nemest "
+"szeretne egyetlen faluból, vagy akár 1-et (teljes támadóval). A legjobban a "
+"\"Min. támadó egységek minden nemeshez\" alatti opcióval működik. Ugyanez a "
+"korlát érvényes a fake nemesekre is."
+
+#: base/forms.py:679
+msgid ""
+"Defaults to just 100. Must be between 0 and 28000. This is strict minimum so "
+"if village have nobles, but not enough off units, Planer won't use it. Use "
+"with caution as it can change drastically how other options behave. For "
+"example, if you have 4x nobles and 250 off units, and this option is set to "
+"100, only 2 nobles can be ever used. Other 2 will be always ignored."
+msgstr ""
+"Alapértelmezés szerint csak 100. 0 és 28000 között kell lennie. Ez szigorú "
+"minimum, tehát ha a faluban vannak nemesek, de nincs elég támadó egység, a "
+"Tervező nem fogja használni. Óvatosan használja, mert drasztikusan "
+"megváltoztathatja a többi opció viselkedését. Például, ha 4x nemese és 250 "
+"támadó egysége van, és ez az opció 100-ra van állítva, csak 2 nemest lehet "
+"valaha használni. A másik 2 mindig figyelmen kívül lesz hagyva."
+
+#: base/forms.py:682
+msgid ""
+"Defaults to 0. Must be between 0 and 200. You probably don't want to waste "
+"troops for fake nobles, but there are cases where this makes sense."
+msgstr ""
+"Alapértelmezés szerint 0. 0 és 200 között kell lennie. Valószínűleg nem akar "
+"csapatokat pazarolni a fake nemesekre, de vannak esetek, amikor ennek van "
+"értelme."
+
+#: base/forms.py:705
+msgid "MIN number of catapults in one ruin attack:"
+msgstr "MIN katapultok száma egy romboló támadásban:"
+
+#: base/forms.py:708
+msgid "MAX number of catapults in one ruin attack:"
+msgstr "MAX katapultok száma egy romboló támadásban:"
+
+#: base/forms.py:711
+msgid "How many points on average do demolished targets have:"
+msgstr "Átlagosan hány pontjuk van a lerombolt célpontoknak:"
+
+#: base/forms.py:714
+msgid "Minimum off units for every ruin attack:"
+msgstr "Minimális támadó egységek minden romboló támadáshoz:"
+
+#: base/forms.py:719
+#, python-format
+msgid ""
+"Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that "
+"will be added to every ruin attack. If 0, it means only catapults are send."
+msgstr ""
+"Alapértelmezés szerint %(default)s (%(min)s-%(max)s között). Minimális "
+"támadó egységek, amelyeket minden romboló támadáshoz hozzáadnak. Ha 0, az "
+"azt jelenti, hogy csak katapultokat küldenek."
+
+#: base/forms.py:744
+msgid "Only attackers ABOVE this morale value can be used:"
+msgstr "Csak e feletti morál értékkel rendelkező támadók használhatók:"
+
+#: base/forms.py:746
+msgid "Is morale calculation active in this outline:"
+msgstr "Aktív-e a morál számítás ebben a tervben:"
+
+#: base/forms.py:784
+msgid "Choose whether to avoid the night bonus"
+msgstr "Válassza ki, hogy elkerüli-e az éjszakai bónuszt"
+
+#: base/forms.py:790
+msgid "Approximate hours of entry"
+msgstr "A belépés hozzávetőleges órái"
+
+#: base/forms.py:797
+msgid "Approximate hours of the last entry"
+msgstr "Az utolsó belépés hozzávetőleges órái"
+
+#: base/forms.py:810
+msgid "First value must be less or equal to second!"
+msgstr "Az első értéknek kisebbnek vagy egyenlőnek kell lennie a másodiknál!"
+
+#: base/forms.py:821
+msgid "Sum of off"
+msgstr "Támadók összege"
+
+#: base/forms.py:827
+msgid "Off without catapults"
+msgstr "Támadók katapultok nélkül"
+
+#: base/forms.py:833
+#: base/templates/base/new_outline/new_outline_initial_period1.html:190
+msgid "Catapults"
+msgstr "Katapultok"
+
+#: base/forms.py:839 base/models/period_model.py:34
+msgid "Noble"
+msgstr "Nemes"
+
+#: base/forms.py:849 base/forms.py:860
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:101
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:168
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:210
+#: utils/basic/info_generatation.py:104
+msgid "From"
+msgstr "Innen"
+
+#: base/forms.py:852 base/forms.py:861
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:102
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
+#: utils/basic/info_generatation.py:105
+msgid "To"
+msgstr "Ide"
+
+#: base/forms.py:859
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:97
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:163
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:205
+#: utils/basic/info_generatation.py:102
+msgid "Mode"
+msgstr "Mód"
+
+#: base/forms.py:862
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:98
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:207
+#: utils/basic/info_generatation.py:103
+msgid "Unit"
+msgstr "Egység"
+
+#: base/forms.py:863
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:99
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
+#: utils/basic/info_generatation.py:106
+msgid "Min. time"
+msgstr "Min. idő"
+
+#: base/forms.py:864
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:100
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
+#: utils/basic/info_generatation.py:107
+msgid "Max. time"
+msgstr "Max. idő"
+
+#: base/forms.py:940 base/forms.py:950
+msgid "Mode All can be used only once per unit"
+msgstr "Az Összes mód csak egyszer használható egységenként"
+
+#: base/forms.py:958
+msgid "Mode All must be used at least once for noble and for off."
+msgstr ""
+"Az Összes módot legalább egyszer használni kell a nemeshez és a támadóhoz is."
+
+#: base/forms.py:998
+msgid "You need a premium account to add more targets here."
+msgstr "Prémium fiókra van szüksége, hogy több célpontot adjon hozzá itt."
+
+#: base/forms.py:1008
+msgid "Village with that coords did not found."
+msgstr "Nem található falu ezekkel a koordinátákkal."
+
+#: base/forms.py:1015
+msgid ""
+"Found more than one village in database, this is the bug. Write me: <rafal."
+"safin@rafsaf.pl>"
+msgstr ""
+"Több mint egy falut találtam az adatbázisban, ez egy hiba. Írjon nekem: "
+"<rafal.safin@rafsaf.pl>"
+
+#: base/forms.py:1027
+msgid "Choose server"
+msgstr "Válasszon szervert"
+
+#: base/forms.py:1028
+msgid "World prefix"
+msgstr "Világ előtag"
+
+#: base/forms.py:1039
+msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
+msgstr ""
+"Nem megengedett szimbólumok az utótag mezőben! Biztos benne, hogy érvényes?"
+
+#: base/forms.py:1059
+msgid "World is already added!"
+msgstr "A világ már hozzá van adva!"
+
+#: base/forms.py:1067 base/forms.py:1078
+msgid "Connection error, world does not exists or is archived!"
+msgstr "Kapcsolati hiba, a világ nem létezik vagy archiválva van!"
+
+#: base/forms.py:1091 base/forms.py:1108
+msgid "Please select your server:"
+msgstr "Kérjük, válassza ki a szerverét:"
+
+#: base/forms.py:1110
+msgid "Turn on morale calculations in every outline by default:"
+msgstr "Morál számítások bekapcsolása minden tervben alapértelmezés szerint:"
+
+#: base/forms.py:1112
+msgid "Default input type for planer"
+msgstr "Alapértelmezett bemeneti típus a tervezőhöz"
+
+#: base/forms.py:1113
+msgid "Please select your currency:"
+msgstr "Kérjük, válassza ki a pénznemét:"
+
+#: base/forms.py:1116
+msgid "Enable shipments feature:"
+msgstr "Szállítmányok funkció engedélyezése:"
+
+#: base/forms.py:1119
+msgid "Prefered sending option in Results tab"
+msgstr "Előnyben részesített küldési opció az Eredmények lapon"
+
+#: base/forms.py:1121
+msgid ""
+"If checked, direct messages in Results tab will have safe link to planer"
+msgstr ""
+"Ha be van jelölve, az Eredmények lapon lévő közvetlen üzenetek biztonságos "
+"linket tartalmaznak a tervezőhöz"
+
+#: base/models/outline.py:72 base/models/outline.py:79
+#: base/models/target_vertex.py:36 base/models/target_vertex.py:43
+msgid "Closest Front"
+msgstr "Legközelebbi front"
+
+#: base/models/outline.py:73 base/models/outline.py:80
+#: base/models/target_vertex.py:37 base/models/target_vertex.py:44
+msgid "Close Back"
+msgstr "Közeli hát"
+
+#: base/models/outline.py:74 base/models/outline.py:81
+#: base/models/target_vertex.py:38 base/models/target_vertex.py:45
+msgid "Random Back"
+msgstr "Véletlenszerű hát"
+
+#: base/models/outline.py:75 base/models/outline.py:82
+#: base/models/target_vertex.py:39 base/models/target_vertex.py:46
+msgid "Far Back"
+msgstr "Távoli hát"
+
+#: base/models/outline.py:86 base/models/target_vertex.py:50
+msgid "Divide off with nobles"
+msgstr "Támadók felosztása nemesekkel"
+
+#: base/models/outline.py:87 base/models/target_vertex.py:51
+msgid "Dont't divide off"
+msgstr "Ne ossza fel a támadókat"
+
+#: base/models/outline.py:88 base/models/target_vertex.py:52
+msgid "Off and nobles separatly"
+msgstr "Támadók és nemesek külön"
+
+#: base/models/outline.py:92
+msgid "Nobles from one village as one command"
+msgstr "Nemesek egy faluból egy parancsként"
+
+#: base/models/outline.py:93
+msgid "Nobles from one village as many commands"
+msgstr "Nemesek egy faluból több parancsként"
+
+#: base/models/outline.py:97 base/models/target_vertex.py:56
+msgid "Try send all nobles to one target"
+msgstr "Próbálja meg az összes nemest egy célpontra küldeni"
+
+#: base/models/outline.py:98 base/models/target_vertex.py:57
+msgid "Nobles to one or many targets"
+msgstr "Nemesek egy vagy több célpontra"
+
+#: base/models/outline.py:99 base/models/target_vertex.py:58
+msgid "Try single nobles from many villages"
+msgstr "Próbáljon egyetlen nemest küldeni több faluból"
+
+#: base/models/outline.py:103
+#: base/templates/base/new_outline/new_outline_initial_period1.html:160
+msgid "All"
+msgstr "Összes"
+
+#: base/models/outline.py:104
+#: base/templates/base/new_outline/new_outline_initial_period1.html:161
+msgid "Front"
+msgstr "Front"
+
+#: base/models/outline.py:105
+#: base/templates/base/new_outline/new_outline_initial_period1.html:162
+msgid "Back (Rear)"
+msgstr "Hát (Hátország)"
+
+#: base/models/outline.py:106
+#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+msgid "Away"
+msgstr "Távol"
+
+#: base/models/outline.py:107
+msgid "Hidden"
+msgstr "Rejtett"
+
+#: base/models/outline.py:113
+msgid "Average greater than 8k"
+msgstr "Átlag nagyobb mint 8k"
+
+#: base/models/outline.py:114
+msgid "Average 5-8k"
+msgstr "Átlag 5-8k"
+
+#: base/models/outline.py:127
+msgid "Fakes only from off villages"
+msgstr "Fake-ek csak támadó falvakból"
+
+#: base/models/outline.py:128
+msgid "Fakes from all villages"
+msgstr "Fake-ek minden faluból"
+
+#: base/models/outline.py:134
+msgid "(Default) Auto generated, fully equipped safe links"
+msgstr ""
+"(Alapértelmezett) Automatikusan generált, teljesen felszerelt biztonságos "
+"linkek"
+
+#: base/models/outline.py:136
+msgid "Text simple directly in message"
+msgstr "Egyszerű szöveg közvetlenül az üzenetben"
+
+#: base/models/outline.py:137
+msgid "New text extended directly in message"
+msgstr "Új bővített szöveg közvetlenül az üzenetben"
+
+#: base/models/outline.py:138
+msgid "Old text extended directly in message"
+msgstr "Régi bővített szöveg közvetlenül az üzenetben"
+
+#: base/models/outline.py:139
+msgid "Text for deputy directly in message"
+msgstr "Szöveg a helyettesnek közvetlenül az üzenetben"
+
+#: base/models/outline.py:300 base/models/profile.py:60
+msgid "Outline Targets"
+msgstr "Terv célpontok"
+
+#: base/models/outline.py:331 shipments/forms.py:12
+msgid "Name"
+msgstr "Név"
+
+#: base/models/outline.py:452
+msgid "Expires "
+msgstr "Lejár "
+
+#: base/models/outline.py:466
+msgid "in"
+msgstr "-ban/-ben"
+
+#: base/models/outline.py:468
+msgid "days"
+msgstr "nap"
+
+#: base/models/overview.py:71
+msgid "Unique link to your targets on plemiona-planer.pl"
+msgstr "Egyedi link a célpontjaidhoz a plemiona-planer.pl oldalon"
+
+#: base/models/payment.py:33
+msgid "Finished"
+msgstr "Befejezve"
+
+#: base/models/payment.py:34
+msgid "Returned"
+msgstr "Visszaküldve"
+
+#: base/models/period_model.py:29
+msgid "All (left)"
+msgstr "Összes (maradt)"
+
+#: base/models/period_model.py:30
+msgid "Random"
+msgstr "Véletlenszerű"
+
+#: base/models/period_model.py:31
+msgid "Exact"
+msgstr "Pontos"
+
+#: base/models/period_model.py:35
+msgid "Ram"
+msgstr "Kos"
+
+#: base/models/stripe_product.py:36
+msgid "Premium 1 month"
+msgstr "Prémium 1 hónap"
+
+#: base/models/stripe_product.py:38
+#, python-format
+msgid "Premium %s months"
+msgstr "Prémium %s hónap"
+
+#: base/models/world.py:63
+msgid "World "
+msgstr "Világ "
+
+#: base/templates/base/base.html:7 base/templates/base/overview.html:4
+msgid "Tribal Wars Planer"
+msgstr "Klánháborúk Tervező"
+
+#: base/templates/base/base.html:9
+msgid ""
+"Tribal Wars Planer, professional tool for creating outlines for off-game "
+"coordinators."
+msgstr ""
+"Klánháborúk Tervező, professzionális eszköz a játékon kívüli koordinátorok "
+"számára tervek készítéséhez."
+
+#: base/templates/base/base.html:32 base/templates/base/base.html:57
+msgid "User Panel"
+msgstr "Felhasználói panel"
+
+#: base/templates/base/base.html:33 base/templates/base/base.html:59
+#: base/templates/base/base_planer.html:3
+msgid "My outlines"
+msgstr "Terveim"
+
+#: base/templates/base/base.html:33 base/templates/base/base.html:60
+#: base/templates/base/new_outline/new_outline_create.html:3
+msgid "Create new outline"
+msgstr "Új terv készítése"
+
+#: base/templates/base/base.html:36 base/templates/base/base.html:38
+#: base/templates/base/base.html:63 base/templates/base/base.html:65
+msgid "Beta"
+msgstr "Béta"
+
+#: base/templates/base/base.html:36 base/templates/base/base.html:63
+#: shipments/templates/my_shipments.html:3
+msgid "My shipments"
+msgstr "Szállítmányaim"
+
+#: base/templates/base/base.html:38 base/templates/base/base.html:65
+#: shipments/templates/add_shipment.html:4
+msgid "Add shipment"
+msgstr "Szállítmány hozzáadása"
+
+#: base/templates/base/base.html:80
+msgid "Home"
+msgstr "Kezdőlap"
+
+#: base/templates/base/base.html:83
+#: base/templates/base/new_outline/new_outline.html:10
+#: base/templates/base/new_outline/new_outline.html:18
+#: base/templates/base/new_outline/new_outline_initial_period1.html:4
+msgid "Planer"
+msgstr "Tervező"
+
+#: base/templates/base/base.html:86 base/templates/base/overview.html:306
+msgid "Documentation"
+msgstr "Dokumentáció"
+
+#: base/templates/base/base.html:90 base/templates/base/user/premium.html:4
+#: base/templates/base/user/profile_settings.html:45
+msgid "Premium"
+msgstr "Prémium"
+
+#: base/templates/base/base.html:95
+msgid "Admin Site"
+msgstr "Admin oldal"
+
+#: base/templates/base/base.html:103
+msgid "Account"
+msgstr "Fiók"
+
+#: base/templates/base/base.html:109
+#: base/templates/base/new_outline/new_outline_create.html:60
+msgid "My account"
+msgstr "Fiókom"
+
+#: base/templates/base/base.html:110 base/templates/base/user/add_world.html:4
+msgid "Add world"
+msgstr "Világ hozzáadása"
+
+#: base/templates/base/base.html:112
+#: base/templates/base/user/payments_summary.html:4
+#: base/templates/base/user/payments_summary.html:10
+msgid "Payments summary"
+msgstr "Fizetési összefoglaló"
+
+#: base/templates/base/base.html:116
+msgid "Sign out"
+msgstr "Kijelentkezés"
+
+#: base/templates/base/base.html:120 base/templates/base/base.html:209
+#: base/templates/base/base.html:220
+msgid "Sign in"
+msgstr "Bejelentkezés"
+
+#: base/templates/base/base.html:121 base/templates/base/base.html:212
+#: base/templates/base/base.html:224 templates/two_factor/_wizard_forms.html:10
+msgid "Sign up"
+msgstr "Regisztráció"
+
+#: base/templates/base/base.html:125
+msgid "Language"
+msgstr "Nyelv"
+
+#: base/templates/base/base.html:194
+msgid "You can now setup two factor authentication in "
+msgstr "Most beállíthatja a kétfaktoros hitelesítést a "
+
+#: base/templates/base/base.html:194
+msgid "Account settings"
+msgstr "Fiókbeállítások"
+
+#: base/templates/base/base.html:201
+#: templates/django_registration/registration_disallowed.html:7
+msgid "This is test environment, registration is not allowed. Go to"
+msgstr "Ez egy tesztkörnyezet, a regisztráció nem engedélyezett. Menj a"
+
+#: base/templates/base/base.html:207 base/templates/base/base.html:218
+msgid "Create simple and fast outlines"
+msgstr "Készítsen egyszerű és gyors terveket"
+
+#: base/templates/base/base.html:212 base/templates/base/base.html:222
+#: templates/two_factor/_wizard_forms.html:10
+msgid "Don't have an account? "
+msgstr "Nincs fiókod? "
+
+#: base/templates/base/base.html:232
+msgid "Planer in numbers"
+msgstr "Tervező számokban"
+
+#: base/templates/base/base.html:238
+msgid "Users"
+msgstr "Felhasználók"
+
+#: base/templates/base/base.html:244
+msgid "Outlines"
+msgstr "Tervek"
+
+#: base/templates/base/base.html:254
+msgid "Orders"
+msgstr "Parancsok"
+
+#: base/templates/base/base.html:263
+msgid "PL version"
+msgstr "PL verzió"
+
+#: base/templates/base/base.html:272
+msgid "ENG version"
+msgstr "ENG verzió"
+
+#: base/templates/base/base.html:281
+msgid "Code tests"
+msgstr "Kód tesztek"
+
+#: base/templates/base/base.html:291
+msgid "Benefits"
+msgstr "Előnyök"
+
+#: base/templates/base/base.html:294
+msgid "Security"
+msgstr "Biztonság"
+
+#: base/templates/base/base.html:297
+msgid "Author"
+msgstr "Szerző"
+
+#: base/templates/base/base.html:304
+msgid "You save a tons of time and have all outlines in one place."
+msgstr "Rengeteg időt takarít meg, és minden terve egy helyen van."
+
+#: base/templates/base/base.html:306
+msgid ""
+"Players receive final orders ready to paste in the in-game notes and send."
+msgstr ""
+"A játékosok végleges parancsokat kapnak, amelyeket beilleszthetnek a játékon "
+"belüli jegyzetekbe és elküldhetnek."
+
+#: base/templates/base/base.html:308
+msgid "Instantly distribute created objectives to players."
+msgstr "A létrehozott célokat azonnal ossza szét a játékosok között."
+
+#: base/templates/base/base.html:310
+msgid "Friendly and easy-to-use interface."
+msgstr "Barátságos és könnyen használható felület."
+
+#: base/templates/base/base.html:312
+msgid ""
+"The ability to accurately describe each axeman yourself or leave it to the "
+"Planer, choosing from dozens of options."
+msgstr ""
+"Lehetőség van minden fejszést pontosan leírni, vagy a Tervezőre bízni, több "
+"tucat lehetőség közül választva."
+
+#: base/templates/base/base.html:314
+msgid "Growing number of users."
+msgstr "Növekvő felhasználószám."
+
+#: base/templates/base/base.html:316
+msgid "Constantly adding new options and fixing bugs."
+msgstr "Folyamatosan új lehetőségek hozzáadása és hibajavítás."
+
+#: base/templates/base/base.html:318
+msgid "The scripts used are reported and approved by the game support."
+msgstr "A használt szkripteket a játék támogatása jelenti és hagyja jóvá."
+
+#: base/templates/base/base.html:320
+msgid "Putting away notebooks, sheets and excel sheets in the trash."
+msgstr "A jegyzetfüzetek, lapok és excel táblák kidobása a szemétbe."
+
+#: base/templates/base/base.html:322
+msgid "You will avoid common problems like doubled commands."
+msgstr "Elkerülheti a gyakori problémákat, mint például a duplikált parancsok."
+
+#: base/templates/base/base.html:324
+msgid "No more mistakes when sending messages to players."
+msgstr "Nincs több hiba az üzenetek küldésekor a játékosoknak."
+
+#: base/templates/base/base.html:328
+msgid ""
+"The application is written in the modern and very secure <a "
+"target=\"_blank\" href=\"https://www.djangoproject.com/\">Django</a> "
+"framework. Therefore it solves COMPLETELY most of the seciurity mistakes of "
+"smaller applications like SQL injection, cross-site scripting, cross-site "
+"request forgery and clickjacking also providing a safe way to manage user "
+"accounts."
+msgstr ""
+"Az alkalmazás a modern és nagyon biztonságos <a target=\"_blank\" "
+"href=\"https://www.djangoproject.com/\">Django</a> keretrendszerben íródott. "
+"Ezért TELJESEN megoldja a kisebb alkalmazások legtöbb biztonsági hibáját, "
+"mint például az SQL injekció, a cross-site scripting, a cross-site request "
+"forgery és a clickjacking, valamint biztonságos módot biztosít a "
+"felhasználói fiókok kezelésére."
+
+#: base/templates/base/base.html:330
+msgid ""
+"When designing the application, special emphasis was placed on the security "
+"of user accounts, preventing access to the data entered by them for other "
+"users and third parties."
+msgstr ""
+"Az alkalmazás tervezésekor különös hangsúlyt fektettek a felhasználói fiókok "
+"biztonságára, megakadályozva, hogy más felhasználók és harmadik felek "
+"hozzáférjenek az általuk bevitt adatokhoz."
+
+#: base/templates/base/base.html:332
+msgid ""
+"Both the web server and the database server are located in the <a "
+"href=\"https://cloud.oracle.com/\">Oracle Cloud</a> cloud, with special "
+"attention to all their safety recommendations."
+msgstr ""
+"Mind a webszerver, mind az adatbázis-szerver az <a href=\"https://cloud."
+"oracle.com/\">Oracle Cloud</a> felhőben található, különös figyelmet "
+"fordítva minden biztonsági ajánlásukra."
+
+#: base/templates/base/base.html:334
+msgid ""
+"The only one person involved in code writing and project maintenance from "
+"the beginning to date, means little risk of accidental sudden exposure of "
+"user data."
+msgstr ""
+"Az egyetlen személy, aki a kódírásban és a projekt karbantartásában részt "
+"vesz a kezdetektől napjainkig, csekély kockázatot jelent a felhasználói "
+"adatok véletlen, hirtelen kitettségére."
+
+#: base/templates/base/base.html:336
+msgid ""
+"Ensuring the privacy of users is the most important task of this project, "
+"your data will never be passed on to other users, game players or third "
+"parties or anyone else for any purpose."
+msgstr ""
+"A felhasználók adatainak védelme a projekt legfontosabb feladata, az Ön "
+"adatait soha nem adjuk tovább más felhasználóknak, játékosoknak, harmadik "
+"feleknek vagy bárki másnak semmilyen célból."
+
+#: base/templates/base/base.html:338
+msgid ""
+"My name is Rafał, I am a professional Software Engineer. I am interested in "
+"web applications, both backend and frontend, cloud technologies and security "
+"in the web. I write mainly in Python, Go and Typescript."
+msgstr ""
+"A nevem Rafał, professzionális szoftvermérnök vagyok. Érdekelnek a webes "
+"alkalmazások, mind a backend, mind a frontend, a felhő technológiák és a "
+"webes biztonság. Főleg Pythonban, Go-ban és Typescriptben írok."
+
+#: base/templates/base/base.html:338
+msgid ""
+"In addition to the above, I am a fan of fantasy, I have been reading series "
+"more or less regularly since childhood, my favourite author is Ursula Le "
+"Guin and her series Earthsea. I am a seasonal runner (my greatest "
+"achievement is participation in provincial competitions), I love chess and "
+"poker and a good movie too."
+msgstr ""
+"A fentieken kívül fantasy rajongó vagyok, gyerekkorom óta többé-kevésbé "
+"rendszeresen olvasok sorozatokat, kedvenc íróm Ursula Le Guin és a "
+"Földtenger sorozata. Szezonális futó vagyok (legnagyobb eredményem a "
+"tartományi versenyeken való részvétel), szeretem a sakkot és a pókert, és "
+"egy jó filmet is."
+
+#: base/templates/base/base.html:344
+msgid ""
+"Join the discord to be up to date with news, ask about what is unclear, "
+"report bugs and propose changes."
+msgstr ""
+"Csatlakozz a discordhoz, hogy naprakész legyél a hírekkel, kérdezz a "
+"nejasnostokról, jelentsd a hibákat és javasolj változtatásokat."
+
+#: base/templates/base/base.html:362
+msgid ""
+"This site is free of 3rd party trackers, we belive in privacy, refer to "
+msgstr ""
+"Ez az oldal mentes a harmadik féltől származó nyomkövetőktől, hiszünk az "
+"adatvédelemben, lásd a"
+
+#: base/templates/base/base.html:362
+msgid "our privacy policy and regulations."
+msgstr "adatvédelmi irányelveinket és szabályzatunkat."
+
+#: base/templates/base/base.html:363
+msgid "Version"
+msgstr "Verzió"
+
+#: base/templates/base/base_planer.html:12
+#: base/templates/base/new_outline/new_outline_results.html:86
+#: shipments/templates/my_shipments.html:12
+msgid "Created"
+msgstr "Létrehozva"
+
+#: base/templates/base/base_planer.html:14
+#: base/templates/base/new_outline/new_outline_create_select.html:52
+msgid "Ally"
+msgstr "Szövetséges"
+
+#: base/templates/base/base_planer.html:15
+#: base/templates/base/new_outline/new_outline_create_select.html:78
+#: shipments/templates/shipment.html:133
+msgid "Enemy"
+msgstr "Ellenség"
+
+#: base/templates/base/base_planer.html:16
+#: base/templates/base/base_planer.html:41
+#: shipments/templates/my_shipments.html:15
+#: shipments/templates/my_shipments.html:39
+msgid "Hide"
+msgstr "Elrejt"
+
+#: base/templates/base/base_planer.html:17
+#: base/templates/base/base_planer.html:56
+#: base/templates/base/base_planer.html:84
+msgid "Duplicate"
+msgstr "Duplikálás"
+
+#: base/templates/base/base_planer.html:18
+#: base/templates/base/base_planer.html:96
+#: base/templates/base/new_outline/new_outline_initial_period2.html:279
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:236
+#: shipments/templates/my_shipments.html:16
+#: shipments/templates/my_shipments.html:54
+msgid "Delete"
+msgstr "Törlés"
+
+#: base/templates/base/base_planer.html:28
+msgid "(Copied from "
+msgstr "(Másolva innen: "
+
+#: base/templates/base/base_planer.html:48
+#: base/templates/base/new_outline/new_outline_initial_period3.html:143
+#: shipments/templates/my_shipments.html:46
+msgid "Show"
+msgstr "Mutat"
+
+#: base/templates/base/base_planer.html:63
+msgid "Duplicate an outline"
+msgstr "Terv duplikálása"
+
+#: base/templates/base/base_planer.html:70
+msgid ""
+"You are about to create a copy of this outline. Ally and enemy tribes cannot "
+"be changed."
+msgstr ""
+"Éppen egy másolatot készít erről a tervről. A szövetséges és ellenséges "
+"klánok nem módosíthatók."
+
+#: base/templates/base/base_planer.html:82
+#: base/templates/base/base_planer.html:118
+#: base/templates/base/new_outline/new_outline_create_select.html:134
+#: base/templates/base/new_outline/new_outline_initial_period2.html:361
+#: base/templates/base/new_outline/new_outline_initial_period3.html:24
+#: shipments/templates/my_shipments.html:75
+msgid "Close"
+msgstr "Bezár"
+
+#: base/templates/base/base_planer.html:84
+#: base/templates/base/new_outline/new_outline_initial_period1.html:149
+#: base/templates/base/new_outline/new_outline_initial_period1.html:295
+#: base/templates/base/new_outline/new_outline_initial_period1.html:315
+#: base/templates/base/new_outline/new_outline_initial_period1.html:348
+#: base/templates/base/new_outline/new_outline_initial_period1.html:408
+#: base/templates/base/new_outline/new_outline_initial_period1.html:439
+msgid "Saving..."
+msgstr "Mentés..."
+
+#: base/templates/base/base_planer.html:103
+#: base/templates/base/new_outline/new_outline_create_select.html:119
+#: base/templates/base/new_outline/new_outline_initial_period2.html:354
+#: shipments/templates/my_shipments.html:61
+msgid "Warning"
+msgstr "Figyelmeztetés"
+
+#: base/templates/base/base_planer.html:110
+msgid ""
+"You will lose all progress on this outline. The orders (weights), targets, "
+"entered script results and any data will be deleted forever too. The "
+"generated links will remain valid as is, but you will no longer be able to "
+"access them through the Results tab. You may consider hiding this outline "
+"instead of deleting it."
+msgstr ""
+"El fogja veszíteni minden előrehaladását ezen a terven. A parancsok "
+"(súlyok), célpontok, beírt szkript eredmények és minden adat örökre "
+"törlődik. A generált linkek érvényesek maradnak, de már nem fogja tudni "
+"elérni őket az Eredmények lapon keresztül. Fontolja meg a terv elrejtését a "
+"törlés helyett."
+
+#: base/templates/base/base_planer.html:112
+#: shipments/templates/my_shipments.html:69
+msgid "This operation cannot be undone!"
+msgstr "Ez a művelet nem vonható vissza!"
+
+#: base/templates/base/base_planer.html:123
+#: base/templates/base/new_outline/new_outline_get_deff.html:15
+#: base/templates/base/new_outline/new_outline_initial_period1.html:151
+#: base/templates/base/new_outline/new_outline_initial_period1.html:272
+#: base/templates/base/new_outline/new_outline_initial_period2.html:365
+#: base/templates/base/user/add_world.html:25
+#: shipments/templates/my_shipments.html:80
+msgid "Processing..."
+msgstr "Feldolgozás..."
+
+#: base/templates/base/base_planer.html:123
+#: shipments/templates/my_shipments.html:80
+msgid "Delete forever"
+msgstr "Végleges törlés"
+
+#: base/templates/base/base_planer.html:137
+#: shipments/templates/my_shipments.html:94
+msgid "Don't show hidden"
+msgstr "Ne mutassa a rejtetteket"
+
+#: base/templates/base/base_planer.html:139
+#: shipments/templates/my_shipments.html:96
+msgid "Show hidden"
+msgstr "Rejtettek mutatása"
+
+#: base/templates/base/new_outline/new_outline.html:8
+#: base/templates/base/new_outline/new_outline.html:16
+msgid "Other"
+msgstr "Egyéb"
+
+#: base/templates/base/new_outline/new_outline.html:8
+#: base/templates/base/new_outline/new_outline.html:16
+msgid "Deff raport"
+msgstr "Védő jelentés"
+
+#: base/templates/base/new_outline/new_outline.html:9
+#: base/templates/base/new_outline/new_outline.html:17
+msgid "Troops data"
+msgstr "Csapatok adatai"
+
+#: base/templates/base/new_outline/new_outline.html:10
+#: base/templates/base/new_outline/new_outline.html:18
+msgid "Hold on a second..."
+msgstr "Várjon egy pillanatot..."
+
+#: base/templates/base/new_outline/new_outline.html:11
+#: base/templates/base/new_outline/new_outline.html:19
+#: base/templates/base/new_outline/new_outline_results.html:3
+msgid "Results"
+msgstr "Eredmények"
+
+#: base/templates/base/new_outline/new_outline.html:40
+msgid "Planer will choose data pasted in: "
+msgstr "A Tervező a beillesztett adatok közül választ: "
+
+#: base/templates/base/new_outline/new_outline.html:50
+#: base/templates/base/new_outline/new_outline_initial_period1.html:295
+#: base/templates/base/new_outline/new_outline_initial_period1.html:315
+#: base/templates/base/new_outline/new_outline_initial_period1.html:348
+#: base/templates/base/new_outline/new_outline_initial_period1.html:408
+#: base/templates/base/new_outline/new_outline_initial_period1.html:439
+#: base/templates/base/new_outline/new_outline_initial_period2.html:43
+#: base/templates/base/new_outline/new_outline_initial_period2.html:73
+#: base/templates/base/new_outline/new_outline_initial_period3.html:145
+#: base/templates/base/new_outline/new_outline_initial_period3.html:207
+#: base/templates/base/new_outline/new_outline_results.html:62
+#: base/templates/base/user/profile_settings.html:74
+#: shipments/templates/edit_shipment.html:51
+msgid "Save"
+msgstr "Mentés"
+
+#: base/templates/base/new_outline/new_outline.html:60
+msgid "Last world update: "
+msgstr "Utolsó világ frissítés: "
+
+#: base/templates/base/new_outline/new_outline.html:76
+msgid "Army troops have been successfully added."
+msgstr "A seregek sikeresen hozzáadva."
+
+#: base/templates/base/new_outline/new_outline.html:94
+#: base/templates/base/new_outline/new_outline.html:160
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "Incorrect data in"
+msgstr "Helytelen adatok a"
+
+#: base/templates/base/new_outline/new_outline.html:94
+#: base/templates/base/new_outline/new_outline.html:160
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "lines."
+msgstr "sorokban."
+
+#: base/templates/base/new_outline/new_outline.html:95
+#: base/templates/base/new_outline/new_outline.html:161
+msgid "*After clicking submit you will be transferred to first error*"
+msgstr "*A küldés gombra kattintás után az első hibához kerül átirányításra*"
+
+#: base/templates/base/new_outline/new_outline.html:105
+#: base/templates/base/new_outline/new_outline.html:171
+msgid "The text cannot be empty"
+msgstr "A szöveg nem lehet üres"
+
+#: base/templates/base/new_outline/new_outline.html:114
+#: base/templates/base/new_outline/new_outline.html:180
+#: base/templates/base/new_outline/new_outline_get_deff.html:15
+msgid "Submit"
+msgstr "Küldés"
+
+#: base/templates/base/new_outline/new_outline.html:135
+msgid "Deff troops have been successfully added."
+msgstr "A védő csapatok sikeresen hozzáadva."
+
+#: base/templates/base/new_outline/new_outline.html:199
+#: base/templates/base/new_outline/new_outline_create.html:31
+#: base/templates/base/new_outline/new_outline_get_deff.html:23
+#: base/templates/base/new_outline/new_outline_initial_period1.html:453
+msgid "Info"
+msgstr "Infó"
+
+#: base/templates/base/new_outline/new_outline.html:202
+#: base/templates/base/new_outline/new_outline_create.html:34
+#: base/templates/base/new_outline/new_outline_get_deff.html:26
+#: base/templates/base/new_outline/new_outline_initial_period1.html:457
+msgid "Examples"
+msgstr "Példák"
+
+#: base/templates/base/new_outline/new_outline.html:224
+#: base/templates/base/new_outline/new_outline_initial_period1.html:479
+#: base/templates/base/new_outline/new_outline_initial_period1.html:500
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:340
+msgid "An error occured"
+msgstr "Hiba történt"
+
+#: base/templates/base/new_outline/new_outline_create.html:11
+msgid "Your server is set to"
+msgstr "A szervered beállítva"
+
+#: base/templates/base/new_outline/new_outline_create.html:14
+msgid ""
+"First time? You can choose a special <span class=\"md-correct2\">World Test</"
+"span> created for testing purposes, see "
+msgstr ""
+"Első alkalommal? Választhat egy speciális <span class=\"md-correct2\">Teszt "
+"Világot</span>, amelyet tesztelési célokra hoztak létre, lásd a "
+
+#: base/templates/base/new_outline/new_outline_create.html:14
+msgid "docs"
+msgstr "dokumentációt"
+
+#: base/templates/base/new_outline/new_outline_create.html:21
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
+msgid "Create"
+msgstr "Létrehozás"
+
+#: base/templates/base/new_outline/new_outline_create.html:54
+msgid "Please select game server"
+msgstr "Kérjük, válasszon játékszervert"
+
+#: base/templates/base/new_outline/new_outline_create.html:60
+msgid ""
+"There are 20 game servers to choose from. <br><br>Please select one, it will "
+"be assigned to your account. You can always choose another later, just visit "
+"tab"
+msgstr ""
+"20 játékszerver közül választhat. <br><br>Kérjük, válasszon egyet, az hozzá "
+"lesz rendelve a fiókjához. Később bármikor választhat másikat, csak "
+"látogasson el a lapra"
+
+#: base/templates/base/new_outline/new_outline_create.html:66
+msgid "Set server"
+msgstr "Szerver beállítása"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:3
+msgid "Select tribes"
+msgstr "Klánok kiválasztása"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:24
+msgid "Add an ally tribe"
+msgstr "Szövetséges klán hozzáadása"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:41
+msgid "Add an enemy tribe"
+msgstr "Ellenséges klán hozzáadása"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:65
+#: base/templates/base/new_outline/new_outline_create_select.html:91
+msgid "Delete all"
+msgstr "Összes törlése"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:111
+msgid "Save and create"
+msgstr "Mentés és létrehozás"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:125
+msgid ""
+" To avoid future conflicts you can set up ally and enemy tribes\n"
+"                        <div class=\"md-error\">ONLY ONCE!</div>\n"
+"                        <br>In the event of the error, you will be forced to "
+"create new outline.\n"
+"                        <li>Make sure you set up all Allies.</li>\n"
+"                        <li>Make sure you set up all Enemies.</li>\n"
+"                    "
+msgstr ""
+" A jövőbeni konfliktusok elkerülése érdekében beállíthatja a szövetséges és "
+"ellenséges klánokat\n"
+"                        <div class=\"md-error\">CSAK EGYSZER!</div>\n"
+"                        <br>Hiba esetén kénytelen lesz új tervet készíteni.\n"
+"                        <li>Győződjön meg róla, hogy minden szövetségest "
+"beállított.</li>\n"
+"                        <li>Győződjön meg róla, hogy minden ellenséget "
+"beállított.</li>\n"
+"                    "
+
+#: base/templates/base/new_outline/new_outline_create_select.html:137
+#: base/templates/base/new_outline/new_outline_initial_period2.html:365
+msgid "Continue"
+msgstr "Folytatás"
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:4
+#: base/templates/base/new_outline/new_outline_results.html:25
+msgid "Deff collection"
+msgstr "Védő gyűjtemény"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:14
+#: base/templates/base/new_outline/new_outline_initial_period1.html:17
+msgid "Reals"
+msgstr "Valódiak"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:21
+#: base/templates/base/new_outline/new_outline_initial_period1.html:24
+msgid "Fakes"
+msgstr "Fake-ek"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:28
+#: base/templates/base/new_outline/new_outline_initial_period1.html:31
+msgid "Ruins"
+msgstr "Rombolások"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:41
+msgid "Duplicates detected, click to view them"
+msgstr "Duplikátumok észlelve, kattintson a megtekintésükhöz"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:47
+msgid "Targets-Duplicated"
+msgstr "Célpontok-Duplikált"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:56
+msgid "Fakes-Duplicated"
+msgstr "Fake-ek-Duplikált"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:65
+msgid "Ruin-Duplicated"
+msgstr "Rombolás-Duplikált"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:82
+msgid "Barbarian targets detected, click to view them"
+msgstr "Barbár célpontok észlelve, kattintson a megtekintésükhöz"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:88
+#, fuzzy
+#| msgid "Targets-Barbár"
+msgid "Targets-Barbarian"
+msgstr "Célpontok-Barbár"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:97
+#, fuzzy
+#| msgid "Fakes-Barbár"
+msgid "Fakes-Barbarian"
+msgstr "Fake-ek-Barbár"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:106
+#, fuzzy
+#| msgid "Ruin-Barbár"
+msgid "Ruin-Barbarian"
+msgstr "Rombolás-Barbár"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "Valid lines looks like (assuming that such a village 000|000 exists):"
+msgstr ""
+"Az érvényes sorok így néznek ki (feltételezve, hogy létezik egy 000|000 "
+"falu):"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "\"000|000\" - clean coords"
+msgstr "\"000|000\" - tiszta koordináták"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "\"000|000:0:0\" - coords with :off:noble numbers"
+msgstr "\"000|000:0:0\" - koordináták :támadó:nemes számokkal"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "\"000|000:0|0|0|0:0\" - additional off info, list instead of number"
+msgstr "\"000|000:0|0|0|0:0\" - további támadó infó, lista szám helyett"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid ""
+"\"000|000:0|0|0|0:0|0|0|0\" - max info that can be passed about offs and "
+"nobles"
+msgstr ""
+"\"000|000:0|0|0|0:0|0|0|0\" - maximális információ, amit a támadókról és "
+"nemesekről át lehet adni"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:149
+msgid "Save targets"
+msgstr "Célpontok mentése"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:151
+msgid "Write an outline"
+msgstr "Terv írása"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:159
+msgid "Description"
+msgstr "Leírás"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+msgid "Offs further than maximum distance for offs (equals to"
+msgstr "Támadók messzebb, mint a támadók maximális távolsága (jelenleg"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+msgid "now), which will be completely skipped now."
+msgstr "most), amelyek most teljesen kihagyásra kerülnek."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:168
+msgid "Offs"
+msgstr "Támadók"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:179
+msgid "Nobles"
+msgstr "Nemesek"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:201
+msgid "Full offs with at least 1 nobleman (there can be more)"
+msgstr "Teljes támadók legalább 1 nemessel (lehet több is)"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:201
+msgid "Full offs with 1 noble"
+msgstr "Teljes támadók 1 nemessel"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:213
+msgid "Offs around real targets at maximum distance for nobles (now equals to"
+msgstr ""
+"Támadók a valódi célpontok körül a nemesek maximális távolságán (most egyenlő"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:213
+msgid "Offs close to real targets"
+msgstr "Támadók közel a valódi célpontokhoz"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:225
+msgid ""
+"Nobles around real targets at maximum distance for nobles (now equals to"
+msgstr ""
+"Nemesek a valódi célpontok körül a nemesek maximális távolságán (most egyenlő"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:225
+msgid "Nobles close to real targets"
+msgstr "Nemesek közel a valódi célpontokhoz"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:238
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                                                                             Catapults "
+#| "from villages that are not front, with at least "
+#| "%(initial_outline_min_ruin_attack_off)s off troops in village (without "
+#| "katapultok), see 6.). Only villages at maximum distance that are not far "
+#| "away (now more than %(initial_outline_maximum_off_dist)s, see 1.).\n"
+#| "                                                                                           "
+msgid ""
+"\n"
+"                                                                                             Catapults "
+"from villages that are not front, with at least "
+"%(initial_outline_min_ruin_attack_off)s off troops in village (without "
+"catapults), see 6.). Only villages at maximum distance that are not far away "
+"(now more than %(initial_outline_maximum_off_dist)s, see 1.).\n"
+"                                                                                           "
+msgstr ""
+"\n"
+"                                                                                             Katapultok "
+"nem front falvakból, legalább %(initial_outline_min_ruin_attack_off)s támadó "
+"csapattal a faluban (katapultok nélkül), lásd 6.). Csak a maximális "
+"távolságon belüli falvak, amelyek nem túl távoliak (most több mint "
+"%(initial_outline_maximum_off_dist)s, lásd 1.).\n"
+"                                                                                           "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:240
+msgid "Available catapults to use"
+msgstr "Rendelkezésre álló katapultok"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:251
+msgid "Advanced settings:"
+msgstr "Haladó beállítások:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:258
+msgid "1. Available Troops"
+msgstr "1. Rendelkezésre álló csapatok"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:265
+msgid "Available troops settings:"
+msgstr "Rendelkezésre álló csapatok beállításai:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:272
+msgid "Save and reload troops"
+msgstr "Csapatok mentése és újratöltése"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:282
+msgid "2. Setting the date"
+msgstr "2. Dátum beállítása"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:289
+msgid "Current date:"
+msgstr "Jelenlegi dátum:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:305
+msgid "3. Outline parameters"
+msgstr "3. Terv paraméterek"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:324
+msgid "4. Morale"
+msgstr "4. Morál"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:332
+#: base/templates/base/new_outline/new_outline_initial_period1.html:334
+#: base/templates/base/new_outline/new_outline_initial_period1.html:394
+#: base/templates/base/new_outline/new_outline_initial_period1.html:399
+msgid "ACTIVE: "
+msgstr "AKTÍV: "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:332
+#: base/templates/base/new_outline/new_outline_initial_period1.html:394
+msgid "True"
+msgstr "Igaz"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:334
+#: base/templates/base/new_outline/new_outline_initial_period1.html:399
+msgid "False"
+msgstr "Hamis"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:337
+msgid "has no morale turned off and thus it is pointless to use this option."
+msgstr "nincs kikapcsolva a morál, ezért értelmetlen ezt az opciót használni."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:339
+msgid ""
+"has morale based on points and time. This is not perfectly handled by "
+"Planer. See topic \"4. Morale\" in the docs on the right side."
+msgstr ""
+"pontokon és időn alapuló morállal rendelkezik. Ezt a Tervező nem kezeli "
+"tökéletesen. Lásd a \"4. Morál\" témakört a jobb oldali dokumentációban."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:356
+msgid "Attacker"
+msgstr "Támadó"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:357
+msgid "Defender"
+msgstr "Védő"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:358
+msgid "Morale value"
+msgstr "Morál érték"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:374
+msgid "Congratulations! No morale issues found for selected targets."
+msgstr "Gratulálunk! Nem található morál probléma a kiválasztott célpontoknál."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:385
+msgid "5. Avoid night bonus"
+msgstr "5. Éjszakai bónusz elkerülése"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:395
+msgid "Time 1: "
+msgstr "Idő 1: "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:396
+msgid "Time 2: "
+msgstr "Idő 2: "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:418
+msgid "6. Ruining"
+msgstr "6. Rombolás"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+msgid "Order of demolition of buildings:"
+msgstr "Épületek lerombolásának sorrendje:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:427
+msgid ""
+"Only the buildings listed below will be included in the demolition! (in that "
+"order)"
+msgstr ""
+"Csak az alább felsorolt épületek kerülnek a rombolásba! (ebben a sorrendben)"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+msgid "Premium account is required to complete outlines greater than "
+msgstr "Prémium fiók szükséges a nagyobb tervek befejezéséhez, mint "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+msgid " targets. Buy it"
+msgstr " célpont. Vásárolja meg"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+#: base/templates/base/new_outline/new_outline_results.html:31
+msgid "here"
+msgstr "itt"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+msgid "or reduce the number of outline targets."
+msgstr "vagy csökkentse a terv célpontjainak számát."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:315
+#: utils/buildings.py:26
+msgid "Headquarters"
+msgstr "Főhadiszállás"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:27
+msgid "Barracks"
+msgstr "Kaszárnya"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:28
+msgid "Stable"
+msgstr "Istálló"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:29
+msgid "Workshop"
+msgstr "Műhely"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:30
+msgid "Academy"
+msgstr "Akadémia"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:316
+#: utils/buildings.py:31
+msgid "Smithy"
+msgstr "Kovácsműhely"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:32
+msgid "Rally point"
+msgstr "Gyülekezőhely"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:33
+msgid "Statue"
+msgstr "Szobor"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:34
+msgid "Market"
+msgstr "Piac"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:317
+#: utils/buildings.py:35
+msgid "Timber camp"
+msgstr "Fatelep"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:320
+#: utils/buildings.py:36
+msgid "Clay pit"
+msgstr "Agyagbánya"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:37
+msgid "Iron mine"
+msgstr "Vasbánya"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:321
+#: utils/buildings.py:38
+msgid "Farm"
+msgstr "Tanya"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:322
+#: utils/buildings.py:39
+msgid "Warehouse"
+msgstr "Raktár"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:40
+msgid "Wall"
+msgstr "Fal"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:41
+msgid "Watchtower"
+msgstr "Őrtorony"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:538
+msgid "At least one building must remain selected."
+msgstr "Legalább egy épületnek kiválasztva kell maradnia."
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:6
+msgid "Real targets"
+msgstr "Valódi célpontok"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:8
+msgid "Fake targets"
+msgstr "Fake célpontok"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:10
+msgid "Ruin targets"
+msgstr "Romboló célpontok"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:12
+msgid "Set time"
+msgstr "Idő beállítása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:14
+msgid "Add and remove"
+msgstr "Hozzáadás és eltávolítás"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:30
+msgid "Summary"
+msgstr "Összefoglaló"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:31
+msgid "Outline Date"
+msgstr "Terv dátuma"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:33
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:18
+msgid "Fake Targets"
+msgstr "Fake célpontok"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:34
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:20
+msgid "Ruin Targets"
+msgstr "Romboló célpontok"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:35
+msgid "Offs left"
+msgstr "Maradt támadók"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:36
+msgid "Nobles left"
+msgstr "Maradt nemesek"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:37
+msgid "Available catapults left"
+msgstr "Rendelkezésre álló katapultok maradtak"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:39
+msgid "Night bonus avoid"
+msgstr "Éjszakai bónusz elkerülése"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:41
+msgid "Targets on page"
+msgstr "Célpontok az oldalon"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:42
+msgid "Simple textures"
+msgstr "Egyszerű textúrák"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:84
+msgid "Go back"
+msgstr "Vissza"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:89
+#: base/templates/base/new_outline/new_outline_initial_period2.html:94
+msgid "Add and remove targets"
+msgstr "Célpontok hozzáadása és eltávolítása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:99
+#: base/templates/base/new_outline/new_outline_initial_period2.html:100
+msgid "Set real targets"
+msgstr "Valódi célpontok beállítása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:106
+#: base/templates/base/new_outline/new_outline_initial_period2.html:114
+msgid "Set fake targets"
+msgstr "Fake célpontok beállítása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:125
+#: base/templates/base/new_outline/new_outline_initial_period2.html:129
+msgid "Set ruin targets"
+msgstr "Romboló célpontok beállítása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:136
+#: base/templates/base/new_outline/new_outline_initial_period2.html:138
+msgid "Set time and confirm"
+msgstr "Idő beállítása és megerősítés"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:148
+msgid "Finish the Outline"
+msgstr "Terv befejezése"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:158
+msgid "target, nick or number of commands"
+msgstr "célpont, becenév vagy parancsok száma"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:166
+msgid "Search by nickname"
+msgstr "Keresés becenév alapján"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:167
+msgid "Search by target"
+msgstr "Keresés célpont alapján"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:168
+msgid "Search more than number of commands"
+msgstr "Keresés több parancsnál"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:169
+msgid "Search less than number of commands"
+msgstr "Keresés kevesebb parancsnál"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:170
+msgid "Search equal to number of commands"
+msgstr "Keresés egyenlő parancsszámmal"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:187
+msgid "Target added successfully!"
+msgstr "Célpont sikeresen hozzáadva!"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:202
+msgid "Create a single Target"
+msgstr "Egyetlen célpont létrehozása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:215
+msgid "Create Real"
+msgstr "Valódi létrehozása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:216
+msgid "Create Fake"
+msgstr "Fake létrehozása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:217
+msgid "Create Ruin"
+msgstr "Rombolás létrehozása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:274
+#: shipments/templates/shipment.html:6 shipments/templates/shipment.html:12
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:359
+msgid ""
+"<p>Your current progress here will be <span class='md-error'>LOST</span>!</"
+"p><p>You will return to the previous tab. Front and Back division will be "
+"reset and targets removed.</p>"
+msgstr ""
+"<p>A jelenlegi előrehaladása itt <span class='md-error'>ELVESZIK</span>!</"
+"p><p>Visszatér az előző lapra. A front és a hát felosztása visszaáll, és a "
+"célpontok eltávolításra kerülnek.</p>"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:16
+msgid "Type of order"
+msgstr "Parancs típusa"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:19
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:164
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:206
+msgid ""
+"For ruins, the Ram Unit means Off and the Noble Unit represents later ruins"
+msgstr ""
+"Rombolások esetén a Kos egység Támadót jelent, a Nemes egység pedig későbbi "
+"rombolásokat"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:25
+msgid "Default Time"
+msgstr "Alapértelmezett idő"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:41
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:61
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:80
+msgid "Create at least one Time below"
+msgstr "Hozzon létre legalább egy időt alább"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
+#: base/templates/base/new_outline/new_outline_initial_period3.html:137
+#: base/templates/base/overview.html:227 shipments/templates/shipment.html:126
+#: utils/basic/mode.py:60 utils/outline_finish.py:75
+msgid "Target"
+msgstr "Célpont"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:251
+msgid "Select Time"
+msgstr "Idő kiválasztása"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:252
+#: base/templates/base/overview.html:228 utils/basic/mode.py:67
+msgid "Outline"
+msgstr "Terv"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:257
+msgid "Set time to all targets on this page"
+msgstr "Idő beállítása az összes célponthoz ezen az oldalon"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:282
+msgid "Create at least one Time above"
+msgstr "Hozzon létre legalább egy időt fent"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:21
+msgid "Change and save"
+msgstr "Módosítás és mentés"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:106
+msgid "Divide"
+msgstr "Felosztás"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:110
+msgid "Divide into 2"
+msgstr "Felosztás 2 részre"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:114
+msgid "Divide into 3"
+msgstr "Felosztás 3 részre"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:118
+msgid "Divide into 4"
+msgstr "Felosztás 4 részre"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:136
+#: base/templates/base/new_outline/new_outline_results.html:87
+#: base/templates/base/new_outline/new_outline_results.html:130
+#: utils/outline_finish.py:77
+msgid "Player"
+msgstr "Játékos"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:138
+msgid "TW Stats"
+msgstr "TW Statisztika"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:139
+msgid "Troops from"
+msgstr "Csapatok innen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:140
+msgid "Troops to"
+msgstr "Csapatok ide"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:141
+msgid "Catapults from"
+msgstr "Katapultok innen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:142
+msgid "Nobles from"
+msgstr "Nemesek innen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:144
+msgid "Cards on page"
+msgstr "Kártyák az oldalon"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:220
+msgid "Sort"
+msgstr "Rendezés"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:224
+msgid "Ascending by distance"
+msgstr "Növekvő távolság szerint"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:225
+msgid "Random by distance"
+msgstr "Véletlenszerű távolság szerint"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:226
+msgid "Descending by distance"
+msgstr "Csökkenő távolság szerint"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:227
+msgid "Descending by number of units"
+msgstr "Csökkenő egységszám szerint"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:228
+msgid "Descending by number of noble"
+msgstr "Csökkenő nemesszám szerint"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:232
+msgid "Closest full offs"
+msgstr "Legközelebbi teljes támadók"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:233
+msgid "Closest noblemans"
+msgstr "Legközelebbi nemesek"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:234
+msgid "Closest offs with noblemans"
+msgstr "Legközelebbi támadók nemesekkel"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:238
+msgid "Random full offs"
+msgstr "Véletlenszerű teljes támadók"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:239
+msgid "Random noblemans"
+msgstr "Véletlenszerű nemesek"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:240
+msgid "Random offs with noblemans"
+msgstr "Véletlenszerű támadók nemesekkel"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:244
+msgid "Farthest full offs"
+msgstr "Legtávolabbi teljes támadók"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:245
+msgid "Farthest noblemans"
+msgstr "Legtávolabbi nemesek"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:246
+msgid "Farthest offs with noblemans"
+msgstr "Legtávolabbi támadók nemesekkel"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:256
+#: base/templates/base/new_outline/new_outline_initial_period3.html:263
+msgid "Previous"
+msgstr "Előző"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:267
+#: base/templates/base/overview.html:53 base/templates/base/overview.html:86
+msgid "of"
+msgstr "-ból/-ből"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:271
+#: base/templates/base/new_outline/new_outline_initial_period3.html:277
+msgid "Next"
+msgstr "Következő"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:288
+msgid "coord or nick..."
+msgstr "koordináta vagy becenév..."
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:328
+msgid "On the left adding Fake, on the right 1 Noble"
+msgstr "Bal oldalon Fake hozzáadása, jobb oldalon 1 Nemes"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:332
+msgid "On the left adding Offs, on the right Ruin attack"
+msgstr "Bal oldalon Támadók hozzáadása, jobb oldalon Romboló támadás"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:336
+msgid "On the left adding Offs, on the right Offs with the Nobles"
+msgstr "Bal oldalon Támadók hozzáadása, jobb oldalon Támadók Nemesekkel"
+
+#: base/templates/base/new_outline/new_outline_results.html:10
+msgid "Outline results"
+msgstr "Terv eredmények"
+
+#: base/templates/base/new_outline/new_outline_results.html:13
+msgid "Sum Up"
+msgstr "Összegzés"
+
+#: base/templates/base/new_outline/new_outline_results.html:16
+msgid "Copy Outline urls"
+msgstr "Terv URL-ek másolása"
+
+#: base/templates/base/new_outline/new_outline_results.html:19
+msgid "Copy Outline results"
+msgstr "Terv eredmények másolása"
+
+#: base/templates/base/new_outline/new_outline_results.html:22
+msgid "Left troops"
+msgstr "Maradt csapatok"
+
+#: base/templates/base/new_outline/new_outline_results.html:31
+msgid ""
+"To send messages with a button, you will need a script that you can find"
+msgstr ""
+"Az üzenetek gombbal történő küldéséhez szüksége lesz egy szkriptre, amelyet "
+"megtalál"
+
+#: base/templates/base/new_outline/new_outline_results.html:50
+msgid "Set title, text and show hidden value"
+msgstr "Cím, szöveg beállítása és rejtett érték megjelenítése"
+
+#: base/templates/base/new_outline/new_outline_results.html:74
+msgid "Removed links"
+msgstr "Eltávolított linkek"
+
+#: base/templates/base/new_outline/new_outline_results.html:88
+#: base/templates/base/new_outline/new_outline_results.html:131
+msgid "Link to member Page"
+msgstr "Link a tag oldalára"
+
+#: base/templates/base/new_outline/new_outline_results.html:89
+#: base/templates/base/new_outline/new_outline_results.html:132
+msgid "Show Hidden"
+msgstr "Rejtettek mutatása"
+
+#: base/templates/base/new_outline/new_outline_results.html:90
+#: base/templates/base/new_outline/new_outline_results.html:133
+msgid "Number of orders"
+msgstr "Parancsok száma"
+
+#: base/templates/base/new_outline/new_outline_results.html:91
+#: base/templates/base/new_outline/new_outline_results.html:134
+msgid "Send message"
+msgstr "Üzenet küldése"
+
+#: base/templates/base/new_outline/new_outline_results.html:99
+#: base/templates/base/new_outline/new_outline_results.html:143
+msgid "Go to member Page"
+msgstr "Ugrás a tag oldalára"
+
+#: base/templates/base/new_outline/new_outline_results.html:113
+#: base/templates/base/new_outline/new_outline_results.html:115
+#: base/templates/base/new_outline/new_outline_results.html:158
+#: base/templates/base/new_outline/new_outline_results.html:160
+msgid "Sent!"
+msgstr "Elküldve!"
+
+#: base/templates/base/new_outline/new_outline_results.html:113
+#: base/templates/base/new_outline/new_outline_results.html:115
+#: base/templates/base/new_outline/new_outline_results.html:158
+#: base/templates/base/new_outline/new_outline_results.html:160
+#: rest_api/serializers.py:177
+msgid "Send"
+msgstr "Küldés"
+
+#: base/templates/base/new_outline/new_outline_results.html:200
+msgid ""
+"Below you will find all the unused troops left after the roster. Paste them "
+"into the \"1. Troops Data\" in order to start a new action."
+msgstr ""
+"Alább megtalálja az összes fel nem használt csapatot, amely a névsor után "
+"maradt. Illessze be őket az \"1. Csapatok adatai\"-ba egy új akció "
+"indításához."
+
+#: base/templates/base/new_outline/new_outline_results.html:206
+msgid "You have no access to unused troops without premium account."
+msgstr "Prémium fiók nélkül nincs hozzáférése a fel nem használt csapatokhoz."
+
+#: base/templates/base/new_outline/new_outline_results.html:234
+msgid ""
+"Some of the written orders have been omitted due to the following problems"
+msgstr "Néhány írott parancsot a következő problémák miatt hagytak ki"
+
+#: base/templates/base/overview.html:17
+msgid "Copy"
+msgstr "Másolás"
+
+#: base/templates/base/overview.html:20
+msgid "Details"
+msgstr "Részletek"
+
+#: base/templates/base/overview.html:23 base/templates/base/overview.html:303
+msgid "Source"
+msgstr "Forrás"
+
+#: base/templates/base/overview.html:32
+msgid ""
+"The contents below shows your targets, please copy the one you like to your "
+"in-game notes."
+msgstr ""
+"Az alábbi tartalom a célpontjait mutatja, kérjük, másolja a kedvére valót a "
+"játékon belüli jegyzeteibe."
+
+#: base/templates/base/overview.html:38
+msgid "Standard"
+msgstr "Standard"
+
+#: base/templates/base/overview.html:40 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:107 base/templates/base/overview.html:133
+#: base/templates/base/overview.html:160
+msgid "Copy content from textarea below"
+msgstr "Másolja a tartalmat az alábbi szövegmezőből"
+
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
+msgid "Successfully copied!"
+msgstr "Sikeresen másolva!"
+
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
+msgid "Click to copy again"
+msgstr "Kattintson az újbóli másoláshoz"
+
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
+msgid "Error! Please copy the textarea below"
+msgstr "Hiba! Kérjük, másolja az alábbi szövegmezőt"
+
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
+msgid "Copy to clipboard"
+msgstr "Másolás a vágólapra"
+
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:81
+#: base/templates/base/overview.html:114 base/templates/base/overview.html:141
+#: base/templates/base/overview.html:167
+msgid "This is what this form of orders looks like when pasted into a notebook"
+msgstr "Így néz ki ez a parancsforma, amikor beillesztik egy jegyzetfüzetbe"
+
+#: base/templates/base/overview.html:51 base/templates/base/overview.html:84
+#: utils/basic/table_text.py:33
+msgid "Tuesday"
+msgstr "Kedd"
+
+#: base/templates/base/overview.html:53 base/templates/base/overview.html:60
+#: base/templates/base/overview.html:86 base/templates/base/overview.html:93
+#: base/templates/base/overview.html:119 base/templates/base/overview.html:146
+#: base/templates/base/overview.html:185 utils/basic/table_text.py:88
+#: utils/send_text.py:19
+msgid "Send OFF"
+msgstr "TÁMADÓ küldése"
+
+#: base/templates/base/overview.html:58 base/templates/base/overview.html:91
+#: base/templates/base/overview.html:143 base/templates/base/overview.html:197
+msgid "Remember this is only the example"
+msgstr "Ne feledje, ez csak egy példa"
+
+#: base/templates/base/overview.html:58 base/templates/base/overview.html:91
+#: base/templates/base/overview.html:143 base/templates/base/overview.html:200
+msgid "Plemiona Planer is the best"
+msgstr "A Klánháborúk Tervező a legjobb"
+
+#: base/templates/base/overview.html:66 base/templates/base/overview.html:99
+#: base/templates/base/overview.html:125 base/templates/base/overview.html:152
+#: base/templates/base/overview.html:208
+msgid "A link to your targets on plemiona-planer.pl."
+msgstr "Egy link a célpontjaidhoz a plemiona-planer.pl oldalon."
+
+#: base/templates/base/overview.html:72
+msgid "Standard - for deputy"
+msgstr "Standard - helyettesnek"
+
+#: base/templates/base/overview.html:80
+msgid "Hint: Use this one when someone else will send this commands."
+msgstr "Tipp: Használja ezt, ha valaki más küldi el ezeket a parancsokat."
+
+#: base/templates/base/overview.html:105
+msgid "Simple"
+msgstr "Egyszerű"
+
+#: base/templates/base/overview.html:131
+msgid "Old"
+msgstr "Régi"
+
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:266
+msgid "from village"
+msgstr "faluból"
+
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:267
+msgid "to "
+msgstr "ide "
+
+#: base/templates/base/overview.html:158
+msgid "Table"
+msgstr "Táblázat"
+
+#: base/templates/base/overview.html:165
+msgid "Hint: Use Text format if u have many commands. "
+msgstr "Tipp: Használjon szöveges formátumot, ha sok parancsa van. "
+
+#: base/templates/base/overview.html:173
+msgid "SEND"
+msgstr "KÜLDÉS"
+
+#: base/templates/base/overview.html:174
+msgid "OFF"
+msgstr "TÁMADÓ"
+
+#: base/templates/base/overview.html:175
+msgid "NOBLE"
+msgstr "NEMES"
+
+#: base/templates/base/overview.html:176
+msgid "RUIN"
+msgstr "ROMBOLÁS"
+
+#: base/templates/base/overview.html:177
+msgid "SENDING"
+msgstr "KÜLDÉS"
+
+#: base/templates/base/overview.html:178
+msgid "ENTER"
+msgstr "BELÉPÉS"
+
+#: base/templates/base/overview.html:179
+msgid "FROM"
+msgstr "INNEN"
+
+#: base/templates/base/overview.html:180
+msgid "TARGET"
+msgstr "CÉLPONT"
+
+#: base/templates/base/overview.html:218
+msgid "Alert! The order in the list below matters and is fixed."
+msgstr "Figyelem! Az alábbi lista sorrendje számít és rögzített."
+
+#: base/templates/base/overview.html:244
+msgid "Ruin"
+msgstr "Rombolás"
+
+#: base/templates/base/overview.html:246 shipments/templates/shipment.html:113
+msgid "Off"
+msgstr "Támadó"
+
+#: base/templates/base/overview.html:304
+msgid "Source in JSON format available under API link:"
+msgstr "Forrás JSON formátumban elérhető az API linken:"
+
+#: base/templates/base/user/add_world.html:9
+#: base/templates/base/user/add_world.html:26
+msgid "Add new world"
+msgstr "Új világ hozzáadása"
+
+#: base/templates/base/user/add_world.html:13
+msgid "World has been added."
+msgstr "A világ hozzáadva."
+
+#: base/templates/base/user/add_world.html:20
+msgid "Hints:"
+msgstr "Tippek:"
+
+#: base/templates/base/user/add_world.html:21
+msgid "For \"pl160.plemiona.pl\" prefix is \"160\". "
+msgstr "A \"pl160.plemiona.pl\" előtagja \"160\". "
+
+#: base/templates/base/user/add_world.html:22
+msgid "For \"plc1.plemiona.pl\" prefix is \"c1\". "
+msgstr "A \"plc1.plemiona.pl\" előtagja \"c1\". "
+
+#: base/templates/base/user/add_world.html:23
+msgid "For \"csc1.divokekmeny.czl\" prefix is \"c1\". "
+msgstr "A \"csc1.divokekmeny.czl\" előtagja \"c1\". "
+
+#: base/templates/base/user/payment_done.html:4
+#: base/templates/base/user/payment_done.html:10
+msgid "Payment completed!"
+msgstr "Fizetés befejezve!"
+
+#: base/templates/base/user/payment_done.html:13
+#: base/templates/base/user/premium.html:12
+msgid "Premium account active until"
+msgstr "Prémium fiók aktív eddig"
+
+#: base/templates/base/user/payment_done.html:17
+#: base/templates/base/user/premium.html:16
+msgid "Premium account is inactive"
+msgstr "A prémium fiók inaktív"
+
+#: base/templates/base/user/payment_done.html:21
+msgid "Refresh"
+msgstr "Frissítés"
+
+#: base/templates/base/user/payment_done.html:23
+msgid ""
+"If everything went well, you should also get a message on the e-mail address "
+"provided during registration."
+msgstr ""
+"Ha minden rendben ment, akkor a regisztráció során megadott e-mail címre is "
+"kapnia kell egy üzenetet."
+
+#: base/templates/base/user/payment_done.html:25
+msgid ""
+"If the premium account is inactive, wait a moment and try to refresh this "
+"card (the whole process may take up to a few minutes). It may be related to "
+"the temporary unavailability of one of the parties, but in such cases "
+"connection attempts are repeated from time to time in short intervals."
+msgstr ""
+"Ha a prémium fiók inaktív, várjon egy pillanatot, és próbálja meg frissíteni "
+"ezt a kártyát (az egész folyamat akár néhány percig is eltarthat). Ez "
+"összefügghet az egyik fél ideiglenes elérhetetlenségével, de ilyen esetekben "
+"a kapcsolódási kísérletek időről időre rövid időközönként megismétlődnek."
+
+#: base/templates/base/user/payment_done.html:26
+msgid ""
+"If your account is still inactive despite some patience, don't panic! This "
+"may happen eventually, remember that after making a payment, the "
+"administration receives a notification about a new transaction made and the "
+"account can always be activated manually in case of problems."
+msgstr ""
+"Ha a fiókja némi türelem ellenére is inaktív, ne essen pánikba! Ez végül "
+"megtörténhet, ne feledje, hogy a fizetés után az adminisztráció értesítést "
+"kap egy új tranzakcióról, és a fiókot problémák esetén mindig manuálisan is "
+"aktiválni lehet."
+
+#: base/templates/base/user/payment_done.html:28
+msgid "As a last resort you will be forced to contact me:"
+msgstr "Végső esetben kénytelen lesz kapcsolatba lépni velem:"
+
+#: base/templates/base/user/payment_done.html:30
+msgid "Join a Discord channel and write to"
+msgstr "Csatlakozzon egy Discord csatornához és írjon"
+
+#: base/templates/base/user/payment_done.html:32
+msgid "Write to"
+msgstr "Írjon"
+
+#: base/templates/base/user/payments_summary.html:20
+msgid "Regenerate"
+msgstr "Újragenerálás"
+
+#: base/templates/base/user/premium.html:19
+msgid "Benefits:"
+msgstr "Előnyök:"
+
+#: base/templates/base/user/premium.html:21
+msgid ""
+"UNLIMITED number of targets in the Planer (with a free account, the maximum "
+"is only"
+msgstr "KORLÁTLAN számú célpont a Tervezőben (ingyenes fiókkal a maximum csak"
+
+#: base/templates/base/user/premium.html:21
+msgid "targets)."
+msgstr "célpont)."
+
+#: base/templates/base/user/premium.html:24
+msgid ""
+"Access to the unused units tab after successfully finishing the outline to "
+"use them in your next outline (e.g. two separate outlines for the same day "
+"or two more)."
+msgstr ""
+"Hozzáférés a fel nem használt egységek laphoz a terv sikeres befejezése "
+"után, hogy felhasználhassa őket a következő tervében (pl. két külön terv "
+"ugyanarra a napra vagy még kettő)."
+
+#: base/templates/base/user/premium.html:27
+msgid ""
+"This solution allows for stress-free management of outlines in the tribe "
+"from the level of one account, at any stage of the game, where writing is a "
+"pleasure, not a punishment."
+msgstr ""
+"Ez a megoldás lehetővé teszi a tervek stresszmentes kezelését a klánban egy "
+"fiók szintjéről, a játék bármely szakaszában, ahol az írás öröm, nem pedig "
+"büntetés."
+
+#: base/templates/base/user/premium.html:29
+msgid "Pricing:"
+msgstr "Árak:"
+
+#: base/templates/base/user/premium.html:44
+msgid "Note, you can change your currency in"
+msgstr "Megjegyzés, a pénznemét megváltoztathatja a"
+
+#: base/templates/base/user/premium.html:44
+msgid "account settings"
+msgstr "fiókbeállításokban"
+
+#: base/templates/base/user/premium.html:45
+msgid "Buy now with Stripe:"
+msgstr "Vásárlás most a Stripe-pal:"
+
+#: base/templates/base/user/premium.html:53
+msgid "Buy now"
+msgstr "Vásárlás most"
+
+#: base/templates/base/user/premium.html:55
+msgid ""
+"Please note, this is a <b>one-time transaction</b>, your card or account "
+"will (never) be associated with this site and no fees will be ever charged "
+"when your premium account expires."
+msgstr ""
+"Kérjük, vegye figyelembe, hogy ez egy <b>egyszeri tranzakció</b>, a kártyája "
+"vagy fiókja (soha) nem lesz társítva ehhez az oldalhoz, és soha nem "
+"számítunk fel díjat, amikor a prémium fiókja lejár."
+
+#: base/templates/base/user/premium.html:56
+msgid "There are no obstacles to extend an active premium account."
+msgstr "Nincs akadálya egy aktív prémium fiók meghosszabbításának."
+
+#: base/templates/base/user/premium.html:58
+msgid "Payment history"
+msgstr "Fizetési előzmények"
+
+#: base/templates/base/user/premium.html:64
+msgid "Status"
+msgstr "Állapot"
+
+#: base/templates/base/user/premium.html:65
+msgid "Payment date"
+msgstr "Fizetés dátuma"
+
+#: base/templates/base/user/premium.html:66
+msgid "Amount"
+msgstr "Összeg"
+
+#: base/templates/base/user/premium.html:67
+msgid "Number of months"
+msgstr "Hónapok száma"
+
+#: base/templates/base/user/premium.html:68
+msgid "End of account validity"
+msgstr "Fiók érvényességének vége"
+
+#: base/templates/base/user/premium.html:69
+msgid "Comments"
+msgstr "Megjegyzések"
+
+#: base/templates/base/user/profile_settings.html:4
+#: base/templates/base/user/profile_settings.html:15
+msgid "My settings"
+msgstr "Beállításaim"
+
+#: base/templates/base/user/profile_settings.html:10
+msgid "Two factor authentication"
+msgstr "Kétfaktoros hitelesítés"
+
+#: base/templates/base/user/profile_settings.html:13
+msgid "Go to Account Security"
+msgstr "Ugrás a fiók biztonságához"
+
+#: base/templates/base/user/profile_settings.html:19
+msgid "Username"
+msgstr "Felhasználónév"
+
+#: base/templates/base/user/profile_settings.html:24
+msgid "Email address"
+msgstr "E-mail cím"
+
+#: base/templates/base/user/profile_settings.html:29
+msgid "Password"
+msgstr "Jelszó"
+
+#: base/templates/base/user/profile_settings.html:30
+msgid "Reset my password"
+msgstr "Jelszó visszaállítása"
+
+#: base/templates/base/user/profile_settings.html:33
+msgid "Server"
+msgstr "Szerver"
+
+#: base/templates/base/user/profile_settings.html:37
+msgid "Currency"
+msgstr "Pénznem"
+
+#: base/templates/base/user/profile_settings.html:41
+msgid "Default morale on"
+msgstr "Alapértelmezett morál bekapcsolva"
+
+#: base/templates/base/user/profile_settings.html:48
+msgid "Activated"
+msgstr "Aktiválva"
+
+#: base/templates/base/user/profile_settings.html:50
+msgid "Not activated"
+msgstr "Nincs aktiválva"
+
+#: base/templates/base/user/profile_settings.html:55
+msgid "Shipments feature enabled"
+msgstr "Szállítmányok funkció engedélyezve"
+
+#: base/templates/base/user/profile_settings.html:60
+msgid "Premium validity"
+msgstr "Prémium érvényesség"
+
+#: base/templates/base/user/profile_settings.html:68
+msgid "Contact with admin to change your email address. "
+msgstr ""
+"Lépjen kapcsolatba az adminisztrátorral az e-mail cím megváltoztatásához. "
+
+#: base/views/outline.py:256
+msgid "Never"
+msgstr "Soha"
+
+#: base/views/outline.py:262
+msgid " minute(s) ago."
+msgstr " perccel ezelőtt."
+
+#: base/views/outline_initial_views.py:56
+#, python-format
+msgid ""
+"<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
+"the Planer:</p> <p>1. Paste the current data in the <b>%(collection)s</b>, "
+"solve issues.</p> <p>2. Click on <b>Submit</b>.</p> <p>3. Only then return "
+"to the <b>Planer</b> tab.</p> "
+msgstr ""
+"<h5>Úgy tűnik, a(z) %(collection)s már nem aktuális!</h5> <p>A Tervező "
+"használatához:</p> <p>1. Illessze be a jelenlegi adatokat a "
+"<b>%(collection)s</b>-ba, oldja meg a problémákat.</p> <p>2. Kattintson a "
+"<b>Küldés</b> gombra.</p> <p>3. Csak ezután térjen vissza a <b>Tervező</b> "
+"lapra.</p> "
+
+#: base/views/outline_initial_views.py:73
+#, python-format
+msgid ""
+"<h5>It looks like your outline in being written just now!</h5> <p>You cannot "
+"click on \"Write an outline\" button more than once at the same time.</p> "
+"<p>Try to refresh this page in a moment. The lock force expires in "
+"<b>%(lock_expire)ss</b>.</p> "
+msgstr ""
+"<h5>Úgy tűnik, a terve éppen most íródik!</h5> <p>Nem kattinthat a \"Terv "
+"írása\" gombra egyszerre többször.</p> <p>Próbálja meg frissíteni ezt az "
+"oldalt egy pillanat múlva. A zár kényszer lejárata <b>%(lock_expire)s</b>.</"
+"p> "
+
+#: base/views/outline_initial_views.py:90
+#, python-format
+msgid ""
+"<h5>It looks like your outline in being changed just now!</h5> <p>Data about "
+"villages is being created or recreated.</p> <p>Try to refresh this page in a "
+"moment. The lock force expires in <b>%(lock_expire)ss</b>.</p> "
+msgstr ""
+"<h5>Úgy tűnik, a terve éppen most változik!</h5> <p>A falvakról szóló adatok "
+"létrehozása vagy újbóli létrehozása folyamatban van.</p> <p>Próbálja meg "
+"frissíteni ezt az oldalt egy pillanat múlva. A zár kényszer lejárata "
+"<b>%(lock_expire)s</b>.</p> "
+
+#: base/views/outline_initial_views.py:118 base/views/results_get_deff.py:39
+msgid "<h5>Army collection is empty!</h5>"
+msgstr "<h5>A sereg gyűjtemény üres!</h5>"
+
+#: base/views/outline_initial_views.py:124 base/views/results_get_deff.py:36
+msgid "<h5>Deff collection is empty!</h5>"
+msgstr "<h5>A védő gyűjtemény üres!</h5>"
+
+#: base/views/outline_initial_views.py:525
+msgid "<h5>All targets must have an assigned Time.</h5>"
+msgstr "<h5>Minden célpontnak rendelkeznie kell hozzárendelt idővel.</h5>"
+
+#: base/views/outline_initial_views.py:532
+msgid "<h5>Minimum one Time must exists.</h5>"
+msgstr "<h5>Legalább egy időnek léteznie kell.</h5>"
+
+#: base/views/results_get_deff.py:53
+msgid ""
+"<h5>It looks like your Army or Deff collections are no longer actual!</h5> "
+"<p>To use the Deff collection:</p> <p>1. Paste the current data in the "
+"<b>Army and Deff collections</b> and <b>Submit</b> both.</p> <p>2. Return to "
+"the <b>Deff collection</b> tab.</p> <p>3. Try again."
+msgstr ""
+"<h5>Úgy tűnik, a Sereg vagy Védő gyűjteményei már nem aktuálisak!</h5> <p>A "
+"Védő gyűjtemény használatához:</p> <p>1. Illessze be a jelenlegi adatokat a "
+"<b>Sereg és Védő gyűjteményekbe</b>, és <b>Küldje el</b> mindkettőt.</p> "
+"<p>2. Térjen vissza a <b>Védő gyűjtemény</b> lapra.</p> <p>3. Próbálja újra."
+
+#: shipments/forms.py:35
+#, python-format
+msgid "Invalid overview token: %(token)s"
+msgstr "Érvénytelen áttekintő token: %(token)s"
+
+#: shipments/forms.py:41
+msgid "Duplicate overview tokens are not allowed."
+msgstr "Duplikált áttekintő tokenek nem engedélyezettek."
+
+#: shipments/templates/add_shipment.html:11
+#: shipments/templates/edit_shipment.html:11
+msgid ""
+"Create a new shipment and add overview tokens. You can add up to 10 "
+"overviews."
+msgstr ""
+"Hozzon létre egy új szállítmányt, és adjon hozzá áttekintő tokeneket. "
+"Legfeljebb 10 áttekintést adhat hozzá."
+
+#: shipments/templates/add_shipment.html:26
+#: shipments/templates/edit_shipment.html:26
+msgid "Overviews"
+msgstr "Áttekintések"
+
+#: shipments/templates/add_shipment.html:37
+#: shipments/templates/add_shipment.html:70
+#: shipments/templates/edit_shipment.html:37
+#: shipments/templates/edit_shipment.html:70
+msgid "Remove"
+msgstr "Eltávolítás"
+
+#: shipments/templates/add_shipment.html:46
+#: shipments/templates/edit_shipment.html:46
+msgid "Add overview token"
+msgstr "Áttekintő token hozzáadása"
+
+#: shipments/templates/add_shipment.html:51
+msgid "Create shipment"
+msgstr "Szállítmány létrehozása"
+
+#: shipments/templates/edit_shipment.html:4
+msgid "Edit shipment"
+msgstr "Szállítmány szerkesztése"
+
+#: shipments/templates/my_shipments.html:10
+msgid "Name of shipment"
+msgstr "Szállítmány neve"
+
+#: shipments/templates/my_shipments.html:14
+msgid "Tokens"
+msgstr "Tokenek"
+
+#: shipments/templates/shipment.html:5 shipments/templates/shipment.html:11
+#: shipments/templates/shipment.html:15
+msgid "Shipment"
+msgstr "Szállítmány"
+
+#: shipments/templates/shipment.html:74
+msgid "Send in"
+msgstr "Küldés"
+
+#: shipments/templates/shipment.html:100
+msgid "Link"
+msgstr "Link"
+
+#: shipments/templates/shipment.html:107
+msgid "Action"
+msgstr "Művelet"
+
+#: shipments/templates/shipment.html:109
+msgid "Mark send"
+msgstr "Küldés megjelölése"
+
+#: shipments/templates/shipment.html:114
+msgid "Nobleman"
+msgstr "Nemes"
+
+#: shipments/templates/shipment.html:115
+msgid "Catapult"
+msgstr "Katapult"
+
+#: shipments/templates/shipment.html:116
+msgid "Building"
+msgstr "Épület"
+
+#: shipments/templates/shipment.html:119
+msgid "Start"
+msgstr "Indítás"
+
+#: shipments/templates/shipment.html:140
+msgid "Send min."
+msgstr "Küldés min."
+
+#: shipments/templates/shipment.html:148
+msgid "Send max."
+msgstr "Küldés max."
+
+#: shipments/templates/shipment.html:154
+msgid "ID"
+msgstr "ID"
+
+#: shipments/views.py:143
+msgid "All overviews must belong to the same world."
+msgstr "Minden áttekintésnek ugyanahhoz a világhoz kell tartoznia."
+
+#: shipments/views.py:157
+msgid "All overviews must be for the same player."
+msgstr "Minden áttekintésnek ugyanahhoz a játékoshoz kell tartoznia."
+
+#: shipments/views.py:159
+msgid "does not match"
+msgstr "nem egyezik"
+
+#: templates/404.html:8
+msgid ""
+"Ops, no access, or the content you're looking for is no longer available on "
+"the site."
+msgstr ""
+"Hoppá, nincs hozzáférés, vagy a keresett tartalom már nem érhető el az "
+"oldalon."
+
+#: templates/500.html:8
+msgid ""
+"Ops, a server error has occurred. Please try again in a moment and if this "
+"does not help, contact the administration."
+msgstr ""
+"Hoppá, szerverhiba történt. Kérjük, próbálja újra egy pillanat múlva, és ha "
+"ez nem segít, lépjen kapcsolatba az adminisztrációval."
+
+#: templates/django_registration/activation_complete.html:7
+msgid "Congratulations, account was activated, you can log in!"
+msgstr "Gratulálunk, a fiók aktiválva lett, bejelentkezhet!"
+
+#: templates/django_registration/activation_complete.html:10
+msgid ""
+"You can optionally enable two factor authentication in tab 'My account'."
+msgstr ""
+"Opcionálisan engedélyezheti a kétfaktoros hitelesítést a 'Fiókom' lapon."
+
+#: templates/django_registration/activation_complete.html:11
+msgid ""
+"You can change the language version and log in and out by expanding <b>Menu</"
+"b> in the navigation bar."
+msgstr ""
+"A nyelvi verziót a navigációs sáv <b>Menü</b> kibontásával módosíthatja, "
+"valamint be- és kijelentkezhet."
+
+#: templates/django_registration/activation_complete.html:12
+msgid ""
+"To create a first outline, go to the tab <span class=\"md-error\">Create new "
+"outline</span>."
+msgstr ""
+"Az első terv létrehozásához lépjen az <span class=\"md-error\">Új terv "
+"létrehozása</span> lapra."
+
+#: templates/django_registration/activation_complete.html:13
+msgid ""
+"Don't forget to join <b><a target='_blank' href='https://discord.gg/"
+"g5pcsCteCT'>Discord</a></b>, there you will find all the help and can make "
+"suggestions and bugs."
+msgstr ""
+"Ne felejtsen el csatlakozni a <b><a target='_blank' href='https://discord.gg/"
+"g5pcsCteCT'>Discord</a></b>-hoz, ott minden segítséget megtalál, és "
+"javaslatokat és hibákat tehet."
+
+#: templates/django_registration/activation_complete.html:14
+msgid "You should start by reading:"
+msgstr "Kezdje az olvasással:"
+
+#: templates/django_registration/activation_complete.html:15
+msgid "The test world that is first steps with Planer"
+msgstr "A teszt világ, amely az első lépések a Tervezővel"
+
+#: templates/django_registration/activation_email_body.txt:1
+#: templates/email_payment_body.html:1
+#: templates/registration/password_reset_email.html:1
+msgid "Hello, "
+msgstr "Szia, "
+
+#: templates/django_registration/activation_email_body.txt:3
+msgid ""
+"We received a request to register the account for this email address. To "
+"activate, click the link below."
+msgstr ""
+"Kérést kaptunk a fiók regisztrálására ehhez az e-mail címhez. Az "
+"aktiváláshoz kattintson az alábbi linkre."
+
+#: templates/django_registration/activation_email_body.txt:6
+#: templates/registration/password_reset_email.html:7
+msgid "If you did not make this request, you can simply ignore this email."
+msgstr ""
+"Ha nem Ön kezdeményezte ezt a kérést, egyszerűen hagyja figyelmen kívül ezt "
+"az e-mailt."
+
+#: templates/django_registration/activation_email_body.txt:8
+#: templates/email_payment_body.html:14
+#: templates/registration/password_reset_email.html:9
+msgid "Sincerely,"
+msgstr "Üdvözlettel,"
+
+#: templates/django_registration/activation_email_body.txt:9
+#: templates/registration/password_reset_email.html:10
+msgid "plemiona-planer.pl"
+msgstr "plemiona-planer.pl"
+
+#: templates/django_registration/activation_email_subject.txt:1
+msgid "Activate account in plemiona-planer.pl - "
+msgstr "Fiók aktiválása a plemiona-planer.pl oldalon - "
+
+#: templates/django_registration/activation_form.html:8
+msgid "Activation failed!"
+msgstr "Aktiválás sikertelen!"
+
+#: templates/django_registration/activation_form.html:10
+msgid ""
+"Activation failed! It looks like your account is already activated, link is "
+"already expired or username does not correspond to any user account."
+msgstr ""
+"Aktiválás sikertelen! Úgy tűnik, a fiókja már aktiválva van, a link már "
+"lejárt, vagy a felhasználónév nem felel meg egyetlen felhasználói fióknak "
+"sem."
+
+#: templates/django_registration/activation_form.html:12
+msgid "Code: "
+msgstr "Kód: "
+
+#: templates/django_registration/activation_form.html:16
+msgid "Activate account"
+msgstr "Fiók aktiválása"
+
+#: templates/django_registration/registration_complete.html:7
+msgid "Congratulations, you have successfully registered!"
+msgstr "Gratulálunk, sikeresen regisztrált!"
+
+#: templates/django_registration/registration_complete.html:9
+msgid ""
+"Please check you email, you should get activation url in a second. The link "
+"is valid for 2 days."
+msgstr ""
+"Kérjük, ellenőrizze az e-mailjét, egy másodpercen belül meg kell kapnia az "
+"aktiválási URL-t. A link 2 napig érvényes."
+
+#: templates/django_registration/registration_disallowed.html:9
+msgid ""
+"Please investigate full domain url, the only environment with registration "
+"allowed is production under"
+msgstr ""
+"Kérjük, vizsgálja meg a teljes domain URL-t, az egyetlen környezet, ahol a "
+"regisztráció engedélyezett, a termelési környezet a"
+
+#: templates/django_registration/registration_form.html:6
+msgid "Join now for free and create tribal wars proffesional outlines."
+msgstr ""
+"Csatlakozzon most ingyen, és hozzon létre professzionális klánháborús "
+"terveket."
+
+#: templates/django_registration/registration_form.html:13
+msgid "Create an account"
+msgstr "Fiók létrehozása"
+
+#: templates/email_payment_body.html:4
+msgid "Your payment on"
+msgstr "A fizetése"
+
+#: templates/email_payment_body.html:4
+msgid "in the amount of"
+msgstr "összegben"
+
+#: templates/email_payment_body.html:4
+msgid ""
+"has been successfully processed and your premium account has been activated "
+"or extended."
+msgstr ""
+"sikeresen feldolgozásra került, és a prémium fiókja aktiválva vagy "
+"meghosszabbítva lett."
+
+#: templates/email_payment_body.html:6
+msgid "When refering THIS payment, use following payment intent id:"
+msgstr ""
+"Amikor erre a fizetésre hivatkozik, használja a következő fizetési szándék "
+"azonosítót:"
+
+#: templates/email_payment_body.html:9
+msgid "This e-mail was generated automatically, please do not reply."
+msgstr "Ez az e-mail automatikusan generálódott, kérjük, ne válaszoljon rá."
+
+#: templates/email_payment_body.html:11
+msgid "If you have questions, use contact email: rafal.safin@rafsaf.pl"
+msgstr ""
+"Ha kérdése van, használja a kapcsolattartási e-mail címet: rafal."
+"safin@rafsaf.pl"
+
+#: templates/email_payment_title.html:1
+msgid "[Premium] Successful completion of the payment on"
+msgstr "[Prémium] A fizetés sikeres befejezése"
+
+#: templates/otp_email_body_template.html:4
+#: templates/otp_email_body_template.txt:3
+msgid "Hello,"
+msgstr "Szia,"
+
+#: templates/otp_email_body_template.html:8
+#: templates/otp_email_body_template.txt:5
+msgid "To complete your login, please use the following one-time code:"
+msgstr ""
+"A bejelentkezés befejezéséhez kérjük, használja a következő egyszer "
+"használatos kódot:"
+
+#: templates/otp_email_body_template.html:16
+#: templates/otp_email_body_template.txt:9
+msgid ""
+"This code is for your eyes only and will expire in a few minutes. Do not "
+"share it with anyone."
+msgstr ""
+"Ez a kód csak az Ön számára készült, és néhány percen belül lejár. Ne ossza "
+"meg senkivel."
+
+#: templates/otp_email_body_template.html:20
+#: templates/otp_email_body_template.txt:11
+msgid "If you did not attempt to log in, you can safely ignore this email."
+msgstr ""
+"Ha nem Ön próbált bejelentkezni, biztonságosan figyelmen kívül hagyhatja ezt "
+"az e-mailt."
+
+#: templates/otp_email_body_template.html:26
+#: templates/otp_email_body_template.txt:15
+msgid "This is an automated message. Please do not reply to this email."
+msgstr "Ez egy automatizált üzenet. Kérjük, ne válaszoljon erre az e-mailre."
+
+#: templates/otp_email_body_template.html:27
+msgid ""
+"If you have any questions, you can contact us at: <a href=\"mailto:rafal."
+"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+msgstr ""
+"Ha bármilyen kérdése van, felveheti velünk a kapcsolatot a következő címen: "
+"<a href=\"mailto:rafal.safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal."
+"safin@rafsaf.pl</a>"
+
+#: templates/otp_email_body_template.html:31
+#: templates/otp_email_body_template.txt:18
+msgid "Thank you,"
+msgstr "Köszönjük,"
+
+#: templates/otp_email_body_template.txt:16
+msgid "If you have any questions, you can contact us at: rafal.safin@rafsaf.pl"
+msgstr ""
+"Ha kérdése van, felveheti velünk a kapcsolatot a következő címen: rafal."
+"safin@rafsaf.pl"
+
+#: templates/registration/password_change_done.html:7
+#: templates/registration/password_reset_complete.html:6
+msgid "You have successfully changed your password."
+msgstr "Sikeresen megváltoztatta a jelszavát."
+
+#: templates/registration/password_change_done.html:8
+#: templates/registration/password_reset_complete.html:7
+#: templates/registration/password_reset_confirm.html:26
+#: templates/registration/password_reset_done.html:9
+msgid "Back to home page"
+msgstr "Vissza a kezdőlapra"
+
+#: templates/registration/password_change_form.html:16
+msgid "Change password"
+msgstr "Jelszó megváltoztatása"
+
+#: templates/registration/password_reset_confirm.html:18
+msgid "Set password"
+msgstr "Jelszó beállítása"
+
+#: templates/registration/password_reset_confirm.html:25
+msgid "Sorry, Resource Not Found."
+msgstr "Sajnáljuk, az erőforrás nem található."
+
+#: templates/registration/password_reset_done.html:7
+msgid "Password reset sent."
+msgstr "Jelszó-visszaállítás elküldve."
+
+#: templates/registration/password_reset_done.html:8
+msgid ""
+"We’ve emailed you instructions for setting your password. If an account "
+"exists with the email you entered, You should receive them shortly. If you "
+"don’t receive an email, please make sure you’ve entered the address you "
+"registered with, and check your spam folder."
+msgstr ""
+"E-mailben elküldtük Önnek a jelszó beállítására vonatkozó utasításokat. Ha "
+"létezik fiók a megadott e-mail címmel, hamarosan meg kell kapnia őket. Ha "
+"nem kap e-mailt, kérjük, győződjön meg róla, hogy a regisztrált címet adta "
+"meg, és ellenőrizze a spam mappáját."
+
+#: templates/registration/password_reset_email.html:3
+msgid ""
+"We received a request to reset the password for your account for this email "
+"address. To initiate the password reset process for your account, click the "
+"link below."
+msgstr ""
+"Kérést kaptunk a fiókjához tartozó jelszó visszaállítására ehhez az e-mail "
+"címhez. A jelszó-visszaállítási folyamat elindításához kattintson az alábbi "
+"linkre."
+
+#: templates/registration/password_reset_email.html:6
+msgid ""
+"This link can only be used once. If you need to reset your password again, "
+"please visit plemiona-planer.pl and request another reset."
+msgstr ""
+"Ez a link csak egyszer használható. Ha újra vissza kell állítania a "
+"jelszavát, kérjük, látogasson el a plemiona-planer.pl oldalra, és kérjen "
+"újabb visszaállítást."
+
+#: templates/registration/password_reset_form.html:17
+msgid "Reset password"
+msgstr "Jelszó visszaállítása"
+
+#: templates/registration/password_reset_subject.txt:2
+msgid ""
+"Reset your plemiona-planer.pl account password - link to change your password"
+msgstr ""
+"Állítsa vissza a plemiona-planer.pl fiókjának jelszavát - link a jelszó "
+"megváltoztatásához"
+
+#: templates/two_factor/_wizard_forms.html:4
+msgid "You are already logged in as"
+msgstr "Már be van jelentkezve mint"
+
+#: templates/two_factor/_wizard_forms.html:11
+msgid "Password recovery"
+msgstr "Jelszó-helyreállítás"
+
+#: tribal_wars_planer/settings.py:442
+msgid "Your Plemiona Planer Login Code"
+msgstr "Az Ön Plemiona Planer bejelentkezési kódja"
+
+#: utils/basic/army.py:169 utils/basic/army.py:338
+#, python-format
+msgid ""
+"Invalid number of elements in line: %(len)s is not correct, expected "
+"%(expected)s"
+msgstr ""
+"Érvénytelen elemszám a sorban: %(len)s nem megfelelő, elvárt %(expected)s"
+
+#: utils/basic/army.py:178 utils/basic/army.py:347
+msgid "Length of coord at first postition must be equal to 7"
+msgstr "A koordináta hossza az első pozícióban 7-nek kell lennie"
+
+#: utils/basic/army.py:188 utils/basic/army.py:357
+#, python-format
+msgid ""
+"Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
+msgstr ""
+"Koordináta: %(coord)s nem létezik, vagy nem tartozik egyik érvényes klánhoz "
+"sem: %(tribes)s"
+
+#: utils/basic/army.py:196 utils/basic/army.py:365
+#, python-format
+msgid "One of line elements is not a number: %s"
+msgstr "Az egyik sor elem nem szám: %s"
+
+#: utils/basic/army.py:200 utils/basic/army.py:373
+#, python-format
+msgid "Last element in line must be empty string, currently: %s"
+msgstr "A sor utolsó elemének üres karakterláncnak kell lennie, jelenleg: %s"
+
+#: utils/basic/army.py:369
+#, python-format
+msgid "Third element of line must be a text: %s"
+msgstr "A sor harmadik elemének szövegnek kell lennie: %s"
+
+#: utils/basic/info_generatation.py:49
+msgid "Nicknames: "
+msgstr "Becenevek: "
+
+#: utils/basic/info_generatation.py:91 utils/basic/info_generatation.py:101
+msgid "Time"
+msgstr "Idő"
+
+#: utils/basic/info_generatation.py:132
+#, python-format
+msgid ""
+"SUM: %(offs_count)s offs, %(nobles_count)s nobles, %(ruins_count)s ruins and "
+"%(fakes_count)s fakes"
+msgstr ""
+"ÖSSZESEN: %(offs_count)s támadó, %(nobles_count)s nemes, %(ruins_count)s "
+"rombolás és %(fakes_count)s fake"
+
+#: utils/basic/info_generatation.py:141
+#, python-format
+msgid ""
+"LEFT: %(offs_count)s offs, %(nobles_count)s nobles, %(catapults_count)s "
+"catapults"
+msgstr ""
+"MARADT: %(offs_count)s támadó, %(nobles_count)s nemes, %(catapults_count)s "
+"katapult"
+
+#: utils/basic/info_generatation.py:160
+msgid "### TARGETS ###"
+msgstr "### CÉLPONTOK ###"
+
+#: utils/basic/info_generatation.py:164
+msgid "### FAKES ###"
+msgstr "### FAKE-EK ###"
+
+#: utils/basic/info_generatation.py:168
+msgid "### RUINS ###"
+msgstr "### ROMBOLÁSOK ###"
+
+#: utils/basic/info_generatation.py:265
+msgid "fakes"
+msgstr "fake-ek"
+
+#: utils/basic/info_generatation.py:266
+msgid "fake nobles"
+msgstr "fake nemesek"
+
+#: utils/basic/info_generatation.py:281 utils/basic/info_generatation.py:297
+msgid "offs"
+msgstr "támadók"
+
+#: utils/basic/info_generatation.py:282
+msgid "ruins"
+msgstr "rombolások"
+
+#: utils/basic/info_generatation.py:298
+msgid "nobles"
+msgstr "nemesek"
+
+#: utils/basic/mode.py:62
+msgid "Fake Target"
+msgstr "Fake célpont"
+
+#: utils/basic/mode.py:63
+msgid "Ruin Target"
+msgstr "Romboló célpont"
+
+#: utils/basic/mode.py:69
+msgid "Fake Outline"
+msgstr "Fake terv"
+
+#: utils/basic/mode.py:70
+msgid "Ruin Outline"
+msgstr "Romboló terv"
+
+#: utils/basic/off_text.py:117
+msgid "Tested. LEGEND: "
+msgstr "Tesztelve. JELMAGYARÁZAT: "
+
+#: utils/basic/off_text.py:119
+msgid "HEAVY counted as x4 and not x6, scouts are NOT counted."
+msgstr "A NEHÉZ x4-nek számít, nem x6-nak, a kémek NEM számítanak."
+
+#: utils/basic/off_text.py:121
+msgid "IN VILLAGES = troops in the village + everyone else's troops."
+msgstr "A FALVAKBAN = csapatok a faluban + mindenki más csapata."
+
+#: utils/basic/off_text.py:123
+msgid "ALL OWN = troops in the village + troops outside the village."
+msgstr "MIND SAJÁT = csapatok a faluban + csapatok a falun kívül."
+
+#: utils/basic/off_text.py:149
+msgid "On front"
+msgstr "A fronton"
+
+#: utils/basic/off_text.py:150
+msgid "villages,"
+msgstr "falvak,"
+
+#: utils/basic/off_text.py:151
+msgid "deff IN VILLAGE and"
+msgstr "védő A FALUBAN és"
+
+#: utils/basic/off_text.py:152
+msgid "ALL OWN"
+msgstr "MIND SAJÁT"
+
+#: utils/basic/off_text.py:153
+msgid "On back"
+msgstr "A hátországban"
+
+#: utils/basic/off_text.py:176 utils/basic/off_text.py:190
+msgid "No preview"
+msgstr "Nincs előnézet"
+
+#: utils/basic/off_text.py:200
+msgid "---------BACK---------"
+msgstr "---------HÁTORSZÁG---------"
+
+#: utils/basic/off_text.py:213
+msgid "- In village- "
+msgstr "- A faluban- "
+
+#: utils/basic/off_text.py:214
+msgid "(All deff"
+msgstr "(Minden védő"
+
+#: utils/basic/table_text.py:32
+msgid "Monday"
+msgstr "Hétfő"
+
+#: utils/basic/table_text.py:34
+msgid "Wednesday"
+msgstr "Szerda"
+
+#: utils/basic/table_text.py:35
+msgid "Thursday"
+msgstr "Csütörtök"
+
+#: utils/basic/table_text.py:36
+msgid "Friday"
+msgstr "Péntek"
+
+#: utils/basic/table_text.py:37
+msgid "Saturday"
+msgstr "Szombat"
+
+#: utils/basic/table_text.py:38
+msgid "Sunday"
+msgstr "Vasárnap"
+
+#: utils/basic/table_text.py:43
+msgid ""
+"[table][**]"
+"[||]SEND[||]OFF[||]NOBLE[||]RUIN[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
+msgstr ""
+"[table][**]"
+"[||]KÜLDÉS[||]TÁMADÓ[||]NEMES[||]ROMBOLÁS[||]KÜLDÉS[||]BELÉPÉS[||]INNEN[||]CÉLPONT[/"
+"**]"
+
+#: utils/basic/table_text.py:84
+msgid "Send fake"
+msgstr "Fake küldése"
+
+#: utils/basic/table_text.py:86
+msgid "Send ruin"
+msgstr "Rombolás küldése"
+
+#: utils/basic/table_text.py:90 utils/send_text.py:18
+msgid "Send NOBLE"
+msgstr "NEMES küldése"
+
+#: utils/basic/table_text.py:128
+#, python-format
+msgid "%(catapults_number)sc on %(building)s"
+msgstr "%(catapults_number)sc a(z) %(building)s-ra"
+
+#: utils/basic/table_text.py:182
+#, python-format
+msgid ""
+"[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] "
+"(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"FAKE NOBLE[/url]"
+msgstr ""
+"[b][color=#00a500]FAKE NEMES küldése[%(noble_number)s nemes][/color] "
+"(%(weight_count)s / %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]FAKE "
+"NEMES küldése[/url]"
+
+#: utils/basic/table_text.py:194
+#, python-format
+msgid ""
+"[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of "
+"%(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"FAKE[/url]"
+msgstr ""
+"[b][color=#00a500]FAKE küldése[%(off_number)s támadó][/color] "
+"(%(weight_count)s / %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]FAKE "
+"küldése[/url]"
+
+#: utils/basic/table_text.py:206
+#, python-format
+msgid ""
+"[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s + "
+"%(extra_off_number)s extra off][/color] (%(weight_count)s of "
+"%(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"RUIN[/url]"
+msgstr ""
+"[b][color=#0e0eff]ROMBOLÁS küldése[%(catapults_number)sc a(z) %(building)s-"
+"ra + %(extra_off_number)s extra támadó][/color] (%(weight_count)s / "
+"%(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]ROMBOLÁS "
+"küldése[/url]"
+
+#: utils/basic/table_text.py:219
+#, python-format
+msgid ""
+"[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/"
+"color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"NOBLE[/url]"
+msgstr ""
+"[b][color=#a500a5]NEMES küldése[%(off_number)s támadó + %(noble_number)s "
+"nemes][/color] (%(weight_count)s / %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]NEMES "
+"küldése[/url]"
+
+#: utils/basic/table_text.py:232
+#, python-format
+msgid ""
+"[b][color=#a50000]Send OFF[%(off_number)s off + %(catapults_number)sc on "
+"%(building)s][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"OFF[/url]"
+msgstr ""
+"[b][color=#a50000]TÁMADÓ küldése[%(off_number)s támadó + "
+"%(catapults_number)sc a(z) %(building)s-ra][/color] (%(weight_count)s / "
+"%(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]TÁMADÓ "
+"küldése[/url]"
+
+#: utils/basic/table_text.py:245
+#, python-format
+msgid ""
+"[b][color=#a50000]Send OFF[%(off_number)s off][/color] (%(weight_count)s of "
+"%(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"OFF[/url]"
+msgstr ""
+"[b][color=#a50000]TÁMADÓ küldése[%(off_number)s támadó][/color] "
+"(%(weight_count)s / %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]TÁMADÓ "
+"küldése[/url]"
+
+#: utils/basic/table_text.py:265
+msgid "Nobles-"
+msgstr "Nemesek-"
+
+#: utils/basic/table_text.py:269
+msgid "[color=#00a500][b]Send fake noble[/b][/color] (1 noble)"
+msgstr "[color=#00a500][b]Fake nemes küldése[/b][/color] (1 nemes)"
+
+#: utils/basic/table_text.py:272
+msgid "[color=#00a500][b]Send fake[/b][/color]"
+msgstr "[color=#00a500][b]Fake küldése[/b][/color]"
+
+#: utils/basic/table_text.py:276
+#, python-format
+msgid ""
+"[color=#0e0eff][b]Ruin[/b][/color] (Extra off-%(off)d, Catapults-"
+"%(catapult)d [b]%(building)s[/b])"
+msgstr ""
+"[color=#0e0eff][b]Rombolás[/b][/color] (Extra támadó-%(off)d, Katapultok-"
+"%(catapult)d [b]%(building)s[/b])"
+
+#: utils/basic/table_text.py:284
+#, python-format
+msgid ""
+"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d "
+"[b]%(building)s[/b])"
+msgstr ""
+"[size=12][b]TÁMADÓ[/b][/size] (Támadó-%(off)d, Katapultok-%(catapult)d "
+"[b]%(building)s[/b])"
+
+#: utils/basic/table_text.py:291
+msgid "[size=12][b]OFF[/b][/size] (Off-"
+msgstr "[size=12][b]TÁMADÓ[/b][/size] (Támadó-"
+
+#: utils/basic/table_text.py:294
+msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
+msgstr "[color=#a500a5][size=12][b]NEMES[/b][/size][/color]"
+
+#: utils/basic/troops.py:53
+#, python-format
+msgid "Line %s: "
+msgstr "Sor %s: "
+
+#: utils/basic/village.py:85
+msgid "Coords are empty!"
+msgstr "A koordináták üresek!"
+
+#: utils/basic/village.py:89
+msgid ": Is not string type!"
+msgstr ": Nem string típus!"
+
+#: utils/basic/village.py:95
+msgid ": Is not the correct length!"
+msgstr ": Nem megfelelő hosszúságú!"
+
+#: utils/basic/village.py:98 utils/basic/village.py:101
+msgid "Is not a number"
+msgstr "Nem szám"
+
+#: utils/basic/village.py:104
+msgid "Symbol"
+msgstr "Szimbólum"
+
+#: utils/basic/village.py:105
+msgid "Is not equal to '|'!"
+msgstr "Nem egyenlő '|'-vel!"
+
+#: utils/outline_finish.py:76
+msgid "Village"
+msgstr "Falu"
+
+#: utils/outline_finish.py:78
+msgid "does not exists"
+msgstr "nem létezik"
+
+#: utils/send_text.py:15
+msgid "Send FAKE NOBLE"
+msgstr "FAKE NEMES küldése"
+
+#: utils/send_text.py:16
+msgid "Send FAKE"
+msgstr "FAKE küldése"
+
+#: utils/send_text.py:17
+msgid "Send RUIN"
+msgstr "ROMBOLÁS küldése"

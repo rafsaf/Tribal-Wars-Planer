@@ -37,6 +37,9 @@ extra:
     - name: English
       link: /en/documentation/
       lang: en
+    - name: Magyar
+      link: /hu/documentation/
+      lang: hu
 
 markdown_extensions:
   - toc:
@@ -65,7 +68,7 @@ plugins:
   - social
 
 nav:
-  - Back to site: "/"
+  - Back to the page: "/"
   - FAQ: index.md
   - 1. Test world:
       - first_steps/index.md
@@ -76,7 +79,7 @@ nav:
       - first_steps/step_5_outline_edit.md
       - first_steps/step_6_set_time_finish.md
       - first_steps/step_7_results_tab.md
-  - 2. Installing the necessary scripts:
+  - 2. Installation of the necessary scripts:
       - scripts/army_and_defence_collection.md
       - scripts/sending_messages.md
   - 3. Guides:

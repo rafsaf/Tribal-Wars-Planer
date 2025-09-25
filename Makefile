@@ -1,4 +1,3 @@
-
 ESBUILD_VERSION=https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.21.4.tgz
 ESBUILD_PATH=./bin/esbuild
 
@@ -48,6 +47,14 @@ docs_serve_en:
 .PHONY: docs_build_en
 docs_build_en:
 	poetry run mkdocs build -f docs/config/en/mkdocs.yml
+
+.PHONY: docs_serve_hu
+docs_serve_hu:
+	poetry run mkdocs serve -f docs/config/hu/mkdocs.yml
+
+.PHONY: docs_build_hu
+docs_build_hu:
+	poetry run mkdocs build -f docs/config/hu/mkdocs.yml
 
 .PHONY: build_cython
 build_cython:
