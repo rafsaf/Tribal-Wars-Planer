@@ -41,13 +41,13 @@ msgid ""
 "Use unused army or deff troops from result tab from parent outline in Troops "
 "data tab"
 msgstr ""
-"Használja a fel nem használt sereget vagy védő csapatokat a szülő terv "
+"Használja a fel nem használt támadó- vagy védekező sereget a szülő terv "
 "eredmény lapjáról a Csapatok adat lapon"
 
 #: base/forms.py:101 base/models/outline.py:145 base/models/outline.py:326
 #: base/models/profile.py:35
 msgid "Army collection"
-msgstr "Sereg gyűjtemény"
+msgstr "Csapatösszesítő"
 
 #: base/forms.py:119 base/forms.py:208
 msgid "Text cannot be empty!"
@@ -75,7 +75,7 @@ msgstr "A falu ebben a sorban duplikálva van: %(coord)s"
 #: base/forms.py:188 base/models/outline.py:146 base/models/outline.py:328
 #: base/models/profile.py:36
 msgid "Deff collection "
-msgstr "Védő gyűjtemény "
+msgstr "Védelem összesítő "
 
 #: base/forms.py:282
 msgid "Ally tribe"
@@ -122,11 +122,11 @@ msgstr ""
 
 #: base/forms.py:424
 msgid "Min. off units number"
-msgstr "Min. támadó egységek száma"
+msgstr "Min. támadósereg egységszám"
 
 #: base/forms.py:425
 msgid "Max. off units number"
-msgstr "Max. támadó egységek száma"
+msgstr "Max. támadósereg egységszám"
 
 #: base/forms.py:427
 msgid "Minimum distance from front line"
@@ -138,7 +138,7 @@ msgstr "Max távolság a nemesek számára"
 
 #: base/forms.py:431
 msgid "Max Distance for offs and ruins"
-msgstr "Max távolság a támadók és rombolások számára"
+msgstr "Max távolság támadóseregeknek és rombolásokhoz"
 
 #: base/forms.py:436
 msgid ""
@@ -146,14 +146,14 @@ msgid ""
 "this value will be considered full offs and will be written out."
 msgstr ""
 "Nagyobb vagy egyenlő, mint 1 és kisebb vagy egyenlő, mint 28000. Csak az e "
-"feletti támadók számítanak teljes támadónak, és kerülnek kiírásra."
+"feletti támadóseregek számítanak teljes támadóseregnek, és kerülnek kiírásra."
 
 #: base/forms.py:439
 msgid ""
 "Defaults to 28000. Similar to minimum off units number, must be greater than "
 "it."
 msgstr ""
-"Alapértelmezés szerint 28000. Hasonló a minimális támadó egységek számához, "
+"Alapértelmezés szerint 28000. Hasonló a minimális támadósereg egységszámhoz, "
 "nagyobbnak kell lennie annál."
 
 #: base/forms.py:442
@@ -316,11 +316,11 @@ msgstr "Max. nemesek száma falvanként:"
 
 #: base/forms.py:658
 msgid "Min. off units for every noble"
-msgstr "Min. támadó egységek minden nemeshez"
+msgstr "Min. támadósereg egység minden nemeshez"
 
 #: base/forms.py:661
 msgid "Min. off units for every fake noble"
-msgstr "Min. támadó egységek minden fake nemeshez"
+msgstr "Min. támadósereg egység minden fake nemeshez"
 
 #: base/forms.py:666
 msgid ""
@@ -342,7 +342,7 @@ msgid ""
 msgstr ""
 "20000 csapat és 4 nemes esetén egy faluban az első opció 4 x 5000-et "
 "próbálna használni, a második 1 x 19700 + 3 x 100-at, az utolsó pedig 4 x "
-"100-at, ahol a 100 megváltoztatható a \"Min. támadó egységek minden "
+"100-at, ahol a 100 megváltoztatható a \"Min. támadósereg egység minden "
 "nemeshez\"-ben."
 
 #: base/forms.py:672
@@ -352,9 +352,9 @@ msgid ""
 "units for every noble\" below. The same limit is respected for fake nobles."
 msgstr ""
 "Alapértelmezés szerint 8. 0 és 250 között. Például lehet, hogy csak 4 nemest "
-"szeretne egyetlen faluból, vagy akár 1-et (teljes támadóval). A legjobban a "
-"\"Min. támadó egységek minden nemeshez\" alatti opcióval működik. Ugyanez a "
-"korlát érvényes a fake nemesekre is."
+"szeretne egyetlen faluból, vagy akár 1-et (teljes támadósereggel). A "
+"legjobban a \"Min. támadósereg egység minden nemeshez\" alatti opcióval "
+"működik. Ugyanez a korlát érvényes a fake nemesekre is."
 
 #: base/forms.py:679
 msgid ""
@@ -365,11 +365,11 @@ msgid ""
 "100, only 2 nobles can be ever used. Other 2 will be always ignored."
 msgstr ""
 "Alapértelmezés szerint csak 100. 0 és 28000 között kell lennie. Ez szigorú "
-"minimum, tehát ha a faluban vannak nemesek, de nincs elég támadó egység, a "
-"Tervező nem fogja használni. Óvatosan használja, mert drasztikusan "
+"minimum, tehát ha a faluban vannak nemesek, de nincs elég támadósereg "
+"egység, a Tervező nem fogja használni. Óvatosan használja, mert drasztikusan "
 "megváltoztathatja a többi opció viselkedését. Például, ha 4x nemese és 250 "
-"támadó egysége van, és ez az opció 100-ra van állítva, csak 2 nemest lehet "
-"valaha használni. A másik 2 mindig figyelmen kívül lesz hagyva."
+"támadósereg egysége van, és ez az opció 100-ra van állítva, csak 2 nemest "
+"lehet valaha használni. A másik 2 mindig figyelmen kívül lesz hagyva."
 
 #: base/forms.py:682
 msgid ""
@@ -403,8 +403,8 @@ msgid ""
 "will be added to every ruin attack. If 0, it means only catapults are send."
 msgstr ""
 "Alapértelmezés szerint %(default)s (%(min)s-%(max)s között). Minimális "
-"támadó egységek, amelyeket minden romboló támadáshoz hozzáadnak. Ha 0, az "
-"azt jelenti, hogy csak katapultokat küldenek."
+"támadósereg egységek, amelyeket minden romboló támadáshoz hozzáadnak. Ha 0, "
+"az azt jelenti, hogy csak katapultokat küldenek."
 
 #: base/forms.py:744
 msgid "Only attackers ABOVE this morale value can be used:"
@@ -420,11 +420,11 @@ msgstr "Válassza ki, hogy elkerüli-e az éjszakai bónuszt"
 
 #: base/forms.py:790
 msgid "Approximate hours of entry"
-msgstr "A belépés hozzávetőleges órái"
+msgstr "Hozzávetőleges érkezési órák"
 
 #: base/forms.py:797
 msgid "Approximate hours of the last entry"
-msgstr "Az utolsó belépés hozzávetőleges órái"
+msgstr "Utolsó érkezés hozzávetőleges órái"
 
 #: base/forms.py:810
 msgid "First value must be less or equal to second!"
@@ -432,11 +432,11 @@ msgstr "Az első értéknek kisebbnek vagy egyenlőnek kell lennie a másodikná
 
 #: base/forms.py:821
 msgid "Sum of off"
-msgstr "Támadók összege"
+msgstr "Támadósereg összege"
 
 #: base/forms.py:827
 msgid "Off without catapults"
-msgstr "Támadók katapultok nélkül"
+msgstr "Támadósereg katapultok nélkül"
 
 #: base/forms.py:833
 #: base/templates/base/new_outline/new_outline_initial_period1.html:190
@@ -502,7 +502,8 @@ msgstr "Az Összes mód csak egyszer használható egységenként"
 #: base/forms.py:958
 msgid "Mode All must be used at least once for noble and for off."
 msgstr ""
-"Az Összes módot legalább egyszer használni kell a nemeshez és a támadóhoz is."
+"Az Összes módot legalább egyszer használni kell a nemeshez és a támadósereghez "
+"is."
 
 #: base/forms.py:998
 msgid "You need a premium account to add more targets here."
@@ -594,15 +595,15 @@ msgstr "Távoli hát"
 
 #: base/models/outline.py:86 base/models/target_vertex.py:50
 msgid "Divide off with nobles"
-msgstr "Támadók felosztása nemesekkel"
+msgstr "Támadósereg felosztása nemesekkel"
 
 #: base/models/outline.py:87 base/models/target_vertex.py:51
 msgid "Dont't divide off"
-msgstr "Ne ossza fel a támadókat"
+msgstr "Ne ossza fel a támadósereget"
 
 #: base/models/outline.py:88 base/models/target_vertex.py:52
 msgid "Off and nobles separatly"
-msgstr "Támadók és nemesek külön"
+msgstr "Támadósereg és nemesek külön"
 
 #: base/models/outline.py:92
 msgid "Nobles from one village as one command"
@@ -658,7 +659,7 @@ msgstr "Átlag 5-8k"
 
 #: base/models/outline.py:127
 msgid "Fakes only from off villages"
-msgstr "Fake-ek csak támadó falvakból"
+msgstr "Fake-ek csak támadósereg falvakból"
 
 #: base/models/outline.py:128
 msgid "Fakes from all villages"
@@ -732,7 +733,7 @@ msgstr "Pontos"
 
 #: base/models/period_model.py:35
 msgid "Ram"
-msgstr "Kos"
+msgstr "Faltörő kos"
 
 #: base/models/stripe_product.py:36
 msgid "Premium 1 month"
@@ -935,8 +936,8 @@ msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
 msgstr ""
-"Lehetőség van minden fejszést pontosan leírni, vagy a Tervezőre bízni, több "
-"tucat lehetőség közül választva."
+"Lehetőség van minden támadósereget pontosan leírni, vagy a Tervezőre bízni, "
+"több tucat lehetőség közül választva."
 
 #: base/templates/base/base.html:314
 msgid "Growing number of users."
@@ -1210,7 +1211,7 @@ msgstr "Védő jelentés"
 #: base/templates/base/new_outline/new_outline.html:9
 #: base/templates/base/new_outline/new_outline.html:17
 msgid "Troops data"
-msgstr "Csapatok adatai"
+msgstr "Csapatösszesítő"
 
 #: base/templates/base/new_outline/new_outline.html:10
 #: base/templates/base/new_outline/new_outline.html:18
@@ -1249,7 +1250,7 @@ msgstr "Utolsó világ frissítés: "
 
 #: base/templates/base/new_outline/new_outline.html:76
 msgid "Army troops have been successfully added."
-msgstr "A seregek sikeresen hozzáadva."
+msgstr "A csapatösszesítő sikeresen hozzáadva."
 
 #: base/templates/base/new_outline/new_outline.html:94
 #: base/templates/base/new_outline/new_outline.html:160
@@ -1392,7 +1393,7 @@ msgstr "Folytatás"
 #: base/templates/base/new_outline/new_outline_get_deff.html:4
 #: base/templates/base/new_outline/new_outline_results.html:25
 msgid "Deff collection"
-msgstr "Védő gyűjtemény"
+msgstr "Védelem összesítő"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:14
 #: base/templates/base/new_outline/new_outline_initial_period1.html:17
@@ -1459,18 +1460,19 @@ msgstr "\"000|000\" - tiszta koordináták"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid "\"000|000:0:0\" - coords with :off:noble numbers"
-msgstr "\"000|000:0:0\" - koordináták :támadó:nemes számokkal"
+msgstr "\"000|000:0:0\" - koordináták :támadósereg:nemes számokkal"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid "\"000|000:0|0|0|0:0\" - additional off info, list instead of number"
-msgstr "\"000|000:0|0|0|0:0\" - további támadó infó, lista szám helyett"
+msgstr ""
+"\"000|000:0|0|0|0:0\" - további támadósereg infó, lista szám helyett"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid ""
 "\"000|000:0|0|0|0:0|0|0|0\" - max info that can be passed about offs and "
 "nobles"
 msgstr ""
-"\"000|000:0|0|0|0:0|0|0|0\" - maximális információ, amit a támadókról és "
+"\"000|000:0|0|0|0:0|0|0|0\" - maximális információ, amit a támadóseregről és "
 "nemesekről át lehet adni"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:149
@@ -1487,7 +1489,7 @@ msgstr "Leírás"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:163
 msgid "Offs further than maximum distance for offs (equals to"
-msgstr "Támadók messzebb, mint a támadók maximális távolsága (jelenleg"
+msgstr "Támadóseregek messzebb, mint a támadóseregek maximális távolsága (jelenleg"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:163
 msgid "now), which will be completely skipped now."
@@ -1495,7 +1497,7 @@ msgstr "most), amelyek most teljesen kihagyásra kerülnek."
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:168
 msgid "Offs"
-msgstr "Támadók"
+msgstr "Támadóseregek"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:179
 msgid "Nobles"
@@ -1503,16 +1505,17 @@ msgstr "Nemesek"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:201
 msgid "Full offs with at least 1 nobleman (there can be more)"
-msgstr "Teljes támadók legalább 1 nemessel (lehet több is)"
+msgstr "Teljes támadóseregek legalább 1 nemessel (lehet több is)"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:201
 msgid "Full offs with 1 noble"
-msgstr "Teljes támadók 1 nemessel"
+msgstr "Teljes támadóseregek 1 nemessel"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:213
 msgid "Offs around real targets at maximum distance for nobles (now equals to"
 msgstr ""
-"Támadók a valódi célpontok körül a nemesek maximális távolságán (most egyenlő"
+"Támadóseregek a valódi célpontok körül a nemesek maximális távolságán (most "
+"egyenlő"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:213
 msgid "Offs close to real targets"
@@ -2056,11 +2059,11 @@ msgstr "Legközelebbi nemesek"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:234
 msgid "Closest offs with noblemans"
-msgstr "Legközelebbi támadók nemesekkel"
+msgstr "Legközelebbi támadóseregek nemesekkel"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:238
 msgid "Random full offs"
-msgstr "Véletlenszerű teljes támadók"
+msgstr "Véletlenszerű teljes támadóseregek"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:239
 msgid "Random noblemans"
@@ -2068,11 +2071,11 @@ msgstr "Véletlenszerű nemesek"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:240
 msgid "Random offs with noblemans"
-msgstr "Véletlenszerű támadók nemesekkel"
+msgstr "Véletlenszerű támadóseregek nemesekkel"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:244
 msgid "Farthest full offs"
-msgstr "Legtávolabbi teljes támadók"
+msgstr "Legtávolabbi teljes támadóseregek"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:245
 msgid "Farthest noblemans"
@@ -2080,7 +2083,7 @@ msgstr "Legtávolabbi nemesek"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:246
 msgid "Farthest offs with noblemans"
-msgstr "Legtávolabbi támadók nemesekkel"
+msgstr "Legtávolabbi támadóseregek nemesekkel"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:256
 #: base/templates/base/new_outline/new_outline_initial_period3.html:263
@@ -2111,7 +2114,7 @@ msgstr "Bal oldalon Támadók hozzáadása, jobb oldalon Romboló támadás"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:336
 msgid "On the left adding Offs, on the right Offs with the Nobles"
-msgstr "Bal oldalon Támadók hozzáadása, jobb oldalon Támadók Nemesekkel"
+msgstr "Bal oldalon Támadóseregek hozzáadása, jobb oldalon Támadóseregek Nemesekkel"
 
 #: base/templates/base/new_outline/new_outline_results.html:10
 msgid "Outline results"
@@ -2277,7 +2280,7 @@ msgstr "Kedd"
 #: base/templates/base/overview.html:185 utils/basic/table_text.py:88
 #: utils/send_text.py:19
 msgid "Send OFF"
-msgstr "TÁMADÓ küldése"
+msgstr "TÁMADÓSEREG küldése"
 
 #: base/templates/base/overview.html:58 base/templates/base/overview.html:91
 #: base/templates/base/overview.html:143 base/templates/base/overview.html:197
@@ -2333,7 +2336,7 @@ msgstr "KÜLDÉS"
 
 #: base/templates/base/overview.html:174
 msgid "OFF"
-msgstr "TÁMADÓ"
+msgstr "TÁMADÓSEREG"
 
 #: base/templates/base/overview.html:175
 msgid "NOBLE"
@@ -2369,7 +2372,7 @@ msgstr "Rombolás"
 
 #: base/templates/base/overview.html:246 shipments/templates/shipment.html:113
 msgid "Off"
-msgstr "Támadó"
+msgstr "Támadósereg"
 
 #: base/templates/base/overview.html:304
 msgid "Source in JSON format available under API link:"
@@ -2674,11 +2677,11 @@ msgstr ""
 
 #: base/views/outline_initial_views.py:118 base/views/results_get_deff.py:39
 msgid "<h5>Army collection is empty!</h5>"
-msgstr "<h5>A sereg gyűjtemény üres!</h5>"
+msgstr "<h5>A csapatösszesítő üres!</h5>"
 
 #: base/views/outline_initial_views.py:124 base/views/results_get_deff.py:36
 msgid "<h5>Deff collection is empty!</h5>"
-msgstr "<h5>A védő gyűjtemény üres!</h5>"
+msgstr "<h5>A védelem összesítő üres!</h5>"
 
 #: base/views/outline_initial_views.py:525
 msgid "<h5>All targets must have an assigned Time.</h5>"
@@ -2695,10 +2698,11 @@ msgid ""
 "<b>Army and Deff collections</b> and <b>Submit</b> both.</p> <p>2. Return to "
 "the <b>Deff collection</b> tab.</p> <p>3. Try again."
 msgstr ""
-"<h5>Úgy tűnik, a Sereg vagy Védő gyűjteményei már nem aktuálisak!</h5> <p>A "
-"Védő gyűjtemény használatához:</p> <p>1. Illessze be a jelenlegi adatokat a "
-"<b>Sereg és Védő gyűjteményekbe</b>, és <b>Küldje el</b> mindkettőt.</p> "
-"<p>2. Térjen vissza a <b>Védő gyűjtemény</b> lapra.</p> <p>3. Próbálja újra."
+"<h5>Úgy tűnik, a csapatösszesítő vagy a védelem összesítő már nem "
+"aktuális!</h5> <p>A Védelem összesítő használatához:</p> <p>1. Illessze be a "
+"jelenlegi adatokat a <b>Csapatösszesítő és Védelem összesítőbe</b>, és "
+"<b>Küldje el</b> mindkettőt.</p> <p>2. Térjen vissza a <b>Védelem "
+"összesítő</b> lapra.</p> <p>3. Próbálja újra."
 
 #: shipments/forms.py:35
 #, python-format
@@ -3179,7 +3183,7 @@ msgid ""
 "SUM: %(offs_count)s offs, %(nobles_count)s nobles, %(ruins_count)s ruins and "
 "%(fakes_count)s fakes"
 msgstr ""
-"ÖSSZESEN: %(offs_count)s támadó, %(nobles_count)s nemes, %(ruins_count)s "
+"ÖSSZESEN: %(offs_count)s támadósereg, %(nobles_count)s nemes, %(ruins_count)s "
 "rombolás és %(fakes_count)s fake"
 
 #: utils/basic/info_generatation.py:141
@@ -3188,7 +3192,7 @@ msgid ""
 "LEFT: %(offs_count)s offs, %(nobles_count)s nobles, %(catapults_count)s "
 "catapults"
 msgstr ""
-"MARADT: %(offs_count)s támadó, %(nobles_count)s nemes, %(catapults_count)s "
+"MARADT: %(offs_count)s támadósereg, %(nobles_count)s nemes, %(catapults_count)s "
 "katapult"
 
 #: utils/basic/info_generatation.py:160
@@ -3213,7 +3217,7 @@ msgstr "fake nemesek"
 
 #: utils/basic/info_generatation.py:281 utils/basic/info_generatation.py:297
 msgid "offs"
-msgstr "támadók"
+msgstr "támadóseregek"
 
 #: utils/basic/info_generatation.py:282
 msgid "ruins"
@@ -3321,7 +3325,7 @@ msgid ""
 "[||]SEND[||]OFF[||]NOBLE[||]RUIN[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
 msgstr ""
 "[table][**]"
-"[||]KÜLDÉS[||]TÁMADÓ[||]NEMES[||]ROMBOLÁS[||]KÜLDÉS[||]BELÉPÉS[||]INNEN[||]CÉLPONT[/"
+"[||]KÜLDÉS[||]TÁMADÓSEREG[||]NEMES[||]ROMBOLÁS[||]KÜLDÉS[||]ÉRKEZÉS[||]INNEN[||]CÉLPONT[/"
 "**]"
 
 #: utils/basic/table_text.py:84
@@ -3371,7 +3375,7 @@ msgid ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
 "FAKE[/url]"
 msgstr ""
-"[b][color=#00a500]FAKE küldése[%(off_number)s támadó][/color] "
+"[b][color=#00a500]FAKE küldése[%(off_number)s támadósereg][/color] "
 "(%(weight_count)s / %(weight_count_all)s)[/b]\n"
 "%(date)s\n"
 "%(start_coord)s [b]->[/b] %(target_coord)s\n"
@@ -3392,7 +3396,7 @@ msgid ""
 "RUIN[/url]"
 msgstr ""
 "[b][color=#0e0eff]ROMBOLÁS küldése[%(catapults_number)sc a(z) %(building)s-"
-"ra + %(extra_off_number)s extra támadó][/color] (%(weight_count)s / "
+"ra + %(extra_off_number)s extra támadósereg][/color] (%(weight_count)s / "
 "%(weight_count_all)s)[/b]\n"
 "%(date)s\n"
 "%(start_coord)s [b]->[/b] %(target_coord)s\n"
@@ -3411,7 +3415,7 @@ msgid ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
 "NOBLE[/url]"
 msgstr ""
-"[b][color=#a500a5]NEMES küldése[%(off_number)s támadó + %(noble_number)s "
+"[b][color=#a500a5]NEMES küldése[%(off_number)s támadósereg + %(noble_number)s "
 "nemes][/color] (%(weight_count)s / %(weight_count_all)s)[/b]\n"
 "%(date)s\n"
 "%(start_coord)s [b]->[/b] %(target_coord)s\n"
@@ -3430,13 +3434,13 @@ msgid ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
 "OFF[/url]"
 msgstr ""
-"[b][color=#a50000]TÁMADÓ küldése[%(off_number)s támadó + "
+"[b][color=#a50000]TÁMADÓSEREG küldése[%(off_number)s támadósereg + "
 "%(catapults_number)sc a(z) %(building)s-ra][/color] (%(weight_count)s / "
 "%(weight_count_all)s)[/b]\n"
 "%(date)s\n"
 "%(start_coord)s [b]->[/b] %(target_coord)s\n"
 "[url=%(game_url)s/game.php?"
-"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]TÁMADÓ "
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]TÁMADÓSEREG "
 "küldése[/url]"
 
 #: utils/basic/table_text.py:245
@@ -3450,12 +3454,12 @@ msgid ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
 "OFF[/url]"
 msgstr ""
-"[b][color=#a50000]TÁMADÓ küldése[%(off_number)s támadó][/color] "
+"[b][color=#a50000]TÁMADÓSEREG küldése[%(off_number)s támadósereg][/color] "
 "(%(weight_count)s / %(weight_count_all)s)[/b]\n"
 "%(date)s\n"
 "%(start_coord)s [b]->[/b] %(target_coord)s\n"
 "[url=%(game_url)s/game.php?"
-"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]TÁMADÓ "
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]TÁMADÓSEREG "
 "küldése[/url]"
 
 #: utils/basic/table_text.py:265

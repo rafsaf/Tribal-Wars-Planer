@@ -1,4 +1,4 @@
-# Sereg és Védelem Gyűjtő Szkript
+# Csapatösszesítő és védelemgyűjtő szkript
 
 | Szerver        | Klánháború Fórum                                                                                                                                                     | Engedélyezett | Kód                                                                                                                  |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------- |
@@ -12,19 +12,19 @@
 
 === "tribalwars.net"
 
-    ```title="Sereg és Védelem Gyűjtő Szkript"
+    ```title="Csapatösszesítő és védelemgyűjtő szkript"
     --8<-- "army_script_tribalwars_net_en.txt"
     ```
 
 === "plemiona.pl"
 
-    ```title="Sereg és Védelem Gyűjtő Szkript"
+    ```title="Csapatösszesítő és védelemgyűjtő szkript"
     --8<-- "army_script_plemiona_pl_en.txt"
     ```
 
 === "más szerverek"
 
-    ```title="Sereg és Védelem Gyűjtő Szkript"
+    ```title="Csapatösszesítő és védelemgyűjtő szkript"
     --8<-- "army_script_latest.txt"
     ```
 
@@ -43,7 +43,7 @@ A telepítés ugyanúgy történik, mint az összes sávszkript esetében; a tar
 
 ## Leírás
 
-Kattintás után egy "számláló" jelenik meg a képernyő közepén, majd az eredmény egy ablakban. Működik mind a Sereg, mind a Védelem fülön. A másolás alapértelmezett beállításai a gyorsítótár `true`-ra és a cacheTime 5 percre vannak állítva. Ez idő alatt a szkript a böngészőben mentett eredményt adja ki, ahelyett, hogy újra körbejárná az összes tagot és új adatokat gyűjtene. Kétség esetén, hogy új vagy régi eredménnyel van-e dolgunk, a gyűjtés dátuma alul jelenik meg.
+Kattintás után egy "számláló" jelenik meg a képernyő közepén, majd az eredmény egy ablakban. Működik mind a Csapatok, mind a Védelem fülön. A másolás alapértelmezett beállításai a gyorsítótár `true`-ra és a cacheTime 5 percre vannak állítva. Ez idő alatt a szkript a böngészőben mentett eredményt adja ki, ahelyett, hogy újra körbejárná az összes tagot és új adatokat gyűjtene. Kétség esetén, hogy új vagy régi eredménnyel van-e dolgunk, a gyűjtés dátuma alul jelenik meg.
 
 A szkript futtatásával generált adatokat be kell illeszteni az oldal ütemtervébe.
 
@@ -65,11 +65,11 @@ alapértelmezések lesznek használva.
   a böngészőben, percekben.
 
 - **removedPlayers**: <string> (alapértelmezett: `""`) ide írjuk be azoknak a játékosoknak a beceneveit,
-  akiktől nem akarunk csapatinformációkat gyűjteni, pontosvesszővel elválasztva, mint
+  akiktől nem akarunk csapatösszesítőt gyűjteni, pontosvesszővel elválasztva, mint
   a játékbeli üzenetekben, pl. "Rafsaf;kmic;valakimás"
 
 - **allowedPlayers**: <string> (alapértelmezett: `""`) ide írjuk be azoknak a játékosoknak a beceneveit,
-  akiktől CSAK! (ha üres, a klán összes játékosa használva lesz) csapatinformációkat akarunk
+  akiktől CSAK! (ha üres, a klán összes játékosa használva lesz) csapatösszesítőt akarunk
   gyűjteni, pontosvesszővel elválasztva, mint a játékbeli üzenetekben,
   pl. "Rafsaf;kmic;valakimás"
 

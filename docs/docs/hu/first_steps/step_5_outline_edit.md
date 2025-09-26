@@ -9,7 +9,7 @@ A következő nézet a támadás a korábbi fül beállításai alapján. Lehet�
 
 | Szám | Leírás                                                                           |
 | ---- | -------------------------------------------------------------------------------- |
-| 1    | Visszatérés az előző fülre, az ütemterv visszaállítása                           |
+| 1    | Visszatérés az előző fülre, a terv visszaállítása                                |
 | 2    | Új célpontok kézi hozzáadása                                                     |
 | 3    | Valódi célpontok megtekintése (aktuális fül)                                     |
 | 4    | Hamis célpontok megtekintése                                                     |

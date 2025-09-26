@@ -1,4 +1,4 @@
-# 6. lépés - Belépési idők beállítása és a terv befejezése
+# 6. lépés - Érkezési idők beállítása és a terv befejezése
 
 !!! info
 
@@ -9,7 +9,7 @@
   <figcaption>Idők fül, használhatja a fenti nagyon egyszerű időt és kattintson a "Létrehozás" gombra</figcaption>
 </figure>
 
-A felhasználónak lehetősége van több belépési idő objektumot létrehozni a fülön, de a gyakorlatban akár egy vagy néhány is elegendő lehet. Kiválasztjuk a támadások időintervallumait, az egységet és a módot 3 lehetséges opció közül. Egy összetett idő példája így nézhet ki:
+A felhasználónak lehetősége van több érkezési idő objektumot létrehozni a fülön, de a gyakorlatban akár egy vagy néhány is elegendő lehet. Kiválasztjuk a támadások időintervallumait, az egységet és a módot 3 lehetséges opció közül. Egy összetett idő példája így nézhet ki:
 
 <figure markdown="span">
   ![alt text](image-9.png)
@@ -24,11 +24,11 @@ Ami azt jelenti:
 
 - Ütemezzen pontosan 4 nemest 8:10-kor (vagy kevesebbet, stb. mint fent)
 
-- Ütemezze az összes megmaradt kost, ha van még, 12:00 és 12:30 között
+- Ütemezze az összes megmaradt faltörő kost, ha van még, 12:00 és 12:30 között
 
 - Ütemezze az összes megmaradt nemest 12:30-kor
 
-Az is támogatott, hogy a {==Minden fennmaradó==} korábban legyen, mint a többi mód. Az alábbi példában a célpont mindig 2 támadást és 2 nemest kap a nap végén, és az összes többit (az összeg különböző falvaknál eltérően állítható be) reggel. A megadott időknek értelmesnek kell lenniük; a maximális belépési időnek későbbinek vagy azonosnak kell lennie a minimális belépési idővel. A Minden fennmaradó módnak pontosan kétszer kell megjelennie: a Kos és a Nemes egységeknél, és a legalacsonyabb prioritással rendelkezik.
+Az is támogatott, hogy a {==Minden fennmaradó==} korábban legyen, mint a többi mód. Az alábbi példában a célpont mindig 2 támadást és 2 nemest kap a nap végén, és az összes többit (az összeg különböző falvaknál eltérően állítható be) reggel. A megadott időknek értelmesnek kell lenniük; a maximális érkezési időnek későbbinek vagy azonosnak kell lennie a minimális érkezési idővel. A Minden fennmaradó módnak pontosan kétszer kell megjelennie: a Faltörő kos és a Nemes egységeknél, és a legalacsonyabb prioritással rendelkezik.
 
 <figure markdown="span">
   ![alt text](image-10.png)

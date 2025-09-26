@@ -5,11 +5,11 @@ Ez a fül a klánunk falvainak Frontvonalra és Hátországra való felosztásá
 
 ![alt text](image.png)
 
-- **Min. off egységek száma** és **Max. off egységek száma**
+- **Min. támadó egységek száma** és **Max. támadó egységek száma**
 
   Adja meg a támadások mérettartományát (a tanyában lévő népesség szempontjából), amelyeket tervezni kell.
 
-  Például, ha a tartomány 10 000-12 000, a Tervező kihagyja a 12 000-nél nagyobb és a 10 000-nél kisebb támadásokat is. A figyelembe vett felderítők maximális száma 200; a többit figyelmen kívül hagyja. A főnemesek x6 egységként számítanak, csak ha **több a támadó egység, mint a védekező**. A pontos kód [itt](https://github.com/rafsaf/Tribal-Wars-Planer/blob/ecc7ff31ed122928a7aea6199af4a0f9ce4718fd/utils/basic/army.py#L242-L250) található.
+  Például, ha a tartomány 10 000-12 000, a Tervező kihagyja a 12 000-nél nagyobb és a 10 000-nél kisebb támadásokat is. A figyelembe vett kémek maximális száma 200; a többit figyelmen kívül hagyja. A nemesek x6 egységként számítanak, csak ha **több a támadó egység, mint a védekező**. A pontos kód [itt](https://github.com/rafsaf/Tribal-Wars-Planer/blob/ecc7ff31ed122928a7aea6199af4a0f9ce4718fd/utils/basic/army.py#L242-L250) található.
 
 - **Minimális távolság a frontvonaltól**
 
@@ -25,4 +25,4 @@ Ez a fül a klánunk falvainak Frontvonalra és Hátországra való felosztásá
 
 - **Kizárt ellenséges falvak koordinátái (elszigetelt falvak)**
 
-  Adja meg az összes ellenséges halott fiókot a klánunk területén. **Érdemes** ezt megtenni, mert például 10 mezős **Minimális távolság a frontvonaltól** esetén az ellenséges halott fiókok körüli 10 mezős terület természetesen frontvonalnak minősül, és az erről a területről származó támadásokat a terv kihagyja. Azonban néha jobb döntés a szigetek körüli támadásokat helyi használatra tartani, és itt nem megadni az ellenséges halott fiókokat.
+  Adja meg az összes ellenséges inaktív fiókot a klánunk területén. **Érdemes** ezt megtenni, mert például 10 mezős **Minimális távolság a frontvonaltól** esetén az ellenséges inaktív fiókok körüli 10 mezős terület természetesen frontvonalnak minősül, és az erről a területről származó támadásokat a terv kihagyja. Azonban néha jobb döntés a szigetek körüli támadásokat helyi használatra tartani, és itt nem megadni az ellenséges inaktív fiókokat.

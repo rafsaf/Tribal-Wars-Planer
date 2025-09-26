@@ -1,6 +1,6 @@
 # Rombolási tervek - Útmutató
 
-Ebben az útmutatóban megtanulhatja, hogyan tervezzen rombolási akciókat, kifejezetten a világ későbbi szakaszaira. Megjegyzés: Ez feltételezi a [Kezdő lépések a Tervezővel](./../first_steps/index.md) teljes ismeretét! Ajánlott továbbá először elolvasni a két rövid korábbi útmutatót ebben a szakaszban, nevezetesen [Hogyan adjuk meg és mentsük el az akció céljait](./two_regions_of_the_tribe.md) és [A klán két régiója, azaz mi a front és a hátország](./two_regions_of_the_tribe.md).
+Ebben az útmutatóban megtanulhatja, hogyan tervezzen rombolási akciókat, kifejezetten a világ későbbi szakaszaira. Megjegyzés: Ez feltételezi a [Kezdő lépések a Tervezővel](./../first_steps/index.md) teljes ismeretét! Ajánlott továbbá először elolvasni a két rövid korábbi útmutatót ebben a szakaszban, nevezetesen [Hogyan adjuk meg és mentsük el az akció céljait](./write_outline_targets.md) és [A klán két régiója, azaz mi a front és a hátország](./two_regions_of_the_tribe.md).
 
 !!! hint
 
@@ -50,7 +50,3 @@ A válasz: attól függ. Főleg a választott épületsorrendtől. Tegyük fel, 
 Ne feledje, hogy a tervezés alapvetően egy egyszerű mohó algoritmuson alapul, így a Tervező **MINDIG** véletlenszerűen rendeli hozzá az ostromgépeket, hamis támadásokat vagy támadó egységeket, nagyon hasonló módon. Ha azt szeretné, hogy a támadó egységek vagy az ostromgépek megkülönböztethetetlenek legyenek a hamis támadásoktól, sok hamis támadást kell terveznie. Rombolás tervezésekor érdemes engedélyezni a **Hamis támadások minden faluból** opciót a {==3. fülön. Alapértelmezett akcióbeállítások==}, amely az alapértelmezett beállítással ellentétben minden hátsó faluból hozzárendel hamis támadásokat.
 
 Összefoglalva, vegye figyelembe a katapultok számát (és hogy hány épületet érdemes lerombolni; talán csak a Tanya + főhadiszállás + Kovácsműhely?) és tervezzen sok hamis támadást. Jó rombolást!
-
----
-
-Szóljon, ha bármilyen más részletre vagy változtatásra van szüksége!

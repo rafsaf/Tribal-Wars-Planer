@@ -12,7 +12,7 @@ A Teszt Világon illessze be az alábbi adatokat és mentse el.
 
 !!! info
 
-    A célpontokat többféleképpen lehet beilleszteni, a legegyszerűbb módja a következő sorok beillesztése csak koordinátákként, ekkor alapértelmezés szerint a támadások és a nemesség száma 0-ként lesz kitöltve. A támadások és a nemesség számát a legkönnyebben kódolhatjuk, pl. `koordináták:2:2`, ami azt jelenti, hogy `koordináták:két-támadás:két-nemes`, vagy pontosabban, a `koordináta:2:1|1|1|1` bejegyzés 2 támadást és 1 nemest jelent közelről, 1 közeli hátról, 1 véletlenszerűen, 1 távolról. A Hamis és Rombolás célpontokat ugyanígy adja meg a megfelelő füleken.
+    A célpontokat többféleképpen lehet beilleszteni, a legegyszerűbb módja a következő sorok beillesztése csak koordinátákként, ekkor alapértelmezés szerint a támadások és a nemesek száma 0-ként lesz kitöltve. A támadások és a nemesek számát a legkönnyebben kódolhatjuk, pl. `koordináták:2:2`, ami azt jelenti, hogy `koordináták:két-támadás:két-nemes`, vagy pontosabban, a `koordináta:2:1|1|1|1` bejegyzés 2 támadást és 1 nemest jelent közelről, 1 közeli hátról, 1 véletlenszerűen, 1 távolról. A Hamis és Rombolás célpontokat ugyanígy adja meg a megfelelő füleken.
 
 Az egész fül főként két célt szolgál, a célpontok megadását és a tervek hozzárendelésének automatikus beállításait. A Teszt Világ megismerése céljából csak a front- és hátországi falvakkal teli táblázatot fogjuk kitölteni, amely a célpontok mentésére és a tervek írására szolgáló gombok alatt látható. Ha érdekli a többi fül, a dokumentáció más részeiben többet is megtudhat róluk.
 
