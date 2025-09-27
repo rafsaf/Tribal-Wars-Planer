@@ -88,5 +88,9 @@
     </div>
 {% endblock %}
 {% block scripts %}
-    <script>initializePaymentProcess(`{{prices.0.amount}}`);</script>
+    <script>
+        window.addEventListener('load', () => {
+            initializePaymentProcess(`{{prices.0.amount}}`);
+        });
+    </script>
 {% endblock %}
