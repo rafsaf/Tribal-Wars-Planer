@@ -1,13 +1,16 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
-{% if user.is_authenticated and request.get_full_path|slice:'3:17' == '/account/login' %}
-  <div class="alert alert-primary" style="font-size: large;cursor:default;" role="alert">{% trans 'You are already logged in as' %} <span style="text-decoration: underline;">{{user.username}}</span>!</div>
-{% endif %}
-<table class="mb-3">
-  {{ wizard.management_form }}
-  {{ wizard.form|crispy }}
-  {% if request.get_full_path|slice:'3:17' == '/account/login' %}
-    <p>{% trans "Don't have an account? "  %}<a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
-    <p><a href="{% url 'password_reset' %}">{% trans 'Password recovery' %}</a></p>
+{% load i18n_extras %}
+{% with path_without_lang=request.get_full_path|lang_path_next %}
+  {% if user.is_authenticated and path_without_lang|slice:'0:15' == '/account/login/' %}
+    <div class="alert alert-primary" style="font-size: large;cursor:default;" role="alert">{% trans 'You are already logged in as' %} <span style="text-decoration: underline;">{{user.username}}</span>!</div>
   {% endif %}
-</table>
+  <table class="mb-3">
+    {{ wizard.management_form }}
+    {{ wizard.form|crispy }}
+    {% if path_without_lang|slice:'0:15' == '/account/login/' %}
+      <p>{% trans "Don't have an account? "  %}<a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>.</p>
+      <p><a href="{% url 'password_reset' %}">{% trans 'Password recovery' %}</a></p>
+    {% endif %}
+  </table>
+{% endwith %}

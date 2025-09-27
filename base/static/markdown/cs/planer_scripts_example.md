@@ -1,0 +1,1 @@
+<div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> Pokud se cítíte ztraceni a nemáte tušení, co sem zadat, stojí za to si přečíst průvodce na <span class = "md-correct2"> Testovacím světě </span>, který najdete v <b><a target="_blank" href="/cs/documentation/first_steps/"> dokumentaci projektu</a></b>. V <b>Kroku 3</b> je příklad vložených dat.</div>

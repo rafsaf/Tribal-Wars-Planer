@@ -97,6 +97,7 @@ if SENTRY_SDK_ACTIVE:
 ADMINS = [("admin", DEFAULT_FROM_EMAIL)]
 
 INSTALLED_APPS = [
+    "tribal_wars_planer",
     "base",
     "rest_api",
     "utils",
@@ -244,6 +245,7 @@ LANGUAGES = [
     ("pl", "Polish"),
     ("hu", "Hungarian"),
     ("pt-br", "Português (Brasil)"),
+    ("cs", "Czech"),
 ]
 
 LANGUAGE_COOKIE_AGE = 31104000
