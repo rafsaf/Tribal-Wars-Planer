@@ -16,9 +16,6 @@
 from collections.abc import Sequence
 from typing import Any, Literal
 
-import numpy as np
-from scipy.spatial.distance import cdist
-
 
 class CDistBrute:
     def __init__(
@@ -29,6 +26,8 @@ class CDistBrute:
         min_radius: float,
         max_radius: float,
     ) -> None:
+        import numpy as np
+
         self.all_ally = np.array(ally_villages, dtype=np.float32)
         self.all_ally.flags.writeable = False
         self.all_enemy = np.array(enemy_villages, dtype=np.float32)
@@ -39,6 +38,9 @@ class CDistBrute:
     def triple_result(
         self, batch_size: int = 36, mode: Literal["for", "numpy"] = "for"
     ) -> tuple[set[tuple[int, int]], set[tuple[int, int]], set[tuple[int, int]]]:
+        import numpy as np
+        from scipy.spatial.distance import cdist
+
         """
         Brute force. This is detailed version of result method.
 

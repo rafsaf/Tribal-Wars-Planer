@@ -18,7 +18,6 @@ import datetime
 import logging
 from time import sleep
 
-import stripe
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
@@ -34,6 +33,8 @@ class Command(BaseCommand):  # pragma: no cover
 
     @job_logs_and_metrics(log)
     def handle(self, *args, **options):
+        import stripe
+
         processed = 0
         ten_minutes_ago = datetime.datetime.now(tz=datetime.UTC) - datetime.timedelta(
             minutes=10

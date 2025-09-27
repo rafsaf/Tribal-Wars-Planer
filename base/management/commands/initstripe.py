@@ -16,7 +16,6 @@
 
 import logging
 
-import stripe
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -29,6 +28,8 @@ log = logging.getLogger(__name__)
 
 @transaction.atomic()
 def synchronize_stripe():  # pragma: no cover
+    import stripe
+
     StripeProduct.objects.all().delete()
     log.info("Started synchonization of stripe")
     products = 0
