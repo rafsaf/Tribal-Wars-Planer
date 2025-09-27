@@ -13,8 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 
+from babel.numbers import format_currency
 from django.conf import settings
 from django.db import models
+from django.utils import translation
 
 from base.models.stripe_product import StripeProduct
 
@@ -35,6 +37,21 @@ class StripePrice(models.Model):
         ]
         ordering = ["currency", "-active", "amount"]
 
-    def get_amount(self) -> float:
+    def get_amount(self) -> str:
         """Return human readable amount"""
-        return self.amount / 100
+
+        currency = self.currency.upper()
+
+        if currency in settings.ZERO_DECIMAL_CURRENCIES:
+            major_unit_amount = self.amount
+        else:
+            major_unit_amount = self.amount / 100.0
+
+        language = translation.get_language() or "pl"
+        locale = language.replace("-", "_")
+
+        return format_currency(
+            major_unit_amount,
+            currency,
+            locale=locale,
+        )

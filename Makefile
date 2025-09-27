@@ -1,6 +1,11 @@
 ESBUILD_VERSION=https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.21.4.tgz
 ESBUILD_PATH=./bin/esbuild
 
+ifneq (,$(wildcard ./.env))
+    include .env
+    export
+endif
+
 .PHONY: up
 up:
 	docker compose up -d postgres_dev
@@ -88,4 +93,8 @@ benchmark:
 debug_available_troops:
 	poetry run python -m cProfile -o debug_available_troops.prof manage.py debug_available_troops 3
 	poetry run snakeviz debug_available_troops.prof
+
+.PHONY: stripe_listen
+stripe_listen:
+	stripe listen --forward-to http://localhost:8000/api/stripe-webhook/
 

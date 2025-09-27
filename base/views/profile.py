@@ -68,7 +68,7 @@ def premium_view(request: HttpRequest) -> HttpResponse:
     payments = Payment.objects.filter(user=user).order_by("-payment_date", "-new_date")
     prices = (
         StripePrice.objects.select_related("product")
-        .filter(active=True, product__active=True, currency=profile.currency)
+        .filter(active=True, product__active=True, currency=profile.get_currency)
         .order_by("amount")
     )
     context = {

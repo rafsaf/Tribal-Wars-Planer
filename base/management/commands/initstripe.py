@@ -24,8 +24,6 @@ from django.db import transaction
 from base.management.commands.utils import job_logs_and_metrics
 from base.models import StripePrice, StripeProduct
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
 log = logging.getLogger(__name__)
 
 
@@ -34,7 +32,12 @@ def synchronize_stripe():  # pragma: no cover
     StripeProduct.objects.all().delete()
     log.info("Started synchonization of stripe")
     products = 0
-    for product_item in stripe.Product.list():
+    procuct_lst = stripe.Product.list(
+        limit=100,
+        api_key=settings.STRIPE_SECRET_KEY,
+        stripe_version=settings.STRIPE_VERSION,
+    )
+    for product_item in procuct_lst.auto_paging_iter():
         if "months" not in product_item["metadata"]:
             log.warning(
                 f"No months in metadata, skipping product: {product_item['id']}"
@@ -53,7 +56,12 @@ def synchronize_stripe():  # pragma: no cover
         products += 1
 
     prices = 0
-    for price_item in stripe.Price.list():
+    price_lst = stripe.Price.list(
+        limit=100,
+        api_key=settings.STRIPE_SECRET_KEY,
+        stripe_version=settings.STRIPE_VERSION,
+    )
+    for price_item in price_lst.auto_paging_iter():
         currency = price_item["currency"].upper()
         if not price_item["type"] == "one_time":
             log.warning(f"Not one time price: {price_item['id']}")
