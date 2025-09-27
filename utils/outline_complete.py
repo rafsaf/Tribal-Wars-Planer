@@ -15,16 +15,13 @@
 
 import queue
 import threading
+import typing
 from collections import defaultdict
 from collections.abc import Generator
 from copy import deepcopy
 from secrets import SystemRandom
-from typing import Any
 
-import numpy as np
 from django.db import connections
-from numpy.typing import NDArray
-from scipy.spatial.distance import cdist
 
 from base.models import Outline, WeightMaximum, WeightModel
 from base.models import TargetVertex as Target
@@ -32,6 +29,9 @@ from utils.basic import generate_morale_dict
 from utils.fast_weight_maximum import FastWeightMaximum
 from utils.write_noble_target import WriteNobleTarget
 from utils.write_ram_target import WriteRamTarget
+
+if typing.TYPE_CHECKING:
+    from numpy.typing import NDArray
 
 
 class WeightCreateThread(threading.Thread):
@@ -60,7 +60,10 @@ class WeightCreateThread(threading.Thread):
 
 def generate_distance_matrix(
     weight_max_lst: list[FastWeightMaximum], targets: list[Target]
-) -> tuple[NDArray[np.floating[Any]] | None, dict[tuple[int, int], int]]:
+) -> tuple["NDArray | None", dict[tuple[int, int], int]]:
+    import numpy as np
+    from scipy.spatial.distance import cdist
+
     """
     Generates and returns matrix with distances between all targets and (available weight max villages) at once.
     For example for targets: [T1, T2], weights_max (W1, W2, W3)
@@ -333,7 +336,7 @@ class CreateWeights:
         targets: list[Target],
         outline: Outline,
         weight_max_list: list[FastWeightMaximum],
-        dist_matrix: NDArray[np.floating[Any]] | None,
+        dist_matrix: "NDArray | None",
         coord_to_id_in_matrix: dict[tuple[int, int], int],
         morale_dict: defaultdict[tuple[str, str], int] | None,
         weight_create_lst: list[WeightModel],

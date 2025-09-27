@@ -22,8 +22,6 @@ Also prining only villages in center
 
 """
 
-import numpy as np
-
 from base import models
 from utils.basic.army import Army, Defence
 from utils.basic.cdist_brute import CDistBrute
@@ -40,6 +38,8 @@ def get_deff(
     Args is instance of Outline, WARNING! be sure to use CORRECT
     data in instance, returns text with deff results.
     """
+    import numpy as np
+
     excluded_coords = excluded_villages.split()
 
     my_tribe_villages: np.ndarray = np.array(

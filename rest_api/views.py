@@ -16,7 +16,6 @@ import datetime
 import logging
 
 import prometheus_client
-import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -245,6 +244,7 @@ def stripe_config(request: Request):
 @permission_classes([IsAuthenticated])
 def stripe_checkout_session(request: Request):  # pragma: no cover
     """Stripe checkout session endpoint"""
+    import stripe
 
     req = StripeSessionAmount(data=request.data)  # type: ignore
     if req.is_valid():
@@ -310,6 +310,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
 @permission_classes([AllowAny])
 def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
     """Stripe webhooks endpoint to verify payment success"""
+    import stripe
 
     endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
     payload = request.body
