@@ -243,6 +243,7 @@ LANGUAGES = [
     ("en", "English"),
     ("pl", "Polish"),
     ("hu", "Hungarian"),
+    ("pt-br", "Português (Brasil)"),
 ]
 
 LANGUAGE_COOKIE_AGE = 31104000

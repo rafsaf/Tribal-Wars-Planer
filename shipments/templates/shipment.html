@@ -189,6 +189,11 @@
                 url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/pl.json",
             };
         }
+        if (getLanguage() === "hu") {
+            data["language"] = {
+                url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/hu.json",
+            };
+        }
         const table = new DataTable('#my-orders', data);
         setInterval(() => {
             document.querySelectorAll('[id^="countdown-"]').forEach(el => {
