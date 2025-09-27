@@ -32,9 +32,6 @@ class StripePrice(models.Model):
     )
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=["amount", "currency"], name="unique price")
-        ]
         ordering = ["currency", "-active", "amount"]
 
     def get_amount(self) -> str:
