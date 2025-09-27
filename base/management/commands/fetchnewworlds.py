@@ -37,29 +37,29 @@ def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
 
     worlds: dict[str, str] = {}
     page_url = f"https://{tw_server.dns}/page/stats"
-    session = requests.Session()
-    session.mount("https://", HTTPAdapter(max_retries=retries))
-    res = session.get(
-        page_url,
-        allow_redirects=True,
-        timeout=5,
-        headers={
-            "Accept-Encoding": "gzip, deflate, br",
-            "Accept": "*/*",
-            "Connection": "keep-alive",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36",
-        },
-    )
-    soup = BeautifulSoup(res.text, features="html.parser")
-    worlds_div = soup.find_all("div", attrs={"class": "content-selector"})[1]
-    for world_li in worlds_div.ul.find_all("li"):  # type: ignore
-        world_url: str = world_li.a["href"]  # type: ignore
-        world_postfix = (
-            world_url.removeprefix("https://")
-            .split(".")[0]
-            .removeprefix(tw_server.prefix)
+    with requests.Session() as session:
+        session.mount("https://", HTTPAdapter(max_retries=retries))
+        res = session.get(
+            page_url,
+            allow_redirects=True,
+            timeout=5,
+            headers={
+                "Accept-Encoding": "gzip, deflate, br",
+                "Accept": "*/*",
+                "Connection": "keep-alive",
+                "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36",
+            },
         )
-        worlds[world_postfix] = world_li.a.text.strip()  # type: ignore
+        soup = BeautifulSoup(res.text, features="html.parser")
+        worlds_div = soup.find_all("div", attrs={"class": "content-selector"})[1]
+        for world_li in worlds_div.ul.find_all("li"):  # type: ignore
+            world_url: str = world_li.a["href"]  # type: ignore
+            world_postfix = (
+                world_url.removeprefix("https://")
+                .split(".")[0]
+                .removeprefix(tw_server.prefix)
+            )
+            worlds[world_postfix] = world_li.a.text.strip()  # type: ignore
     return worlds
 
 
