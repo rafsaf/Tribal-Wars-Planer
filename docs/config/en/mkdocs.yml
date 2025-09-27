@@ -43,6 +43,9 @@ extra:
     - name: Português (Brasil)
       link: /pt-br/documentation/
       lang: pt-br
+    - name: Česky
+      link: /cs/documentation/
+      lang: cs
 
 markdown_extensions:
   - toc:

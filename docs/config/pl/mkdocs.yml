@@ -43,6 +43,9 @@ extra:
     - name: Português (Brasil)
       link: /pt-br/documentation/
       lang: pt-br
+    - name: Česky
+      link: /cs/documentation/
+      lang: cs
 
 markdown_extensions:
   - toc:
@@ -99,5 +102,5 @@ nav:
       - advanced/4_morale.md
       - advanced/5_avoid_night_bonus.md
       - advanced/6_ruin.md
-  - Publiczne API:
+  - Publicsne API:
       - developers/index.md

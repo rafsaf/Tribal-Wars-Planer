@@ -1,5 +1,5 @@
-{% load static %}{% load i18n %}<!doctype html>
-<html lang="{{ request.get_full_path|slice:'1:3' }}">
+{% load static %}{% load i18n %}{% load i18n_extras %}{% get_current_language as LANG %}<!doctype html>
+<html lang="{{ LANG }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -126,27 +126,33 @@
                                     <div class="dropdown-divider" style="margin-bottom:0;"></div>
                                     <form action="{% url 'set_language' %}" method="post">
                                         {% csrf_token %}
-                                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|lang_path_next }}" />
                                         <input name="language" type="hidden" value="pl" />
                                         <input class="dropdown-item font-nav py-2" type="submit" value="Polski" />
                                     </form>
                                     <form action="{% url 'set_language' %}" method="post">
                                         {% csrf_token %}
-                                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|lang_path_next }}" />
                                         <input name="language" type="hidden" value="en" />
                                         <input class="dropdown-item font-nav py-2" type="submit" value="English" />
                                     </form>
                                     <form action="{% url 'set_language' %}" method="post">
                                         {% csrf_token %}
-                                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|lang_path_next }}" />
                                         <input name="language" type="hidden" value="hu" />
                                         <input class="dropdown-item font-nav py-2" type="submit" value="Magyar" />
                                     </form>
                                     <form action="{% url 'set_language' %}" method="post">
                                         {% csrf_token %}
-                                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|lang_path_next }}" />
                                         <input name="language" type="hidden" value="pt-br" />
                                         <input class="dropdown-item font-nav py-2" type="submit" value="Português (Brasil)" />
+                                    </form>
+                                    <form action="{% url 'set_language' %}" method="post">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|lang_path_next }}" />
+                                        <input name="language" type="hidden" value="cs" />
+                                        <input class="dropdown-item font-nav py-2" type="submit" value="Česky" />
                                     </form>
                                 </div>
                             </li>
