@@ -39,5 +39,5 @@ class StripeConfig(MiniSetup):
         assert response.status_code == 200
         assert (
             response.headers["content-type"]  # type: ignore
-            == "text/plain; version=0.0.4; charset=utf-8"
+            == "text/plain; version=1.0.0; charset=utf-8"
         )

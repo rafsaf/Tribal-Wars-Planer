@@ -2,7 +2,7 @@
 authors = ["rafsaf <rafal.safin@rafsaf.pl>"]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-version = "5.13.0"
+version = "5.13.1"
 
 [tool.poetry.dependencies]
 python = ">=3.13,<3.14"
@@ -14,6 +14,7 @@ django-registration = "^5.2.1"
 django-ses = "^4.3.2"
 djangorestframework = "^3.16.1"
 
+babel = "^2.17.0"
 beautifulsoup4 = "^4.13.5"
 botocore = "^1.40.40"
 cython = "^3.1.4"
@@ -35,7 +36,6 @@ sentry-sdk = { extras = ["django"], version = "^2.39.0" }
 setuptools = "^80.9.0"
 stripe = "^12.5.1"
 uwsgi = "^2.0.30"
-babel = "^2.17.0"
 
 [tool.poetry.group.dev.dependencies]
 coverage = "^7.10.7"
