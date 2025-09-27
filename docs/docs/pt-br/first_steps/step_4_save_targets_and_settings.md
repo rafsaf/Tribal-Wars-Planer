@@ -21,7 +21,6 @@ A aba inteira serve principalmente a dois propósitos: inserir alvos e configura
   <figcaption>Alvos salvos</figcaption>
 </figure>
 
-
 Expanda a primeira aba {==1. Tropas Disponíveis==}. Deixe todos os valores padrão. O objetivo é dividir todas as nossas aldeias em três grupos: Frente, Trás e Longe (muito distantes), dependendo das tribos inimigas inseridas (a distância para os inimigos mais próximos é contada para cada uma de nossas aldeias). Valide o formulário clicando em Salvar e recarregar tropas.
 
 Você deve ver os seguintes resultados na tabela:

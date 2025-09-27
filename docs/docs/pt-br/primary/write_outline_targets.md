@@ -22,12 +22,11 @@ Por padrão, alvos como no Exemplo 1 herdam o modo de envio da aba 3. Parâmetro
 439|671:2|0|5|0:3|0|0|1
 ```
 
-
 Neste caso, em vez de um único número de ofensas, inserimos 2|0|5|0, e em vez de um único número de nobres, inserimos 3|0|0|1. Usamos a sintaxe estendida quando queremos algumas ordens de longe e outras de perto; existem 4 regiões da nossa tribo para escolher.
 
 !!! info
 
-    **A|B|C|D** se traduz em: 
+    **A|B|C|D** se traduz em:
     A de perto|B da retaguarda próxima|C aleatoriamente da retaguarda|D de longe
 
 Erros aparecerão em casos padrão, principalmente quando a aldeia fornecida não existe no mundo declarado no agendamento, ou quando a aldeia é bárbara, e quando os caracteres inseridos após as coordenadas não estão entre as possibilidades listadas acima. Não há obstáculos para que os alvos sejam aldeias de membros da tribo ou para que as mesmas aldeias sejam inseridas várias vezes (embora, neste caso, uma mensagem aparecerá no topo indicando que duplicatas foram detectadas). Duplicatas não são proibidas; cada alvo inserido, mesmo que apareça várias vezes, será tratado separadamente. No entanto, isso pode causar caos entre os jogadores porque haverá, por exemplo, vários dos mesmos alvos com ordens diferentes para eles (?). Duplicatas em abas diferentes (Alvos, Falsos, Demolições) não são contadas.

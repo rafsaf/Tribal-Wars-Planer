@@ -8,7 +8,7 @@ Neste guia, você aprenderá a planejar ações de destruição, especificamente
 
 A ação será totalmente criada no campo **Unidades de Cerco**, ao lado das Metas. As configurações na aba {==6. Unidades de Cerco==} são muito simples, onde determinamos principalmente a ordem dos edifícios a serem destruídos e o número máximo de catapultas nos ataques de destruição (o mínimo é 50).
 
-Exemplo de Metas de Destruição e Resultados da Tabela, com 3 unidades de ataque e *50 unidades de cerco:
+Exemplo de Metas de Destruição e Resultados da Tabela, com 3 unidades de ataque e \*50 unidades de cerco:
 
 ![alt text](image-24.png){ width="600" }
 
@@ -40,10 +40,10 @@ Nas configurações {==6. Destruição==}, podemos alterar a ordem dos edifício
 
 A resposta é: depende. Principalmente da ordem de construção escolhida. Vamos supor que apenas um edifício seja escolhido, **[ Ferraria ]**. Neste caso, 200-250 catapultas (por exemplo, 200 e 50 ou 100, 100, ou 50, 50, 50, 50, etc.) são suficientes para destruir uma aldeia, então você pode planejar 40-50 metas. Se dois edifícios forem escolhidos, **[ Ferraria, Fazenda ]**, você precisará de 200-250 catapultas para a Ferraria e 500-700 catapultas para a Fazenda (por exemplo, 14x 50, ou 5x 100, 4x 150, 3x 200 catapultas ou muitas outras combinações), o que significa 700-950 catapultas por aldeia, ou 10-14 metas. Abaixo está uma tabela simples para edifícios de 30 níveis (como Fazendas, Armazéns, todos os edifícios eco) e edifícios de 20 níveis (Quartel General, Ferraria) para ajudar a calcular quantas metas são possíveis.
 
-|                    | Número de Catapultas Necessárias para a Destruição Completa do Edifício |
-| ------------------ | -------------------------------------------------------------- |
-| Edifícios de 20 níveis | 200-250                                                        |
-| Edifícios de 30 níveis | 500-700                                                        |
+|                        | Número de Catapultas Necessárias para a Destruição Completa do Edifício |
+| ---------------------- | ----------------------------------------------------------------------- |
+| Edifícios de 20 níveis | 200-250                                                                 |
+| Edifícios de 30 níveis | 500-700                                                                 |
 
 ## Resumo
 

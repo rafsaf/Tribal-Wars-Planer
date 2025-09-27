@@ -7,7 +7,6 @@ Depois de criar uma conta ou fazer login, você deve criar um novo plano em {==C
   <figcaption>Escolha o Mundo de Teste</figcaption>
 </figure>
 
-
 !!! info
 
     Após clicar em Criar, você será levado diretamente para a próxima página.
