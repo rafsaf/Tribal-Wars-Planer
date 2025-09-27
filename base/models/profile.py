@@ -20,7 +20,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.query import QuerySet
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.utils.translation import gettext_lazy
 
 if TYPE_CHECKING:
@@ -43,8 +43,12 @@ class Profile(models.Model):
     validity_date = models.DateField(
         default=datetime.date(year=2021, month=2, day=25), blank=True, null=True
     )
-    currency = models.CharField(
-        max_length=3, default="PLN", choices=settings.SUPPORTED_CURRENCIES_CHOICES
+    user_currency = models.CharField(
+        max_length=3,
+        default=None,
+        blank=True,
+        null=True,
+        choices=settings.SUPPORTED_CURRENCIES_CHOICES,
     )
     messages = models.IntegerField(default=0)
     server_bind = models.BooleanField(default=False)
@@ -78,3 +82,12 @@ class Profile(models.Model):
         from base.models.message import Message
 
         return Message.objects.order_by("-created")[:6]
+
+    @property
+    def get_currency(self) -> str:
+        if self.user_currency is not None:
+            return self.user_currency
+
+        language = translation.get_language() or "pl"
+
+        return settings.LANGUAGE_TO_CURRENCY.get(language, settings.DEFAULT_CURRENCY)

@@ -247,6 +247,13 @@ LANGUAGES = [
     ("pt-br", "Português (Brasil)"),
     ("cs", "Czech"),
 ]
+LANGUAGE_TO_CURRENCY = {
+    "en": "EUR",  # EUR
+    "pl": "PLN",  # Polish Złoty
+    "hu": "HUF",  # Hungarian Forint
+    "pt-br": "BRL",  # Brazilian Real
+    "cs": "CZK",  # Czech Koruna
+}
 
 LANGUAGE_COOKIE_AGE = 31104000
 DATA_UPLOAD_MAX_MEMORY_SIZE = 40107200
@@ -331,7 +338,28 @@ TRIBAL_WARS_SUPPORTED_SERVERS = [
 SUPPORTED_CURRENCIES = [
     "PLN",
     "EUR",
+    "HUF",
+    "BRL",
+    "CZK",
 ]
+ZERO_DECIMAL_CURRENCIES = {
+    "BIF",
+    "CLP",
+    "DJF",
+    "GNF",
+    "JPY",
+    "KMF",
+    "KRW",
+    "PYG",
+    "RWF",
+    "UGX",
+    "VND",
+    "VUV",
+    "XAF",
+    "XOF",
+    "XPF",
+}
+DEFAULT_CURRENCY = "PLN"
 
 SUPPORTED_CURRENCIES_CHOICES = [
     (currency, currency) for currency in SUPPORTED_CURRENCIES

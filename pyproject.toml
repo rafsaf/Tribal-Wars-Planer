@@ -35,6 +35,7 @@ sentry-sdk = { extras = ["django"], version = "^2.38.0" }
 setuptools = "^80.9.0"
 stripe = "^12.5.1"
 uwsgi = "^2.0.30"
+babel = "^2.17.0"
 
 [tool.poetry.group.dev.dependencies]
 coverage = "^7.10.6"

@@ -1097,7 +1097,7 @@ class ChangeProfileForm(forms.ModelForm):
         model = models.Profile
         fields = [
             "server",
-            "currency",
+            "user_currency",
             "input_data_type",
             "default_morale_on",
             "send_message_with_url",
@@ -1110,7 +1110,7 @@ class ChangeProfileForm(forms.ModelForm):
                 "Turn on morale calculations in every outline by default:"
             ),
             "input_data_type": gettext_lazy("Default input type for planer"),
-            "currency": gettext_lazy("Please select your currency:"),
+            "user_currency": gettext_lazy("Please select your currency:"),
             "sending_option": gettext_lazy("Sending Options:"),
             "send_message_with_url": gettext_lazy("Add links to direct messages:"),
             "feature_flag_shipments": gettext_lazy("Enable shipments feature:"),

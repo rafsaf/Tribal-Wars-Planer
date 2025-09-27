@@ -256,13 +256,13 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                 amount=req.data["amount"],
                 active=True,
                 product__active=True,
-                currency=profile.currency,
+                currency=profile.get_currency,
             )
 
         except StripePrice.DoesNotExist:
             log.error(
                 "stripe_checkout_session(), StripePrice not found:"
-                f" curr:{profile.currency},amount:{req.data.get('amount')}"
+                f" curr:{profile.get_currency},amount:{req.data.get('amount')}"
             )
             metrics.ERRORS.labels("stripe_error").inc()
             return Response(

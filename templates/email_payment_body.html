@@ -1,7 +1,7 @@
 {% load i18n %}{% trans 'Hello, '%}<b>{{instance.user.username}}</b>
 <br>
 <br>
-{% trans 'Your payment on' %} {{instance.payment_date}} {% trans 'in the amount of' %} {{instance.amount}} {{instance.currency}} {% trans 'has been successfully processed and your premium account has been activated or extended.' %}
+{% trans 'Your payment on' %} {{instance.payment_date}} {% trans 'in the amount of' %} {{instance.value}} {% trans 'has been successfully processed and your premium account has been activated or extended.' %}
 <br>
 {% trans "When refering THIS payment, use following payment intent id:" %} <u>{{instance.payment_intent_id}}</u>.
 <br>

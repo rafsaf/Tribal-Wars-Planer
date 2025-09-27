@@ -34,7 +34,8 @@ def synchronize_stripe():  # pragma: no cover
     StripeProduct.objects.all().delete()
     log.info("Started synchonization of stripe")
     products = 0
-    for product_item in stripe.Product.list():
+    procuct_lst = stripe.Product.list(limit=100)
+    for product_item in procuct_lst.auto_paging_iter():
         if "months" not in product_item["metadata"]:
             log.warning(
                 f"No months in metadata, skipping product: {product_item['id']}"
@@ -53,7 +54,8 @@ def synchronize_stripe():  # pragma: no cover
         products += 1
 
     prices = 0
-    for price_item in stripe.Price.list():
+    price_lst = stripe.Price.list(limit=100)
+    for price_item in price_lst.auto_paging_iter():
         currency = price_item["currency"].upper()
         if not price_item["type"] == "one_time":
             log.warning(f"Not one time price: {price_item['id']}")

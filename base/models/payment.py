@@ -15,9 +15,11 @@
 
 import secrets
 
+from babel.numbers import format_currency
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import translation
 from django.utils.translation import gettext_lazy
 
 
@@ -59,7 +61,24 @@ class Payment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def value(self) -> str:
-        return f"{self.amount} {self.currency}"
+        """Return human readable amount"""
+
+        currency = self.currency.upper()
+
+        if currency in settings.ZERO_DECIMAL_CURRENCIES:
+            major_unit_amount = self.amount * 100.0
+        else:
+            major_unit_amount = self.amount
+
+        translation.activate(self.language)
+        language = translation.get_language() or "pl-pl"
+        locale = language.replace("-", "_")
+
+        return format_currency(
+            major_unit_amount,
+            currency,
+            locale=locale,
+        )
 
     def save(self, *args, **kwargs) -> None:
         if self.promotion:
