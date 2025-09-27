@@ -37,6 +37,9 @@ extra:
     - name: English
       link: /en/documentation/
       lang: en
+    - name: Magyar
+      link: /hu/documentation/
+      lang: hu
 
 markdown_extensions:
   - toc:

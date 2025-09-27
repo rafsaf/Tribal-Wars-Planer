@@ -1,9 +1,9 @@
 # Script for sending messages
 
-| Server             | Tribal Wars Forum                                                                                                                                                                        | Allowed                 | Code                                                                                                                                  |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| plemiona.pl | [https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/](https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/) | YES                     | [Code on GitHub (v2.0)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/GET_message_autocomplete.js)             |
-| other servers      | -                                                                                                                                                                                        | NO (cannot be detected) | [Code on GitHub (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/GET_message_autocomplete_v2.1_global.js) |
+| Server        | Tribal Wars Forum                                                                                                                                                                        | Allowed                 | Code                                                                                                                                  |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| plemiona.pl   | [https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/](https://forum.plemiona.pl/index.php?threads/auto-uzupe%C5%82nianie-wiadomo%C5%9Bci.128461/) | YES                     | [Code on GitHub (v2.0)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/GET_message_autocomplete.js)             |
+| other servers | -                                                                                                                                                                                        | NO (cannot be detected) | [Code on GitHub (v2.2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2025-09-22/public/GET_message_autocomplete_v2.2_global.js) |
 
 !!! warning
 
@@ -14,6 +14,7 @@
     ```title="Auto Message Completion Script"
     --8<-- "sending_messages_script_plemiona_pl.txt"
     ```
+
 === "other servers"
 
     ```title="Auto Message Completion Script"
@@ -29,12 +30,8 @@ To use the scripts, you must first install the appropriate browser extension (mo
 
 Then create a new user script and paste the code below.
 
-If you choose Tampermonkey, Chromium-based browsers have, for some time, required additional authorization for extensions that run extra code, such as all scripts for Tampermonkey. This can be done at the link [chrome://extensions](chrome://extensions).
-
-<figure markdown="span">
-  ![activate developer mode](image-3.png)
-  <figcaption>Go to chrome://extensions and activate "Developer mode"</figcaption>
-</figure>
+To use script in Tampermonkey, you must enable "Allow User Scripts" toggle for it or enable Devloper Mode.
+See [https://www.tampermonkey.net/faq.php#Q209](https://www.tampermonkey.net/faq.php#Q209).
 
 ## How to check if the extension is working
 
@@ -64,7 +61,6 @@ Example:
 ```
 https://pl155.plemiona.pl/game.php?screen=mail&mode=new#to=JakisGracz&subject=Tytul&message=Zawartosc
 ```
-
 
 ![Example message](image.png)
 

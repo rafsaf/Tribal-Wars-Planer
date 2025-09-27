@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-20 15:27+0200\n"
+"POT-Creation-Date: 2025-09-24 19:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3124,7 +3124,7 @@ msgstr "Jesteś obecnie zalogowany jako"
 msgid "Password recovery"
 msgstr "Przywracanie zapomnianego hasła"
 
-#: tribal_wars_planer/settings.py:441
+#: tribal_wars_planer/settings.py:442
 msgid "Your Plemiona Planer Login Code"
 msgstr "Plemiona Planer: Twój kod logowania"
 
