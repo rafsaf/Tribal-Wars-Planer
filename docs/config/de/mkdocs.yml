@@ -1,0 +1,109 @@
+site_name: "Die Stämme Planer"
+site_url: "https://plemiona-planer.pl/de/documentation/"
+docs_dir: "../../docs/de"
+site_dir: "../../../generated_docs/de/documentation"
+repo_url: https://github.com/rafsaf/Tribal-Wars-Planer
+edit_uri: "edit/master/docs/docs/de"
+
+theme:
+  palette:
+    primary: teal
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.path
+    - navigation.sections
+    - toc.follow
+    - toc.integrate
+    - content.code.copy
+    - content.action.edit
+    - navigation.footer
+  name: material
+  custom_dir: "../../overrides/"
+  logo: assets/images/favicon.jpg
+  favicon: assets/images/favicon.jpg
+  language: de
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rafsaf/Tribal-Wars-Planer
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/g5pcsCteCT
+  alternate:
+    - name: Polski
+      link: /pl/documentation/
+      lang: pl
+    - name: English
+      link: /en/documentation/
+      lang: en
+    - name: Magyar
+      link: /hu/documentation/
+      lang: hu
+    - name: Português (Brasil)
+      link: /pt-br/documentation/
+      lang: pt-br
+    - name: Česky
+      link: /cs/documentation/
+      lang: cs
+    - name: Deutsch
+      link: /de/documentation/
+      lang: de
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path:
+        - ./docs/overrides/data/
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search:
+      lang: de
+  - glightbox
+  - social
+
+nav:
+  - Zurück zur Seite: "/"
+  - FAQ: index.md
+  - 1. Testwelt:
+      - first_steps/index.md
+      - first_steps/step_1_create_outline.md
+      - first_steps/step_2_choose_tribes.md
+      - first_steps/step_3_fill_data.md
+      - first_steps/step_4_save_targets_and_settings.md
+      - first_steps/step_5_outline_edit.md
+      - first_steps/step_6_set_time_finish.md
+      - first_steps/step_7_results_tab.md
+  - 2. Installation der notwendigen Skripte:
+      - scripts/army_and_defence_collection.md
+      - scripts/sending_messages.md
+  - 3. Anleitungen:
+      - primary/write_outline_targets.md
+      - primary/two_regions_of_the_tribe.md
+      - primary/small_outlines.md
+      - primary/medium_outlines.md
+      - primary/large_outlines.md
+      - primary/ruin_outlines.md
+  - 4. Erweitert:
+      - advanced/1_available_troops_and_table.md
+      - advanced/2_change_of_date.md
+      - advanced/3_outline_parameters.md
+      - advanced/4_morale.md
+      - advanced/5_avoid_night_bonus.md
+      - advanced/6_ruin.md
+  - Öffentliche API:
+      - developers/index.md

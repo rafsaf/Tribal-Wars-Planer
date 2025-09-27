@@ -154,6 +154,12 @@
                                         <input name="language" type="hidden" value="cs" />
                                         <input class="dropdown-item font-nav py-2" type="submit" value="Česky" />
                                     </form>
+                                    <form action="{% url 'set_language' %}" method="post">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|lang_path_next }}" />
+                                        <input name="language" type="hidden" value="de" />
+                                        <input class="dropdown-item font-nav py-2" type="submit" value="Deutsch" />
+                                    </form>
                                 </div>
                             </li>
                             {% if user.is_authenticated %}

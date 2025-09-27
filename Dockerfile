@@ -35,6 +35,7 @@ RUN mkdocs build -f docs/config/en/mkdocs.yml
 RUN mkdocs build -f docs/config/hu/mkdocs.yml
 RUN mkdocs build -f docs/config/pt-br/mkdocs.yml
 RUN mkdocs build -f docs/config/cs/mkdocs.yml
+RUN mkdocs build -f docs/config/de/mkdocs.yml
 
 FROM base AS build
 COPY --from=docs /build/generated_docs generated_docs

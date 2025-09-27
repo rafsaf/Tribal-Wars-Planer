@@ -1,0 +1,3232 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-27 17:40+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: base/forms.py:66 base/forms.py:81 base/templates/base/base_planer.html:10
+msgid "Outline Name"
+msgstr "Name des Plans"
+
+#: base/forms.py:68 base/forms.py:82 base/templates/base/base_planer.html:11
+#: shipments/templates/my_shipments.html:11
+#: utils/basic/info_generatation.py:151
+msgid "Date"
+msgstr "Datum"
+
+#: base/forms.py:69 base/templates/base/base_planer.html:13
+#: shipments/templates/my_shipments.html:13
+msgid "World"
+msgstr "Welt"
+
+#: base/forms.py:86
+msgid "Use unused troops"
+msgstr "Ungenutzte Truppen verwenden"
+
+#: base/forms.py:90
+msgid ""
+"Use unused army or deff troops from result tab from parent outline in Troops "
+"data tab"
+msgstr ""
+
+#: base/forms.py:101 base/models/outline.py:145 base/models/outline.py:326
+#: base/models/profile.py:35
+msgid "Army collection"
+msgstr "Armeesammlung"
+
+#: base/forms.py:119 base/forms.py:208
+msgid "Text cannot be empty!"
+msgstr "Text darf nicht leer sein!"
+
+#: base/forms.py:145 base/forms.py:239
+#, python-format
+msgid "[coord: %(coord)s] - [world: %(world)s]: no such village"
+msgstr "[Koordinate: %(coord)s] - [Welt: %(world)s]: kein solches Dorf"
+
+#: base/forms.py:153 base/forms.py:247
+#, python-format
+msgid ""
+"[coord: %(coord)s] - [world: %(world)s] - [player: %(player)s] - [tribe: "
+"%(tribe)s]"
+msgstr "[Koordinate: %(coord)s] - [Welt: %(world)s] - [Spieler: %(player)s] - [Stamm: %(tribe)s]"
+
+#: base/forms.py:171 base/forms.py:269
+#, python-format
+msgid "Village in this line is duplicated: %(coord)s"
+msgstr "Dorf in dieser Zeile ist doppelt vorhanden: %(coord)s"
+
+#: base/forms.py:188 base/models/outline.py:146 base/models/outline.py:328
+#: base/models/profile.py:36
+msgid "Deff collection "
+msgstr "Verteidigungssammlung"
+
+#: base/forms.py:282
+msgid "Ally tribe"
+msgstr "Verbündeter Stamm"
+
+#: base/forms.py:289 base/forms.py:305
+msgid "Select tribe from list"
+msgstr "Stamm aus der Liste auswählen"
+
+#: base/forms.py:298
+msgid "Enemy tribe"
+msgstr "Feindlicher Stamm"
+
+#: base/forms.py:316
+msgid "Radius"
+msgstr "Radius"
+
+#: base/forms.py:319
+msgid "Greater than or equal to 0 and less than or equal to 1000."
+msgstr "Größer als oder gleich 0 und kleiner als oder gleich 1000."
+
+#: base/forms.py:327
+msgid "Excluded enemy villages"
+msgstr "Ausgeschlossene feindliche Dörfer"
+
+#: base/forms.py:329
+msgid "Exact coords separated by a space or an entry."
+msgstr "Genaue Koordinaten, getrennt durch ein Leerzeichen oder einen Eintrag."
+
+#: base/forms.py:353 base/templates/base/base.html:273
+#: base/templates/base/new_outline/new_outline_initial_period2.html:32
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
+msgid "Targets"
+msgstr "Ziele"
+
+#: base/forms.py:401
+#, python-format
+msgid ""
+"You are trying to mantain more than %s targets in total - that is global "
+"limit for targets number.<br> Please decrease the total number of targets."
+msgstr "Sie versuchen, insgesamt mehr als %s Ziele zu verwalten - das ist das globale Limit für die Anzahl der Ziele.<br> Bitte verringern Sie die Gesamtzahl der Ziele."
+
+#: base/forms.py:424
+msgid "Min. off units number"
+msgstr "Min. Anzahl an Off-Einheiten"
+
+#: base/forms.py:425
+msgid "Max. off units number"
+msgstr "Max. Anzahl an Off-Einheiten"
+
+#: base/forms.py:427
+msgid "Minimum distance from front line"
+msgstr "Mindestabstand zur Frontlinie"
+
+#: base/forms.py:429
+msgid "Max Distance for nobles"
+msgstr "Max. Entfernung für Adlige"
+
+#: base/forms.py:431
+msgid "Max Distance for offs and ruins"
+msgstr "Max. Entfernung für Offs und Ruinen"
+
+#: base/forms.py:436
+msgid ""
+"Greater than or equal to 1 and less than or equal to 28000. Only offs above "
+"this value will be considered full offs and will be written out."
+msgstr "Größer als oder gleich 1 und kleiner als oder gleich 28000. Nur Offs über diesem Wert werden als volle Offs betrachtet und ausgeschrieben."
+
+#: base/forms.py:439
+msgid ""
+"Defaults to 28000. Similar to minimum off units number, must be greater than "
+"it."
+msgstr ""
+
+#: base/forms.py:442
+msgid ""
+"Greater than or equal to 0 and less than or equal to 500. Villages closer to "
+"the enemy than this value will be considered front-line and not written out "
+"by default."
+msgstr "Größer als oder gleich 0 und kleiner als oder gleich 500. Dörfer, die näher zum Feind sind als dieser Wert, werden als Frontlinie betrachtet und standardmäßig nicht ausgeschrieben."
+
+#: base/forms.py:445
+msgid ""
+"Greater than or equal to 0 and less than or equal to 1000. This is STRICT "
+"limit of distance for any OFF regardless of distance from the front line."
+msgstr "Größer als oder gleich 0 und kleiner als oder gleich 1000. Dies ist die STRIKTE Entfernungsgrenze für jeden OFF unabhängig von der Entfernung zur Frontlinie."
+
+#: base/forms.py:450
+msgid "Excluded enemy villages coords (secluded villages)"
+msgstr "Ausgeschlossene feindliche Dorfkoordinaten (abgelegene Dörfer)"
+
+#: base/forms.py:454
+msgid "Exact coords separated by a space or an entry"
+msgstr "Exakte Koordinaten getrennt durch Leerzeichen oder Zeilenumbruch"
+
+#: base/forms.py:462
+#, python-format
+msgid ""
+"Greater than or equal to 0 and less than or equal to your world maximum: "
+"%(max_noble_distance)s. This is STRICT limit of distance for any NOBLE "
+"regardless of distance from the front line."
+msgstr "Größer als oder gleich 0 und kleiner als oder gleich dem Maximum deiner Welt: %(max_noble_distance)s. Dies ist die STRIKTE Entfernungsgrenze für jeden ADLIGEN unabhängig von der Entfernung zur Frontlinie."
+
+#: base/forms.py:470
+#, python-format
+msgid "Ensure this value is less than or equal to %(value)s."
+msgstr "Stellen Sie sicher, dass dieser Wert kleiner als oder gleich %(value)s ist."
+
+#: base/forms.py:512
+msgid "Show all hidden"
+msgstr "Alle versteckten anzeigen"
+
+#: base/forms.py:513
+msgid "Title of message:"
+msgstr "Nachrichtentitel:"
+
+#: base/forms.py:514
+msgid "Content of message:"
+msgstr "Nachrichteninhalt:"
+
+#: base/forms.py:515 base/forms.py:1114
+msgid "Sending Options:"
+msgstr "Sendeoptionen:"
+
+#: base/forms.py:516 base/forms.py:1115
+msgid "Add links to direct messages:"
+msgstr "Verweise zu direkten Nachrichten hinzufügen:"
+
+#: base/forms.py:520
+#: base/templates/base/new_outline/new_outline_results.html:133
+msgid ""
+"By checking this option, players will see the commands of all other players "
+"for their own targets. By default, it’s not turned on and players only see "
+"their commands."
+msgstr ""
+
+#: base/forms.py:522
+msgid "Title, maximum length 200."
+msgstr "Titel, maximale Länge 200."
+
+#: base/forms.py:524
+msgid ""
+"BBCode message, maximum length 2000. Hint: Format text in game and paste "
+"here."
+msgstr "BBCode-Nachricht, maximale Länge 2000. Tipp: Text im Spiel formatieren und hier einfügen."
+
+#: base/forms.py:527
+msgid ""
+"Directly messages will bahave poorly with many (more than 80-100) commands"
+msgstr "Direkte Nachrichten funktionieren schlecht bei vielen (mehr als 80-100) Befehlen"
+
+#: base/forms.py:530
+msgid ""
+"If checked, direct messages from options above will have safe link to planer"
+msgstr "Wenn aktiviert, enthalten direkte Nachrichten von den obigen Optionen einen sicheren Link zum Planer"
+
+#: base/forms.py:540
+msgid "Set sending option as default choice for next outlines"
+msgstr "Sendeoption als Standardauswahl für nächste Pläne festlegen"
+
+#: base/forms.py:552
+msgid "Input type for planer"
+msgstr "Eingabetyp für Planer"
+
+#: base/forms.py:556 base/templates/base/new_outline/new_outline.html:33
+msgid ""
+"Data for planer tab may be from Army or Defence tabs. Army - all troops "
+"(also that are outside of villages), Defence - only troops from villages."
+msgstr "Daten für den Planer-Tab können aus Armee- oder Verteidigungstabs stammen. Armee - alle Truppen (auch die außerhalb der Dörfer), Verteidigung - nur Truppen aus Dörfern."
+
+#: base/forms.py:566
+msgid "Set as default choice for next outlines"
+msgstr "Als Standardauswahl für nächste Pläne festlegen"
+
+#: base/forms.py:577
+msgid "Set new date"
+msgstr "Neues Datum festlegen"
+
+#: base/forms.py:636
+msgid "Choose the default distance of the written offs:"
+msgstr "Wählen Sie die Standardentfernung für die ausgeschriebenen Offs:"
+
+#: base/forms.py:639
+msgid "Choose the default distance of the written nobles:"
+msgstr "Wählen Sie die Standardentfernung für die ausgeschriebenen Adligen:"
+
+#: base/forms.py:641
+msgid "Choose how to split offs with nobles:"
+msgstr "Wählen Sie, wie Offs mit Adligen aufgeteilt werden sollen:"
+
+#: base/forms.py:643
+msgid "Choose prefered way of writing required nobles:"
+msgstr "Wählen Sie die bevorzugte Art, benötigte Adlige zu schreiben:"
+
+#: base/forms.py:646
+msgid "Choose how noble commands should be written out:"
+msgstr "Wählen Sie, wie Adligenbefehle ausgeschrieben werden sollen:"
+
+#: base/forms.py:649
+msgid "Maximum number of fakes from one off village:"
+msgstr "Maximale Anzahl von Fakes aus einem Off-Dorf:"
+
+#: base/forms.py:652
+msgid "Determine which villages to write fake attacks from:"
+msgstr "Bestimmen Sie, aus welchen Dörfern Fake-Angriffe geschrieben werden sollen:"
+
+#: base/forms.py:655
+msgid "Max. number of nobles send per village:"
+msgstr "Max. Anzahl von Adligen pro Dorf:"
+
+#: base/forms.py:658
+msgid "Min. off units for every noble"
+msgstr "Min. Off-Einheiten für jeden Adligen"
+
+#: base/forms.py:661
+msgid "Min. off units for every fake noble"
+msgstr "Min. Off-Einheiten für jeden Fake-Adligen"
+
+#: base/forms.py:666
+msgid ""
+"For 4 nobles in village, first option would <b>try</b> to send them all 4x "
+"on target X, second would randomly send from 1 to 4 nobles to single target "
+"or many targets (as needed), and last option would send 1x on X1,X2,X2,X4 "
+"(one noble per target)."
+msgstr "Bei 4 Adligen im Dorf würde die erste Option <b>versuchen</b>, alle 4x auf Ziel X zu senden, die zweite würde zufällig 1 bis 4 Adlige auf ein einzelnes Ziel oder viele Ziele senden (nach Bedarf), und die letzte Option würde 1x auf X1,X2,X3,X4 senden (ein Adliger pro Ziel)."
+
+#: base/forms.py:669
+msgid ""
+"For 20000 troops and 4 nobles in village, first option would try to use 4 x "
+"5000, second 1 x 19700 + 3 x 100, and last 4 x 100, where 100 can be changed "
+"in \"Min. off units for every noble\"."
+msgstr "Bei 20000 Truppen und 4 Adligen im Dorf würde die erste Option versuchen, 4 x 5000 zu verwenden, die zweite 1 x 19700 + 3 x 100, und die letzte 4 x 100, wobei 100 unter \"Min. Off-Einheiten für jeden Adligen\" geändert werden kann."
+
+#: base/forms.py:672
+msgid ""
+"Defaults to 8. Between 0 and 250. For example you may want only 4 nobles "
+"from single village or even 1 (with full off). Best works with \"Min. off "
+"units for every noble\" below. The same limit is respected for fake nobles."
+msgstr "Standard ist 8. Zwischen 0 und 250. Sie möchten beispielsweise nur 4 Adlige aus einem einzigen Dorf oder sogar 1 (mit vollem Off). Funktioniert am besten mit \"Min. Off-Einheiten für jeden Adligen\" unten. Das gleiche Limit gilt für Fake-Adlige."
+
+#: base/forms.py:679
+msgid ""
+"Defaults to just 100. Must be between 0 and 28000. This is strict minimum so "
+"if village have nobles, but not enough off units, Planer won't use it. Use "
+"with caution as it can change drastically how other options behave. For "
+"example, if you have 4x nobles and 250 off units, and this option is set to "
+"100, only 2 nobles can be ever used. Other 2 will be always ignored."
+msgstr "Standard ist nur 100. Muss zwischen 0 und 28000 liegen. Dies ist ein striktes Minimum, daher wird der Planer ein Dorf nicht verwenden, wenn es Adlige, aber nicht genug Off-Einheiten hat. Vorsichtig verwenden, da es drastisch ändern kann, wie andere Optionen funktionieren. Zum Beispiel, wenn Sie 4x Adlige und 250 Off-Einheiten haben und diese Option auf 100 gesetzt ist, können nur 2 Adlige jemals verwendet werden. Die anderen 2 werden immer ignoriert."
+
+#: base/forms.py:682
+msgid ""
+"Defaults to 0. Must be between 0 and 200. You probably don't want to waste "
+"troops for fake nobles, but there are cases where this makes sense."
+msgstr "Standard ist 0. Muss zwischen 0 und 200 liegen. Sie möchten wahrscheinlich keine Truppen für Fake-Adlige verschwenden, aber es gibt Fälle, wo dies sinnvoll ist."
+
+#: base/forms.py:705
+msgid "MIN number of catapults in one ruin attack:"
+msgstr "MIN Anzahl von Katapulten in einem Ruinenangriff:"
+
+#: base/forms.py:708
+msgid "MAX number of catapults in one ruin attack:"
+msgstr "MAX Anzahl von Katapulten in einem Ruinenangriff:"
+
+#: base/forms.py:711
+msgid "How many points on average do demolished targets have:"
+msgstr "Wie viele Punkte haben abgerissene Ziele im Durchschnitt:"
+
+#: base/forms.py:714
+msgid "Minimum off units for every ruin attack:"
+msgstr "Mindest-Off-Einheiten für jeden Ruinenangriff:"
+
+#: base/forms.py:719
+#, python-format
+msgid ""
+"Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that "
+"will be added to every ruin attack. If 0, it means only catapults are send."
+msgstr "Standard ist %(default)s (zwischen %(min)s-%(max)s). Mindest-Off-Einheiten, die zu jedem Ruinenangriff hinzugefügt werden. Bei 0 werden nur Katapulte gesendet."
+
+#: base/forms.py:744
+msgid "Only attackers ABOVE this morale value can be used:"
+msgstr "Nur Angreifer ÜBER diesem Moralwert können verwendet werden:"
+
+#: base/forms.py:746
+msgid "Is morale calculation active in this outline:"
+msgstr "Ist Moralberechnung in diesem Plan aktiv:"
+
+#: base/forms.py:784
+msgid "Choose whether to avoid the night bonus"
+msgstr "Wählen Sie, ob der Nachtbonus vermieden werden soll"
+
+#: base/forms.py:790
+msgid "Approximate hours of entry"
+msgstr "Ungefähre Stunden des Eintreffens"
+
+#: base/forms.py:797
+msgid "Approximate hours of the last entry"
+msgstr "Ungefähre Stunden des letzten Eintreffens"
+
+#: base/forms.py:810
+msgid "First value must be less or equal to second!"
+msgstr "Der erste Wert muss kleiner oder gleich dem zweiten sein!"
+
+#: base/forms.py:821
+msgid "Sum of off"
+msgstr "Summe der Offs"
+
+#: base/forms.py:827
+msgid "Off without catapults"
+msgstr "Off ohne Katapulte"
+
+#: base/forms.py:833
+#: base/templates/base/new_outline/new_outline_initial_period1.html:190
+msgid "Catapults"
+msgstr "Katapulte"
+
+#: base/forms.py:839 base/models/period_model.py:34
+msgid "Noble"
+msgstr "Adliger"
+
+#: base/forms.py:849 base/forms.py:860
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:101
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:168
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:210
+#: utils/basic/info_generatation.py:104
+msgid "From"
+msgstr "Von"
+
+#: base/forms.py:852 base/forms.py:861
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:102
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
+#: utils/basic/info_generatation.py:105
+msgid "To"
+msgstr "Nach"
+
+#: base/forms.py:859
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:97
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:163
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:205
+#: utils/basic/info_generatation.py:102
+msgid "Mode"
+msgstr "Modus"
+
+#: base/forms.py:862
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:98
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:207
+#: utils/basic/info_generatation.py:103
+msgid "Unit"
+msgstr "Einheit"
+
+#: base/forms.py:863
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:99
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
+#: utils/basic/info_generatation.py:106
+msgid "Min. time"
+msgstr "Min. Zeit"
+
+#: base/forms.py:864
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:100
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
+#: utils/basic/info_generatation.py:107
+msgid "Max. time"
+msgstr "Max. Zeit"
+
+#: base/forms.py:940 base/forms.py:950
+msgid "Mode All can be used only once per unit"
+msgstr "Modus Alle kann nur einmal pro Einheit verwendet werden"
+
+#: base/forms.py:958
+msgid "Mode All must be used at least once for noble and for off."
+msgstr "Modus Alle muss mindestens einmal für Adligen und für Off verwendet werden."
+
+#: base/forms.py:998
+msgid "You need a premium account to add more targets here."
+msgstr "Sie benötigen ein Premium-Konto, um hier weitere Ziele hinzuzufügen."
+
+#: base/forms.py:1008
+msgid "Village with that coords did not found."
+msgstr "Dorf mit diesen Koordinaten nicht gefunden."
+
+#: base/forms.py:1015
+msgid ""
+"Found more than one village in database, this is the bug. Write me: <rafal."
+"safin@rafsaf.pl>"
+msgstr "Mehr als ein Dorf in der Datenbank gefunden, das ist ein Fehler. Schreiben Sie mir: <rafal.safin@rafsaf.pl>"
+
+#: base/forms.py:1027
+msgid "Choose server"
+msgstr "Server wählen"
+
+#: base/forms.py:1028
+msgid "World prefix"
+msgstr "Welt-Präfix"
+
+#: base/forms.py:1039
+msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
+msgstr "Unerlaubte Zeichen im Postfix-Feld! Sind Sie sicher, dass es gültig ist?"
+
+#: base/forms.py:1059
+msgid "World is already added!"
+msgstr "Welt ist bereits hinzugefügt!"
+
+#: base/forms.py:1067 base/forms.py:1078
+msgid "Connection error, world does not exists or is archived!"
+msgstr "Verbindungsfehler, Welt existiert nicht oder ist archiviert!"
+
+#: base/forms.py:1091 base/forms.py:1108
+msgid "Please select your server:"
+msgstr "Bitte wählen Sie Ihren Server:"
+
+#: base/forms.py:1110
+msgid "Turn on morale calculations in every outline by default:"
+msgstr "Moralberechnungen in jedem Plan standardmäßig aktivieren:"
+
+#: base/forms.py:1112
+msgid "Default input type for planer"
+msgstr "Standard-Eingabetyp für Planer"
+
+#: base/forms.py:1113
+msgid "Please select your currency:"
+msgstr "Bitte wählen Sie Ihre Währung:"
+
+#: base/forms.py:1116
+msgid "Enable shipments feature:"
+msgstr "Sendungen-Funktion aktivieren:"
+
+#: base/forms.py:1119
+msgid "Prefered sending option in Results tab"
+msgstr "Bevorzugte Sendeoption im Ergebnisse-Tab"
+
+#: base/forms.py:1121
+msgid ""
+"If checked, direct messages in Results tab will have safe link to planer"
+msgstr "Wenn aktiviert, enthalten direkte Nachrichten im Ergebnisse-Tab einen sicheren Link zum Planer"
+
+#: base/models/outline.py:72 base/models/outline.py:79
+#: base/models/target_vertex.py:36 base/models/target_vertex.py:43
+msgid "Closest Front"
+msgstr "Nächste Front"
+
+#: base/models/outline.py:73 base/models/outline.py:80
+#: base/models/target_vertex.py:37 base/models/target_vertex.py:44
+msgid "Close Back"
+msgstr "Nahe Hinterland"
+
+#: base/models/outline.py:74 base/models/outline.py:81
+#: base/models/target_vertex.py:38 base/models/target_vertex.py:45
+msgid "Random Back"
+msgstr "Zufälliges Hinterland"
+
+#: base/models/outline.py:75 base/models/outline.py:82
+#: base/models/target_vertex.py:39 base/models/target_vertex.py:46
+msgid "Far Back"
+msgstr "Fernes Hinterland"
+
+#: base/models/outline.py:86 base/models/target_vertex.py:50
+msgid "Divide off with nobles"
+msgstr "Off mit Adligen aufteilen"
+
+#: base/models/outline.py:87 base/models/target_vertex.py:51
+msgid "Dont't divide off"
+msgstr "Off nicht aufteilen"
+
+#: base/models/outline.py:88 base/models/target_vertex.py:52
+msgid "Off and nobles separatly"
+msgstr "Off und Adlige getrennt"
+
+#: base/models/outline.py:92
+msgid "Nobles from one village as one command"
+msgstr "Adlige aus einem Dorf als ein Befehl"
+
+#: base/models/outline.py:93
+msgid "Nobles from one village as many commands"
+msgstr "Adlige aus einem Dorf als viele Befehle"
+
+#: base/models/outline.py:97 base/models/target_vertex.py:56
+msgid "Try send all nobles to one target"
+msgstr "Versuchen, alle Adlige zu einem Ziel zu senden"
+
+#: base/models/outline.py:98 base/models/target_vertex.py:57
+msgid "Nobles to one or many targets"
+msgstr "Adlige zu einem oder vielen Zielen"
+
+#: base/models/outline.py:99 base/models/target_vertex.py:58
+msgid "Try single nobles from many villages"
+msgstr "Versuchen, einzelne Adlige aus vielen Dörfern"
+
+#: base/models/outline.py:103
+#: base/templates/base/new_outline/new_outline_initial_period1.html:160
+msgid "All"
+msgstr "Alle"
+
+#: base/models/outline.py:104
+#: base/templates/base/new_outline/new_outline_initial_period1.html:161
+msgid "Front"
+msgstr "Front"
+
+#: base/models/outline.py:105
+#: base/templates/base/new_outline/new_outline_initial_period1.html:162
+msgid "Back (Rear)"
+msgstr "Hinterland"
+
+#: base/models/outline.py:106
+#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+msgid "Away"
+msgstr "Entfernt"
+
+#: base/models/outline.py:107
+msgid "Hidden"
+msgstr "Versteckt"
+
+#: base/models/outline.py:113
+msgid "Average greater than 8k"
+msgstr "Durchschnitt größer als 8k"
+
+#: base/models/outline.py:114
+msgid "Average 5-8k"
+msgstr "Durchschnitt 5-8k"
+
+#: base/models/outline.py:127
+msgid "Fakes only from off villages"
+msgstr "Fakes nur aus Off-Dörfern"
+
+#: base/models/outline.py:128
+msgid "Fakes from all villages"
+msgstr "Fakes aus allen Dörfern"
+
+#: base/models/outline.py:134
+msgid "(Default) Auto generated, fully equipped safe links"
+msgstr "(Standard) Automatisch generierte, vollständig ausgestattete sichere Links"
+
+#: base/models/outline.py:136
+msgid "Text simple directly in message"
+msgstr "Einfacher Text direkt in Nachricht"
+
+#: base/models/outline.py:137
+msgid "New text extended directly in message"
+msgstr "Neuer erweiterter Text direkt in Nachricht"
+
+#: base/models/outline.py:138
+msgid "Old text extended directly in message"
+msgstr "Alter erweiterter Text direkt in Nachricht"
+
+#: base/models/outline.py:139
+msgid "Text for deputy directly in message"
+msgstr "Text für Stellvertreter direkt in Nachricht"
+
+#: base/models/outline.py:300 base/models/profile.py:64
+msgid "Outline Targets"
+msgstr "Plan-Ziele"
+
+#: base/models/outline.py:331 shipments/forms.py:12
+msgid "Name"
+msgstr "Name"
+
+#: base/models/outline.py:452
+msgid "Expires "
+msgstr "Läuft ab "
+
+#: base/models/outline.py:466
+msgid "in"
+msgstr "in"
+
+#: base/models/outline.py:468
+msgid "days"
+msgstr "Tagen"
+
+#: base/models/overview.py:71
+msgid "Unique link to your targets on plemiona-planer.pl"
+msgstr "Eindeutiger Link zu Ihren Zielen auf plemiona-planer.pl"
+
+#: base/models/payment.py:35
+msgid "Finished"
+msgstr "Abgeschlossen"
+
+#: base/models/payment.py:36
+msgid "Returned"
+msgstr "Zurückgegeben"
+
+#: base/models/period_model.py:29
+msgid "All (left)"
+msgstr "Alle (übrig)"
+
+#: base/models/period_model.py:30
+msgid "Random"
+msgstr "Zufällig"
+
+#: base/models/period_model.py:31
+msgid "Exact"
+msgstr "Exakt"
+
+#: base/models/period_model.py:35
+msgid "Ram"
+msgstr "Rammbock"
+
+#: base/models/stripe_product.py:36
+msgid "Premium 1 month"
+msgstr "Premium 1 Monat"
+
+#: base/models/stripe_product.py:38
+#, python-format
+msgid "Premium %s months"
+msgstr "Premium %s Monate"
+
+#: base/models/world.py:63
+msgid "World "
+msgstr "Welt "
+
+#: base/templates/base/base.html:7 base/templates/base/overview.html:4
+msgid "Tribal Wars Planer"
+msgstr "Stammeskrüge Planer"
+
+#: base/templates/base/base.html:9
+msgid ""
+"Tribal Wars Planer, professional tool for creating outlines for off-game "
+"coordinators."
+msgstr "Stammeskrüge Planer, professionelles Werkzeug zur Erstellung von Plänen für Off-Game-Koordinatoren."
+
+#: base/templates/base/base.html:32 base/templates/base/base.html:57
+msgid "User Panel"
+msgstr "Benutzerpanel"
+
+#: base/templates/base/base.html:33 base/templates/base/base.html:59
+#: base/templates/base/base_planer.html:3
+msgid "My outlines"
+msgstr "Meine Pläne"
+
+#: base/templates/base/base.html:33 base/templates/base/base.html:60
+#: base/templates/base/new_outline/new_outline_create.html:3
+msgid "Create new outline"
+msgstr "Neuen Plan erstellen"
+
+#: base/templates/base/base.html:36 base/templates/base/base.html:38
+#: base/templates/base/base.html:63 base/templates/base/base.html:65
+msgid "Beta"
+msgstr "Beta"
+
+#: base/templates/base/base.html:36 base/templates/base/base.html:63
+#: shipments/templates/my_shipments.html:3
+msgid "My shipments"
+msgstr "Meine Sendungen"
+
+#: base/templates/base/base.html:38 base/templates/base/base.html:65
+#: shipments/templates/add_shipment.html:4
+msgid "Add shipment"
+msgstr "Sendung hinzufügen"
+
+#: base/templates/base/base.html:80
+msgid "Home"
+msgstr "Startseite"
+
+#: base/templates/base/base.html:83
+#: base/templates/base/new_outline/new_outline.html:10
+#: base/templates/base/new_outline/new_outline.html:18
+#: base/templates/base/new_outline/new_outline_initial_period1.html:4
+msgid "Planer"
+msgstr "Planer"
+
+#: base/templates/base/base.html:86 base/templates/base/overview.html:306
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: base/templates/base/base.html:90 base/templates/base/user/premium.html:4
+#: base/templates/base/user/profile_settings.html:45
+msgid "Premium"
+msgstr "Premium"
+
+#: base/templates/base/base.html:95
+msgid "Admin Site"
+msgstr "Admin-Bereich"
+
+#: base/templates/base/base.html:103
+msgid "Account"
+msgstr "Konto"
+
+#: base/templates/base/base.html:109
+#: base/templates/base/new_outline/new_outline_create.html:60
+msgid "My account"
+msgstr "Mein Konto"
+
+#: base/templates/base/base.html:110 base/templates/base/user/add_world.html:4
+msgid "Add world"
+msgstr "Welt hinzufügen"
+
+#: base/templates/base/base.html:112
+#: base/templates/base/user/payments_summary.html:4
+#: base/templates/base/user/payments_summary.html:10
+msgid "Payments summary"
+msgstr "Zahlungsübersicht"
+
+#: base/templates/base/base.html:116
+msgid "Sign out"
+msgstr "Abmelden"
+
+#: base/templates/base/base.html:120 base/templates/base/base.html:233
+#: base/templates/base/base.html:244
+msgid "Sign in"
+msgstr "Anmelden"
+
+#: base/templates/base/base.html:121 base/templates/base/base.html:236
+#: base/templates/base/base.html:248 templates/two_factor/_wizard_forms.html:12
+msgid "Sign up"
+msgstr "Registrieren"
+
+#: base/templates/base/base.html:125
+msgid "Language"
+msgstr "Sprache"
+
+#: base/templates/base/base.html:218
+msgid "You can now setup two factor authentication in "
+msgstr "Sie können jetzt die Zwei-Faktor-Authentifizierung einrichten in "
+
+#: base/templates/base/base.html:218
+msgid "Account settings"
+msgstr "Kontoeinstellungen"
+
+#: base/templates/base/base.html:225
+#: templates/django_registration/registration_disallowed.html:7
+msgid "This is test environment, registration is not allowed. Go to"
+msgstr "Dies ist eine Testumgebung, Registrierung ist nicht erlaubt. Gehen Sie zu"
+
+#: base/templates/base/base.html:231 base/templates/base/base.html:242
+msgid "Create simple and fast outlines"
+msgstr "Erstellen Sie einfache und schnelle Pläne"
+
+#: base/templates/base/base.html:236 base/templates/base/base.html:246
+#: templates/two_factor/_wizard_forms.html:12
+msgid "Don't have an account? "
+msgstr "Haben Sie kein Konto? "
+
+#: base/templates/base/base.html:256
+msgid "Planer in numbers"
+msgstr "Planer in Zahlen"
+
+#: base/templates/base/base.html:262
+msgid "Users"
+msgstr "Benutzer"
+
+#: base/templates/base/base.html:268
+msgid "Outlines"
+msgstr "Pläne"
+
+#: base/templates/base/base.html:278
+msgid "Orders"
+msgstr "Befehle"
+
+#: base/templates/base/base.html:287
+msgid "PL version"
+msgstr "PL-Version"
+
+#: base/templates/base/base.html:296
+msgid "ENG version"
+msgstr "ENG-Version"
+
+#: base/templates/base/base.html:305
+msgid "Code tests"
+msgstr "Code-Tests"
+
+#: base/templates/base/base.html:315
+msgid "Benefits"
+msgstr "Vorteile"
+
+#: base/templates/base/base.html:318
+msgid "Security"
+msgstr "Sicherheit"
+
+#: base/templates/base/base.html:321
+msgid "Author"
+msgstr "Autor"
+
+#: base/templates/base/base.html:328
+msgid "You save a tons of time and have all outlines in one place."
+msgstr "Sie sparen eine Menge Zeit und haben alle Pläne an einem Ort."
+
+#: base/templates/base/base.html:330
+msgid ""
+"Players receive final orders ready to paste in the in-game notes and send."
+msgstr "Spieler erhalten fertige Befehle, die sie in die Spielnotizen einfügen und senden können."
+
+#: base/templates/base/base.html:332
+msgid "Instantly distribute created objectives to players."
+msgstr "Verteilen Sie erstellte Ziele sofort an Spieler."
+
+#: base/templates/base/base.html:334
+msgid "Friendly and easy-to-use interface."
+msgstr "Benutzerfreundliche und einfach zu bedienende Oberfläche."
+
+#: base/templates/base/base.html:336
+msgid ""
+"The ability to accurately describe each axeman yourself or leave it to the "
+"Planer, choosing from dozens of options."
+msgstr "Die Möglichkeit, jeden Axtkämpfer selbst genau zu beschreiben oder es dem Planer zu überlassen, mit Auswahl aus Dutzenden von Optionen."
+
+#: base/templates/base/base.html:338
+msgid "Growing number of users."
+msgstr "Wachsende Anzahl von Benutzern."
+
+#: base/templates/base/base.html:340
+msgid "Constantly adding new options and fixing bugs."
+msgstr "Ständig neue Optionen hinzufügen und Fehler beheben."
+
+#: base/templates/base/base.html:342
+msgid "The scripts used are reported and approved by the game support."
+msgstr "Die verwendeten Skripte sind gemeldet und vom Spiel-Support genehmigt."
+
+#: base/templates/base/base.html:344
+msgid "Putting away notebooks, sheets and excel sheets in the trash."
+msgstr "Notizbücher, Blätter und Excel-Tabellen in den Müll werfen."
+
+#: base/templates/base/base.html:346
+msgid "You will avoid common problems like doubled commands."
+msgstr "Sie vermeiden häufige Probleme wie doppelte Befehle."
+
+#: base/templates/base/base.html:348
+msgid "No more mistakes when sending messages to players."
+msgstr "Keine Fehler mehr beim Senden von Nachrichten an Spieler."
+
+#: base/templates/base/base.html:352
+msgid ""
+"The application is written in the modern and very secure <a "
+"target=\"_blank\" href=\"https://www.djangoproject.com/\">Django</a> "
+"framework. Therefore it solves COMPLETELY most of the seciurity mistakes of "
+"smaller applications like SQL injection, cross-site scripting, cross-site "
+"request forgery and clickjacking also providing a safe way to manage user "
+"accounts."
+msgstr "Die Anwendung ist im modernen und sehr sicheren <a target=\"_blank\" href=\"https://www.djangoproject.com/\">Django</a>-Framework geschrieben. Daher löst sie VOLLSTÄNDIG die meisten Sicherheitsfehler kleinerer Anwendungen wie SQL-Injection, Cross-Site-Scripting, Cross-Site-Request-Forgery und Clickjacking und bietet zudem einen sicheren Weg zur Verwaltung von Benutzerkonten."
+
+#: base/templates/base/base.html:354
+msgid ""
+"When designing the application, special emphasis was placed on the security "
+"of user accounts, preventing access to the data entered by them for other "
+"users and third parties."
+msgstr "Bei der Entwicklung der Anwendung wurde besonderer Wert auf die Sicherheit der Benutzerkonten gelegt, um den Zugriff auf die von ihnen eingegebenen Daten für andere Benutzer und Dritte zu verhindern."
+
+#: base/templates/base/base.html:356
+msgid ""
+"Both the web server and the database server are located in the <a "
+"href=\"https://cloud.oracle.com/\">Oracle Cloud</a> cloud, with special "
+"attention to all their safety recommendations."
+msgstr "Sowohl der Webserver als auch der Datenbankserver befinden sich in der <a href=\"https://cloud.oracle.com/\">Oracle Cloud</a>, unter besonderer Beachtung aller ihrer Sicherheitsempfehlungen."
+
+#: base/templates/base/base.html:358
+msgid ""
+"The only one person involved in code writing and project maintenance from "
+"the beginning to date, means little risk of accidental sudden exposure of "
+"user data."
+msgstr "Nur eine Person ist vom Anfang bis heute am Code-Schreiben und der Projektpflege beteiligt, was ein geringes Risiko einer versehentlichen plötzlichen Preisgabe von Benutzerdaten bedeutet."
+
+#: base/templates/base/base.html:360
+msgid ""
+"Ensuring the privacy of users is the most important task of this project, "
+"your data will never be passed on to other users, game players or third "
+"parties or anyone else for any purpose."
+msgstr "Die Gewährleistung der Privatsphäre der Benutzer ist die wichtigste Aufgabe dieses Projekts, Ihre Daten werden niemals an andere Benutzer, Spieler oder Dritte oder jemand anderen für irgendeinen Zweck weitergegeben."
+
+#: base/templates/base/base.html:362
+msgid ""
+"My name is Rafał, I am a professional Software Engineer. I am interested in "
+"web applications, both backend and frontend, cloud technologies and security "
+"in the web. I write mainly in Python, Go and Typescript."
+msgstr "Mein Name ist Rafał, ich bin ein professioneller Software-Ingenieur. Ich interessiere mich für Webanwendungen, sowohl Backend als auch Frontend, Cloud-Technologien und Websicherheit. Ich programmiere hauptsächlich in Python, Go und Typescript."
+
+#: base/templates/base/base.html:362
+msgid ""
+"In addition to the above, I am a fan of fantasy, I have been reading series "
+"more or less regularly since childhood, my favourite author is Ursula Le "
+"Guin and her series Earthsea. I am a seasonal runner (my greatest "
+"achievement is participation in provincial competitions), I love chess and "
+"poker and a good movie too."
+msgstr "Zusätzlich zu den obigen Punkten bin ich ein Fantasy-Fan, ich lese seit der Kindheit mehr oder weniger regelmäßig Serien, meine Lieblingsautorin ist Ursula Le Guin und ihre Serie Erdsee. Ich bin ein saisonaler Läufer (meine größte Leistung ist die Teilnahme an Provinzwettkämpfen), ich liebe Schach und Poker und auch einen guten Film."
+
+#: base/templates/base/base.html:368
+msgid ""
+"Join the discord to be up to date with news, ask about what is unclear, "
+"report bugs and propose changes."
+msgstr "Treten Sie dem Discord bei, um über Neuigkeiten auf dem Laufenden zu bleiben, Fragen zu unklaren Punkten zu stellen, Fehler zu melden und Änderungen vorzuschlagen."
+
+#: base/templates/base/base.html:386
+msgid ""
+"This site is free of 3rd party trackers, we belive in privacy, refer to "
+msgstr "Diese Website ist frei von Drittanbieter-Trackern, wir glauben an Privatsphäre, siehe "
+
+#: base/templates/base/base.html:386
+msgid "our privacy policy and regulations."
+msgstr "unsere Datenschutzrichtlinie und Bestimmungen."
+
+#: base/templates/base/base.html:387
+msgid "Version"
+msgstr "Version"
+
+#: base/templates/base/base_planer.html:12
+#: base/templates/base/new_outline/new_outline_results.html:87
+#: shipments/templates/my_shipments.html:12
+msgid "Created"
+msgstr "Erstellt"
+
+#: base/templates/base/base_planer.html:14
+#: base/templates/base/new_outline/new_outline_create_select.html:52
+msgid "Ally"
+msgstr "Verbündeter"
+
+#: base/templates/base/base_planer.html:15
+#: base/templates/base/new_outline/new_outline_create_select.html:78
+#: shipments/templates/shipment.html:133
+msgid "Enemy"
+msgstr "Feind"
+
+#: base/templates/base/base_planer.html:16
+#: base/templates/base/base_planer.html:41
+#: shipments/templates/my_shipments.html:15
+#: shipments/templates/my_shipments.html:39
+msgid "Hide"
+msgstr "Verbergen"
+
+#: base/templates/base/base_planer.html:17
+#: base/templates/base/base_planer.html:56
+#: base/templates/base/base_planer.html:84
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+#: base/templates/base/base_planer.html:18
+#: base/templates/base/base_planer.html:96
+#: base/templates/base/new_outline/new_outline_initial_period2.html:279
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:236
+#: shipments/templates/my_shipments.html:16
+#: shipments/templates/my_shipments.html:54
+msgid "Delete"
+msgstr "Löschen"
+
+#: base/templates/base/base_planer.html:28
+msgid "(Copied from "
+msgstr "(Kopiert von "
+
+#: base/templates/base/base_planer.html:48
+#: base/templates/base/new_outline/new_outline_initial_period3.html:143
+#: shipments/templates/my_shipments.html:46
+msgid "Show"
+msgstr "Anzeigen"
+
+#: base/templates/base/base_planer.html:63
+msgid "Duplicate an outline"
+msgstr "Einen Plan duplizieren"
+
+#: base/templates/base/base_planer.html:70
+msgid ""
+"You are about to create a copy of this outline. Ally and enemy tribes cannot "
+"be changed."
+msgstr "Sie sind dabei, eine Kopie dieses Plans zu erstellen. Verbündete und feindliche Stämme können nicht geändert werden."
+
+#: base/templates/base/base_planer.html:82
+#: base/templates/base/base_planer.html:118
+#: base/templates/base/new_outline/new_outline_create_select.html:134
+#: base/templates/base/new_outline/new_outline_initial_period2.html:361
+#: base/templates/base/new_outline/new_outline_initial_period3.html:24
+#: shipments/templates/my_shipments.html:75
+msgid "Close"
+msgstr "Schließen"
+
+#: base/templates/base/base_planer.html:84
+#: base/templates/base/new_outline/new_outline_initial_period1.html:149
+#: base/templates/base/new_outline/new_outline_initial_period1.html:295
+#: base/templates/base/new_outline/new_outline_initial_period1.html:315
+#: base/templates/base/new_outline/new_outline_initial_period1.html:348
+#: base/templates/base/new_outline/new_outline_initial_period1.html:408
+#: base/templates/base/new_outline/new_outline_initial_period1.html:439
+msgid "Saving..."
+msgstr "Speichere..."
+
+#: base/templates/base/base_planer.html:103
+#: base/templates/base/new_outline/new_outline_create_select.html:119
+#: base/templates/base/new_outline/new_outline_initial_period2.html:354
+#: shipments/templates/my_shipments.html:61
+msgid "Warning"
+msgstr "Warnung"
+
+#: base/templates/base/base_planer.html:110
+msgid ""
+"You will lose all progress on this outline. The orders (weights), targets, "
+"entered script results and any data will be deleted forever too. The "
+"generated links will remain valid as is, but you will no longer be able to "
+"access them through the Results tab. You may consider hiding this outline "
+"instead of deleting it."
+msgstr "Sie verlieren den gesamten Fortschritt bei diesem Plan. Die Befehle (Gewichtungen), Ziele, eingegebenen Skriptergebnisse und alle Daten werden ebenfalls für immer gelöscht. Die generierten Links bleiben gültig, aber Sie können nicht mehr über den Ergebnisse-Tab darauf zugreifen. Sie sollten erwägen, diesen Plan zu verbergen, anstatt ihn zu löschen."
+
+#: base/templates/base/base_planer.html:112
+#: shipments/templates/my_shipments.html:69
+msgid "This operation cannot be undone!"
+msgstr "Dieser Vorgang kann nicht rückgängig gemacht werden!"
+
+#: base/templates/base/base_planer.html:123
+#: base/templates/base/new_outline/new_outline_get_deff.html:15
+#: base/templates/base/new_outline/new_outline_initial_period1.html:151
+#: base/templates/base/new_outline/new_outline_initial_period1.html:272
+#: base/templates/base/new_outline/new_outline_initial_period2.html:365
+#: base/templates/base/user/add_world.html:25
+#: shipments/templates/my_shipments.html:80
+msgid "Processing..."
+msgstr "Verarbeitung..."
+
+#: base/templates/base/base_planer.html:123
+#: shipments/templates/my_shipments.html:80
+msgid "Delete forever"
+msgstr "Für immer löschen"
+
+#: base/templates/base/base_planer.html:137
+#: shipments/templates/my_shipments.html:94
+msgid "Don't show hidden"
+msgstr "Versteckte nicht anzeigen"
+
+#: base/templates/base/base_planer.html:139
+#: shipments/templates/my_shipments.html:96
+msgid "Show hidden"
+msgstr "Versteckte anzeigen"
+
+#: base/templates/base/new_outline/new_outline.html:8
+#: base/templates/base/new_outline/new_outline.html:16
+msgid "Other"
+msgstr "Andere"
+
+#: base/templates/base/new_outline/new_outline.html:8
+#: base/templates/base/new_outline/new_outline.html:16
+msgid "Deff raport"
+msgstr "Deff-Bericht"
+
+#: base/templates/base/new_outline/new_outline.html:9
+#: base/templates/base/new_outline/new_outline.html:17
+msgid "Troops data"
+msgstr "Truppendaten"
+
+#: base/templates/base/new_outline/new_outline.html:10
+#: base/templates/base/new_outline/new_outline.html:18
+msgid "Hold on a second..."
+msgstr "Einen Moment bitte..."
+
+#: base/templates/base/new_outline/new_outline.html:11
+#: base/templates/base/new_outline/new_outline.html:19
+#: base/templates/base/new_outline/new_outline_results.html:4
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: base/templates/base/new_outline/new_outline.html:40
+msgid "Planer will choose data pasted in: "
+msgstr "Planer wird Daten wählen, die eingefügt wurden in: "
+
+#: base/templates/base/new_outline/new_outline.html:50
+#: base/templates/base/new_outline/new_outline_initial_period1.html:295
+#: base/templates/base/new_outline/new_outline_initial_period1.html:315
+#: base/templates/base/new_outline/new_outline_initial_period1.html:348
+#: base/templates/base/new_outline/new_outline_initial_period1.html:408
+#: base/templates/base/new_outline/new_outline_initial_period1.html:439
+#: base/templates/base/new_outline/new_outline_initial_period2.html:43
+#: base/templates/base/new_outline/new_outline_initial_period2.html:73
+#: base/templates/base/new_outline/new_outline_initial_period3.html:145
+#: base/templates/base/new_outline/new_outline_initial_period3.html:207
+#: base/templates/base/new_outline/new_outline_results.html:63
+#: base/templates/base/user/profile_settings.html:74
+#: shipments/templates/edit_shipment.html:51
+msgid "Save"
+msgstr "Speichern"
+
+#: base/templates/base/new_outline/new_outline.html:60
+msgid "Last world update: "
+msgstr "Letztes Welt-Update: "
+
+#: base/templates/base/new_outline/new_outline.html:76
+msgid "Army troops have been successfully added."
+msgstr "Armee-Truppen wurden erfolgreich hinzugefügt."
+
+#: base/templates/base/new_outline/new_outline.html:94
+#: base/templates/base/new_outline/new_outline.html:160
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "Incorrect data in"
+msgstr "Falsche Daten in"
+
+#: base/templates/base/new_outline/new_outline.html:94
+#: base/templates/base/new_outline/new_outline.html:160
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "lines."
+msgstr "Zeilen."
+
+#: base/templates/base/new_outline/new_outline.html:95
+#: base/templates/base/new_outline/new_outline.html:161
+msgid "*After clicking submit you will be transferred to first error*"
+msgstr "*Nach dem Klicken auf Senden werden Sie zum ersten Fehler weitergeleitet*"
+
+#: base/templates/base/new_outline/new_outline.html:105
+#: base/templates/base/new_outline/new_outline.html:171
+msgid "The text cannot be empty"
+msgstr "Der Text darf nicht leer sein"
+
+#: base/templates/base/new_outline/new_outline.html:114
+#: base/templates/base/new_outline/new_outline.html:180
+#: base/templates/base/new_outline/new_outline_get_deff.html:15
+msgid "Submit"
+msgstr "Senden"
+
+#: base/templates/base/new_outline/new_outline.html:135
+msgid "Deff troops have been successfully added."
+msgstr "Deff-Truppen wurden erfolgreich hinzugefügt."
+
+#: base/templates/base/new_outline/new_outline.html:199
+#: base/templates/base/new_outline/new_outline_create.html:31
+#: base/templates/base/new_outline/new_outline_get_deff.html:23
+#: base/templates/base/new_outline/new_outline_initial_period1.html:453
+msgid "Info"
+msgstr "Info"
+
+#: base/templates/base/new_outline/new_outline.html:202
+#: base/templates/base/new_outline/new_outline_create.html:34
+#: base/templates/base/new_outline/new_outline_get_deff.html:26
+#: base/templates/base/new_outline/new_outline_initial_period1.html:457
+msgid "Examples"
+msgstr "Beispiele"
+
+#: base/templates/base/new_outline/new_outline.html:224
+#: base/templates/base/new_outline/new_outline_initial_period1.html:479
+#: base/templates/base/new_outline/new_outline_initial_period1.html:500
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:340
+msgid "An error occured"
+msgstr "Ein Fehler ist aufgetreten"
+
+#: base/templates/base/new_outline/new_outline_create.html:11
+msgid "Your server is set to"
+msgstr "Ihr Server ist eingestellt auf"
+
+#: base/templates/base/new_outline/new_outline_create.html:14
+msgid ""
+"First time? You can choose a special <span class=\"md-correct2\">World Test</"
+"span> created for testing purposes, see "
+msgstr "Erstes Mal? Sie können eine spezielle <span class=\"md-correct2\">Test-Welt</span> wählen, die für Testzwecke erstellt wurde, siehe "
+
+#: base/templates/base/new_outline/new_outline_create.html:14
+msgid "docs"
+msgstr "Dokumentation"
+
+#: base/templates/base/new_outline/new_outline_create.html:21
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
+msgid "Create"
+msgstr "Erstellen"
+
+#: base/templates/base/new_outline/new_outline_create.html:54
+msgid "Please select game server"
+msgstr "Bitte wählen Sie einen Spielserver"
+
+#: base/templates/base/new_outline/new_outline_create.html:60
+msgid ""
+"There are 20 game servers to choose from. <br><br>Please select one, it will "
+"be assigned to your account. You can always choose another later, just visit "
+"tab"
+msgstr "Es gibt 20 Spielserver zur Auswahl. <br><br>Bitte wählen Sie einen aus, er wird Ihrem Konto zugewiesen. Sie können später jederzeit einen anderen wählen, besuchen Sie einfach den Tab"
+
+#: base/templates/base/new_outline/new_outline_create.html:66
+msgid "Set server"
+msgstr "Server festlegen"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:3
+msgid "Select tribes"
+msgstr "Stämme auswählen"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:24
+msgid "Add an ally tribe"
+msgstr "Verbündeten Stamm hinzufügen"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:41
+msgid "Add an enemy tribe"
+msgstr "Feindlichen Stamm hinzufügen"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:65
+#: base/templates/base/new_outline/new_outline_create_select.html:91
+msgid "Delete all"
+msgstr "Alle löschen"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:111
+msgid "Save and create"
+msgstr "Speichern und erstellen"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:125
+msgid ""
+" To avoid future conflicts you can set up ally and enemy tribes\n"
+"                        <div class=\"md-error\">ONLY ONCE!</div>\n"
+"                        <br>In the event of the error, you will be forced to "
+"create new outline.\n"
+"                        <li>Make sure you set up all Allies.</li>\n"
+"                        <li>Make sure you set up all Enemies.</li>\n"
+"                    "
+msgstr " Um zukünftige Konflikte zu vermeiden, können Sie verbündete und feindliche Stämme\n                        <div class=\"md-error\">NUR EINMAL!</div>\n                        <br>Im Falle eines Fehlers werden Sie gezwungen sein, einen neuen Plan zu erstellen.\n                        <li>Stellen Sie sicher, dass Sie alle Verbündeten einrichten.</li>\n                        <li>Stellen Sie sicher, dass Sie alle Feinde einrichten.</li>\n                    "
+
+#: base/templates/base/new_outline/new_outline_create_select.html:137
+#: base/templates/base/new_outline/new_outline_initial_period2.html:365
+msgid "Continue"
+msgstr "Fortfahren"
+
+#: base/templates/base/new_outline/new_outline_get_deff.html:4
+#: base/templates/base/new_outline/new_outline_results.html:26
+msgid "Deff collection"
+msgstr "Deff-Sammlung"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:14
+#: base/templates/base/new_outline/new_outline_initial_period1.html:17
+msgid "Reals"
+msgstr "Echte"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:21
+#: base/templates/base/new_outline/new_outline_initial_period1.html:24
+msgid "Fakes"
+msgstr "Fakes"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:28
+#: base/templates/base/new_outline/new_outline_initial_period1.html:31
+msgid "Ruins"
+msgstr "Ruinen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:41
+msgid "Duplicates detected, click to view them"
+msgstr "Duplikate erkannt, klicken Sie, um sie anzuzeigen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:47
+msgid "Targets-Duplicated"
+msgstr "Ziele-Dupliziert"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:56
+msgid "Fakes-Duplicated"
+msgstr "Fakes-Dupliziert"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:65
+msgid "Ruin-Duplicated"
+msgstr "Ruinen-Dupliziert"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:82
+msgid "Barbarian targets detected, click to view them"
+msgstr "Barbarenziele erkannt, klicken Sie, um sie anzuzeigen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:88
+msgid "Targets-Barbarian"
+msgstr "Ziele-Barbaren"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:97
+msgid "Fakes-Barbarian"
+msgstr "Fakes-Barbaren"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:106
+msgid "Ruin-Barbarian"
+msgstr "Ruinen-Barbaren"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "Valid lines looks like (assuming that such a village 000|000 exists):"
+msgstr "Gültige Zeilen sehen so aus (angenommen, ein solches Dorf 000|000 existiert):"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "\"000|000\" - clean coords"
+msgstr "\"000|000\" - saubere Koordinaten"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "\"000|000:0:0\" - coords with :off:noble numbers"
+msgstr "\"000|000:0:0\" - Koordinaten mit :off:adligen Zahlen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid "\"000|000:0|0|0|0:0\" - additional off info, list instead of number"
+msgstr "\"000|000:0|0|0|0:0\" - zusätzliche Off-Info, Liste statt Zahl"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+msgid ""
+"\"000|000:0|0|0|0:0|0|0|0\" - max info that can be passed about offs and "
+"nobles"
+msgstr "\"000|000:0|0|0|0:0|0|0|0\" - maximale Info, die über Offs und Adlige übergeben werden kann"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:149
+msgid "Save targets"
+msgstr "Ziele speichern"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:151
+msgid "Write an outline"
+msgstr "Einen Plan schreiben"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:159
+msgid "Description"
+msgstr "Beschreibung"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+msgid "Offs further than maximum distance for offs (equals to"
+msgstr "Offs weiter als maximale Entfernung für Offs (entspricht"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+msgid "now), which will be completely skipped now."
+msgstr "jetzt), die jetzt vollständig übersprungen werden."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:168
+msgid "Offs"
+msgstr "Offs"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:179
+msgid "Nobles"
+msgstr "Adlige"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:201
+msgid "Full offs with at least 1 nobleman (there can be more)"
+msgstr "Volle Offs mit mindestens 1 Adligen (es können mehr sein)"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:201
+msgid "Full offs with 1 noble"
+msgstr "Volle Offs mit 1 Adligen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:213
+msgid "Offs around real targets at maximum distance for nobles (now equals to"
+msgstr "Offs um echte Ziele bei maximaler Entfernung für Adlige (entspricht jetzt"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:213
+msgid "Offs close to real targets"
+msgstr "Offs nahe echten Zielen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:225
+msgid ""
+"Nobles around real targets at maximum distance for nobles (now equals to"
+msgstr "Adlige um echte Ziele bei maximaler Entfernung für Adlige (entspricht jetzt"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:225
+msgid "Nobles close to real targets"
+msgstr "Adlige nahe echten Zielen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:238
+#, python-format
+msgid ""
+"\n"
+"                                                                                             Catapults "
+"from villages that are not front, with at least "
+"%(initial_outline_min_ruin_attack_off)s off troops in village (without "
+"catapults), see 6.). Only villages at maximum distance that are not far away "
+"(now more than %(initial_outline_maximum_off_dist)s, see 1.).\n"
+"                                                                                           "
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:240
+msgid "Available catapults to use"
+msgstr "Verfügbare Katapulte zu verwenden"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:251
+msgid "Advanced settings:"
+msgstr "Erweiterte Einstellungen:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:258
+msgid "1. Available Troops"
+msgstr "1. Verfügbare Truppen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:265
+msgid "Available troops settings:"
+msgstr "Verfügbare Truppen-Einstellungen:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:272
+msgid "Save and reload troops"
+msgstr "Truppen speichern und neu laden"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:282
+msgid "2. Setting the date"
+msgstr "2. Datum festlegen"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:289
+msgid "Current date:"
+msgstr "Aktuelles Datum:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:305
+msgid "3. Outline parameters"
+msgstr "3. Plan-Parameter"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:324
+msgid "4. Morale"
+msgstr "4. Moral"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:332
+#: base/templates/base/new_outline/new_outline_initial_period1.html:334
+#: base/templates/base/new_outline/new_outline_initial_period1.html:394
+#: base/templates/base/new_outline/new_outline_initial_period1.html:399
+msgid "ACTIVE: "
+msgstr "AKTIV: "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:332
+#: base/templates/base/new_outline/new_outline_initial_period1.html:394
+msgid "True"
+msgstr "Wahr"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:334
+#: base/templates/base/new_outline/new_outline_initial_period1.html:399
+msgid "False"
+msgstr "Falsch"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:337
+msgid "has no morale turned off and thus it is pointless to use this option."
+msgstr "hat keine Moral ausgeschaltet und daher ist es sinnlos, diese Option zu verwenden."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:339
+msgid ""
+"has morale based on points and time. This is not perfectly handled by "
+"Planer. See topic \"4. Morale\" in the docs on the right side."
+msgstr "hat Moral basierend auf Punkten und Zeit. Dies wird vom Planer nicht perfekt behandelt. Siehe Thema \"4. Moral\" in der Dokumentation auf der rechten Seite."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:356
+msgid "Attacker"
+msgstr "Angreifer"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:357
+msgid "Defender"
+msgstr "Verteidiger"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:358
+msgid "Morale value"
+msgstr "Moralwert"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:374
+msgid "Congratulations! No morale issues found for selected targets."
+msgstr "Glückwunsch! Keine Moralprobleme für ausgewählte Ziele gefunden."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:385
+msgid "5. Avoid night bonus"
+msgstr "5. Nachtbonus vermeiden"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:395
+msgid "Time 1: "
+msgstr "Zeit 1: "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:396
+msgid "Time 2: "
+msgstr "Zeit 2: "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:418
+msgid "6. Ruining"
+msgstr "6. Abriss"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+msgid "Order of demolition of buildings:"
+msgstr "Reihenfolge des Abrisses von Gebäuden:"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:427
+msgid ""
+"Only the buildings listed below will be included in the demolition! (in that "
+"order)"
+msgstr "Nur die unten aufgeführten Gebäude werden in den Abriss einbezogen! (in dieser Reihenfolge)"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+msgid "Premium account is required to complete outlines greater than "
+msgstr "Ein Premium-Konto ist erforderlich, um Pläne mit mehr als "
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+msgid " targets. Buy it"
+msgstr " Zielen zu erstellen. Kaufen Sie es"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+#: base/templates/base/new_outline/new_outline_results.html:32
+msgid "here"
+msgstr "hier"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+msgid "or reduce the number of outline targets."
+msgstr "oder reduzieren Sie die Anzahl der Plan-Ziele."
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:315
+#: utils/buildings.py:26
+msgid "Headquarters"
+msgstr "Hauptgebäude"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:27
+msgid "Barracks"
+msgstr "Kaserne"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:28
+msgid "Stable"
+msgstr "Stall"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:29
+msgid "Workshop"
+msgstr "Werkstatt"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:30
+msgid "Academy"
+msgstr "Adelsgeschlecht"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:316
+#: utils/buildings.py:31
+msgid "Smithy"
+msgstr "Schmiede"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:32
+msgid "Rally point"
+msgstr "Versammlungsplatz"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:33
+msgid "Statue"
+msgstr "Statue"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:34
+msgid "Market"
+msgstr "Marktplatz"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:317
+#: utils/buildings.py:35
+msgid "Timber camp"
+msgstr "Holzfäller"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:320
+#: utils/buildings.py:36
+msgid "Clay pit"
+msgstr "Lehmgrube"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:37
+msgid "Iron mine"
+msgstr "Eisenmine"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:321
+#: utils/buildings.py:38
+msgid "Farm"
+msgstr "Bauernhof"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: base/templates/base/new_outline/new_outline_initial_period2.html:322
+#: utils/buildings.py:39
+msgid "Warehouse"
+msgstr "Speicher"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:40
+msgid "Wall"
+msgstr "Wall"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:532
+#: utils/buildings.py:41
+msgid "Watchtower"
+msgstr "Wachturm"
+
+#: base/templates/base/new_outline/new_outline_initial_period1.html:538
+msgid "At least one building must remain selected."
+msgstr "Mindestens ein Gebäude muss ausgewählt bleiben."
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:6
+msgid "Real targets"
+msgstr "Echte Ziele"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:8
+msgid "Fake targets"
+msgstr "Fake-Ziele"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:10
+msgid "Ruin targets"
+msgstr "Ruinenziele"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:12
+msgid "Set time"
+msgstr "Zeit festlegen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:14
+msgid "Add and remove"
+msgstr "Hinzufügen und entfernen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:30
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:31
+msgid "Outline Date"
+msgstr "Plan-Datum"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:33
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:18
+msgid "Fake Targets"
+msgstr "Fake-Ziele"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:34
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:20
+msgid "Ruin Targets"
+msgstr "Ruinenziele"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:35
+msgid "Offs left"
+msgstr "Offs übrig"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:36
+msgid "Nobles left"
+msgstr "Adlige übrig"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:37
+msgid "Available catapults left"
+msgstr "Verfügbare Katapulte übrig"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:39
+msgid "Night bonus avoid"
+msgstr "Nachtbonus vermeiden"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:41
+msgid "Targets on page"
+msgstr "Ziele auf Seite"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:42
+msgid "Simple textures"
+msgstr "Einfache Texturen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:84
+msgid "Go back"
+msgstr "Zurück gehen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:89
+#: base/templates/base/new_outline/new_outline_initial_period2.html:94
+msgid "Add and remove targets"
+msgstr "Ziele hinzufügen und entfernen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:99
+#: base/templates/base/new_outline/new_outline_initial_period2.html:100
+msgid "Set real targets"
+msgstr "Echte Ziele festlegen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:106
+#: base/templates/base/new_outline/new_outline_initial_period2.html:114
+msgid "Set fake targets"
+msgstr "Fake-Ziele festlegen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:125
+#: base/templates/base/new_outline/new_outline_initial_period2.html:129
+msgid "Set ruin targets"
+msgstr "Ruinenziele festlegen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:136
+#: base/templates/base/new_outline/new_outline_initial_period2.html:138
+msgid "Set time and confirm"
+msgstr "Zeit festlegen und bestätigen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:148
+msgid "Finish the Outline"
+msgstr "Den Plan abschließen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:158
+msgid "target, nick or number of commands"
+msgstr "Ziel, Nick oder Anzahl der Befehle"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:166
+msgid "Search by nickname"
+msgstr "Nach Spitzname suchen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:167
+msgid "Search by target"
+msgstr "Nach Ziel suchen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:168
+msgid "Search more than number of commands"
+msgstr "Suche mehr als Anzahl der Befehle"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:169
+msgid "Search less than number of commands"
+msgstr "Suche weniger als Anzahl der Befehle"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:170
+msgid "Search equal to number of commands"
+msgstr "Suche gleich Anzahl der Befehle"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:187
+msgid "Target added successfully!"
+msgstr "Ziel erfolgreich hinzugefügt!"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:202
+msgid "Create a single Target"
+msgstr "Ein einzelnes Ziel erstellen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:215
+msgid "Create Real"
+msgstr "Echtes erstellen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:216
+msgid "Create Fake"
+msgstr "Fake erstellen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:217
+msgid "Create Ruin"
+msgstr "Ruine erstellen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:274
+#: shipments/templates/shipment.html:6 shipments/templates/shipment.html:12
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:359
+msgid ""
+"<p>Your current progress here will be <span class='md-error'>LOST</span>!</"
+"p><p>You will return to the previous tab. Front and Back division will be "
+"reset and targets removed.</p>"
+msgstr "<p>Ihr aktueller Fortschritt hier wird <span class='md-error'>VERLOREN</span> gehen!</p><p>Sie kehren zum vorherigen Tab zurück. Front- und Hinterland-Aufteilung wird zurückgesetzt und Ziele entfernt.</p>"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:16
+msgid "Type of order"
+msgstr "Art des Befehls"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:19
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:164
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:206
+msgid ""
+"For ruins, the Ram Unit means Off and the Noble Unit represents later ruins"
+msgstr "Für Ruinen bedeutet die Rammbock-Einheit Off und die Adligen-Einheit repräsentiert spätere Ruinen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:25
+msgid "Default Time"
+msgstr "Standardzeit"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:41
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:61
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:80
+msgid "Create at least one Time below"
+msgstr "Erstellen Sie mindestens eine Zeit unten"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
+#: base/templates/base/new_outline/new_outline_initial_period3.html:137
+#: base/templates/base/overview.html:227 shipments/templates/shipment.html:126
+#: utils/basic/mode.py:60 utils/outline_finish.py:75
+msgid "Target"
+msgstr "Ziel"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:251
+msgid "Select Time"
+msgstr "Zeit auswählen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:252
+#: base/templates/base/overview.html:228 utils/basic/mode.py:67
+msgid "Outline"
+msgstr "Planung"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:257
+msgid "Set time to all targets on this page"
+msgstr "Zeit für alle Ziele auf dieser Seite festlegen"
+
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:282
+msgid "Create at least one Time above"
+msgstr "Erstellen Sie mindestens eine Zeit oben"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:21
+msgid "Change and save"
+msgstr "Ändern und speichern"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:106
+msgid "Divide"
+msgstr "Aufteilen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:110
+msgid "Divide into 2"
+msgstr "In 2 aufteilen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:114
+msgid "Divide into 3"
+msgstr "In 3 aufteilen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:118
+msgid "Divide into 4"
+msgstr "In 4 aufteilen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:136
+#: base/templates/base/new_outline/new_outline_results.html:88
+#: base/templates/base/new_outline/new_outline_results.html:131
+#: utils/outline_finish.py:77
+msgid "Player"
+msgstr "Spieler"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:138
+msgid "TW Stats"
+msgstr "TW-Statistiken"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:139
+msgid "Troops from"
+msgstr "Truppen von"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:140
+msgid "Troops to"
+msgstr "Truppen nach"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:141
+msgid "Catapults from"
+msgstr "Katapulte von"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:142
+msgid "Nobles from"
+msgstr "Adlige von"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:144
+msgid "Cards on page"
+msgstr "Karten auf der Seite"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:220
+msgid "Sort"
+msgstr "Sortieren"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:224
+msgid "Ascending by distance"
+msgstr "Aufsteigend nach Entfernung"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:225
+msgid "Random by distance"
+msgstr "Zufällig nach Entfernung"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:226
+msgid "Descending by distance"
+msgstr "Absteigend nach Entfernung"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:227
+msgid "Descending by number of units"
+msgstr "Absteigend nach Einheitenanzahl"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:228
+msgid "Descending by number of noble"
+msgstr "Absteigend nach Adligenanzahl"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:232
+msgid "Closest full offs"
+msgstr "Nächste volle Offs"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:233
+msgid "Closest noblemans"
+msgstr "Nächste Adlige"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:234
+msgid "Closest offs with noblemans"
+msgstr "Nächste Offs mit Adligen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:238
+msgid "Random full offs"
+msgstr "Zufällige volle Offs"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:239
+msgid "Random noblemans"
+msgstr "Zufällige Adlige"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:240
+msgid "Random offs with noblemans"
+msgstr "Zufällige Offs mit Adligen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:244
+msgid "Farthest full offs"
+msgstr "Entfernteste volle Offs"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:245
+msgid "Farthest noblemans"
+msgstr "Entfernteste Adlige"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:246
+msgid "Farthest offs with noblemans"
+msgstr "Entfernteste Offs mit Adligen"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:256
+#: base/templates/base/new_outline/new_outline_initial_period3.html:263
+msgid "Previous"
+msgstr "Vorherige"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:267
+#: base/templates/base/overview.html:53 base/templates/base/overview.html:86
+msgid "of"
+msgstr "von"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:271
+#: base/templates/base/new_outline/new_outline_initial_period3.html:277
+msgid "Next"
+msgstr "Nächste"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:288
+msgid "coord or nick..."
+msgstr "Koordinaten oder Nickname..."
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:328
+msgid "On the left adding Fake, on the right 1 Noble"
+msgstr "Links Fake hinzufügen, rechts 1 Adliger"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:332
+msgid "On the left adding Offs, on the right Ruin attack"
+msgstr "Links Offs hinzufügen, rechts Ruinenangriff"
+
+#: base/templates/base/new_outline/new_outline_initial_period3.html:336
+msgid "On the left adding Offs, on the right Offs with the Nobles"
+msgstr "Links Offs hinzufügen, rechts Offs mit den Adligen"
+
+#: base/templates/base/new_outline/new_outline_results.html:11
+msgid "Outline results"
+msgstr "Planungsergebnisse"
+
+#: base/templates/base/new_outline/new_outline_results.html:14
+msgid "Sum Up"
+msgstr "Zusammenfassung"
+
+#: base/templates/base/new_outline/new_outline_results.html:17
+msgid "Copy Outline urls"
+msgstr "Planungs-URLs kopieren"
+
+#: base/templates/base/new_outline/new_outline_results.html:20
+msgid "Copy Outline results"
+msgstr "Planungsergebnisse kopieren"
+
+#: base/templates/base/new_outline/new_outline_results.html:23
+msgid "Left troops"
+msgstr "Übrige Truppen"
+
+#: base/templates/base/new_outline/new_outline_results.html:32
+msgid ""
+"To send messages with a button, you will need a script that you can find"
+msgstr "Um Nachrichten mit einem Button zu senden, benötigen Sie ein Skript, das Sie finden können"
+
+#: base/templates/base/new_outline/new_outline_results.html:51
+msgid "Set title, text and show hidden value"
+msgstr "Titel, Text festlegen und versteckten Wert anzeigen"
+
+#: base/templates/base/new_outline/new_outline_results.html:75
+msgid "Removed links"
+msgstr "Entfernte Links"
+
+#: base/templates/base/new_outline/new_outline_results.html:89
+#: base/templates/base/new_outline/new_outline_results.html:132
+msgid "Link to member Page"
+msgstr "Link zur Mitgliederseite"
+
+#: base/templates/base/new_outline/new_outline_results.html:90
+#: base/templates/base/new_outline/new_outline_results.html:133
+msgid "Show Hidden"
+msgstr "Versteckte anzeigen"
+
+#: base/templates/base/new_outline/new_outline_results.html:91
+#: base/templates/base/new_outline/new_outline_results.html:134
+msgid "Number of orders"
+msgstr "Anzahl der Befehle"
+
+#: base/templates/base/new_outline/new_outline_results.html:92
+#: base/templates/base/new_outline/new_outline_results.html:135
+msgid "Send message"
+msgstr "Nachricht senden"
+
+#: base/templates/base/new_outline/new_outline_results.html:100
+#: base/templates/base/new_outline/new_outline_results.html:144
+msgid "Go to member Page"
+msgstr "Zur Mitgliederseite gehen"
+
+#: base/templates/base/new_outline/new_outline_results.html:114
+#: base/templates/base/new_outline/new_outline_results.html:116
+#: base/templates/base/new_outline/new_outline_results.html:159
+#: base/templates/base/new_outline/new_outline_results.html:161
+msgid "Sent!"
+msgstr "Gesendet!"
+
+#: base/templates/base/new_outline/new_outline_results.html:114
+#: base/templates/base/new_outline/new_outline_results.html:116
+#: base/templates/base/new_outline/new_outline_results.html:159
+#: base/templates/base/new_outline/new_outline_results.html:161
+#: rest_api/serializers.py:177
+msgid "Send"
+msgstr "Senden"
+
+#: base/templates/base/new_outline/new_outline_results.html:201
+msgid ""
+"Below you will find all the unused troops left after the roster. Paste them "
+"into the \"1. Troops Data\" in order to start a new action."
+msgstr "Unten finden Sie alle ungenutzten Truppen, die nach der Aufstellung übrig sind. Fügen Sie sie in die \"1. Truppendaten\" ein, um eine neue Aktion zu starten."
+
+#: base/templates/base/new_outline/new_outline_results.html:207
+msgid "You have no access to unused troops without premium account."
+msgstr "Sie haben ohne Premium-Account keinen Zugang zu ungenutzten Truppen."
+
+#: base/templates/base/new_outline/new_outline_results.html:235
+msgid ""
+"Some of the written orders have been omitted due to the following problems"
+msgstr "Einige der geschriebenen Befehle wurden aufgrund der folgenden Probleme weggelassen"
+
+#: base/templates/base/overview.html:17
+msgid "Copy"
+msgstr "Kopieren"
+
+#: base/templates/base/overview.html:20
+msgid "Details"
+msgstr "Details"
+
+#: base/templates/base/overview.html:23 base/templates/base/overview.html:303
+msgid "Source"
+msgstr "Quelle"
+
+#: base/templates/base/overview.html:32
+msgid ""
+"The contents below shows your targets, please copy the one you like to your "
+"in-game notes."
+msgstr "Der Inhalt unten zeigt Ihre Ziele, bitte kopieren Sie das gewünschte in Ihre Spielnotizen."
+
+#: base/templates/base/overview.html:38
+msgid "Standard"
+msgstr "Standard"
+
+#: base/templates/base/overview.html:40 base/templates/base/overview.html:74
+#: base/templates/base/overview.html:107 base/templates/base/overview.html:133
+#: base/templates/base/overview.html:160
+msgid "Copy content from textarea below"
+msgstr "Inhalt aus dem Textfeld unten kopieren"
+
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
+msgid "Successfully copied!"
+msgstr "Erfolgreich kopiert!"
+
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
+msgid "Click to copy again"
+msgstr "Klicken Sie zum erneuten Kopieren"
+
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
+msgid "Error! Please copy the textarea below"
+msgstr "Fehler! Bitte kopieren Sie das Textfeld unten"
+
+#: base/templates/base/overview.html:42 base/templates/base/overview.html:76
+#: base/templates/base/overview.html:109 base/templates/base/overview.html:135
+#: base/templates/base/overview.html:162
+msgid "Copy to clipboard"
+msgstr "In Zwischenablage kopieren"
+
+#: base/templates/base/overview.html:48 base/templates/base/overview.html:81
+#: base/templates/base/overview.html:114 base/templates/base/overview.html:141
+#: base/templates/base/overview.html:167
+msgid "This is what this form of orders looks like when pasted into a notebook"
+msgstr "So sieht diese Form von Befehlen aus, wenn sie in ein Notizbuch eingefügt wird"
+
+#: base/templates/base/overview.html:51 base/templates/base/overview.html:84
+#: utils/basic/table_text.py:33
+msgid "Tuesday"
+msgstr "Dienstag"
+
+#: base/templates/base/overview.html:53 base/templates/base/overview.html:60
+#: base/templates/base/overview.html:86 base/templates/base/overview.html:93
+#: base/templates/base/overview.html:119 base/templates/base/overview.html:146
+#: base/templates/base/overview.html:185 utils/basic/table_text.py:88
+#: utils/send_text.py:19
+msgid "Send OFF"
+msgstr "OFF senden"
+
+#: base/templates/base/overview.html:58 base/templates/base/overview.html:91
+#: base/templates/base/overview.html:143 base/templates/base/overview.html:197
+msgid "Remember this is only the example"
+msgstr "Denken Sie daran, dass dies nur das Beispiel ist"
+
+#: base/templates/base/overview.html:58 base/templates/base/overview.html:91
+#: base/templates/base/overview.html:143 base/templates/base/overview.html:200
+msgid "Plemiona Planer is the best"
+msgstr "Plemiona Planer ist der beste"
+
+#: base/templates/base/overview.html:66 base/templates/base/overview.html:99
+#: base/templates/base/overview.html:125 base/templates/base/overview.html:152
+#: base/templates/base/overview.html:208
+msgid "A link to your targets on plemiona-planer.pl."
+msgstr "Ein Link zu Ihren Zielen auf plemiona-planer.pl."
+
+#: base/templates/base/overview.html:72
+msgid "Standard - for deputy"
+msgstr "Standard - für Stellvertreter"
+
+#: base/templates/base/overview.html:80
+msgid "Hint: Use this one when someone else will send this commands."
+msgstr "Hinweis: Verwenden Sie dieses, wenn jemand anderes diese Befehle sendet."
+
+#: base/templates/base/overview.html:105
+msgid "Simple"
+msgstr "Einfach"
+
+#: base/templates/base/overview.html:131
+msgid "Old"
+msgstr "Alt"
+
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:266
+msgid "from village"
+msgstr "aus Dorf"
+
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:267
+msgid "to "
+msgstr "nach "
+
+#: base/templates/base/overview.html:158
+msgid "Table"
+msgstr "Tabelle"
+
+#: base/templates/base/overview.html:165
+msgid "Hint: Use Text format if u have many commands. "
+msgstr "Hinweis: Verwenden Sie das Textformat, wenn Sie viele Befehle haben. "
+
+#: base/templates/base/overview.html:173
+msgid "SEND"
+msgstr "SENDEN"
+
+#: base/templates/base/overview.html:174
+msgid "OFF"
+msgstr "OFF"
+
+#: base/templates/base/overview.html:175
+msgid "NOBLE"
+msgstr "ADLIGER"
+
+#: base/templates/base/overview.html:176
+msgid "RUIN"
+msgstr "RUINE"
+
+#: base/templates/base/overview.html:177
+msgid "SENDING"
+msgstr "SENDEND"
+
+#: base/templates/base/overview.html:178
+msgid "ENTER"
+msgstr "EINGABE"
+
+#: base/templates/base/overview.html:179
+msgid "FROM"
+msgstr "VON"
+
+#: base/templates/base/overview.html:180
+msgid "TARGET"
+msgstr "ZIEL"
+
+#: base/templates/base/overview.html:218
+msgid "Alert! The order in the list below matters and is fixed."
+msgstr "Achtung! Die Reihenfolge in der Liste unten ist wichtig und festgelegt."
+
+#: base/templates/base/overview.html:244
+msgid "Ruin"
+msgstr "Ruine"
+
+#: base/templates/base/overview.html:246 shipments/templates/shipment.html:113
+msgid "Off"
+msgstr "Off"
+
+#: base/templates/base/overview.html:304
+msgid "Source in JSON format available under API link:"
+msgstr "Quelle im JSON-Format verfügbar unter API-Link:"
+
+#: base/templates/base/user/add_world.html:9
+#: base/templates/base/user/add_world.html:26
+msgid "Add new world"
+msgstr "Neue Welt hinzufügen"
+
+#: base/templates/base/user/add_world.html:13
+msgid "World has been added."
+msgstr "Welt wurde hinzugefügt."
+
+#: base/templates/base/user/add_world.html:20
+msgid "Hints:"
+msgstr "Hinweise:"
+
+#: base/templates/base/user/add_world.html:21
+msgid "For \"pl160.plemiona.pl\" prefix is \"160\". "
+msgstr "Für \"pl160.plemiona.pl\" ist das Präfix \"160\". "
+
+#: base/templates/base/user/add_world.html:22
+msgid "For \"plc1.plemiona.pl\" prefix is \"c1\". "
+msgstr "Für \"plc1.plemiona.pl\" ist das Präfix \"c1\". "
+
+#: base/templates/base/user/add_world.html:23
+msgid "For \"csc1.divokekmeny.czl\" prefix is \"c1\". "
+msgstr "Für \"csc1.divokekmeny.czl\" ist das Präfix \"c1\". "
+
+#: base/templates/base/user/payment_done.html:4
+#: base/templates/base/user/payment_done.html:10
+msgid "Payment completed!"
+msgstr "Zahlung abgeschlossen!"
+
+#: base/templates/base/user/payment_done.html:13
+#: base/templates/base/user/premium.html:12
+msgid "Premium account active until"
+msgstr "Premium-Account aktiv bis"
+
+#: base/templates/base/user/payment_done.html:17
+#: base/templates/base/user/premium.html:16
+msgid "Premium account is inactive"
+msgstr "Premium-Account ist inaktiv"
+
+#: base/templates/base/user/payment_done.html:21
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: base/templates/base/user/payment_done.html:23
+msgid ""
+"If everything went well, you should also get a message on the e-mail address "
+"provided during registration."
+msgstr "Wenn alles gut gelaufen ist, sollten Sie auch eine Nachricht an die bei der Registrierung angegebene E-Mail-Adresse erhalten."
+
+#: base/templates/base/user/payment_done.html:25
+msgid ""
+"If the premium account is inactive, wait a moment and try to refresh this "
+"card (the whole process may take up to a few minutes). It may be related to "
+"the temporary unavailability of one of the parties, but in such cases "
+"connection attempts are repeated from time to time in short intervals."
+msgstr "Wenn der Premium-Account inaktiv ist, warten Sie einen Moment und versuchen Sie, diese Karte zu aktualisieren (der gesamte Prozess kann bis zu einige Minuten dauern). Es kann mit der vorübergehenden Nichtverfugbarkeit einer der Parteien zusammenhängen, aber in solchen Fällen werden Verbindungsversuche von Zeit zu Zeit in kurzen Intervallen wiederholt."
+
+#: base/templates/base/user/payment_done.html:26
+msgid ""
+"If your account is still inactive despite some patience, don't panic! This "
+"may happen eventually, remember that after making a payment, the "
+"administration receives a notification about a new transaction made and the "
+"account can always be activated manually in case of problems."
+msgstr "Wenn Ihr Account trotz etwas Geduld noch immer inaktiv ist, keine Panik! Das kann gelegentlich passieren. Denken Sie daran, dass nach einer Zahlung die Verwaltung eine Benachrichtigung über eine neue getätigte Transaktion erhält und das Konto bei Problemen immer manuell aktiviert werden kann."
+
+#: base/templates/base/user/payment_done.html:28
+msgid "As a last resort you will be forced to contact me:"
+msgstr "Als letzter Ausweg werden Sie sich an mich wenden müssen:"
+
+#: base/templates/base/user/payment_done.html:30
+msgid "Join a Discord channel and write to"
+msgstr "Treten Sie einem Discord-Kanal bei und schreiben Sie an"
+
+#: base/templates/base/user/payment_done.html:32
+msgid "Write to"
+msgstr "Schreiben Sie an"
+
+#: base/templates/base/user/payments_summary.html:20
+msgid "Regenerate"
+msgstr "Neu generieren"
+
+#: base/templates/base/user/premium.html:19
+msgid "Benefits:"
+msgstr "Vorteile:"
+
+#: base/templates/base/user/premium.html:21
+msgid ""
+"UNLIMITED number of targets in the Planer (with a free account, the maximum "
+"is only"
+msgstr "UNBEGRENZTE Anzahl von Zielen im Planer (mit einem kostenlosen Account ist das Maximum nur"
+
+#: base/templates/base/user/premium.html:21
+msgid "targets)."
+msgstr "Ziele)."
+
+#: base/templates/base/user/premium.html:24
+msgid ""
+"Access to the unused units tab after successfully finishing the outline to "
+"use them in your next outline (e.g. two separate outlines for the same day "
+"or two more)."
+msgstr "Zugang zum Tab für ungenutzte Einheiten nach erfolgreichem Abschluss der Planung, um sie in Ihrer nächsten Planung zu verwenden (z.B. zwei separate Planungen für denselben Tag oder mehr)."
+
+#: base/templates/base/user/premium.html:27
+msgid ""
+"This solution allows for stress-free management of outlines in the tribe "
+"from the level of one account, at any stage of the game, where writing is a "
+"pleasure, not a punishment."
+msgstr "Diese Lösung ermöglicht die stressfreie Verwaltung von Planungen im Stamm von einem Account aus, in jedem Stadium des Spiels, wo das Schreiben ein Vergnügen ist, keine Strafe."
+
+#: base/templates/base/user/premium.html:29
+msgid "Pricing:"
+msgstr "Preise:"
+
+#: base/templates/base/user/premium.html:44
+msgid "Note, you can change your currency in"
+msgstr "Hinweis: Sie können Ihre Währung in den"
+
+#: base/templates/base/user/premium.html:44
+msgid "account settings"
+msgstr "Kontoeinstellungen"
+
+#: base/templates/base/user/premium.html:45
+msgid "Buy now with Stripe:"
+msgstr "Jetzt mit Stripe kaufen:"
+
+#: base/templates/base/user/premium.html:53
+msgid "Buy now"
+msgstr "Jetzt kaufen"
+
+#: base/templates/base/user/premium.html:55
+msgid ""
+"Please note, this is a <b>one-time transaction</b>, your card or account "
+"will (never) be associated with this site and no fees will be ever charged "
+"when your premium account expires."
+msgstr "Bitte beachten Sie, dass dies eine <b>einmalige Transaktion</b> ist. Ihre Karte oder Ihr Konto wird (niemals) mit dieser Seite verknüpft und es werden niemals Gebühren erhoben, wenn Ihr Premium-Account abläuft."
+
+#: base/templates/base/user/premium.html:56
+msgid "There are no obstacles to extend an active premium account."
+msgstr "Es gibt keine Hindernisse, einen aktiven Premium-Account zu verlängern."
+
+#: base/templates/base/user/premium.html:58
+msgid "Payment history"
+msgstr "Zahlungshistorie"
+
+#: base/templates/base/user/premium.html:64
+msgid "Status"
+msgstr "Status"
+
+#: base/templates/base/user/premium.html:65
+msgid "Payment date"
+msgstr "Zahlungsdatum"
+
+#: base/templates/base/user/premium.html:66
+msgid "Amount"
+msgstr "Betrag"
+
+#: base/templates/base/user/premium.html:67
+msgid "Number of months"
+msgstr "Anzahl der Monate"
+
+#: base/templates/base/user/premium.html:68
+msgid "End of account validity"
+msgstr "Ende der Konto-Gültigkeit"
+
+#: base/templates/base/user/premium.html:69
+msgid "Comments"
+msgstr "Kommentare"
+
+#: base/templates/base/user/profile_settings.html:4
+#: base/templates/base/user/profile_settings.html:15
+msgid "My settings"
+msgstr "Meine Einstellungen"
+
+#: base/templates/base/user/profile_settings.html:10
+msgid "Two factor authentication"
+msgstr "Zwei-Faktor-Authentifizierung"
+
+#: base/templates/base/user/profile_settings.html:13
+msgid "Go to Account Security"
+msgstr "Zur Kontosicherheit gehen"
+
+#: base/templates/base/user/profile_settings.html:19
+msgid "Username"
+msgstr "Benutzername"
+
+#: base/templates/base/user/profile_settings.html:24
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+#: base/templates/base/user/profile_settings.html:29
+msgid "Password"
+msgstr "Passwort"
+
+#: base/templates/base/user/profile_settings.html:30
+msgid "Reset my password"
+msgstr "Mein Passwort zurücksetzen"
+
+#: base/templates/base/user/profile_settings.html:33
+msgid "Server"
+msgstr "Server"
+
+#: base/templates/base/user/profile_settings.html:37
+msgid "Currency"
+msgstr "Währung"
+
+#: base/templates/base/user/profile_settings.html:41
+msgid "Default morale on"
+msgstr "Standard-Moral an"
+
+#: base/templates/base/user/profile_settings.html:48
+msgid "Activated"
+msgstr "Aktiviert"
+
+#: base/templates/base/user/profile_settings.html:50
+msgid "Not activated"
+msgstr "Nicht aktiviert"
+
+#: base/templates/base/user/profile_settings.html:55
+msgid "Shipments feature enabled"
+msgstr "Lieferungen-Funktion aktiviert"
+
+#: base/templates/base/user/profile_settings.html:60
+msgid "Premium validity"
+msgstr "Premium-Gültigkeit"
+
+#: base/templates/base/user/profile_settings.html:68
+msgid "Contact with admin to change your email address. "
+msgstr "Kontaktieren Sie den Administrator, um Ihre E-Mail-Adresse zu ändern. "
+
+#: base/views/outline.py:256
+msgid "Never"
+msgstr "Niemals"
+
+#: base/views/outline.py:262
+msgid " minute(s) ago."
+msgstr " Minute(n) her."
+
+#: base/views/outline_initial_views.py:56
+#, python-format
+msgid ""
+"<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
+"the Planer:</p> <p>1. Paste the current data in the <b>%(collection)s</b>, "
+"solve issues.</p> <p>2. Click on <b>Submit</b>.</p> <p>3. Only then return "
+"to the <b>Planer</b> tab.</p> "
+msgstr "<h5>Es sieht so aus, als ob Ihre %(collection)s nicht mehr aktuell ist!</h5> <p>Um den Planer zu verwenden:</p> <p>1. Fügen Sie die aktuellen Daten in die <b>%(collection)s</b> ein und lösen Sie Probleme.</p> <p>2. Klicken Sie auf <b>Absenden</b>.</p> <p>3. Kehren Sie erst dann zum <b>Planer</b>-Tab zurück.</p> "
+
+#: base/views/outline_initial_views.py:73
+#, python-format
+msgid ""
+"<h5>It looks like your outline in being written just now!</h5> <p>You cannot "
+"click on \"Write an outline\" button more than once at the same time.</p> "
+"<p>Try to refresh this page in a moment. The lock force expires in "
+"<b>%(lock_expire)ss</b>.</p> "
+msgstr "<h5>Es sieht so aus, als ob Ihre Planung gerade geschrieben wird!</h5> <p>Sie können nicht mehr als einmal gleichzeitig auf den Button \"Planung schreiben\" klicken.</p> <p>Versuchen Sie, diese Seite in einem Moment zu aktualisieren. Die Sperre läuft in <b>%(lock_expire)ss</b> ab.</p> "
+
+#: base/views/outline_initial_views.py:90
+#, python-format
+msgid ""
+"<h5>It looks like your outline in being changed just now!</h5> <p>Data about "
+"villages is being created or recreated.</p> <p>Try to refresh this page in a "
+"moment. The lock force expires in <b>%(lock_expire)ss</b>.</p> "
+msgstr "<h5>Es sieht so aus, als ob Ihre Planung gerade geändert wird!</h5> <p>Daten über Dörfer werden erstellt oder neu erstellt.</p> <p>Versuchen Sie, diese Seite in einem Moment zu aktualisieren. Die Sperre läuft in <b>%(lock_expire)ss</b> ab.</p> "
+
+#: base/views/outline_initial_views.py:118 base/views/results_get_deff.py:39
+msgid "<h5>Army collection is empty!</h5>"
+msgstr "<h5>Armeesammlung ist leer!</h5>"
+
+#: base/views/outline_initial_views.py:124 base/views/results_get_deff.py:36
+msgid "<h5>Deff collection is empty!</h5>"
+msgstr "<h5>Deff-Sammlung ist leer!</h5>"
+
+#: base/views/outline_initial_views.py:525
+msgid "<h5>All targets must have an assigned Time.</h5>"
+msgstr "<h5>Alle Ziele müssen eine zugewiesene Zeit haben.</h5>"
+
+#: base/views/outline_initial_views.py:532
+msgid "<h5>Minimum one Time must exists.</h5>"
+msgstr "<h5>Mindestens eine Zeit muss existieren.</h5>"
+
+#: base/views/results_get_deff.py:53
+msgid ""
+"<h5>It looks like your Army or Deff collections are no longer actual!</h5> "
+"<p>To use the Deff collection:</p> <p>1. Paste the current data in the "
+"<b>Army and Deff collections</b> and <b>Submit</b> both.</p> <p>2. Return to "
+"the <b>Deff collection</b> tab.</p> <p>3. Try again."
+msgstr "<h5>Es sieht so aus, als ob Ihre Armee- oder Deff-Sammlungen nicht mehr aktuell sind!</h5> <p>Um die Deff-Sammlung zu verwenden:</p> <p>1. Fügen Sie die aktuellen Daten in die <b>Armee- und Deff-Sammlungen</b> ein und <b>senden</b> Sie beide ab.</p> <p>2. Kehren Sie zum <b>Deff-Sammlung</b>-Tab zurück.</p> <p>3. Versuchen Sie es erneut."
+
+#: shipments/forms.py:35
+#, python-format
+msgid "Invalid overview token: %(token)s"
+msgstr "Ungültiges Übersichts-Token: %(token)s"
+
+#: shipments/forms.py:41
+msgid "Duplicate overview tokens are not allowed."
+msgstr "Doppelte Übersichts-Token sind nicht erlaubt."
+
+#: shipments/templates/add_shipment.html:11
+#: shipments/templates/edit_shipment.html:11
+msgid ""
+"Create a new shipment and add overview tokens. You can add up to 10 "
+"overviews."
+msgstr "Erstellen Sie eine neue Lieferung und fügen Sie Übersichts-Token hinzu. Sie können bis zu 10 Übersichten hinzufügen."
+
+#: shipments/templates/add_shipment.html:26
+#: shipments/templates/edit_shipment.html:26
+msgid "Overviews"
+msgstr "Übersichten"
+
+#: shipments/templates/add_shipment.html:37
+#: shipments/templates/add_shipment.html:70
+#: shipments/templates/edit_shipment.html:37
+#: shipments/templates/edit_shipment.html:70
+msgid "Remove"
+msgstr "Entfernen"
+
+#: shipments/templates/add_shipment.html:46
+#: shipments/templates/edit_shipment.html:46
+msgid "Add overview token"
+msgstr "Übersichts-Token hinzufügen"
+
+#: shipments/templates/add_shipment.html:51
+msgid "Create shipment"
+msgstr "Lieferung erstellen"
+
+#: shipments/templates/edit_shipment.html:4
+msgid "Edit shipment"
+msgstr "Lieferung bearbeiten"
+
+#: shipments/templates/my_shipments.html:10
+msgid "Name of shipment"
+msgstr "Name der Lieferung"
+
+#: shipments/templates/my_shipments.html:14
+msgid "Tokens"
+msgstr "Token"
+
+#: shipments/templates/shipment.html:5 shipments/templates/shipment.html:11
+#: shipments/templates/shipment.html:15
+msgid "Shipment"
+msgstr "Lieferung"
+
+#: shipments/templates/shipment.html:74
+msgid "Send in"
+msgstr "Senden in"
+
+#: shipments/templates/shipment.html:100
+msgid "Link"
+msgstr "Link"
+
+#: shipments/templates/shipment.html:107
+msgid "Action"
+msgstr "Aktion"
+
+#: shipments/templates/shipment.html:109
+msgid "Mark send"
+msgstr "Als gesendet markieren"
+
+#: shipments/templates/shipment.html:114
+msgid "Nobleman"
+msgstr "Adliger"
+
+#: shipments/templates/shipment.html:115
+msgid "Catapult"
+msgstr "Katapult"
+
+#: shipments/templates/shipment.html:116
+msgid "Building"
+msgstr "Gebäude"
+
+#: shipments/templates/shipment.html:119
+msgid "Start"
+msgstr "Start"
+
+#: shipments/templates/shipment.html:140
+msgid "Send min."
+msgstr "Min. senden"
+
+#: shipments/templates/shipment.html:148
+msgid "Send max."
+msgstr "Max. senden"
+
+#: shipments/templates/shipment.html:154
+msgid "ID"
+msgstr "ID"
+
+#: shipments/views.py:143
+msgid "All overviews must belong to the same world."
+msgstr "Alle Übersichten müssen zur selben Welt gehören."
+
+#: shipments/views.py:157
+msgid "All overviews must be for the same player."
+msgstr "Alle Übersichten müssen für denselben Spieler sein."
+
+#: shipments/views.py:159
+msgid "does not match"
+msgstr "stimmt nicht überein"
+
+#: templates/404.html:8
+msgid ""
+"Ops, no access, or the content you're looking for is no longer available on "
+"the site."
+msgstr "Ops, kein Zugang, oder der Inhalt, den Sie suchen, ist nicht mehr auf der Seite verfügbar."
+
+#: templates/500.html:8
+msgid ""
+"Ops, a server error has occurred. Please try again in a moment and if this "
+"does not help, contact the administration."
+msgstr "Ops, ein Serverfehler ist aufgetreten. Bitte versuchen Sie es in einem Moment erneut und wenn das nicht hilft, kontaktieren Sie die Verwaltung."
+
+#: templates/django_registration/activation_complete.html:7
+msgid "Congratulations, account was activated, you can log in!"
+msgstr "Glückwunsch, das Konto wurde aktiviert, Sie können sich anmelden!"
+
+#: templates/django_registration/activation_complete.html:10
+msgid ""
+"You can optionally enable two factor authentication in tab 'My account'."
+msgstr "Sie können optional die Zwei-Faktor-Authentifizierung im Tab 'Mein Konto' aktivieren."
+
+#: templates/django_registration/activation_complete.html:11
+msgid ""
+"You can change the language version and log in and out by expanding <b>Menu</"
+"b> in the navigation bar."
+msgstr "Sie können die Sprachversion ändern und sich an- und abmelden, indem Sie das <b>Menü</b> in der Navigationsleiste erweitern."
+
+#: templates/django_registration/activation_complete.html:12
+msgid ""
+"To create a first outline, go to the tab <span class=\"md-error\">Create new "
+"outline</span>."
+msgstr "Um eine erste Planung zu erstellen, gehen Sie zum Tab <span class=\"md-error\">Neue Planung erstellen</span>."
+
+#: templates/django_registration/activation_complete.html:13
+msgid ""
+"Don't forget to join <b><a target='_blank' href='https://discord.gg/"
+"g5pcsCteCT'>Discord</a></b>, there you will find all the help and can make "
+"suggestions and bugs."
+msgstr "Vergessen Sie nicht, <b><a target='_blank' href='https://discord.gg/g5pcsCteCT'>Discord</a></b> beizutreten, dort finden Sie alle Hilfe und können Vorschläge machen und Bugs melden."
+
+#: templates/django_registration/activation_complete.html:14
+msgid "You should start by reading:"
+msgstr "Sie sollten mit dem Lesen beginnen:"
+
+#: templates/django_registration/activation_complete.html:15
+msgid "The test world that is first steps with Planer"
+msgstr "Die Testwelt, die erste Schritte mit dem Planer ist"
+
+#: templates/django_registration/activation_email_body.txt:1
+#: templates/email_payment_body.html:1
+#: templates/registration/password_reset_email.html:1
+msgid "Hello, "
+msgstr "Hallo, "
+
+#: templates/django_registration/activation_email_body.txt:3
+msgid ""
+"We received a request to register the account for this email address. To "
+"activate, click the link below."
+msgstr "Wir haben eine Anfrage erhalten, das Konto für diese E-Mail-Adresse zu registrieren. Zum Aktivieren klicken Sie auf den Link unten."
+
+#: templates/django_registration/activation_email_body.txt:6
+#: templates/registration/password_reset_email.html:7
+msgid "If you did not make this request, you can simply ignore this email."
+msgstr "Wenn Sie diese Anfrage nicht gestellt haben, können Sie diese E-Mail einfach ignorieren."
+
+#: templates/django_registration/activation_email_body.txt:8
+#: templates/email_payment_body.html:14
+#: templates/registration/password_reset_email.html:9
+msgid "Sincerely,"
+msgstr "Mit freundlichen Grüßen,"
+
+#: templates/django_registration/activation_email_body.txt:9
+#: templates/registration/password_reset_email.html:10
+msgid "plemiona-planer.pl"
+msgstr "plemiona-planer.pl"
+
+#: templates/django_registration/activation_email_subject.txt:1
+msgid "Activate account in plemiona-planer.pl - "
+msgstr "Konto in plemiona-planer.pl aktivieren - "
+
+#: templates/django_registration/activation_form.html:8
+msgid "Activation failed!"
+msgstr "Aktivierung fehlgeschlagen!"
+
+#: templates/django_registration/activation_form.html:10
+msgid ""
+"Activation failed! It looks like your account is already activated, link is "
+"already expired or username does not correspond to any user account."
+msgstr "Aktivierung fehlgeschlagen! Es sieht so aus, als ob Ihr Konto bereits aktiviert ist, der Link bereits abgelaufen ist oder der Benutzername keinem Benutzerkonto entspricht."
+
+#: templates/django_registration/activation_form.html:12
+msgid "Code: "
+msgstr "Code: "
+
+#: templates/django_registration/activation_form.html:16
+msgid "Activate account"
+msgstr "Konto aktivieren"
+
+#: templates/django_registration/registration_complete.html:7
+msgid "Congratulations, you have successfully registered!"
+msgstr "Glückwunsch, Sie haben sich erfolgreich registriert!"
+
+#: templates/django_registration/registration_complete.html:9
+msgid ""
+"Please check you email, you should get activation url in a second. The link "
+"is valid for 2 days."
+msgstr "Bitte überprüfen Sie Ihre E-Mail, Sie sollten in einer Sekunde die Aktivierungs-URL erhalten. Der Link ist 2 Tage gültig."
+
+#: templates/django_registration/registration_disallowed.html:9
+msgid ""
+"Please investigate full domain url, the only environment with registration "
+"allowed is production under"
+msgstr "Bitte überprüfen Sie die vollständige Domain-URL, die einzige Umgebung mit erlaubter Registrierung ist die Produktion unter"
+
+#: templates/django_registration/registration_form.html:6
+msgid "Join now for free and create tribal wars proffesional outlines."
+msgstr "Treten Sie jetzt kostenlos bei und erstellen Sie professionelle Tribal Wars-Planungen."
+
+#: templates/django_registration/registration_form.html:13
+msgid "Create an account"
+msgstr "Ein Konto erstellen"
+
+#: templates/email_payment_body.html:4
+msgid "Your payment on"
+msgstr "Ihre Zahlung am"
+
+#: templates/email_payment_body.html:4
+msgid "in the amount of"
+msgstr "in Höhe von"
+
+#: templates/email_payment_body.html:4
+msgid ""
+"has been successfully processed and your premium account has been activated "
+"or extended."
+msgstr "wurde erfolgreich verarbeitet und Ihr Premium-Account wurde aktiviert oder verlängert."
+
+#: templates/email_payment_body.html:6
+msgid "When refering THIS payment, use following payment intent id:"
+msgstr "Wenn Sie sich auf DIESE Zahlung beziehen, verwenden Sie folgende Zahlungsabsichts-ID:"
+
+#: templates/email_payment_body.html:9
+msgid "This e-mail was generated automatically, please do not reply."
+msgstr "Diese E-Mail wurde automatisch generiert, bitte antworten Sie nicht."
+
+#: templates/email_payment_body.html:11
+msgid "If you have questions, use contact email: rafal.safin@rafsaf.pl"
+msgstr "Wenn Sie Fragen haben, verwenden Sie die Kontakt-E-Mail: rafal.safin@rafsaf.pl"
+
+#: templates/email_payment_title.html:1
+msgid "[Premium] Successful completion of the payment on"
+msgstr "[Premium] Erfolgreicher Abschluss der Zahlung am"
+
+#: templates/otp_email_body_template.html:4
+#: templates/otp_email_body_template.txt:3
+msgid "Hello,"
+msgstr "Hallo,"
+
+#: templates/otp_email_body_template.html:8
+#: templates/otp_email_body_template.txt:5
+msgid "To complete your login, please use the following one-time code:"
+msgstr "Um Ihre Anmeldung abzuschließen, verwenden Sie bitte den folgenden Einmalcode:"
+
+#: templates/otp_email_body_template.html:16
+#: templates/otp_email_body_template.txt:9
+msgid ""
+"This code is for your eyes only and will expire in a few minutes. Do not "
+"share it with anyone."
+msgstr "Dieser Code ist nur für Ihre Augen bestimmt und läuft in wenigen Minuten ab. Teilen Sie ihn mit niemandem."
+
+#: templates/otp_email_body_template.html:20
+#: templates/otp_email_body_template.txt:11
+msgid "If you did not attempt to log in, you can safely ignore this email."
+msgstr "Wenn Sie nicht versucht haben, sich anzumelden, können Sie diese E-Mail sicher ignorieren."
+
+#: templates/otp_email_body_template.html:26
+#: templates/otp_email_body_template.txt:15
+msgid "This is an automated message. Please do not reply to this email."
+msgstr "Dies ist eine automatische Nachricht. Bitte antworten Sie nicht auf diese E-Mail."
+
+#: templates/otp_email_body_template.html:27
+msgid ""
+"If you have any questions, you can contact us at: <a href=\"mailto:rafal."
+"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+msgstr "Wenn Sie Fragen haben, können Sie uns kontaktieren unter: <a href=\"mailto:rafal.safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+
+#: templates/otp_email_body_template.html:31
+#: templates/otp_email_body_template.txt:18
+msgid "Thank you,"
+msgstr "Vielen Dank,"
+
+#: templates/otp_email_body_template.txt:16
+msgid "If you have any questions, you can contact us at: rafal.safin@rafsaf.pl"
+msgstr "Wenn Sie Fragen haben, können Sie uns kontaktieren unter: rafal.safin@rafsaf.pl"
+
+#: templates/registration/password_change_done.html:7
+#: templates/registration/password_reset_complete.html:6
+msgid "You have successfully changed your password."
+msgstr "Sie haben Ihr Passwort erfolgreich geändert."
+
+#: templates/registration/password_change_done.html:8
+#: templates/registration/password_reset_complete.html:7
+#: templates/registration/password_reset_confirm.html:26
+#: templates/registration/password_reset_done.html:9
+msgid "Back to home page"
+msgstr "Zurück zur Startseite"
+
+#: templates/registration/password_change_form.html:16
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: templates/registration/password_reset_confirm.html:18
+msgid "Set password"
+msgstr "Passwort festlegen"
+
+#: templates/registration/password_reset_confirm.html:25
+msgid "Sorry, Resource Not Found."
+msgstr "Entschuldigung, Ressource nicht gefunden."
+
+#: templates/registration/password_reset_done.html:7
+msgid "Password reset sent."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:8
+msgid ""
+"We’ve emailed you instructions for setting your password. If an account "
+"exists with the email you entered, You should receive them shortly. If you "
+"don’t receive an email, please make sure you’ve entered the address you "
+"registered with, and check your spam folder."
+msgstr ""
+
+#: templates/registration/password_reset_email.html:3
+msgid ""
+"We received a request to reset the password for your account for this email "
+"address. To initiate the password reset process for your account, click the "
+"link below."
+msgstr "Wir haben eine Anfrage erhalten, das Passwort für Ihr Konto mit dieser E-Mail-Adresse zurückzusetzen. Um den Passwort-Zurücksetzungsprozess für Ihr Konto zu starten, klicken Sie auf den Link unten."
+
+#: templates/registration/password_reset_email.html:6
+msgid ""
+"This link can only be used once. If you need to reset your password again, "
+"please visit plemiona-planer.pl and request another reset."
+msgstr "Dieser Link kann nur einmal verwendet werden. Wenn Sie Ihr Passwort erneut zurücksetzen müssen, besuchen Sie bitte plemiona-planer.pl und fordern Sie eine weitere Zurücksetzung an."
+
+#: templates/registration/password_reset_form.html:17
+msgid "Reset password"
+msgstr "Passwort zurücksetzen"
+
+#: templates/registration/password_reset_subject.txt:2
+msgid ""
+"Reset your plemiona-planer.pl account password - link to change your password"
+msgstr "Ihr plemiona-planer.pl Konto-Passwort zurücksetzen - Link zum Ändern Ihres Passworts"
+
+#: templates/two_factor/_wizard_forms.html:6
+msgid "You are already logged in as"
+msgstr "Sie sind bereits angemeldet als"
+
+#: templates/two_factor/_wizard_forms.html:13
+msgid "Password recovery"
+msgstr "Passwort-Wiederherstellung"
+
+#: tribal_wars_planer/settings.py:476
+msgid "Your Plemiona Planer Login Code"
+msgstr "Ihr Plemiona Planer Anmeldecode"
+
+#: utils/basic/army.py:169 utils/basic/army.py:338
+#, python-format
+msgid ""
+"Invalid number of elements in line: %(len)s is not correct, expected "
+"%(expected)s"
+msgstr "Ungültige Anzahl von Elementen in der Zeile: %(len)s ist nicht korrekt, erwartet %(expected)s"
+
+#: utils/basic/army.py:178 utils/basic/army.py:347
+msgid "Length of coord at first postition must be equal to 7"
+msgstr "Länge der Koordinate an der ersten Position muss 7 betragen"
+
+#: utils/basic/army.py:188 utils/basic/army.py:357
+#, python-format
+msgid ""
+"Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
+msgstr "Koordinate: %(coord)s existiert nicht oder ist nicht in einem der gültigen Stämme: %(tribes)s"
+
+#: utils/basic/army.py:196 utils/basic/army.py:365
+#, python-format
+msgid "One of line elements is not a number: %s"
+msgstr "Eines der Zeilenelemente ist keine Zahl: %s"
+
+#: utils/basic/army.py:200 utils/basic/army.py:373
+#, python-format
+msgid "Last element in line must be empty string, currently: %s"
+msgstr "Letztes Element in der Zeile muss ein leerer String sein, aktuell: %s"
+
+#: utils/basic/army.py:369
+#, python-format
+msgid "Third element of line must be a text: %s"
+msgstr "Drittes Element der Zeile muss ein Text sein: %s"
+
+#: utils/basic/info_generatation.py:49
+msgid "Nicknames: "
+msgstr "Nicknamen: "
+
+#: utils/basic/info_generatation.py:91 utils/basic/info_generatation.py:101
+msgid "Time"
+msgstr "Zeit"
+
+#: utils/basic/info_generatation.py:132
+#, python-format
+msgid ""
+"SUM: %(offs_count)s offs, %(nobles_count)s nobles, %(ruins_count)s ruins and "
+"%(fakes_count)s fakes"
+msgstr "SUMME: %(offs_count)s Offs, %(nobles_count)s Adlige, %(ruins_count)s Ruinen und %(fakes_count)s Fakes"
+
+#: utils/basic/info_generatation.py:141
+#, python-format
+msgid ""
+"LEFT: %(offs_count)s offs, %(nobles_count)s nobles, %(catapults_count)s "
+"catapults"
+msgstr "ÜBRIG: %(offs_count)s Offs, %(nobles_count)s Adlige, %(catapults_count)s Katapulte"
+
+#: utils/basic/info_generatation.py:160
+msgid "### TARGETS ###"
+msgstr "### ZIELE ###"
+
+#: utils/basic/info_generatation.py:164
+msgid "### FAKES ###"
+msgstr "### FAKES ###"
+
+#: utils/basic/info_generatation.py:168
+msgid "### RUINS ###"
+msgstr "### RUINEN ###"
+
+#: utils/basic/info_generatation.py:265
+msgid "fakes"
+msgstr "Fakes"
+
+#: utils/basic/info_generatation.py:266
+msgid "fake nobles"
+msgstr "Fake-Adlige"
+
+#: utils/basic/info_generatation.py:281 utils/basic/info_generatation.py:297
+msgid "offs"
+msgstr "Offs"
+
+#: utils/basic/info_generatation.py:282
+msgid "ruins"
+msgstr "Ruinen"
+
+#: utils/basic/info_generatation.py:298
+msgid "nobles"
+msgstr "Adlige"
+
+#: utils/basic/mode.py:62
+msgid "Fake Target"
+msgstr "Fake-Ziel"
+
+#: utils/basic/mode.py:63
+msgid "Ruin Target"
+msgstr "Ruinen-Ziel"
+
+#: utils/basic/mode.py:69
+msgid "Fake Outline"
+msgstr "Fake-Planung"
+
+#: utils/basic/mode.py:70
+msgid "Ruin Outline"
+msgstr "Ruinen-Planung"
+
+#: utils/basic/off_text.py:117
+msgid "Tested. LEGEND: "
+msgstr "Getestet. LEGENDE: "
+
+#: utils/basic/off_text.py:119
+msgid "HEAVY counted as x4 and not x6, scouts are NOT counted."
+msgstr "SCHWERE zählen als x4 und nicht x6, Späher werden NICHT gezählt."
+
+#: utils/basic/off_text.py:121
+msgid "IN VILLAGES = troops in the village + everyone else's troops."
+msgstr "IN DÖRFERN = Truppen im Dorf + Truppen aller anderen."
+
+#: utils/basic/off_text.py:123
+msgid "ALL OWN = troops in the village + troops outside the village."
+msgstr "ALLE EIGENEN = Truppen im Dorf + Truppen außerhalb des Dorfes."
+
+#: utils/basic/off_text.py:149
+msgid "On front"
+msgstr "An der Front"
+
+#: utils/basic/off_text.py:150
+msgid "villages,"
+msgstr "Dörfer,"
+
+#: utils/basic/off_text.py:151
+msgid "deff IN VILLAGE and"
+msgstr "Deff IM DORF und"
+
+#: utils/basic/off_text.py:152
+msgid "ALL OWN"
+msgstr "ALLE EIGENEN"
+
+#: utils/basic/off_text.py:153
+msgid "On back"
+msgstr "Im Hinterland"
+
+#: utils/basic/off_text.py:176 utils/basic/off_text.py:190
+msgid "No preview"
+msgstr "Keine Vorschau"
+
+#: utils/basic/off_text.py:200
+msgid "---------BACK---------"
+msgstr "---------HINTERLAND---------"
+
+#: utils/basic/off_text.py:213
+msgid "- In village- "
+msgstr "- Im Dorf- "
+
+#: utils/basic/off_text.py:214
+msgid "(All deff"
+msgstr "(Alle Deff"
+
+#: utils/basic/table_text.py:32
+msgid "Monday"
+msgstr "Montag"
+
+#: utils/basic/table_text.py:34
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+#: utils/basic/table_text.py:35
+msgid "Thursday"
+msgstr "Donnerstag"
+
+#: utils/basic/table_text.py:36
+msgid "Friday"
+msgstr "Freitag"
+
+#: utils/basic/table_text.py:37
+msgid "Saturday"
+msgstr "Samstag"
+
+#: utils/basic/table_text.py:38
+msgid "Sunday"
+msgstr "Sonntag"
+
+#: utils/basic/table_text.py:43
+msgid ""
+"[table][**]"
+"[||]SEND[||]OFF[||]NOBLE[||]RUIN[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
+msgstr "[table][**][||]SENDEN[||]OFF[||]ADLIGER[||]RUINE[||]SENDEND[||]EINGABE[||]VON[||]ZIEL[/**]"
+
+#: utils/basic/table_text.py:84
+msgid "Send fake"
+msgstr "Fake senden"
+
+#: utils/basic/table_text.py:86
+msgid "Send ruin"
+msgstr "Ruine senden"
+
+#: utils/basic/table_text.py:90 utils/send_text.py:18
+msgid "Send NOBLE"
+msgstr "ADLIGER senden"
+
+#: utils/basic/table_text.py:128
+#, python-format
+msgid "%(catapults_number)sc on %(building)s"
+msgstr "%(catapults_number)sk auf %(building)s"
+
+#: utils/basic/table_text.py:182
+#, python-format
+msgid ""
+"[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] "
+"(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"FAKE NOBLE[/url]"
+msgstr ""
+
+#: utils/basic/table_text.py:194
+#, python-format
+msgid ""
+"[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of "
+"%(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"FAKE[/url]"
+msgstr ""
+
+#: utils/basic/table_text.py:206
+#, python-format
+msgid ""
+"[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s + "
+"%(extra_off_number)s extra off][/color] (%(weight_count)s of "
+"%(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"RUIN[/url]"
+msgstr ""
+
+#: utils/basic/table_text.py:219
+#, python-format
+msgid ""
+"[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/"
+"color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"NOBLE[/url]"
+msgstr ""
+
+#: utils/basic/table_text.py:232
+#, python-format
+msgid ""
+"[b][color=#a50000]Send OFF[%(off_number)s off + %(catapults_number)sc on "
+"%(building)s][/color] (%(weight_count)s of %(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"OFF[/url]"
+msgstr ""
+
+#: utils/basic/table_text.py:245
+#, python-format
+msgid ""
+"[b][color=#a50000]Send OFF[%(off_number)s off][/color] (%(weight_count)s of "
+"%(weight_count_all)s)[/b]\n"
+"%(date)s\n"
+"%(start_coord)s [b]->[/b] %(target_coord)s\n"
+"[url=%(game_url)s/game.php?"
+"village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
+"OFF[/url]"
+msgstr ""
+
+#: utils/basic/table_text.py:265
+msgid "Nobles-"
+msgstr "Adlige-"
+
+#: utils/basic/table_text.py:269
+msgid "[color=#00a500][b]Send fake noble[/b][/color] (1 noble)"
+msgstr "[color=#00a500][b]Fake-Adliger senden[/b][/color] (1 Adliger)"
+
+#: utils/basic/table_text.py:272
+msgid "[color=#00a500][b]Send fake[/b][/color]"
+msgstr "[color=#00a500][b]Fake senden[/b][/color]"
+
+#: utils/basic/table_text.py:276
+#, python-format
+msgid ""
+"[color=#0e0eff][b]Ruin[/b][/color] (Extra off-%(off)d, Catapults-"
+"%(catapult)d [b]%(building)s[/b])"
+msgstr ""
+
+#: utils/basic/table_text.py:284
+#, python-format
+msgid ""
+"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d "
+"[b]%(building)s[/b])"
+msgstr ""
+
+#: utils/basic/table_text.py:291
+msgid "[size=12][b]OFF[/b][/size] (Off-"
+msgstr "[size=12][b]OFF[/b][/size] (Off-"
+
+#: utils/basic/table_text.py:294
+msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
+msgstr "[color=#a500a5][size=12][b]ADLIGER[/b][/size][/color]"
+
+#: utils/basic/troops.py:53
+#, python-format
+msgid "Line %s: "
+msgstr "Zeile %s: "
+
+#: utils/basic/village.py:85
+msgid "Coords are empty!"
+msgstr "Koordinaten sind leer!"
+
+#: utils/basic/village.py:89
+msgid ": Is not string type!"
+msgstr ": Ist kein String-Typ!"
+
+#: utils/basic/village.py:95
+msgid ": Is not the correct length!"
+msgstr ": Hat nicht die richtige Länge!"
+
+#: utils/basic/village.py:98 utils/basic/village.py:101
+msgid "Is not a number"
+msgstr "Ist keine Zahl"
+
+#: utils/basic/village.py:104
+msgid "Symbol"
+msgstr "Symbol"
+
+#: utils/basic/village.py:105
+msgid "Is not equal to '|'!"
+msgstr "Ist nicht gleich '|'!"
+
+#: utils/outline_finish.py:76
+msgid "Village"
+msgstr "Dorf"
+
+#: utils/outline_finish.py:78
+msgid "does not exists"
+msgstr "existiert nicht"
+
+#: utils/send_text.py:15
+msgid "Send FAKE NOBLE"
+msgstr "FAKE-ADLIGER senden"
+
+#: utils/send_text.py:16
+msgid "Send FAKE"
+msgstr "FAKE senden"
+
+#: utils/send_text.py:17
+msgid "Send RUIN"
+msgstr "RUINE senden"
