@@ -26,8 +26,6 @@ import metrics
 from base.management.commands.utils import job_logs_and_metrics
 from base.models import Payment
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
 log = logging.getLogger(__name__)
 
 
@@ -55,7 +53,11 @@ class Command(BaseCommand):  # pragma: no cover
         for payment in payments_to_process:
             if payment.from_stripe:
                 if not payment.payment_intent_id:
-                    event = stripe.Event.retrieve(id=payment.event_id)
+                    event = stripe.Event.retrieve(
+                        id=payment.event_id,
+                        api_key=settings.STRIPE_SECRET_KEY,
+                        stripe_version=settings.STRIPE_VERSION,
+                    )
                     sleep(0.2)
 
                     intent_id: str = event["data"]["object"]["payment_intent"]
@@ -63,7 +65,10 @@ class Command(BaseCommand):  # pragma: no cover
                     intent_id = payment.payment_intent_id
 
                 intent = stripe.PaymentIntent.retrieve(
-                    intent_id, expand=["latest_charge"]
+                    intent_id,
+                    expand=["latest_charge"],
+                    api_key=settings.STRIPE_SECRET_KEY,
+                    stripe_version=settings.STRIPE_VERSION,
                 )
                 sleep(0.2)
 
@@ -81,7 +86,9 @@ class Command(BaseCommand):  # pragma: no cover
                     continue
 
                 balance_transaction = stripe.BalanceTransaction.retrieve(
-                    balance_transaction_id
+                    balance_transaction_id,
+                    api_key=settings.STRIPE_SECRET_KEY,
+                    stripe_version=settings.STRIPE_VERSION,
                 )
                 sleep(0.2)
 

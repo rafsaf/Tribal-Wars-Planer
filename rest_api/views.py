@@ -70,7 +70,6 @@ from rest_api.serializers import (
 from shipments.models import Shipment
 
 LANGUAGES: set[str] = set(lang[0] for lang in settings.LANGUAGES)
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 log = logging.getLogger(__name__)
 
@@ -289,6 +288,8 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                         "price": price.price_id,
                     }
                 ],
+                api_key=settings.STRIPE_SECRET_KEY,
+                stripe_version=settings.STRIPE_VERSION,
             )
         except Exception as e:
             log.error(f"stripe_checkout_session() {e}")
@@ -319,7 +320,12 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+        event = stripe.Webhook.construct_event(
+            payload,
+            sig_header,
+            endpoint_secret,
+            api_key=settings.STRIPE_SECRET_KEY,
+        )
     except ValueError as err:
         # Invalid payload
         log.error(f"stripe_webhook() invalid payload {err}")
