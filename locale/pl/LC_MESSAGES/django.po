@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-27 12:26+0200\n"
+"POT-Creation-Date: 2025-09-27 16:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,7 @@ msgstr "Wykluczone wysunięte wioski wroga"
 msgid "Exact coords separated by a space or an entry."
 msgstr "Dokładne kordy oddzielone spacją lub enterem "
 
-#: base/forms.py:353 base/templates/base/base.html:267
+#: base/forms.py:353 base/templates/base/base.html:273
 #: base/templates/base/new_outline/new_outline_initial_period2.html:32
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
 msgid "Targets"
@@ -684,7 +684,7 @@ msgstr "Stary tekst rozszerzony bezpośrednio w wiadomości"
 msgid "Text for deputy directly in message"
 msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
 
-#: base/models/outline.py:300 base/models/profile.py:60
+#: base/models/outline.py:300 base/models/profile.py:64
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
@@ -708,11 +708,11 @@ msgstr "dni"
 msgid "Unique link to your targets on plemiona-planer.pl"
 msgstr "Unikalny link do Twoich celów na plemiona-planer.pl"
 
-#: base/models/payment.py:33
+#: base/models/payment.py:35
 msgid "Finished"
 msgstr "Zakończono"
 
-#: base/models/payment.py:34
+#: base/models/payment.py:36
 msgid "Returned"
 msgstr "Zwrócono"
 
@@ -833,13 +833,13 @@ msgstr "Podsumowanie płatności"
 msgid "Sign out"
 msgstr "Wyloguj się"
 
-#: base/templates/base/base.html:120 base/templates/base/base.html:227
-#: base/templates/base/base.html:238
+#: base/templates/base/base.html:120 base/templates/base/base.html:233
+#: base/templates/base/base.html:244
 msgid "Sign in"
 msgstr "Zaloguj się"
 
-#: base/templates/base/base.html:121 base/templates/base/base.html:230
-#: base/templates/base/base.html:242 templates/two_factor/_wizard_forms.html:12
+#: base/templates/base/base.html:121 base/templates/base/base.html:236
+#: base/templates/base/base.html:248 templates/two_factor/_wizard_forms.html:12
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
@@ -847,90 +847,90 @@ msgstr "Zarejestruj się"
 msgid "Language"
 msgstr "Język"
 
-#: base/templates/base/base.html:212
+#: base/templates/base/base.html:218
 msgid "You can now setup two factor authentication in "
 msgstr "Możesz teraz ustawić uwierzytelnianie dwuskładnikowe w "
 
-#: base/templates/base/base.html:212
+#: base/templates/base/base.html:218
 msgid "Account settings"
 msgstr "Ustawieniach konta"
 
-#: base/templates/base/base.html:219
+#: base/templates/base/base.html:225
 #: templates/django_registration/registration_disallowed.html:7
 msgid "This is test environment, registration is not allowed. Go to"
 msgstr "Jest to testowe środowisko, rejestracja nie jest możliwa. Przejdź do"
 
-#: base/templates/base/base.html:225 base/templates/base/base.html:236
+#: base/templates/base/base.html:231 base/templates/base/base.html:242
 msgid "Create simple and fast outlines"
 msgstr "Twórz szybkie i proste rozpiski"
 
-#: base/templates/base/base.html:230 base/templates/base/base.html:240
+#: base/templates/base/base.html:236 base/templates/base/base.html:246
 #: templates/two_factor/_wizard_forms.html:12
 msgid "Don't have an account? "
 msgstr "Nie masz jeszcze konta? "
 
-#: base/templates/base/base.html:250
+#: base/templates/base/base.html:256
 msgid "Planer in numbers"
 msgstr "Planer w liczbach"
 
-#: base/templates/base/base.html:256
+#: base/templates/base/base.html:262
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: base/templates/base/base.html:262
+#: base/templates/base/base.html:268
 msgid "Outlines"
 msgstr "Rozpiski"
 
-#: base/templates/base/base.html:272
+#: base/templates/base/base.html:278
 msgid "Orders"
 msgstr "Rozkazy"
 
-#: base/templates/base/base.html:281
+#: base/templates/base/base.html:287
 msgid "PL version"
 msgstr "wersja PL"
 
-#: base/templates/base/base.html:290
+#: base/templates/base/base.html:296
 msgid "ENG version"
 msgstr "wersja ENG"
 
-#: base/templates/base/base.html:299
+#: base/templates/base/base.html:305
 msgid "Code tests"
 msgstr "Testy kodu"
 
-#: base/templates/base/base.html:309
+#: base/templates/base/base.html:315
 msgid "Benefits"
 msgstr "Korzyści"
 
-#: base/templates/base/base.html:312
+#: base/templates/base/base.html:318
 msgid "Security"
 msgstr "Bezpieczeństwo"
 
-#: base/templates/base/base.html:315
+#: base/templates/base/base.html:321
 msgid "Author"
 msgstr "O Twórcy"
 
-#: base/templates/base/base.html:322
+#: base/templates/base/base.html:328
 msgid "You save a tons of time and have all outlines in one place."
 msgstr ""
 "Oszczędzisz mnóstwo czasu i będziesz mieć wszystkie rozpiski w jednym "
 "miejscu."
 
-#: base/templates/base/base.html:324
+#: base/templates/base/base.html:330
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
 msgstr ""
 "Gracze otrzymają końcowe cele jako tekst gotowy do wklejenia do notatek i "
 "wysłania."
 
-#: base/templates/base/base.html:326
+#: base/templates/base/base.html:332
 msgid "Instantly distribute created objectives to players."
 msgstr "Natychmiastowe wysyłanie do graczy utworzonych dla nich wytycznych."
 
-#: base/templates/base/base.html:328
+#: base/templates/base/base.html:334
 msgid "Friendly and easy-to-use interface."
 msgstr "Przyjazny i łatwy w obsłudze interfejs."
 
-#: base/templates/base/base.html:330
+#: base/templates/base/base.html:336
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
@@ -938,33 +938,33 @@ msgstr ""
 "Możliwość rozpisania każdego topornika własnoręcznie albo pozostawienia "
 "ciężaru rozpisywania celi Planerowi, wybierając spośród dziesiątek opcji."
 
-#: base/templates/base/base.html:332
+#: base/templates/base/base.html:338
 msgid "Growing number of users."
 msgstr "Coraz więcej zaangażowanych w projekt użytkowników."
 
-#: base/templates/base/base.html:334
+#: base/templates/base/base.html:340
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Ciągłe dodawanie nowych opcji i naprawianie błędów."
 
-#: base/templates/base/base.html:336
+#: base/templates/base/base.html:342
 msgid "The scripts used are reported and approved by the game support."
 msgstr ""
 "Skrypty używane w grze wykorzystywane na stronie są zgłoszone i uznane za "
 "legalne przez Support."
 
-#: base/templates/base/base.html:338
+#: base/templates/base/base.html:344
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "Wyrzucisz wszystkie notatniki, kartki i arkusze excela do kosza."
 
-#: base/templates/base/base.html:340
+#: base/templates/base/base.html:346
 msgid "You will avoid common problems like doubled commands."
 msgstr "Pozbędziesz się typowych problemów jak podwojone komendy."
 
-#: base/templates/base/base.html:342
+#: base/templates/base/base.html:348
 msgid "No more mistakes when sending messages to players."
 msgstr "Nigdy więcej pomyłek przy rozsyłaniu celów graczom w wiadomościach."
 
-#: base/templates/base/base.html:346
+#: base/templates/base/base.html:352
 msgid ""
 "The application is written in the modern and very secure <a "
 "target=\"_blank\" href=\"https://www.djangoproject.com/\">Django</a> "
@@ -980,7 +980,7 @@ msgstr ""
 "site request forgery czy clickjacking, zapewniając jednocześnie w bezpieczny "
 "sposób utrzymywanie kont użytkowników."
 
-#: base/templates/base/base.html:348
+#: base/templates/base/base.html:354
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
@@ -990,7 +990,7 @@ msgstr ""
 "bezpieczeństwa kont użytkowników, uniemożliwiając jakikolwiek dostęp do "
 "danych użytkowników innym użytkownikom strony oraz osobom trzecim."
 
-#: base/templates/base/base.html:350
+#: base/templates/base/base.html:356
 msgid ""
 "Both the web server and the database server are located in the <a "
 "href=\"https://cloud.oracle.com/\">Oracle Cloud</a> cloud, with special "
@@ -1001,7 +1001,7 @@ msgstr ""
 "Cloud</a>, ze specjalnym naciskiem położonym na ich rekomendacje w kwestiach "
 "bezpieczeństwa."
 
-#: base/templates/base/base.html:352
+#: base/templates/base/base.html:358
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
@@ -1011,7 +1011,7 @@ msgstr ""
 "od początku do dnia dzisiejszego, oznacza relatywnie małą szansę na "
 "przypadkowe, nagłe narażenie danych użytkowników na ekspozycję."
 
-#: base/templates/base/base.html:354
+#: base/templates/base/base.html:360
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
@@ -1022,7 +1022,7 @@ msgstr ""
 "innym użytkownikom, graczom gry, osobom trzecim a także komukolwiek innemu, "
 "z jakiegokolwiek powodu."
 
-#: base/templates/base/base.html:356
+#: base/templates/base/base.html:362
 msgid ""
 "My name is Rafał, I am a professional Software Engineer. I am interested in "
 "web applications, both backend and frontend, cloud technologies and security "
@@ -1033,7 +1033,7 @@ msgstr ""
 "chmurowymi i bezpieczeństwem w sieci. Piszę głównie w Pythonie, Go i "
 "Typescriptcie."
 
-#: base/templates/base/base.html:356
+#: base/templates/base/base.html:362
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
@@ -1047,7 +1047,7 @@ msgstr ""
 "(największe osiągnięcie to występ na zawodach na szczeblu wojewódzkim), "
 "lubię szachy i pokera a także dobry film."
 
-#: base/templates/base/base.html:362
+#: base/templates/base/base.html:368
 msgid ""
 "Join the discord to be up to date with news, ask about what is unclear, "
 "report bugs and propose changes."
@@ -1055,18 +1055,18 @@ msgstr ""
 "Dołącz do Discorda by być na bieżąco z nowościami, pytać w razie problemów, "
 "zgłaszać błędy i proponować zmiany."
 
-#: base/templates/base/base.html:380
+#: base/templates/base/base.html:386
 msgid ""
 "This site is free of 3rd party trackers, we belive in privacy, refer to "
 msgstr ""
 "Ta strona jest strefą wolną od skryptów śledzących, dbamy o anonimowość w "
 "sieci, zobacz"
 
-#: base/templates/base/base.html:380
+#: base/templates/base/base.html:386
 msgid "our privacy policy and regulations."
 msgstr "naszą politykę prywatności."
 
-#: base/templates/base/base.html:381
+#: base/templates/base/base.html:387
 msgid "Version"
 msgstr "Wersja"
 
@@ -3124,7 +3124,7 @@ msgstr "Jesteś obecnie zalogowany jako"
 msgid "Password recovery"
 msgstr "Przywracanie zapomnianego hasła"
 
-#: tribal_wars_planer/settings.py:445
+#: tribal_wars_planer/settings.py:476
 msgid "Your Plemiona Planer Login Code"
 msgstr "Plemiona Planer: Twój kod logowania"
 

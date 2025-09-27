@@ -246,6 +246,7 @@ LANGUAGES = [
     ("hu", "Hungarian"),
     ("pt-br", "Português (Brasil)"),
     ("cs", "Czech"),
+    ("de", "German"),
 ]
 LANGUAGE_TO_CURRENCY = {
     "en": "EUR",  # EUR
@@ -253,6 +254,7 @@ LANGUAGE_TO_CURRENCY = {
     "hu": "HUF",  # Hungarian Forint
     "pt-br": "BRL",  # Brazilian Real
     "cs": "CZK",  # Czech Koruna
+    "de": "EUR",
 }
 
 LANGUAGE_COOKIE_AGE = 31104000

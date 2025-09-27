@@ -77,6 +77,14 @@ docs_serve_cs:
 docs_build_cs:
 	poetry run mkdocs build -f docs/config/cs/mkdocs.yml
 
+.PHONY: docs_serve_de
+docs_serve_de:
+	poetry run mkdocs serve -f docs/config/de/mkdocs.yml
+
+.PHONY: docs_build_de
+docs_build_de:
+	poetry run mkdocs build -f docs/config/de/mkdocs.yml
+
 .PHONY: build_cython
 build_cython:
 	poetry run python setup.py build_ext --inplace
