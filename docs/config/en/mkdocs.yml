@@ -40,6 +40,9 @@ extra:
     - name: Magyar
       link: /hu/documentation/
       lang: hu
+    - name: Português (Brasil)
+      link: /pt-br/documentation/
+      lang: pt-br
 
 markdown_extensions:
   - toc:

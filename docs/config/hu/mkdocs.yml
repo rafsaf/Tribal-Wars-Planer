@@ -40,6 +40,9 @@ extra:
     - name: Magyar
       link: /hu/documentation/
       lang: hu
+    - name: Português (Brasil)
+      link: /pt-br/documentation/
+      lang: pt-br
 
 markdown_extensions:
   - toc:
@@ -60,6 +63,12 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+
+plugins:
+  - search:
+      lang: hu
+  - glightbox
+  - social
 
 nav:
   - Vissza a főoldalra: "/"

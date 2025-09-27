@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-24 21:49+0200\n"
+"POT-Creation-Date: 2025-09-27 08:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,7 @@ msgstr "Kizárt ellenséges falvak"
 msgid "Exact coords separated by a space or an entry."
 msgstr "Pontos koordináták szóközzel vagy bejegyzéssel elválasztva."
 
-#: base/forms.py:353 base/templates/base/base.html:249
+#: base/forms.py:353 base/templates/base/base.html:261
 #: base/templates/base/new_outline/new_outline_initial_period2.html:32
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
 msgid "Targets"
@@ -502,8 +502,8 @@ msgstr "Az Összes mód csak egyszer használható egységenként"
 #: base/forms.py:958
 msgid "Mode All must be used at least once for noble and for off."
 msgstr ""
-"Az Összes módot legalább egyszer használni kell a nemeshez és a támadósereghez "
-"is."
+"Az Összes módot legalább egyszer használni kell a nemeshez és a "
+"támadósereghez is."
 
 #: base/forms.py:998
 msgid "You need a premium account to add more targets here."
@@ -836,13 +836,13 @@ msgstr "Fizetési összefoglaló"
 msgid "Sign out"
 msgstr "Kijelentkezés"
 
-#: base/templates/base/base.html:120 base/templates/base/base.html:209
-#: base/templates/base/base.html:220
+#: base/templates/base/base.html:120 base/templates/base/base.html:221
+#: base/templates/base/base.html:232
 msgid "Sign in"
 msgstr "Bejelentkezés"
 
-#: base/templates/base/base.html:121 base/templates/base/base.html:212
-#: base/templates/base/base.html:224 templates/two_factor/_wizard_forms.html:10
+#: base/templates/base/base.html:121 base/templates/base/base.html:224
+#: base/templates/base/base.html:236 templates/two_factor/_wizard_forms.html:10
 msgid "Sign up"
 msgstr "Regisztráció"
 
@@ -850,88 +850,88 @@ msgstr "Regisztráció"
 msgid "Language"
 msgstr "Nyelv"
 
-#: base/templates/base/base.html:194
+#: base/templates/base/base.html:206
 msgid "You can now setup two factor authentication in "
 msgstr "Most beállíthatja a kétfaktoros hitelesítést a "
 
-#: base/templates/base/base.html:194
+#: base/templates/base/base.html:206
 msgid "Account settings"
 msgstr "Fiókbeállítások"
 
-#: base/templates/base/base.html:201
+#: base/templates/base/base.html:213
 #: templates/django_registration/registration_disallowed.html:7
 msgid "This is test environment, registration is not allowed. Go to"
 msgstr "Ez egy tesztkörnyezet, a regisztráció nem engedélyezett. Menj a"
 
-#: base/templates/base/base.html:207 base/templates/base/base.html:218
+#: base/templates/base/base.html:219 base/templates/base/base.html:230
 msgid "Create simple and fast outlines"
 msgstr "Készítsen egyszerű és gyors terveket"
 
-#: base/templates/base/base.html:212 base/templates/base/base.html:222
+#: base/templates/base/base.html:224 base/templates/base/base.html:234
 #: templates/two_factor/_wizard_forms.html:10
 msgid "Don't have an account? "
 msgstr "Nincs fiókod? "
 
-#: base/templates/base/base.html:232
+#: base/templates/base/base.html:244
 msgid "Planer in numbers"
 msgstr "Tervező számokban"
 
-#: base/templates/base/base.html:238
+#: base/templates/base/base.html:250
 msgid "Users"
 msgstr "Felhasználók"
 
-#: base/templates/base/base.html:244
+#: base/templates/base/base.html:256
 msgid "Outlines"
 msgstr "Tervek"
 
-#: base/templates/base/base.html:254
+#: base/templates/base/base.html:266
 msgid "Orders"
 msgstr "Parancsok"
 
-#: base/templates/base/base.html:263
+#: base/templates/base/base.html:275
 msgid "PL version"
 msgstr "PL verzió"
 
-#: base/templates/base/base.html:272
+#: base/templates/base/base.html:284
 msgid "ENG version"
 msgstr "ENG verzió"
 
-#: base/templates/base/base.html:281
+#: base/templates/base/base.html:293
 msgid "Code tests"
 msgstr "Kód tesztek"
 
-#: base/templates/base/base.html:291
+#: base/templates/base/base.html:303
 msgid "Benefits"
 msgstr "Előnyök"
 
-#: base/templates/base/base.html:294
+#: base/templates/base/base.html:306
 msgid "Security"
 msgstr "Biztonság"
 
-#: base/templates/base/base.html:297
+#: base/templates/base/base.html:309
 msgid "Author"
 msgstr "Szerző"
 
-#: base/templates/base/base.html:304
+#: base/templates/base/base.html:316
 msgid "You save a tons of time and have all outlines in one place."
 msgstr "Rengeteg időt takarít meg, és minden terve egy helyen van."
 
-#: base/templates/base/base.html:306
+#: base/templates/base/base.html:318
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
 msgstr ""
 "A játékosok végleges parancsokat kapnak, amelyeket beilleszthetnek a játékon "
 "belüli jegyzetekbe és elküldhetnek."
 
-#: base/templates/base/base.html:308
+#: base/templates/base/base.html:320
 msgid "Instantly distribute created objectives to players."
 msgstr "A létrehozott célokat azonnal ossza szét a játékosok között."
 
-#: base/templates/base/base.html:310
+#: base/templates/base/base.html:322
 msgid "Friendly and easy-to-use interface."
 msgstr "Barátságos és könnyen használható felület."
 
-#: base/templates/base/base.html:312
+#: base/templates/base/base.html:324
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
@@ -939,31 +939,31 @@ msgstr ""
 "Lehetőség van minden támadósereget pontosan leírni, vagy a Tervezőre bízni, "
 "több tucat lehetőség közül választva."
 
-#: base/templates/base/base.html:314
+#: base/templates/base/base.html:326
 msgid "Growing number of users."
 msgstr "Növekvő felhasználószám."
 
-#: base/templates/base/base.html:316
+#: base/templates/base/base.html:328
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Folyamatosan új lehetőségek hozzáadása és hibajavítás."
 
-#: base/templates/base/base.html:318
+#: base/templates/base/base.html:330
 msgid "The scripts used are reported and approved by the game support."
 msgstr "A használt szkripteket a játék támogatása jelenti és hagyja jóvá."
 
-#: base/templates/base/base.html:320
+#: base/templates/base/base.html:332
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "A jegyzetfüzetek, lapok és excel táblák kidobása a szemétbe."
 
-#: base/templates/base/base.html:322
+#: base/templates/base/base.html:334
 msgid "You will avoid common problems like doubled commands."
 msgstr "Elkerülheti a gyakori problémákat, mint például a duplikált parancsok."
 
-#: base/templates/base/base.html:324
+#: base/templates/base/base.html:336
 msgid "No more mistakes when sending messages to players."
 msgstr "Nincs több hiba az üzenetek küldésekor a játékosoknak."
 
-#: base/templates/base/base.html:328
+#: base/templates/base/base.html:340
 msgid ""
 "The application is written in the modern and very secure <a "
 "target=\"_blank\" href=\"https://www.djangoproject.com/\">Django</a> "
@@ -979,7 +979,7 @@ msgstr ""
 "forgery és a clickjacking, valamint biztonságos módot biztosít a "
 "felhasználói fiókok kezelésére."
 
-#: base/templates/base/base.html:330
+#: base/templates/base/base.html:342
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
@@ -989,7 +989,7 @@ msgstr ""
 "biztonságára, megakadályozva, hogy más felhasználók és harmadik felek "
 "hozzáférjenek az általuk bevitt adatokhoz."
 
-#: base/templates/base/base.html:332
+#: base/templates/base/base.html:344
 msgid ""
 "Both the web server and the database server are located in the <a "
 "href=\"https://cloud.oracle.com/\">Oracle Cloud</a> cloud, with special "
@@ -999,7 +999,7 @@ msgstr ""
 "oracle.com/\">Oracle Cloud</a> felhőben található, különös figyelmet "
 "fordítva minden biztonsági ajánlásukra."
 
-#: base/templates/base/base.html:334
+#: base/templates/base/base.html:346
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
@@ -1009,7 +1009,7 @@ msgstr ""
 "vesz a kezdetektől napjainkig, csekély kockázatot jelent a felhasználói "
 "adatok véletlen, hirtelen kitettségére."
 
-#: base/templates/base/base.html:336
+#: base/templates/base/base.html:348
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
@@ -1019,7 +1019,7 @@ msgstr ""
 "adatait soha nem adjuk tovább más felhasználóknak, játékosoknak, harmadik "
 "feleknek vagy bárki másnak semmilyen célból."
 
-#: base/templates/base/base.html:338
+#: base/templates/base/base.html:350
 msgid ""
 "My name is Rafał, I am a professional Software Engineer. I am interested in "
 "web applications, both backend and frontend, cloud technologies and security "
@@ -1029,7 +1029,7 @@ msgstr ""
 "alkalmazások, mind a backend, mind a frontend, a felhő technológiák és a "
 "webes biztonság. Főleg Pythonban, Go-ban és Typescriptben írok."
 
-#: base/templates/base/base.html:338
+#: base/templates/base/base.html:350
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
@@ -1043,7 +1043,7 @@ msgstr ""
 "tartományi versenyeken való részvétel), szeretem a sakkot és a pókert, és "
 "egy jó filmet is."
 
-#: base/templates/base/base.html:344
+#: base/templates/base/base.html:356
 msgid ""
 "Join the discord to be up to date with news, ask about what is unclear, "
 "report bugs and propose changes."
@@ -1051,18 +1051,18 @@ msgstr ""
 "Csatlakozz a discordhoz, hogy naprakész legyél a hírekkel, kérdezz a "
 "nejasnostokról, jelentsd a hibákat és javasolj változtatásokat."
 
-#: base/templates/base/base.html:362
+#: base/templates/base/base.html:374
 msgid ""
 "This site is free of 3rd party trackers, we belive in privacy, refer to "
 msgstr ""
 "Ez az oldal mentes a harmadik féltől származó nyomkövetőktől, hiszünk az "
 "adatvédelemben, lásd a"
 
-#: base/templates/base/base.html:362
+#: base/templates/base/base.html:374
 msgid "our privacy policy and regulations."
 msgstr "adatvédelmi irányelveinket és szabályzatunkat."
 
-#: base/templates/base/base.html:363
+#: base/templates/base/base.html:375
 msgid "Version"
 msgstr "Verzió"
 
@@ -1464,8 +1464,7 @@ msgstr "\"000|000:0:0\" - koordináták :támadósereg:nemes számokkal"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid "\"000|000:0|0|0|0:0\" - additional off info, list instead of number"
-msgstr ""
-"\"000|000:0|0|0|0:0\" - további támadósereg infó, lista szám helyett"
+msgstr "\"000|000:0|0|0|0:0\" - további támadósereg infó, lista szám helyett"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid ""
@@ -1489,7 +1488,8 @@ msgstr "Leírás"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:163
 msgid "Offs further than maximum distance for offs (equals to"
-msgstr "Támadóseregek messzebb, mint a támadóseregek maximális távolsága (jelenleg"
+msgstr ""
+"Támadóseregek messzebb, mint a támadóseregek maximális távolsága (jelenleg"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:163
 msgid "now), which will be completely skipped now."
@@ -2114,7 +2114,8 @@ msgstr "Bal oldalon Támadók hozzáadása, jobb oldalon Romboló támadás"
 
 #: base/templates/base/new_outline/new_outline_initial_period3.html:336
 msgid "On the left adding Offs, on the right Offs with the Nobles"
-msgstr "Bal oldalon Támadóseregek hozzáadása, jobb oldalon Támadóseregek Nemesekkel"
+msgstr ""
+"Bal oldalon Támadóseregek hozzáadása, jobb oldalon Támadóseregek Nemesekkel"
 
 #: base/templates/base/new_outline/new_outline_results.html:10
 msgid "Outline results"
@@ -2698,11 +2699,11 @@ msgid ""
 "<b>Army and Deff collections</b> and <b>Submit</b> both.</p> <p>2. Return to "
 "the <b>Deff collection</b> tab.</p> <p>3. Try again."
 msgstr ""
-"<h5>Úgy tűnik, a csapatösszesítő vagy a védelem összesítő már nem "
-"aktuális!</h5> <p>A Védelem összesítő használatához:</p> <p>1. Illessze be a "
-"jelenlegi adatokat a <b>Csapatösszesítő és Védelem összesítőbe</b>, és "
-"<b>Küldje el</b> mindkettőt.</p> <p>2. Térjen vissza a <b>Védelem "
-"összesítő</b> lapra.</p> <p>3. Próbálja újra."
+"<h5>Úgy tűnik, a csapatösszesítő vagy a védelem összesítő már nem aktuális!</"
+"h5> <p>A Védelem összesítő használatához:</p> <p>1. Illessze be a jelenlegi "
+"adatokat a <b>Csapatösszesítő és Védelem összesítőbe</b>, és <b>Küldje el</"
+"b> mindkettőt.</p> <p>2. Térjen vissza a <b>Védelem összesítő</b> lapra.</p> "
+"<p>3. Próbálja újra."
 
 #: shipments/forms.py:35
 #, python-format
@@ -3130,7 +3131,7 @@ msgstr "Már be van jelentkezve mint"
 msgid "Password recovery"
 msgstr "Jelszó-helyreállítás"
 
-#: tribal_wars_planer/settings.py:442
+#: tribal_wars_planer/settings.py:443
 msgid "Your Plemiona Planer Login Code"
 msgstr "Az Ön Plemiona Planer bejelentkezési kódja"
 
@@ -3183,8 +3184,8 @@ msgid ""
 "SUM: %(offs_count)s offs, %(nobles_count)s nobles, %(ruins_count)s ruins and "
 "%(fakes_count)s fakes"
 msgstr ""
-"ÖSSZESEN: %(offs_count)s támadósereg, %(nobles_count)s nemes, %(ruins_count)s "
-"rombolás és %(fakes_count)s fake"
+"ÖSSZESEN: %(offs_count)s támadósereg, %(nobles_count)s nemes, "
+"%(ruins_count)s rombolás és %(fakes_count)s fake"
 
 #: utils/basic/info_generatation.py:141
 #, python-format
@@ -3192,8 +3193,8 @@ msgid ""
 "LEFT: %(offs_count)s offs, %(nobles_count)s nobles, %(catapults_count)s "
 "catapults"
 msgstr ""
-"MARADT: %(offs_count)s támadósereg, %(nobles_count)s nemes, %(catapults_count)s "
-"katapult"
+"MARADT: %(offs_count)s támadósereg, %(nobles_count)s nemes, "
+"%(catapults_count)s katapult"
 
 #: utils/basic/info_generatation.py:160
 msgid "### TARGETS ###"
@@ -3415,8 +3416,9 @@ msgid ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]Send "
 "NOBLE[/url]"
 msgstr ""
-"[b][color=#a500a5]NEMES küldése[%(off_number)s támadósereg + %(noble_number)s "
-"nemes][/color] (%(weight_count)s / %(weight_count_all)s)[/b]\n"
+"[b][color=#a500a5]NEMES küldése[%(off_number)s támadósereg + "
+"%(noble_number)s nemes][/color] (%(weight_count)s / %(weight_count_all)s)[/"
+"b]\n"
 "%(date)s\n"
 "%(start_coord)s [b]->[/b] %(target_coord)s\n"
 "[url=%(game_url)s/game.php?"
