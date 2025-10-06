@@ -255,7 +255,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
                 amount=req.data["amount"],
                 active=True,
                 product__active=True,
-                currency=profile.get_currency,
+                currency=req.data["currency"].upper(),
             )
 
         except StripePrice.DoesNotExist:
@@ -300,8 +300,14 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
             )
 
         else:
-            session_id = checkout_session["id"]
-            return Response({"sessionId": session_id}, status=status.HTTP_200_OK)
+            return Response(
+                {
+                    "sessionId": checkout_session["id"],
+                    "url": checkout_session["url"],
+                },
+                status=status.HTTP_200_OK,
+            )
+    log.error(f"stripe_checkout_session() invalid data {req.errors}")
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

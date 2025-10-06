@@ -33,6 +33,7 @@ class TargetDeleteSerializer(serializers.Serializer):
 
 class StripeSessionAmount(serializers.Serializer):
     amount = serializers.IntegerField()
+    currency = serializers.CharField(max_length=3)
 
 
 class OverwiewStateHideSerializer(serializers.Serializer):
