@@ -26,7 +26,7 @@ class StripeCheckoutSession(MiniSetup):
 
         response = self.client.post(
             PATH,
-            data=json.dumps({"amount": 999}),
+            data=json.dumps({"amount": 999, "currency": "EUR"}),
             content_type="application/json",
         )
         assert response.status_code == 403
@@ -38,7 +38,7 @@ class StripeCheckoutSession(MiniSetup):
 
         response = self.client.post(
             PATH,
-            data=json.dumps({"amount": 999}),
+            data=json.dumps({"amount": 999, "currency": "EUR"}),
             content_type="application/json",
         )
         assert response.status_code == 400
