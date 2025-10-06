@@ -972,7 +972,7 @@ const fillAndSubmit = (value) => {
   form.submit();
 };
 
-const initializePaymentProcess = async (amount) => {
+const initializePaymentProcess = async (amount, currency) => {
   const paymentButton = document.getElementById("payment-button");
   paymentButton.disabled = true;
   const stripeKey = await (await fetch(`/api/stripe-key/`)).json();
@@ -991,6 +991,7 @@ const initializePaymentProcess = async (amount) => {
       },
       body: JSON.stringify({
         amount: parseInt(amount),
+        currency: currency,
       }),
     })
       .then((res) => {
@@ -1012,7 +1013,7 @@ const initializePaymentProcess = async (amount) => {
       })
       .then((data) => {
         console.log(data);
-        return stripe.redirectToCheckout({ sessionId: data.sessionId });
+        window.location.href = data.url;
       });
   };
   paymentButton.disabled = false;
