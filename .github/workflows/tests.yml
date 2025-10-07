@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:17
+        image: postgres:18.0
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_INITDB_ARGS: --no-sync
