@@ -1,6 +1,6 @@
 services:
   postgres_dev:
-    image: postgres:16.1
+    image: postgres:18.0
     restart: "no"
     volumes:
       - twp_dev_postgresql:/var/lib/postgresql/data
