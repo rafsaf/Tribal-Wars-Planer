@@ -139,8 +139,8 @@ def add_edit_shipment(request: HttpRequest, pk: int | None = None) -> HttpRespon
                 serializer.is_valid()
                 data = serializer.data
                 if data["world"]["id"] != world_id:
-                    formset._non_form_errors = ErrorList(  # type: ignore
-                        [gettext_lazy("All overviews must belong to the same world.")]
+                    formset._non_form_errors = ErrorList(  # pyright: ignore[reportAttributeAccessIssue]
+                        [gettext_lazy("All overviews must belong to the same world.")]  # pyright: ignore[reportArgumentType]
                     )
                     context = {
                         "form": form,
@@ -152,13 +152,13 @@ def add_edit_shipment(request: HttpRequest, pk: int | None = None) -> HttpRespon
                     return render(request, "add_shipment.html", context)
                 player = overview.player
                 if player != player_name:
-                    formset._non_form_errors = ErrorList(  # type: ignore
+                    formset._non_form_errors = ErrorList(  # pyright: ignore[reportAttributeAccessIssue]
                         [
                             gettext_lazy("All overviews must be for the same player."),
                             player,
                             gettext_lazy("does not match"),
                             player_name,
-                        ]
+                        ]  # pyright: ignore[reportArgumentType]
                     )
                     context = {
                         "form": form,

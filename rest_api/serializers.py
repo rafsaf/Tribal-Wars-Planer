@@ -170,12 +170,12 @@ class WeightSerializer(serializers.Serializer):
     )
 
     def get_building_name(self, obj: Any) -> str:
-        return BUILDINGS_TRANSLATION.get(obj.get("building"))  # type: ignore
+        return BUILDINGS_TRANSLATION.get(obj.get("building"))  # pyright: ignore[reportReturnType]
 
     def get_send_url_name(self, obj: Any) -> str:
         if obj.get("send_url_text"):
-            return SEND_TEXT_TRANSLATION.get(obj.get("send_url_text"))  # type: ignore
-        return gettext_lazy("Send")
+            return SEND_TEXT_TRANSLATION.get(obj.get("send_url_text"))  # pyright: ignore[reportReturnType]
+        return gettext_lazy("Send")  # pyright: ignore[reportReturnType]
 
     def get_deputy_send_url(self, obj: Any) -> str:
         return f"{obj.get('send_url')}?t={obj.get('player_id')}"

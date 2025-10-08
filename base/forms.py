@@ -37,12 +37,12 @@ log = logging.getLogger(__name__)
 
 def get_field_default(m: type[Model], field: str) -> str:
     model_field = m._meta.get_field(field)
-    return str(model_field.default)
+    return str(model_field.default)  # pyright: ignore[reportAttributeAccessIssue]
 
 
 def get_field_min(m: type[Model], field: str) -> str:
     model_field = m._meta.get_field(field)
-    for validator in model_field.validators:
+    for validator in model_field.validators:  # pyright: ignore[reportAttributeAccessIssue]
         if isinstance(validator, MinValueValidator):
             return str(validator.limit_value)
 
@@ -51,7 +51,7 @@ def get_field_min(m: type[Model], field: str) -> str:
 
 def get_field_max(m: type[Model], field: str) -> str:
     model_field = m._meta.get_field(field)
-    for validator in model_field.validators:
+    for validator in model_field.validators:  # pyright: ignore[reportAttributeAccessIssue]
         if isinstance(validator, MaxValueValidator):
             return str(validator.limit_value)
 

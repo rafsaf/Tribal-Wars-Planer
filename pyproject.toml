@@ -2,7 +2,7 @@
 authors = ["rafsaf <rafal.safin@rafsaf.pl>"]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-version = "5.14.1"
+version = "5.14.2"
 
 [tool.poetry.dependencies]
 python = ">=3.13,<3.14"
@@ -16,7 +16,7 @@ djangorestframework = "^3.16.1"
 
 babel = "^2.17.0"
 beautifulsoup4 = "^4.14.2"
-botocore = "^1.40.44"
+botocore = "^1.40.46"
 cython = "^3.1.4"
 diskcache = "^5.6.3"
 django-otp-yubikey = "^1.1.0"
@@ -32,9 +32,9 @@ python-dateutil = "^2.9.0"
 python-dotenv = "^1.1.1"
 schedule = "^1.2.1"
 scipy = "^1.16.2"
-sentry-sdk = { extras = ["django"], version = "^2.39.0" }
+sentry-sdk = { extras = ["django"], version = "^2.40.0" }
 setuptools = "^80.9.0"
-stripe = "^13.0.0"
+stripe = "^13.0.1"
 uwsgi = "^2.0.30"
 
 [tool.poetry.group.dev.dependencies]
@@ -49,7 +49,7 @@ parameterized = "^0.9.0"
 pre-commit = "^4.3.0"
 pytest = "^8.4.2"
 pytest-benchmark = "^5.1.0"
-pytest-codspeed = "^4.0.0"
+pytest-codspeed = "^4.1.0"
 pytest-cov = "^7.0.0"
 pytest-django = "^4.11.1"
 pytest-xdist = "^3.8.0"

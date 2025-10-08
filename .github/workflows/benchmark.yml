@@ -45,6 +45,7 @@ jobs:
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v3
         with:
+          mode: instrumentation
           token: ${{ secrets.CODSPEED_TOKEN }}
           run: |
             make benchmark
