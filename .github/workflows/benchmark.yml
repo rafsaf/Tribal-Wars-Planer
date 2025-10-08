@@ -43,7 +43,7 @@ jobs:
           rm utils/write_ram_target.py
 
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v3
+        uses: CodSpeedHQ/action@v4
         with:
           mode: instrumentation
           token: ${{ secrets.CODSPEED_TOKEN }}
