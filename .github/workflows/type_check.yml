@@ -12,7 +12,10 @@ jobs:
   type_check:
     strategy:
       matrix:
-        check: ["ruff check", "ruff format --check", "djhtml --check"]
+        check:
+          - "ruff check ."
+          - "ruff format --check ."
+          - "djhtml --check base shipments templates"
 
     runs-on: ubuntu-latest
     steps:
@@ -23,4 +26,4 @@ jobs:
 
       - name: Run ${{ matrix.check }}
         run: |
-          uv run ${{ matrix.check }} .
+          uv run ${{ matrix.check }}
