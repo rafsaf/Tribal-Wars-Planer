@@ -22,7 +22,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 FROM base AS uv
 COPY --from=ghcr.io/astral-sh/uv:0.9.2 /uv /uvx /bin/
 COPY uv.lock pyproject.toml ./
-RUN uv export --no-dev --no-hashes -o /requirements.txt --no-install-workspace --frozen
+RUN uv export --no-dev --no-group docs --no-hashes -o /requirements.txt --no-install-workspace --frozen
 RUN uv export --only-group docs --no-hashes -o /requirements-docs.txt --no-install-workspace --frozen
 
 FROM base AS docs
