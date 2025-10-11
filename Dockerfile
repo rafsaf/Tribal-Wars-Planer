@@ -25,6 +25,10 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 
 FROM base AS uv
 COPY --from=ghcr.io/astral-sh/uv:0.9.2 /uv /uvx /bin/
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update -y && apt-get install -y gcc libpq-dev python3-dev
+
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
