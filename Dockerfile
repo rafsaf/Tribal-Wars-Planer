@@ -6,51 +6,40 @@ ENV UWSGI_PROCESSES=1
 ENV UWSGI_THREADS=1
 ENV SERVICE_NAME=uwsgi
 
-ENV UV_LINK_MODE=copy
-ENV UV_COMPILE_BYTECODE=1
-ENV UV_PYTHON_CACHE_DIR=/root/.cache/uv/python
-
 RUN mkdir build
 WORKDIR /build
 
 RUN addgroup --gid 2222 --system ${SERVICE_NAME} && \
     adduser --gid 2222 --shell /bin/false --disabled-password --uid 2222 ${SERVICE_NAME}
 
-ENV PATH="/build/.venv/bin:$PATH"
-ENV VIRTUAL_ENV=/build/.venv
+RUN python -m venv /venv
+ENV PATH="/venv/bin:$PATH"
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update -y && apt-get install -y python3-pip nginx postgresql-client
+    apt-get update && apt-get install -y python3-pip nginx postgresql-client
 
 FROM base AS uv
 COPY --from=ghcr.io/astral-sh/uv:0.9.2 /uv /uvx /bin/
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update -y && apt-get install -y gcc libpq-dev python3-dev
-
-RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --active --no-group docs --no-dev --no-editable --no-install-workspace
+COPY uv.lock pyproject.toml ./
+RUN uv pip compile pyproject.toml -o /requirements.txt
+RUN uv pip compile pyproject.toml --group docs -o /requirements-docs.txt
 
 FROM base AS docs
 COPY docs docs
-COPY --from=ghcr.io/astral-sh/uv:0.9.2 /uv /uvx /bin/
-RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --active --only-group docs --no-editable --no-install-workspace
-RUN uv run mkdocs build -f docs/config/pl/mkdocs.yml
-RUN uv run mkdocs build -f docs/config/en/mkdocs.yml
-RUN uv run mkdocs build -f docs/config/hu/mkdocs.yml
-RUN uv run mkdocs build -f docs/config/pt-br/mkdocs.yml
-RUN uv run mkdocs build -f docs/config/cs/mkdocs.yml
-RUN uv run mkdocs build -f docs/config/de/mkdocs.yml
+COPY --from=uv /requirements-docs.txt .
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements-docs.txt
+RUN mkdocs build -f docs/config/pl/mkdocs.yml
+RUN mkdocs build -f docs/config/en/mkdocs.yml
+RUN mkdocs build -f docs/config/hu/mkdocs.yml
+RUN mkdocs build -f docs/config/pt-br/mkdocs.yml
+RUN mkdocs build -f docs/config/cs/mkdocs.yml
+RUN mkdocs build -f docs/config/de/mkdocs.yml
 
 FROM base AS build
 COPY --from=docs /build/generated_docs generated_docs
-COPY --from=uv /build/.venv /build/.venv
+COPY --from=uv /requirements.txt .
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
 
 COPY base base
 COPY config/twp_nginx.conf /etc/nginx/nginx.conf
@@ -77,9 +66,8 @@ EXPOSE 80
 EXPOSE 8050
 
 FROM base AS translations
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update -y && apt-get install gettext -y
-COPY --from=uv /build/.venv /build/.venv
+COPY --from=uv /requirements.txt .
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+RUN apt-get update -y && apt-get install gettext -y
 CMD python manage.py makemessages --all --ignore .venv &&  \
     python manage.py compilemessages --ignore .venv
