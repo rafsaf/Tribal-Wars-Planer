@@ -37,12 +37,12 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --locked --active --only-group docs --no-editable --no-install-workspace
-RUN uv mkdocs build -f docs/config/pl/mkdocs.yml
-RUN uv mkdocs build -f docs/config/en/mkdocs.yml
-RUN uv mkdocs build -f docs/config/hu/mkdocs.yml
-RUN uv mkdocs build -f docs/config/pt-br/mkdocs.yml
-RUN uv mkdocs build -f docs/config/cs/mkdocs.yml
-RUN uv mkdocs build -f docs/config/de/mkdocs.yml
+RUN uv run mkdocs build -f docs/config/pl/mkdocs.yml
+RUN uv run mkdocs build -f docs/config/en/mkdocs.yml
+RUN uv run mkdocs build -f docs/config/hu/mkdocs.yml
+RUN uv run mkdocs build -f docs/config/pt-br/mkdocs.yml
+RUN uv run mkdocs build -f docs/config/cs/mkdocs.yml
+RUN uv run mkdocs build -f docs/config/de/mkdocs.yml
 
 FROM base AS build
 COPY --from=docs /build/generated_docs generated_docs
