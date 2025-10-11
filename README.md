@@ -30,7 +30,7 @@ Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal
 If you want to run it in development you will need
 
 - [python](https://www.python.org/downloads/) == 3.13
-- [poetry](https://python-poetry.org/)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [docker](https://www.docker.com/get-started)
 
 In your favourite folder e.g. Desktop:
@@ -46,11 +46,10 @@ Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
 Then run
 
 ```bash
-poetry install
+uv sync
 
-# it will be default create virtualenv in ~.cache/pypoetry/virutalenvs/tribal-wars-planer-asod(some random signs)
+# it will be default create virtualenv in .venv folder
 # You need to activate it.
-# Honestly, you can also use just python3.12 -m venv .venv and run pip install -r requirements-dev.txt but above is prefered way
 pre-commit install
 
 # adds pre-commit stuff

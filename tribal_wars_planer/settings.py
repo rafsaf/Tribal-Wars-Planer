@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 with open(BASE_DIR / "pyproject.toml", "rb") as f:
     pyproject_toml = tomllib.load(f)
 
-BUILD_TAG = pyproject_toml["tool"]["poetry"]["version"]
+BUILD_TAG = pyproject_toml["project"]["version"]
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 

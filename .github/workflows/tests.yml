@@ -31,13 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Setup Python and Poetry Environment
-        uses: ./.github/actions/setup-python-poetry
+      - name: Setup Python and uv Environment
+        uses: ./.github/actions/setup-python-uv
 
       - name: Create .env file from example env file and staticfiles
         run: |
           cp .env.example .env
-          poetry run python manage.py collectstatic --no-input
+          uv run python manage.py collectstatic --no-input
 
       - name: Coverage full tests
         env:

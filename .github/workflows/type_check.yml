@@ -18,9 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Setup Python and Poetry Environment
-        uses: ./.github/actions/setup-python-poetry
+      - name: Setup Python and uv Environment
+        uses: ./.github/actions/setup-python-uv
 
       - name: Run ${{ matrix.check }}
         run: |
-          poetry run ${{ matrix.check }} .
+          uv run ${{ matrix.check }} .
