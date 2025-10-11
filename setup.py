@@ -17,6 +17,7 @@ from Cython.Build import cythonize
 from setuptools import setup
 
 setup(
+    packages=[],
     ext_modules=cythonize(
         [
             "utils/write_noble_target.py",
@@ -25,5 +26,5 @@ setup(
         compiler_directives={
             "language_level": "3",
         },
-    )
+    ),
 )

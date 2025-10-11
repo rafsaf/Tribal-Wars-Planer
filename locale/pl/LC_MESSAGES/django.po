@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-27 16:56+0200\n"
+"POT-Creation-Date: 2025-10-11 18:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -334,8 +334,8 @@ msgid ""
 msgstr ""
 "Dla 4 szalchciów w wiosce, pierwsza opcja <b>postara się</b> rozpisać "
 "wszystkie 4x na cel X, druga dość losowo wyśle od 1 do 4 szlachciów na jeden "
-"lub wiele celów (w ramach potrzeb), ostatnia zaś wyśle po 1 na cele X1,X2,X3,"
-"X4 (offoszlachty)."
+"lub wiele celów (w ramach potrzeb), ostatnia zaś wyśle po 1 na cele "
+"X1,X2,X3,X4 (offoszlachty)."
 
 #: base/forms.py:669
 msgid ""
@@ -514,11 +514,11 @@ msgstr "Wioska o podanych kordach nie istnieje."
 
 #: base/forms.py:1015
 msgid ""
-"Found more than one village in database, this is the bug. Write me: <rafal."
-"safin@rafsaf.pl>"
+"Found more than one village in database, this is the bug. Write me: "
+"<rafal.safin@rafsaf.pl>"
 msgstr ""
-"Znaleziono więcej niż 1 wioskę w bazie, jest to błąd. Napisz do mnie: <rafal."
-"safin@rafsaf.pl>"
+"Znaleziono więcej niż 1 wioskę w bazie, jest to błąd. Napisz do mnie: "
+"<rafal.safin@rafsaf.pl>"
 
 #: base/forms.py:1027
 msgid "Choose server"
@@ -2182,7 +2182,7 @@ msgstr "Wysłano!"
 #: base/templates/base/new_outline/new_outline_results.html:116
 #: base/templates/base/new_outline/new_outline_results.html:159
 #: base/templates/base/new_outline/new_outline_results.html:161
-#: rest_api/serializers.py:177
+#: rest_api/serializers.py:178
 msgid "Send"
 msgstr "Wyślij"
 
@@ -3032,11 +3032,13 @@ msgstr ""
 
 #: templates/otp_email_body_template.html:27
 msgid ""
-"If you have any questions, you can contact us at: <a href=\"mailto:rafal."
-"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+"If you have any questions, you can contact us at: <a "
+"href=\"mailto:rafal.safin@rafsaf.pl\" style=\"color: #0066cc;"
+"\">rafal.safin@rafsaf.pl</a>"
 msgstr ""
-"W przypadku pytań, skontaktuj się z nami pod adresem: <a href=\"mailto:rafal."
-"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+"W przypadku pytań, skontaktuj się z nami pod adresem: <a "
+"href=\"mailto:rafal.safin@rafsaf.pl\" style=\"color: #0066cc;"
+"\">rafal.safin@rafsaf.pl</a>"
 
 #: templates/otp_email_body_template.html:31
 #: templates/otp_email_body_template.txt:18
@@ -3124,7 +3126,7 @@ msgstr "Jesteś obecnie zalogowany jako"
 msgid "Password recovery"
 msgstr "Przywracanie zapomnianego hasła"
 
-#: tribal_wars_planer/settings.py:476
+#: tribal_wars_planer/settings.py:480
 msgid "Your Plemiona Planer Login Code"
 msgstr "Plemiona Planer: Twój kod logowania"
 
@@ -3479,11 +3481,11 @@ msgstr ""
 #: utils/basic/table_text.py:284
 #, python-format
 msgid ""
-"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d "
-"[b]%(building)s[/b])"
+"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d [b]"
+"%(building)s[/b])"
 msgstr ""
-"[size=12][b]OFF[/b][/size] (Off-%(off)d, Katapulty-%(catapult)d "
-"[b]%(building)s[/b])"
+"[size=12][b]OFF[/b][/size] (Off-%(off)d, Katapulty-%(catapult)d [b]"
+"%(building)s[/b])"
 
 #: utils/basic/table_text.py:291
 msgid "[size=12][b]OFF[/b][/size] (Off-"

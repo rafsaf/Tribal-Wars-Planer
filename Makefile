@@ -9,9 +9,9 @@ endif
 .PHONY: up
 up:
 	docker compose up -d postgres_dev
-	poetry run python manage.py migrate
-	DJANGO_SUPERUSER_PASSWORD=admin poetry run python manage.py createsuperuser --noinput --username admin --email admin@admin.admin || true
-	poetry run python manage.py runserver
+	uv run python manage.py migrate
+	DJANGO_SUPERUSER_PASSWORD=admin uv run python manage.py createsuperuser --noinput --username admin --email admin@admin.admin || true
+	uv run python manage.py runserver
 
 .PHONY: run
 run: up
@@ -39,68 +39,68 @@ to_avif:
 	
 .PHONY: docs_serve_pl
 docs_serve_pl:
-	poetry run mkdocs serve -f docs/config/pl/mkdocs.yml
+	uv run mkdocs serve -f docs/config/pl/mkdocs.yml
 	
 .PHONY: docs_build_pl
 docs_build_pl:
-	poetry run mkdocs build -f docs/config/pl/mkdocs.yml
+	uv run mkdocs build -f docs/config/pl/mkdocs.yml
 
 .PHONY: docs_serve_en
 docs_serve_en:
-	poetry run mkdocs serve -f docs/config/en/mkdocs.yml
+	uv run mkdocs serve -f docs/config/en/mkdocs.yml
 
 .PHONY: docs_build_en
 docs_build_en:
-	poetry run mkdocs build -f docs/config/en/mkdocs.yml
+	uv run mkdocs build -f docs/config/en/mkdocs.yml
 
 .PHONY: docs_serve_hu
 docs_serve_hu:
-	poetry run mkdocs serve -f docs/config/hu/mkdocs.yml
+	uv run mkdocs serve -f docs/config/hu/mkdocs.yml
 
 .PHONY: docs_build_hu
 docs_build_hu:
-	poetry run mkdocs build -f docs/config/hu/mkdocs.yml
+	uv run mkdocs build -f docs/config/hu/mkdocs.yml
 
 .PHONY: docs_serve_pt-br
 docs_serve_pt-br:
-	poetry run mkdocs serve -f docs/config/pt-br/mkdocs.yml
+	uv run mkdocs serve -f docs/config/pt-br/mkdocs.yml
 
 .PHONY: docs_build_pt-br
 docs_build_pt-br:
-	poetry run mkdocs build -f docs/config/pt-br/mkdocs.yml
+	uv run mkdocs build -f docs/config/pt-br/mkdocs.yml
 
 .PHONY: docs_serve_cs
 docs_serve_cs:
-	poetry run mkdocs serve -f docs/config/cs/mkdocs.yml
+	uv run mkdocs serve -f docs/config/cs/mkdocs.yml
 
 .PHONY: docs_build_cs
 docs_build_cs:
-	poetry run mkdocs build -f docs/config/cs/mkdocs.yml
+	uv run mkdocs build -f docs/config/cs/mkdocs.yml
 
 .PHONY: docs_serve_de
 docs_serve_de:
-	poetry run mkdocs serve -f docs/config/de/mkdocs.yml
+	uv run mkdocs serve -f docs/config/de/mkdocs.yml
 
 .PHONY: docs_build_de
 docs_build_de:
-	poetry run mkdocs build -f docs/config/de/mkdocs.yml
+	uv run mkdocs build -f docs/config/de/mkdocs.yml
 
 .PHONY: build_cython
 build_cython:
-	poetry run python setup.py build_ext --inplace
+	uv run python setup.py build_ext --inplace
 
 .PHONY: test
 test:
-	poetry run pytest -vv --cov --cov-report xml --cov-report term-missing -n auto 
+	uv run pytest -vv --cov --cov-report xml --cov-report term-missing -n auto 
 
 .PHONY: benchmark
 benchmark:
-	poetry run pytest --codspeed
+	uv run pytest --codspeed
 
 .PHONY: debug_available_troops
 debug_available_troops:
-	poetry run python -m cProfile -o debug_available_troops.prof manage.py debug_available_troops 3
-	poetry run snakeviz debug_available_troops.prof
+	uv run python -m cProfile -o debug_available_troops.prof manage.py debug_available_troops 3
+	uv run snakeviz debug_available_troops.prof
 
 .PHONY: stripe_listen
 stripe_listen:

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tribal-Wars-Planer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-27 16:56+0200\n"
+"POT-Creation-Date: 2025-10-11 18:48+0200\n"
 "PO-Revision-Date: 2025-09-27 11:36+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Czech\n"
@@ -506,8 +506,8 @@ msgstr "Vesnice s těmito souřadnicemi nebyla nalezena."
 
 #: base/forms.py:1015
 msgid ""
-"Found more than one village in database, this is the bug. Write me: <rafal."
-"safin@rafsaf.pl>"
+"Found more than one village in database, this is the bug. Write me: "
+"<rafal.safin@rafsaf.pl>"
 msgstr ""
 "V databázi byla nalezena více než jedna vesnice, jedná se o chybu. Napište "
 "mi: <rafal.safin@rafsaf.pl>"
@@ -2157,7 +2157,7 @@ msgstr "Odesláno!"
 #: base/templates/base/new_outline/new_outline_results.html:116
 #: base/templates/base/new_outline/new_outline_results.html:159
 #: base/templates/base/new_outline/new_outline_results.html:161
-#: rest_api/serializers.py:177
+#: rest_api/serializers.py:178
 msgid "Send"
 msgstr "Odeslat"
 
@@ -2986,11 +2986,13 @@ msgstr "Toto je automatická zpráva. Neodpovídejte prosím na tento e-mail."
 
 #: templates/otp_email_body_template.html:27
 msgid ""
-"If you have any questions, you can contact us at: <a href=\"mailto:rafal."
-"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+"If you have any questions, you can contact us at: <a "
+"href=\"mailto:rafal.safin@rafsaf.pl\" style=\"color: #0066cc;"
+"\">rafal.safin@rafsaf.pl</a>"
 msgstr ""
-"Pokud máte nějaké dotazy, můžete nás kontaktovat na adrese: <a href=\"mailto:"
-"rafal.safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+"Pokud máte nějaké dotazy, můžete nás kontaktovat na adrese: <a "
+"href=\"mailto:rafal.safin@rafsaf.pl\" style=\"color: #0066cc;"
+"\">rafal.safin@rafsaf.pl</a>"
 
 #: templates/otp_email_body_template.html:31
 #: templates/otp_email_body_template.txt:18
@@ -3000,8 +3002,8 @@ msgstr "Děkujeme,"
 #: templates/otp_email_body_template.txt:16
 msgid "If you have any questions, you can contact us at: rafal.safin@rafsaf.pl"
 msgstr ""
-"Pokud máte nějaké dotazy, můžete nás kontaktovat na adrese: rafal."
-"safin@rafsaf.pl"
+"Pokud máte nějaké dotazy, můžete nás kontaktovat na adrese: "
+"rafal.safin@rafsaf.pl"
 
 #: templates/registration/password_change_done.html:7
 #: templates/registration/password_reset_complete.html:6
@@ -3078,7 +3080,7 @@ msgstr "Jste již přihlášeni jako"
 msgid "Password recovery"
 msgstr "Obnova hesla"
 
-#: tribal_wars_planer/settings.py:476
+#: tribal_wars_planer/settings.py:480
 msgid "Your Plemiona Planer Login Code"
 msgstr "Váš přihlašovací kód do Plánovače pro Divoké Kmeny"
 
@@ -3433,11 +3435,11 @@ msgstr ""
 #: utils/basic/table_text.py:284
 #, python-format
 msgid ""
-"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d "
-"[b]%(building)s[/b])"
+"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d [b]"
+"%(building)s[/b])"
 msgstr ""
-"[size=12][b]ÚTOK[/b][/size] (Útok-%(off)d, Katapulty-%(catapult)d "
-"[b]%(building)s[/b])"
+"[size=12][b]ÚTOK[/b][/size] (Útok-%(off)d, Katapulty-%(catapult)d [b]"
+"%(building)s[/b])"
 
 #: utils/basic/table_text.py:291
 msgid "[size=12][b]OFF[/b][/size] (Off-"

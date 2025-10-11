@@ -12,15 +12,18 @@ jobs:
   type_check:
     strategy:
       matrix:
-        check: ["ruff check", "ruff format --check", "djhtml --check"]
+        check:
+          - "ruff check ."
+          - "ruff format --check ."
+          - "djhtml --check base shipments templates"
 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
 
-      - name: Setup Python and Poetry Environment
-        uses: ./.github/actions/setup-python-poetry
+      - name: Setup Python and uv Environment
+        uses: ./.github/actions/setup-python-uv
 
       - name: Run ${{ matrix.check }}
         run: |
-          poetry run ${{ matrix.check }} .
+          uv run ${{ matrix.check }}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-27 16:56+0200\n"
+"POT-Creation-Date: 2025-10-11 18:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -512,8 +512,8 @@ msgstr "Aldeia com essas coordenadas não foi encontrada."
 
 #: base/forms.py:1015
 msgid ""
-"Found more than one village in database, this is the bug. Write me: <rafal."
-"safin@rafsaf.pl>"
+"Found more than one village in database, this is the bug. Write me: "
+"<rafal.safin@rafsaf.pl>"
 msgstr ""
 "Encontrada mais de uma aldeia no banco de dados, isso é um bug. Escreva para "
 "mim: <rafal.safin@rafsaf.pl>"
@@ -2170,7 +2170,7 @@ msgstr "Enviado!"
 #: base/templates/base/new_outline/new_outline_results.html:116
 #: base/templates/base/new_outline/new_outline_results.html:159
 #: base/templates/base/new_outline/new_outline_results.html:161
-#: rest_api/serializers.py:177
+#: rest_api/serializers.py:178
 msgid "Send"
 msgstr "Enviar"
 
@@ -3010,11 +3010,13 @@ msgstr "Esta é uma mensagem automática. Por favor, não responda a este e-mail
 
 #: templates/otp_email_body_template.html:27
 msgid ""
-"If you have any questions, you can contact us at: <a href=\"mailto:rafal."
-"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+"If you have any questions, you can contact us at: <a "
+"href=\"mailto:rafal.safin@rafsaf.pl\" style=\"color: #0066cc;"
+"\">rafal.safin@rafsaf.pl</a>"
 msgstr ""
-"Se você tiver alguma dúvida, pode nos contatar em: <a href=\"mailto:rafal."
-"safin@rafsaf.pl\" style=\"color: #0066cc;\">rafal.safin@rafsaf.pl</a>"
+"Se você tiver alguma dúvida, pode nos contatar em: <a "
+"href=\"mailto:rafal.safin@rafsaf.pl\" style=\"color: #0066cc;"
+"\">rafal.safin@rafsaf.pl</a>"
 
 #: templates/otp_email_body_template.html:31
 #: templates/otp_email_body_template.txt:18
@@ -3103,7 +3105,7 @@ msgstr "Você já está logado como"
 msgid "Password recovery"
 msgstr "Recuperação de senha"
 
-#: tribal_wars_planer/settings.py:476
+#: tribal_wars_planer/settings.py:480
 msgid "Your Plemiona Planer Login Code"
 msgstr "Seu código de login do Plemiona Planer"
 
@@ -3459,11 +3461,11 @@ msgstr ""
 #: utils/basic/table_text.py:284
 #, python-format
 msgid ""
-"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d "
-"[b]%(building)s[/b])"
+"[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d [b]"
+"%(building)s[/b])"
 msgstr ""
-"[size=12][b]ATAQUE[/b][/size] (Off-%(off)d, Catapultas-%(catapult)d "
-"[b]%(building)s[/b])"
+"[size=12][b]ATAQUE[/b][/size] (Off-%(off)d, Catapultas-%(catapult)d [b]"
+"%(building)s[/b])"
 
 #: utils/basic/table_text.py:291
 msgid "[size=12][b]OFF[/b][/size] (Off-"
