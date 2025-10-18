@@ -81,6 +81,16 @@ jobs:
         run: |
           curl -k -X POST https://${{ secrets.STAGE_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.STAGE_HOOK_SECRET }}"}'
 
+  redeploy_dev:
+    runs-on: ubuntu-latest
+    needs: build_and_push
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v5
+      - name: Redeploy dev server
+        run: |
+          curl -k -X POST https://${{ secrets.DEV_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.DEV_HOOK_SECRET }}"}' --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40
+
   redeploy_prod:
     runs-on: ubuntu-latest
     needs: build_and_push

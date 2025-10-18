@@ -2839,7 +2839,7 @@ msgstr ""
 
 #: templates/django_registration/activation_complete.html:7
 msgid "Congratulations, account was activated, you can log in!"
-msgstr "Gratulację, konto zostało aktywowane, możesz się zalogować!"
+msgstr "Gratulacje, konto zostało aktywowane, możesz się zalogować!"
 
 #: templates/django_registration/activation_complete.html:10
 msgid ""
