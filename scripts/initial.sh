@@ -1,12 +1,13 @@
 #!/bin/bash
+set -e
 
 echo "prometheus multi proc directory, media creating"
 
-mkdir prometheus_multi_proc_dir || true
-mkdir media || true
-mkdir logs || true
-mkdir disk_cache || true
-mkdir default_disk_cache || true
+mkdir -p prometheus_multi_proc_dir
+mkdir -p media
+mkdir -p logs
+mkdir -p disk_cache
+mkdir -p default_disk_cache
 
 echo "staticfiles collection"
 python manage.py collectstatic --no-input
@@ -24,7 +25,7 @@ export DJANGO_SUPERUSER_USERNAME=${username}
 export DJANGO_SUPERUSER_PASSWORD=${password}
 export DJANGO_SUPERUSER_EMAIL=${email}
 
-python manage.py createsuperuser --no-input
+python manage.py createsuperuser --no-input || true
 
 echo "initialize all supported servers"
 python manage.py createservers

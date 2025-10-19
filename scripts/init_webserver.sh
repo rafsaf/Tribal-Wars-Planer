@@ -1,15 +1,30 @@
 #! /bin/bash
+set -e
 
 # Starts nginx + uwsgi server inside Dockerfile
 
-### 1. Initial script, migrations etc., cleanup ###
-bash /build/scripts/initial.sh
+### 1. App folders create, then migrations ###
+echo "prometheus multi proc directory, media creating"
 
-chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/logs
-chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/media
-chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/prometheus_multi_proc_dir
-chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/disk_cache
-chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build/default_disk_cache
+mkdir -p /build/prometheus_multi_proc_dir
+mkdir -p /build/media
+mkdir -p /build/logs
+mkdir -p /build/disk_cache
+mkdir -p /build/default_disk_cache
+
+# Change ownership for proper permission handling
+chmod 775 /build/logs
+chown ${SERVICE_NAME}:root /build/logs
+chown ${SERVICE_NAME}:${SERVICE_NAME} /build/media
+chown ${SERVICE_NAME}:${SERVICE_NAME} /build/prometheus_multi_proc_dir
+chown ${SERVICE_NAME}:${SERVICE_NAME} /build/disk_cache
+chown ${SERVICE_NAME}:${SERVICE_NAME} /build/default_disk_cache
+
+echo "staticfiles collection"
+runuser -u ${SERVICE_NAME} -- python manage.py collectstatic --no-input
+
+echo "migrations"
+runuser -u ${SERVICE_NAME} -- python manage.py migrate
 
 ### 2. Run metrics on :8050 in the background
 echo "start metrics thread"
@@ -23,6 +38,6 @@ uwsgi --chdir=/build --uid=${SERVICE_NAME} --gid=${SERVICE_NAME} \
     --socket-timeout=360 --http-timeout=360 --harakiri=360 --home=/venv/ \
     --daemonize=/build/logs/uwsgi.log --ignore-sigpipe --ignore-write-errors --disable-write-exception
 
-### 3. Start nginx ###
+### 4. Start nginx ###
 echo "start nginx"
 nginx -g "daemon off;"
