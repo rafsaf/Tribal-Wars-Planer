@@ -391,11 +391,20 @@ DJANGO_LOG_HANDLERS = ["error", "info", "warning", "debug"]
 if DJANGO_LOG_LEVEL == "DEBUG":
     DJANGO_LOG_HANDLERS.append("debug_stream")
 
-os.makedirs("logs", exist_ok=True)
-os.makedirs("prometheus_multi_proc_dir", exist_ok=True)
-os.makedirs("media", exist_ok=True)
-os.makedirs("disk_cache", exist_ok=True)
-os.makedirs("default_disk_cache", exist_ok=True)
+# Create directories, handling read-only filesystem gracefully
+for dir_name in [
+    "logs",
+    "prometheus_multi_proc_dir",
+    "media",
+    "disk_cache",
+    "default_disk_cache",
+]:
+    try:
+        os.makedirs(dir_name, exist_ok=True)
+    except (OSError, PermissionError):
+        # In read-only environments (like rootless containers with read_only: true),
+        # directories should be mounted as volumes or tmpfs
+        pass
 
 LOGGING = {
     "version": 1,

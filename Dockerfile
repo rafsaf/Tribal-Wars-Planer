@@ -15,10 +15,6 @@ RUN addgroup --gid 2222 --system ${SERVICE_NAME} && \
 RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update && apt-get install -y python3-pip nginx postgresql-client
-
 FROM base AS uv
 COPY --from=ghcr.io/astral-sh/uv:0.9.2 /uv /uvx /bin/
 COPY uv.lock pyproject.toml ./
@@ -42,7 +38,6 @@ COPY --from=uv /requirements.txt .
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
 
 COPY base base
-COPY config/twp_nginx.conf /etc/nginx/nginx.conf
 COPY locale locale
 COPY manage.py .
 COPY metrics metrics
@@ -60,7 +55,11 @@ RUN python setup.py build_ext --inplace
 RUN rm utils/write_ram_target.py
 RUN rm utils/write_noble_target.py
 
-RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build
+RUN python -m compileall -b /build/base /build/rest_api /build/utils /build/shipments /build/metrics /build/tribal_wars_planer
+RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build || true
+RUN apt-get update -y && apt-get install -y nginx postgresql-client
+COPY config/twp_nginx.conf /etc/nginx/nginx.conf
+
 CMD /build/scripts/init_webserver.sh
 EXPOSE 80
 EXPOSE 8050
