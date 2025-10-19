@@ -1586,7 +1586,7 @@ wheels = [
 
 [[package]]
 name = "tribal-wars-planer"
-version = "5.15.2"
+version = "5.16.0"
 source = { editable = "." }
 dependencies = [
     { name = "babel" },
