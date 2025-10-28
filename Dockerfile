@@ -56,7 +56,14 @@ RUN rm utils/write_ram_target.py
 RUN rm utils/write_noble_target.py
 
 RUN python -m compileall -b /build/base /build/rest_api /build/utils /build/shipments /build/metrics /build/tribal_wars_planer
-RUN python manage.py collectstatic --no-input
+# Run collectstatic with minimal required env vars for Django to start
+RUN SECRET_KEY=build-time-secret \
+    POSTGRES_NAME=postgres \
+    POSTGRES_USER=postgres \
+    POSTGRES_PASSWORD=postgres \
+    POSTGRES_HOST=localhost \
+    POSTGRES_PORT=5432 \
+    python manage.py collectstatic --no-input
 RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build || true
 RUN apt-get update -y && apt-get install -y nginx postgresql-client
 COPY config/twp_nginx.conf /etc/nginx/nginx.conf
