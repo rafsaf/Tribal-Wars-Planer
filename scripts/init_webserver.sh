@@ -20,9 +20,6 @@ chown ${SERVICE_NAME}:${SERVICE_NAME} /build/prometheus_multi_proc_dir
 chown ${SERVICE_NAME}:${SERVICE_NAME} /build/disk_cache
 chown ${SERVICE_NAME}:${SERVICE_NAME} /build/default_disk_cache
 
-echo "staticfiles collection"
-runuser -u ${SERVICE_NAME} -- python manage.py collectstatic --no-input
-
 echo "migrations"
 runuser -u ${SERVICE_NAME} -- python manage.py migrate
 
