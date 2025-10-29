@@ -24,7 +24,6 @@ services:
       - FOWNER
       - SETUID
       - SETGID
-    pids_limit: 100
     tmpfs:
       - /tmp:mode=1777
       - /build/prometheus_multi_proc_dir:mode=0775,uid=2222,gid=0
@@ -57,11 +56,9 @@ services:
       - FOWNER
       - SETUID
       - SETGID
-    pids_limit: 200
     tmpfs:
       - /tmp:mode=1777
       - /build/prometheus_multi_proc_dir:mode=0775,uid=2222,gid=0
-      - /build/static:mode=0775,uid=2222,gid=0
     depends_on:
       - postgres_dev
     restart: "no"
