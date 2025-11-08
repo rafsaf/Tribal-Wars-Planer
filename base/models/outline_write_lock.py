@@ -23,7 +23,7 @@ class OutlineWriteLock(models.Model):
         WRITE_OUTLINE = "write_outline"
         CREATE_WEIGHTMAX = "create_weightmax_objects"
 
-    outline_id = models.BigIntegerField()
+    outline_id = models.BigIntegerField(db_index=True)
     lock_name = models.CharField(max_length=64)
     lock_expire = models.DateTimeField(db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
