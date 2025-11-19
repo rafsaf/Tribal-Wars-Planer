@@ -325,6 +325,12 @@ class TransactionMiniSetup(TransactionTestCase):
             distance=self.random_integer(),
             nobleman=self.random_integer(),
             order=1,
+            village_id=0,
+            catapult=0,
+            ruin=False,
+            player="player",
+            player_id=0,
+            first_line=False,
         )
 
     def create_random_payment(self) -> Payment:

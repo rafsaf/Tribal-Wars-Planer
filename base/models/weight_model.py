@@ -32,19 +32,17 @@ class WeightModel(models.Model):
     target = models.ForeignKey(TargetVertex, on_delete=models.CASCADE, db_index=True)
     state = models.ForeignKey(WeightMaximum, on_delete=models.CASCADE)
     start = models.CharField(max_length=7)
-    village_id = models.IntegerField(default=0)
+    village_id = models.IntegerField()
     off = models.IntegerField()
     distance = models.FloatField()
     nobleman = models.IntegerField()
-    catapult = models.IntegerField(default=0)
-    ruin = models.BooleanField(default=False)
-    building = models.CharField(
-        default=None, max_length=50, choices=BUILDINGS, null=True, blank=True
-    )
+    catapult = models.IntegerField()
+    ruin = models.BooleanField()
+    building = models.CharField(max_length=50, choices=BUILDINGS, null=True, blank=True)
     order = models.IntegerField()
     player = models.CharField(max_length=40)
-    player_id = models.IntegerField(default=0)
-    first_line = models.BooleanField(default=False)
+    player_id = models.IntegerField()
+    first_line = models.BooleanField()
 
     t1: datetime
     t2: datetime

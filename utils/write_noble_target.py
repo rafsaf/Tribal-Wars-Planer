@@ -239,6 +239,8 @@ class WriteNobleTarget:
             start=weight_max.start,
             state_id=weight_max.pk,
             off=off,
+            ruin=False,
+            building=None,
             catapult=catapult,
             distance=weight_max.distance,
             nobleman=noble,
