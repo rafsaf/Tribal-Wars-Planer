@@ -62,9 +62,6 @@ class Command(BaseCommand):
             schedule.every(5).minutes.do(
                 run_threaded, call_command, command_name="calculatepaymentfee"
             )
-            schedule.every(15).seconds.do(
-                run_threaded, call_command, command_name="hostparameters"
-            )
             schedule.every(60).to(120).seconds.do(
                 run_threaded, call_command, command_name="worldlastupdate"
             )

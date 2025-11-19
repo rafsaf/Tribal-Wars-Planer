@@ -1,4 +1,4 @@
-FROM python:3.13.8-trixie AS base
+FROM python:3.14.0-trixie AS base
 
 ENV PYTHONUNBUFFERED=1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
@@ -37,19 +37,20 @@ COPY --from=docs /build/generated_docs generated_docs
 COPY --from=uv /requirements.txt .
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
 
-COPY base base
-COPY locale locale
-COPY manage.py .
-COPY metrics metrics
-COPY pyproject.toml .
-COPY rest_api rest_api
-COPY scripts scripts
-COPY LICENSE .
-COPY templates templates
-COPY tribal_wars_planer tribal_wars_planer
-COPY utils utils
-COPY setup.py setup.py
-COPY shipments shipments
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} base base
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} locale locale
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} manage.py .
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} metrics metrics
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} pyproject.toml .
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} rest_api rest_api
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} scripts scripts
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} LICENSE .
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} templates templates
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} tribal_wars_planer tribal_wars_planer
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} utils utils
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} setup.py setup.py
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} shipments shipments
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} generated_docs generated_docs
 
 RUN python setup.py build_ext --inplace
 RUN rm utils/write_ram_target.py
@@ -64,7 +65,7 @@ RUN SECRET_KEY=build-time-secret \
     POSTGRES_HOST=localhost \
     POSTGRES_PORT=5432 \
     python manage.py collectstatic --no-input
-RUN chown -R ${SERVICE_NAME}:${SERVICE_NAME} /build || true
+
 RUN apt-get update -y && apt-get install -y nginx postgresql-client
 COPY config/twp_nginx.conf /etc/nginx/nginx.conf
 

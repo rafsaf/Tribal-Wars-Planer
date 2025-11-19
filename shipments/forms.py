@@ -14,7 +14,7 @@ class ShipmentCreateForm(forms.Form):
 
 # Form for entering overview tokens (used in formset)
 class ShipmentOverviewTokenForm(forms.Form):
-    token = forms.CharField(max_length=100, label=None)
+    token = forms.CharField(max_length=100, label="")
 
 
 class BaseShipmentOverviewTokenFormSet(BaseFormSet):

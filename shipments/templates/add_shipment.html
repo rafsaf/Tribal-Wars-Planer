@@ -23,7 +23,7 @@
                 {% csrf_token %}
                 {{ form|crispy }}
 
-                {% trans 'Overviews' %}
+                {% trans 'Overviews' %}*
 
                 <div id="formset-container">
                     {% for form in formset.forms %}
