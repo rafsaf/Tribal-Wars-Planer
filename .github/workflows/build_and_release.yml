@@ -64,7 +64,8 @@ jobs:
           target: build
           file: Dockerfile
           # cache-from: type=gha
-          cache-to: type=gha,mode=min
+          # cache-to: type=gha,mode=min
+          no-cache: true
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
