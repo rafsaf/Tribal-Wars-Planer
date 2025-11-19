@@ -24,7 +24,7 @@ RUN uv export --only-group docs --no-hashes -o /requirements-docs.txt --no-insta
 FROM base AS docs
 COPY docs docs
 COPY --from=uv /requirements-docs.txt .
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements-docs.txt
+RUN pip install -r requirements-docs.txt
 RUN mkdocs build -f docs/config/pl/mkdocs.yml
 RUN mkdocs build -f docs/config/en/mkdocs.yml
 RUN mkdocs build -f docs/config/hu/mkdocs.yml
@@ -33,9 +33,9 @@ RUN mkdocs build -f docs/config/cs/mkdocs.yml
 RUN mkdocs build -f docs/config/de/mkdocs.yml
 
 FROM base AS build
-COPY --from=docs /build/generated_docs generated_docs
+COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} --from=docs /build/generated_docs generated_docs
 COPY --from=uv /requirements.txt .
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} base base
 COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} locale locale
@@ -50,7 +50,6 @@ COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} tribal_wars_planer tribal_wars_plan
 COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} utils utils
 COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} setup.py setup.py
 COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} shipments shipments
-COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} generated_docs generated_docs
 
 RUN python setup.py build_ext --inplace
 RUN rm utils/write_ram_target.py
@@ -75,7 +74,7 @@ EXPOSE 8050
 
 FROM base AS translations
 COPY --from=uv /requirements.txt .
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+RUN pip install -r requirements.txt
 RUN apt-get update -y && apt-get install gettext -y
 CMD python manage.py makemessages --all --ignore .venv &&  \
     python manage.py compilemessages --ignore .venv
