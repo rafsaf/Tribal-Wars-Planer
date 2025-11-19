@@ -33,9 +33,3 @@ DBUPDATE = Counter(
 CRONTASK = Counter("cron_task", "Cron tasks", ["job_name"])
 
 WORLD_LAST_UPDATE = Gauge("world_last_update", "Game world last update", ["world"])
-
-MEMORY = Gauge("memory", "Memory usage percent")
-
-DISK = Gauge("disk", "Disk usage percent")
-
-CPU = Gauge("cpu", "CPU usage percent")

@@ -1,9 +1,9 @@
 [project]
 name = "tribal_wars_planer"
-version = "5.17.3"
+version = "5.17.4"
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 authors = [{ name = "rafsaf", email = "rafal.safin@rafsaf.pl" }]
-requires-python = ">=3.13,<3.14"
+requires-python = ">=3.14,<3.15"
 dependencies = [
   "crispy-bootstrap4>=2025.6",
   "django>=5.2.7",
@@ -22,7 +22,6 @@ dependencies = [
   "fpdf>=1.7.2",
   "numpy>=2.3.3",
   "prometheus-client>=0.23.1",
-  "psutil>=7.1.0",
   "psycopg[c]>=3.2.10",
   "python-dateutil>=2.9.0",
   "python-dotenv>=1.1.1",
