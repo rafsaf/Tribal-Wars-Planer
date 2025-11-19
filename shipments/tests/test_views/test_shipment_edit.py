@@ -1,6 +1,7 @@
 import datetime
 
 from django.urls import reverse
+from django.utils.translation import activate
 
 from base.models.outline_overview import OutlineOverview
 from base.models.overview import Overview
@@ -156,6 +157,7 @@ class TestAddEditShipmentView(MiniSetup):
         assert shipment.overviews.count() == 2
 
     def test_edit_shipment___valid_data___shipment_edited(self):
+        activate("en")
         self.login_me()
         world = self.get_world()
         shipment = Shipment.objects.create(
@@ -367,6 +369,7 @@ class TestAddEditShipmentView(MiniSetup):
         assert formset._non_form_errors == ["Please submit at least 1 form."]
 
     def test_add_shipment___valid_data___no_shipment_0_formset(self):
+        activate("en")
         self.login_me()
         PATH = reverse("shipments:add_shipment")
 
@@ -420,6 +423,7 @@ class TestAddEditShipmentView(MiniSetup):
         assert formset._non_form_errors == ["Please submit at most 10 forms."]
 
     def test_add_shipment___invalid_overview___no_shipment_created(self):
+        activate("en")
         self.login_me()
         PATH = reverse("shipments:add_shipment")
 
@@ -441,6 +445,7 @@ class TestAddEditShipmentView(MiniSetup):
         assert formset._non_form_errors == ["Invalid overview token: invalidtoken"]
 
     def test_add_shipment___different_world___error_raised(self):
+        activate("en")
         self.login_me()
         PATH = reverse("shipments:add_shipment")
 
@@ -496,6 +501,7 @@ class TestAddEditShipmentView(MiniSetup):
         ]
 
     def test_add_shipment___different_player___error_raised(self):
+        activate("en")
         self.login_me()
         PATH = reverse("shipments:add_shipment")
 
