@@ -407,6 +407,10 @@ def create_initial_data():
         distance=1,
         off=5000,
         nobleman=0,
+        village_id=0,
+        catapult=0,
+        ruin=False,
+        player_id=0,
     )
 
     weight2 = models.WeightModel(
@@ -419,6 +423,10 @@ def create_initial_data():
         distance=2,
         off=100,
         nobleman=0,
+        village_id=0,
+        catapult=0,
+        ruin=False,
+        player_id=0,
     )
     weight3 = models.WeightModel(
         player="player0",
@@ -430,6 +438,10 @@ def create_initial_data():
         distance=3,
         off=19000,
         nobleman=1,
+        village_id=0,
+        catapult=0,
+        ruin=False,
+        player_id=0,
     )
 
     weight1.save()
