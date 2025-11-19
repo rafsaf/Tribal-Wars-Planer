@@ -1,6 +1,6 @@
 [project]
 name = "tribal_wars_planer"
-version = "5.17.4"
+version = "5.17.5"
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 authors = [{ name = "rafsaf", email = "rafal.safin@rafsaf.pl" }]
 requires-python = ">=3.14,<3.15"
