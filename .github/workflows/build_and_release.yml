@@ -41,31 +41,13 @@ jobs:
         with:
           images: rafsaf/twp-server
 
-      - name: Cache
-        uses: actions/cache@v4
-        id: cache
-        with:
-          path: cache-mount
-          key: cache-mount-${{ runner.os }}-${{ hashFiles('Dockerfile') }}
-          restore-keys: |
-            cache-mount-${{ runner.os }}-
-
-      - name: Restore Docker cache mounts
-        uses: reproducible-containers/buildkit-cache-dance@v3
-        with:
-          builder: ${{ steps.buildx.outputs.name }}
-          cache-dir: cache-mount
-          dockerfile: Dockerfile
-          skip-extraction: ${{ steps.cache.outputs.cache-hit }}
-
       - name: Build and push latest twp-server image
         uses: docker/build-push-action@v6
         with:
           target: build
           file: Dockerfile
-          # cache-from: type=gha
-          # cache-to: type=gha,mode=min
-          no-cache: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
