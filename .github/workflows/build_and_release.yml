@@ -16,7 +16,7 @@ jobs:
   build_and_push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -60,7 +60,7 @@ jobs:
     needs: build_and_push
     if: github.event_name == 'push'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Redeploy stage server
         run: |
           curl -k -X POST https://${{ secrets.STAGE_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.STAGE_HOOK_SECRET }}"}'
@@ -70,7 +70,7 @@ jobs:
     needs: build_and_push
     if: github.event_name == 'push'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Redeploy dev server
         run: |
           curl -k -X POST https://${{ secrets.DEV_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.DEV_HOOK_SECRET }}"}' --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40
@@ -80,7 +80,7 @@ jobs:
     needs: build_and_push
     if: github.event_name == 'release'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Redeploy prod server
         run: |
           curl -k -X POST https://${{ secrets.PROD_HOOK_IP }}:9000/hooks/redeploy -H "Content-Type: application/json" -d '{"secret": "${{ secrets.PROD_HOOK_SECRET }}"}'
