@@ -1,23 +1,20 @@
 [project]
-name = "tribal_wars_planer"
-version = "5.17.6"
-description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 authors = [{ name = "rafsaf", email = "rafal.safin@rafsaf.pl" }]
-requires-python = ">=3.14,<3.15"
 dependencies = [
-  "crispy-bootstrap4>=2025.6",
-  "django>=5.2.7",
-  "django-crispy-forms>=2.3",
-  "django-registration>=5.2.1",
-  "django-ses>=4.3.2",
-  "djangorestframework>=3.16.1",
   "babel>=2.17.0",
   "beautifulsoup4>=4.14.2",
   "botocore>=1.40.46",
+  "crispy-bootstrap4>=2025.6",
   "cython>=3.1.4",
   "diskcache>=5.6.3",
+  "django-crispy-forms>=2.3",
   "django-otp-yubikey>=1.1.0",
+  "django-registration>=5.2.1",
+  "django-ses>=4.3.2",
+  "django-timezone-field>=7.1",
   "django-two-factor-auth[phonenumberslite]>=1.18.1",
+  "django>=5.2.7",
+  "djangorestframework>=3.16.1",
   "drf-spectacular>=0.28.0",
   "fpdf>=1.7.2",
   "numpy>=2.3.3",
@@ -31,8 +28,11 @@ dependencies = [
   "setuptools>=80.9.0",
   "stripe>=13.0.1",
   "uwsgi>=2.0.30",
-  "django-timezone-field>=7.1",
 ]
+description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
+name = "tribal_wars_planer"
+requires-python = ">=3.14,<3.15"
+version = "5.18.0"
 
 [dependency-groups]
 dev = [
@@ -45,12 +45,12 @@ dev = [
   "mypy>=1.18.2",
   "parameterized>=0.9.0",
   "pre-commit>=4.3.0",
-  "pytest>=8.4.2",
   "pytest-benchmark>=5.1.0",
   "pytest-codspeed>=4.1.0",
   "pytest-cov>=7.0.0",
   "pytest-django>=4.11.1",
   "pytest-xdist>=3.8.0",
+  "pytest>=8.4.2",
   "requests-mock>=1.12.1",
   "ruff==0.14.4",
   "snakeviz>=2.2.2",
@@ -60,17 +60,17 @@ dev = [
   "types-requests>=2.32.4.20250913",
 ]
 docs = [
-  "mkdocs[i18n]>=1.6.1",
   "mkdocs-glightbox>=0.5.1",
   "mkdocs-material[imaging]>=9.6.21",
+  "mkdocs[i18n]>=1.6.1",
 ]
 
 [tool.uv]
 default-groups = ["dev", "docs"]
 
 [build-system]
-requires = ["hatchling"]
 build-backend = "hatchling.build"
+requires = ["hatchling"]
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tribal_wars_planer.settings"
@@ -102,7 +102,7 @@ max-branches = 20
 
 [tool.mypy]
 ignore_missing_imports = true
-python_version = "3.13"
+python_version = "3.14"
 warn_return_any = false
 warn_unused_configs = true
 # strict = true

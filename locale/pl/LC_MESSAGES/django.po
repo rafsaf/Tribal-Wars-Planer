@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 18:48+0200\n"
+"POT-Creation-Date: 2025-12-02 19:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Użyj niewykorzystane wojska z klonowanej rozpiski w zakładce Dane o wojsku"
 
-#: base/forms.py:101 base/models/outline.py:145 base/models/outline.py:326
+#: base/forms.py:101 base/models/outline.py:146 base/models/outline.py:327
 #: base/models/profile.py:35
 msgid "Army collection"
 msgstr "Zbiórka Wojska"
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Village in this line is duplicated: %(coord)s"
 msgstr "Wioska w tej linii jest podwojona: %(coord)s"
 
-#: base/forms.py:188 base/models/outline.py:146 base/models/outline.py:328
+#: base/forms.py:188 base/models/outline.py:147 base/models/outline.py:329
 #: base/models/profile.py:36
 msgid "Deff collection "
 msgstr "Zbiórka Obrona"
@@ -268,7 +268,7 @@ msgstr "Ustaw opcję wysyłki wiadomości jako domyślna dla następnych rozpise
 msgid "Input type for planer"
 msgstr "Wykorzystywane dane dla zakładki Planer"
 
-#: base/forms.py:556 base/templates/base/new_outline/new_outline.html:33
+#: base/forms.py:556 base/templates/base/new_outline/new_outline.html:34
 msgid ""
 "Data for planer tab may be from Army or Defence tabs. Army - all troops "
 "(also that are outside of villages), Defence - only troops from villages."
@@ -669,38 +669,42 @@ msgid "(Default) Auto generated, fully equipped safe links"
 msgstr "(Domyślne) Automatycznie wygenerowane bezpieczne linki"
 
 #: base/models/outline.py:136
-msgid "Text simple directly in message"
-msgstr "Tekst prosty bezpośrednio w wiadomości"
+msgid "Standard text directly in message"
+msgstr "Standardowy tekst bezpośrednio w wiadomości"
 
 #: base/models/outline.py:137
-msgid "New text extended directly in message"
-msgstr "Nowy tekst rozszerzony bezpośrednio w wiadomości"
+msgid "Standard text for deputy directly in message"
+msgstr "Standardowy tekst dla zastępcy bezpośrednio w wiadomości"
 
 #: base/models/outline.py:138
-msgid "Old text extended directly in message"
-msgstr "Stary tekst rozszerzony bezpośrednio w wiadomości"
+msgid "Simple text directly in message"
+msgstr "Prosty tekst bezpośrednio w wiadomości"
 
 #: base/models/outline.py:139
-msgid "Text for deputy directly in message"
-msgstr "Tekst dla zastępcy bezpośrednio w wiadomości"
+msgid "Old text directly in message"
+msgstr "Stary tekst bezpośrednio w wiadomości"
 
-#: base/models/outline.py:300 base/models/profile.py:64
+#: base/models/outline.py:140
+msgid "Table directly in message"
+msgstr "Tabela bezpośrednio w wiadomości"
+
+#: base/models/outline.py:301 base/models/profile.py:64
 msgid "Outline Targets"
 msgstr "Cele Akcja"
 
-#: base/models/outline.py:331 shipments/forms.py:12
+#: base/models/outline.py:332 shipments/forms.py:12
 msgid "Name"
 msgstr "Nazwa"
 
-#: base/models/outline.py:452
+#: base/models/outline.py:453
 msgid "Expires "
 msgstr "Wygasa "
 
-#: base/models/outline.py:466
+#: base/models/outline.py:467
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:468
+#: base/models/outline.py:469
 msgid "days"
 msgstr "dni"
 
@@ -791,8 +795,8 @@ msgid "Home"
 msgstr "Strona Główna"
 
 #: base/templates/base/base.html:83
-#: base/templates/base/new_outline/new_outline.html:10
-#: base/templates/base/new_outline/new_outline.html:18
+#: base/templates/base/new_outline/new_outline.html:11
+#: base/templates/base/new_outline/new_outline.html:19
 #: base/templates/base/new_outline/new_outline_initial_period1.html:4
 msgid "Planer"
 msgstr "Planer"
@@ -1202,37 +1206,37 @@ msgstr "Nie pokazuj ukrytych"
 msgid "Show hidden"
 msgstr "Pokaż ukryte"
 
-#: base/templates/base/new_outline/new_outline.html:8
-#: base/templates/base/new_outline/new_outline.html:16
+#: base/templates/base/new_outline/new_outline.html:9
+#: base/templates/base/new_outline/new_outline.html:17
 msgid "Other"
 msgstr "Inne"
 
-#: base/templates/base/new_outline/new_outline.html:8
-#: base/templates/base/new_outline/new_outline.html:16
+#: base/templates/base/new_outline/new_outline.html:9
+#: base/templates/base/new_outline/new_outline.html:17
 msgid "Deff raport"
 msgstr "Raport deffa"
 
-#: base/templates/base/new_outline/new_outline.html:9
-#: base/templates/base/new_outline/new_outline.html:17
+#: base/templates/base/new_outline/new_outline.html:10
+#: base/templates/base/new_outline/new_outline.html:18
 msgid "Troops data"
 msgstr "Dane o wojsku"
 
-#: base/templates/base/new_outline/new_outline.html:10
-#: base/templates/base/new_outline/new_outline.html:18
+#: base/templates/base/new_outline/new_outline.html:11
+#: base/templates/base/new_outline/new_outline.html:19
 msgid "Hold on a second..."
 msgstr "Jeszcze chwila..."
 
-#: base/templates/base/new_outline/new_outline.html:11
-#: base/templates/base/new_outline/new_outline.html:19
+#: base/templates/base/new_outline/new_outline.html:12
+#: base/templates/base/new_outline/new_outline.html:20
 #: base/templates/base/new_outline/new_outline_results.html:4
 msgid "Results"
 msgstr "Wyniki"
 
-#: base/templates/base/new_outline/new_outline.html:40
+#: base/templates/base/new_outline/new_outline.html:41
 msgid "Planer will choose data pasted in: "
 msgstr "Planer wybierze dane wklejone w:"
 
-#: base/templates/base/new_outline/new_outline.html:50
+#: base/templates/base/new_outline/new_outline.html:51
 #: base/templates/base/new_outline/new_outline_initial_period1.html:295
 #: base/templates/base/new_outline/new_outline_initial_period1.html:315
 #: base/templates/base/new_outline/new_outline_initial_period1.html:348
@@ -1248,61 +1252,61 @@ msgstr "Planer wybierze dane wklejone w:"
 msgid "Save"
 msgstr "Zapisz"
 
-#: base/templates/base/new_outline/new_outline.html:60
+#: base/templates/base/new_outline/new_outline.html:61
 msgid "Last world update: "
 msgstr "Ostatnia aktualizacja świata: "
 
-#: base/templates/base/new_outline/new_outline.html:76
+#: base/templates/base/new_outline/new_outline.html:77
 msgid "Army troops have been successfully added."
 msgstr "Zbiórka Wojska pomyślnie dodana."
 
-#: base/templates/base/new_outline/new_outline.html:94
-#: base/templates/base/new_outline/new_outline.html:160
+#: base/templates/base/new_outline/new_outline.html:95
+#: base/templates/base/new_outline/new_outline.html:161
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid "Incorrect data in"
 msgstr "Nieprawidłowe dane w"
 
-#: base/templates/base/new_outline/new_outline.html:94
-#: base/templates/base/new_outline/new_outline.html:160
+#: base/templates/base/new_outline/new_outline.html:95
+#: base/templates/base/new_outline/new_outline.html:161
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid "lines."
 msgstr "liniach."
 
-#: base/templates/base/new_outline/new_outline.html:95
-#: base/templates/base/new_outline/new_outline.html:161
+#: base/templates/base/new_outline/new_outline.html:96
+#: base/templates/base/new_outline/new_outline.html:162
 msgid "*After clicking submit you will be transferred to first error*"
 msgstr "*Po kliknięciu potwierdź zostaniesz przeniesiony do pierwszego błędu*"
 
-#: base/templates/base/new_outline/new_outline.html:105
-#: base/templates/base/new_outline/new_outline.html:171
+#: base/templates/base/new_outline/new_outline.html:106
+#: base/templates/base/new_outline/new_outline.html:172
 msgid "The text cannot be empty"
 msgstr "Tekst nie może być pusty"
 
-#: base/templates/base/new_outline/new_outline.html:114
-#: base/templates/base/new_outline/new_outline.html:180
+#: base/templates/base/new_outline/new_outline.html:115
+#: base/templates/base/new_outline/new_outline.html:181
 #: base/templates/base/new_outline/new_outline_get_deff.html:15
 msgid "Submit"
 msgstr "Potwierdź"
 
-#: base/templates/base/new_outline/new_outline.html:135
+#: base/templates/base/new_outline/new_outline.html:136
 msgid "Deff troops have been successfully added."
 msgstr "Zbiórka Obrona pomyślnie dodana."
 
-#: base/templates/base/new_outline/new_outline.html:199
+#: base/templates/base/new_outline/new_outline.html:200
 #: base/templates/base/new_outline/new_outline_create.html:31
 #: base/templates/base/new_outline/new_outline_get_deff.html:23
 #: base/templates/base/new_outline/new_outline_initial_period1.html:453
 msgid "Info"
 msgstr "Info"
 
-#: base/templates/base/new_outline/new_outline.html:202
+#: base/templates/base/new_outline/new_outline.html:203
 #: base/templates/base/new_outline/new_outline_create.html:34
 #: base/templates/base/new_outline/new_outline_get_deff.html:26
 #: base/templates/base/new_outline/new_outline_initial_period1.html:457
 msgid "Examples"
 msgstr "Przykłady"
 
-#: base/templates/base/new_outline/new_outline.html:224
+#: base/templates/base/new_outline/new_outline.html:225
 #: base/templates/base/new_outline/new_outline_initial_period1.html:479
 #: base/templates/base/new_outline/new_outline_initial_period1.html:500
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:340
@@ -3126,7 +3130,7 @@ msgstr "Jesteś obecnie zalogowany jako"
 msgid "Password recovery"
 msgstr "Przywracanie zapomnianego hasła"
 
-#: tribal_wars_planer/settings.py:480
+#: tribal_wars_planer/settings.py:489
 msgid "Your Plemiona Planer Login Code"
 msgstr "Plemiona Planer: Twój kod logowania"
 
@@ -3543,6 +3547,9 @@ msgstr "Wyślij FAKE"
 #: utils/send_text.py:17
 msgid "Send RUIN"
 msgstr "Wyślij BURZAK"
+
+#~ msgid "New text extended directly in message"
+#~ msgstr "Nowy tekst rozszerzony bezpośrednio w wiadomości"
 
 #~ msgid "The Plemiona Planer Team"
 #~ msgstr "Zespół Plemiona Planer"

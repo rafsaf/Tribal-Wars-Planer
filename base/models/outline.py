@@ -133,10 +133,11 @@ class Outline(models.Model):
             "default",
             gettext_lazy("(Default) Auto generated, fully equipped safe links"),
         ),
-        ("string", gettext_lazy("Text simple directly in message")),
-        ("new_extended", gettext_lazy("New text extended directly in message")),
-        ("extended", gettext_lazy("Old text extended directly in message")),
-        ("deputy", gettext_lazy("Text for deputy directly in message")),
+        ("new_extended", gettext_lazy("Standard text directly in message")),
+        ("deputy", gettext_lazy("Standard text for deputy directly in message")),
+        ("string", gettext_lazy("Simple text directly in message")),
+        ("extended", gettext_lazy("Old text directly in message")),
+        ("table", gettext_lazy("Table directly in message")),
     ]
 
     ARMY_COLLECTION = "Army collection"

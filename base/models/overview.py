@@ -36,11 +36,11 @@ class Overview(models.Model):
     )
     player = models.CharField(max_length=40)
     created = models.DateTimeField(auto_now_add=True)
-    table = models.TextField()
-    string = models.TextField()
-    extended = models.TextField(default="")
-    new_extended = models.TextField(default="")
-    deputy = models.TextField(default="")
+    table = models.TextField()  # Table
+    string = models.TextField()  # Simple
+    extended = models.TextField(default="")  # Old
+    new_extended = models.TextField(default="")  # Standard
+    deputy = models.TextField(default="")  # Standard - for deputy
     show_hidden = models.BooleanField(default=False)
     removed = models.BooleanField(default=False)
 
@@ -90,6 +90,10 @@ class Overview(models.Model):
             if instance.send_message_with_url:
                 message += overview_url
             message += instance.text_message + self.deputy
+        elif instance.sending_option == "table":
+            if instance.send_message_with_url:
+                message += overview_url
+            message += instance.text_message + self.table
         else:
             message += overview_url + instance.text_message
 
