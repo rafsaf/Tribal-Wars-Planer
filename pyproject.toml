@@ -18,11 +18,13 @@ dependencies = [
   "drf-spectacular>=0.28.0",
   "fpdf>=1.7.2",
   "numpy>=2.3.3",
+  "pandas>=2.3.3",
   "prometheus-client>=0.23.1",
   "psycopg[c]>=3.2.10",
   "python-dateutil>=2.9.0",
   "python-dotenv>=1.1.1",
   "schedule>=1.2.1",
+  "scikit-learn>=1.7.2",
   "scipy>=1.16.2",
   "sentry-sdk[django]>=2.40.0",
   "setuptools>=80.9.0",
@@ -32,11 +34,12 @@ dependencies = [
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
 requires-python = ">=3.14,<3.15"
-version = "5.18.0"
+version = "5.19.0"
 
 [dependency-groups]
 dev = [
   "coverage>=7.10.7",
+  "cvxpy>=1.7.5",
   "django-debug-toolbar>=6.0.0",
   "django-types>=0.22.0",
   "djangorestframework-stubs>=3.16.4",
