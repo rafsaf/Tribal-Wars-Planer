@@ -263,3 +263,63 @@ class TestArmy(TestCase):
             outline=self.outline,
         )
         self.assertFalse(off_form.is_valid())
+
+    def test_off_form_shows_hint_when_deff_input_detected(self):
+        """
+        Test that when more than 1/3 of lines look like defence input
+        (with 'w wiosce' or 'w drodze'), the form suggests using the
+        Deff collection form instead.
+        """
+        # Create input that looks like deff data:
+        # - Each line has defence format (with 'w wiosce')
+        # - Each village is used twice (once for 'w wiosce', once for 'w drodze')
+        # - This will trigger both possible_deff_input_count and already_used_villages conditions
+        deff_line1_in_village = "500|500,5,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line1_in_transit = "500|500,5,w drodze,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line2_in_village = "499|500,5,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line2_in_transit = "499|500,5,w drodze,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line3_in_village = "498|503,5,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line3_in_transit = "498|503,5,w drodze,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line4_in_village = "500|502,5,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line4_in_transit = "500|502,5,w drodze,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line5_in_village = "498|502,5,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line5_in_transit = "498|502,5,w drodze,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line6_in_village = "500|499,5,w wiosce,1000,1000,0,0,0,1000,0,0,0,0,"
+        deff_line6_in_transit = "500|499,5,w drodze,1000,1000,0,0,0,1000,0,0,0,0,"
+
+        # Create 12 lines (6 villages * 2 lines each)
+        # This gives us: len(lines) = 12, so len(lines) // 3 = 4
+        # All 12 lines will be errors (total_errors = 12 > 4)
+        # All 12 lines will parse as deff (possible_deff_input_count = 12 > 4)
+        # 6 villages used twice each (count == 2: 6 > 4)
+        deff_input = "\r\n".join(
+            [
+                deff_line1_in_village,
+                deff_line1_in_transit,
+                deff_line2_in_village,
+                deff_line2_in_transit,
+                deff_line3_in_village,
+                deff_line3_in_transit,
+                deff_line4_in_village,
+                deff_line4_in_transit,
+                deff_line5_in_village,
+                deff_line5_in_transit,
+                deff_line6_in_village,
+                deff_line6_in_transit,
+            ]
+        )
+
+        off_form = forms.OffTroopsForm({"off_troops": deff_input}, outline=self.outline)
+        self.assertFalse(off_form.is_valid())
+
+        # Check that the specific hint error message is present in non-field errors
+        self.assertIn("__all__", off_form.errors)
+        non_field_errors = off_form.errors.get("__all__", [])
+        error_found = any(
+            "Did you want to input it into the 'Deff collection' form instead?"
+            in str(error)
+            for error in non_field_errors
+        )
+        self.assertTrue(
+            error_found, "Expected hint error message not found in form errors"
+        )
