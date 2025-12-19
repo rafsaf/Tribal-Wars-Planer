@@ -86,28 +86,40 @@
                                     </script>
                                 {% endif %}
                             </div>
+                            <div class="off-codemirror-wrapper">
+                                {{ form1.off_troops }}
+                            </div>
 
-                            {{ form1.off_troops }}
                             {% if off_troops.errors %}
                                 <script type="module">codemirrorValidation(`{{off_troops.get_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
 
-                                <div class="error-text mb-1">
-                                    <p class="mb-0">{% trans 'Incorrect data in' %} {{off_troops.errors|length}} {% trans 'lines.' %}</p>
-                                    <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
-                                    <p class="mt-1 mb-0"><b>**{{off_troops.first_error_msg}}**</b></p>
-                                    {% if off_troops.second_error_msg %}
-                                        <p class="mt-0 mb-0"><b>**{{off_troops.second_error_msg}}**</b></p>
-                                    {% endif %}
-                                </div>
+                                {% if off_troops.non_field_errors %}
+                                    <div class="error-text mb-3 mt-1">
+                                        {{ off_troops.non_field_errors.0.message }}
+                                    </div>
+                                    <script type="module">
+                                        document.addEventListener("DOMContentLoaded", function(event) {
+                                            $('.off-codemirror-wrapper').addClass('CodeMirror-Invalid');
+                                        });
+                                    </script>
+                                {% else %}
+                                    <div class="error-text mb-1">
+                                        <p class="mb-0">{% trans 'Incorrect data in' %} {{off_troops.errors|length}} {% trans 'lines.' %}</p>
+                                        <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                                        <p class="mt-1 mb-0"><b>**{{off_troops.first_error_msg}}**</b></p>
+                                        {% if off_troops.second_error_msg %}
+                                            <p class="mt-0 mb-0"><b>**{{off_troops.second_error_msg}}**</b></p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
 
-                            {% endif %}
-                            {% if off_troops.empty %}
+                            {% elif off_troops.empty %}
                                 <div class="error-text mb-3">
                                     {% trans 'The text cannot be empty' %}.
                                 </div>
                                 <script type="module">
                                     document.addEventListener("DOMContentLoaded", function(event) {
-                                        $('.cm-s-off-troops-codemirror').addClass('CodeMirror-Invalid');
+                                        $('.off-codemirror-wrapper').addClass('CodeMirror-Invalid');
                                     });
                                 </script>
                             {% endif %}
@@ -146,7 +158,9 @@
                                     </script>
                                 {% endif %}
                             </div>
-                            {{ form2.deff_troops }}
+                            <div class="deff-codemirror-wrapper">
+                                {{ form2.deff_troops }}
+                            </div>
 
                             {% if deff_troops.errors %}
 
@@ -157,23 +171,33 @@
                                     });
                                 </script>
 
-                                <div class="error-text mb-1">
-                                    <p class="mb-0">{% trans 'Incorrect data in' %} {{deff_troops.errors|length}} {% trans 'lines.' %}</p>
-                                    <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
-                                    <p class="mt-1 mb-0"><b>**{{deff_troops.first_error_msg}}**</b></p>
-                                    {% if deff_troops.second_error_msg %}
-                                        <p class="mt-0 mb-0"><b>**{{deff_troops.second_error_msg}}**</b></p>
-                                    {% endif %}
-                                </div>
+                                {% if deff_troops.non_field_errors %}
+                                    <div class="error-text mb-3 mt-1">
+                                        {{ deff_troops.non_field_errors.0.message }}
+                                    </div>
+                                    <script type="module">
+                                        document.addEventListener("DOMContentLoaded", function(event) {
+                                            $('.deff-codemirror-wrapper').addClass('CodeMirror-Invalid');
+                                        });
+                                    </script>
+                                {% else %}
+                                    <div class="error-text mb-1">
+                                        <p class="mb-0">{% trans 'Incorrect data in' %} {{deff_troops.errors|length}} {% trans 'lines.' %}</p>
+                                        <p class="mt-0 mb-0">{% trans '*After clicking submit you will be transferred to first error*' %}</p>
+                                        <p class="mt-1 mb-0"><b>**{{deff_troops.first_error_msg}}**</b></p>
+                                        {% if deff_troops.second_error_msg %}
+                                            <p class="mt-0 mb-0"><b>**{{deff_troops.second_error_msg}}**</b></p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
 
-                            {% endif %}
-                            {% if deff_troops.empty %}
+                            {% elif deff_troops.empty %}
                                 <div class="error-text mb-3">
                                     {% trans 'The text cannot be empty' %}.
                                 </div>
                                 <script type="module">
                                     document.addEventListener("DOMContentLoaded", function(event) {
-                                        $('.cm-s-deff-troops-codemirror').addClass('CodeMirror-Invalid');
+                                        $('.deff-codemirror-wrapper').addClass('CodeMirror-Invalid');
                                     });
                                 </script>
                             {% endif %}
