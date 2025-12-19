@@ -46,7 +46,7 @@ class Troops:
             self.empty = True
         else:
             self.errors = json.loads(error_dict.as_json())[self.name]
-            self.non_field_errors = json.loads(error_dict.as_json())["__all__"]
+            self.non_field_errors = json.loads(error_dict.as_json()).get("__all__", [])
             self.get_json = json.dumps(self.errors)
 
     def set_first_error_msg(self, message: str):

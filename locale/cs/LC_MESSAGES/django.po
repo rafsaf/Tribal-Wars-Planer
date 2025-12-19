@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tribal-Wars-Planer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-02 19:24+0100\n"
+"POT-Creation-Date: 2025-12-19 21:39+0100\n"
 "PO-Revision-Date: 2025-09-27 11:36+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Czech\n"
@@ -48,16 +48,16 @@ msgstr ""
 msgid "Army collection"
 msgstr "Sestava armády"
 
-#: base/forms.py:119 base/forms.py:208
+#: base/forms.py:119 base/forms.py:239
 msgid "Text cannot be empty!"
 msgstr "Text nemůže být prázdný!"
 
-#: base/forms.py:145 base/forms.py:239
+#: base/forms.py:161 base/forms.py:286
 #, python-format
 msgid "[coord: %(coord)s] - [world: %(world)s]: no such village"
 msgstr "[souřadnice: %(coord)s] - [svět: %(world)s]: nenalezena žádná vesnice"
 
-#: base/forms.py:153 base/forms.py:247
+#: base/forms.py:169 base/forms.py:294
 #, python-format
 msgid ""
 "[coord: %(coord)s] - [world: %(world)s] - [player: %(player)s] - [tribe: "
@@ -66,51 +66,63 @@ msgstr ""
 "[souřadnice: %(coord)s] - [svět: %(world)s] - [hráč: %(player)s] - [kmen: "
 "%(tribe)s]"
 
-#: base/forms.py:171 base/forms.py:269
+#: base/forms.py:188 base/forms.py:316
 #, python-format
 msgid "Village in this line is duplicated: %(coord)s"
 msgstr "Vesnice v tomto řádku je duplicitní: %(coord)s"
 
-#: base/forms.py:188 base/models/outline.py:147 base/models/outline.py:329
+#: base/forms.py:206
+msgid ""
+"This doesn't look like a valid input for THIS form. Did you want to input it "
+"into the 'Deff collection' form instead?"
+msgstr "To nevypadá jako platný vstup pro TENTO formulář. Možná jste mysleli formulář 'Obranná sbírka'?"
+
+#: base/forms.py:219 base/models/outline.py:147 base/models/outline.py:329
 #: base/models/profile.py:36
 msgid "Deff collection "
 msgstr "Obranná sbírka "
 
-#: base/forms.py:282
+#: base/forms.py:334
+msgid ""
+"This doesn't look like a valid input for THIS form. Did you want to input it "
+"into the 'Army collection' form instead?"
+msgstr "To nevypadá jako platný vstup pro TENTO formulář. Možná jste mysleli formulář 'Sestava armády'?"
+
+#: base/forms.py:345
 msgid "Ally tribe"
 msgstr "Spojenec"
 
-#: base/forms.py:289 base/forms.py:305
+#: base/forms.py:352 base/forms.py:368
 msgid "Select tribe from list"
 msgstr "Vyberte kmen ze seznamu"
 
-#: base/forms.py:298
+#: base/forms.py:361
 msgid "Enemy tribe"
 msgstr "Nepřítel"
 
-#: base/forms.py:316
+#: base/forms.py:379
 msgid "Radius"
 msgstr "Poloměr"
 
-#: base/forms.py:319
+#: base/forms.py:382
 msgid "Greater than or equal to 0 and less than or equal to 1000."
 msgstr "Větší nebo rovno 0 a menší nebo rovno 1000."
 
-#: base/forms.py:327
+#: base/forms.py:390
 msgid "Excluded enemy villages"
 msgstr "Vyloučené nepřátelské vesnice"
 
-#: base/forms.py:329
+#: base/forms.py:392
 msgid "Exact coords separated by a space or an entry."
 msgstr "Přesné souřadnice oddělené mezerou nebo enterem."
 
-#: base/forms.py:353 base/templates/base/base.html:273
+#: base/forms.py:416 base/templates/base/base.html:273
 #: base/templates/base/new_outline/new_outline_initial_period2.html:32
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
 msgid "Targets"
 msgstr "Cíle"
 
-#: base/forms.py:401
+#: base/forms.py:464
 #, python-format
 msgid ""
 "You are trying to mantain more than %s targets in total - that is global "
@@ -119,27 +131,27 @@ msgstr ""
 "Pokoušíte se udržet více než %s cílů celkem - to je globální limit pro počet "
 "cílů.<br> Snižte prosím celkový počet cílů."
 
-#: base/forms.py:424
+#: base/forms.py:487
 msgid "Min. off units number"
 msgstr "Min. počet útočných jednotek"
 
-#: base/forms.py:425
+#: base/forms.py:488
 msgid "Max. off units number"
 msgstr "Max. počet útočných jednotek"
 
-#: base/forms.py:427
+#: base/forms.py:490
 msgid "Minimum distance from front line"
 msgstr "Minimální vzdálenost od frontové linie"
 
-#: base/forms.py:429
+#: base/forms.py:492
 msgid "Max Distance for nobles"
 msgstr "Max. vzdálenost pro šlechtice"
 
-#: base/forms.py:431
+#: base/forms.py:494
 msgid "Max Distance for offs and ruins"
 msgstr "Max. vzdálenost pro útoky a zříceniny"
 
-#: base/forms.py:436
+#: base/forms.py:499
 msgid ""
 "Greater than or equal to 1 and less than or equal to 28000. Only offs above "
 "this value will be considered full offs and will be written out."
@@ -147,7 +159,7 @@ msgstr ""
 "Větší nebo rovno 1 a menší nebo rovno 28000. Pouze útoky nad touto hodnotou "
 "budou považovány za plné útoky a budou vypsány."
 
-#: base/forms.py:439
+#: base/forms.py:502
 msgid ""
 "Defaults to 28000. Similar to minimum off units number, must be greater than "
 "it."
@@ -155,7 +167,7 @@ msgstr ""
 "Výchozí hodnota je 28000. Podobně jako minimální počet útočných jednotek, "
 "musí být větší."
 
-#: base/forms.py:442
+#: base/forms.py:505
 msgid ""
 "Greater than or equal to 0 and less than or equal to 500. Villages closer to "
 "the enemy than this value will be considered front-line and not written out "
@@ -165,7 +177,7 @@ msgstr ""
 "tato hodnota budou považovány za frontové a ve výchozím nastavení nebudou "
 "vypsány."
 
-#: base/forms.py:445
+#: base/forms.py:508
 msgid ""
 "Greater than or equal to 0 and less than or equal to 1000. This is STRICT "
 "limit of distance for any OFF regardless of distance from the front line."
@@ -173,15 +185,15 @@ msgstr ""
 "Větší nebo rovno 0 a menší nebo rovno 1000. Toto je PŘÍSNÝ limit vzdálenosti "
 "pro jakýkoli ÚTOK bez ohledu na vzdálenost od frontové linie."
 
-#: base/forms.py:450
+#: base/forms.py:513
 msgid "Excluded enemy villages coords (secluded villages)"
 msgstr "Souřadnice vyloučených nepřátelských vesnic (odlehlé vesnice)"
 
-#: base/forms.py:454
+#: base/forms.py:517
 msgid "Exact coords separated by a space or an entry"
 msgstr "Přesné souřadnice oddělené mezerou nebo enterem"
 
-#: base/forms.py:462
+#: base/forms.py:525
 #, python-format
 msgid ""
 "Greater than or equal to 0 and less than or equal to your world maximum: "
@@ -192,32 +204,32 @@ msgstr ""
 "%(max_noble_distance)s. Toto je PŘÍSNÝ limit vzdálenosti pro jakéhokoli "
 "ŠLECHTICE bez ohledu na vzdálenost od frontové linie."
 
-#: base/forms.py:470
+#: base/forms.py:533
 #, python-format
 msgid "Ensure this value is less than or equal to %(value)s."
 msgstr "Ujistěte se, že tato hodnota je menší nebo rovna %(value)s."
 
-#: base/forms.py:512
+#: base/forms.py:575
 msgid "Show all hidden"
 msgstr "Zobrazit vše skryté"
 
-#: base/forms.py:513
+#: base/forms.py:576
 msgid "Title of message:"
 msgstr "Název zprávy:"
 
-#: base/forms.py:514
+#: base/forms.py:577
 msgid "Content of message:"
 msgstr "Obsah zprávy:"
 
-#: base/forms.py:515 base/forms.py:1114
+#: base/forms.py:578 base/forms.py:1177
 msgid "Sending Options:"
 msgstr "Možnosti odeslání:"
 
-#: base/forms.py:516 base/forms.py:1115
+#: base/forms.py:579 base/forms.py:1178
 msgid "Add links to direct messages:"
 msgstr "Přidat odkazy do přímých zpráv:"
 
-#: base/forms.py:520
+#: base/forms.py:583
 #: base/templates/base/new_outline/new_outline_results.html:133
 msgid ""
 "By checking this option, players will see the commands of all other players "
@@ -228,11 +240,11 @@ msgstr ""
 "vlastní cíle. Ve výchozím nastavení není zapnutá a hráči vidí pouze své "
 "příkazy."
 
-#: base/forms.py:522
+#: base/forms.py:585
 msgid "Title, maximum length 200."
 msgstr "Název, maximální délka 200."
 
-#: base/forms.py:524
+#: base/forms.py:587
 msgid ""
 "BBCode message, maximum length 2000. Hint: Format text in game and paste "
 "here."
@@ -240,27 +252,27 @@ msgstr ""
 "Zpráva v BBCode, maximální délka 2000. Tip: Zformátujte text ve hře a vložte "
 "ho sem."
 
-#: base/forms.py:527
+#: base/forms.py:590
 msgid ""
 "Directly messages will bahave poorly with many (more than 80-100) commands"
 msgstr "Přímé zprávy se budou chovat špatně s mnoha (více než 80-100) příkazy"
 
-#: base/forms.py:530
+#: base/forms.py:593
 msgid ""
 "If checked, direct messages from options above will have safe link to planer"
 msgstr ""
 "Pokud je zaškrtnuto, přímé zprávy z výše uvedených možností budou mít "
 "bezpečný odkaz na plánovač"
 
-#: base/forms.py:540
+#: base/forms.py:603
 msgid "Set sending option as default choice for next outlines"
 msgstr "Nastavit možnost odeslání jako výchozí volbu pro další přehledy"
 
-#: base/forms.py:552
+#: base/forms.py:615
 msgid "Input type for planer"
 msgstr "Typ vstupu pro plánovač"
 
-#: base/forms.py:556 base/templates/base/new_outline/new_outline.html:34
+#: base/forms.py:619 base/templates/base/new_outline/new_outline.html:34
 msgid ""
 "Data for planer tab may be from Army or Defence tabs. Army - all troops "
 "(also that are outside of villages), Defence - only troops from villages."
@@ -269,55 +281,55 @@ msgstr ""
 "všechny jednotky (i ty, které jsou mimo vesnice), Obrana - pouze jednotky z "
 "vesnic."
 
-#: base/forms.py:566
+#: base/forms.py:629
 msgid "Set as default choice for next outlines"
 msgstr "Nastavit jako výchozí volbu pro další přehledy"
 
-#: base/forms.py:577
+#: base/forms.py:640
 msgid "Set new date"
 msgstr "Nastavit nové datum"
 
-#: base/forms.py:636
+#: base/forms.py:699
 msgid "Choose the default distance of the written offs:"
 msgstr "Zvolte výchozí vzdálenost vypsaných útoků:"
 
-#: base/forms.py:639
+#: base/forms.py:702
 msgid "Choose the default distance of the written nobles:"
 msgstr "Zvolte výchozí vzdálenost vypsaných šlechticů:"
 
-#: base/forms.py:641
+#: base/forms.py:704
 msgid "Choose how to split offs with nobles:"
 msgstr "Zvolte, jak rozdělit útoky se šlechtici:"
 
-#: base/forms.py:643
+#: base/forms.py:706
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Zvolte preferovaný způsob zápisu požadovaných šlechticů:"
 
-#: base/forms.py:646
+#: base/forms.py:709
 msgid "Choose how noble commands should be written out:"
 msgstr "Zvolte, jak mají být vypsány příkazy šlechticů:"
 
-#: base/forms.py:649
+#: base/forms.py:712
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maximální počet fake útoků z jedné útočné vesnice:"
 
-#: base/forms.py:652
+#: base/forms.py:715
 msgid "Determine which villages to write fake attacks from:"
 msgstr "Určete, ze kterých vesnic se mají psát fake útoky:"
 
-#: base/forms.py:655
+#: base/forms.py:718
 msgid "Max. number of nobles send per village:"
 msgstr "Max. počet šlechticů odeslaných na vesnici:"
 
-#: base/forms.py:658
+#: base/forms.py:721
 msgid "Min. off units for every noble"
 msgstr "Min. útočných jednotek pro každého šlechtice"
 
-#: base/forms.py:661
+#: base/forms.py:724
 msgid "Min. off units for every fake noble"
 msgstr "Min. útočných jednotek pro každého falešného šlechtice"
 
-#: base/forms.py:666
+#: base/forms.py:729
 msgid ""
 "For 4 nobles in village, first option would <b>try</b> to send them all 4x "
 "on target X, second would randomly send from 1 to 4 nobles to single target "
@@ -329,7 +341,7 @@ msgstr ""
 "cílů (podle potřeby) a poslední možnost by poslala 1x na X1,X2,X2,X4 (jeden "
 "šlechtic na cíl)."
 
-#: base/forms.py:669
+#: base/forms.py:732
 msgid ""
 "For 20000 troops and 4 nobles in village, first option would try to use 4 x "
 "5000, second 1 x 19700 + 3 x 100, and last 4 x 100, where 100 can be changed "
@@ -339,7 +351,7 @@ msgstr ""
 "4 x 5000, druhá 1 x 19700 + 3 x 100 a poslední 4 x 100, kde 100 lze změnit v "
 "\"Min. útočných jednotek pro každého šlechtice\"."
 
-#: base/forms.py:672
+#: base/forms.py:735
 msgid ""
 "Defaults to 8. Between 0 and 250. For example you may want only 4 nobles "
 "from single village or even 1 (with full off). Best works with \"Min. off "
@@ -350,7 +362,7 @@ msgstr ""
 "útočných jednotek pro každého šlechtice\" níže. Stejný limit je respektován "
 "i pro falešné šlechtice."
 
-#: base/forms.py:679
+#: base/forms.py:742
 msgid ""
 "Defaults to just 100. Must be between 0 and 28000. This is strict minimum so "
 "if village have nobles, but not enough off units, Planer won't use it. Use "
@@ -365,7 +377,7 @@ msgstr ""
 "šlechtice a 250 útočných jednotek a tato možnost je nastavena na 100, lze "
 "použít pouze 2 šlechtice. Ostatní 2 budou vždy ignorovány."
 
-#: base/forms.py:682
+#: base/forms.py:745
 msgid ""
 "Defaults to 0. Must be between 0 and 200. You probably don't want to waste "
 "troops for fake nobles, but there are cases where this makes sense."
@@ -373,23 +385,23 @@ msgstr ""
 "Výchozí hodnota je 0. Musí být mezi 0 a 200. Pravděpodobně nechcete plýtvat "
 "jednotkami na falešné šlechtice, ale existují případy, kdy to má smysl."
 
-#: base/forms.py:705
+#: base/forms.py:768
 msgid "MIN number of catapults in one ruin attack:"
 msgstr "MIN počet katapultů v jednom útoku na ruiny:"
 
-#: base/forms.py:708
+#: base/forms.py:771
 msgid "MAX number of catapults in one ruin attack:"
 msgstr "MAX počet katapultů v jednom útoku na ruiny:"
 
-#: base/forms.py:711
+#: base/forms.py:774
 msgid "How many points on average do demolished targets have:"
 msgstr "Kolik bodů v průměru mají zničené cíle:"
 
-#: base/forms.py:714
+#: base/forms.py:777
 msgid "Minimum off units for every ruin attack:"
 msgstr "Minimální počet útočných jednotek pro každý útok na ruiny:"
 
-#: base/forms.py:719
+#: base/forms.py:782
 #, python-format
 msgid ""
 "Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that "
@@ -399,48 +411,48 @@ msgstr ""
 "útočných jednotek, které budou přidány ke každému útoku na ruiny. Pokud je "
 "0, znamená to, že jsou odeslány pouze katapulty."
 
-#: base/forms.py:744
+#: base/forms.py:807
 msgid "Only attackers ABOVE this morale value can be used:"
 msgstr "Lze použít pouze útočníky NAD touto hodnotou morálky:"
 
-#: base/forms.py:746
+#: base/forms.py:809
 msgid "Is morale calculation active in this outline:"
 msgstr "Je v tomto přehledu aktivní výpočet morálky:"
 
-#: base/forms.py:784
+#: base/forms.py:847
 msgid "Choose whether to avoid the night bonus"
 msgstr "Zvolte, zda se vyhnout nočnímu bonusu"
 
-#: base/forms.py:790
+#: base/forms.py:853
 msgid "Approximate hours of entry"
 msgstr "Přibližné hodiny vstupu"
 
-#: base/forms.py:797
+#: base/forms.py:860
 msgid "Approximate hours of the last entry"
 msgstr "Přibližné hodiny posledního vstupu"
 
-#: base/forms.py:810
+#: base/forms.py:873
 msgid "First value must be less or equal to second!"
 msgstr "První hodnota musí být menší nebo rovna druhé!"
 
-#: base/forms.py:821
+#: base/forms.py:884
 msgid "Sum of off"
 msgstr "Součet útočných"
 
-#: base/forms.py:827
+#: base/forms.py:890
 msgid "Off without catapults"
 msgstr "Útočné bez katapultů"
 
-#: base/forms.py:833
+#: base/forms.py:896
 #: base/templates/base/new_outline/new_outline_initial_period1.html:190
 msgid "Catapults"
 msgstr "Katapulty"
 
-#: base/forms.py:839 base/models/period_model.py:34
+#: base/forms.py:902 base/models/period_model.py:34
 msgid "Noble"
 msgstr "Šlechtic"
 
-#: base/forms.py:849 base/forms.py:860
+#: base/forms.py:912 base/forms.py:923
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:101
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:168
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:210
@@ -448,7 +460,7 @@ msgstr "Šlechtic"
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:852 base/forms.py:861
+#: base/forms.py:915 base/forms.py:924
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:102
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
@@ -456,7 +468,7 @@ msgstr "Od"
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:859
+#: base/forms.py:922
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:97
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:163
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:205
@@ -464,7 +476,7 @@ msgstr "Do"
 msgid "Mode"
 msgstr "Režim"
 
-#: base/forms.py:862
+#: base/forms.py:925
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:98
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:207
@@ -472,7 +484,7 @@ msgstr "Režim"
 msgid "Unit"
 msgstr "Jednotka"
 
-#: base/forms.py:863
+#: base/forms.py:926
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:99
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
@@ -480,7 +492,7 @@ msgstr "Jednotka"
 msgid "Min. time"
 msgstr "Min. čas"
 
-#: base/forms.py:864
+#: base/forms.py:927
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:100
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
@@ -488,23 +500,23 @@ msgstr "Min. čas"
 msgid "Max. time"
 msgstr "Max. čas"
 
-#: base/forms.py:940 base/forms.py:950
+#: base/forms.py:1003 base/forms.py:1013
 msgid "Mode All can be used only once per unit"
 msgstr "Režim Vše lze použít pouze jednou na jednotku"
 
-#: base/forms.py:958
+#: base/forms.py:1021
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Režim Vše musí být použit alespoň jednou pro šlechtice a pro útok."
 
-#: base/forms.py:998
+#: base/forms.py:1061
 msgid "You need a premium account to add more targets here."
 msgstr "Pro přidání dalších cílů potřebujete prémiový účet."
 
-#: base/forms.py:1008
+#: base/forms.py:1071
 msgid "Village with that coords did not found."
 msgstr "Vesnice s těmito souřadnicemi nebyla nalezena."
 
-#: base/forms.py:1015
+#: base/forms.py:1078
 msgid ""
 "Found more than one village in database, this is the bug. Write me: "
 "<rafal.safin@rafsaf.pl>"
@@ -512,51 +524,51 @@ msgstr ""
 "V databázi byla nalezena více než jedna vesnice, jedná se o chybu. Napište "
 "mi: <rafal.safin@rafsaf.pl>"
 
-#: base/forms.py:1027
+#: base/forms.py:1090
 msgid "Choose server"
 msgstr "Vyberte server"
 
-#: base/forms.py:1028
+#: base/forms.py:1091
 msgid "World prefix"
 msgstr "Prefix světa"
 
-#: base/forms.py:1039
+#: base/forms.py:1102
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr "Nepovolené symboly v poli postfixu! Jste si jisti, že je platný?"
 
-#: base/forms.py:1059
+#: base/forms.py:1122
 msgid "World is already added!"
 msgstr "Svět je již přidán!"
 
-#: base/forms.py:1067 base/forms.py:1078
+#: base/forms.py:1130 base/forms.py:1141
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Chyba připojení, svět neexistuje nebo je archivován!"
 
-#: base/forms.py:1091 base/forms.py:1108
+#: base/forms.py:1154 base/forms.py:1171
 msgid "Please select your server:"
 msgstr "Vyberte prosím svůj server:"
 
-#: base/forms.py:1110
+#: base/forms.py:1173
 msgid "Turn on morale calculations in every outline by default:"
 msgstr "Ve výchozím nastavení zapnout výpočty morálky v každém přehledu:"
 
-#: base/forms.py:1112
+#: base/forms.py:1175
 msgid "Default input type for planer"
 msgstr "Výchozí typ vstupu pro plánovač"
 
-#: base/forms.py:1113
+#: base/forms.py:1176
 msgid "Please select your currency:"
 msgstr "Vyberte prosím svou měnu:"
 
-#: base/forms.py:1116
+#: base/forms.py:1179
 msgid "Enable shipments feature:"
 msgstr "Povolit funkci zásilek:"
 
-#: base/forms.py:1119
+#: base/forms.py:1182
 msgid "Prefered sending option in Results tab"
 msgstr "Preferovaná možnost odeslání na kartě Výsledky"
 
-#: base/forms.py:1121
+#: base/forms.py:1184
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
@@ -1241,53 +1253,53 @@ msgstr "Poslední aktualizace světa: "
 msgid "Army troops have been successfully added."
 msgstr "Jednotky armády byly úspěšně přidány."
 
-#: base/templates/base/new_outline/new_outline.html:95
-#: base/templates/base/new_outline/new_outline.html:161
+#: base/templates/base/new_outline/new_outline.html:107
+#: base/templates/base/new_outline/new_outline.html:185
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid "Incorrect data in"
 msgstr "Nesprávná data v"
 
-#: base/templates/base/new_outline/new_outline.html:95
-#: base/templates/base/new_outline/new_outline.html:161
+#: base/templates/base/new_outline/new_outline.html:107
+#: base/templates/base/new_outline/new_outline.html:185
 #: base/templates/base/new_outline/new_outline_initial_period1.html:126
 msgid "lines."
 msgstr "řádcích."
 
-#: base/templates/base/new_outline/new_outline.html:96
-#: base/templates/base/new_outline/new_outline.html:162
+#: base/templates/base/new_outline/new_outline.html:108
+#: base/templates/base/new_outline/new_outline.html:186
 msgid "*After clicking submit you will be transferred to first error*"
 msgstr "*Po kliknutí na odeslat budete přesměrováni na první chybu*"
 
-#: base/templates/base/new_outline/new_outline.html:106
-#: base/templates/base/new_outline/new_outline.html:172
+#: base/templates/base/new_outline/new_outline.html:118
+#: base/templates/base/new_outline/new_outline.html:196
 msgid "The text cannot be empty"
 msgstr "Text nemůže být prázdný"
 
-#: base/templates/base/new_outline/new_outline.html:115
-#: base/templates/base/new_outline/new_outline.html:181
+#: base/templates/base/new_outline/new_outline.html:127
+#: base/templates/base/new_outline/new_outline.html:205
 #: base/templates/base/new_outline/new_outline_get_deff.html:15
 msgid "Submit"
 msgstr "Odeslat"
 
-#: base/templates/base/new_outline/new_outline.html:136
+#: base/templates/base/new_outline/new_outline.html:148
 msgid "Deff troops have been successfully added."
 msgstr "Obranné jednotky byly úspěšně přidány."
 
-#: base/templates/base/new_outline/new_outline.html:200
+#: base/templates/base/new_outline/new_outline.html:224
 #: base/templates/base/new_outline/new_outline_create.html:31
 #: base/templates/base/new_outline/new_outline_get_deff.html:23
 #: base/templates/base/new_outline/new_outline_initial_period1.html:453
 msgid "Info"
 msgstr "Info"
 
-#: base/templates/base/new_outline/new_outline.html:203
+#: base/templates/base/new_outline/new_outline.html:227
 #: base/templates/base/new_outline/new_outline_create.html:34
 #: base/templates/base/new_outline/new_outline_get_deff.html:26
 #: base/templates/base/new_outline/new_outline_initial_period1.html:457
 msgid "Examples"
 msgstr "Příklady"
 
-#: base/templates/base/new_outline/new_outline.html:225
+#: base/templates/base/new_outline/new_outline.html:249
 #: base/templates/base/new_outline/new_outline_initial_period1.html:479
 #: base/templates/base/new_outline/new_outline_initial_period1.html:500
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:340
@@ -3453,7 +3465,7 @@ msgstr "[size=12][b]ÚTOK[/b][/size] (Útok-"
 msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
 msgstr "[color=#a500a5][size=12][b]ŠLECHTIC[/b][/size][/color]"
 
-#: utils/basic/troops.py:53
+#: utils/basic/troops.py:55
 #, python-format
 msgid "Line %s: "
 msgstr "Řádek %s: "
