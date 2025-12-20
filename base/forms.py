@@ -127,13 +127,29 @@ class OffTroopsForm(forms.ModelForm):
         )
         evidence = basic.world_evidence(self.outline.world)
 
-        already_used_villages = set()
+        lines = text.split("\r\n")
+        already_used_villages: dict[str, int] = {}
+        possible_deff_input_count = 0
+        total_errors = 0
 
-        for i, text_line in enumerate(text.split("\r\n")):
+        for i, text_line in enumerate(lines):
             army = basic.Army(text_army=text_line, evidence=evidence)
             try:
                 army.clean_init(villages, self.outline.ally_tribe_tag)
             except basic.ArmyError as error:
+                total_errors += 1
+                defence_test = basic.Defence(text_army=text_line, evidence=evidence)
+                try:
+                    defence_test.clean_init(villages, self.outline.ally_tribe_tag)
+                    possible_deff_input_count += 1
+                except basic.DefenceError:
+                    pass
+                else:
+                    if army.coord in already_used_villages:
+                        already_used_villages[army.coord] += 1
+                    else:
+                        already_used_villages[army.coord] = 1
+
                 if not self.first_error_message:
                     self.first_error_message = str(error)
                     if error.coord:
@@ -166,15 +182,30 @@ class OffTroopsForm(forms.ModelForm):
                 continue
 
             if army.coord in already_used_villages:
+                already_used_villages[army.coord] += 1
                 if not self.first_error_message:
                     self.first_error_message = gettext_lazy(
                         "Village in this line is duplicated: %(coord)s"
                     ) % {"coord": army.coord}
-
                 self.add_error("off_troops", str(i))
                 continue
             else:
-                already_used_villages.add(army.coord)
+                already_used_villages[army.coord] = 1
+
+        if (
+            total_errors > (len(lines) // 3)
+            and possible_deff_input_count > len(lines) // 3
+        ):
+            if (
+                len([count for count in already_used_villages.values() if count == 2])
+                > len(lines) // 3
+            ):
+                self.add_error(
+                    field=None,
+                    error=gettext_lazy(
+                        "This doesn't look like a valid input for THIS form. Did you want to input it into the 'Deff collection' form instead?"
+                    ),
+                )
 
         return text
 
@@ -216,10 +247,13 @@ class DeffTroopsForm(forms.ModelForm):
         )
         evidence = basic.world_evidence(self.outline.world)
 
+        lines = text.split("\r\n")
         already_used_villages: dict[str, int] = {}
         previous_army = basic.Defence(text_army="", evidence=evidence)
+        possible_off_input_count = 0
+        total_errors = 0
 
-        for i, text_line in enumerate(text.split("\r\n")):
+        for i, text_line in enumerate(lines):
             army = basic.Defence(text_army=text_line, evidence=evidence)
             try:
                 army.clean_init(
@@ -228,6 +262,19 @@ class DeffTroopsForm(forms.ModelForm):
                 out_lines.append(",".join(army.text_army))
 
             except basic.DefenceError as error:
+                total_errors += 1
+                off_test = basic.Army(text_army=text_line, evidence=evidence)
+                try:
+                    off_test.clean_init(villages, self.outline.ally_tribe_tag)
+                    possible_off_input_count += 1
+                except basic.ArmyError:
+                    pass
+                else:
+                    if army.coord in already_used_villages:
+                        already_used_villages[army.coord] += 1
+                    else:
+                        already_used_villages[army.coord] = 1
+
                 if not self.first_error_message:
                     self.first_error_message = str(error)
                     if error.coord:
@@ -272,6 +319,22 @@ class DeffTroopsForm(forms.ModelForm):
                     self.add_error("deff_troops", i)  # type: ignore
             else:
                 already_used_villages[army.coord] = 1
+
+        if (
+            total_errors > (len(lines) // 3)
+            and possible_off_input_count > len(lines) // 3
+        ):
+            if (
+                len([count for count in already_used_villages.values() if count == 1])
+                > len(lines) // 3
+            ):
+                self.add_error(
+                    field=None,
+                    error=gettext_lazy(
+                        "This doesn't look like a valid input for THIS form. Did you want to input it into the 'Army collection' form instead?"
+                    ),
+                )
+
         return "\r\n".join(out_lines)
 
 

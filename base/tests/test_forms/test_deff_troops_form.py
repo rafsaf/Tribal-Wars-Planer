@@ -262,3 +262,53 @@ class TestArmy(TestCase):
             outline=self.outline,
         )
         self.assertFalse(off_form.is_valid())
+
+    def test_deff_form_shows_hint_when_off_input_detected(self):
+        """
+        Test that when more than 1/3 of lines look like army input
+        (without 'w wiosce' or 'w drodze'), the form suggests using the
+        Army collection form instead.
+        """
+        # Create input that looks like army data:
+        # - Each line has army format (no 'w wiosce' or 'w drodze')
+        # - Each village is used only once
+        # - This will trigger both possible_off_input_count and already_used_villages conditions
+        off_line1 = "500|500,5,1000,1000,0,0,0,1000,0,0,0,0,0,"
+        off_line2 = "499|500,5,1000,1000,0,0,0,1000,0,0,0,0,0,"
+        off_line3 = "498|503,5,1000,1000,0,0,0,1000,0,0,0,0,0,"
+        off_line4 = "500|502,5,1000,1000,0,0,0,1000,0,0,0,0,0,"
+        off_line5 = "498|502,5,1000,1000,0,0,0,1000,0,0,0,0,0,"
+        off_line6 = "500|499,5,1000,1000,0,0,0,1000,0,0,0,0,0,"
+
+        # Create 6 lines (6 villages * 1 line each)
+        # This gives us: len(lines) = 6, so len(lines) // 3 = 2
+        # All 6 lines will be errors when parsed as deff (total_errors = 6 > 2)
+        # All 6 lines will parse as army (possible_off_input_count = 6 > 2)
+        # 6 villages used once each (count == 1: 6 > 2)
+        off_input = "\r\n".join(
+            [
+                off_line1,
+                off_line2,
+                off_line3,
+                off_line4,
+                off_line5,
+                off_line6,
+            ]
+        )
+
+        deff_form = forms.DeffTroopsForm(
+            {"deff_troops": off_input}, outline=self.outline
+        )
+        self.assertFalse(deff_form.is_valid())
+
+        # Check that the specific hint error message is present in non-field errors
+        self.assertIn("__all__", deff_form.errors)
+        non_field_errors = deff_form.errors.get("__all__", [])
+        error_found = any(
+            "Did you want to input it into the 'Army collection' form instead?"
+            in str(error)
+            for error in non_field_errors
+        )
+        self.assertTrue(
+            error_found, "Expected hint error message not found in form errors"
+        )

@@ -4,7 +4,7 @@ from textwrap import dedent
 working_dir = pathlib.Path(__file__).parent.parent.absolute()
 license_short_text = dedent(
     """
-    # Copyright 2024 Rafał Safin (rafsaf). All Rights Reserved.
+    # Copyright 2025 Rafał Safin (rafsaf). All Rights Reserved.
     #
     # Licensed under the Apache License, Version 2.0 (the "License");
     # you may not use this file except in compliance with the License.
@@ -25,11 +25,15 @@ license_short_text = dedent(
 def find_python_files(path: pathlib.Path) -> list[pathlib.Path]:
     python_file_lst: list[pathlib.Path] = []
     for root, dirs, files in path.walk():
+        # Remove unwanted directories to prevent walk from descending into them
+        dirs[:] = [d for d in dirs if d not in {".venv", "venv", "__pycache__"}]
+
         for file in files:
             if file.endswith(".py"):
-                python_file_lst.append(root / file)
-        for dir in dirs:
-            python_file_lst += find_python_files(root / dir)
+                file_path = root / file
+                if file == "__init__.py" and not file_path.read_text().strip():
+                    continue
+                python_file_lst.append(file_path)
     return python_file_lst
 
 

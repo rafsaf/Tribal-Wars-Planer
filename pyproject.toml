@@ -32,7 +32,7 @@ dependencies = [
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
 requires-python = ">=3.14,<3.15"
-version = "5.18.0"
+version = "5.18.1"
 
 [dependency-groups]
 dev = [
