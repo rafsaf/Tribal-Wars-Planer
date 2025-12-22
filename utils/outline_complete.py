@@ -197,6 +197,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
             "catapult_left",
             "nobleman_state",
             "nobleman_left",
+            "ram_left",
             "first_line",
             "player_id",
             "village_id",

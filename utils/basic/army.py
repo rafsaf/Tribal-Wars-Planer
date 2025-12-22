@@ -221,6 +221,11 @@ class Army:
         """Literal Number of catapult"""
         return self.army_value(self.index_dict["catapult"])
 
+    @cached_property
+    def ram(self) -> int:
+        """Literal Number of ram"""
+        return self.army_value(self.index_dict["ram"])
+
     def _raw_deff(self):
         # no heavy cavalery
         return (
