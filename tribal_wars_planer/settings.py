@@ -122,6 +122,7 @@ INSTALLED_APPS = [
     "two_factor.plugins.email",
     "two_factor.plugins.yubikey",
     "drf_spectacular",
+    "django.contrib.postgres",
 ]
 
 REST_FRAMEWORK = {
