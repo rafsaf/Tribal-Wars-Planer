@@ -51,7 +51,13 @@ class FastWeightMaximum:
         self.catapult_state: int = weight_max.catapult_state
         self.catapult_left: int = weight_max.catapult_left
         self.first_line: bool = weight_max.first_line
-        self.fake_limit: int = outline.initial_outline_fake_limit
+        if weight_max.ram_left is None:
+            self.fake_limit: int = outline.initial_outline_fake_limit
+        else:
+            self.fake_limit: int = min(
+                outline.initial_outline_fake_limit,
+                weight_max.ram_left + weight_max.catapult_left,
+            )
         self.nobles_limit: int = outline.initial_outline_nobles_limit
         self.fake_nobles_limit: int = outline.initial_outline_nobles_limit
         self.distance: float = 0

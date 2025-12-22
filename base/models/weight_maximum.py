@@ -40,6 +40,11 @@ class WeightMaximum(models.Model):
     nobleman_state = models.IntegerField(default=0)
     nobleman_left = models.IntegerField()
 
+    # TODO remove null after 1m after appying on prod - after 1feb 2026
+    ram_max = models.IntegerField(null=True)
+    ram_state = models.IntegerField(null=True, default=0)
+    ram_left = models.IntegerField(null=True)
+
     catapult_max = models.IntegerField(default=0)
     catapult_state = models.IntegerField(default=0)
     catapult_left = models.IntegerField(default=0)

@@ -312,6 +312,9 @@ class TransactionMiniSetup(TransactionTestCase):
             off_left=1500,
             nobleman_max=5,
             nobleman_left=5,
+            ram_max=100,
+            ram_left=100,
+            ram_state=0,
         )
 
     def create_weight(

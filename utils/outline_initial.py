@@ -121,6 +121,9 @@ class MakeOutline:
                 points=village.player.points,
                 player_id=village.player.player_id,
                 village_id=village.village_id,
+                ram_max=army.ram,
+                ram_left=army.ram,
+                ram_state=0,
             )
         )
 
