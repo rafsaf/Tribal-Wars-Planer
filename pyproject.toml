@@ -29,6 +29,7 @@ dependencies = [
   "sentry-sdk[django]>=2.40.0",
   "setuptools>=80.9.0",
   "stripe>=13.0.1",
+  "sympy>=1.14.0",
   "uwsgi>=2.0.30",
 ]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
