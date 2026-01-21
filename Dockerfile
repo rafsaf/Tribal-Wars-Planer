@@ -65,6 +65,12 @@ RUN SECRET_KEY=build-time-secret \
     POSTGRES_PORT=5432 \
     python manage.py collectstatic --no-input
 
+RUN rm -rf logs
+RUN rm -rf prometheus_multi_proc_dir
+RUN rm -rf media
+RUN rm -rf disk_cache
+RUN rm -rf default_disk_cache
+
 RUN apt-get update -y && apt-get install -y nginx postgresql-client
 COPY config/twp_nginx.conf /etc/nginx/nginx.conf
 
