@@ -363,6 +363,8 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
                 price: StripePrice = StripePrice.objects.get(
                     currency=currency,
                     amount=amount,
+                    active=True,
+                    product__active=True,
                 )
             except StripePrice.DoesNotExist:
                 metrics.ERRORS.labels("stripe_error").inc()
