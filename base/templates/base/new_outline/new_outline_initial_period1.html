@@ -120,7 +120,8 @@
           {{ form1.target }}
 
           {% if form1.target.errors %}
-            <script type="module">codemirrorValidation(`{{form1.target.errors.as_json|safe}}`, `.CodeMirror`);</script>
+            <script type="module">codemirrorValidation(document.getElementById('initial-target-errors-json').textContent, `.CodeMirror`);</script>
+            {{ form1.target.errors.get_json_data|json_script:"initial-target-errors-json" }}
 
             <div class="error-text">
               <p>{% trans 'Incorrect data in' %} {{form1.target.errors|length}} {% trans 'lines.' %}<br><br>{% trans 'Valid lines looks like (assuming that such a village 000|000 exists):' %}<br>{% trans '"000|000" - clean coords' %}<br>{% trans '"000|000:0:0" - coords with :off:noble numbers' %}<br>{% trans '"000|000:0|0|0|0:0" - additional off info, list instead of number' %}<br>{% trans '"000|000:0|0|0|0:0|0|0|0" - max info that can be passed about offs and nobles' %}<br></p>
