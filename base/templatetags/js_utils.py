@@ -23,4 +23,10 @@ register = template.Library()
 
 @register.filter
 def js_string(value):
-    return json.dumps(value or "")
+    serialized = json.dumps(value or "")
+    # </script><script>alert('XSS')</script>
+    return (
+        serialized.replace("</", "<\\/")
+        .replace("\u2028", "\\u2028")
+        .replace("\u2029", "\\u2029")
+    )
