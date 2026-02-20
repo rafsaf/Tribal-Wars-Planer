@@ -29,6 +29,7 @@ from django.db.models import Count, F, Q, Sum
 from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy
 
 from base.models.world import World
@@ -451,23 +452,22 @@ class Outline(models.Model):
 
     def expires_in(self) -> str:
         base = gettext_lazy("Expires ")
-        postfix: str = "</small>"
 
         minus_35_days = timezone.now() - datetime.timedelta(days=35)
         expire: datetime.timedelta = self.created - minus_35_days
 
         if expire.days > 7:
-            prefix = "<small class='md-correct2'>"
+            css_class = "md-correct2"
         else:
-            prefix = "<small class='md-error'>"
+            css_class = "md-error"
 
-        return (
-            prefix
-            + base
-            + gettext_lazy("in")
-            + f" {expire.days} "
-            + gettext_lazy("days")
-            + postfix
+        return format_html(
+            "<small class='{}'>{}{} {} {}</small>",
+            css_class,
+            base,
+            gettext_lazy("in"),
+            expire.days,
+            gettext_lazy("days"),
         )
 
     @cached_property

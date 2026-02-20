@@ -91,7 +91,8 @@
                             </div>
 
                             {% if off_troops.errors %}
-                                <script type="module">codemirrorValidation(`{{off_troops.get_json|safe}}`, `.cm-s-off-troops-codemirror`);</script>
+                                <script type="module">codemirrorValidation(document.getElementById('off-troops-errors-json').textContent, `.cm-s-off-troops-codemirror`);</script>
+                                {{ off_troops.errors|json_script:"off-troops-errors-json" }}
 
                                 {% if off_troops.non_field_errors %}
                                     <div class="error-text mb-3 mt-1">
@@ -164,7 +165,8 @@
 
                             {% if deff_troops.errors %}
 
-                                <script type="module">codemirrorValidation(`{{deff_troops.get_json|safe}}`, `.cm-s-deff-troops-codemirror`);</script>
+                                <script type="module">codemirrorValidation(document.getElementById('deff-troops-errors-json').textContent, `.cm-s-deff-troops-codemirror`);</script>
+                                {{ deff_troops.errors|json_script:"deff-troops-errors-json" }}
                                 <script type="module">
                                     document.addEventListener("DOMContentLoaded", function(event) {
                                         document.getElementById('deff-form-label').scrollIntoView({behavior: "smooth"});

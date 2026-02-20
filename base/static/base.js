@@ -723,7 +723,8 @@ const handleButtonClipboardUpdate = (
       element.innerHTML = `<i class="bi bi-arrow-counterclockwise"></i> ${updatedText}`;
     }, 1800);
   } catch (error) {
-    element.innerHTML = `<span style="color: red"><i class="bi bi-x-circle"></i> ${errorMessage} (${error})</span>`;
+    console.error(error);
+    element.innerHTML = `<span style="color: red"><i class="bi bi-x-circle"></i> ${errorMessage}</span>`;
     setTimeout(() => {
       element.innerHTML = currentInnerText;
     }, 5000);
