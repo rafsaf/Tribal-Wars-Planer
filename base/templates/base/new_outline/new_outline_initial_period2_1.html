@@ -182,8 +182,8 @@
                                                     <th>{%if period.to_number != None %}
                                                         {{period.to_number}}
                                                     {% endif %}</th>
-                                                    <th>{{period.from_time|safe}}</th>
-                                                    <th>{{period.to_time|safe}}</th>
+                                                    <th>{{period.from_time|time:"H:i:s"}}</th>
+                                                    <th>{{period.to_time|time:"H:i:s"}}</th>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
@@ -224,8 +224,8 @@
                                                     <th>{%if period.to_number != None %}
                                                         {{period.to_number}}
                                                     {% endif %}</th>
-                                                    <th>{{period.from_time|safe}}</th>
-                                                    <th>{{period.to_time|safe}}</th>
+                                                    <th>{{period.from_time|time:"H:i:s"}}</th>
+                                                    <th>{{period.to_time|time:"H:i:s"}}</th>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
