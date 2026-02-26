@@ -18,6 +18,7 @@
 import logging
 import re
 
+import bleach
 from django import forms
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -33,6 +34,23 @@ from utils import basic, database_update
 from . import models
 
 log = logging.getLogger(__name__)
+
+
+def sanitize_troops_html(value: str | None) -> str:
+    def _allow_only_span_grey(tag: str, name: str, attr_value: str) -> bool:
+        if tag != "span" or name != "class":
+            return False
+
+        class_names = attr_value.split()
+        return len(class_names) == 1 and class_names[0] == "grey"
+
+    sanitized = bleach.clean(
+        value or "",
+        tags=["span"],
+        attributes=_allow_only_span_grey,
+        strip=True,
+    )
+    return re.sub(r"\r\n|\n|\r", "\r\n", sanitized)
 
 
 def get_field_default(m: type[Model], field: str) -> str:
@@ -114,7 +132,7 @@ class OffTroopsForm(forms.ModelForm):
 
     def clean_off_troops(self):
         """User's input from script"""
-        text: str = self.cleaned_data["off_troops"]
+        text = sanitize_troops_html(self.cleaned_data["off_troops"])
         if text == "":
             self.add_error(field=None, error=gettext_lazy("Text cannot be empty!"))
             return None
@@ -232,7 +250,7 @@ class DeffTroopsForm(forms.ModelForm):
 
     def clean_deff_troops(self):
         """User's input from script"""
-        text = self.cleaned_data["deff_troops"]
+        text = sanitize_troops_html(self.cleaned_data["deff_troops"])
         out_lines: list[str] = []
 
         if text == "":

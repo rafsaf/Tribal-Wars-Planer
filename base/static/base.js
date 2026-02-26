@@ -663,26 +663,6 @@ const changeBuildingsArray = async (outline_id, list) => {
       }, 2000);
     });
 };
-const resetUserMessages = async () => {
-  const svg = document.getElementById("reset-svg");
-  const span = document.getElementById("reset-span");
-  await fetch(`/api/reset-user-messages/`, {
-    method: "PUT",
-    credentials: "same-origin",
-    headers: {
-      "X-CSRFToken": getCookie("csrftoken"),
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  }).then((response) => {
-    if (response.status === 200) {
-      svg.style.fill = "rgba(0,0,0,.5)";
-      span.style.color = "rgba(0,0,0,.5)";
-      span.innerHTML = "0";
-    }
-  });
-};
-
 const codemirrorValidation = (json_errors, selectorClass) => {
   document.addEventListener("DOMContentLoaded", function (event) {
     $(selectorClass).addClass("CodeMirror-Invalid");

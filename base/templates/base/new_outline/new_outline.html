@@ -1,7 +1,6 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% load i18n %}
-{% load js_utils %}
 
 {% block title %}{{instance.name|capfirst}} - {{instance.world.game_name}}{% endblock %}
 {% block sidebar %}
@@ -133,7 +132,6 @@
                         theme: 'off-troops-codemirror',
                         lineNumbers: true,
                     });
-                    editor1.replaceSelection({{ off_troops.troops|js_string|safe }})
                 </script>
 
                 <div class="col-12">
@@ -212,7 +210,6 @@
                         theme: 'deff-troops-codemirror',
                         lineNumbers: true,
                     });
-                    editor2.replaceSelection({{deff_troops.troops|js_string|safe}})
                 </script>
                 {% if not deff_troops.errors and not message_deff %}
                     <script type="module">window.scrollTo(0,0)</script>

@@ -19,23 +19,16 @@ import logging
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.models import User
 from django.db import transaction
-from django.db.models import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 
 import metrics
 from base.emails import send_payment_email
-from base.models import Message, Payment, Profile, Server
+from base.models import Payment, Profile, Server
 from utils.basic import create_test_world
 
 log = logging.getLogger(__name__)
-
-
-@receiver(post_save, sender=Message)
-def created_message(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.all().update(messages=F("messages") + 1)
 
 
 @receiver(post_save, sender=User)

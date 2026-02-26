@@ -230,7 +230,9 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:  # noqa: PLR
                 request.session["message-off-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:
-                off_troops.set_troops(request.POST.get("off_troops"))
+                off_troops.set_troops(
+                    forms.sanitize_troops_html(request.POST.get("off_troops"))
+                )
                 off_troops.set_errors(form10.errors)
                 off_troops.set_first_error_msg(form10.first_error_message)
                 off_troops.set_second_error_msg(form10.second_error_message)
@@ -247,7 +249,9 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:  # noqa: PLR
                 request.session["message-deff-troops"] = "true"
                 return redirect("base:planer_detail", _id)
             else:
-                deff_troops.set_troops(request.POST.get("deff_troops"))
+                deff_troops.set_troops(
+                    forms.sanitize_troops_html(request.POST.get("deff_troops"))
+                )
                 deff_troops.set_errors(form20.errors)
                 deff_troops.set_first_error_msg(form20.first_error_message)
                 deff_troops.set_second_error_msg(form20.second_error_message)
@@ -261,6 +265,15 @@ def outline_detail(request: HttpRequest, _id: int) -> HttpResponse:  # noqa: PLR
             "update",
             str(round(_timedelta / 60)) + gettext(" minute(s) ago."),
         )
+
+    form1 = forms.OffTroopsForm(
+        initial={"off_troops": off_troops.troops},
+        outline=instance,
+    )
+    form2 = forms.DeffTroopsForm(
+        initial={"deff_troops": deff_troops.troops},
+        outline=instance,
+    )
 
     context = {
         "instance": instance,
