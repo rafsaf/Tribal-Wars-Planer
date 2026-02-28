@@ -57,7 +57,7 @@ class TestMyShipmentsView(MiniSetup):
             world=self.get_world(),
             date=datetime.date.today(),
         )
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(5):
             response = self.client.get(PATH)
         assert response.status_code == 200
         shipments = response.context["shipments"]
@@ -78,7 +78,7 @@ class TestMyShipmentsView(MiniSetup):
             date=datetime.date.today(),
         )
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(5):
             response = self.client.get(PATH)
         assert response.status_code == 200
 
