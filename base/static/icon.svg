@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="512" height="512" role="img" aria-label="PP logo">
+  <defs>
+    <linearGradient id="pp-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#159183"/>
+      <stop offset="1" stop-color="#0c6d61"/>
+    </linearGradient>
+    <linearGradient id="pp-edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2ab3a0"/>
+      <stop offset="1" stop-color="#0a5148"/>
+    </linearGradient>
+    <filter id="pp-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="0.35" stdDeviation="0.35" flood-color="#031714" flood-opacity="0.85"/>
+    </filter>
+    <path id="hard-p" fill-rule="evenodd" d="M0.1 0.2L3.2 0.2L3.9 0.32L4.45 0.55L4.9 0.88L5.18 1.25L5.32 1.72L5.32 4.25L5.18 4.72L4.9 5.08L4.45 5.42L3.9 5.65L3.2 5.8L2.2 5.8L2.2 12.3L0.1 12.3L0.1 0.2ZM2.08 1.62L3.42 1.62L3.88 1.72L4.2 1.9L4.42 2.2L4.5 2.55L4.5 3.45L4.42 3.8L4.2 4.1L3.88 4.28L3.42 4.38L2.08 4.38Z"/>
+    <path id="hard-p-highlight" d="M0.6 0.8L3 0.8L4 1.1L4.5 1.7"/>
+  </defs>
+
+  <g transform="translate(1 1)" filter="url(#pp-shadow)">
+    <use href="#hard-p" fill="url(#pp-fill)" transform="translate(0 -0.7) scale(1.1)"/>
+    <use href="#hard-p" x="7" fill="url(#pp-fill)" transform="translate(0 -0.7) scale(1.1)"/>
+
+    <use href="#hard-p" fill="none" stroke="url(#pp-edge)" stroke-width="0.35" transform="translate(0 -0.7) scale(1.1)"/>
+    <use href="#hard-p" x="7" fill="none" stroke="url(#pp-edge)" stroke-width="0.35" transform="translate(0 -0.7) scale(1.1)"/>
+
+    <use href="#hard-p-highlight" fill="none" stroke="#3fd0bc" stroke-width="0.3" stroke-linecap="square" transform="translate(0 -0.7) scale(1.1)"/>
+    <use href="#hard-p-highlight" x="7" fill="none" stroke="#3fd0bc" stroke-width="0.3" stroke-linecap="square" transform="translate(0 -0.7) scale(1.1)"/>
+
+    <path d="M0 14.2L13.3 14.2L14 14.9L0.7 14.9Z" fill="url(#pp-fill)"/>
+    <path d="M0 14.2L13.3 14.2" stroke="#2ec4b2" stroke-width="0.28"/>
+  </g>
+</svg>
