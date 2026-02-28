@@ -20,8 +20,8 @@ theme:
     - navigation.footer
   name: material
   custom_dir: "../../overrides/"
-  logo: assets/images/favicon.jpg
-  favicon: assets/images/favicon.jpg
+  logo: assets/images/favicon.svg
+  favicon: assets/images/favicon.svg
   language: hu
 
 extra:
