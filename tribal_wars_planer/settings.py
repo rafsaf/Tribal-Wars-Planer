@@ -103,7 +103,7 @@ INSTALLED_APPS = [
     "utils",
     "shipments",
     "crispy_forms",
-    "crispy_bootstrap4",
+    "crispy_bootstrap5",
     "django_registration",
     "rest_framework",
     "django.contrib.admin",
@@ -286,8 +286,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = "base:base"
 LOGIN_URL = "two_factor:login"
@@ -367,7 +367,7 @@ ZERO_DECIMAL_CURRENCIES = {
     "XPF",
 }
 DEFAULT_CURRENCY = "PLN"
-STRIPE_VERSION = "2025-09-30.clover"
+STRIPE_VERSION = "2026-02-25.clover"
 
 SUPPORTED_CURRENCIES_CHOICES = [
     (currency, currency) for currency in SUPPORTED_CURRENCIES

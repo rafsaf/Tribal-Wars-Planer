@@ -53,7 +53,7 @@
                         </td>
                         <td>
                             <div>
-                                <button type="button" class="btn btn-secondary my-2" data-toggle="modal" data-target="#Duplicate-{{instance.id}}">{% trans 'Duplicate' %}</button>
+                                <button type="button" class="btn btn-secondary my-2" data-bs-toggle="modal" data-bs-target="#Duplicate-{{instance.id}}">{% trans 'Duplicate' %}</button>
                             </div>
 
                             <div class="modal fade" id="Duplicate-{{instance.id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -61,9 +61,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title">{% trans 'Duplicate an outline' %}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <h4 class="md-correct2">{{instance.name}}</h4>
@@ -78,7 +76,7 @@
                                         </div>
                                         <div class="modal-footer">
 
-                                            <button id="duplicate-{{instance.id}}-btn" type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <button id="duplicate-{{instance.id}}-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 <b>{% trans 'Close' %}</b>
                                             </button>
                                             <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`duplicate-{{instance.id}}-form`,``,true);" class="btn btn-ocean">{% trans 'Duplicate' %}</button>
@@ -88,12 +86,12 @@
                                 </div>
                             </div>
                             {% if instance.duplicate_form.errors %}
-                                <script type="module">document.addEventListener("DOMContentLoaded", function(event) {$('#Duplicate-{{instance.id}}').modal('show');});</script>
+                                <script type="module">document.addEventListener("DOMContentLoaded", function(event) {const element = document.getElementById('Duplicate-{{instance.id}}'); if (element) { new bootstrap.Modal(element).show(); }});</script>
                             {% endif %}
                         </td>
                         <td>
                             <div>
-                                <button type="button" class="btn btn-secondary my-2" data-toggle="modal" data-target="#ValidationModal-{{instance.id}}">{% trans 'Delete' %}</button>
+                                <button type="button" class="btn btn-secondary my-2" data-bs-toggle="modal" data-bs-target="#ValidationModal-{{instance.id}}">{% trans 'Delete' %}</button>
                             </div>
 
                             <div class="modal fade" id="ValidationModal-{{instance.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -101,9 +99,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title">{% trans 'Warning' %}</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <h4 class="md-correct2">{{instance.name}}</h4>
@@ -114,7 +110,7 @@
                                         </div>
                                         <div class="modal-footer">
 
-                                            <button id="dismiss-{{instance.id}}-btn" type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <button id="dismiss-{{instance.id}}-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 <b>{% trans 'Close' %}</b>
                                             </button>
 

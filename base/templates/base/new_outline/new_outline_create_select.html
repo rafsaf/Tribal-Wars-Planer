@@ -62,7 +62,7 @@
                                         <td>
                                             <form action="{% url 'base:planer_delete_ally_tags' instance.id %}" method="POST">
                                                 {% csrf_token %}
-                                                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-block btn-outline-danger" type="submit">{% trans 'Delete all' %}</button>
+                                                <button onclick="this.disabled=true;this.form.submit();" class="btn w-100 btn-outline-danger" type="submit">{% trans 'Delete all' %}</button>
 
                                             </form>
                                         </td>
@@ -88,7 +88,7 @@
                                         <td>
                                             <form action="{% url 'base:planer_delete_enemy_tags' instance.id %}" method="POST">
                                                 {% csrf_token %}
-                                                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-block btn-outline-danger" type="submit">{% trans 'Delete all' %}</button>
+                                                <button onclick="this.disabled=true;this.form.submit();" class="btn w-100 btn-outline-danger" type="submit">{% trans 'Delete all' %}</button>
 
                                             </form>
                                         </td>
@@ -107,7 +107,7 @@
         </div>
     </div>
     <div>
-        <button type="button" class="btn btn-outline-ocean btn-lg btn-block mt-2" data-toggle="modal" data-target="#ValidationModal">
+        <button type="button" class="btn btn-outline-ocean btn-lg w-100 mt-2" data-bs-toggle="modal" data-bs-target="#ValidationModal">
             {% trans 'Save and create' %}
         </button>
     </div>
@@ -117,9 +117,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     {% blocktrans %} To avoid future conflicts you can set up ally and enemy tribes
@@ -131,7 +129,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans 'Close' %}</button>
                     <form action="{% url 'base:planer_disable_editable' instance.id %}" method="POST">
                         {% csrf_token %}
                         <button onclick="this.disabled=true;this.form.submit();" type="submit" class="btn btn-ocean">{% trans 'Continue' %}</button>

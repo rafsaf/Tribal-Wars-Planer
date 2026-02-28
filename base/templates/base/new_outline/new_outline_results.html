@@ -4,32 +4,39 @@
 {% block title %}{% trans 'Results' %} - {{instance.name|capfirst}}{% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
+    <style>
+        #leftscroll a,
+        #leftscroll a:hover,
+        #leftscroll a:focus {
+            text-decoration: none !important;
+        }
+    </style>
     <div class="table-responsive">
         <div class="mt-2 mb-5" id='leftscroll'>
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                 <li class="nav-item navitem100">
-                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
+                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-bs-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-sum-up" data-toggle="pill" href="#pills-outline-sum-up" role="tab" aria-controls="pills-sum-up" aria-selected="false">{% trans 'Sum Up' %}</a>
+                    <a class="nav-link ocean-tab-mid" id="pills-sum-up" data-bs-toggle="pill" href="#pills-outline-sum-up" role="tab" aria-controls="pills-sum-up" aria-selected="false">{% trans 'Sum Up' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
+                    <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
+                    <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-export" data-toggle="pill" href="#pills-outline-export" role="tab" aria-controls="pills-export" aria-selected="false">{% trans 'Left troops' %}</a>
+                    <a class="nav-link ocean-tab-mid" id="pills-export" data-bs-toggle="pill" href="#pills-outline-export" role="tab" aria-controls="pills-export" aria-selected="false">{% trans 'Left troops' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
+                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
                 </li>
 
             </ul>
             <div class="tab-content pt-1" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="p-2 my-2 mb-3  bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="/{{ LANG }}/documentation/scripts/sending_messages/"> {% trans 'here' %}</a>.
+                    <div class="p-2 my-2 mb-3  bg-light"><i class="bi bi-info-square"></i> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="/{{ LANG }}/documentation/scripts/sending_messages/"> {% trans 'here' %}</a>.
             {% comment %}
             
             <br>{% trans '<b>Warning!</b> New version of script released 30.08.2021. No backward compability!!!' %}<a target="_blank" href="{% url 'base:documentation' %}#send-script"> {% trans 'Check out here.' %}
@@ -40,7 +47,7 @@
                     <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
 
-                            <button style="text-decoration: none;" class="btn btn-link collapsed py-1 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <button style="text-decoration: none;" class="btn btn-link collapsed py-1 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 {% if form1.errors %}
                                     <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
@@ -70,7 +77,7 @@
                     <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
 
-                            <button style="text-decoration: none;" class="btn btn-link collapsed text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            <button style="text-decoration: none;" class="btn btn-link collapsed text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                                 {% trans 'Removed links' %}
                             </button>
 
@@ -125,7 +132,7 @@
                                 <th scope="col" style="border:1px solid teal">#</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Player' %}</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Link to member Page' %}</th>
-                                <th scope="col" data-toggle="tooltip" data-placement="top" title="{% trans 'By checking this option, players will see the commands of all other players for their own targets. By default, it’s not turned on and players only see their commands.' %}" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
+                                <th scope="col" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'By checking this option, players will see the commands of all other players for their own targets. By default, it’s not turned on and players only see their commands.' %}" style="border:1px solid teal">{% trans 'Show Hidden' %}</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Number of orders' %}</th>
                                 <th scope="col" style="border:1px solid teal">{% trans 'Send message' %}</th>
                             </tr>
@@ -212,8 +219,11 @@
     </div>
     {% if go_deff_tab %}
         <script type="module">
-            $(window).on("load", function () {
-                $('#pills-tab a[href="#pills-deff"]').tab('show')
+            window.addEventListener("load", function () {
+                const triggerEl = document.querySelector('#pills-tab a[href="#pills-deff"]');
+                if (triggerEl) {
+                    bootstrap.Tab.getOrCreateInstance(triggerEl).show();
+                }
             });
         </script>
     {% endif %}
@@ -224,9 +234,7 @@
                 <div class="modal-content text-white bg-info">
                     <div class="modal-header">
                         <h3 class="modal-title">{% trans 'Some of the written orders have been omitted due to the following problems' %}</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         {% for msg in error %}
@@ -242,7 +250,9 @@
 
         <script type="module">
             document.addEventListener("DOMContentLoaded", function(event) {
-                $('.bd-example-modal-lg').modal('show');
+                document.querySelectorAll('.bd-example-modal-lg').forEach((element) => {
+                    new bootstrap.Modal(element).show();
+                });
             });
         </script>
 

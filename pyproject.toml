@@ -5,7 +5,7 @@ dependencies = [
   "beautifulsoup4>=4.14.2",
   "bleach>=6.3.0",
   "botocore>=1.40.46",
-  "crispy-bootstrap4>=2025.6",
+  "crispy-bootstrap5>=2025.6",
   "cython>=3.1.4",
   "diskcache>=5.6.3",
   "django-crispy-forms>=2.3",
@@ -33,7 +33,7 @@ dependencies = [
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
 requires-python = ">=3.14,<3.15"
-version = "5.19.1"
+version = "6.0.0"
 
 [dependency-groups]
 dev = [
