@@ -1,4 +1,7 @@
-# Schritt 7 - Ergebnis-Registerkarte
+---
+title: "Schritt 7 - Ergebnis-Registerkarte"
+date: 2026-02-28
+---
 
 <figure markdown="span">
   ![alt text](image-11.png)

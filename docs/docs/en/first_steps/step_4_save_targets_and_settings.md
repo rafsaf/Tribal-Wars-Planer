@@ -1,4 +1,7 @@
-# Step 4 - Save targets and settings and write an outline
+---
+title: "Step 4 - Save targets and settings and write an outline"
+date: 2026-02-28
+---
 
 In the Planer tab, place the targets of the outline as described in the tab, by clicking on {==Save targets==}, we update the targets for which we plan to write outline. By clicking on {==Write an outline==} we finish this part and go to the next tabs. Before starting to write out your own outlines, read the descriptions of the type you are interested in and it's best to experiment in setting different distances from the Front, maximum distances for noblemen, change the advanced modes of the outline, then click Write an outline and in case of unsatisfactory results, return by clicking **Go back**.
 

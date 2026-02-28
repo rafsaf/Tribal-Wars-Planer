@@ -1,4 +1,7 @@
-# Mundo de Teste - primeiros passos com o Planejador
+---
+title: "Mundo de Teste - primeiros passos com o Planejador"
+date: 2026-02-28
+---
 
 Nesta aba, você aprenderá como escrever seu primeiro plano em um mundo de teste especialmente criado. Rápido, transparente, sem a necessidade de scripts.
 

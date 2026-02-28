@@ -1,12 +1,7 @@
 ---
-date:
-  created: 2023-12-31
-  updated: 2024-01-02
-readtime: 15
-pin: true
+title: "Świat testowy czyli pierwsze kroki z planerem."
+date: 2026-02-28
 ---
-
-# Świat testowy czyli pierwsze kroki z planerem.
 
 W tej zakładce dowiesz się jak rozpisać swoją pierwszą akcję na specjalnie do tego celu utworzonym świecie testowym. Szybko, przejrzyście, bez potrzeby instalacji skryptów.
 

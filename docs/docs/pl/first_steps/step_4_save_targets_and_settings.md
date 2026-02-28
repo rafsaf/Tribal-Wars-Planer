@@ -1,4 +1,7 @@
-# Krok 4 - Zapisze cele oraz ustawienia i rozpisz
+---
+title: "Krok 4 - Zapisze cele oraz ustawienia i rozpisz"
+date: 2026-02-28
+---
 
 W zakładce Planer należy podać cele akcji. Klikając {==Zapisz cele==} aktualizujemy cele na które planujemy rozpisać akcję. Klikając na {==Rozpisz tą akcję==} kończymy tą część rozpisywania i przechodzimy do następnych zakładek. Przed przystąpieniem do rozpisywania własnych akcji, należy przeczytać opisy interesującego nas typu akcji i najlepiej poeksperymentować w ustawianie różnych odległości od frontu, maksymalnych odległości dla szlachciców, zmieniać tryby rozpiski, następnie klikać Rozpisz tą akcję i w razie niesatysfakcjonujących rezultatów, powracać klikając **Powrót**.
 

@@ -1,4 +1,7 @@
-# Krok 6 - Nastavení časů vstupu a dokončení osnovy
+---
+title: "Krok 6 - Nastavení časů vstupu a dokončení osnovy"
+date: 2026-02-28
+---
 
 !!! info
 

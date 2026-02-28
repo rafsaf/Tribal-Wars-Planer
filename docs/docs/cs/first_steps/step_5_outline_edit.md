@@ -1,4 +1,7 @@
-# Krok 5 - Úprava osnovy
+---
+title: "Krok 5 - Úprava osnovy"
+date: 2026-02-28
+---
 
 Další pohled je akce založená na nastaveních z předchozí záložky. Je zde možnost ruční úpravy jednotlivých cílů, přidávání cílů a vyhledávání.
 

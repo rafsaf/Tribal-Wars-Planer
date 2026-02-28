@@ -1,4 +1,7 @@
-# Średnie akcje - poradnik
+---
+title: "Średnie akcje - poradnik"
+date: 2026-02-28
+---
 
 Uwaga, podany niżej pomysł na średnie akcje nie jest zobowiązujący, można to robić w dowolny sposób, choćby potraktować je jako małe lub duże akcje.
 

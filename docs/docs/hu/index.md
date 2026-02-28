@@ -1,4 +1,7 @@
-# Klánháború Tervező Dokumentáció
+---
+title: "Klánháború Tervező Dokumentáció"
+date: 2026-02-28
+---
 
 ## Bevezetés
 

@@ -1,4 +1,7 @@
-# Közepes tervek - Útmutató
+---
+title: "Közepes tervek - Útmutató"
+date: 2026-02-28
+---
 
 Megjegyzés, az alább bemutatott közepes akciók ötlete nem kötelező, bármilyen módon meg lehet csinálni, akár kis vagy nagy akcióként kezelve őket.
 

@@ -1,4 +1,7 @@
-# 1. Available Troops and table description
+---
+title: "1. Available Troops and table description"
+date: 2026-02-28
+---
 
 This tab is used to divide our tribe’s villages into Frontline and Rearline. Since understanding this is fundamental to using the site, part of its description can be found in other tabs, including this article:
 [The two regions of the tribe: what are the Frontline and Rearline](./../primary/two_regions_of_the_tribe.md).

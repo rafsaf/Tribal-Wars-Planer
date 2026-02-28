@@ -1,4 +1,7 @@
-# Passo 3 - Preenchendo a Coleta de Exército
+---
+title: "Passo 3 - Preenchendo a Coleta de Exército"
+date: 2026-02-28
+---
 
 Para ir para o plano recém-criado, clique em seu nome.
 

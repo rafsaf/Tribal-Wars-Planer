@@ -1,4 +1,7 @@
-# 5. Éjszakai bónusz elkerülése
+---
+title: "5. Éjszakai bónusz elkerülése"
+date: 2026-02-28
+---
 
 A fül arra szolgál, hogy opcionálisan beállítsuk az éjszakai bónusz elkerülését a generált parancsoknál a támadásokhoz és hamis támadásokhoz. A nemesek normálisan, egész nap ütemezhetők lesznek! Ez nem jelenti az éjszakai küldések lehetőségének teljes kiküszöbölését, csak azok minimalizálását.
 

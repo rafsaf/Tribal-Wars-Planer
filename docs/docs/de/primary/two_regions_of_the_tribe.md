@@ -1,4 +1,7 @@
-# Zwei Regionen des Stammes - Front und Hinterland
+---
+title: "Zwei Regionen des Stammes - Front und Hinterland"
+date: 2026-02-28
+---
 
 !!! hint
 

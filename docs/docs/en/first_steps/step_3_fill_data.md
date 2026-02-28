@@ -1,4 +1,7 @@
-# Step 3 - Filling the Army Collection
+---
+title: "Step 3 - Filling the Army Collection"
+date: 2026-02-28
+---
 
 To go to the newly created outline, click on its name.
 

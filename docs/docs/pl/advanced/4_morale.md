@@ -1,4 +1,7 @@
-# 4. Morale
+---
+title: "4. Morale"
+date: 2026-02-28
+---
 
 Zakładka służy do kontrolowania wartości morale morale przy rozpisywaniu akcji.
 

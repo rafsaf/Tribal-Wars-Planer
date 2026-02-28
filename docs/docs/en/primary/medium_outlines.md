@@ -1,4 +1,7 @@
-# Medium Outlines - Guide
+---
+title: "Medium Outlines - Guide"
+date: 2026-02-28
+---
 
 Note, the idea for medium actions presented below is not mandatory, it can be done in any way, even treating them as small or large actions.
 

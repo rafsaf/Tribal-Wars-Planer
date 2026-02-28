@@ -1,4 +1,7 @@
-# Dokumentace pro Plánovač pro Divoké Kmeny
+---
+title: "Dokumentace pro Plánovač pro Divoké Kmeny"
+date: 2026-02-28
+---
 
 ## Úvod
 

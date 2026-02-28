@@ -1,4 +1,7 @@
-# Guia de Planos de Ruína
+---
+title: "Guia de Planos de Ruína"
+date: 2026-02-28
+---
 
 Neste guia, você aprenderá a planejar ações de destruição, especificamente voltadas para as fases posteriores do mundo. Nota: Este guia pressupõe conhecimento completo de [Primeiros Passos com o Planejador](./../first_steps/index.md)! Também é recomendado ler primeiro os dois guias curtos anteriores nesta seção, ou seja, [Como Inserir e Salvar Metas de Ação](./two_regions_of_the_tribe.md) e [As Duas Regiões da Tribo, ou seja, O que é a Frente e a Retaguarda](./two_regions_of_the_tribe.md).
 

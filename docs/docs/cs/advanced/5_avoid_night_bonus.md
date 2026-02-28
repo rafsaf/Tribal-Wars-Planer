@@ -1,4 +1,7 @@
-# 5. Vyhnutí se nočnímu bonusu
+---
+title: "5. Vyhnutí se nočnímu bonusu"
+date: 2026-02-28
+---
 
 Karta slouží k volitelnému nastavení možnosti vyhnout se nočnímu bonusu pro generované příkazy pro offy a falešné offy. Šlechtici budou plánováni normálně po celý den! To neznamená úplné vyloučení možnosti nočních odeslání, ale pouze jejich minimalizaci.
 

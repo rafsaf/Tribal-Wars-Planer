@@ -1,4 +1,7 @@
-# 3. Parâmetros do Plano
+---
+title: "3. Parâmetros do Plano"
+date: 2026-02-28
+---
 
 Esta aba é usada para especificar os detalhes de onde exatamente as tropas ofensivas devem vir para uma operação, bem como outras configurações gerais do cronograma. Aperte os cintos.
 

@@ -1,4 +1,7 @@
-# Nyilvános API
+---
+title: "Nyilvános API"
+date: 2026-02-28
+---
 
 Lehetőség van a nyilvános API használatára. Nagyon hálás lennék az ésszerű sebességkorlátozásért és a Klánháború Tervező szerverek DOS-támadásának elkerüléséért.
 

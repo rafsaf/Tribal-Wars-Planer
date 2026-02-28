@@ -1,4 +1,7 @@
-# 6. Ničení
+---
+title: "6. Ničení"
+date: 2026-02-28
+---
 
 Tato karta obsahuje několik nastavení souvisejících s demoličními akcemi.
 

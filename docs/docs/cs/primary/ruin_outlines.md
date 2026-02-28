@@ -1,4 +1,7 @@
-# Ničivé osnovy - Průvodce
+---
+title: "Ničivé osnovy - Průvodce"
+date: 2026-02-28
+---
 
 V tomto průvodci se dozvíte, jak plánovat ničivé akce, konkrétně zaměřené na pozdější fáze světa. Poznámka: Předpokládá se plná znalost [Prvních kroků s Plánovačem](./../first_steps/index.md)! Doporučuje se také nejprve si přečíst dva krátké předchozí průvodce v této sekci, konkrétně [Jak zadávat a ukládat cíle akce](./two_regions_of_the_tribe.md) a [Dvě oblasti kmene, aneb Co je fronta a zázemí](./two_regions_of_the_tribe.md).
 

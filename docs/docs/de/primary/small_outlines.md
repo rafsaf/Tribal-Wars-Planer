@@ -1,4 +1,7 @@
-# Kleine Pläne - Anleitung
+---
+title: "Kleine Pläne - Anleitung"
+date: 2026-02-28
+---
 
 Hinweis: Die unten stehende Idee für kleine Aktionen ist nicht bindend, sie kann auf beliebige Weise umgesetzt werden, auch indem man sie als mittlere Aktionen behandelt.
 

@@ -1,4 +1,7 @@
-# Public API
+---
+title: "Public API"
+date: 2026-02-28
+---
 
 There is an option to use the public API. I would be very grateful for reasonable rate limiting and not DOSing the Tribes Planer servers.
 

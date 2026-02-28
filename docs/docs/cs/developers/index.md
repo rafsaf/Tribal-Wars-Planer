@@ -1,4 +1,7 @@
-# Veřejné API
+---
+title: "Veřejné API"
+date: 2026-02-28
+---
 
 Existuje možnost využití veřejného API. Byl bych velmi vděčný za rozumné omezování rychlosti a za to, že nebudete přetěžovat servery Plánovače kmenů.
 

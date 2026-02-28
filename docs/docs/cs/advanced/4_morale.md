@@ -1,4 +1,7 @@
-# 4. Morálka
+---
+title: "4. Morálka"
+date: 2026-02-28
+---
 
 Karta slouží k ovládání hodnot morálky při plánování akcí.
 

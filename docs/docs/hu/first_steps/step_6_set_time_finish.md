@@ -1,4 +1,7 @@
-# 6. lépés - Érkezési idők beállítása és a terv befejezése
+---
+title: "6. lépés - Érkezési idők beállítása és a terv befejezése"
+date: 2026-02-28
+---
 
 !!! info
 

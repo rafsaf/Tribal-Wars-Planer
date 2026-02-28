@@ -1,4 +1,7 @@
-# Dokumentacja Plemiona Planer
+---
+title: "Dokumentacja Plemiona Planer"
+date: 2026-02-28
+---
 
 ## Wstęp
 

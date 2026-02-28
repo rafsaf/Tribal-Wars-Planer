@@ -1,4 +1,7 @@
-# Planos Pequenos - Guia
+---
+title: "Planos Pequenos - Guia"
+date: 2026-02-28
+---
 
 Nota: a ideia para pequenas ações abaixo não é vinculativa, pode ser feita de qualquer maneira, até mesmo tratando-as como ações médias.
 

@@ -1,4 +1,7 @@
-# Krok 3 - Vyplnění Sběru armády
+---
+title: "Krok 3 - Vyplnění Sběru armády"
+date: 2026-02-28
+---
 
 Chcete-li přejít na nově vytvořenou osnovu, klikněte na její název.
 

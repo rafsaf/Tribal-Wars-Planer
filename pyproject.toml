@@ -60,11 +60,7 @@ dev = [
   "types-pytz>=2025.2.0.20250809",
   "types-requests>=2.32.4.20250913",
 ]
-docs = [
-  "mkdocs-glightbox>=0.5.1",
-  "mkdocs-material[imaging]>=9.6.21",
-  "mkdocs[i18n]>=1.6.1",
-]
+docs = ["zensical>=0.0.24"]
 
 [tool.uv]
 default-groups = ["dev", "docs"]

@@ -1,4 +1,7 @@
-# Zerstörungspläne - Anleitung
+---
+title: "Zerstörungspläne - Anleitung"
+date: 2026-02-28
+---
 
 In dieser Anleitung erfahren Sie, wie Sie Zerstörungsaktionen planen, die speziell auf die späteren Phasen der Welt abzielen. Hinweis: Dies setzt vollständige Kenntnisse von [Erste Schritte mit dem Planer](./../first_steps/index.md) voraus! Es wird auch empfohlen, zuerst die beiden kurzen vorherigen Anleitungen in diesem Abschnitt zu lesen, nämlich [Wie man Aktionsziele eingibt und speichert](./two_regions_of_the_tribe.md) und [Die zwei Regionen des Stammes, d.h. was ist die Front und das Hinterland](./two_regions_of_the_tribe.md).
 

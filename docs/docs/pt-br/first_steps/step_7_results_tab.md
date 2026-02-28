@@ -1,4 +1,7 @@
-# Passo 7 - Aba de Resultados
+---
+title: "Passo 7 - Aba de Resultados"
+date: 2026-02-28
+---
 
 <figure markdown="span">
   ![alt text](image-11.png)

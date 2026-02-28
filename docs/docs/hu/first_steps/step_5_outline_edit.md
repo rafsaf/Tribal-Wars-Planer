@@ -1,4 +1,7 @@
-# 5. lépés - Terv szerkesztése
+---
+title: "5. lépés - Terv szerkesztése"
+date: 2026-02-28
+---
 
 A következő nézet a támadás a korábbi fül beállításai alapján. Lehetőség van az egyes célpontok kézi szerkesztésére, célpontok hozzáadására és keresésre.
 

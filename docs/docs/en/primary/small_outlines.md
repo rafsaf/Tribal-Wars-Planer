@@ -1,4 +1,7 @@
-# Small Outlines - Guide
+---
+title: "Small Outlines - Guide"
+date: 2026-02-28
+---
 
 Note, the idea for small actions below is not binding, it can be done in any way, even treating them as medium actions.
 

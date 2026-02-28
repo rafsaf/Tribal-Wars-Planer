@@ -39,51 +39,51 @@ to_avif:
 	
 .PHONY: docs_serve_pl
 docs_serve_pl:
-	uv run mkdocs serve -f docs/config/pl/mkdocs.yml
+	uv run zensical serve -f mkdocs.pl.yml
 	
 .PHONY: docs_build_pl
 docs_build_pl:
-	uv run mkdocs build -f docs/config/pl/mkdocs.yml
+	uv run zensical build -f mkdocs.pl.yml
 
 .PHONY: docs_serve_en
 docs_serve_en:
-	uv run mkdocs serve -f docs/config/en/mkdocs.yml
+	uv run zensical serve -f mkdocs.en.yml
 
 .PHONY: docs_build_en
 docs_build_en:
-	uv run mkdocs build -f docs/config/en/mkdocs.yml
+	uv run zensical build -f mkdocs.en.yml
 
 .PHONY: docs_serve_hu
 docs_serve_hu:
-	uv run mkdocs serve -f docs/config/hu/mkdocs.yml
+	uv run zensical serve -f mkdocs.hu.yml
 
 .PHONY: docs_build_hu
 docs_build_hu:
-	uv run mkdocs build -f docs/config/hu/mkdocs.yml
+	uv run zensical build -f mkdocs.hu.yml
 
 .PHONY: docs_serve_pt-br
 docs_serve_pt-br:
-	uv run mkdocs serve -f docs/config/pt-br/mkdocs.yml
+	uv run zensical serve -f mkdocs.pt-br.yml
 
 .PHONY: docs_build_pt-br
 docs_build_pt-br:
-	uv run mkdocs build -f docs/config/pt-br/mkdocs.yml
+	uv run zensical build -f mkdocs.pt-br.yml
 
 .PHONY: docs_serve_cs
 docs_serve_cs:
-	uv run mkdocs serve -f docs/config/cs/mkdocs.yml
+	uv run zensical serve -f mkdocs.cs.yml
 
 .PHONY: docs_build_cs
 docs_build_cs:
-	uv run mkdocs build -f docs/config/cs/mkdocs.yml
+	uv run zensical build -f mkdocs.cs.yml
 
 .PHONY: docs_serve_de
 docs_serve_de:
-	uv run mkdocs serve -f docs/config/de/mkdocs.yml
+	uv run zensical serve -f mkdocs.de.yml
 
 .PHONY: docs_build_de
 docs_build_de:
-	uv run mkdocs build -f docs/config/de/mkdocs.yml
+	uv run zensical build -f mkdocs.de.yml
 
 .PHONY: build_cython
 build_cython:

@@ -1,4 +1,7 @@
-# Teszt Világ - első lépések a Tervezővel
+---
+title: "Teszt Világ - első lépések a Tervezővel"
+date: 2026-02-28
+---
 
 Ebben a fülben megtanulhatja, hogyan írja meg első tervét egy speciálisan létrehozott teszt világon. Gyorsan, átláthatóan, szkriptek telepítése nélkül.
 

@@ -1,4 +1,7 @@
-# 1. Verfügbare Truppen und Tabellenbeschreibung
+---
+title: "1. Verfügbare Truppen und Tabellenbeschreibung"
+date: 2026-02-28
+---
 
 Diese Registerkarte dient dazu, die Dörfer unseres Stammes in Front- und Hinterland aufzuteilen. Da das Verständnis dieser Aufteilung für die Nutzung der Seite von grundlegender Bedeutung ist, findet sich ein Teil der Beschreibung auch in anderen Registerkarten, einschließlich dieses Artikels:
 [Die zwei Regionen des Stammes: Was sind Front- und Hinterland](./../primary/two_regions_of_the_tribe.md).

@@ -1,4 +1,7 @@
-# Velké osnovy - Průvodce
+---
+title: "Velké osnovy - Průvodce"
+date: 2026-02-28
+---
 
 Poznámka, níže uvedený nápad na velké akce není povinný, lze to provést jakýmkoli způsobem.
 

@@ -1,4 +1,7 @@
-# Große Pläne - Anleitung
+---
+title: "Große Pläne - Anleitung"
+date: 2026-02-28
+---
 
 Hinweis: Die unten vorgestellte Idee für große Aktionen ist nicht zwingend, sie kann auf beliebige Weise umgesetzt werden.
 

@@ -1,4 +1,7 @@
-# Írja be a terv célpontjait
+---
+title: "Írja be a terv célpontjait"
+date: 2026-02-28
+---
 
 Konvenció: a további akció célpontjait a Célpontok egymást követő soraiba kell beírni. Minimum a koordináták önmagukban elegendőek, ebben az esetben egy példa sor `000|000` `000|000:0:0`-ra lesz kiegészítve. Később megtanulja, hogyan kódolja a támadások és a nemesek számát. A célpontok mentéséhez kattintson a Célpontok mentése gombra.
 

@@ -1,4 +1,7 @@
-# 2. Datum einstellen
+---
+title: "2. Datum einstellen"
+date: 2026-02-28
+---
 
 Die Registerkarte ist sehr einfach und dient dazu, das Eintragsdatum der Aktion zu ändern, das ursprünglich beim Erstellen des Plans angegeben wurde.
 

@@ -1,4 +1,7 @@
-# 4. Moral
+---
+title: "4. Moral"
+date: 2026-02-28
+---
 
 Die Registerkarte dient zur Steuerung der Moralwerte bei der Planung von Aktionen.
 

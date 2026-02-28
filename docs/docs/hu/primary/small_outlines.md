@@ -1,4 +1,7 @@
-# Kis tervek - Útmutató
+---
+title: "Kis tervek - Útmutató"
+date: 2026-02-28
+---
 
 Megjegyzés, az alábbi kis akciók ötlete nem kötelező, bármilyen módon meg lehet csinálni, akár közepes akcióként kezelve őket.
 

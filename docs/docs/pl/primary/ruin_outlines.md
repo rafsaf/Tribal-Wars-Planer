@@ -1,4 +1,7 @@
-# Akcja burząca - poradnik
+---
+title: "Akcja burząca - poradnik"
+date: 2026-02-28
+---
 
 W tym poradniku zobaczysz jak rozpisywać akcje burzące, docelowo w późniejszym etapie świata. Uwaga, zakładana jest już cała wiedza z [Pierwszych kroków z planerem](./../first_steps/index.md)! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich poradników w tym dziale, czyli [Jak wpisywać i zapisać cele akcji](./two_regions_of_the_tribe.md) i [Dwa rejony plemienia czyli co to front i zaplecze](./two_regions_of_the_tribe.md).
 

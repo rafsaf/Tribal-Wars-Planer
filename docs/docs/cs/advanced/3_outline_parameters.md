@@ -1,4 +1,7 @@
-# 3. Parametry přehledu
+---
+title: "3. Parametry přehledu"
+date: 2026-02-28
+---
 
 Tato karta slouží k upřesnění detailů, odkud přesně mají pocházet útočné jednotky pro operaci, a také k dalším obecným nastavením plánu. Připoutejte se.
 

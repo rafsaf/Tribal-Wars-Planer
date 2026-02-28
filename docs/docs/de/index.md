@@ -1,4 +1,7 @@
-# Die Stämme Planer Dokumentation
+---
+title: "Die Stämme Planer Dokumentation"
+date: 2026-02-28
+---
 
 ## Einführung
 

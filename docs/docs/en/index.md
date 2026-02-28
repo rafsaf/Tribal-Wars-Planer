@@ -1,4 +1,7 @@
-# Tribal Wars Planer Documentation
+---
+title: "Tribal Wars Planer Documentation"
+date: 2026-02-28
+---
 
 ## Introduction
 

@@ -1,5 +1,7 @@
-# Dwa rejony plemienia czyli co to Front i Zaplecze
-
+---
+title: "Dwa rejony plemienia czyli co to Front i Zaplecze"
+date: 2026-02-28
+---
 
 !!! hint
 

@@ -1,4 +1,7 @@
-# Krok 1 - Tworzenie rozpiski
+---
+title: "Krok 1 - Tworzenie rozpiski"
+date: 2026-02-28
+---
 
 Po ewentualnym utworzeniu konta lub zalogowaniu, należy utworzyć nową rozpiskę w zakładce {==Stwórz nową rozpiskę==} pamiętając by wybranym światem gry był Świat Test. W obecnej wersji datę można swobodnie zmieniać w późniejszym czasie.
 

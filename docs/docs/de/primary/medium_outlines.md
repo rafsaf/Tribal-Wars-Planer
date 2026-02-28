@@ -1,4 +1,7 @@
-# Mittlere Pläne - Anleitung
+---
+title: "Mittlere Pläne - Anleitung"
+date: 2026-02-28
+---
 
 Hinweis: Die unten vorgestellte Idee für mittlere Aktionen ist nicht zwingend, sie kann auf beliebige Weise umgesetzt werden, auch indem man sie als kleine oder große Aktionen behandelt.
 

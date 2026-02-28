@@ -1,4 +1,7 @@
-# Schritt 3 - Die Armeesammlung ausfüllen
+---
+title: "Schritt 3 - Die Armeesammlung ausfüllen"
+date: 2026-02-28
+---
 
 Um zum neu erstellten Plan zu gelangen, klicken Sie auf seinen Namen.
 

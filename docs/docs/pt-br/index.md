@@ -1,4 +1,7 @@
-# Documentação do Planejador de Guerras Tribais
+---
+title: "Documentação do Planejador de Guerras Tribais"
+date: 2026-02-28
+---
 
 ## Introdução
 

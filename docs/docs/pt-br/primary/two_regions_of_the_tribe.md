@@ -1,4 +1,7 @@
-# Duas regiões da Tribo - frente e retaguarda
+---
+title: "Duas regiões da Tribo - frente e retaguarda"
+date: 2026-02-28
+---
 
 !!! hint
 

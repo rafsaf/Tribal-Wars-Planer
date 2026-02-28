@@ -1,4 +1,7 @@
-# 3. lépés - A Csapatösszesítő kitöltése
+---
+title: "3. lépés - A Csapatösszesítő kitöltése"
+date: 2026-02-28
+---
 
 Az újonnan létrehozott tervhez való ugráshoz kattintson a nevére.
 

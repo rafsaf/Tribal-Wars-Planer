@@ -1,4 +1,7 @@
-# 5. Unikanie bonusu nocnego
+---
+title: "5. Unikanie bonusu nocnego"
+date: 2026-02-28
+---
 
 Zakładka służy do opcjonalnego ustawienia opcji unikania bonusu nocnego dla generowanych rozkazów dla offów i fejk offów. Szlachcice będą normalnie rozpisywane całą dobę! Nie oznacza to także całkowitej likwidacji możliwości wystąpienia wysyłek nocnych, a tylko ich minimalizacji.
 

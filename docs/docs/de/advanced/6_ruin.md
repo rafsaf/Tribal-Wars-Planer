@@ -1,4 +1,7 @@
-# 6. Zerstörung
+---
+title: "6. Zerstörung"
+date: 2026-02-28
+---
 
 Diese Registerkarte enthält mehrere Einstellungen im Zusammenhang mit Zerstörungsaktionen.
 

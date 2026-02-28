@@ -1,4 +1,7 @@
-# 1. Elérhető csapatok és a táblázat leírása
+---
+title: "1. Elérhető csapatok és a táblázat leírása"
+date: 2026-02-28
+---
 
 Ez a fül a klánunk falvainak Frontvonalra és Hátországra való felosztására szolgál. Mivel ennek megértése alapvető a webhely használatához, leírásának egy része más füleken is megtalálható, beleértve ezt a cikket is:
 [A klán két régiója: mi a Frontvonal és a Hátország](./../primary/two_regions_of_the_tribe.md).

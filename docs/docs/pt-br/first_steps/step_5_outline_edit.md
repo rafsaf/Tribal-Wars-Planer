@@ -1,4 +1,7 @@
-# Passo 5 - Edição do Plano
+---
+title: "Passo 5 - Edição do Plano"
+date: 2026-02-28
+---
 
 A próxima visualização é a ação baseada nas configurações da aba anterior. Há uma opção para edição manual de alvos individuais, adição de alvos e pesquisa.
 

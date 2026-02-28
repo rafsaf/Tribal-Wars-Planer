@@ -1,4 +1,7 @@
-# Krok 5 - Edycja rozpiski
+---
+title: "Krok 5 - Edycja rozpiski"
+date: 2026-02-28
+---
 
 Następny widok to rozpisana akcja bazująca na ustawieniach z poprzedniej zakładki. Istnieje opcja manualnej edycji poszczególnych celów, dodawania celów, wyszukiwania.
 

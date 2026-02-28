@@ -1,4 +1,7 @@
-# Zapsání cílů osnovy
+---
+title: "Zapsání cílů osnovy"
+date: 2026-02-28
+---
 
 Konvence: další cíle akce musí být zadány v po sobě jdoucích řádcích Cílů. Minimálně stačí samotné souřadnice, v takovém případě bude příkladový řádek `000|000` doplněn na `000|000:0:0`. Později se naučíte, jak kódovat počet útoků a šlechticů. Pro uložení cílů klikněte na Uložit cíle.
 

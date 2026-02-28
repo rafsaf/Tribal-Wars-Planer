@@ -1,4 +1,7 @@
-# Large Outlines - Guide
+---
+title: "Large Outlines - Guide"
+date: 2026-02-28
+---
 
 Note, the idea for large actions presented below is not mandatory, it can be done in any way.
 
