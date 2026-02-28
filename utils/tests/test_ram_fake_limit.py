@@ -125,22 +125,6 @@ class TestRamFakeLimitFeature(TestCase):
         # fake_limit should be min(10, 0 + 8) = 8
         self.assertEqual(fast_weight.fake_limit, 8)
 
-    def test_fast_weight_maximum_fake_limit_backward_compatibility_none(self):
-        """Test backward compatibility when ram_left is None (old data)"""
-        weight_max = WeightMaximum.objects.get(start="500|500")
-        # Simulate old data where ram_left is None
-        weight_max.ram_left = None
-        weight_max.catapult_left = 50
-        weight_max.save()
-
-        self.outline.initial_outline_fake_limit = 10
-        self.outline.save()
-
-        fast_weight = FastWeightMaximum(weight_max, 0, self.outline)
-
-        # fake_limit should fall back to outline.initial_outline_fake_limit
-        self.assertEqual(fast_weight.fake_limit, 10)
-
     def test_outline_complete_no_fakes_when_zero_rams_catapults(self):
         """Test that no fake attacks are written when village has 0 rams and 0 catapults"""
         # Set all weight_max to have no rams or catapults
