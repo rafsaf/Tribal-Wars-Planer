@@ -1,4 +1,7 @@
-# Two regions of the Tribe - front and rear
+---
+title: "Two regions of the Tribe - front and rear"
+date: 2026-02-28
+---
 
 !!! hint
 

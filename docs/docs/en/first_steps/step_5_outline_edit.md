@@ -1,4 +1,7 @@
-# Step 5 - Outline Editing
+---
+title: "Step 5 - Outline Editing"
+date: 2026-02-28
+---
 
 The next view is the action based on the settings from the previous tab. There is an option for manual editing of individual targets, adding targets, and searching.
 

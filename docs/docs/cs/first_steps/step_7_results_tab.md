@@ -1,4 +1,7 @@
-# Krok 7 - Záložka s výsledky
+---
+title: "Krok 7 - Záložka s výsledky"
+date: 2026-02-28
+---
 
 <figure markdown="span">
   ![alt text](image-11.png)

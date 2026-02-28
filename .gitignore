@@ -3,12 +3,9 @@ perf.data
 perf.data.old
 out.profile*
 *.prof
-# mkdocs
+# zeniscal
 docs/internal/*
-docs/generated/en/*
-docs/generated/pl/*
-generated_docs/en/*
-generated_docs/pl/*
+generated_docs
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

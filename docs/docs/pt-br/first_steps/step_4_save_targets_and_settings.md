@@ -1,4 +1,7 @@
-# Passo 4 - Salvar alvos e configurações e escrever um plano
+---
+title: "Passo 4 - Salvar alvos e configurações e escrever um plano"
+date: 2026-02-28
+---
 
 Na aba Planejador, coloque os alvos do plano conforme descrito na aba. Clicando em {==Salvar alvos==}, atualizamos os alvos para os quais planejamos escrever o plano. Clicando em {==Escrever um plano==}, finalizamos esta parte e passamos para as próximas abas. Antes de começar a escrever seus próprios planos, leia as descrições do tipo que lhe interessa e é melhor experimentar definindo diferentes distâncias da Frente, distâncias máximas para nobres, alterar os modos avançados do plano, depois clicar em Escrever um plano e, em caso de resultados insatisfatórios, retornar clicando em **Voltar**.
 

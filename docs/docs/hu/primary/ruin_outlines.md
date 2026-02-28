@@ -1,4 +1,7 @@
-# Rombolási tervek - Útmutató
+---
+title: "Rombolási tervek - Útmutató"
+date: 2026-02-28
+---
 
 Ebben az útmutatóban megtanulhatja, hogyan tervezzen rombolási akciókat, kifejezetten a világ későbbi szakaszaira. Megjegyzés: Ez feltételezi a [Kezdő lépések a Tervezővel](./../first_steps/index.md) teljes ismeretét! Ajánlott továbbá először elolvasni a két rövid korábbi útmutatót ebben a szakaszban, nevezetesen [Hogyan adjuk meg és mentsük el az akció céljait](./write_outline_targets.md) és [A klán két régiója, azaz mi a front és a hátország](./two_regions_of_the_tribe.md).
 

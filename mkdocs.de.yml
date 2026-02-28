@@ -1,13 +1,15 @@
-site_name: "Klánháború Tervező"
-site_url: "https://plemiona-planer.pl/hu/documentation/"
-docs_dir: "../../docs/hu"
-site_dir: "../../../generated_docs/hu/documentation"
+site_name: "Die Stämme Planer"
+site_url: "https://plemiona-planer.pl/de/documentation/"
+docs_dir: "./docs/docs/de"
+site_dir: "./generated_docs/de/documentation"
 repo_url: https://github.com/rafsaf/Tribal-Wars-Planer
-edit_uri: "edit/master/docs/docs/hu"
+edit_uri: "edit/master/docs/docs/de"
 
 theme:
   palette:
+    scheme: default
     primary: teal
+    accent: teal
   features:
     - navigation.tabs
     - navigation.top
@@ -19,10 +21,10 @@ theme:
     - content.action.edit
     - navigation.footer
   name: material
-  custom_dir: "../../overrides/"
+  custom_dir: "./docs/overrides/"
   logo: assets/images/favicon.svg
   favicon: assets/images/favicon.svg
-  language: hu
+  language: de
 
 extra:
   social:
@@ -72,14 +74,14 @@ markdown_extensions:
 
 plugins:
   - search:
-      lang: hu
+      lang: de
   - glightbox
   - social
 
 nav:
-  - Vissza a főoldalra: "/"
-  - GYIK: index.md
-  - 1. Teszt világ:
+  - Zurück zur Seite: "/"
+  - FAQ: index.md
+  - 1. Testwelt:
       - first_steps/index.md
       - first_steps/step_1_create_outline.md
       - first_steps/step_2_choose_tribes.md
@@ -88,22 +90,22 @@ nav:
       - first_steps/step_5_outline_edit.md
       - first_steps/step_6_set_time_finish.md
       - first_steps/step_7_results_tab.md
-  - 2. Szükséges szkriptek telepítése:
+  - 2. Installation der notwendigen Skripte:
       - scripts/army_and_defence_collection.md
       - scripts/sending_messages.md
-  - 3. Útmutatók:
+  - 3. Anleitungen:
       - primary/write_outline_targets.md
       - primary/two_regions_of_the_tribe.md
       - primary/small_outlines.md
       - primary/medium_outlines.md
       - primary/large_outlines.md
       - primary/ruin_outlines.md
-  - 4. Haladó:
+  - 4. Erweitert:
       - advanced/1_available_troops_and_table.md
       - advanced/2_change_of_date.md
       - advanced/3_outline_parameters.md
       - advanced/4_morale.md
       - advanced/5_avoid_night_bonus.md
       - advanced/6_ruin.md
-  - Nyilvános API:
+  - Öffentliche API:
       - developers/index.md

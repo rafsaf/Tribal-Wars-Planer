@@ -1,4 +1,7 @@
-# Öffentliche API
+---
+title: "Öffentliche API"
+date: 2026-02-28
+---
 
 Es besteht die Möglichkeit, die öffentliche API zu nutzen. Ich wäre sehr dankbar für eine vernünftige Ratenbegrenzung und kein DOSing der Server des Stämme Planers.
 

@@ -1,5 +1,7 @@
-# Krok 6 - Ustawienia czasów wejścia i zakończenie rozpiski
-
+---
+title: "Krok 6 - Ustawienia czasów wejścia i zakończenie rozpiski"
+date: 2026-02-28
+---
 
 !!! info
 

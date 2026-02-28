@@ -1,4 +1,7 @@
-# 3. Parametry rozpiski
+---
+title: "3. Parametry rozpiski"
+date: 2026-02-28
+---
 
 Zakładka służy do ustalenia szczegółow skąd dokładnie powinny lecieć offy na akcję oraz innych, ogólnych ustawień rozpiski. Zapnij pasy.
 

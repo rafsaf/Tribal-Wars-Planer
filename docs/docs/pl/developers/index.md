@@ -1,4 +1,7 @@
-# Publiczne API  
+---
+title: "Publiczne API"
+date: 2026-02-28
+---
 
 Istnieje możliwość korzystania z publicznego API. Będę bardzo wdzięczny za rozsądne ograniczenie liczby zapytań i unikanie DOSów na serwery Plemiona Planer.
 

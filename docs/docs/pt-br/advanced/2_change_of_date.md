@@ -1,4 +1,7 @@
-# 2. Definir a data
+---
+title: "2. Definir a data"
+date: 2026-02-28
+---
 
 A aba é muito simples e é usada para alterar a data de entrada da ação, que foi inicialmente fornecida no início ao criar o plano.
 

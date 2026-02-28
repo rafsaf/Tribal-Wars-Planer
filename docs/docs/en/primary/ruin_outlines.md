@@ -1,4 +1,7 @@
-# Ruin Outlines - Guide
+---
+title: "Ruin Outlines - Guide"
+date: 2026-02-28
+---
 
 In this guide, you will learn how to plan destruction actions, specifically aimed at the later stages of the world. Note: This assumes full knowledge of [First Steps with the Planer](./../first_steps/index.md)! It is also recommended to first read the two short previous guides in this section, namely [How to Input and Save Action Goals](./two_regions_of_the_tribe.md) and [The Two Regions of the Tribe, i.e., What is the Front and the Rear](./two_regions_of_the_tribe.md).
 

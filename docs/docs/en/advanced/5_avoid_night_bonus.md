@@ -1,4 +1,7 @@
-# 5. Avoid night bonus
+---
+title: "5. Avoid night bonus"
+date: 2026-02-28
+---
 
 The tab is used to optionally set the option to avoid the night bonus for generated orders for offs and fake offs. Nobles will be outlined normally throughout the day! This does not mean the complete elimination of the possibility of night sends, but only their minimization.
 

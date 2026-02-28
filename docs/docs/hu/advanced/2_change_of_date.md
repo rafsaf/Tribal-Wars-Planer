@@ -1,4 +1,7 @@
-# 2. A dátum beállítása
+---
+title: "2. A dátum beállítása"
+date: 2026-02-28
+---
 
 A fül nagyon egyszerű, és a támadás belépési dátumának megváltoztatására szolgál, amelyet eredetileg a terv létrehozásakor adtak meg.
 

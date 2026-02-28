@@ -1,13 +1,15 @@
-site_name: "Tribal Wars Planer"
-site_url: "https://plemiona-planer.pl/en/documentation/"
-docs_dir: "../../docs/en"
-site_dir: "../../../generated_docs/en/documentation"
+site_name: "Plemiona Planer"
+site_url: "https://plemiona-planer.pl/pl/documentation/"
+docs_dir: "./docs/docs/pl"
+site_dir: "./generated_docs/pl/documentation"
 repo_url: https://github.com/rafsaf/Tribal-Wars-Planer
-edit_uri: "edit/master/docs/docs/en"
+edit_uri: "edit/master/docs/docs/pl"
 
 theme:
   palette:
+    scheme: default
     primary: teal
+    accent: teal
   features:
     - navigation.tabs
     - navigation.top
@@ -19,10 +21,10 @@ theme:
     - content.action.edit
     - navigation.footer
   name: material
-  custom_dir: "../../overrides/"
+  custom_dir: "./docs/overrides/"
   logo: assets/images/favicon.svg
   favicon: assets/images/favicon.svg
-  language: en
+  language: pl
 
 extra:
   social:
@@ -77,9 +79,9 @@ plugins:
   - social
 
 nav:
-  - Back to the page: "/"
+  - Powrót do strony: "/"
   - FAQ: index.md
-  - 1. Test world:
+  - 1. Świat testowy:
       - first_steps/index.md
       - first_steps/step_1_create_outline.md
       - first_steps/step_2_choose_tribes.md
@@ -88,22 +90,22 @@ nav:
       - first_steps/step_5_outline_edit.md
       - first_steps/step_6_set_time_finish.md
       - first_steps/step_7_results_tab.md
-  - 2. Installation of the necessary scripts:
+  - 2. Instalacja niezbędnych skryptów:
       - scripts/army_and_defence_collection.md
       - scripts/sending_messages.md
-  - 3. Guides:
+  - 3. Poradniki:
       - primary/write_outline_targets.md
       - primary/two_regions_of_the_tribe.md
       - primary/small_outlines.md
       - primary/medium_outlines.md
       - primary/large_outlines.md
       - primary/ruin_outlines.md
-  - 4. Advanced:
+  - 4. Zaawansowane:
       - advanced/1_available_troops_and_table.md
       - advanced/2_change_of_date.md
       - advanced/3_outline_parameters.md
       - advanced/4_morale.md
       - advanced/5_avoid_night_bonus.md
       - advanced/6_ruin.md
-  - Public API:
+  - Publiczne API:
       - developers/index.md

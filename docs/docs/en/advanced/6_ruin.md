@@ -1,4 +1,7 @@
-# 6. Ruining
+---
+title: "6. Ruining"
+date: 2026-02-28
+---
 
 This tab contains several settings related to demolition actions.
 

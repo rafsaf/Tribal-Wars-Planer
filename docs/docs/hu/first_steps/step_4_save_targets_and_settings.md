@@ -1,4 +1,7 @@
-# 4. lépés - Célpontok és beállítások mentése és terv írása
+---
+title: "4. lépés - Célpontok és beállítások mentése és terv írása"
+date: 2026-02-28
+---
 
 A Tervező fülön helyezze el a terv célpontjait a fülön leírtak szerint, a {==Célpontok mentése==} gombra kattintva frissítjük a célpontokat, amelyekre a tervet írjuk. A {==Terv írása==} gombra kattintva befejezzük ezt a részt, és a következő fülekre lépünk. Mielőtt elkezdené saját terveit írni, olvassa el az Önt érdeklő típus leírását, és a legjobb, ha kísérletezik a Fronttól való különböző távolságok beállításával, a nemesek maximális távolságával, megváltoztatja a terv haladó módjait, majd kattintson a Terv írása gombra, és nem kielégítő eredmények esetén térjen vissza a **Vissza** gombra kattintva.
 

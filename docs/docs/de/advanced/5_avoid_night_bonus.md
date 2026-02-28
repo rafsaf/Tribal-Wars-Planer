@@ -1,4 +1,7 @@
-# 5. Nachtbonus vermeiden
+---
+title: "5. Nachtbonus vermeiden"
+date: 2026-02-28
+---
 
 Die Registerkarte dient dazu, optional die Option zum Vermeiden des Nachtbonus für generierte Befehle für Offs und Fake-Offs einzustellen. Adelsgeschlechter werden normal über den ganzen Tag geplant! Dies bedeutet nicht die vollständige Eliminierung der Möglichkeit von nächtlichen Entsendungen, sondern nur deren Minimierung.
 

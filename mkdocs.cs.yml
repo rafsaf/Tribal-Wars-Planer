@@ -1,13 +1,15 @@
 site_name: "Tribal Wars Planer"
 site_url: "https://plemiona-planer.pl/cs/documentation/"
-docs_dir: "../../docs/cs"
-site_dir: "../../../generated_docs/cs/documentation"
+docs_dir: "./docs/docs/cs"
+site_dir: "./generated_docs/cs/documentation"
 repo_url: https://github.com/rafsaf/Tribal-Wars-Planer
 edit_uri: "edit/master/docs/docs/cs"
 
 theme:
   palette:
+    scheme: default
     primary: teal
+    accent: teal
   features:
     - navigation.tabs
     - navigation.top
@@ -19,7 +21,7 @@ theme:
     - content.action.edit
     - navigation.footer
   name: material
-  custom_dir: "../../overrides/"
+  custom_dir: "./docs/overrides/"
   logo: assets/images/favicon.svg
   favicon: assets/images/favicon.svg
   language: cs

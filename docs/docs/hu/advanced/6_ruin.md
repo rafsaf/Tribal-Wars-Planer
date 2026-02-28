@@ -1,4 +1,7 @@
-# 6. Rombolás
+---
+title: "6. Rombolás"
+date: 2026-02-28
+---
 
 Ez a fül számos, a rombolási műveletekkel kapcsolatos beállítást tartalmaz.
 

@@ -1,4 +1,7 @@
-# Nagy tervek - Útmutató
+---
+title: "Nagy tervek - Útmutató"
+date: 2026-02-28
+---
 
 Megjegyzés, az alább bemutatott nagy akciók ötlete nem kötelező, bármilyen módon meg lehet csinálni.
 

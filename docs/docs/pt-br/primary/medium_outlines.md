@@ -1,4 +1,7 @@
-# Planos Médios - Guia
+---
+title: "Planos Médios - Guia"
+date: 2026-02-28
+---
 
 Nota: a ideia para ações médias apresentada abaixo não é obrigatória, pode ser feita de qualquer maneira, até mesmo tratando-as como ações pequenas ou grandes.
 

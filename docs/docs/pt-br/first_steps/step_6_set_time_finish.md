@@ -1,4 +1,7 @@
-# Passo 6 - Definindo os Horários de Entrada e Finalizando o Plano
+---
+title: "Passo 6 - Definindo os Horários de Entrada e Finalizando o Plano"
+date: 2026-02-28
+---
 
 !!! info
 

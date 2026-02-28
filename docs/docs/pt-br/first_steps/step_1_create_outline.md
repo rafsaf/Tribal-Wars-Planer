@@ -1,4 +1,7 @@
-# Passo 1 - Criar um plano
+---
+title: "Passo 1 - Criar um plano"
+date: 2026-02-28
+---
 
 Depois de criar uma conta ou fazer login, você deve criar um novo plano em {==Criar novo plano==}, lembrando que o mundo do jogo selecionado deve ser o mundo de teste. Na versão atual, a data pode ser alterada livremente em um momento posterior.
 

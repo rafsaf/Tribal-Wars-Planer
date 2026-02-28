@@ -1,4 +1,7 @@
-# Duże akcje - poradnik
+---
+title: "Duże akcje - poradnik"
+date: 2026-02-28
+---
 
 Uwaga, podany niżej pomysł na duże akcje nie jest zobowiązujący, można to robić w dowolny sposób.
 

@@ -1,4 +1,7 @@
-# 2. Nastavení data
+---
+title: "2. Nastavení data"
+date: 2026-02-28
+---
 
 Karta je velmi jednoduchá a slouží ke změně data vstupu akce, které bylo původně zadáno na začátku při vytváření přehledu.
 

@@ -1,4 +1,7 @@
-# Escreva os alvos do plano
+---
+title: "Escreva os alvos do plano"
+date: 2026-02-28
+---
 
 Convenção: os alvos de ação subsequentes devem ser inseridos em linhas consecutivas de Alvos. No mínimo, apenas as coordenadas são suficientes, nesse caso, uma linha de exemplo `000|000` será completada para `000|000:0:0`. Mais tarde, você aprenderá como codificar o número de ofensas e nobres. Para salvar os alvos, clique em Salvar alvos.
 

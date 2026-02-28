@@ -1,4 +1,7 @@
-# 3. Plan-Parameter
+---
+title: "3. Plan-Parameter"
+date: 2026-02-28
+---
 
 Diese Registerkarte dient dazu, die Details festzulegen, woher genau die Offensivtruppen für eine Operation kommen sollen, sowie andere allgemeine Zeitplaneinstellungen. Schnallen Sie sich an.
 

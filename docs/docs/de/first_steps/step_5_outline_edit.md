@@ -1,4 +1,7 @@
-# Schritt 5 - Planbearbeitung
+---
+title: "Schritt 5 - Planbearbeitung"
+date: 2026-02-28
+---
 
 Die nächste Ansicht ist die Aktion, die auf den Einstellungen der vorherigen Registerkarte basiert. Es gibt eine Option zur manuellen Bearbeitung einzelner Ziele, zum Hinzufügen von Zielen und zur Suche.
 

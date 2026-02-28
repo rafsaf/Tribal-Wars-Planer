@@ -1,4 +1,7 @@
-# 1. Dostępne jednostki i opis Tabeli
+---
+title: "1. Dostępne jednostki i opis Tabeli"
+date: 2026-02-28
+---
 
 Zakładka służy do dzielenia wiosek naszego plemienia na Front i Zaplecze. Ponieważ jej znajomość jest podstawą obsługi strony, część jej opisu znajdziesz w innych zakładkach, między innymi w tym artykule
 [Dwa rejony plemienia czyli co to front i zaplecze](./../primary/two_regions_of_the_tribe.md).

@@ -1,4 +1,7 @@
-# Write the outline targets
+---
+title: "Write the outline targets"
+date: 2026-02-28
+---
 
 Convention: subsequent action targets must be entered in consecutive lines of Targets. At a minimum, coordinates alone are sufficient, in which case an example line `000|000` will be completed to `000|000:0:0`. Later, you will learn how to encode the number of offenses and nobles. To save the targets, click Save targets.
 

@@ -1,4 +1,7 @@
-# 6. Burzenie
+---
+title: "6. Burzenie"
+date: 2026-02-28
+---
 
 Zakładka zawiera kilka ustawień dotyczących akcji burzących.
 

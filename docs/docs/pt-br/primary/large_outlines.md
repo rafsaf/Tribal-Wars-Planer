@@ -1,4 +1,7 @@
-# Planos Grandes - Guia
+---
+title: "Planos Grandes - Guia"
+date: 2026-02-28
+---
 
 Nota: a ideia para grandes ações apresentada abaixo não é obrigatória, pode ser feita de qualquer maneira.
 

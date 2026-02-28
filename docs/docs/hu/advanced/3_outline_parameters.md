@@ -1,4 +1,7 @@
-# 3. Terv Paraméterei
+---
+title: "3. Terv Paraméterei"
+date: 2026-02-28
+---
 
 Ez a fül arra szolgál, hogy meghatározzuk a részleteket, hogy pontosan honnan származzanak a támadó csapatok egy hadművelethez, valamint egyéb általános ütemezési beállításokat. Kapcsolódjatok be!
 

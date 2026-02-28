@@ -1,4 +1,7 @@
-# 2. Setting the date
+---
+title: "2. Setting the date"
+date: 2026-02-28
+---
 
 The tab is very simple and is used to change the entry date of the action, which was initially provided at the beginning when creating the outline.
 

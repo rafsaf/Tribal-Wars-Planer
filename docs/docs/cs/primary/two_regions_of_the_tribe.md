@@ -1,4 +1,7 @@
-# Dvě oblasti kmene - fronta a zázemí
+---
+title: "Dvě oblasti kmene - fronta a zázemí"
+date: 2026-02-28
+---
 
 !!! hint
 

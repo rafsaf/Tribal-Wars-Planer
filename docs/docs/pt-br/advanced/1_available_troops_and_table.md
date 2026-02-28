@@ -1,4 +1,7 @@
-# 1. Tropas Disponíveis e descrição da tabela
+---
+title: "1. Tropas Disponíveis e descrição da tabela"
+date: 2026-02-28
+---
 
 Esta aba é usada para dividir as aldeias da nossa tribo em Linha de Frente e Retaguarda. Como a compreensão disso é fundamental para o uso do site, parte de sua descrição pode ser encontrada em outras abas, incluindo este artigo:
 [As duas regiões da tribo: o que são a Linha de Frente e a Retaguarda](./../primary/two_regions_of_the_tribe.md).

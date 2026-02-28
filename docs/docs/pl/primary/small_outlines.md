@@ -1,4 +1,7 @@
-# Małe akcje - poradnik
+---
+title: "Małe akcje - poradnik"
+date: 2026-02-28
+---
 
 Uwaga, podany niżej pomysł na małe akcje nie jest zobowiązujący, można to robić w dowolny sposób, choćby potraktować je jako średnie akcje.
 

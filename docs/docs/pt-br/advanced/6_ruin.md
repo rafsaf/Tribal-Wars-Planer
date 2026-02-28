@@ -1,4 +1,7 @@
-# 6. Demolição
+---
+title: "6. Demolição"
+date: 2026-02-28
+---
 
 Esta aba contém várias configurações relacionadas a ações de demolição.
 

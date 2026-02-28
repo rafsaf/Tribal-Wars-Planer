@@ -1,4 +1,7 @@
-# Malé osnovy - Průvodce
+---
+title: "Malé osnovy - Průvodce"
+date: 2026-02-28
+---
 
 Poznámka, níže uvedený nápad na malé akce není závazný, lze je provádět jakýmkoli způsobem, dokonce je považovat za střední akce.
 

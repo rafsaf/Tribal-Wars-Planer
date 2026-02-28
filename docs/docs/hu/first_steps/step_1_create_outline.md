@@ -1,4 +1,7 @@
-# 1. lépés - Terv létrehozása
+---
+title: "1. lépés - Terv létrehozása"
+date: 2026-02-28
+---
 
 Fiók létrehozása vagy bejelentkezés után hozzon létre egy új tervet a {==Új terv létrehozása==} menüpontban, ügyelve arra, hogy a kiválasztott játékvilág a teszt világ legyen. A jelenlegi verzióban a dátum később szabadon módosítható.
 

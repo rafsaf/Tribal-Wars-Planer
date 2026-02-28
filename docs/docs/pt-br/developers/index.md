@@ -1,4 +1,7 @@
-# API Pública
+---
+title: "API Pública"
+date: 2026-02-28
+---
 
 Existe a opção de usar a API pública. Eu ficaria muito grato por um limite de taxa razoável e por não sobrecarregar os servidores do Planejador de Tribos.
 

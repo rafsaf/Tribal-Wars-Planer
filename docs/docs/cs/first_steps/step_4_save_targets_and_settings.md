@@ -1,4 +1,7 @@
-# Krok 4 - Uložte cíle a nastavení a napište osnovu
+---
+title: "Krok 4 - Uložte cíle a nastavení a napište osnovu"
+date: 2026-02-28
+---
 
 V záložce Plánovač vložte cíle osnovy, jak je popsáno v záložce, kliknutím na {==Uložit cíle==} aktualizujeme cíle, pro které plánujeme napsat osnovu. Kliknutím na {==Napsat osnovu==} dokončíme tuto část a přejdeme na další záložky. Předtím, než začnete psát vlastní osnovy, přečtěte si popisy typu, který vás zajímá, a nejlepší je experimentovat s nastavením různých vzdáleností od fronty, maximálních vzdáleností pro šlechtice, měnit pokročilé režimy osnovy, poté kliknout na Napsat osnovu a v případě neuspokojivých výsledků se vrátit kliknutím na **Vrátit se**.
 

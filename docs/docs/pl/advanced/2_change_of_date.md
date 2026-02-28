@@ -1,4 +1,7 @@
-# 2. Zmiana daty akcji
+---
+title: "2. Zmiana daty akcji"
+date: 2026-02-28
+---
 
 Zakładka jest bardzo prosta i służy do zmiany daty wejścia akcji, która była wstępnie podana na początku przy tworzeniu rozpiski.
 

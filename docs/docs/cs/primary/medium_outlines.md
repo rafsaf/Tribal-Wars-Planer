@@ -1,4 +1,7 @@
-# Střední osnovy - Průvodce
+---
+title: "Střední osnovy - Průvodce"
+date: 2026-02-28
+---
 
 Poznámka, nápad na střední akce prezentovaný níže není povinný, lze je provádět jakýmkoli způsobem, dokonce je považovat za malé nebo velké akce.
 

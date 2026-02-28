@@ -1,4 +1,7 @@
-# Schritt 4 - Ziele und Einstellungen speichern und einen Plan schreiben
+---
+title: "Schritt 4 - Ziele und Einstellungen speichern und einen Plan schreiben"
+date: 2026-02-28
+---
 
 Platzieren Sie in der Registerkarte Planer die Ziele des Plans wie in der Registerkarte beschrieben. Durch Klicken auf {==Ziele speichern==} aktualisieren wir die Ziele, für die wir einen Plan schreiben möchten. Durch Klicken auf {==Einen Plan schreiben==} beenden wir diesen Teil und gehen zu den nächsten Registerkarten. Bevor Sie mit dem Schreiben Ihrer eigenen Pläne beginnen, lesen Sie die Beschreibungen des für Sie interessanten Typs und experimentieren Sie am besten mit der Einstellung verschiedener Entfernungen von der Front, maximalen Entfernungen für Adelsgeschlechter, ändern Sie die erweiterten Modi des Plans, klicken Sie dann auf Plan schreiben und kehren Sie bei unbefriedigenden Ergebnissen durch Klicken auf **Zurück** zurück.
 

@@ -1,4 +1,7 @@
-# Step 7 - Results Tab
+---
+title: "Step 7 - Results Tab"
+date: 2026-02-28
+---
 
 <figure markdown="span">
   ![alt text](image-11.png)

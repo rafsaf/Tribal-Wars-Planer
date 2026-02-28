@@ -1,4 +1,7 @@
-# Die Angriffsziele aufschreiben
+---
+title: "Die Angriffsziele aufschreiben"
+date: 2026-02-28
+---
 
 Konvention: nachfolgende Aktionsziele müssen in aufeinanderfolgenden Zeilen von Ziele eingegeben werden. Mindestens sind nur die Koordinaten ausreichend, in diesem Fall wird eine Beispielzeile `000|000` zu `000|000:0:0` vervollständigt. Später erfahren Sie, wie Sie die Anzahl der Offensiven und Adligen kodieren. Um die Ziele zu speichern, klicken Sie auf Ziele speichern.
 

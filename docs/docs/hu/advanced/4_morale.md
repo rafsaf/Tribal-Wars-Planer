@@ -1,4 +1,7 @@
-# 4. Morál
+---
+title: "4. Morál"
+date: 2026-02-28
+---
 
 A fül a morálértékek szabályozására szolgál a támadások ütemezésekor.
 

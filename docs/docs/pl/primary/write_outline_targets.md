@@ -1,4 +1,7 @@
-# Jak wpisywać i zapisać cele akcji
+---
+title: "Jak wpisywać i zapisać cele akcji"
+date: 2026-02-28
+---
 
 Konwencja: kolejne cele akcji muszą być wpisywane w kolejnych linijkach Celów. Minimalnie wystarczą same koordy, wówczas przykładowa linijka `000|000` zostanie uzupełniona do `000|000:0:0`. W dalszej części nauczysz się kodowania ilości offów i szlachciców. Aby zapisać cele kliknij Zapisz cele.
 

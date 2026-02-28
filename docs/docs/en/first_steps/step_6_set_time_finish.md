@@ -1,4 +1,7 @@
-# Step 6 - Setting Entry Times and Finishing the Outline
+---
+title: "Step 6 - Setting Entry Times and Finishing the Outline"
+date: 2026-02-28
+---
 
 !!! info
 

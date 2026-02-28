@@ -1,4 +1,7 @@
-# 4. Moral
+---
+title: "4. Moral"
+date: 2026-02-28
+---
 
 A aba é usada para controlar os valores de moral ao delinear as ações.
 

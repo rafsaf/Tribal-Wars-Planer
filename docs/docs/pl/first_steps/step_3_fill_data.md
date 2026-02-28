@@ -1,4 +1,7 @@
-# Krok 3 - Uzupełnianie Zbiórki Wojska
+---
+title: "Krok 3 - Uzupełnianie Zbiórki Wojska"
+date: 2026-02-28
+---
 
 Aby przejść do nowo utworzonej rozpiski, kliknij na jej nazwę.
 

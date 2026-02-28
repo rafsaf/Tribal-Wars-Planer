@@ -25,12 +25,12 @@ FROM base AS docs
 COPY docs docs
 COPY --from=uv /requirements-docs.txt .
 RUN pip install -r requirements-docs.txt
-RUN mkdocs build -f docs/config/pl/mkdocs.yml
-RUN mkdocs build -f docs/config/en/mkdocs.yml
-RUN mkdocs build -f docs/config/hu/mkdocs.yml
-RUN mkdocs build -f docs/config/pt-br/mkdocs.yml
-RUN mkdocs build -f docs/config/cs/mkdocs.yml
-RUN mkdocs build -f docs/config/de/mkdocs.yml
+RUN mkdocs build -f mkdocs.pl.yml
+RUN mkdocs build -f mkdocs.en.yml
+RUN mkdocs build -f mkdocs.hu.yml
+RUN mkdocs build -f mkdocs.pt-br.yml
+RUN mkdocs build -f mkdocs.cs.yml
+RUN mkdocs build -f mkdocs.de.yml
 
 FROM base AS build
 COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} --from=docs /build/generated_docs generated_docs

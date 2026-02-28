@@ -1,4 +1,7 @@
-# Testwelt - erste Schritte mit dem Planer
+---
+title: "Testwelt - erste Schritte mit dem Planer"
+date: 2026-02-28
+---
 
 In dieser Registerkarte erfahren Sie, wie Sie Ihren ersten Plan auf einer speziell erstellten Testwelt erstellen. Schnell, transparent und ohne die Notwendigkeit von Skripten.
 

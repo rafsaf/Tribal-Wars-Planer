@@ -1,13 +1,15 @@
 site_name: "Planejador de Guerras Tribais"
 site_url: "https://plemiona-planer.pl/pt-br/documentation/"
-docs_dir: "../../docs/pt-br"
-site_dir: "../../../generated_docs/pt-br/documentation"
+docs_dir: "./docs/docs/pt-br"
+site_dir: "./generated_docs/pt-br/documentation"
 repo_url: https://github.com/rafsaf/Tribal-Wars-Planer
 edit_uri: "edit/master/docs/docs/pt-br"
 
 theme:
   palette:
+    scheme: default
     primary: teal
+    accent: teal
   features:
     - navigation.tabs
     - navigation.top
@@ -19,7 +21,7 @@ theme:
     - content.action.edit
     - navigation.footer
   name: material
-  custom_dir: "../../overrides/"
+  custom_dir: "./docs/overrides/"
   logo: assets/images/favicon.svg
   favicon: assets/images/favicon.svg
   language: pt

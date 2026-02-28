@@ -1,4 +1,7 @@
-# 1. Dostupné jednotky a popis tabulky
+---
+title: "1. Dostupné jednotky a popis tabulky"
+date: 2026-02-28
+---
 
 Tato karta slouží k rozdělení vesnic našeho kmene na Frontové a Týlové. Jelikož je pochopení tohoto zásadní pro používání stránky, část jejího popisu naleznete v jiných kartách, včetně tohoto článku:
 [Dvě oblasti kmene: co jsou Frontová a Týlová linie](./../primary/two_regions_of_the_tribe.md).

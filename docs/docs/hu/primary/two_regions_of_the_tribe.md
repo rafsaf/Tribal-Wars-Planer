@@ -1,4 +1,7 @@
-# A klán két régiója - front és hátország
+---
+title: "A klán két régiója - front és hátország"
+date: 2026-02-28
+---
 
 !!! hint
 

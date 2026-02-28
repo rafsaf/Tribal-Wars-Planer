@@ -1,4 +1,7 @@
-# Testovací svět - první kroky s Plánovačem
+---
+title: "Testovací svět - první kroky s Plánovačem"
+date: 2026-02-28
+---
 
 V této záložce se naučíte, jak vytvořit svou první osnovu na speciálně vytvořeném testovacím světě. Rychle, přehledně, bez nutnosti skriptů.
 

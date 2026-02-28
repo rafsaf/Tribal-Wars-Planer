@@ -1,4 +1,7 @@
-# 5. Evitar bônus noturno
+---
+title: "5. Evitar bônus noturno"
+date: 2026-02-28
+---
 
 A aba é usada para opcionalmente definir a opção de evitar o bônus noturno para ordens geradas para ataques ofensivos e fakes. Nobres serão planejados normalmente ao longo do dia! Isso não significa a eliminação completa da possibilidade de envios noturnos, mas apenas sua minimização.
 

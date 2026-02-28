@@ -1,4 +1,7 @@
-# 7. lépés - Eredmények fül
+---
+title: "7. lépés - Eredmények fül"
+date: 2026-02-28
+---
 
 <figure markdown="span">
   ![alt text](image-11.png)

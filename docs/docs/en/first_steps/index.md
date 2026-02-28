@@ -1,4 +1,7 @@
-# Test World - first steps with the Planer
+---
+title: "Test World - first steps with the Planer"
+date: 2026-02-28
+---
 
 In this tab you will learn how to write your first outline on a specially created test world. Quickly, transparently, without the need for scripts.
 

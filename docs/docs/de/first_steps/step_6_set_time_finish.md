@@ -1,4 +1,7 @@
-# Schritt 6 - Eingabezeiten festlegen und den Plan abschließen
+---
+title: "Schritt 6 - Eingabezeiten festlegen und den Plan abschließen"
+date: 2026-02-28
+---
 
 !!! info
 
