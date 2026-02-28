@@ -6,6 +6,47 @@ var z_index_dv_img_box = 999;
 var vopa_img_box, idpopup_img_box;
 const DOCS_RE = /\!\[\]\([a-zA-Z0-9.\/_-]*\)/g;
 
+const takeChildrenSnapshot = (element) =>
+  Array.from(element.childNodes).map((node) => node.cloneNode(true));
+
+const restoreChildrenSnapshot = (element, snapshot) => {
+  element.replaceChildren(...snapshot.map((node) => node.cloneNode(true)));
+};
+
+const setSpinner = (element, textClass = "text-secondary") => {
+  const spinner = document.createElement("span");
+  spinner.className = `spinner-border spinner-border-sm ${textClass}`;
+  spinner.setAttribute("role", "status");
+  element.replaceChildren(spinner);
+};
+
+const setIconWithText = (
+  element,
+  iconClass,
+  iconColor = "",
+  text = "",
+  textClass = ""
+) => {
+  const icon = document.createElement("i");
+  icon.className = `bi ${iconClass}`;
+  if (iconColor !== "") {
+    icon.style.color = iconColor;
+  }
+
+  if (textClass !== "") {
+    const span = document.createElement("span");
+    span.className = textClass;
+    span.textContent = ` ${text}`;
+    element.replaceChildren(icon, span);
+    return;
+  }
+
+  element.replaceChildren(icon);
+  if (text !== "") {
+    element.appendChild(document.createTextNode(` ${text}`));
+  }
+};
+
 const modal = () => {
   document.addEventListener("DOMContentLoaded", function (event) {
     $("#form-modal").on("show.bs.modal", function (event) {
@@ -221,10 +262,13 @@ const calculate_distance = (element) => {
   } else {
     let secs_ram = (distance / units_speed / world_speed) * 30 * 60;
     let secs_noble = (distance / units_speed / world_speed) * 35 * 60;
-
-    element.innerHTML = `<span class='text-nowrap'>${prettifyTimeDistance(
-      secs_ram
-    )} /<br/> ${prettifyTimeDistance(secs_noble)}</span>`;
+    const textWrapper = document.createElement("span");
+    textWrapper.className = "text-nowrap";
+    textWrapper.appendChild(document.createTextNode(prettifyTimeDistance(secs_ram)));
+    textWrapper.appendChild(document.createTextNode(" /"));
+    textWrapper.appendChild(document.createElement("br"));
+    textWrapper.appendChild(document.createTextNode(` ${prettifyTimeDistance(secs_noble)}`));
+    element.replaceChildren(textWrapper);
     element.clicked = true;
     element.style.cursor = "zoom-out";
   }
@@ -242,7 +286,10 @@ const activateTooltips = () => {
 const onPlanerLinkClick = (text) => {
   setTimeout(() => {
     const planerLink = document.getElementById("planer-link");
-    planerLink.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-info my-auto' role='status'></span>${text}`;
+    const spinner = document.createElement("span");
+    spinner.className = "spinner-border mr-1 spinner-border-sm text-info my-auto";
+    spinner.setAttribute("role", "status");
+    planerLink.replaceChildren(spinner, document.createTextNode(String(text)));
   }, 800);
 };
 
@@ -483,7 +530,18 @@ const handleClickButton = (
     }
   }
   element.disabled = true;
-  element.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span> ${message} <span id=${percentId}></span>`;
+  const spinner = document.createElement("span");
+  spinner.className = "spinner-border mr-1 spinner-border-sm text-dark my-auto";
+  spinner.setAttribute("role", "status");
+  const percentSpan = document.createElement("span");
+  if (percentId !== "") {
+    percentSpan.id = percentId;
+  }
+  element.replaceChildren(
+    spinner,
+    document.createTextNode(` ${String(message)} `),
+    percentSpan
+  );
   try {
     const form = document.getElementById(formId);
     form.submit();
@@ -521,8 +579,8 @@ const changeTargetTime = async (target_id, time_id) => {
   const id2 = parseInt(time_id);
   const timeSelector = String(target_id) + "-time-" + String(time_id);
   const newTime = document.getElementById(timeSelector);
-  const actualInnerHTML = newTime.innerHTML;
-  newTime.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
+  const actualChildren = takeChildrenSnapshot(newTime);
+  setSpinner(newTime);
 
   const response = await fetch(`/api/target-time-update/`, {
     method: "PUT",
@@ -535,19 +593,19 @@ const changeTargetTime = async (target_id, time_id) => {
     },
   });
   if (response.status !== 200) {
-    newTime.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
+    setIconWithText(newTime, "bi-exclamation-square");
     const oldClassName = newTime.className;
     newTime.className = "btn btn-lg btn-danger my-1 py-0 px-1 mr-1";
 
     setTimeout(() => {
       newTime.className = oldClassName;
-      newTime.innerHTML = actualInnerHTML;
+      restoreChildrenSnapshot(newTime, actualChildren);
       newTime.blur();
     }, 2000);
   } else {
     const data = await response.json();
     newTime.className = "btn btn-lg btn-primary my-1 py-0 px-1 mr-1";
-    newTime.innerHTML = actualInnerHTML;
+    restoreChildrenSnapshot(newTime, actualChildren);
     newTime.blur();
     if (data.old !== "none" && data.old !== data.new) {
       const oldTime = document.getElementById(data.old);
@@ -563,9 +621,9 @@ const deleteTarget = async (target_id) => {
   const targetButton = document.getElementById(targetButtonSelector);
   const targetRow = document.getElementById(targetRowSelector);
 
-  const targetButtonOldInnerHTML = targetButton.innerHTML;
+  const targetButtonSnapshot = takeChildrenSnapshot(targetButton);
   targetButton.disabled = true;
-  targetButton.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
+  setSpinner(targetButton);
 
   const response = await fetch(`/api/target-delete/`, {
     method: "DELETE",
@@ -578,9 +636,9 @@ const deleteTarget = async (target_id) => {
     },
   });
   if (response.status !== 204) {
-    targetButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
+    setIconWithText(targetButton, "bi-exclamation-square");
     setTimeout(() => {
-      targetButton.innerHTML = targetButtonOldInnerHTML;
+      restoreChildrenSnapshot(targetButton, targetButtonSnapshot);
       targetButton.blur();
     }, 2000);
   } else {
@@ -600,9 +658,9 @@ const handlePlanerMenuVisibilityChange = () => {
 
 const changeIsHiddenState = async (outline_id, token) => {
   const overview = document.getElementById(token);
-  const actualInnerHTML = overview.innerHTML;
+  const actualChildren = takeChildrenSnapshot(overview);
   overview.disabled = true;
-  overview.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
+  setSpinner(overview);
 
   const response = await fetch(`/api/overview-hide-state-update/`, {
     method: "PUT",
@@ -615,14 +673,14 @@ const changeIsHiddenState = async (outline_id, token) => {
     },
   });
   if (response.status !== 200) {
-    overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
+    setIconWithText(overview, "bi-exclamation-square");
     setTimeout(() => {
-      overview.innerHTML = actualInnerHTML;
+      restoreChildrenSnapshot(overview, actualChildren);
       overview.blur();
     }, 2000);
   } else {
     const data = await response.json();
-    overview.innerHTML = data.name;
+    overview.textContent = String(data.name);
     overview.className = data.class;
     overview.disabled = false;
     overview.blur();
@@ -631,7 +689,7 @@ const changeIsHiddenState = async (outline_id, token) => {
 
 const changeBuildingsArray = async (outline_id, list) => {
   const overview = document.getElementById("multi-select-spinner");
-  overview.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
+  setSpinner(overview);
   const body = { buildings: list, outline_id: outline_id };
   await fetch(`/api/change-buildings-array/`, {
     method: "PUT",
@@ -645,21 +703,33 @@ const changeBuildingsArray = async (outline_id, list) => {
   })
     .then((response) => {
       if (response.status === 200) {
-        overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>`;
+        setIconWithText(overview, "bi-check", "green");
         setTimeout(() => {
-          overview.innerHTML = "";
+          overview.replaceChildren();
         }, 400);
       } else {
-        overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg> <span class="md-error">(Error in connection!)</span>`;
+        setIconWithText(
+          overview,
+          "bi-exclamation-square",
+          "red",
+          "(Error in connection!)",
+          "md-error"
+        );
         setTimeout(() => {
-          overview.innerHTML = "";
+          overview.replaceChildren();
         }, 2000);
       }
     })
     .catch(() => {
-      overview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg> <span class="md-error">(Error in connection!)</span>`;
+      setIconWithText(
+        overview,
+        "bi-exclamation-square",
+        "red",
+        "(Error in connection!)",
+        "md-error"
+      );
       setTimeout(() => {
-        overview.innerHTML = "";
+        overview.replaceChildren();
       }, 2000);
     });
 };
@@ -691,22 +761,22 @@ const handleButtonClipboardUpdate = (
   errorMessage
 ) => {
   const text = document.getElementById(selector);
-  const currentInnerText = element.innerHTML;
+  const currentSnapshot = takeChildrenSnapshot(element);
   setTimeout(() => {
     element.blur();
   }, 100);
   try {
     const newClip = text.textContent;
     navigator.clipboard.writeText(newClip);
-    element.innerHTML = `<i class="bi bi-check2-circle" style="color: green"></i> ${success}`;
+    setIconWithText(element, "bi-check2-circle", "green", String(success));
     setTimeout(() => {
-      element.innerHTML = `<i class="bi bi-arrow-counterclockwise"></i> ${updatedText}`;
+      setIconWithText(element, "bi-arrow-counterclockwise", "", String(updatedText));
     }, 1800);
   } catch (error) {
     console.error(error);
-    element.innerHTML = `<span style="color: red"><i class="bi bi-x-circle"></i> ${errorMessage}</span>`;
+    setIconWithText(element, "bi-x-circle", "red", String(errorMessage), "text-danger");
     setTimeout(() => {
-      element.innerHTML = currentInnerText;
+      restoreChildrenSnapshot(element, currentSnapshot);
     }, 5000);
   }
 };
@@ -716,10 +786,10 @@ const copyDataToClipboard = (element, id, form) => {
     : document.getElementById(id).textContent;
   navigator.clipboard.writeText(newClip);
   element.blur();
-  const buttonContent = element.innerHTML;
-  element.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="green" class="bi bi-check2-all" viewBox="0 0 16 16"><path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7l-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/><path d="M5.354 7.146l.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/></svg>`;
+  const buttonSnapshot = takeChildrenSnapshot(element);
+  setIconWithText(element, "bi-check2-all", "green");
   setTimeout(() => {
-    element.innerHTML = buttonContent;
+    restoreChildrenSnapshot(element, buttonSnapshot);
   }, 600);
 };
 
@@ -727,7 +797,10 @@ const removeOutline = (btn, dismissBtn, form, msg) => {
   const buttonDismiss = document.getElementById(dismissBtn);
   const submitForm = document.getElementById(form);
   btn.disabled = true;
-  btn.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-dark my-auto' role='status'></span> ${msg}`;
+  const spinner = document.createElement("span");
+  spinner.className = "spinner-border mr-1 spinner-border-sm text-dark my-auto";
+  spinner.setAttribute("role", "status");
+  btn.replaceChildren(spinner, document.createTextNode(` ${String(msg)}`));
   buttonDismiss.disabled = true;
   submitForm.submit();
 };
@@ -762,7 +835,10 @@ const img_box = (self) => {
   img_img_box.onload = function () {
     himg_img_box = img_img_box.height;
     wimg_img_box = img_img_box.width;
-    idpopup_img_box.innerHTML = "<img src=" + namepic_img_box + ">";
+    idpopup_img_box.replaceChildren();
+    const popupImage = document.createElement("img");
+    popupImage.src = namepic_img_box;
+    idpopup_img_box.appendChild(popupImage);
 
     if (wimg_img_box > wwin_img_box) {
       idpopup_img_box.getElementsByTagName("img")[0].style.width = "90%";
@@ -808,7 +884,7 @@ const img_box = (self) => {
             idpopup_img_box.style.opacity = 0;
             clearInterval(idfadeout_img_box);
             idpopup_img_box.style.display = "none";
-            idpopup_img_box.innerHTML = "";
+            idpopup_img_box.replaceChildren();
             document.body.style.overflow = "visible";
             vopa_img_box = 0;
           }
@@ -816,7 +892,7 @@ const img_box = (self) => {
       } else {
         idpopup_img_box.style.opacity = 0;
         idpopup_img_box.style.display = "none";
-        idpopup_img_box.innerHTML = "";
+        idpopup_img_box.replaceChildren();
         document.body.style.overflow = "visible";
       }
     }
@@ -832,7 +908,7 @@ const img_box = (self) => {
           idpopup_img_box.style.opacity = 0;
           clearInterval(idfadeout_img_box);
           idpopup_img_box.style.display = "none";
-          idpopup_img_box.innerHTML = "";
+          idpopup_img_box.replaceChildren();
           document.body.style.overflow = "visible";
           vopa_img_box = 0;
         }
@@ -840,7 +916,7 @@ const img_box = (self) => {
     } else {
       idpopup_img_box.style.opacity = 0;
       idpopup_img_box.style.display = "none";
-      idpopup_img_box.innerHTML = "";
+      idpopup_img_box.replaceChildren();
       document.body.style.overflow = "visible";
     }
   };
@@ -854,7 +930,7 @@ const updateAfterClick = async (element, ms, message) => {
   let it = 0;
   const update = setInterval(() => {
     it += 1;
-    element.innerHTML = message + ` ${it}%`;
+    element.textContent = String(message) + ` ${it}%`;
     if (it === 99) clearInterval(update);
   }, timeout);
 };
@@ -944,7 +1020,7 @@ const createBuildingsOptions = (
   ];
 };
 const changeTextToSent = (element, msg) => {
-  element.innerHTML = `${msg}`;
+  element.textContent = String(msg);
 };
 const fillAndSubmit = (value) => {
   const form = document.getElementById("create-form");
@@ -960,8 +1036,11 @@ const initializePaymentProcess = async (amount, currency) => {
   const stripe = Stripe(stripeKey.publicKey);
 
   paymentButton.onclick = () => {
-    const innerHtml = paymentButton.innerHTML;
-    paymentButton.innerHTML = `<span class='spinner-border mr-1 spinner-border-sm text-info my-auto' role='status'></span>`;
+    const originalSnapshot = takeChildrenSnapshot(paymentButton);
+    const spinner = document.createElement("span");
+    spinner.className = "spinner-border mr-1 spinner-border-sm text-info my-auto";
+    spinner.setAttribute("role", "status");
+    paymentButton.replaceChildren(spinner);
     fetch(`/api/stripe-session/`, {
       method: "POST",
       credentials: "same-origin",
@@ -979,14 +1058,14 @@ const initializePaymentProcess = async (amount, currency) => {
         if (res.status === 200) {
           return res.json();
         } else if (res.status === 400) {
-          paymentButton.innerHTML = innerHtml;
+          restoreChildrenSnapshot(paymentButton, originalSnapshot);
           res.json().then((res) => {
             console.error(res);
             alert(`Something went wrong. Message: ${res.error}`);
             throw res.error;
           });
         } else {
-          paymentButton.innerHTML = innerHtml;
+          restoreChildrenSnapshot(paymentButton, originalSnapshot);
           console.error(res);
           alert(`Something went wrong. unknown error`);
           throw "unknown error";
@@ -1026,7 +1105,7 @@ const changeWeightBuildingDirect = async (changingElement, outline_id) => {
   resetBackgroundBuildingsColors(weightPk);
   changingElement.classList.add("fancy-building-True");
   const nameOfBuilding = document.getElementById("building-name-" + weightPk);
-  nameOfBuilding.innerHTML = `<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>`;
+  setSpinner(nameOfBuilding);
 
   const response = await fetch(`/api/change-weight-building/`, {
     method: "PUT",
@@ -1043,13 +1122,15 @@ const changeWeightBuildingDirect = async (changingElement, outline_id) => {
     }),
   });
   if (response.status !== 200) {
-    nameOfBuilding.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>`;
+    setIconWithText(nameOfBuilding, "bi-exclamation-square");
     setTimeout(() => {
-      nameOfBuilding.innerHTML = "Try again";
+      nameOfBuilding.textContent = "Try again";
     }, 2000);
   } else {
     const data = await response.json();
-    nameOfBuilding.innerHTML = `<b>${data.name}</b>`;
+    const bold = document.createElement("b");
+    bold.textContent = String(data.name);
+    nameOfBuilding.replaceChildren(bold);
   }
 };
 
