@@ -1,4 +1,4 @@
-FROM python:3.14.2-trixie AS base
+FROM python:3.14.3-trixie AS base
 
 ENV PYTHONUNBUFFERED=1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
@@ -74,7 +74,7 @@ RUN rm -rf default_disk_cache
 RUN apt-get update -y && apt-get install -y nginx postgresql-client
 COPY config/twp_nginx.conf /etc/nginx/nginx.conf
 
-CMD /build/scripts/init_webserver.sh
+CMD ["/bin/bash", "/build/scripts/init_webserver.sh"]
 EXPOSE 80
 EXPOSE 8050
 
@@ -82,5 +82,4 @@ FROM base AS translations
 COPY --from=uv /requirements.txt .
 RUN pip install -r requirements.txt
 RUN apt-get update -y && apt-get install gettext -y
-CMD python manage.py makemessages --all --ignore .venv &&  \
-    python manage.py compilemessages --ignore .venv
+CMD ["/bin/bash", "-c", "python manage.py makemessages --all --ignore .venv && python manage.py compilemessages --ignore .venv"]

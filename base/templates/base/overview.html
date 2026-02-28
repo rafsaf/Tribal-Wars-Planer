@@ -14,13 +14,13 @@
     <div class="col-12 col-lg-10 offset-lg-1" style="padding: 0 0" >
         <ul class="nav nav-tabs mb-3 mt-1 font-nav" id="pills-tab" role="tablist" style="font-size:x-large;">
             <li class="nav-item" >
-                <a style="color:black;" class="nav-link active" id="a-pills-outline-copy" data-toggle="pill" href="#pills-outline-copy" role="tab" aria-controls="pills-outline-copy" aria-selected="true">{% trans 'Copy' %}</a>
+                <a style="color:black;" class="nav-link active" id="a-pills-outline-copy" data-bs-toggle="pill" href="#pills-outline-copy" role="tab" aria-controls="pills-outline-copy" aria-selected="true">{% trans 'Copy' %}</a>
             </li>
             <li class="nav-item">
-                <a style="color: black;" class="nav-link" id="a-pills-outline-detail" data-toggle="pill" href="#pills-outline-details" role="tab" aria-controls="pills-outline-detail" aria-selected="false">{% trans 'Details' %}</a>
+                <a style="color: black;" class="nav-link" id="a-pills-outline-detail" data-bs-toggle="pill" href="#pills-outline-details" role="tab" aria-controls="pills-outline-detail" aria-selected="false">{% trans 'Details' %}</a>
             </li>
             <li class="nav-item">
-                <a style="color: black;" class="nav-link" id="a-pills-outline-source" data-toggle="pill" href="#pills-outline-source" role="tab" aria-controls="pills-outline-source" aria-selected="false">{% trans 'Source' %}</a>
+                <a style="color: black;" class="nav-link" id="a-pills-outline-source" data-bs-toggle="pill" href="#pills-outline-source" role="tab" aria-controls="pills-outline-source" aria-selected="false">{% trans 'Source' %}</a>
             </li>
         </ul>
     </div>
@@ -35,7 +35,7 @@
 
                     <div class="overview-card">
                         <h1 class="font-nav">
-                            <span class="mr-2">{% trans 'Standard' %}</span>
+                            <span class="me-2">{% trans 'Standard' %}</span>
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
@@ -45,8 +45,8 @@
 
                         <div>
 
-                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                                <div class="pl-2">
+                            <div class="tribalwarsbg" style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="ps-2">
                                     <br>
                                     <b>----------------1999-03-02 ({% trans 'Tuesday' %})----------------</b>
                                     <br>
@@ -69,7 +69,7 @@
 
                     <div class="overview-card">
                         <h1 class="font-nav">
-                            <span class="mr-2">{% trans 'Standard - for deputy' %}</span>
+                            <span class="me-2">{% trans 'Standard - for deputy' %}</span>
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
@@ -78,8 +78,8 @@
                             {% endif %}
                         </h1>
                         <small class="form-text text-muted">{% trans 'Hint: Use this one when someone else will send this commands.' %}</small><div>
-                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                                <div class="pl-2">
+                            <div class="tribalwarsbg" style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="ps-2">
                                     <br>
                                     <b>----------------1999-03-02 ({% trans 'Tuesday' %})----------------</b>
                                     <br>
@@ -102,7 +102,7 @@
 
                     <div class="overview-card">
                         <h1 class="font-nav">
-                            <span class="mr-2">{% trans 'Simple' %}</span>
+                            <span class="me-2">{% trans 'Simple' %}</span>
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
@@ -111,8 +111,8 @@
                         </h1>
 
                         <div>
-                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                                <div class="pl-2">
+                            <div class="tribalwarsbg" style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="ps-2">
                                     <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970)<br>
                                     <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
                                     <br>
@@ -128,7 +128,7 @@
 
                     <div class="overview-card">
                         <h1 class="font-nav">
-                            <span class="mr-2">{% trans 'Old' %}</span>
+                            <span class="me-2">{% trans 'Old' %}</span>
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
@@ -138,8 +138,8 @@
 
                         <div>
 
-                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
-                                <div class="pl-2">
+                            <div class="tribalwarsbg" style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                                <div class="ps-2">
                                     <br>1. <span style="font-size:15pt"><b>OFF</b></span> (Off-20970) {% trans "from village" %} <span style="color:#603000;font-weight:700">{% trans 'Remember this is only the example' %} (111|111) K11</span> {% trans "to " %} <span style="color:#603000;font-weight:700">{% trans "Plemiona Planer is the best"%} (999|999) K99</span><br>
                                     <b>1999-03-02 <span style="color:#ff0000">07:34:56 - 08:34:56</span></b>
                                     <br>
@@ -155,7 +155,7 @@
 
                     <div class="overview-card">
                         <h1 class="font-nav">
-                            <span class="mr-2">{% trans 'Table' %}</span>
+                            <span class="me-2">{% trans 'Table' %}</span>
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
@@ -164,7 +164,7 @@
                         </h1>
                         <small class="form-text text-muted">{% trans 'Hint: Use Text format if u have many commands. ' %}</small>
                         <div>
-                            <div class="tribalwarsbg" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
+                            <div class="tribalwarsbg" style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'This is what this form of orders looks like when pasted into a notebook' %}">
                                 <div class="table-responsive">
                                     <table class="vis bbcodetable">
                                         <tbody>
@@ -233,10 +233,10 @@
                                         <tr>
                                             <th class="front-{{target.fake}}">
                                                 <h5>
-                                                    <span class="badge badge-pill badge-info">{{target.player}}</span>
+                                                    <span class="badge rounded-pill bg-info">{{target.player}}</span>
                                                 </h5>
                                                 <h5>
-                                                    <span class="badge badge badge-secondary">{{target.target}}</span>
+                                                    <span class="badge bg-secondary">{{target.target}}</span>
                                                 </h5>
                                                 {% if target.fake %}
                                                     <h5 style="color: teal;" class="font-italic"> Fake</h5>
@@ -249,10 +249,10 @@
                                             {% for weight in lst %}
                                                 <th>
                                                     <div style="font-size: medium;">
-                                                        <span class='badge badge-pill badge-info text-break'>{{weight.player}}</span>
+                                                        <span class='badge rounded-pill bg-info text-break'>{{weight.player}}</span>
                                                     </div>
                                                     <h6>
-                                                        <span class='badge badge badge-secondary'>{{weight.start}}</span>
+                                                        <span class='badge bg-secondary'>{{weight.start}}</span>
                                                     </h6>
                                                     <div style="font-size: medium;color:green; ">{{weight.t1}}</div>
                                                     <div style="font-size: medium;color: red;">{{weight.t2}}</div>

@@ -3,7 +3,6 @@
 {% load i18n %}
 {% block title %}{{target.target}} - {{target.player}} - {{instance.name|capfirst}}{% endblock %}
 {% block content %}
-
     <input id="speed_world" type="hidden" value="{{instance.world.speed_world|stringformat:'.17f'}}">
     <input id="speed_units" type="hidden" value="{{instance.world.speed_units|stringformat:'.17f'}}">
 
@@ -17,10 +16,10 @@
                     <div class="btn-group">
                         <form method='POST'>
                             {% csrf_token %} {{form|crispy}}
-                            <button name="form" type="submit" class="btn btn-info">
+                            <button name="form" type="submit" class="btn btn-success">
                                 {% trans 'Change and save' %}
                             </button>
-                            <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal">
+                            <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal">
                                 {% trans 'Close' %}
                             </button>
                         </form>
@@ -32,46 +31,48 @@
 
     <div class="container-fluid" id="table" style="max-height: 290vh; overflow:hidden">
         <div class="row">
-            <div class="d-flex card col-12 col-lg-4 d-flex flex-column pl-0" style="border:none">
+            <div class="d-flex card col-12 col-lg-4 d-flex flex-column ps-0" style="border:none">
                 <div style="overflow-y: auto; height:calc(85vh) !important;" id="leftscroll">
                     <ul class="list-group list-group-flush">
                         {% for weight in result_lst %}
                             <div class="fading-{{weight.paint}}">
                                 <li class="list-group-item front-{{weight.first_line}}">
-                                    <div class="row justify-content-center w-100 mb-1">
+                                    <div class="position-relative text-center mb-1">
                                         <div style="position: absolute; top:0;left:1px;padding-top:0">
                                             <small>{{forloop.counter}}</small>
                                         </div>
-                                        <span class='badge badge-pill badge-info'>{{weight.player}}</span><span class=' ml-1 badge badge badge-secondary'>{{weight.start}}</span>
+                                        <div>
+                                            <span class='badge rounded-pill bg-info'>{{weight.player}}</span><span class=' ms-1 badge bg-secondary'>{{weight.start}}</span>
+                                        </div>
                                     </div>
-                                    <div class="row justify-content-center w-100">
+                                    <div class="d-flex justify-content-center">
                                         <table>
                                             <tr>
                                                 <th>
                                                     <img src='{% static "images/ax.avif" %}' alt="ax">
                                                 </th>
                                                 <th>
-                                                    <div class='ml-1'>{{weight.off}}</div>
+                                                    <div class='ms-1'>{{weight.off}}</div>
                                                 </th>
                                                 {% if target.ruin %}
                                                     <th>
                                                         <img src='{% static "images/catapult.avif" %}' alt="cat">
                                                     </th>
                                                     <th>
-                                                        <div class='ml-1'>{{weight.catapult}}</div>
+                                                        <div class='ms-1'>{{weight.catapult}}</div>
                                                     </th>
                                                 {% else %}
                                                     <th>
-                                                        <div class='ml-1'>
+                                                        <div class='ms-1'>
                                                             <img src='{% static "images/nobleman.avif" %}' alt="ax">
                                                         </div>
                                                     </th>
                                                     <th>
-                                                        <div class='ml-1'>{{weight.nobleman}}
-                                                        </th>
+                                                        <div class='ms-1'>{{weight.nobleman}}</div>
+                                                    </th>
                                                 {% endif %}
                                                 <th>
-                                                    <div class="ml-1">
+                                                    <div class="ms-1">
                                                         <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-signpost" fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path d="M7 1.414V4h2V1.414a1 1 0 0 0-2 0z" /><path fill-rule="evenodd" d="M12.532 5H2v4h10.532l1.666-2-1.666-2zM2 4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10.532a1 1 0 0 0 .768-.36l1.933-2.32a.5.5 0 0 0 0-.64L13.3 4.36a1 1 0 0 0-.768-.36H2z" /><path d="M7 10h2v6H7v-6z" /></svg>
                                                     </div>
                                                 </th>
@@ -82,7 +83,7 @@
                                         </table>
                                     </div>
 
-                                    <div class="row justify-content-center" style="border:0;">
+                                    <div class="d-flex justify-content-center align-items-center flex-wrap gap-1" style="border:0;">
                                         <form method="POST" action="{% url 'base:planer_move_down' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">{% csrf_token %}
                                             <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" /></svg>
                                             </button>
@@ -99,11 +100,11 @@
                                             </button>
                                         </form>
 
-                                        <button id="modalbutton" class="btn btn-default" type="button" data-toggle="modal" data-target="#form-modal" data-attacknumber="{{forloop.counter}}" data-start="{{weight.start}}" data-off="{{weight.off}}" data-leftoff="{{weight.state.off_left}}" data-catapult="{{weight.catapult}}" data-leftcatapult="{{weight.state.catapult_left}}" data-leftnobleman="{{weight.state.nobleman_left}}" data-nobleman="{{weight.nobleman}}" data-id="{{weight.id}}"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z" /><path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" /></svg>
+                                        <button id="modalbutton" class="btn btn-default" type="button" data-bs-toggle="modal" data-bs-target="#form-modal" data-attacknumber="{{forloop.counter}}" data-start="{{weight.start}}" data-off="{{weight.off}}" data-leftoff="{{weight.state.off_left}}" data-catapult="{{weight.catapult}}" data-leftcatapult="{{weight.state.catapult_left}}" data-leftnobleman="{{weight.state.nobleman_left}}" data-nobleman="{{weight.nobleman}}" data-id="{{weight.id}}"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z" /><path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" /></svg>
                                         </button>
 
                                         <div class="btn-group">
-                                            <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Divide' %}</button>
+                                            <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Divide' %}</button>
                                             <div class="dropdown-menu">
                                                 <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 2 %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
@@ -147,8 +148,8 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th><h5><span class="badge badge-pill badge-info">{{target.player}}</span></h5></th>
-                                <th><h5><span class="badge badge-secondary">{{target.target}}</span></h5></th>
+                                <th><h5><span class="badge rounded-pill bg-info">{{target.player}}</span></h5></th>
+                                <th><h5><span class="badge bg-secondary">{{target.target}}</span></h5></th>
                                 <th class="text-nowrap font-nav"><h6><a rel="noopener" target="_blank" href="{{link}}" style="color: #804000;font-weight:700;">TW Stats</a></h6></th>
                                 <form method="POST">
                                     {% csrf_token %}
@@ -217,7 +218,7 @@
                     <ul class="pagination mb-2 mt-0">
                         <li class="page-item">
                             <div class="dropdown" >
-                                <button class="btn btn-info dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
+                                <button class="btn btn-secondary dropdown-toggle me-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
 
                                 <div class="dropdown-menu my-0 py-0" style="font-size: small;max-height:65vh" aria-labelledby="dropdownMenuButton">
                                     <div style="overflow-y: auto;">
@@ -280,13 +281,13 @@
                                 <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}&filtr={{filtr}}">{{page_obj.paginator.num_pages}}</a>
                             </li>
                         {% endif %}
-                        <li class="page-item ml-3" >
+                        <li class="page-item ms-3" >
                             <form method="GET">
                                 <div class="input-group">
                                     <input name="page" type="hidden" value="{{page_obj.number}}">
                                     <input name="sort" type="hidden" value="{{sort}}">
                                     <input class="form-control py-2" maxlength="50" placeholder="{% trans 'coord or nick...' %}" name="filtr" type="search" value="{{filtr}}">
-                                    <span class="input-group-append">
+                                    <span>
                                         <button class="btn btn-outline-secondary" style="border-color: rgb(204, 202, 202)" type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                             </svg>
@@ -325,27 +326,27 @@
                                     </div>
                                     {% if forloop.first %}
                                         {% if target.fake %}
-                                            <div data-trigger="hover" data-toggle="tooltip" data-placement="right" title="{% trans 'On the left adding Fake, on the right 1 Noble' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
+                                            <div data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="right" title="{% trans 'On the left adding Fake, on the right 1 Noble' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
                                                 <img src="{% static 'images/help-big.svg' %}">
                                             </div>
                                         {% elif target.ruin %}
-                                            <div data-trigger="hover" data-toggle="tooltip" data-placement="right" title="{% trans 'On the left adding Offs, on the right Ruin attack' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
+                                            <div data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="right" title="{% trans 'On the left adding Offs, on the right Ruin attack' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
                                                 <img src="{% static 'images/help-big.svg' %}">
                                             </div>
                                         {% else %}
-                                            <div data-trigger="hover" data-toggle="tooltip" data-placement="right" title="{% trans 'On the left adding Offs, on the right Offs with the Nobles' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
+                                            <div data-bs-trigger="hover" data-bs-toggle="tooltip" data-bs-placement="right" title="{% trans 'On the left adding Offs, on the right Offs with the Nobles' %}" style="position: absolute; top:0;left:0;padding-top:0;margin-left:3px">
                                                 <img src="{% static 'images/help-big.svg' %}">
                                             </div>
                                         {% endif %}
                                     {% endif %}
-                                    <div style="padding-top:1px ;" class="d-flex row justify-content-center">
+                                    <div style="padding-top:1px ;" class="row justify-content-center text-center">
                                         <h5>
-                                            <span class="badge badge-pill badge-info">{{weight.player}}</span>
+                                            <span class="badge rounded-pill bg-info">{{weight.player}}</span>
                                         </h5>
                                     </div>
-                                    <div class="d-flex row justify-content-center">
+                                    <div class="row justify-content-center text-center">
                                         <h5>
-                                            <span class="badge badge-secondary">{{weight.start}}</span>
+                                            <span class="badge bg-secondary">{{weight.start}}</span>
 
                                         </h5>
 
@@ -486,8 +487,8 @@
     <script>
         scroll_content_outline();
         modal();
-        $("#{{sort}}").addClass("selected")
-        $("#{{sort}}2").addClass("selected")
+        document.getElementById("{{sort}}")?.classList.add("selected");
+        document.getElementById("{{sort}}2")?.classList.add("selected");
         var tabPlanerMenuHasBeenHidden = false;
         document.addEventListener("visibilitychange", handlePlanerMenuVisibilityChange, false);
     </script>

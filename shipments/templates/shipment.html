@@ -2,14 +2,14 @@
 {% load i18n %}
 {% block sidebar %}
     <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>
-    <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
-    <a href="{% url 'shipments:edit_shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'edit_shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Edit' %}</span></a>
+    <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ms-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
+    <a href="{% url 'shipments:edit_shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'edit_shipment' %}focus-side-link{% endif %}"><span class="ms-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Edit' %}</span></a>
 {% endblock %}
 
 {% block phonesidebar %}
     <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>
-    <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
-    <a href="{% url 'shipments:edit_shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'edit_shipment' %}focus-side-link{% endif %}"><span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Edit' %}</span></a>
+    <a href="{% url 'shipments:shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'shipment' %}focus-side-link{% endif %}"><span class="ms-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Shipment' %}</span></a>
+    <a href="{% url 'shipments:edit_shipment' shipment.pk %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'edit_shipment' %}focus-side-link{% endif %}"><span class="ms-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Edit' %}</span></a>
 {% endblock %}
 
 {% block title %}{% trans 'Shipment' %} {{shipment.name|capfirst}} {{shipment.pk}}{% endblock %}
@@ -179,19 +179,24 @@
                 });
                 this.api().columns().every(function () {
                     const column = this;
-                    $(column.header()).css('padding', '0.1rem');
+                    column.header().style.padding = '0.1rem';
                 });
             },
             processing: true
         };
         if (getLanguage() === "pl") {
             data["language"] = {
-                url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/pl.json",
+                url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/pl.json",
             };
         }
         if (getLanguage() === "hu") {
             data["language"] = {
-                url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/hu.json",
+                url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/hu.json",
+            };
+        }
+        if (getLanguage() === "cs") {
+            data["language"] = {
+                url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/cs.json",
             };
         }
         const table = new DataTable('#my-orders', data);

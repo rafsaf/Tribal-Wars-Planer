@@ -11,24 +11,24 @@
       <div class="w-100">
         <div class="mb-4 mt-2">
           {% if mode == "real" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{calc.len_real}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge badge-secondary">{{calc.len_real}}</span></a>
+            <a class="t-tab-teal" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
 
           {% endif %}
           {% if mode == "fake" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{calc.len_fake}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge badge-secondary">{{calc.len_fake}}</span></a>
+            <a class="t-tab-teal" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
 
           {% endif %}
           {% if mode == "ruin" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{calc.len_ruin}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge badge-secondary">{{calc.len_ruin}}</span></a>
+            <a class="t-tab-teal" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
 
           {% endif %}
         </div>
@@ -38,7 +38,7 @@
           {% if calc.show_duplicates %}
             <div class="mb-2">
 
-              <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Duplicates detected, click to view them' %}</a>
+              <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-bs-toggle="collapse" href="#collapseRepeat" role="button" aria-expanded="false" aria-controls="collapseRepeat" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Duplicates detected, click to view them' %}</a>
 
               <div class="collapse mb-3 mt-1" id="collapseRepeat">
                 <div class="card card-body">
@@ -79,7 +79,7 @@
           {% if calc.show_barbarians %}
             <div class="mb-2">
 
-              <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-toggle="collapse" href="#collapseRepeat2" role="button" aria-expanded="false" aria-controls="collapseRepeat2" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Barbarian targets detected, click to view them' %}</a>
+              <a class="mt-0 px-1 py-1" style="background:#ffffcc;color:black" data-bs-toggle="collapse" href="#collapseRepeat2" role="button" aria-expanded="false" aria-controls="collapseRepeat2" style="text-decoration: none;"><i class="bi bi-exclamation-circle"></i> {% trans 'Barbarian targets detected, click to view them' %}</a>
 
               <div class="collapse mb-3 mt-1" id="collapseRepeat2">
                 <div class="card card-body">
@@ -133,7 +133,7 @@
             {% for error in form1.non_field_errors %}
               <div class="error-text mb-3">{{error|safe}}</div>
 
-              <script type="module">document.addEventListener("DOMContentLoaded", function(event) {$('.CodeMirror').addClass('CodeMirror-Invalid');});</script>
+              <script type="module">document.addEventListener("DOMContentLoaded", function(event) {document.querySelectorAll('.CodeMirror').forEach((element) => {element.classList.add('CodeMirror-Invalid');});});</script>
 
             {% endfor %}
 
@@ -161,7 +161,7 @@
             <th scope="col">{% trans 'All' %}</th>
             <th scope="col">{% trans 'Front' %}</th>
             <th scope="col">{% trans 'Back (Rear)' %}</th>
-            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs further than maximum distance for offs (equals to' %} {{instance.initial_outline_maximum_off_dist}} {% trans 'now), which will be completely skipped now.' %}" class="text-nowrap"  scope="col">{% trans 'Away' %} <i class="bi bi-question-square"></i></th>
+            <th style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Offs further than maximum distance for offs (equals to' %} {{instance.initial_outline_maximum_off_dist}} {% trans 'now), which will be completely skipped now.' %}" class="text-nowrap"  scope="col">{% trans 'Away' %} <i class="bi bi-question-square"></i></th>
           </tr>
         </thead>
         <tbody>
@@ -199,7 +199,7 @@
             {% endfor %}
           </tr>
           <tr>
-            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Full offs with at least 1 nobleman (there can be more)' %}." class="text-nowrap" scope="col">{% trans 'Full offs with 1 noble' %} <i class="bi bi-question-square"></i></th>
+            <th style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Full offs with at least 1 nobleman (there can be more)' %}." class="text-nowrap" scope="col">{% trans 'Full offs with 1 noble' %} <i class="bi bi-question-square"></i></th>
 
             {% for item in instance.available_full_noble_offs %}
               <th>{{ item }}</th>
@@ -211,7 +211,7 @@
             {% endfor %}
           </tr>
           <tr>
-            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Offs close to real targets' %} <i class="bi bi-question-square"></i></th>
+            <th style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Offs close to real targets' %} <i class="bi bi-question-square"></i></th>
 
             {% for item in instance.available_offs_near %}
               <th>{{ item }}</th>
@@ -223,7 +223,7 @@
             {% endfor %}
           </tr>
           <tr>
-            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="{% trans 'Nobles around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Nobles close to real targets' %} <i class="bi bi-question-square"></i></th>
+            <th style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Nobles around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Nobles close to real targets' %} <i class="bi bi-question-square"></i></th>
 
             {% for item in instance.available_nobles_near %}
               <th>{{ item }}</th>
@@ -235,10 +235,10 @@
             {% endfor %}
           </tr>
           <tr>
-            <th style="cursor: default;" data-toggle="tooltip" data-placement="top" title="
-                                                                                           {% blocktrans with initial_outline_min_ruin_attack_off=instance.initial_outline_min_ruin_attack_off initial_outline_maximum_off_dist=instance.initial_outline_maximum_off_dist %}
-                                                                                             Catapults from villages that are not front, with at least {{initial_outline_min_ruin_attack_off}} off troops in village (without catapults), see 6.). Only villages at maximum distance that are not far away (now more than {{initial_outline_maximum_off_dist}}, see 1.).
-                                                                                           {% endblocktrans %}" class="text-nowrap" scope="col">{% trans 'Available catapults to use' %} <i class="bi bi-question-square"></i></th>
+            <th style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="
+                                                                                                 {% blocktrans with initial_outline_min_ruin_attack_off=instance.initial_outline_min_ruin_attack_off initial_outline_maximum_off_dist=instance.initial_outline_maximum_off_dist %}
+                                                                                                   Catapults from villages that are not front, with at least {{initial_outline_min_ruin_attack_off}} off troops in village (without catapults), see 6.). Only villages at maximum distance that are not far away (now more than {{initial_outline_maximum_off_dist}}, see 1.).
+                                                                                                 {% endblocktrans %}" class="text-nowrap" scope="col">{% trans 'Available catapults to use' %} <i class="bi bi-question-square"></i></th>
             <th>
               {% if instance.available_ruins %}
                 {{instance.available_ruins}}
@@ -256,7 +256,7 @@
         <div class="card">
           <div class="card-header" id="headingOne">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{% if form2.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '1. Available Troops' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{% if form2.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '1. Available Troops' %}</button></h5>
 
           </div>
 
@@ -280,7 +280,7 @@
         <div class="card">
           <div class="card-header" id="headingTwo">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">{% if form3.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '2. Setting the date' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">{% if form3.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '2. Setting the date' %}</button></h5>
 
           </div>
 
@@ -303,7 +303,7 @@
         <div class="card">
           <div class="card-header" id="headingThree">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">{% if form4.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '3. Outline parameters' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">{% if form4.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '3. Outline parameters' %}</button></h5>
 
           </div>
 
@@ -322,7 +322,7 @@
         <div class="card">
           <div class="card-header" id="headingFour">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% if form7.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '4. Morale' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% if form7.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '4. Morale' %}</button></h5>
 
           </div>
 
@@ -335,9 +335,7 @@
                   <h4>{% trans 'ACTIVE: ' %} <span class="md-error">{% trans 'False' %}</span></h4>
                 {% endif %}
                 {% if instance.world.morale == 0 %}
-                  <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i>&nbsp;<b>{{instance.world}}</b>&nbsp;<span class="md-error">{% trans 'has no morale turned off and thus it is pointless to use this option.' %}</span></div>
-                {% elif instance.world.morale == 2 %}
-                  <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> &nbsp;<b>{{instance.world}}</b>&nbsp;  <span class="md-error">{% trans 'has morale based on points and time. This is not perfectly handled by Planer. See topic "4. Morale" in the docs on the right side.' %}</span></div>
+                  <div class="p-3 mb-2 bg-light"><i class="bi bi-info-square"></i>&nbsp;<b>{{instance.world}}</b>&nbsp;<span class="md-error">{% trans 'has no morale turned off and thus it is pointless to use this option.' %}</span></div>
                 {% endif %}
               </div>
               <style>input[type=checkbox] {width:1rem; height:1rem;}</style>
@@ -351,7 +349,7 @@
               {% endif %}
               {% if instance.morale_on and morale_dict %}
                 <div class="my-3 mt-5">
-                  <table id="morale-table" class="table-bordered ">
+                  <table id="morale-table" class="table table-sm table-bordered">
                     <thead>
                       <tr>
                         <th scope="col" class="px-1 py-1">{% trans 'Attacker' %}</th>
@@ -383,7 +381,7 @@
         <div class="card">
           <div class="card-header" id="headingFive">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '5. Avoid night bonus' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '5. Avoid night bonus' %}</button></h5>
 
           </div>
 
@@ -416,7 +414,7 @@
         <div class="card">
           <div class="card-header" id="headingSix">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '6. Ruining' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '6. Ruining' %}</button></h5>
 
           </div>
 
@@ -451,11 +449,11 @@
       <div class="h-100">
         <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
           <li class="nav-item navitem100">
-            <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+            <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
           </li>
 
           <li class="nav-item navitem100">
-            <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+            <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
           </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
@@ -478,9 +476,7 @@
         <div class="modal-content text-white bg-danger">
           <div class="modal-header">
             <h3 class="modal-title">{% trans 'An error occured' %}</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <h5>{% trans "Premium account is required to complete outlines greater than " %} {{premium_account_max_targets_free}} {% trans " targets. Buy it" %} <b><a style='color:white;text-decoration:underline' href="{% url 'base:premium' %}">{% trans 'here' %}</a></b> {% trans "or reduce the number of outline targets." %}</h5>
@@ -489,7 +485,7 @@
       </div>
     </div>
 
-    <script type="module">document.addEventListener("DOMContentLoaded", function(event) {$('.bd-example-modal-lg').modal('show');});</script>
+    <script type="module">document.addEventListener("DOMContentLoaded", function(event) {document.querySelectorAll('.bd-example-modal-lg').forEach((element) => { new bootstrap.Modal(element).show(); });});</script>
 
   {% endif %}
   {% if error != None %}
@@ -499,7 +495,7 @@
         <div class="modal-content text-white bg-danger">
           <div class="modal-header">
             <h3 class="modal-title">{% trans 'An error occured' %}</h3>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button> -->
           </div>
@@ -511,7 +507,9 @@
     </div>
     <script type="module">
       document.addEventListener("DOMContentLoaded", function(event) {
-        $('.bd-example-modal-lg2').modal({backdrop: 'static', keyboard: false}, 'show');
+        document.querySelectorAll('.bd-example-modal-lg2').forEach((element) => {
+          new bootstrap.Modal(element, { backdrop: 'static', keyboard: false }).show();
+        });
       });
       const buttons = document.getElementsByTagName("button");
       const links = document.getElementsByTagName("a");

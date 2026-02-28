@@ -8,10 +8,10 @@
     <div class="row mt-3 mb-4">
         <div class="col-12 col-lg-7">
 
-            <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'Your server is set to' %} <a href="{% url 'base:settings' %}" class="font-teal" style="text-decoration: underline;">{{profile.server}}.</a></div>
+            <div class="p-3 mb-2 bg-light"><i class="bi bi-info-square"></i> {% trans 'Your server is set to' %} <a href="{% url 'base:settings' %}" class="font-teal" style="text-decoration: underline;">{{profile.server}}.</a></div>
 
 
-            <div class="p-3 mb-2 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'First time? You can choose a special <span class="md-correct2">World Test</span> created for testing purposes, see ' %}<a target="_blank" class="font-teal" style="text-decoration: underline;" href="/{{ LANG }}/documentation/first_steps/">{% trans 'docs' %}</a>.</div>
+            <div class="p-3 mb-2 bg-light"><i class="bi bi-info-square"></i> {% trans 'First time? You can choose a special <span class="md-correct2">World Test</span> created for testing purposes, see ' %}<a target="_blank" class="font-teal" style="text-decoration: underline;" href="/{{ LANG }}/documentation/first_steps/">{% trans 'docs' %}</a>.</div>
 
             <form method='POST' autocomplete="off">
                 <input type="hidden" value="" name="form1">
@@ -28,10 +28,10 @@
             <div class="h-100">
                 <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                     <li class="nav-item navitem100">
-                        <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                        <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
                     </li>
                     <li class="nav-item navitem100">
-                        <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                        <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
@@ -52,9 +52,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Please select game server' %}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" style="padding: 2.5rem;padding-top:1rem;">
                         {% trans 'There are 20 game servers to choose from. <br><br>Please select one, it will be assigned to your account. You can always choose another later, just visit tab' %} <span class="md-correct2">{% trans 'My account' %}</span>.
@@ -70,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <script type="module">document.addEventListener("DOMContentLoaded", function(event) {$('#ValidationModal').modal('show');});</script>
+        <script type="module">document.addEventListener("DOMContentLoaded", function(event) {const element = document.getElementById('ValidationModal'); if (element) { new bootstrap.Modal(element).show(); }});</script>
     {% endif %}
 {% endblock %}
 {% block scripts %}

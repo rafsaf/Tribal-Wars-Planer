@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tribal-Wars-Planer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 21:39+0100\n"
+"POT-Creation-Date: 2026-02-28 22:00+0100\n"
 "PO-Revision-Date: 2025-09-27 11:36+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Czech\n"
@@ -16,26 +16,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: base/forms.py:66 base/forms.py:81 base/templates/base/base_planer.html:10
+#: base/forms.py:84 base/forms.py:99 base/templates/base/base_planer.html:10
 msgid "Outline Name"
 msgstr "Název přehledu"
 
-#: base/forms.py:68 base/forms.py:82 base/templates/base/base_planer.html:11
+#: base/forms.py:86 base/forms.py:100 base/templates/base/base_planer.html:11
 #: shipments/templates/my_shipments.html:11
 #: utils/basic/info_generatation.py:151
 msgid "Date"
 msgstr "Datum"
 
-#: base/forms.py:69 base/templates/base/base_planer.html:13
+#: base/forms.py:87 base/templates/base/base_planer.html:13
 #: shipments/templates/my_shipments.html:13
 msgid "World"
 msgstr "Svět"
 
-#: base/forms.py:86
+#: base/forms.py:104
 msgid "Use unused troops"
 msgstr "Použít nepoužité jednotky"
 
-#: base/forms.py:90
+#: base/forms.py:108
 msgid ""
 "Use unused army or deff troops from result tab from parent outline in Troops "
 "data tab"
@@ -43,21 +43,21 @@ msgstr ""
 "Použijte nepoužitou armádu nebo obranné jednotky z karty výsledků z "
 "nadřazeného přehledu na kartě Data jednotek"
 
-#: base/forms.py:101 base/models/outline.py:146 base/models/outline.py:327
-#: base/models/profile.py:35
+#: base/forms.py:119 base/models/outline.py:147 base/models/outline.py:328
+#: base/models/profile.py:30
 msgid "Army collection"
 msgstr "Sestava armády"
 
-#: base/forms.py:119 base/forms.py:239
+#: base/forms.py:137 base/forms.py:257
 msgid "Text cannot be empty!"
 msgstr "Text nemůže být prázdný!"
 
-#: base/forms.py:161 base/forms.py:286
+#: base/forms.py:179 base/forms.py:304
 #, python-format
 msgid "[coord: %(coord)s] - [world: %(world)s]: no such village"
 msgstr "[souřadnice: %(coord)s] - [svět: %(world)s]: nenalezena žádná vesnice"
 
-#: base/forms.py:169 base/forms.py:294
+#: base/forms.py:187 base/forms.py:312
 #, python-format
 msgid ""
 "[coord: %(coord)s] - [world: %(world)s] - [player: %(player)s] - [tribe: "
@@ -66,63 +66,67 @@ msgstr ""
 "[souřadnice: %(coord)s] - [svět: %(world)s] - [hráč: %(player)s] - [kmen: "
 "%(tribe)s]"
 
-#: base/forms.py:188 base/forms.py:316
+#: base/forms.py:206 base/forms.py:334
 #, python-format
 msgid "Village in this line is duplicated: %(coord)s"
 msgstr "Vesnice v tomto řádku je duplicitní: %(coord)s"
 
-#: base/forms.py:206
+#: base/forms.py:224
 msgid ""
 "This doesn't look like a valid input for THIS form. Did you want to input it "
 "into the 'Deff collection' form instead?"
-msgstr "To nevypadá jako platný vstup pro TENTO formulář. Možná jste mysleli formulář 'Obranná sbírka'?"
+msgstr ""
+"To nevypadá jako platný vstup pro TENTO formulář. Možná jste mysleli "
+"formulář 'Obranná sbírka'?"
 
-#: base/forms.py:219 base/models/outline.py:147 base/models/outline.py:329
-#: base/models/profile.py:36
+#: base/forms.py:237 base/models/outline.py:148 base/models/outline.py:330
+#: base/models/profile.py:31
 msgid "Deff collection "
 msgstr "Obranná sbírka "
 
-#: base/forms.py:334
+#: base/forms.py:352
 msgid ""
 "This doesn't look like a valid input for THIS form. Did you want to input it "
 "into the 'Army collection' form instead?"
-msgstr "To nevypadá jako platný vstup pro TENTO formulář. Možná jste mysleli formulář 'Sestava armády'?"
+msgstr ""
+"To nevypadá jako platný vstup pro TENTO formulář. Možná jste mysleli "
+"formulář 'Sestava armády'?"
 
-#: base/forms.py:345
+#: base/forms.py:363
 msgid "Ally tribe"
 msgstr "Spojenec"
 
-#: base/forms.py:352 base/forms.py:368
+#: base/forms.py:370 base/forms.py:386
 msgid "Select tribe from list"
 msgstr "Vyberte kmen ze seznamu"
 
-#: base/forms.py:361
+#: base/forms.py:379
 msgid "Enemy tribe"
 msgstr "Nepřítel"
 
-#: base/forms.py:379
+#: base/forms.py:397
 msgid "Radius"
 msgstr "Poloměr"
 
-#: base/forms.py:382
+#: base/forms.py:400
 msgid "Greater than or equal to 0 and less than or equal to 1000."
 msgstr "Větší nebo rovno 0 a menší nebo rovno 1000."
 
-#: base/forms.py:390
+#: base/forms.py:408
 msgid "Excluded enemy villages"
 msgstr "Vyloučené nepřátelské vesnice"
 
-#: base/forms.py:392
+#: base/forms.py:410
 msgid "Exact coords separated by a space or an entry."
 msgstr "Přesné souřadnice oddělené mezerou nebo enterem."
 
-#: base/forms.py:416 base/templates/base/base.html:273
+#: base/forms.py:434 base/templates/base/base.html:247
 #: base/templates/base/new_outline/new_outline_initial_period2.html:32
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
 msgid "Targets"
 msgstr "Cíle"
 
-#: base/forms.py:464
+#: base/forms.py:482
 #, python-format
 msgid ""
 "You are trying to mantain more than %s targets in total - that is global "
@@ -131,27 +135,27 @@ msgstr ""
 "Pokoušíte se udržet více než %s cílů celkem - to je globální limit pro počet "
 "cílů.<br> Snižte prosím celkový počet cílů."
 
-#: base/forms.py:487
+#: base/forms.py:505
 msgid "Min. off units number"
 msgstr "Min. počet útočných jednotek"
 
-#: base/forms.py:488
+#: base/forms.py:506
 msgid "Max. off units number"
 msgstr "Max. počet útočných jednotek"
 
-#: base/forms.py:490
+#: base/forms.py:508
 msgid "Minimum distance from front line"
 msgstr "Minimální vzdálenost od frontové linie"
 
-#: base/forms.py:492
+#: base/forms.py:510
 msgid "Max Distance for nobles"
 msgstr "Max. vzdálenost pro šlechtice"
 
-#: base/forms.py:494
+#: base/forms.py:512
 msgid "Max Distance for offs and ruins"
 msgstr "Max. vzdálenost pro útoky a zříceniny"
 
-#: base/forms.py:499
+#: base/forms.py:517
 msgid ""
 "Greater than or equal to 1 and less than or equal to 28000. Only offs above "
 "this value will be considered full offs and will be written out."
@@ -159,7 +163,7 @@ msgstr ""
 "Větší nebo rovno 1 a menší nebo rovno 28000. Pouze útoky nad touto hodnotou "
 "budou považovány za plné útoky a budou vypsány."
 
-#: base/forms.py:502
+#: base/forms.py:520
 msgid ""
 "Defaults to 28000. Similar to minimum off units number, must be greater than "
 "it."
@@ -167,7 +171,7 @@ msgstr ""
 "Výchozí hodnota je 28000. Podobně jako minimální počet útočných jednotek, "
 "musí být větší."
 
-#: base/forms.py:505
+#: base/forms.py:523
 msgid ""
 "Greater than or equal to 0 and less than or equal to 500. Villages closer to "
 "the enemy than this value will be considered front-line and not written out "
@@ -177,7 +181,7 @@ msgstr ""
 "tato hodnota budou považovány za frontové a ve výchozím nastavení nebudou "
 "vypsány."
 
-#: base/forms.py:508
+#: base/forms.py:526
 msgid ""
 "Greater than or equal to 0 and less than or equal to 1000. This is STRICT "
 "limit of distance for any OFF regardless of distance from the front line."
@@ -185,15 +189,15 @@ msgstr ""
 "Větší nebo rovno 0 a menší nebo rovno 1000. Toto je PŘÍSNÝ limit vzdálenosti "
 "pro jakýkoli ÚTOK bez ohledu na vzdálenost od frontové linie."
 
-#: base/forms.py:513
+#: base/forms.py:531
 msgid "Excluded enemy villages coords (secluded villages)"
 msgstr "Souřadnice vyloučených nepřátelských vesnic (odlehlé vesnice)"
 
-#: base/forms.py:517
+#: base/forms.py:535
 msgid "Exact coords separated by a space or an entry"
 msgstr "Přesné souřadnice oddělené mezerou nebo enterem"
 
-#: base/forms.py:525
+#: base/forms.py:543
 #, python-format
 msgid ""
 "Greater than or equal to 0 and less than or equal to your world maximum: "
@@ -204,33 +208,33 @@ msgstr ""
 "%(max_noble_distance)s. Toto je PŘÍSNÝ limit vzdálenosti pro jakéhokoli "
 "ŠLECHTICE bez ohledu na vzdálenost od frontové linie."
 
-#: base/forms.py:533
+#: base/forms.py:551
 #, python-format
 msgid "Ensure this value is less than or equal to %(value)s."
 msgstr "Ujistěte se, že tato hodnota je menší nebo rovna %(value)s."
 
-#: base/forms.py:575
+#: base/forms.py:593
 msgid "Show all hidden"
 msgstr "Zobrazit vše skryté"
 
-#: base/forms.py:576
+#: base/forms.py:594
 msgid "Title of message:"
 msgstr "Název zprávy:"
 
-#: base/forms.py:577
+#: base/forms.py:595
 msgid "Content of message:"
 msgstr "Obsah zprávy:"
 
-#: base/forms.py:578 base/forms.py:1177
+#: base/forms.py:596 base/forms.py:1195
 msgid "Sending Options:"
 msgstr "Možnosti odeslání:"
 
-#: base/forms.py:579 base/forms.py:1178
+#: base/forms.py:597 base/forms.py:1196
 msgid "Add links to direct messages:"
 msgstr "Přidat odkazy do přímých zpráv:"
 
-#: base/forms.py:583
-#: base/templates/base/new_outline/new_outline_results.html:133
+#: base/forms.py:601
+#: base/templates/base/new_outline/new_outline_results.html:136
 msgid ""
 "By checking this option, players will see the commands of all other players "
 "for their own targets. By default, it’s not turned on and players only see "
@@ -240,11 +244,11 @@ msgstr ""
 "vlastní cíle. Ve výchozím nastavení není zapnutá a hráči vidí pouze své "
 "příkazy."
 
-#: base/forms.py:585
+#: base/forms.py:603
 msgid "Title, maximum length 200."
 msgstr "Název, maximální délka 200."
 
-#: base/forms.py:587
+#: base/forms.py:605
 msgid ""
 "BBCode message, maximum length 2000. Hint: Format text in game and paste "
 "here."
@@ -252,27 +256,27 @@ msgstr ""
 "Zpráva v BBCode, maximální délka 2000. Tip: Zformátujte text ve hře a vložte "
 "ho sem."
 
-#: base/forms.py:590
+#: base/forms.py:608
 msgid ""
 "Directly messages will bahave poorly with many (more than 80-100) commands"
 msgstr "Přímé zprávy se budou chovat špatně s mnoha (více než 80-100) příkazy"
 
-#: base/forms.py:593
+#: base/forms.py:611
 msgid ""
 "If checked, direct messages from options above will have safe link to planer"
 msgstr ""
 "Pokud je zaškrtnuto, přímé zprávy z výše uvedených možností budou mít "
 "bezpečný odkaz na plánovač"
 
-#: base/forms.py:603
+#: base/forms.py:621
 msgid "Set sending option as default choice for next outlines"
 msgstr "Nastavit možnost odeslání jako výchozí volbu pro další přehledy"
 
-#: base/forms.py:615
+#: base/forms.py:633
 msgid "Input type for planer"
 msgstr "Typ vstupu pro plánovač"
 
-#: base/forms.py:619 base/templates/base/new_outline/new_outline.html:34
+#: base/forms.py:637 base/templates/base/new_outline/new_outline.html:33
 msgid ""
 "Data for planer tab may be from Army or Defence tabs. Army - all troops "
 "(also that are outside of villages), Defence - only troops from villages."
@@ -281,55 +285,55 @@ msgstr ""
 "všechny jednotky (i ty, které jsou mimo vesnice), Obrana - pouze jednotky z "
 "vesnic."
 
-#: base/forms.py:629
+#: base/forms.py:647
 msgid "Set as default choice for next outlines"
 msgstr "Nastavit jako výchozí volbu pro další přehledy"
 
-#: base/forms.py:640
+#: base/forms.py:658
 msgid "Set new date"
 msgstr "Nastavit nové datum"
 
-#: base/forms.py:699
+#: base/forms.py:717
 msgid "Choose the default distance of the written offs:"
 msgstr "Zvolte výchozí vzdálenost vypsaných útoků:"
 
-#: base/forms.py:702
+#: base/forms.py:720
 msgid "Choose the default distance of the written nobles:"
 msgstr "Zvolte výchozí vzdálenost vypsaných šlechticů:"
 
-#: base/forms.py:704
+#: base/forms.py:722
 msgid "Choose how to split offs with nobles:"
 msgstr "Zvolte, jak rozdělit útoky se šlechtici:"
 
-#: base/forms.py:706
+#: base/forms.py:724
 msgid "Choose prefered way of writing required nobles:"
 msgstr "Zvolte preferovaný způsob zápisu požadovaných šlechticů:"
 
-#: base/forms.py:709
+#: base/forms.py:727
 msgid "Choose how noble commands should be written out:"
 msgstr "Zvolte, jak mají být vypsány příkazy šlechticů:"
 
-#: base/forms.py:712
+#: base/forms.py:730
 msgid "Maximum number of fakes from one off village:"
 msgstr "Maximální počet fake útoků z jedné útočné vesnice:"
 
-#: base/forms.py:715
+#: base/forms.py:733
 msgid "Determine which villages to write fake attacks from:"
 msgstr "Určete, ze kterých vesnic se mají psát fake útoky:"
 
-#: base/forms.py:718
+#: base/forms.py:736
 msgid "Max. number of nobles send per village:"
 msgstr "Max. počet šlechticů odeslaných na vesnici:"
 
-#: base/forms.py:721
+#: base/forms.py:739
 msgid "Min. off units for every noble"
 msgstr "Min. útočných jednotek pro každého šlechtice"
 
-#: base/forms.py:724
+#: base/forms.py:742
 msgid "Min. off units for every fake noble"
 msgstr "Min. útočných jednotek pro každého falešného šlechtice"
 
-#: base/forms.py:729
+#: base/forms.py:747
 msgid ""
 "For 4 nobles in village, first option would <b>try</b> to send them all 4x "
 "on target X, second would randomly send from 1 to 4 nobles to single target "
@@ -341,7 +345,7 @@ msgstr ""
 "cílů (podle potřeby) a poslední možnost by poslala 1x na X1,X2,X2,X4 (jeden "
 "šlechtic na cíl)."
 
-#: base/forms.py:732
+#: base/forms.py:750
 msgid ""
 "For 20000 troops and 4 nobles in village, first option would try to use 4 x "
 "5000, second 1 x 19700 + 3 x 100, and last 4 x 100, where 100 can be changed "
@@ -351,7 +355,7 @@ msgstr ""
 "4 x 5000, druhá 1 x 19700 + 3 x 100 a poslední 4 x 100, kde 100 lze změnit v "
 "\"Min. útočných jednotek pro každého šlechtice\"."
 
-#: base/forms.py:735
+#: base/forms.py:753
 msgid ""
 "Defaults to 8. Between 0 and 250. For example you may want only 4 nobles "
 "from single village or even 1 (with full off). Best works with \"Min. off "
@@ -362,7 +366,7 @@ msgstr ""
 "útočných jednotek pro každého šlechtice\" níže. Stejný limit je respektován "
 "i pro falešné šlechtice."
 
-#: base/forms.py:742
+#: base/forms.py:760
 msgid ""
 "Defaults to just 100. Must be between 0 and 28000. This is strict minimum so "
 "if village have nobles, but not enough off units, Planer won't use it. Use "
@@ -377,7 +381,7 @@ msgstr ""
 "šlechtice a 250 útočných jednotek a tato možnost je nastavena na 100, lze "
 "použít pouze 2 šlechtice. Ostatní 2 budou vždy ignorovány."
 
-#: base/forms.py:745
+#: base/forms.py:763
 msgid ""
 "Defaults to 0. Must be between 0 and 200. You probably don't want to waste "
 "troops for fake nobles, but there are cases where this makes sense."
@@ -385,23 +389,23 @@ msgstr ""
 "Výchozí hodnota je 0. Musí být mezi 0 a 200. Pravděpodobně nechcete plýtvat "
 "jednotkami na falešné šlechtice, ale existují případy, kdy to má smysl."
 
-#: base/forms.py:768
+#: base/forms.py:786
 msgid "MIN number of catapults in one ruin attack:"
 msgstr "MIN počet katapultů v jednom útoku na ruiny:"
 
-#: base/forms.py:771
+#: base/forms.py:789
 msgid "MAX number of catapults in one ruin attack:"
 msgstr "MAX počet katapultů v jednom útoku na ruiny:"
 
-#: base/forms.py:774
+#: base/forms.py:792
 msgid "How many points on average do demolished targets have:"
 msgstr "Kolik bodů v průměru mají zničené cíle:"
 
-#: base/forms.py:777
+#: base/forms.py:795
 msgid "Minimum off units for every ruin attack:"
 msgstr "Minimální počet útočných jednotek pro každý útok na ruiny:"
 
-#: base/forms.py:782
+#: base/forms.py:800
 #, python-format
 msgid ""
 "Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that "
@@ -411,112 +415,112 @@ msgstr ""
 "útočných jednotek, které budou přidány ke každému útoku na ruiny. Pokud je "
 "0, znamená to, že jsou odeslány pouze katapulty."
 
-#: base/forms.py:807
+#: base/forms.py:825
 msgid "Only attackers ABOVE this morale value can be used:"
 msgstr "Lze použít pouze útočníky NAD touto hodnotou morálky:"
 
-#: base/forms.py:809
+#: base/forms.py:827
 msgid "Is morale calculation active in this outline:"
 msgstr "Je v tomto přehledu aktivní výpočet morálky:"
 
-#: base/forms.py:847
+#: base/forms.py:865
 msgid "Choose whether to avoid the night bonus"
 msgstr "Zvolte, zda se vyhnout nočnímu bonusu"
 
-#: base/forms.py:853
+#: base/forms.py:871
 msgid "Approximate hours of entry"
 msgstr "Přibližné hodiny vstupu"
 
-#: base/forms.py:860
+#: base/forms.py:878
 msgid "Approximate hours of the last entry"
 msgstr "Přibližné hodiny posledního vstupu"
 
-#: base/forms.py:873
+#: base/forms.py:891
 msgid "First value must be less or equal to second!"
 msgstr "První hodnota musí být menší nebo rovna druhé!"
 
-#: base/forms.py:884
+#: base/forms.py:902
 msgid "Sum of off"
 msgstr "Součet útočných"
 
-#: base/forms.py:890
+#: base/forms.py:908
 msgid "Off without catapults"
 msgstr "Útočné bez katapultů"
 
-#: base/forms.py:896
-#: base/templates/base/new_outline/new_outline_initial_period1.html:190
+#: base/forms.py:914
+#: base/templates/base/new_outline/new_outline_initial_period1.html:191
 msgid "Catapults"
 msgstr "Katapulty"
 
-#: base/forms.py:902 base/models/period_model.py:34
+#: base/forms.py:920 base/models/period_model.py:34
 msgid "Noble"
 msgstr "Šlechtic"
 
-#: base/forms.py:912 base/forms.py:923
+#: base/forms.py:930 base/forms.py:941
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:101
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:168
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:210
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
 #: utils/basic/info_generatation.py:104
 msgid "From"
 msgstr "Od"
 
-#: base/forms.py:915 base/forms.py:924
+#: base/forms.py:933 base/forms.py:942
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:102
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:169
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:211
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
 #: utils/basic/info_generatation.py:105
 msgid "To"
 msgstr "Do"
 
-#: base/forms.py:922
+#: base/forms.py:940
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:97
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:163
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:205
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:207
 #: utils/basic/info_generatation.py:102
 msgid "Mode"
 msgstr "Režim"
 
-#: base/forms.py:925
+#: base/forms.py:943
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:98
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:207
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:167
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:209
 #: utils/basic/info_generatation.py:103
 msgid "Unit"
 msgstr "Jednotka"
 
-#: base/forms.py:926
+#: base/forms.py:944
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:99
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:172
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:214
 #: utils/basic/info_generatation.py:106
 msgid "Min. time"
 msgstr "Min. čas"
 
-#: base/forms.py:927
+#: base/forms.py:945
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:100
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:173
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:215
 #: utils/basic/info_generatation.py:107
 msgid "Max. time"
 msgstr "Max. čas"
 
-#: base/forms.py:1003 base/forms.py:1013
+#: base/forms.py:1021 base/forms.py:1031
 msgid "Mode All can be used only once per unit"
 msgstr "Režim Vše lze použít pouze jednou na jednotku"
 
-#: base/forms.py:1021
+#: base/forms.py:1039
 msgid "Mode All must be used at least once for noble and for off."
 msgstr "Režim Vše musí být použit alespoň jednou pro šlechtice a pro útok."
 
-#: base/forms.py:1061
+#: base/forms.py:1079
 msgid "You need a premium account to add more targets here."
 msgstr "Pro přidání dalších cílů potřebujete prémiový účet."
 
-#: base/forms.py:1071
+#: base/forms.py:1089
 msgid "Village with that coords did not found."
 msgstr "Vesnice s těmito souřadnicemi nebyla nalezena."
 
-#: base/forms.py:1078
+#: base/forms.py:1096
 msgid ""
 "Found more than one village in database, this is the bug. Write me: "
 "<rafal.safin@rafsaf.pl>"
@@ -524,190 +528,190 @@ msgstr ""
 "V databázi byla nalezena více než jedna vesnice, jedná se o chybu. Napište "
 "mi: <rafal.safin@rafsaf.pl>"
 
-#: base/forms.py:1090
+#: base/forms.py:1108
 msgid "Choose server"
 msgstr "Vyberte server"
 
-#: base/forms.py:1091
+#: base/forms.py:1109
 msgid "World prefix"
 msgstr "Prefix světa"
 
-#: base/forms.py:1102
+#: base/forms.py:1120
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr "Nepovolené symboly v poli postfixu! Jste si jisti, že je platný?"
 
-#: base/forms.py:1122
+#: base/forms.py:1140
 msgid "World is already added!"
 msgstr "Svět je již přidán!"
 
-#: base/forms.py:1130 base/forms.py:1141
+#: base/forms.py:1148 base/forms.py:1159
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Chyba připojení, svět neexistuje nebo je archivován!"
 
-#: base/forms.py:1154 base/forms.py:1171
+#: base/forms.py:1172 base/forms.py:1189
 msgid "Please select your server:"
 msgstr "Vyberte prosím svůj server:"
 
-#: base/forms.py:1173
+#: base/forms.py:1191
 msgid "Turn on morale calculations in every outline by default:"
 msgstr "Ve výchozím nastavení zapnout výpočty morálky v každém přehledu:"
 
-#: base/forms.py:1175
+#: base/forms.py:1193
 msgid "Default input type for planer"
 msgstr "Výchozí typ vstupu pro plánovač"
 
-#: base/forms.py:1176
+#: base/forms.py:1194
 msgid "Please select your currency:"
 msgstr "Vyberte prosím svou měnu:"
 
-#: base/forms.py:1179
+#: base/forms.py:1197
 msgid "Enable shipments feature:"
 msgstr "Povolit funkci zásilek:"
 
-#: base/forms.py:1182
+#: base/forms.py:1200
 msgid "Prefered sending option in Results tab"
 msgstr "Preferovaná možnost odeslání na kartě Výsledky"
 
-#: base/forms.py:1184
+#: base/forms.py:1202
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
 "Pokud je zaškrtnuto, přímé zprávy na kartě Výsledky budou mít bezpečný odkaz "
 "na plánovač"
 
-#: base/models/outline.py:72 base/models/outline.py:79
+#: base/models/outline.py:73 base/models/outline.py:80
 #: base/models/target_vertex.py:36 base/models/target_vertex.py:43
 msgid "Closest Front"
 msgstr "Nejbližší fronta"
 
-#: base/models/outline.py:73 base/models/outline.py:80
+#: base/models/outline.py:74 base/models/outline.py:81
 #: base/models/target_vertex.py:37 base/models/target_vertex.py:44
 msgid "Close Back"
 msgstr "Blízký týl"
 
-#: base/models/outline.py:74 base/models/outline.py:81
+#: base/models/outline.py:75 base/models/outline.py:82
 #: base/models/target_vertex.py:38 base/models/target_vertex.py:45
 msgid "Random Back"
 msgstr "Náhodný týl"
 
-#: base/models/outline.py:75 base/models/outline.py:82
+#: base/models/outline.py:76 base/models/outline.py:83
 #: base/models/target_vertex.py:39 base/models/target_vertex.py:46
 msgid "Far Back"
 msgstr "Daleký týl"
 
-#: base/models/outline.py:86 base/models/target_vertex.py:50
+#: base/models/outline.py:87 base/models/target_vertex.py:50
 msgid "Divide off with nobles"
 msgstr "Rozdělit útok se šlechtici"
 
-#: base/models/outline.py:87 base/models/target_vertex.py:51
+#: base/models/outline.py:88 base/models/target_vertex.py:51
 msgid "Dont't divide off"
 msgstr "Nerozdělovat útok"
 
-#: base/models/outline.py:88 base/models/target_vertex.py:52
+#: base/models/outline.py:89 base/models/target_vertex.py:52
 msgid "Off and nobles separatly"
 msgstr "Útok a šlechtici zvlášť"
 
-#: base/models/outline.py:92
+#: base/models/outline.py:93
 msgid "Nobles from one village as one command"
 msgstr "Šlechtici z jedné vesnice jako jeden příkaz"
 
-#: base/models/outline.py:93
+#: base/models/outline.py:94
 msgid "Nobles from one village as many commands"
 msgstr "Šlechtici z jedné vesnice jako více příkazů"
 
-#: base/models/outline.py:97 base/models/target_vertex.py:56
+#: base/models/outline.py:98 base/models/target_vertex.py:56
 msgid "Try send all nobles to one target"
 msgstr "Zkusit poslat všechny šlechtice na jeden cíl"
 
-#: base/models/outline.py:98 base/models/target_vertex.py:57
+#: base/models/outline.py:99 base/models/target_vertex.py:57
 msgid "Nobles to one or many targets"
 msgstr "Šlechtici na jeden nebo více cílů"
 
-#: base/models/outline.py:99 base/models/target_vertex.py:58
+#: base/models/outline.py:100 base/models/target_vertex.py:58
 msgid "Try single nobles from many villages"
 msgstr "Zkusit jednotlivé šlechtice z mnoha vesnic"
 
-#: base/models/outline.py:103
-#: base/templates/base/new_outline/new_outline_initial_period1.html:160
+#: base/models/outline.py:104
+#: base/templates/base/new_outline/new_outline_initial_period1.html:161
 msgid "All"
 msgstr "Vše"
 
-#: base/models/outline.py:104
-#: base/templates/base/new_outline/new_outline_initial_period1.html:161
+#: base/models/outline.py:105
+#: base/templates/base/new_outline/new_outline_initial_period1.html:162
 msgid "Front"
 msgstr "Fronta"
 
-#: base/models/outline.py:105
-#: base/templates/base/new_outline/new_outline_initial_period1.html:162
+#: base/models/outline.py:106
+#: base/templates/base/new_outline/new_outline_initial_period1.html:163
 msgid "Back (Rear)"
 msgstr "Týl"
 
-#: base/models/outline.py:106
-#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+#: base/models/outline.py:107
+#: base/templates/base/new_outline/new_outline_initial_period1.html:164
 msgid "Away"
 msgstr "Pryč"
 
-#: base/models/outline.py:107
+#: base/models/outline.py:108
 msgid "Hidden"
 msgstr "Skryté"
 
-#: base/models/outline.py:113
+#: base/models/outline.py:114
 msgid "Average greater than 8k"
 msgstr "Průměr větší než 8k"
 
-#: base/models/outline.py:114
+#: base/models/outline.py:115
 msgid "Average 5-8k"
 msgstr "Průměr 5-8k"
 
-#: base/models/outline.py:127
+#: base/models/outline.py:128
 msgid "Fakes only from off villages"
 msgstr "Falešné útoky pouze z útočných vesnic"
 
-#: base/models/outline.py:128
+#: base/models/outline.py:129
 msgid "Fakes from all villages"
 msgstr "Falešné útoky ze všech vesnic"
 
-#: base/models/outline.py:134
+#: base/models/outline.py:135
 msgid "(Default) Auto generated, fully equipped safe links"
 msgstr "(Výchozí) Automaticky generované, plně vybavené bezpečné odkazy"
 
-#: base/models/outline.py:136
+#: base/models/outline.py:137
 msgid "Standard text directly in message"
 msgstr "Standardní text přímo ve zprávě"
 
-#: base/models/outline.py:137
+#: base/models/outline.py:138
 msgid "Standard text for deputy directly in message"
 msgstr "Standardní text pro zástupce přímo ve zprávě"
 
-#: base/models/outline.py:138
+#: base/models/outline.py:139
 msgid "Simple text directly in message"
 msgstr "Jednoduchý text přímo ve zprávě"
 
-#: base/models/outline.py:139
+#: base/models/outline.py:140
 msgid "Old text directly in message"
 msgstr "Starý text přímo ve zprávě"
 
-#: base/models/outline.py:140
+#: base/models/outline.py:141
 msgid "Table directly in message"
 msgstr "Tabulka přímo ve zprávě"
 
-#: base/models/outline.py:301 base/models/profile.py:64
+#: base/models/outline.py:302 base/models/profile.py:58
 msgid "Outline Targets"
 msgstr "Cíle přehledu"
 
-#: base/models/outline.py:332 shipments/forms.py:12
+#: base/models/outline.py:333 shipments/forms.py:27
 msgid "Name"
 msgstr "Název"
 
-#: base/models/outline.py:453
+#: base/models/outline.py:454
 msgid "Expires "
 msgstr "Vyprší "
 
-#: base/models/outline.py:467
+#: base/models/outline.py:468
 msgid "in"
 msgstr "za"
 
-#: base/models/outline.py:469
+#: base/models/outline.py:470
 msgid "days"
 msgstr "dní"
 
@@ -798,8 +802,8 @@ msgid "Home"
 msgstr "Domů"
 
 #: base/templates/base/base.html:83
-#: base/templates/base/new_outline/new_outline.html:11
-#: base/templates/base/new_outline/new_outline.html:19
+#: base/templates/base/new_outline/new_outline.html:10
+#: base/templates/base/new_outline/new_outline.html:18
 #: base/templates/base/new_outline/new_outline_initial_period1.html:4
 msgid "Planer"
 msgstr "Plánovač"
@@ -822,7 +826,7 @@ msgid "Account"
 msgstr "Účet"
 
 #: base/templates/base/base.html:109
-#: base/templates/base/new_outline/new_outline_create.html:60
+#: base/templates/base/new_outline/new_outline_create.html:58
 msgid "My account"
 msgstr "Můj účet"
 
@@ -840,13 +844,13 @@ msgstr "Přehled plateb"
 msgid "Sign out"
 msgstr "Odhlásit se"
 
-#: base/templates/base/base.html:120 base/templates/base/base.html:233
-#: base/templates/base/base.html:244
+#: base/templates/base/base.html:120 base/templates/base/base.html:207
+#: base/templates/base/base.html:218
 msgid "Sign in"
 msgstr "Přihlásit se"
 
-#: base/templates/base/base.html:121 base/templates/base/base.html:236
-#: base/templates/base/base.html:248 templates/two_factor/_wizard_forms.html:12
+#: base/templates/base/base.html:121 base/templates/base/base.html:210
+#: base/templates/base/base.html:222 templates/two_factor/_wizard_forms.html:12
 msgid "Sign up"
 msgstr "Zaregistrovat se"
 
@@ -854,88 +858,88 @@ msgstr "Zaregistrovat se"
 msgid "Language"
 msgstr "Jazyk"
 
-#: base/templates/base/base.html:218
+#: base/templates/base/base.html:192
 msgid "You can now setup two factor authentication in "
 msgstr "Nyní si můžete nastavit dvoufaktorové ověření v "
 
-#: base/templates/base/base.html:218
+#: base/templates/base/base.html:192
 msgid "Account settings"
 msgstr "Nastavení účtu"
 
-#: base/templates/base/base.html:225
+#: base/templates/base/base.html:199
 #: templates/django_registration/registration_disallowed.html:7
 msgid "This is test environment, registration is not allowed. Go to"
 msgstr "Toto je testovací prostředí, registrace není povolena. Přejděte na"
 
-#: base/templates/base/base.html:231 base/templates/base/base.html:242
+#: base/templates/base/base.html:205 base/templates/base/base.html:216
 msgid "Create simple and fast outlines"
 msgstr "Vytvářejte jednoduché a rychlé přehledy"
 
-#: base/templates/base/base.html:236 base/templates/base/base.html:246
+#: base/templates/base/base.html:210 base/templates/base/base.html:220
 #: templates/two_factor/_wizard_forms.html:12
 msgid "Don't have an account? "
 msgstr "Nemáte účet? "
 
-#: base/templates/base/base.html:256
+#: base/templates/base/base.html:230
 msgid "Planer in numbers"
 msgstr "Plánovač v číslech"
 
-#: base/templates/base/base.html:262
+#: base/templates/base/base.html:236
 msgid "Users"
 msgstr "Uživatelé"
 
-#: base/templates/base/base.html:268
+#: base/templates/base/base.html:242
 msgid "Outlines"
 msgstr "Přehledy"
 
-#: base/templates/base/base.html:278
+#: base/templates/base/base.html:252
 msgid "Orders"
 msgstr "Příkazy"
 
-#: base/templates/base/base.html:287
+#: base/templates/base/base.html:261
 msgid "PL version"
 msgstr "PL verze"
 
-#: base/templates/base/base.html:296
+#: base/templates/base/base.html:270
 msgid "ENG version"
 msgstr "ENG verze"
 
-#: base/templates/base/base.html:305
+#: base/templates/base/base.html:279
 msgid "Code tests"
 msgstr "Testy kódu"
 
-#: base/templates/base/base.html:315
+#: base/templates/base/base.html:289
 msgid "Benefits"
 msgstr "Výhody"
 
-#: base/templates/base/base.html:318
+#: base/templates/base/base.html:292
 msgid "Security"
 msgstr "Bezpečnost"
 
-#: base/templates/base/base.html:321
+#: base/templates/base/base.html:295
 msgid "Author"
 msgstr "Autor"
 
-#: base/templates/base/base.html:328
+#: base/templates/base/base.html:302
 msgid "You save a tons of time and have all outlines in one place."
 msgstr "Ušetříte spoustu času a máte všechny přehledy na jednom místě."
 
-#: base/templates/base/base.html:330
+#: base/templates/base/base.html:304
 msgid ""
 "Players receive final orders ready to paste in the in-game notes and send."
 msgstr ""
 "Hráči obdrží finální příkazy připravené k vložení do poznámek ve hře a "
 "odeslání."
 
-#: base/templates/base/base.html:332
+#: base/templates/base/base.html:306
 msgid "Instantly distribute created objectives to players."
 msgstr "Okamžitě distribuujte vytvořené cíle hráčům."
 
-#: base/templates/base/base.html:334
+#: base/templates/base/base.html:308
 msgid "Friendly and easy-to-use interface."
 msgstr "Přátelské a snadno použitelné rozhraní."
 
-#: base/templates/base/base.html:336
+#: base/templates/base/base.html:310
 msgid ""
 "The ability to accurately describe each axeman yourself or leave it to the "
 "Planer, choosing from dozens of options."
@@ -943,31 +947,31 @@ msgstr ""
 "Možnost přesně popsat každého sekeromlatníka sami nebo to nechat na "
 "Plánovači a vybrat si z desítek možností."
 
-#: base/templates/base/base.html:338
+#: base/templates/base/base.html:312
 msgid "Growing number of users."
 msgstr "Rostoucí počet uživatelů."
 
-#: base/templates/base/base.html:340
+#: base/templates/base/base.html:314
 msgid "Constantly adding new options and fixing bugs."
 msgstr "Neustálé přidávání nových možností a opravování chyb."
 
-#: base/templates/base/base.html:342
+#: base/templates/base/base.html:316
 msgid "The scripts used are reported and approved by the game support."
 msgstr "Použité skripty jsou nahlášeny a schváleny podporou hry."
 
-#: base/templates/base/base.html:344
+#: base/templates/base/base.html:318
 msgid "Putting away notebooks, sheets and excel sheets in the trash."
 msgstr "Vyhození poznámkových bloků, listů a excelových tabulek do koše."
 
-#: base/templates/base/base.html:346
+#: base/templates/base/base.html:320
 msgid "You will avoid common problems like doubled commands."
 msgstr "Vyhnete se běžným problémům, jako jsou zdvojené příkazy."
 
-#: base/templates/base/base.html:348
+#: base/templates/base/base.html:322
 msgid "No more mistakes when sending messages to players."
 msgstr "Už žádné chyby při posílání zpráv hráčům."
 
-#: base/templates/base/base.html:352
+#: base/templates/base/base.html:326
 msgid ""
 "The application is written in the modern and very secure <a "
 "target=\"_blank\" href=\"https://www.djangoproject.com/\">Django</a> "
@@ -982,7 +986,7 @@ msgstr ""
 "injection, cross-site scripting, cross-site request forgery a clickjacking, "
 "a také poskytuje bezpečný způsob správy uživatelských účtů."
 
-#: base/templates/base/base.html:354
+#: base/templates/base/base.html:328
 msgid ""
 "When designing the application, special emphasis was placed on the security "
 "of user accounts, preventing access to the data entered by them for other "
@@ -992,7 +996,7 @@ msgstr ""
 "účtů, aby se zabránilo přístupu k datům zadaným jinými uživateli a třetími "
 "stranami."
 
-#: base/templates/base/base.html:356
+#: base/templates/base/base.html:330
 msgid ""
 "Both the web server and the database server are located in the <a "
 "href=\"https://cloud.oracle.com/\">Oracle Cloud</a> cloud, with special "
@@ -1002,7 +1006,7 @@ msgstr ""
 "cloud.oracle.com/\">Oracle Cloud</a> se zvláštním důrazem na všechna jejich "
 "bezpečnostní doporučení."
 
-#: base/templates/base/base.html:358
+#: base/templates/base/base.html:332
 msgid ""
 "The only one person involved in code writing and project maintenance from "
 "the beginning to date, means little risk of accidental sudden exposure of "
@@ -1011,7 +1015,7 @@ msgstr ""
 "Jediná osoba zapojená do psaní kódu a údržby projektu od začátku do "
 "současnosti znamená malé riziko náhodného náhlého odhalení uživatelských dat."
 
-#: base/templates/base/base.html:360
+#: base/templates/base/base.html:334
 msgid ""
 "Ensuring the privacy of users is the most important task of this project, "
 "your data will never be passed on to other users, game players or third "
@@ -1021,7 +1025,7 @@ msgstr ""
 "data nebudou nikdy předána jiným uživatelům, hráčům hry ani třetím stranám "
 "ani nikomu jinému za žádným účelem."
 
-#: base/templates/base/base.html:362
+#: base/templates/base/base.html:336
 msgid ""
 "My name is Rafał, I am a professional Software Engineer. I am interested in "
 "web applications, both backend and frontend, cloud technologies and security "
@@ -1031,7 +1035,7 @@ msgstr ""
 "aplikace, backend i frontend, cloudové technologie a bezpečnost na webu. "
 "Píšu hlavně v Pythonu, Go a Typescriptu."
 
-#: base/templates/base/base.html:362
+#: base/templates/base/base.html:336
 msgid ""
 "In addition to the above, I am a fan of fantasy, I have been reading series "
 "more or less regularly since childhood, my favourite author is Ursula Le "
@@ -1044,7 +1048,7 @@ msgstr ""
 "Zeměmoří. Jsem sezónní běžec (mým největším úspěchem je účast na krajských "
 "závodech), miluji šachy a poker a také dobrý film."
 
-#: base/templates/base/base.html:368
+#: base/templates/base/base.html:342
 msgid ""
 "Join the discord to be up to date with news, ask about what is unclear, "
 "report bugs and propose changes."
@@ -1052,23 +1056,23 @@ msgstr ""
 "Připojte se na discord, abyste byli v obraze s novinkami, ptali se na to, co "
 "je nejasné, hlásili chyby a navrhovali změny."
 
-#: base/templates/base/base.html:386
+#: base/templates/base/base.html:360
 msgid ""
 "This site is free of 3rd party trackers, we belive in privacy, refer to "
 msgstr ""
 "Tato stránka neobsahuje žádné sledovací prvky třetích stran, věříme v "
 "soukromí, viz "
 
-#: base/templates/base/base.html:386
+#: base/templates/base/base.html:360
 msgid "our privacy policy and regulations."
 msgstr "naše zásady ochrany osobních údajů a předpisy."
 
-#: base/templates/base/base.html:387
+#: base/templates/base/base.html:361
 msgid "Version"
 msgstr "Verze"
 
 #: base/templates/base/base_planer.html:12
-#: base/templates/base/new_outline/new_outline_results.html:87
+#: base/templates/base/new_outline/new_outline_results.html:94
 #: shipments/templates/my_shipments.html:12
 msgid "Created"
 msgstr "Vytvořeno"
@@ -1093,15 +1097,15 @@ msgstr "Skrýt"
 
 #: base/templates/base/base_planer.html:17
 #: base/templates/base/base_planer.html:56
-#: base/templates/base/base_planer.html:84
+#: base/templates/base/base_planer.html:82
 msgid "Duplicate"
 msgstr "Duplikovat"
 
 #: base/templates/base/base_planer.html:18
-#: base/templates/base/base_planer.html:96
-#: base/templates/base/new_outline/new_outline_initial_period2.html:279
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:236
+#: base/templates/base/base_planer.html:94
+#: base/templates/base/new_outline/new_outline_initial_period2.html:275
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:198
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:238
 #: shipments/templates/my_shipments.html:16
 #: shipments/templates/my_shipments.html:54
 msgid "Delete"
@@ -1112,7 +1116,7 @@ msgid "(Copied from "
 msgstr "(Zkopírováno z "
 
 #: base/templates/base/base_planer.html:48
-#: base/templates/base/new_outline/new_outline_initial_period3.html:143
+#: base/templates/base/new_outline/new_outline_initial_period3.html:144
 #: shipments/templates/my_shipments.html:46
 msgid "Show"
 msgstr "Zobrazit"
@@ -1121,7 +1125,7 @@ msgstr "Zobrazit"
 msgid "Duplicate an outline"
 msgstr "Duplikovat přehled"
 
-#: base/templates/base/base_planer.html:70
+#: base/templates/base/base_planer.html:68
 msgid ""
 "You are about to create a copy of this outline. Ally and enemy tribes cannot "
 "be changed."
@@ -1129,33 +1133,34 @@ msgstr ""
 "Chystáte se vytvořit kopii tohoto přehledu. Spojenecké a nepřátelské kmeny "
 "nelze změnit."
 
-#: base/templates/base/base_planer.html:82
-#: base/templates/base/base_planer.html:118
-#: base/templates/base/new_outline/new_outline_create_select.html:134
-#: base/templates/base/new_outline/new_outline_initial_period2.html:361
-#: base/templates/base/new_outline/new_outline_initial_period3.html:24
-#: shipments/templates/my_shipments.html:75
+#: base/templates/base/base_planer.html:80
+#: base/templates/base/base_planer.html:114
+#: base/templates/base/new_outline/new_outline_create_select.html:132
+#: base/templates/base/new_outline/new_outline_initial_period2.html:355
+#: base/templates/base/new_outline/new_outline_initial_period2.html:375
+#: base/templates/base/new_outline/new_outline_initial_period3.html:23
+#: shipments/templates/my_shipments.html:73
 msgid "Close"
 msgstr "Zavřít"
 
-#: base/templates/base/base_planer.html:84
-#: base/templates/base/new_outline/new_outline_initial_period1.html:149
-#: base/templates/base/new_outline/new_outline_initial_period1.html:295
-#: base/templates/base/new_outline/new_outline_initial_period1.html:315
-#: base/templates/base/new_outline/new_outline_initial_period1.html:348
-#: base/templates/base/new_outline/new_outline_initial_period1.html:408
-#: base/templates/base/new_outline/new_outline_initial_period1.html:439
+#: base/templates/base/base_planer.html:82
+#: base/templates/base/new_outline/new_outline_initial_period1.html:150
+#: base/templates/base/new_outline/new_outline_initial_period1.html:296
+#: base/templates/base/new_outline/new_outline_initial_period1.html:316
+#: base/templates/base/new_outline/new_outline_initial_period1.html:347
+#: base/templates/base/new_outline/new_outline_initial_period1.html:407
+#: base/templates/base/new_outline/new_outline_initial_period1.html:438
 msgid "Saving..."
 msgstr "Ukládání..."
 
-#: base/templates/base/base_planer.html:103
+#: base/templates/base/base_planer.html:101
 #: base/templates/base/new_outline/new_outline_create_select.html:119
-#: base/templates/base/new_outline/new_outline_initial_period2.html:354
+#: base/templates/base/new_outline/new_outline_initial_period2.html:350
 #: shipments/templates/my_shipments.html:61
 msgid "Warning"
 msgstr "Varování"
 
-#: base/templates/base/base_planer.html:110
+#: base/templates/base/base_planer.html:106
 msgid ""
 "You will lose all progress on this outline. The orders (weights), targets, "
 "entered script results and any data will be deleted forever too. The "
@@ -1169,140 +1174,141 @@ msgstr ""
 "prostřednictvím karty Výsledky. Můžete zvážit skrytí tohoto přehledu místo "
 "jeho smazání."
 
-#: base/templates/base/base_planer.html:112
-#: shipments/templates/my_shipments.html:69
+#: base/templates/base/base_planer.html:108
+#: shipments/templates/my_shipments.html:67
 msgid "This operation cannot be undone!"
 msgstr "Tuto operaci nelze vrátit zpět!"
 
-#: base/templates/base/base_planer.html:123
+#: base/templates/base/base_planer.html:119
 #: base/templates/base/new_outline/new_outline_get_deff.html:15
-#: base/templates/base/new_outline/new_outline_initial_period1.html:151
-#: base/templates/base/new_outline/new_outline_initial_period1.html:272
-#: base/templates/base/new_outline/new_outline_initial_period2.html:365
+#: base/templates/base/new_outline/new_outline_initial_period1.html:152
+#: base/templates/base/new_outline/new_outline_initial_period1.html:273
+#: base/templates/base/new_outline/new_outline_initial_period2.html:359
+#: base/templates/base/new_outline/new_outline_initial_period2.html:379
 #: base/templates/base/user/add_world.html:25
-#: shipments/templates/my_shipments.html:80
+#: shipments/templates/my_shipments.html:78
 msgid "Processing..."
 msgstr "Zpracovávání..."
 
-#: base/templates/base/base_planer.html:123
-#: shipments/templates/my_shipments.html:80
+#: base/templates/base/base_planer.html:119
+#: shipments/templates/my_shipments.html:78
 msgid "Delete forever"
 msgstr "Smazat navždy"
 
-#: base/templates/base/base_planer.html:137
-#: shipments/templates/my_shipments.html:94
+#: base/templates/base/base_planer.html:133
+#: shipments/templates/my_shipments.html:92
 msgid "Don't show hidden"
 msgstr "Nezobrazovat skryté"
 
-#: base/templates/base/base_planer.html:139
-#: shipments/templates/my_shipments.html:96
+#: base/templates/base/base_planer.html:135
+#: shipments/templates/my_shipments.html:94
 msgid "Show hidden"
 msgstr "Zobrazit skryté"
 
-#: base/templates/base/new_outline/new_outline.html:9
-#: base/templates/base/new_outline/new_outline.html:17
+#: base/templates/base/new_outline/new_outline.html:8
+#: base/templates/base/new_outline/new_outline.html:16
 msgid "Other"
 msgstr "Ostatní"
 
-#: base/templates/base/new_outline/new_outline.html:9
-#: base/templates/base/new_outline/new_outline.html:17
+#: base/templates/base/new_outline/new_outline.html:8
+#: base/templates/base/new_outline/new_outline.html:16
 msgid "Deff raport"
 msgstr "Hlášení obrany"
 
-#: base/templates/base/new_outline/new_outline.html:10
-#: base/templates/base/new_outline/new_outline.html:18
+#: base/templates/base/new_outline/new_outline.html:9
+#: base/templates/base/new_outline/new_outline.html:17
 msgid "Troops data"
 msgstr "Data o jednotkách"
 
-#: base/templates/base/new_outline/new_outline.html:11
-#: base/templates/base/new_outline/new_outline.html:19
+#: base/templates/base/new_outline/new_outline.html:10
+#: base/templates/base/new_outline/new_outline.html:18
 msgid "Hold on a second..."
 msgstr "Vteřinku..."
 
-#: base/templates/base/new_outline/new_outline.html:12
-#: base/templates/base/new_outline/new_outline.html:20
+#: base/templates/base/new_outline/new_outline.html:11
+#: base/templates/base/new_outline/new_outline.html:19
 #: base/templates/base/new_outline/new_outline_results.html:4
 msgid "Results"
 msgstr "Výsledky"
 
-#: base/templates/base/new_outline/new_outline.html:41
+#: base/templates/base/new_outline/new_outline.html:40
 msgid "Planer will choose data pasted in: "
 msgstr "Plánovač vybere data vložená v: "
 
-#: base/templates/base/new_outline/new_outline.html:51
-#: base/templates/base/new_outline/new_outline_initial_period1.html:295
-#: base/templates/base/new_outline/new_outline_initial_period1.html:315
-#: base/templates/base/new_outline/new_outline_initial_period1.html:348
-#: base/templates/base/new_outline/new_outline_initial_period1.html:408
-#: base/templates/base/new_outline/new_outline_initial_period1.html:439
+#: base/templates/base/new_outline/new_outline.html:50
+#: base/templates/base/new_outline/new_outline_initial_period1.html:296
+#: base/templates/base/new_outline/new_outline_initial_period1.html:316
+#: base/templates/base/new_outline/new_outline_initial_period1.html:347
+#: base/templates/base/new_outline/new_outline_initial_period1.html:407
+#: base/templates/base/new_outline/new_outline_initial_period1.html:438
 #: base/templates/base/new_outline/new_outline_initial_period2.html:43
 #: base/templates/base/new_outline/new_outline_initial_period2.html:73
-#: base/templates/base/new_outline/new_outline_initial_period3.html:145
-#: base/templates/base/new_outline/new_outline_initial_period3.html:207
-#: base/templates/base/new_outline/new_outline_results.html:63
+#: base/templates/base/new_outline/new_outline_initial_period3.html:146
+#: base/templates/base/new_outline/new_outline_initial_period3.html:208
+#: base/templates/base/new_outline/new_outline_results.html:70
 #: base/templates/base/user/profile_settings.html:74
 #: shipments/templates/edit_shipment.html:51
 msgid "Save"
 msgstr "Uložit"
 
-#: base/templates/base/new_outline/new_outline.html:61
+#: base/templates/base/new_outline/new_outline.html:60
 msgid "Last world update: "
 msgstr "Poslední aktualizace světa: "
 
-#: base/templates/base/new_outline/new_outline.html:77
+#: base/templates/base/new_outline/new_outline.html:76
 msgid "Army troops have been successfully added."
 msgstr "Jednotky armády byly úspěšně přidány."
 
-#: base/templates/base/new_outline/new_outline.html:107
-#: base/templates/base/new_outline/new_outline.html:185
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline.html:109
+#: base/templates/base/new_outline/new_outline.html:191
+#: base/templates/base/new_outline/new_outline_initial_period1.html:127
 msgid "Incorrect data in"
 msgstr "Nesprávná data v"
 
-#: base/templates/base/new_outline/new_outline.html:107
-#: base/templates/base/new_outline/new_outline.html:185
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline.html:109
+#: base/templates/base/new_outline/new_outline.html:191
+#: base/templates/base/new_outline/new_outline_initial_period1.html:127
 msgid "lines."
 msgstr "řádcích."
 
-#: base/templates/base/new_outline/new_outline.html:108
-#: base/templates/base/new_outline/new_outline.html:186
+#: base/templates/base/new_outline/new_outline.html:110
+#: base/templates/base/new_outline/new_outline.html:192
 msgid "*After clicking submit you will be transferred to first error*"
 msgstr "*Po kliknutí na odeslat budete přesměrováni na první chybu*"
 
-#: base/templates/base/new_outline/new_outline.html:118
-#: base/templates/base/new_outline/new_outline.html:196
+#: base/templates/base/new_outline/new_outline.html:120
+#: base/templates/base/new_outline/new_outline.html:202
 msgid "The text cannot be empty"
 msgstr "Text nemůže být prázdný"
 
-#: base/templates/base/new_outline/new_outline.html:127
-#: base/templates/base/new_outline/new_outline.html:205
+#: base/templates/base/new_outline/new_outline.html:131
+#: base/templates/base/new_outline/new_outline.html:213
 #: base/templates/base/new_outline/new_outline_get_deff.html:15
 msgid "Submit"
 msgstr "Odeslat"
 
-#: base/templates/base/new_outline/new_outline.html:148
+#: base/templates/base/new_outline/new_outline.html:151
 msgid "Deff troops have been successfully added."
 msgstr "Obranné jednotky byly úspěšně přidány."
 
-#: base/templates/base/new_outline/new_outline.html:224
+#: base/templates/base/new_outline/new_outline.html:231
 #: base/templates/base/new_outline/new_outline_create.html:31
 #: base/templates/base/new_outline/new_outline_get_deff.html:23
-#: base/templates/base/new_outline/new_outline_initial_period1.html:453
+#: base/templates/base/new_outline/new_outline_initial_period1.html:452
 msgid "Info"
 msgstr "Info"
 
-#: base/templates/base/new_outline/new_outline.html:227
+#: base/templates/base/new_outline/new_outline.html:234
 #: base/templates/base/new_outline/new_outline_create.html:34
 #: base/templates/base/new_outline/new_outline_get_deff.html:26
-#: base/templates/base/new_outline/new_outline_initial_period1.html:457
+#: base/templates/base/new_outline/new_outline_initial_period1.html:456
 msgid "Examples"
 msgstr "Příklady"
 
-#: base/templates/base/new_outline/new_outline.html:249
-#: base/templates/base/new_outline/new_outline_initial_period1.html:479
-#: base/templates/base/new_outline/new_outline_initial_period1.html:500
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:340
+#: base/templates/base/new_outline/new_outline.html:256
+#: base/templates/base/new_outline/new_outline_initial_period1.html:478
+#: base/templates/base/new_outline/new_outline_initial_period1.html:497
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:344
 msgid "An error occured"
 msgstr "Vyskytla se chyba"
 
@@ -1323,7 +1329,7 @@ msgid "docs"
 msgstr "dokumentace"
 
 #: base/templates/base/new_outline/new_outline_create.html:21
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:134
 msgid "Create"
 msgstr "Vytvořit"
 
@@ -1331,7 +1337,7 @@ msgstr "Vytvořit"
 msgid "Please select game server"
 msgstr "Vyberte prosím herní server"
 
-#: base/templates/base/new_outline/new_outline_create.html:60
+#: base/templates/base/new_outline/new_outline_create.html:58
 msgid ""
 "There are 20 game servers to choose from. <br><br>Please select one, it will "
 "be assigned to your account. You can always choose another later, just visit "
@@ -1340,7 +1346,7 @@ msgstr ""
 "Na výběr je 20 herních serverů. <br><br>Vyberte si jeden, bude přiřazen k "
 "vašemu účtu. Vždy si můžete vybrat jiný později, stačí navštívit kartu"
 
-#: base/templates/base/new_outline/new_outline_create.html:66
+#: base/templates/base/new_outline/new_outline_create.html:64
 msgid "Set server"
 msgstr "Server"
 
@@ -1365,7 +1371,7 @@ msgstr "Smazat vše"
 msgid "Save and create"
 msgstr "Uložit a vytvořit"
 
-#: base/templates/base/new_outline/new_outline_create_select.html:125
+#: base/templates/base/new_outline/new_outline_create_select.html:123
 msgid ""
 " To avoid future conflicts you can set up ally and enemy tribes\n"
 "                        <div class=\"md-error\">ONLY ONCE!</div>\n"
@@ -1386,13 +1392,14 @@ msgstr ""
 "</li>\n"
 "                    "
 
-#: base/templates/base/new_outline/new_outline_create_select.html:137
-#: base/templates/base/new_outline/new_outline_initial_period2.html:365
+#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_initial_period2.html:359
+#: base/templates/base/new_outline/new_outline_initial_period2.html:379
 msgid "Continue"
 msgstr "Pokračovat"
 
 #: base/templates/base/new_outline/new_outline_get_deff.html:4
-#: base/templates/base/new_outline/new_outline_results.html:26
+#: base/templates/base/new_outline/new_outline_results.html:33
 msgid "Deff collection"
 msgstr "Sestava obrany"
 
@@ -1443,25 +1450,25 @@ msgstr "Falešné-Barbarské"
 msgid "Ruin-Barbarian"
 msgstr "Ruiny-Barbarské"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline_initial_period1.html:127
 msgid "Valid lines looks like (assuming that such a village 000|000 exists):"
 msgstr ""
 "Platné řádky vypadají takto (za předpokladu, že taková vesnice 000|000 "
 "existuje):"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline_initial_period1.html:127
 msgid "\"000|000\" - clean coords"
 msgstr "\"000|000\" - čisté souřadnice"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline_initial_period1.html:127
 msgid "\"000|000:0:0\" - coords with :off:noble numbers"
 msgstr "\"000|000:0:0\" - souřadnice s :počet útočných:počet šlechticů"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline_initial_period1.html:127
 msgid "\"000|000:0|0|0|0:0\" - additional off info, list instead of number"
 msgstr "\"000|000:0|0|0|0:0\" - další informace o útoku, seznam místo čísla"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:126
+#: base/templates/base/new_outline/new_outline_initial_period1.html:127
 msgid ""
 "\"000|000:0|0|0|0:0|0|0|0\" - max info that can be passed about offs and "
 "nobles"
@@ -1469,64 +1476,64 @@ msgstr ""
 "\"000|000:0|0|0|0:0|0|0|0\" - maximální informace, které lze předat o "
 "útocích a šlechticích"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:149
+#: base/templates/base/new_outline/new_outline_initial_period1.html:150
 msgid "Save targets"
 msgstr "Uložit cíle"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:151
+#: base/templates/base/new_outline/new_outline_initial_period1.html:152
 msgid "Write an outline"
 msgstr "Napsat přehled"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:159
+#: base/templates/base/new_outline/new_outline_initial_period1.html:160
 msgid "Description"
 msgstr "Popis"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+#: base/templates/base/new_outline/new_outline_initial_period1.html:164
 msgid "Offs further than maximum distance for offs (equals to"
 msgstr "Útoky dále než maximální vzdálenost pro útoky (rovná se"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:163
+#: base/templates/base/new_outline/new_outline_initial_period1.html:164
 msgid "now), which will be completely skipped now."
 msgstr "nyní), které budou nyní zcela přeskočeny."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:168
+#: base/templates/base/new_outline/new_outline_initial_period1.html:169
 msgid "Offs"
 msgstr "Útoky"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:179
+#: base/templates/base/new_outline/new_outline_initial_period1.html:180
 msgid "Nobles"
 msgstr "Šlechtici"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:201
+#: base/templates/base/new_outline/new_outline_initial_period1.html:202
 msgid "Full offs with at least 1 nobleman (there can be more)"
 msgstr "Plné útoky s alespoň 1 šlechticem (může jich být více)"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:201
+#: base/templates/base/new_outline/new_outline_initial_period1.html:202
 msgid "Full offs with 1 noble"
 msgstr "Plné útoky s 1 šlechticem"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:213
+#: base/templates/base/new_outline/new_outline_initial_period1.html:214
 msgid "Offs around real targets at maximum distance for nobles (now equals to"
 msgstr ""
 "Útoky kolem skutečných cílů v maximální vzdálenosti pro šlechtice (nyní se "
 "rovná"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:213
+#: base/templates/base/new_outline/new_outline_initial_period1.html:214
 msgid "Offs close to real targets"
 msgstr "Útoky blízko skutečných cílů"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:225
+#: base/templates/base/new_outline/new_outline_initial_period1.html:226
 msgid ""
 "Nobles around real targets at maximum distance for nobles (now equals to"
 msgstr ""
 "Šlechtici kolem skutečných cílů v maximální vzdálenosti pro šlechtice (nyní "
 "se rovná"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:225
+#: base/templates/base/new_outline/new_outline_initial_period1.html:226
 msgid "Nobles close to real targets"
 msgstr "Šlechtici blízko skutečných cílů"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:238
+#: base/templates/base/new_outline/new_outline_initial_period1.html:239
 #, python-format
 msgid ""
 "\n"
@@ -1545,218 +1552,210 @@ msgstr ""
 "daleko (nyní více než %(initial_outline_maximum_off_dist)s, viz 1.).\n"
 "                                                                                           "
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:240
+#: base/templates/base/new_outline/new_outline_initial_period1.html:241
 msgid "Available catapults to use"
 msgstr "Dostupné katapulty k použití"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:251
+#: base/templates/base/new_outline/new_outline_initial_period1.html:252
 msgid "Advanced settings:"
 msgstr "Pokročilá nastavení:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:258
+#: base/templates/base/new_outline/new_outline_initial_period1.html:259
 msgid "1. Available Troops"
 msgstr "1. Dostupné jednotky"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:265
+#: base/templates/base/new_outline/new_outline_initial_period1.html:266
 msgid "Available troops settings:"
 msgstr "Nastavení dostupných jednotek:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:272
+#: base/templates/base/new_outline/new_outline_initial_period1.html:273
 msgid "Save and reload troops"
 msgstr "Uložit a znovu načíst jednotky"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:282
+#: base/templates/base/new_outline/new_outline_initial_period1.html:283
 msgid "2. Setting the date"
 msgstr "2. Nastavení data"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:289
+#: base/templates/base/new_outline/new_outline_initial_period1.html:290
 msgid "Current date:"
 msgstr "Aktuální datum:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:305
+#: base/templates/base/new_outline/new_outline_initial_period1.html:306
 msgid "3. Outline parameters"
 msgstr "3. Parametry přehledu"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:324
+#: base/templates/base/new_outline/new_outline_initial_period1.html:325
 msgid "4. Morale"
 msgstr "4. Morálka"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:332
-#: base/templates/base/new_outline/new_outline_initial_period1.html:334
-#: base/templates/base/new_outline/new_outline_initial_period1.html:394
-#: base/templates/base/new_outline/new_outline_initial_period1.html:399
+#: base/templates/base/new_outline/new_outline_initial_period1.html:333
+#: base/templates/base/new_outline/new_outline_initial_period1.html:335
+#: base/templates/base/new_outline/new_outline_initial_period1.html:393
+#: base/templates/base/new_outline/new_outline_initial_period1.html:398
 msgid "ACTIVE: "
 msgstr "AKTIVNÍ: "
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:332
-#: base/templates/base/new_outline/new_outline_initial_period1.html:394
+#: base/templates/base/new_outline/new_outline_initial_period1.html:333
+#: base/templates/base/new_outline/new_outline_initial_period1.html:393
 msgid "True"
 msgstr "Pravda"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:334
-#: base/templates/base/new_outline/new_outline_initial_period1.html:399
+#: base/templates/base/new_outline/new_outline_initial_period1.html:335
+#: base/templates/base/new_outline/new_outline_initial_period1.html:398
 msgid "False"
 msgstr "Nepravda"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:337
+#: base/templates/base/new_outline/new_outline_initial_period1.html:338
 msgid "has no morale turned off and thus it is pointless to use this option."
 msgstr "nemá vypnutou morálku, a proto je zbytečné tuto možnost používat."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:339
-msgid ""
-"has morale based on points and time. This is not perfectly handled by "
-"Planer. See topic \"4. Morale\" in the docs on the right side."
-msgstr ""
-"má morálku založenou na bodech a čase. Toto není dokonale zpracováno "
-"Plánovačem. Viz téma \"4. Morálka\" v dokumentaci na pravé straně."
-
-#: base/templates/base/new_outline/new_outline_initial_period1.html:356
+#: base/templates/base/new_outline/new_outline_initial_period1.html:355
 msgid "Attacker"
 msgstr "Útočník"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:357
+#: base/templates/base/new_outline/new_outline_initial_period1.html:356
 msgid "Defender"
 msgstr "Obránce"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:358
+#: base/templates/base/new_outline/new_outline_initial_period1.html:357
 msgid "Morale value"
 msgstr "Hodnota morálky"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:374
+#: base/templates/base/new_outline/new_outline_initial_period1.html:373
 msgid "Congratulations! No morale issues found for selected targets."
 msgstr ""
 "Gratulujeme! Pro vybrané cíle nebyly nalezeny žádné problémy s morálkou."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:385
+#: base/templates/base/new_outline/new_outline_initial_period1.html:384
 msgid "5. Avoid night bonus"
 msgstr "5. Vyhnout se nočnímu bonusu"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:395
+#: base/templates/base/new_outline/new_outline_initial_period1.html:394
 msgid "Time 1: "
 msgstr "Čas 1: "
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:396
+#: base/templates/base/new_outline/new_outline_initial_period1.html:395
 msgid "Time 2: "
 msgstr "Čas 2: "
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:418
+#: base/templates/base/new_outline/new_outline_initial_period1.html:417
 msgid "6. Ruining"
 msgstr "6. Ničení"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:426
+#: base/templates/base/new_outline/new_outline_initial_period1.html:425
 msgid "Order of demolition of buildings:"
 msgstr "Pořadí demolice budov:"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:427
+#: base/templates/base/new_outline/new_outline_initial_period1.html:426
 msgid ""
 "Only the buildings listed below will be included in the demolition! (in that "
 "order)"
 msgstr "Do demolice budou zahrnuty pouze níže uvedené budovy! (v tomto pořadí)"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+#: base/templates/base/new_outline/new_outline_initial_period1.html:482
 msgid "Premium account is required to complete outlines greater than "
 msgstr "Pro dokončení přehledů větších než je vyžadován prémiový účet "
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+#: base/templates/base/new_outline/new_outline_initial_period1.html:482
 msgid " targets. Buy it"
 msgstr " cílů. Kupte si ho"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:485
-#: base/templates/base/new_outline/new_outline_results.html:32
+#: base/templates/base/new_outline/new_outline_initial_period1.html:482
+#: base/templates/base/new_outline/new_outline_results.html:39
 msgid "here"
 msgstr "zde"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:485
+#: base/templates/base/new_outline/new_outline_initial_period1.html:482
 msgid "or reduce the number of outline targets."
 msgstr "nebo snižte počet cílů přehledu."
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: base/templates/base/new_outline/new_outline_initial_period2.html:315
-#: utils/buildings.py:26
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: base/templates/base/new_outline/new_outline_initial_period2.html:311
+#: utils/buildings.py:41
 msgid "Headquarters"
 msgstr "Hlavní budova"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:27
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:42
 msgid "Barracks"
 msgstr "Kasárna"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:28
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:43
 msgid "Stable"
 msgstr "Stáj"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:29
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:44
 msgid "Workshop"
 msgstr "Dílna"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:30
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:45
 msgid "Academy"
 msgstr "Akademie"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: base/templates/base/new_outline/new_outline_initial_period2.html:316
-#: utils/buildings.py:31
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: base/templates/base/new_outline/new_outline_initial_period2.html:312
+#: utils/buildings.py:46
 msgid "Smithy"
 msgstr "Kovárna"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:32
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:47
 msgid "Rally point"
 msgstr "Nádvoří"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:33
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:48
 msgid "Statue"
 msgstr "Socha"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:34
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:49
 msgid "Market"
 msgstr "Tržiště"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: base/templates/base/new_outline/new_outline_initial_period2.html:317
-#: utils/buildings.py:35
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: base/templates/base/new_outline/new_outline_initial_period2.html:313
+#: utils/buildings.py:50
 msgid "Timber camp"
 msgstr "Dřevorubec"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: base/templates/base/new_outline/new_outline_initial_period2.html:320
-#: utils/buildings.py:36
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: base/templates/base/new_outline/new_outline_initial_period2.html:316
+#: utils/buildings.py:51
 msgid "Clay pit"
 msgstr "Lom na hlínu"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:37
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:52
 msgid "Iron mine"
 msgstr "Železný důl"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: base/templates/base/new_outline/new_outline_initial_period2.html:321
-#: utils/buildings.py:38
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: base/templates/base/new_outline/new_outline_initial_period2.html:317
+#: utils/buildings.py:53
 msgid "Farm"
 msgstr "Selský dvůr"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: base/templates/base/new_outline/new_outline_initial_period2.html:322
-#: utils/buildings.py:39
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: base/templates/base/new_outline/new_outline_initial_period2.html:318
+#: utils/buildings.py:54
 msgid "Warehouse"
 msgstr "Sklad"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:40
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:55
 msgid "Wall"
 msgstr "Hradby"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:532
-#: utils/buildings.py:41
+#: base/templates/base/new_outline/new_outline_initial_period1.html:531
+#: utils/buildings.py:56
 msgid "Watchtower"
 msgstr "Strážní věž"
 
-#: base/templates/base/new_outline/new_outline_initial_period1.html:538
+#: base/templates/base/new_outline/new_outline_initial_period1.html:537
 msgid "At least one building must remain selected."
 msgstr "Musí zůstat vybrána alespoň jedna budova."
 
@@ -1851,60 +1850,60 @@ msgstr "Nastavit cíle na ruiny"
 msgid "Set time and confirm"
 msgstr "Nastavit čas a potvrdit"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:148
+#: base/templates/base/new_outline/new_outline_initial_period2.html:145
 msgid "Finish the Outline"
 msgstr "Dokončit přehled"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:158
+#: base/templates/base/new_outline/new_outline_initial_period2.html:154
 msgid "target, nick or number of commands"
 msgstr "cíl, přezdívka nebo počet příkazů"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:166
+#: base/templates/base/new_outline/new_outline_initial_period2.html:162
 msgid "Search by nickname"
 msgstr "Hledat podle přezdívky"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:167
+#: base/templates/base/new_outline/new_outline_initial_period2.html:163
 msgid "Search by target"
 msgstr "Hledat podle cíle"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:168
+#: base/templates/base/new_outline/new_outline_initial_period2.html:164
 msgid "Search more than number of commands"
 msgstr "Hledat více než počet příkazů"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:169
+#: base/templates/base/new_outline/new_outline_initial_period2.html:165
 msgid "Search less than number of commands"
 msgstr "Hledat méně než počet příkazů"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:170
+#: base/templates/base/new_outline/new_outline_initial_period2.html:166
 msgid "Search equal to number of commands"
 msgstr "Hledat rovno počtu příkazů"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:187
+#: base/templates/base/new_outline/new_outline_initial_period2.html:183
 msgid "Target added successfully!"
 msgstr "Cíl úspěšně přidán!"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:202
+#: base/templates/base/new_outline/new_outline_initial_period2.html:198
 msgid "Create a single Target"
 msgstr "Vytvořit jeden cíl"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:215
+#: base/templates/base/new_outline/new_outline_initial_period2.html:211
 msgid "Create Real"
 msgstr "Vytvořit skutečný"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:216
+#: base/templates/base/new_outline/new_outline_initial_period2.html:212
 msgid "Create Fake"
 msgstr "Vytvořit falešný"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:217
+#: base/templates/base/new_outline/new_outline_initial_period2.html:213
 msgid "Create Ruin"
 msgstr "Vytvořit ruinu"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:274
+#: base/templates/base/new_outline/new_outline_initial_period2.html:270
 #: shipments/templates/shipment.html:6 shipments/templates/shipment.html:12
 msgid "Edit"
 msgstr "Upravit"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:359
+#: base/templates/base/new_outline/new_outline_initial_period2.html:353
 msgid ""
 "<p>Your current progress here will be <span class='md-error'>LOST</span>!</"
 "p><p>You will return to the previous tab. Front and Back division will be "
@@ -1914,13 +1913,23 @@ msgstr ""
 "p><p>Vrátíte se na předchozí kartu. Rozdělení na frontu a týl bude "
 "resetováno a cíle odstraněny.</p>"
 
+#: base/templates/base/new_outline/new_outline_initial_period2.html:370
+msgid "Confirmation"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:373
+#, fuzzy
+#| msgid "Finish the Outline"
+msgid "Do you want to finish the outline?"
+msgstr "Dokončit přehled"
+
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:16
 msgid "Type of order"
 msgstr "Typ příkazu"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:19
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:164
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:206
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:166
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:208
 msgid ""
 "For ruins, the Ram Unit means Off and the Noble Unit represents later ruins"
 msgstr ""
@@ -1937,247 +1946,243 @@ msgstr "Výchozí čas"
 msgid "Create at least one Time below"
 msgstr "Vytvořte alespoň jeden čas níže"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:250
-#: base/templates/base/new_outline/new_outline_initial_period3.html:137
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:253
+#: base/templates/base/new_outline/new_outline_initial_period3.html:138
 #: base/templates/base/overview.html:227 shipments/templates/shipment.html:126
 #: utils/basic/mode.py:60 utils/outline_finish.py:75
 msgid "Target"
 msgstr "Cíl"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:251
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:254
 msgid "Select Time"
 msgstr "Vybrat čas"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:252
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:255
 #: base/templates/base/overview.html:228 utils/basic/mode.py:67
 msgid "Outline"
 msgstr "Přehled"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:257
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:260
 msgid "Set time to all targets on this page"
 msgstr "Nastavit čas pro všechny cíle na této stránce"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:282
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:285
 msgid "Create at least one Time above"
 msgstr "Vytvořte alespoň jeden čas výše"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:21
+#: base/templates/base/new_outline/new_outline_initial_period3.html:20
 msgid "Change and save"
 msgstr "Změnit a uložit"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:106
+#: base/templates/base/new_outline/new_outline_initial_period3.html:107
 msgid "Divide"
 msgstr "Rozdělit"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:110
+#: base/templates/base/new_outline/new_outline_initial_period3.html:111
 msgid "Divide into 2"
 msgstr "Rozdělit na 2"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:114
+#: base/templates/base/new_outline/new_outline_initial_period3.html:115
 msgid "Divide into 3"
 msgstr "Rozdělit na 3"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:118
+#: base/templates/base/new_outline/new_outline_initial_period3.html:119
 msgid "Divide into 4"
 msgstr "Rozdělit na 4"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:136
-#: base/templates/base/new_outline/new_outline_results.html:88
-#: base/templates/base/new_outline/new_outline_results.html:131
+#: base/templates/base/new_outline/new_outline_initial_period3.html:137
+#: base/templates/base/new_outline/new_outline_results.html:95
+#: base/templates/base/new_outline/new_outline_results.html:134
 #: utils/outline_finish.py:77
 msgid "Player"
 msgstr "Hráč"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:138
+#: base/templates/base/new_outline/new_outline_initial_period3.html:139
 msgid "TW Stats"
 msgstr "TW Stats"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:139
+#: base/templates/base/new_outline/new_outline_initial_period3.html:140
 msgid "Troops from"
 msgstr "Jednotky od"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:140
+#: base/templates/base/new_outline/new_outline_initial_period3.html:141
 msgid "Troops to"
 msgstr "Jednotky do"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:141
+#: base/templates/base/new_outline/new_outline_initial_period3.html:142
 msgid "Catapults from"
 msgstr "Katapulty od"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:142
+#: base/templates/base/new_outline/new_outline_initial_period3.html:143
 msgid "Nobles from"
 msgstr "Šlechtici od"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:144
+#: base/templates/base/new_outline/new_outline_initial_period3.html:145
 msgid "Cards on page"
 msgstr "Karty na stránce"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:220
+#: base/templates/base/new_outline/new_outline_initial_period3.html:221
 msgid "Sort"
 msgstr "Seřadit"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:224
+#: base/templates/base/new_outline/new_outline_initial_period3.html:225
 msgid "Ascending by distance"
 msgstr "Vzestupně podle vzdálenosti"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:225
+#: base/templates/base/new_outline/new_outline_initial_period3.html:226
 msgid "Random by distance"
 msgstr "Náhodně podle vzdálenosti"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:226
+#: base/templates/base/new_outline/new_outline_initial_period3.html:227
 msgid "Descending by distance"
 msgstr "Sestupně podle vzdálenosti"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:227
+#: base/templates/base/new_outline/new_outline_initial_period3.html:228
 msgid "Descending by number of units"
 msgstr "Sestupně podle počtu jednotek"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:228
+#: base/templates/base/new_outline/new_outline_initial_period3.html:229
 msgid "Descending by number of noble"
 msgstr "Sestupně podle počtu šlechticů"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:232
+#: base/templates/base/new_outline/new_outline_initial_period3.html:233
 msgid "Closest full offs"
 msgstr "Nejbližší plné útoky"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:233
+#: base/templates/base/new_outline/new_outline_initial_period3.html:234
 msgid "Closest noblemans"
 msgstr "Nejbližší šlechtici"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:234
+#: base/templates/base/new_outline/new_outline_initial_period3.html:235
 msgid "Closest offs with noblemans"
 msgstr "Nejbližší útoky se šlechtici"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:238
+#: base/templates/base/new_outline/new_outline_initial_period3.html:239
 msgid "Random full offs"
 msgstr "Náhodné plné útoky"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:239
+#: base/templates/base/new_outline/new_outline_initial_period3.html:240
 msgid "Random noblemans"
 msgstr "Náhodní šlechtici"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:240
+#: base/templates/base/new_outline/new_outline_initial_period3.html:241
 msgid "Random offs with noblemans"
 msgstr "Náhodné útoky se šlechtici"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:244
+#: base/templates/base/new_outline/new_outline_initial_period3.html:245
 msgid "Farthest full offs"
 msgstr "Nejvzdálenější plné útoky"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:245
+#: base/templates/base/new_outline/new_outline_initial_period3.html:246
 msgid "Farthest noblemans"
 msgstr "Nejvzdálenější šlechtici"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:246
+#: base/templates/base/new_outline/new_outline_initial_period3.html:247
 msgid "Farthest offs with noblemans"
 msgstr "Nejvzdálenější útoky se šlechtici"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:256
-#: base/templates/base/new_outline/new_outline_initial_period3.html:263
+#: base/templates/base/new_outline/new_outline_initial_period3.html:257
+#: base/templates/base/new_outline/new_outline_initial_period3.html:264
 msgid "Previous"
 msgstr "Předchozí"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:267
+#: base/templates/base/new_outline/new_outline_initial_period3.html:268
 #: base/templates/base/overview.html:53 base/templates/base/overview.html:86
 msgid "of"
 msgstr "z"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:271
-#: base/templates/base/new_outline/new_outline_initial_period3.html:277
+#: base/templates/base/new_outline/new_outline_initial_period3.html:272
+#: base/templates/base/new_outline/new_outline_initial_period3.html:278
 msgid "Next"
 msgstr "Další"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:288
+#: base/templates/base/new_outline/new_outline_initial_period3.html:289
 msgid "coord or nick..."
 msgstr "souřadnice nebo přezdívka..."
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:328
+#: base/templates/base/new_outline/new_outline_initial_period3.html:329
 msgid "On the left adding Fake, on the right 1 Noble"
 msgstr "Vlevo přidání falešného útoku, vpravo 1 šlechtic"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:332
+#: base/templates/base/new_outline/new_outline_initial_period3.html:333
 msgid "On the left adding Offs, on the right Ruin attack"
 msgstr "Vlevo přidání útoků, vpravo útok na ruiny"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:336
+#: base/templates/base/new_outline/new_outline_initial_period3.html:337
 msgid "On the left adding Offs, on the right Offs with the Nobles"
 msgstr "Vlevo přidání útoků, vpravo útoky se šlechtici"
 
-#: base/templates/base/new_outline/new_outline_results.html:11
+#: base/templates/base/new_outline/new_outline_results.html:18
 msgid "Outline results"
 msgstr "Výsledky přehledu"
 
-#: base/templates/base/new_outline/new_outline_results.html:14
+#: base/templates/base/new_outline/new_outline_results.html:21
 msgid "Sum Up"
 msgstr "Shrnutí"
 
-#: base/templates/base/new_outline/new_outline_results.html:17
+#: base/templates/base/new_outline/new_outline_results.html:24
 msgid "Copy Outline urls"
 msgstr "Kopírovat URL přehledu"
 
-#: base/templates/base/new_outline/new_outline_results.html:20
+#: base/templates/base/new_outline/new_outline_results.html:27
 msgid "Copy Outline results"
 msgstr "Kopírovat výsledky přehledu"
 
-#: base/templates/base/new_outline/new_outline_results.html:23
+#: base/templates/base/new_outline/new_outline_results.html:30
 msgid "Left troops"
 msgstr "Zbývající jednotky"
 
-#: base/templates/base/new_outline/new_outline_results.html:32
+#: base/templates/base/new_outline/new_outline_results.html:39
 msgid ""
 "To send messages with a button, you will need a script that you can find"
 msgstr ""
 "Pro odesílání zpráv pomocí tlačítka budete potřebovat skript, který najdete"
 
-#: base/templates/base/new_outline/new_outline_results.html:51
+#: base/templates/base/new_outline/new_outline_results.html:58
 msgid "Set title, text and show hidden value"
 msgstr "Nastavit název, text a zobrazit skrytou hodnotu"
 
-#: base/templates/base/new_outline/new_outline_results.html:75
+#: base/templates/base/new_outline/new_outline_results.html:82
 msgid "Removed links"
 msgstr "Odstraněné odkazy"
 
-#: base/templates/base/new_outline/new_outline_results.html:89
-#: base/templates/base/new_outline/new_outline_results.html:132
+#: base/templates/base/new_outline/new_outline_results.html:96
+#: base/templates/base/new_outline/new_outline_results.html:135
 msgid "Link to member Page"
 msgstr "Odkaz na stránku člena"
 
-#: base/templates/base/new_outline/new_outline_results.html:90
-#: base/templates/base/new_outline/new_outline_results.html:133
+#: base/templates/base/new_outline/new_outline_results.html:97
+#: base/templates/base/new_outline/new_outline_results.html:136
 msgid "Show Hidden"
 msgstr "Zobrazit skryté"
 
-#: base/templates/base/new_outline/new_outline_results.html:91
-#: base/templates/base/new_outline/new_outline_results.html:134
+#: base/templates/base/new_outline/new_outline_results.html:98
+#: base/templates/base/new_outline/new_outline_results.html:137
 msgid "Number of orders"
 msgstr "Počet příkazů"
 
-#: base/templates/base/new_outline/new_outline_results.html:92
-#: base/templates/base/new_outline/new_outline_results.html:135
+#: base/templates/base/new_outline/new_outline_results.html:99
+#: base/templates/base/new_outline/new_outline_results.html:138
 msgid "Send message"
 msgstr "Poslat zprávu"
 
-#: base/templates/base/new_outline/new_outline_results.html:100
-#: base/templates/base/new_outline/new_outline_results.html:144
+#: base/templates/base/new_outline/new_outline_results.html:107
+#: base/templates/base/new_outline/new_outline_results.html:147
 msgid "Go to member Page"
 msgstr "Přejít na stránku člena"
 
-#: base/templates/base/new_outline/new_outline_results.html:114
-#: base/templates/base/new_outline/new_outline_results.html:116
-#: base/templates/base/new_outline/new_outline_results.html:159
+#: base/templates/base/new_outline/new_outline_results.html:120
 #: base/templates/base/new_outline/new_outline_results.html:161
 msgid "Sent!"
 msgstr "Odesláno!"
 
-#: base/templates/base/new_outline/new_outline_results.html:114
-#: base/templates/base/new_outline/new_outline_results.html:116
-#: base/templates/base/new_outline/new_outline_results.html:159
+#: base/templates/base/new_outline/new_outline_results.html:120
 #: base/templates/base/new_outline/new_outline_results.html:161
 #: rest_api/serializers.py:178
 msgid "Send"
 msgstr "Odeslat"
 
-#: base/templates/base/new_outline/new_outline_results.html:201
+#: base/templates/base/new_outline/new_outline_results.html:200
 msgid ""
 "Below you will find all the unused troops left after the roster. Paste them "
 "into the \"1. Troops Data\" in order to start a new action."
@@ -2185,11 +2190,11 @@ msgstr ""
 "Níže naleznete všechny nevyužité jednotky, které zbyly po sestavení. Vložte "
 "je do \"1. Data o jednotkách\", abyste mohli zahájit novou akci."
 
-#: base/templates/base/new_outline/new_outline_results.html:207
+#: base/templates/base/new_outline/new_outline_results.html:206
 msgid "You have no access to unused troops without premium account."
 msgstr "Bez prémiového účtu nemáte přístup k nevyužitým jednotkám."
 
-#: base/templates/base/new_outline/new_outline_results.html:235
+#: base/templates/base/new_outline/new_outline_results.html:237
 msgid ""
 "Some of the written orders have been omitted due to the following problems"
 msgstr ""
@@ -2264,7 +2269,7 @@ msgstr "Úterý"
 #: base/templates/base/overview.html:86 base/templates/base/overview.html:93
 #: base/templates/base/overview.html:119 base/templates/base/overview.html:146
 #: base/templates/base/overview.html:185 utils/basic/table_text.py:88
-#: utils/send_text.py:19
+#: utils/send_text.py:34
 msgid "Send OFF"
 msgstr "Poslat ÚTOK"
 
@@ -2612,11 +2617,11 @@ msgstr "Platnost prémiového účtu"
 msgid "Contact with admin to change your email address. "
 msgstr "Kontaktujte administrátora pro změnu vaší e-mailové adresy. "
 
-#: base/views/outline.py:256
+#: base/views/outline.py:260
 msgid "Never"
 msgstr "Nikdy"
 
-#: base/views/outline.py:262
+#: base/views/outline.py:266
 msgid " minute(s) ago."
 msgstr " minut(y) zpět."
 
@@ -2684,12 +2689,12 @@ msgstr ""
 "armády a obrany</b> a obě <b>odešlete</b>.</p> <p>2. Vraťte se na kartu "
 "<b>Sestava obrany</b>.</p> <p>3. Zkuste to znovu."
 
-#: shipments/forms.py:35
+#: shipments/forms.py:50
 #, python-format
 msgid "Invalid overview token: %(token)s"
 msgstr "Neplatný token přehledu: %(token)s"
 
-#: shipments/forms.py:41
+#: shipments/forms.py:56
 msgid "Duplicate overview tokens are not allowed."
 msgstr "Duplicitní tokeny přehledu nejsou povoleny."
 
@@ -3096,11 +3101,11 @@ msgstr "Jste již přihlášeni jako"
 msgid "Password recovery"
 msgstr "Obnova hesla"
 
-#: tribal_wars_planer/settings.py:489
+#: tribal_wars_planer/settings.py:490
 msgid "Your Plemiona Planer Login Code"
 msgstr "Váš přihlašovací kód do Plánovače pro Divoké Kmeny"
 
-#: utils/basic/army.py:169 utils/basic/army.py:338
+#: utils/basic/army.py:169 utils/basic/army.py:343
 #, python-format
 msgid ""
 "Invalid number of elements in line: %(len)s is not correct, expected "
@@ -3108,11 +3113,11 @@ msgid ""
 msgstr ""
 "Neplatný počet prvků na řádku: %(len)s není správný, očekáváno %(expected)s"
 
-#: utils/basic/army.py:178 utils/basic/army.py:347
+#: utils/basic/army.py:178 utils/basic/army.py:352
 msgid "Length of coord at first postition must be equal to 7"
 msgstr "Délka souřadnic na první pozici musí být 7"
 
-#: utils/basic/army.py:188 utils/basic/army.py:357
+#: utils/basic/army.py:188 utils/basic/army.py:362
 #, python-format
 msgid ""
 "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
@@ -3120,17 +3125,17 @@ msgstr ""
 "Souřadnice: %(coord)s neexistuje nebo není v žádném z platných kmenů: "
 "%(tribes)s"
 
-#: utils/basic/army.py:196 utils/basic/army.py:365
+#: utils/basic/army.py:196 utils/basic/army.py:370
 #, python-format
 msgid "One of line elements is not a number: %s"
 msgstr "Jeden z prvků řádku není číslo: %s"
 
-#: utils/basic/army.py:200 utils/basic/army.py:373
+#: utils/basic/army.py:200 utils/basic/army.py:378
 #, python-format
 msgid "Last element in line must be empty string, currently: %s"
 msgstr "Poslední prvek na řádku musí být prázdný řetězec, aktuálně: %s"
 
-#: utils/basic/army.py:369
+#: utils/basic/army.py:374
 #, python-format
 msgid "Third element of line must be a text: %s"
 msgstr "Třetí prvek řádku musí být text: %s"
@@ -3302,7 +3307,7 @@ msgstr "Poslat falešný"
 msgid "Send ruin"
 msgstr "Poslat zříceninu"
 
-#: utils/basic/table_text.py:90 utils/send_text.py:18
+#: utils/basic/table_text.py:90 utils/send_text.py:33
 msgid "Send NOBLE"
 msgstr "Poslat ŠLECHTICE"
 
@@ -3502,17 +3507,24 @@ msgstr "Vesnice"
 msgid "does not exists"
 msgstr "neexistuje"
 
-#: utils/send_text.py:15
+#: utils/send_text.py:30
 msgid "Send FAKE NOBLE"
 msgstr "Poslat FALEŠNÉHO ŠLECHTICE"
 
-#: utils/send_text.py:16
+#: utils/send_text.py:31
 msgid "Send FAKE"
 msgstr "Poslat FALEŠNÝ"
 
-#: utils/send_text.py:17
+#: utils/send_text.py:32
 msgid "Send RUIN"
 msgstr "Poslat ZŘÍCENINU"
+
+#~ msgid ""
+#~ "has morale based on points and time. This is not perfectly handled by "
+#~ "Planer. See topic \"4. Morale\" in the docs on the right side."
+#~ msgstr ""
+#~ "má morálku založenou na bodech a čase. Toto není dokonale zpracováno "
+#~ "Plánovačem. Viz téma \"4. Morálka\" v dokumentaci na pravé straně."
 
 #~ msgid "New text extended directly in message"
 #~ msgstr "Nový rozšířený text přímo ve zprávě"

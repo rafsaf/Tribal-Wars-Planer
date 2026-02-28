@@ -5,7 +5,7 @@
 {% block title %}{{instance.name|capfirst}} - {{instance.world.game_name}}{% endblock %}
 {% block sidebar %}
     <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{instance.name|capfirst}} - {{instance.world.game_name}}</div>
-    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_get_deff' %}focus-side-link{% endif %}"><div class="badge badge-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Other' %}</div> <span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Deff raport' %}</span></a>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_get_deff' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Other' %}</div> <span class="ms-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Deff raport' %}</span></a>
     <a class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail' %}focus-side-link{% endif %}" href="{% url 'base:planer_detail' instance.id %}" role="button"> 1. {% trans "Troops data" %} </a>
     <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_initial_form' or request.resolver_match.url_name == 'planer_initial' or request.resolver_match.url_name == 'planer_initial_detail' %}focus-side-link{% endif %}">2. {% trans 'Planer' %}</a>
     <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_results' %}focus-side-link{% endif %}">3. {% trans 'Results' %}</a>
@@ -13,7 +13,7 @@
 {% endblock %}
 {% block phonesidebar %}
     <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{instance.name|capfirst}} - {{instance.world.game_name}}</div>
-    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_get_deff' %}focus-side-link{% endif %}"><div class="badge badge-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Other' %}</div> <span class="ml-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Deff raport' %}</span></a>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_get_deff' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Other' %}</div> <span class="ms-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Deff raport' %}</span></a>
     <a class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail' %}focus-side-link{% endif %}" href="{% url 'base:planer_detail' instance.id %}" role="button"> 1. {% trans "Troops data" %} </a>
     <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_initial_form' %}focus-side-link{% endif %}">2. {% trans 'Planer' %}</a>
     <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_detail_results' %}focus-side-link{% endif %}">3. {% trans 'Results' %}</a>
@@ -29,8 +29,8 @@
                 <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="card">
                         <div class="card-header" id="headingTwo" >
-                            <button style="text-decoration: none;height:min-content" class="btn btn-link collapsed py-0 text-left card-header-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <div data-toggle="tooltip" data-placement="top" title="{% trans 'Data for planer tab may be from Army or Defence tabs. Army - all troops (also that are outside of villages), Defence - only troops from villages.' %}">
+                            <button style="text-decoration: none;height:min-content" class="btn btn-link collapsed py-0 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Data for planer tab may be from Army or Defence tabs. Army - all troops (also that are outside of villages), Defence - only troops from villages.' %}">
                                     {% if form_input_type.errors %}
                                         <span><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
@@ -57,7 +57,7 @@
 
             {% if instance.world.postfix != 'Test' %}
                 <div>
-                    <div class="p-3 bg-light text-dark"><i class="bi bi-info-square"></i> {% trans 'Last world update: ' %}{{instance.world.update}}</div>
+                    <div class="p-3 bg-light"><i class="bi bi-info-square"></i> {% trans 'Last world update: ' %}{{instance.world.update}}</div>
                 </div>
             {% endif %}
 
@@ -99,7 +99,9 @@
                                     </div>
                                     <script type="module">
                                         document.addEventListener("DOMContentLoaded", function(event) {
-                                            $('.off-codemirror-wrapper').addClass('CodeMirror-Invalid');
+                                            document.querySelectorAll('.off-codemirror-wrapper').forEach((element) => {
+                                                element.classList.add('CodeMirror-Invalid');
+                                            });
                                         });
                                     </script>
                                 {% else %}
@@ -119,7 +121,9 @@
                                 </div>
                                 <script type="module">
                                     document.addEventListener("DOMContentLoaded", function(event) {
-                                        $('.off-codemirror-wrapper').addClass('CodeMirror-Invalid');
+                                        document.querySelectorAll('.off-codemirror-wrapper').forEach((element) => {
+                                            element.classList.add('CodeMirror-Invalid');
+                                        });
                                     });
                                 </script>
                             {% endif %}
@@ -177,7 +181,9 @@
                                     </div>
                                     <script type="module">
                                         document.addEventListener("DOMContentLoaded", function(event) {
-                                            $('.deff-codemirror-wrapper').addClass('CodeMirror-Invalid');
+                                            document.querySelectorAll('.deff-codemirror-wrapper').forEach((element) => {
+                                                element.classList.add('CodeMirror-Invalid');
+                                            });
                                         });
                                     </script>
                                 {% else %}
@@ -197,7 +203,9 @@
                                 </div>
                                 <script type="module">
                                     document.addEventListener("DOMContentLoaded", function(event) {
-                                        $('.deff-codemirror-wrapper').addClass('CodeMirror-Invalid');
+                                        document.querySelectorAll('.deff-codemirror-wrapper').forEach((element) => {
+                                            element.classList.add('CodeMirror-Invalid');
+                                        });
                                     });
                                 </script>
                             {% endif %}
@@ -220,10 +228,10 @@
             <div class="h-100">
                 <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                     <li class="nav-item navitem100">
-                        <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                        <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
                     </li>
                     <li class="nav-item navitem100">
-                        <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                        <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
@@ -246,9 +254,7 @@
                 <div class="modal-content text-white bg-danger">
                     <div class="modal-header">
                         <h3 class="modal-title">{% trans 'An error occured' %}</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         {{error|safe}}
@@ -261,7 +267,9 @@
 
         <script type="module">
             document.addEventListener("DOMContentLoaded", function(event) {
-                $('.bd-example-modal-lg').modal('show');
+                document.querySelectorAll('.bd-example-modal-lg').forEach((element) => {
+                    new bootstrap.Modal(element).show();
+                });
 
 
             });

@@ -49,58 +49,75 @@ const setIconWithText = (
 
 const modal = () => {
   document.addEventListener("DOMContentLoaded", function (event) {
-    $("#form-modal").on("show.bs.modal", function (event) {
-      var button = $(event.relatedTarget); // Button that triggered the modal
-      var attackNumber = button.data("attacknumber");
-      var start = button.data("start");
-      var off = parseInt(button.data("off"));
-      var leftOff = parseInt(button.data("leftoff"));
-      var nobleman = parseInt(button.data("nobleman"));
-      var leftNobleman = parseInt(button.data("leftnobleman"));
-      var catapult = parseInt(button.data("catapult"));
-      var leftCatapult = parseInt(button.data("leftcatapult"));
-      var id = button.data("id");
-      var modal = $(this);
+    const formModal = document.getElementById("form-modal");
+    if (formModal) {
+      formModal.addEventListener("show.bs.modal", function (event) {
+        const button = event.relatedTarget;
+        if (!button) {
+          return;
+        }
 
-      var currentOther = off - catapult * 8;
-      var currentCatapult = catapult;
+        const attackNumber = button.dataset.attacknumber;
+        const start = button.dataset.start;
+        const off = parseInt(button.dataset.off, 10);
+        const leftOff = parseInt(button.dataset.leftoff, 10);
+        const nobleman = parseInt(button.dataset.nobleman, 10);
+        const leftNobleman = parseInt(button.dataset.leftnobleman, 10);
+        const catapult = parseInt(button.dataset.catapult, 10);
+        const leftCatapult = parseInt(button.dataset.leftcatapult, 10);
+        const id = button.dataset.id;
 
-      var currentOtherLeft = leftOff - leftCatapult * 8;
-      var currentCatapultLeft = leftCatapult;
+        const modalRoot = this;
+        const getBySelector = (selector) => modalRoot.querySelector(selector);
 
-      var currentOtherMax = currentOther + currentOtherLeft;
-      var currentCatapultMax = currentCatapult + currentCatapultLeft;
+        var currentOther = off - catapult * 8;
+        var currentCatapult = catapult;
 
-      modal.find(".modal-title").text(start);
-      modal.find("#attack-number").text(attackNumber);
-      modal.find("#id_weight_id").val(id);
-      modal.find("#id_off").val(off);
+        var currentOtherLeft = leftOff - leftCatapult * 8;
+        var currentCatapultLeft = leftCatapult;
 
-      modal.find("#id_off_no_catapult").val(currentOther);
-      modal.find("#id_off_no_catapult").attr("max", currentOtherMax);
-      modal.find("#hint_id_off_no_catapult").text(`0-${currentOtherMax}`);
-      modal.find("#id_off_no_catapult").change(function () {
-        var cat = parseInt(modal.find("#id_catapult").val());
-        var offNoCats = parseInt(modal.find("#id_off_no_catapult").val());
-        modal.find("#id_off").val(offNoCats + cat * 8);
+        var currentOtherMax = currentOther + currentOtherLeft;
+        var currentCatapultMax = currentCatapult + currentCatapultLeft;
+
+        getBySelector(".modal-title").textContent = start;
+        getBySelector("#attack-number").textContent = attackNumber;
+        getBySelector("#id_weight_id").value = id;
+        getBySelector("#id_off").value = off;
+
+        const offNoCatapultInput = getBySelector("#id_off_no_catapult");
+        const catapultInput = getBySelector("#id_catapult");
+        const offInput = getBySelector("#id_off");
+        offNoCatapultInput.value = currentOther;
+        offNoCatapultInput.max = String(currentOtherMax);
+        getBySelector("#hint_id_off_no_catapult").textContent = `0-${currentOtherMax}`;
+        offNoCatapultInput.onchange = function () {
+          const cat = parseInt(catapultInput.value, 10) || 0;
+          const offNoCats = parseInt(offNoCatapultInput.value, 10) || 0;
+          offInput.value = String(offNoCats + cat * 8);
+        };
+
+        catapultInput.value = String(currentCatapult);
+        catapultInput.max = String(currentCatapultMax);
+        getBySelector("#hint_id_catapult").textContent = `0-${currentCatapultMax}`;
+        catapultInput.onchange = function () {
+          const cat = parseInt(catapultInput.value, 10) || 0;
+          const offNoCats = parseInt(offNoCatapultInput.value, 10) || 0;
+          offInput.value = String(offNoCats + cat * 8);
+        };
+
+        const noblemanInput = getBySelector("#id_nobleman");
+        noblemanInput.value = String(nobleman);
+        noblemanInput.max = String(nobleman + leftNobleman);
+        getBySelector("#hint_id_nobleman").textContent = `0-${nobleman + leftNobleman}`;
       });
+    }
 
-      modal.find("#id_catapult").val(currentCatapult);
-      modal.find("#id_catapult").attr("max", currentCatapultMax);
-      modal.find("#hint_id_catapult").text(`0-${currentCatapultMax}`);
-      modal.find("#id_catapult").change(function () {
-        var cat = parseInt(modal.find("#id_catapult").val());
-        var offNoCats = parseInt(modal.find("#id_off_no_catapult").val());
-        modal.find("#id_off").val(offNoCats + cat * 8);
-      });
-
-      modal.find("#id_nobleman").val(nobleman);
-      modal.find("#id_nobleman").attr("max", nobleman + leftNobleman);
-      modal.find("#hint_id_nobleman").text(`0-${nobleman + leftNobleman}`);
+    document.querySelectorAll(".popoverData").forEach((element) => {
+      new bootstrap.Popover(element);
     });
-
-    $(".popoverData").popover();
-    $(".popoverOption").popover({ trigger: "hover" });
+    document.querySelectorAll(".popoverOption").forEach((element) => {
+      new bootstrap.Popover(element, { trigger: "hover" });
+    });
   });
 };
 
@@ -178,50 +195,67 @@ const loadDocsPage = (
 
 const wholePageContentScroll = (key) => {
   if (localStorage.getItem(key) != null) {
-    $(window).scrollTop(localStorage.getItem(key));
+    window.scrollTo(0, parseInt(localStorage.getItem(key), 10));
   }
-  $(window).on("scroll", function () {
-    localStorage.setItem(key, $(window).scrollTop());
+  window.addEventListener("scroll", function () {
+    localStorage.setItem(key, String(window.scrollY));
   });
 };
 
 const scroll_content_outline = () => {
-  $(window).on("load", function () {
+  window.addEventListener("load", function () {
+    const leftScrollElement = document.getElementById("leftscroll");
     if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
-      $(window).scrollTop(
-        localStorage.getItem("my_app_name_here-quote-scroll")
+      window.scrollTo(
+        0,
+        parseInt(localStorage.getItem("my_app_name_here-quote-scroll"), 10)
       );
     }
-    if (localStorage.getItem("my_app_name_here-left-scroll") != null) {
-      $("#leftscroll").scrollTop(
-        localStorage.getItem("my_app_name_here-left-scroll")
+    if (
+      leftScrollElement &&
+      localStorage.getItem("my_app_name_here-left-scroll") != null
+    ) {
+      leftScrollElement.scrollTop = parseInt(
+        localStorage.getItem("my_app_name_here-left-scroll"),
+        10
       );
     }
-    $(window).on("scroll", function () {
+    window.addEventListener("scroll", function () {
       localStorage.setItem(
         "my_app_name_here-quote-scroll",
-        $(window).scrollTop()
+        String(window.scrollY)
       );
     });
-    $("#leftscroll").on("scroll", function () {
-      var scroll = $("#leftscroll").scrollTop();
-      localStorage.setItem("my_app_name_here-left-scroll", scroll);
-    });
+    if (leftScrollElement) {
+      leftScrollElement.addEventListener("scroll", function () {
+        localStorage.setItem(
+          "my_app_name_here-left-scroll",
+          String(leftScrollElement.scrollTop)
+        );
+      });
+    }
   });
 };
 
 const menu_toggle = () => {
-  $("#menu-toggle").click(function (e) {
-    e.preventDefault();
-    $("#sidebar-wrapper").toggleClass("toggled");
-  });
-  $(document).ready(function () {
-    $("#id_date").addClass("data-picker");
-    $(".data-picker").datepicker({
-      format: "yyyy-mm-dd",
-      weekStart: 1,
-      language: getLanguage(),
-      todayHighlight: true,
+  const menuToggleButton = document.getElementById("menu-toggle");
+  const sidebarWrapper = document.getElementById("sidebar-wrapper");
+  if (menuToggleButton && sidebarWrapper) {
+    menuToggleButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      sidebarWrapper.classList.toggle("toggled");
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const dateInput = document.getElementById("id_date");
+    if (dateInput) {
+      dateInput.classList.add("data-picker");
+    }
+    document.querySelectorAll(".data-picker").forEach((element) => {
+      if (element.tagName === "INPUT") {
+        element.setAttribute("type", "date");
+      }
     });
   });
 };
@@ -276,10 +310,14 @@ const calculate_distance = (element) => {
 
 const activateTooltips = () => {
   document.addEventListener("DOMContentLoaded", function (event) {
-    $(".popoverData").popover();
+    document.querySelectorAll(".popoverData").forEach((element) => {
+      new bootstrap.Popover(element);
+    });
   });
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((element) => {
+      new bootstrap.Tooltip(element);
+    });
   });
 };
 
@@ -287,228 +325,65 @@ const onPlanerLinkClick = (text) => {
   setTimeout(() => {
     const planerLink = document.getElementById("planer-link");
     const spinner = document.createElement("span");
-    spinner.className = "spinner-border mr-1 spinner-border-sm text-info my-auto";
+    spinner.className = "spinner-border me-1 spinner-border-sm text-info my-auto";
     spinner.setAttribute("role", "status");
     planerLink.replaceChildren(spinner, document.createTextNode(String(text)));
   }, 800);
 };
 
 const handleAllFormsetSelect = () => {
-  document.addEventListener("DOMContentLoaded", function (event) {
-    val = $("#id_form-0-status").val();
-    if (val === "all") {
-      $("#id_form-0-from_number").val("");
-      $("#id_form-0-from_number").prop("disabled", true);
+  const applyStatusToInputs = (index, allowRangeOnElse) => {
+    const statusElement = document.getElementById(`id_form-${index}-status`);
+    const fromInput = document.getElementById(`id_form-${index}-from_number`);
+    const toInput = document.getElementById(`id_form-${index}-to_number`);
 
-      $("#id_form-0-to_number").val("");
-      $("#id_form-0-to_number").prop("disabled", true);
-    } else if (val === "exact") {
-      $("#id_form-0-from_number").val("");
-      $("#id_form-0-from_number").prop("disabled", true);
-
-      $("#id_form-0-to_number").prop("disabled", false);
+    if (!statusElement || !fromInput || !toInput) {
+      return;
     }
 
-    val = $("#id_form-1-status").val();
+    const val = statusElement.value;
     if (val === "all") {
-      $("#id_form-1-from_number").val("");
-      $("#id_form-1-from_number").prop("disabled", true);
-
-      $("#id_form-1-to_number").val("");
-      $("#id_form-1-to_number").prop("disabled", true);
-    } else if (val === "exact") {
-      $("#id_form-1-from_number").val("");
-      $("#id_form-1-from_number").prop("disabled", true);
-
-      $("#id_form-1-to_number").prop("disabled", false);
+      fromInput.value = "";
+      fromInput.disabled = true;
+      toInput.value = "";
+      toInput.disabled = true;
+      return;
     }
 
-    val = $("#id_form-2-status").val();
-    if (val === "all") {
-      $("#id_form-2-from_number").val("");
-      $("#id_form-2-from_number").prop("disabled", true);
-
-      $("#id_form-2-to_number").val("");
-      $("#id_form-2-to_number").prop("disabled", true);
-    } else if (val === "exact") {
-      $("#id_form-2-from_number").val("");
-      $("#id_form-2-from_number").prop("disabled", true);
-
-      $("#id_form-2-to_number").prop("disabled", false);
+    if (val === "exact") {
+      fromInput.value = "";
+      fromInput.disabled = true;
+      toInput.disabled = false;
+      return;
     }
 
-    val = $("#id_form-3-status").val();
-    if (val === "all") {
-      $("#id_form-3-from_number").val("");
-      $("#id_form-3-from_number").prop("disabled", true);
-
-      $("#id_form-3-to_number").val("");
-      $("#id_form-3-to_number").prop("disabled", true);
-    } else if (val === "exact") {
-      $("#id_form-3-from_number").val("");
-      $("#id_form-3-from_number").prop("disabled", true);
-
-      $("#id_form-3-to_number").prop("disabled", false);
+    if (allowRangeOnElse) {
+      fromInput.disabled = false;
+      toInput.disabled = false;
     }
-
-    val = $("#id_form-4-status").val();
-    if (val === "all") {
-      $("#id_form-4-from_number").val("");
-      $("#id_form-4-from_number").prop("disabled", true);
-
-      $("#id_form-4-to_number").val("");
-      $("#id_form-4-to_number").prop("disabled", true);
-    } else if (val === "exact") {
-      $("#id_form-4-from_number").val("");
-      $("#id_form-4-from_number").prop("disabled", true);
-
-      $("#id_form-4-to_number").prop("disabled", false);
-    }
-
-    val = $("#id_form-5-status").val();
-    if (val === "all") {
-      $("#id_form-5-from_number").val("");
-      $("#id_form-5-from_number").prop("disabled", true);
-
-      $("#id_form-5-to_number").val("");
-      $("#id_form-5-to_number").prop("disabled", true);
-    } else if (val === "exact") {
-      $("#id_form-5-from_number").val("");
-      $("#id_form-5-from_number").prop("disabled", true);
-
-      $("#id_form-5-to_number").prop("disabled", false);
-    }
-  });
+  };
 
   document.addEventListener("DOMContentLoaded", function (event) {
-    $(".time-timepicker").each(function () {
-      $(this).timepicker({
-        minuteStep: 1,
-        secondStep: 1,
-        showSeconds: true,
-        showMeridian: false,
-        defaultTime: false,
-        icons: {
-          up: "fa fa-angle-up",
-          down: "fa fa-angle-down",
-        },
+    for (let index = 0; index <= 5; index += 1) {
+      applyStatusToInputs(index, false);
+    }
+
+    document.querySelectorAll(".time-timepicker").forEach((element) => {
+      if (element.tagName === "INPUT") {
+        element.setAttribute("type", "time");
+        element.setAttribute("step", "1");
+      }
+    });
+
+    for (let index = 0; index <= 5; index += 1) {
+      const statusElement = document.getElementById(`id_form-${index}-status`);
+      if (!statusElement) {
+        continue;
+      }
+      statusElement.addEventListener("change", function () {
+        applyStatusToInputs(index, true);
       });
-    });
-
-    $("#id_form-0-status").change(function () {
-      val = $("#id_form-0-status").val();
-      if (val === "all") {
-        $("#id_form-0-from_number").val("");
-        $("#id_form-0-from_number").prop("disabled", true);
-
-        $("#id_form-0-to_number").val("");
-        $("#id_form-0-to_number").prop("disabled", true);
-      } else if (val === "exact") {
-        $("#id_form-0-from_number").val("");
-        $("#id_form-0-from_number").prop("disabled", true);
-
-        $("#id_form-0-to_number").prop("disabled", false);
-      } else {
-        $("#id_form-0-from_number").prop("disabled", false);
-
-        $("#id_form-0-to_number").prop("disabled", false);
-      }
-    });
-    $("#id_form-1-status").change(function () {
-      val = $("#id_form-1-status").val();
-      if (val === "all") {
-        $("#id_form-1-from_number").val("");
-        $("#id_form-1-from_number").prop("disabled", true);
-
-        $("#id_form-1-to_number").val("");
-        $("#id_form-1-to_number").prop("disabled", true);
-      } else if (val === "exact") {
-        $("#id_form-1-from_number").val("");
-        $("#id_form-1-from_number").prop("disabled", true);
-
-        $("#id_form-1-to_number").prop("disabled", false);
-      } else {
-        $("#id_form-1-from_number").prop("disabled", false);
-
-        $("#id_form-1-to_number").prop("disabled", false);
-      }
-    });
-    $("#id_form-2-status").change(function () {
-      val = $("#id_form-2-status").val();
-      if (val === "all") {
-        $("#id_form-2-from_number").val("");
-        $("#id_form-2-from_number").prop("disabled", true);
-
-        $("#id_form-2-to_number").val("");
-        $("#id_form-2-to_number").prop("disabled", true);
-      } else if (val === "exact") {
-        $("#id_form-2-from_number").val("");
-        $("#id_form-2-from_number").prop("disabled", true);
-
-        $("#id_form-2-to_number").prop("disabled", false);
-      } else {
-        $("#id_form-2-from_number").prop("disabled", false);
-
-        $("#id_form-2-to_number").prop("disabled", false);
-      }
-    });
-    $("#id_form-3-status").change(function () {
-      val = $("#id_form-3-status").val();
-      if (val === "all") {
-        $("#id_form-3-from_number").val("");
-        $("#id_form-3-from_number").prop("disabled", true);
-
-        $("#id_form-3-to_number").val("");
-        $("#id_form-3-to_number").prop("disabled", true);
-      } else if (val === "exact") {
-        $("#id_form-3-from_number").val("");
-        $("#id_form-3-from_number").prop("disabled", true);
-
-        $("#id_form-3-to_number").prop("disabled", false);
-      } else {
-        $("#id_form-3-from_number").prop("disabled", false);
-
-        $("#id_form-3-to_number").prop("disabled", false);
-      }
-    });
-    $("#id_form-4-status").change(function () {
-      val = $("#id_form-4-status").val();
-      if (val === "all") {
-        $("#id_form-4-from_number").val("");
-        $("#id_form-4-from_number").prop("disabled", true);
-
-        $("#id_form-4-to_number").val("");
-        $("#id_form-4-to_number").prop("disabled", true);
-      } else if (val === "exact") {
-        $("#id_form-4-from_number").val("");
-        $("#id_form-4-from_number").prop("disabled", true);
-
-        $("#id_form-4-to_number").prop("disabled", false);
-      } else {
-        $("#id_form-4-from_number").prop("disabled", false);
-
-        $("#id_form-4-to_number").prop("disabled", false);
-      }
-    });
-    $("#id_form-5-status").change(function () {
-      val = $("#id_form-5-status").val();
-      if (val === "all") {
-        $("#id_form-5-from_number").val("");
-        $("#id_form-5-from_number").prop("disabled", true);
-
-        $("#id_form-5-to_number").val("");
-        $("#id_form-5-to_number").prop("disabled", true);
-      } else if (val === "exact") {
-        $("#id_form-5-from_number").val("");
-        $("#id_form-5-from_number").prop("disabled", true);
-
-        $("#id_form-5-to_number").prop("disabled", false);
-      } else {
-        $("#id_form-5-from_number").prop("disabled", false);
-
-        $("#id_form-5-to_number").prop("disabled", false);
-      }
-    });
+    }
   });
 };
 
@@ -531,7 +406,7 @@ const handleClickButton = (
   }
   element.disabled = true;
   const spinner = document.createElement("span");
-  spinner.className = "spinner-border mr-1 spinner-border-sm text-dark my-auto";
+  spinner.className = "spinner-border me-1 spinner-border-sm text-dark my-auto";
   spinner.setAttribute("role", "status");
   const percentSpan = document.createElement("span");
   if (percentId !== "") {
@@ -564,7 +439,7 @@ function getCookie(name) {
   if (document.cookie && document.cookie != "") {
     var cookies = document.cookie.split(";");
     for (var i = 0; i < cookies.length; i++) {
-      var cookie = jQuery.trim(cookies[i]);
+      var cookie = cookies[i].trim();
       if (cookie.substring(0, name.length + 1) == name + "=") {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
@@ -595,7 +470,7 @@ const changeTargetTime = async (target_id, time_id) => {
   if (response.status !== 200) {
     setIconWithText(newTime, "bi-exclamation-square");
     const oldClassName = newTime.className;
-    newTime.className = "btn btn-lg btn-danger my-1 py-0 px-1 mr-1";
+    newTime.className = "btn btn-lg btn-danger my-1 py-0 px-1 me-1";
 
     setTimeout(() => {
       newTime.className = oldClassName;
@@ -604,12 +479,12 @@ const changeTargetTime = async (target_id, time_id) => {
     }, 2000);
   } else {
     const data = await response.json();
-    newTime.className = "btn btn-lg btn-primary my-1 py-0 px-1 mr-1";
+    newTime.className = "btn btn-lg btn-primary my-1 py-0 px-1 me-1";
     restoreChildrenSnapshot(newTime, actualChildren);
     newTime.blur();
     if (data.old !== "none" && data.old !== data.new) {
       const oldTime = document.getElementById(data.old);
-      oldTime.className = "btn btn-lg btn-light my-1 py-0 px-1 mr-1";
+      oldTime.className = "btn btn-lg btn-light my-1 py-0 px-1 me-1";
     }
   }
 };
@@ -735,8 +610,13 @@ const changeBuildingsArray = async (outline_id, list) => {
 };
 const codemirrorValidation = (json_errors, selectorClass) => {
   document.addEventListener("DOMContentLoaded", function (event) {
-    $(selectorClass).addClass("CodeMirror-Invalid");
-    const codemirror = $(selectorClass);
+    const codemirror = document.querySelectorAll(selectorClass);
+    codemirror.forEach((element) => {
+      element.classList.add("CodeMirror-Invalid");
+    });
+    if (codemirror.length === 0 || !codemirror[0].CodeMirror) {
+      return;
+    }
     const codeMirrorEditor = codemirror[0].CodeMirror;
     const errors = JSON.parse(json_errors);
 
@@ -798,7 +678,7 @@ const removeOutline = (btn, dismissBtn, form, msg) => {
   const submitForm = document.getElementById(form);
   btn.disabled = true;
   const spinner = document.createElement("span");
-  spinner.className = "spinner-border mr-1 spinner-border-sm text-dark my-auto";
+  spinner.className = "spinner-border me-1 spinner-border-sm text-dark my-auto";
   spinner.setAttribute("role", "status");
   btn.replaceChildren(spinner, document.createTextNode(` ${String(msg)}`));
   buttonDismiss.disabled = true;
@@ -1038,7 +918,7 @@ const initializePaymentProcess = async (amount, currency) => {
   paymentButton.onclick = () => {
     const originalSnapshot = takeChildrenSnapshot(paymentButton);
     const spinner = document.createElement("span");
-    spinner.className = "spinner-border mr-1 spinner-border-sm text-info my-auto";
+    spinner.className = "spinner-border me-1 spinner-border-sm text-info my-auto";
     spinner.setAttribute("role", "status");
     paymentButton.replaceChildren(spinner);
     fetch(`/api/stripe-session/`, {
@@ -1151,8 +1031,18 @@ const setupDataTable = (elementId) => {
   const data = {};
   if (getLanguage() === "pl") {
     data["language"] = {
-      url: "https://cdn.datatables.net/plug-ins/2.1.8/i18n/pl.json",
+      url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/pl.json",
     };
+  }
+  if (getLanguage() === "hu") {
+      data["language"] = {
+          url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/hu.json",
+      };
+  }
+  if (getLanguage() === "cs") {
+      data["language"] = {
+          url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/cs.json",
+      };
   }
   new DataTable(elementId, data);
 };

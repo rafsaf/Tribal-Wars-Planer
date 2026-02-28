@@ -115,6 +115,15 @@ a.btn.btn-secondary {
   transition: margin 0.25s ease-out;
 }
 
+#sidebar-wrapper .list-group-item-action:hover,
+#sidebar-wrapper .list-group-item-action:focus,
+#sidebar-wrapper .list-group-item-action.bg-light:hover,
+#sidebar-wrapper .list-group-item-action.bg-light:focus,
+.navbar .dropdown-menu .list-group-item-action.bg-light:hover,
+.navbar .dropdown-menu .list-group-item-action.bg-light:focus {
+  background-color: #e9ecef !important;
+}
+
 #sidebar-wrapper .sidebar-heading {
   padding: 0.875rem 1.25rem;
   font-size: 1.2rem;
@@ -124,8 +133,14 @@ a.btn.btn-secondary {
   width: 15rem;
 }
 
+#sidebar-wrapper .list-group-item {
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
 #page-content-wrapper {
-  min-width: 100vw;
+  min-width: 0;
+  width: 100%;
 }
 
 #wrapper #sidebar-wrapper.toggled {
@@ -275,7 +290,7 @@ a.btn.btn-secondary {
   .display-4 {
     font-size: calc(1.475rem + 2.7vw);
   }
-  .close {
+  .btn-close {
     font-size: calc(1.275rem + 0.3vw);
   }
 }
@@ -314,6 +329,43 @@ a[class="teal-copy"] {
 
 body {
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+html,
+#wrapper {
+  overflow-x: hidden;
+}
+
+select,
+select.form-control,
+.form-select {
+  background-color: #fff !important;
+}
+
+.outline-targets-table {
+  width: 100% !important;
+}
+
+.table-bordered > :not(caption) > * > * {
+  border: 1px solid #dee2e6 !important;
+}
+
+:root {
+  --bs-info: #17a2b8;
+  --bs-info-rgb: 23, 162, 184;
+}
+
+.bg-info {
+  background-color: #17a2b8 !important;
+}
+
+.btn-info {
+  background-color: #17a2b8 !important;
+}
+
+.badge.rounded-pill.bg-info {
+  color: #fff;
 }
 
 .font-nav {
@@ -379,6 +431,7 @@ body {
   height: 100%;
   margin: 0px 0px 0px 0px;
   font-size: large;
+  text-decoration: none !important;
 }
 
 .card-header-button:focus {
@@ -386,6 +439,7 @@ body {
 }
 .card-header-button:hover {
   color: teal;
+  text-decoration: underline !important;
 }
 
 .toogle-icon:focus {
@@ -569,10 +623,11 @@ a.t-tab-teal {
 
 a.t-tab-teal {
   color: black !important;
+  text-decoration: none !important;
 }
 a.t-tab-teal:hover {
   color: black !important;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .t-tab-teal:hover {
