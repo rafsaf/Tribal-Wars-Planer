@@ -15,6 +15,7 @@
 
 from django.urls import reverse
 
+from base import forms
 from base.models import Outline, Profile, Stats
 from base.tests.test_utils.mini_setup import MiniSetup
 
@@ -106,10 +107,13 @@ class InactiveOutline(MiniSetup):
         outline.refresh_from_db()
         stats.refresh_from_db()
         assert stats.deff_troops == 1
-        assert outline.deff_troops == DEFF
+        assert (
+            outline.deff_troops
+            == '101|101,5<span class="grey">.</span>803,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,'
+        )
         assert (
             outline.deff_troops_hash
-            == "62302bd2554b824414a91995ac879839bad2a89958d0f470ff719a6df98f789e"
+            == "b35e952462085e5451633d41f7122dbb6f1426a0f91a8892475275fcbb9c4d18"
         )
 
     def test_planer_detail___200_auth_form_error_when_nonsense(self):
@@ -131,6 +135,25 @@ class InactiveOutline(MiniSetup):
 
         outline.refresh_from_db()
         assert outline.deff_troops == ""
+
+    def test_planer_detail___200_auth_form_error_sanitizes_posted_troops(self):
+        outline = self.get_outline(editable="inactive", test_world=True)
+
+        path = reverse("base:planer_detail", args=[outline.pk])
+        deff = "101|101,some_big_nonsene</script><script>alert('XSS')</script>"
+        self.login_me()
+        response = self.client.post(
+            path,
+            data={
+                "form-2": "",
+                "deff_troops": deff,
+            },
+        )
+        assert response.status_code == 200
+
+        deff_troops = response.context["deff_troops"]
+        assert deff_troops.troops == forms.sanitize_troops_html(deff)
+        assert "<script>" not in deff_troops.troops
 
     def test_planer_detail___302_input_data_form_ok_no_set_deafult(self):
         outline = self.get_outline(editable="inactive", test_world=True)

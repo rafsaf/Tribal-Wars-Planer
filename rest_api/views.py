@@ -219,19 +219,6 @@ def change_buildings_array(request: Request):
 
 
 @extend_schema(exclude=True)
-@api_view(["PUT"])
-@permission_classes([IsAuthenticated])
-def reset_user_messages(request: Request):
-    """
-    For given user reset his notifications.
-    """
-    profile: Profile = get_object_or_404(Profile, user=request.user)
-    profile.messages = 0
-    profile.save()
-    return Response(status=status.HTTP_200_OK)
-
-
-@extend_schema(exclude=True)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def stripe_config(request: Request):

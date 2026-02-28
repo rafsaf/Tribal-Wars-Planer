@@ -14,17 +14,12 @@
 # ==============================================================================
 
 import datetime
-from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.query import QuerySet
 from django.utils import timezone, translation
 from django.utils.translation import gettext_lazy
-
-if TYPE_CHECKING:
-    from base.models import Message
 
 from base.models.outline import Outline
 from base.models.server import Server
@@ -50,7 +45,6 @@ class Profile(models.Model):
         null=True,
         choices=settings.SUPPORTED_CURRENCIES_CHOICES,
     )
-    messages = models.IntegerField(default=0)
     server_bind = models.BooleanField(default=False)
     default_morale_on = models.BooleanField(default=False)
     input_data_type = models.CharField(
@@ -77,11 +71,6 @@ class Profile(models.Model):
                 return False
             return True
         return True
-
-    def latest_messages(self) -> QuerySet["Message"]:
-        from base.models.message import Message
-
-        return Message.objects.order_by("-created")[:6]
 
     @property
     def get_currency(self) -> str:
