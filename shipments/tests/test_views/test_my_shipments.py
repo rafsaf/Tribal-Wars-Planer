@@ -78,7 +78,7 @@ class TestMyShipmentsView(MiniSetup):
             date=datetime.date.today(),
         )
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(5):
             response = self.client.get(PATH)
         assert response.status_code == 200
 

@@ -13,9 +13,19 @@
 # limitations under the License.
 # ==============================================================================
 
+from collections.abc import Generator
+
 import pytest
+from django.utils import translation
 
 
 @pytest.fixture(autouse=True)
-def enable_db_access_for_all_tests(db):
+def enable_db_access_for_all_tests(db) -> None:
     pass
+
+
+@pytest.fixture(autouse=True)
+def reset_language() -> Generator[None]:
+    translation.activate("en")
+    yield
+    translation.deactivate()
