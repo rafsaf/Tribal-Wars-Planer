@@ -339,10 +339,15 @@ class PaginTargetsFilter(MiniSetup):
         self,
     ):
         outline = self.get_outline(test_world=True)
-        self.create_target_on_test_world(outline, coord="200|200", player="Commander")
-        self.create_target_on_test_world(outline, coord="201|201", player="Other")
+        matching_player = "fixture-command1-player"
+        other_player = "fixture-other-player"
+        self.create_target_on_test_world(
+            outline, coord="200|200", player=matching_player
+        )
+        self.create_target_on_test_world(outline, coord="201|201", player=other_player)
 
         page_obj = outline.pagin_targets(page="1", every=True, filtr="command1")
 
         assert page_obj.paginator.count == 1
-        assert page_obj.object_list[0].player == "Commander"
+        assert page_obj.object_list[0].player == matching_player
+        assert page_obj.object_list[0].player != other_player
