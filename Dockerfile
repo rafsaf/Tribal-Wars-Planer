@@ -25,12 +25,12 @@ FROM base AS docs
 COPY docs docs
 COPY --from=uv /requirements-docs.txt .
 RUN pip install -r requirements-docs.txt
-RUN mkdocs build -f mkdocs.pl.yml
-RUN mkdocs build -f mkdocs.en.yml
-RUN mkdocs build -f mkdocs.hu.yml
-RUN mkdocs build -f mkdocs.pt-br.yml
-RUN mkdocs build -f mkdocs.cs.yml
-RUN mkdocs build -f mkdocs.de.yml
+RUN zensical build -f mkdocs.pl.yml
+RUN zensical build -f mkdocs.en.yml
+RUN zensical build -f mkdocs.hu.yml
+RUN zensical build -f mkdocs.pt-br.yml
+RUN zensical build -f mkdocs.cs.yml
+RUN zensical build -f mkdocs.de.yml
 
 FROM base AS build
 COPY --chown=${SERVICE_NAME}:${SERVICE_NAME} --from=docs /build/generated_docs generated_docs
