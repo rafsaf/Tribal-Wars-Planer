@@ -7,9 +7,18 @@ edit_uri: "edit/master/docs/docs/en"
 
 theme:
   palette:
-    scheme: default
-    primary: teal
-    accent: teal
+    - scheme: default 
+      primary: teal
+      accent: teal
+      toggle:
+        icon: lucide/sun
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: lucide/moon
+        name: Switch to light mode
   features:
     - navigation.tabs
     - navigation.top

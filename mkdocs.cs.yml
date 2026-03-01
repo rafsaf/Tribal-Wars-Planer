@@ -7,9 +7,18 @@ edit_uri: "edit/master/docs/docs/cs"
 
 theme:
   palette:
-    scheme: default
-    primary: teal
-    accent: teal
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: lucide/sun
+        name: Přepnout na tmavý režim
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: lucide/moon
+        name: Přepnout na světlý režim
   features:
     - navigation.tabs
     - navigation.top
