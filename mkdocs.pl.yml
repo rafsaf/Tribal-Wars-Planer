@@ -7,9 +7,18 @@ edit_uri: "edit/master/docs/docs/pl"
 
 theme:
   palette:
-    scheme: default
-    primary: teal
-    accent: teal
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: lucide/sun
+        name: Przełącz na tryb ciemny
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: lucide/moon
+        name: Przełącz na tryb jasny
   features:
     - navigation.tabs
     - navigation.top
