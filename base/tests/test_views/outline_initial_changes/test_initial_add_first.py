@@ -13,9 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 
+from django.contrib.auth.models import User
 from django.urls import reverse
 
-from base.models import WeightModel
+from base.models import Outline, TargetVertex, WeightMaximum, WeightModel
 from base.tests.test_views.outline_initial_changes.changes_view_setup import (
     ChangesViewSetup,
 )
@@ -84,3 +85,44 @@ class InitialAddFirst(ChangesViewSetup):
             + "?page=2&sort=nobleman_left"
         )
         self.assertEqual(response.status_code, 405)
+
+    def test_planer_add_first___404_mixed_ids_target_and_weight_must_match_my_outline(
+        self,
+    ):
+        outline = self.get_outline()
+        foreign_user = User.objects.get(username="user2")
+        foreign_outline = Outline.objects.create(
+            id=101,
+            owner=foreign_user,
+            date=outline.date,
+            name="foreign-outline",
+            world=outline.world,
+        )
+        foreign_target = TargetVertex.objects.create(
+            outline=foreign_outline,
+            target="501|499",
+            player="foreign-player",
+        )
+        foreign_weight_max = WeightMaximum.objects.create(
+            outline=foreign_outline,
+            start="501|500",
+            player="foreign-player",
+            off_max=1000,
+            off_left=500,
+            nobleman_max=2,
+            nobleman_left=1,
+            ram_max=10,
+            ram_left=10,
+        )
+
+        self.client.login(username="user1", password="user1")
+        response = self.client.post(
+            reverse(
+                "base:planer_add_first",
+                args=[outline.pk, foreign_target.pk, foreign_weight_max.pk],
+            )
+            + "?page=1&sort=nobleman_left"
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertFalse(WeightModel.objects.filter(target=foreign_target).exists())

@@ -272,3 +272,82 @@ class ExpiresIn(MiniSetup):
 
         res4 = "<small class='md-error'>Wygasa za -97 dni</small>"
         self.assertEqual(outline4.expires_in(), res4)
+
+
+class PaginTargetsFilter(MiniSetup):
+    def test_pagin_targets___filtr_command_without_operator___no_index_error(self):
+        outline = self.get_outline(test_world=True)
+        self.create_target_on_test_world(outline, coord="200|200", player="Commander")
+
+        page_obj = outline.pagin_targets(page="1", every=True, filtr="command")
+
+        assert page_obj.paginator.count >= 0
+
+    def test_pagin_targets___filtr_command_operator_without_number___no_index_error(
+        self,
+    ):
+        outline = self.get_outline(test_world=True)
+        self.create_target_on_test_world(outline, coord="200|200", player="Commander")
+
+        page_obj = outline.pagin_targets(page="1", every=True, filtr="command>")
+
+        assert page_obj.paginator.count >= 0
+
+    def test_pagin_targets___filtr_command_with_nonnumeric_value___no_value_error(self):
+        outline = self.get_outline(test_world=True)
+        self.create_target_on_test_world(outline, coord="200|200", player="Commander")
+
+        page_obj = outline.pagin_targets(page="1", every=True, filtr="command>abc")
+
+        assert page_obj.paginator.count >= 0
+
+    def test_pagin_targets___filtr_command_gt_matches_only_targets_with_weights(self):
+        outline = self.get_outline(test_world=True)
+        self.create_target_on_test_world(outline, coord="200|200", player="WithWeight")
+        self.create_target_on_test_world(outline, coord="201|201", player="NoWeight")
+
+        target_with_weight = models.TargetVertex.objects.get(
+            outline=outline, target="200|200"
+        )
+        weight_max = self.create_weight_maximum(outline=outline)
+        self.create_weight(target=target_with_weight, weight_max=weight_max)
+
+        page_obj = outline.pagin_targets(page="1", every=True, filtr="command>0")
+
+        assert page_obj.paginator.count == 1
+        assert page_obj.object_list[0].target == "200|200"
+
+    def test_pagin_targets___filtr_command_lt_matches_only_targets_without_weights(
+        self,
+    ):
+        outline = self.get_outline(test_world=True)
+        self.create_target_on_test_world(outline, coord="200|200", player="WithWeight")
+        self.create_target_on_test_world(outline, coord="201|201", player="NoWeight")
+
+        target_with_weight = models.TargetVertex.objects.get(
+            outline=outline, target="200|200"
+        )
+        weight_max = self.create_weight_maximum(outline=outline)
+        self.create_weight(target=target_with_weight, weight_max=weight_max)
+
+        page_obj = outline.pagin_targets(page="1", every=True, filtr="command<1")
+
+        assert page_obj.paginator.count == 1
+        assert page_obj.object_list[0].target == "201|201"
+
+    def test_pagin_targets___filtr_command_with_missing_operator_falls_back_to_player_filter(
+        self,
+    ):
+        outline = self.get_outline(test_world=True)
+        matching_player = "fixture-command1-player"
+        other_player = "fixture-other-player"
+        self.create_target_on_test_world(
+            outline, coord="200|200", player=matching_player
+        )
+        self.create_target_on_test_world(outline, coord="201|201", player=other_player)
+
+        page_obj = outline.pagin_targets(page="1", every=True, filtr="command1")
+
+        assert page_obj.paginator.count == 1
+        assert page_obj.object_list[0].player == matching_player
+        assert page_obj.object_list[0].player != other_player

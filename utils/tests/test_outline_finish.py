@@ -17,6 +17,7 @@ import datetime
 import json
 import zoneinfo
 
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import activate
@@ -404,6 +405,11 @@ class TestMakeFinalOutline(TestCase):
         PATH = reverse("rest_api:public_outline_overview")
         response = self.client.get(f"{PATH}?token={overview.token}")
         self.assertEqual(response.status_code, 200)
+
+        foreign_user = User.objects.create_user(username="foreign", password="pass")
+        self.client.force_login(foreign_user)
+        foreign_response = self.client.get(f"{PATH}?token={overview.token}")
+        self.assertEqual(foreign_response.status_code, 200)
 
         # hack building name that is computed dynamicly
         for item in expected_weights_json[f"{target.pk}"]:

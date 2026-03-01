@@ -82,7 +82,7 @@ def outline_list(request: HttpRequest) -> HttpResponse:
                 )
                 old_pk = old_outline.pk
                 old_result: models.Result = old_outline.result  # type: ignore
-                unused_troops = request.POST.get("unused_troops") == "on"
+                unused_troops = form1.cleaned_data["unused_troops"]
                 with transaction.atomic():
                     old_outline.actions.outline_duplicated(old_outline)
                     new_outline = old_outline

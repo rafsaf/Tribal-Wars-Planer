@@ -46,12 +46,12 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                 ).order_by("postfix")
             ]
             if form1.is_valid():
-                world = request.POST["world"]
+                world = form1.cleaned_data["world"]
                 world_instance = get_object_or_404(models.World, pk=int(world))
                 new_instance = models.Outline(
                     owner=request.user,
-                    date=request.POST["date"],
-                    name=request.POST["name"],
+                    date=form1.cleaned_data["date"],
+                    name=form1.cleaned_data["name"],
                     world=world_instance,
                     morale_on=profile.default_morale_on,
                     initial_outline_target_dist=world_instance.max_noble_distance,
@@ -71,7 +71,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
         if "form2" in request.POST:
             form2 = forms.ChangeServerForm(request.POST)
             if form2.is_valid():
-                new_server = request.POST.get("server")
+                new_server = form2.cleaned_data["server"]
                 new_server = get_object_or_404(models.Server, dns=new_server)
                 profile = models.Profile.objects.get(user=request.user)
                 profile.server = new_server
@@ -144,7 +144,7 @@ def new_outline_create_select(  # noqa: PLR0912
             form2.fields["tribe2"].choices = choices  # type: ignore
 
             if form1.is_valid():
-                tribe = request.POST["tribe1"]
+                tribe = form1.cleaned_data["tribe1"]
                 instance.ally_tribe_tag.append(tribe)
                 instance.save()
                 return redirect("base:planer_create_select", _id)
@@ -155,7 +155,7 @@ def new_outline_create_select(  # noqa: PLR0912
             form2.fields["tribe2"].choices = choices  # type: ignore
 
             if form2.is_valid():
-                tribe = request.POST["tribe2"]
+                tribe = form2.cleaned_data["tribe2"]
                 instance.enemy_tribe_tag.append(tribe)
                 instance.save()
                 return redirect("base:planer_create_select", _id)

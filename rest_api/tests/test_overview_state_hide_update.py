@@ -59,6 +59,30 @@ class OverviewStateHideUpdate(MiniSetup):
         )
         assert response.status_code == 404
 
+    def test_hide_state_update___404_cannot_use_foreign_token_with_my_outline(self):
+        my_outline = self.get_outline()
+        foreign_outline = self.create_foreign_outline()
+        foreign_overview = self.create_overview(foreign_outline)
+
+        PATH = reverse("rest_api:hide_state_update")
+
+        self.login_me()
+
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "outline_id": my_outline.pk,
+                    "token": foreign_overview.token,
+                }
+            ),
+            content_type="application/json",
+        )
+        assert response.status_code == 404
+
+        foreign_overview.refresh_from_db()
+        assert foreign_overview.show_hidden is False
+
     def test_hide_state_update___400_invalid_payload_types(self):
         outline = self.get_outline()
         overview = self.create_overview(outline)

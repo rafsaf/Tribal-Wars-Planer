@@ -28,18 +28,64 @@ from base import models
 from utils import basic
 
 
+def _get_owned_outline(request: HttpRequest, outline_id: int) -> models.Outline:
+    return get_object_or_404(models.Outline, owner=request.user, id=outline_id)
+
+
+def _get_target_for_outline(
+    request: HttpRequest, outline_id: int, target_id: int
+) -> models.TargetVertex:
+    return get_object_or_404(
+        models.TargetVertex.objects.select_for_update(),
+        pk=target_id,
+        outline_id=outline_id,
+        outline__owner=request.user,
+    )
+
+
+def _get_weight_max_for_outline(
+    request: HttpRequest, outline_id: int, weight_max_id: int
+) -> models.WeightMaximum:
+    return get_object_or_404(
+        models.WeightMaximum.objects.select_for_update(),
+        pk=weight_max_id,
+        outline_id=outline_id,
+        outline__owner=request.user,
+    )
+
+
+def _get_weight_model_for_target(
+    request: HttpRequest,
+    outline_id: int,
+    target_id: int,
+    weight_model_id: int,
+    with_state: bool = False,
+) -> models.WeightModel:
+    queryset = models.WeightModel.objects.select_for_update()
+    if with_state:
+        queryset = queryset.select_related("state")
+
+    return get_object_or_404(
+        queryset,
+        pk=weight_model_id,
+        target_id=target_id,
+        target__outline_id=outline_id,
+        target__outline__owner=request.user,
+    )
+
+
 @require_POST
 @login_required
 @transaction.atomic
 def initial_add_first(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -84,12 +130,12 @@ def initial_add_first(
 def initial_add_first_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -132,12 +178,12 @@ def initial_add_first_off(
 def initial_add_first_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    outline = _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -186,12 +232,12 @@ def initial_add_first_ruin(
 def initial_add_first_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -255,12 +301,12 @@ def initial_add_first_fake(
 def initial_add_first_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -307,12 +353,12 @@ def initial_add_first_fake_noble(
 def initial_add_last_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -376,12 +422,12 @@ def initial_add_last_fake(
 def initial_add_last_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -428,12 +474,12 @@ def initial_add_last_fake_noble(
 def initial_add_last_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    outline = _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -483,12 +529,12 @@ def initial_add_last_ruin(
 def initial_add_last_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -532,12 +578,12 @@ def initial_add_last_off(
 def initial_add_last(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -583,14 +629,12 @@ def initial_add_last(
 def initial_move_down(
     request: HttpRequest, id1: int, id2: int, id4: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight_model = get_object_or_404(
-        models.WeightModel.objects.select_for_update(), pk=id4
-    )
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight_model = _get_weight_model_for_target(request, id1, id2, id4)
+    target = _get_target_for_outline(request, id1, id2)
     order1 = weight_model.order
 
     next_weight = (
@@ -616,15 +660,13 @@ def initial_move_down(
 @login_required
 @transaction.atomic
 def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
 
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight_model = get_object_or_404(
-        models.WeightModel.objects.select_for_update(), pk=id4
-    )
-    target = get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    weight_model = _get_weight_model_for_target(request, id1, id2, id4)
+    target = _get_target_for_outline(request, id1, id2)
     order1 = weight_model.order
 
     next_weight = (
@@ -652,13 +694,11 @@ def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpR
 def initial_weight_delete(
     request: HttpRequest, id1: int, id2: int, id4: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight_model = get_object_or_404(
-        models.WeightModel.objects.select_for_update().select_related("state"), pk=id4
-    )
+    weight_model = _get_weight_model_for_target(request, id1, id2, id4, with_state=True)
     state: models.WeightMaximum = weight_model.state
     state.off_left += weight_model.off
     state.off_state -= weight_model.off
@@ -682,13 +722,11 @@ def initial_weight_delete(
 def initial_divide(
     request: HttpRequest, id1: int, id2: int, id4: int, n: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    _get_owned_outline(request, id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight_model = get_object_or_404(
-        models.WeightModel.objects.select_for_update().select_related("state"), pk=id4
-    )
+    weight_model = _get_weight_model_for_target(request, id1, id2, id4, with_state=True)
     n_list: list[int] = [i + 1 for i in range(n - 1)]
     nob_list: list[int] = [i for i in range(max(weight_model.nobleman - 1, 0))]
     if n > weight_model.nobleman:
@@ -754,12 +792,12 @@ def initial_divide(
 def initial_hide_weight(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
-    get_object_or_404(models.TargetVertex.objects.select_for_update(), pk=id2)
+    _get_owned_outline(request, id1)
+    _get_target_for_outline(request, id1, id2)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight = get_object_or_404(models.WeightMaximum.objects.select_for_update(), pk=id3)
+    weight = _get_weight_max_for_outline(request, id1, id3)
     weight.hidden = not weight.hidden
     weight.save()
     return redirect(

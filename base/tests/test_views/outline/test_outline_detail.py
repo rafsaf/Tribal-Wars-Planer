@@ -16,7 +16,7 @@
 from django.urls import reverse
 
 from base import forms
-from base.models import Outline, Profile, Stats
+from base.models import Outline, Profile, Stats, TargetVertex
 from base.tests.test_utils.mini_setup import MiniSetup
 
 
@@ -35,6 +35,80 @@ class InactiveOutline(MiniSetup):
 
         self.login_foreign_user()
         response = self.client.get(PATH)
+        assert response.status_code == 404
+
+    def test_planer_detail___404_foreign_user_cannot_read_off_deff_related_views(self):
+        outline = self.get_outline(test_world=True, editable="inactive")
+        outline.off_troops = "100|100,55,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,"
+        outline.deff_troops = '101|101,5<span class="grey">.</span>803,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,'
+        outline.save(update_fields=["off_troops", "deff_troops"])
+
+        self.create_target_on_test_world(outline)
+        target = TargetVertex.objects.get(target="200|200", outline=outline)
+
+        self.login_foreign_user()
+
+        response = self.client.get(reverse("base:planer_detail", args=[outline.pk]))
+        assert response.status_code == 404
+
+        response = self.client.get(
+            reverse("base:planer_initial_form", args=[outline.pk])
+        )
+        assert response.status_code == 404
+
+        response = self.client.get(
+            reverse("base:planer_initial_detail", args=[outline.pk, target.pk])
+        )
+        assert response.status_code == 404
+
+    def test_planer_detail___404_foreign_user_cannot_update_off_deff_troops(self):
+        outline = self.get_outline(test_world=True, editable="inactive")
+        outline.off_troops = "seed-off"
+        outline.deff_troops = "seed-deff"
+        outline.save(update_fields=["off_troops", "deff_troops"])
+
+        self.login_foreign_user()
+        path = reverse("base:planer_detail", args=[outline.pk])
+
+        response = self.client.post(
+            path,
+            data={
+                "form-1": "",
+                "off_troops": (
+                    "100|100,55,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,"
+                ),
+            },
+        )
+        assert response.status_code == 404
+
+        response = self.client.post(
+            path,
+            data={
+                "form-2": "",
+                "deff_troops": (
+                    '101|101,5<span class="grey">.</span>803,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,'
+                ),
+            },
+        )
+        assert response.status_code == 404
+
+        outline.refresh_from_db()
+        assert outline.off_troops == "seed-off"
+        assert outline.deff_troops == "seed-deff"
+
+    def test_planer_detail_get_deff___404_foreign_user_cannot_derive_data(self):
+        outline = self.get_outline(test_world=True, editable="inactive")
+        outline.off_troops = "100|100,55,100,100,7000,0,100,2800,0,0,350,100,0,0,0,0,0,"
+        outline.deff_troops = '101|101,5<span class="grey">.</span>803,w wiosce,100,100,7001,0,100,2801,0,0,350,100,0,0,0,0,'
+        outline.save(update_fields=["off_troops", "deff_troops"])
+
+        self.login_foreign_user()
+        path = reverse("base:planer_detail_get_deff", args=[outline.pk])
+
+        response = self.client.get(path)
+        assert response.status_code == 404
+
+        response = self.client.post(path, data={"form": "", "radius": 15})
         assert response.status_code == 404
 
     def test_planer_detail___404_auth_editable_is_removed_do_not_touch_others(self):

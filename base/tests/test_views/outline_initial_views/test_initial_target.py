@@ -43,6 +43,22 @@ class InitialForm(MiniSetup):
         response = self.client.post(PATH)
         assert response.status_code == 404
 
+    def test_planer_initial_detail___404_target_must_belong_to_outline(self):
+        own_outline = self.get_outline(test_world=True, written="active")
+        foreign_outline = self.create_foreign_outline(test_world=True, written="active")
+        self.create_target_on_test_world(foreign_outline)
+        foreign_target = TargetVertex.objects.get(
+            target="200|200", outline=foreign_outline
+        )
+
+        PATH = reverse(
+            "base:planer_initial_detail", args=[own_outline.pk, foreign_target.pk]
+        )
+
+        self.login_me()
+        response = self.client.get(PATH)
+        assert response.status_code == 404
+
     def test_planer_initial_detail___200_proper_response(self):
         outline = self.get_outline(test_world=True, written="active")
         self.create_target_on_test_world(outline)
@@ -51,6 +67,17 @@ class InitialForm(MiniSetup):
         self.login_me()
         response = self.client.get(PATH)
         assert response.status_code == 200
+
+    def test_planer_initial_detail___200_malformed_filtr_values(self):
+        outline = self.get_outline(test_world=True, written="active")
+        self.create_target_on_test_world(outline)
+        target = TargetVertex.objects.get(target="200|200")
+        path = reverse("base:planer_initial_detail", args=[outline.pk, target.pk])
+        self.login_me()
+
+        for filtr in ["command", "command>", "command>abc", "||||", "<>"]:
+            response = self.client.get(path + f"?filtr={filtr}")
+            assert response.status_code == 200
 
     def test_planer_initial_detail___302_main_form_handling(self):
         outline = self.get_outline(test_world=True, written="active")
@@ -99,3 +126,36 @@ class InitialForm(MiniSetup):
 
         assert weight_max.nobleman_left == 0
         assert weight_max.nobleman_state == 2
+
+    def test_planer_initial_detail___404_weight_to_edit_must_match_target(self):
+        outline = self.get_outline(test_world=True, written="active")
+        self.create_target_on_test_world(outline)
+        target = TargetVertex.objects.get(target="200|200", outline=outline)
+
+        own_weight_max = self.create_weight_maximum(outline=outline)
+        self.create_weight(target=target, weight_max=own_weight_max)
+
+        foreign_outline = self.create_foreign_outline(test_world=True, written="active")
+        self.create_target_on_test_world(foreign_outline)
+        foreign_target = TargetVertex.objects.get(
+            target="200|200", outline=foreign_outline
+        )
+        foreign_weight_max = self.create_weight_maximum(foreign_outline)
+        foreign_weight = self.create_weight(
+            target=foreign_target,
+            weight_max=foreign_weight_max,
+        )
+
+        PATH = reverse("base:planer_initial_detail", args=[outline.pk, target.pk])
+        self.login_me()
+        response = self.client.post(
+            PATH,
+            data={
+                "form": "",
+                "weight_id": foreign_weight.pk,
+                "off_no_catapult": "200",
+                "catapult": "20",
+                "nobleman": "1",
+            },
+        )
+        assert response.status_code == 404

@@ -113,7 +113,9 @@ def target_time_update(request: Request):
     req = TargetTimeUpdateSerializer(data=request.data)  # type: ignore
     if req.is_valid():
         target: TargetVertex = get_object_or_404(
-            TargetVertex, pk=req.data.get("target_id")
+            TargetVertex,
+            pk=req.data.get("target_id"),
+            outline__owner=request.user,
         )
         outline_time: OutlineTime = get_object_or_404(
             OutlineTime.objects.select_related("outline", "outline__owner"),
@@ -158,9 +160,10 @@ def delete_target(request: Request):
     req = TargetDeleteSerializer(data=request.data)  # type: ignore
     if req.is_valid():
         target: TargetVertex = get_object_or_404(
-            TargetVertex.objects.select_related("outline"), pk=req.data.get("target_id")
+            TargetVertex.objects.select_related("outline"),
+            pk=req.data.get("target_id"),
+            outline__owner=request.user,
         )
-        get_object_or_404(Outline, owner=request.user, pk=target.outline.pk)
         with transaction.atomic():
             weights = WeightModel.objects.filter(target=target)
             # deletes weights related to this target and updates weight state
@@ -205,8 +208,12 @@ def delete_target(request: Request):
 def overview_state_update(request: Request):
     req = OverwiewStateHideSerializer(data=request.data)  # type: ignore
     if req.is_valid():
-        get_object_or_404(Outline, id=req.data.get("outline_id"), owner=request.user)
-        overview: Overview = get_object_or_404(Overview, token=req.data.get("token"))
+        overview: Overview = get_object_or_404(
+            Overview,
+            token=req.data.get("token"),
+            outline_id=req.data.get("outline_id"),
+            outline__owner=request.user,
+        )
 
         new_state: bool = not bool(overview.show_hidden)
         name: str
@@ -247,9 +254,11 @@ def change_weight_model_buildings(request: Request):
     """
     req = ChangeWeightBuildingSerializer(data=request.data)  # type: ignore
     if req.is_valid():
-        get_object_or_404(Outline, pk=req.data.get("outline_id"), owner=request.user)
         weight: WeightModel = get_object_or_404(
-            WeightModel, pk=req.data.get("weight_id")
+            WeightModel,
+            pk=req.data.get("weight_id"),
+            target__outline_id=req.data.get("outline_id"),
+            target__outline__owner=request.user,
         )
         weight.building = req.data.get("building")
         weight.save()
