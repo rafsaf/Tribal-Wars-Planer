@@ -23,6 +23,12 @@ RUN uv export --only-group docs --no-hashes -o /requirements-docs.txt --no-insta
 
 FROM base AS docs
 COPY docs docs
+COPY mkdocs.pl.yml .
+COPY mkdocs.en.yml .
+COPY mkdocs.hu.yml .
+COPY mkdocs.pt-br.yml .
+COPY mkdocs.cs.yml .
+COPY mkdocs.de.yml .
 COPY --from=uv /requirements-docs.txt .
 RUN pip install -r requirements-docs.txt
 RUN zensical build -f mkdocs.pl.yml
