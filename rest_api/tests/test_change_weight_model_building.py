@@ -69,6 +69,39 @@ class ChangeWeightModelBuilding(MiniSetup):
         )
         assert response.status_code == 404
 
+    def test_change_weight_building___404_cannot_update_foreign_weight_with_my_outline(
+        self,
+    ):
+        my_outline = self.get_outline()
+
+        foreign_outline = self.create_foreign_outline()
+        self.create_target_on_test_world(foreign_outline)
+        foreign_target = TargetVertex.objects.get(
+            target="200|200", outline=foreign_outline
+        )
+        foreign_weight_max = self.create_weight_maximum(foreign_outline)
+        foreign_weight = self.create_weight(
+            target=foreign_target, weight_max=foreign_weight_max
+        )
+
+        PATH = reverse("rest_api:change_weight_building")
+
+        self.login_me()
+
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {
+                    "building": BUILDING.HEADQUARTERS.value,
+                    "outline_id": my_outline.pk,
+                    "weight_id": foreign_weight.pk,
+                }
+            ),
+            content_type="application/json",
+        )
+
+        assert response.status_code == 404
+
     def test_change_weight_building___200_building_is_changed_properly(self):
         outline = self.get_outline()
         self.create_target_on_test_world(outline)

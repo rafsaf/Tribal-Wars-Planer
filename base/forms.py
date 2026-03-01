@@ -935,7 +935,14 @@ class PeriodForm(forms.ModelForm):
 
     class Meta:
         model = models.PeriodModel
-        exclude = ["outline_time", "from_number", "to_number"]
+        fields = [
+            "status",
+            "unit",
+            "from_time",
+            "to_time",
+            "from_number",
+            "to_number",
+        ]
         labels = {
             "status": gettext_lazy("Mode"),
             "from_number": gettext_lazy("From"),
@@ -1097,6 +1104,8 @@ class CreateNewInitialTarget(forms.Form):
                 ),
             )
             return
+
+        return coord
 
 
 class AddNewWorldForm(forms.ModelForm):

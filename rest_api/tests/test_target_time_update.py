@@ -52,6 +52,28 @@ class TargetTimeUpdate(MiniSetup):
         )
         assert response.status_code == 404
 
+    def test_target_time_update___404_cannot_update_foreign_target_with_my_time(self):
+        my_outline = self.get_outline()
+        my_outline_time = self.create_outline_time(my_outline)
+
+        foreign_outline = self.create_foreign_outline()
+        self.create_target_on_test_world(foreign_outline)
+        foreign_target: TargetVertex = TargetVertex.objects.get(
+            target="200|200", outline=foreign_outline
+        )
+
+        self.login_me()
+        PATH = reverse("rest_api:target_time_update")
+
+        response = self.client.put(
+            PATH,
+            data=json.dumps(
+                {"target_id": foreign_target.pk, "time_id": my_outline_time.pk}
+            ),
+            content_type="application/json",
+        )
+        assert response.status_code == 404
+
     def test_target_time_update___400_invalid_payload_types(self):
         outline = self.get_outline()
         self.create_target_on_test_world(outline)

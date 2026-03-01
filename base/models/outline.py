@@ -577,6 +577,7 @@ class Outline(models.Model):
                 )
             elif (
                 filtr.startswith("command")
+                and len(filtr) >= 9
                 and filtr[7] in [">", "<", "="]
                 and filtr[8:].isnumeric()
             ):

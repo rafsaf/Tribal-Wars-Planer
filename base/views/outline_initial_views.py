@@ -447,8 +447,8 @@ def initial_planer(  # noqa: PLR0912,PLR0911
                 request.POST, outline=instance, is_premium=is_premium
             )
             if target_form.is_valid():
-                target_type = request.POST.get("target_type")
-                target_coord = request.POST.get("target")
+                target_type = target_form.cleaned_data["target_type"]
+                target_coord = target_form.cleaned_data["target"]
                 instance.create_target(target_type=target_type, coord=target_coord)
 
                 request.session["success"] = "success"
@@ -610,7 +610,7 @@ def initial_target(  # noqa: PLR0912
     if instance.written == "inactive":
         raise Http404()
 
-    target = get_object_or_404(models.TargetVertex, pk=id2)
+    target = get_object_or_404(models.TargetVertex, pk=id2, outline=instance)
     try:
         village_id = models.VillageModel.objects.get(
             world=instance.world, coord=target.target
@@ -655,28 +655,19 @@ def initial_target(  # noqa: PLR0912
             form = forms.WeightForm(request.POST)
             if form.is_valid():
                 with transaction.atomic():
-                    weight_id: str | None = request.POST.get("weight_id")
-                    off_no_cats_post: str | None = request.POST.get("off_no_catapult")
-                    nobleman_post: str | None = request.POST.get("nobleman")
-                    catapult_post: str | None = request.POST.get("catapult")
+                    weight_id: int = form.cleaned_data["weight_id"]
+                    off_no_cats: int = form.cleaned_data["off_no_catapult"]
+                    nobleman: int = form.cleaned_data["nobleman"]
+                    catapult: int = form.cleaned_data["catapult"]
 
                     weight: models.WeightModel = get_object_or_404(
                         models.WeightModel.objects.select_for_update().select_related(
                             "state"
                         ),
                         pk=weight_id,
+                        target=target,
                     )
                     state = weight.state
-                    if (
-                        nobleman_post is None
-                        or off_no_cats_post is None
-                        or catapult_post is None
-                    ):
-                        raise Http404()
-
-                    nobleman = int(nobleman_post)
-                    off_no_cats = int(off_no_cats_post)
-                    catapult = int(catapult_post)
 
                     off_diffrence: int = off_no_cats + catapult * 8 - weight.off
                     noble_diffrence: int = nobleman - weight.nobleman
@@ -755,7 +746,9 @@ def initial_target(  # noqa: PLR0912
 @require_POST
 def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline_time: models.OutlineTime = get_object_or_404(
-        models.OutlineTime.objects.select_related(), pk=pk
+        models.OutlineTime.objects.select_related(),
+        pk=pk,
+        outline__owner=request.user,
     )
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.pk
@@ -786,7 +779,9 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
 @require_POST
 def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline_time: models.OutlineTime = get_object_or_404(
-        models.OutlineTime.objects.select_related(), pk=pk
+        models.OutlineTime.objects.select_related(),
+        pk=pk,
+        outline__owner=request.user,
     )
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.pk
@@ -828,7 +823,9 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
 @require_POST
 def initial_set_all_time_page(request: HttpRequest, pk: int) -> HttpResponse:
     outline_time: models.OutlineTime = get_object_or_404(
-        models.OutlineTime.objects.select_related(), pk=pk
+        models.OutlineTime.objects.select_related(),
+        pk=pk,
+        outline__owner=request.user,
     )
     outline: models.Outline = get_object_or_404(
         models.Outline, owner=request.user, id=outline_time.outline.pk

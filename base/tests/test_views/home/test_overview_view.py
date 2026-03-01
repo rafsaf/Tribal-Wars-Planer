@@ -73,3 +73,27 @@ class OverviewView(MiniSetup):
         self.assertEqual(response.status_code, 200)
         stats: Stats = Stats.objects.get(outline=outline)
         assert stats.overview_visited == 0
+
+    def test_overview_view___200_foreign_user_can_open_with_token(self):
+        outline = self.get_outline()
+        outline.create_stats()
+        outline_overview: OutlineOverview = OutlineOverview(
+            targets_json="{}",
+            weights_json="{}",
+        )
+        outline_overview.save()
+
+        token = self.random_lower_string()
+        overview = Overview(
+            outline_overview=outline_overview,
+            token=token,
+            outline=outline,
+            player=self.random_lower_string(),
+            table=self.random_lower_string(),
+            string=self.random_lower_string(),
+        )
+        overview.save()
+
+        self.login_foreign_user()
+        response = self.client.get(reverse("base:overview", args=[token]))
+        self.assertEqual(response.status_code, 200)

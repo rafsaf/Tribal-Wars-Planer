@@ -45,8 +45,8 @@ def outline_detail_get_deff(request: HttpRequest, _id: int) -> HttpResponse:
             try:
                 result.results_get_deff = get_deff(
                     outline=instance,
-                    radius=int(request.POST.get("radius") or 0),
-                    excluded_villages=request.POST.get("excluded", ""),
+                    radius=form.cleaned_data["radius"],
+                    excluded_villages=form.cleaned_data["excluded"],
                 )
             except basic.DeffException:
                 request.session["error"] = gettext(

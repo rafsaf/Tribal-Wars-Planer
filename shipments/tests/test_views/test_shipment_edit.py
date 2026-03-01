@@ -459,6 +459,43 @@ class TestAddEditShipmentView(MiniSetup):
         assert formset.errors == [{"token": [""]}]
         assert formset._non_form_errors == ["Invalid overview token: invalidtoken"]
 
+    def test_add_shipment___valid_foreign_user_token___shipment_created(self):
+        self.login_me()
+        PATH = reverse("shipments:add_shipment")
+
+        foreign_outline = self.create_foreign_outline()
+        foreign_outline_overview = OutlineOverview.objects.create(
+            outline=foreign_outline,
+            targets_json='{"1": {"target": "500|500"}}',
+            weights_json='{"1": [{"player": "test", "off": 100,"nobleman":0,"distance":1}]}',
+            world_json={"id": self.get_world().pk},
+            outline_json={"date": str(datetime.date(2024, 1, 4))},
+        )
+        Overview.objects.create(
+            outline_overview=foreign_outline_overview,
+            token="foreign-token",
+            outline=foreign_outline,
+            player="test",
+            table="test",
+            string="test",
+        )
+
+        data = {
+            "name": "New Shipment",
+            "form-TOTAL_FORMS": 1,
+            "form-INITIAL_FORMS": 0,
+            "form-MIN_NUM_FORMS": 1,
+            "form-MAX_NUM_FORMS": 10,
+            "form-0-token": "foreign-token",
+        }
+
+        response = self.client.post(PATH, data)
+        assert response.status_code == 302
+        shipment = Shipment.objects.first()
+        assert shipment is not None
+        assert shipment.owner == self.me()
+        assert shipment.overviews.count() == 1
+
     def test_add_shipment___different_world___error_raised(self):
         activate("en")
         self.login_me()

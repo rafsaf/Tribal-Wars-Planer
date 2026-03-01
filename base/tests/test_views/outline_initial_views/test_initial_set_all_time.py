@@ -43,6 +43,19 @@ class InitialSetAllTime(MiniSetup):
         response = self.client.post(PATH)
         assert response.status_code == 404
 
+    def test_planer_set_all_time___404_outline_time_must_belong_to_my_outline(self):
+        own_outline = self.get_outline()
+        foreign_outline = self.create_foreign_outline()
+        foreign_outline_time = self.create_outline_time(foreign_outline)
+        PATH = reverse("base:planer_set_all_time", args=[foreign_outline_time.pk])
+
+        self.login_me()
+        response = self.client.post(PATH)
+        assert response.status_code == 404
+
+        own_outline.refresh_from_db()
+        assert own_outline.default_off_time_id is None
+
     def test_planer_set_all_time___302_change_correct_for_real(self):
         outline = self.get_outline()
         self.create_target_on_test_world(outline)
