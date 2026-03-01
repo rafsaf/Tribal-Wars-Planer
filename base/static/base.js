@@ -1,11 +1,3 @@
-var bg_color_img_box = "rgba(0,0,0,0.9)";
-var allow_hide_scroll_img_box = "yes";
-var use_fade_inout_img_box = "yes";
-var speed_img_box = 0.08;
-var z_index_dv_img_box = 999;
-var vopa_img_box, idpopup_img_box;
-const DOCS_RE = /\!\[\]\([a-zA-Z0-9.\/_-]*\)/g;
-
 const takeChildrenSnapshot = (element) =>
   Array.from(element.childNodes).map((node) => node.cloneNode(true));
 
@@ -70,14 +62,14 @@ const modal = () => {
         const modalRoot = this;
         const getBySelector = (selector) => modalRoot.querySelector(selector);
 
-        var currentOther = off - catapult * 8;
-        var currentCatapult = catapult;
+        const currentOther = off - catapult * 8;
+        const currentCatapult = catapult;
 
-        var currentOtherLeft = leftOff - leftCatapult * 8;
-        var currentCatapultLeft = leftCatapult;
+        const currentOtherLeft = leftOff - leftCatapult * 8;
+        const currentCatapultLeft = leftCatapult;
 
-        var currentOtherMax = currentOther + currentOtherLeft;
-        var currentCatapultMax = currentCatapult + currentCatapultLeft;
+        const currentOtherMax = currentOther + currentOtherLeft;
+        const currentCatapultMax = currentCatapult + currentCatapultLeft;
 
         getBySelector(".modal-title").textContent = start;
         getBySelector("#attack-number").textContent = attackNumber;
@@ -138,34 +130,17 @@ const getLanguage = () => {
   }
 };
 
-const loadDocsPage = (
-  uniqueNumber,
-  elementId,
-  docsPath,
-  handleScrollTop = false
-) => {
+const loadDocsPage = (uniqueNumber, elementId, docsPath) => {
   // tries to load cached markdown file from localStorage
   // if not exists, fetch and save it
   // if docsPath for specific document is changed (and it must be refetched),
   // we remove old cached markdown, fetch new and save, alongside with path
   const element = document.getElementById(elementId);
-  const markdownFolder = `/static/markdown/${getLanguage()}`;
   if (localStorage.getItem(docsPath) !== null && !isLocalhost()) {
     element.innerHTML = marked.parse(localStorage.getItem(docsPath));
   } else {
     fetch(docsPath)
       .then((res) => res.text())
-      .then((codeText) => {
-        const imagesArray = [...codeText.matchAll(DOCS_RE)];
-        for (const imgTagArray of imagesArray) {
-          const imgTag = imgTagArray[0];
-          let path = imgTag.slice(4, -1);
-          path = `${markdownFolder}/${path}`;
-          const img = `<img id="large" class="img-thumbnail" style="height: 250px;" onclick="img_box(this)" src="${path}">`;
-          codeText = codeText.replaceAll(imgTag, img);
-        }
-        return codeText;
-      })
       .then((codeText) => {
         if (localStorage.getItem(String(uniqueNumber)) != null) {
           localStorage.removeItem(localStorage.getItem(String(uniqueNumber)));
@@ -175,61 +150,38 @@ const loadDocsPage = (
           localStorage.setItem(docsPath, codeText);
           localStorage.setItem(String(uniqueNumber), docsPath);
         }
-      })
-      .then(() => {
-        const params = new URLSearchParams(location.search);
-        if (location.hash !== "") {
-          setTimeout(() => {
-            localStorage.setItem(
-              `${uniqueNumber}-scroll-id`,
-              String(document.getElementById(location.hash.slice(1)).offsetTop)
-            );
-            location.search = "";
-          }, 300);
-        } else if (handleScrollTop) {
-          wholePageContentScroll(`${uniqueNumber}-scroll-id`);
-        }
       });
   }
 };
 
-const wholePageContentScroll = (key) => {
-  if (localStorage.getItem(key) != null) {
-    window.scrollTo(0, parseInt(localStorage.getItem(key), 10));
-  }
-  window.addEventListener("scroll", function () {
-    localStorage.setItem(key, String(window.scrollY));
-  });
-};
-
-const scroll_content_outline = () => {
+const activateEditTargetMenuScroll = () => {
   window.addEventListener("load", function () {
     const leftScrollElement = document.getElementById("leftscroll");
-    if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
+    if (localStorage.getItem("edit-target-menu-quote-scroll") != null) {
       window.scrollTo(
         0,
-        parseInt(localStorage.getItem("my_app_name_here-quote-scroll"), 10)
+        parseInt(localStorage.getItem("edit-target-menu-quote-scroll"), 10)
       );
     }
     if (
       leftScrollElement &&
-      localStorage.getItem("my_app_name_here-left-scroll") != null
+      localStorage.getItem("edit-target-menu-left-scroll") != null
     ) {
       leftScrollElement.scrollTop = parseInt(
-        localStorage.getItem("my_app_name_here-left-scroll"),
+        localStorage.getItem("edit-target-menu-left-scroll"),
         10
       );
     }
     window.addEventListener("scroll", function () {
       localStorage.setItem(
-        "my_app_name_here-quote-scroll",
+        "edit-target-menu-quote-scroll",
         String(window.scrollY)
       );
     });
     if (leftScrollElement) {
       leftScrollElement.addEventListener("scroll", function () {
         localStorage.setItem(
-          "my_app_name_here-left-scroll",
+          "edit-target-menu-left-scroll",
           String(leftScrollElement.scrollTop)
         );
       });
@@ -237,7 +189,7 @@ const scroll_content_outline = () => {
   });
 };
 
-const menu_toggle = () => {
+const menuToggle = () => {
   const menuToggleButton = document.getElementById("menu-toggle");
   const sidebarWrapper = document.getElementById("sidebar-wrapper");
   if (menuToggleButton && sidebarWrapper) {
@@ -280,7 +232,7 @@ const prettifyTimeDistance = (secs) => {
   return `${hh}:${mm}:${ss}`;
 };
 
-const calculate_distance = (element) => {
+const calculateVillagesDistance = (element) => {
   const world_speed = parseFloat(
     String(document.getElementById("speed_world").value)
   );
@@ -435,11 +387,11 @@ const handleClickButton = (
 };
 
 function getCookie(name) {
-  var cookieValue = null;
+  let cookieValue = null;
   if (document.cookie && document.cookie != "") {
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i].trim();
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
       if (cookie.substring(0, name.length + 1) == name + "=") {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
@@ -684,123 +636,6 @@ const removeOutline = (btn, dismissBtn, form, msg) => {
   buttonDismiss.disabled = true;
   submitForm.submit();
 };
-
-const imagePopupActivate = () => {
-  window.onload = function () {
-    var crtdv_img_box = document.createElement("div");
-    crtdv_img_box.id = "img_box";
-    document.getElementsByTagName("body")[0].appendChild(crtdv_img_box);
-    idpopup_img_box = document.getElementById("img_box");
-    idpopup_img_box.style.top = 0;
-    idpopup_img_box.style.left = 0;
-    idpopup_img_box.style.opacity = 0;
-    idpopup_img_box.style.width = "100%";
-    idpopup_img_box.style.height = "100%";
-    idpopup_img_box.style.display = "none";
-    idpopup_img_box.style.position = "fixed";
-    idpopup_img_box.style.cursor = "pointer";
-    idpopup_img_box.style.textAlign = "center";
-    idpopup_img_box.style.zIndex = z_index_dv_img_box;
-    idpopup_img_box.style.backgroundColor = bg_color_img_box;
-  };
-};
-const img_box = (self) => {
-  var namepic_img_box = typeof self === "string" ? self : self.src;
-  vopa_img_box = 0;
-  var hwin_img_box = window.innerHeight;
-  var wwin_img_box = window.innerWidth;
-  var himg_img_box, padtop_img_box, idfadein_img_box;
-  var img_img_box = new Image();
-  img_img_box.src = namepic_img_box;
-  img_img_box.onload = function () {
-    himg_img_box = img_img_box.height;
-    wimg_img_box = img_img_box.width;
-    idpopup_img_box.replaceChildren();
-    const popupImage = document.createElement("img");
-    popupImage.src = namepic_img_box;
-    idpopup_img_box.appendChild(popupImage);
-
-    if (wimg_img_box > wwin_img_box) {
-      idpopup_img_box.getElementsByTagName("img")[0].style.width = "90%";
-    } else if (himg_img_box > hwin_img_box) {
-      idpopup_img_box.getElementsByTagName("img")[0].style.height = "90%";
-      himg_img_box = (hwin_img_box * 90) / 100;
-    }
-
-    if (himg_img_box < hwin_img_box) {
-      padtop_img_box = hwin_img_box / 2 - himg_img_box / 2;
-      idpopup_img_box.style.paddingTop = padtop_img_box + "px";
-    } else {
-      idpopup_img_box.style.paddingTop = "0px";
-    }
-
-    if (allow_hide_scroll_img_box == "yes") {
-      document.body.style.overflow = "hidden";
-    }
-    idpopup_img_box.style.display = "block";
-  };
-
-  if (use_fade_inout_img_box == "yes") {
-    idfadein_img_box = setInterval(function () {
-      if (vopa_img_box <= 1.1) {
-        idpopup_img_box.style.opacity = vopa_img_box;
-        vopa_img_box += speed_img_box;
-      } else {
-        idpopup_img_box.style.opacity = 1;
-        clearInterval(idfadein_img_box);
-      }
-    }, 10);
-  } else {
-    idpopup_img_box.style.opacity = 1;
-  }
-  window.onkeyup = function (event) {
-    if (event.keyCode == 27) {
-      if (use_fade_inout_img_box == "yes") {
-        var idfadeout_img_box = setInterval(function () {
-          if (vopa_img_box >= 0) {
-            idpopup_img_box.style.opacity = vopa_img_box;
-            vopa_img_box -= speed_img_box;
-          } else {
-            idpopup_img_box.style.opacity = 0;
-            clearInterval(idfadeout_img_box);
-            idpopup_img_box.style.display = "none";
-            idpopup_img_box.replaceChildren();
-            document.body.style.overflow = "visible";
-            vopa_img_box = 0;
-          }
-        }, 10);
-      } else {
-        idpopup_img_box.style.opacity = 0;
-        idpopup_img_box.style.display = "none";
-        idpopup_img_box.replaceChildren();
-        document.body.style.overflow = "visible";
-      }
-    }
-  };
-
-  idpopup_img_box.onclick = function () {
-    if (use_fade_inout_img_box == "yes") {
-      var idfadeout_img_box = setInterval(function () {
-        if (vopa_img_box >= 0) {
-          idpopup_img_box.style.opacity = vopa_img_box;
-          vopa_img_box -= speed_img_box;
-        } else {
-          idpopup_img_box.style.opacity = 0;
-          clearInterval(idfadeout_img_box);
-          idpopup_img_box.style.display = "none";
-          idpopup_img_box.replaceChildren();
-          document.body.style.overflow = "visible";
-          vopa_img_box = 0;
-        }
-      }, 10);
-    } else {
-      idpopup_img_box.style.opacity = 0;
-      idpopup_img_box.style.display = "none";
-      idpopup_img_box.replaceChildren();
-      document.body.style.overflow = "visible";
-    }
-  };
-};
 const updateClipboard = (id) => {
   const newClip = document.getElementById(id).textContent;
   navigator.clipboard.writeText(newClip);
@@ -1035,14 +870,14 @@ const setupDataTable = (elementId) => {
     };
   }
   if (getLanguage() === "hu") {
-      data["language"] = {
-          url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/hu.json",
-      };
+    data["language"] = {
+      url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/hu.json",
+    };
   }
   if (getLanguage() === "cs") {
-      data["language"] = {
-          url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/cs.json",
-      };
+    data["language"] = {
+      url: "https://cdn.datatables.net/plug-ins/2.3.7/i18n/cs.json",
+    };
   }
   new DataTable(elementId, data);
 };

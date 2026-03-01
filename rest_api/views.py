@@ -16,11 +16,12 @@ import datetime
 import logging
 
 import prometheus_client
+import rest_framework.serializers as drf_serializers
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.db.models import Prefetch
-from django.http import HttpResponse
+from django.http import HttpResponse, RawPostDataException
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone, translation
@@ -31,6 +32,7 @@ from drf_spectacular.utils import (
     OpenApiParameter,
     OpenApiResponse,
     extend_schema,
+    inline_serializer,
 )
 from prometheus_client import multiprocess
 from rest_framework import status
@@ -54,7 +56,7 @@ from base.models import (
     WeightMaximum,
     WeightModel,
 )
-from rest_api import serializers
+from rest_api import serializers as api_serializers
 from rest_api.overview_data import get_overview_data, get_overview_data_many
 from rest_api.permissions import MetricsExportSecretPermission
 from rest_api.serializers import (
@@ -74,7 +76,8 @@ log = logging.getLogger(__name__)
 
 
 @extend_schema(
-    tags=["internal"],
+    auth=[],
+    tags=["public"],
     responses={200: OpenApiResponse(response=None, description="alive")},
 )
 @api_view(["GET"])
@@ -83,7 +86,24 @@ def healthcheck(request: Request):
     return Response(status=status.HTTP_200_OK)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    request=TargetTimeUpdateSerializer,
+    responses={
+        200: inline_serializer(
+            name="TargetTimeUpdateResponseSerializer",
+            fields={
+                "new": drf_serializers.CharField(),
+                "old": drf_serializers.CharField(),
+            },
+        ),
+        400: OpenApiResponse(response=OpenApiTypes.OBJECT, description="bad request"),
+        404: OpenApiResponse(
+            response=api_serializers.ErrorDetailSerializer,
+            description="object not found",
+        ),
+    },
+)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def target_time_update(request: Request):
@@ -117,7 +137,18 @@ def target_time_update(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    request=TargetDeleteSerializer,
+    responses={
+        204: OpenApiResponse(response=None, description="deleted"),
+        400: OpenApiResponse(response=OpenApiTypes.OBJECT, description="bad request"),
+        404: OpenApiResponse(
+            response=api_serializers.ErrorDetailSerializer,
+            description="object not found",
+        ),
+    },
+)
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_target(request: Request):
@@ -151,7 +182,24 @@ def delete_target(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    request=OverwiewStateHideSerializer,
+    responses={
+        200: inline_serializer(
+            name="OverviewStateUpdateResponseSerializer",
+            fields={
+                "name": drf_serializers.CharField(),
+                "class": drf_serializers.CharField(),
+            },
+        ),
+        400: OpenApiResponse(response=OpenApiTypes.OBJECT, description="bad request"),
+        404: OpenApiResponse(
+            response=api_serializers.ErrorDetailSerializer,
+            description="object not found",
+        ),
+    },
+)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def overview_state_update(request: Request):
@@ -176,7 +224,21 @@ def overview_state_update(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    request=ChangeWeightBuildingSerializer,
+    responses={
+        200: inline_serializer(
+            name="ChangeWeightBuildingResponseSerializer",
+            fields={"name": drf_serializers.CharField()},
+        ),
+        400: OpenApiResponse(response=OpenApiTypes.OBJECT, description="bad request"),
+        404: OpenApiResponse(
+            response=api_serializers.ErrorDetailSerializer,
+            description="object not found",
+        ),
+    },
+)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def change_weight_model_buildings(request: Request):
@@ -198,7 +260,18 @@ def change_weight_model_buildings(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    request=ChangeBuildingsArraySerializer,
+    responses={
+        200: OpenApiResponse(response=None, description="updated"),
+        400: OpenApiResponse(response=OpenApiTypes.OBJECT, description="bad request"),
+        404: OpenApiResponse(
+            response=api_serializers.ErrorDetailSerializer,
+            description="object not found",
+        ),
+    },
+)
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def change_buildings_array(request: Request):
@@ -218,7 +291,15 @@ def change_buildings_array(request: Request):
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    responses={
+        200: inline_serializer(
+            name="StripeConfigResponseSerializer",
+            fields={"publicKey": drf_serializers.CharField()},
+        )
+    },
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def stripe_config(request: Request):
@@ -226,7 +307,20 @@ def stripe_config(request: Request):
     return Response(stripe_config, status=status.HTTP_200_OK)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    request=StripeSessionAmount,
+    responses={
+        200: inline_serializer(
+            name="StripeCheckoutSessionResponseSerializer",
+            fields={
+                "sessionId": drf_serializers.CharField(),
+                "url": drf_serializers.CharField(),
+            },
+        ),
+        400: OpenApiResponse(response=OpenApiTypes.OBJECT, description="bad request"),
+    },
+)
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def stripe_checkout_session(request: Request):  # pragma: no cover
@@ -298,7 +392,23 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
     return Response(req.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    auth=[],
+    parameters=[
+        OpenApiParameter(
+            name="Stripe-Signature",
+            type=OpenApiTypes.STR,
+            location=OpenApiParameter.HEADER,
+            required=True,
+        ),
+    ],
+    request=OpenApiTypes.OBJECT,
+    responses={
+        200: OpenApiResponse(response=None, description="webhook processed"),
+        400: OpenApiResponse(response=None, description="invalid webhook"),
+    },
+)
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
@@ -306,10 +416,16 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
     import stripe
 
     endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
-    payload = request.body
+    try:
+        payload = request.body
+    except RawPostDataException:
+        log.warning("stripe_webhook() could not read request body")
+        metrics.ERRORS.labels("stripe_error").inc()
+        return Response(status=status.HTTP_400_BAD_REQUEST)
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+
     if sig_header is None:
-        log.error("stripe_webhook() sig_header is None")
+        log.warning("stripe_webhook() sig_header is None")
         metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -322,12 +438,12 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
         )
     except ValueError as err:
         # Invalid payload
-        log.error(f"stripe_webhook() invalid payload {err}")
+        log.warning(f"stripe_webhook() invalid payload {err}")
         metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
     except stripe.SignatureVerificationError as err:
         # Invalid signature
-        log.error(f"stripe_webhook() invalid signature {err}")
+        log.warning(f"stripe_webhook() invalid signature {err}")
         metrics.ERRORS.labels("stripe_error").inc()
         return Response(status=status.HTTP_400_BAD_REQUEST)
     except Exception as err:
@@ -394,7 +510,17 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    auth=[],
+    parameters=[OpenApiParameter(name="token", type=OpenApiTypes.STR, required=True)],
+    responses={
+        200: OpenApiResponse(
+            response=OpenApiTypes.BINARY,
+            description="Prometheus metrics payload",
+        )
+    },
+)
 @api_view(["GET"])
 @permission_classes([AllowAny, MetricsExportSecretPermission])
 def metrics_export(request: Request):
@@ -406,7 +532,10 @@ def metrics_export(request: Request):
     )
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    responses={500: OpenApiResponse(response=None, description="intentional error")},
+)
 @api_view(["GET"])
 @permission_classes([IsAdminUser])
 def trigger_error(_: Request) -> HttpResponse:
@@ -416,7 +545,8 @@ def trigger_error(_: Request) -> HttpResponse:
 
 
 @extend_schema(
-    tags=["overview"],
+    tags=["public"],
+    auth=[],
     description="Endpoint (anonymous) to get overview data by it's unique token, the same overview can be seen in graphical version using path: `https://plemiona-planer.pl/en/overview/{token}`",
     parameters=[
         OpenApiParameter(name="token", type=OpenApiTypes.STR),
@@ -424,10 +554,10 @@ def trigger_error(_: Request) -> HttpResponse:
     ],
     responses={
         200: OpenApiResponse(
-            response=serializers.OverviewSerializer, description="success"
+            response=api_serializers.OverviewSerializer, description="success"
         ),
         404: OpenApiResponse(
-            response=serializers.ErrorDetailSerializer,
+            response=api_serializers.ErrorDetailSerializer,
             description="there is no overview in database for provided token",
             examples=[
                 OpenApiExample(
@@ -437,7 +567,7 @@ def trigger_error(_: Request) -> HttpResponse:
             ],
         ),
         429: OpenApiResponse(
-            response=serializers.ErrorDetailSerializer,
+            response=api_serializers.ErrorDetailSerializer,
             description=f"too many requests, limit is {settings.REST_FRAMEWORK['DEFAULT_THROTTLE_RATES']['anon']} per IP",
             examples=[
                 OpenApiExample(
@@ -449,7 +579,7 @@ def trigger_error(_: Request) -> HttpResponse:
             ],
         ),
         500: OpenApiResponse(
-            response=serializers.ErrorDetailSerializer,
+            response=api_serializers.ErrorDetailSerializer,
             description="server error - report it",
             examples=[
                 OpenApiExample(
@@ -499,7 +629,26 @@ def public_overview(request: Request) -> HttpResponse:
     )
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    parameters=[
+        OpenApiParameter(name="language", type=OpenApiTypes.STR, enum=list(LANGUAGES))
+    ],
+    responses={
+        200: OpenApiResponse(
+            response=api_serializers.OverviewSerializer,
+            description="success",
+        ),
+        404: OpenApiResponse(
+            response=api_serializers.ErrorDetailSerializer,
+            description="shipment/overviews not found",
+        ),
+        500: OpenApiResponse(
+            response=api_serializers.ErrorDetailSerializer,
+            description="server error",
+        ),
+    },
+)
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def shipment_overviews(request: Request, pk: int) -> HttpResponse:
@@ -551,7 +700,18 @@ def shipment_overviews(request: Request, pk: int) -> HttpResponse:
     )
 
 
-@extend_schema(exclude=True)
+@extend_schema(
+    tags=["internal"],
+    request=ShipmentUpdateSendListSerializer,
+    responses={
+        200: OpenApiResponse(response=None, description="updated"),
+        400: OpenApiResponse(response=OpenApiTypes.OBJECT, description="bad request"),
+        404: OpenApiResponse(
+            response=api_serializers.ErrorDetailSerializer,
+            description="shipment not found",
+        ),
+    },
+)
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def shipment_add_to_send_lst(request: Request, pk: int) -> HttpResponse:
