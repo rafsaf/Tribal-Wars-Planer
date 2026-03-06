@@ -6,7 +6,7 @@
 {% block content %}
     <div class="fixed-scrollbar-container">
         <div class="container py-1" style="min-height: 70vh;font-size: large;">
-            <div style="margin-right:-15px;margin-left:-15px;">
+            <div>
                 {% if user.profile.is_premium %}
                     <div class="alert alert-success" role="alert">
                         {% trans 'Premium account active until' %} <b>{{user.profile.validity_date}}</b>
@@ -44,7 +44,7 @@
                 <p>{% trans 'Note, you can change your currency in' %} <b><a href="{% url 'base:settings' %}">{% trans "account settings" %}</a></b>.</p>
                 <h2><span class="badge bg-dark my-3">{% trans 'Buy now with Stripe:' %}</span></h2>
 
-                <select onchange="initializePaymentProcess(value, `{{prices.0.currency}}`)" id="amount-select" class="form-control" style="width: 30rem; font-size: 25px; margin-top: 0.5rem; margin-bottom: 1rem;">
+                <select onchange="initializePaymentProcess(value, `{{prices.0.currency}}`)" id="amount-select" class="form-control" style="max-width: 30rem; width: 100%; font-size: 25px; margin-top: 0.5rem; margin-bottom: 1rem;">
                     {% for price in prices %}
                         <option id="{{price.price_id}}" value="{{price.amount}}">{{price.product}}</option>
                     {% endfor %}
