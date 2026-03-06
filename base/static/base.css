@@ -168,6 +168,18 @@ a.btn.btn-secondary {
     font-size: 1.2rem;
     margin-top: 0rem !important;
   }
+  .navbar .navbar-collapse {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .navbar .dropdown-menu {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .navbar .dropdown-toggle {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 }
 
 .dt {
