@@ -21,6 +21,7 @@ def build_tag(request):
 
 
 def plausible_settings(request):
-    if settings.PLAUSIBLE_URL:
-        return {"PLAUSIBLE_URL": settings.PLAUSIBLE_URL}
-    return {}
+    return {
+        "PLAUSIBLE_DOMAIN": settings.PLAUSIBLE_DOMAIN,
+        "PLAUSIBLE_SCRIPT_PATH": settings.PLAUSIBLE_SCRIPT_PATH,
+    }
