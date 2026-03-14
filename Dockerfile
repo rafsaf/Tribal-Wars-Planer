@@ -80,6 +80,9 @@ RUN rm -rf default_disk_cache
 RUN apt-get update -y && apt-get install -y nginx postgresql-client
 COPY config/twp_nginx.conf /etc/nginx/nginx.conf
 
+ARG BUILD_TAG=unknown
+ENV BUILD_TAG=${BUILD_TAG}
+
 CMD ["/bin/bash", "/build/scripts/init_webserver.sh"]
 EXPOSE 80
 EXPOSE 8050

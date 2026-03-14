@@ -19,12 +19,12 @@
         <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js" integrity="sha512-6cPYokihlrofMNApz7OXVQNObWjLiKGIBBb7+UB+AuMiRCLKmFKgrwms21sHq3bdFFZWpfHYRJBJvMFMPj1S9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        {% if PLAUSIBLE_URL %}
-        <!-- Self hosted Privacy-friendly analytics by Plausible -->
-            <script async src="{{ PLAUSIBLE_URL }}"></script>
+        {% if PLAUSIBLE_DOMAIN and PLAUSIBLE_SCRIPT_PATH %}
+        <!-- Self hosted privacy-friendly analytics by Plausible -->
+            <script async src="{{ PLAUSIBLE_DOMAIN }}{{ PLAUSIBLE_SCRIPT_PATH }}"></script>
             <script>
                 window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-                plausible.init()
+                plausible.init({ endpoint: "{{ PLAUSIBLE_DOMAIN }}" })
             </script>
         {% endif %}
         {% block extra_media %}{% endblock %}

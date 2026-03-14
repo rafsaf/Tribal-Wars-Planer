@@ -41,6 +41,15 @@ jobs:
         with:
           images: rafsaf/twp-server
 
+      - name: Resolve build tag
+        id: build_tag
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = "release" ]; then
+            echo "value=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build and push latest twp-server image
         uses: docker/build-push-action@v6
         with:
@@ -53,6 +62,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            BUILD_TAG=${{ steps.build_tag.outputs.value }}
           platforms: linux/amd64,linux/arm64
 
   redeploy_stage:

@@ -14,7 +14,6 @@
 # ==============================================================================
 import os
 import sys
-import tomllib
 from pathlib import Path
 from typing import Any
 
@@ -24,15 +23,12 @@ from django.utils.translation import gettext_lazy
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-with open(BASE_DIR / "pyproject.toml", "rb") as f:
-    pyproject_toml = tomllib.load(f)
-
-BUILD_TAG = pyproject_toml["project"]["version"]
+BUILD_TAG = os.environ.get("BUILD_TAG", "unknown")
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
-PLAUSIBLE_URL = os.environ.get("PLAUSIBLE_URL", "")
+PLAUSIBLE_DOMAIN = os.environ.get("PLAUSIBLE_DOMAIN", "")
+PLAUSIBLE_SCRIPT_PATH = os.environ.get("PLAUSIBLE_SCRIPT_PATH", "")
 
 env_debug = os.environ.get("DEBUG", "false")
 if env_debug in ["True", "true"]:
