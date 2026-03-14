@@ -19,14 +19,6 @@ repos:
       - id: ruff-check
         args: [--fix]
 
-  - repo: https://github.com/rafsaf/pyproject-tag-check
-    rev: "1.1.0"
-    hooks:
-      - id: pyproject-tag-check
-        always_run: true
-        args:
-          - https://github.com/rafsaf/Tribal-Wars-Planer
-
   - repo: https://github.com/rtts/djhtml
     rev: "3.0.9"
     hooks:
