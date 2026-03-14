@@ -32,6 +32,8 @@ BUILD_TAG = pyproject_toml["project"]["version"]
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
+PLAUSIBLE_URL = os.environ.get("PLAUSIBLE_URL", "")
+
 env_debug = os.environ.get("DEBUG", "false")
 if env_debug in ["True", "true"]:
     DEBUG = True
@@ -184,6 +186,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "tribal_wars_planer.context_processors.build_tag",
+                "tribal_wars_planer.context_processors.plausible_settings",
             ],
         },
     },

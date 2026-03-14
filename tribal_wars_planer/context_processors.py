@@ -18,3 +18,9 @@ from django.conf import settings
 
 def build_tag(request):
     return {"BUILD_TAG": settings.BUILD_TAG, "DEBUG": settings.DEBUG}
+
+
+def plausible_settings(request):
+    if settings.PLAUSIBLE_URL:
+        return {"PLAUSIBLE_URL": settings.PLAUSIBLE_URL}
+    return {}
