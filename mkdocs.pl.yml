@@ -36,6 +36,8 @@ theme:
   language: pl
 
 extra:
+  plausible_domain: !ENV [PLAUSIBLE_DOMAIN, ""]
+  plausible_script_path: !ENV [PLAUSIBLE_SCRIPT_PATH, ""]
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/rafsaf/Tribal-Wars-Planer

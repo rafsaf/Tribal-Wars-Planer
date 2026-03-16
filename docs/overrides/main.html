@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  {% set plausible_domain = config.extra.plausible_domain | default('') %}
+  {% set plausible_script_path = config.extra.plausible_script_path | default('') %}
+  {% if plausible_domain and plausible_script_path %}
+    <!-- Self hosted privacy-friendly analytics by Plausible -->
+    <script async src="{{ plausible_domain }}{{ plausible_script_path }}"></script>
+    <script>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init({ endpoint: "{{ plausible_domain }}/api/event" })
+    </script>
+  {% endif %}
+{% endblock %}
