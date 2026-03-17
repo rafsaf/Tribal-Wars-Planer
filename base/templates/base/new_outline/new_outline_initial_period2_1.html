@@ -29,12 +29,12 @@
                                 {% if time.pk == instance.default_off_time_id %}
                                     <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
                                         {% csrf_token %}
-                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Default+Real">{{time.order}}</button>
                                     </form>
                                 {% else %}
                                     <form style="display:inline" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
                                         {% csrf_token %}
-                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Default+Real">{{time.order}}</button>
                                     </form>
                                 {% endif %}
                             {% empty %}
@@ -49,12 +49,12 @@
                             {% if time.pk == instance.default_fake_time_id %}
                                 <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&fake=true">
                                     {% csrf_token %}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Default+Fake">{{time.order}}</button>
                                 </form>
                             {% else %}
                                 <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&fake=true">
                                     {% csrf_token %}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Default+Fake">{{time.order}}</button>
                                 </form>
                             {% endif %}
                         {% empty %}
@@ -68,12 +68,12 @@
                             {% if time.pk == instance.default_ruin_time_id %}
                                 <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&ruin=true">
                                     {% csrf_token %}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-primary my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Default+Ruin">{{time.order}}</button>
                                 </form>
                             {% else %}
                                 <form style="display:inline;" method="POST" action="{% url 'base:planer_set_all_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&ruin=true">
                                     {% csrf_token %}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Default+Ruin">{{time.order}}</button>
                                 </form>
                             {% endif %}
                         {% empty %}
@@ -131,7 +131,7 @@
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean" >{% trans 'Create' %}</button>
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean plausible-event-name=TWP+Planer+Time+Create" >{% trans 'Create' %}</button>
 
                     </form>
 
@@ -195,7 +195,7 @@
                                         <form method="POST"
                                               action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
                                             {% csrf_token %}
-                                            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
+                                            <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger plausible-event-name=TWP+Planer+Time+Delete">{% trans 'Delete' %}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -235,7 +235,7 @@
                                     <form method="POST"
                                           action="{% url 'base:planer_delete_time' time.pk %}?page={{ page_obj.number}}&mode={{mode}}">
                                         {% csrf_token %}
-                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger">{% trans 'Delete' %}</button>
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-outline-danger plausible-event-name=TWP+Planer+Time+Delete">{% trans 'Delete' %}</button>
                                     </form>
                                 </div>
                             {% endif %}
@@ -262,7 +262,7 @@
                                 {% for time in outline_time %}
                                     <form style="display:inline" method="POST" action="{% url 'base:planer_set_all_time_page' time.pk %}?page={{ page_obj.number}}&mode={{mode}}&filtr={{ filtr }}">
                                         {% csrf_token %}
-                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-lg btn-light my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Page">{{time.order}}</button>
                                     </form>
                                 {% endfor %}
                             </th>
@@ -277,9 +277,9 @@
                                 <th style="min-width: 15vh !important;" class="text-start">
                                     {% for time in outline_time %}
                                         {% if time.pk == target.outline_time.pk %}
-                                            <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-primary my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                            <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-primary my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Target">{{time.order}}</button>
                                         {% else %}
-                                            <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-light my-1 py-0 px-1 me-1">{{time.order}}</button>
+                                            <button id="{{target.pk}}-time-{{time.pk}}" onclick="changeTargetTime(`{{target.pk}}`,`{{time.pk}}`);" class="btn btn-lg btn-light my-1 py-0 px-1 me-1 plausible-event-name=TWP+Planer+Time+Set+Target">{{time.order}}</button>
                                         {% endif %}
                                     {% empty %}
                                         <span data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Create at least one Time above' %}">

@@ -99,14 +99,14 @@
                     data: 'send_url',
                     title: '{% trans "Link" %}',
                     render: function (data, type, row) {
-                        return `<a href="${data}" target="_blank">${row.send_url_name}</a>`;
+                        return `<a href="${data}" target="_blank" class="plausible-event-name=TWP+Shipment+Open+Send+Link">${row.send_url_name}</a>`;
                     }
                 },
                 {
                     data: null,
                     title: '{% trans "Action" %}',
                     render: (data, type, row) => {
-                        return `<button id='send-btn-${row.id}' ${row.is_send ? 'disabled' : ''} class="send-btn btn btn-light-no-border btn-light" data-id="${row.id}">{% trans "Mark send" %}</button>`;
+                        return `<button id='send-btn-${row.id}' ${row.is_send ? 'disabled' : ''} class="send-btn btn btn-light-no-border btn-light plausible-event-name=TWP+Shipment+Mark+Send" data-id="${row.id}">{% trans "Mark send" %}</button>`;
                     },
                     orderable: false
                 },

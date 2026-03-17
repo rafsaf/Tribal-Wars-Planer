@@ -11,24 +11,24 @@
       <div class="w-100">
         <div class="mb-4 mt-2">
           {% if mode == "real" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active plausible-event-name=TWP+Planer+Tab+Reals" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
+            <a class="t-tab-teal plausible-event-name=TWP+Planer+Tab+Reals" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
 
           {% endif %}
           {% if mode == "fake" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active plausible-event-name=TWP+Planer+Tab+Fakes" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
+            <a class="t-tab-teal plausible-event-name=TWP+Planer+Tab+Fakes" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
 
           {% endif %}
           {% if mode == "ruin" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active plausible-event-name=TWP+Planer+Tab+Ruins" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
+            <a class="t-tab-teal plausible-event-name=TWP+Planer+Tab+Ruins" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
 
           {% endif %}
         </div>
@@ -147,9 +147,9 @@
 
         <div class="btn-group my-3">
 
-          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`,``,true);" id="form1-btn" class="btn btn-ocean">{% trans 'Save targets' %}</button>
+          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`,``,true);" id="form1-btn" class="btn btn-ocean plausible-event-name=TWP+Planer+Save+Targets">{% trans 'Save targets' %}</button>
 
-          <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`,`write-an-outline-percentage`,true);updateAfterClick(document.getElementById(`write-an-outline-percentage`),`{{estimated_time}}`, ``)" id="form-complete-btn" class="btn btn-outline-ocean"><i class="bi bi-pen" style="font-size: 1em;"></i> {% trans 'Write an outline' %}<span id="write-an-outline-percentage"></span></button>
+          <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`,`write-an-outline-percentage`,true);updateAfterClick(document.getElementById(`write-an-outline-percentage`),`{{estimated_time}}`, ``)" id="form-complete-btn" class="btn btn-outline-ocean plausible-event-name=TWP+Planer+Write+Outline"><i class="bi bi-pen" style="font-size: 1em;"></i> {% trans 'Write an outline' %}<span id="write-an-outline-percentage"></span></button>
 
         </div>
       </div>
@@ -270,7 +270,7 @@
                   <input type="hidden" name="form2" value=""/>
                   {% csrf_token %}
                   {{form2|crispy}}
-                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`,``,true);" class="btn btn-ocean" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
+                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`,``,true);" class="btn btn-ocean plausible-event-name=TWP+Planer+Save+Available+Troops" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
                 </form>
               </div>
             </div>
@@ -293,7 +293,7 @@
                 <input type="hidden" name="form3" value="">
                 {% csrf_token %}
                 {{form3|crispy}}
-                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Save+Date" id="form3-btn" >{% trans 'Save' %}</button>
               </form>
 
             </div>
@@ -313,7 +313,7 @@
                 <input type="hidden" name="form4" value="">
                 {% csrf_token %}
                 {{ form4|crispy }}
-                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form4-form`);" class="btn btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form4-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Save+Parameters" id="form4-btn">{% trans 'Save' %}</button>
               </form>
             </div>
           </div>
@@ -344,7 +344,7 @@
                   <input type="hidden" name="form7" value="">
                   {% csrf_token %}
                   {{form7|crispy}}
-                  <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean" id="form7-btn" >{% trans 'Save' %}</button>
+                  <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Save+Morale" id="form7-btn" >{% trans 'Save' %}</button>
                 </form>
               {% endif %}
               {% if instance.morale_on and morale_dict %}
@@ -404,7 +404,7 @@
                 <input type="hidden" name="form5" value="">
                 {% csrf_token %}
                 {{form5|crispy}}
-                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form5-form`);" class="btn btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form5-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Save+Night+Bonus" id="form5-btn" >{% trans 'Save' %}</button>
               </form>
 
             </div>
@@ -435,7 +435,7 @@
                 <input type="hidden" name="form6" value="">
                 {% csrf_token %}
                 {{form6|crispy}}
-                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-ocean" id="form6-btn" >{% trans 'Save' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Save+Buildings" id="form6-btn" >{% trans 'Save' %}</button>
               </form>
             </div>
           </div>
@@ -449,11 +449,11 @@
       <div class="h-100">
         <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
           <li class="nav-item navitem100">
-            <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+            <a class="nav-link active ocean-tab-left plausible-event-name=TWP+Planer+Docs+Info" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
           </li>
 
           <li class="nav-item navitem100">
-            <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+            <a class="nav-link ocean-tab-right plausible-event-name=TWP+Planer+Docs+Examples" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
           </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
@@ -544,6 +544,10 @@
     });
     loadDocsPage(6, "planer-docs-form-info", "{% static 'markdown/'|add:LANG|add:'/planer_form_info.md' %}");
     loadDocsPage(7, "planer-docs-form-example", "{% static 'markdown/'|add:LANG|add:'/planer_form_example.md' %}");
+    document.querySelector("#outline-options")?.addEventListener("change", (event) => {
+      const field = String(event.target.name || event.target.id || "unknown").replace(/^id_/, "");
+      twpTrack("TWP Planer Option Change", { field: field.slice(0, 60) });
+    });
 
     setupDataTable("#morale-table");
   </script>

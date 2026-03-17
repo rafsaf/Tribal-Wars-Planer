@@ -15,28 +15,28 @@
         <div class="mt-2 mb-5" id='leftscroll'>
             <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                 <li class="nav-item navitem100">
-                    <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-bs-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
+                    <a class="nav-link active ocean-tab-left plausible-event-name=TWP+Results+Tab+Outline" id="pills-home-tab" data-bs-toggle="pill" href="#pills-outline" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Outline results' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-sum-up" data-bs-toggle="pill" href="#pills-outline-sum-up" role="tab" aria-controls="pills-sum-up" aria-selected="false">{% trans 'Sum Up' %}</a>
+                    <a class="nav-link ocean-tab-mid plausible-event-name=TWP+Results+Tab+Sum+Up" id="pills-sum-up" data-bs-toggle="pill" href="#pills-outline-sum-up" role="tab" aria-controls="pills-sum-up" aria-selected="false">{% trans 'Sum Up' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
+                    <a class="nav-link ocean-tab-mid plausible-event-name=TWP+Results+Tab+Copy+Urls" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-outline-copy1" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline urls' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
+                    <a class="nav-link ocean-tab-mid plausible-event-name=TWP+Results+Tab+Copy+Results" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-outline-copy2" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Copy Outline results' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-mid" id="pills-export" data-bs-toggle="pill" href="#pills-outline-export" role="tab" aria-controls="pills-export" aria-selected="false">{% trans 'Left troops' %}</a>
+                    <a class="nav-link ocean-tab-mid plausible-event-name=TWP+Results+Tab+Left+Troops" id="pills-export" data-bs-toggle="pill" href="#pills-outline-export" role="tab" aria-controls="pills-export" aria-selected="false">{% trans 'Left troops' %}</a>
                 </li>
                 <li class="nav-item navitem100">
-                    <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
+                    <a class="nav-link ocean-tab-right plausible-event-name=TWP+Results+Tab+Deff+Collection" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-deff" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Deff collection' %}</a>
                 </li>
 
             </ul>
             <div class="tab-content pt-1" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-outline" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="p-2 my-2 mb-3  bg-light"><i class="bi bi-info-square"></i> {% trans 'To send messages with a button, you will need a script that you can find' %} <a href="/{{ LANG }}/documentation/scripts/sending_messages/"> {% trans 'here' %}</a>.
+                    <div class="p-2 my-2 mb-3  bg-light"><i class="bi bi-info-square"></i> {% trans 'To send messages with a button, you will need a script that you can find' %} <a class="plausible-event-name=TWP+Results+Open+Send+Script+Docs" href="/{{ LANG }}/documentation/scripts/sending_messages/"> {% trans 'here' %}</a>.
             {% comment %}
             
             <br>{% trans '<b>Warning!</b> New version of script released 30.08.2021. No backward compability!!!' %}<a target="_blank" href="{% url 'base:documentation' %}#send-script"> {% trans 'Check out here.' %}
@@ -66,7 +66,7 @@
                                 <input type="hidden" name="form1" value="">
                                 {% csrf_token %}
                                 {{form1|crispy}}
-                                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean">{% trans 'Save' %}</button>
+                                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean plausible-event-name=TWP+Results+Save+Settings">{% trans 'Save' %}</button>
                             </form>
 
 
@@ -103,20 +103,20 @@
                                         <tr>
                                             <th scope="row">{{ item.created }}</th>
                                             <th>{{item.player}}</th>
-                                            <th><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
+                                            <th><a class="plausible-event-name=TWP+Results+Open+Removed+Member+Page" target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}</a>
                                             </th>
                                             <th>
                                                 {% if item.show_hidden %}
-                                                    <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                                    <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue plausible-event-name=TWP+Results+Toggle+Removed+Show+Hidden" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
                                                     </button>
                                                 {% else %}
-                                                    <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                                    <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error plausible-event-name=TWP+Results+Toggle+Removed+Show+Hidden" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
                                                     </button>
                                                 {% endif %}
                                             </th>
                                             <th>{{ item.number_of_orders }}</th>
                                             <th>
-                                                <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|iriencode }}&subject={{ subject|iriencode }}&message={{ item.message|iriencode }}">{% trans 'Send' %}</a>
+                                                <a class="send plausible-event-name=TWP+Results+Send+Removed+Message" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|iriencode }}&subject={{ subject|iriencode }}&message={{ item.message|iriencode }}">{% trans 'Send' %}</a>
                                             </th>
                                         </tr>
                                     {% endfor %}
@@ -143,21 +143,21 @@
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <th>{{item.player}}</th>
                                     <th>
-                                        <a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}
+                                        <a class="plausible-event-name=TWP+Results+Open+Member+Page" target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{{item.get_absolute_url}}">{% trans 'Go to member Page' %}
                                         </a>
                                     </th>
                                     <th>
                                         {% if item.show_hidden %}
-                                            <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                            <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-blue plausible-event-name=TWP+Results+Toggle+Show+Hidden" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
                                             </button>
                                         {% else %}
-                                            <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
+                                            <button id="{{item.token}}" class="btn btn-light-no-border btn-light md-error plausible-event-name=TWP+Results+Toggle+Show+Hidden" onclick="changeIsHiddenState(`{{instance.id}}`,`{{item.token}}`);">{{item.show_hidden}}
                                             </button>
                                         {% endif %}
                                     </th>
                                     <th>{{ item.number_of_orders }}</th>
                                     <th>
-                                        <a class="send" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|iriencode }}&subject={{ subject|iriencode }}&message={{ item.message|iriencode }}">{% trans 'Send' %}</a>
+                                        <a class="send plausible-event-name=TWP+Results+Send+Message" onclick="changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|iriencode }}&subject={{ subject|iriencode }}&message={{ item.message|iriencode }}">{% trans 'Send' %}</a>
                                     </th>
                                 </tr>
                             {% endfor %}

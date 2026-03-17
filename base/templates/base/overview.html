@@ -14,13 +14,13 @@
     <div class="col-12 col-lg-10 offset-lg-1" style="padding: 0 0" >
         <ul class="nav nav-tabs mb-3 mt-1 font-nav" id="pills-tab" role="tablist" style="font-size:x-large;">
             <li class="nav-item" >
-                <a style="color:black;" class="nav-link active" id="a-pills-outline-copy" data-bs-toggle="pill" href="#pills-outline-copy" role="tab" aria-controls="pills-outline-copy" aria-selected="true">{% trans 'Copy' %}</a>
+                <a style="color:black;" class="nav-link active plausible-event-name=TWP+Overview+Tab+Copy" id="a-pills-outline-copy" data-bs-toggle="pill" href="#pills-outline-copy" role="tab" aria-controls="pills-outline-copy" aria-selected="true">{% trans 'Copy' %}</a>
             </li>
             <li class="nav-item">
-                <a style="color: black;" class="nav-link" id="a-pills-outline-detail" data-bs-toggle="pill" href="#pills-outline-details" role="tab" aria-controls="pills-outline-detail" aria-selected="false">{% trans 'Details' %}</a>
+                <a style="color: black;" class="nav-link plausible-event-name=TWP+Overview+Tab+Details" id="a-pills-outline-detail" data-bs-toggle="pill" href="#pills-outline-details" role="tab" aria-controls="pills-outline-detail" aria-selected="false">{% trans 'Details' %}</a>
             </li>
             <li class="nav-item">
-                <a style="color: black;" class="nav-link" id="a-pills-outline-source" data-bs-toggle="pill" href="#pills-outline-source" role="tab" aria-controls="pills-outline-source" aria-selected="false">{% trans 'Source' %}</a>
+                <a style="color: black;" class="nav-link plausible-event-name=TWP+Overview+Tab+Source" id="a-pills-outline-source" data-bs-toggle="pill" href="#pills-outline-source" role="tab" aria-controls="pills-outline-source" aria-selected="false">{% trans 'Source' %}</a>
             </li>
         </ul>
     </div>
@@ -39,7 +39,7 @@
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
-                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`new-text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                                <button class="btn btn-outline-ocean overview-btn plausible-event-name=TWP+Overview+Copy+Standard" onclick="handleButtonClipboardUpdate(this,`new-text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
                             {% endif %}
                         </h1>
 
@@ -73,7 +73,7 @@
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
-                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`deputy-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}
+                                <button class="btn btn-outline-ocean overview-btn plausible-event-name=TWP+Overview+Copy+Deputy" onclick="handleButtonClipboardUpdate(this,`deputy-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}
                                 </button>
                             {% endif %}
                         </h1>
@@ -106,7 +106,7 @@
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
-                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`text-simple-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                                <button class="btn btn-outline-ocean overview-btn plausible-event-name=TWP+Overview+Copy+Simple" onclick="handleButtonClipboardUpdate(this,`text-simple-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
                             {% endif %}
                         </h1>
 
@@ -132,7 +132,7 @@
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
-                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                                <button class="btn btn-outline-ocean overview-btn plausible-event-name=TWP+Overview+Copy+Old" onclick="handleButtonClipboardUpdate(this,`text-extend-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
                             {% endif %}
                         </h1>
 
@@ -159,7 +159,7 @@
                             {% if android_tw_app_webview %}
                                 <h5>{% trans "Copy content from textarea below" %}</h5>
                             {% else %}
-                                <button class="btn btn-outline-ocean overview-btn" onclick="handleButtonClipboardUpdate(this,`table-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
+                                <button class="btn btn-outline-ocean overview-btn plausible-event-name=TWP+Overview+Copy+Table" onclick="handleButtonClipboardUpdate(this,`table-copy`,`{% trans 'Successfully copied!'%}`, `{% trans 'Click to copy again'%}`, `{% trans 'Error! Please copy the textarea below'%}`);">{% trans 'Copy to clipboard' %}</button>
                             {% endif %}
                         </h1>
                         <small class="form-text text-muted">{% trans 'Hint: Use Text format if u have many commands. ' %}</small>
@@ -301,9 +301,9 @@
             <div class="row" id='outline-fit'>
                 <div class="col-12 col-lg-8 offset-lg-2 mt-2">
                     <h2>{% trans 'Source' %}</h2>
-                    <p>{% trans 'Source in JSON format available under API link:' %} <a href="{{ request.scheme }}://{{ request.get_host }}{% url 'rest_api:public_outline_overview' %}?language={{LANG}}&token={{overview.token}}">{{ request.scheme }}://{{ request.get_host }}{% url 'rest_api:public_outline_overview' %}?language={{LANG}}&token={{overview.token}}</a></p>
+                    <p>{% trans 'Source in JSON format available under API link:' %} <a class="plausible-event-name=TWP+Overview+Open+API+Link" href="{{ request.scheme }}://{{ request.get_host }}{% url 'rest_api:public_outline_overview' %}?language={{LANG}}&token={{overview.token}}">{{ request.scheme }}://{{ request.get_host }}{% url 'rest_api:public_outline_overview' %}?language={{LANG}}&token={{overview.token}}</a></p>
 
-                    <p>{% trans 'Documentation' %}: <a href="{{ request.scheme }}://{{ request.get_host }}/{{LANG}}/documentation/developers/">{{ request.scheme }}://{{ request.get_host }}/{{LANG}}/documentation/developers/</a></p>
+                    <p>{% trans 'Documentation' %}: <a class="plausible-event-name=TWP+Overview+Open+Developer+Docs" href="{{ request.scheme }}://{{ request.get_host }}/{{LANG}}/documentation/developers/">{{ request.scheme }}://{{ request.get_host }}/{{LANG}}/documentation/developers/</a></p>
                 </div>
 
             </div>
