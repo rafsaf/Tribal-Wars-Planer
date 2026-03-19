@@ -5,10 +5,10 @@
 {% block title %}{{instance.name|capfirst}} - {{instance.world.game_name}}{% endblock %}
 {% block sidebar %}
     <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{instance.name|capfirst}} - {{instance.world.game_name}}</div>
-    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Outline+Sidebar+Deff {% if request.resolver_match.url_name == 'planer_detail_get_deff' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Other' %}</div> <span class="ms-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Deff raport' %}</span></a>
-    <a class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Outline+Sidebar+Troops {% if request.resolver_match.url_name == 'planer_detail' %}focus-side-link{% endif %}" href="{% url 'base:planer_detail' instance.id %}" role="button"> 1. {% trans "Troops data" %} </a>
-    <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Outline+Sidebar+Planer {% if request.resolver_match.url_name == 'planer_initial_form' or request.resolver_match.url_name == 'planer_initial' or request.resolver_match.url_name == 'planer_initial_detail' %}focus-side-link{% endif %}">2. {% trans 'Planer' %}</a>
-    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Outline+Sidebar+Results {% if request.resolver_match.url_name == 'planer_detail_results' %}focus-side-link{% endif %}">3. {% trans 'Results' %}</a>
+    <a href="{% url 'base:planer_detail_get_deff' instance.id %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Outline+Sidebar+Click plausible-event-item=deff {% if request.resolver_match.url_name == 'planer_detail_get_deff' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Other' %}</div> <span class="ms-2" style="display: inline-block;line-height:1;vertical-align: middle;">{% trans 'Deff raport' %}</span></a>
+    <a class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Outline+Sidebar+Click plausible-event-item=troops {% if request.resolver_match.url_name == 'planer_detail' %}focus-side-link{% endif %}" href="{% url 'base:planer_detail' instance.id %}" role="button"> 1. {% trans "Troops data" %} </a>
+    <a id="planer-link" onclick="onPlanerLinkClick(`{% trans 'Hold on a second...' %}`);" href="{% url 'base:planer_initial_form' instance.id %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Outline+Sidebar+Click plausible-event-item=planer {% if request.resolver_match.url_name == 'planer_initial_form' or request.resolver_match.url_name == 'planer_initial' or request.resolver_match.url_name == 'planer_initial_detail' %}focus-side-link{% endif %}">2. {% trans 'Planer' %}</a>
+    <a href="{% url 'base:planer_detail_results' instance.id %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Outline+Sidebar+Click plausible-event-item=results {% if request.resolver_match.url_name == 'planer_detail_results' %}focus-side-link{% endif %}">3. {% trans 'Results' %}</a>
 
 {% endblock %}
 {% block phonesidebar %}
@@ -47,7 +47,7 @@
                                     <input type="hidden" name="form-input" value="">
                                     {% csrf_token %}
                                     {{form_input_type|crispy}}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean plausible-event-name=TWP+Troops+Input+Type+Save">{% trans 'Save' %}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean plausible-event-name=TWP+Troops+Action plausible-event-action=save_input_type">{% trans 'Save' %}</button>
                                 </form>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                                 </script>
                             {% endif %}
                         </div>
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3 plausible-event-name=TWP+Troops+Army+Submit">{% trans 'Submit' %}</button>
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3 plausible-event-name=TWP+Troops+Action plausible-event-action=submit plausible-event-type=army">{% trans 'Submit' %}</button>
                     </form>
                 </div>
                 <script>
@@ -210,7 +210,7 @@
                                 </script>
                             {% endif %}
                         </div>
-                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3 plausible-event-name=TWP+Troops+Deff+Submit">{% trans 'Submit' %}</button>
+                        <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean my-3 plausible-event-name=TWP+Troops+Action plausible-event-action=submit plausible-event-type=deff">{% trans 'Submit' %}</button>
                     </form>
                 </div>
                 <script>
@@ -228,10 +228,10 @@
             <div class="h-100">
                 <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
                     <li class="nav-item navitem100">
-                        <a class="nav-link active ocean-tab-left plausible-event-name=TWP+Troops+Docs+Info" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+                        <a class="nav-link active ocean-tab-left plausible-event-name=TWP+Docs+Tab plausible-event-page=troops plausible-event-tab=info" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
                     </li>
                     <li class="nav-item navitem100">
-                        <a class="nav-link ocean-tab-right plausible-event-name=TWP+Troops+Docs+Examples" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+                        <a class="nav-link ocean-tab-right plausible-event-name=TWP+Docs+Tab plausible-event-page=troops plausible-event-tab=examples" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">

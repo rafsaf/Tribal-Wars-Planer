@@ -20,7 +20,7 @@
                 {% for shipment in shipments %}
                     <tr>
                         <td>
-                            <a class="btn btn-secondary my-2 plausible-event-name=TWP+Shipments+Open+Shipment" href="{% url 'shipments:shipment' shipment.pk %}" role="button">{{shipment.name}}</a>
+                            <a class="btn btn-secondary my-2 plausible-event-name=TWP+Shipments+List+Action plausible-event-action=open" href="{% url 'shipments:shipment' shipment.pk %}" role="button">{{shipment.name}}</a>
                         </td>
                         <td><p class="my-2 mt-3">{{shipment.date}}</p></td>
                         <td><p class="my-2 mt-3">{{shipment.created_at}}</p></td>
@@ -36,14 +36,14 @@
 
                                 <form action="{% url 'shipments:shipment_hide' shipment.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                     {% csrf_token %}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2 plausible-event-name=TWP+Shipments+Hide">{% trans 'Hide' %}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2 plausible-event-name=TWP+Shipments+List+Action plausible-event-action=hide">{% trans 'Hide' %}</button>
                                 </form>
 
                             {% else %}
 
                                 <form action="{% url 'shipments:shipment_hide' shipment.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                     {% csrf_token %}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2 plausible-event-name=TWP+Shipments+Show">{% trans 'Show' %}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2 plausible-event-name=TWP+Shipments+List+Action plausible-event-action=show">{% trans 'Show' %}</button>
                                 </form>
 
                             {% endif %}
@@ -51,7 +51,7 @@
                         </td>
                         <td>
                             <div>
-                                <button type="button" class="btn btn-secondary my-2 plausible-event-name=TWP+Shipments+Delete+Open" data-bs-toggle="modal" data-bs-target="#ValidationModal-{{shipment.id}}">{% trans 'Delete' %}</button>
+                                <button type="button" class="btn btn-secondary my-2 plausible-event-name=TWP+Shipments+List+Action plausible-event-action=delete_open" data-bs-toggle="modal" data-bs-target="#ValidationModal-{{shipment.id}}">{% trans 'Delete' %}</button>
                             </div>
 
                             <div class="modal fade" id="ValidationModal-{{shipment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -75,7 +75,7 @@
 
                                             <form id="form-{{shipment.id}}-form" action="{% url 'shipments:shipment_delete' shipment.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                                 {% csrf_token %}
-                                                <button onclick="removeOutline(this,`dismiss-{{shipment.id}}-btn`,`form-{{shipment.id}}-form`,`{% trans 'Processing...' %}`)" class="btn btn-danger plausible-event-name=TWP+Shipments+Delete+Confirm">{% trans 'Delete forever' %}</button>
+                                                <button onclick="removeOutline(this,`dismiss-{{shipment.id}}-btn`,`form-{{shipment.id}}-form`,`{% trans 'Processing...' %}`)" class="btn btn-danger plausible-event-name=TWP+Shipments+List+Action plausible-event-action=delete_confirm">{% trans 'Delete forever' %}</button>
 
                                             </form>
                                         </div>
@@ -89,9 +89,9 @@
     </div>
 
     {% if show_hidden %}
-        <p><a class="btn btn-outline-ocean my-3 plausible-event-name=TWP+Shipments+Hide+Hidden" href="{% url 'shipments:my_shipments' %}?show-hidden=false" role="button">{% trans "Don't show hidden" %}</a></p>
+        <p><a class="btn btn-outline-ocean my-3 plausible-event-name=TWP+Shipments+List+Action plausible-event-action=hide_hidden" href="{% url 'shipments:my_shipments' %}?show-hidden=false" role="button">{% trans "Don't show hidden" %}</a></p>
     {% else %}
-        <p><a class="btn btn-outline-ocean my-3 plausible-event-name=TWP+Shipments+Show+Hidden" href="{% url 'shipments:my_shipments' %}?show-hidden=true" role="button">{% trans 'Show hidden' %}</a></p>
+        <p><a class="btn btn-outline-ocean my-3 plausible-event-name=TWP+Shipments+List+Action plausible-event-action=show_hidden" href="{% url 'shipments:my_shipments' %}?show-hidden=true" role="button">{% trans 'Show hidden' %}</a></p>
     {% endif %}
 
 {% endblock %}

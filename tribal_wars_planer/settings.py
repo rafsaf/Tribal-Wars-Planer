@@ -29,6 +29,14 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 PLAUSIBLE_DOMAIN = os.environ.get("PLAUSIBLE_DOMAIN", "")
 PLAUSIBLE_SCRIPT_PATH = os.environ.get("PLAUSIBLE_SCRIPT_PATH", "")
+PLAUSIBLE_CAPTURE_ON_LOCALHOST = os.environ.get(
+    "PLAUSIBLE_CAPTURE_ON_LOCALHOST", "false"
+).lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
 
 env_debug = os.environ.get("DEBUG", "false")
 if env_debug in ["True", "true"]:

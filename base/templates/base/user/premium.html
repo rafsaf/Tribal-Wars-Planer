@@ -41,16 +41,16 @@
                         </tr>
                     </tbody>
                 </table>
-                <p>{% trans 'Note, you can change your currency in' %} <b><a class="plausible-event-name=TWP+Premium+Account+Settings" href="{% url 'base:settings' %}">{% trans "account settings" %}</a></b>.</p>
+                <p>{% trans 'Note, you can change your currency in' %} <b><a class="plausible-event-name=TWP+Premium+Action plausible-event-action=open_settings" href="{% url 'base:settings' %}">{% trans "account settings" %}</a></b>.</p>
                 <h2><span class="badge bg-dark my-3">{% trans 'Buy now with Stripe:' %}</span></h2>
 
-                <select onchange="twpTrack('TWP Premium Amount Change', {option: this.options[this.selectedIndex].text}); initializePaymentProcess(value, `{{prices.0.currency}}`)" id="amount-select" class="form-control" style="max-width: 30rem; width: 100%; font-size: 25px; margin-top: 0.5rem; margin-bottom: 1rem;">
+                <select onchange="twpTrack('TWP Premium Action', { action: 'amount_change', option: this.options[this.selectedIndex].text }); initializePaymentProcess(value, `{{prices.0.currency}}`)" id="amount-select" class="form-control" style="max-width: 30rem; width: 100%; font-size: 25px; margin-top: 0.5rem; margin-bottom: 1rem;">
                     {% for price in prices %}
                         <option id="{{price.price_id}}" value="{{price.amount}}">{{price.product}}</option>
                     {% endfor %}
                 </select>
                 <div>
-                    <button class="btn btn-ocean btn-lg mb-5 py-2 px-3 plausible-event-name=TWP+Premium+Buy+Now" style="font-size: x-large;min-width: 11rem;" id="payment-button"><i class="bi bi-wallet me-2"></i>{% trans "Buy now"%}</button>
+                    <button class="btn btn-ocean btn-lg mb-5 py-2 px-3 plausible-event-name=TWP+Premium+Action plausible-event-action=buy_now" style="font-size: x-large;min-width: 11rem;" id="payment-button"><i class="bi bi-wallet me-2"></i>{% trans "Buy now"%}</button>
                 </div>
                 <p>{% trans "Please note, this is a <b>one-time transaction</b>, your card or account will (never) be associated with this site and no fees will be ever charged when your premium account expires." %}</p>
                 <p>{% trans "There are no obstacles to extend an active premium account." %}</p>
