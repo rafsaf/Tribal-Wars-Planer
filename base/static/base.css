@@ -169,8 +169,13 @@ a.btn.btn-secondary {
     margin-top: 0rem !important;
   }
   .navbar .navbar-collapse {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+  }
+  .navbar .navbar-collapse .ms-1,
+  .navbar .navbar-collapse .dropdown-toggle {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
   .navbar .dropdown-menu {
     margin-left: 0.5rem;
@@ -454,8 +459,15 @@ select.form-control,
   text-decoration: underline !important;
 }
 
-.toogle-icon:focus {
+.toggle-icon:focus,
+.navbar-toggler:focus {
   box-shadow: none !important;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    margin-left: 0.5rem;
+  }
 }
 
 @media (min-width: 992px) {

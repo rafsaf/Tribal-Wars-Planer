@@ -11,24 +11,24 @@
       <div class="w-100">
         <div class="mb-4 mt-2">
           {% if mode == "real" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active plausible-event-name=TWP+Planer+Setup+Tab plausible-event-tab=reals" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
+            <a class="t-tab-teal plausible-event-name=TWP+Planer+Setup+Tab plausible-event-tab=reals" href="?t=real">{% trans 'Reals' %} &nbsp; <span class="badge bg-secondary">{{calc.len_real}}</span></a>
 
           {% endif %}
           {% if mode == "fake" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active plausible-event-name=TWP+Planer+Setup+Tab plausible-event-tab=fakes" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
+            <a class="t-tab-teal plausible-event-name=TWP+Planer+Setup+Tab plausible-event-tab=fakes" href="?t=fake">{% trans 'Fakes' %} &nbsp; <span class="badge bg-secondary">{{calc.len_fake}}</span></a>
 
           {% endif %}
           {% if mode == "ruin" %}
-            <a class="t-tab-teal t-tab-teal-active" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
+            <a class="t-tab-teal t-tab-teal-active plausible-event-name=TWP+Planer+Setup+Tab plausible-event-tab=ruins" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
 
           {% else %}
-            <a class="t-tab-teal" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
+            <a class="t-tab-teal plausible-event-name=TWP+Planer+Setup+Tab plausible-event-tab=ruins" href="?t=ruin">{% trans 'Ruins' %} &nbsp; <span class="badge bg-secondary">{{calc.len_ruin}}</span></a>
 
           {% endif %}
         </div>
@@ -147,9 +147,9 @@
 
         <div class="btn-group my-3">
 
-          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`,``,true);" id="form1-btn" class="btn btn-ocean">{% trans 'Save targets' %}</button>
+          <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form1-form`,``,true);" id="form1-btn" class="btn btn-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=save_targets">{% trans 'Save targets' %}</button>
 
-          <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`,`write-an-outline-percentage`,true);updateAfterClick(document.getElementById(`write-an-outline-percentage`),`{{estimated_time}}`, ``)" id="form-complete-btn" class="btn btn-outline-ocean"><i class="bi bi-pen" style="font-size: 1em;"></i> {% trans 'Write an outline' %}<span id="write-an-outline-percentage"></span></button>
+          <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form-complete`,`write-an-outline-percentage`,true);updateAfterClick(document.getElementById(`write-an-outline-percentage`),`{{estimated_time}}`, ``)" id="form-complete-btn" class="btn btn-outline-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=write_outline"><i class="bi bi-pen" style="font-size: 1em;"></i> {% trans 'Write an outline' %}<span id="write-an-outline-percentage"></span></button>
 
         </div>
       </div>
@@ -256,7 +256,7 @@
         <div class="card">
           <div class="card-header" id="headingOne">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{% if form2.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '1. Available Troops' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button plausible-event-name=TWP+Planer+Setup+Open+Section plausible-event-section=available_troops" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{% if form2.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '1. Available Troops' %}</button></h5>
 
           </div>
 
@@ -270,7 +270,7 @@
                   <input type="hidden" name="form2" value=""/>
                   {% csrf_token %}
                   {{form2|crispy}}
-                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`,``,true);" class="btn btn-ocean" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
+                  <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`,``,true);" class="btn btn-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=save_available_troops" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
                 </form>
               </div>
             </div>
@@ -280,7 +280,7 @@
         <div class="card">
           <div class="card-header" id="headingTwo">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">{% if form3.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '2. Setting the date' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button plausible-event-name=TWP+Planer+Setup+Open+Section plausible-event-section=setting_date" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">{% if form3.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '2. Setting the date' %}</button></h5>
 
           </div>
 
@@ -293,7 +293,7 @@
                 <input type="hidden" name="form3" value="">
                 {% csrf_token %}
                 {{form3|crispy}}
-                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-ocean" id="form3-btn" >{% trans 'Save' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=save_date" id="form3-btn" >{% trans 'Save' %}</button>
               </form>
 
             </div>
@@ -303,7 +303,7 @@
         <div class="card">
           <div class="card-header" id="headingThree">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">{% if form4.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '3. Outline parameters' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button plausible-event-name=TWP+Planer+Setup+Open+Section plausible-event-section=outline_parameters" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">{% if form4.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '3. Outline parameters' %}</button></h5>
 
           </div>
 
@@ -313,7 +313,7 @@
                 <input type="hidden" name="form4" value="">
                 {% csrf_token %}
                 {{ form4|crispy }}
-                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form4-form`);" class="btn btn-ocean" id="form4-btn">{% trans 'Save' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form4-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=save_parameters" id="form4-btn">{% trans 'Save' %}</button>
               </form>
             </div>
           </div>
@@ -322,7 +322,7 @@
         <div class="card">
           <div class="card-header" id="headingFour">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% if form7.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '4. Morale' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button plausible-event-name=TWP+Planer+Setup+Open+Section plausible-event-section=morale" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">{% if form7.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '4. Morale' %}</button></h5>
 
           </div>
 
@@ -344,7 +344,7 @@
                   <input type="hidden" name="form7" value="">
                   {% csrf_token %}
                   {{form7|crispy}}
-                  <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean" id="form7-btn" >{% trans 'Save' %}</button>
+                  <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form7-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=save_morale" id="form7-btn" >{% trans 'Save' %}</button>
                 </form>
               {% endif %}
               {% if instance.morale_on and morale_dict %}
@@ -381,7 +381,7 @@
         <div class="card">
           <div class="card-header" id="headingFive">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '5. Avoid night bonus' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button plausible-event-name=TWP+Planer+Setup+Open+Section plausible-event-section=night_bonus" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '5. Avoid night bonus' %}</button></h5>
 
           </div>
 
@@ -404,7 +404,7 @@
                 <input type="hidden" name="form5" value="">
                 {% csrf_token %}
                 {{form5|crispy}}
-                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form5-form`);" class="btn btn-ocean" id="form5-btn" >{% trans 'Save' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form5-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=save_night_bonus" id="form5-btn" >{% trans 'Save' %}</button>
               </form>
 
             </div>
@@ -414,7 +414,7 @@
         <div class="card">
           <div class="card-header" id="headingSix">
 
-            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '6. Ruining' %}</button></h5>
+            <h5 class="mb-0"><button class="btn btn-link collapsed py-2 text-start card-header-button plausible-event-name=TWP+Planer+Setup+Open+Section plausible-event-section=ruining" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">{% if form5.errors %}<span><i class="bi bi-exclamation-diamond" style="font-size: 1.2em;position: relative;top: 0.13em;color:red"></i></span>{% endif %} {% trans '6. Ruining' %}</button></h5>
 
           </div>
 
@@ -435,7 +435,7 @@
                 <input type="hidden" name="form6" value="">
                 {% csrf_token %}
                 {{form6|crispy}}
-                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-ocean" id="form6-btn" >{% trans 'Save' %}</button>
+                <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form6-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=save_buildings" id="form6-btn" >{% trans 'Save' %}</button>
               </form>
             </div>
           </div>
@@ -449,11 +449,11 @@
       <div class="h-100">
         <ul class="nav nav-pills mb-3 mt-1" id="pills-tab" role="tablist">
           <li class="nav-item navitem100">
-            <a class="nav-link active ocean-tab-left" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
+            <a class="nav-link active ocean-tab-left plausible-event-name=TWP+Docs+Tab plausible-event-page=planer_setup plausible-event-tab=info" id="pills-home-tab" data-bs-toggle="pill" href="#pills-opis" role="tab" aria-controls="pills-home" aria-selected="true">{% trans 'Info' %}</a>
           </li>
 
           <li class="nav-item navitem100">
-            <a class="nav-link ocean-tab-right" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
+            <a class="nav-link ocean-tab-right plausible-event-name=TWP+Docs+Tab plausible-event-page=planer_setup plausible-event-tab=examples" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-przyklady" role="tab" aria-controls="pills-contact" aria-selected="false">{% trans 'Examples' %}</a>
           </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
@@ -527,6 +527,89 @@
   {% get_current_language as LANG %}
   <script>
     var currentBuildings = JSON.parse(document.getElementById('initial-buildings').textContent);
+    const trackedSetupFieldFocuses = new Set();
+    let trackedRuiningBuildingsFocus = false;
+
+    function getPlausibleTrackingConfig(element) {
+      if (!(element instanceof HTMLElement)) {
+        return null;
+      }
+
+      let eventName = "";
+      const props = {};
+
+      for (const className of element.classList) {
+        if (!className.startsWith("plausible-event-")) {
+          continue;
+        }
+
+        const separatorIndex = className.indexOf("=");
+        if (separatorIndex === -1) {
+          continue;
+        }
+
+        const key = className.slice("plausible-event-".length, separatorIndex);
+        const value = className.slice(separatorIndex + 1);
+
+        if (!value) {
+          continue;
+        }
+
+        if (key === "name") {
+          eventName = value;
+          continue;
+        }
+
+        props[key.replace(/-/g, "_")] = value;
+      }
+
+      if (!eventName) {
+        return null;
+      }
+
+      return { eventName, props };
+    }
+
+    document.querySelector("#outline-options")?.addEventListener("focusin", (event) => {
+      const fieldElement = event.target instanceof HTMLElement
+        ? event.target.closest("input, textarea, select")
+        : null;
+      const trackingConfig = fieldElement ? getPlausibleTrackingConfig(fieldElement) : null;
+
+      if (!trackingConfig) {
+        return;
+      }
+
+      const focusKey = [
+        trackingConfig.eventName,
+        trackingConfig.props.form || "",
+        trackingConfig.props.field || fieldElement.name || fieldElement.id || "",
+      ].join(":");
+
+      if (trackedSetupFieldFocuses.has(focusKey)) {
+        return;
+      }
+
+      trackedSetupFieldFocuses.add(focusKey);
+      twpTrack(trackingConfig.eventName, {
+        ...trackingConfig.props,
+        interaction: "focus",
+      });
+    });
+
+    document.querySelector(".multi-select")?.addEventListener("click", () => {
+      if (trackedRuiningBuildingsFocus) {
+        return;
+      }
+
+      trackedRuiningBuildingsFocus = true;
+      twpTrack("TWP+Form+Field", {
+        form: "RuiningOutlineForm",
+        field: "initial_outline_buildings",
+        interaction: "focus",
+      });
+    });
+
     var instance = new SelectPure(".multi-select", {
       options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "Wall" %}`,`{% trans "Watchtower" %}`),
       multiple: true,
@@ -538,6 +621,12 @@
           instance._setValue(currentBuildings, false, true);
           return;
         }
+        twpTrack("TWP+Form+Field", {
+          form: "RuiningOutlineForm",
+          field: "initial_outline_buildings",
+          interaction: "change",
+          value_count: String(newValue.length),
+        });
         changeBuildingsArray(`{{instance.pk}}`, newValue);
         currentBuildings = newValue;
       }

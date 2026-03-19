@@ -36,6 +36,36 @@ from . import models
 log = logging.getLogger(__name__)
 
 
+def append_widget_classes(field: forms.Field, *classes: str) -> None:
+    existing_classes = str(field.widget.attrs.get("class", "")).split()
+    for css_class in classes:
+        if css_class and css_class not in existing_classes:
+            existing_classes.append(css_class)
+    field.widget.attrs["class"] = " ".join(existing_classes).strip()
+
+
+def add_plausible_field_tracking(
+    form: forms.BaseForm,
+    *,
+    event_name: str,
+    form_name: str | None = None,
+    field_names: list[str] | None = None,
+) -> None:
+    tracked_form_name = form_name or form.__class__.__name__
+    selected_field_names = field_names or list(form.fields.keys())
+    for field_name in selected_field_names:
+        field = form.fields.get(field_name)
+        if field is None:
+            continue
+
+        append_widget_classes(
+            field,
+            f"plausible-event-name={event_name}",
+            f"plausible-event-form={tracked_form_name}",
+            f"plausible-event-field={field_name}",
+        )
+
+
 def sanitize_troops_html(value: str | None) -> str:
     def _allow_only_span_grey(tag: str, name: str, attr_value: str) -> bool:
         if tag != "span" or name != "class":
@@ -542,6 +572,10 @@ class AvailableTroopsForm(forms.ModelForm):
         self.fields["initial_outline_target_dist"].help_text = gettext_lazy(
             "Greater than or equal to 0 and less than or equal to your world maximum: %(max_noble_distance)s. This is STRICT limit of distance for any NOBLE regardless of distance from the front line."
         ) % {"max_noble_distance": self.outline.world.max_noble_distance}
+        add_plausible_field_tracking(
+            self,
+            event_name="TWP+Form+Field",
+        )
 
     def clean_initial_outline_target_dist(self) -> int:
         noble_dist: int = self.cleaned_data["initial_outline_target_dist"]
@@ -658,6 +692,13 @@ class SettingDateForm(forms.ModelForm):
         label=gettext_lazy("Set new date"), input_formats=["%Y-%m-%d"]
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        add_plausible_field_tracking(
+            self,
+            event_name="TWP+Form+Field",
+        )
+
 
 class SetNewOutlineFilters(forms.ModelForm):
     class Meta:
@@ -771,6 +812,13 @@ class ModeOutlineForm(forms.ModelForm):
             "mode_guide": forms.RadioSelect,
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        add_plausible_field_tracking(
+            self,
+            event_name="TWP+Form+Field",
+        )
+
 
 class RuiningOutlineForm(forms.ModelForm):
     class Meta:
@@ -812,6 +860,13 @@ class RuiningOutlineForm(forms.ModelForm):
             },
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        add_plausible_field_tracking(
+            self,
+            event_name="TWP+Form+Field",
+        )
+
 
 class MoraleOutlineForm(forms.ModelForm):
     class Meta:
@@ -826,6 +881,13 @@ class MoraleOutlineForm(forms.ModelForm):
             ),
             "morale_on": gettext_lazy("Is morale calculation active in this outline:"),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        add_plausible_field_tracking(
+            self,
+            event_name="TWP+Form+Field",
+        )
 
 
 class ModeTargetSetForm(forms.ModelForm):
@@ -879,6 +941,13 @@ class NightBonusSetForm(forms.ModelForm):
         widget=forms.NumberInput,
         initial=12,
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        add_plausible_field_tracking(
+            self,
+            event_name="TWP+Form+Field",
+        )
 
     def clean(self):
         super().clean()

@@ -16,7 +16,7 @@
                     <div class="btn-group">
                         <form method='POST'>
                             {% csrf_token %} {{form|crispy}}
-                            <button name="form" type="submit" class="btn btn-success">
+                            <button name="form" type="submit" class="btn btn-success plausible-event-name=TWP+Planer+Target+Action plausible-event-action=save_changes">
                                 {% trans 'Change and save' %}
                             </button>
                             <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal">
@@ -85,22 +85,22 @@
 
                                     <div class="d-flex justify-content-center align-items-center flex-wrap gap-1" style="border:0;">
                                         <form method="POST" action="{% url 'base:planer_move_down' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">{% csrf_token %}
-                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" /></svg>
+                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=move plausible-event-direction=down"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="rgba(133, 221, 32, 0.938)" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" /></svg>
                                             </button>
                                         </form>
 
                                         <form method="POST" action="{% url 'base:planer_move_up' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                             {% csrf_token %}
-                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default"><svg name="{{weight.start}}" width="1.8em" height="1.8em" viewBox="0 0 16 16"class="bi bi-arrow-up-circle-fill" fill="rgba(133, 221, 32, 0.938)"xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-10.646.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z" /></svg>
+                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=move plausible-event-direction=up"><svg name="{{weight.start}}" width="1.8em" height="1.8em" viewBox="0 0 16 16"class="bi bi-arrow-up-circle-fill" fill="rgba(133, 221, 32, 0.938)"xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-10.646.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z" /></svg>
                                             </button>
                                         </form>
 
                                         <form method="POST" action="{% url 'base:planer_initial_delete' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">{% csrf_token %}
-                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-x-circle-fill " fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" /></svg>
+                                            <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=delete"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-x-circle-fill " fill="#6c757d" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" /></svg>
                                             </button>
                                         </form>
 
-                                        <button id="modalbutton" class="btn btn-default" type="button" data-bs-toggle="modal" data-bs-target="#form-modal" data-attacknumber="{{forloop.counter}}" data-start="{{weight.start}}" data-off="{{weight.off}}" data-leftoff="{{weight.state.off_left}}" data-catapult="{{weight.catapult}}" data-leftcatapult="{{weight.state.catapult_left}}" data-leftnobleman="{{weight.state.nobleman_left}}" data-nobleman="{{weight.nobleman}}" data-id="{{weight.id}}"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z" /><path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" /></svg>
+                                        <button id="modalbutton" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=open_edit" type="button" data-bs-toggle="modal" data-bs-target="#form-modal" data-attacknumber="{{forloop.counter}}" data-start="{{weight.start}}" data-off="{{weight.off}}" data-leftoff="{{weight.state.off_left}}" data-catapult="{{weight.catapult}}" data-leftcatapult="{{weight.state.catapult_left}}" data-leftnobleman="{{weight.state.nobleman_left}}" data-nobleman="{{weight.nobleman}}" data-id="{{weight.id}}"><svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-journals" fill="#17a2b8" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z" /><path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" /></svg>
                                         </button>
 
                                         <div class="btn-group">
@@ -108,15 +108,15 @@
                                             <div class="dropdown-menu">
                                                 <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 2 %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 2' %}</button>
+                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=divide plausible-event-count=2">{% trans 'Divide into 2' %}</button>
                                                 </form>
                                                 <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 3 %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 3' %}</button>
+                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=divide plausible-event-count=3">{% trans 'Divide into 3' %}</button>
                                                 </form>
                                                 <form method="POST" action="{% url 'base:planer_divide' instance.id target.id weight.id 4 %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default">{% trans 'Divide into 4' %}</button>
+                                                    <button onclick="this.disabled=true,this.form.submit();" class=" dropdown-item btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=divide plausible-event-count=4">{% trans 'Divide into 4' %}</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -204,7 +204,7 @@
                                         {% endfor %}
                                     </th>
                                     <th>
-                                        <button onclick="this.disabled=true;this.form.submit();" name="form-filter" type="submit" class="btn btn-ocean btn-sm">
+                                        <button onclick="this.disabled=true;this.form.submit();" name="form-filter" type="submit" class="btn btn-ocean btn-sm plausible-event-name=TWP+Planer+Target+Action plausible-event-action=save_filter">
                                             {% trans 'Save' %}
                                         </button>
                                     </th>
@@ -218,13 +218,13 @@
                     <ul class="pagination mb-2 mt-0">
                         <li class="page-item">
                             <div class="dropdown" >
-                                <button class="btn btn-secondary dropdown-toggle me-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
+                                <button class="btn btn-secondary dropdown-toggle me-1 plausible-event-name=TWP+Planer+Target+Sort plausible-event-action=open" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Sort' %}</button>
 
                                 <div class="dropdown-menu my-0 py-0" style="font-size: small;max-height:65vh" aria-labelledby="dropdownMenuButton">
                                     <div style="overflow-y: auto;">
-                                        <a id='distance2' class="dropdown-item" href="?page=1&sort=distance&filtr={{filtr}}">{% trans 'Ascending by distance' %}</a>
-                                        <a id='random_distance2' class="dropdown-item" href="?page=1&sort=random_distance&filtr={{filtr}}">{% trans 'Random by distance' %}</a>
-                                        <a id='-distance2' class="dropdown-item" href="?page=1&sort=-distance&filtr={{filtr}}">{% trans 'Descending by distance' %}</a>
+                                        <a id='distance2' class="dropdown-item plausible-event-name=TWP+Planer+Target+Sort plausible-event-sort=distance plausible-event-order=asc" href="?page=1&sort=distance&filtr={{filtr}}">{% trans 'Ascending by distance' %}</a>
+                                        <a id='random_distance2' class="dropdown-item plausible-event-name=TWP+Planer+Target+Sort plausible-event-sort=distance plausible-event-order=random" href="?page=1&sort=random_distance&filtr={{filtr}}">{% trans 'Random by distance' %}</a>
+                                        <a id='-distance2' class="dropdown-item plausible-event-name=TWP+Planer+Target+Sort plausible-event-sort=distance plausible-event-order=desc" href="?page=1&sort=-distance&filtr={{filtr}}">{% trans 'Descending by distance' %}</a>
                                         <a id='-off_left2' class="dropdown-item" href="?page=1&sort=-off_left&filtr={{filtr}}">{% trans 'Descending by number of units' %}</a>
                                         <a id='-nobleman_left2' class="dropdown-item" href="?page=1&sort=-nobleman_left&filtr={{filtr}}">{% trans 'Descending by number of noble' %}</a>
 
@@ -251,10 +251,10 @@
                         </li>
                         {% if page_obj.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page=1&sort={{sort}}&filtr={{filtr}}">1</a>
+                                <a class="page-link plausible-event-name=TWP+Planer+Target+Page plausible-event-direction=first" href="?page=1&sort={{sort}}&filtr={{filtr}}">1</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}&filtr={{filtr}}">{% trans 'Previous' %}</a>
+                                <a class="page-link plausible-event-name=TWP+Planer+Target+Page plausible-event-direction=previous" href="?page={{ page_obj.previous_page_number }}&sort={{sort}}&filtr={{filtr}}">{% trans 'Previous' %}</a>
                             </li>
                         {% else %}
                             <li class="page-item disabled">
@@ -269,10 +269,10 @@
                         </li>
                         {% if page_obj.has_next %}
                             <li class="page-item">
-                                <a class="page-link" id="submit" href="?page={{ page_obj.next_page_number }}&sort={{sort}}&filtr={{filtr}}">{% trans 'Next' %}</a>
+                                <a class="page-link plausible-event-name=TWP+Planer+Target+Page plausible-event-direction=next" id="submit" href="?page={{ page_obj.next_page_number }}&sort={{sort}}&filtr={{filtr}}">{% trans 'Next' %}</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}&filtr={{filtr}}">{{page_obj.paginator.num_pages}}</a>
+                                <a class="page-link plausible-event-name=TWP+Planer+Target+Page plausible-event-direction=last" href="?page={{ page_obj.paginator.num_pages }}&sort={{sort}}&filtr={{filtr}}">{{page_obj.paginator.num_pages}}</a>
                         {% else %}
                             <li class="page-item disabled">
                                 <a class="page-link">{% trans 'Next' %}</a>
@@ -288,7 +288,7 @@
                                     <input name="sort" type="hidden" value="{{sort}}">
                                     <input class="form-control py-2" maxlength="50" placeholder="{% trans 'coord or nick...' %}" name="filtr" type="search" value="{{filtr}}">
                                     <span>
-                                        <button class="btn btn-outline-secondary" style="border-color: rgb(204, 202, 202)" type="submit">
+                                        <button class="btn btn-outline-secondary plausible-event-name=TWP+Planer+Target+Action plausible-event-action=search" style="border-color: rgb(204, 202, 202)" type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                             </svg>
                                         </button>
@@ -310,7 +310,7 @@
 
                                         <form action="{% url 'base:planer_hide_weight' instance.id target.id weight.id %}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}" method="POST">
                                             {% csrf_token %}
-                                            <button style="padding: 0;" class="btn btn-default" onclick="this.disabled=true;this.form.submit();">
+                                            <button style="padding: 0;" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=toggle_hidden" onclick="this.disabled=true;this.form.submit();">
                                                 {% if weight.hidden == False %}
                                                     <svg style="padding: 0;" width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
@@ -357,39 +357,39 @@
                                             {% if target.ruin %}
                                                 <form method="POST" action="{% url 'base:planer_add_first_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=first plausible-event-type=off">
                                                         <img src="{% static 'images/green-up-btn.svg' %}" alt="up">
                                                     </button>
                                                 </form>
                                                 <form method="POST" action="{% url 'base:planer_add_last_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=last plausible-event-type=off">
                                                         <img src="{% static 'images/green-down-btn.svg' %}" alt="down">
                                                     </button>
                                                 </form>
                                             {% elif target.fake %}
                                                 <form method="POST" action="{% url 'base:planer_add_first_fake' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=first plausible-event-type=fake">
                                                         <img src="{% static 'images/green-up-btn.svg' %}" alt="up">
                                                     </button>
                                                 </form>
                                                 <form method="POST" action="{% url 'base:planer_add_last_fake' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=last plausible-event-type=fake">
                                                         <img src="{% static 'images/green-down-btn.svg' %}" alt="down">
                                                     </button>
                                                 </form>
                                             {% else %}
                                                 <form method="POST" action="{% url 'base:planer_add_first_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=first plausible-event-type=off">
                                                         <img src="{% static 'images/green-up-btn.svg' %}" alt="up">
                                                     </button>
                                                 </form>
                                                 <form method="POST" action="{% url 'base:planer_add_last_off' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=last plausible-event-type=off">
                                                         <img src="{% static 'images/green-down-btn.svg' %}" alt="down">
                                                     </button>
                                                 </form>
@@ -432,39 +432,39 @@
                                             {% if target.ruin %}
                                                 <form method="POST" action="{% url 'base:planer_add_first_ruin' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=first plausible-event-type=ruin">
                                                         <img src="{% static 'images/teal-up-btn.svg' %}" alt="up">
                                                     </button>
                                                 </form>
                                                 <form method="POST" action="{% url 'base:planer_add_last_ruin' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=last plausible-event-type=ruin">
                                                         <img src="{% static 'images/teal-down-btn.svg' %}" alt="down">
                                                     </button>
                                                 </form>
                                             {% elif target.fake %}
                                                 <form method="POST" action="{% url 'base:planer_add_first_fake_noble' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=first plausible-event-type=fake_noble">
                                                         <img src="{% static 'images/teal-up-btn.svg' %}" alt="up">
                                                     </button>
                                                 </form>
                                                 <form method="POST" action="{% url 'base:planer_add_last_fake_noble' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=last plausible-event-type=fake_noble">
                                                         <img src="{% static 'images/teal-down-btn.svg' %}" alt="down">
                                                     </button>
                                                 </form>
                                             {% else %}
                                                 <form method="POST" action="{% url 'base:planer_add_first' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=first plausible-event-type=noble">
                                                         <img src="{% static 'images/teal-up-btn.svg' %}" alt="up">
                                                     </button>
                                                 </form>
                                                 <form method="POST" action="{% url 'base:planer_add_last' instance.id target.id weight.id%}?page={{ page_obj.number }}&sort={{ sort }}&filtr={{filtr}}">
                                                     {% csrf_token %}
-                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default">
+                                                    <button onclick="this.disabled=true,this.form.submit();" class="btn btn-default plausible-event-name=TWP+Planer+Target+Action plausible-event-action=add plausible-event-position=last plausible-event-type=noble">
                                                         <img src="{% static 'images/teal-down-btn.svg' %}" alt="down">
                                                     </button>
                                                 </form>

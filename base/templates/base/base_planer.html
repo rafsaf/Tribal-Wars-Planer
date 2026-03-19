@@ -23,7 +23,7 @@
                 {% for instance in outlines %}
                     <tr class="{% if instance.status != 'active' %}row-expired{% endif %}">
                         <td>
-                            <a class="btn btn-secondary my-2" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+                            <a class="btn btn-secondary my-2 plausible-event-name=TWP+Planer+List+Action plausible-event-action=open_outline" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
                             {% if instance.parent_outline_id %}
                                 <br><small>{% trans '(Copied from ' %}{{instance.parent_outline_name}})</small>
                             {% endif %}
@@ -38,14 +38,14 @@
 
                                 <form action="{% url 'base:planer_status' instance.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                     {% csrf_token %}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2">{% trans 'Hide' %}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2 plausible-event-name=TWP+Planer+List+Action plausible-event-action=hide">{% trans 'Hide' %}</button>
                                 </form>
 
                             {% else %}
 
                                 <form action="{% url 'base:planer_status' instance.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                     {% csrf_token %}
-                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2">{% trans 'Show' %}</button>
+                                    <button onclick="this.disabled=true;this.form.submit();" class="btn btn-secondary my-2 plausible-event-name=TWP+Planer+List+Action plausible-event-action=show">{% trans 'Show' %}</button>
                                 </form>
 
                             {% endif %}
@@ -53,7 +53,7 @@
                         </td>
                         <td>
                             <div>
-                                <button type="button" class="btn btn-secondary my-2" data-bs-toggle="modal" data-bs-target="#Duplicate-{{instance.id}}">{% trans 'Duplicate' %}</button>
+                                <button type="button" class="btn btn-secondary my-2 plausible-event-name=TWP+Planer+List+Action plausible-event-action=duplicate_open" data-bs-toggle="modal" data-bs-target="#Duplicate-{{instance.id}}">{% trans 'Duplicate' %}</button>
                             </div>
 
                             <div class="modal fade" id="Duplicate-{{instance.id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -79,7 +79,7 @@
                                             <button id="duplicate-{{instance.id}}-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 <b>{% trans 'Close' %}</b>
                                             </button>
-                                            <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`duplicate-{{instance.id}}-form`,``,true);" class="btn btn-ocean">{% trans 'Duplicate' %}</button>
+                                            <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`duplicate-{{instance.id}}-form`,``,true);" class="btn btn-ocean plausible-event-name=TWP+Planer+List+Action plausible-event-action=duplicate_submit">{% trans 'Duplicate' %}</button>
 
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
                         </td>
                         <td>
                             <div>
-                                <button type="button" class="btn btn-secondary my-2" data-bs-toggle="modal" data-bs-target="#ValidationModal-{{instance.id}}">{% trans 'Delete' %}</button>
+                                <button type="button" class="btn btn-secondary my-2 plausible-event-name=TWP+Planer+List+Action plausible-event-action=delete_open" data-bs-toggle="modal" data-bs-target="#ValidationModal-{{instance.id}}">{% trans 'Delete' %}</button>
                             </div>
 
                             <div class="modal fade" id="ValidationModal-{{instance.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -116,7 +116,7 @@
 
                                             <form id="form-{{instance.id}}-form" action="{% url 'base:planer_delete' instance.id %}?show-hidden={{ show_hidden | lower }}" method="POST">
                                                 {% csrf_token %}
-                                                <button onclick="removeOutline(this,`dismiss-{{instance.id}}-btn`,`form-{{instance.id}}-form`,`{% trans 'Processing...' %}`)" class="btn btn-danger">{% trans 'Delete forever' %}</button>
+                                                <button onclick="removeOutline(this,`dismiss-{{instance.id}}-btn`,`form-{{instance.id}}-form`,`{% trans 'Processing...' %}`)" class="btn btn-danger plausible-event-name=TWP+Planer+List+Action plausible-event-action=delete_confirm">{% trans 'Delete forever' %}</button>
 
                                             </form>
                                         </div>
@@ -130,9 +130,9 @@
     </div>
 
     {% if show_hidden %}
-        <p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer' %}?show-hidden=false" role="button">{% trans "Don't show hidden" %}</a></p>
+        <p><a class="btn btn-outline-ocean my-3 plausible-event-name=TWP+Planer+List+Action plausible-event-action=hide_hidden" href="{% url 'base:planer' %}?show-hidden=false" role="button">{% trans "Don't show hidden" %}</a></p>
     {% else %}
-        <p><a class="btn btn-outline-ocean my-3" href="{% url 'base:planer' %}?show-hidden=true" role="button">{% trans 'Show hidden' %}</a></p>
+        <p><a class="btn btn-outline-ocean my-3 plausible-event-name=TWP+Planer+List+Action plausible-event-action=show_hidden" href="{% url 'base:planer' %}?show-hidden=true" role="button">{% trans 'Show hidden' %}</a></p>
     {% endif %}
 
 {% endblock %}

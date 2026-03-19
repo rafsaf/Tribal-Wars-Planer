@@ -24,7 +24,59 @@
             <script async src="{{ PLAUSIBLE_DOMAIN }}{{ PLAUSIBLE_SCRIPT_PATH }}"></script>
             <script>
                 window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-                plausible.init({ endpoint: "{{ PLAUSIBLE_DOMAIN }}/api/event" })
+                function twpNormalizePlausibleUrl(rawUrl) {
+                    if (!rawUrl) {
+                        return rawUrl;
+                    }
+
+                    try {
+                        var parsedUrl = new URL(rawUrl, window.location.origin);
+                        parsedUrl.pathname = parsedUrl.pathname
+                            .replace(/\/overview\/[^/?#]+(?=\/|$)/, "/overview/_TOKEN_")
+                            .replace(/\/planer\/\d+(?=\/|$)/g, "/planer/_OUTLINE_")
+                            .replace(/\/planer-target\/\d+(?=\/|$)/g, "/planer-target/_TARGET_");
+                        return parsedUrl.toString();
+                    } catch (error) {
+                        return rawUrl
+                            .replace(/\/overview\/[^/?#]+(?=\/|$)/, "/overview/_TOKEN_")
+                            .replace(/\/planer\/\d+(?=\/|$)/g, "/planer/_OUTLINE_")
+                            .replace(/\/planer-target\/\d+(?=\/|$)/g, "/planer-target/_TARGET_");
+                    }
+                }
+
+                function twpTransformPlausibleRequest(payload) {
+                    if (payload.u) {
+                        payload.u = twpNormalizePlausibleUrl(payload.u);
+                    }
+
+                    if (payload.r) {
+                        try {
+                            var referrerUrl = new URL(payload.r, window.location.origin);
+                            if (referrerUrl.hostname === window.location.hostname) {
+                                payload.r = twpNormalizePlausibleUrl(payload.r);
+                            }
+                        } catch (error) {
+                        }
+                    }
+
+                    if (payload.p && payload.p.url) {
+                        payload.p.url = twpNormalizePlausibleUrl(payload.p.url);
+                    }
+
+                    return payload;
+                }
+
+                var twpPlausibleOptions = {
+                    endpoint: "{{ PLAUSIBLE_DOMAIN }}/api/event",
+                    transformRequest: twpTransformPlausibleRequest,
+                };
+                var twpCaptureOnLocalhost = "{{ PLAUSIBLE_CAPTURE_ON_LOCALHOST|yesno:'true,false' }}" === "true";
+
+                if (twpCaptureOnLocalhost) {
+                    twpPlausibleOptions.captureOnLocalhost = true;
+                }
+
+                plausible.init(twpPlausibleOptions)
             </script>
         {% endif %}
         {% block extra_media %}{% endblock %}
@@ -38,12 +90,12 @@
                 {% if user.is_authenticated %}
                     <div class="bg-light border-right {% block showsidebar %}{% endblock %}" id="sidebar-wrapper">
                         <div class="sidebar-heading">{% trans 'User Panel' %}</div>
-                        <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
+                        <div class="list-group list-group-flush"><a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Nav+Click plausible-event-item=my_outlines {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a><a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Nav+Click plausible-event-item=create_outline {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
                             {% if user.profile.feature_flag_shipments %}
                                 <a href="{% url 'shipments:my_shipments' %}"
-                                   class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'my_shipments' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Beta' %}</div> {%trans 'My shipments' %}</a>
+                                   class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Nav+Click plausible-event-item=my_shipments {% if request.resolver_match.url_name == 'my_shipments' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Beta' %}</div> {%trans 'My shipments' %}</a>
                                 <a href="{% url 'shipments:add_shipment' %}"
-                                   class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'add_shipment' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Beta' %}</div> {%trans 'Add shipment' %}</a>
+                                   class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Nav+Click plausible-event-item=add_shipment {% if request.resolver_match.url_name == 'add_shipment' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Beta' %}</div> {%trans 'Add shipment' %}</a>
                             {% endif %}
                             {% block sidebar %}
                             {% endblock %}
@@ -55,22 +107,22 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     {% if user.is_authenticated %}
                         <div class="d-none d-lg-block">
-                            <button onclick="setTimeout(()=>{this.blur();},600)" class="btn toggle-icon" id="menu-toggle">
+                            <button onclick="setTimeout(()=>{this.blur();},600)" class="btn toggle-icon plausible-event-name=TWP+Nav+Click plausible-event-item=sidebar_toggle" id="menu-toggle">
                                 <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-toggles" fill="teal" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M4.5 9a3.5 3.5 0 1 0 0 7h7a3.5 3.5 0 1 0 0-7h-7zm7 6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-7-14a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm2.45 0A3.49 3.49 0 0 1 8 3.5 3.49 3.49 0 0 1 6.95 6h4.55a2.5 2.5 0 0 0 0-5H6.95zM4.5 0h7a3.5 3.5 0 1 1 0 7h-7a3.5 3.5 0 1 1 0-7z" /></svg>
                             </button>
                         </div>
                         <div class="d-block d-lg-none font-nav">
                             <ul class="navbar-nav ms-auto font-nav">
                                 <li class="nav-item dropdown ms-1">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'User Panel' %}</a>
+                                    <a class="nav-link dropdown-toggle plausible-event-name=TWP+Nav+Click plausible-event-item=user_panel" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'User Panel' %}</a>
                                     <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
-                                        <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a>
-                                        <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
+                                        <a href="{% url 'base:planer' %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Nav+Click plausible-event-item=my_outlines {% if request.resolver_match.url_name == 'planer' %}focus-side-link{% endif %}">{% trans 'My outlines' %}</a>
+                                        <a href="{% url 'base:planer_create' %}" class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Nav+Click plausible-event-item=create_outline {% if request.resolver_match.url_name == 'planer_create' %}focus-side-link{% endif %}">{% trans 'Create new outline' %}</a>
                                         {% if user.profile.feature_flag_shipments %}
                                             <a href="{% url 'shipments:my_shipments' %}"
-                                               class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'my_shipments' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Beta' %}</div> {%trans 'My shipments' %}</a>
+                                               class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Nav+Click plausible-event-item=my_shipments {% if request.resolver_match.url_name == 'my_shipments' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Beta' %}</div> {%trans 'My shipments' %}</a>
                                             <a href="{% url 'shipments:add_shipment' %}"
-                                               class="list-group-item list-group-item-action bg-light {% if request.resolver_match.url_name == 'add_shipment' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Beta' %}</div> {%trans 'Add shipment' %}</a>
+                                               class="list-group-item list-group-item-action bg-light plausible-event-name=TWP+Nav+Click plausible-event-item=add_shipment {% if request.resolver_match.url_name == 'add_shipment' %}focus-side-link{% endif %}"><div class="badge bg-info pb-1" style="vertical-align: middle;font-size:0.65rem;line-height:1">{% trans 'Beta' %}</div> {%trans 'Add shipment' %}</a>
                                         {% endif %}
                                         {% block phonesidebar %}
                                         {% endblock %}
@@ -85,17 +137,17 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto font-nav">
                             <li class="nav-item" id="li-home">
-                                <a class="nav-link ms-1" href="{% url 'base:base' %}">{% trans 'Home' %}</a>
+                                <a class="nav-link ms-1 plausible-event-name=TWP+Nav+Click plausible-event-item=home" href="{% url 'base:base' %}">{% trans 'Home' %}</a>
                             </li>
                             <li class="nav-item" id="li-planer">
-                                <a class="nav-link ms-1" href="{% url 'base:planer' %}">{% trans 'Planer' %}</a>
+                                <a class="nav-link ms-1 plausible-event-name=TWP+Nav+Click plausible-event-item=planer" href="{% url 'base:planer' %}">{% trans 'Planer' %}</a>
                             </li>
                             <li class="nav-item" id="li-doc">
-                                <a class="nav-link ms-1" href="{% url 'base:documentation' %}">{% trans 'Documentation' %}</a>
+                                <a class="nav-link ms-1 plausible-event-name=TWP+Nav+Click plausible-event-item=documentation" href="{% url 'base:documentation' %}">{% trans 'Documentation' %}</a>
                             </li>
                             {% if user.is_authenticated %}
                                 <li class="nav-item" id="li-planer">
-                                    <a class="nav-link ms-1" href="{% url 'base:premium' %}">{% trans 'Premium' %}</a>
+                                    <a class="nav-link ms-1 plausible-event-name=TWP+Nav+Click plausible-event-item=premium" href="{% url 'base:premium' %}">{% trans 'Premium' %}</a>
                                 </li>
                             {% endif %}
                             {% if user.is_staff %}
@@ -104,7 +156,7 @@
                                 </li>
                             {% endif %}
                             <li class="nav-item dropdown ms-1">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
+                                <a class="nav-link dropdown-toggle plausible-event-name=TWP+Nav+Click plausible-event-item=menu" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
                                 <div class="dropdown-menu" style="padding-top:0;padding-bottom:0;">
                                     <div class="dropdown-divider" style="margin-top:0"></div>
                                     {% if not user.is_authenticated %}
@@ -114,8 +166,8 @@
                                     {% endif %}
                                     <div class="dropdown-divider" style="margin-bottom:0"></div>
                                     {% if user.is_authenticated %}
-                                        <a class="dropdown-item font-teal py-2" href="{% url 'base:settings' %}">{% trans 'My account' %}</a>
-                                        <a class="dropdown-item font-teal py-2" href="{% url 'base:add_world' %}">{% trans 'Add world' %}</a>
+                                        <a class="dropdown-item font-teal py-2 plausible-event-name=TWP+Nav+Click plausible-event-item=my_account" href="{% url 'base:settings' %}">{% trans 'My account' %}</a>
+                                        <a class="dropdown-item font-teal py-2 plausible-event-name=TWP+Nav+Click plausible-event-item=add_world" href="{% url 'base:add_world' %}">{% trans 'Add world' %}</a>
                                         {% if user.is_superuser and user.username == "admin" %}
                                             <a class="dropdown-item font-teal py-2" href="{% url 'base:payment_summary' %}">{% trans 'Payments summary' %}</a>
                                         {% endif %}
@@ -125,8 +177,8 @@
                                         </form>
 
                                     {% else %}
-                                        <a class="dropdown-item font-teal py-2" href="{% url 'two_factor:login' %}">{% trans 'Sign in' %}</a>
-                                        <a class="dropdown-item font-teal py-2" href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
+                                        <a class="dropdown-item font-teal py-2 plausible-event-name=TWP+Auth+Click plausible-event-action=open plausible-event-target=login" href="{% url 'two_factor:login' %}">{% trans 'Sign in' %}</a>
+                                        <a class="dropdown-item font-teal py-2 plausible-event-name=TWP+Auth+Click plausible-event-action=open plausible-event-target=register" href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
                                     {% endif %}
 
                                     <div class="dropdown-divider" style="margin-top:0;"></div>
@@ -210,23 +262,23 @@
                                 <div class='text-center' >
                                     <div class='background-image-lg d-none d-lg-block' style="margin-left:-15px !important;margin-right:-15px !important">
                                         <h2 class="font-nav pt-2">{% trans 'Create simple and fast outlines' %}</h2>
-                                        <a href="{% url 'two_factor:login' %}" style="width: 32%" class="btn btn-ocean mt-2">
+                                        <a href="{% url 'two_factor:login' %}" style="width: 32%" class="btn btn-ocean mt-2 plausible-event-name=TWP+Home+CTA+Click plausible-event-target=login">
                                             <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
                                         </a>
                                         <p style="font-size: normal;" class="mt-1">
-                                            <span style="width: 100%; background:rgba(255, 255, 255, 0.986)">{% trans "Don't have an account? "  %}</span><span style="width: 100%; background:rgba(255, 255, 255, 0.986)"><a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a></span>
+                                            <span style="width: 100%; background:rgba(255, 255, 255, 0.986)">{% trans "Don't have an account? "  %}</span><span style="width: 100%; background:rgba(255, 255, 255, 0.986)"><a class="plausible-event-name=TWP+Home+CTA+Click plausible-event-target=register" href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a></span>
                                         </p>
                                     </div>
 
                                     <div class='background-image-sm d-block d-lg-none' style="margin-left:-15px !important;margin-right:-15px !important">
                                         <div class="px-3">
                                             <h2 class="font-nav pt-4">{% trans 'Create simple and fast outlines' %}</h2>
-                                            <a href="{% url 'two_factor:login' %}" style="width: 75%" class="btn btn-ocean mt-1">
+                                            <a href="{% url 'two_factor:login' %}" style="width: 75%" class="btn btn-ocean mt-1 plausible-event-name=TWP+Home+CTA+Click plausible-event-target=login">
                                                 <h3 style="font-weight: 370;">{% trans 'Sign in' %}</h3>
                                             </a>
                                             <p style="font-size: normal;" class="mt-2 mb-0">{% trans "Don't have an account? "  %}</p>
                                             <p style="font-size: normal;" class="mt-0">
-                                                <a href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
+                                                <a class="plausible-event-name=TWP+Home+CTA+Click plausible-event-target=register" href="{% url 'django_registration_register' %}">{% trans 'Sign up' %}</a>
                                             </p>
                                         </div>
                                     </div>
@@ -380,6 +432,18 @@
             <script src="https://unpkg.com/select-pure@0.6.3/dist/bundle.min.js" integrity="sha512-ZQ5asj+yrdfCqfDwOPiO3XGZoCkj0eDgmbO1wD5byTxkSpesFNlBzS6MAPX19GZmEEqeFfeDmukAPT6/NJsdFQ==" crossorigin="anonymous"></script>
             <script src="https://js.stripe.com/clover/stripe.js"></script>
             <script src="{% static 'base.js' %}" type="text/javascript"></script>
+            <script>
+                window.twpTrack = function(eventName, props) {
+                    if (typeof window.plausible !== "function") {
+                        return;
+                    }
+                    if (props && Object.keys(props).length > 0) {
+                        window.plausible(eventName, { props: props });
+                        return;
+                    }
+                    window.plausible(eventName);
+                };
+            </script>
             <script>activateTooltips();menuToggle();activateTimezoneInfo();setFooterYears();</script>
             {% block scripts %}
             {% endblock %}

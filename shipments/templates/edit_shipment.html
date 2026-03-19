@@ -42,12 +42,12 @@
                     {% endfor %}
                 </div>
                 <div class="mb-3">
-                    <button type="button" class="btn btn-outline-ocean btn-sm" id="add-formset">
+                    <button type="button" class="btn btn-outline-ocean btn-sm plausible-event-name=TWP+Shipment+Form+Action plausible-event-action=add_token plausible-event-form=edit" id="add-formset">
                         <i class="bi bi-plus"></i> {% trans 'Add overview token' %}
                     </button>
                 </div>
                 {{ formset.management_form }}
-                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mt-2">
+                <button onclick="this.disabled=true;this.form.submit();" class="btn btn-ocean mt-2 plausible-event-name=TWP+Shipment+Form+Action plausible-event-action=submit plausible-event-form=edit">
                     {% trans 'Save' %}
                 </button>
             </form>
@@ -66,7 +66,7 @@
                     {{ formset.empty_form.token|as_crispy_field }}
                 </div>
                 <button type="button"
-                        class="btn btn-outline-danger btn-sm remove-formset d-flex align-items-center justify-content-center"
+                        class="btn btn-outline-danger btn-sm remove-formset d-flex align-items-center justify-content-center plausible-event-name=TWP+Shipment+Form+Action plausible-event-action=remove_token plausible-event-form=edit"
                         title="{% trans 'Remove' %}" style="height: 100%;">
                     <i class="bi bi-x"></i>
                 </button>
