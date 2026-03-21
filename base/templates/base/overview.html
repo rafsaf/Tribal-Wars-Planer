@@ -301,7 +301,7 @@
             <div class="row" id='outline-fit'>
                 <div class="col-12 col-lg-8 offset-lg-2 mt-2">
                     <h2>{% trans 'Source' %}</h2>
-                    <p>{% trans 'Source in JSON format available under API link:' %} <a class="plausible-event-name=TWP+Overview+Action plausible-event-action=open_api" href="{{ request.scheme }}://{{ request.get_host }}{% url 'rest_api:public_outline_overview' %}?language={{LANG}}&token={{overview.token}}">{{ request.scheme }}://{{ request.get_host }}{% url 'rest_api:public_outline_overview' %}?language={{LANG}}&token={{overview.token}}</a></p>
+                    <p>{% trans 'Source in JSON format available under API link:' %} <a onclick="twpTrack('TWP Overview Action', { action: 'open_api' })" href="{{ request.scheme }}://{{ request.get_host }}{% url 'rest_api:public_outline_overview' %}?language={{LANG}}&token={{overview.token}}">{{ request.scheme }}://{{ request.get_host }}{% url 'rest_api:public_outline_overview' %}?language={{LANG}}&token={{overview.token}}</a></p>
 
                     <p>{% trans 'Documentation' %}: <a class="plausible-event-name=TWP+Overview+Action plausible-event-action=open_developer_docs" href="{{ request.scheme }}://{{ request.get_host }}/{{LANG}}/documentation/developers/">{{ request.scheme }}://{{ request.get_host }}/{{LANG}}/documentation/developers/</a></p>
                 </div>

@@ -116,7 +116,7 @@
                                             </th>
                                             <th>{{ item.number_of_orders }}</th>
                                             <th>
-                                                <a class="send" onclick="twpTrack('TWP+Results+Action', { action: 'send_message', scope: 'removed' });changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|iriencode }}&subject={{ subject|iriencode }}&message={{ item.message|iriencode }}">{% trans 'Send' %}</a>
+                                                <a class="send" onclick="twpTrack('TWP Results Action', { action: 'send_message', scope: 'removed' });changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|iriencode }}&subject={{ subject|iriencode }}&message={{ item.message|iriencode }}">{% trans 'Send' %}</a>
                                             </th>
                                         </tr>
                                     {% endfor %}
@@ -157,7 +157,7 @@
                                     </th>
                                     <th>{{ item.number_of_orders }}</th>
                                     <th>
-                                        <a class="send" onclick="twpTrack('TWP+Results+Action', { action: 'send_message', scope: 'active' });changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|iriencode }}&subject={{ subject|iriencode }}&message={{ item.message|iriencode }}">{% trans 'Send' %}</a>
+                                        <a class="send" onclick="twpTrack('TWP Results Action', { action: 'send_message', scope: 'active' });changeTextToSent(this, `{% trans 'Sent!' %}`)" target="_blank" href="{{name_prefix}}/game.php?screen=mail&mode=new#to={{ item.to|iriencode }}&subject={{ subject|iriencode }}&message={{ item.message|iriencode }}">{% trans 'Send' %}</a>
                                     </th>
                                 </tr>
                             {% endfor %}
