@@ -48,8 +48,20 @@ from drf_spectacular.views import (
 )
 from two_factor.urls import urlpatterns as tf_urls
 
+from base.views.analytics import plausible_config_script, plausible_proxy_script
+
 urlpatterns = [
     path("api/", include("rest_api.urls")),
+    path(
+        "api/public/analytics/plausible/config.js",
+        plausible_config_script,
+        name="public_plausible_config_script",
+    ),
+    path(
+        "api/public/analytics/plausible/script.js",
+        plausible_proxy_script,
+        name="public_plausible_proxy_script",
+    ),
     path("api/public/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/public/schema/swagger-ui/",

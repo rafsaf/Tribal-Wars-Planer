@@ -190,7 +190,6 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "tribal_wars_planer.context_processors.build_tag",
-                "tribal_wars_planer.context_processors.plausible_settings",
             ],
         },
     },
