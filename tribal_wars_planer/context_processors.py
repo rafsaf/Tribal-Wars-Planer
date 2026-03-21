@@ -18,11 +18,3 @@ from django.conf import settings
 
 def build_tag(request):
     return {"BUILD_TAG": settings.BUILD_TAG, "DEBUG": settings.DEBUG}
-
-
-def plausible_settings(request):
-    return {
-        "PLAUSIBLE_DOMAIN": settings.PLAUSIBLE_DOMAIN,
-        "PLAUSIBLE_SCRIPT_PATH": settings.PLAUSIBLE_SCRIPT_PATH,
-        "PLAUSIBLE_CAPTURE_ON_LOCALHOST": settings.PLAUSIBLE_CAPTURE_ON_LOCALHOST,
-    }
