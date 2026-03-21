@@ -8,25 +8,35 @@ window.plausible.init = window.plausible.init || function (options) {
     plausible.o = options || {};
 };
 
+function twpReplacePlausiblePath(pathname) {
+    return pathname
+        .replace(/\/overview\/[^/?#]+(?=\/|$)/, "/overview/_TOKEN_")
+        .replace(/\/activate\/[^/?#]+(?=\/|$)/, "/activate/_ACTIVATION_KEY_")
+        .replace(/\/reset\/[^/]+\/[^/?#]+(?=\/|$)/, "/reset/_UID_/_TOKEN_")
+        .replace(/\/planer\/\d+(?=\/|$)/g, "/planer/_OUTLINE_")
+        .replace(/\/planer-target\/\d+(?=\/|$)/g, "/planer-target/_TARGET_")
+        .replace(/\/shipments\/\d+(?=\/|$)/g, "/shipments/_SHIPMENT_");
+}
+
+function twpReplacePlausibleSearch(search) {
+    return (search || "")
+        .replace(/([?&])token=[^&#]*/g, "$1token=_TOKEN_")
+        .replace(/([?&])activation_key=[^&#]*/g, "$1activation_key=_ACTIVATION_KEY_");
+}
+
 function twpNormalizePlausibleUrl(rawUrl) {
     if (!rawUrl) {
         return rawUrl;
     }
 
     try {
-        var parsedUrl = new URL(rawUrl, window.location.origin);
-        parsedUrl.pathname = parsedUrl.pathname
-            .replace(/\/overview\/[^/?#]+(?=\/|$)/, "/overview/_TOKEN_")
-            .replace(/\/planer\/\d+(?=\/|$)/g, "/planer/_OUTLINE_")
-            .replace(/\/shipments\/\d+(?=\/|$)/g, "/shipments/_SHIPMENT_")
-            .replace(/\/planer-target\/\d+(?=\/|$)/g, "/planer-target/_TARGET_");
+        const parsedUrl = new URL(rawUrl, window.location.origin);
+        parsedUrl.pathname = twpReplacePlausiblePath(parsedUrl.pathname);
+        parsedUrl.search = twpReplacePlausibleSearch(parsedUrl.search);
         return parsedUrl.toString();
     } catch (error) {
-        return rawUrl
-            .replace(/\/overview\/[^/?#]+(?=\/|$)/, "/overview/_TOKEN_")
-            .replace(/\/planer\/\d+(?=\/|$)/g, "/planer/_OUTLINE_")
-            .replace(/\/shipments\/\d+(?=\/|$)/g, "/shipments/_SHIPMENT_")
-            .replace(/\/planer-target\/\d+(?=\/|$)/g, "/planer-target/_TARGET_");
+        console.error("Failed to normalize Plausible URL", rawUrl, error);
+        throw error;
     }
 }
 
@@ -37,7 +47,7 @@ function twpTransformPlausibleRequest(payload) {
 
     if (payload.r) {
         try {
-            var referrerUrl = new URL(payload.r, window.location.origin);
+            const referrerUrl = new URL(payload.r, window.location.origin);
             if (referrerUrl.hostname === window.location.hostname) {
                 payload.r = twpNormalizePlausibleUrl(payload.r);
             }
@@ -53,7 +63,7 @@ function twpTransformPlausibleRequest(payload) {
 }
 
 (function bootstrapTwpPlausible() {
-    var plausibleConfig = window.twpPlausibleConfig || {};
+    const plausibleConfig = window.twpPlausibleConfig || {};
 
     if (
         window.twpPlausibleBootstrapped ||
@@ -66,12 +76,12 @@ function twpTransformPlausibleRequest(payload) {
 
     window.twpPlausibleBootstrapped = true;
 
-    var plausibleScript = document.createElement("script");
+    const plausibleScript = document.createElement("script");
     plausibleScript.async = true;
     plausibleScript.src = plausibleConfig.scriptSrc;
     document.head.appendChild(plausibleScript);
 
-    var plausibleOptions = {
+    const plausibleOptions = {
         endpoint: plausibleConfig.endpoint,
         transformRequest: twpTransformPlausibleRequest,
     };
