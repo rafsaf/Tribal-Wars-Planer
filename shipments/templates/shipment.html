@@ -99,7 +99,7 @@
                     data: 'send_url',
                     title: '{% trans "Link" %}',
                     render: function (data, type, row) {
-                        return `<a href="${data}" target="_blank" onclick="twpTrack('TWP+Shipment+Detail+Action', { action: 'open_send_link' })">${row.send_url_name}</a>`;
+                        return `<a href="${data}" target="_blank" onclick="twpTrack('TWP Shipment Detail Action', { action: 'open_send_link' })">${row.send_url_name}</a>`;
                     }
                 },
                 {

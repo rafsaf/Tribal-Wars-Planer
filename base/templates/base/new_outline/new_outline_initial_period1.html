@@ -556,7 +556,7 @@
         }
 
         if (key === "name") {
-          eventName = value;
+          eventName = value.replace(/\+/g, " ");
           continue;
         }
 
@@ -603,7 +603,7 @@
       }
 
       trackedRuiningBuildingsFocus = true;
-      twpTrack("TWP+Form+Field", {
+      twpTrack("TWP Form Field", {
         form: "RuiningOutlineForm",
         field: "initial_outline_buildings",
         interaction: "focus",
@@ -621,7 +621,7 @@
           instance._setValue(currentBuildings, false, true);
           return;
         }
-        twpTrack("TWP+Form+Field", {
+        twpTrack("TWP Form Field", {
           form: "RuiningOutlineForm",
           field: "initial_outline_buildings",
           interaction: "change",
