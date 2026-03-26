@@ -556,6 +556,13 @@ select.form-control,
   overflow: auto;
 }
 
+.planer-scroll-x {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+
 .bbcodetable {
   background: #fff;
   border: #999966 1px solid;

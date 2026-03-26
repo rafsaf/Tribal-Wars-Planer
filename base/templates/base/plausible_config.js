@@ -92,3 +92,14 @@ function twpTransformPlausibleRequest(payload) {
 
     window.plausible.init(plausibleOptions);
 })();
+
+window.twpTrack = function (eventName, props) {
+    if (typeof window.plausible !== "function") {
+        return;
+    }
+    if (props && Object.keys(props).length > 0) {
+        window.plausible(eventName, { props: props });
+        return;
+    }
+    window.plausible(eventName);
+};
