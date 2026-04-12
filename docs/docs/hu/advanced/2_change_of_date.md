@@ -3,10 +3,14 @@ title: "2. A dátum beállítása"
 date: 2026-02-28
 ---
 
-A fül nagyon egyszerű, és a támadás belépési dátumának megváltoztatására szolgál, amelyet eredetileg a terv létrehozásakor adtak meg.
+A fül a terv dátumának beállítására szolgál. A terv létrehozásakor választhatod ki, később pedig továbbra is módosíthatod a tervmenü oldal tetején lévő összegzés {==Terv dátuma==} mezőjében.
 
 A fül megjelenése egy példa dátummal:
 
 ![alt text](image-1.png){ width="600" }
 
-Nincs és nem is lesz lehetőség több napra szóló támadás ütemezésére. Az egyetlen lehetőség az, hogy az első napra, pl. 01.01-re ütemezzük a támadást, elküldjük az eredményeket a játékosoknak, majd a {==Eredmények fülön==}, a terv befejezése után, a {==Fel nem használt csapatok==} fülön megtalálhatók a megmaradt, fel nem használt egységek. Egy új, más dátummal, pl. a következő napra, 02.01-re létrehozott tervvel és a csapatokról szóló adatok másolásával lehet ütemezni a következő napi támadást.
+Ha már generáltál eredményeket, mentsd el az új dátumot, majd használd újra a {==Terv befejezése==} gombot, hogy az eredmények frissített dátummal újragenerálódjanak.
+
+![alt text](image-9.png){ width="600" }
+
+Továbbra sem lehet egyetlen tervet több különböző napra megírni. Többnapos akciókhoz fejezd be az első napot, küldd el az eredményeket, majd az {==Eredmények==} fülön maradt fel nem használt csapatokkal készíts új tervet a következő napra.

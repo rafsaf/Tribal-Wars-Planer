@@ -13,7 +13,7 @@
 
 <p class="mb-0"><b><a target="_blank" href="/pt-br/documentation/advanced/1_available_troops_and_table/">1. Unidades disponíveis e descrição da Tabela.</a></b></p>
 
-<p class="my-0"><b><a target="_blank" href="/pt-br/documentation/advanced/2_change_of_date/">2. Alterando a data do plano.</a></b></p>
+<p class="my-0"><b><a target="_blank" href="/pt-br/documentation/advanced/2_change_of_date/">2. Definir a data.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/pt-br/documentation/advanced/3_outline_parameters/">3. Configurações do modo de plano padrão.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/pt-br/documentation/advanced/4_morale/">4. Moral.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/pt-br/documentation/advanced/5_avoid_night_bonus/">5. Evitar envios noturnos.</a></b></p>
