@@ -1,6 +1,7 @@
 {% extends "base/new_outline/new_outline.html" %}
 {% load static %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 {% block title %}
     {% if mode.is_menu %}
         {% trans 'Real targets' %} - {{instance.name|capfirst}}
@@ -47,7 +48,17 @@
                         <tbody>
                             <tr class="text-center">
                                 <th><h5><span class="badge bg-info">{{instance.name}}</span></h5></th>
-                                <th><h5><span class="badge bg-secondary">{{instance.date}}</span></h5></th>
+                                <th class="text-nowrap">
+                                    <button
+                                        type="button"
+                                        class="btn btn-link p-0 text-decoration-none plausible-event-name=TWP+Planer+Menu+Action plausible-event-action=open_outline_date_modal"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#OutlineDateModal"
+                                        aria-label="{% trans 'Edit outline date' %}"
+                                    >
+                                        <h5 class="mb-1"><span class="badge bg-secondary text-nowrap">{{instance.date}}</span><i class="bi bi-pencil-square"></i></h5>
+                                    </button>
+                                </th>
                                 <th><h5><span class="badge bg-secondary">{{instance.count_targets}}</span></h5></th>
                                 <th><h5><span class="badge bg-secondary">{{instance.count_fake}}</span></h5></th>
                                 <th><h5><span class="badge bg-secondary">{{instance.count_ruin}}</span></h5></th>
@@ -349,6 +360,32 @@
     </div>
 
     {% block outline_go_back %}
+        <div class="modal fade" id="OutlineDateModal" tabindex="-1" role="dialog" aria-labelledby="OutlineDateModalTitle" aria-hidden="true" data-open-on-load="{{ form3.errors|yesno:'true,false' }}">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="OutlineDateModalTitle">{% trans 'Edit outline date' %}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans 'Change the outline date here whenever you need to adjust the outline.' %}</p>
+                        <div class="alert alert-info mb-3">
+                            <div><i class="bi bi-info-square"></i> {% trans 'If you already generated results, save the new date and use "Finish the Outline" again so the results are regenerated with the updated date.' %}</div>
+                        </div>
+                        <p><b>{{ instance.date }}</b></p>
+                        <form id="form3-form" method="POST" autocomplete="off">
+                            <input type="hidden" name="form3" value="">
+                            {% csrf_token %}
+                            {{form3|crispy}}
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><b>{% trans 'Close' %}</b></button>
+                        <button onclick="handleClickButton(this,`{% trans 'Saving...' %}`,`form3-form`);" class="btn btn-ocean plausible-event-name=TWP+Planer+Menu+Action plausible-event-action=save_outline_date" form="form3-form">{% trans 'Save date' %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="ValidationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -395,6 +432,17 @@
 {% block scripts %}
     <script>
         var tabPlanerMenuHasBeenHidden = false;
+        const outlineDateModal = document.getElementById("OutlineDateModal");
+        const shouldOpenOutlineDateModal = outlineDateModal?.dataset.openOnLoad === "true";
+
         document.addEventListener("visibilitychange", handlePlanerMenuVisibilityChange, false);
+
+        if (shouldOpenOutlineDateModal) {
+            document.addEventListener("DOMContentLoaded", function () {
+                if (outlineDateModal) {
+                    bootstrap.Modal.getOrCreateInstance(outlineDateModal).show();
+                }
+            });
+        }
     </script>
 {% endblock %}

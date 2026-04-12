@@ -14,7 +14,7 @@
 ## Erweiterte Einstellungen
 
 **[1. Verfügbare Einheiten und Beschreibung der Tabelle.](/de/documentation/advanced/1_available_troops_and_table/)**
-**[2. Ändern des Datums des Plans.](/de/documentation/advanced/2_change_of_date/)**
+**[2. Datum einstellen.](/de/documentation/advanced/2_change_of_date/)**
 **[3. Standard-Planmodus-Einstellungen.](/de/documentation/advanced/3_outline_parameters/)**
 **[4. Moral.](/de/documentation/advanced/4_morale/)**
 **[5. Vermeidung von Nachtsendungen.](/de/documentation/advanced/5_avoid_night_bonus/)**

@@ -13,7 +13,7 @@
 
 <p class="mb-0"><b><a target="_blank" href="/cs/documentation/advanced/1_available_troops_and_table/">1. Dostupné jednotky a popis tabulky.</a></b></p>
 
-<p class="my-0"><b><a target="_blank" href="/cs/documentation/advanced/2_change_of_date/">2. Změna data osnovy.</a></b></p>
+<p class="my-0"><b><a target="_blank" href="/cs/documentation/advanced/2_change_of_date/">2. Nastavení data.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/cs/documentation/advanced/3_outline_parameters/">3. Výchozí nastavení režimu osnovy.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/cs/documentation/advanced/4_morale/">4. Morálka.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/cs/documentation/advanced/5_avoid_night_bonus/">5. Vyhýbání se nočním zásilkám.</a></b></p>

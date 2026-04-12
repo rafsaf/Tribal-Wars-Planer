@@ -3,10 +3,14 @@ title: "2. Datum einstellen"
 date: 2026-02-28
 ---
 
-Die Registerkarte ist sehr einfach und dient dazu, das Eintragsdatum der Aktion zu ändern, das ursprünglich beim Erstellen des Plans angegeben wurde.
+Die Registerkarte dient zum Einstellen des Plan-Datums. Sie können es beim Erstellen des Plans auswählen und später weiterhin über die Spalte {==Plan-Datum==} in der Zusammenfassung oben auf der Planer-Menü-Seite ändern.
 
 Aussehen der Registerkarte mit einem Beispieldatum:
 
 ![alt text](image-1.png){ width="600" }
 
-Es gibt keine und wird keine Möglichkeit geben, eine Aktion für mehrere Tage zu planen. Die einzige Möglichkeit besteht darin, die Aktion für den ersten Tag zu planen, z.B. den 01.01, die Ergebnisse an die Spieler zu senden und dann in der {==Ergebnis-Registerkarte==}, nachdem der Plan abgeschlossen ist, die verbleibenden, ungenutzten Einheiten in der Registerkarte {==Ungenutzte Truppen==} zu finden. Indem Sie einen neuen Plan mit einem anderen Datum erstellen, z.B. für den nächsten Tag 02.01, und die Daten über die Truppen dorthin kopieren, können Sie die Aktion für den nächsten Tag planen.
+Wenn Sie bereits Ergebnisse erzeugt haben, speichern Sie das neue Datum und verwenden Sie erneut {==Den Plan abschließen==}, damit die Ergebnisse mit dem aktualisierten Datum neu erzeugt werden.
+
+![alt text](image-9.png){ width="600" }
+
+Es ist weiterhin nicht möglich, einen einzelnen Plan für mehrere verschiedene Tage zu schreiben. Für mehrtägige Aktionen schließen Sie den ersten Tag ab, senden die Ergebnisse und verwenden dann die verbleibenden ungenutzten Truppen aus der {==Ergebnis-Registerkarte==}, um einen neuen Plan für den nächsten Tag vorzubereiten.

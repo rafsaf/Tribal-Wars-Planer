@@ -13,7 +13,7 @@
 
 <p class="mb-0"><b><a target="_blank" href="/en/documentation/advanced/1_available_troops_and_table/">1. Available units and description of the Table.</a></b></p>
 
-<p class="my-0"><b><a target="_blank" href="/en/documentation/advanced/2_change_of_date/">2. Changing the date of the otuline.</a></b></p>
+<p class="my-0"><b><a target="_blank" href="/en/documentation/advanced/2_change_of_date/">2. Setting the date.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/en/documentation/advanced/3_outline_parameters/">3. Default outline mode settings.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/en/documentation/advanced/4_morale/">4. Morale.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/en/documentation/advanced/5_avoid_night_bonus/">5. Avoidance of night shipments.</a></b></p>

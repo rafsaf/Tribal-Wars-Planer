@@ -419,6 +419,8 @@ def initial_planer(  # noqa: PLR0912,PLR0911
     filter_form = forms.SetTargetsMenuFilters(None)
     filter_form.fields["filter_targets_number"].initial = instance.filter_targets_number
     filter_form.fields["simple_textures"].initial = instance.simple_textures
+    form3 = forms.SettingDateForm(instance=instance)
+    form3.fields["date"].initial = instance.date.strftime("%Y-%m-%d")
     target_form = forms.CreateNewInitialTarget(
         None, outline=instance, is_premium=is_premium
     )
@@ -440,6 +442,17 @@ def initial_planer(  # noqa: PLR0912,PLR0911
                     reverse("base:planer_initial", args=[_id])
                     + f"?page={page_number}&mode={mode}&filtr={filtr}"
                 )
+
+        if "form3" in request.POST:
+            form3 = forms.SettingDateForm(request.POST, instance=instance)
+            if form3.is_valid():
+                instance.actions.form_date_change(instance)
+                instance.save(update_fields=forms.SettingDateForm.Meta.fields)
+                return redirect(
+                    reverse("base:planer_initial", args=[_id])
+                    + f"?page={page_number}&mode={mode}&filtr={filtr}"
+                )
+
         if "create" in request.POST:
             # add_and_remove tab only
 
@@ -474,6 +487,7 @@ def initial_planer(  # noqa: PLR0912,PLR0911
             "page_obj": page_obj,
             "mode": mode,
             "filter_form": filter_form,
+            "form3": form3,
             "filtr": filtr,
         }
         if mode.is_add_and_remove:
@@ -504,19 +518,22 @@ def initial_planer(  # noqa: PLR0912,PLR0911
     query = instance.targets_query(target_lst=page_obj)
     outline_time_dict = instance.get_outline_times()
 
-    select_formset = formset_factory(
+    select_formset_factory = formset_factory(
         form=forms.ChooseOutlineTimeForm,  # type: ignore
         extra=12,
         max_num=12,
     )
 
-    create_formset = formset_factory(
+    create_formset_factory = formset_factory(
         form=forms.PeriodForm,  # type: ignore
         formset=forms.BasePeriodFormSet,
         extra=6,
         min_num=2,
         max_num=6,
     )
+
+    select_formset = select_formset_factory()
+    create_formset = create_formset_factory()
 
     if request.method == "POST":
         if "form-finish" in request.POST:
@@ -547,8 +564,8 @@ def initial_planer(  # noqa: PLR0912,PLR0911
             return redirect("base:planer_detail_results", _id)
 
         if "formset" in request.POST:
-            create_formset = create_formset(request.POST)  # type: ignore
-            select_formset = select_formset()
+            create_formset = create_formset_factory(request.POST)  # type: ignore
+            select_formset = select_formset_factory()
             if create_formset.is_valid():
                 instance.actions.save_time_created(instance)
                 outline_times_Q = models.OutlineTime.objects.filter(outline=instance)
@@ -576,9 +593,6 @@ def initial_planer(  # noqa: PLR0912,PLR0911
                     for err in form.errors:
                         form.fields[err].widget.attrs["class"] += " border-invalid"
 
-    else:
-        create_formset = create_formset()
-
     context = {
         "instance": instance,
         "outline_time": outline_time_dict,
@@ -586,12 +600,13 @@ def initial_planer(  # noqa: PLR0912,PLR0911
         "page_obj": page_obj,
         "mode": mode,
         "filter_form": filter_form,
+        "form3": form3,
+        "filtr": filtr,
         "formset": create_formset,
         "choice_formset": select_formset,
-        "error": error,
-        "filtr": filtr,
     }
-
+    if error is not None:
+        context["error"] = error
     return render(
         request,
         "base/new_outline/new_outline_initial_period2_1.html",

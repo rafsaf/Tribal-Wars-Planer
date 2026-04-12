@@ -13,7 +13,7 @@
 
 <p class="mb-0"><b><a target="_blank" href="/hu/documentation/advanced/1_available_troops_and_table/">1. Elérhető egységek és a táblázat leírása.</a></b></p>
 
-<p class="my-0"><b><a target="_blank" href="/hu/documentation/advanced/2_change_of_date/">2. A terv dátumának megváltoztatása.</a></b></p>
+<p class="my-0"><b><a target="_blank" href="/hu/documentation/advanced/2_change_of_date/">2. A dátum beállítása.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/hu/documentation/advanced/3_outline_parameters/">3. Alapértelmezett tervmód beállításai.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/hu/documentation/advanced/4_morale/">4. Morál.</a></b></p>
 <p class="my-0"><b><a target="_blank" href="/hu/documentation/advanced/5_avoid_night_bonus/">5. Éjszakai bónusz elkerülése.</a></b></p>

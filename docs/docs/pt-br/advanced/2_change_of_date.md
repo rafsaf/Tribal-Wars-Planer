@@ -3,10 +3,14 @@ title: "2. Definir a data"
 date: 2026-02-28
 ---
 
-A aba é muito simples e é usada para alterar a data de entrada da ação, que foi inicialmente fornecida no início ao criar o plano.
+A aba é usada para definir a data do plano. Você pode escolhê-la ao criar o plano e, depois, ainda pode alterá-la na coluna {==Data do Plano==} do resumo no topo da página do menu do plano.
 
 Aparência da aba com uma data de exemplo:
 
 ![alt text](image-1.png){ width="600" }
 
-Não há e não haverá a possibilidade de planejar uma ação para vários dias. A única possibilidade é planejar a ação para o primeiro dia, por exemplo, 01.01, enviar os resultados para os jogadores e, em seguida, na {==Aba de Resultados==}, após a conclusão do plano, você pode encontrar as unidades restantes e não utilizadas na aba {==Tropas Não Utilizadas==}. Ao criar um novo plano com uma data diferente, por exemplo, para o dia seguinte 02.01, e copiar os dados sobre as Tropas para lá, você pode planejar a ação para o dia seguinte.
+Se você já gerou os resultados, salve a nova data e use {==Finalizar o Plano==} novamente para que os resultados sejam gerados outra vez com a data atualizada.
+
+![alt text](image-9.png){ width="600" }
+
+Ainda não é possível escrever um único plano para vários dias diferentes. Para ações de vários dias, conclua o primeiro dia, envie os resultados e depois use as tropas restantes não utilizadas da {==Aba de Resultados==} para preparar um novo plano para o dia seguinte.
