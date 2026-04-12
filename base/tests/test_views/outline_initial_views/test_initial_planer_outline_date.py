@@ -18,7 +18,7 @@ class InitialPlanerOutlineDate(MiniSetup):
         assert response.status_code == 200
         content = response.content.decode()
         assert 'data-bs-target="#OutlineDateModal"' in content
-        assert "Edit date" in content
+        assert "bi-pencil-square" in content
         assert "Finish the Outline" in content
         assert "results are regenerated with the updated date" in content
 
