@@ -54,7 +54,7 @@ def test_proxy_script_fetches_upstream_and_caches_response(
         return FakeResponse()
 
     monkeypatch.setattr(analytics.requests, "get", fake_get)
-    monkeypatch.setattr(analytics.cache, "get", lambda key: cached_items.get(key))
+    monkeypatch.setattr(analytics.cache, "get", cached_items.get)
     monkeypatch.setattr(
         analytics.cache,
         "set",
