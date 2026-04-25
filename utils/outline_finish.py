@@ -178,6 +178,8 @@ class MakeFinalOutline:
             send_url_text = SEND_TEXT.FAKE.value
         elif weight.ruin:
             send_url_text = SEND_TEXT.RUIN.value
+        elif target.has_deff_noble and weight.nobleman > 0 and weight.deff > 0:
+            send_url_text = SEND_TEXT.DEFF_NOBLE.value
         elif weight.nobleman > 0:
             send_url_text = SEND_TEXT.NOBLE.value
         else:
@@ -188,6 +190,7 @@ class MakeFinalOutline:
             "start": weight.start,
             "player": weight.player,
             "off": weight.off,
+            "deff": weight.deff,
             "nobleman": weight.nobleman,
             "catapult": weight.catapult,
             "ruin": weight.ruin,
@@ -331,6 +334,8 @@ class MakeFinalOutline:
                 "player": target.player,
                 "fake": target.fake,
                 "ruin": target.ruin,
+                "has_deff_noble": target.has_deff_noble,
+                "deff_noble_order": target.deff_noble_order,
                 "village_id": target.village_id,
                 "player_id": target.player_id,
             }

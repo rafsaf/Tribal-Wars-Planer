@@ -174,6 +174,8 @@ def delete_target(request: Request):
                 state.off_state -= weight_model.off
                 state.nobleman_left += weight_model.nobleman
                 state.nobleman_state -= weight_model.nobleman
+                state.deff_left += weight_model.deff
+                state.deff_state -= weight_model.deff
                 state.catapult_left += weight_model.catapult
                 state.catapult_state -= weight_model.catapult
                 state.save()

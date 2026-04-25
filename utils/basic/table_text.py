@@ -75,6 +75,7 @@ class TableText:
         ruin=False,
         deputy=None,
         noble=False,
+        deff_noble=False,
     ):
         if deputy is not None:
             t = f"&t={deputy}"
@@ -84,6 +85,8 @@ class TableText:
             send = _("Send fake")
         elif ruin:
             send = _("Send ruin")
+        elif deff_noble:
+            send = _("Send DEFF NOBLE")
         elif not noble:
             send = _("Send OFF")
         else:
@@ -123,6 +126,7 @@ class TableText:
         fake,
         deputy=None,
     ):
+        is_deff_noble = weight.nobleman > 0 and weight.deff > 0
         if weight.building is not None:
             building = weight.get_building_display().upper()  # type: ignore
             ruin = _("%(catapults_number)sc on %(building)s") % {
@@ -133,8 +137,8 @@ class TableText:
             ruin = "-"
 
         return (
-            f"[|]{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
-            f"[|]{weight.off - 8 * weight.catapult if weight.ruin else weight.off}"
+            f"[|]{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy, noble=weight.nobleman > 0, deff_noble=is_deff_noble)}"
+            f"[|]{weight.deff if is_deff_noble else weight.off - 8 * weight.catapult if weight.ruin else weight.off}"
             f"[|]{weight.nobleman}"
             f"[|]{ruin}"
             f"[|]{self.__date_table(weight.sh_t1, weight.sh_t2)}"  # type: ignore
@@ -142,7 +146,7 @@ class TableText:
             f"[|][coord]{weight.start}[/coord][|][coord]{weight.target.target}[/coord]"
         )
 
-    def __new_weight_string(
+    def __new_weight_string(  # noqa: PLR0911
         self,
         weight: models.WeightModel,
         ally_id,
@@ -156,12 +160,14 @@ class TableText:
             deputy_link_part = ""
 
         all_weights_from_this_village = self.weights[weight.start]
+        is_deff_noble = weight.nobleman > 0 and weight.deff > 0
 
         data = {
             "weight_count": all_weights_from_this_village.index(weight) + 1,
             "weight_count_all": len(all_weights_from_this_village),
             "noble_number": weight.nobleman,
             "off_number": weight.off,
+            "deff_number": weight.deff,
             "extra_off_number": weight.off - weight.catapult * 8,
             "catapults_number": weight.catapult,
             "date": self.__date_string(weight.sh_t1, weight.sh_t2),
@@ -210,6 +216,19 @@ class TableText:
                     "[url=%(game_url)s/game.php?"
                     "village=%(ally_id)s&screen=place&"
                     "target=%(enemy_id)s%(deputy_link_part)s]Send RUIN[/url]"
+                )
+                % data
+            )
+        elif is_deff_noble:
+            return (
+                _(
+                    "[b][color=#007a7a]Send DEFF NOBLE[%(deff_number)s deff + %(noble_number)s noble][/color] "
+                    "(%(weight_count)s of %(weight_count_all)s)[/b]\n"
+                    "%(date)s\n"
+                    "%(start_coord)s [b]->[/b] %(target_coord)s\n"
+                    "[url=%(game_url)s/game.php?"
+                    "village=%(ally_id)s&screen=place&"
+                    "target=%(enemy_id)s%(deputy_link_part)s]Send DEFF NOBLE[/url]"
                 )
                 % data
             )
@@ -262,7 +281,9 @@ class TableText:
         deputy=None,
         simple=False,
     ):
+        is_deff_noble = weight.nobleman > 0 and weight.deff > 0
         nobles = _("Nobles-")
+        deff = _("Deff-")
         from_village = _("from village")
         to = _("to ")
         if fake and weight.nobleman > 0:
@@ -290,6 +311,9 @@ class TableText:
         elif weight.nobleman == 0:
             text = _("[size=12][b]OFF[/b][/size] (Off-")
             send = f"{text}{weight.off})"
+        elif is_deff_noble:
+            text = _("[color=#007a7a][size=12][b]DEFF NOBLE[/b][/size][/color]")
+            send = f"{text} ({deff}{weight.deff}, {nobles}{weight.nobleman}) "
         else:
             text = _("[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]")
             send = f"{text} (Off-{weight.off}, {nobles}{weight.nobleman}) "
@@ -304,7 +328,7 @@ class TableText:
             f"{send}"
             f"{own_and_enemy_villages}"
             f"{self.__date_string(weight.sh_t1, weight.sh_t2)}\n"  # type: ignore
-            f"{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy)}"
+            f"{self.__link(ally_id, enemy_id, fake, weight.ruin, deputy=deputy, noble=weight.nobleman > 0, deff_noble=is_deff_noble)}"
         )
 
     def add_weight(

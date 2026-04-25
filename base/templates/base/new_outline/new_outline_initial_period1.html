@@ -211,6 +211,18 @@
             {% endfor %}
           </tr>
           <tr>
+            <th style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Villages with at least 1 nobleman and available deff troops.' %}" class="text-nowrap" scope="col">{% trans 'Deff with 1 noble' %} <i class="bi bi-question-square"></i></th>
+
+            {% for item in instance.available_deff_noble_villages %}
+              <th>{{ item }}</th>
+            {% empty %}
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            {% endfor %}
+          </tr>
+          <tr>
             <th style="cursor: default;" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Offs around real targets at maximum distance for nobles (now equals to' %} {{instance.initial_outline_target_dist}})." class="text-nowrap" scope="col">{% trans 'Offs close to real targets' %} <i class="bi bi-question-square"></i></th>
 
             {% for item in instance.available_offs_near %}
@@ -269,7 +281,18 @@
                 <form id="form2-form" method='POST' autocomplete="off">
                   <input type="hidden" name="form2" value=""/>
                   {% csrf_token %}
-                  {{form2|crispy}}
+                  {{ form2.non_field_errors }}
+                  {{ form2.initial_outline_min_off|as_crispy_field }}
+                  {{ form2.initial_outline_max_off|as_crispy_field }}
+                  {{ form2.initial_outline_front_dist|as_crispy_field }}
+                  {{ form2.initial_outline_target_dist|as_crispy_field }}
+                  {{ form2.initial_outline_maximum_off_dist|as_crispy_field }}
+                  {{ form2.initial_outline_excluded_coords|as_crispy_field }}
+
+                  <h5 class="mt-4 mb-3">{% trans 'Deff troops settings:' %}</h5>
+                  {{ form2.initial_outline_min_deff|as_crispy_field }}
+                  {{ form2.initial_outline_max_deff|as_crispy_field }}
+
                   <button onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form2-form`,``,true);" class="btn btn-ocean plausible-event-name=TWP+Planer+Setup+Action plausible-event-action=save_available_troops" id="form2-btn" >{% trans 'Save and reload troops' %}</button>
                 </form>
               </div>

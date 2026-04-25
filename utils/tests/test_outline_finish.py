@@ -74,6 +74,8 @@ class TestMakeFinalOutline(TestCase):
                 "player": "player1",
                 "fake": False,
                 "ruin": False,
+                "has_deff_noble": False,
+                "deff_noble_order": None,
                 "village_id": 0,
                 "player_id": 0,
             }
@@ -158,6 +160,7 @@ class TestMakeFinalOutline(TestCase):
             "start": "500|500",
             "player": "player0",
             "off": 5000,
+            "deff": 0,
             "nobleman": 0,
             "catapult": 0,
             "ruin": False,
@@ -187,6 +190,30 @@ class TestMakeFinalOutline(TestCase):
             "send_url_text": SEND_TEXT.OFF.value,
         }
         self.assertEqual(expected, res)
+
+
+def test_json_weight_marks_deff_noble(db) -> None:
+    activate("pl")
+    create_initial_data()
+    outline: Outline = Outline.objects.get(id=1)
+    make_final = MakeFinalOutline(outline)
+    make_final._calculate_period_dictionary()
+    target = Target.objects.get(target="500|499")
+    target.has_deff_noble = True
+    target.deff_noble_order = 3
+    target.save(update_fields=["has_deff_noble", "deff_noble_order"])
+    weight = WeightModel.objects.get(start="500|502")
+    weight.deff = 350
+    weight.save(update_fields=["deff"])
+
+    time_periods = make_final._time_periods(target)
+    time_periods.adjust_time([weight])
+    new_weight = time_periods.next(weight)
+
+    result = make_final._json_weight(new_weight, target)
+
+    assert result["deff"] == 350
+    assert result["send_url_text"] == SEND_TEXT.DEFF_NOBLE.value
 
     def test_calculate_period_dict(self):
         self.make_final._calculate_period_dictionary()

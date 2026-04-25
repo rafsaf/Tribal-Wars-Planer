@@ -34,6 +34,7 @@ class WeightModel(models.Model):
     start = models.CharField(max_length=7)
     village_id = models.IntegerField()
     off = models.IntegerField()
+    deff = models.IntegerField(default=0)
     distance = models.FloatField()
     nobleman = models.IntegerField()
     catapult = models.IntegerField()
