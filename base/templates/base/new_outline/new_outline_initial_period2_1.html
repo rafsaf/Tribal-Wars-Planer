@@ -323,7 +323,7 @@
                                         <th class="front-{{weight.first_line}}">
                                             <div class="popoverData" data-bs-html="true" data-bs-content="<h4><span class='badge rounded-pill bg-info'>{{weight.player}}</span></h4><div class='d-flex justify-content-center'><h5><span class='badge bg-secondary'>{{weight.start}}</span></h5></div>{% if target.ruin %}<h5 style='text-align:center'>{{weight.get_building_display|default_if_none:'-'}}</h5>{% endif %}" rel="popover" data-bs-placement="top" data-bs-trigger="hover">
                                                 {% if instance.simple_textures %}
-                                                    <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.off}}</p>
+                                                    <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{% if weight.deff > 0 and weight.nobleman > 0 %}{{weight.deff}}{% else %}{{weight.off}}{% endif %}</p>
                                                     {% if target.ruin %}
                                                         <p class="text-nowrap px-2" style="font-size: small;cursor:default;">{{weight.catapult}}</p>
                                                     {% else %}
@@ -333,8 +333,8 @@
                                                 {% else %}
                                                     <table class="table table-sm table-bordered mb-0" style="width: auto;">
                                                         <tr>
-                                                            <th><img src='{% static "images/ax.avif" %}' alt="ax"></th>
-                                                            <th style="font-size: small;cursor:default;">{{weight.off}}</th>
+                                                            <th><img src='{% if weight.deff > 0 and weight.nobleman > 0 %}{% static "images/spear.avif" %}{% else %}{% static "images/ax.avif" %}{% endif %}' alt="unit"></th>
+                                                            <th style="font-size: small;cursor:default;">{% if weight.deff > 0 and weight.nobleman > 0 %}{{weight.deff}}{% else %}{{weight.off}}{% endif %}</th>
                                                         </tr>
                                                         <tr>
                                                             {% if target.ruin %}

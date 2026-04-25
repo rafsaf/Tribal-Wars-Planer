@@ -40,6 +40,10 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
         front_full_noble_off,
         back_full_noble_off,
         too_far_full_noble_off,
+        all_deff_noble_villages,
+        front_deff_noble_villages,
+        back_deff_noble_villages,
+        too_far_deff_noble_villages,
         all_noble_near,
         front_noble_near,
         back_noble_near,
@@ -53,13 +57,44 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
         back_catapults,
         too_far_catapults,
         available_ruins,
-    ] = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    ] = (
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+    )
 
     ally_villages = models.WeightMaximum.objects.filter(outline=outline).only(
         "pk",
         "x_coord",
         "y_coord",
         "off_left",
+        "deff_left",
         "nobleman_left",
         "catapult_left",
         "first_line",
@@ -125,6 +160,13 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
             all_catapults += weight_max.catapult_left
             front_catapults += weight_max.catapult_left
             if (
+                weight_max.deff_left >= outline.initial_outline_min_deff
+                and weight_max.deff_left <= outline.initial_outline_max_deff
+                and weight_max.nobleman_left >= 1
+            ):
+                all_deff_noble_villages += 1
+                front_deff_noble_villages += 1
+            if (
                 weight_max.off_left >= outline.initial_outline_min_off
                 and weight_max.off_left <= outline.initial_outline_max_off
             ):
@@ -153,6 +195,13 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
             all_catapults += weight_max.catapult_left
             too_far_catapults += weight_max.catapult_left
             if (
+                weight_max.deff_left >= outline.initial_outline_min_deff
+                and weight_max.deff_left <= outline.initial_outline_max_deff
+                and weight_max.nobleman_left >= 1
+            ):
+                all_deff_noble_villages += 1
+                too_far_deff_noble_villages += 1
+            if (
                 weight_max.off_left >= outline.initial_outline_min_off
                 and weight_max.off_left <= outline.initial_outline_max_off
             ):
@@ -180,6 +229,13 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
             all_noble += weight_max.nobleman_left
             all_catapults += weight_max.catapult_left
             back_catapults += weight_max.catapult_left
+            if (
+                weight_max.deff_left >= outline.initial_outline_min_deff
+                and weight_max.deff_left <= outline.initial_outline_max_deff
+                and weight_max.nobleman_left >= 1
+            ):
+                all_deff_noble_villages += 1
+                back_deff_noble_villages += 1
             if (
                 weight_max.off_left >= outline.initial_outline_min_off
                 and weight_max.off_left <= outline.initial_outline_max_off
@@ -234,6 +290,12 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
         back_full_noble_off,
         too_far_full_noble_off,
     ]
+    outline.available_deff_noble_villages = [
+        all_deff_noble_villages,
+        front_deff_noble_villages,
+        back_deff_noble_villages,
+        too_far_deff_noble_villages,
+    ]
     outline.available_nobles_near = [
         all_noble_near,
         front_noble_near,
@@ -258,6 +320,7 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
             "available_nobles",
             "available_offs",
             "available_full_noble_offs",
+            "available_deff_noble_villages",
             "available_nobles_near",
             "available_offs_near",
             "available_catapults",

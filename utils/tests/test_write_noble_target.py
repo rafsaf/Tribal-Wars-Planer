@@ -137,10 +137,11 @@ class TestWriteNobleTarget(TestCase):
         write_noble.index = 999
         self.weight4.distance = 10  # type: ignore
         weight = write_noble._weight_model(
-            weight_max=self.weight4, off=1, catapult=2, noble=3, order=4
+            weight_max=self.weight4, off=1, catapult=2, noble=3, deff=4, order=4
         )
         self.assertTrue(isinstance(weight, WeightModel))
         self.assertEqual(weight.off, 1)
+        self.assertEqual(weight.deff, 4)
         self.assertEqual(weight.catapult, 2)
         self.assertEqual(weight.nobleman, 3)
         self.assertEqual(weight.order, 999 + 4)
@@ -334,6 +335,106 @@ class TestWriteNobleTarget(TestCase):
         self.assertEqual(off5, 70)
         off6 = write_noble._first_off(weight, off5, 1)
         self.assertEqual(off6, 70)
+
+
+def test_weight_create_list_creates_exactly_one_deff_noble(db) -> None:
+    activate("pl")
+    create_initial_data_write_outline()
+    outline: Outline = Outline.objects.get(id=1)
+    outline.off_troops = (
+        "500|500,0,400,0,8400,0,0,0,0,200,2,0,\r\n"
+        "500|501,0,0,0,190,0,0,0,0,0,0,0,\r\n"
+        "500|502,0,0,0,19500,0,0,0,0,0,0,0,\r\n"
+        "500|503,0,0,0,20100,0,0,0,0,0,0,0,\r\n"
+        "500|504,0,0,0,20000,0,0,0,0,0,2,0,\r\n"
+        "500|505,0,0,0,20000,0,0,0,0,0,2,0,"
+    )
+    outline.save()
+    MakeOutline(outline)()
+
+    target = Target.objects.create(
+        outline=outline,
+        target="500|499",
+        player="player1",
+        required_noble=4,
+        has_deff_noble=True,
+        deff_noble_order=4,
+    )
+    coord = target.coord_tuple()
+    weights = list(
+        WeightMaximum.objects.filter(outline=outline, too_far_away=False).annotate(
+            distance=ExpressionWrapper(
+                ((F("x_coord") - coord[0]) ** 2 + (F("y_coord") - coord[1]) ** 2)
+                ** (1 / 2),
+                output_field=FloatField(max_length=5),
+            )
+        )
+    )
+    fast_weights = [FastWeightMaximum(weight, 0, outline) for weight in weights]
+    for index, fast_weight in enumerate(fast_weights):
+        fast_weight.distance = weights[index].distance
+
+    created = WriteNobleTarget(
+        target=target,
+        outline=outline,
+        weight_max_list=fast_weights,
+        random=SystemRandom("deff_noble_test"),
+    ).weight_create_list()
+
+    ordered = sorted(created, key=lambda weight: weight.order)
+    assert len(ordered) == 4
+    assert sum(1 for weight in ordered if weight.deff > 0) == 1
+    assert ordered[3].deff == 400
+    assert ordered[3].nobleman == 1
+    assert ordered[3].off == 0
+
+
+def test_weight_create_list_respects_minimum_deff_threshold_for_deff_noble(db) -> None:
+    activate("pl")
+    create_initial_data_write_outline()
+    outline: Outline = Outline.objects.get(id=1)
+    outline.initial_outline_min_deff = 500
+    outline.off_troops = (
+        "500|500,0,400,0,8400,0,0,0,0,200,2,0,\r\n"
+        "500|501,0,0,0,190,0,0,0,0,0,0,0,\r\n"
+        "500|502,0,0,0,19500,0,0,0,0,0,0,0,\r\n"
+        "500|503,0,0,0,20100,0,0,0,0,0,0,0,\r\n"
+        "500|504,0,0,0,20000,0,0,0,0,0,2,0,\r\n"
+        "500|505,0,0,0,20000,0,0,0,0,0,2,0,"
+    )
+    outline.save()
+    MakeOutline(outline)()
+
+    target = Target.objects.create(
+        outline=outline,
+        target="500|499",
+        player="player1",
+        required_noble=4,
+        has_deff_noble=True,
+        deff_noble_order=4,
+    )
+    coord = target.coord_tuple()
+    weights = list(
+        WeightMaximum.objects.filter(outline=outline, too_far_away=False).annotate(
+            distance=ExpressionWrapper(
+                ((F("x_coord") - coord[0]) ** 2 + (F("y_coord") - coord[1]) ** 2)
+                ** (1 / 2),
+                output_field=FloatField(max_length=5),
+            )
+        )
+    )
+    fast_weights = [FastWeightMaximum(weight, 0, outline) for weight in weights]
+    for index, fast_weight in enumerate(fast_weights):
+        fast_weight.distance = weights[index].distance
+
+    created = WriteNobleTarget(
+        target=target,
+        outline=outline,
+        weight_max_list=fast_weights,
+        random=SystemRandom("deff_noble_test"),
+    ).weight_create_list()
+
+    assert created == []
 
     def test_off_and_first_off_low_off_is_divide_for_every_mode_division_with_fake_minimal(
         self,

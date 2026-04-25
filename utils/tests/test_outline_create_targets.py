@@ -14,6 +14,7 @@
 # ==============================================================================
 
 
+import pytest
 from django.test import TestCase
 from django.utils.translation import activate
 
@@ -237,3 +238,27 @@ class TestOutlineCreateTargets(TestCase):
         self.assertEqual(targets[3].required_noble, 0)
         self.assertEqual(targets[3].exact_off, [0, 0, 0, 0])
         self.assertEqual(targets[3].exact_noble, [0, 0, 0, 0])
+
+
+def test_creates_real_targets_with_deff_noble_metadata(db) -> None:
+    activate("pl")
+    create_initial_data_write_outline()
+    outline: Outline = Outline.objects.get(id=1)
+    outline.initial_outline_targets = "500|499:2:4+deff"
+
+    OutlineCreateTargets(outline, TargetMode("real"))()
+
+    target: Target = Target.objects.get(target="500|499", outline=outline)
+    assert target.required_noble == 4
+    assert target.has_deff_noble is True
+    assert target.deff_noble_order == 4
+
+
+def test_fake_targets_reject_deff_noble_syntax(db) -> None:
+    activate("pl")
+    create_initial_data_write_outline()
+    outline: Outline = Outline.objects.get(id=1)
+    outline.initial_outline_fakes = "500|499:2:4+deff"
+
+    with pytest.raises(ValueError, match="deff noble syntax"):
+        OutlineCreateTargets(outline, TargetMode("fake"))()

@@ -13,8 +13,14 @@
 # limitations under the License.
 # ==============================================================================
 
+import re
+
 from base import models
 from utils import basic
+
+DEFF_SUFFIX_PATTERN = re.compile(
+    r"^(?P<body>\d+(?:\|\d+\|\d+\|\d+)?)(?P<suffix>\+(?:(?P<order>[1-9]\d*)?deff))?$"
+)
 
 
 class TargetsData:
@@ -87,10 +93,13 @@ class TargetsOneLine:
 
         # rest two matches are not integers
         if len(split_line) == 3:
-            if not self.split_is_valid(split_line[1]) or not self.split_is_valid(
-                split_line[2]
-            ):
+            if not self.split_is_valid(split_line[1]):
                 raise LineError()
+            try:
+                split_line[2] = self.normalize_noble_segment(split_line[2])
+            except LineError:
+                raise LineError()
+            self.line = ":".join(split_line)
 
         # only one match after coord
         if len(split_line) == 2:
@@ -104,7 +113,38 @@ class TargetsOneLine:
 
         return (coord, self.line)
 
-    def split_is_valid(self, split_line: str):
+    @staticmethod
+    def _segment_total(split_line: str) -> int:
+        if split_line.isnumeric():
+            return int(split_line)
+        return sum(int(item) for item in split_line.split("|"))
+
+    @classmethod
+    def normalize_noble_segment(cls, split_line: str) -> str:
+        match = DEFF_SUFFIX_PATTERN.fullmatch(split_line)
+        if match is None:
+            raise LineError()
+
+        base_segment = match.group("body")
+        if not cls.split_is_valid(base_segment):
+            raise LineError()
+
+        suffix = match.group("suffix")
+        if suffix is None:
+            return base_segment
+
+        total_nobles = cls._segment_total(base_segment)
+        if total_nobles == 0:
+            raise LineError()
+
+        deff_order = int(match.group("order") or total_nobles)
+        if deff_order > total_nobles:
+            raise LineError()
+
+        return f"{base_segment}+{deff_order}deff"
+
+    @staticmethod
+    def split_is_valid(split_line: str):
         # valids are numeric and 0|0|0|0 only
         if split_line.isnumeric():
             return True

@@ -73,6 +73,8 @@ class TargetVertex(models.Model):
 
     required_off = models.IntegerField(default=0)
     required_noble = models.IntegerField(default=0)
+    has_deff_noble = models.BooleanField(default=False)
+    deff_noble_order = models.IntegerField(null=True, blank=True, default=None)
 
     exact_off = ArrayField(models.IntegerField(), default=list, size=4)
     exact_noble = ArrayField(models.IntegerField(), default=list, size=4)
