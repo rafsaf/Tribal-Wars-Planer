@@ -124,3 +124,26 @@ class TestOutlineCreateTargets(TestCase):
             self.assertEqual(lst[5].nobleman_max, 2)
             self.assertEqual(lst[5].nobleman_state, 0)
             assert lst[5].points == 99999
+
+
+def test_make_outline_sets_deff_fields_from_army_value(db) -> None:
+    activate("pl")
+    create_initial_data_write_outline()
+    outline: Outline = Outline.objects.get(id=1)
+    outline.input_data_type = Outline.ARMY_COLLECTION
+    outline.off_troops = (
+        "500|500,0,300,200,8400,0,0,50,0,100,2,0,\r\n"
+        "500|501,0,0,0,190,0,0,0,0,0,0,0,\r\n"
+        "500|502,0,0,0,19500,0,0,0,0,0,0,0,\r\n"
+        "500|503,0,0,0,20100,0,0,0,0,0,0,0,\r\n"
+        "500|504,0,0,0,20000,0,0,0,0,0,2,0,\r\n"
+        "500|505,0,0,0,20000,0,0,0,0,0,2,0,"
+    )
+    outline.save()
+
+    MakeOutline(outline)()
+
+    weight_max = WeightMaximum.objects.get(outline=outline, start="500|500")
+    assert weight_max.deff_max == 700
+    assert weight_max.deff_left == 700
+    assert weight_max.deff_state == 0

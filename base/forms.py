@@ -484,6 +484,17 @@ class InitialOutlineForm(forms.Form):
         else:
             data_lines.validate()
 
+        if not self.target_mode.is_real:
+            non_real_deff_errors = self._non_real_deff_noble_errors(data_lines)
+            if non_real_deff_errors:
+                data_lines.errors_ids.update(non_real_deff_errors)
+                self.add_error(
+                    None,
+                    gettext_lazy(
+                        "'+deff' can be used only for real targets. Remove it from fake or ruin lines."
+                    ),
+                )
+
         if len(data_lines.errors_ids) == 0:
             new_data = data_lines.new_validated_data.strip()
             if (
@@ -519,6 +530,18 @@ class InitialOutlineForm(forms.Form):
             self.add_error("target", str(error_id))
         return data
 
+    def _non_real_deff_noble_errors(self, data_lines: basic.TargetsData) -> set[int]:
+        errors_ids: set[int] = set()
+        for index, line in enumerate(data_lines.lines):
+            split_line = line.split(":")
+            if len(split_line) != 3:
+                continue
+
+            if "deff" in split_line[2]:
+                errors_ids.add(index)
+
+        return errors_ids
+
 
 class AvailableTroopsForm(forms.ModelForm):
     class Meta:
@@ -526,6 +549,8 @@ class AvailableTroopsForm(forms.ModelForm):
         fields = [
             "initial_outline_min_off",
             "initial_outline_max_off",
+            "initial_outline_min_deff",
+            "initial_outline_max_deff",
             "initial_outline_front_dist",
             "initial_outline_target_dist",
             "initial_outline_maximum_off_dist",
@@ -534,6 +559,8 @@ class AvailableTroopsForm(forms.ModelForm):
         labels = {
             "initial_outline_min_off": gettext_lazy("Min. off units number"),
             "initial_outline_max_off": gettext_lazy("Max. off units number"),
+            "initial_outline_min_deff": gettext_lazy("Min. deff units number"),
+            "initial_outline_max_deff": gettext_lazy("Max. deff units number"),
             "initial_outline_front_dist": gettext_lazy(
                 "Minimum distance from front line"
             ),
@@ -548,6 +575,12 @@ class AvailableTroopsForm(forms.ModelForm):
             ),
             "initial_outline_max_off": gettext_lazy(
                 "Defaults to 28000. Similar to minimum off units number, must be greater than it."
+            ),
+            "initial_outline_min_deff": gettext_lazy(
+                "Greater than or equal to 0 and less than or equal to 28000. Only deff villages at or above this value will be considered for deff noble use and estimates."
+            ),
+            "initial_outline_max_deff": gettext_lazy(
+                "Defaults to 28000. Similar to minimum deff units number, must be greater than or equal to it."
             ),
             "initial_outline_front_dist": gettext_lazy(
                 "Greater than or equal to 0 and less than or equal to 500. Villages closer to the enemy than this value will be considered front-line and not written out by default."
@@ -599,6 +632,8 @@ class AvailableTroopsForm(forms.ModelForm):
     def clean(self):
         off_min: int | None = self.cleaned_data.get("initial_outline_min_off")
         off_max: int | None = self.cleaned_data.get("initial_outline_max_off")
+        deff_min: int | None = self.cleaned_data.get("initial_outline_min_deff")
+        deff_max: int | None = self.cleaned_data.get("initial_outline_max_deff")
         if off_min is not None and off_max is not None:
             if off_min > off_max:
                 self.add_error(
@@ -608,6 +643,17 @@ class AvailableTroopsForm(forms.ModelForm):
                 self.add_error(
                     "initial_outline_max_off",
                     f"It cannot be less than minimum! Change this value to greater than {off_min} or reduce the minimum.",
+                )
+
+        if deff_min is not None and deff_max is not None:
+            if deff_min > deff_max:
+                self.add_error(
+                    "initial_outline_min_deff",
+                    f"It cannot be grater than maximum! Change this value to less than {deff_max} or increase the maximum.",
+                )
+                self.add_error(
+                    "initial_outline_max_deff",
+                    f"It cannot be less than minimum! Change this value to greater than {deff_min} or reduce the minimum.",
                 )
 
         return super().clean()
@@ -706,6 +752,8 @@ class SetNewOutlineFilters(forms.ModelForm):
         fields = [
             "filter_weights_min",
             "filter_weights_max",
+            "filter_weights_deff_min",
+            "filter_weights_deff_max",
             "filter_weights_catapults_min",
             "filter_weights_nobles_min",
             "filter_card_number",
@@ -715,11 +763,13 @@ class SetNewOutlineFilters(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["filter_weights_min"].widget.attrs["class"] = "form-control"
+        self.fields["filter_weights_deff_min"].widget.attrs["class"] = "form-control"
         self.fields["filter_weights_catapults_min"].widget.attrs["class"] = (
             "form-control"
         )
         self.fields["filter_weights_nobles_min"].widget.attrs["class"] = "form-control"
         self.fields["filter_weights_max"].widget.attrs["class"] = "form-control"
+        self.fields["filter_weights_deff_max"].widget.attrs["class"] = "form-control"
         self.fields["filter_card_number"].widget.attrs["class"] = "form-control"
         self.fields["filter_hide_front"].widget.attrs["class"] = "form-control"
 
@@ -983,6 +1033,13 @@ class WeightForm(forms.Form):
         label=gettext_lazy("Catapults"),
         min_value=0,
         help_text="0-0",
+    )
+    deff = forms.IntegerField(
+        widget=forms.NumberInput,
+        label=gettext_lazy("Deff troops"),
+        min_value=0,
+        help_text="0-0",
+        required=False,
     )
     nobleman = forms.IntegerField(
         widget=forms.NumberInput,

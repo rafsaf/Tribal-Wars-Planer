@@ -259,9 +259,9 @@
                                                     <table class="table table-sm">
                                                         <tr>
                                                             <th>
-                                                                <img src='{% static "images/ax.avif" %}' alt="ax">
+                                                                <img src='{% if weight.deff > 0 and weight.nobleman > 0 %}{% static "images/spear.avif" %}{% else %}{% static "images/ax.avif" %}{% endif %}' alt="unit">
                                                             </th>
-                                                            <th style="font-size: small;cursor:default">{{weight.off}}</th>
+                                                            <th style="font-size: small;cursor:default">{% if weight.deff > 0 and weight.nobleman > 0 %}{{weight.deff}}{% else %}{{weight.off}}{% endif %}</th>
                                                         </tr>
                                                         {% if target.ruin %}
                                                             <tr>
