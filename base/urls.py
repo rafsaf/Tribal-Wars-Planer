@@ -36,11 +36,13 @@ from base.views.outline_create import (
 )
 from base.views.outline_initial_changes import (
     initial_add_first,
+    initial_add_first_deff_noble,
     initial_add_first_fake,
     initial_add_first_fake_noble,
     initial_add_first_off,
     initial_add_first_ruin,
     initial_add_last,
+    initial_add_last_deff_noble,
     initial_add_last_fake,
     initial_add_last_fake_noble,
     initial_add_last_off,
@@ -164,6 +166,11 @@ urlpatterns = [
         name="planer_add_first_fake_noble",
     ),
     path(
+        "planer/<int:id1>/<int:id2>/<int:id3>/add_first_deff_noble",
+        initial_add_first_deff_noble,
+        name="planer_add_first_deff_noble",
+    ),
+    path(
         "planer/<int:id1>/<int:id2>/<int:id3>/add_last_fake",
         initial_add_last_fake,
         name="planer_add_last_fake",
@@ -172,6 +179,11 @@ urlpatterns = [
         "planer/<int:id1>/<int:id2>/<int:id3>/add_last_fake_noble",
         initial_add_last_fake_noble,
         name="planer_add_last_fake_noble",
+    ),
+    path(
+        "planer/<int:id1>/<int:id2>/<int:id3>/add_last_deff_noble",
+        initial_add_last_deff_noble,
+        name="planer_add_last_deff_noble",
     ),
     path(
         "planer/<int:id1>/<int:id2>/<int:id3>/add_last_ruin",

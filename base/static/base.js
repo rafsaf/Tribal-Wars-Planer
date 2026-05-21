@@ -49,27 +49,53 @@ const modal = () => {
           return;
         }
 
-        const attackNumber = button.dataset.attacknumber;
-        const start = button.dataset.start;
-        const off = parseInt(button.dataset.off, 10);
-        const leftOff = parseInt(button.dataset.leftoff, 10);
-        const nobleman = parseInt(button.dataset.nobleman, 10);
-        const leftNobleman = parseInt(button.dataset.leftnobleman, 10);
-        const catapult = parseInt(button.dataset.catapult, 10);
-        const leftCatapult = parseInt(button.dataset.leftcatapult, 10);
-        const id = button.dataset.id;
+        const attackNumber = button.dataset.attacknumber || "";
+        const start = button.dataset.start || "";
+        const intOrZero = (value) => {
+          const parsed = parseInt(value || "0", 10);
+          return Number.isNaN(parsed) ? 0 : parsed;
+        };
+        const off = intOrZero(button.dataset.off);
+        const leftOff = intOrZero(button.dataset.leftoff);
+        const deff = intOrZero(button.dataset.deff);
+        const leftDeff = intOrZero(button.dataset.leftdeff);
+        const nobleman = intOrZero(button.dataset.nobleman);
+        const leftNobleman = intOrZero(button.dataset.leftnobleman);
+        const catapult = intOrZero(button.dataset.catapult);
+        const leftCatapult = intOrZero(button.dataset.leftcatapult);
+        const id = button.dataset.id || "";
 
         const modalRoot = this;
         const getBySelector = (selector) => modalRoot.querySelector(selector);
+        const setInputHintText = (input, text) => {
+          if (!input) {
+            return;
+          }
+
+          const describedBy = input.getAttribute("aria-describedby") || "";
+          describedBy.split(" ").forEach((elementId) => {
+            if (!elementId.endsWith("_helptext")) {
+              return;
+            }
+
+            const element = getBySelector(`#${elementId}`);
+            if (element) {
+              element.textContent = text;
+            }
+          });
+        };
 
         const currentOther = off - catapult * 8;
         const currentCatapult = catapult;
+        const currentDeff = deff;
 
         const currentOtherLeft = leftOff - leftCatapult * 8;
         const currentCatapultLeft = leftCatapult;
+        const currentDeffLeft = leftDeff;
 
         const currentOtherMax = currentOther + currentOtherLeft;
         const currentCatapultMax = currentCatapult + currentCatapultLeft;
+        const currentDeffMax = currentDeff + currentDeffLeft;
 
         getBySelector(".modal-title").textContent = start;
         getBySelector("#attack-number").textContent = attackNumber;
@@ -77,20 +103,26 @@ const modal = () => {
         getBySelector("#id_off").value = off;
 
         const offNoCatapultInput = getBySelector("#id_off_no_catapult");
+        const deffInput = getBySelector("#id_deff");
         const catapultInput = getBySelector("#id_catapult");
         const offInput = getBySelector("#id_off");
+
         offNoCatapultInput.value = currentOther;
         offNoCatapultInput.max = String(currentOtherMax);
-        getBySelector("#hint_id_off_no_catapult").textContent = `0-${currentOtherMax}`;
+        setInputHintText(offNoCatapultInput, `0-${currentOtherMax}`);
         offNoCatapultInput.onchange = function () {
           const cat = parseInt(catapultInput.value, 10) || 0;
           const offNoCats = parseInt(offNoCatapultInput.value, 10) || 0;
           offInput.value = String(offNoCats + cat * 8);
         };
 
+        deffInput.value = String(currentDeff);
+        deffInput.max = String(currentDeffMax);
+        setInputHintText(deffInput, `0-${currentDeffMax}`);
+
         catapultInput.value = String(currentCatapult);
         catapultInput.max = String(currentCatapultMax);
-        getBySelector("#hint_id_catapult").textContent = `0-${currentCatapultMax}`;
+        setInputHintText(catapultInput, `0-${currentCatapultMax}`);
         catapultInput.onchange = function () {
           const cat = parseInt(catapultInput.value, 10) || 0;
           const offNoCats = parseInt(offNoCatapultInput.value, 10) || 0;
@@ -100,7 +132,7 @@ const modal = () => {
         const noblemanInput = getBySelector("#id_nobleman");
         noblemanInput.value = String(nobleman);
         noblemanInput.max = String(nobleman + leftNobleman);
-        getBySelector("#hint_id_nobleman").textContent = `0-${nobleman + leftNobleman}`;
+        setInputHintText(noblemanInput, `0-${nobleman + leftNobleman}`);
       });
     }
 
@@ -859,6 +891,9 @@ const activateTimezoneInfo = () => {
 
 const setFooterYears = () => {
   const footerYearEl = document.getElementById("footer-years");
+  if (!footerYearEl) {
+    return;
+  }
   footerYearEl.innerText = `2020-${new Date().getFullYear()} `;
 };
 

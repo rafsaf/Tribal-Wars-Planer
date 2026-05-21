@@ -23,6 +23,8 @@ class AvailableTroopsFormTest(MiniSetup):
             {
                 "initial_outline_min_off": 10,
                 "initial_outline_max_off": 15,
+                "initial_outline_min_deff": 100,
+                "initial_outline_max_deff": 500,
                 "initial_outline_front_dist": 15,
                 "initial_outline_target_dist": 100,
                 "initial_outline_maximum_off_dist": 111,
@@ -37,6 +39,8 @@ class AvailableTroopsFormTest(MiniSetup):
             {
                 "initial_outline_min_off": 10,
                 "initial_outline_max_off": 15,
+                "initial_outline_min_deff": 100,
+                "initial_outline_max_deff": 500,
                 "initial_outline_front_dist": 15,
                 "initial_outline_target_dist": 100,
                 "initial_outline_maximum_off_dist": 111,
@@ -51,6 +55,8 @@ class AvailableTroopsFormTest(MiniSetup):
             {
                 "initial_outline_min_off": 15,
                 "initial_outline_max_off": 10,
+                "initial_outline_min_deff": 100,
+                "initial_outline_max_deff": 500,
                 "initial_outline_front_dist": 15,
                 "initial_outline_target_dist": 100,
                 "initial_outline_maximum_off_dist": 111,
@@ -65,10 +71,28 @@ class AvailableTroopsFormTest(MiniSetup):
             {
                 "initial_outline_min_off": "",
                 "initial_outline_max_off": "",
+                "initial_outline_min_deff": "",
+                "initial_outline_max_deff": "",
                 "initial_outline_front_dist": "",
                 "initial_outline_target_dist": "",
                 "initial_outline_maximum_off_dist": "",
                 "initial_outline_excluded_coords": "",
+            },
+            instance=self.get_outline(),
+        )
+        assert not form.is_valid()
+
+    def test_form_not_valid_when_invalid_max_deff_is_greater_than_min(self):
+        form: AvailableTroopsForm = AvailableTroopsForm(
+            {
+                "initial_outline_min_off": 10,
+                "initial_outline_max_off": 15,
+                "initial_outline_min_deff": 500,
+                "initial_outline_max_deff": 100,
+                "initial_outline_front_dist": 15,
+                "initial_outline_target_dist": 100,
+                "initial_outline_maximum_off_dist": 111,
+                "initial_outline_excluded_coords": "500|500",
             },
             instance=self.get_outline(),
         )

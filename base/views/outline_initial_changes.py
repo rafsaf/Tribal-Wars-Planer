@@ -19,7 +19,7 @@ from itertools import zip_longest
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Max, Min
-from django.http import HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
@@ -72,6 +72,90 @@ def _get_weight_model_for_target(
         target__outline_id=outline_id,
         target__outline__owner=request.user,
     )
+
+
+def _target_has_deff_noble(weight_target: models.TargetVertex) -> bool:
+    return models.WeightModel.objects.filter(target=weight_target, deff__gt=0).exists()
+
+
+def _deff_noble_response_redirect(
+    outline_id: int,
+    target_id: int,
+    page: str | None,
+    sort: str | None,
+    filtr: str | None,
+) -> HttpResponse:
+    return redirect(
+        reverse("base:planer_initial_detail", args=[outline_id, target_id])
+        + f"?page={page}&sort={sort}&filtr={filtr}"
+    )
+
+
+def _initial_add_deff_noble(
+    request: HttpRequest,
+    id1: int,
+    id2: int,
+    id3: int,
+    *,
+    first: bool,
+) -> HttpResponse:
+    _get_owned_outline(request, id1)
+    sort = request.GET.get("sort")
+    page = request.GET.get("page")
+    filtr = request.GET.get("filtr")
+    target = _get_target_for_outline(request, id1, id2)
+    weight = _get_weight_max_for_outline(request, id1, id3)
+
+    if not target.has_deff_noble:
+        raise Http404()
+
+    if _target_has_deff_noble(target):
+        return _deff_noble_response_redirect(id1, id2, page, sort, filtr)
+
+    if weight.nobleman_left <= 0 or weight.deff_left <= 0:
+        return _deff_noble_response_redirect(id1, id2, page, sort, filtr)
+
+    if not models.WeightModel.objects.filter(target=target).exists():
+        order = 0
+    elif first:
+        order = (
+            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
+                "order__min"
+            ]
+            - 1
+        )
+    else:
+        order = (
+            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
+                "order__max"
+            ]
+            + 1
+        )
+
+    deff_amount = weight.deff_left
+    models.WeightModel.objects.create(
+        target=target,
+        player=weight.player,
+        start=weight.start,
+        state=weight,
+        off=0,
+        deff=deff_amount,
+        ruin=False,
+        building=None,
+        catapult=0,
+        nobleman=1,
+        order=order,
+        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
+        first_line=weight.first_line,
+        village_id=weight.village_id,
+        player_id=weight.player_id,
+    )
+    weight.nobleman_state += 1
+    weight.nobleman_left -= 1
+    weight.deff_state += deff_amount
+    weight.deff_left = 0
+    weight.save()
+    return _deff_noble_response_redirect(id1, id2, page, sort, filtr)
 
 
 @require_POST
@@ -350,6 +434,15 @@ def initial_add_first_fake_noble(
 @require_POST
 @login_required
 @transaction.atomic
+def initial_add_first_deff_noble(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
+    return _initial_add_deff_noble(request, id1, id2, id3, first=True)
+
+
+@require_POST
+@login_required
+@transaction.atomic
 def initial_add_last_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
@@ -466,6 +559,15 @@ def initial_add_last_fake_noble(
         reverse("base:planer_initial_detail", args=[id1, id2])
         + f"?page={page}&sort={sort}&filtr={filtr}"
     )
+
+
+@require_POST
+@login_required
+@transaction.atomic
+def initial_add_last_deff_noble(
+    request: HttpRequest, id1: int, id2: int, id3: int
+) -> HttpResponse:
+    return _initial_add_deff_noble(request, id1, id2, id3, first=False)
 
 
 @require_POST
@@ -705,6 +807,8 @@ def initial_weight_delete(
 
     state.nobleman_left += weight_model.nobleman
     state.nobleman_state -= weight_model.nobleman
+    state.deff_left += weight_model.deff
+    state.deff_state -= weight_model.deff
     state.catapult_left += weight_model.catapult
     state.catapult_state -= weight_model.catapult
     state.save()
@@ -727,6 +831,8 @@ def initial_divide(
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
     weight_model = _get_weight_model_for_target(request, id1, id2, id4, with_state=True)
+    if weight_model.deff > 0:
+        raise Http404()
     n_list: list[int] = [i + 1 for i in range(n - 1)]
     nob_list: list[int] = [i for i in range(max(weight_model.nobleman - 1, 0))]
     if n > weight_model.nobleman:

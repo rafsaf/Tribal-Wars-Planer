@@ -153,6 +153,45 @@ class InitialForm(MiniSetup):
         response = self.client.get(PATH)
         assert response.context.get("premium_error") is True
 
+    def test_planer_initial_form___200_renders_deff_noble_summary_row(self):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = self.TEST_WORLD_DATA
+        outline.save(update_fields=["off_troops"])
+        outline.off_troops_weightmodels_hash = outline.get_or_set_off_troops_hash()
+        outline.available_offs = [0, 0, 0, 0]
+        outline.available_nobles = [0, 0, 0, 0]
+        outline.available_offs_near = [0, 0, 0, 0]
+        outline.available_nobles_near = [0, 0, 0, 0]
+        outline.available_full_noble_offs = [0, 0, 0, 0]
+        outline.available_deff_noble_villages = [3, 1, 1, 1]
+        outline.available_catapults = [0, 0, 0, 0]
+        outline.save(
+            update_fields=[
+                "off_troops_weightmodels_hash",
+                "available_offs",
+                "available_nobles",
+                "available_offs_near",
+                "available_nobles_near",
+                "available_full_noble_offs",
+                "available_deff_noble_villages",
+                "available_catapults",
+            ]
+        )
+        self.create_weight_maximum(outline=outline)
+
+        path = reverse("base:planer_initial_form", args=[outline.pk])
+        self.login_me()
+        response = self.client.get(path)
+
+        assert response.status_code == 200
+        assert response.context["instance"].available_deff_noble_villages == [
+            3,
+            1,
+            1,
+            1,
+        ]
+        assert "Deff with 1 noble" in response.content.decode()
+
     def test_planer_initial_form___200_deff_troops_correct_and_creating_weights_and_mode_always_correct(
         self,
     ):
@@ -332,6 +371,8 @@ class InitialForm(MiniSetup):
             form2["initial_outline_target_dist"].initial == initial_outline_target_dist
         )
         assert form2["initial_outline_min_off"].initial == initial_outline_min_off
+        assert form2["initial_outline_min_deff"].initial == 15000
+        assert form2["initial_outline_max_deff"].initial == 28000
         assert (
             form2["initial_outline_excluded_coords"].initial
             == initial_outline_excluded_coords
@@ -481,6 +522,8 @@ class InitialForm(MiniSetup):
             form2["initial_outline_target_dist"].initial == initial_outline_target_dist
         )
         assert form2["initial_outline_min_off"].initial == initial_outline_min_off
+        assert form2["initial_outline_min_deff"].initial == 15000
+        assert form2["initial_outline_max_deff"].initial == 28000
         assert (
             form2["initial_outline_excluded_coords"].initial
             == initial_outline_excluded_coords
@@ -618,6 +661,40 @@ class InitialForm(MiniSetup):
         assert TargetVertex.objects.filter(fake=True, ruin=False).count() == 2
         TargetVertex.objects.all().delete()
 
+    def test_planer_initial_form___200_fake_rejects_deff_suffix_gracefully(self):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.save()
+        path = reverse("base:planer_initial_form", args=[outline.pk]) + "?t=fake"
+        self.login_me()
+
+        response = self.client.post(
+            path, data={"form1": "", "target": "200|200:0:1+deff"}
+        )
+
+        assert response.status_code == 200
+        form1: forms.InitialOutlineForm = response.context["form1"]
+        assert "target" in form1.errors
+        assert form1.non_field_errors()
+        assert TargetVertex.objects.filter(fake=True, ruin=False).count() == 0
+
+    def test_planer_initial_form___200_ruin_rejects_deff_suffix_gracefully(self):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
+        outline.save()
+        path = reverse("base:planer_initial_form", args=[outline.pk]) + "?t=ruin"
+        self.login_me()
+
+        response = self.client.post(
+            path, data={"form1": "", "target": "200|200:0:1+deff"}
+        )
+
+        assert response.status_code == 200
+        form1: forms.InitialOutlineForm = response.context["form1"]
+        assert "target" in form1.errors
+        assert form1.non_field_errors()
+        assert TargetVertex.objects.filter(fake=False, ruin=True).count() == 0
+
     def test_planer_initial_form___302_test_form1_ruin(self):
         outline = self.get_outline(test_world=True)
         outline.off_troops = "102|102,55,100,100,7002,0,100,2802,0,0,350,100,0,0,0,0,0,"
@@ -671,6 +748,8 @@ class InitialForm(MiniSetup):
                 "form2": "",
                 "initial_outline_min_off": 15000,
                 "initial_outline_max_off": 28000,
+                "initial_outline_min_deff": 150,
+                "initial_outline_max_deff": 250,
                 "initial_outline_front_dist": 90,
                 "initial_outline_target_dist": 100,
                 "initial_outline_maximum_off_dist": 115,
@@ -681,6 +760,8 @@ class InitialForm(MiniSetup):
         assert getattr(response, "url") == PATH + "?t=real"
         outline.refresh_from_db()
         assert outline.initial_outline_min_off == 15000
+        assert outline.initial_outline_min_deff == 150
+        assert outline.initial_outline_max_deff == 250
         assert outline.initial_outline_front_dist == 90
         assert outline.initial_outline_target_dist == 100
         assert outline.initial_outline_maximum_off_dist == 115
@@ -691,11 +772,31 @@ class InitialForm(MiniSetup):
         assert outline.available_offs_near == [20, 13, 7, 0]
         assert outline.available_nobles_near == [60, 46, 14, 0]
         assert outline.available_full_noble_offs == [20, 13, 7, 0]
+        assert outline.available_deff_noble_villages == [20, 13, 7, 0]
         assert outline.available_catapults == [5000, 1300, 1800, 1900]
         assert outline.available_ruins == 1800
 
         assert WeightMaximum.objects.filter(too_far_away=True).count() == 19
         assert WeightMaximum.objects.filter(first_line=True).count() == 13
+
+    def test_planer_initial_form___200_renders_separate_deff_settings_section(self):
+        outline = self.get_outline(test_world=True)
+        outline.off_troops = self.TEST_WORLD_DATA
+        outline.save(update_fields=["off_troops"])
+        path = reverse("base:planer_initial_form", args=[outline.pk])
+
+        self.login_me()
+        response = self.client.get(path)
+
+        assert response.status_code == 200
+        content = response.content.decode()
+        assert "Deff troops settings:" in content
+        assert content.index("Excluded enemy villages coords") < content.index(
+            "Deff troops settings:"
+        )
+        assert content.index("Deff troops settings:") < content.index(
+            "Min. deff units number"
+        )
 
     def test_planer_initial_form___302_test_form3(self):
         outline = self.get_outline(test_world=True)

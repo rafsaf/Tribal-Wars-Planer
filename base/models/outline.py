@@ -194,6 +194,14 @@ class Outline(models.Model):
         default=28000,
         validators=[MinValueValidator(1), MaxValueValidator(28000)],
     )
+    initial_outline_min_deff = models.IntegerField(
+        default=15000,
+        validators=[MinValueValidator(0), MaxValueValidator(28000)],
+    )
+    initial_outline_max_deff = models.IntegerField(
+        default=28000,
+        validators=[MinValueValidator(0), MaxValueValidator(28000)],
+    )
     initial_outline_front_dist = models.IntegerField(
         default=10, validators=[MinValueValidator(0), MaxValueValidator(500)]
     )
@@ -253,6 +261,9 @@ class Outline(models.Model):
     available_full_noble_offs = ArrayField(
         models.IntegerField(), default=list, blank=True, max_length=4
     )
+    available_deff_noble_villages = ArrayField(
+        models.IntegerField(), default=list, blank=True, max_length=4
+    )
     available_ruins = models.IntegerField(default=None, null=True, blank=True)
 
     mode_off = models.CharField(max_length=15, choices=MODE_OFF, default="random")
@@ -275,6 +286,14 @@ class Outline(models.Model):
         default=0, validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
     filter_weights_max = models.IntegerField(
+        default=30000,
+        validators=[MinValueValidator(0), MaxValueValidator(30000)],
+    )
+    filter_weights_deff_min = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(30000)],
+    )
+    filter_weights_deff_max = models.IntegerField(
         default=30000,
         validators=[MinValueValidator(0), MaxValueValidator(30000)],
     )
@@ -371,12 +390,15 @@ class Outline(models.Model):
         self.available_nobles = []
         self.available_nobles_near = []
         self.available_full_noble_offs = []
+        self.available_deff_noble_villages = []
         self.available_catapults = []
         self.available_ruins = None
         self.filter_weights_min = 0
         self.filter_weights_catapults_min = 0
         self.filter_weights_nobles_min = 0
         self.filter_weights_max = 30000
+        self.filter_weights_deff_min = 0
+        self.filter_weights_deff_max = 30000
         self.filter_hide_front = "all"
         self.choice_sort = "distance"
         self.default_off_time_id = None
@@ -390,6 +412,8 @@ class Outline(models.Model):
             off_state=0,
             nobleman_left=F("nobleman_max"),
             nobleman_state=0,
+            deff_left=F("deff_max"),
+            deff_state=0,
             catapult_left=F("catapult_max"),
             catapult_state=0,
             hidden=False,
@@ -436,12 +460,15 @@ class Outline(models.Model):
                 "available_nobles",
                 "available_nobles_near",
                 "available_full_noble_offs",
+                "available_deff_noble_villages",
                 "available_catapults",
                 "available_ruins",
                 "filter_weights_min",
                 "filter_weights_catapults_min",
                 "filter_weights_nobles_min",
                 "filter_weights_max",
+                "filter_weights_deff_min",
+                "filter_weights_deff_max",
                 "filter_hide_front",
                 "choice_sort",
                 "default_off_time_id",

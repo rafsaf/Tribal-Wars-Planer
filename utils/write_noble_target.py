@@ -82,6 +82,8 @@ class WriteNobleTarget:
         self.initial_outline_minimum_fake_noble_troops = (
             self.outline.initial_outline_minimum_fake_noble_troops
         )
+        self.initial_outline_min_deff = self.outline.initial_outline_min_deff
+        self.initial_outline_max_deff = self.outline.initial_outline_max_deff
         self.casual_attack_block_ratio = self.outline.world.casual_attack_block_ratio
         self.morale = self.outline.world.morale
         self.morale_on = self.outline.morale_on
@@ -93,6 +95,7 @@ class WriteNobleTarget:
         self.initial_outline_front_dist = self.outline.initial_outline_front_dist
 
     def sorted_weights_nobles(self) -> list[FastWeightMaximum]:
+        self.filters = []
         self.filters.append(self._only_closer_than_target_dist())
 
         if self.casual_attack_block_ratio is not None:
@@ -125,8 +128,34 @@ class WriteNobleTarget:
             self.index = 80000
             return self._far_weight_lst()
 
+    def sorted_weights_deff_nobles(self) -> list[FastWeightMaximum]:
+        self.filters = [self._only_closer_than_target_dist(), self._deff_noble_query()]
+
+        if self.casual_attack_block_ratio is not None:
+            self.filters.append(self._casual_attack_block_ratio())
+
+        if self.morale_on and self.morale > 0:
+            self.filters.append(self._morale_query())
+
+        if self.target.mode_noble == "closest":
+            return self._closest_weight_lst()
+
+        self.filters.append(self._first_line_false_query())
+        if self.target.mode_noble == "close":
+            return self._close_weight_lst()
+        if self.target.mode_noble == "random":
+            return self._random_weight_lst()
+        return self._far_weight_lst()
+
     def weight_create_list(self) -> list[WeightModel]:
         weights_create_lst: list[WeightModel] = []
+
+        reserved_deff_noble: tuple[FastWeightMaximum, int] | None = None
+        if self.target.has_deff_noble:
+            reserved_deff_noble = self._reserve_deff_noble()
+            if reserved_deff_noble is None:
+                return weights_create_lst
+            self.target.required_noble -= 1
 
         weight_max_list = self.sorted_weights_nobles()
 
@@ -140,6 +169,38 @@ class WriteNobleTarget:
             self._mode_guide_is_single(weight_max_list)
 
         self._order_distance_default_list()
+
+        if self.target.has_deff_noble and reserved_deff_noble is not None:
+            wave_specs: list[tuple[FastWeightMaximum, int, int, int]] = []
+            for weight_max, noble_number in self.default_create_list:
+                wave_specs.extend(
+                    self._expanded_regular_noble_waves(weight_max, noble_number)
+                )
+
+            deff_wave_index = max((self.target.deff_noble_order or 1) - 1, 0)
+            reserved_weight_max, reserved_deff = reserved_deff_noble
+            wave_specs.insert(
+                deff_wave_index, (reserved_weight_max, 0, 0, reserved_deff)
+            )
+
+            for order, (
+                weight_max,
+                off_troops,
+                catapult_troops,
+                deff_troops,
+            ) in enumerate(wave_specs):
+                weights_create_lst.append(
+                    self._weight_model(
+                        weight_max=weight_max,
+                        off=off_troops,
+                        catapult=catapult_troops,
+                        noble=1,
+                        deff=deff_troops,
+                        order=order,
+                    )
+                )
+
+            return weights_create_lst
 
         i: int
         weight_max: FastWeightMaximum
@@ -201,6 +262,7 @@ class WriteNobleTarget:
                         off=off_troops,
                         catapult=catapult_troops,
                         noble=1,
+                        deff=0,
                         order=i * 15 + index,
                     )
                     weights_create_lst.append(weight)
@@ -211,6 +273,7 @@ class WriteNobleTarget:
                     off=total_off,
                     catapult=total_catapults,
                     noble=noble_number,
+                    deff=0,
                     order=i,
                 )
                 weights_create_lst.append(weight)
@@ -231,6 +294,7 @@ class WriteNobleTarget:
         off: int,
         catapult: int,
         noble: int,
+        deff: int,
         order: int,
     ) -> WeightModel:
         return WeightModel(
@@ -239,6 +303,7 @@ class WriteNobleTarget:
             start=weight_max.start,
             state_id=weight_max.pk,
             off=off,
+            deff=deff,
             ruin=False,
             building=None,
             catapult=catapult,
@@ -270,6 +335,73 @@ class WriteNobleTarget:
         weight_max.fake_nobles_limit -= fake_noble_used
 
         return weight_max
+
+    def _expanded_regular_noble_waves(
+        self, weight_max: FastWeightMaximum, noble_number: int
+    ) -> list[tuple[FastWeightMaximum, int, int, int]]:
+        expanded_weights: list[tuple[FastWeightMaximum, int, int, int]] = []
+        off: int = self._off(weight_max, noble_number)
+        first_off: int = self._first_off(weight_max, off, noble_number)
+
+        total_off = first_off + (noble_number - 1) * off
+
+        first_catapult = 0
+        catapult = 0
+
+        if total_off + weight_max.catapult_left * 8 > weight_max.off_left:
+            max_first = first_off // 8
+            first_catapult = min(weight_max.catapult_left, max_first)
+        if (
+            total_off + (weight_max.catapult_left - first_catapult) * 8
+            > weight_max.off_left
+            and noble_number > 1
+        ):
+            max_next = off // 8
+            equal_split = (weight_max.catapult_left - first_catapult) // (
+                noble_number - 1
+            )
+            catapult = min(equal_split, max_next)
+
+        total_catapults = first_catapult + (noble_number - 1) * catapult
+
+        if (
+            total_off + (weight_max.catapult_left - total_catapults) * 8
+            > weight_max.off_left
+        ):
+            first_off = first_catapult * 8
+            off = catapult * 8
+            total_off = first_off + (noble_number - 1) * off
+
+        for index in range(noble_number):
+            if index == 0:
+                off_troops = first_off
+                catapult_troops = first_catapult
+            else:
+                off_troops = off
+                catapult_troops = catapult
+            expanded_weights.append((weight_max, off_troops, catapult_troops, 0))
+
+        self._update_weight_max(
+            weight_max=weight_max,
+            off_used=total_off,
+            catapults_used=total_catapults,
+            noble_used=noble_number if not self.target.fake else 0,
+            fake_noble_used=noble_number if self.target.fake else 0,
+        )
+        return expanded_weights
+
+    def _reserve_deff_noble(self) -> tuple[FastWeightMaximum, int] | None:
+        for weight_max in self.sorted_weights_deff_nobles():
+            deff_amount = weight_max.deff_left
+            if deff_amount <= 0:
+                continue
+            weight_max.nobleman_state += 1
+            weight_max.nobleman_left -= 1
+            weight_max.nobles_limit -= 1
+            weight_max.deff_state += deff_amount
+            weight_max.deff_left = 0
+            return weight_max, deff_amount
+        return None
 
     def _order_distance_default_list(self) -> None:
         def order_func(weight_tuple: tuple[FastWeightMaximum, int]) -> float:
@@ -433,6 +565,16 @@ class WriteNobleTarget:
             return weight_max.fake_nobles_allowed_to_use() > 0
 
         return filter_fake_noble
+
+    def _deff_noble_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_deff_noble(weight_max: FastWeightMaximum) -> bool:
+            return (
+                weight_max.nobleman_left > 0
+                and weight_max.deff_left >= self.initial_outline_min_deff
+                and weight_max.deff_left <= self.initial_outline_max_deff
+            )
+
+        return filter_deff_noble
 
     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
         if self.casual_attack_block_ratio is None:

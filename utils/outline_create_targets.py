@@ -67,6 +67,9 @@ class OutlineCreateTargets:
         line: str
         for line in self.target_text:
             line_list: list[str] = line.split(":")
+            noble_segment, has_deff_noble, deff_noble_order = self._parse_noble_segment(
+                line_list[2]
+            )
 
             if line_list[1].isnumeric():
                 required_off: str = line_list[1]
@@ -75,12 +78,12 @@ class OutlineCreateTargets:
                 required_off = "0"
                 exact_off = line_list[1].split("|")
 
-            if line_list[2].isnumeric():
-                required_noble: str = line_list[2]
+            if noble_segment.isnumeric():
+                required_noble: str = noble_segment
                 exact_noble: list[str] = []
             else:
                 required_noble = "0"
-                exact_noble = line_list[2].split("|")
+                exact_noble = noble_segment.split("|")
 
             targets.append(
                 self._target(
@@ -89,9 +92,22 @@ class OutlineCreateTargets:
                     noble=required_noble,
                     exact_off=exact_off,
                     exact_noble=exact_noble,
+                    has_deff_noble=has_deff_noble,
+                    deff_noble_order=deff_noble_order,
                 )
             )
         TargetVertex.objects.bulk_create(targets, batch_size=2000)
+
+    def _parse_noble_segment(self, noble_segment: str) -> tuple[str, bool, int | None]:
+        normalized = basic.TargetsOneLine.normalize_noble_segment(noble_segment)
+        if "+" not in normalized:
+            return normalized, False, None
+
+        if not self.target_mode.is_real:
+            raise ValueError("deff noble syntax is supported only for real targets")
+
+        base_segment, deff_suffix = normalized.split("+", maxsplit=1)
+        return base_segment, True, int(deff_suffix.removesuffix("deff"))
 
     def _target(
         self,
@@ -100,6 +116,8 @@ class OutlineCreateTargets:
         noble: str,
         exact_off: list[str],
         exact_noble: list[str],
+        has_deff_noble: bool,
+        deff_noble_order: int | None,
     ) -> TargetVertex:
         village = self.villages_map[coord]
         target = TargetVertex(
@@ -114,6 +132,8 @@ class OutlineCreateTargets:
             village_id=village.village_id,
             required_off=off,
             required_noble=noble,
+            has_deff_noble=has_deff_noble,
+            deff_noble_order=deff_noble_order,
             exact_off=exact_off,
             exact_noble=exact_noble,
             mode_off=self.outline.mode_off,

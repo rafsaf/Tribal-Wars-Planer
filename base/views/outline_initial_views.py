@@ -640,8 +640,10 @@ def initial_target(  # noqa: PLR0912
         .filter(target=target)
         .order_by("order")
     )
+    deff_noble_exists = result_lst.filter(deff__gt=0).exists()
     for weight_obj in result_lst:
         weight_obj.distance = round(weight_obj.distance, 1)
+        setattr(weight_obj, "is_deff_wave", weight_obj.deff > 0)
     # sort
     sort_obj = basic.SortAndPaginRequest(
         outline=instance,
@@ -649,6 +651,7 @@ def initial_target(  # noqa: PLR0912
         request_GET_page=request.GET.get("page"),
         request_GET_filtr=request.GET.get("filtr"),
         target=target,
+        deff_noble_exists=deff_noble_exists,
     )
     page_obj = sort_obj.sorted_query()
 
@@ -672,6 +675,7 @@ def initial_target(  # noqa: PLR0912
                 with transaction.atomic():
                     weight_id: int = form.cleaned_data["weight_id"]
                     off_no_cats: int = form.cleaned_data["off_no_catapult"]
+                    deff: int = form.cleaned_data.get("deff") or 0
                     nobleman: int = form.cleaned_data["nobleman"]
                     catapult: int = form.cleaned_data["catapult"]
 
@@ -684,9 +688,17 @@ def initial_target(  # noqa: PLR0912
                     )
                     state = weight.state
 
+                    is_deff_wave = weight.deff > 0
                     off_diffrence: int = off_no_cats + catapult * 8 - weight.off
-                    noble_diffrence: int = nobleman - weight.nobleman
+                    deff_diffrence: int = deff - weight.deff
                     catapult_diffrence: int = catapult - weight.catapult
+                    noble_diffrence: int = nobleman - weight.nobleman
+
+                    if weight.deff > 0 and nobleman < 1:
+                        raise Http404()
+
+                    if is_deff_wave and off_no_cats != 0:
+                        raise Http404()
 
                     if not all(
                         [
@@ -694,6 +706,8 @@ def initial_target(  # noqa: PLR0912
                             -weight.nobleman <= noble_diffrence,
                             off_diffrence <= state.off_left,
                             -weight.off <= off_diffrence,
+                            deff_diffrence <= state.deff_left,
+                            -weight.deff <= deff_diffrence,
                             catapult_diffrence <= state.catapult_left,
                             -weight.catapult <= catapult_diffrence,
                         ]
@@ -702,12 +716,15 @@ def initial_target(  # noqa: PLR0912
 
                     state.off_state += off_diffrence
                     state.off_left -= off_diffrence
+                    state.deff_state += deff_diffrence
+                    state.deff_left -= deff_diffrence
                     state.nobleman_state += noble_diffrence
                     state.nobleman_left -= noble_diffrence
                     state.catapult_state += catapult_diffrence
                     state.catapult_left -= catapult_diffrence
 
                     weight.off += off_diffrence
+                    weight.deff += deff_diffrence
                     weight.nobleman += noble_diffrence
                     weight.catapult += catapult_diffrence
 
@@ -748,6 +765,7 @@ def initial_target(  # noqa: PLR0912
         "sort": sort,
         "paint": paint,
         "filtr": filtr,
+        "deff_noble_exists": deff_noble_exists,
     }
 
     return render(
