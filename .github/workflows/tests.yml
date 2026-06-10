@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:18.0
+        image: postgres:18.4
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_INITDB_ARGS: --no-sync
@@ -46,7 +46,7 @@ jobs:
           make test
 
       - name: Upload coverage result to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           flags: unittests
           files: coverage.xml
