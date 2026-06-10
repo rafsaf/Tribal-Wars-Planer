@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-12 18:34+0200\n"
+"POT-Creation-Date: 2026-06-10 20:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,7 @@ msgstr "Coordenadas exatas separadas por um espaço ou uma entrada."
 
 #: base/forms.py:464 base/templates/base/base.html:247
 #: base/templates/base/new_outline/new_outline_initial_period2.html:34
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:17
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:47
 msgid "Targets"
 msgstr "Alvos"
 
@@ -461,49 +461,49 @@ msgid "Noble"
 msgstr "Nobre"
 
 #: base/forms.py:999 base/forms.py:1017
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:101
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:170
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:212
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:201
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:243
 #: utils/basic/info_generatation.py:104
 msgid "From"
 msgstr "De"
 
 #: base/forms.py:1002 base/forms.py:1018
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:102
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:171
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:213
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:133
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:202
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:244
 #: utils/basic/info_generatation.py:105
 msgid "To"
 msgstr "Para"
 
 #: base/forms.py:1016
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:97
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:207
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:128
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:238
 #: utils/basic/info_generatation.py:102
 msgid "Mode"
 msgstr "Modo"
 
 #: base/forms.py:1019
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:98
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:167
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:209
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:129
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:198
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:240
 #: utils/basic/info_generatation.py:103
 msgid "Unit"
 msgstr "Unidade"
 
 #: base/forms.py:1020
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:99
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:172
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:214
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:130
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:203
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:245
 #: utils/basic/info_generatation.py:106
 msgid "Min. time"
 msgstr "Tempo mín."
 
 #: base/forms.py:1021
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:100
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:173
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:215
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:131
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:204
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:246
 #: utils/basic/info_generatation.py:107
 msgid "Max. time"
 msgstr "Tempo máx."
@@ -1112,8 +1112,8 @@ msgstr "Duplicar"
 #: base/templates/base/base_planer.html:18
 #: base/templates/base/base_planer.html:94
 #: base/templates/base/new_outline/new_outline_initial_period2.html:291
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:198
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:238
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:229
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:269
 #: shipments/templates/my_shipments.html:16
 #: shipments/templates/my_shipments.html:54
 msgid "Delete"
@@ -1318,7 +1318,7 @@ msgstr "Exemplos"
 #: base/templates/base/new_outline/new_outline.html:256
 #: base/templates/base/new_outline/new_outline_initial_period1.html:478
 #: base/templates/base/new_outline/new_outline_initial_period1.html:497
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:344
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:377
 msgid "An error occured"
 msgstr "Ocorreu um erro"
 
@@ -1339,7 +1339,7 @@ msgid "docs"
 msgstr "documentação"
 
 #: base/templates/base/new_outline/new_outline_create.html:21
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:134
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
 msgid "Create"
 msgstr "Criar"
 
@@ -1809,12 +1809,12 @@ msgid "Outline Date"
 msgstr "Data do Plano"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:35
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:18
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:48
 msgid "Fake Targets"
 msgstr "Alvos Falsos"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:36
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:20
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:50
 msgid "Ruin Targets"
 msgstr "Alvos de Ruína"
 
@@ -1937,7 +1937,10 @@ msgstr "Altere aqui a data do plano sempre que precisar ajustar o plano."
 msgid ""
 "If you already generated results, save the new date and use \"Finish the "
 "Outline\" again so the results are regenerated with the updated date."
-msgstr "Se você já gerou os resultados, salve a nova data e use \"Finalizar o Plano\" novamente para que os resultados sejam gerados outra vez com a data atualizada."
+msgstr ""
+"Se você já gerou os resultados, salve a nova data e use \"Finalizar o "
+"Plano\" novamente para que os resultados sejam gerados outra vez com a data "
+"atualizada."
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:384
 msgid "Save date"
@@ -1961,50 +1964,50 @@ msgstr ""
 msgid "Do you want to finish the outline?"
 msgstr "Deseja finalizar o plano?"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:16
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:46
 msgid "Type of order"
 msgstr "Tipo de ordem"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:19
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:166
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:208
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:49
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:197
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:239
 msgid ""
 "For ruins, the Ram Unit means Off and the Noble Unit represents later ruins"
 msgstr ""
 "Para ruínas, a Unidade de Aríete significa Ataque e a Unidade Nobre "
 "representa ruínas posteriores"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:25
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:55
 msgid "Default Time"
 msgstr "Tempo Padrão"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:41
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:61
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:80
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:71
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:91
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:110
 msgid "Create at least one Time below"
 msgstr "Crie pelo menos um Tempo abaixo"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:253
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:285
 #: base/templates/base/new_outline/new_outline_initial_period3.html:138
 #: base/templates/base/overview.html:227 shipments/templates/shipment.html:126
 #: utils/basic/mode.py:60 utils/outline_finish.py:75
 msgid "Target"
 msgstr "Alvo"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:254
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:286
 msgid "Select Time"
 msgstr "Selecionar Tempo"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:255
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:287
 #: base/templates/base/overview.html:228 utils/basic/mode.py:67
 msgid "Outline"
 msgstr "Plano"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:260
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:292
 msgid "Set time to all targets on this page"
 msgstr "Definir tempo para todos os alvos nesta página"
 
-#: base/templates/base/new_outline/new_outline_initial_period2_1.html:285
+#: base/templates/base/new_outline/new_outline_initial_period2_1.html:317
 msgid "Create at least one Time above"
 msgstr "Crie pelo menos um Tempo acima"
 
@@ -2976,10 +2979,10 @@ msgstr "Parabéns, você se registrou com sucesso!"
 #: templates/django_registration/registration_complete.html:9
 msgid ""
 "Please check you email, you should get activation url in a second. The link "
-"is valid for 2 days."
+"is valid for 24h."
 msgstr ""
 "Por favor, verifique seu e-mail, você deve receber o URL de ativação em um "
-"segundo. O link é válido por 2 dias."
+"segundo. O link é válido por 24 horas."
 
 #: templates/django_registration/registration_disallowed.html:9
 msgid ""

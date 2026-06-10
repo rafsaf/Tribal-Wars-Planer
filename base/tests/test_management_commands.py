@@ -18,7 +18,10 @@ import datetime
 
 import pytest
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.management import call_command
+from django.utils import timezone
+from freezegun import freeze_time
 
 from base.models import Outline, OutlineOverview, Overview, Payment, Server, World
 from base.tests.test_utils.create_user import create_user
@@ -110,6 +113,46 @@ def test_missedemailssend_no_delete_with_overview(
 
     payment.refresh_from_db()
     assert payment.mail_sent == mail_send_after
+
+
+@freeze_time("2026-06-10 12:00:00")
+def test_inactiveusersdelete_deletes_only_inactive_users_older_than_24_hours() -> None:
+    current_time = timezone.now()
+
+    old_inactive_user = User.objects.create_user(
+        username="old_inactive_user",
+        email="old_inactive_user@example.com",
+        password="password",
+        is_active=False,
+    )
+    recent_inactive_user = User.objects.create_user(
+        username="recent_inactive_user",
+        email="recent_inactive_user@example.com",
+        password="password",
+        is_active=False,
+    )
+    old_active_user = User.objects.create_user(
+        username="old_active_user",
+        email="old_active_user@example.com",
+        password="password",
+        is_active=True,
+    )
+
+    User.objects.filter(pk=old_inactive_user.pk).update(
+        date_joined=current_time - datetime.timedelta(hours=24, seconds=1)
+    )
+    User.objects.filter(pk=recent_inactive_user.pk).update(
+        date_joined=current_time - datetime.timedelta(hours=23, minutes=59, seconds=59)
+    )
+    User.objects.filter(pk=old_active_user.pk).update(
+        date_joined=current_time - datetime.timedelta(hours=24, seconds=1)
+    )
+
+    call_command("inactiveusersdelete")
+
+    assert not User.objects.filter(pk=old_inactive_user.pk).exists()
+    assert User.objects.filter(pk=recent_inactive_user.pk).exists()
+    assert User.objects.filter(pk=old_active_user.pk).exists()
 
 
 def test_updateworldsconfiguration(monkeypatch: pytest.MonkeyPatch) -> None:
