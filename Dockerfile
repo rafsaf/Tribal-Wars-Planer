@@ -1,4 +1,4 @@
-FROM python:3.14.3-trixie AS base
+FROM python:3.14.5-trixie AS base
 
 ENV PYTHONUNBUFFERED=1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
@@ -16,7 +16,7 @@ RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
 FROM base AS uv
-COPY --from=ghcr.io/astral-sh/uv:0.9.2 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.11.19 /uv /uvx /bin/
 COPY uv.lock pyproject.toml ./
 RUN uv export --no-dev --no-group docs --no-hashes -o /requirements.txt --no-install-workspace
 RUN uv export --only-group docs --no-hashes -o /requirements-docs.txt --no-install-workspace
