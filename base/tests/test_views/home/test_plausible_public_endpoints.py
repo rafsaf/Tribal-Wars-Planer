@@ -1,5 +1,4 @@
 import pytest
-import requests
 from django.urls import reverse
 
 pytestmark = pytest.mark.django_db
@@ -34,31 +33,26 @@ def test_config_script_contains_runtime_frontend_config(client, plausible_settin
     assert "bootstrapTwpPlausible" in content
 
 
-def test_proxy_script_fetches_upstream_and_caches_response(
+def test_proxy_script_serves_cached_response_without_upstream_fetch(
     client, monkeypatch: pytest.MonkeyPatch, plausible_settings
 ):
     from base.views import analytics
 
-    class FakeResponse:
-        content = b"console.log('plausible');"
-        headers = {"Content-Type": "application/javascript"}
-
-        def raise_for_status(self) -> None:
-            return None
-
-    cached_items: dict[str, dict[str, bytes | str]] = {}
-    request_calls: list[tuple[str, tuple[float, int]]] = []
-
-    def fake_get(url: str, timeout: tuple[float, int]) -> FakeResponse:
-        request_calls.append((url, timeout))
-        return FakeResponse()
-
-    monkeypatch.setattr(analytics.requests, "get", fake_get)
-    monkeypatch.setattr(analytics.cache, "get", cached_items.get)
     monkeypatch.setattr(
         analytics.cache,
-        "set",
-        lambda key, value, timeout: cached_items.__setitem__(key, value),
+        "get",
+        lambda key: {
+            "content": b"console.log('plausible');",
+            "content_type": "application/javascript",
+            "refreshed_at": 1.0,
+        },
+    )
+    monkeypatch.setattr(
+        analytics.requests,
+        "get",
+        lambda *args, **kwargs: pytest.fail(
+            "request-time upstream fetch should not run"
+        ),
     )
 
     response = client.get(reverse("public_plausible_proxy_script"))
@@ -67,10 +61,10 @@ def test_proxy_script_fetches_upstream_and_caches_response(
     assert response.status_code == 200
     assert response.content == b"console.log('plausible');"
     assert response["Content-Type"] == "application/javascript"
-    assert response["Cache-Control"] == "public, max-age=259200"
+    assert response["Cache-Control"] == "public, max-age=3600"
     assert second_response.status_code == 200
     assert second_response.content == b"console.log('plausible');"
-    assert request_calls == [("https://plausible.example.com/js/script.js", (3.05, 10))]
+    assert second_response["Cache-Control"] == "public, max-age=3600"
 
 
 def test_proxy_script_returns_404_when_analytics_disabled(client, settings):
@@ -82,16 +76,19 @@ def test_proxy_script_returns_404_when_analytics_disabled(client, settings):
     assert response.status_code == 404
 
 
-def test_proxy_script_returns_bad_gateway_when_upstream_fails(
+def test_proxy_script_returns_bad_gateway_when_cache_is_empty(
     client, monkeypatch: pytest.MonkeyPatch, plausible_settings
 ):
     from base.views import analytics
 
-    def raise_request_exception(*args, **kwargs):
-        raise requests.RequestException("upstream unavailable")
-
-    monkeypatch.setattr(analytics.requests, "get", raise_request_exception)
     monkeypatch.setattr(analytics.cache, "get", lambda key: None)
+    monkeypatch.setattr(
+        analytics.requests,
+        "get",
+        lambda *args, **kwargs: pytest.fail(
+            "request-time upstream fetch should not run"
+        ),
+    )
 
     response = client.get(reverse("public_plausible_proxy_script"))
 

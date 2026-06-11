@@ -15,8 +15,10 @@
 
 
 import datetime
+from time import time
 
 import pytest
+import requests
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -25,6 +27,7 @@ from freezegun import freeze_time
 
 from base.models import Outline, OutlineOverview, Overview, Payment, Server, World
 from base.tests.test_utils.create_user import create_user
+from base.views import analytics
 from utils.database_update import WorldUpdateHandler
 
 
@@ -180,3 +183,98 @@ def test_updateworldsconfiguration(monkeypatch: pytest.MonkeyPatch) -> None:
 
     world.refresh_from_db()
     assert world.archer == "active"
+
+
+def test_refreshplausiblescriptcache_updates_cache(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    settings.PLAUSIBLE_DOMAIN = "https://plausible.example.com"
+    settings.PLAUSIBLE_SCRIPT_PATH = "/js/script.js"
+
+    class FakeResponse:
+        content = b"console.log('plausible');"
+        headers = {"Content-Type": "application/javascript"}
+
+        def raise_for_status(self) -> None:
+            return None
+
+    cache_items: dict[str, dict[str, bytes | str | float]] = {}
+    cache_timeouts: list[int | None] = []
+    request_calls: list[tuple[str, tuple[float, int]]] = []
+
+    def fake_get(url: str, timeout: tuple[float, int]) -> FakeResponse:
+        request_calls.append((url, timeout))
+        return FakeResponse()
+
+    monkeypatch.setattr(analytics.requests, "get", fake_get)
+    monkeypatch.setattr(analytics.cache, "get", cache_items.get)
+
+    def fake_cache_set(key, value, timeout) -> None:
+        cache_items[key] = value
+        cache_timeouts.append(timeout)
+
+    monkeypatch.setattr(analytics.cache, "set", fake_cache_set)
+
+    call_command("refreshplausiblescriptcache")
+
+    assert request_calls == [("https://plausible.example.com/js/script.js", (3.05, 10))]
+    assert cache_timeouts == [None]
+    assert cache_items[analytics.PLAUSIBLE_SCRIPT_CACHE_KEY]["content"] == (
+        b"console.log('plausible');"
+    )
+    assert (
+        cache_items[analytics.PLAUSIBLE_SCRIPT_CACHE_KEY]["content_type"]
+        == "application/javascript"
+    )
+
+
+def test_refreshplausiblescriptcache_skips_fetch_when_cache_is_fresh(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    settings.PLAUSIBLE_DOMAIN = "https://plausible.example.com"
+    settings.PLAUSIBLE_SCRIPT_PATH = "/js/script.js"
+
+    monkeypatch.setattr(
+        analytics.cache,
+        "get",
+        lambda key: {
+            "content": b"console.log('cached');",
+            "content_type": "application/javascript",
+            "refreshed_at": time(),
+        },
+    )
+    monkeypatch.setattr(
+        analytics.requests,
+        "get",
+        lambda *args, **kwargs: pytest.fail(
+            "fresh cache should not trigger upstream fetch"
+        ),
+    )
+
+    call_command("refreshplausiblescriptcache")
+
+
+def test_refreshplausiblescriptcache_keeps_stale_cache_when_refresh_fails(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    settings.PLAUSIBLE_DOMAIN = "https://plausible.example.com"
+    settings.PLAUSIBLE_SCRIPT_PATH = "/js/script.js"
+
+    monkeypatch.setattr(
+        analytics.cache,
+        "get",
+        lambda key: {
+            "content": b"console.log('cached');",
+            "content_type": "application/javascript",
+            "refreshed_at": 0.0,
+        },
+    )
+    monkeypatch.setattr(
+        analytics.requests,
+        "get",
+        lambda *args, **kwargs: (_ for _ in ()).throw(
+            requests.RequestException("upstream unavailable")
+        ),
+    )
+
+    call_command("refreshplausiblescriptcache")
