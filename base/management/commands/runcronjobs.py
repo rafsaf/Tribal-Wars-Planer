@@ -59,6 +59,9 @@ class Command(BaseCommand):
                 call_command,
                 command_name="orphanedoutlineoverviewsdelete",
             )
+            schedule.every().hour.do(
+                run_threaded, call_command, command_name="inactiveusersdelete"
+            )
             schedule.every(5).minutes.do(
                 run_threaded, call_command, command_name="calculatepaymentfee"
             )

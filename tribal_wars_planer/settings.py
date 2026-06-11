@@ -383,7 +383,7 @@ SUPPORTED_CURRENCIES_CHOICES = [
     (currency, currency) for currency in SUPPORTED_CURRENCIES
 ]
 
-ACCOUNT_ACTIVATION_DAYS = 2
+ACCOUNT_ACTIVATION_DAYS = 1
 env_registration_open = os.environ.get("REGISTRATION_OPEN", "true")
 if env_registration_open in ["False", "false"]:
     REGISTRATION_OPEN = False
