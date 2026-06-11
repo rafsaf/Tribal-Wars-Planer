@@ -49,6 +49,9 @@ class Command(BaseCommand):
                     "Unable to refresh Plausible script, keeping stale cached version: %s",
                     error,
                 )
+                self.stdout.write(
+                    "Unable to refresh Plausible script; keeping stale cached version"
+                )
                 return
             raise
 

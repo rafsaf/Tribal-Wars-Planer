@@ -19,7 +19,6 @@ from time import time
 
 import pytest
 import requests
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.utils import timezone
@@ -31,7 +30,30 @@ from base.views import analytics
 from utils.database_update import WorldUpdateHandler
 
 
-def test_create_servers_command() -> None:
+def test_create_servers_command(settings) -> None:
+    Server.objects.all().delete()
+    settings.TRIBAL_WARS_SUPPORTED_SERVERS = [
+        ("plemiona.pl", "pl", "Europe/Warsaw"),
+        ("tribalwars.net", "en", "Europe/London"),
+        ("die-staemme.de", "de", "Europe/Berlin"),
+        ("staemme.ch", "ch", "Europe/Zurich"),
+        ("tribalwars.nl", "nl", "Europe/Amsterdam"),
+        ("tribalwars.com.br", "br", "America/Sao_Paulo"),
+        ("tribalwars.com.pt", "pt", "Europe/Lisbon"),
+        ("divokekmeny.cz", "cs", "Europe/Prague"),
+        ("triburile.ro", "ro", "Europe/Bucharest"),
+        ("voynaplemyon.com", "ru", "Europe/Moscow"),
+        ("fyletikesmaxes.gr", "gr", "Europe/Athens"),
+        ("divoke-kmene.sk", "sk", "Europe/Bratislava"),
+        ("klanhaboru.hu", "hu", "Europe/Budapest"),
+        ("tribals.it", "it", "Europe/Rome"),
+        ("klanlar.org", "tr", "Europe/Istanbul"),
+        ("guerretribale.fr", "fr", "Europe/Paris"),
+        ("guerrastribales.es", "es", "Europe/Madrid"),
+        ("tribalwars.ae", "ae", "Asia/Dubai"),
+        ("tribalwars.co.uk", "uk", "Europe/London"),
+        ("tribalwars.us", "us", "America/New_York"),
+    ]
     call_command("createservers")
 
     assert Server.objects.all().count() == len(settings.TRIBAL_WARS_SUPPORTED_SERVERS)
@@ -187,6 +209,7 @@ def test_updateworldsconfiguration(monkeypatch: pytest.MonkeyPatch) -> None:
 
 def test_refreshplausiblescriptcache_updates_cache(
     monkeypatch: pytest.MonkeyPatch,
+    settings,
 ) -> None:
     settings.PLAUSIBLE_DOMAIN = "https://plausible.example.com"
     settings.PLAUSIBLE_SCRIPT_PATH = "/js/script.js"
@@ -230,6 +253,7 @@ def test_refreshplausiblescriptcache_updates_cache(
 
 def test_refreshplausiblescriptcache_skips_fetch_when_cache_is_fresh(
     monkeypatch: pytest.MonkeyPatch,
+    settings,
 ) -> None:
     settings.PLAUSIBLE_DOMAIN = "https://plausible.example.com"
     settings.PLAUSIBLE_SCRIPT_PATH = "/js/script.js"
@@ -256,6 +280,7 @@ def test_refreshplausiblescriptcache_skips_fetch_when_cache_is_fresh(
 
 def test_refreshplausiblescriptcache_keeps_stale_cache_when_refresh_fails(
     monkeypatch: pytest.MonkeyPatch,
+    settings,
 ) -> None:
     settings.PLAUSIBLE_DOMAIN = "https://plausible.example.com"
     settings.PLAUSIBLE_SCRIPT_PATH = "/js/script.js"
