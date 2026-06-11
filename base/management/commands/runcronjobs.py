@@ -62,6 +62,11 @@ class Command(BaseCommand):
             schedule.every().hour.do(
                 run_threaded, call_command, command_name="inactiveusersdelete"
             )
+            schedule.every().hour.do(
+                run_threaded,
+                call_command,
+                command_name="refreshplausiblescriptcache",
+            )
             schedule.every(5).minutes.do(
                 run_threaded, call_command, command_name="calculatepaymentfee"
             )
@@ -79,7 +84,21 @@ class Command(BaseCommand):
                     run_threaded, call_command, command_name="fetchnewworlds"
                 )
 
-            call_command("dbupdate")  # extra db_update on startup
+            try:
+                call_command("dbupdate")  # extra db_update on startup
+            except Exception as error:
+                log.warning(
+                    "startup dbupdate failed: %s",
+                    error,
+                )
+
+            try:
+                call_command("refreshplausiblescriptcache")
+            except Exception as error:
+                log.warning(
+                    "startup refreshplausiblescriptcache failed, keeping existing cache: %s",
+                    error,
+                )
 
             while not exit_event.is_set():
                 schedule.run_pending()

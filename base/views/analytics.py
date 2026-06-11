@@ -15,6 +15,8 @@
 
 import json
 import logging
+from time import time
+from typing import NotRequired, TypedDict
 
 import requests
 from django.conf import settings
@@ -26,8 +28,15 @@ from django.views.decorators.http import require_GET
 log = logging.getLogger(__name__)
 
 PLAUSIBLE_SCRIPT_CACHE_KEY = "public-plausible-script"
-PLAUSIBLE_SCRIPT_CACHE_TIMEOUT = 60 * 60 * 24 * 3
+PLAUSIBLE_SCRIPT_SOFT_TIMEOUT = 60 * 60
+PLAUSIBLE_SCRIPT_RESPONSE_CACHE_TIMEOUT = 60 * 60
 PLAUSIBLE_PROXY_SCRIPT_PATH = "/api/public/analytics/plausible/script.js"
+
+
+class PlausibleScriptCachePayload(TypedDict):
+    content: bytes
+    content_type: str
+    refreshed_at: NotRequired[float]
 
 
 def get_plausible_frontend_config() -> dict[str, bool | str]:
@@ -85,6 +94,62 @@ def _fetch_remote_plausible_script() -> tuple[bytes, str]:
     return upstream_response.content, upstream_content_type
 
 
+def get_cached_plausible_script() -> PlausibleScriptCachePayload | None:
+    cached_payload = cache.get(PLAUSIBLE_SCRIPT_CACHE_KEY)
+    if not isinstance(cached_payload, dict):
+        return None
+    if "content" not in cached_payload or "content_type" not in cached_payload:
+        return None
+    content = cached_payload["content"]
+    content_type = cached_payload["content_type"]
+    if not isinstance(content, bytes) or not isinstance(content_type, str):
+        return None
+
+    refreshed_at = cached_payload.get("refreshed_at")
+    payload: PlausibleScriptCachePayload = {
+        "content": content,
+        "content_type": content_type,
+    }
+    if isinstance(refreshed_at, (int, float)):
+        payload["refreshed_at"] = float(refreshed_at)
+    return payload
+
+
+def is_plausible_script_refresh_due(
+    cached_payload: PlausibleScriptCachePayload | None,
+) -> bool:
+    if cached_payload is None:
+        return True
+
+    refreshed_at = cached_payload.get("refreshed_at")
+    if not isinstance(refreshed_at, (int, float)):
+        return True
+
+    return time() - refreshed_at >= PLAUSIBLE_SCRIPT_SOFT_TIMEOUT
+
+
+def cache_plausible_script(script_content: bytes, content_type: str) -> None:
+    cache.set(
+        PLAUSIBLE_SCRIPT_CACHE_KEY,
+        {
+            "content": script_content,
+            "content_type": content_type,
+            "refreshed_at": time(),
+        },
+        timeout=None,
+    )
+
+
+def refresh_plausible_script_cache(*, force: bool = False) -> bool:
+    cached_payload = get_cached_plausible_script()
+    if not force and not is_plausible_script_refresh_due(cached_payload):
+        return False
+
+    script_content, content_type = _fetch_remote_plausible_script()
+    cache_plausible_script(script_content, content_type)
+    return True
+
+
 @require_GET
 def plausible_proxy_script(request: HttpRequest) -> HttpResponse:
     if not settings.PLAUSIBLE_DOMAIN or not settings.PLAUSIBLE_SCRIPT_PATH:
@@ -94,32 +159,17 @@ def plausible_proxy_script(request: HttpRequest) -> HttpResponse:
             status=404,
         )
 
-    cached_payload = cache.get(PLAUSIBLE_SCRIPT_CACHE_KEY)
+    cached_payload = get_cached_plausible_script()
     if cached_payload is not None:
         return _render_javascript_response(
             cached_payload["content"],
-            cache_control=f"public, max-age={PLAUSIBLE_SCRIPT_CACHE_TIMEOUT}",
+            cache_control=f"public, max-age={PLAUSIBLE_SCRIPT_RESPONSE_CACHE_TIMEOUT}",
             content_type=cached_payload["content_type"],
         )
 
-    try:
-        script_content, content_type = _fetch_remote_plausible_script()
-    except requests.RequestException:
-        log.exception("Unable to fetch Plausible script from upstream")
-        return _render_javascript_response(
-            "",
-            cache_control="no-store, max-age=0",
-            status=502,
-        )
-
-    cache.set(
-        PLAUSIBLE_SCRIPT_CACHE_KEY,
-        {"content": script_content, "content_type": content_type},
-        timeout=PLAUSIBLE_SCRIPT_CACHE_TIMEOUT,
-    )
-
+    log.warning("Plausible script cache is empty")
     return _render_javascript_response(
-        script_content,
-        cache_control=f"public, max-age={PLAUSIBLE_SCRIPT_CACHE_TIMEOUT}",
-        content_type=content_type,
+        "",
+        cache_control="no-store, max-age=0",
+        status=502,
     )
