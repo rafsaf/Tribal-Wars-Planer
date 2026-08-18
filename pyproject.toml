@@ -64,6 +64,7 @@ docs = ["zensical>=0.0.24"]
 
 [tool.uv]
 default-groups = ["dev", "docs"]
+exclude-newer = "3 days"
 
 [build-system]
 build-backend = "hatchling.build"

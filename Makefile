@@ -87,8 +87,8 @@ docs_build_de:
 
 .PHONY: build_cython
 build_cython:
-	rm utils/write_noble_target.c
-	rm utils/write_ram_target.c
+	rm utils/write_noble_target.c* || true
+	rm utils/write_ram_target.c* || true
 	uv run python setup.py build_ext --inplace
 
 .PHONY: test
