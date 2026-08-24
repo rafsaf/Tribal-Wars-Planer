@@ -25,6 +25,7 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from base.models import Outline, OutlineOverview, Overview, Payment, Server, World
+from base.models.profile import Profile
 from base.tests.test_utils.create_user import create_user
 from base.views import analytics
 from utils.database_update import WorldUpdateHandler
@@ -178,6 +179,66 @@ def test_inactiveusersdelete_deletes_only_inactive_users_older_than_24_hours() -
     assert not User.objects.filter(pk=old_inactive_user.pk).exists()
     assert User.objects.filter(pk=recent_inactive_user.pk).exists()
     assert User.objects.filter(pk=old_active_user.pk).exists()
+
+
+@freeze_time("2026-08-24 12:00:00")
+def test_processdeletedusers() -> None:
+    active_user = User.objects.create_user(
+        username="active_user",
+        email="active_user@example.com",
+        password="password",
+        is_active=True,
+    )
+    removed_user_1d = User.objects.create_user(
+        username="removed_user_1d",
+        email="removed_user_1d@example.com",
+        password="password",
+        is_active=True,
+    )
+    removed_user_3d = User.objects.create_user(
+        username="removed_user_3d",
+        email="removed_user_3d@example.com",
+        password="password",
+        is_active=True,
+    )
+
+    profile_removed_user_1d: Profile = removed_user_1d.profile  # type: ignore
+    profile_removed_user_3d: Profile = removed_user_3d.profile  # type: ignore
+
+    profile_removed_user_1d.deleted_at = timezone.now()
+    profile_removed_user_1d.deleted_at_exp = timezone.now() + datetime.timedelta(days=1)
+    profile_removed_user_1d.save()
+
+    profile_removed_user_3d.deleted_at = timezone.now()
+    profile_removed_user_3d.deleted_at_exp = timezone.now() + datetime.timedelta(days=3)
+    profile_removed_user_3d.save()
+
+    call_command("processdeletedusers")
+
+    assert User.objects.filter(pk=removed_user_3d.pk).exists()
+    assert User.objects.filter(pk=profile_removed_user_1d.pk).exists()
+    assert User.objects.filter(pk=active_user.pk).exists()
+
+    with freeze_time("2026-08-25 11:59:00"):
+        call_command("processdeletedusers")
+
+        assert User.objects.filter(pk=removed_user_3d.pk).exists()
+        assert User.objects.filter(pk=profile_removed_user_1d.pk).exists()
+        assert User.objects.filter(pk=active_user.pk).exists()
+
+    with freeze_time("2026-08-25 12:01:00"):
+        call_command("processdeletedusers")
+
+        assert User.objects.filter(pk=removed_user_3d.pk).exists()
+        assert not User.objects.filter(pk=profile_removed_user_1d.pk).exists()
+        assert User.objects.filter(pk=active_user.pk).exists()
+
+    with freeze_time("2026-08-27 12:00:01"):
+        call_command("processdeletedusers")
+
+        assert not User.objects.filter(pk=removed_user_3d.pk).exists()
+        assert not User.objects.filter(pk=profile_removed_user_1d.pk).exists()
+        assert User.objects.filter(pk=active_user.pk).exists()
 
 
 def test_updateworldsconfiguration(monkeypatch: pytest.MonkeyPatch) -> None:
