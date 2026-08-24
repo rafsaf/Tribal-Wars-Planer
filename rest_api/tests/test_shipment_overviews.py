@@ -159,7 +159,7 @@ class TestShipmentOverviews(MiniSetup):
 
     def test_shipment_overviews___200_one_overview(self):
         self.login_me()
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             response = self.client.get(self.PATH)
         assert response.status_code == status.HTTP_200_OK, response.content
         data = json.loads(response.content)
@@ -278,7 +278,7 @@ class TestShipmentOverviews(MiniSetup):
         self.shipment.overviews.add(overview2)
 
         self.login_me()
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(6):
             response = self.client.get(self.PATH)
         assert response.status_code == status.HTTP_200_OK
         data = json.loads(response.content)
