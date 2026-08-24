@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tribal-Wars-Planer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 20:06+0200\n"
+"POT-Creation-Date: 2026-08-24 20:49+0200\n"
 "PO-Revision-Date: 2025-09-27 11:36+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Czech\n"
@@ -813,7 +813,7 @@ msgid "Documentation"
 msgstr "Dokumentace"
 
 #: base/templates/base/base.html:91 base/templates/base/user/premium.html:4
-#: base/templates/base/user/profile_settings.html:45
+#: base/templates/base/user/profile_settings.html:78
 msgid "Premium"
 msgstr "Prémiový účet"
 
@@ -1106,6 +1106,7 @@ msgstr "Duplikovat"
 #: base/templates/base/new_outline/new_outline_initial_period2.html:291
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:229
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:269
+#: base/templates/base/user/profile_settings.html:17
 #: shipments/templates/my_shipments.html:16
 #: shipments/templates/my_shipments.html:54
 msgid "Delete"
@@ -1188,11 +1189,13 @@ msgstr "Tuto operaci nelze vrátit zpět!"
 #: base/templates/base/new_outline/new_outline_initial_period2.html:402
 #: base/templates/base/new_outline/new_outline_initial_period2.html:422
 #: base/templates/base/user/add_world.html:25
+#: base/templates/base/user/restore.html:21
 #: shipments/templates/my_shipments.html:78
 msgid "Processing..."
 msgstr "Zpracovávání..."
 
 #: base/templates/base/base_planer.html:119
+#: base/templates/base/user/profile_settings.html:40
 #: shipments/templates/my_shipments.html:78
 msgid "Delete forever"
 msgstr "Smazat navždy"
@@ -1248,7 +1251,7 @@ msgstr "Plánovač vybere data vložená v: "
 #: base/templates/base/new_outline/new_outline_initial_period3.html:146
 #: base/templates/base/new_outline/new_outline_initial_period3.html:208
 #: base/templates/base/new_outline/new_outline_results.html:70
-#: base/templates/base/user/profile_settings.html:74
+#: base/templates/base/user/profile_settings.html:107
 #: shipments/templates/edit_shipment.html:51
 msgid "Save"
 msgstr "Uložit"
@@ -2399,6 +2402,69 @@ msgstr "Útok"
 msgid "Source in JSON format available under API link:"
 msgstr "Zdroj ve formátu JSON je k dispozici pod odkazem API:"
 
+#: base/templates/base/user/account_removed.html:6
+#: base/templates/base/user/account_removed.html:15
+#, fuzzy
+#| msgid "Account"
+msgid "Account removal"
+msgstr "Účet"
+
+#: base/templates/base/user/account_removed.html:20
+msgid "Your account has been marked for removal."
+msgstr ""
+
+#: base/templates/base/user/account_removed.html:22
+#, python-format
+msgid ""
+"\n"
+"                    Your account will remain recoverable for the next "
+"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days.\n"
+"                    "
+msgstr ""
+
+#: base/templates/base/user/account_removed.html:29
+msgid "Can I change my mind?"
+msgstr ""
+
+#: base/templates/base/user/account_removed.html:34
+#, python-format
+msgid ""
+"\n"
+"                    Yes. You can recover your account at any time during the "
+"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period by following the "
+"recovery link sent to your email address.\n"
+"                    "
+msgstr ""
+
+#: base/templates/base/user/account_removed.html:41
+#, python-format
+msgid ""
+"\n"
+"                        What happens after "
+"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days?\n"
+"                        "
+msgstr ""
+
+#: base/templates/base/user/account_removed.html:48
+#, python-format
+msgid ""
+"\n"
+"                    Once the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery "
+"period has ended, the account removal will become permanent. The account "
+"will no longer be recoverable.\n"
+"                    "
+msgstr ""
+
+#: base/templates/base/user/account_removed.html:60
+#, python-format
+msgid ""
+"\n"
+"                    Please check your spam or junk mail folder. If you still "
+"cannot find the message, contact me via rafal.safin@rafsaf.pl before the "
+"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period expires.\n"
+"                    "
+msgstr ""
+
 #: base/templates/base/user/add_world.html:9
 #: base/templates/base/user/add_world.html:26
 msgid "Add new world"
@@ -2587,7 +2653,7 @@ msgid "Comments"
 msgstr "Komentáře"
 
 #: base/templates/base/user/profile_settings.html:4
-#: base/templates/base/user/profile_settings.html:15
+#: base/templates/base/user/profile_settings.html:48
 msgid "My settings"
 msgstr "Moje nastavení"
 
@@ -2599,53 +2665,88 @@ msgstr "Dvoufaktorové ověření"
 msgid "Go to Account Security"
 msgstr "Přejít na zabezpečení účtu"
 
-#: base/templates/base/user/profile_settings.html:19
+#: base/templates/base/user/profile_settings.html:14
+#, fuzzy
+#| msgid "Create an account"
+msgid "Delete account"
+msgstr "Vytvořit účet"
+
+#: base/templates/base/user/profile_settings.html:24
+msgid "Danger zone"
+msgstr ""
+
+#: base/templates/base/user/profile_settings.html:28
+#: base/templates/base/user/profile_settings.html:52
+#: base/templates/base/user/restore.html:13
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: base/templates/base/user/profile_settings.html:24
+#: base/templates/base/user/profile_settings.html:29
+#: base/templates/base/user/profile_settings.html:57
+#: base/templates/base/user/restore.html:14
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: base/templates/base/user/profile_settings.html:29
+#: base/templates/base/user/profile_settings.html:31
+msgid "Are you sure that you want to remove your account?"
+msgstr ""
+
+#: base/templates/base/user/profile_settings.html:62
 msgid "Password"
 msgstr "Heslo"
 
-#: base/templates/base/user/profile_settings.html:30
+#: base/templates/base/user/profile_settings.html:63
 msgid "Reset my password"
 msgstr "Resetovat mé heslo"
 
-#: base/templates/base/user/profile_settings.html:33
+#: base/templates/base/user/profile_settings.html:66
 msgid "Server"
 msgstr "Server"
 
-#: base/templates/base/user/profile_settings.html:37
+#: base/templates/base/user/profile_settings.html:70
 msgid "Currency"
 msgstr "Měna"
 
-#: base/templates/base/user/profile_settings.html:41
+#: base/templates/base/user/profile_settings.html:74
 msgid "Default morale on"
 msgstr "Výchozí morálka zapnuta"
 
-#: base/templates/base/user/profile_settings.html:48
+#: base/templates/base/user/profile_settings.html:81
 msgid "Activated"
 msgstr "Aktivováno"
 
-#: base/templates/base/user/profile_settings.html:50
+#: base/templates/base/user/profile_settings.html:83
 msgid "Not activated"
 msgstr "Neaktivováno"
 
-#: base/templates/base/user/profile_settings.html:55
+#: base/templates/base/user/profile_settings.html:88
 msgid "Shipments feature enabled"
 msgstr "Funkce zásilek povolena"
 
-#: base/templates/base/user/profile_settings.html:60
+#: base/templates/base/user/profile_settings.html:93
 msgid "Premium validity"
 msgstr "Platnost prémiového účtu"
 
-#: base/templates/base/user/profile_settings.html:68
+#: base/templates/base/user/profile_settings.html:101
 msgid "Contact with admin to change your email address. "
 msgstr "Kontaktujte administrátora pro změnu vaší e-mailové adresy. "
+
+#: base/templates/base/user/restore.html:4
+#: base/templates/base/user/restore.html:12
+#, fuzzy
+#| msgid "Go to Account Security"
+msgid "Account recovery"
+msgstr "Přejít na zabezpečení účtu"
+
+#: base/templates/base/user/restore.html:9
+msgid "Link already expired"
+msgstr ""
+
+#: base/templates/base/user/restore.html:22
+#, fuzzy
+#| msgid "Activate account"
+msgid "Recover my account"
+msgstr "Aktivovat účet"
 
 #: base/views/outline.py:260
 msgid "Never"
@@ -2897,6 +2998,7 @@ msgid "The test world that is first steps with Planer"
 msgstr "Testovací svět, který je prvními kroky s Plánovačem"
 
 #: templates/django_registration/activation_email_body.txt:1
+#: templates/email_delete_account_body.html:1
 #: templates/email_payment_body.html:1
 #: templates/registration/password_reset_email.html:1
 msgid "Hello, "
@@ -2917,6 +3019,7 @@ msgstr ""
 "Pokud jste tuto žádost neodeslali, můžete tento e-mail jednoduše ignorovat."
 
 #: templates/django_registration/activation_email_body.txt:8
+#: templates/email_delete_account_body.html:16
 #: templates/email_payment_body.html:14
 #: templates/registration/password_reset_email.html:9
 msgid "Sincerely,"
@@ -2980,6 +3083,33 @@ msgstr ""
 msgid "Create an account"
 msgstr "Vytvořit účet"
 
+#: templates/email_delete_account_body.html:4
+#, python-format
+msgid ""
+"\n"
+"You requested account deletion at %(now)s and it will be deleted in "
+"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days.\n"
+msgstr ""
+
+#: templates/email_delete_account_body.html:8
+msgid "If you want to recover the account, use following url:"
+msgstr ""
+
+#: templates/email_delete_account_body.html:11
+#: templates/email_payment_body.html:9
+msgid "This e-mail was generated automatically, please do not reply."
+msgstr "Tento e-mail byl vygenerován automaticky, neodpovídejte na něj prosím."
+
+#: templates/email_delete_account_body.html:13
+#: templates/email_payment_body.html:11
+msgid "If you have questions, use contact email: rafal.safin@rafsaf.pl"
+msgstr "Pokud máte dotazy, použijte kontaktní e-mail: rafal.safin@rafsaf.pl"
+
+#: templates/email_delete_account_title.html:1
+#, python-format
+msgid "Plemiona-Planer.pl account removal - %(user.username)s."
+msgstr ""
+
 #: templates/email_payment_body.html:4
 msgid "Your payment on"
 msgstr "Vaše platba na"
@@ -2998,14 +3128,6 @@ msgstr ""
 #: templates/email_payment_body.html:6
 msgid "When refering THIS payment, use following payment intent id:"
 msgstr "Při odkazování na TUTO platbu použijte následující ID záměru platby:"
-
-#: templates/email_payment_body.html:9
-msgid "This e-mail was generated automatically, please do not reply."
-msgstr "Tento e-mail byl vygenerován automaticky, neodpovídejte na něj prosím."
-
-#: templates/email_payment_body.html:11
-msgid "If you have questions, use contact email: rafal.safin@rafsaf.pl"
-msgstr "Pokud máte dotazy, použijte kontaktní e-mail: rafal.safin@rafsaf.pl"
 
 #: templates/email_payment_title.html:1
 msgid "[Premium] Successful completion of the payment on"
@@ -3137,7 +3259,7 @@ msgstr "Jste již přihlášeni jako"
 msgid "Password recovery"
 msgstr "Obnova hesla"
 
-#: tribal_wars_planer/settings.py:500
+#: tribal_wars_planer/settings.py:504
 msgid "Your Plemiona Planer Login Code"
 msgstr "Váš přihlašovací kód do Plánovače pro Divoké Kmeny"
 

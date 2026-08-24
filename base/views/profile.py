@@ -13,15 +13,25 @@
 # limitations under the License.
 # ==============================================================================
 
+from datetime import timedelta
+
 from django.conf import settings
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpRequest, HttpResponse
+from django.core import signing
+from django.core.mail import send_mail
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from base import forms
 from base.models import Payment, Profile, Server, StripePrice
+
+PROFILE_SALT = "profile"
 
 
 @login_required
@@ -46,17 +56,62 @@ def add_world(request: HttpRequest) -> HttpResponse:
 @login_required
 def profile_settings(request: HttpRequest) -> HttpResponse:
     user = request.user
-    profile: Profile = Profile.objects.get(user=user)
+    profile: Profile = request.user.profile  # type: ignore
     form1 = forms.ChangeProfileForm(None, instance=profile)
     if request.method == "POST":
         if "form1" in request.POST:
-            profile = Profile.objects.get(user=user)
             form1 = forms.ChangeProfileForm(request.POST, instance=profile)
             if form1.is_valid():
                 updated_profile: Profile = form1.save(commit=False)
                 get_object_or_404(Server, dns=updated_profile.server)
                 updated_profile.save()
                 return redirect("base:settings")
+
+        if "form2" in request.POST:
+            now = timezone.now()
+            exp = now + timedelta(days=settings.ACCOUNT_PERMANENT_REMOVAL_DAYS)
+            token = signing.dumps(
+                {
+                    "pk": user.pk,
+                    "iat": int(now.timestamp()),
+                    "exp": exp.timestamp(),
+                },
+                salt=PROFILE_SALT,
+                compress=True,
+            )
+
+            url = reverse("base:account_restore") + f"?token={token}"
+
+            title = render_to_string(
+                "email_delete_account_title.html",
+                {"user": user},
+            )
+            msg_html = render_to_string(
+                "email_delete_account_body.html",
+                {
+                    "user": user,
+                    "url": url,
+                    "domain": settings.MAIN_DOMAIN,
+                    "ACCOUNT_PERMANENT_REMOVAL_DAYS": settings.ACCOUNT_PERMANENT_REMOVAL_DAYS,
+                    "request": request,
+                },
+            )
+            send_mail(
+                title,
+                "",
+                from_email=None,
+                recipient_list=[user.email],  # type: ignore
+                html_message=msg_html,
+            )
+
+            profile.deleted_at = now
+            profile.deleted_at_exp = exp
+            profile.save()
+
+            auth_logout(request)
+
+            return redirect(reverse("base:account_removed"))
+
     context = {"user": user, "form1": form1}
     return render(request, "base/user/profile_settings.html", context=context)
 
@@ -84,3 +139,46 @@ def premium_view(request: HttpRequest) -> HttpResponse:
 @csrf_exempt
 def payment_done(request: HttpRequest) -> HttpResponse:
     return render(request, "base/user/payment_done.html")
+
+
+def account_removed(request: HttpRequest) -> HttpResponse:
+    return render(
+        request,
+        "base/user/account_removed.html",
+        context={
+            "ACCOUNT_PERMANENT_REMOVAL_DAYS": settings.ACCOUNT_PERMANENT_REMOVAL_DAYS,
+        },
+    )
+
+
+def account_restore(request: HttpRequest) -> HttpResponse:
+    token = request.GET.get("token", "")
+    try:
+        obj = signing.loads(token, salt=PROFILE_SALT)
+    except signing.BadSignature:
+        raise Http404()
+
+    if timezone.now().timestamp() > obj["exp"]:
+        return render(request, "base/user/restore.html", context={"expired": True})
+
+    user = get_object_or_404(User.objects.select_related("profile"), pk=obj.get("pk"))
+    profile: Profile = user.profile  # type: ignore
+
+    if int(profile.deleted_at.timestamp()) != obj["iat"]:
+        return render(request, "base/user/restore.html", context={"expired": True})
+
+    if request.method == "POST":
+        if "form1" in request.POST:
+            profile.deleted_at = None
+            profile.deleted_at_exp = None
+            profile.save()
+            return redirect("base:base")
+
+    return render(
+        request,
+        "base/user/restore.html",
+        context={
+            "recovery_user": user,
+            "expired": False,
+        },
+    )

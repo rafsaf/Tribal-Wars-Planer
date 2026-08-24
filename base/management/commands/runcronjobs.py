@@ -63,6 +63,9 @@ class Command(BaseCommand):
                 run_threaded, call_command, command_name="inactiveusersdelete"
             )
             schedule.every().hour.do(
+                run_threaded, call_command, command_name="processdeletedusers"
+            )
+            schedule.every().hour.do(
                 run_threaded,
                 call_command,
                 command_name="refreshplausiblescriptcache",

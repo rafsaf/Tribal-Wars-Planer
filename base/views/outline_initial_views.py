@@ -876,7 +876,7 @@ def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     if instance.written == "active":
         return redirect("base:planer_initial", id1)
     user: AbstractBaseUser | AnonymousUser = request.user
-    profile: models.Profile = models.Profile.objects.get(user=user)
+    profile: models.Profile = user.profile  # type: ignore
     if not profile.is_premium():
         target_mode: str | None = request.GET.get("t")
         target_count: int = models.TargetVertex.objects.filter(outline=instance).count()

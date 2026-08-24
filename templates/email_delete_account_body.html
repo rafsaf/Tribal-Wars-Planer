@@ -1,0 +1,18 @@
+{% load i18n %}{% trans 'Hello, '%}<b>{{user.username}}</b>
+<br>
+<br>
+{% blocktranslate %}
+    You requested account deletion at {{now}} and it will be deleted in {{ACCOUNT_PERMANENT_REMOVAL_DAYS}} days.
+{% endblocktranslate %}
+<br>
+{% trans "If you want to recover the account, use following url:" %} <a href="{{ request.scheme }}://{{ request.get_host }}{{url}}">{{ request.scheme }}://{{ request.get_host }}{{url}}</a>.
+<br>
+<br>
+<b>{% trans 'This e-mail was generated automatically, please do not reply.' %}</b>
+<br>
+{% trans "If you have questions, use contact email: rafal.safin@rafsaf.pl" %}
+<br>
+<br>
+{% trans 'Sincerely,' %}
+<br>
+{{domain}}
