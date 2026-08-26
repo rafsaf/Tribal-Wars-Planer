@@ -26,7 +26,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
 
 from base import forms
 from base.models import Payment, Profile, Server, StripePrice
@@ -136,7 +135,6 @@ def premium_view(request: HttpRequest) -> HttpResponse:
 
 
 @login_required
-@csrf_exempt
 def payment_done(request: HttpRequest) -> HttpResponse:
     return render(request, "base/user/payment_done.html")
 
