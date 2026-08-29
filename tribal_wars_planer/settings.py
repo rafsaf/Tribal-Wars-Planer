@@ -100,7 +100,7 @@ if SENTRY_SDK_ACTIVE:
         traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "0.1")),
     )
 
-ADMINS = [("admin", DEFAULT_FROM_EMAIL)]
+ADMINS = [DEFAULT_FROM_EMAIL]
 
 INSTALLED_APPS = [
     "tribal_wars_planer",
@@ -304,9 +304,14 @@ LOGIN_REDIRECT_URL = "base:base"
 LOGIN_URL = "two_factor:login"
 LOGOUT_REDIRECT_URL = "base:base"
 
-EMAIL_BACKEND = os.environ.get(
-    "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
-)
+MAILERS = {
+    "default": {
+        "BACKEND": os.environ.get(
+            "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
+        ),
+        "OPTIONS": {},
+    },
+}
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "")
@@ -416,7 +421,7 @@ for dir_name in [
 ]:
     try:
         os.makedirs(dir_name, exist_ok=True)
-    except (OSError, PermissionError):
+    except OSError, PermissionError:
         # In read-only environments (like rootless containers with read_only: true),
         # directories should be mounted as volumes or tmpfs
         pass

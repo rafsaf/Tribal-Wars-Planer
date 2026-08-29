@@ -29,7 +29,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         pk: int = options["outline_pk"]
 
-        outline = Outline.objects.select_related().get(pk=pk)
+        outline = Outline.objects.get(pk=pk)
         outline.remove_user_outline()
 
     def add_arguments(self, parser: CommandParser) -> None:

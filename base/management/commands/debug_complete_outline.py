@@ -31,7 +31,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         pk: int = options["outline_pk"]
 
-        outline = Outline.objects.select_related().get(pk=pk)
+        outline = Outline.objects.select_related("world").get(pk=pk)
         with transaction.atomic():
             complete_outline_write(outline=outline)
             outline.actions.click_outline_write(outline)

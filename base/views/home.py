@@ -68,7 +68,9 @@ def base_documentation(request: HttpRequest):
 def overview_view(request: HttpRequest, token: str):
     """Safe url for member of tribe"""
     overview: models.Overview = get_object_or_404(
-        models.Overview.objects.select_related().filter(pk=token)
+        models.Overview.objects.select_related("outline", "outline_overview").filter(
+            pk=token
+        )
     )
     outline_overview: models.OutlineOverview = overview.outline_overview
     if overview.outline is not None:

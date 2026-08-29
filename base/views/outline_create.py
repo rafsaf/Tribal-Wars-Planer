@@ -26,7 +26,7 @@ from base.models.profile import Profile
 @login_required
 def new_outline_create(request: HttpRequest) -> HttpResponse:
     """creates new user's outline login required"""
-    profile: Profile = models.Profile.objects.select_related().get(user=request.user)
+    profile: Profile = request.user.profile  # type: ignore
     form1 = forms.OutlineForm(None)
     form2 = forms.ChangeServerForm(None)
 
