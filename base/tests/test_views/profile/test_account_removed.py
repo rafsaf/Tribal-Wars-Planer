@@ -24,7 +24,6 @@ class OutlineProfileAccountRemoved(MiniSetup):
 
         response = self.client.get(PATH)
         assert response.status_code == 200
-        assert getattr(response, "url") == self.login_page_path(next=PATH)
 
     def test_account_removed___200_foreign_user_works_ok(self):
         self.login_foreign_user()

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-24 20:49+0200\n"
+"POT-Creation-Date: 2026-08-29 19:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1548,15 +1548,7 @@ msgid "Nobles close to real targets"
 msgstr "Nobres próximos a alvos reais"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:239
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                                                                                             Catapults "
-#| "from villages that are not front, with at least "
-#| "%(initial_outline_min_ruin_attack_off)s off troops in village (without "
-#| "catapults), see 6.). Only villages at maximum distance that are not far "
-#| "away (now more than %(initial_outline_maximum_off_dist)s, see 1.).\n"
-#| "                                                                                           "
+#, python-format
 msgid ""
 "\n"
 "                                                                                                   Catapults "
@@ -2417,10 +2409,8 @@ msgstr "Fonte em formato JSON disponível no link da API:"
 
 #: base/templates/base/user/account_removed.html:6
 #: base/templates/base/user/account_removed.html:15
-#, fuzzy
-#| msgid "Account"
 msgid "Account removal"
-msgstr "Conta"
+msgstr ""
 
 #: base/templates/base/user/account_removed.html:20
 msgid "Your account has been marked for removal."
@@ -2430,7 +2420,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    Your account will remain recoverable for the next "
+"                        Your account will remain recoverable for the next "
 "%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days.\n"
 "                    "
 msgstr ""
@@ -2443,8 +2433,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    Yes. You can recover your account at any time during the "
-"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period by following the "
+"                        Yes. You can recover your account at any time during "
+"the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period by following the "
 "recovery link sent to your email address.\n"
 "                    "
 msgstr ""
@@ -2453,7 +2443,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                        What happens after "
+"                            What happens after "
 "%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days?\n"
 "                        "
 msgstr ""
@@ -2462,9 +2452,9 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    Once the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery "
-"period has ended, the account removal will become permanent. The account "
-"will no longer be recoverable.\n"
+"                        Once the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day "
+"recovery period has ended, the account removal will become permanent. The "
+"account will no longer be recoverable.\n"
 "                    "
 msgstr ""
 
@@ -2472,9 +2462,9 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    Please check your spam or junk mail folder. If you still "
-"cannot find the message, contact me via rafal.safin@rafsaf.pl before the "
-"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period expires.\n"
+"                        Please check your spam or junk mail folder. If you "
+"still cannot find the message, contact me via rafal.safin@rafsaf.pl before "
+"the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period expires.\n"
 "                    "
 msgstr ""
 
@@ -2683,10 +2673,8 @@ msgid "Go to Account Security"
 msgstr "Ir para Segurança da Conta"
 
 #: base/templates/base/user/profile_settings.html:14
-#, fuzzy
-#| msgid "Create an account"
 msgid "Delete account"
-msgstr "Criar uma conta"
+msgstr ""
 
 #: base/templates/base/user/profile_settings.html:24
 msgid "Danger zone"
@@ -2751,20 +2739,16 @@ msgstr ""
 
 #: base/templates/base/user/restore.html:4
 #: base/templates/base/user/restore.html:12
-#, fuzzy
-#| msgid "Go to Account Security"
 msgid "Account recovery"
-msgstr "Ir para Segurança da Conta"
+msgstr ""
 
 #: base/templates/base/user/restore.html:9
 msgid "Link already expired"
 msgstr ""
 
 #: base/templates/base/user/restore.html:22
-#, fuzzy
-#| msgid "Activate account"
 msgid "Recover my account"
-msgstr "Ativar conta"
+msgstr ""
 
 #: base/views/outline.py:260
 msgid "Never"
@@ -2995,20 +2979,16 @@ msgstr ""
 "novo plano</span>."
 
 #: templates/django_registration/activation_complete.html:13
-#, fuzzy
-#| msgid ""
-#| "Don't forget to join <b><a target='_blank' href='https://discord.gg/"
-#| "g5pcsCteCT'>Discord</a></b>, there you will find all the help and can "
-#| "make suggestions and bugs."
 msgid ""
 "Don't forget to join <b><a class='plausible-event-name=TWP+Auth+Click "
 "plausible-event-action=open plausible-event-target=discord' target='_blank' "
 "href='https://discord.gg/g5pcsCteCT'>Discord</a></b>, there you will find "
 "all the help and can make suggestions and bugs."
 msgstr ""
-"Não se esqueça de entrar no <b><a target='_blank' href='https://discord.gg/"
-"g5pcsCteCT'>Discord</a></b>, lá você encontrará toda a ajuda e poderá fazer "
-"sugestões e relatar bugs."
+"Não se esqueça de entrar no <b><a class='plausible-event-name=TWP+Auth+Click "
+"plausible-event-action=open plausible-event-target=discord' target='_blank' "
+"href='https://discord.gg/g5pcsCteCT'>Discord</a></b>, lá você encontrará "
+"toda a ajuda e poderá fazer sugestões e relatar bugs."
 
 #: templates/django_registration/activation_complete.html:14
 msgid "You should start by reading:"
@@ -3108,7 +3088,7 @@ msgstr "Criar uma conta"
 #, python-format
 msgid ""
 "\n"
-"You requested account deletion at %(now)s and it will be deleted in "
+"    You requested account deletion at %(now)s and it will be deleted in "
 "%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days.\n"
 msgstr ""
 

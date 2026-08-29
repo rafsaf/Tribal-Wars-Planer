@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-24 20:49+0200\n"
+"POT-Creation-Date: 2026-08-29 19:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1559,15 +1559,7 @@ msgid "Nobles close to real targets"
 msgstr "Szlachta blisko celów"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:239
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                                                                                             Catapults "
-#| "from villages that are not front, with at least "
-#| "%(initial_outline_min_ruin_attack_off)s off troops in village (without "
-#| "catapults), see 6.). Only villages at maximum distance that are not far "
-#| "away (now more than %(initial_outline_maximum_off_dist)s, see 1.).\n"
-#| "                                                                                           "
+#, python-format
 msgid ""
 "\n"
 "                                                                                                   Catapults "
@@ -1973,7 +1965,7 @@ msgstr ""
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:413
 msgid "Confirmation"
-msgstr ""
+msgstr "Potwierdzenie"
 
 #: base/templates/base/new_outline/new_outline_initial_period2.html:416
 msgid "Do you want to finish the outline?"
@@ -2433,66 +2425,88 @@ msgstr "Źródło w formacie JSON dostępne w API pod linkiem:"
 
 #: base/templates/base/user/account_removed.html:6
 #: base/templates/base/user/account_removed.html:15
-#, fuzzy
-#| msgid "Account"
 msgid "Account removal"
-msgstr "Konto"
+msgstr "Usuwanie konta"
 
 #: base/templates/base/user/account_removed.html:20
 msgid "Your account has been marked for removal."
-msgstr ""
+msgstr "Twoje konto jest w trakcie usuwania."
 
 #: base/templates/base/user/account_removed.html:22
 #, python-format
 msgid ""
 "\n"
-"                    Your account will remain recoverable for the next "
+"                        Your account will remain recoverable for the next "
 "%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days.\n"
 "                    "
 msgstr ""
+"\n"
+"                        Możesz odzyskać swoje konto w czasie następnych "
+"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s dni.\n"
+"                    "
 
 #: base/templates/base/user/account_removed.html:29
 msgid "Can I change my mind?"
-msgstr ""
+msgstr "Czy mogę zmienić zdanie?"
 
 #: base/templates/base/user/account_removed.html:34
 #, python-format
 msgid ""
 "\n"
-"                    Yes. You can recover your account at any time during the "
-"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period by following the "
+"                        Yes. You can recover your account at any time during "
+"the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period by following the "
 "recovery link sent to your email address.\n"
 "                    "
 msgstr ""
+"\n"
+"                        Tak. Możesz cofnąć proces usuwania konta w każdym "
+"momencie %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s dni używając linku przesłanego "
+"na Twój adres email.\n"
+"                    "
 
 #: base/templates/base/user/account_removed.html:41
 #, python-format
 msgid ""
 "\n"
-"                        What happens after "
+"                            What happens after "
 "%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days?\n"
 "                        "
 msgstr ""
+"\n"
+"                            Co się stanie po "
+"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s dniach?\n"
+"                        "
 
 #: base/templates/base/user/account_removed.html:48
 #, python-format
 msgid ""
 "\n"
-"                    Once the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery "
-"period has ended, the account removal will become permanent. The account "
-"will no longer be recoverable.\n"
+"                        Once the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day "
+"recovery period has ended, the account removal will become permanent. The "
+"account will no longer be recoverable.\n"
 "                    "
 msgstr ""
+"\n"
+"                        Po %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s dniach "
+"usunięcie konta będzie zakończone i nie będzie już żadnej możliwości "
+"przywrócenia konta.\n"
+"                    "
 
 #: base/templates/base/user/account_removed.html:60
 #, python-format
 msgid ""
 "\n"
-"                    Please check your spam or junk mail folder. If you still "
-"cannot find the message, contact me via rafal.safin@rafsaf.pl before the "
-"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period expires.\n"
+"                        Please check your spam or junk mail folder. If you "
+"still cannot find the message, contact me via rafal.safin@rafsaf.pl before "
+"the %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-day recovery period expires.\n"
 "                    "
 msgstr ""
+"\n"
+"                        Proszę sprawdź swój folder SPAM. Jeśli wciąż nie "
+"możesz znaleźć wiadomości a potrzebujesz przywrócić konto, skontaktuj się ze "
+"mną emailowo - rafal.safin@rafsaf.pl przed końcem "
+"%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s-dniowego okresu przywrócenia konta.\n"
+"                    "
 
 #: base/templates/base/user/add_world.html:9
 #: base/templates/base/user/add_world.html:26
@@ -2699,14 +2713,12 @@ msgid "Go to Account Security"
 msgstr "Idź do Ustawień Bezpieczeństwa"
 
 #: base/templates/base/user/profile_settings.html:14
-#, fuzzy
-#| msgid "Create an account"
 msgid "Delete account"
-msgstr "Utwórz konto"
+msgstr "Usuń konto"
 
 #: base/templates/base/user/profile_settings.html:24
 msgid "Danger zone"
-msgstr ""
+msgstr "Zarządzanie kontem"
 
 #: base/templates/base/user/profile_settings.html:28
 #: base/templates/base/user/profile_settings.html:52
@@ -2722,7 +2734,7 @@ msgstr "Adres e-mail"
 
 #: base/templates/base/user/profile_settings.html:31
 msgid "Are you sure that you want to remove your account?"
-msgstr ""
+msgstr "Czy jesteś 100% pewny że chcesz usunąć swoje konto?"
 
 #: base/templates/base/user/profile_settings.html:62
 msgid "Password"
@@ -2766,20 +2778,16 @@ msgstr "Skontaktuj się z administratorem by zmienić swój adres e-mail. "
 
 #: base/templates/base/user/restore.html:4
 #: base/templates/base/user/restore.html:12
-#, fuzzy
-#| msgid "Go to Account Security"
 msgid "Account recovery"
-msgstr "Idź do Ustawień Bezpieczeństwa"
+msgstr "Przywracanie konta"
 
 #: base/templates/base/user/restore.html:9
 msgid "Link already expired"
-msgstr ""
+msgstr "Ten link już wygasł"
 
 #: base/templates/base/user/restore.html:22
-#, fuzzy
-#| msgid "Activate account"
 msgid "Recover my account"
-msgstr "Aktywuj konto"
+msgstr "Przywróć moje konto"
 
 #: base/views/outline.py:260
 msgid "Never"
@@ -3016,20 +3024,16 @@ msgstr ""
 "nową rozpiskę</span>."
 
 #: templates/django_registration/activation_complete.html:13
-#, fuzzy
-#| msgid ""
-#| "Don't forget to join <b><a target='_blank' href='https://discord.gg/"
-#| "g5pcsCteCT'>Discord</a></b>, there you will find all the help and can "
-#| "make suggestions and bugs."
 msgid ""
 "Don't forget to join <b><a class='plausible-event-name=TWP+Auth+Click "
 "plausible-event-action=open plausible-event-target=discord' target='_blank' "
 "href='https://discord.gg/g5pcsCteCT'>Discord</a></b>, there you will find "
 "all the help and can make suggestions and bugs."
 msgstr ""
-"Nie zapomnij dołączyć do <a target='_blank' href='https://discord.gg/"
-"g5pcsCteCT'>Discorda</a>, tam znajdziesz wszelką pomoc i możesz zgłaszać "
-"propozycje oraz błędy."
+"Nie zapomnij dołączyć do <a class='plausible-event-name=TWP+Auth+Click "
+"plausible-event-action=open plausible-event-target=discord' target='_blank' "
+"href='https://discord.gg/g5pcsCteCT'>Discorda</a>, tam znajdziesz wszelką "
+"pomoc i możesz zgłaszać propozycje oraz błędy."
 
 #: templates/django_registration/activation_complete.html:14
 msgid "You should start by reading:"
@@ -3132,13 +3136,17 @@ msgstr "Utwórz konto"
 #, python-format
 msgid ""
 "\n"
-"You requested account deletion at %(now)s and it will be deleted in "
+"    You requested account deletion at %(now)s and it will be deleted in "
 "%(ACCOUNT_PERMANENT_REMOVAL_DAYS)s days.\n"
 msgstr ""
+"\n"
+"    Rozpocząłeś/aś usuwanie swojego konta o %(now)s i zostanie ono usunięte "
+"po %(ACCOUNT_PERMANENT_REMOVAL_DAYS)s dniach.\n"
 
 #: templates/email_delete_account_body.html:8
 msgid "If you want to recover the account, use following url:"
 msgstr ""
+"Jeśli chcesz przerwać proces usuwania konta i je przywrócić, użyj tego linku:"
 
 #: templates/email_delete_account_body.html:11
 #: templates/email_payment_body.html:9
@@ -3153,7 +3161,7 @@ msgstr "Jeśli masz pytania, użyj maila kontaktowego: rafal.safin@rafsaf.pl"
 #: templates/email_delete_account_title.html:1
 #, python-format
 msgid "Plemiona-Planer.pl account removal - %(user.username)s."
-msgstr ""
+msgstr "Plemiona-Planer.pl usunięto Twoje konto - %(user.username)s."
 
 #: templates/email_payment_body.html:4
 msgid "Your payment on"
