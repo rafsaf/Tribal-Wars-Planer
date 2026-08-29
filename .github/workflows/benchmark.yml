@@ -43,9 +43,9 @@ jobs:
           rm utils/write_ram_target.py
 
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v4
+        uses: CodSpeedHQ/action@v5
         with:
-          mode: instrumentation
+          mode: simulation
           token: ${{ secrets.CODSPEED_TOKEN }}
           run: |
             make benchmark

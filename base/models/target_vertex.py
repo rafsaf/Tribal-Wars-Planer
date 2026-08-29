@@ -105,7 +105,7 @@ class TargetVertex(models.Model):
     def coord_tuple(self):
         return (int(self.target[0:3]), int(self.target[4:7]))
 
-    def ruin_handle(self, outline: Outline) -> "RuinHandle | None":
+    def ruin_handle(self, outline: Outline) -> RuinHandle | None:
         from utils.basic.ruin import RuinHandle
 
         if not self.ruin:

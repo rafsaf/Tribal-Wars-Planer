@@ -60,7 +60,7 @@ class WeightCreateThread(threading.Thread):
 
 def generate_distance_matrix(
     weight_max_lst: list[FastWeightMaximum], targets: list[Target]
-) -> tuple["NDArray | None", dict[tuple[int, int], int]]:
+) -> tuple[NDArray | None, dict[tuple[int, int], int]]:
     import numpy as np
     from scipy.spatial.distance import cdist
 
@@ -337,7 +337,7 @@ class CreateWeights:
         targets: list[Target],
         outline: Outline,
         weight_max_list: list[FastWeightMaximum],
-        dist_matrix: "NDArray | None",
+        dist_matrix: NDArray | None,
         coord_to_id_in_matrix: dict[tuple[int, int], int],
         morale_dict: defaultdict[tuple[str, str], int] | None,
         weight_create_lst: list[WeightModel],

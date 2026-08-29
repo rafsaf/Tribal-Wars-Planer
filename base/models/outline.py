@@ -625,9 +625,9 @@ class Outline(models.Model):
         else:
             fake = False
             ruin = True
-        village: VillageModel = VillageModel.objects.select_related().get(
-            coord=coord, world=self.world
-        )
+        village: VillageModel = VillageModel.objects.select_related(
+            "player", "world"
+        ).get(coord=coord, world=self.world)
         TargetVertex.objects.create(
             outline=self,
             player=village.player.name if village.player else "",

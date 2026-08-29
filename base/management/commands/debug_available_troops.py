@@ -30,7 +30,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options) -> None:
         pk: int = options["outline_pk"]
 
-        outline = Outline.objects.select_related().get(pk=pk)
+        outline = Outline.objects.select_related("world").get(pk=pk)
         calculate_and_update_available_troops(outline=outline)
 
     def add_arguments(self, parser: CommandParser) -> None:

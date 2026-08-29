@@ -5,12 +5,12 @@ repos:
       - id: check-hooks-apply
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.8
+    rev: v0.16.4
     hooks:
       - id: ruff-format
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.8
+    rev: v0.16.4
     hooks:
       - id: ruff-check
         args: [--fix]

@@ -61,7 +61,7 @@ class Overview(models.Model):
         )
 
     def extend_with_encodeURIComponent(
-        self, instance: "Outline", request: HttpRequest
+        self, instance: Outline, request: HttpRequest
     ) -> None:
         from utils.basic import encode_component
 
