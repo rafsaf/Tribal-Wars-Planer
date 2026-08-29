@@ -332,7 +332,7 @@ class WorldUpdateHandler:
 
         return message
 
-    def download_and_save(self, data_type: "WorldUpdateHandler.DATA_TYPES") -> None:
+    def download_and_save(self, data_type: WorldUpdateHandler.DATA_TYPES) -> None:
         """Download data (NOT ALWAYS latest) from game API in text format and save in disk cache"""
         if self.deleted:
             return
@@ -400,7 +400,7 @@ class WorldUpdateHandler:
                 self.handle_connection_error()
 
     def get_latest_data_key(
-        self, data_type: "WorldUpdateHandler.DATA_TYPES"
+        self, data_type: WorldUpdateHandler.DATA_TYPES
     ) -> str | None:
         """Get latest key (by 'last-modified' datetime) from disk cache"""
         cache_key_prefix = f"{self.world}_{data_type}_"

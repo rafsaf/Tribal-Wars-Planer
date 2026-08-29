@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-29 19:16+0200\n"
+"POT-Creation-Date: 2026-08-29 20:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2458,6 +2458,10 @@ msgid ""
 "                    "
 msgstr ""
 
+#: base/templates/base/user/account_removed.html:55
+msgid "I did not receive the recovery email"
+msgstr ""
+
 #: base/templates/base/user/account_removed.html:60
 #, python-format
 msgid ""
@@ -3107,8 +3111,7 @@ msgid "If you have questions, use contact email: rafal.safin@rafsaf.pl"
 msgstr "Se você tiver dúvidas, use o e-mail de contato: rafal.safin@rafsaf.pl"
 
 #: templates/email_delete_account_title.html:1
-#, python-format
-msgid "Plemiona-Planer.pl account removal - %(user.username)s."
+msgid "Plemiona-Planer.pl account removal"
 msgstr ""
 
 #: templates/email_payment_body.html:4
@@ -3263,7 +3266,7 @@ msgstr "Você já está logado como"
 msgid "Password recovery"
 msgstr "Recuperação de senha"
 
-#: tribal_wars_planer/settings.py:504
+#: tribal_wars_planer/settings.py:509
 msgid "Your Plemiona Planer Login Code"
 msgstr "Seu código de login do Plemiona Planer"
 
