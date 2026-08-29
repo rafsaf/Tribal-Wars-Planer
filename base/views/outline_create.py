@@ -73,7 +73,7 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
             if form2.is_valid():
                 new_server = form2.cleaned_data["server"]
                 new_server = get_object_or_404(models.Server, dns=new_server)
-                profile = models.Profile.objects.get(user=request.user)
+                profile = request.user.profile  # type: ignore
                 profile.server = new_server
                 profile.server_bind = True
                 profile.save()

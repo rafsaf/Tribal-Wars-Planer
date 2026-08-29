@@ -64,6 +64,27 @@ class OutlineProfileSettings(MiniSetup):
         assert len(form1.errors) == 1
         assert "server" in form1.errors
 
+    def test_settings___302_form_account_delete_works_correct(self):
+        PATH = reverse("base:settings")
+
+        self.get_world()
+
+        me = self.me()
+        self.login_me()
+
+        response = self.client.post(
+            PATH,
+            data={
+                "form2": "",
+            },
+        )
+        assert response.status_code == 302
+        assert getattr(response, "url") == reverse("base:account_removed")
+
+        profile: Profile = Profile.objects.get(user=me)
+        assert profile.deleted_at is not None
+        assert profile.deleted_at_exp is not None
+
     def test_settings___302_form_works_correct(self):
         PATH = reverse("base:settings")
         self.get_world()

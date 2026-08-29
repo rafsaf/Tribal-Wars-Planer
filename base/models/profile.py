@@ -61,6 +61,8 @@ class Profile(models.Model):
         max_length=2000, default="", blank=True
     )
     feature_flag_shipments = models.BooleanField(default=True)
+    deleted_at = models.DateTimeField(default=None, blank=True, null=True)
+    deleted_at_exp = models.DateTimeField(default=None, blank=True, null=True)
 
     def is_premium(self) -> bool:
         if settings.PREMIUM_ACCOUNT_VALIDATION_ON:

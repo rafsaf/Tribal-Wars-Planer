@@ -11,6 +11,39 @@
                 <p>
                     <a href="{% url 'two_factor:profile'%}"
                        class="">{% trans "Go to Account Security" %}</a></p>
+                <h3>{% trans 'Delete account' %} </h3>
+
+                <div>
+                    <button type="button" class="btn btn-danger btn-sm mb-4 plausible-event-name=TWP+Settings+Action plausible-event-action=delete_account_open" data-bs-toggle="modal" data-bs-target="#DeleteAccountModal">{% trans 'Delete' %}</button>
+                </div>
+
+                <div class="modal fade" id="DeleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="DeleteAccountModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{% trans 'Danger zone' %}</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{% trans 'Username' %}: <span class="md-correct2">{{user.username}}</span></p>
+                                <p>{% trans 'Email address' %}: <span class="md-correct2">{{user.email}}</span></p>
+
+                                <h5 class="md-error mt-2">{% trans "Are you sure that you want to remove your account?" %}</h5>
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <form method="POST" autocomplete="off" class="mt-4">
+                                    <input type="hidden" value="" name="form2">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger mt-2" onclick="this.disabled=true;this.form.submit();">
+                                        {% trans 'Delete forever' %}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <h3>{% trans 'My settings' %}</h3>
                 <table class="table table-bordered my-3 mt-4" style="width: min-content;">

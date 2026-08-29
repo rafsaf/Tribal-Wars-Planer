@@ -60,7 +60,14 @@ from base.views.outline_initial_views import (
     initial_set_all_time_page,
     initial_target,
 )
-from base.views.profile import add_world, payment_done, premium_view, profile_settings
+from base.views.profile import (
+    account_removed,
+    account_restore,
+    add_world,
+    payment_done,
+    premium_view,
+    profile_settings,
+)
 from base.views.results_get_deff import outline_detail_get_deff, outline_detail_results
 
 app_name = "base"
@@ -71,6 +78,8 @@ urlpatterns = [
     path("profile/add-world", add_world, name="add_world"),
     path("profile/premium", premium_view, name="premium"),
     path("profile/payment-done", payment_done, name="payment_done"),
+    path("goodbye", account_removed, name="account_removed"),
+    path("restore/", account_restore, name="account_restore"),
     path(
         "profile/auth/payments-summary",
         payment_sum_up_view,

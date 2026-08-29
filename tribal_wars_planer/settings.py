@@ -169,6 +169,7 @@ MIDDLEWARE = [
     "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tribal_wars_planer.middlewares.UserDeletedMiddleware",
     "tribal_wars_planer.middlewares.PrometheusAfterMiddleware",
 ]
 
@@ -327,6 +328,9 @@ else:
 
 PREMIUM_ACCOUNT_MAX_TARGETS_FREE = int(
     os.environ.get("PREMIUM_ACCOUNT_MAX_TARGETS_FREE", "25")
+)
+ACCOUNT_PERMANENT_REMOVAL_DAYS = int(
+    os.environ.get("ACCOUNT_PERMANENT_REMOVAL_DAYS", "7")
 )
 
 TRIBAL_WARS_SUPPORTED_SERVERS = [

@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}{% trans 'Account recovery' %}{% endblock %}
+{% block content %}
+    <div class="container-md py-5" style="min-height: 70vh; max-width:1000px !important;">
+        <div style="margin-left:-15px;margin-right:-15px;">
+            {% if expired %}
+                <p>{% trans 'Link already expired' %}.</p>
+            {% else %}
+
+                <h1>{% trans 'Account recovery' %}</h1>
+                <p>{% trans 'Username' %}: <span class="md-correct2">{{recovery_user.username}}</span></p>
+                <p>{% trans 'Email address' %}: <span class="md-correct2">{{recovery_user.email}}</span></p>
+                <div>
+
+                    <form id="form" method="POST" autocomplete="off">
+                        <input type="hidden" value="" name="form1">
+                        {% csrf_token %}
+
+                        <button class="btn btn-ocean mt-3" onclick="handleClickButton(this,`{% trans 'Processing...' %}`,`form`,``,true);">
+                            {% trans 'Recover my account' %}
+                        </button>
+                    </form>
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

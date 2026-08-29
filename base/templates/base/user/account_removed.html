@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans 'Account removal' %}{% endblock %}
+
+{% block content %}
+    <div class="fixed-scrollbar-container">
+        <div class="container py-1" style="min-height: 70vh; max-width:1000px !important;font-size: larger;">
+            <div style="margin-right:-15px;margin-left:-15px;">
+
+                <h2>
+                    <span class="badge bg-dark my-3">
+                        {% trans 'Account removal' %}
+                    </span>
+                </h2>
+
+                <div class="alert alert-warning" role="alert">
+                    <strong>{% trans 'Your account has been marked for removal.' %}</strong>
+                    <br>
+                    {% blocktranslate %}
+                        Your account will remain recoverable for the next {{ACCOUNT_PERMANENT_REMOVAL_DAYS}} days.
+                    {% endblocktranslate %}
+                </div>
+
+                <h3>
+                    <span class="badge bg-dark my-3">
+                        {% trans 'Can I change my mind?' %}
+                    </span>
+                </h3>
+
+                <p>
+                    {% blocktranslate %}
+                        Yes. You can recover your account at any time during the {{ACCOUNT_PERMANENT_REMOVAL_DAYS}}-day recovery period by following the recovery link sent to your email address.
+                    {% endblocktranslate %}
+                </p>
+
+                <h3>
+                    <span class="badge bg-dark my-3">
+                        {% blocktranslate %}
+                            What happens after {{ACCOUNT_PERMANENT_REMOVAL_DAYS}} days?
+                        {% endblocktranslate %}
+                    </span>
+                </h3>
+
+                <p>
+                    {% blocktranslate %}
+                        Once the {{ACCOUNT_PERMANENT_REMOVAL_DAYS}}-day recovery period has ended, the account removal will become permanent. The account will no longer be recoverable.
+                    {% endblocktranslate %}
+                </p>
+
+                <h3>
+                    <span class="badge bg-dark my-3">
+                        I did not receive the recovery email
+                    </span>
+                </h3>
+
+                <p>
+                    {% blocktranslate %}
+                        Please check your spam or junk mail folder. If you still cannot find the message, contact me via rafal.safin@rafsaf.pl before the {{ACCOUNT_PERMANENT_REMOVAL_DAYS}}-day recovery period expires.
+                    {% endblocktranslate %}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

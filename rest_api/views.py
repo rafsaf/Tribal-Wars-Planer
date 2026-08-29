@@ -339,7 +339,7 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
     req = StripeSessionAmount(data=request.data)  # type: ignore
     if req.is_valid():
         user_pk: str = str(request.user.pk)
-        profile: Profile = Profile.objects.get(user_id=user_pk)
+        profile: Profile = request.user.profile  # type: ignore
         try:
             price: StripePrice = StripePrice.objects.get(
                 amount=req.data["amount"],
