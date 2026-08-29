@@ -12,6 +12,8 @@ updates:
       all-dependencies:
         patterns:
           - "*"
+    ignore:
+      - dependency-name: "ruff"
 
   - package-ecosystem: github-actions
     directory: /
