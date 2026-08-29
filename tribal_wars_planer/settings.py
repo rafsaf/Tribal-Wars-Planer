@@ -304,14 +304,9 @@ LOGIN_REDIRECT_URL = "base:base"
 LOGIN_URL = "two_factor:login"
 LOGOUT_REDIRECT_URL = "base:base"
 
-MAILERS = {
-    "default": {
-        "BACKEND": os.environ.get(
-            "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
-        ),
-        "OPTIONS": {},
-    },
-}
+EMAIL_BACKEND = (
+    os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"),
+)
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "")
