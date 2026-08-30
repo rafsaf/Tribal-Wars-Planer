@@ -68,7 +68,9 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "example@example.com")
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL", "example@example.com"
+).replace("'", "")
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 JOB_MIN_INTERVAL = int(os.environ.get("JOB_MIN_INTERVAL", "10"))
@@ -304,8 +306,8 @@ LOGIN_REDIRECT_URL = "base:base"
 LOGIN_URL = "two_factor:login"
 LOGOUT_REDIRECT_URL = "base:base"
 
-EMAIL_BACKEND = (
-    os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"),
+EMAIL_BACKEND = os.environ.get(
+    "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
 )
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
