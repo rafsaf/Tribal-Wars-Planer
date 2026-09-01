@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 15:23+0200\n"
+"POT-Creation-Date: 2026-09-01 21:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -832,7 +832,7 @@ msgid "Account"
 msgstr "Conta"
 
 #: base/templates/base/base.html:110
-#: base/templates/base/new_outline/new_outline_create.html:58
+#: base/templates/base/new_outline/new_outline_create.html:59
 msgid "My account"
 msgstr "Minha conta"
 
@@ -1111,7 +1111,7 @@ msgstr "Duplicar"
 
 #: base/templates/base/base_planer.html:18
 #: base/templates/base/base_planer.html:94
-#: base/templates/base/new_outline/new_outline_initial_period2.html:291
+#: base/templates/base/new_outline/new_outline_initial_period2.html:296
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:229
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:269
 #: base/templates/base/user/profile_settings.html:17
@@ -1145,9 +1145,9 @@ msgstr ""
 #: base/templates/base/base_planer.html:80
 #: base/templates/base/base_planer.html:114
 #: base/templates/base/new_outline/new_outline_create_select.html:151
-#: base/templates/base/new_outline/new_outline_initial_period2.html:383
-#: base/templates/base/new_outline/new_outline_initial_period2.html:398
-#: base/templates/base/new_outline/new_outline_initial_period2.html:418
+#: base/templates/base/new_outline/new_outline_initial_period2.html:388
+#: base/templates/base/new_outline/new_outline_initial_period2.html:408
+#: base/templates/base/new_outline/new_outline_initial_period2.html:434
 #: base/templates/base/new_outline/new_outline_initial_period3.html:23
 #: shipments/templates/my_shipments.html:73
 msgid "Close"
@@ -1160,13 +1160,13 @@ msgstr "Fechar"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:347
 #: base/templates/base/new_outline/new_outline_initial_period1.html:407
 #: base/templates/base/new_outline/new_outline_initial_period1.html:438
-#: base/templates/base/new_outline/new_outline_initial_period2.html:384
+#: base/templates/base/new_outline/new_outline_initial_period2.html:389
 msgid "Saving..."
 msgstr "Salvando..."
 
 #: base/templates/base/base_planer.html:101
 #: base/templates/base/new_outline/new_outline_create_select.html:119
-#: base/templates/base/new_outline/new_outline_initial_period2.html:393
+#: base/templates/base/new_outline/new_outline_initial_period2.html:398
 #: shipments/templates/my_shipments.html:61
 msgid "Warning"
 msgstr "Aviso"
@@ -1194,8 +1194,8 @@ msgstr "Esta operação não pode ser desfeita!"
 #: base/templates/base/new_outline/new_outline_get_deff.html:15
 #: base/templates/base/new_outline/new_outline_initial_period1.html:152
 #: base/templates/base/new_outline/new_outline_initial_period1.html:273
-#: base/templates/base/new_outline/new_outline_initial_period2.html:402
-#: base/templates/base/new_outline/new_outline_initial_period2.html:422
+#: base/templates/base/new_outline/new_outline_initial_period2.html:412
+#: base/templates/base/new_outline/new_outline_initial_period2.html:438
 #: base/templates/base/user/add_world.html:25
 #: base/templates/base/user/restore.html:21
 #: shipments/templates/my_shipments.html:78
@@ -1255,7 +1255,7 @@ msgstr "O planejador escolherá os dados colados em: "
 #: base/templates/base/new_outline/new_outline_initial_period1.html:407
 #: base/templates/base/new_outline/new_outline_initial_period1.html:438
 #: base/templates/base/new_outline/new_outline_initial_period2.html:45
-#: base/templates/base/new_outline/new_outline_initial_period2.html:85
+#: base/templates/base/new_outline/new_outline_initial_period2.html:90
 #: base/templates/base/new_outline/new_outline_initial_period3.html:146
 #: base/templates/base/new_outline/new_outline_initial_period3.html:208
 #: base/templates/base/new_outline/new_outline_results.html:70
@@ -1305,14 +1305,14 @@ msgid "Deff troops have been successfully added."
 msgstr "Tropas de defesa foram adicionadas com sucesso."
 
 #: base/templates/base/new_outline/new_outline.html:231
-#: base/templates/base/new_outline/new_outline_create.html:31
+#: base/templates/base/new_outline/new_outline_create.html:32
 #: base/templates/base/new_outline/new_outline_get_deff.html:23
 #: base/templates/base/new_outline/new_outline_initial_period1.html:452
 msgid "Info"
 msgstr "Informação"
 
 #: base/templates/base/new_outline/new_outline.html:234
-#: base/templates/base/new_outline/new_outline_create.html:34
+#: base/templates/base/new_outline/new_outline_create.html:35
 #: base/templates/base/new_outline/new_outline_get_deff.html:26
 #: base/templates/base/new_outline/new_outline_initial_period1.html:456
 msgid "Examples"
@@ -1341,16 +1341,16 @@ msgstr ""
 msgid "docs"
 msgstr "documentação"
 
-#: base/templates/base/new_outline/new_outline_create.html:21
+#: base/templates/base/new_outline/new_outline_create.html:22
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
 msgid "Create"
 msgstr "Criar"
 
-#: base/templates/base/new_outline/new_outline_create.html:54
+#: base/templates/base/new_outline/new_outline_create.html:55
 msgid "Please select game server"
 msgstr "Por favor, selecione o servidor do jogo"
 
-#: base/templates/base/new_outline/new_outline_create.html:58
+#: base/templates/base/new_outline/new_outline_create.html:59
 msgid ""
 "There are 20 game servers to choose from. <br><br>Please select one, it will "
 "be assigned to your account. You can always choose another later, just visit "
@@ -1360,7 +1360,7 @@ msgstr ""
 "um, ele será atribuído à sua conta. Você sempre pode escolher outro mais "
 "tarde, basta visitar a aba"
 
-#: base/templates/base/new_outline/new_outline_create.html:64
+#: base/templates/base/new_outline/new_outline_create.html:65
 msgid "Set server"
 msgstr "Definir servidor"
 
@@ -1407,8 +1407,8 @@ msgid ""
 msgstr ""
 
 #: base/templates/base/new_outline/new_outline_create_select.html:154
-#: base/templates/base/new_outline/new_outline_initial_period2.html:402
-#: base/templates/base/new_outline/new_outline_initial_period2.html:422
+#: base/templates/base/new_outline/new_outline_initial_period2.html:412
+#: base/templates/base/new_outline/new_outline_initial_period2.html:438
 msgid "Continue"
 msgstr "Continuar"
 
@@ -1686,7 +1686,7 @@ msgid "or reduce the number of outline targets."
 msgstr "ou reduza o número de alvos do plano."
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:327
+#: base/templates/base/new_outline/new_outline_initial_period2.html:332
 #: utils/buildings.py:41
 msgid "Headquarters"
 msgstr "Edifício Principal"
@@ -1712,7 +1712,7 @@ msgid "Academy"
 msgstr "Academia"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:328
+#: base/templates/base/new_outline/new_outline_initial_period2.html:333
 #: utils/buildings.py:46
 msgid "Smithy"
 msgstr "Ferreiro"
@@ -1733,13 +1733,13 @@ msgid "Market"
 msgstr "Mercado"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:329
+#: base/templates/base/new_outline/new_outline_initial_period2.html:334
 #: utils/buildings.py:50
 msgid "Timber camp"
 msgstr "Bosque"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:332
+#: base/templates/base/new_outline/new_outline_initial_period2.html:337
 #: utils/buildings.py:51
 msgid "Clay pit"
 msgstr "Poço de Argila"
@@ -1750,13 +1750,13 @@ msgid "Iron mine"
 msgstr "Mina de Ferro"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:333
+#: base/templates/base/new_outline/new_outline_initial_period2.html:338
 #: utils/buildings.py:53
 msgid "Farm"
 msgstr "Fazenda"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:334
+#: base/templates/base/new_outline/new_outline_initial_period2.html:339
 #: utils/buildings.py:54
 msgid "Warehouse"
 msgstr "Armazém"
@@ -1837,98 +1837,106 @@ msgstr "Alvos na página"
 msgid "Simple textures"
 msgstr "Texturas simples"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:57
-#: base/templates/base/new_outline/new_outline_initial_period2.html:367
+#: base/templates/base/new_outline/new_outline_initial_period2.html:53
+#: base/templates/base/new_outline/new_outline_initial_period2.html:404
+#: base/templates/base/new_outline/new_outline_initial_period2.html:429
+msgid ""
+"You already finished this outline. If you finish it again OR go back, you "
+"will permanently loose current results."
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:62
+#: base/templates/base/new_outline/new_outline_initial_period2.html:372
 msgid "Edit outline date"
 msgstr "Editar data do plano"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:98
+#: base/templates/base/new_outline/new_outline_initial_period2.html:103
 msgid "Go back"
 msgstr "Voltar"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:103
 #: base/templates/base/new_outline/new_outline_initial_period2.html:108
+#: base/templates/base/new_outline/new_outline_initial_period2.html:113
 msgid "Add and remove targets"
 msgstr "Adicionar e remover alvos"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:113
-#: base/templates/base/new_outline/new_outline_initial_period2.html:114
+#: base/templates/base/new_outline/new_outline_initial_period2.html:118
+#: base/templates/base/new_outline/new_outline_initial_period2.html:119
 msgid "Set real targets"
 msgstr "Definir alvos reais"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:120
-#: base/templates/base/new_outline/new_outline_initial_period2.html:128
+#: base/templates/base/new_outline/new_outline_initial_period2.html:125
+#: base/templates/base/new_outline/new_outline_initial_period2.html:133
 msgid "Set fake targets"
 msgstr "Definir alvos falsos"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:139
-#: base/templates/base/new_outline/new_outline_initial_period2.html:143
+#: base/templates/base/new_outline/new_outline_initial_period2.html:144
+#: base/templates/base/new_outline/new_outline_initial_period2.html:148
 msgid "Set ruin targets"
 msgstr "Definir alvos de ruína"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:150
-#: base/templates/base/new_outline/new_outline_initial_period2.html:152
+#: base/templates/base/new_outline/new_outline_initial_period2.html:155
+#: base/templates/base/new_outline/new_outline_initial_period2.html:157
 msgid "Set time and confirm"
 msgstr "Definir tempo e confirmar"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:159
+#: base/templates/base/new_outline/new_outline_initial_period2.html:164
 msgid "Finish the Outline"
 msgstr "Finalizar o Plano"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:168
+#: base/templates/base/new_outline/new_outline_initial_period2.html:173
 msgid "target, nick or number of commands"
 msgstr "alvo, apelido ou número de comandos"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:176
+#: base/templates/base/new_outline/new_outline_initial_period2.html:181
 msgid "Search by nickname"
 msgstr "Pesquisar por apelido"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:177
+#: base/templates/base/new_outline/new_outline_initial_period2.html:182
 msgid "Search by target"
 msgstr "Pesquisar por alvo"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:178
+#: base/templates/base/new_outline/new_outline_initial_period2.html:183
 msgid "Search more than number of commands"
 msgstr "Pesquisar mais que o número de comandos"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:179
+#: base/templates/base/new_outline/new_outline_initial_period2.html:184
 msgid "Search less than number of commands"
 msgstr "Pesquisar menos que o número de comandos"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:180
+#: base/templates/base/new_outline/new_outline_initial_period2.html:185
 msgid "Search equal to number of commands"
 msgstr "Pesquisar igual ao número de comandos"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:197
+#: base/templates/base/new_outline/new_outline_initial_period2.html:202
 msgid "Target added successfully!"
 msgstr "Alvo adicionado com sucesso!"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:212
+#: base/templates/base/new_outline/new_outline_initial_period2.html:217
 msgid "Create a single Target"
 msgstr "Criar um único Alvo"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:225
+#: base/templates/base/new_outline/new_outline_initial_period2.html:230
 msgid "Create Real"
 msgstr "Criar Real"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:226
+#: base/templates/base/new_outline/new_outline_initial_period2.html:231
 msgid "Create Fake"
 msgstr "Criar Falso"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:227
+#: base/templates/base/new_outline/new_outline_initial_period2.html:232
 msgid "Create Ruin"
 msgstr "Criar Ruína"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:286
+#: base/templates/base/new_outline/new_outline_initial_period2.html:291
 #: shipments/templates/shipment.html:6 shipments/templates/shipment.html:12
 msgid "Edit"
 msgstr "Editar"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:371
+#: base/templates/base/new_outline/new_outline_initial_period2.html:376
 msgid "Change the outline date here whenever you need to adjust the outline."
 msgstr "Altere aqui a data do plano sempre que precisar ajustar o plano."
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:373
+#: base/templates/base/new_outline/new_outline_initial_period2.html:378
 msgid ""
 "If you already generated results, save the new date and use \"Finish the "
 "Outline\" again so the results are regenerated with the updated date."
@@ -1937,11 +1945,11 @@ msgstr ""
 "Plano\" novamente para que os resultados sejam gerados outra vez com a data "
 "atualizada."
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:384
+#: base/templates/base/new_outline/new_outline_initial_period2.html:389
 msgid "Save date"
 msgstr "Salvar data"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:396
+#: base/templates/base/new_outline/new_outline_initial_period2.html:406
 msgid ""
 "<p>Your current progress here will be <span class='md-error'>LOST</span>!</"
 "p><p>You will return to the previous tab. Front and Back division will be "
@@ -1951,11 +1959,11 @@ msgstr ""
 "p><p>Você retornará para a aba anterior. A divisão de Frente e Retaguarda "
 "será resetada e os alvos removidos.</p>"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:413
+#: base/templates/base/new_outline/new_outline_initial_period2.html:423
 msgid "Confirmation"
 msgstr ""
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:416
+#: base/templates/base/new_outline/new_outline_initial_period2.html:431
 msgid "Do you want to finish the outline?"
 msgstr "Deseja finalizar o plano?"
 
@@ -2754,11 +2762,11 @@ msgstr ""
 msgid "Recover my account"
 msgstr ""
 
-#: base/views/outline.py:260
+#: base/views/outline.py:264
 msgid "Never"
 msgstr "Nunca"
 
-#: base/views/outline.py:266
+#: base/views/outline.py:270
 msgid " minute(s) ago."
 msgstr " minuto(s) atrás."
 
@@ -2807,11 +2815,11 @@ msgstr "<h5>A coleção de exército está vazia!</h5>"
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>A coleção de defesa está vazia!</h5>"
 
-#: base/views/outline_initial_views.py:542
+#: base/views/outline_initial_views.py:548
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Todos os alvos devem ter um tempo atribuído.</h5>"
 
-#: base/views/outline_initial_views.py:549
+#: base/views/outline_initial_views.py:555
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Deve existir no mínimo um tempo.</h5>"
 

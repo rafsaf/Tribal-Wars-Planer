@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tribal-Wars-Planer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 15:23+0200\n"
+"POT-Creation-Date: 2026-09-01 21:47+0200\n"
 "PO-Revision-Date: 2025-09-27 11:36+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Czech\n"
@@ -826,7 +826,7 @@ msgid "Account"
 msgstr "Účet"
 
 #: base/templates/base/base.html:110
-#: base/templates/base/new_outline/new_outline_create.html:58
+#: base/templates/base/new_outline/new_outline_create.html:59
 msgid "My account"
 msgstr "Můj účet"
 
@@ -1103,7 +1103,7 @@ msgstr "Duplikovat"
 
 #: base/templates/base/base_planer.html:18
 #: base/templates/base/base_planer.html:94
-#: base/templates/base/new_outline/new_outline_initial_period2.html:291
+#: base/templates/base/new_outline/new_outline_initial_period2.html:296
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:229
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:269
 #: base/templates/base/user/profile_settings.html:17
@@ -1137,9 +1137,9 @@ msgstr ""
 #: base/templates/base/base_planer.html:80
 #: base/templates/base/base_planer.html:114
 #: base/templates/base/new_outline/new_outline_create_select.html:151
-#: base/templates/base/new_outline/new_outline_initial_period2.html:383
-#: base/templates/base/new_outline/new_outline_initial_period2.html:398
-#: base/templates/base/new_outline/new_outline_initial_period2.html:418
+#: base/templates/base/new_outline/new_outline_initial_period2.html:388
+#: base/templates/base/new_outline/new_outline_initial_period2.html:408
+#: base/templates/base/new_outline/new_outline_initial_period2.html:434
 #: base/templates/base/new_outline/new_outline_initial_period3.html:23
 #: shipments/templates/my_shipments.html:73
 msgid "Close"
@@ -1152,13 +1152,13 @@ msgstr "Zavřít"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:347
 #: base/templates/base/new_outline/new_outline_initial_period1.html:407
 #: base/templates/base/new_outline/new_outline_initial_period1.html:438
-#: base/templates/base/new_outline/new_outline_initial_period2.html:384
+#: base/templates/base/new_outline/new_outline_initial_period2.html:389
 msgid "Saving..."
 msgstr "Ukládání..."
 
 #: base/templates/base/base_planer.html:101
 #: base/templates/base/new_outline/new_outline_create_select.html:119
-#: base/templates/base/new_outline/new_outline_initial_period2.html:393
+#: base/templates/base/new_outline/new_outline_initial_period2.html:398
 #: shipments/templates/my_shipments.html:61
 msgid "Warning"
 msgstr "Varování"
@@ -1186,8 +1186,8 @@ msgstr "Tuto operaci nelze vrátit zpět!"
 #: base/templates/base/new_outline/new_outline_get_deff.html:15
 #: base/templates/base/new_outline/new_outline_initial_period1.html:152
 #: base/templates/base/new_outline/new_outline_initial_period1.html:273
-#: base/templates/base/new_outline/new_outline_initial_period2.html:402
-#: base/templates/base/new_outline/new_outline_initial_period2.html:422
+#: base/templates/base/new_outline/new_outline_initial_period2.html:412
+#: base/templates/base/new_outline/new_outline_initial_period2.html:438
 #: base/templates/base/user/add_world.html:25
 #: base/templates/base/user/restore.html:21
 #: shipments/templates/my_shipments.html:78
@@ -1247,7 +1247,7 @@ msgstr "Plánovač vybere data vložená v: "
 #: base/templates/base/new_outline/new_outline_initial_period1.html:407
 #: base/templates/base/new_outline/new_outline_initial_period1.html:438
 #: base/templates/base/new_outline/new_outline_initial_period2.html:45
-#: base/templates/base/new_outline/new_outline_initial_period2.html:85
+#: base/templates/base/new_outline/new_outline_initial_period2.html:90
 #: base/templates/base/new_outline/new_outline_initial_period3.html:146
 #: base/templates/base/new_outline/new_outline_initial_period3.html:208
 #: base/templates/base/new_outline/new_outline_results.html:70
@@ -1297,14 +1297,14 @@ msgid "Deff troops have been successfully added."
 msgstr "Obranné jednotky byly úspěšně přidány."
 
 #: base/templates/base/new_outline/new_outline.html:231
-#: base/templates/base/new_outline/new_outline_create.html:31
+#: base/templates/base/new_outline/new_outline_create.html:32
 #: base/templates/base/new_outline/new_outline_get_deff.html:23
 #: base/templates/base/new_outline/new_outline_initial_period1.html:452
 msgid "Info"
 msgstr "Info"
 
 #: base/templates/base/new_outline/new_outline.html:234
-#: base/templates/base/new_outline/new_outline_create.html:34
+#: base/templates/base/new_outline/new_outline_create.html:35
 #: base/templates/base/new_outline/new_outline_get_deff.html:26
 #: base/templates/base/new_outline/new_outline_initial_period1.html:456
 msgid "Examples"
@@ -1333,16 +1333,16 @@ msgstr ""
 msgid "docs"
 msgstr "dokumentace"
 
-#: base/templates/base/new_outline/new_outline_create.html:21
+#: base/templates/base/new_outline/new_outline_create.html:22
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:165
 msgid "Create"
 msgstr "Vytvořit"
 
-#: base/templates/base/new_outline/new_outline_create.html:54
+#: base/templates/base/new_outline/new_outline_create.html:55
 msgid "Please select game server"
 msgstr "Vyberte prosím herní server"
 
-#: base/templates/base/new_outline/new_outline_create.html:58
+#: base/templates/base/new_outline/new_outline_create.html:59
 msgid ""
 "There are 20 game servers to choose from. <br><br>Please select one, it will "
 "be assigned to your account. You can always choose another later, just visit "
@@ -1351,7 +1351,7 @@ msgstr ""
 "Na výběr je 20 herních serverů. <br><br>Vyberte si jeden, bude přiřazen k "
 "vašemu účtu. Vždy si můžete vybrat jiný později, stačí navštívit kartu"
 
-#: base/templates/base/new_outline/new_outline_create.html:64
+#: base/templates/base/new_outline/new_outline_create.html:65
 msgid "Set server"
 msgstr "Server"
 
@@ -1398,8 +1398,8 @@ msgid ""
 msgstr ""
 
 #: base/templates/base/new_outline/new_outline_create_select.html:154
-#: base/templates/base/new_outline/new_outline_initial_period2.html:402
-#: base/templates/base/new_outline/new_outline_initial_period2.html:422
+#: base/templates/base/new_outline/new_outline_initial_period2.html:412
+#: base/templates/base/new_outline/new_outline_initial_period2.html:438
 msgid "Continue"
 msgstr "Pokračovat"
 
@@ -1675,7 +1675,7 @@ msgid "or reduce the number of outline targets."
 msgstr "nebo snižte počet cílů přehledu."
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:327
+#: base/templates/base/new_outline/new_outline_initial_period2.html:332
 #: utils/buildings.py:41
 msgid "Headquarters"
 msgstr "Hlavní budova"
@@ -1701,7 +1701,7 @@ msgid "Academy"
 msgstr "Akademie"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:328
+#: base/templates/base/new_outline/new_outline_initial_period2.html:333
 #: utils/buildings.py:46
 msgid "Smithy"
 msgstr "Kovárna"
@@ -1722,13 +1722,13 @@ msgid "Market"
 msgstr "Tržiště"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:329
+#: base/templates/base/new_outline/new_outline_initial_period2.html:334
 #: utils/buildings.py:50
 msgid "Timber camp"
 msgstr "Dřevorubec"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:332
+#: base/templates/base/new_outline/new_outline_initial_period2.html:337
 #: utils/buildings.py:51
 msgid "Clay pit"
 msgstr "Lom na hlínu"
@@ -1739,13 +1739,13 @@ msgid "Iron mine"
 msgstr "Železný důl"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:333
+#: base/templates/base/new_outline/new_outline_initial_period2.html:338
 #: utils/buildings.py:53
 msgid "Farm"
 msgstr "Selský dvůr"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: base/templates/base/new_outline/new_outline_initial_period2.html:334
+#: base/templates/base/new_outline/new_outline_initial_period2.html:339
 #: utils/buildings.py:54
 msgid "Warehouse"
 msgstr "Sklad"
@@ -1826,98 +1826,106 @@ msgstr "Cíle na stránce"
 msgid "Simple textures"
 msgstr "Jednoduché textury"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:57
-#: base/templates/base/new_outline/new_outline_initial_period2.html:367
+#: base/templates/base/new_outline/new_outline_initial_period2.html:53
+#: base/templates/base/new_outline/new_outline_initial_period2.html:404
+#: base/templates/base/new_outline/new_outline_initial_period2.html:429
+msgid ""
+"You already finished this outline. If you finish it again OR go back, you "
+"will permanently loose current results."
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_initial_period2.html:62
+#: base/templates/base/new_outline/new_outline_initial_period2.html:372
 msgid "Edit outline date"
 msgstr "Upravit datum přehledu"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:98
+#: base/templates/base/new_outline/new_outline_initial_period2.html:103
 msgid "Go back"
 msgstr "Jít zpět"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:103
 #: base/templates/base/new_outline/new_outline_initial_period2.html:108
+#: base/templates/base/new_outline/new_outline_initial_period2.html:113
 msgid "Add and remove targets"
 msgstr "Přidat a odebrat cíle"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:113
-#: base/templates/base/new_outline/new_outline_initial_period2.html:114
+#: base/templates/base/new_outline/new_outline_initial_period2.html:118
+#: base/templates/base/new_outline/new_outline_initial_period2.html:119
 msgid "Set real targets"
 msgstr "Nastavit skutečné cíle"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:120
-#: base/templates/base/new_outline/new_outline_initial_period2.html:128
+#: base/templates/base/new_outline/new_outline_initial_period2.html:125
+#: base/templates/base/new_outline/new_outline_initial_period2.html:133
 msgid "Set fake targets"
 msgstr "Nastavit falešné cíle"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:139
-#: base/templates/base/new_outline/new_outline_initial_period2.html:143
+#: base/templates/base/new_outline/new_outline_initial_period2.html:144
+#: base/templates/base/new_outline/new_outline_initial_period2.html:148
 msgid "Set ruin targets"
 msgstr "Nastavit cíle na ruiny"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:150
-#: base/templates/base/new_outline/new_outline_initial_period2.html:152
+#: base/templates/base/new_outline/new_outline_initial_period2.html:155
+#: base/templates/base/new_outline/new_outline_initial_period2.html:157
 msgid "Set time and confirm"
 msgstr "Nastavit čas a potvrdit"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:159
+#: base/templates/base/new_outline/new_outline_initial_period2.html:164
 msgid "Finish the Outline"
 msgstr "Dokončit přehled"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:168
+#: base/templates/base/new_outline/new_outline_initial_period2.html:173
 msgid "target, nick or number of commands"
 msgstr "cíl, přezdívka nebo počet příkazů"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:176
+#: base/templates/base/new_outline/new_outline_initial_period2.html:181
 msgid "Search by nickname"
 msgstr "Hledat podle přezdívky"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:177
+#: base/templates/base/new_outline/new_outline_initial_period2.html:182
 msgid "Search by target"
 msgstr "Hledat podle cíle"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:178
+#: base/templates/base/new_outline/new_outline_initial_period2.html:183
 msgid "Search more than number of commands"
 msgstr "Hledat více než počet příkazů"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:179
+#: base/templates/base/new_outline/new_outline_initial_period2.html:184
 msgid "Search less than number of commands"
 msgstr "Hledat méně než počet příkazů"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:180
+#: base/templates/base/new_outline/new_outline_initial_period2.html:185
 msgid "Search equal to number of commands"
 msgstr "Hledat rovno počtu příkazů"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:197
+#: base/templates/base/new_outline/new_outline_initial_period2.html:202
 msgid "Target added successfully!"
 msgstr "Cíl úspěšně přidán!"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:212
+#: base/templates/base/new_outline/new_outline_initial_period2.html:217
 msgid "Create a single Target"
 msgstr "Vytvořit jeden cíl"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:225
+#: base/templates/base/new_outline/new_outline_initial_period2.html:230
 msgid "Create Real"
 msgstr "Vytvořit skutečný"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:226
+#: base/templates/base/new_outline/new_outline_initial_period2.html:231
 msgid "Create Fake"
 msgstr "Vytvořit falešný"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:227
+#: base/templates/base/new_outline/new_outline_initial_period2.html:232
 msgid "Create Ruin"
 msgstr "Vytvořit ruinu"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:286
+#: base/templates/base/new_outline/new_outline_initial_period2.html:291
 #: shipments/templates/shipment.html:6 shipments/templates/shipment.html:12
 msgid "Edit"
 msgstr "Upravit"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:371
+#: base/templates/base/new_outline/new_outline_initial_period2.html:376
 msgid "Change the outline date here whenever you need to adjust the outline."
 msgstr "Zde můžete změnit datum přehledu, kdykoli potřebujete upravit přehled."
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:373
+#: base/templates/base/new_outline/new_outline_initial_period2.html:378
 msgid ""
 "If you already generated results, save the new date and use \"Finish the "
 "Outline\" again so the results are regenerated with the updated date."
@@ -1926,11 +1934,11 @@ msgstr ""
 "\"Dokončit přehled\", aby se výsledky znovu vygenerovaly s aktualizovaným "
 "datem."
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:384
+#: base/templates/base/new_outline/new_outline_initial_period2.html:389
 msgid "Save date"
 msgstr "Uložit datum"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:396
+#: base/templates/base/new_outline/new_outline_initial_period2.html:406
 msgid ""
 "<p>Your current progress here will be <span class='md-error'>LOST</span>!</"
 "p><p>You will return to the previous tab. Front and Back division will be "
@@ -1940,11 +1948,11 @@ msgstr ""
 "p><p>Vrátíte se na předchozí kartu. Rozdělení na frontu a týl bude "
 "resetováno a cíle odstraněny.</p>"
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:413
+#: base/templates/base/new_outline/new_outline_initial_period2.html:423
 msgid "Confirmation"
 msgstr ""
 
-#: base/templates/base/new_outline/new_outline_initial_period2.html:416
+#: base/templates/base/new_outline/new_outline_initial_period2.html:431
 msgid "Do you want to finish the outline?"
 msgstr "Chcete dokončit přehled?"
 
@@ -2736,11 +2744,11 @@ msgstr ""
 msgid "Recover my account"
 msgstr ""
 
-#: base/views/outline.py:260
+#: base/views/outline.py:264
 msgid "Never"
 msgstr "Nikdy"
 
-#: base/views/outline.py:266
+#: base/views/outline.py:270
 msgid " minute(s) ago."
 msgstr " minut(y) zpět."
 
@@ -2788,11 +2796,11 @@ msgstr "<h5>Sestava armády je prázdná!</h5>"
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Sestava obrany je prázdná!</h5>"
 
-#: base/views/outline_initial_views.py:542
+#: base/views/outline_initial_views.py:548
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Všechny cíle musí mít přiřazený čas.</h5>"
 
-#: base/views/outline_initial_views.py:549
+#: base/views/outline_initial_views.py:555
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Musí existovat alespoň jeden čas.</h5>"
 

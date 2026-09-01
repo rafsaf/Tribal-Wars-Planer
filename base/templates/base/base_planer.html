@@ -23,7 +23,7 @@
                 {% for instance in outlines %}
                     <tr class="{% if instance.status != 'active' %}row-expired{% endif %}">
                         <td>
-                            <a class="btn btn-secondary my-2 plausible-event-name=TWP+Planer+List+Action plausible-event-action=open_outline" href="{% url 'base:planer_detail' instance.id %}" role="button">{{instance.name}}</a>
+                            <a class="btn btn-secondary my-2 plausible-event-name=TWP+Planer+List+Action plausible-event-action=open_outline" href="{% if instance.overview_num %}{% url 'base:planer_detail_results' instance.id %}{% elif instance.initial_outline_targets or instance.initial_outline_fakes or instance.initial_outline_ruins %}{% url 'base:planer_initial_form' instance.id %}{% else %}{% url 'base:planer_detail' instance.id %}{% endif %}" role="button">{% if instance.overview_num %}<i class="bi bi-eye"></i>{% elif instance.initial_outline_targets or instance.initial_outline_fakes or instance.initial_outline_ruins %}<i class="bi bi-pencil"></i>{% endif %} {{instance.name}}</a>
                             {% if instance.parent_outline_id %}
                                 <br><small>{% trans '(Copied from ' %}{{instance.parent_outline_name}})</small>
                             {% endif %}
