@@ -26,11 +26,21 @@ def create_test_world(server: Server):
     enemy_villages = []
     for i in range(5):
         ally_players.append(
-            Player(tribe=tribe1, world=test_world, player_id=i, name=f"AllyPlayer{i}")
+            Player(
+                tribe=tribe1,
+                world=test_world,
+                player_id=i,
+                name=f"AllyPlayer{i}",
+                villages=10,
+            )
         )
         enemy_players.append(
             Player(
-                tribe=tribe2, world=test_world, player_id=i + 5, name=f"EnemyPlayer{i}"
+                tribe=tribe2,
+                world=test_world,
+                player_id=i + 5,
+                name=f"EnemyPlayer{i}",
+                villages=10,
             )
         )
     Player.objects.bulk_create(enemy_players)
