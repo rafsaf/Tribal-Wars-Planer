@@ -47,7 +47,12 @@
                         </thead>
                         <tbody>
                             <tr class="text-center">
-                                <th><h5><span class="badge bg-info">{{instance.name}}</span></h5></th>
+                                <th>
+                                    <h5><span class="badge bg-info">{{instance.name}}</span></h5>
+                                    {% if instance.overview_num %}
+                                        <h5 data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'You already finished this outline. If you finish it again OR go back, you will permanently loose current results.' %}"><i class="bi bi-eye"></i></h4>
+                                    {% endif %}
+                                </th>
                                 <th class="text-nowrap">
                                     <button
                                         type="button"
@@ -393,7 +398,12 @@
                         <h5 class="modal-title" id="ValidationModalTitle">{% trans 'Warning' %}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">{% trans "<p>Your current progress here will be <span class='md-error'>LOST</span>!</p><p>You will return to the previous tab. Front and Back division will be reset and targets removed.</p>" %}</div>
+                    <div class="modal-body">
+                        {% if instance.overview_num %}
+                            <h4><i class="bi bi-eye"></i></h4>
+                            <p><b>{% trans 'You already finished this outline. If you finish it again OR go back, you will permanently loose current results.' %}</b></p>
+                        {% endif %}
+                        {% trans "<p>Your current progress here will be <span class='md-error'>LOST</span>!</p><p>You will return to the previous tab. Front and Back division will be reset and targets removed.</p>" %}</div>
                     <div class="modal-footer">
                         <button id="dismiss-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal"><b>{% trans 'Close' %}</b></button>
                         <form id="form1-form" method="POST">
@@ -413,7 +423,13 @@
                             <h5 class="modal-title" id="FinishValidationModalTitle">{% trans 'Confirmation' %}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">{% trans 'Do you want to finish the outline?' %}</div>
+                        <div class="modal-body">
+                            {% if instance.overview_num %}
+                                <h4><i class="bi bi-eye"></i></h4>
+                                <p><b>{% trans 'You already finished this outline. If you finish it again OR go back, you will permanently loose current results.' %}</b></p>
+                            {% endif %}
+                            {% trans 'Do you want to finish the outline?' %}
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><b>{% trans 'Close' %}</b></button>
                             <form id="form-finish-form" method="POST">

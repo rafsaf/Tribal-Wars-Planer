@@ -21,7 +21,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
 from django.db import transaction
-from django.db.models import Max
+from django.db.models import FETCH_RAISE, Count, Max, Q
 from django.forms import formset_factory
 from django.http import (
     Http404,
@@ -410,7 +410,13 @@ def initial_planer(  # noqa: PLR0912,PLR0911
 ) -> HttpResponse:
     """view with form for initial period outline"""
     instance: models.Outline = get_object_or_404(
-        models.Outline.objects.select_related(), id=_id, owner=request.user
+        models.Outline.objects.select_related("world")
+        .fetch_mode(FETCH_RAISE)
+        .annotate(
+            overview_num=Count("overview", filter=Q(overview__removed=False)),
+        ),
+        id=_id,
+        owner=request.user,
     )
     if instance.written == "inactive":
         raise Http404()

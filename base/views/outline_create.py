@@ -14,10 +14,13 @@
 # ==============================================================================
 
 
+from datetime import timedelta
+
 from django.contrib.auth.decorators import login_required
 from django.db.models import FETCH_RAISE, Count, Sum
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from base import forms, models
@@ -28,6 +31,15 @@ from base.models.profile import Profile
 def new_outline_create(request: HttpRequest) -> HttpResponse:
     """creates new user's outline login required"""
     profile: Profile = request.user.profile  # type: ignore
+
+    first_time_delta = timezone.now() - timedelta(days=3)
+    show_first_time_msg = False
+    if (
+        request.user.date_joined >= first_time_delta  # type: ignore
+        and models.Outline.objects.filter(owner=request.user).count() == 0
+    ):
+        show_first_time_msg = True
+
     form1 = forms.OutlineForm(None)
     form2 = forms.ChangeServerForm(None)
 
@@ -35,8 +47,9 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
         (f"{world.pk}", f"{world.game_name()}")
         for world in models.World.objects.filter(
             server=profile.server, pending_delete=False
-        ).order_by("postfix")
+        )
     ]
+    form1.fields["world"].choices.sort(key=lambda choice: choice[1])  # type: ignore
     if request.method == "POST":
         if "form1" in request.POST:
             form1 = forms.OutlineForm(request.POST)
@@ -44,8 +57,9 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                 (f"{world.pk}", world.game_name())
                 for world in models.World.objects.filter(
                     server=profile.server, pending_delete=False
-                ).order_by("postfix")
+                )
             ]
+            form1.fields["world"].choices.sort(key=lambda choice: choice[1])  # type: ignore
             if form1.is_valid():
                 world = form1.cleaned_data["world"]
                 world_instance = get_object_or_404(models.World, pk=int(world))
@@ -80,7 +94,12 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                 profile.save()
                 return redirect("base:planer_create")
 
-    context = {"form1": form1, "profile": profile, "form2": form2}
+    context = {
+        "form1": form1,
+        "profile": profile,
+        "form2": form2,
+        "show_first_time_msg": show_first_time_msg,
+    }
     return render(request, "base/new_outline/new_outline_create.html", context)
 
 

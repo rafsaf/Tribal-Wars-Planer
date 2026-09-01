@@ -17,7 +17,7 @@ from time import time
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.db.models import F
+from django.db.models import Count, F, Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -48,7 +48,10 @@ def outline_list(request: HttpRequest) -> HttpResponse:
     outlines = (
         models.Outline.objects.select_related("world", "world__server")
         .filter(owner=request.user)
-        .annotate(parent_outline_name=F("parent_outline__name"))
+        .annotate(
+            parent_outline_name=F("parent_outline__name"),
+            overview_num=Count("overview", filter=Q(overview__removed=False)),
+        )
     )
     if not show_hidden:
         outlines = outlines.filter(status="active")

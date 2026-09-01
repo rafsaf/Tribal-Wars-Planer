@@ -881,3 +881,14 @@ a.nav-link.nav-link-pills.last-nav-link {
 .row-expired {
   opacity: 0.6;
 }
+
+.table-teal-head thead th {
+    --bs-table-bg: teal;
+    --bs-table-color: white;
+    color: white !important;
+}
+
+#sidebar-wrapper .list-group-item-action {
+    --bs-list-group-action-color: var(--bs-body-color); /* Default text color (Dark/Black) */
+    --bs-list-group-action-hover-color: var(--bs-secondary-color); /* Hover text color (Grey) */
+}

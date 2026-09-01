@@ -130,6 +130,8 @@
                             {% else %}
                                 {{tribe}},
                             {% endif %}
+                        {% empty %}
+                            -
                         {% endfor %}
                     </p>
                     <small>[{{ally_player_sum}} {% trans "players" %} / {{ally_village_sum}} {% trans "villages" %}]</small>
@@ -142,6 +144,8 @@
                             {% else %}
                                 {{tribe}},
                             {% endif %}
+                        {% empty %}
+                            -
                         {% endfor %}
                     </p>
                     <small>[{{enemy_player_sum}} {% trans "players" %} / {{enemy_village_sum}} {% trans "villages" %}]</small>
