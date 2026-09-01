@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-29 20:24+0200\n"
+"POT-Creation-Date: 2026-09-01 15:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1151,7 +1151,7 @@ msgstr ""
 
 #: base/templates/base/base_planer.html:80
 #: base/templates/base/base_planer.html:114
-#: base/templates/base/new_outline/new_outline_create_select.html:132
+#: base/templates/base/new_outline/new_outline_create_select.html:151
 #: base/templates/base/new_outline/new_outline_initial_period2.html:383
 #: base/templates/base/new_outline/new_outline_initial_period2.html:398
 #: base/templates/base/new_outline/new_outline_initial_period2.html:418
@@ -1383,6 +1383,20 @@ msgstr "Szövetséges klán hozzáadása"
 msgid "Add an enemy tribe"
 msgstr "Ellenséges klán hozzáadása"
 
+#: base/templates/base/new_outline/new_outline_create_select.html:58
+#: base/templates/base/new_outline/new_outline_create_select.html:84
+#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:147
+msgid "players"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:58
+#: base/templates/base/new_outline/new_outline_create_select.html:84
+#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:147
+msgid "villages"
+msgstr ""
+
 #: base/templates/base/new_outline/new_outline_create_select.html:65
 #: base/templates/base/new_outline/new_outline_create_select.html:91
 msgid "Delete all"
@@ -1395,24 +1409,11 @@ msgstr "Mentés és létrehozás"
 #: base/templates/base/new_outline/new_outline_create_select.html:123
 msgid ""
 " To avoid future conflicts you can set up ally and enemy tribes\n"
-"                        <div class=\"md-error\">ONLY ONCE!</div>\n"
-"                        <br>In the event of the error, you will be forced to "
-"create new outline.\n"
-"                        <li>Make sure you set up all Allies.</li>\n"
-"                        <li>Make sure you set up all Enemies.</li>\n"
+"                        <div><b>ONLY ONCE!</b></div><br>\n"
 "                    "
 msgstr ""
-" A jövőbeni konfliktusok elkerülése érdekében beállíthatja a szövetséges és "
-"ellenséges klánokat\n"
-"                        <div class=\"md-error\">CSAK EGYSZER!</div>\n"
-"                        <br>Hiba esetén kénytelen lesz új tervet készíteni.\n"
-"                        <li>Győződjön meg róla, hogy minden szövetségest "
-"beállított.</li>\n"
-"                        <li>Győződjön meg róla, hogy minden ellenséget "
-"beállított.</li>\n"
-"                    "
 
-#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:154
 #: base/templates/base/new_outline/new_outline_initial_period2.html:402
 #: base/templates/base/new_outline/new_outline_initial_period2.html:422
 msgid "Continue"
@@ -3282,7 +3283,7 @@ msgstr "Már be van jelentkezve mint"
 msgid "Password recovery"
 msgstr "Jelszó-helyreállítás"
 
-#: tribal_wars_planer/settings.py:509
+#: tribal_wars_planer/settings.py:506
 msgid "Your Plemiona Planer Login Code"
 msgstr "Az Ön Plemiona Planer bejelentkezési kódja"
 
@@ -3701,6 +3702,26 @@ msgstr "FAKE küldése"
 #: utils/send_text.py:32
 msgid "Send RUIN"
 msgstr "ROMBOLÁS küldése"
+
+#~ msgid ""
+#~ " To avoid future conflicts you can set up ally and enemy tribes\n"
+#~ "                        <div class=\"md-error\">ONLY ONCE!</div>\n"
+#~ "                        <br>In the event of the error, you will be forced "
+#~ "to create new outline.\n"
+#~ "                        <li>Make sure you set up all Allies.</li>\n"
+#~ "                        <li>Make sure you set up all Enemies.</li>\n"
+#~ "                    "
+#~ msgstr ""
+#~ " A jövőbeni konfliktusok elkerülése érdekében beállíthatja a szövetséges "
+#~ "és ellenséges klánokat\n"
+#~ "                        <div class=\"md-error\">CSAK EGYSZER!</div>\n"
+#~ "                        <br>Hiba esetén kénytelen lesz új tervet "
+#~ "készíteni.\n"
+#~ "                        <li>Győződjön meg róla, hogy minden szövetségest "
+#~ "beállított.</li>\n"
+#~ "                        <li>Győződjön meg róla, hogy minden ellenséget "
+#~ "beállított.</li>\n"
+#~ "                    "
 
 #~ msgid ""
 #~ "has morale based on points and time. This is not perfectly handled by "
