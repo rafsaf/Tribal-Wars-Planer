@@ -53,9 +53,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for tag in ally %}
+                                {% for tribe in ally %}
                                     <tr>
-                                        <td>{{tag}}</td>
+                                        <td><p class="md-correct2 mb-1">{{tribe}}</p><small>[{{tribe.player_count}} {% trans "players" %} / {{tribe.village_count}} {% trans "villages" %}]</small></td>
                                     </tr>
                                 {% endfor %} {% if ally.0 != "" %}
                                     <tr>
@@ -79,9 +79,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for tag in enemy %}
+                                {% for tribe in enemy %}
                                     <tr>
-                                        <td class="md-error">{{tag}}</td>
+                                        <td><p class="md-error mb-1">{{tribe}}</p><small>[{{tribe.player_count}} {% trans "players" %} / {{tribe.village_count}} {% trans "villages" %}]</small></td>
                                     </tr>
                                 {% endfor %} {% if enemy.0 != "" %}
                                     <tr>
@@ -121,11 +121,30 @@
                 </div>
                 <div class="modal-body">
                     {% blocktrans %} To avoid future conflicts you can set up ally and enemy tribes
-                        <div class="md-error">ONLY ONCE!</div>
-                        <br>In the event of the error, you will be forced to create new outline.
-                        <li>Make sure you set up all Allies.</li>
-                        <li>Make sure you set up all Enemies.</li>
+                        <div><b>ONLY ONCE!</b></div><br>
                     {% endblocktrans %}
+                    <p class="md-correct2 mb-1">
+                        {% for tribe in ally %}
+                            {% if forloop.last %}
+                                {{tribe}}
+                            {% else %}
+                                {{tribe}},
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    <small>[{{ally_player_sum}} {% trans "players" %} / {{ally_village_sum}} {% trans "villages" %}]</small>
+                    <br/>
+                    <br/>
+                    <p class="md-error mb-1">
+                        {% for tribe in enemy %}
+                            {% if forloop.last %}
+                                {{tribe}}
+                            {% else %}
+                                {{tribe}},
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    <small>[{{enemy_player_sum}} {% trans "players" %} / {{enemy_village_sum}} {% trans "villages" %}]</small>
 
                 </div>
                 <div class="modal-footer">

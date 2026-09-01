@@ -15,6 +15,7 @@
 
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import FETCH_RAISE, Count, Sum
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
@@ -89,7 +90,12 @@ def new_outline_create_select(  # noqa: PLR0912
 ) -> HttpResponse:
     """select user's ally and enemy tribe after creating outline, login required"""
     instance = get_object_or_404(
-        models.Outline, pk=_id, owner=request.user, editable="active"
+        models.Outline.objects.select_related("world").fetch_mode(
+            fetch_mode=FETCH_RAISE
+        ),
+        pk=_id,
+        owner=request.user,
+        editable="active",
     )
 
     ally_tribe: list[models.Tribe] = [
@@ -97,27 +103,41 @@ def new_outline_create_select(  # noqa: PLR0912
         for tribe in models.Tribe.objects.filter(
             world=instance.world, tag__in=instance.ally_tribe_tag
         )
+        .fetch_mode(fetch_mode=FETCH_RAISE)
+        .annotate(
+            player_count=Count("player"),
+            village_count=Sum("player__villages"),
+        )
+        .order_by("tag")
     ]
     enemy_tribe: list[models.Tribe] = [
         tribe
         for tribe in models.Tribe.objects.filter(
             world=instance.world, tag__in=instance.enemy_tribe_tag
         )
+        .fetch_mode(fetch_mode=FETCH_RAISE)
+        .annotate(
+            player_count=Count("player"),
+            village_count=Sum("player__villages"),
+        )
+        .order_by("tag")
     ]
 
     banned_tribe_id = [tribe.pk for tribe in ally_tribe + enemy_tribe]
 
     choices = [("banned", "--------")] + [
         (f"{tribe.tag}", f"{tribe.tag}")
-        for tribe in models.Tribe.objects.filter(world=instance.world).exclude(
-            pk__in=banned_tribe_id
-        )
+        for tribe in models.Tribe.objects.filter(world=instance.world)
+        .fetch_mode(fetch_mode=FETCH_RAISE)
+        .exclude(pk__in=banned_tribe_id)
+        .order_by("tag")
     ]
 
     sugested_ally_tribes: list[str] = []
     sugested_enemy_tribes: list[str] = []
     for old_outline in (
         models.Outline.objects.filter(world=instance.world, owner=request.user)
+        .fetch_mode(fetch_mode=FETCH_RAISE)
         .exclude(id=_id)
         .order_by("-created")[:5]
     ):
@@ -176,6 +196,10 @@ def new_outline_create_select(  # noqa: PLR0912
         "form1": form1,
         "form2": form2,
         "ally": ally_tribe,
+        "ally_village_sum": sum(tribe.village_count for tribe in ally_tribe),  # type: ignore
+        "ally_player_sum": sum(tribe.player_count for tribe in ally_tribe),  # type: ignore
+        "enemy_village_sum": sum(tribe.village_count for tribe in enemy_tribe),  # type: ignore
+        "enemy_player_sum": sum(tribe.player_count for tribe in enemy_tribe),  # type: ignore
         "enemy": enemy_tribe,
         "sugested_ally_tribes": sugested_ally_tribes,
         "sugested_enemy_tribes": sugested_enemy_tribes,

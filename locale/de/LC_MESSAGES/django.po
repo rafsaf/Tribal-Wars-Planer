@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-29 20:24+0200\n"
+"POT-Creation-Date: 2026-09-01 15:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1148,7 +1148,7 @@ msgstr ""
 
 #: base/templates/base/base_planer.html:80
 #: base/templates/base/base_planer.html:114
-#: base/templates/base/new_outline/new_outline_create_select.html:132
+#: base/templates/base/new_outline/new_outline_create_select.html:151
 #: base/templates/base/new_outline/new_outline_initial_period2.html:383
 #: base/templates/base/new_outline/new_outline_initial_period2.html:398
 #: base/templates/base/new_outline/new_outline_initial_period2.html:418
@@ -1381,6 +1381,20 @@ msgstr "Verbündeten Stamm hinzufügen"
 msgid "Add an enemy tribe"
 msgstr "Feindlichen Stamm hinzufügen"
 
+#: base/templates/base/new_outline/new_outline_create_select.html:58
+#: base/templates/base/new_outline/new_outline_create_select.html:84
+#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:147
+msgid "players"
+msgstr ""
+
+#: base/templates/base/new_outline/new_outline_create_select.html:58
+#: base/templates/base/new_outline/new_outline_create_select.html:84
+#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:147
+msgid "villages"
+msgstr ""
+
 #: base/templates/base/new_outline/new_outline_create_select.html:65
 #: base/templates/base/new_outline/new_outline_create_select.html:91
 msgid "Delete all"
@@ -1393,25 +1407,11 @@ msgstr "Speichern und erstellen"
 #: base/templates/base/new_outline/new_outline_create_select.html:123
 msgid ""
 " To avoid future conflicts you can set up ally and enemy tribes\n"
-"                        <div class=\"md-error\">ONLY ONCE!</div>\n"
-"                        <br>In the event of the error, you will be forced to "
-"create new outline.\n"
-"                        <li>Make sure you set up all Allies.</li>\n"
-"                        <li>Make sure you set up all Enemies.</li>\n"
+"                        <div><b>ONLY ONCE!</b></div><br>\n"
 "                    "
 msgstr ""
-" Um zukünftige Konflikte zu vermeiden, können Sie verbündete und feindliche "
-"Stämme\n"
-"                        <div class=\"md-error\">NUR EINMAL!</div>\n"
-"                        <br>Im Falle eines Fehlers werden Sie gezwungen "
-"sein, einen neuen Plan zu erstellen.\n"
-"                        <li>Stellen Sie sicher, dass Sie alle Verbündeten "
-"einrichten.</li>\n"
-"                        <li>Stellen Sie sicher, dass Sie alle Feinde "
-"einrichten.</li>\n"
-"                    "
 
-#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:154
 #: base/templates/base/new_outline/new_outline_initial_period2.html:402
 #: base/templates/base/new_outline/new_outline_initial_period2.html:422
 msgid "Continue"
@@ -3279,7 +3279,7 @@ msgstr "Sie sind bereits angemeldet als"
 msgid "Password recovery"
 msgstr "Passwort-Wiederherstellung"
 
-#: tribal_wars_planer/settings.py:509
+#: tribal_wars_planer/settings.py:506
 msgid "Your Plemiona Planer Login Code"
 msgstr "Ihr Plemiona Planer Anmeldecode"
 
@@ -3650,6 +3650,26 @@ msgstr "FAKE senden"
 #: utils/send_text.py:32
 msgid "Send RUIN"
 msgstr "RUINE senden"
+
+#~ msgid ""
+#~ " To avoid future conflicts you can set up ally and enemy tribes\n"
+#~ "                        <div class=\"md-error\">ONLY ONCE!</div>\n"
+#~ "                        <br>In the event of the error, you will be forced "
+#~ "to create new outline.\n"
+#~ "                        <li>Make sure you set up all Allies.</li>\n"
+#~ "                        <li>Make sure you set up all Enemies.</li>\n"
+#~ "                    "
+#~ msgstr ""
+#~ " Um zukünftige Konflikte zu vermeiden, können Sie verbündete und "
+#~ "feindliche Stämme\n"
+#~ "                        <div class=\"md-error\">NUR EINMAL!</div>\n"
+#~ "                        <br>Im Falle eines Fehlers werden Sie gezwungen "
+#~ "sein, einen neuen Plan zu erstellen.\n"
+#~ "                        <li>Stellen Sie sicher, dass Sie alle Verbündeten "
+#~ "einrichten.</li>\n"
+#~ "                        <li>Stellen Sie sicher, dass Sie alle Feinde "
+#~ "einrichten.</li>\n"
+#~ "                    "
 
 #~ msgid ""
 #~ "has morale based on points and time. This is not perfectly handled by "

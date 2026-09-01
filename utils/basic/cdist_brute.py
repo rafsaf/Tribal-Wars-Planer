@@ -17,6 +17,31 @@ from collections.abc import Sequence
 from typing import Any, Literal
 
 
+def calculate_max_distance(
+    ally_villages: Sequence[Sequence[Any]], enemy_villages: Sequence[Sequence[Any]]
+):
+    import numpy as np
+    from scipy.spatial.distance import cdist
+
+    all_ally = np.array(ally_villages, dtype=np.float32)
+    all_ally.flags.writeable = False
+    all_enemy = np.array(enemy_villages, dtype=np.float32)
+    all_enemy.flags.writeable = False
+
+    max_distance = 0
+
+    batch_size = 36
+    for i in range(int(np.ceil(len(all_ally) / batch_size))):
+        batch_ally = all_ally[i * batch_size : (i + 1) * batch_size]
+
+        C = cdist(batch_ally, all_enemy, "sqeuclidean").max(axis=1)
+
+        for _, x in np.ndenumerate(C):
+            max_distance = max(max_distance, x)
+
+    return round(np.sqrt(max_distance), 1)
+
+
 class CDistBrute:
     def __init__(
         self,

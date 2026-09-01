@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-29 20:24+0200\n"
+"POT-Creation-Date: 2026-09-01 15:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1155,7 +1155,7 @@ msgstr ""
 
 #: base/templates/base/base_planer.html:80
 #: base/templates/base/base_planer.html:114
-#: base/templates/base/new_outline/new_outline_create_select.html:132
+#: base/templates/base/new_outline/new_outline_create_select.html:151
 #: base/templates/base/new_outline/new_outline_initial_period2.html:383
 #: base/templates/base/new_outline/new_outline_initial_period2.html:398
 #: base/templates/base/new_outline/new_outline_initial_period2.html:418
@@ -1387,6 +1387,20 @@ msgstr "Dodaj własne plemię"
 msgid "Add an enemy tribe"
 msgstr "Dodaj przeciwne plemię"
 
+#: base/templates/base/new_outline/new_outline_create_select.html:58
+#: base/templates/base/new_outline/new_outline_create_select.html:84
+#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:147
+msgid "players"
+msgstr "graczy"
+
+#: base/templates/base/new_outline/new_outline_create_select.html:58
+#: base/templates/base/new_outline/new_outline_create_select.html:84
+#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:147
+msgid "villages"
+msgstr "wiosek"
+
 #: base/templates/base/new_outline/new_outline_create_select.html:65
 #: base/templates/base/new_outline/new_outline_create_select.html:91
 msgid "Delete all"
@@ -1399,25 +1413,14 @@ msgstr "Zapisz i utwórz"
 #: base/templates/base/new_outline/new_outline_create_select.html:123
 msgid ""
 " To avoid future conflicts you can set up ally and enemy tribes\n"
-"                        <div class=\"md-error\">ONLY ONCE!</div>\n"
-"                        <br>In the event of the error, you will be forced to "
-"create new outline.\n"
-"                        <li>Make sure you set up all Allies.</li>\n"
-"                        <li>Make sure you set up all Enemies.</li>\n"
+"                        <div><b>ONLY ONCE!</b></div><br>\n"
 "                    "
 msgstr ""
-" Aby uniknąć późniejszych problemów, możesz wybrać własne i przeciwne "
-"plemiona\n"
-"                <div class=\"md-error\">TYLKO RAZ!</div>\n"
-"                <br>W przypadku błędu będziesz zmuszony stworzyć nową "
-"rozpiskę.\n"
-"                <li>Upewnij się, że ustawiłeś wszystkie własne plemiona.</"
-"li>\n"
-"                <li>Upewnij się, że ustawiłeś wszystkie przeciwne plemiona.</"
-"li>\n"
-"                "
+" Aby uniknąć późniejszych problemów, możesz wybrać własne i przeciwne\n"
+"                        <div><b>TYLKO RAZ!</b></div><br>\n"
+"                    "
 
-#: base/templates/base/new_outline/new_outline_create_select.html:135
+#: base/templates/base/new_outline/new_outline_create_select.html:154
 #: base/templates/base/new_outline/new_outline_initial_period2.html:402
 #: base/templates/base/new_outline/new_outline_initial_period2.html:422
 msgid "Continue"
@@ -3315,7 +3318,7 @@ msgstr "Jesteś obecnie zalogowany jako"
 msgid "Password recovery"
 msgstr "Przywracanie zapomnianego hasła"
 
-#: tribal_wars_planer/settings.py:509
+#: tribal_wars_planer/settings.py:506
 msgid "Your Plemiona Planer Login Code"
 msgstr "Plemiona Planer: Twój kod logowania"
 
@@ -3732,6 +3735,26 @@ msgstr "Wyślij FAKE"
 #: utils/send_text.py:32
 msgid "Send RUIN"
 msgstr "Wyślij BURZAK"
+
+#~ msgid ""
+#~ " To avoid future conflicts you can set up ally and enemy tribes\n"
+#~ "                        <div class=\"md-error\">ONLY ONCE!</div>\n"
+#~ "                        <br>In the event of the error, you will be forced "
+#~ "to create new outline.\n"
+#~ "                        <li>Make sure you set up all Allies.</li>\n"
+#~ "                        <li>Make sure you set up all Enemies.</li>\n"
+#~ "                    "
+#~ msgstr ""
+#~ " Aby uniknąć późniejszych problemów, możesz wybrać własne i przeciwne "
+#~ "plemiona\n"
+#~ "                <div class=\"md-error\">TYLKO RAZ!</div>\n"
+#~ "                <br>W przypadku błędu będziesz zmuszony stworzyć nową "
+#~ "rozpiskę.\n"
+#~ "                <li>Upewnij się, że ustawiłeś wszystkie własne plemiona.</"
+#~ "li>\n"
+#~ "                <li>Upewnij się, że ustawiłeś wszystkie przeciwne "
+#~ "plemiona.</li>\n"
+#~ "                "
 
 #~ msgid ""
 #~ "has morale based on points and time. This is not perfectly handled by "
