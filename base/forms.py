@@ -113,7 +113,11 @@ class OutlineForm(forms.Form):
         max_length=24,
         label=gettext_lazy("Outline Name"),
     )
-    date = forms.DateField(label=gettext_lazy("Date"), input_formats=["%Y-%m-%d"])
+    date = forms.DateField(
+        label=gettext_lazy("Date"),
+        input_formats=["%Y-%m-%d"],
+        widget=forms.DateInput(format="%Y-%m-%d"),
+    )
     world = forms.ChoiceField(choices=[], label=gettext_lazy("World"))
 
 
@@ -687,10 +691,12 @@ class SettingDateForm(forms.ModelForm):
     class Meta:
         model = models.Outline
         fields = ["date"]
-
-    date = forms.DateField(
-        label=gettext_lazy("Set new date"), input_formats=["%Y-%m-%d"]
-    )
+        widgets = {
+            "date": forms.DateInput(format="%Y-%m-%d"),
+        }
+        labels = {
+            "date": gettext_lazy("Set new date"),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1023,6 +1029,14 @@ class PeriodForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["status"].choices = [
+            ("", "---"),
+            *[choice for choice in self.fields["status"].choices if choice[0] != ""],
+        ]
+        self.fields["unit"].choices = [
+            ("", "---"),
+            *[choice for choice in self.fields["unit"].choices if choice[0] != ""],
+        ]
         self.fields["status"].widget.attrs["class"] = "form-control"
         self.fields["unit"].widget.attrs["class"] = "form-control"
         self.fields["from_number"].widget.attrs["class"] = "form-control"

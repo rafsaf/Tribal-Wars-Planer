@@ -29,7 +29,7 @@ from utils import database_update
 from utils.database_update import WorldUpdateHandler
 
 log = logging.getLogger(__name__)
-retries = Retry(total=3, backoff_factor=1, status_forcelist=[502, 503, 504])
+retries = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
 
 
 def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
@@ -50,6 +50,7 @@ def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
                 "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36",
             },
         )
+        res.raise_for_status()
         soup = BeautifulSoup(res.text, features="html.parser")
         worlds_div = soup.find_all("div", attrs={"class": "content-selector"})[1]
         for world_li in worlds_div.ul.find_all("li"):  # type: ignore
