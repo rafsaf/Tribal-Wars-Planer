@@ -624,8 +624,13 @@ def initial_target(  # noqa: PLR0912
 ) -> HttpResponse:
     """view with form for initial period outline detail"""
     instance: models.Outline = get_object_or_404(
-        models.Outline.objects.select_related(), id=id1, owner=request.user
+        models.Outline.objects.select_related("world", "world__server").fetch_mode(
+            FETCH_RAISE
+        ),
+        id=id1,
+        owner=request.user,
     )
+    error = request.session.get("error")
     if instance.written == "inactive":
         raise Http404()
 
@@ -704,6 +709,24 @@ def initial_target(  # noqa: PLR0912
                     ):
                         raise Http404()
 
+                    if (
+                        noble_diffrence > 0
+                        and weight.distance > instance.world.max_noble_distance
+                    ):
+                        request.session["error"] = gettext(
+                            "%(start)s -> %(target)s<br>Distance: %(distance)s exceeds max for nobleman on this world: %(max_noble_distance)s."
+                        ) % {
+                            "start": weight.start,
+                            "target": target.target,
+                            "distance": round(weight.distance, 1),
+                            "max_noble_distance": instance.world.max_noble_distance,
+                        }
+
+                        return redirect(
+                            reverse("base:planer_initial_detail", args=[id1, id2])
+                            + f"?page={page_obj.number}&sort={sort}&filtr={filtr}"  # type: ignore
+                        )
+
                     state.off_state += off_diffrence
                     state.off_left -= off_diffrence
                     state.nobleman_state += noble_diffrence
@@ -753,6 +776,9 @@ def initial_target(  # noqa: PLR0912
         "paint": paint,
         "filtr": filtr,
     }
+    if error is not None:
+        context["error"] = error
+        del request.session["error"]
 
     return render(
         request,
