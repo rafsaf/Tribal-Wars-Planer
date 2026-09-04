@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 17:47+0200\n"
+"POT-Creation-Date: 2026-09-04 19:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1125,7 +1125,7 @@ msgid "(Copied from "
 msgstr "(Copiado de "
 
 #: base/templates/base/base_planer.html:48
-#: base/templates/base/new_outline/new_outline_initial_period3.html:144
+#: base/templates/base/new_outline/new_outline_initial_period3.html:145
 #: shipments/templates/my_shipments.html:46
 msgid "Show"
 msgstr "Mostrar"
@@ -1148,7 +1148,7 @@ msgstr ""
 #: base/templates/base/new_outline/new_outline_initial_period2.html:388
 #: base/templates/base/new_outline/new_outline_initial_period2.html:408
 #: base/templates/base/new_outline/new_outline_initial_period2.html:434
-#: base/templates/base/new_outline/new_outline_initial_period3.html:23
+#: base/templates/base/new_outline/new_outline_initial_period3.html:24
 #: shipments/templates/my_shipments.html:73
 msgid "Close"
 msgstr "Fechar"
@@ -1256,8 +1256,8 @@ msgstr "O planejador escolherá os dados colados em: "
 #: base/templates/base/new_outline/new_outline_initial_period1.html:438
 #: base/templates/base/new_outline/new_outline_initial_period2.html:45
 #: base/templates/base/new_outline/new_outline_initial_period2.html:90
-#: base/templates/base/new_outline/new_outline_initial_period3.html:146
-#: base/templates/base/new_outline/new_outline_initial_period3.html:208
+#: base/templates/base/new_outline/new_outline_initial_period3.html:147
+#: base/templates/base/new_outline/new_outline_initial_period3.html:209
 #: base/templates/base/new_outline/new_outline_results.html:70
 #: base/templates/base/user/profile_settings.html:107
 #: shipments/templates/edit_shipment.html:51
@@ -1322,6 +1322,7 @@ msgstr "Exemplos"
 #: base/templates/base/new_outline/new_outline_initial_period1.html:478
 #: base/templates/base/new_outline/new_outline_initial_period1.html:497
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:377
+#: base/templates/base/new_outline/new_outline_initial_period3.html:490
 msgid "An error occured"
 msgstr "Ocorreu um erro"
 
@@ -1991,7 +1992,7 @@ msgid "Create at least one Time below"
 msgstr "Crie pelo menos um Tempo abaixo"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:285
-#: base/templates/base/new_outline/new_outline_initial_period3.html:138
+#: base/templates/base/new_outline/new_outline_initial_period3.html:139
 #: base/templates/base/overview.html:227 shipments/templates/shipment.html:126
 #: utils/basic/mode.py:60 utils/outline_finish.py:75
 msgid "Target"
@@ -2014,145 +2015,145 @@ msgstr "Definir tempo para todos os alvos nesta página"
 msgid "Create at least one Time above"
 msgstr "Crie pelo menos um Tempo acima"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:20
+#: base/templates/base/new_outline/new_outline_initial_period3.html:21
 msgid "Change and save"
 msgstr "Alterar e salvar"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:107
+#: base/templates/base/new_outline/new_outline_initial_period3.html:108
 msgid "Divide"
 msgstr "Dividir"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:111
+#: base/templates/base/new_outline/new_outline_initial_period3.html:112
 msgid "Divide into 2"
 msgstr "Dividir em 2"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:115
+#: base/templates/base/new_outline/new_outline_initial_period3.html:116
 msgid "Divide into 3"
 msgstr "Dividir em 3"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:119
+#: base/templates/base/new_outline/new_outline_initial_period3.html:120
 msgid "Divide into 4"
 msgstr "Dividir em 4"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:137
+#: base/templates/base/new_outline/new_outline_initial_period3.html:138
 #: base/templates/base/new_outline/new_outline_results.html:95
 #: base/templates/base/new_outline/new_outline_results.html:134
 #: utils/outline_finish.py:77
 msgid "Player"
 msgstr "Jogador"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:139
+#: base/templates/base/new_outline/new_outline_initial_period3.html:140
 msgid "TW Stats"
 msgstr "Estatísticas TW"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:140
+#: base/templates/base/new_outline/new_outline_initial_period3.html:141
 msgid "Troops from"
 msgstr "Tropas de"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:141
+#: base/templates/base/new_outline/new_outline_initial_period3.html:142
 msgid "Troops to"
 msgstr "Tropas para"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:142
+#: base/templates/base/new_outline/new_outline_initial_period3.html:143
 msgid "Catapults from"
 msgstr "Catapultas de"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:143
+#: base/templates/base/new_outline/new_outline_initial_period3.html:144
 msgid "Nobles from"
 msgstr "Nobres de"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:145
+#: base/templates/base/new_outline/new_outline_initial_period3.html:146
 msgid "Cards on page"
 msgstr "Cartas na página"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:221
+#: base/templates/base/new_outline/new_outline_initial_period3.html:222
 msgid "Sort"
 msgstr "Ordenar"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:225
+#: base/templates/base/new_outline/new_outline_initial_period3.html:226
 msgid "Ascending by distance"
 msgstr "Ascendente por distância"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:226
+#: base/templates/base/new_outline/new_outline_initial_period3.html:227
 msgid "Random by distance"
 msgstr "Aleatório por distância"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:227
+#: base/templates/base/new_outline/new_outline_initial_period3.html:228
 msgid "Descending by distance"
 msgstr "Descendente por distância"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:228
+#: base/templates/base/new_outline/new_outline_initial_period3.html:229
 msgid "Descending by number of units"
 msgstr "Descendente por número de unidades"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:229
+#: base/templates/base/new_outline/new_outline_initial_period3.html:230
 msgid "Descending by number of noble"
 msgstr "Descendente por número de nobres"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:233
+#: base/templates/base/new_outline/new_outline_initial_period3.html:234
 msgid "Closest full offs"
 msgstr "Ataques completos mais próximos"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:234
+#: base/templates/base/new_outline/new_outline_initial_period3.html:235
 msgid "Closest noblemans"
 msgstr "Nobres mais próximos"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:235
+#: base/templates/base/new_outline/new_outline_initial_period3.html:236
 msgid "Closest offs with noblemans"
 msgstr "Ataques com nobres mais próximos"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:239
+#: base/templates/base/new_outline/new_outline_initial_period3.html:240
 msgid "Random full offs"
 msgstr "Ataques completos aleatórios"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:240
+#: base/templates/base/new_outline/new_outline_initial_period3.html:241
 msgid "Random noblemans"
 msgstr "Nobres aleatórios"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:241
+#: base/templates/base/new_outline/new_outline_initial_period3.html:242
 msgid "Random offs with noblemans"
 msgstr "Ataques com nobres aleatórios"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:245
+#: base/templates/base/new_outline/new_outline_initial_period3.html:246
 msgid "Farthest full offs"
 msgstr "Ataques completos mais distantes"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:246
+#: base/templates/base/new_outline/new_outline_initial_period3.html:247
 msgid "Farthest noblemans"
 msgstr "Nobres mais distantes"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:247
+#: base/templates/base/new_outline/new_outline_initial_period3.html:248
 msgid "Farthest offs with noblemans"
 msgstr "Ataques com nobres mais distantes"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:257
-#: base/templates/base/new_outline/new_outline_initial_period3.html:264
+#: base/templates/base/new_outline/new_outline_initial_period3.html:258
+#: base/templates/base/new_outline/new_outline_initial_period3.html:265
 msgid "Previous"
 msgstr "Anterior"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:268
+#: base/templates/base/new_outline/new_outline_initial_period3.html:269
 #: base/templates/base/overview.html:53 base/templates/base/overview.html:86
 msgid "of"
 msgstr "de"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:272
-#: base/templates/base/new_outline/new_outline_initial_period3.html:278
+#: base/templates/base/new_outline/new_outline_initial_period3.html:273
+#: base/templates/base/new_outline/new_outline_initial_period3.html:279
 msgid "Next"
 msgstr "Próximo"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:289
+#: base/templates/base/new_outline/new_outline_initial_period3.html:290
 msgid "coord or nick..."
 msgstr "coord ou apelido..."
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:329
+#: base/templates/base/new_outline/new_outline_initial_period3.html:330
 msgid "On the left adding Fake, on the right 1 Noble"
 msgstr "À esquerda adicionando Falso, à direita 1 Nobre"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:333
+#: base/templates/base/new_outline/new_outline_initial_period3.html:334
 msgid "On the left adding Offs, on the right Ruin attack"
 msgstr "À esquerda adicionando Ataques, à direita ataque de Ruína"
 
-#: base/templates/base/new_outline/new_outline_initial_period3.html:337
+#: base/templates/base/new_outline/new_outline_initial_period3.html:338
 msgid "On the left adding Offs, on the right Offs with the Nobles"
 msgstr "À esquerda adicionando Ataques, à direita Ataques com Nobres"
 
@@ -2769,6 +2770,17 @@ msgstr "Nunca"
 #: base/views/outline.py:269
 msgid " minute(s) ago."
 msgstr " minuto(s) atrás."
+
+#: base/views/outline_initial_changes.py:106
+#: base/views/outline_initial_changes.py:352
+#: base/views/outline_initial_changes.py:497
+#: base/views/outline_initial_changes.py:676
+#: base/views/outline_initial_views.py:719
+#, python-format
+msgid ""
+"%(start)s -> %(target)s<br>Distance: %(distance)s exceeds max for nobleman "
+"on this world: %(max_noble_distance)s."
+msgstr ""
 
 #: base/views/outline_initial_views.py:56
 #, python-format
