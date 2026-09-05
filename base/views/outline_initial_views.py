@@ -624,9 +624,7 @@ def initial_target(  # noqa: PLR0912
 ) -> HttpResponse:
     """view with form for initial period outline detail"""
     instance: models.Outline = get_object_or_404(
-        models.Outline.objects.select_related("world", "world__server").fetch_mode(
-            FETCH_RAISE
-        ),
+        models.Outline.objects.select_related("world", "world__server"),
         id=id1,
         owner=request.user,
     )
