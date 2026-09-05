@@ -17,7 +17,7 @@
 from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import FETCH_RAISE, Count, Sum
+from django.db.models import Count, Sum
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -109,9 +109,7 @@ def new_outline_create_select(  # noqa: PLR0912
 ) -> HttpResponse:
     """select user's ally and enemy tribe after creating outline, login required"""
     instance = get_object_or_404(
-        models.Outline.objects.select_related("world").fetch_mode(
-            fetch_mode=FETCH_RAISE
-        ),
+        models.Outline.objects.select_related("world"),
         pk=_id,
         owner=request.user,
         editable="active",
@@ -122,7 +120,6 @@ def new_outline_create_select(  # noqa: PLR0912
         for tribe in models.Tribe.objects.filter(
             world=instance.world, tag__in=instance.ally_tribe_tag
         )
-        .fetch_mode(fetch_mode=FETCH_RAISE)
         .annotate(
             player_count=Count("player"),
             village_count=Sum("player__villages"),
@@ -134,7 +131,6 @@ def new_outline_create_select(  # noqa: PLR0912
         for tribe in models.Tribe.objects.filter(
             world=instance.world, tag__in=instance.enemy_tribe_tag
         )
-        .fetch_mode(fetch_mode=FETCH_RAISE)
         .annotate(
             player_count=Count("player"),
             village_count=Sum("player__villages"),
@@ -147,7 +143,6 @@ def new_outline_create_select(  # noqa: PLR0912
     choices = [("banned", "--------")] + [
         (f"{tribe.tag}", f"{tribe.tag}")
         for tribe in models.Tribe.objects.filter(world=instance.world)
-        .fetch_mode(fetch_mode=FETCH_RAISE)
         .exclude(pk__in=banned_tribe_id)
         .order_by("tag")
     ]
@@ -156,7 +151,6 @@ def new_outline_create_select(  # noqa: PLR0912
     sugested_enemy_tribes: list[str] = []
     for old_outline in (
         models.Outline.objects.filter(world=instance.world, owner=request.user)
-        .fetch_mode(fetch_mode=FETCH_RAISE)
         .exclude(id=_id)
         .order_by("-created")[:5]
     ):

@@ -18,7 +18,7 @@ from itertools import zip_longest
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.db.models import FETCH_RAISE, Max, Min
+from django.db.models import Max, Min
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -78,9 +78,9 @@ def initial_add_first(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
     outline = get_object_or_404(
-        models.Outline.objects.select_related("world")
-        .fetch_mode(FETCH_RAISE)
-        .only("world__max_noble_distance"),
+        models.Outline.objects.select_related("world").only(
+            "world__max_noble_distance"
+        ),
         owner=request.user,
         id=id1,
     )
@@ -323,9 +323,9 @@ def initial_add_first_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
     outline = get_object_or_404(
-        models.Outline.objects.select_related("world")
-        .fetch_mode(FETCH_RAISE)
-        .only("world__max_noble_distance"),
+        models.Outline.objects.select_related("world").only(
+            "world__max_noble_distance"
+        ),
         owner=request.user,
         id=id1,
     )
@@ -468,9 +468,9 @@ def initial_add_last_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
     outline = get_object_or_404(
-        models.Outline.objects.select_related("world")
-        .fetch_mode(FETCH_RAISE)
-        .only("world__max_noble_distance"),
+        models.Outline.objects.select_related("world").only(
+            "world__max_noble_distance"
+        ),
         owner=request.user,
         id=id1,
     )
@@ -648,9 +648,9 @@ def initial_add_last(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
     outline = get_object_or_404(
-        models.Outline.objects.select_related("world")
-        .fetch_mode(FETCH_RAISE)
-        .only("world__max_noble_distance"),
+        models.Outline.objects.select_related("world").only(
+            "world__max_noble_distance"
+        ),
         owner=request.user,
         id=id1,
     )
