@@ -48,6 +48,8 @@ class FastWeightMaximum:
         self.off_left: int = weight_max.off_left
         self.nobleman_state: int = weight_max.nobleman_state
         self.nobleman_left: int = weight_max.nobleman_left
+        self.deff_state: int = weight_max.deff_state
+        self.deff_left: int = weight_max.deff_left
         self.catapult_state: int = weight_max.catapult_state
         self.catapult_left: int = weight_max.catapult_left
         self.first_line: bool = weight_max.first_line

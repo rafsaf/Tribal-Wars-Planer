@@ -40,6 +40,10 @@ class WeightMaximum(models.Model):
     nobleman_state = models.IntegerField(default=0)
     nobleman_left = models.IntegerField()
 
+    deff_max = models.IntegerField(default=0)
+    deff_state = models.IntegerField(default=0)
+    deff_left = models.IntegerField(default=0)
+
     ram_max = models.IntegerField()
     ram_state = models.IntegerField(default=0)
     ram_left = models.IntegerField()
@@ -62,6 +66,8 @@ class WeightMaximum(models.Model):
         "off_state",
         "nobleman_left",
         "nobleman_state",
+        "deff_left",
+        "deff_state",
         "catapult_left",
         "catapult_state",
     ]
