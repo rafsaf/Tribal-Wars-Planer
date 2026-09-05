@@ -12,6 +12,7 @@
             <div class="modal-content">
                 <div class="px-4 py-4">
                     {% load crispy_forms_tags %}
+                    <h4 class="mb-3" id="modal-title"></h4>
                     <h4 class="mb-3" id="attack-number">0</h4>
                     <div class="btn-group">
                         <form method='POST'>
@@ -480,12 +481,30 @@
         </div>
     </div>
 
+    {% if error != None %}
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content text-white bg-danger">
+                    <div class="modal-header">
+                        <h3 class="modal-title">{% trans 'An error occured' %}</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{error|safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="module">document.addEventListener("DOMContentLoaded", function (event) {document.querySelectorAll('.bd-example-modal-lg').forEach((element) => { new bootstrap.Modal(element).show(); });});</script>
+    {% endif %}
+
 {% endblock %}
 {% block footer %}
 {% endblock %}
 {% block scripts %}
     <script>
-        scroll_content_outline();
+        activateEditTargetMenuScroll();
         modal();
         document.getElementById("{{sort}}")?.classList.add("selected");
         document.getElementById("{{sort}}2")?.classList.add("selected");

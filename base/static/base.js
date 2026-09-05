@@ -71,7 +71,7 @@ const modal = () => {
         const currentOtherMax = currentOther + currentOtherLeft;
         const currentCatapultMax = currentCatapult + currentCatapultLeft;
 
-        getBySelector(".modal-title").textContent = start;
+        getBySelector("#modal-title").textContent = start;
         getBySelector("#attack-number").textContent = attackNumber;
         getBySelector("#id_weight_id").value = id;
         getBySelector("#id_off").value = off;
@@ -81,7 +81,7 @@ const modal = () => {
         const offInput = getBySelector("#id_off");
         offNoCatapultInput.value = currentOther;
         offNoCatapultInput.max = String(currentOtherMax);
-        getBySelector("#hint_id_off_no_catapult").textContent = `0-${currentOtherMax}`;
+        getBySelector("#id_off_no_catapult_helptext").textContent = `0-${currentOtherMax}`;
         offNoCatapultInput.onchange = function () {
           const cat = parseInt(catapultInput.value, 10) || 0;
           const offNoCats = parseInt(offNoCatapultInput.value, 10) || 0;
@@ -90,7 +90,7 @@ const modal = () => {
 
         catapultInput.value = String(currentCatapult);
         catapultInput.max = String(currentCatapultMax);
-        getBySelector("#hint_id_catapult").textContent = `0-${currentCatapultMax}`;
+        getBySelector("#id_catapult_helptext").textContent = `0-${currentCatapultMax}`;
         catapultInput.onchange = function () {
           const cat = parseInt(catapultInput.value, 10) || 0;
           const offNoCats = parseInt(offNoCatapultInput.value, 10) || 0;
@@ -100,7 +100,7 @@ const modal = () => {
         const noblemanInput = getBySelector("#id_nobleman");
         noblemanInput.value = String(nobleman);
         noblemanInput.max = String(nobleman + leftNobleman);
-        getBySelector("#hint_id_nobleman").textContent = `0-${nobleman + leftNobleman}`;
+        getBySelector("#id_nobleman_helptext").textContent = `0-${nobleman + leftNobleman}`;
       });
     }
 
@@ -859,7 +859,9 @@ const activateTimezoneInfo = () => {
 
 const setFooterYears = () => {
   const footerYearEl = document.getElementById("footer-years");
-  footerYearEl.innerText = `2020-${new Date().getFullYear()} `;
+  if (footerYearEl !== null) {
+    footerYearEl.innerText = `2020-${new Date().getFullYear()} `;
+  }
 };
 
 const setupDataTable = (elementId) => {
