@@ -22,14 +22,11 @@ from django.db.models import Max, Min
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 
 from base import models
 from utils import basic
-
-
-def _get_owned_outline(request: HttpRequest, outline_id: int) -> models.Outline:
-    return get_object_or_404(models.Outline, owner=request.user, id=outline_id)
 
 
 def _get_target_for_outline(
@@ -80,7 +77,13 @@ def _get_weight_model_for_target(
 def initial_add_first(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    outline = get_object_or_404(
+        models.Outline.objects.select_related("world").only(
+            "world__max_noble_distance"
+        ),
+        owner=request.user,
+        id=id1,
+    )
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -95,6 +98,24 @@ def initial_add_first(
             ]
             - 1
         )
+
+    distance = basic.Village(target.target).distance(basic.Village(weight.start))
+
+    if weight.nobleman_left > 0 and distance > outline.world.max_noble_distance:
+        request.session["error"] = gettext(
+            "%(start)s -> %(target)s<br>Distance: %(distance)s exceeds max for nobleman on this world: %(max_noble_distance)s."
+        ) % {
+            "start": weight.start,
+            "target": target.target,
+            "distance": round(distance, 1),
+            "max_noble_distance": outline.world.max_noble_distance,
+        }
+
+        return redirect(
+            reverse("base:planer_initial_detail", args=[id1, id2])
+            + f"?page={page}&sort={sort}&filtr={filtr}"
+        )
+
     models.WeightModel.objects.create(
         target=target,
         player=weight.player,
@@ -106,7 +127,7 @@ def initial_add_first(
         catapult=weight.catapult_left,
         nobleman=weight.nobleman_left,
         order=order,
-        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
+        distance=distance,
         first_line=weight.first_line,
         village_id=weight.village_id,
         player_id=weight.player_id,
@@ -130,7 +151,7 @@ def initial_add_first(
 def initial_add_first_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -178,7 +199,7 @@ def initial_add_first_off(
 def initial_add_first_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = _get_owned_outline(request, id1)
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -232,7 +253,7 @@ def initial_add_first_ruin(
 def initial_add_first_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -301,7 +322,13 @@ def initial_add_first_fake(
 def initial_add_first_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    outline = get_object_or_404(
+        models.Outline.objects.select_related("world").only(
+            "world__max_noble_distance"
+        ),
+        owner=request.user,
+        id=id1,
+    )
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -316,7 +343,25 @@ def initial_add_first_fake_noble(
             ]
             - 1
         )
+
     if weight.nobleman_left > 0:
+        distance = basic.Village(target.target).distance(basic.Village(weight.start))
+
+        if distance > outline.world.max_noble_distance:
+            request.session["error"] = gettext(
+                "%(start)s -> %(target)s<br>Distance: %(distance)s exceeds max for nobleman on this world: %(max_noble_distance)s."
+            ) % {
+                "start": weight.start,
+                "target": target.target,
+                "distance": round(distance, 1),
+                "max_noble_distance": outline.world.max_noble_distance,
+            }
+
+            return redirect(
+                reverse("base:planer_initial_detail", args=[id1, id2])
+                + f"?page={page}&sort={sort}&filtr={filtr}"
+            )
+
         army = 0
         nobles = 1
         catapult = 0
@@ -332,7 +377,7 @@ def initial_add_first_fake_noble(
             building=None,
             nobleman=nobles,
             order=order,
-            distance=basic.Village(target.target).distance(basic.Village(weight.start)),
+            distance=distance,
             first_line=weight.first_line,
             village_id=weight.village_id,
             player_id=weight.player_id,
@@ -353,7 +398,7 @@ def initial_add_first_fake_noble(
 def initial_add_last_fake(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -422,7 +467,13 @@ def initial_add_last_fake(
 def initial_add_last_fake_noble(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    outline = get_object_or_404(
+        models.Outline.objects.select_related("world").only(
+            "world__max_noble_distance"
+        ),
+        owner=request.user,
+        id=id1,
+    )
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -437,7 +488,25 @@ def initial_add_last_fake_noble(
             ]
             + 1
         )
+
     if weight.nobleman_left > 0:
+        distance = basic.Village(target.target).distance(basic.Village(weight.start))
+
+        if distance > outline.world.max_noble_distance:
+            request.session["error"] = gettext(
+                "%(start)s -> %(target)s<br>Distance: %(distance)s exceeds max for nobleman on this world: %(max_noble_distance)s."
+            ) % {
+                "start": weight.start,
+                "target": target.target,
+                "distance": round(distance, 1),
+                "max_noble_distance": outline.world.max_noble_distance,
+            }
+
+            return redirect(
+                reverse("base:planer_initial_detail", args=[id1, id2])
+                + f"?page={page}&sort={sort}&filtr={filtr}"
+            )
+
         army = 0
         nobles = 1
         catapult = 0
@@ -453,7 +522,7 @@ def initial_add_last_fake_noble(
             building=None,
             nobleman=nobles,
             order=order,
-            distance=basic.Village(target.target).distance(basic.Village(weight.start)),
+            distance=distance,
             first_line=weight.first_line,
             village_id=weight.village_id,
             player_id=weight.player_id,
@@ -474,7 +543,7 @@ def initial_add_last_fake_noble(
 def initial_add_last_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = _get_owned_outline(request, id1)
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -529,7 +598,7 @@ def initial_add_last_ruin(
 def initial_add_last_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -578,7 +647,13 @@ def initial_add_last_off(
 def initial_add_last(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    outline = get_object_or_404(
+        models.Outline.objects.select_related("world").only(
+            "world__max_noble_distance"
+        ),
+        owner=request.user,
+        id=id1,
+    )
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -593,6 +668,24 @@ def initial_add_last(
             ]
             + 1
         )
+
+    distance = basic.Village(target.target).distance(basic.Village(weight.start))
+
+    if weight.nobleman_left > 0 and distance > outline.world.max_noble_distance:
+        request.session["error"] = gettext(
+            "%(start)s -> %(target)s<br>Distance: %(distance)s exceeds max for nobleman on this world: %(max_noble_distance)s."
+        ) % {
+            "start": weight.start,
+            "target": target.target,
+            "distance": round(distance, 1),
+            "max_noble_distance": outline.world.max_noble_distance,
+        }
+
+        return redirect(
+            reverse("base:planer_initial_detail", args=[id1, id2])
+            + f"?page={page}&sort={sort}&filtr={filtr}"
+        )
+
     models.WeightModel.objects.create(
         target=target,
         player=weight.player,
@@ -604,7 +697,7 @@ def initial_add_last(
         catapult=weight.catapult_left,
         nobleman=weight.nobleman_left,
         order=order,
-        distance=basic.Village(target.target).distance(basic.Village(weight.start)),
+        distance=distance,
         first_line=weight.first_line,
         village_id=weight.village_id,
         player_id=weight.player_id,
@@ -629,7 +722,7 @@ def initial_add_last(
 def initial_move_down(
     request: HttpRequest, id1: int, id2: int, id4: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -660,7 +753,7 @@ def initial_move_down(
 @login_required
 @transaction.atomic
 def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
 
     sort = request.GET.get("sort")
     page = request.GET.get("page")
@@ -694,7 +787,7 @@ def initial_move_up(request: HttpRequest, id1: int, id2: int, id4: int) -> HttpR
 def initial_weight_delete(
     request: HttpRequest, id1: int, id2: int, id4: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -722,7 +815,7 @@ def initial_weight_delete(
 def initial_divide(
     request: HttpRequest, id1: int, id2: int, id4: int, n: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -792,7 +885,7 @@ def initial_divide(
 def initial_hide_weight(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    _get_owned_outline(request, id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     _get_target_for_outline(request, id1, id2)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
