@@ -92,6 +92,7 @@ class TargetVertex(models.Model):
 
         weightmodel_set: QuerySet[WeightModel]
         outline_id: int
+        outline_time_id: int
 
     objects = FetchErrorManager()
 

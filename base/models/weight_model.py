@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+import typing
 from collections.abc import Callable
 from datetime import datetime
 from math import sqrt
@@ -50,6 +51,10 @@ class WeightModel(models.Model):
     sh_t1: datetime
     sh_t2: datetime
     get_building_display: Callable[[], str]
+
+    if typing.TYPE_CHECKING:
+        state_id: int
+        target_id: int
 
     objects = FetchErrorManager()
 

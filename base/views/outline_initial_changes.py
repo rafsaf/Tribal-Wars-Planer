@@ -819,7 +819,7 @@ def initial_divide(
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    weight_model = _get_weight_model_for_target(request, id1, id2, id4, with_state=True)
+    weight_model = _get_weight_model_for_target(request, id1, id2, id4)
     n_list: list[int] = [i + 1 for i in range(n - 1)]
     nob_list: list[int] = [i for i in range(max(weight_model.nobleman - 1, 0))]
     if n > weight_model.nobleman:
@@ -843,10 +843,10 @@ def initial_divide(
 
         create_list.append(
             models.WeightModel(
-                target=weight_model.target,
+                target_id=weight_model.target_id,
                 player=weight_model.player,
                 start=weight_model.start,
-                state=weight_model.state,
+                state_id=weight_model.state_id,
                 off=off,
                 ruin=weight_model.ruin,
                 building=weight_model.building,
@@ -865,7 +865,7 @@ def initial_divide(
     weight_model.save()
 
     for next_weight in models.WeightModel.objects.filter(
-        target=weight_model.target, order__gt=weight_model.order
+        target_id=weight_model.target_id, order__gt=weight_model.order
     ):
         next_weight.order = next_weight.order + n
         update_list.append(next_weight)
