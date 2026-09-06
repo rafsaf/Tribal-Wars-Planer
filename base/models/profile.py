@@ -23,6 +23,7 @@ from django.utils.translation import gettext_lazy
 
 from base.models.outline import Outline
 from base.models.server import Server
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class Profile(models.Model):
@@ -63,6 +64,8 @@ class Profile(models.Model):
     feature_flag_shipments = models.BooleanField(default=True)
     deleted_at = models.DateTimeField(default=None, blank=True, null=True)
     deleted_at_exp = models.DateTimeField(default=None, blank=True, null=True)
+
+    objects = FetchErrorManager()
 
     def is_premium(self) -> bool:
         if settings.PREMIUM_ACCOUNT_VALIDATION_ON:

@@ -19,6 +19,7 @@ from django.db import models
 from django.utils import translation
 
 from base.models.stripe_product import StripeProduct
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class StripePrice(models.Model):
@@ -30,6 +31,8 @@ class StripePrice(models.Model):
     currency = models.CharField(
         max_length=3, choices=settings.SUPPORTED_CURRENCIES_CHOICES
     )
+
+    objects = FetchErrorManager()
 
     class Meta:
         ordering = ["currency", "-active", "amount"]

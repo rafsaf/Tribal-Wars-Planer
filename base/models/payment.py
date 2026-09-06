@@ -22,6 +22,8 @@ from django.db import models
 from django.utils import translation
 from django.utils.translation import gettext_lazy
 
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
+
 
 def promotion_event_id() -> str:
     unique_id = secrets.token_urlsafe(64)
@@ -59,6 +61,8 @@ class Payment(models.Model):
     new_date = models.DateField(default=None, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = FetchErrorManager()
 
     def value(self) -> str:
         """Return human readable amount"""

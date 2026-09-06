@@ -24,6 +24,7 @@ from django.utils.translation import gettext_lazy
 
 from base.models.outline import Outline
 from base.models.outline_time import OutlineTime
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 if TYPE_CHECKING:
     from utils.basic.ruin import RuinHandle
@@ -91,6 +92,8 @@ class TargetVertex(models.Model):
 
         weightmodel_set: QuerySet[WeightModel]
         outline_id: int
+
+    objects = FetchErrorManager()
 
     class Meta:
         verbose_name = "Target"

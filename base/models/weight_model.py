@@ -21,6 +21,7 @@ from django.db import models
 
 from base.models.target_vertex import TargetVertex
 from base.models.weight_maximum import WeightMaximum
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 from utils.buildings import BUILDINGS_TRANSLATION
 
 
@@ -49,6 +50,8 @@ class WeightModel(models.Model):
     sh_t1: datetime
     sh_t2: datetime
     get_building_display: Callable[[], str]
+
+    objects = FetchErrorManager()
 
     def __str__(self):
         return self.start

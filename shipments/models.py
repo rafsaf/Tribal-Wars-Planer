@@ -20,6 +20,7 @@ from django.db import models
 
 from base.models.overview import Overview
 from base.models.world import World
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class Shipment(models.Model):
@@ -32,3 +33,5 @@ class Shipment(models.Model):
     hidden = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = FetchErrorManager()

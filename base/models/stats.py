@@ -16,6 +16,7 @@
 from django.db import models
 
 from base.models.outline import Outline
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class Stats(models.Model):
@@ -45,6 +46,8 @@ class Stats(models.Model):
     finish_outline_clicked = models.IntegerField(default=0)
     overview_visited = models.IntegerField(default=0)
     outline_duplicated = models.IntegerField(default=0)
+
+    objects = FetchErrorManager()
 
     class Meta:
         verbose_name = "Statistic"

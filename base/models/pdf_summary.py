@@ -18,12 +18,16 @@ import os
 from django.conf import settings
 from django.db import models
 
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
+
 
 class PDFPaymentSummary(models.Model):
     period = models.CharField(max_length=10)
     path = models.CharField(max_length=300, primary_key=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = FetchErrorManager()
 
     class Meta:
         verbose_name = "PDF Summary"

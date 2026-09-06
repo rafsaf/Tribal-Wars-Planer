@@ -17,6 +17,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext as _
 
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
+
 
 class StripeProduct(models.Model):
     product_id = models.CharField(max_length=128, primary_key=True)
@@ -27,6 +29,8 @@ class StripeProduct(models.Model):
     months = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(12)]
     )
+
+    objects = FetchErrorManager()
 
     class Meta:
         ordering = ["-active", "months"]
