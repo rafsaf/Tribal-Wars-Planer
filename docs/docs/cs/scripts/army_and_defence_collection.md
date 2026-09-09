@@ -1,104 +1,77 @@
 ---
 title: "Skript pro sběr armády a obrany"
-date: 2026-02-28
+date: 2026-09-09
 ---
 
-| Server          | Fórum Tribal Wars                                                                                                                                                    | Povoleno | Kód                                                                                                                  |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| tribalwars.net  | [https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/](https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/)         | ANO      | [Kód na GitHubu (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-09-2/src/collect_troops_v2.1.ts)  |
-| plemiona.pl     | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/) | ANO      | [Kód na GitHubu (v2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/collect_troops_v2.js)     |
-| ostatní servery | -                                                                                                                                                                    | NE       | [Kód na GitHubu (v2.3)](https://github.com/rafsaf/scripts_tribal_wars/blob/2025-09-22/public/collect_troops_v2.3.js) |
+## Instalace
+
+V současné době je jedinou podporovanou možností instalace použití **oficiální knihovny skriptů** (Nastavení -> Knihovna skriptů). Hledejte ho podle autora – Rafsaf nebo podle názvu.
+
+![Pohled do knihovny skriptů](image-5.png)
+
+| Server             | Název v knihovně skriptů       | Autor  | Kód                                                                                                                            |
+| ------------------ | ------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| plemiona.pl        | Zbiórka Wojska i Obrony        | Rafsaf | [Kód na GitHubu (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribalwars.net     | Collect troops script          | Rafsaf | [Kód na GitHubu (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerretribale.fr   | Script de collecte des troupes | Rafsaf | [Kód na GitHubu (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribals.it         | Raccolta delle truppe          | Rafsaf | [Kód na GitHubu (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerrastribales.es | Script de colector de tropas   | Rafsaf | [Kód na GitHubu (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| ostatní servery    | -                              | -      | [Kód na GitHubu (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
 
 !!! warning
 
-    Používání na jiných jazykových verzích hry, **kde skript není povolen** podporou, může vést k zablokování účtu. Používejte na vlastní nebezpečí.
+    Skript je dostupný na mnoha jazykových verzích – nahlaste problém přes podporu na svém serveru, aby byl přidán, pokud není výše uveden. Používání na jiných jazykových verzích hry, **kde skript není povolen** podporou, může vést k zablokování účtu. Používejte na vlastní nebezpečí.
 
-=== "tribalwars.net"
+=== "Podporované servery"
 
-    ```title="Skript pro sběr armády a obrany"
-    --8<-- "army_script_tribalwars_net_en.txt"
-    ```
+    Instalace pouze přes knihovnu skriptů!
 
-=== "plemiona.pl"
-
-    ```title="Skript pro sběr armády a obrany"
-    --8<-- "army_script_plemiona_pl_en.txt"
-    ```
-
-=== "ostatní servery"
+=== "Ostatní servery"
 
     ```title="Skript pro sběr armády a obrany"
     --8<-- "army_script_latest.txt"
     ```
 
-## Instalace
-
-Postupuje se stejně jako u všech skriptů pro lištu; je třeba vložit obsah do nově vytvořeného skriptu pro lištu ve hře.
-
 ## Návod k použití
 
-1. Vytvořte skript pro lištu, klikněte na něj
-2. Počkejte na výsledek
-3. Přejděte na vybraný plán
-4. Vložte data a potvrďte
+1. Vytvořte skript pro lištu, přejděte do pohledu kmene a klikněte na něj
+2. Změňte nastavení (volitelně) a stiskněte Spustit
+3. Počkejte na výsledek
+4. Přejděte na vybraný plán
+5. Vložte data a potvrďte
+
+Nastavení:
+
+![Pohled nastavení](image-6.png)
+
+Výsledek:
 
 ![Příklad výstupu skriptu](image-2.png)
 
 ## Popis
 
-Po kliknutí se uprostřed obrazovky objeví "čítač" s postupem, poté výsledek v okně. Funguje jak v záložce Armáda, tak v záložce Obrana. Výchozí nastavení pro kopírování má cache nastaveno na true a cacheTime na 5 minut. Během této doby skript vypíše výsledek uložený v prohlížeči, místo aby znovu procházel všechny členy a sbíral data. V případě pochybností, zda se jedná o nový nebo starý výsledek, se dole zobrazí datum sběru.
+Po kliknutí se uprostřed obrazovky objeví "čítač" s postupem a poté výsledek v okně. Funguje jak v záložce Armáda, tak v záložce Obrana. Výchozí nastavení pro kopírování má `Mezipaměť` zapnutou a `Doba cache` nastavenou na 5 minut. Během této doby skript vypíše výsledek uložený v prohlížeči, místo aby znovu procházel všechny členy a sbíral data. V případě pochybností, zda se jedná o nový nebo starý výsledek, se dole zobrazí datum sběru.
 
 Data vygenerovaná spuštěním skriptu by měla být vložena do plánu na webu.
 
 Možnosti:
 
-Konfigurace probíhá pomocí objektu **COLLECT_TROOPS_DATA_V2**. Všimněte si, že každý parametr JE VOLITELNÝ, pokud jsou obě proměnné
-nedefinované nebo jsou definované, ale neobsahují žádné klíče, budou použity
-rozumné výchozí hodnoty.
+- **Mezipaměť**: <boolean> (výchozí: `true`) je zodpovědná za ukládání výsledku v prohlížeči, aby se náhodou neklikalo několikrát za sebou a nezatěžovaly se herní servery. Pokud nastavíte `false`, skript nebude ukládat výsledek do prohlížeče (užitečné například když chcete sbírat data ze dvou kmenů a okamžitě přejít na druhý). Poznámka: pokud má kmen obrovské množství vesnic, může to zabrat příliš mnoho místa v `localStorage` (~max 5MB), kvůli tomu je limit 1MB. Pokud je výstup > 1MB, uložení do `localStorage` bude přeskočeno.
 
-- **cache**: <boolean> (výchozí: `true`) je zodpovědný za ukládání výsledku
-  v prohlížeči, aby se náhodou nekliklo několikrát za sebou a
-  nezatěžovaly se herní servery, nastavení cache: false způsobí, že se výsledek neuloží
-  (např. když máme v úmyslu sbírat data ze dvou kmenů a okamžitě přejít
-  na druhý). Poznámka: pokud má kmen obrovské množství vesnic, může to zabrat příliš
-  mnoho místa v localStorage (~max 5MB), kvůli tomu je limit 1MB,
-  pokud je výstup > 1MB, uložení do localStorage bude přeskočeno.
+- **Doba cache**: <number> (výchozí: `5`) je doba uložení výsledku v prohlížeči, v minutách.
 
-- **cacheTime**: <number> (výchozí: `5`) je doba uložení výsledku v
-  prohlížeči, v minutách.
+- **Vynechaní hráči**: <string> (výchozí: `""`) zde zadáváte přezdívky hráčů, od kterých nechcete sbírat informace o přehledu, oddělené středníky jako v zprávách ve hře, např. "Rafsaf;kmic;někdo jiný".
 
-- **removedPlayers**: <string> (výchozí: `""`) zde zadáváme přezdívky hráčů,
-  od kterých nechceme sbírat informace o jednotkách, oddělené středníky jako v
-  zprávách ve hře, např. "Rafsaf;kmic;někdojiný"
+- **Povolení hráči**: <string> (výchozí: `""`) zde zadáváte přezdívky hráčů, od kterých chcete sbírat informace o přehledu JENOM! Ostatní budou přeskočeni, přezdívky jsou oddělené středníky jako v zprávách ve hře, např. "Rafsaf;kmic;někdo jiný". Poznámka: výchozí hodnota `""` má speciální význam a znamená, že chcete sbírat přehled od všech hráčů.
 
-- **allowedPlayers**: <string> (výchozí: `""`) zde zadáváme přezdívky hráčů,
-  od kterých POUZE! (pokud je prázdné, budou použiti všichni hráči v kmeni) chceme
-  sbírat informace o jednotkách, oddělené středníky jako v zprávách ve hře,
-  např. "Rafsaf;kmic;někdojiný"
+- **Zobrazit přezdívky**: <boolean> (výchozí: `false`) pokud je hodnota `true`, přidá se do výsledku sběru Armády na začátek každé řádky přezdívka hráče, podobně jako pro záložku Obrana.
 
-- **language**: <string> (výchozí: `"pl"`) toto by mělo být `"en"` nebo `"pl"`, pokud je
-  použito něco jiného, skript použije angličtinu
+- **Zobrazit první řádek**: <boolean> (výchozí: `false`) pokud je hodnota `true`, přidá se k výsledku sběru Armády hlavička (první řádek nahoře), jejíž hodnota je nastavena v dalším parametru `Text prvního řádku`.
 
-- **showNicknamesTroops**: <boolean> (výchozí: `false`) pokud je nastaveno na true, způsobí, že
-  na každém řádku se na jeho začátku navíc objeví přezdívka hráče,
-  platí pouze v záložce Jednotky, podobně jako showNicknamesDeff
+- **Text prvního řádku**: <string> (výchozí: `""`) hodnota, která se přidá do hlavičky ve výsledku sběru Armády, pokud je `Zobrazit první řádek` nastaveno na `true`.
 
-- **showFirstLineTroops**: <boolean> (výchozí: `false`) pokud je nastaveno na true, způsobí, že
-  k výsledku bude přidán další řádek nahoře, který je specifikován
-  proměnnou firstLineDeff, platí pouze v záložce Jednotky, podobně jako showFirstLineDeff
+- **Zobrazit přezdívky**: <boolean> (výchozí: `false`) pokud je hodnota `true`, přidá se do výsledku sběru Obrany na začátek každé řádky přezdívka hráče, podobně jako pro záložku Armáda.
 
-- **firstLineTroops**: <string> (výchozí: `""`) řádek, který se zobrazí nahoře ve výsledku,
-  když je showFirstLineTroops true, platí pouze v záložce Jednotky, podobně jako
-  showNicknamesDeff
+- **Zobrazit první řádek**: <boolean> (výchozí: `false`) pokud je hodnota `true`, přidá se k výsledku sběru Obrany hlavička (první řádek nahoře), jejíž hodnota je nastavena v dalším parametru `Text prvního řádku`.
 
-- **showNicknamesDeff**: <boolean> (výchozí: `false`) pokud je nastaveno na true, způsobí, že
-  na každém řádku se na jeho začátku navíc objeví přezdívka hráče,
-  platí pouze v záložce Obrana, podobně jako showNicknamesTroops
-
-- **showFirstLineDeff**: <boolean> (výchozí: `false`) pokud je nastaveno na true, způsobí, že
-  k výsledku bude přidán další řádek nahoře, který je specifikován
-  proměnnou firstLineDeff, platí pouze v záložce Obrana, podobně jako showFirstLineTroops
-
-- **firstLineDeff**: <string> (výchozí: `""`) řádek, který se zobrazí nahoře ve výsledku,
-  když je showFirstLineTroops true, platí pouze v záložce Obrana, podobně
-  jako firstLineTroops
+- **Text prvního řádku**: <string> (výchozí: `""`) hodnota, která se přidá do hlavičky ve výsledku sběru Obrany, pokud je `Zobrazit první řádek` nastaveno na `true`.

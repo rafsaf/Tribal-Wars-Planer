@@ -1,104 +1,77 @@
 ---
-title: "Csapatösszesítő és védelemgyűjtő szkript"
-date: 2026-02-28
+title: "Csapat- és védelemgyűjtő szkript"
+date: 2026-09-09
 ---
-
-| Szerver        | Klánháború Fórum                                                                                                                                                     | Engedélyezett | Kód                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------- |
-| tribalwars.net | [https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/](https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/)         | IGEN          | [Kód a GitHubon (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-09-2/src/collect_troops_v2.1.ts)  |
-| plemiona.pl    | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/) | IGEN          | [Kód a GitHubon (v2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/collect_troops_v2.js)     |
-| más szerverek  | -                                                                                                                                                                    | NEM           | [Kód a GitHubon (v2.3)](https://github.com/rafsaf/scripts_tribal_wars/blob/2025-09-22/public/collect_troops_v2.3.js) |
-
-!!! warning
-
-    Más nyelvi verziókon való használat, **ahol a szkript nem engedélyezett** a támogatás által, fiókfelfüggesztést vonhat maga után. Használata saját felelősségre.
-
-=== "tribalwars.net"
-
-    ```title="Csapatösszesítő és védelemgyűjtő szkript"
-    --8<-- "army_script_tribalwars_net_en.txt"
-    ```
-
-=== "plemiona.pl"
-
-    ```title="Csapatösszesítő és védelemgyűjtő szkript"
-    --8<-- "army_script_plemiona_pl_en.txt"
-    ```
-
-=== "más szerverek"
-
-    ```title="Csapatösszesítő és védelemgyűjtő szkript"
-    --8<-- "army_script_latest.txt"
-    ```
 
 ## Telepítés
 
-A telepítés ugyanúgy történik, mint az összes sávszkript esetében; a tartalmat be kell illeszteni egy újonnan létrehozott sávszkriptbe a játékban.
+Jelenleg az egyetlen támogatott telepítési lehetőség a **hivatalos Szkriptkönyvtár** használata (Beállítások -> Szkriptkönyvtár). Keresse meg a szerző szerint – Rafsaf vagy név szerint.
+
+![A szkriptkönyvtár nézete](image-5.png)
+
+| Szerver            | Név a szkriptkönyvtárban       | Szerző | Kód                                                                                                                            |
+| ------------------ | ------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| plemiona.pl        | Zbiórka Wojska i Obrony        | Rafsaf | [Kód a GitHubon (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribalwars.net     | Collect troops script          | Rafsaf | [Kód a GitHubon (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerretribale.fr   | Script de collecte des troupes | Rafsaf | [Kód a GitHubon (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribals.it         | Raccolta delle truppe          | Rafsaf | [Kód a GitHubon (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerrastribales.es | Script de colector de tropas   | Rafsaf | [Kód a GitHubon (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| más szerverek      | -                              | -      | [Kód a GitHubon (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+
+!!! warning
+
+    A szkript sok nyelvi verzióban elérhető – jelentsd a problémát a szerver támogatásán keresztül, hogy ott is hozzáadhassák, ha nincs fent felsorolva. Más nyelvi verziókon való használat, **ahol a szkript nem engedélyezett** a támogatás által, fiókfelfüggesztést vonhat maga után. Használata saját felelősségre.
+
+=== "Támogatott szerverek"
+
+    Telepítés csak a szkriptkönyvtáron keresztül!
+
+=== "Más szerverek"
+
+    ```title="Csapat- és védelemgyűjtő szkript"
+    --8<-- "army_script_latest.txt"
+    ```
 
 ## Használati útmutató
 
-1. Hozzon létre egy sávszkriptet, kattintson rá
-2. Várja meg az eredményt
-3. Menjen a kiválasztott ütemtervhez
-4. Illessze be az adatokat és erősítse meg
+1. Hozzon létre egy sávszkriptet, menjen a klánnézetre és kattintson rá
+2. Módosítsa a beállításokat (opcionálisan) és nyomja meg az Indítás gombot
+3. Várja meg az eredményt
+4. Menjen a kiválasztott ütemtervhez
+5. Illessze be az adatokat és erősítse meg
+
+Beállítások:
+
+![A beállítások képernyője](image-6.png)
+
+Eredmény:
 
 ![Példa a szkript kimenetére](image-2.png)
 
 ## Leírás
 
-Kattintás után egy "számláló" jelenik meg a képernyő közepén, majd az eredmény egy ablakban. Működik mind a Csapatok, mind a Védelem fülön. A másolás alapértelmezett beállításai a gyorsítótár `true`-ra és a cacheTime 5 percre vannak állítva. Ez idő alatt a szkript a böngészőben mentett eredményt adja ki, ahelyett, hogy újra körbejárná az összes tagot és új adatokat gyűjtene. Kétség esetén, hogy új vagy régi eredménnyel van-e dolgunk, a gyűjtés dátuma alul jelenik meg.
+Kattintás után a képernyő közepén megjelenik egy "számláló" a folyamatjelzéssel, majd az eredmény egy ablakban. Működik mind a Csapatok, mind a Védelem fülön. A másolás alapértelmezett beállításai a `Gyorsítótár` bekapcsolva vannak, a `Gyorsítótár idő` pedig 5 perc. Ezen az idő alatt a szkript a böngészőben mentett eredményt adja ki, ahelyett, hogy újra körbejárná az összes tagot és új adatokat gyűjtene. Kétség esetén, hogy új vagy régi eredménnyel van-e dolgunk, az összegyűjtés dátuma alul jelenik meg.
 
 A szkript futtatásával generált adatokat be kell illeszteni az oldal ütemtervébe.
 
 Opciók:
 
-A konfiguráció a **COLLECT_TROOPS_DATA_V2** objektum használatával történik. Megjegyzés: minden paraméter OPCIONÁLIS, ha mindkét változó
-nincs definiálva, vagy definiálva van, de nincsenek benne kulcsok, ésszerű
-alapértelmezések lesznek használva.
+- **Gyorsítótár**: <boolean> (alapértelmezett: `true`) felelős az eredmény tárolásáért a böngészőben, hogy ne kattintsunk véletlenül több alkalommal egymás után és ne terheljük a játék szervereit. Ha `false` értékre állítjuk, a szkript nem menti el az eredményt a böngészőben (hasznos például akkor, ha két klánból szeretnénk adatokat gyűjteni, és azonnal a másikra ugrunk). Megjegyzés: ha a klánnak nagyon sok faluja van, ez túl sok helyet foglalhat el a `localStorage`-ban (~max 5MB), ezért a korlát 1MB. Ha a kimenet > 1MB, a mentés a `localStorage`-ba kihagyásra kerül.
 
-- **cache**: <boolean> (alapértelmezett: `true`) felelős az eredmény tárolásáért
-  a böngészőben, hogy ne kattintsunk véletlenül néhányszor egymás után és
-  ne terheljük a játék szervereit, a cache: false beállítása azt eredményezi, hogy nem tárolja az eredményt
-  (pl. amikor két klánból szándékozunk adatokat gyűjteni, azonnal
-  a másikra ugorva). Megjegyzés: ha a klánnak hatalmas mennyiségű faluja van, túl
-  sok tárhelyet foglalhat el a localStorage-ban (~max 5MB), ezért a korlát 1MB,
-  ha a kimenet > 1MB, a localStorage-ba mentés kihagyásra kerül.
+- **Gyorsítótár idő**: <number> (alapértelmezett: `5`) az eredmény tárolásának ideje a böngészőben, percekben.
 
-- **cacheTime**: <number> (alapértelmezett: `5`) az eredmény tárolásának ideje
-  a böngészőben, percekben.
+- **Kizárt játékosok**: <string> (alapértelmezett: `""`) ide írjuk be azoknak a játékosoknak a beceneveit, akiktől nem szeretnénk a teljes körű áttekintés adatait gyűjteni, pontosvesszővel elválasztva, mint a játékbeli üzenetekben, például "Rafsaf;kmic;valaki más".
 
-- **removedPlayers**: <string> (alapértelmezett: `""`) ide írjuk be azoknak a játékosoknak a beceneveit,
-  akiktől nem akarunk csapatösszesítőt gyűjteni, pontosvesszővel elválasztva, mint
-  a játékbeli üzenetekben, pl. "Rafsaf;kmic;valakimás"
+- **Engedélyezett játékosok**: <string> (alapértelmezett: `""`) ide írjuk be azoknak a játékosoknak a beceneveit, akiktől CSAK a teljes körű áttekintés adatait szeretnénk gyűjteni. A többi játékost kihagyjuk, a beceneveket pontosvesszővel elválasztva, mint a játékbeli üzenetekben, például "Rafsaf;kmic;valaki más". Megjegyzés: az alapértelmezett `""` érték különleges jelentéssel bír, és azt jelenti, hogy az összes játékostól szeretnénk gyűjteni az áttekintést.
 
-- **allowedPlayers**: <string> (alapértelmezett: `""`) ide írjuk be azoknak a játékosoknak a beceneveit,
-  akiktől CSAK! (ha üres, a klán összes játékosa használva lesz) csapatösszesítőt akarunk
-  gyűjteni, pontosvesszővel elválasztva, mint a játékbeli üzenetekben,
-  pl. "Rafsaf;kmic;valakimás"
+- **Becenév megjelenítése**: <boolean> (alapértelmezett: `false`) ha az érték `true`, akkor a Csapatok gyűjtésének minden sorában megjelenik a játékos beceneve, hasonlóan a Védelem fülön használt beállításhoz.
 
-- **language**: <string> (alapértelmezett: `"pl"`) ennek `"en"`-nek vagy `"pl"`-nek kell lennie, ha bármi
-  mást használunk, a szkript angolt fog használni
+- **Első sor megjelenítése**: <boolean> (alapértelmezett: `false`) ha az érték `true`, akkor a Csapatok gyűjtésének eredményéhez hozzáadódik egy fejléc (az első sor a tetején), amelynek értékét a következő paraméterben, a `Első sor szövege` mezőben adjuk meg.
 
-- **showNicknamesTroops**: <boolean> (alapértelmezett: `false`) ha true-ra van állítva, akkor
-  minden sor elején megjelenik a játékos beceneve is,
-  csak a Csapatok fülön érvényes, hasonlóan a showNicknamesDeff-hez
+- **Első sor szövege**: <string> (alapértelmezett: `""`) az az érték, amely a Csapatok gyűjtésének eredményéhez kerül a fejlécbe, ha az `Első sor megjelenítése` értéke `true`.
 
-- **showFirstLineTroops**: <boolean> (alapértelmezett: `false`) ha true-ra van állítva, akkor
-  az eredmény tetején egy további sor jelenik meg, amelyet a
-  firstLineDeff változó határoz meg, csak a Csapatok fülön érvényes, hasonlóan a showFirstLineDeff-hez
+- **Becenév megjelenítése**: <boolean> (alapértelmezett: `false`) ha az érték `true`, akkor a Védelem gyűjtésének minden sorában megjelenik a játékos beceneve, hasonlóan a Csapatok fülön használt beállításhoz.
 
-- **firstLineTroops**: <string> (alapértelmezett: `""`) sor, amely az eredmény tetején jelenik meg,
-  ha a showFirstLineTroops true, csak a Csapatok fülön érvényes, hasonlóan a
-  showNicknamesDeff-hez
+- **Első sor megjelenítése**: <boolean> (alapértelmezett: `false`) ha az érték `true`, akkor a Védelem gyűjtésének eredményéhez hozzáadódik egy fejléc (az első sor a tetején), amelynek értékét a következő paraméterben, a `Első sor szövege` mezőben adjuk meg.
 
-- **showNicknamesDeff**: <boolean> (alapértelmezett: `false`) ha true-ra van állítva, akkor
-  minden sor elején megjelenik a játékos beceneve is,
-  csak a Védelem fülön érvényes, hasonlóan a showNicknamesTroops-hoz
-
-- **showFirstLineDeff**: <boolean> (alapértelmezett: `false`) ha true-ra van állítva, akkor
-  az eredmény tetején egy további sor jelenik meg, amelyet a
-  firstLineDeff változó határoz meg, csak a Védelem fülön érvényes, hasonlóan a showFirstLineTroops-hoz
-
-- **firstLineDeff**: <string> (alapértelmezett: `""`) sor, amely az eredmény tetején jelenik meg,
-  ha a showFirstLineTroops true, csak a Védelem fülön érvényes, hasonlóan
-  a firstLineTroops-hoz
+- **Első sor szövege**: <string> (alapértelmezett: `""`) az az érték, amely a Védelem gyűjtésének eredményéhez kerül a fejlécbe, ha az `Első sor megjelenítése` értéke `true`.
