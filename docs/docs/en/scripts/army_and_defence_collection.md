@@ -1,104 +1,77 @@
 ---
 title: "Army and Defense Collection Script"
-date: 2026-02-28
+date: 2026-09-09
 ---
 
-| Server         | Tribal Wars Forum                                                                                                                                                    | Allowed | Code                                                                                                                 |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
-| tribalwars.net | [https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/](https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/)         | YES     | [Code on GitHub (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-09-2/src/collect_troops_v2.1.ts)  |
-| plemiona.pl    | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/) | YES     | [Code on GitHub (v2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/collect_troops_v2.js)     |
-| other servers  | -                                                                                                                                                                    | NO      | [Code on GitHub (v2.3)](https://github.com/rafsaf/scripts_tribal_wars/blob/2025-09-22/public/collect_troops_v2.3.js) |
+## Installation
+
+Currently, the only supported installation option is using the **official Script Library** (Settings -> Script Library). Search for it by author – Rafsaf or by name.
+
+![Script library view](image-5.png)
+
+| Server             | Name in script library         | Author | Code                                                                                                                           |
+| ------------------ | ------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| plemiona.pl        | Zbiórka Wojska i Obrony        | Rafsaf | [Code on GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribalwars.net     | Collect troops script          | Rafsaf | [Code on GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerretribale.fr   | Script de collecte des troupes | Rafsaf | [Code on GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribals.it         | Raccolta delle truppe          | Rafsaf | [Code on GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerrastribales.es | Script de colector de tropas   | Rafsaf | [Code on GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| other servers      | -                              | -      | [Code on GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
 
 !!! warning
 
-    Using on other language versions of the game **where the script is not allowed** by the support may result in account suspension. Use at your own risk.
+    The script is available in many language versions – report the issue through support on your server so it can be added there if it is not listed above. Using it on other language versions of the game **where the script is not allowed** by the support may result in account suspension. Use at your own risk.
 
-=== "tribalwars.net"
+=== "Supported servers"
 
-    ```title="Army and Defense Collection Script"
-    --8<-- "army_script_tribalwars_net_en.txt"
-    ```
+    Installation only through the script library!
 
-=== "plemiona.pl"
-
-    ```title="Army and Defense Collection Script"
-    --8<-- "army_script_plemiona_pl_en.txt"
-    ```
-
-=== "other servers"
+=== "Other servers"
 
     ```title="Army and Defense Collection Script"
     --8<-- "army_script_latest.txt"
     ```
 
-## Installation
-
-It proceeds identically as with all scripts for the bar; you need to paste the content into a newly created script for the bar in the game.
-
 ## Usage Instructions
 
-1. Create a script for the bar, click it
-2. Wait for the result
-3. Go to the selected schedule
-4. Paste the data and confirm
+1. Create a script for the bar, go to the tribe view, and click it
+2. Change the settings (optional) and press Run
+3. Wait for the result
+4. Go to the selected schedule
+5. Paste the data and confirm
+
+Settings:
+
+![Settings view](image-6.png)
+
+Result:
 
 ![Example output of the script](image-2.png)
 
 ## Description
 
-After clicking, a "counter" with progress appears in the middle of the screen, then the result in a window. It works in both the Army and Defense tabs. The default settings for copying have cache set to true and cacheTime to 5 minutes. During this time, the script outputs the result saved in the browser instead of flying around all members and collecting data anew. In case of doubt whether we are dealing with a new or old result, the collection date appears at the bottom.
+After clicking in the center of the screen, a "counter" with progress appears, then the result in a window. It works in both the Army and Defence tabs. The default settings to copy have Cache enabled and Cache time set to 5 minutes; during this time, the script outputs the result saved in the browser instead of going through all members again and collecting data. If in doubt whether we are dealing with a new or old result, the collection date appears at the bottom.
 
 The data generated by running the script should be pasted into the schedule on the site.
 
 Options:
 
-Configuration takes place by using object **COLLECT_TROOPS_DATA_V2**. Note every parameter IS OPTIONAL, if both variables are
-undefined or are defined, but there are no keys there, sensible
-defaults will be used.
+- **Cache**: <boolean> (default: `true`) is responsible for storing the result in the browser so that you do not accidentally click several times in a row and unnecessarily load the game servers. If set to `false`, the script will not save the result in the browser (useful, for example, when you want to collect data from two tribes and jump immediately to the other one). Note: if the tribe has a very large number of villages, this can take up too much space in `localStorage` (~max 5MB), so the limit is 1MB. If the output is > 1MB, saving to `localStorage` will be skipped.
 
-- **cache**: <boolean> (default: `true`) is responsible for storing the result
-  in the browser so as not to accidentally click a few times in a row and
-  load the game servers, setting cache: false causes not to store the result
-  (eg, when we intend to collect data from two tribes jumping immediately
-  to the other). Note if the tribe has huge amount of villages, it may take way
-  too much storage in localStorage (~max 5MB), beacuse of that limit is 1MB,
-  if output is > 1MB, save to localStorage will be skipped.
+- **Cache time**: <number> (default: `5`) is the time for storing the generated result in the browser, in minutes.
 
-- **cacheTime**: <number> (default: `5`) is the time of storing the result in
-  the browser, in minutes.
+- **Removed players**: <string> (default: `""`) here you enter the nicknames of players from whom you do not want to collect overview data, separated by semicolons as in messages, e.g. "Rafsaf;kmic;someone else".
 
-- **removedPlayers**: <string> (default: `""`) here we enter the nicknames of players
-  from whom we do not want to collect troops info, separating with semicolons as in
-  the messages in game, e.g. "Rafsaf;kmic;someoneelse"
+- **Allowed players**: <string> (default: `""`) here you enter the nicknames of players from whom you ONLY want to collect overview data. The others will be skipped, with nicknames separated by semicolons as in messages, e.g. "Rafsaf;kmic;someone else". Note: the default value `""` has a special meaning and means that you want to collect overview data from all players.
 
-- **allowedPlayers**: <string> (default: `""`) here we enter the nicknames of players
-  from whom ONLY! (if it's empty, all players in the tribe will be used) we want to
-  collect troops info, separating with semicolons as in the messages in game,
-  e.g. "Rafsaf;kmic;someoneelse"
+- **Show nicknames**: <boolean> (default: `false`) when the value is `true`, the player nickname is added to each line of the Army collection result, similar to the same option on the Defence tab.
 
-- **language**: <string> (default: `"pl"`) this should be `"en"` or `"pl"`, if anything
-  different is used, script will use english
+- **Show first line**: <boolean> (default: `false`) when the value is `true`, a header is added to the top of the Army collection result, whose value is set in the next parameter, `First line text`.
 
-- **showNicknamesTroops**: <boolean> (default: `false`) when set to true cause that
-  at each line appears at its beginning additionally the nickname of the player,
-  applies only in Troops tab, similar to showNicknamesDeff
+- **First line text**: <string> (default: `""`) the value that will be added to the header in the Army collection result if `Show first line` is set to `true`.
 
-- **showFirstLineTroops**: <boolean> (default: `false`) when set to true cause that
-  at result additional line at the top will be added, that is specified by
-  firstLineDeff variable, applies only in Troops tab, similar to showFirstLineDeff
+- **Show nicknames**: <boolean> (default: `false`) when the value is `true`, the player nickname is added to each line of the Defence collection result, similar to the same option on the Army tab.
 
-- **firstLineTroops**: <string> (default: `""`) line that will be showed at the result top
-  when showFirstLineTroops is true, applies only in Troops tab, similar to
-  showNicknamesDeff
+- **Show first line**: <boolean> (default: `false`) when the value is `true`, a header is added to the top of the Defence collection result, whose value is set in the next parameter, `First line text`.
 
-- **showNicknamesDeff**: <boolean> (default: `false`) when set to true cause that
-  at each line appears at its beginning additionally the nickname of the player,
-  applies only in Defence tab, similar to showNicknamesTroops
-
-- **showFirstLineDeff**: <boolean> (default: `false`) when set to true cause that
-  at result additional line at the top will be added, that is specified by
-  firstLineDeff variable, applies only in Defence tab, similar to showFirstLineTroops
-
-- **firstLineDeff**: <string> (default: `""`) line that will be showed at the result top
-  when showFirstLineTroops is true, applies only in Defence tab, similar
-  to firstLineTroops
+- **First line text**: <string> (default: `""`) the value that will be added to the header in the Defence collection result if `Show first line` is set to `true`.

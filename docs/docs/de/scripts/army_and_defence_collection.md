@@ -1,104 +1,77 @@
 ---
 title: "Armee- und Verteidigungssammelskript"
-date: 2026-02-28
+date: 2026-09-09
 ---
 
-| Server         | Die Stämme Forum                                                                                                                                                                 | Erlaubt | Code                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| die-staemme.de | [https://forum.die-staemme.de/index.php?threads/truppen-und-deff-sammeln-skript.197153/](https://forum.die-staemme.de/index.php?threads/truppen-und-deff-sammeln-skript.197153/) | JA      | [Code auf GitHub (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-09-2/src/collect_troops_v2.1.ts)  |
-| plemiona.pl    | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/)             | JA      | [Code auf GitHub (v2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/collect_troops_v2.js)     |
-| andere Server  | -                                                                                                                                                                                | NEIN    | [Code auf GitHub (v2.3)](https://github.com/rafsaf/scripts_tribal_wars/blob/2025-09-22/public/collect_troops_v2.3.js) |
+## Installation
+
+Derzeit ist die einzige unterstützte Installationsmethode die Verwendung der **offiziellen Skriptbibliothek** (Einstellungen -> Skriptbibliothek). Suchen Sie danach nach Autor – Rafsaf oder nach dem Namen.
+
+![Ansicht der Skriptbibliothek](image-5.png)
+
+| Server             | Name in der Skriptbibliothek   | Autor  | Code                                                                                                                            |
+| ------------------ | ------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| plemiona.pl        | Zbiórka Wojska i Obrony        | Rafsaf | [Code auf GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribalwars.net     | Collect troops script          | Rafsaf | [Code auf GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerretribale.fr   | Script de collecte des troupes | Rafsaf | [Code auf GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribals.it         | Raccolta delle truppe          | Rafsaf | [Code auf GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerrastribales.es | Script de colector de tropas   | Rafsaf | [Code auf GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| andere Server      | -                              | -      | [Code auf GitHub (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
 
 !!! warning
 
-    Die Verwendung auf anderen Sprachversionen des Spiels, **wo das Skript nicht erlaubt ist**, kann zur Sperrung des Kontos führen. Benutzung auf eigene Gefahr.
+    Das Skript ist auf vielen Sprachversionen verfügbar – melden Sie das Problem über den Support auf Ihrem Server, damit es dort hinzugefügt werden kann, falls es nicht oben aufgeführt ist. Die Verwendung auf anderen Sprachversionen des Spiels, **wo das Skript nicht erlaubt ist**, kann zur Sperrung des Kontos führen. Benutzung auf eigene Gefahr.
 
-=== "die-staemme.de"
+=== "Unterstützte Server"
 
-    ```title="Armee- und Verteidigungssammelskript"
-    --8<-- "army_script_tribalwars_net_en.txt"
-    ```
+    Installation nur über die Skriptbibliothek!
 
-=== "plemiona.pl"
-
-    ```title="Armee- und Verteidigungssammelskript"
-    --8<-- "army_script_plemiona_pl_en.txt"
-    ```
-
-=== "andere Server"
+=== "Andere Server"
 
     ```title="Armee- und Verteidigungssammelskript"
     --8<-- "army_script_latest.txt"
     ```
 
-## Installation
-
-Die Installation erfolgt identisch wie bei allen Skripten für die Leiste; Sie müssen den Inhalt in ein neu erstelltes Skript für die Leiste im Spiel einfügen.
-
 ## Gebrauchsanweisung
 
-1. Erstellen Sie ein Skript für die Leiste, klicken Sie darauf
-2. Warten Sie auf das Ergebnis
-3. Gehen Sie zum ausgewählten Zeitplan
-4. Fügen Sie die Daten ein und bestätigen Sie
+1. Erstellen Sie ein Skript für die Leiste, gehen Sie zur Stammsicht und klicken Sie darauf
+2. Ändern Sie die Einstellungen (optional) und klicken Sie auf Ausführen
+3. Warten Sie auf das Ergebnis
+4. Gehen Sie zum ausgewählten Zeitplan
+5. Fügen Sie die Daten ein und bestätigen Sie
+
+Einstellungen:
+
+![Ansicht der Einstellungen](image-6.png)
+
+Ergebnis:
 
 ![Beispielausgabe des Skripts](image-2.png)
 
 ## Beschreibung
 
-Nach dem Klicken erscheint ein "Zähler" mit Fortschritt in der Mitte des Bildschirms, dann das Ergebnis in einem Fenster. Es funktioniert sowohl in den Registerkarten Armee als auch Verteidigung. Die Standardeinstellungen für das Kopieren haben Cache auf true und cacheTime auf 5 Minuten gesetzt. Während dieser Zeit gibt das Skript das im Browser gespeicherte Ergebnis aus, anstatt alle Mitglieder erneut zu durchlaufen und Daten neu zu sammeln. Im Zweifelsfall, ob es sich um ein neues oder altes Ergebnis handelt, erscheint das Sammeldatum unten.
+Nach dem Klicken erscheint in der Mitte des Bildschirms ein "Zähler" mit Fortschritt, danach das Ergebnis in einem Fenster. Es funktioniert sowohl in den Registerkarten Armee als auch Verteidigung. Die Standardeinstellungen zum Kopieren haben `Cache` aktiviert und `Cache time` auf 5 Minuten gesetzt. Während dieser Zeit gibt das Skript das im Browser gespeicherte Ergebnis aus, anstatt alle Mitglieder erneut zu durchlaufen und Daten neu zu sammeln. Im Zweifelsfall, ob es sich um ein neues oder altes Ergebnis handelt, erscheint das Sammeldatum unten.
 
 Die durch Ausführen des Skripts generierten Daten sollten in den Zeitplan auf der Website eingefügt werden.
 
 Optionen:
 
-Die Konfiguration erfolgt über das Objekt **COLLECT_TROOPS_DATA_V2**. Beachten Sie, dass jeder Parameter OPTIONAL ist. Wenn beide Variablen
-undefiniert sind oder definiert sind, aber keine Schlüssel enthalten, werden sinnvolle
-Standardwerte verwendet.
+- **Zwischenspeicher**: <boolean> (Standard: `true`) ist für das Speichern des Ergebnisses im Browser verantwortlich, damit Sie nicht versehentlich mehrfach hintereinander klicken und die Spieleserver unnötig belasten. Wenn Sie `false` setzen, speichert das Skript das Ergebnis nicht im Browser (nützlich, z. B. wenn Sie Daten von zwei Stämmen sammeln und sofort zum anderen springen möchten). Hinweis: Wenn der Stamm eine sehr große Anzahl von Dörfern hat, kann dies zu viel Speicherplatz im `localStorage` belegen (~max 5MB), daher beträgt das Limit 1MB. Wenn die Ausgabe > 1MB ist, wird das Speichern in `localStorage` übersprungen.
 
-- **cache**: `<boolean>` (Standard: `true`) ist für das Speichern des Ergebnisses
-  im Browser verantwortlich, um nicht versehentlich mehrmals hintereinander zu klicken und
-  die Spieleserver zu belasten. Das Setzen von cache: false bewirkt, dass das Ergebnis nicht gespeichert wird
-  (z.B. wenn wir beabsichtigen, Daten von zwei Stämmen zu sammeln und sofort
-  zum anderen zu springen). Beachten Sie, dass bei einer riesigen Anzahl von Dörfern im Stamm
-  der Speicherplatz im localStorage (~max 5MB) überschritten werden kann. Aus diesem Grund beträgt das Limit 1MB.
-  Wenn die Ausgabe > 1MB ist, wird das Speichern im localStorage übersprungen.
+- **Cache-Zeit**: <number> (Standard: `5`) ist die Zeit, für die das erzeugte Ergebnis im Browser gespeichert wird, in Minuten.
 
-- **cacheTime**: `<number>` (Standard: `5`) ist die Zeit, für die das Ergebnis im
-  Browser gespeichert wird, in Minuten.
+- **Entfernte Spieler**: <string> (Standard: `""`) hier geben Sie die Nicknamen der Spieler ein, von denen Sie keine Überblicksdaten sammeln möchten, getrennt durch Semikolons wie in Nachrichten, z. B. "Rafsaf;kmic;jemand anders".
 
-- **removedPlayers**: `<string>` (Standard: `""`) hier geben wir die Spitznamen der Spieler ein,
-  von denen wir keine Truppeninformationen sammeln möchten, getrennt durch Semikolons wie in
-  den Nachrichten im Spiel, z.B. "Rafsaf;kmic;someoneelse"
+- **Erlaubte Spieler**: <string> (Standard: `""`) hier geben Sie die Nicknamen der Spieler ein, von denen Sie NUR Überblicksdaten sammeln möchten. Die übrigen werden übersprungen, mit Nicknamen getrennt durch Semikolons wie in Nachrichten, z. B. "Rafsaf;kmic;jemand anders". Hinweis: Der Standardwert `""` hat eine besondere Bedeutung und bedeutet, dass Sie Überblicksdaten von allen Spielern sammeln möchten.
 
-- **allowedPlayers**: `<string>` (Standard: `""`) hier geben wir die Spitznamen der Spieler ein,
-  von denen NUR! (wenn es leer ist, werden alle Spieler im Stamm verwendet) wir
-  Truppeninformationen sammeln möchten, getrennt durch Semikolons wie in den Nachrichten im Spiel,
-  z.B. "Rafsaf;kmic;someoneelse"
+- **Nicknamen anzeigen**: <boolean> (Standard: `false`) wenn der Wert `true` ist, wird dem Ergebnis der Armee-Sammlung in jeder Zeile der Spielernickname hinzugefügt, ähnlich wie auf der Registerkarte Verteidigung.
 
-- **language**: `<string>` (Standard: `"pl"`) dies sollte `"en"` oder `"pl"` sein, wenn etwas
-  anderes verwendet wird, verwendet das Skript Englisch
+- **Erste Zeile anzeigen**: <boolean> (Standard: `false`) wenn der Wert `true` ist, wird dem Ergebnis der Armee-Sammlung eine Kopfzeile hinzugefügt, deren Wert im nächsten Parameter, `Text der ersten Zeile`, festgelegt wird.
 
-- **showNicknamesTroops**: `<boolean>` (Standard: `false`) wenn auf true gesetzt, erscheint
-  am Anfang jeder Zeile zusätzlich der Spitzname des Spielers,
-  gilt nur in der Registerkarte Truppen, ähnlich wie showNicknamesDeff
+- **Text der ersten Zeile**: <string> (Standard: `""`) der Wert, der der Kopfzeile im Ergebnis der Armee-Sammlung hinzugefügt wird, wenn `Erste Zeile anzeigen` auf `true` gesetzt ist.
 
-- **showFirstLineTroops**: `<boolean>` (Standard: `false`) wenn auf true gesetzt, wird
-  am Ergebnis eine zusätzliche Zeile oben hinzugefügt, die durch die
-  Variable firstLineDeff angegeben wird, gilt nur in der Registerkarte Truppen, ähnlich wie showFirstLineDeff
+- **Nicknamen anzeigen**: <boolean> (Standard: `false`) wenn der Wert `true` ist, wird dem Ergebnis der Verteidigungs-Sammlung in jeder Zeile der Spielernickname hinzugefügt, ähnlich wie auf der Registerkarte Armee.
 
-- **firstLineTroops**: `<string>` (Standard: `""`) Zeile, die oben im Ergebnis angezeigt wird,
-  wenn showFirstLineTroops auf true gesetzt ist, gilt nur in der Registerkarte Truppen, ähnlich wie
-  showNicknamesDeff
+- **Erste Zeile anzeigen**: <boolean> (Standard: `false`) wenn der Wert `true` ist, wird dem Ergebnis der Verteidigungs-Sammlung eine Kopfzeile hinzugefügt, deren Wert im nächsten Parameter, `Text der ersten Zeile`, festgelegt wird.
 
-- **showNicknamesDeff**: `<boolean>` (Standard: `false`) wenn auf true gesetzt, erscheint
-  am Anfang jeder Zeile zusätzlich der Spitzname des Spielers,
-  gilt nur in der Registerkarte Verteidigung, ähnlich wie showNicknamesTroops
-
-- **showFirstLineDeff**: `<boolean>` (Standard: `false`) wenn auf true gesetzt, wird
-  am Ergebnis eine zusätzliche Zeile oben hinzugefügt, die durch die
-  Variable firstLineDeff angegeben wird, gilt nur in der Registerkarte Verteidigung, ähnlich wie showFirstLineTroops
-
-- **firstLineDeff**: `<string>` (Standard: `""`) Zeile, die oben im Ergebnis angezeigt wird,
-  wenn showFirstLineTroops auf true gesetzt ist, gilt nur in der Registerkarte Verteidigung, ähnlich
-  wie firstLineTroops
+- **Text der ersten Zeile**: <string> (Standard: `""`) der Wert, der der Kopfzeile im Ergebnis der Verteidigungs-Sammlung hinzugefügt wird, wenn `Erste Zeile anzeigen` auf `true` gesetzt ist.

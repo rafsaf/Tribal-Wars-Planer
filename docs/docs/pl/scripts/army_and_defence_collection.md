@@ -1,46 +1,50 @@
 ---
 title: "Skrypt Zbiórka Wojska i Obrony"
-date: 2026-02-28
+date: 2026-09-09
 ---
 
-| Serwer         | Forum plemion                                                                                                                                                        | Dozwolony | Kod                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------- |
-| plemiona.pl    | [https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/](https://forum.plemiona.pl/index.php?threads/zbi%C3%B3rka-wojska-i-obrony.128630/) | TAK       | [Kod na GitHubie (v2)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-01/public/collect_troops_v2.js)    |
-| tribalwars.net | [https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/](https://forum.tribalwars.net/index.php?threads/collect-troops-script.292893/)         | TAK       | [Kod na GitHubie (v2.1)](https://github.com/rafsaf/scripts_tribal_wars/blob/2024-09-09-2/src/collect_troops_v2.1.ts) |
-| inne serwery   | -                                                                                                                                                                    | NO        | [Code on GitHub (v2.3)](https://github.com/rafsaf/scripts_tribal_wars/blob/2025-09-22/public/collect_troops_v2.3.js) |
+## Instalacja
+
+Obecnie jedyną wspieraną opcją instalacji jest użycie **oficjalnej Biblioteki Skryptów** (Ustawienia -> Biblioteka Skryptów). Wyszukaj go po autorze – Rafsaf lub po nazwie.
+
+![Widok biblioteki skryptów](image-5.png)
+
+| Serwer             | Nazwa w bibliotece skryptów    | Autor  | Kod                                                                                                                             |
+| ------------------ | ------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| plemiona.pl        | Zbiórka Wojska i Obrony        | Rafsaf | [Kod na GitHubie (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribalwars.net     | Collect troops script          | Rafsaf | [Kod na GitHubie (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerretribale.fr   | Script de collecte des troupes | Rafsaf | [Kod na GitHubie (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| tribals.it         | Raccolta delle truppe          | Rafsaf | [Kod na GitHubie (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| guerrastribales.es | Script de colector de tropas   | Rafsaf | [Kod na GitHubie (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
+| inne serwery       | -                              | -      | [Kod na GitHubie (v20260218)](https://github.com/rafsaf/scripts_tribal_wars/blob/2026-02-18/public/collect_troops_v20260218.js) |
 
 !!! warning
 
-    Użycie na innych wersjach językowych gry **gdzie skrypt jest niedozwolony** przez obsługę może spowodować zablokowanie konta. Użycie na własne ryzyko.
+    Skrypt jest dostępny na wielu wersjach językowych – zgłoś problem przez support na swoim serwerze aby go tam dodać jeśli nie jest wymieniony wyżej. Użycie na innych wersjach językowych gry **gdzie skrypt jest niedozwolony** przez obsługę może spowodować zablokowanie konta. Użycie na własne ryzyko.
 
-=== "plemiona.pl"
+=== "Wspierane serwery"
 
-    ```title="Skrypt Zbiórka Wojska i Obrony"
-    --8<-- "army_script_plemiona_pl_pl.txt"
-    ```
+    Instalacja wyłącznie przez bibliotekę skryptów!
 
-=== "tribalwars.net"
-
-    ```title="Skrypt Zbiórka Wojska i Obrony"
-    --8<-- "army_script_tribalwars_net_pl.txt"
-    ```
-
-=== "inne serwery"
+=== "Inne serwery"
 
     ```title="Skrypt Zbiórka Wojska i Obrony"
     --8<-- "army_script_latest.txt"
     ```
 
-## Instalacja
+## Instrukcja użycia z Plemiona-Planer.pl
 
-Przebiega identycznie jak w przypadku wszystkich skryptów do paska, należy przekleić zawartość do nowo utworzonego skryptu do paska w grze.
+1. Utwórz skrypt do paska, przejdź do widoku plemienia, kliknij go
+2. Zmień ustawienia (opcjonalnie) i naciśnij Uruchom
+3. Poczekaj na wynik
+4. Przejdź do wybranej rozpiski
+5. Wklej dane i potwierdź
 
-## Instrukcja użycia
+Ustawienia:
 
-1. Utwórz skrypt do paska, kliknij go
-2. Poczekaj na wynik
-3. Przejdź do wybranej rozpiski
-4. Wklej dane i potwierdź
+![Widok ustawień](image-6.png)
+
+Wynik:
 
 ![Przykładowy wynik skryptu](image-2.png)
 
@@ -52,26 +56,22 @@ Dane generowane w wyniku uruchomienia skryptu należy wklejać w rozpiskę na st
 
 Opcje:
 
-Konfiguracja odbywa się za pomocą obiektu **COLLECT_TROOPS_DATA_V2**. Uwaga każdy parametr JEST OPCJONALNY, jeśli obie zmienne są niezdefiniowane lub zdefiniowane, ale nie ma tam kluczy, sensowne wartości domyślne zostaną użyte.
+- **Pamięć podręczna**: <boolean> (domyślnie: `true`) odpowiada za przechowywanie wyniku w przeglądarce, aby przypadkowo nie kliknąć kilka razy z rzędu i niepotrzebnie obciążać serwery gry. Gdy ustawimy `false`, skrypt nie będzie zapisywać wyniku w przeglądarce (użyteczne np. gdy zamierzamy zebrać dane od dwóch plemion skaczących od razu do drugiego). Uwaga: jeśli plemię ma ogromną liczbę wiosek, może to zająć zbyt dużo miejsca w `localStorage` (~max 5MB), dlatego limit wynosi 1MB. Jeśli dane wyjściowe są > 1MB, zapis do `localStorage` zostanie pominięty.
 
-- **cache**: <boolean> (domyślnie: `true`) odpowiada za przechowywanie wyniku w przeglądarce, aby przypadkowo nie kliknąć kilka razy z rzędu i niepotrzebnie obciążać serwery gry, gdy damy na false, skrypt nie będzie zapisywać wyniku w przeglądarce (użyteczne np. gdy zamierzamy zebrać dane od dwóch plemion skaczących od razu do drugiego). Uwaga: jeśli plemię ma ogromną liczbę wiosek, może to zająć miejsce zbyt dużo miejsca w localStorage (~max 5MB), z tego powodu limit wynosi 1MB, jeśli dane wyjściowe są > 1 MB, zapis do localStorage zostanie pominięty.
+- **Czas cache**: <number> (domyślnie: `5`) to czas przechowywania wygenerowanego wyniku w przeglądarce, w minutach.
 
-- **cacheTime**: <number> (domyślnie: `5`) to czas przechowywania wygenerowanego wyniku w przeglądarce, w minutach.
+- **Pominięci gracze**: <string> (domyślnie: `""`) tutaj wpisujemy nicki graczy, od których nie chcemy zbierać przeglądów, oddzielając średnikiem jak przy wiadomościach, np. "Rafsaf;kmic;ktoś jeszcze".
 
-- **removedPlayers**: <string> (domyślnie: `""`) tutaj wpisujemy nicki graczy od których nie chcemy zbierać przeglądów, oddzielając średnikiem jak przy wiadomościach np. "Rafsaf;kmic;ktoś jeszcze".
+- **Dozwoleni gracze**: <string> (domyślnie: `""`) tutaj wpisujemy nicki graczy, od których JEDYNIE chcemy zbierać przegląd. Pozostali zostaną pominięci, oddzielając nicki średnikiem jak przy wiadomościach, np. "Rafsaf;kmic;ktoś jeszcze". Uwaga: wartość domyślna `""` ma specjalne znaczenie i oznacza, że chcemy zbierać przegląd od wszystkich graczy.
 
-- **allowedPlayers**: <string> (domyślnie: `""`) tutaj wpisujemy nicki graczy od których JEDYNIE chcemy zbierać przegląd, pozostali zostaną pominięci, oddzielając nicki średnikiem jak przy wiadomościach np. "Rafsaf;kmic;ktoś jeszcze". Uwaga, wartość domyslna "" ma specjalne znaczenie i oznacza że chcemy zbierać przegląd od wszystkich graczy.
+- **Pokaż nicki**: <boolean> (domyślnie: `false`) gdy wartość to `true`, do wyniku zbiórki Wojska w każdej linijce zostanie dodany nick gracza, parametr podobny do `Pokaż nicki` dla zakładki Obrony.
 
-- **language**: <string> (domyślnie: `"pl"`) język skryptu, wsparcie dla "pl" i "en", jeśli damy coś innego, skrypt użyje angielskiego, choć domyślna wartość to "pl" by zachować kompatybilność z pierwszą wersją skryptu.
+- **Pokaż pierwszą linię**: <boolean> (domyślnie: `false`) gdy wartość to `true`, do wyniku zbiórki Wojska zostanie dodany nagłówek (pierwsza linijka u góry wyniku), którego wartość ustalamy w kolejnym parametrze `Tekst pierwszej linii`.
 
-- **showNicknamesTroops**: <boolean> (domyślnie: `false`) gdy wartość to true, do wyniku zbiórki Wojska w każdej linijce zostanie dodany nick gracza, parametr podobny do showNicknamesDeff, który działa dla zakładki Obrony
+- **Tekst pierwszej linii**: <string> (domyślnie: `""`) wartość, która zostanie dodana w nagłówku w wyniku zbiórki Wojska, jeśli `Pokaż pierwszą linię` jest ustawione na `true`.
 
-- **showFirstLineTroops**: <boolean> (domyślnie: `false`) gdy wartość to true, do wyniku zbiórki Wojska zostanie dodany nagłówek (pierwsza linijka u góry wyniku) której wartość ustalamy w kolejnym parametrze firstLineTroops.
+- **Pokaż nicki**: <boolean> (domyślnie: `false`) gdy wartość to `true`, do wyniku zbiórki Obrony w każdej linijce zostanie dodany nick gracza, parametr podobny do `Pokaż nicki` dla zakładki Wojska.
 
-- **firstLineTroops**: <string> (domyślnie: `""`) wartość jaka zostanie dodana w nagłówku w wyniku zbiórki Wojska jeśli showFirstLineTroops jest na true.
+- **Pokaż pierwszą linię**: <boolean> (domyślnie: `false`) gdy wartość to `true`, do wyniku zbiórki Obrony zostanie dodany nagłówek (pierwsza linijka u góry wyniku), którego wartość ustalamy w kolejnym parametrze `Tekst pierwszej linii`.
 
-- **showNicknamesDeff**: <boolean> (domyślnie: `false`) gdy wartość to true, do wyniku zbiórki Obrony w każdej linijce zostanie dodany nick gracza, parametr podobny do showNicknamesTroops, który działa dla zakładki Wojska
-
-- **showFirstLineDeff**: <boolean> (domyślnie: `false`) gdy wartość to true, do wyniku zbiórki Obrony zostanie dodany nagłówek (pierwsza linijka u góry wyniku) której wartość ustalamy w kolejnym parametrze firstLineTroops.
-
-- **firstLineDeff**: <string> (domyślnie: `""`) wartość jaka zostanie dodana w nagłówku w wyniku zbiórki Wojska jeśli showFirstLineDeff jest na true.
+- **Tekst pierwszej linii**: <string> (domyślnie: `""`) wartość, która zostanie dodana w nagłówku w wyniku zbiórki Obrony, jeśli `Pokaż pierwszą linię` jest ustawione na `true`.
