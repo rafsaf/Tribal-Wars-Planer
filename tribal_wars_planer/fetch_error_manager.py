@@ -1,6 +1,7 @@
 import logging
 from typing import Any
 
+from django.conf import settings
 from django.db.models import Manager, Model
 from django.db.models.fetch_modes import FetchOne
 
@@ -15,7 +16,8 @@ class FetchError(FetchOne):
     def fetch(self, fetcher: Any, instance: Model) -> None:
         klass = instance.__class__.__qualname__
         field_name = fetcher.field.name
-        log.error("Fetching of %s.%s blocked.", klass, field_name, stack_info=True)
+        if not settings.TESTING:
+            log.error("Unexpected fetch of %s.%s.", klass, field_name, stack_info=True)
         return super().fetch(fetcher, instance)
 
     def __reduce__(self):

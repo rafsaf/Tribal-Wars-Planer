@@ -19,7 +19,6 @@ from time import sleep
 
 import requests
 from django.core.management.base import BaseCommand
-from django.db import transaction
 from requests.adapters import HTTPAdapter, Retry
 
 from base import forms
@@ -90,18 +89,17 @@ def fetch_and_add_new_worlds() -> None:
                 log.info("world %s:%s already here", server.dns, world_postfix)
                 world = server_worlds_postfixes[world_postfix]
                 if world.full_game_name != available_worlds_postfixes[world_postfix]:
-                    with transaction.atomic():
-                        world = World.objects.select_for_update().get(pk=world.pk)
-                        world.full_game_name = available_worlds_postfixes[world_postfix]
-                        world_handler = WorldUpdateHandler(world=world)
-                        try:
-                            world_handler.create_or_update_config()
-                        except database_update.WorldOutdatedError as err:
-                            log.warning("world %s is outdated: %s", world, err)
-                            continue
-                        except database_update.DatabaseUpdateError as err:
-                            log.error("failed to update world %s: %s", world, err)
-                            continue
+                    world.full_game_name = available_worlds_postfixes[world_postfix]
+                    world.save(update_fields=["full_game_name", "updated_at"])
+                    world_handler = WorldUpdateHandler(world=world)
+                    try:
+                        world_handler.create_or_update_config()
+                    except database_update.WorldOutdatedError as err:
+                        log.warning("world %s is outdated: %s", world, err)
+                        continue
+                    except database_update.DatabaseUpdateError as err:
+                        log.error("failed to update world %s: %s", world, err)
+                        continue
                 continue
             log.info("adding world %s:%s", server.dns, world_postfix)
             try:

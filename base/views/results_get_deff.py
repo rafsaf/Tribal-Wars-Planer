@@ -14,7 +14,7 @@
 # ==============================================================================
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext
@@ -33,7 +33,10 @@ def outline_detail_get_deff(request: HttpRequest, _id: int) -> HttpResponse:
         id=_id,
         owner=request.user,
     )
-    result: models.Result = instance.result  # type: ignore
+    try:
+        result: models.Result = instance.result  # type: ignore
+    except models.Result.DoesNotExist:
+        raise Http404()
 
     # only correct deff_troops allowed
     if instance.deff_troops == "":

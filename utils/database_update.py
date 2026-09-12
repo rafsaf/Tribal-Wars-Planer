@@ -197,7 +197,18 @@ class WorldUpdateHandler:
                 f"which is over {MAX_LAST_MODIFIED_NEW} days old"
             )
 
-        self.world.save()
+        self.world.save(
+            update_fields=[
+                "speed_world",
+                "speed_units",
+                "morale",
+                "paladin",
+                "archer",
+                "max_noble_distance",
+                "militia",
+                "updated_at",
+            ]
+        )
 
     @staticmethod
     def delete_world(world: World) -> bool:
@@ -210,7 +221,7 @@ class WorldUpdateHandler:
                 outline_count,
             )
             world.pending_delete = True
-            world.save()
+            world.save(update_fields=["pending_delete", "updated_at"])
             return False
         else:
             world.delete()
