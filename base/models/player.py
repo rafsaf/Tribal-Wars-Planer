@@ -17,6 +17,7 @@ from django.db import models
 
 from base.models.tribe import Tribe
 from base.models.world import World
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class Player(models.Model):
@@ -30,6 +31,8 @@ class Player(models.Model):
     points = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = FetchErrorManager()
 
     def __str__(self):
         return self.name

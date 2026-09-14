@@ -19,6 +19,7 @@ from concurrent import futures
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.db.models import Q
 
 import metrics
 from base.management.commands.utils import job_logs_and_metrics
@@ -50,7 +51,11 @@ class Command(BaseCommand):
 
     @job_logs_and_metrics(log)
     def handle(self, *args, **options):
-        worlds = list(World.objects.select_related("server").exclude(postfix="Test"))
+        worlds = list(
+            World.objects.select_related("server").exclude(
+                Q(postfix="Test") | Q(pending_delete=True)
+            )
+        )
 
         with futures.ThreadPoolExecutor(
             max_workers=settings.WORLD_UPDATE_THREADS

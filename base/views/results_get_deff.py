@@ -14,7 +14,7 @@
 # ==============================================================================
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext
@@ -28,8 +28,15 @@ from utils.get_deff import get_deff
 @login_required
 def outline_detail_get_deff(request: HttpRequest, _id: int) -> HttpResponse:
     """details user outline, get deff page"""
-    instance = get_object_or_404(models.Outline, id=_id, owner=request.user)
-    result = get_object_or_404(models.Result, pk=instance)
+    instance = get_object_or_404(
+        models.Outline.objects.select_related("world", "result"),
+        id=_id,
+        owner=request.user,
+    )
+    try:
+        result: models.Result = instance.result  # type: ignore
+    except models.Result.DoesNotExist:
+        raise Http404()
 
     # only correct deff_troops allowed
     if instance.deff_troops == "":
@@ -72,7 +79,9 @@ def outline_detail_get_deff(request: HttpRequest, _id: int) -> HttpResponse:
 def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
     """view for results"""
     instance: models.Outline = get_object_or_404(
-        models.Outline.objects.select_related(), id=_id, owner=request.user
+        models.Outline.objects.select_related("result", "world", "world__server"),
+        id=_id,
+        owner=request.user,
     )
     overviews = models.Overview.objects.filter(
         outline=instance, removed=False

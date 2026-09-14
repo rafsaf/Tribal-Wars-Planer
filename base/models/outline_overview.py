@@ -19,6 +19,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 
 from base.models.outline import Outline
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 if typing.TYPE_CHECKING:
     from base.models.overview import Overview
@@ -35,3 +36,5 @@ class OutlineOverview(models.Model):
 
     if typing.TYPE_CHECKING:
         overview_set: models.Manager[Overview]
+
+    objects = FetchErrorManager()

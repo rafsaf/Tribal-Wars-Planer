@@ -108,7 +108,7 @@ def initial_form(  # noqa: PLR0912,PLR0911
 
     """
     instance: models.Outline = get_object_or_404(
-        models.Outline.objects.select_related(), id=_id, owner=request.user
+        models.Outline.objects.select_related("world"), id=_id, owner=request.user
     )
     now = timezone.now()
     if (

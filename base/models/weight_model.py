@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
+import typing
 from collections.abc import Callable
 from datetime import datetime
 from math import sqrt
@@ -21,6 +22,7 @@ from django.db import models
 
 from base.models.target_vertex import TargetVertex
 from base.models.weight_maximum import WeightMaximum
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 from utils.buildings import BUILDINGS_TRANSLATION
 
 
@@ -49,6 +51,12 @@ class WeightModel(models.Model):
     sh_t1: datetime
     sh_t2: datetime
     get_building_display: Callable[[], str]
+
+    if typing.TYPE_CHECKING:
+        state_id: int
+        target_id: int
+
+    objects = FetchErrorManager()
 
     def __str__(self):
         return self.start

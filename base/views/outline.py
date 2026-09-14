@@ -81,7 +81,15 @@ def outline_list(request: HttpRequest) -> HttpResponse:
             if form1.is_valid():
                 instance: models.Outline = form1.save(commit=False)
                 old_outline = get_object_or_404(
-                    models.Outline, id=instance.parent_outline_id, owner=request.user
+                    models.Outline.objects.select_related(
+                        "result",
+                        "owner",
+                        "owner__profile",
+                        "world",
+                        "world__server",
+                    ),
+                    id=instance.parent_outline_id,
+                    owner=request.user,
                 )
                 old_pk = old_outline.pk
                 old_result: models.Result = old_outline.result  # type: ignore

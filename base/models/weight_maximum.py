@@ -18,6 +18,7 @@ from typing import TYPE_CHECKING
 from django.db import models
 
 from base.models.outline import Outline
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class WeightMaximum(models.Model):
@@ -56,6 +57,8 @@ class WeightMaximum(models.Model):
         distance: float
         night_bool: bool
         morale: int
+
+    objects = FetchErrorManager()
 
     CHANGES_TRACKED_FIELDS = [
         "off_left",

@@ -33,6 +33,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy
 
 from base.models.world import World
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 from utils.buildings import BUILDING, BUILDINGS_TRANSLATION
 
 
@@ -319,6 +320,8 @@ class Outline(models.Model):
 
     if typing.TYPE_CHECKING:
         parent_outline_id: int
+
+    objects = FetchErrorManager()
 
     class Meta:
         ordering = ("-created",)
@@ -683,7 +686,7 @@ class Outline(models.Model):
             outline=self,
             outline_pk=self.pk,
             owner_name=self.owner.username,
-            world=str(self.world),
+            world=self.world.server.prefix + self.world.postfix,
             premium_user=self.owner.profile.is_premium(),  # type: ignore
         )
 

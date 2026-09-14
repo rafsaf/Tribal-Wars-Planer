@@ -123,12 +123,12 @@ def target_time_update(request: Request):
             outline__owner=request.user,
         )
 
-        if target.outline_time is None:
+        if target.outline_time_id is None:
             old_id = "none"
         else:
-            old_id = f"{target.pk}-time-{target.outline_time.pk}"
+            old_id = f"{target.pk}-time-{target.outline_time_id}"
 
-        target.outline_time = outline_time
+        target.outline_time_id = outline_time.pk
         target.save()
 
         return Response(

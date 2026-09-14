@@ -16,6 +16,7 @@
 from django.db import models
 
 from base.models.outline import Outline
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class OutlineTime(models.Model):
@@ -23,3 +24,5 @@ class OutlineTime(models.Model):
 
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
+
+    objects = FetchErrorManager()

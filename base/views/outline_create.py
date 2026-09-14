@@ -63,7 +63,12 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
             if form1.is_valid():
                 world = form1.cleaned_data["world"]
                 world_instance = get_object_or_404(models.World, pk=int(world))
-                new_instance = models.Outline(
+                new_instance = models.Outline.objects.select_related(
+                    "owner",
+                    "owner__profile",
+                    "world",
+                    "world__server",
+                ).create(
                     owner=request.user,
                     date=form1.cleaned_data["date"],
                     name=form1.cleaned_data["name"],
@@ -76,8 +81,6 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
                     title_message=profile.send_message_title_message,
                     text_message=profile.send_message_text_message,
                 )
-                new_instance.save()
-                new_instance.refresh_from_db()
                 result = models.Result(outline=new_instance)
                 result.save()
                 new_instance.create_stats()

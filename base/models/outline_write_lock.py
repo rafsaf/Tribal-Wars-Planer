@@ -17,6 +17,8 @@ from enum import StrEnum
 
 from django.db import models
 
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
+
 
 class OutlineWriteLock(models.Model):
     class LOCK_NAME_TYPES(StrEnum):
@@ -28,6 +30,8 @@ class OutlineWriteLock(models.Model):
     lock_expire = models.DateTimeField(db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = FetchErrorManager()
 
     class Meta:
         constraints = [

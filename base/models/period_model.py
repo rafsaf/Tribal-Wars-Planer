@@ -20,6 +20,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy
 
 from base.models.outline_time import OutlineTime
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class PeriodModel(models.Model):
@@ -44,3 +45,5 @@ class PeriodModel(models.Model):
 
     if typing.TYPE_CHECKING:
         outline_time_id: int
+
+    objects = FetchErrorManager()

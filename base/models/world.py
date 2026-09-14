@@ -18,6 +18,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy
 
 from base.models.server import Server
+from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 
 
 class World(models.Model):
@@ -46,6 +47,8 @@ class World(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = FetchErrorManager()
 
     def __str__(self):
         return self.server.prefix + self.postfix
