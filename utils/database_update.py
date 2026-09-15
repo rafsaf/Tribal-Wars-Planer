@@ -434,8 +434,8 @@ class WorldUpdateHandler:
         update_list_all_fields: list[VillageModel] = []
 
         players = Player.objects.filter(world=self.world)
-        player_ids_map: dict[int, Player] = {
-            player.player_id: player for player in players
+        player_ids_map: dict[int, int] = {
+            player.player_id: player.pk for player in players
         }
 
         duplicated_ids_list: list[str] = list(
@@ -450,10 +450,8 @@ class WorldUpdateHandler:
             ).delete()
 
         villages = {}
-        for village in (
-            VillageModel.objects.filter(world=self.world)
-            .select_related("player")
-            .only("pk", "village_id", "x_coord", "y_coord", "player__player_id")
+        for village in VillageModel.objects.filter(world=self.world).only(
+            "pk", "village_id", "x_coord", "y_coord", "player_id"
         ):
             villages[village.village_id] = village
 
@@ -467,11 +465,11 @@ class WorldUpdateHandler:
             y = int(line[3])
 
             if player_id == 0:
-                player = None
+                player_pk = None
             elif player_id not in player_ids_map:
                 continue
             else:
-                player = player_ids_map[player_id]
+                player_pk = player_ids_map[player_id]
 
             if village_id not in villages:
                 village = VillageModel(
@@ -479,7 +477,7 @@ class WorldUpdateHandler:
                     x_coord=x,
                     y_coord=y,
                     coord=f"{x}|{y}",
-                    player=player,
+                    player_id=player_pk,
                     world=self.world,
                 )
 
@@ -493,12 +491,12 @@ class WorldUpdateHandler:
                 village.y_coord = y
                 village.coord = f"{x}|{y}"
 
-                village.player = player
+                village.player_id = player_pk
 
                 update_list_all_fields.append(village)
 
-            elif village.player != player:
-                village.player = player
+            elif village.player_id != player_pk:
+                village.player_id = player_pk
 
                 update_list_only_players.append(village)
 
@@ -512,12 +510,12 @@ class WorldUpdateHandler:
 
         VillageModel.objects.bulk_update(
             update_list_all_fields,
-            ["player", "x_coord", "y_coord", "coord"],
+            ["player_id", "x_coord", "y_coord", "coord"],
             batch_size=500,
         )
         VillageModel.objects.bulk_update(
             update_list_only_players,
-            ["player"],
+            ["player_id"],
             batch_size=500,
         )
 
@@ -595,7 +593,7 @@ class WorldUpdateHandler:
         }
 
         tribes = Tribe.objects.filter(world=self.world)
-        tribe_context: dict[int, Tribe] = {tribe.tribe_id: tribe for tribe in tribes}
+        tribe_context: dict[int, int] = {tribe.tribe_id: tribe.pk for tribe in tribes}
 
         players_without_tribe: set[tuple[int, str, int, int]] = set(
             Player.objects.filter(tribe=None, world=self.world).values_list(
@@ -637,17 +635,17 @@ class WorldUpdateHandler:
 
             # else create or update
             if tribe_id == 0:
-                tribe = None
+                tribe_pk = None
             elif tribe_id not in tribe_context:
                 continue
             else:
-                tribe = tribe_context[tribe_id]
+                tribe_pk = tribe_context[tribe_id]
 
             if player_id in player_ids_map:
                 player = player_ids_map[player_id]
-                if player.tribe != tribe or player.name != name:
+                if player.tribe_id != tribe_pk or player.name != name:
                     player.points = points
-                    player.tribe = tribe
+                    player.tribe_id = tribe_pk
                     player.name = name
                     player.villages = villages
                     update_list_full.append(player)
@@ -666,7 +664,7 @@ class WorldUpdateHandler:
                 player = Player(
                     player_id=player_id,
                     name=name,
-                    tribe=tribe,
+                    tribe_id=tribe_pk,
                     world=self.world,
                     villages=villages,
                     points=points,
@@ -674,7 +672,7 @@ class WorldUpdateHandler:
                 create_list.append(player)
 
         Player.objects.bulk_update(
-            update_list_full, ["name", "tribe", "points", "villages"], batch_size=500
+            update_list_full, ["name", "tribe_id", "points", "villages"], batch_size=500
         )
         Player.objects.bulk_update(
             update_list_villages, ["points", "villages"], batch_size=500

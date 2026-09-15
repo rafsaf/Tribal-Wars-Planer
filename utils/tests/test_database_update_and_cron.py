@@ -365,14 +365,16 @@ class WorldUpdateHandlerTest(MiniSetup):
                     "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
                 },
             )
-            world_query.update_all()
+            with self.assertNumQueries(38):
+                world_query.update_all()
             self.world.refresh_from_db()
             date1 = self.world.updated_at
             assert VillageModel.objects.count() == 38219
             assert Player.objects.count() == 10234
             assert Tribe.objects.count() == 534
             with freeze_time("2022-05-08 07:00:01"):
-                world_query.update_all()
+                with self.assertNumQueries(4):
+                    world_query.update_all()
                 self.world.refresh_from_db()
                 assert VillageModel.objects.count() == 38219
                 assert Player.objects.count() == 10234
@@ -488,8 +490,8 @@ class WorldUpdateHandlerTest(MiniSetup):
                     "last-modified": "Mon, 09 May 2022 06:15:20 GMT",
                 },
             )
-
-            world_query.update_all()
+            with self.assertNumQueries(27):
+                world_query.update_all()
             self.world.refresh_from_db()
             assert VillageModel.objects.count() == 38218
             assert Player.objects.count() == 10233
