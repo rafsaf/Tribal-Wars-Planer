@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+import typing
+
 from django.db import models
 
 from base.models.tribe import Tribe
@@ -33,6 +35,10 @@ class Player(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = FetchErrorManager()
+
+    if typing.TYPE_CHECKING:
+        tribe_id: int | None
+        world_id: int
 
     def __str__(self):
         return self.name

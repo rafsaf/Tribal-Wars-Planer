@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+import typing
+
 from django.db import models
 
 from base.models.player import Player
@@ -33,6 +35,10 @@ class VillageModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = FetchErrorManager()
+
+    if typing.TYPE_CHECKING:
+        player_id: int | None
+        world_id: int
 
     class Meta:
         indexes = [
