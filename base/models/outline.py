@@ -686,7 +686,7 @@ class Outline(models.Model):
             outline=self,
             outline_pk=self.pk,
             owner_name=self.owner.username,
-            world=self.world.server.prefix + self.world.postfix,
+            world=str(self.world),
             premium_user=self.owner.profile.is_premium(),  # type: ignore
         )
 

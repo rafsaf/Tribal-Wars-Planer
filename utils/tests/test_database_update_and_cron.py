@@ -383,14 +383,15 @@ class WorldUpdateHandlerTest(MiniSetup):
                 assert date2 > date1
             assert (
                 self.world.fanout_key_text_player
-                == "nt1_/map/player.txt.gz_1651990520.0"
+                == f"{self.world.pk}_/map/player.txt.gz_1651990520.0"
             )
             assert (
-                self.world.fanout_key_text_tribe == "nt1_/map/ally.txt.gz_1651990520.0"
+                self.world.fanout_key_text_tribe
+                == f"{self.world.pk}_/map/ally.txt.gz_1651990520.0"
             )
             assert (
                 self.world.fanout_key_text_village
-                == "nt1_/map/village.txt.gz_1651990520.0"
+                == f"{self.world.pk}_/map/village.txt.gz_1651990520.0"
             )
             tribe_1 = Tribe.objects.get(tribe_id=30)
             assert tribe_1.world == self.world
@@ -498,14 +499,15 @@ class WorldUpdateHandlerTest(MiniSetup):
             assert Tribe.objects.count() == 534
             assert (
                 self.world.fanout_key_text_player
-                == "nt1_/map/player.txt.gz_1652076920.0"
+                == f"{self.world.pk}_/map/player.txt.gz_1652076920.0"
             )
             assert (
-                self.world.fanout_key_text_tribe == "nt1_/map/ally.txt.gz_1652076920.0"
+                self.world.fanout_key_text_tribe
+                == f"{self.world.pk}_/map/ally.txt.gz_1652076920.0"
             )
             assert (
                 self.world.fanout_key_text_village
-                == "nt1_/map/village.txt.gz_1652076920.0"
+                == f"{self.world.pk}_/map/village.txt.gz_1652076920.0"
             )
 
             tribe_1 = Tribe.objects.get(tribe_id=30)

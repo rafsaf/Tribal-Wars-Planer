@@ -417,7 +417,7 @@ class WorldUpdateHandler:
         self, data_type: WorldUpdateHandler.DATA_TYPES
     ) -> str | None:
         """Get latest key (by 'last-modified' datetime) from disk cache"""
-        cache_key_prefix = f"{self.world}_{data_type}_"
+        cache_key_prefix = f"{self.world.pk}_{data_type}_"
         result_list: list[str] = []
         for key in tw_settings.fanout_cache:
             if str(key).startswith(cache_key_prefix):
