@@ -55,12 +55,12 @@ class World(models.Model):
     if typing.TYPE_CHECKING:
         server_id: int
 
-    def __str__(self):
-        return f"World {self.postfix} {self.server_id}"
-
     def last_modified_timestamp(self) -> float:
         world, data_type, timestampt_str = self.fanout_key_text_village.split("_")
         return float(timestampt_str)
+
+    def name_with_server(self):
+        return self.server.prefix + self.postfix
 
     def human(self, prefix: bool = False) -> str:
         if prefix:
@@ -81,10 +81,10 @@ class World(models.Model):
         return self.human(prefix=prefix)
 
     def link_to_game(self, addition: str = ""):
-        return f"https://{str(self)}.{self.server.dns}{addition}"
+        return f"https://{self.name_with_server()}.{self.server.dns}{addition}"
 
     def tw_stats_link_to_village(self, village_id: str | int):
         return (
-            f"https://{self.server.prefix}.twstats.com/{str(self)}/index.php?"
+            f"https://{self.server.prefix}.twstats.com/{self.name_with_server()}/index.php?"
             f"page=village&id={village_id}"
         )
