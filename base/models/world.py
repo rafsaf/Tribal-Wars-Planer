@@ -14,6 +14,8 @@
 # ==============================================================================
 
 
+import typing
+
 from django.db import models
 from django.utils.translation import gettext_lazy
 
@@ -50,8 +52,11 @@ class World(models.Model):
 
     objects = FetchErrorManager()
 
+    if typing.TYPE_CHECKING:
+        server_id: int
+
     def __str__(self):
-        return self.server.prefix + self.postfix
+        return f"World {self.postfix} {self.server_id}"
 
     def last_modified_timestamp(self) -> float:
         world, data_type, timestampt_str = self.fanout_key_text_village.split("_")

@@ -52,7 +52,11 @@ def handle_payment(sender, instance: Payment, created: bool, **kwargs) -> None:
         log.info("payment instance %s already is completed", instance)
     else:
         with transaction.atomic():
-            instance = Payment.objects.select_for_update().get(pk=instance.pk)
+            instance = (
+                Payment.objects.select_related("user")
+                .select_for_update(of=("self",))
+                .get(pk=instance.pk)
+            )
             if instance.new_date is not None:
                 log.info("payment instance %s already is completed", instance)
                 return
