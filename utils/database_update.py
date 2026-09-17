@@ -243,7 +243,7 @@ class WorldUpdateHandler:
 
     def check_if_world_is_archived(self, url_param: str) -> None:
         log.info("Checking world archive of url %s", url_param)
-        postfix = str(self.world)
+        postfix = self.world.name_with_server()
         if f"/archive/{postfix}" in url_param:
             log.warning("World %s flagged as archived, trying to delete it", self.world)
             self.deleted = self.delete_world(self.world)
