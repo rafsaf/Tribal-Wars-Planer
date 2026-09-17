@@ -472,7 +472,7 @@ def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
             language = data["metadata"]["language"]
             payment_intent = data["payment_intent"]
             try:
-                price: StripePrice = StripePrice.objects.get(
+                price: StripePrice = StripePrice.objects.select_related("product").get(
                     currency=currency,
                     amount=amount,
                     active=True,
