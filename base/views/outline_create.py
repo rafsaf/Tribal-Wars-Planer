@@ -43,23 +43,29 @@ def new_outline_create(request: HttpRequest) -> HttpResponse:
     form1 = forms.OutlineForm(None)
     form2 = forms.ChangeServerForm(None)
 
-    form1.fields["world"].choices = [  # type: ignore
-        (f"{world.pk}", f"{world.game_name()}")
-        for world in models.World.objects.filter(
-            server=profile.server, pending_delete=False
-        )
-    ]
-    form1.fields["world"].choices.sort(key=lambda choice: choice[1])  # type: ignore
+    form1.fields["world"].choices = sorted(  # type: ignore
+        [
+            (f"{world.pk}", f"{world.game_name()}")
+            for world in models.World.objects.filter(
+                server=profile.server, pending_delete=False
+            )
+        ],
+        key=lambda choice: choice[1],
+    )
+
     if request.method == "POST":
         if "form1" in request.POST:
             form1 = forms.OutlineForm(request.POST)
-            form1.fields["world"].choices = [  # type: ignore
-                (f"{world.pk}", world.game_name())
-                for world in models.World.objects.filter(
-                    server=profile.server, pending_delete=False
-                )
-            ]
-            form1.fields["world"].choices.sort(key=lambda choice: choice[1])  # type: ignore
+            form1.fields["world"].choices = sorted(  # type: ignore
+                [
+                    (f"{world.pk}", f"{world.game_name()}")
+                    for world in models.World.objects.filter(
+                        server=profile.server, pending_delete=False
+                    )
+                ],
+                key=lambda choice: choice[1],
+            )
+
             if form1.is_valid():
                 world = form1.cleaned_data["world"]
                 world_instance = get_object_or_404(models.World, pk=int(world))

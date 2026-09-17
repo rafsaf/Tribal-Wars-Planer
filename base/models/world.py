@@ -45,7 +45,7 @@ class World(models.Model):
     fanout_key_text_player = models.CharField(default="__0", max_length=200)
     fanout_key_text_tribe = models.CharField(default="__0", max_length=200)
     fanout_key_text_village = models.CharField(default="__0", max_length=200)
-    full_game_name = models.CharField(max_length=256, default="")
+    full_game_name = models.CharField(max_length=256, default="", blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
