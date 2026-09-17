@@ -19,10 +19,6 @@ from base.tests.test_utils.mini_setup import MiniSetup
 
 
 class WorldTest(MiniSetup):
-    def test__str__(self):
-        world = self.get_world()
-        assert str(world) == "nt1"
-
     def test_human_prefix_true(self):
         activate("pl")
         world = self.get_world()

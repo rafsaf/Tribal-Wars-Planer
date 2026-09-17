@@ -243,7 +243,7 @@ class WorldUpdateHandler:
 
     def check_if_world_is_archived(self, url_param: str) -> None:
         log.info("Checking world archive of url %s", url_param)
-        postfix = str(self.world)
+        postfix = self.world.name_with_server()
         if f"/archive/{postfix}" in url_param:
             log.warning("World %s flagged as archived, trying to delete it", self.world)
             self.deleted = self.delete_world(self.world)
@@ -393,7 +393,7 @@ class WorldUpdateHandler:
                     return
 
                 unique_cache_key = (
-                    f"{self.world}_{data_type}_{last_modified.timestamp()}"
+                    f"{self.world.pk}_{data_type}_{last_modified.timestamp()}"
                 )
                 if unique_cache_key in tw_settings.fanout_cache:
                     res.close()
@@ -417,7 +417,7 @@ class WorldUpdateHandler:
         self, data_type: WorldUpdateHandler.DATA_TYPES
     ) -> str | None:
         """Get latest key (by 'last-modified' datetime) from disk cache"""
-        cache_key_prefix = f"{self.world}_{data_type}_"
+        cache_key_prefix = f"{self.world.pk}_{data_type}_"
         result_list: list[str] = []
         for key in tw_settings.fanout_cache:
             if str(key).startswith(cache_key_prefix):

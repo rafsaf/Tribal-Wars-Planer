@@ -220,7 +220,7 @@ class MakeFinalOutline:
                 "id": self.outline.world.pk,
                 "full_game_name": self.outline.world.full_game_name,
                 "server": self.outline.world.server.dns,
-                "name": str(self.outline.world),
+                "name": self.outline.world.name_with_server(),
                 "speed_world": self.outline.world.speed_world,
                 "speed_units": self.outline.world.speed_units,
             },

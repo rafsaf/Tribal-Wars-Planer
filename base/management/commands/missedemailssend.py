@@ -40,7 +40,11 @@ class Command(BaseCommand):
 
         for payment in unsend_email_payments:
             with transaction.atomic():
-                instance = Payment.objects.select_for_update().get(pk=payment.pk)
+                instance = (
+                    Payment.objects.select_related("user")
+                    .select_for_update(of=("self",))
+                    .get(pk=payment.pk)
+                )
                 if instance.send_mail:
                     try:
                         assert instance.user, instance.pk
