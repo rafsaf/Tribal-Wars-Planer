@@ -393,7 +393,7 @@ class WorldUpdateHandler:
                     return
 
                 unique_cache_key = (
-                    f"{self.world}_{data_type}_{last_modified.timestamp()}"
+                    f"{self.world.pk}_{data_type}_{last_modified.timestamp()}"
                 )
                 if unique_cache_key in tw_settings.fanout_cache:
                     res.close()
