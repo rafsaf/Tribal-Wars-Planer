@@ -315,7 +315,6 @@ def initial_form(  # noqa: PLR0912,PLR0911
             if form2.is_valid():
                 instance.actions.form_available_troops(instance)
                 instance.save(update_fields=forms.AvailableTroopsForm.Meta.fields)
-                instance.refresh_from_db()
                 available_troops.calculate_and_update_available_troops(outline=instance)
                 return redirect(
                     reverse("base:planer_initial_form", args=[_id])
@@ -337,7 +336,6 @@ def initial_form(  # noqa: PLR0912,PLR0911
             if form4.is_valid():
                 instance.actions.form_settings_change(instance)
                 instance.save(update_fields=forms.ModeOutlineForm.Meta.fields)
-                instance.refresh_from_db()
                 models.TargetVertex.objects.filter(outline=instance).update(
                     mode_off=instance.mode_off,
                     mode_noble=instance.mode_noble,
@@ -789,7 +787,7 @@ def initial_target(  # noqa: PLR0912
 @require_POST
 def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline_time: models.OutlineTime = get_object_or_404(
-        models.OutlineTime.objects.select_related(),
+        models.OutlineTime.objects.select_related("outline"),
         pk=pk,
         outline__owner=request.user,
     )
@@ -822,7 +820,7 @@ def initial_delete_time(request: HttpRequest, pk: int) -> HttpResponse:
 @require_POST
 def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
     outline_time: models.OutlineTime = get_object_or_404(
-        models.OutlineTime.objects.select_related(),
+        models.OutlineTime.objects.select_related("outline"),
         pk=pk,
         outline__owner=request.user,
     )
@@ -866,7 +864,7 @@ def initial_set_all_time(request: HttpRequest, pk: int) -> HttpResponse:
 @require_POST
 def initial_set_all_time_page(request: HttpRequest, pk: int) -> HttpResponse:
     outline_time: models.OutlineTime = get_object_or_404(
-        models.OutlineTime.objects.select_related(),
+        models.OutlineTime.objects.select_related("outline"),
         pk=pk,
         outline__owner=request.user,
     )
@@ -899,7 +897,9 @@ def initial_set_all_time_page(request: HttpRequest, pk: int) -> HttpResponse:
 @require_POST
 def complete_outline(request: HttpRequest, id1: int) -> HttpResponse:
     instance: models.Outline = get_object_or_404(
-        models.Outline.objects.select_related(), id=id1, owner=request.user
+        models.Outline.objects.select_related("world", "world__server"),
+        id=id1,
+        owner=request.user,
     )
     if instance.written == "active":
         return redirect("base:planer_initial", id1)

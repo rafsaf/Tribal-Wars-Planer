@@ -205,9 +205,15 @@ class OffTroopsForm(forms.ModelForm):
                 if not self.first_error_message:
                     self.first_error_message = str(error)
                     if error.coord:
-                        village = VillageModel.objects.filter(
-                            coord=error.coord, world=self.outline.world
-                        ).first()
+                        village = (
+                            VillageModel.objects.filter(
+                                coord=error.coord, world=self.outline.world
+                            )
+                            .select_related(
+                                "player", "player__tribe", "world", "world__server"
+                            )
+                            .first()
+                        )
                         if not village:
                             self.second_error_message = gettext_lazy(
                                 "[coord: %(coord)s] - [world: %(world)s]: no such village"
@@ -330,9 +336,15 @@ class DeffTroopsForm(forms.ModelForm):
                 if not self.first_error_message:
                     self.first_error_message = str(error)
                     if error.coord:
-                        village = VillageModel.objects.filter(
-                            coord=error.coord, world=self.outline.world
-                        ).first()
+                        village = (
+                            VillageModel.objects.filter(
+                                coord=error.coord, world=self.outline.world
+                            )
+                            .select_related(
+                                "player", "player__tribe", "world", "world__server"
+                            )
+                            .first()
+                        )
                         if not village:
                             self.second_error_message = gettext_lazy(
                                 "[coord: %(coord)s] - [world: %(world)s]: no such village"
