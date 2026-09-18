@@ -866,7 +866,7 @@ def initial_divide(
 
     for next_weight in models.WeightModel.objects.filter(
         target_id=weight_model.target_id, order__gt=weight_model.order
-    ):
+    ).select_for_update():
         next_weight.order = next_weight.order + n
         update_list.append(next_weight)
 

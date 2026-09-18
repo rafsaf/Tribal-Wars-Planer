@@ -159,24 +159,45 @@ def delete_target(request: Request):
     """
     req = TargetDeleteSerializer(data=request.data)  # type: ignore
     if req.is_valid():
-        target: TargetVertex = get_object_or_404(
-            TargetVertex.objects.select_related("outline"),
-            pk=req.data.get("target_id"),
-            outline__owner=request.user,
-        )
         with transaction.atomic():
-            weights = WeightModel.objects.filter(target=target)
-            # deletes weights related to this target and updates weight state
+            target: TargetVertex = get_object_or_404(
+                TargetVertex.objects.select_for_update(),
+                pk=req.data.get("target_id"),
+                outline__owner=request.user,
+            )
+
+            weights = (
+                WeightModel.objects.filter(target=target)
+                .select_for_update()
+                .select_related("state")
+            )
+            state_map: dict[int, WeightMaximum] = {}
+
             weight_model: WeightModel
             for weight_model in weights:
                 state: WeightMaximum = weight_model.state
-                state.off_left += weight_model.off
-                state.off_state -= weight_model.off
-                state.nobleman_left += weight_model.nobleman
-                state.nobleman_state -= weight_model.nobleman
-                state.catapult_left += weight_model.catapult
-                state.catapult_state -= weight_model.catapult
-                state.save()
+                if state.pk not in state_map:
+                    state_map[state.pk] = state
+
+                acc = state_map[state.pk]
+                acc.off_left += weight_model.off
+                acc.off_state -= weight_model.off
+                acc.nobleman_left += weight_model.nobleman
+                acc.nobleman_state -= weight_model.nobleman
+                acc.catapult_left += weight_model.catapult
+                acc.catapult_state -= weight_model.catapult
+
+            WeightMaximum.objects.bulk_update(
+                state_map.values(),
+                fields=[
+                    "off_left",
+                    "off_state",
+                    "nobleman_left",
+                    "nobleman_state",
+                    "catapult_left",
+                    "catapult_state",
+                ],
+            )
 
             weights.delete()
             target.delete()

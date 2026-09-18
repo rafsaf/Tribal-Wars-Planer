@@ -892,3 +892,13 @@ a.nav-link.nav-link-pills.last-nav-link {
     --bs-list-group-action-color: var(--bs-body-color); /* Default text color (Dark/Black) */
     --bs-list-group-action-hover-color: var(--bs-secondary-color); /* Hover text color (Grey) */
 }
+
+/*
+Source - https://stackoverflow.com/a/25952508
+Posted by ben.kaminski
+Retrieved 2026-09-18, License - CC BY-SA 3.0
+*/
+
+.modal-open[style] {
+  padding-right: 0px !important;
+}
