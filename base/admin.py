@@ -19,6 +19,8 @@ from django.db.models.query import QuerySet
 from django.http import HttpRequest
 
 # Register your models here.
+from django.urls import reverse
+from django.utils.html import format_html
 from two_factor.admin import AdminSiteOTPRequired
 
 from base.models.world import World
@@ -273,10 +275,43 @@ class AdminPlayer(admin.ModelAdmin):
 class AdminNewOutline(admin.ModelAdmin):
     list_display = [
         "name",
-        "owner",
+        "custom_owner",
         "created",
-        "world",
+        "custom_world_link",
+        "custom_worldserver_link",
         "ally_tribe_tag",
         "enemy_tribe_tag",
     ]
+    list_display_links = ["name"]
+    list_select_related = ["owner", "world", "world__server"]
     search_fields = ["owner__username", "world__postfix"]
+
+    def custom_owner(self, obj):
+        link = reverse("admin:auth_user_change", args=[obj.owner.pk])
+        return format_html(
+            '<a href="{}">{}</a>',
+            link,
+            obj.owner.username,
+        )
+
+    custom_owner.short_description = "Owner"
+
+    def custom_world_link(self, obj):
+        link = reverse("admin:base_world_change", args=[obj.world.pk])
+        return format_html(
+            '<a href="{}">{}</a>',
+            link,
+            obj.world.human(prefix=True),
+        )
+
+    custom_world_link.short_description = "World"
+
+    def custom_worldserver_link(self, obj):
+        link = reverse("admin:base_server_change", args=[obj.world.server.pk])
+        return format_html(
+            '<a href="{}">{}</a>',
+            link,
+            obj.world.server.dns,
+        )
+
+    custom_worldserver_link.short_description = "Server"

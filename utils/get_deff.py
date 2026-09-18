@@ -43,14 +43,15 @@ def get_deff(
     excluded_coords = excluded_villages.split()
 
     my_tribe_villages: np.ndarray = np.array(
-        models.VillageModel.objects.select_related()
-        .filter(player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world)
-        .values_list("x_coord", "y_coord")
+        models.VillageModel.objects.filter(
+            player__tribe__tag__in=outline.ally_tribe_tag, world=outline.world
+        ).values_list("x_coord", "y_coord")
     )
 
     enemy_tribe_villages: np.ndarray = np.array(
-        models.VillageModel.objects.select_related()
-        .filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world)
+        models.VillageModel.objects.filter(
+            player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world
+        )
         .exclude(coord__in=excluded_coords)
         .values_list("x_coord", "y_coord")
     )

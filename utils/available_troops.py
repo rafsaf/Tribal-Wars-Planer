@@ -70,11 +70,9 @@ def calculate_and_update_available_troops(outline: models.Outline):  # noqa: PLR
         (village.x_coord, village.y_coord) for village in ally_villages
     ]
 
-    enemy_villages_coords = (
-        models.VillageModel.objects.select_related()
-        .filter(player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world)
-        .values_list("x_coord", "y_coord")
-    )
+    enemy_villages_coords = models.VillageModel.objects.filter(
+        player__tribe__tag__in=outline.enemy_tribe_tag, world=outline.world
+    ).values_list("x_coord", "y_coord")
     enemy_villages_coords = [
         coord for coord in enemy_villages_coords if coord not in excluded_coords
     ]

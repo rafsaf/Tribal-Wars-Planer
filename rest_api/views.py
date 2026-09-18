@@ -262,7 +262,6 @@ def change_weight_model_buildings(request: Request):
         )
         weight.building = req.data.get("building")
         weight.save()
-        weight.refresh_from_db()
         new_building: str = weight.get_building_display()  # type: ignore
         return Response({"name": new_building}, status=status.HTTP_200_OK)
 

@@ -97,8 +97,7 @@ def outline_detail_results(request: HttpRequest, _id: int) -> HttpResponse:
     if request.method == "POST":
         if "form1" in request.POST:
             if form1.is_valid():
-                form1.save()
-                instance.refresh_from_db()
+                instance.save(update_fields=forms.SettingMessageForm.Meta.fields)
                 overviews.update(show_hidden=instance.default_show_hidden)
                 set_as_default: bool = form1.cleaned_data["set_as_default"]
                 if set_as_default:
