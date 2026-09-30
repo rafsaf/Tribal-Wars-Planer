@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 19:49+0200\n"
+"POT-Creation-Date: 2026-09-30 23:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: base/forms.py:114 base/forms.py:133 base/templates/base/base_planer.html:10
+#: base/forms.py:102 base/forms.py:121 base/templates/base/base_planer.html:10
 msgid "Outline Name"
 msgstr "Terv neve"
 
-#: base/forms.py:117 base/forms.py:134 base/templates/base/base_planer.html:11
+#: base/forms.py:105 base/forms.py:122 base/templates/base/base_planer.html:11
 #: shipments/templates/my_shipments.html:11
-#: utils/basic/info_generatation.py:151
+#: utils/basic/info_generatation.py:139
 msgid "Date"
 msgstr "Dátum"
 
-#: base/forms.py:121 base/templates/base/base_planer.html:13
+#: base/forms.py:109 base/templates/base/base_planer.html:13
 #: shipments/templates/my_shipments.html:13
 msgid "World"
 msgstr "Világ"
 
-#: base/forms.py:138
+#: base/forms.py:126
 msgid "Use unused troops"
 msgstr "Fel nem használt csapatok használata"
 
-#: base/forms.py:142
+#: base/forms.py:130
 msgid ""
 "Use unused army or deff troops from result tab from parent outline in Troops "
 "data tab"
@@ -44,21 +44,21 @@ msgstr ""
 "Használja a fel nem használt támadó- vagy védekező sereget a szülő terv "
 "eredmény lapjáról a Csapatok adat lapon"
 
-#: base/forms.py:153 base/models/outline.py:147 base/models/outline.py:328
-#: base/models/profile.py:30
+#: base/forms.py:141 base/models/outline.py:136 base/models/outline.py:319
+#: base/models/profile.py:19
 msgid "Army collection"
 msgstr "Csapatösszesítő"
 
-#: base/forms.py:171 base/forms.py:291
+#: base/forms.py:159 base/forms.py:285
 msgid "Text cannot be empty!"
 msgstr "A szöveg nem lehet üres!"
 
-#: base/forms.py:213 base/forms.py:338
+#: base/forms.py:207 base/forms.py:338
 #, python-format
 msgid "[coord: %(coord)s] - [world: %(world)s]: no such village"
 msgstr "[koordináta: %(coord)s] - [világ: %(world)s]: nincs ilyen falu"
 
-#: base/forms.py:221 base/forms.py:346
+#: base/forms.py:215 base/forms.py:346
 #, python-format
 msgid ""
 "[coord: %(coord)s] - [world: %(world)s] - [player: %(player)s] - [tribe: "
@@ -67,12 +67,12 @@ msgstr ""
 "[koordináta: %(coord)s] - [világ: %(world)s] - [játékos: %(player)s] - "
 "[klán: %(tribe)s]"
 
-#: base/forms.py:240 base/forms.py:368
+#: base/forms.py:234 base/forms.py:368
 #, python-format
 msgid "Village in this line is duplicated: %(coord)s"
 msgstr "A falu ebben a sorban duplikálva van: %(coord)s"
 
-#: base/forms.py:258
+#: base/forms.py:252
 msgid ""
 "This doesn't look like a valid input for THIS form. Did you want to input it "
 "into the 'Deff collection' form instead?"
@@ -80,8 +80,8 @@ msgstr ""
 "Ez nem tűnik érvényes adatnak EHHEZ az űrlaphoz. Talán a 'Védelem összesítő' "
 "űrlapra gondoltál?"
 
-#: base/forms.py:271 base/models/outline.py:148 base/models/outline.py:330
-#: base/models/profile.py:31
+#: base/forms.py:265 base/models/outline.py:137 base/models/outline.py:321
+#: base/models/profile.py:20
 msgid "Deff collection "
 msgstr "Védelem összesítő "
 
@@ -459,7 +459,7 @@ msgstr "Támadósereg katapultok nélkül"
 msgid "Catapults"
 msgstr "Katapultok"
 
-#: base/forms.py:995 base/models/period_model.py:34
+#: base/forms.py:995 base/models/period_model.py:23
 msgid "Noble"
 msgstr "Nemes"
 
@@ -467,7 +467,7 @@ msgstr "Nemes"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:201
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:243
-#: utils/basic/info_generatation.py:104
+#: utils/basic/info_generatation.py:92
 msgid "From"
 msgstr "Innen"
 
@@ -475,7 +475,7 @@ msgstr "Innen"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:133
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:202
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:244
-#: utils/basic/info_generatation.py:105
+#: utils/basic/info_generatation.py:93
 msgid "To"
 msgstr "Ide"
 
@@ -483,7 +483,7 @@ msgstr "Ide"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:128
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:238
-#: utils/basic/info_generatation.py:102
+#: utils/basic/info_generatation.py:90
 msgid "Mode"
 msgstr "Mód"
 
@@ -491,7 +491,7 @@ msgstr "Mód"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:129
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:198
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:240
-#: utils/basic/info_generatation.py:103
+#: utils/basic/info_generatation.py:91
 msgid "Unit"
 msgstr "Egység"
 
@@ -499,7 +499,7 @@ msgstr "Egység"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:130
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:203
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:245
-#: utils/basic/info_generatation.py:106
+#: utils/basic/info_generatation.py:94
 msgid "Min. time"
 msgstr "Min. idő"
 
@@ -507,7 +507,7 @@ msgstr "Min. idő"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:131
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:204
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:246
-#: utils/basic/info_generatation.py:107
+#: utils/basic/info_generatation.py:95
 msgid "Max. time"
 msgstr "Max. idő"
 
@@ -589,182 +589,182 @@ msgstr ""
 "Ha be van jelölve, az Eredmények lapon lévő közvetlen üzenetek biztonságos "
 "linket tartalmaznak a tervezőhöz"
 
-#: base/models/outline.py:73 base/models/outline.py:80
-#: base/models/target_vertex.py:36 base/models/target_vertex.py:43
+#: base/models/outline.py:62 base/models/outline.py:69
+#: base/models/target_vertex.py:25 base/models/target_vertex.py:32
 msgid "Closest Front"
 msgstr "Legközelebbi front"
 
-#: base/models/outline.py:74 base/models/outline.py:81
-#: base/models/target_vertex.py:37 base/models/target_vertex.py:44
+#: base/models/outline.py:63 base/models/outline.py:70
+#: base/models/target_vertex.py:26 base/models/target_vertex.py:33
 msgid "Close Back"
 msgstr "Közeli hát"
 
-#: base/models/outline.py:75 base/models/outline.py:82
-#: base/models/target_vertex.py:38 base/models/target_vertex.py:45
+#: base/models/outline.py:64 base/models/outline.py:71
+#: base/models/target_vertex.py:27 base/models/target_vertex.py:34
 msgid "Random Back"
 msgstr "Véletlenszerű hát"
 
-#: base/models/outline.py:76 base/models/outline.py:83
-#: base/models/target_vertex.py:39 base/models/target_vertex.py:46
+#: base/models/outline.py:65 base/models/outline.py:72
+#: base/models/target_vertex.py:28 base/models/target_vertex.py:35
 msgid "Far Back"
 msgstr "Távoli hát"
 
-#: base/models/outline.py:87 base/models/target_vertex.py:50
+#: base/models/outline.py:76 base/models/target_vertex.py:39
 msgid "Divide off with nobles"
 msgstr "Támadósereg felosztása nemesekkel"
 
-#: base/models/outline.py:88 base/models/target_vertex.py:51
+#: base/models/outline.py:77 base/models/target_vertex.py:40
 msgid "Dont't divide off"
 msgstr "Ne ossza fel a támadósereget"
 
-#: base/models/outline.py:89 base/models/target_vertex.py:52
+#: base/models/outline.py:78 base/models/target_vertex.py:41
 msgid "Off and nobles separatly"
 msgstr "Támadósereg és nemesek külön"
 
-#: base/models/outline.py:93
+#: base/models/outline.py:82
 msgid "Nobles from one village as one command"
 msgstr "Nemesek egy faluból egy parancsként"
 
-#: base/models/outline.py:94
+#: base/models/outline.py:83
 msgid "Nobles from one village as many commands"
 msgstr "Nemesek egy faluból több parancsként"
 
-#: base/models/outline.py:98 base/models/target_vertex.py:56
+#: base/models/outline.py:87 base/models/target_vertex.py:45
 msgid "Try send all nobles to one target"
 msgstr "Próbálja meg az összes nemest egy célpontra küldeni"
 
-#: base/models/outline.py:99 base/models/target_vertex.py:57
+#: base/models/outline.py:88 base/models/target_vertex.py:46
 msgid "Nobles to one or many targets"
 msgstr "Nemesek egy vagy több célpontra"
 
-#: base/models/outline.py:100 base/models/target_vertex.py:58
+#: base/models/outline.py:89 base/models/target_vertex.py:47
 msgid "Try single nobles from many villages"
 msgstr "Próbáljon egyetlen nemest küldeni több faluból"
 
-#: base/models/outline.py:104
+#: base/models/outline.py:93
 #: base/templates/base/new_outline/new_outline_initial_period1.html:161
 msgid "All"
 msgstr "Összes"
 
-#: base/models/outline.py:105
+#: base/models/outline.py:94
 #: base/templates/base/new_outline/new_outline_initial_period1.html:162
 msgid "Front"
 msgstr "Front"
 
-#: base/models/outline.py:106
+#: base/models/outline.py:95
 #: base/templates/base/new_outline/new_outline_initial_period1.html:163
 msgid "Back (Rear)"
 msgstr "Hát (Hátország)"
 
-#: base/models/outline.py:107
+#: base/models/outline.py:96
 #: base/templates/base/new_outline/new_outline_initial_period1.html:164
 msgid "Away"
 msgstr "Távol"
 
-#: base/models/outline.py:108
+#: base/models/outline.py:97
 msgid "Hidden"
 msgstr "Rejtett"
 
-#: base/models/outline.py:114
+#: base/models/outline.py:103
 msgid "Average greater than 8k"
 msgstr "Átlag nagyobb mint 8k"
 
-#: base/models/outline.py:115
+#: base/models/outline.py:104
 msgid "Average 5-8k"
 msgstr "Átlag 5-8k"
 
-#: base/models/outline.py:128
+#: base/models/outline.py:117
 msgid "Fakes only from off villages"
 msgstr "Fake-ek csak támadósereg falvakból"
 
-#: base/models/outline.py:129
+#: base/models/outline.py:118
 msgid "Fakes from all villages"
 msgstr "Fake-ek minden faluból"
 
-#: base/models/outline.py:135
+#: base/models/outline.py:124
 msgid "(Default) Auto generated, fully equipped safe links"
 msgstr ""
 "(Alapértelmezett) Automatikusan generált, teljesen felszerelt biztonságos "
 "linkek"
 
-#: base/models/outline.py:137
+#: base/models/outline.py:126
 msgid "Standard text directly in message"
 msgstr "Standard szöveg közvetlenül az üzenetben"
 
-#: base/models/outline.py:138
+#: base/models/outline.py:127
 msgid "Standard text for deputy directly in message"
 msgstr "Standard szöveg a helyettesnek közvetlenül az üzenetben"
 
-#: base/models/outline.py:139
+#: base/models/outline.py:128
 msgid "Simple text directly in message"
 msgstr "Egyszerű szöveg közvetlenül az üzenetben"
 
-#: base/models/outline.py:140
+#: base/models/outline.py:129
 msgid "Old text directly in message"
 msgstr "Régi szöveg közvetlenül az üzenetben"
 
-#: base/models/outline.py:141
+#: base/models/outline.py:130
 msgid "Table directly in message"
 msgstr "Táblázat közvetlenül az üzenetben"
 
-#: base/models/outline.py:302 base/models/profile.py:58
+#: base/models/outline.py:291 base/models/profile.py:47
 msgid "Outline Targets"
 msgstr "Terv célpontok"
 
-#: base/models/outline.py:333 shipments/forms.py:27
+#: base/models/outline.py:324 shipments/forms.py:15
 msgid "Name"
 msgstr "Név"
 
-#: base/models/outline.py:454
+#: base/models/outline.py:445
 msgid "Expires "
 msgstr "Lejár "
 
-#: base/models/outline.py:468
+#: base/models/outline.py:459
 msgid "in"
 msgstr "-ban/-ben"
 
-#: base/models/outline.py:470
+#: base/models/outline.py:461
 msgid "days"
 msgstr "nap"
 
-#: base/models/overview.py:71
+#: base/models/overview.py:61
 msgid "Unique link to your targets on plemiona-planer.pl"
 msgstr "Egyedi link a célpontjaidhoz a plemiona-planer.pl oldalon"
 
-#: base/models/payment.py:35
+#: base/models/payment.py:25
 msgid "Finished"
 msgstr "Befejezve"
 
-#: base/models/payment.py:36
+#: base/models/payment.py:26
 msgid "Returned"
 msgstr "Visszaküldve"
 
-#: base/models/period_model.py:29
+#: base/models/period_model.py:18
 msgid "All (left)"
 msgstr "Összes (maradt)"
 
-#: base/models/period_model.py:30
+#: base/models/period_model.py:19
 msgid "Random"
 msgstr "Véletlenszerű"
 
-#: base/models/period_model.py:31
+#: base/models/period_model.py:20
 msgid "Exact"
 msgstr "Pontos"
 
-#: base/models/period_model.py:35
+#: base/models/period_model.py:24
 msgid "Ram"
 msgstr "Faltörő kos"
 
-#: base/models/stripe_product.py:36
+#: base/models/stripe_product.py:28
 msgid "Premium 1 month"
 msgstr "Prémium 1 hónap"
 
-#: base/models/stripe_product.py:38
+#: base/models/stripe_product.py:30
 #, python-format
 msgid "Premium %s months"
 msgstr "Prémium %s hónap"
 
-#: base/models/world.py:63
+#: base/models/world.py:58
 msgid "World "
 msgstr "Világ "
 
@@ -1073,10 +1073,9 @@ msgstr ""
 
 #: base/templates/base/base.html:360
 msgid ""
-"This site is free of 3rd party trackers, we belive in privacy, refer to "
-msgstr ""
-"Ez az oldal mentes a harmadik féltől származó nyomkövetőktől, hiszünk az "
-"adatvédelemben, lásd a"
+"This site is licensed under AGPLv3. It is free of 3rd party trackers, refer "
+"to "
+msgstr "Ez az oldal AGPLv3 licenc alatt áll. Harmadik féltől származó nyomkövetőktől mentes, lásd:"
 
 #: base/templates/base/base.html:360
 msgid "our privacy policy and regulations."
@@ -1693,87 +1692,87 @@ msgstr "vagy csökkentse a terv célpontjainak számát."
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:332
-#: utils/buildings.py:41
+#: utils/buildings.py:29
 msgid "Headquarters"
 msgstr "Főhadiszállás"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:42
+#: utils/buildings.py:30
 msgid "Barracks"
 msgstr "Kaszárnya"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:43
+#: utils/buildings.py:31
 msgid "Stable"
 msgstr "Istálló"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:44
+#: utils/buildings.py:32
 msgid "Workshop"
 msgstr "Műhely"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:45
+#: utils/buildings.py:33
 msgid "Academy"
 msgstr "Akadémia"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:333
-#: utils/buildings.py:46
+#: utils/buildings.py:34
 msgid "Smithy"
 msgstr "Kovácsműhely"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:47
+#: utils/buildings.py:35
 msgid "Rally point"
 msgstr "Gyülekezőhely"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:48
+#: utils/buildings.py:36
 msgid "Statue"
 msgstr "Szobor"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:49
+#: utils/buildings.py:37
 msgid "Market"
 msgstr "Piac"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:334
-#: utils/buildings.py:50
+#: utils/buildings.py:38
 msgid "Timber camp"
 msgstr "Fatelep"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:337
-#: utils/buildings.py:51
+#: utils/buildings.py:39
 msgid "Clay pit"
 msgstr "Agyagbánya"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:52
+#: utils/buildings.py:40
 msgid "Iron mine"
 msgstr "Vasbánya"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:338
-#: utils/buildings.py:53
+#: utils/buildings.py:41
 msgid "Farm"
 msgstr "Tanya"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:339
-#: utils/buildings.py:54
+#: utils/buildings.py:42
 msgid "Warehouse"
 msgstr "Raktár"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:55
+#: utils/buildings.py:43
 msgid "Wall"
 msgstr "Fal"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:56
+#: utils/buildings.py:44
 msgid "Watchtower"
 msgstr "Őrtorony"
 
@@ -2000,7 +1999,7 @@ msgstr "Hozzon létre legalább egy időt alább"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:285
 #: base/templates/base/new_outline/new_outline_initial_period3.html:139
 #: base/templates/base/overview.html:227 shipments/templates/shipment.html:126
-#: utils/basic/mode.py:60 utils/outline_finish.py:75
+#: utils/basic/mode.py:48 utils/outline_finish.py:63
 msgid "Target"
 msgstr "Célpont"
 
@@ -2009,7 +2008,7 @@ msgid "Select Time"
 msgstr "Idő kiválasztása"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:287
-#: base/templates/base/overview.html:228 utils/basic/mode.py:67
+#: base/templates/base/overview.html:228 utils/basic/mode.py:55
 msgid "Outline"
 msgstr "Terv"
 
@@ -2044,7 +2043,7 @@ msgstr "Felosztás 4 részre"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:138
 #: base/templates/base/new_outline/new_outline_results.html:95
 #: base/templates/base/new_outline/new_outline_results.html:134
-#: utils/outline_finish.py:77
+#: utils/outline_finish.py:65
 msgid "Player"
 msgstr "Játékos"
 
@@ -2231,7 +2230,7 @@ msgstr "Elküldve!"
 
 #: base/templates/base/new_outline/new_outline_results.html:120
 #: base/templates/base/new_outline/new_outline_results.html:161
-#: rest_api/serializers.py:178
+#: rest_api/serializers.py:166
 msgid "Send"
 msgstr "Küldés"
 
@@ -2314,15 +2313,15 @@ msgid "This is what this form of orders looks like when pasted into a notebook"
 msgstr "Így néz ki ez a parancsforma, amikor beillesztik egy jegyzetfüzetbe"
 
 #: base/templates/base/overview.html:51 base/templates/base/overview.html:84
-#: utils/basic/table_text.py:33
+#: utils/basic/table_text.py:21
 msgid "Tuesday"
 msgstr "Kedd"
 
 #: base/templates/base/overview.html:53 base/templates/base/overview.html:60
 #: base/templates/base/overview.html:86 base/templates/base/overview.html:93
 #: base/templates/base/overview.html:119 base/templates/base/overview.html:146
-#: base/templates/base/overview.html:185 utils/basic/table_text.py:88
-#: utils/send_text.py:34
+#: base/templates/base/overview.html:185 utils/basic/table_text.py:76
+#: utils/send_text.py:22
 msgid "Send OFF"
 msgstr "TÁMADÓSEREG küldése"
 
@@ -2358,11 +2357,11 @@ msgstr "Egyszerű"
 msgid "Old"
 msgstr "Régi"
 
-#: base/templates/base/overview.html:143 utils/basic/table_text.py:266
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:254
 msgid "from village"
 msgstr "faluból"
 
-#: base/templates/base/overview.html:143 utils/basic/table_text.py:267
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:255
 msgid "to "
 msgstr "ide "
 
@@ -2766,26 +2765,26 @@ msgstr ""
 msgid "Recover my account"
 msgstr ""
 
-#: base/views/outline.py:263
+#: base/views/outline.py:261
 msgid "Never"
 msgstr "Soha"
 
-#: base/views/outline.py:269
+#: base/views/outline.py:267
 msgid " minute(s) ago."
 msgstr " perccel ezelőtt."
 
-#: base/views/outline_initial_changes.py:106
-#: base/views/outline_initial_changes.py:352
-#: base/views/outline_initial_changes.py:497
-#: base/views/outline_initial_changes.py:676
-#: base/views/outline_initial_views.py:719
+#: base/views/outline_initial_changes.py:94
+#: base/views/outline_initial_changes.py:340
+#: base/views/outline_initial_changes.py:485
+#: base/views/outline_initial_changes.py:664
+#: base/views/outline_initial_views.py:701
 #, python-format
 msgid ""
 "%(start)s -> %(target)s<br>Distance: %(distance)s exceeds max for nobleman "
 "on this world: %(max_noble_distance)s."
 msgstr ""
 
-#: base/views/outline_initial_views.py:56
+#: base/views/outline_initial_views.py:44
 #, python-format
 msgid ""
 "<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
@@ -2799,7 +2798,7 @@ msgstr ""
 "<b>Küldés</b> gombra.</p> <p>3. Csak ezután térjen vissza a <b>Tervező</b> "
 "lapra.</p> "
 
-#: base/views/outline_initial_views.py:73
+#: base/views/outline_initial_views.py:61
 #, python-format
 msgid ""
 "<h5>It looks like your outline in being written just now!</h5> <p>You cannot "
@@ -2812,7 +2811,7 @@ msgstr ""
 "oldalt egy pillanat múlva. A zár kényszer lejárata <b>%(lock_expire)s</b>.</"
 "p> "
 
-#: base/views/outline_initial_views.py:90
+#: base/views/outline_initial_views.py:78
 #, python-format
 msgid ""
 "<h5>It looks like your outline in being changed just now!</h5> <p>Data about "
@@ -2824,23 +2823,23 @@ msgstr ""
 "frissíteni ezt az oldalt egy pillanat múlva. A zár kényszer lejárata "
 "<b>%(lock_expire)s</b>.</p> "
 
-#: base/views/outline_initial_views.py:118 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:106 base/views/results_get_deff.py:34
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>A csapatösszesítő üres!</h5>"
 
-#: base/views/outline_initial_views.py:124 base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:112 base/views/results_get_deff.py:31
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>A védelem összesítő üres!</h5>"
 
-#: base/views/outline_initial_views.py:548
+#: base/views/outline_initial_views.py:532
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Minden célpontnak rendelkeznie kell hozzárendelt idővel.</h5>"
 
-#: base/views/outline_initial_views.py:555
+#: base/views/outline_initial_views.py:539
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Legalább egy időnek léteznie kell.</h5>"
 
-#: base/views/results_get_deff.py:53
+#: base/views/results_get_deff.py:48
 msgid ""
 "<h5>It looks like your Army or Deff collections are no longer actual!</h5> "
 "<p>To use the Deff collection:</p> <p>1. Paste the current data in the "
@@ -2853,12 +2852,12 @@ msgstr ""
 "b> mindkettőt.</p> <p>2. Térjen vissza a <b>Védelem összesítő</b> lapra.</p> "
 "<p>3. Próbálja újra."
 
-#: shipments/forms.py:50
+#: shipments/forms.py:38
 #, python-format
 msgid "Invalid overview token: %(token)s"
 msgstr "Érvénytelen áttekintő token: %(token)s"
 
-#: shipments/forms.py:56
+#: shipments/forms.py:44
 msgid "Duplicate overview tokens are not allowed."
 msgstr "Duplikált áttekintő tokenek nem engedélyezettek."
 
@@ -2953,15 +2952,15 @@ msgstr "Küldés max."
 msgid "ID"
 msgstr "ID"
 
-#: shipments/views.py:143
+#: shipments/views.py:130
 msgid "All overviews must belong to the same world."
 msgstr "Minden áttekintésnek ugyanahhoz a világhoz kell tartoznia."
 
-#: shipments/views.py:157
+#: shipments/views.py:144
 msgid "All overviews must be for the same player."
 msgstr "Minden áttekintésnek ugyanahhoz a játékoshoz kell tartoznia."
 
-#: shipments/views.py:159
+#: shipments/views.py:146
 msgid "does not match"
 msgstr "nem egyezik"
 
@@ -3303,11 +3302,11 @@ msgstr "Már be van jelentkezve mint"
 msgid "Password recovery"
 msgstr "Jelszó-helyreállítás"
 
-#: tribal_wars_planer/settings.py:506
+#: tribal_wars_planer/settings.py:495
 msgid "Your Plemiona Planer Login Code"
 msgstr "Az Ön Plemiona Planer bejelentkezési kódja"
 
-#: utils/basic/army.py:169 utils/basic/army.py:343
+#: utils/basic/army.py:157 utils/basic/army.py:331
 #, python-format
 msgid ""
 "Invalid number of elements in line: %(len)s is not correct, expected "
@@ -3315,11 +3314,11 @@ msgid ""
 msgstr ""
 "Érvénytelen elemszám a sorban: %(len)s nem megfelelő, elvárt %(expected)s"
 
-#: utils/basic/army.py:178 utils/basic/army.py:352
+#: utils/basic/army.py:166 utils/basic/army.py:340
 msgid "Length of coord at first postition must be equal to 7"
 msgstr "A koordináta hossza az első pozícióban 7-nek kell lennie"
 
-#: utils/basic/army.py:188 utils/basic/army.py:362
+#: utils/basic/army.py:176 utils/basic/army.py:350
 #, python-format
 msgid ""
 "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
@@ -3327,30 +3326,30 @@ msgstr ""
 "Koordináta: %(coord)s nem létezik, vagy nem tartozik egyik érvényes klánhoz "
 "sem: %(tribes)s"
 
-#: utils/basic/army.py:196 utils/basic/army.py:370
+#: utils/basic/army.py:184 utils/basic/army.py:358
 #, python-format
 msgid "One of line elements is not a number: %s"
 msgstr "Az egyik sor elem nem szám: %s"
 
-#: utils/basic/army.py:200 utils/basic/army.py:378
+#: utils/basic/army.py:188 utils/basic/army.py:366
 #, python-format
 msgid "Last element in line must be empty string, currently: %s"
 msgstr "A sor utolsó elemének üres karakterláncnak kell lennie, jelenleg: %s"
 
-#: utils/basic/army.py:374
+#: utils/basic/army.py:362
 #, python-format
 msgid "Third element of line must be a text: %s"
 msgstr "A sor harmadik elemének szövegnek kell lennie: %s"
 
-#: utils/basic/info_generatation.py:49
+#: utils/basic/info_generatation.py:37
 msgid "Nicknames: "
 msgstr "Becenevek: "
 
-#: utils/basic/info_generatation.py:91 utils/basic/info_generatation.py:101
+#: utils/basic/info_generatation.py:79 utils/basic/info_generatation.py:89
 msgid "Time"
 msgstr "Idő"
 
-#: utils/basic/info_generatation.py:132
+#: utils/basic/info_generatation.py:120
 #, python-format
 msgid ""
 "SUM: %(offs_count)s offs, %(nobles_count)s nobles, %(ruins_count)s ruins and "
@@ -3359,7 +3358,7 @@ msgstr ""
 "ÖSSZESEN: %(offs_count)s támadósereg, %(nobles_count)s nemes, "
 "%(ruins_count)s rombolás és %(fakes_count)s fake"
 
-#: utils/basic/info_generatation.py:141
+#: utils/basic/info_generatation.py:129
 #, python-format
 msgid ""
 "LEFT: %(offs_count)s offs, %(nobles_count)s nobles, %(catapults_count)s "
@@ -3368,131 +3367,131 @@ msgstr ""
 "MARADT: %(offs_count)s támadósereg, %(nobles_count)s nemes, "
 "%(catapults_count)s katapult"
 
-#: utils/basic/info_generatation.py:160
+#: utils/basic/info_generatation.py:148
 msgid "### TARGETS ###"
 msgstr "### CÉLPONTOK ###"
 
-#: utils/basic/info_generatation.py:164
+#: utils/basic/info_generatation.py:152
 msgid "### FAKES ###"
 msgstr "### FAKE-EK ###"
 
-#: utils/basic/info_generatation.py:168
+#: utils/basic/info_generatation.py:156
 msgid "### RUINS ###"
 msgstr "### ROMBOLÁSOK ###"
 
-#: utils/basic/info_generatation.py:265
+#: utils/basic/info_generatation.py:253
 msgid "fakes"
 msgstr "fake-ek"
 
-#: utils/basic/info_generatation.py:266
+#: utils/basic/info_generatation.py:254
 msgid "fake nobles"
 msgstr "fake nemesek"
 
-#: utils/basic/info_generatation.py:281 utils/basic/info_generatation.py:297
+#: utils/basic/info_generatation.py:269 utils/basic/info_generatation.py:285
 msgid "offs"
 msgstr "támadóseregek"
 
-#: utils/basic/info_generatation.py:282
+#: utils/basic/info_generatation.py:270
 msgid "ruins"
 msgstr "rombolások"
 
-#: utils/basic/info_generatation.py:298
+#: utils/basic/info_generatation.py:286
 msgid "nobles"
 msgstr "nemesek"
 
-#: utils/basic/mode.py:62
+#: utils/basic/mode.py:50
 msgid "Fake Target"
 msgstr "Fake célpont"
 
-#: utils/basic/mode.py:63
+#: utils/basic/mode.py:51
 msgid "Ruin Target"
 msgstr "Romboló célpont"
 
-#: utils/basic/mode.py:69
+#: utils/basic/mode.py:57
 msgid "Fake Outline"
 msgstr "Fake terv"
 
-#: utils/basic/mode.py:70
+#: utils/basic/mode.py:58
 msgid "Ruin Outline"
 msgstr "Romboló terv"
 
-#: utils/basic/off_text.py:117
+#: utils/basic/off_text.py:105
 msgid "Tested. LEGEND: "
 msgstr "Tesztelve. JELMAGYARÁZAT: "
 
-#: utils/basic/off_text.py:119
+#: utils/basic/off_text.py:107
 msgid "HEAVY counted as x4 and not x6, scouts are NOT counted."
 msgstr "A NEHÉZ x4-nek számít, nem x6-nak, a kémek NEM számítanak."
 
-#: utils/basic/off_text.py:121
+#: utils/basic/off_text.py:109
 msgid "IN VILLAGES = troops in the village + everyone else's troops."
 msgstr "A FALVAKBAN = csapatok a faluban + mindenki más csapata."
 
-#: utils/basic/off_text.py:123
+#: utils/basic/off_text.py:111
 msgid "ALL OWN = troops in the village + troops outside the village."
 msgstr "MIND SAJÁT = csapatok a faluban + csapatok a falun kívül."
 
-#: utils/basic/off_text.py:149
+#: utils/basic/off_text.py:137
 msgid "On front"
 msgstr "A fronton"
 
-#: utils/basic/off_text.py:150
+#: utils/basic/off_text.py:138
 msgid "villages,"
 msgstr "falvak,"
 
-#: utils/basic/off_text.py:151
+#: utils/basic/off_text.py:139
 msgid "deff IN VILLAGE and"
 msgstr "védő A FALUBAN és"
 
-#: utils/basic/off_text.py:152
+#: utils/basic/off_text.py:140
 msgid "ALL OWN"
 msgstr "MIND SAJÁT"
 
-#: utils/basic/off_text.py:153
+#: utils/basic/off_text.py:141
 msgid "On back"
 msgstr "A hátországban"
 
-#: utils/basic/off_text.py:176 utils/basic/off_text.py:190
+#: utils/basic/off_text.py:164 utils/basic/off_text.py:178
 msgid "No preview"
 msgstr "Nincs előnézet"
 
-#: utils/basic/off_text.py:200
+#: utils/basic/off_text.py:188
 msgid "---------BACK---------"
 msgstr "---------HÁTORSZÁG---------"
 
-#: utils/basic/off_text.py:213
+#: utils/basic/off_text.py:201
 msgid "- In village- "
 msgstr "- A faluban- "
 
-#: utils/basic/off_text.py:214
+#: utils/basic/off_text.py:202
 msgid "(All deff"
 msgstr "(Minden védő"
 
-#: utils/basic/table_text.py:32
+#: utils/basic/table_text.py:20
 msgid "Monday"
 msgstr "Hétfő"
 
-#: utils/basic/table_text.py:34
+#: utils/basic/table_text.py:22
 msgid "Wednesday"
 msgstr "Szerda"
 
-#: utils/basic/table_text.py:35
+#: utils/basic/table_text.py:23
 msgid "Thursday"
 msgstr "Csütörtök"
 
-#: utils/basic/table_text.py:36
+#: utils/basic/table_text.py:24
 msgid "Friday"
 msgstr "Péntek"
 
-#: utils/basic/table_text.py:37
+#: utils/basic/table_text.py:25
 msgid "Saturday"
 msgstr "Szombat"
 
-#: utils/basic/table_text.py:38
+#: utils/basic/table_text.py:26
 msgid "Sunday"
 msgstr "Vasárnap"
 
-#: utils/basic/table_text.py:43
+#: utils/basic/table_text.py:31
 msgid ""
 "[table][**]"
 "[||]SEND[||]OFF[||]NOBLE[||]RUIN[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
@@ -3501,24 +3500,24 @@ msgstr ""
 "[||]KÜLDÉS[||]TÁMADÓSEREG[||]NEMES[||]ROMBOLÁS[||]KÜLDÉS[||]ÉRKEZÉS[||]INNEN[||]CÉLPONT[/"
 "**]"
 
-#: utils/basic/table_text.py:84
+#: utils/basic/table_text.py:72
 msgid "Send fake"
 msgstr "Fake küldése"
 
-#: utils/basic/table_text.py:86
+#: utils/basic/table_text.py:74
 msgid "Send ruin"
 msgstr "Rombolás küldése"
 
-#: utils/basic/table_text.py:90 utils/send_text.py:33
+#: utils/basic/table_text.py:78 utils/send_text.py:21
 msgid "Send NOBLE"
 msgstr "NEMES küldése"
 
-#: utils/basic/table_text.py:128
+#: utils/basic/table_text.py:116
 #, python-format
 msgid "%(catapults_number)sc on %(building)s"
 msgstr "%(catapults_number)sc a(z) %(building)s-ra"
 
-#: utils/basic/table_text.py:182
+#: utils/basic/table_text.py:170
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] "
@@ -3537,7 +3536,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]FAKE "
 "NEMES küldése[/url]"
 
-#: utils/basic/table_text.py:194
+#: utils/basic/table_text.py:182
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3556,7 +3555,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]FAKE "
 "küldése[/url]"
 
-#: utils/basic/table_text.py:206
+#: utils/basic/table_text.py:194
 #, python-format
 msgid ""
 "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s + "
@@ -3577,7 +3576,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]ROMBOLÁS "
 "küldése[/url]"
 
-#: utils/basic/table_text.py:219
+#: utils/basic/table_text.py:207
 #, python-format
 msgid ""
 "[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/"
@@ -3597,7 +3596,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]NEMES "
 "küldése[/url]"
 
-#: utils/basic/table_text.py:232
+#: utils/basic/table_text.py:220
 #, python-format
 msgid ""
 "[b][color=#a50000]Send OFF[%(off_number)s off + %(catapults_number)sc on "
@@ -3617,7 +3616,7 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]TÁMADÓSEREG "
 "küldése[/url]"
 
-#: utils/basic/table_text.py:245
+#: utils/basic/table_text.py:233
 #, python-format
 msgid ""
 "[b][color=#a50000]Send OFF[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3636,19 +3635,19 @@ msgstr ""
 "village=%(ally_id)s&screen=place&target=%(enemy_id)s%(deputy_link_part)s]TÁMADÓSEREG "
 "küldése[/url]"
 
-#: utils/basic/table_text.py:265
+#: utils/basic/table_text.py:253
 msgid "Nobles-"
 msgstr "Nemesek-"
 
-#: utils/basic/table_text.py:269
+#: utils/basic/table_text.py:257
 msgid "[color=#00a500][b]Send fake noble[/b][/color] (1 noble)"
 msgstr "[color=#00a500][b]Fake nemes küldése[/b][/color] (1 nemes)"
 
-#: utils/basic/table_text.py:272
+#: utils/basic/table_text.py:260
 msgid "[color=#00a500][b]Send fake[/b][/color]"
 msgstr "[color=#00a500][b]Fake küldése[/b][/color]"
 
-#: utils/basic/table_text.py:276
+#: utils/basic/table_text.py:264
 #, python-format
 msgid ""
 "[color=#0e0eff][b]Ruin[/b][/color] (Extra off-%(off)d, Catapults-"
@@ -3657,7 +3656,7 @@ msgstr ""
 "[color=#0e0eff][b]Rombolás[/b][/color] (Extra támadó-%(off)d, Katapultok-"
 "%(catapult)d [b]%(building)s[/b])"
 
-#: utils/basic/table_text.py:284
+#: utils/basic/table_text.py:272
 #, python-format
 msgid ""
 "[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d [b]"
@@ -3666,60 +3665,60 @@ msgstr ""
 "[size=12][b]TÁMADÓ[/b][/size] (Támadó-%(off)d, Katapultok-%(catapult)d [b]"
 "%(building)s[/b])"
 
-#: utils/basic/table_text.py:291
+#: utils/basic/table_text.py:279
 msgid "[size=12][b]OFF[/b][/size] (Off-"
 msgstr "[size=12][b]TÁMADÓ[/b][/size] (Támadó-"
 
-#: utils/basic/table_text.py:294
+#: utils/basic/table_text.py:282
 msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
 msgstr "[color=#a500a5][size=12][b]NEMES[/b][/size][/color]"
 
-#: utils/basic/troops.py:55
+#: utils/basic/troops.py:43
 #, python-format
 msgid "Line %s: "
 msgstr "Sor %s: "
 
-#: utils/basic/village.py:85
+#: utils/basic/village.py:73
 msgid "Coords are empty!"
 msgstr "A koordináták üresek!"
 
-#: utils/basic/village.py:89
+#: utils/basic/village.py:77
 msgid ": Is not string type!"
 msgstr ": Nem string típus!"
 
-#: utils/basic/village.py:95
+#: utils/basic/village.py:83
 msgid ": Is not the correct length!"
 msgstr ": Nem megfelelő hosszúságú!"
 
-#: utils/basic/village.py:98 utils/basic/village.py:101
+#: utils/basic/village.py:86 utils/basic/village.py:89
 msgid "Is not a number"
 msgstr "Nem szám"
 
-#: utils/basic/village.py:104
+#: utils/basic/village.py:92
 msgid "Symbol"
 msgstr "Szimbólum"
 
-#: utils/basic/village.py:105
+#: utils/basic/village.py:93
 msgid "Is not equal to '|'!"
 msgstr "Nem egyenlő '|'-vel!"
 
-#: utils/outline_finish.py:76
+#: utils/outline_finish.py:64
 msgid "Village"
 msgstr "Falu"
 
-#: utils/outline_finish.py:78
+#: utils/outline_finish.py:66
 msgid "does not exists"
 msgstr "nem létezik"
 
-#: utils/send_text.py:30
+#: utils/send_text.py:18
 msgid "Send FAKE NOBLE"
 msgstr "FAKE NEMES küldése"
 
-#: utils/send_text.py:31
+#: utils/send_text.py:19
 msgid "Send FAKE"
 msgstr "FAKE küldése"
 
-#: utils/send_text.py:32
+#: utils/send_text.py:20
 msgid "Send RUIN"
 msgstr "ROMBOLÁS küldése"
 

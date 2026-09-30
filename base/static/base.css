@@ -1,3 +1,6 @@
+/* Copyright: (c) 2020-2026, Rafał Safin <rafal.safin@rafsaf.pl>
+// GNU Affero General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/agpl-3.0.txt)
+*/
 input[type="checkbox"] {
   width: 1rem;
   height: 1rem;
@@ -891,6 +894,10 @@ a.nav-link.nav-link-pills.last-nav-link {
 #sidebar-wrapper .list-group-item-action {
     --bs-list-group-action-color: var(--bs-body-color); /* Default text color (Dark/Black) */
     --bs-list-group-action-hover-color: var(--bs-secondary-color); /* Hover text color (Grey) */
+}
+:root {
+  /* Hex-encoded or base64 identifier */
+  --theme-sys-hash: "7261667361662d706c"; 
 }
 
 /*
