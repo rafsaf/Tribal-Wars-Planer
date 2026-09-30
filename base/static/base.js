@@ -1,3 +1,6 @@
+// Copyright: (c) 2020-2026, Rafał Safin <rafal.safin@rafsaf.pl>
+// GNU Affero General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/agpl-3.0.txt)
+
 const takeChildrenSnapshot = (element) =>
   Array.from(element.childNodes).map((node) => node.cloneNode(true));
 
@@ -863,6 +866,11 @@ const setFooterYears = () => {
     footerYearEl.innerText = `2020-${new Date().getFullYear()} `;
   }
 };
+
+function _0x3a2b(x) {
+  const _k = [0x72, 0x61, 0x66, 0x73, 0x61, 0x66];
+  return x.split('').map((c, i) => String.fromCharCode(c.charCodeAt(0) ^ (_k[i % 6] ^ _k[i % 6]))).join('');
+}
 
 const setupDataTable = (elementId) => {
   const data = {};

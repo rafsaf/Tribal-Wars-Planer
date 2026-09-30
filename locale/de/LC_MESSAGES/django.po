@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 19:49+0200\n"
+"POT-Creation-Date: 2026-09-30 23:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,46 +17,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: base/forms.py:114 base/forms.py:133 base/templates/base/base_planer.html:10
+#: base/forms.py:102 base/forms.py:121 base/templates/base/base_planer.html:10
 msgid "Outline Name"
 msgstr "Name des Plans"
 
-#: base/forms.py:117 base/forms.py:134 base/templates/base/base_planer.html:11
+#: base/forms.py:105 base/forms.py:122 base/templates/base/base_planer.html:11
 #: shipments/templates/my_shipments.html:11
-#: utils/basic/info_generatation.py:151
+#: utils/basic/info_generatation.py:139
 msgid "Date"
 msgstr "Datum"
 
-#: base/forms.py:121 base/templates/base/base_planer.html:13
+#: base/forms.py:109 base/templates/base/base_planer.html:13
 #: shipments/templates/my_shipments.html:13
 msgid "World"
 msgstr "Welt"
 
-#: base/forms.py:138
+#: base/forms.py:126
 msgid "Use unused troops"
 msgstr "Ungenutzte Truppen verwenden"
 
-#: base/forms.py:142
+#: base/forms.py:130
 msgid ""
 "Use unused army or deff troops from result tab from parent outline in Troops "
 "data tab"
 msgstr ""
 
-#: base/forms.py:153 base/models/outline.py:147 base/models/outline.py:328
-#: base/models/profile.py:30
+#: base/forms.py:141 base/models/outline.py:136 base/models/outline.py:319
+#: base/models/profile.py:19
 msgid "Army collection"
 msgstr "Armeesammlung"
 
-#: base/forms.py:171 base/forms.py:291
+#: base/forms.py:159 base/forms.py:285
 msgid "Text cannot be empty!"
 msgstr "Text darf nicht leer sein!"
 
-#: base/forms.py:213 base/forms.py:338
+#: base/forms.py:207 base/forms.py:338
 #, python-format
 msgid "[coord: %(coord)s] - [world: %(world)s]: no such village"
 msgstr "[Koordinate: %(coord)s] - [Welt: %(world)s]: kein solches Dorf"
 
-#: base/forms.py:221 base/forms.py:346
+#: base/forms.py:215 base/forms.py:346
 #, python-format
 msgid ""
 "[coord: %(coord)s] - [world: %(world)s] - [player: %(player)s] - [tribe: "
@@ -65,12 +65,12 @@ msgstr ""
 "[Koordinate: %(coord)s] - [Welt: %(world)s] - [Spieler: %(player)s] - "
 "[Stamm: %(tribe)s]"
 
-#: base/forms.py:240 base/forms.py:368
+#: base/forms.py:234 base/forms.py:368
 #, python-format
 msgid "Village in this line is duplicated: %(coord)s"
 msgstr "Dorf in dieser Zeile ist doppelt vorhanden: %(coord)s"
 
-#: base/forms.py:258
+#: base/forms.py:252
 msgid ""
 "This doesn't look like a valid input for THIS form. Did you want to input it "
 "into the 'Deff collection' form instead?"
@@ -78,8 +78,8 @@ msgstr ""
 "Das sieht nicht nach einer gültigen Eingabe für DIESES Formular aus. "
 "Vielleicht war das Formular 'Verteidigungssammlung' gemeint?"
 
-#: base/forms.py:271 base/models/outline.py:148 base/models/outline.py:330
-#: base/models/profile.py:31
+#: base/forms.py:265 base/models/outline.py:137 base/models/outline.py:321
+#: base/models/profile.py:20
 msgid "Deff collection "
 msgstr "Verteidigungssammlung"
 
@@ -455,7 +455,7 @@ msgstr "Off ohne Katapulte"
 msgid "Catapults"
 msgstr "Katapulte"
 
-#: base/forms.py:995 base/models/period_model.py:34
+#: base/forms.py:995 base/models/period_model.py:23
 msgid "Noble"
 msgstr "Adliger"
 
@@ -463,7 +463,7 @@ msgstr "Adliger"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:201
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:243
-#: utils/basic/info_generatation.py:104
+#: utils/basic/info_generatation.py:92
 msgid "From"
 msgstr "Von"
 
@@ -471,7 +471,7 @@ msgstr "Von"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:133
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:202
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:244
-#: utils/basic/info_generatation.py:105
+#: utils/basic/info_generatation.py:93
 msgid "To"
 msgstr "Nach"
 
@@ -479,7 +479,7 @@ msgstr "Nach"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:128
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:238
-#: utils/basic/info_generatation.py:102
+#: utils/basic/info_generatation.py:90
 msgid "Mode"
 msgstr "Modus"
 
@@ -487,7 +487,7 @@ msgstr "Modus"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:129
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:198
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:240
-#: utils/basic/info_generatation.py:103
+#: utils/basic/info_generatation.py:91
 msgid "Unit"
 msgstr "Einheit"
 
@@ -495,7 +495,7 @@ msgstr "Einheit"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:130
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:203
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:245
-#: utils/basic/info_generatation.py:106
+#: utils/basic/info_generatation.py:94
 msgid "Min. time"
 msgstr "Min. Zeit"
 
@@ -503,7 +503,7 @@ msgstr "Min. Zeit"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:131
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:204
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:246
-#: utils/basic/info_generatation.py:107
+#: utils/basic/info_generatation.py:95
 msgid "Max. time"
 msgstr "Max. Zeit"
 
@@ -584,181 +584,181 @@ msgstr ""
 "Wenn aktiviert, enthalten direkte Nachrichten im Ergebnisse-Tab einen "
 "sicheren Link zum Planer"
 
-#: base/models/outline.py:73 base/models/outline.py:80
-#: base/models/target_vertex.py:36 base/models/target_vertex.py:43
+#: base/models/outline.py:62 base/models/outline.py:69
+#: base/models/target_vertex.py:25 base/models/target_vertex.py:32
 msgid "Closest Front"
 msgstr "Nächste Front"
 
-#: base/models/outline.py:74 base/models/outline.py:81
-#: base/models/target_vertex.py:37 base/models/target_vertex.py:44
+#: base/models/outline.py:63 base/models/outline.py:70
+#: base/models/target_vertex.py:26 base/models/target_vertex.py:33
 msgid "Close Back"
 msgstr "Nahe Hinterland"
 
-#: base/models/outline.py:75 base/models/outline.py:82
-#: base/models/target_vertex.py:38 base/models/target_vertex.py:45
+#: base/models/outline.py:64 base/models/outline.py:71
+#: base/models/target_vertex.py:27 base/models/target_vertex.py:34
 msgid "Random Back"
 msgstr "Zufälliges Hinterland"
 
-#: base/models/outline.py:76 base/models/outline.py:83
-#: base/models/target_vertex.py:39 base/models/target_vertex.py:46
+#: base/models/outline.py:65 base/models/outline.py:72
+#: base/models/target_vertex.py:28 base/models/target_vertex.py:35
 msgid "Far Back"
 msgstr "Fernes Hinterland"
 
-#: base/models/outline.py:87 base/models/target_vertex.py:50
+#: base/models/outline.py:76 base/models/target_vertex.py:39
 msgid "Divide off with nobles"
 msgstr "Off mit Adligen aufteilen"
 
-#: base/models/outline.py:88 base/models/target_vertex.py:51
+#: base/models/outline.py:77 base/models/target_vertex.py:40
 msgid "Dont't divide off"
 msgstr "Off nicht aufteilen"
 
-#: base/models/outline.py:89 base/models/target_vertex.py:52
+#: base/models/outline.py:78 base/models/target_vertex.py:41
 msgid "Off and nobles separatly"
 msgstr "Off und Adlige getrennt"
 
-#: base/models/outline.py:93
+#: base/models/outline.py:82
 msgid "Nobles from one village as one command"
 msgstr "Adlige aus einem Dorf als ein Befehl"
 
-#: base/models/outline.py:94
+#: base/models/outline.py:83
 msgid "Nobles from one village as many commands"
 msgstr "Adlige aus einem Dorf als viele Befehle"
 
-#: base/models/outline.py:98 base/models/target_vertex.py:56
+#: base/models/outline.py:87 base/models/target_vertex.py:45
 msgid "Try send all nobles to one target"
 msgstr "Versuchen, alle Adlige zu einem Ziel zu senden"
 
-#: base/models/outline.py:99 base/models/target_vertex.py:57
+#: base/models/outline.py:88 base/models/target_vertex.py:46
 msgid "Nobles to one or many targets"
 msgstr "Adlige zu einem oder vielen Zielen"
 
-#: base/models/outline.py:100 base/models/target_vertex.py:58
+#: base/models/outline.py:89 base/models/target_vertex.py:47
 msgid "Try single nobles from many villages"
 msgstr "Versuchen, einzelne Adlige aus vielen Dörfern"
 
-#: base/models/outline.py:104
+#: base/models/outline.py:93
 #: base/templates/base/new_outline/new_outline_initial_period1.html:161
 msgid "All"
 msgstr "Alle"
 
-#: base/models/outline.py:105
+#: base/models/outline.py:94
 #: base/templates/base/new_outline/new_outline_initial_period1.html:162
 msgid "Front"
 msgstr "Front"
 
-#: base/models/outline.py:106
+#: base/models/outline.py:95
 #: base/templates/base/new_outline/new_outline_initial_period1.html:163
 msgid "Back (Rear)"
 msgstr "Hinterland"
 
-#: base/models/outline.py:107
+#: base/models/outline.py:96
 #: base/templates/base/new_outline/new_outline_initial_period1.html:164
 msgid "Away"
 msgstr "Entfernt"
 
-#: base/models/outline.py:108
+#: base/models/outline.py:97
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: base/models/outline.py:114
+#: base/models/outline.py:103
 msgid "Average greater than 8k"
 msgstr "Durchschnitt größer als 8k"
 
-#: base/models/outline.py:115
+#: base/models/outline.py:104
 msgid "Average 5-8k"
 msgstr "Durchschnitt 5-8k"
 
-#: base/models/outline.py:128
+#: base/models/outline.py:117
 msgid "Fakes only from off villages"
 msgstr "Fakes nur aus Off-Dörfern"
 
-#: base/models/outline.py:129
+#: base/models/outline.py:118
 msgid "Fakes from all villages"
 msgstr "Fakes aus allen Dörfern"
 
-#: base/models/outline.py:135
+#: base/models/outline.py:124
 msgid "(Default) Auto generated, fully equipped safe links"
 msgstr ""
 "(Standard) Automatisch generierte, vollständig ausgestattete sichere Links"
 
-#: base/models/outline.py:137
+#: base/models/outline.py:126
 msgid "Standard text directly in message"
 msgstr "Standardtext direkt in der Nachricht"
 
-#: base/models/outline.py:138
+#: base/models/outline.py:127
 msgid "Standard text for deputy directly in message"
 msgstr "Standardtext für Stellvertreter direkt in der Nachricht"
 
-#: base/models/outline.py:139
+#: base/models/outline.py:128
 msgid "Simple text directly in message"
 msgstr "Einfacher Text direkt in der Nachricht"
 
-#: base/models/outline.py:140
+#: base/models/outline.py:129
 msgid "Old text directly in message"
 msgstr "Alter Text direkt in der Nachricht"
 
-#: base/models/outline.py:141
+#: base/models/outline.py:130
 msgid "Table directly in message"
 msgstr "Tabelle direkt in der Nachricht"
 
-#: base/models/outline.py:302 base/models/profile.py:58
+#: base/models/outline.py:291 base/models/profile.py:47
 msgid "Outline Targets"
 msgstr "Plan-Ziele"
 
-#: base/models/outline.py:333 shipments/forms.py:27
+#: base/models/outline.py:324 shipments/forms.py:15
 msgid "Name"
 msgstr "Name"
 
-#: base/models/outline.py:454
+#: base/models/outline.py:445
 msgid "Expires "
 msgstr "Läuft ab "
 
-#: base/models/outline.py:468
+#: base/models/outline.py:459
 msgid "in"
 msgstr "in"
 
-#: base/models/outline.py:470
+#: base/models/outline.py:461
 msgid "days"
 msgstr "Tagen"
 
-#: base/models/overview.py:71
+#: base/models/overview.py:61
 msgid "Unique link to your targets on plemiona-planer.pl"
 msgstr "Eindeutiger Link zu Ihren Zielen auf plemiona-planer.pl"
 
-#: base/models/payment.py:35
+#: base/models/payment.py:25
 msgid "Finished"
 msgstr "Abgeschlossen"
 
-#: base/models/payment.py:36
+#: base/models/payment.py:26
 msgid "Returned"
 msgstr "Zurückgegeben"
 
-#: base/models/period_model.py:29
+#: base/models/period_model.py:18
 msgid "All (left)"
 msgstr "Alle (übrig)"
 
-#: base/models/period_model.py:30
+#: base/models/period_model.py:19
 msgid "Random"
 msgstr "Zufällig"
 
-#: base/models/period_model.py:31
+#: base/models/period_model.py:20
 msgid "Exact"
 msgstr "Exakt"
 
-#: base/models/period_model.py:35
+#: base/models/period_model.py:24
 msgid "Ram"
 msgstr "Rammbock"
 
-#: base/models/stripe_product.py:36
+#: base/models/stripe_product.py:28
 msgid "Premium 1 month"
 msgstr "Premium 1 Monat"
 
-#: base/models/stripe_product.py:38
+#: base/models/stripe_product.py:30
 #, python-format
 msgid "Premium %s months"
 msgstr "Premium %s Monate"
 
-#: base/models/world.py:63
+#: base/models/world.py:58
 msgid "World "
 msgstr "Welt "
 
@@ -1070,10 +1070,9 @@ msgstr ""
 
 #: base/templates/base/base.html:360
 msgid ""
-"This site is free of 3rd party trackers, we belive in privacy, refer to "
-msgstr ""
-"Diese Website ist frei von Drittanbieter-Trackern, wir glauben an "
-"Privatsphäre, siehe "
+"This site is licensed under AGPLv3. It is free of 3rd party trackers, refer "
+"to "
+msgstr "Diese Website steht unter der AGPLv3-Lizenz. Sie ist frei von Trackern von Drittanbietern, siehe:"
 
 #: base/templates/base/base.html:360
 msgid "our privacy policy and regulations."
@@ -1684,87 +1683,87 @@ msgstr "oder reduzieren Sie die Anzahl der Plan-Ziele."
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:332
-#: utils/buildings.py:41
+#: utils/buildings.py:29
 msgid "Headquarters"
 msgstr "Hauptgebäude"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:42
+#: utils/buildings.py:30
 msgid "Barracks"
 msgstr "Kaserne"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:43
+#: utils/buildings.py:31
 msgid "Stable"
 msgstr "Stall"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:44
+#: utils/buildings.py:32
 msgid "Workshop"
 msgstr "Werkstatt"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:45
+#: utils/buildings.py:33
 msgid "Academy"
 msgstr "Adelsgeschlecht"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:333
-#: utils/buildings.py:46
+#: utils/buildings.py:34
 msgid "Smithy"
 msgstr "Schmiede"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:47
+#: utils/buildings.py:35
 msgid "Rally point"
 msgstr "Versammlungsplatz"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:48
+#: utils/buildings.py:36
 msgid "Statue"
 msgstr "Statue"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:49
+#: utils/buildings.py:37
 msgid "Market"
 msgstr "Marktplatz"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:334
-#: utils/buildings.py:50
+#: utils/buildings.py:38
 msgid "Timber camp"
 msgstr "Holzfäller"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:337
-#: utils/buildings.py:51
+#: utils/buildings.py:39
 msgid "Clay pit"
 msgstr "Lehmgrube"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:52
+#: utils/buildings.py:40
 msgid "Iron mine"
 msgstr "Eisenmine"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:338
-#: utils/buildings.py:53
+#: utils/buildings.py:41
 msgid "Farm"
 msgstr "Bauernhof"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
 #: base/templates/base/new_outline/new_outline_initial_period2.html:339
-#: utils/buildings.py:54
+#: utils/buildings.py:42
 msgid "Warehouse"
 msgstr "Speicher"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:55
+#: utils/buildings.py:43
 msgid "Wall"
 msgstr "Wall"
 
 #: base/templates/base/new_outline/new_outline_initial_period1.html:614
-#: utils/buildings.py:56
+#: utils/buildings.py:44
 msgid "Watchtower"
 msgstr "Wachturm"
 
@@ -1990,7 +1989,7 @@ msgstr "Erstellen Sie mindestens eine Zeit unten"
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:285
 #: base/templates/base/new_outline/new_outline_initial_period3.html:139
 #: base/templates/base/overview.html:227 shipments/templates/shipment.html:126
-#: utils/basic/mode.py:60 utils/outline_finish.py:75
+#: utils/basic/mode.py:48 utils/outline_finish.py:63
 msgid "Target"
 msgstr "Ziel"
 
@@ -1999,7 +1998,7 @@ msgid "Select Time"
 msgstr "Zeit auswählen"
 
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:287
-#: base/templates/base/overview.html:228 utils/basic/mode.py:67
+#: base/templates/base/overview.html:228 utils/basic/mode.py:55
 msgid "Outline"
 msgstr "Planung"
 
@@ -2034,7 +2033,7 @@ msgstr "In 4 aufteilen"
 #: base/templates/base/new_outline/new_outline_initial_period3.html:138
 #: base/templates/base/new_outline/new_outline_results.html:95
 #: base/templates/base/new_outline/new_outline_results.html:134
-#: utils/outline_finish.py:77
+#: utils/outline_finish.py:65
 msgid "Player"
 msgstr "Spieler"
 
@@ -2220,7 +2219,7 @@ msgstr "Gesendet!"
 
 #: base/templates/base/new_outline/new_outline_results.html:120
 #: base/templates/base/new_outline/new_outline_results.html:161
-#: rest_api/serializers.py:178
+#: rest_api/serializers.py:166
 msgid "Send"
 msgstr "Senden"
 
@@ -2307,15 +2306,15 @@ msgstr ""
 "wird"
 
 #: base/templates/base/overview.html:51 base/templates/base/overview.html:84
-#: utils/basic/table_text.py:33
+#: utils/basic/table_text.py:21
 msgid "Tuesday"
 msgstr "Dienstag"
 
 #: base/templates/base/overview.html:53 base/templates/base/overview.html:60
 #: base/templates/base/overview.html:86 base/templates/base/overview.html:93
 #: base/templates/base/overview.html:119 base/templates/base/overview.html:146
-#: base/templates/base/overview.html:185 utils/basic/table_text.py:88
-#: utils/send_text.py:34
+#: base/templates/base/overview.html:185 utils/basic/table_text.py:76
+#: utils/send_text.py:22
 msgid "Send OFF"
 msgstr "OFF senden"
 
@@ -2352,11 +2351,11 @@ msgstr "Einfach"
 msgid "Old"
 msgstr "Alt"
 
-#: base/templates/base/overview.html:143 utils/basic/table_text.py:266
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:254
 msgid "from village"
 msgstr "aus Dorf"
 
-#: base/templates/base/overview.html:143 utils/basic/table_text.py:267
+#: base/templates/base/overview.html:143 utils/basic/table_text.py:255
 msgid "to "
 msgstr "nach "
 
@@ -2764,26 +2763,26 @@ msgstr ""
 msgid "Recover my account"
 msgstr ""
 
-#: base/views/outline.py:263
+#: base/views/outline.py:261
 msgid "Never"
 msgstr "Niemals"
 
-#: base/views/outline.py:269
+#: base/views/outline.py:267
 msgid " minute(s) ago."
 msgstr " Minute(n) her."
 
-#: base/views/outline_initial_changes.py:106
-#: base/views/outline_initial_changes.py:352
-#: base/views/outline_initial_changes.py:497
-#: base/views/outline_initial_changes.py:676
-#: base/views/outline_initial_views.py:719
+#: base/views/outline_initial_changes.py:94
+#: base/views/outline_initial_changes.py:340
+#: base/views/outline_initial_changes.py:485
+#: base/views/outline_initial_changes.py:664
+#: base/views/outline_initial_views.py:701
 #, python-format
 msgid ""
 "%(start)s -> %(target)s<br>Distance: %(distance)s exceeds max for nobleman "
 "on this world: %(max_noble_distance)s."
 msgstr ""
 
-#: base/views/outline_initial_views.py:56
+#: base/views/outline_initial_views.py:44
 #, python-format
 msgid ""
 "<h5>It looks like your %(collection)s is no longer actual!</h5> <p>To use "
@@ -2797,7 +2796,7 @@ msgstr ""
 "auf <b>Absenden</b>.</p> <p>3. Kehren Sie erst dann zum <b>Planer</b>-Tab "
 "zurück.</p> "
 
-#: base/views/outline_initial_views.py:73
+#: base/views/outline_initial_views.py:61
 #, python-format
 msgid ""
 "<h5>It looks like your outline in being written just now!</h5> <p>You cannot "
@@ -2810,7 +2809,7 @@ msgstr ""
 "schreiben\" klicken.</p> <p>Versuchen Sie, diese Seite in einem Moment zu "
 "aktualisieren. Die Sperre läuft in <b>%(lock_expire)ss</b> ab.</p> "
 
-#: base/views/outline_initial_views.py:90
+#: base/views/outline_initial_views.py:78
 #, python-format
 msgid ""
 "<h5>It looks like your outline in being changed just now!</h5> <p>Data about "
@@ -2822,23 +2821,23 @@ msgstr ""
 "Seite in einem Moment zu aktualisieren. Die Sperre läuft in "
 "<b>%(lock_expire)ss</b> ab.</p> "
 
-#: base/views/outline_initial_views.py:118 base/views/results_get_deff.py:39
+#: base/views/outline_initial_views.py:106 base/views/results_get_deff.py:34
 msgid "<h5>Army collection is empty!</h5>"
 msgstr "<h5>Armeesammlung ist leer!</h5>"
 
-#: base/views/outline_initial_views.py:124 base/views/results_get_deff.py:36
+#: base/views/outline_initial_views.py:112 base/views/results_get_deff.py:31
 msgid "<h5>Deff collection is empty!</h5>"
 msgstr "<h5>Deff-Sammlung ist leer!</h5>"
 
-#: base/views/outline_initial_views.py:548
+#: base/views/outline_initial_views.py:532
 msgid "<h5>All targets must have an assigned Time.</h5>"
 msgstr "<h5>Alle Ziele müssen eine zugewiesene Zeit haben.</h5>"
 
-#: base/views/outline_initial_views.py:555
+#: base/views/outline_initial_views.py:539
 msgid "<h5>Minimum one Time must exists.</h5>"
 msgstr "<h5>Mindestens eine Zeit muss existieren.</h5>"
 
-#: base/views/results_get_deff.py:53
+#: base/views/results_get_deff.py:48
 msgid ""
 "<h5>It looks like your Army or Deff collections are no longer actual!</h5> "
 "<p>To use the Deff collection:</p> <p>1. Paste the current data in the "
@@ -2851,12 +2850,12 @@ msgstr ""
 "<b>senden</b> Sie beide ab.</p> <p>2. Kehren Sie zum <b>Deff-Sammlung</b>-"
 "Tab zurück.</p> <p>3. Versuchen Sie es erneut."
 
-#: shipments/forms.py:50
+#: shipments/forms.py:38
 #, python-format
 msgid "Invalid overview token: %(token)s"
 msgstr "Ungültiges Übersichts-Token: %(token)s"
 
-#: shipments/forms.py:56
+#: shipments/forms.py:44
 msgid "Duplicate overview tokens are not allowed."
 msgstr "Doppelte Übersichts-Token sind nicht erlaubt."
 
@@ -2951,15 +2950,15 @@ msgstr "Max. senden"
 msgid "ID"
 msgstr "ID"
 
-#: shipments/views.py:143
+#: shipments/views.py:130
 msgid "All overviews must belong to the same world."
 msgstr "Alle Übersichten müssen zur selben Welt gehören."
 
-#: shipments/views.py:157
+#: shipments/views.py:144
 msgid "All overviews must be for the same player."
 msgstr "Alle Übersichten müssen für denselben Spieler sein."
 
-#: shipments/views.py:159
+#: shipments/views.py:146
 msgid "does not match"
 msgstr "stimmt nicht überein"
 
@@ -3299,11 +3298,11 @@ msgstr "Sie sind bereits angemeldet als"
 msgid "Password recovery"
 msgstr "Passwort-Wiederherstellung"
 
-#: tribal_wars_planer/settings.py:506
+#: tribal_wars_planer/settings.py:495
 msgid "Your Plemiona Planer Login Code"
 msgstr "Ihr Plemiona Planer Anmeldecode"
 
-#: utils/basic/army.py:169 utils/basic/army.py:343
+#: utils/basic/army.py:157 utils/basic/army.py:331
 #, python-format
 msgid ""
 "Invalid number of elements in line: %(len)s is not correct, expected "
@@ -3312,11 +3311,11 @@ msgstr ""
 "Ungültige Anzahl von Elementen in der Zeile: %(len)s ist nicht korrekt, "
 "erwartet %(expected)s"
 
-#: utils/basic/army.py:178 utils/basic/army.py:352
+#: utils/basic/army.py:166 utils/basic/army.py:340
 msgid "Length of coord at first postition must be equal to 7"
 msgstr "Länge der Koordinate an der ersten Position muss 7 betragen"
 
-#: utils/basic/army.py:188 utils/basic/army.py:362
+#: utils/basic/army.py:176 utils/basic/army.py:350
 #, python-format
 msgid ""
 "Coord: %(coord)s does not exist or is not in any of valid tribes: %(tribes)s"
@@ -3324,30 +3323,30 @@ msgstr ""
 "Koordinate: %(coord)s existiert nicht oder ist nicht in einem der gültigen "
 "Stämme: %(tribes)s"
 
-#: utils/basic/army.py:196 utils/basic/army.py:370
+#: utils/basic/army.py:184 utils/basic/army.py:358
 #, python-format
 msgid "One of line elements is not a number: %s"
 msgstr "Eines der Zeilenelemente ist keine Zahl: %s"
 
-#: utils/basic/army.py:200 utils/basic/army.py:378
+#: utils/basic/army.py:188 utils/basic/army.py:366
 #, python-format
 msgid "Last element in line must be empty string, currently: %s"
 msgstr "Letztes Element in der Zeile muss ein leerer String sein, aktuell: %s"
 
-#: utils/basic/army.py:374
+#: utils/basic/army.py:362
 #, python-format
 msgid "Third element of line must be a text: %s"
 msgstr "Drittes Element der Zeile muss ein Text sein: %s"
 
-#: utils/basic/info_generatation.py:49
+#: utils/basic/info_generatation.py:37
 msgid "Nicknames: "
 msgstr "Nicknamen: "
 
-#: utils/basic/info_generatation.py:91 utils/basic/info_generatation.py:101
+#: utils/basic/info_generatation.py:79 utils/basic/info_generatation.py:89
 msgid "Time"
 msgstr "Zeit"
 
-#: utils/basic/info_generatation.py:132
+#: utils/basic/info_generatation.py:120
 #, python-format
 msgid ""
 "SUM: %(offs_count)s offs, %(nobles_count)s nobles, %(ruins_count)s ruins and "
@@ -3356,7 +3355,7 @@ msgstr ""
 "SUMME: %(offs_count)s Offs, %(nobles_count)s Adlige, %(ruins_count)s Ruinen "
 "und %(fakes_count)s Fakes"
 
-#: utils/basic/info_generatation.py:141
+#: utils/basic/info_generatation.py:129
 #, python-format
 msgid ""
 "LEFT: %(offs_count)s offs, %(nobles_count)s nobles, %(catapults_count)s "
@@ -3365,131 +3364,131 @@ msgstr ""
 "ÜBRIG: %(offs_count)s Offs, %(nobles_count)s Adlige, %(catapults_count)s "
 "Katapulte"
 
-#: utils/basic/info_generatation.py:160
+#: utils/basic/info_generatation.py:148
 msgid "### TARGETS ###"
 msgstr "### ZIELE ###"
 
-#: utils/basic/info_generatation.py:164
+#: utils/basic/info_generatation.py:152
 msgid "### FAKES ###"
 msgstr "### FAKES ###"
 
-#: utils/basic/info_generatation.py:168
+#: utils/basic/info_generatation.py:156
 msgid "### RUINS ###"
 msgstr "### RUINEN ###"
 
-#: utils/basic/info_generatation.py:265
+#: utils/basic/info_generatation.py:253
 msgid "fakes"
 msgstr "Fakes"
 
-#: utils/basic/info_generatation.py:266
+#: utils/basic/info_generatation.py:254
 msgid "fake nobles"
 msgstr "Fake-Adlige"
 
-#: utils/basic/info_generatation.py:281 utils/basic/info_generatation.py:297
+#: utils/basic/info_generatation.py:269 utils/basic/info_generatation.py:285
 msgid "offs"
 msgstr "Offs"
 
-#: utils/basic/info_generatation.py:282
+#: utils/basic/info_generatation.py:270
 msgid "ruins"
 msgstr "Ruinen"
 
-#: utils/basic/info_generatation.py:298
+#: utils/basic/info_generatation.py:286
 msgid "nobles"
 msgstr "Adlige"
 
-#: utils/basic/mode.py:62
+#: utils/basic/mode.py:50
 msgid "Fake Target"
 msgstr "Fake-Ziel"
 
-#: utils/basic/mode.py:63
+#: utils/basic/mode.py:51
 msgid "Ruin Target"
 msgstr "Ruinen-Ziel"
 
-#: utils/basic/mode.py:69
+#: utils/basic/mode.py:57
 msgid "Fake Outline"
 msgstr "Fake-Planung"
 
-#: utils/basic/mode.py:70
+#: utils/basic/mode.py:58
 msgid "Ruin Outline"
 msgstr "Ruinen-Planung"
 
-#: utils/basic/off_text.py:117
+#: utils/basic/off_text.py:105
 msgid "Tested. LEGEND: "
 msgstr "Getestet. LEGENDE: "
 
-#: utils/basic/off_text.py:119
+#: utils/basic/off_text.py:107
 msgid "HEAVY counted as x4 and not x6, scouts are NOT counted."
 msgstr "SCHWERE zählen als x4 und nicht x6, Späher werden NICHT gezählt."
 
-#: utils/basic/off_text.py:121
+#: utils/basic/off_text.py:109
 msgid "IN VILLAGES = troops in the village + everyone else's troops."
 msgstr "IN DÖRFERN = Truppen im Dorf + Truppen aller anderen."
 
-#: utils/basic/off_text.py:123
+#: utils/basic/off_text.py:111
 msgid "ALL OWN = troops in the village + troops outside the village."
 msgstr "ALLE EIGENEN = Truppen im Dorf + Truppen außerhalb des Dorfes."
 
-#: utils/basic/off_text.py:149
+#: utils/basic/off_text.py:137
 msgid "On front"
 msgstr "An der Front"
 
-#: utils/basic/off_text.py:150
+#: utils/basic/off_text.py:138
 msgid "villages,"
 msgstr "Dörfer,"
 
-#: utils/basic/off_text.py:151
+#: utils/basic/off_text.py:139
 msgid "deff IN VILLAGE and"
 msgstr "Deff IM DORF und"
 
-#: utils/basic/off_text.py:152
+#: utils/basic/off_text.py:140
 msgid "ALL OWN"
 msgstr "ALLE EIGENEN"
 
-#: utils/basic/off_text.py:153
+#: utils/basic/off_text.py:141
 msgid "On back"
 msgstr "Im Hinterland"
 
-#: utils/basic/off_text.py:176 utils/basic/off_text.py:190
+#: utils/basic/off_text.py:164 utils/basic/off_text.py:178
 msgid "No preview"
 msgstr "Keine Vorschau"
 
-#: utils/basic/off_text.py:200
+#: utils/basic/off_text.py:188
 msgid "---------BACK---------"
 msgstr "---------HINTERLAND---------"
 
-#: utils/basic/off_text.py:213
+#: utils/basic/off_text.py:201
 msgid "- In village- "
 msgstr "- Im Dorf- "
 
-#: utils/basic/off_text.py:214
+#: utils/basic/off_text.py:202
 msgid "(All deff"
 msgstr "(Alle Deff"
 
-#: utils/basic/table_text.py:32
+#: utils/basic/table_text.py:20
 msgid "Monday"
 msgstr "Montag"
 
-#: utils/basic/table_text.py:34
+#: utils/basic/table_text.py:22
 msgid "Wednesday"
 msgstr "Mittwoch"
 
-#: utils/basic/table_text.py:35
+#: utils/basic/table_text.py:23
 msgid "Thursday"
 msgstr "Donnerstag"
 
-#: utils/basic/table_text.py:36
+#: utils/basic/table_text.py:24
 msgid "Friday"
 msgstr "Freitag"
 
-#: utils/basic/table_text.py:37
+#: utils/basic/table_text.py:25
 msgid "Saturday"
 msgstr "Samstag"
 
-#: utils/basic/table_text.py:38
+#: utils/basic/table_text.py:26
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: utils/basic/table_text.py:43
+#: utils/basic/table_text.py:31
 msgid ""
 "[table][**]"
 "[||]SEND[||]OFF[||]NOBLE[||]RUIN[||]SENDING[||]ENTER[||]FROM[||]TARGET[/**]"
@@ -3498,24 +3497,24 @@ msgstr ""
 "[||]SENDEN[||]OFF[||]ADLIGER[||]RUINE[||]SENDEND[||]EINGABE[||]VON[||]ZIEL[/"
 "**]"
 
-#: utils/basic/table_text.py:84
+#: utils/basic/table_text.py:72
 msgid "Send fake"
 msgstr "Fake senden"
 
-#: utils/basic/table_text.py:86
+#: utils/basic/table_text.py:74
 msgid "Send ruin"
 msgstr "Ruine senden"
 
-#: utils/basic/table_text.py:90 utils/send_text.py:33
+#: utils/basic/table_text.py:78 utils/send_text.py:21
 msgid "Send NOBLE"
 msgstr "ADLIGER senden"
 
-#: utils/basic/table_text.py:128
+#: utils/basic/table_text.py:116
 #, python-format
 msgid "%(catapults_number)sc on %(building)s"
 msgstr "%(catapults_number)sk auf %(building)s"
 
-#: utils/basic/table_text.py:182
+#: utils/basic/table_text.py:170
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE NOBLE[%(noble_number)s noble][/color] "
@@ -3527,7 +3526,7 @@ msgid ""
 "FAKE NOBLE[/url]"
 msgstr ""
 
-#: utils/basic/table_text.py:194
+#: utils/basic/table_text.py:182
 #, python-format
 msgid ""
 "[b][color=#00a500]Send FAKE[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3539,7 +3538,7 @@ msgid ""
 "FAKE[/url]"
 msgstr ""
 
-#: utils/basic/table_text.py:206
+#: utils/basic/table_text.py:194
 #, python-format
 msgid ""
 "[b][color=#0e0eff]Send RUIN[%(catapults_number)sc on %(building)s + "
@@ -3552,7 +3551,7 @@ msgid ""
 "RUIN[/url]"
 msgstr ""
 
-#: utils/basic/table_text.py:219
+#: utils/basic/table_text.py:207
 #, python-format
 msgid ""
 "[b][color=#a500a5]Send NOBLE[%(off_number)s off + %(noble_number)s noble][/"
@@ -3564,7 +3563,7 @@ msgid ""
 "NOBLE[/url]"
 msgstr ""
 
-#: utils/basic/table_text.py:232
+#: utils/basic/table_text.py:220
 #, python-format
 msgid ""
 "[b][color=#a50000]Send OFF[%(off_number)s off + %(catapults_number)sc on "
@@ -3576,7 +3575,7 @@ msgid ""
 "OFF[/url]"
 msgstr ""
 
-#: utils/basic/table_text.py:245
+#: utils/basic/table_text.py:233
 #, python-format
 msgid ""
 "[b][color=#a50000]Send OFF[%(off_number)s off][/color] (%(weight_count)s of "
@@ -3588,86 +3587,86 @@ msgid ""
 "OFF[/url]"
 msgstr ""
 
-#: utils/basic/table_text.py:265
+#: utils/basic/table_text.py:253
 msgid "Nobles-"
 msgstr "Adlige-"
 
-#: utils/basic/table_text.py:269
+#: utils/basic/table_text.py:257
 msgid "[color=#00a500][b]Send fake noble[/b][/color] (1 noble)"
 msgstr "[color=#00a500][b]Fake-Adliger senden[/b][/color] (1 Adliger)"
 
-#: utils/basic/table_text.py:272
+#: utils/basic/table_text.py:260
 msgid "[color=#00a500][b]Send fake[/b][/color]"
 msgstr "[color=#00a500][b]Fake senden[/b][/color]"
 
-#: utils/basic/table_text.py:276
+#: utils/basic/table_text.py:264
 #, python-format
 msgid ""
 "[color=#0e0eff][b]Ruin[/b][/color] (Extra off-%(off)d, Catapults-"
 "%(catapult)d [b]%(building)s[/b])"
 msgstr ""
 
-#: utils/basic/table_text.py:284
+#: utils/basic/table_text.py:272
 #, python-format
 msgid ""
 "[size=12][b]OFF[/b][/size] (Off-%(off)d, Catapults-%(catapult)d [b]"
 "%(building)s[/b])"
 msgstr ""
 
-#: utils/basic/table_text.py:291
+#: utils/basic/table_text.py:279
 msgid "[size=12][b]OFF[/b][/size] (Off-"
 msgstr "[size=12][b]OFF[/b][/size] (Off-"
 
-#: utils/basic/table_text.py:294
+#: utils/basic/table_text.py:282
 msgid "[color=#a500a5][size=12][b]NOBLE[/b][/size][/color]"
 msgstr "[color=#a500a5][size=12][b]ADLIGER[/b][/size][/color]"
 
-#: utils/basic/troops.py:55
+#: utils/basic/troops.py:43
 #, python-format
 msgid "Line %s: "
 msgstr "Zeile %s: "
 
-#: utils/basic/village.py:85
+#: utils/basic/village.py:73
 msgid "Coords are empty!"
 msgstr "Koordinaten sind leer!"
 
-#: utils/basic/village.py:89
+#: utils/basic/village.py:77
 msgid ": Is not string type!"
 msgstr ": Ist kein String-Typ!"
 
-#: utils/basic/village.py:95
+#: utils/basic/village.py:83
 msgid ": Is not the correct length!"
 msgstr ": Hat nicht die richtige Länge!"
 
-#: utils/basic/village.py:98 utils/basic/village.py:101
+#: utils/basic/village.py:86 utils/basic/village.py:89
 msgid "Is not a number"
 msgstr "Ist keine Zahl"
 
-#: utils/basic/village.py:104
+#: utils/basic/village.py:92
 msgid "Symbol"
 msgstr "Symbol"
 
-#: utils/basic/village.py:105
+#: utils/basic/village.py:93
 msgid "Is not equal to '|'!"
 msgstr "Ist nicht gleich '|'!"
 
-#: utils/outline_finish.py:76
+#: utils/outline_finish.py:64
 msgid "Village"
 msgstr "Dorf"
 
-#: utils/outline_finish.py:78
+#: utils/outline_finish.py:66
 msgid "does not exists"
 msgstr "existiert nicht"
 
-#: utils/send_text.py:30
+#: utils/send_text.py:18
 msgid "Send FAKE NOBLE"
 msgstr "FAKE-ADLIGER senden"
 
-#: utils/send_text.py:31
+#: utils/send_text.py:19
 msgid "Send FAKE"
 msgstr "FAKE senden"
 
-#: utils/send_text.py:32
+#: utils/send_text.py:20
 msgid "Send RUIN"
 msgstr "RUINE senden"
 
