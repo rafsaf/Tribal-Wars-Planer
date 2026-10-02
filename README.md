@@ -15,11 +15,19 @@ Stage environment: [stg.plemiona-planer.pl](https://stg.plemiona-planer.pl)
 
 Test coverage ~85%, see [Codecov raport](https://app.codecov.io/gh/rafsaf/Tribal-Wars-Planer)
 
+# License Change Notice
+
+As of commit `fded1b11afcc54a1a7b5268edc8500d8dc0b22de` (Date: 2026-09-30), this project is licensed under the
+**GNU Affero General Public License v3.0 (AGPL-3.0-only)**.
+
+Previous commits prior to this date remain available under the Apache 2.0 License.
+
 # Table of contents
 
 - [Official Site and Discord](#official-site-and-discord)
     - [Discord channel: discord.gg/g5pcsCteCT](#discord-channel-discordggg5pcsctect)
     - [Production server: plemiona-planer.pl](#production-server-plemiona-planerpl)
+- [License Change Notice](#license-change-notice)
 - [Table of contents](#table-of-contents)
 - [Development](#development)
 - [Dockerfile reference](#dockerfile-reference)
