@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-30 23:04+0200\n"
+"POT-Creation-Date: 2026-10-03 17:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 "Használja a fel nem használt támadó- vagy védekező sereget a szülő terv "
 "eredmény lapjáról a Csapatok adat lapon"
 
-#: base/forms.py:141 base/models/outline.py:136 base/models/outline.py:319
+#: base/forms.py:141 base/models/outline.py:131 base/models/outline.py:309
 #: base/models/profile.py:19
 msgid "Army collection"
 msgstr "Csapatösszesítő"
@@ -80,7 +80,7 @@ msgstr ""
 "Ez nem tűnik érvényes adatnak EHHEZ az űrlaphoz. Talán a 'Védelem összesítő' "
 "űrlapra gondoltál?"
 
-#: base/forms.py:265 base/models/outline.py:137 base/models/outline.py:321
+#: base/forms.py:265 base/models/outline.py:132 base/models/outline.py:311
 #: base/models/profile.py:20
 msgid "Deff collection "
 msgstr "Védelem összesítő "
@@ -228,11 +228,11 @@ msgstr "Üzenet címe:"
 msgid "Content of message:"
 msgstr "Üzenet tartalma:"
 
-#: base/forms.py:634 base/forms.py:1287
+#: base/forms.py:634 base/forms.py:1277
 msgid "Sending Options:"
 msgstr "Küldési opciók:"
 
-#: base/forms.py:635 base/forms.py:1288
+#: base/forms.py:635 base/forms.py:1278
 msgid "Add links to direct messages:"
 msgstr "Linkek hozzáadása a közvetlen üzenetekhez:"
 
@@ -396,23 +396,27 @@ msgstr ""
 "csapatokat pazarolni a fake nemesekre, de vannak esetek, amikor ennek van "
 "értelme."
 
-#: base/forms.py:840
-msgid "MIN number of catapults in one ruin attack:"
-msgstr "MIN katapultok száma egy romboló támadásban:"
+#: base/forms.py:838
+msgid "Minimum number of catapults in one ruin attack:"
+msgstr "Katapultok minimális száma egy rom elleni támadásban:"
 
-#: base/forms.py:843
-msgid "MAX number of catapults in one ruin attack:"
-msgstr "MAX katapultok száma egy romboló támadásban:"
-
-#: base/forms.py:846
-msgid "How many points on average do demolished targets have:"
-msgstr "Átlagosan hány pontjuk van a lerombolt célpontoknak:"
-
-#: base/forms.py:849
+#: base/forms.py:841
 msgid "Minimum off units for every ruin attack:"
 msgstr "Minimális támadó egységek minden romboló támadáshoz:"
 
-#: base/forms.py:854
+#: base/forms.py:852
+#, python-format
+msgid ""
+"Defaults to %(default)s (between %(min)s-%(max)s). Minimum catapults that "
+"will be required for every attack. Note: Maximum is not needed, because "
+"current algorithm supports any number of catapults."
+msgstr ""
+"Alapértelmezetten %(default)s (%(min)s és %(max)s között). Az egyes "
+"támadásokhoz szükséges katapultok minimális száma. Megjegyzés: A maximális "
+"számra nincs szükség, mivel a jelenlegi algoritmus tetszőleges számú "
+"katapultot támogat."
+
+#: base/forms.py:860
 #, python-format
 msgid ""
 "Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that "
@@ -422,48 +426,48 @@ msgstr ""
 "támadósereg egységek, amelyeket minden romboló támadáshoz hozzáadnak. Ha 0, "
 "az azt jelenti, hogy csak katapultokat küldenek."
 
-#: base/forms.py:886
+#: base/forms.py:876
 msgid "Only attackers ABOVE this morale value can be used:"
 msgstr "Csak e feletti morál értékkel rendelkező támadók használhatók:"
 
-#: base/forms.py:888
+#: base/forms.py:878
 msgid "Is morale calculation active in this outline:"
 msgstr "Aktív-e a morál számítás ebben a tervben:"
 
-#: base/forms.py:933
+#: base/forms.py:923
 msgid "Choose whether to avoid the night bonus"
 msgstr "Válassza ki, hogy elkerüli-e az éjszakai bónuszt"
 
-#: base/forms.py:939
+#: base/forms.py:929
 msgid "Approximate hours of entry"
 msgstr "Hozzávetőleges érkezési órák"
 
-#: base/forms.py:946
+#: base/forms.py:936
 msgid "Approximate hours of the last entry"
 msgstr "Utolsó érkezés hozzávetőleges órái"
 
-#: base/forms.py:966
+#: base/forms.py:956
 msgid "First value must be less or equal to second!"
 msgstr "Az első értéknek kisebbnek vagy egyenlőnek kell lennie a másodiknál!"
 
-#: base/forms.py:977
+#: base/forms.py:967
 msgid "Sum of off"
 msgstr "Támadósereg összege"
 
-#: base/forms.py:983
+#: base/forms.py:973
 msgid "Off without catapults"
 msgstr "Támadósereg katapultok nélkül"
 
-#: base/forms.py:989
+#: base/forms.py:979
 #: base/templates/base/new_outline/new_outline_initial_period1.html:191
 msgid "Catapults"
 msgstr "Katapultok"
 
-#: base/forms.py:995 base/models/period_model.py:23
+#: base/forms.py:985 base/models/period_model.py:23
 msgid "Noble"
 msgstr "Nemes"
 
-#: base/forms.py:1005 base/forms.py:1023
+#: base/forms.py:995 base/forms.py:1013
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:201
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:243
@@ -471,7 +475,7 @@ msgstr "Nemes"
 msgid "From"
 msgstr "Innen"
 
-#: base/forms.py:1008 base/forms.py:1024
+#: base/forms.py:998 base/forms.py:1014
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:133
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:202
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:244
@@ -479,7 +483,7 @@ msgstr "Innen"
 msgid "To"
 msgstr "Ide"
 
-#: base/forms.py:1022
+#: base/forms.py:1012
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:128
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:238
@@ -487,7 +491,7 @@ msgstr "Ide"
 msgid "Mode"
 msgstr "Mód"
 
-#: base/forms.py:1025
+#: base/forms.py:1015
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:129
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:198
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:240
@@ -495,7 +499,7 @@ msgstr "Mód"
 msgid "Unit"
 msgstr "Egység"
 
-#: base/forms.py:1026
+#: base/forms.py:1016
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:130
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:203
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:245
@@ -503,7 +507,7 @@ msgstr "Egység"
 msgid "Min. time"
 msgstr "Min. idő"
 
-#: base/forms.py:1027
+#: base/forms.py:1017
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:131
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:204
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:246
@@ -511,25 +515,25 @@ msgstr "Min. idő"
 msgid "Max. time"
 msgstr "Max. idő"
 
-#: base/forms.py:1111 base/forms.py:1121
+#: base/forms.py:1101 base/forms.py:1111
 msgid "Mode All can be used only once per unit"
 msgstr "Az Összes mód csak egyszer használható egységenként"
 
-#: base/forms.py:1129
+#: base/forms.py:1119
 msgid "Mode All must be used at least once for noble and for off."
 msgstr ""
 "Az Összes módot legalább egyszer használni kell a nemeshez és a "
 "támadósereghez is."
 
-#: base/forms.py:1169
+#: base/forms.py:1159
 msgid "You need a premium account to add more targets here."
 msgstr "Prémium fiókra van szüksége, hogy több célpontot adjon hozzá itt."
 
-#: base/forms.py:1179
+#: base/forms.py:1169
 msgid "Village with that coords did not found."
 msgstr "Nem található falu ezekkel a koordinátákkal."
 
-#: base/forms.py:1186
+#: base/forms.py:1176
 msgid ""
 "Found more than one village in database, this is the bug. Write me: "
 "<rafal.safin@rafsaf.pl>"
@@ -537,52 +541,52 @@ msgstr ""
 "Több mint egy falut találtam az adatbázisban, ez egy hiba. Írjon nekem: "
 "<rafal.safin@rafsaf.pl>"
 
-#: base/forms.py:1200
+#: base/forms.py:1190
 msgid "Choose server"
 msgstr "Válasszon szervert"
 
-#: base/forms.py:1201
+#: base/forms.py:1191
 msgid "World prefix"
 msgstr "Világ előtag"
 
-#: base/forms.py:1212
+#: base/forms.py:1202
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr ""
 "Nem megengedett szimbólumok az utótag mezőben! Biztos benne, hogy érvényes?"
 
-#: base/forms.py:1232
+#: base/forms.py:1222
 msgid "World is already added!"
 msgstr "A világ már hozzá van adva!"
 
-#: base/forms.py:1240 base/forms.py:1251
+#: base/forms.py:1230 base/forms.py:1241
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Kapcsolati hiba, a világ nem létezik vagy archiválva van!"
 
-#: base/forms.py:1264 base/forms.py:1281
+#: base/forms.py:1254 base/forms.py:1271
 msgid "Please select your server:"
 msgstr "Kérjük, válassza ki a szerverét:"
 
-#: base/forms.py:1283
+#: base/forms.py:1273
 msgid "Turn on morale calculations in every outline by default:"
 msgstr "Morál számítások bekapcsolása minden tervben alapértelmezés szerint:"
 
-#: base/forms.py:1285
+#: base/forms.py:1275
 msgid "Default input type for planer"
 msgstr "Alapértelmezett bemeneti típus a tervezőhöz"
 
-#: base/forms.py:1286
+#: base/forms.py:1276
 msgid "Please select your currency:"
 msgstr "Kérjük, válassza ki a pénznemét:"
 
-#: base/forms.py:1289
+#: base/forms.py:1279
 msgid "Enable shipments feature:"
 msgstr "Szállítmányok funkció engedélyezése:"
 
-#: base/forms.py:1292
+#: base/forms.py:1282
 msgid "Prefered sending option in Results tab"
 msgstr "Előnyben részesített küldési opció az Eredmények lapon"
 
-#: base/forms.py:1294
+#: base/forms.py:1284
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
@@ -665,65 +669,57 @@ msgstr "Távol"
 msgid "Hidden"
 msgstr "Rejtett"
 
-#: base/models/outline.py:103
-msgid "Average greater than 8k"
-msgstr "Átlag nagyobb mint 8k"
-
-#: base/models/outline.py:104
-msgid "Average 5-8k"
-msgstr "Átlag 5-8k"
-
-#: base/models/outline.py:117
+#: base/models/outline.py:112
 msgid "Fakes only from off villages"
 msgstr "Fake-ek csak támadósereg falvakból"
 
-#: base/models/outline.py:118
+#: base/models/outline.py:113
 msgid "Fakes from all villages"
 msgstr "Fake-ek minden faluból"
 
-#: base/models/outline.py:124
+#: base/models/outline.py:119
 msgid "(Default) Auto generated, fully equipped safe links"
 msgstr ""
 "(Alapértelmezett) Automatikusan generált, teljesen felszerelt biztonságos "
 "linkek"
 
-#: base/models/outline.py:126
+#: base/models/outline.py:121
 msgid "Standard text directly in message"
 msgstr "Standard szöveg közvetlenül az üzenetben"
 
-#: base/models/outline.py:127
+#: base/models/outline.py:122
 msgid "Standard text for deputy directly in message"
 msgstr "Standard szöveg a helyettesnek közvetlenül az üzenetben"
 
-#: base/models/outline.py:128
+#: base/models/outline.py:123
 msgid "Simple text directly in message"
 msgstr "Egyszerű szöveg közvetlenül az üzenetben"
 
-#: base/models/outline.py:129
+#: base/models/outline.py:124
 msgid "Old text directly in message"
 msgstr "Régi szöveg közvetlenül az üzenetben"
 
-#: base/models/outline.py:130
+#: base/models/outline.py:125
 msgid "Table directly in message"
 msgstr "Táblázat közvetlenül az üzenetben"
 
-#: base/models/outline.py:291 base/models/profile.py:47
+#: base/models/outline.py:281 base/models/profile.py:47
 msgid "Outline Targets"
 msgstr "Terv célpontok"
 
-#: base/models/outline.py:324 shipments/forms.py:15
+#: base/models/outline.py:314 shipments/forms.py:15
 msgid "Name"
 msgstr "Név"
 
-#: base/models/outline.py:445
+#: base/models/outline.py:435
 msgid "Expires "
 msgstr "Lejár "
 
-#: base/models/outline.py:459
+#: base/models/outline.py:449
 msgid "in"
 msgstr "-ban/-ben"
 
-#: base/models/outline.py:461
+#: base/models/outline.py:451
 msgid "days"
 msgstr "nap"
 
@@ -1075,7 +1071,9 @@ msgstr ""
 msgid ""
 "This site is licensed under AGPLv3. It is free of 3rd party trackers, refer "
 "to "
-msgstr "Ez az oldal AGPLv3 licenc alatt áll. Harmadik féltől származó nyomkövetőktől mentes, lásd:"
+msgstr ""
+"Ez az oldal AGPLv3 licenc alatt áll. Harmadik féltől származó nyomkövetőktől "
+"mentes, lásd:"
 
 #: base/templates/base/base.html:360
 msgid "our privacy policy and regulations."
@@ -2774,9 +2772,9 @@ msgid " minute(s) ago."
 msgstr " perccel ezelőtt."
 
 #: base/views/outline_initial_changes.py:94
-#: base/views/outline_initial_changes.py:340
-#: base/views/outline_initial_changes.py:485
-#: base/views/outline_initial_changes.py:664
+#: base/views/outline_initial_changes.py:337
+#: base/views/outline_initial_changes.py:482
+#: base/views/outline_initial_changes.py:658
 #: base/views/outline_initial_views.py:701
 #, python-format
 msgid ""
@@ -3721,6 +3719,18 @@ msgstr "FAKE küldése"
 #: utils/send_text.py:20
 msgid "Send RUIN"
 msgstr "ROMBOLÁS küldése"
+
+#~ msgid "MAX number of catapults in one ruin attack:"
+#~ msgstr "MAX katapultok száma egy romboló támadásban:"
+
+#~ msgid "How many points on average do demolished targets have:"
+#~ msgstr "Átlagosan hány pontjuk van a lerombolt célpontoknak:"
+
+#~ msgid "Average greater than 8k"
+#~ msgstr "Átlag nagyobb mint 8k"
+
+#~ msgid "Average 5-8k"
+#~ msgstr "Átlag 5-8k"
 
 #~ msgid ""
 #~ " To avoid future conflicts you can set up ally and enemy tribes\n"

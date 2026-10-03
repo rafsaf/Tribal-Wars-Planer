@@ -835,27 +835,11 @@ class RuiningOutlineForm(forms.ModelForm):
         ]
         labels = {
             "initial_outline_catapult_min_value": gettext_lazy(
-                "MIN number of catapults in one ruin attack:"
+                "Minimum number of catapults in one ruin attack:"
             ),
             "initial_outline_min_ruin_attack_off": gettext_lazy(
                 "Minimum off units for every ruin attack:"
             ),
-        }
-        help_texts = {
-            "initial_outline_min_ruin_attack_off": gettext_lazy(
-                "Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that will be added to every ruin attack. If 0, it means only catapults are send."
-            )
-            % {
-                "default": get_field_default(
-                    models.Outline, "initial_outline_min_ruin_attack_off"
-                ),
-                "min": get_field_min(
-                    models.Outline, "initial_outline_min_ruin_attack_off"
-                ),
-                "max": get_field_max(
-                    models.Outline, "initial_outline_min_ruin_attack_off"
-                ),
-            },
         }
 
     def __init__(self, *args, **kwargs):
@@ -864,6 +848,25 @@ class RuiningOutlineForm(forms.ModelForm):
             self,
             event_name="TWP+Form+Field",
         )
+        self.fields["initial_outline_catapult_min_value"].help_text = gettext_lazy(
+            "Defaults to %(default)s (between %(min)s-%(max)s). Minimum catapults that will be required for every attack. Note: Maximum is not needed, because current algorithm supports any number of catapults."
+        ) % {
+            "default": get_field_default(
+                models.Outline, "initial_outline_catapult_min_value"
+            ),
+            "min": get_field_min(models.Outline, "initial_outline_catapult_min_value"),
+            "max": get_field_max(models.Outline, "initial_outline_catapult_min_value"),
+        }
+
+        self.fields["initial_outline_min_ruin_attack_off"].help_text = gettext_lazy(
+            "Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that will be added to every ruin attack. If 0, it means only catapults are send."
+        ) % {
+            "default": get_field_default(
+                models.Outline, "initial_outline_min_ruin_attack_off"
+            ),
+            "min": get_field_min(models.Outline, "initial_outline_min_ruin_attack_off"),
+            "max": get_field_max(models.Outline, "initial_outline_min_ruin_attack_off"),
+        }
 
 
 class MoraleOutlineForm(forms.ModelForm):

@@ -154,7 +154,8 @@ class Outline(models.Model):
     initial_outline_ruins = models.TextField(blank=True, default="")
 
     initial_outline_catapult_min_value = models.IntegerField(
-        default=25, choices=CATAPULTS_NUMBER
+        default=25,
+        validators=[MinValueValidator(1), MaxValueValidator(1175)],
     )
     initial_outline_min_ruin_attack_off = models.IntegerField(
         default=0,

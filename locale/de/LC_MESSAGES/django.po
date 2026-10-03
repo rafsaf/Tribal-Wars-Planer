@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-30 23:04+0200\n"
+"POT-Creation-Date: 2026-10-03 17:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgid ""
 "data tab"
 msgstr ""
 
-#: base/forms.py:141 base/models/outline.py:136 base/models/outline.py:319
+#: base/forms.py:141 base/models/outline.py:131 base/models/outline.py:309
 #: base/models/profile.py:19
 msgid "Army collection"
 msgstr "Armeesammlung"
@@ -78,7 +78,7 @@ msgstr ""
 "Das sieht nicht nach einer gültigen Eingabe für DIESES Formular aus. "
 "Vielleicht war das Formular 'Verteidigungssammlung' gemeint?"
 
-#: base/forms.py:265 base/models/outline.py:137 base/models/outline.py:321
+#: base/forms.py:265 base/models/outline.py:132 base/models/outline.py:311
 #: base/models/profile.py:20
 msgid "Deff collection "
 msgstr "Verteidigungssammlung"
@@ -225,11 +225,11 @@ msgstr "Nachrichtentitel:"
 msgid "Content of message:"
 msgstr "Nachrichteninhalt:"
 
-#: base/forms.py:634 base/forms.py:1287
+#: base/forms.py:634 base/forms.py:1277
 msgid "Sending Options:"
 msgstr "Sendeoptionen:"
 
-#: base/forms.py:635 base/forms.py:1288
+#: base/forms.py:635 base/forms.py:1278
 msgid "Add links to direct messages:"
 msgstr "Verweise zu direkten Nachrichten hinzufügen:"
 
@@ -392,23 +392,27 @@ msgstr ""
 "keine Truppen für Fake-Adlige verschwenden, aber es gibt Fälle, wo dies "
 "sinnvoll ist."
 
-#: base/forms.py:840
-msgid "MIN number of catapults in one ruin attack:"
-msgstr "MIN Anzahl von Katapulten in einem Ruinenangriff:"
+#: base/forms.py:838
+msgid "Minimum number of catapults in one ruin attack:"
+msgstr "Mindestanzahl an Katapulten bei einem Ruinenangriff:"
 
-#: base/forms.py:843
-msgid "MAX number of catapults in one ruin attack:"
-msgstr "MAX Anzahl von Katapulten in einem Ruinenangriff:"
-
-#: base/forms.py:846
-msgid "How many points on average do demolished targets have:"
-msgstr "Wie viele Punkte haben abgerissene Ziele im Durchschnitt:"
-
-#: base/forms.py:849
+#: base/forms.py:841
 msgid "Minimum off units for every ruin attack:"
 msgstr "Mindest-Off-Einheiten für jeden Ruinenangriff:"
 
-#: base/forms.py:854
+#: base/forms.py:852
+#, python-format
+msgid ""
+"Defaults to %(default)s (between %(min)s-%(max)s). Minimum catapults that "
+"will be required for every attack. Note: Maximum is not needed, because "
+"current algorithm supports any number of catapults."
+msgstr ""
+"Standardmäßig %(default)s (zwischen %(min)s und %(max)s). Mindestanzahl an "
+"Katapulten, die für jeden Angriff erforderlich ist. Hinweis: Ein Maximum "
+"wird nicht benötigt, da der aktuelle Algorithmus jede beliebige Anzahl von "
+"Katapulten unterstützt."
+
+#: base/forms.py:860
 #, python-format
 msgid ""
 "Defaults to %(default)s (between %(min)s-%(max)s). Minimum off units that "
@@ -418,48 +422,48 @@ msgstr ""
 "die zu jedem Ruinenangriff hinzugefügt werden. Bei 0 werden nur Katapulte "
 "gesendet."
 
-#: base/forms.py:886
+#: base/forms.py:876
 msgid "Only attackers ABOVE this morale value can be used:"
 msgstr "Nur Angreifer ÜBER diesem Moralwert können verwendet werden:"
 
-#: base/forms.py:888
+#: base/forms.py:878
 msgid "Is morale calculation active in this outline:"
 msgstr "Ist Moralberechnung in diesem Plan aktiv:"
 
-#: base/forms.py:933
+#: base/forms.py:923
 msgid "Choose whether to avoid the night bonus"
 msgstr "Wählen Sie, ob der Nachtbonus vermieden werden soll"
 
-#: base/forms.py:939
+#: base/forms.py:929
 msgid "Approximate hours of entry"
 msgstr "Ungefähre Stunden des Eintreffens"
 
-#: base/forms.py:946
+#: base/forms.py:936
 msgid "Approximate hours of the last entry"
 msgstr "Ungefähre Stunden des letzten Eintreffens"
 
-#: base/forms.py:966
+#: base/forms.py:956
 msgid "First value must be less or equal to second!"
 msgstr "Der erste Wert muss kleiner oder gleich dem zweiten sein!"
 
-#: base/forms.py:977
+#: base/forms.py:967
 msgid "Sum of off"
 msgstr "Summe der Offs"
 
-#: base/forms.py:983
+#: base/forms.py:973
 msgid "Off without catapults"
 msgstr "Off ohne Katapulte"
 
-#: base/forms.py:989
+#: base/forms.py:979
 #: base/templates/base/new_outline/new_outline_initial_period1.html:191
 msgid "Catapults"
 msgstr "Katapulte"
 
-#: base/forms.py:995 base/models/period_model.py:23
+#: base/forms.py:985 base/models/period_model.py:23
 msgid "Noble"
 msgstr "Adliger"
 
-#: base/forms.py:1005 base/forms.py:1023
+#: base/forms.py:995 base/forms.py:1013
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:132
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:201
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:243
@@ -467,7 +471,7 @@ msgstr "Adliger"
 msgid "From"
 msgstr "Von"
 
-#: base/forms.py:1008 base/forms.py:1024
+#: base/forms.py:998 base/forms.py:1014
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:133
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:202
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:244
@@ -475,7 +479,7 @@ msgstr "Von"
 msgid "To"
 msgstr "Nach"
 
-#: base/forms.py:1022
+#: base/forms.py:1012
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:128
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:196
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:238
@@ -483,7 +487,7 @@ msgstr "Nach"
 msgid "Mode"
 msgstr "Modus"
 
-#: base/forms.py:1025
+#: base/forms.py:1015
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:129
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:198
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:240
@@ -491,7 +495,7 @@ msgstr "Modus"
 msgid "Unit"
 msgstr "Einheit"
 
-#: base/forms.py:1026
+#: base/forms.py:1016
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:130
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:203
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:245
@@ -499,7 +503,7 @@ msgstr "Einheit"
 msgid "Min. time"
 msgstr "Min. Zeit"
 
-#: base/forms.py:1027
+#: base/forms.py:1017
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:131
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:204
 #: base/templates/base/new_outline/new_outline_initial_period2_1.html:246
@@ -507,24 +511,24 @@ msgstr "Min. Zeit"
 msgid "Max. time"
 msgstr "Max. Zeit"
 
-#: base/forms.py:1111 base/forms.py:1121
+#: base/forms.py:1101 base/forms.py:1111
 msgid "Mode All can be used only once per unit"
 msgstr "Modus Alle kann nur einmal pro Einheit verwendet werden"
 
-#: base/forms.py:1129
+#: base/forms.py:1119
 msgid "Mode All must be used at least once for noble and for off."
 msgstr ""
 "Modus Alle muss mindestens einmal für Adligen und für Off verwendet werden."
 
-#: base/forms.py:1169
+#: base/forms.py:1159
 msgid "You need a premium account to add more targets here."
 msgstr "Sie benötigen ein Premium-Konto, um hier weitere Ziele hinzuzufügen."
 
-#: base/forms.py:1179
+#: base/forms.py:1169
 msgid "Village with that coords did not found."
 msgstr "Dorf mit diesen Koordinaten nicht gefunden."
 
-#: base/forms.py:1186
+#: base/forms.py:1176
 msgid ""
 "Found more than one village in database, this is the bug. Write me: "
 "<rafal.safin@rafsaf.pl>"
@@ -532,52 +536,52 @@ msgstr ""
 "Mehr als ein Dorf in der Datenbank gefunden, das ist ein Fehler. Schreiben "
 "Sie mir: <rafal.safin@rafsaf.pl>"
 
-#: base/forms.py:1200
+#: base/forms.py:1190
 msgid "Choose server"
 msgstr "Server wählen"
 
-#: base/forms.py:1201
+#: base/forms.py:1191
 msgid "World prefix"
 msgstr "Welt-Präfix"
 
-#: base/forms.py:1212
+#: base/forms.py:1202
 msgid "Unallowed symbols in postfix field! Are you sure it is valid?"
 msgstr ""
 "Unerlaubte Zeichen im Postfix-Feld! Sind Sie sicher, dass es gültig ist?"
 
-#: base/forms.py:1232
+#: base/forms.py:1222
 msgid "World is already added!"
 msgstr "Welt ist bereits hinzugefügt!"
 
-#: base/forms.py:1240 base/forms.py:1251
+#: base/forms.py:1230 base/forms.py:1241
 msgid "Connection error, world does not exists or is archived!"
 msgstr "Verbindungsfehler, Welt existiert nicht oder ist archiviert!"
 
-#: base/forms.py:1264 base/forms.py:1281
+#: base/forms.py:1254 base/forms.py:1271
 msgid "Please select your server:"
 msgstr "Bitte wählen Sie Ihren Server:"
 
-#: base/forms.py:1283
+#: base/forms.py:1273
 msgid "Turn on morale calculations in every outline by default:"
 msgstr "Moralberechnungen in jedem Plan standardmäßig aktivieren:"
 
-#: base/forms.py:1285
+#: base/forms.py:1275
 msgid "Default input type for planer"
 msgstr "Standard-Eingabetyp für Planer"
 
-#: base/forms.py:1286
+#: base/forms.py:1276
 msgid "Please select your currency:"
 msgstr "Bitte wählen Sie Ihre Währung:"
 
-#: base/forms.py:1289
+#: base/forms.py:1279
 msgid "Enable shipments feature:"
 msgstr "Sendungen-Funktion aktivieren:"
 
-#: base/forms.py:1292
+#: base/forms.py:1282
 msgid "Prefered sending option in Results tab"
 msgstr "Bevorzugte Sendeoption im Ergebnisse-Tab"
 
-#: base/forms.py:1294
+#: base/forms.py:1284
 msgid ""
 "If checked, direct messages in Results tab will have safe link to planer"
 msgstr ""
@@ -660,64 +664,56 @@ msgstr "Entfernt"
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: base/models/outline.py:103
-msgid "Average greater than 8k"
-msgstr "Durchschnitt größer als 8k"
-
-#: base/models/outline.py:104
-msgid "Average 5-8k"
-msgstr "Durchschnitt 5-8k"
-
-#: base/models/outline.py:117
+#: base/models/outline.py:112
 msgid "Fakes only from off villages"
 msgstr "Fakes nur aus Off-Dörfern"
 
-#: base/models/outline.py:118
+#: base/models/outline.py:113
 msgid "Fakes from all villages"
 msgstr "Fakes aus allen Dörfern"
 
-#: base/models/outline.py:124
+#: base/models/outline.py:119
 msgid "(Default) Auto generated, fully equipped safe links"
 msgstr ""
 "(Standard) Automatisch generierte, vollständig ausgestattete sichere Links"
 
-#: base/models/outline.py:126
+#: base/models/outline.py:121
 msgid "Standard text directly in message"
 msgstr "Standardtext direkt in der Nachricht"
 
-#: base/models/outline.py:127
+#: base/models/outline.py:122
 msgid "Standard text for deputy directly in message"
 msgstr "Standardtext für Stellvertreter direkt in der Nachricht"
 
-#: base/models/outline.py:128
+#: base/models/outline.py:123
 msgid "Simple text directly in message"
 msgstr "Einfacher Text direkt in der Nachricht"
 
-#: base/models/outline.py:129
+#: base/models/outline.py:124
 msgid "Old text directly in message"
 msgstr "Alter Text direkt in der Nachricht"
 
-#: base/models/outline.py:130
+#: base/models/outline.py:125
 msgid "Table directly in message"
 msgstr "Tabelle direkt in der Nachricht"
 
-#: base/models/outline.py:291 base/models/profile.py:47
+#: base/models/outline.py:281 base/models/profile.py:47
 msgid "Outline Targets"
 msgstr "Plan-Ziele"
 
-#: base/models/outline.py:324 shipments/forms.py:15
+#: base/models/outline.py:314 shipments/forms.py:15
 msgid "Name"
 msgstr "Name"
 
-#: base/models/outline.py:445
+#: base/models/outline.py:435
 msgid "Expires "
 msgstr "Läuft ab "
 
-#: base/models/outline.py:459
+#: base/models/outline.py:449
 msgid "in"
 msgstr "in"
 
-#: base/models/outline.py:461
+#: base/models/outline.py:451
 msgid "days"
 msgstr "Tagen"
 
@@ -1072,7 +1068,9 @@ msgstr ""
 msgid ""
 "This site is licensed under AGPLv3. It is free of 3rd party trackers, refer "
 "to "
-msgstr "Diese Website steht unter der AGPLv3-Lizenz. Sie ist frei von Trackern von Drittanbietern, siehe:"
+msgstr ""
+"Diese Website steht unter der AGPLv3-Lizenz. Sie ist frei von Trackern von "
+"Drittanbietern, siehe:"
 
 #: base/templates/base/base.html:360
 msgid "our privacy policy and regulations."
@@ -2772,9 +2770,9 @@ msgid " minute(s) ago."
 msgstr " Minute(n) her."
 
 #: base/views/outline_initial_changes.py:94
-#: base/views/outline_initial_changes.py:340
-#: base/views/outline_initial_changes.py:485
-#: base/views/outline_initial_changes.py:664
+#: base/views/outline_initial_changes.py:337
+#: base/views/outline_initial_changes.py:482
+#: base/views/outline_initial_changes.py:658
 #: base/views/outline_initial_views.py:701
 #, python-format
 msgid ""
@@ -3669,6 +3667,18 @@ msgstr "FAKE senden"
 #: utils/send_text.py:20
 msgid "Send RUIN"
 msgstr "RUINE senden"
+
+#~ msgid "MAX number of catapults in one ruin attack:"
+#~ msgstr "MAX Anzahl von Katapulten in einem Ruinenangriff:"
+
+#~ msgid "How many points on average do demolished targets have:"
+#~ msgstr "Wie viele Punkte haben abgerissene Ziele im Durchschnitt:"
+
+#~ msgid "Average greater than 8k"
+#~ msgstr "Durchschnitt größer als 8k"
+
+#~ msgid "Average 5-8k"
+#~ msgstr "Durchschnitt 5-8k"
 
 #~ msgid ""
 #~ " To avoid future conflicts you can set up ally and enemy tribes\n"
