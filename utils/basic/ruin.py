@@ -9406,6 +9406,7 @@ class RuinHandle:
             key=lambda weight: weight.catapult_left,
             reverse=True,
         )
+        levels = self.BIG_LEVELS if self.target_points > 8000 else self.SMALL_LEVELS
 
         for weight_max in ordered_weights:
             if (
@@ -9421,9 +9422,7 @@ class RuinHandle:
                 except StopIteration:
                     break
                 self.building_is_not_set = False
-                levels = (
-                    self.BIG_LEVELS if self.target_points > 8000 else self.SMALL_LEVELS
-                )
+
                 self.current_level = levels[self.current_building]
 
             if self.current_level is None or self.current_building is None:
@@ -9432,10 +9431,8 @@ class RuinHandle:
             building = self.current_building
             level = self.current_level
             cats_to_destroy = self.LEVEL_INFERRED[level]
-            catapults = min(
-                weight_max.catapult_left,
-                max(cats_to_destroy, minimum_catapults),
-            )
+            catapults = weight_max.catapult_left
+
             if catapults >= cats_to_destroy:
                 next_level = 0
             else:

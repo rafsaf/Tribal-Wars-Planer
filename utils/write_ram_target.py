@@ -2,6 +2,7 @@
 # GNU Affero General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/agpl-3.0.txt)
 
 
+import logging
 import math
 from collections.abc import Callable
 from secrets import SystemRandom
@@ -10,6 +11,8 @@ from statistics import mean
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
 from utils.fast_weight_maximum import FastWeightMaximum
+
+log = logging.getLogger(__name__)
 
 
 class WriteRamTarget:
@@ -158,7 +161,10 @@ class WriteRamTarget:
             weight = self._weight_model(weight_max, off, catapult, building, i)
             weights_create_lst.append(weight)
 
-            self._update_weight_max(weight_max, off, catapult, fake_limit)
+            try:
+                self._update_weight_max(weight_max, off, catapult, fake_limit)
+            except ValueError as e:
+                raise ValueError(planned_orders) from e
 
         return weights_create_lst
 
