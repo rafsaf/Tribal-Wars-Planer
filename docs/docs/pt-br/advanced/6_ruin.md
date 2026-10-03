@@ -9,10 +9,10 @@ Aparência da aba:
 
 ![alt text](image-8.png){ width="600" }
 
-Na opção **1.**, a ordem dos edifícios a serem demolidos é definida. O Planejador agendará ataques a eles na ordem especificada, ignorando quaisquer edifícios pulados.
+Na opção **1.**, a ordem dos edifícios a serem demolidos é definida. O Planejador agenda ataques a eles na ordem especificada, ignorando qualquer edifício pulado.
 
-Em **2.**, definimos o número máximo de catapultas que serão agendadas (e depois quantidades progressivamente menores até 50 catapultas).
+Em **2.**, definimos a quantidade mínima de catapultas que uma aldeia deve ter para se qualificar para um ataque de ruína. Não existe mais um campo separado para máximo de catapultas. O planejador segue a tabela exata de destruição para o tipo de aldeia selecionado, então envia apenas a quantidade necessária para o próximo passo exato ou para destruir o edifício para nível 0, se houver mais catapultas disponíveis do que a tabela contém.
 
-Em **3.**, escolhemos o número de catapultas em ofensivas completas que devem sempre permanecer nas aldeias (para serem enviadas junto com a ofensiva).
+Em **3.**, escolhemos o número de unidades OFF em ataques de ruína que devem ser enviadas junto com as catapultas.
 
-No último campo **4.**, podemos escolher o tamanho das aldeias a serem demolidas. Por padrão, são aldeias grandes e totalmente desenvolvidas com edifícios em torno de 9k pontos (portanto, mais catapultas são necessárias para destruir estruturas como a fazenda ou a ferraria em comparação com uma aldeia com 5k pontos). Escolhemos com base nas especificidades da nossa ação.
+Os níveis dos edifícios são inferidos pelos pontos da aldeia de origem. Aldeias acima de 8.000 pontos usam a progressão de destruição para aldeias grandes, enquanto aldeias com 8.000 pontos ou menos usam a progressão para aldeias médias. O nível restante exato após cada etapa de destruição vem das tabelas internas, e o planejador verifica esse valor após cada golpe para escolher o próximo passo correto. Se houver mais catapultas disponíveis do que a tabela exige, ele continua destruindo até o nível 0, quando necessário.

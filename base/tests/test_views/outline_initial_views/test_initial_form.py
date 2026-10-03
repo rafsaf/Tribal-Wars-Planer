@@ -259,8 +259,6 @@ class InitialForm(MiniSetup):
         enter_t2 = self.random_integer(10, 20)
         # form6
         initial_outline_catapult_min_value = 100
-        initial_outline_catapult_max_value = 300
-        initial_outline_average_ruining_points = "medium"
         initial_outline_min_ruin_attack_off = 100
         # form7
         morale_on_targets_greater_than = 85
@@ -292,11 +290,7 @@ class InitialForm(MiniSetup):
         outline.night_bonus = night_bonus
         outline.enter_t1 = enter_t1
         outline.enter_t2 = enter_t2
-        outline.initial_outline_catapult_max_value = initial_outline_catapult_max_value
         outline.initial_outline_catapult_min_value = initial_outline_catapult_min_value
-        outline.initial_outline_average_ruining_points = (
-            initial_outline_average_ruining_points
-        )
         outline.initial_outline_min_ruin_attack_off = (
             initial_outline_min_ruin_attack_off
         )
@@ -350,14 +344,6 @@ class InitialForm(MiniSetup):
         assert (
             form6["initial_outline_catapult_min_value"].initial
             == initial_outline_catapult_min_value
-        )
-        assert (
-            form6["initial_outline_catapult_max_value"].initial
-            == initial_outline_catapult_max_value
-        )
-        assert (
-            form6["initial_outline_average_ruining_points"].initial
-            == initial_outline_average_ruining_points
         )
         assert (
             form6["initial_outline_min_ruin_attack_off"].initial
@@ -408,8 +394,6 @@ class InitialForm(MiniSetup):
         enter_t2 = self.random_integer(10, 20)
         # form6
         initial_outline_catapult_min_value = 55
-        initial_outline_catapult_max_value = 99
-        initial_outline_average_ruining_points = "big"
         initial_outline_min_ruin_attack_off = 150
         # form7
         morale_on_targets_greater_than = 75
@@ -441,11 +425,7 @@ class InitialForm(MiniSetup):
         outline.night_bonus = night_bonus
         outline.enter_t1 = enter_t1
         outline.enter_t2 = enter_t2
-        outline.initial_outline_catapult_max_value = initial_outline_catapult_max_value
         outline.initial_outline_catapult_min_value = initial_outline_catapult_min_value
-        outline.initial_outline_average_ruining_points = (
-            initial_outline_average_ruining_points
-        )
         outline.initial_outline_min_ruin_attack_off = (
             initial_outline_min_ruin_attack_off
         )
@@ -497,16 +477,8 @@ class InitialForm(MiniSetup):
         assert form5["enter_t2"].initial == enter_t2
 
         assert (
-            form6["initial_outline_catapult_max_value"].initial
-            == initial_outline_catapult_max_value
-        )
-        assert (
             form6["initial_outline_catapult_min_value"].initial
             == initial_outline_catapult_min_value
-        )
-        assert (
-            form6["initial_outline_average_ruining_points"].initial
-            == initial_outline_average_ruining_points
         )
         assert (
             form6["initial_outline_min_ruin_attack_off"].initial
@@ -803,17 +775,13 @@ class InitialForm(MiniSetup):
         self.login_me()
 
         initial_outline_catapult_min_value = 50
-        initial_outline_catapult_max_value = 75
-        initial_outline_average_ruining_points = "medium"
         initial_outline_min_ruin_attack_off = 100
 
         response = self.client.post(
             PATH,
             data={
                 "form6": "",
-                "initial_outline_catapult_max_value": initial_outline_catapult_max_value,
                 "initial_outline_catapult_min_value": initial_outline_catapult_min_value,
-                "initial_outline_average_ruining_points": initial_outline_average_ruining_points,
                 "initial_outline_min_ruin_attack_off": initial_outline_min_ruin_attack_off,
             },
         )
@@ -821,16 +789,8 @@ class InitialForm(MiniSetup):
         assert getattr(response, "url") == PATH + "?t=real"
         outline.refresh_from_db()
         assert (
-            outline.initial_outline_catapult_max_value
-            == initial_outline_catapult_max_value
-        )
-        assert (
             outline.initial_outline_catapult_min_value
             == initial_outline_catapult_min_value
-        )
-        assert (
-            outline.initial_outline_average_ruining_points
-            == initial_outline_average_ruining_points
         )
         assert (
             outline.initial_outline_min_ruin_attack_off

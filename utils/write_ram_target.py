@@ -2,6 +2,7 @@
 # GNU Affero General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/agpl-3.0.txt)
 
 
+import logging
 import math
 from collections.abc import Callable
 from secrets import SystemRandom
@@ -10,6 +11,8 @@ from statistics import mean
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
 from utils.fast_weight_maximum import FastWeightMaximum
+
+log = logging.getLogger(__name__)
 
 
 class WriteRamTarget:
@@ -54,9 +57,6 @@ class WriteRamTarget:
         )
         self.initial_outline_catapult_min_value: int = (
             self.outline.initial_outline_catapult_min_value
-        )
-        self.initial_outline_catapult_max_value: int = (
-            self.outline.initial_outline_catapult_max_value
         )
         self.initial_outline_buildings: list[str] = (
             self.outline.initial_outline_buildings
@@ -122,11 +122,7 @@ class WriteRamTarget:
         if self.ruin:
             ruins_set: set[FastWeightMaximum] = set()
             for catapult_val in [200, 150, 100, 75, 50, 25]:
-                if (
-                    self.initial_outline_catapult_min_value
-                    <= catapult_val
-                    <= self.initial_outline_catapult_max_value
-                ):
+                if self.initial_outline_catapult_min_value <= catapult_val:
                     ruins_set |= set(self.sorted_weights_offs(catapult_val))
                     self.filters = []
                     if len(ruins_set) >= self.target.required_off:
@@ -137,31 +133,40 @@ class WriteRamTarget:
             off_lst.sort(key=lambda weight: -weight.catapult_left)
             off_lst = off_lst[: self.target.required_off]
             off_lst.sort(key=lambda weight: -weight.distance)
+        elif self.target.ruin:
+            self.filters.append(self._catapult_available_query())
+            off_lst = self.sorted_weights_offs()
+            self.filters = []
         else:
             off_lst = self.sorted_weights_offs()
-        i: int
-        weight_max: FastWeightMaximum
-        for i, weight_max in enumerate(off_lst):
-            try:
-                catapult: int = self._catapult(weight_max)
-            except StopIteration:
-                break
+
+        if self.target.ruin:
+            ruin_handle = self.target.ruin_handle(self.outline)
+            if ruin_handle is None:
+                raise ValueError("ruin handle var is none")
+            planned_orders = ruin_handle.plan_catapults(
+                off_lst,
+                minimum_catapults=self.initial_outline_catapult_min_value,
+            )
+        else:
+            planned_orders = [
+                (weight_max, 0 if self.target.fake else weight_max.catapult_left, None)
+                for weight_max in off_lst
+            ]
+
+        for i, (weight_max, catapult, building) in enumerate(planned_orders):
             off: int = self._off(weight_max, catapult)
-            building: str | None = self._building()
             fake_limit: int = self._fake_limit()
 
             weight = self._weight_model(weight_max, off, catapult, building, i)
             weights_create_lst.append(weight)
 
-            self._update_weight_max(weight_max, off, catapult, fake_limit)
+            try:
+                self._update_weight_max(weight_max, off, catapult, fake_limit)
+            except ValueError as e:
+                raise ValueError(planned_orders) from e
 
         return weights_create_lst
-
-    def _building(self) -> str | None:
-        if self.target.ruin_handle(self.outline) is not None:
-            building: str = self.target.ruin_handle(self.outline).building()  # type: ignore
-            return building
-        return None
 
     def _off(self, weight_max: FastWeightMaximum, catapult: int) -> int:
         if self.target.fake:
@@ -176,16 +181,6 @@ class WriteRamTarget:
             return 1
         else:
             return 0
-
-    def _catapult(self, weight_max: FastWeightMaximum) -> int:
-        if self.target.fake:
-            return 0
-        elif self.target.ruin:
-            if self.target.ruin_handle(self.outline) is None:
-                raise ValueError("ruin handle var is none")
-            return self.target.ruin_handle(self.outline).best_catapult(weight_max)  # type: ignore
-        else:  # real
-            return weight_max.catapult_left
 
     def _weight_model(
         self,
@@ -298,6 +293,12 @@ class WriteRamTarget:
 
         return filter_off
 
+    def _catapult_available_query(self) -> Callable[[FastWeightMaximum], bool]:
+        def filter_catapult_available(weight_max: FastWeightMaximum) -> bool:
+            return weight_max.catapult_left >= self.initial_outline_catapult_min_value
+
+        return filter_catapult_available
+
     def _add_night_bonus_annotations(self, weight_lst: list[FastWeightMaximum]) -> None:
         for weight_max in weight_lst:
             time_hours = weight_max.distance / self.dividier
@@ -327,7 +328,7 @@ class WriteRamTarget:
 
     def _closest_weight_lst(self) -> list[FastWeightMaximum]:
         filtered_weight_max = self._get_filtered_weight_max_list()
-        filtered_weight_max.sort(key=lambda weigth: weigth.distance)
+        filtered_weight_max.sort(key=lambda weight: weight.distance)
         weight_list = filtered_weight_max[: 1 * self.target.required_off]
         weight_list.sort(key=lambda weight: -weight.distance)
         return weight_list

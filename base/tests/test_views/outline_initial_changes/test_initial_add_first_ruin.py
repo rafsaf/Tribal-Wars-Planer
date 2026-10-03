@@ -12,7 +12,6 @@ from base.tests.test_views.outline_initial_changes.changes_view_setup import (
 class InitialAddFirstRuin(ChangesViewSetup):
     def test_planer_add_first_ruin(self):
         outline = self.get_outline()
-        outline.initial_outline_catapult_max_value = 150
         outline.save()
         target = self.get_target(outline)
         weight_max = self.get_weight_max(outline)
@@ -41,16 +40,16 @@ class InitialAddFirstRuin(ChangesViewSetup):
             WeightModel.objects.filter(start="500|500", target=target).count(), 2
         )
         weight_max.refresh_from_db()
-        self.assertEqual(weight_max.off_left, 3800)
-        self.assertEqual(weight_max.off_state, 6200)
-        self.assertEqual(weight_max.catapult_left, 50)
-        self.assertEqual(weight_max.catapult_state, 150)
+        self.assertEqual(weight_max.off_left, 3400)
+        self.assertEqual(weight_max.off_state, 6600)
+        self.assertEqual(weight_max.catapult_left, 0)
+        self.assertEqual(weight_max.catapult_state, 200)
         self.assertEqual(weight_max.nobleman_left, 1)
         self.assertEqual(weight_max.nobleman_state, 1)
 
         new_weight = WeightModel.objects.filter(start="500|500", target=target).last()
-        self.assertEqual(new_weight.off, 1200)  # type: ignore
-        self.assertEqual(new_weight.catapult, 150)  # type: ignore
+        self.assertEqual(new_weight.off, 1600)  # type: ignore
+        self.assertEqual(new_weight.catapult, 200)  # type: ignore
         self.assertEqual(new_weight.nobleman, 0)  # type: ignore
         self.assertEqual(new_weight.order, -1)  # type: ignore
 

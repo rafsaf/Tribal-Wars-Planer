@@ -28,3 +28,4 @@ from .target_line import TargetsData, TargetsOneLine  # noqa
 from .timer import timing  # noqa
 from .troops import Troops  # noqa
 from .village import Unit, Village, VillageError, dist, many_villages  # noqa
+from .ruin import RuinHandle  # noqa
