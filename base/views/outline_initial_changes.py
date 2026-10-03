@@ -18,10 +18,17 @@ from utils import basic
 
 
 def _get_target_for_outline(
-    request: HttpRequest, outline_id: int, target_id: int
+    request: HttpRequest,
+    outline_id: int,
+    target_id: int,
+    prefetch_weights: bool = False,
 ) -> models.TargetVertex:
+    qs = models.TargetVertex.objects.select_for_update()
+    if prefetch_weights:
+        qs = qs.prefetch_related("weightmodel_set")
+
     return get_object_or_404(
-        models.TargetVertex.objects.select_for_update(),
+        qs,
         pk=target_id,
         outline_id=outline_id,
         outline__owner=request.user,
@@ -139,21 +146,26 @@ def initial_add_first(
 def initial_add_first_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = _get_target_for_outline(request, id1, id2)
+    target = _get_target_for_outline(request, id1, id2, prefetch_weights=True)
     weight = _get_weight_max_for_outline(request, id1, id3)
-    if not models.WeightModel.objects.filter(target=target).exists():
+
+    weight_models = sorted(target.weightmodel_set.all(), key=lambda x: x.order)
+
+    if not weight_models:
         order = 0
     else:
-        order = (
-            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
-                "order__min"
-            ]
-            - 1
-        )
+        order = weight_models[0].order - 1
+
+    if target.ruin and weight.catapult_left > 0:
+        ruin_handle = basic.RuinHandle(outline=outline, target_points=target.points)
+        building = ruin_handle.plan_next_building(weight_list=weight_models)
+    else:
+        building = None
+
     models.WeightModel.objects.create(
         target=target,
         player=weight.player,
@@ -162,7 +174,7 @@ def initial_add_first_off(
         off=weight.off_left,
         catapult=weight.catapult_left,
         ruin=False,
-        building=None,
+        building=building,
         nobleman=0,
         order=order,
         distance=basic.Village(target.target).distance(basic.Village(weight.start)),
@@ -187,22 +199,24 @@ def initial_add_first_off(
 def initial_add_first_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = _get_target_for_outline(request, id1, id2)
+    target = _get_target_for_outline(request, id1, id2, prefetch_weights=True)
     weight = _get_weight_max_for_outline(request, id1, id3)
-    if not models.WeightModel.objects.filter(target=target).exists():
+
+    weight_models = sorted(target.weightmodel_set.all(), key=lambda x: x.order)
+
+    if not weight_models:
         order = 0
     else:
-        order = (
-            models.WeightModel.objects.filter(target=target).aggregate(Min("order"))[
-                "order__min"
-            ]
-            - 1
-        )
+        order = weight_models[0].order - 1
+
     if weight.catapult_left > 0:
+        ruin_handle = basic.RuinHandle(outline=outline, target_points=target.points)
+        building = ruin_handle.plan_next_building(weight_list=weight_models)
+
         catapult = weight.catapult_left
 
         models.WeightModel.objects.create(
@@ -212,7 +226,7 @@ def initial_add_first_ruin(
             state=weight,
             off=catapult * 8,
             ruin=True,
-            building=None,
+            building=building,
             catapult=catapult,
             nobleman=0,
             order=order,
@@ -528,22 +542,24 @@ def initial_add_last_fake_noble(
 def initial_add_last_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = _get_target_for_outline(request, id1, id2)
+    target = _get_target_for_outline(request, id1, id2, prefetch_weights=True)
     weight = _get_weight_max_for_outline(request, id1, id3)
-    if not models.WeightModel.objects.filter(target=target).exists():
+
+    weight_models = sorted(target.weightmodel_set.all(), key=lambda x: x.order)
+
+    if not weight_models:
         order = 0
     else:
-        order = (
-            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
-                "order__max"
-            ]
-            + 1
-        )
+        order = weight_models[-1].order + 1
+
     if weight.catapult_left > 0:
+        ruin_handle = basic.RuinHandle(outline=outline, target_points=target.points)
+        building = ruin_handle.plan_next_building(weight_list=weight_models)
+
         catapult = weight.catapult_left
 
         models.WeightModel.objects.create(
@@ -553,7 +569,7 @@ def initial_add_last_ruin(
             state=weight,
             off=catapult * 8,
             ruin=True,
-            building=None,
+            building=building,
             catapult=catapult,
             nobleman=0,
             order=order,
@@ -580,21 +596,26 @@ def initial_add_last_ruin(
 def initial_add_last_off(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    get_object_or_404(models.Outline, owner=request.user, id=id1)
+    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
-    target = _get_target_for_outline(request, id1, id2)
+    target = _get_target_for_outline(request, id1, id2, prefetch_weights=True)
     weight = _get_weight_max_for_outline(request, id1, id3)
-    if not models.WeightModel.objects.filter(target=target).exists():
+
+    weight_models = sorted(target.weightmodel_set.all(), key=lambda x: x.order)
+
+    if not weight_models:
         order = 0
     else:
-        order = (
-            models.WeightModel.objects.filter(target=target).aggregate(Max("order"))[
-                "order__max"
-            ]
-            + 1
-        )
+        order = weight_models[-1].order + 1
+
+    if target.ruin and weight.catapult_left > 0:
+        ruin_handle = basic.RuinHandle(outline=outline, target_points=target.points)
+        building = ruin_handle.plan_next_building(weight_list=weight_models)
+    else:
+        building = None
+
     models.WeightModel.objects.create(
         target=target,
         player=weight.player,
@@ -602,7 +623,7 @@ def initial_add_last_off(
         state=weight,
         off=weight.off_left,
         ruin=False,
-        building=None,
+        building=building,
         catapult=weight.catapult_left,
         nobleman=0,
         order=order,

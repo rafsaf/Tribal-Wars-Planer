@@ -2,8 +2,10 @@
 # GNU Affero General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/agpl-3.0.txt)
 
 from collections.abc import Iterator
+from copy import deepcopy
 
 from base.models import Outline
+from base.models.weight_model import WeightModel
 from utils.buildings import BUILDING
 from utils.fast_weight_maximum import FastWeightMaximum
 
@@ -9394,6 +9396,35 @@ class RuinHandle:
         if self.current_level is None:
             raise ValueError("Current level cannot be none")
         return self.LEVEL_DICTIONARY[(catapults, self.current_level)]
+
+    def plan_next_building(self, weight_list: list[WeightModel]) -> str | None:
+        """Return next building to destroy for a new attack, or None if all destroyed"""
+        levels = deepcopy(
+            self.BIG_LEVELS if self.target_points > 8000 else self.SMALL_LEVELS
+        )
+
+        for weight in weight_list:
+            if weight.catapult <= 0 or weight.building is None:
+                continue
+
+            level = levels[weight.building]
+            if not level:
+                continue
+
+            cats_to_destroy = self.LEVEL_INFERRED[level]
+            catapults = weight.catapult
+
+            if catapults >= cats_to_destroy:
+                next_level = 0
+            else:
+                next_level = self.LEVEL_DICTIONARY[(catapults, level)]
+
+            levels[weight.building] = next_level
+
+        for building in self.outline.initial_outline_buildings:
+            if levels[building] > 0:
+                return building
+        return None
 
     def plan_catapults(
         self,
