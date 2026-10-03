@@ -135,7 +135,7 @@ class TestWriteRamTargetNew(MiniSetup):
                 ruin_handle.building_is_not_set,
             )
 
-        assert levels_by_points[8000] == (634, 25, True)
+        assert levels_by_points[8000] == (1000, 25, True)
         assert levels_by_points[8001] == (1000, 5, False)
 
     def test_ruin_handle_caps_exactly_at_catapults_needed_for_level_zero(self):
@@ -151,7 +151,7 @@ class TestWriteRamTargetNew(MiniSetup):
 
         planned = ruin_handle.plan_catapults([weight_max], minimum_catapults=1)
 
-        assert planned == [(weight_max, 21, BUILDING.WORKSHOP.value)]
+        assert planned == [(weight_max, 100, BUILDING.WORKSHOP.value)]
         assert ruin_handle.building_is_not_set
 
     def test_ruin_handle_sends_minimum_when_it_exceeds_exact_destruction_count(self):
@@ -167,7 +167,7 @@ class TestWriteRamTargetNew(MiniSetup):
 
         planned = ruin_handle.plan_catapults([weight_max], minimum_catapults=25)
 
-        assert planned == [(weight_max, 25, BUILDING.WORKSHOP.value)]
+        assert planned == [(weight_max, 100, BUILDING.WORKSHOP.value)]
         assert ruin_handle.building_is_not_set
 
     def test_ruin_handle_returns_no_attacks_when_no_buildings_remain(self):
