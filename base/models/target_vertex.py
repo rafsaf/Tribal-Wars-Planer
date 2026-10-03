@@ -105,5 +105,5 @@ class TargetVertex(models.Model):
         if hasattr(self, "_ruin_handle"):
             return self._ruin_handle
 
-        self._ruin_handle = RuinHandle(outline)
+        self._ruin_handle = RuinHandle(outline, target_points=self.points)
         return self._ruin_handle

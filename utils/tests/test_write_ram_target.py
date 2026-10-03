@@ -12,12 +12,174 @@ from base.models import TargetVertex as Target
 from base.models.target_vertex import TargetVertex
 from base.tests.test_utils.initial_setup import create_initial_data_write_outline
 from base.tests.test_utils.mini_setup import MiniSetup
+from utils.basic.ruin import RuinHandle
+from utils.buildings import BUILDING
 from utils.fast_weight_maximum import FastWeightMaximum
 from utils.outline_initial import MakeOutline
 from utils.write_ram_target import WriteRamTarget
 
 
 class TestWriteRamTargetNew(MiniSetup):
+    def test_regular_off_prefers_catapult_sources_for_ruin_target(self):
+        random = SystemRandom("test_write_ram")
+        outline = self.get_outline(test_world=True)
+        outline.initial_outline_min_off = 1000
+        outline.initial_outline_max_off = 2000
+        outline.initial_outline_maximum_off_dist = 100
+        self.create_target_on_test_world(outline=outline)
+        target = Target.objects.get(target="200|200")
+        target.ruin = True
+        target.required_off = 2
+        target.mode_off = "closest"
+        target.save()
+
+        weight_max_list = []
+        for index, (start, catapults, distance) in enumerate(
+            [("110|110", 0, 1), ("111|111", 55, 10), ("112|112", 500, 20)]
+        ):
+            real_weight_max = self.create_weight_maximum(outline=outline, start=start)
+            weight_max = FastWeightMaximum(real_weight_max, index, outline)
+            weight_max.off_left = 1500
+            weight_max.catapult_left = catapults
+            weight_max.distance = distance
+            weight_max_list.append(weight_max)
+
+        write_ram = WriteRamTarget(
+            target=target,
+            outline=outline,
+            weight_max_list=weight_max_list,
+            random=random,
+        )
+
+        created = write_ram.weight_create_list()
+
+        assert [weight.start for weight in created] == ["112|112", "111|111"]
+        assert all(weight.catapult > 0 for weight in created)
+
+    def test_regular_off_skips_sources_below_configured_catapult_minimum(self):
+        random = SystemRandom("test_write_ram")
+        outline = self.get_outline(test_world=True)
+        outline.initial_outline_min_off = 1000
+        outline.initial_outline_max_off = 2000
+        outline.initial_outline_maximum_off_dist = 100
+        outline.initial_outline_catapult_min_value = 25
+        self.create_target_on_test_world(outline=outline)
+        target = Target.objects.get(target="200|200")
+        target.ruin = True
+        target.required_off = 1
+        target.mode_off = "closest"
+        target.save()
+
+        real_weight_max = self.create_weight_maximum(outline=outline)
+        weight_max = FastWeightMaximum(real_weight_max, 0, outline)
+        weight_max.off_left = 1500
+        weight_max.catapult_left = 5
+        weight_max.distance = 1
+
+        write_ram = WriteRamTarget(
+            target=target,
+            outline=outline,
+            weight_max_list=[weight_max],
+            random=random,
+        )
+
+        created = write_ram.weight_create_list()
+
+        assert created == []
+        assert weight_max.catapult_left == 5
+
+    def test_ruin_handle_assigns_larger_force_to_higher_building_level(self):
+        outline = self.get_outline(test_world=True)
+        weight_maximum = self.create_weight_maximum(outline=outline)
+        small_force = FastWeightMaximum(weight_maximum, 0, outline)
+        large_force = FastWeightMaximum(weight_maximum, 1, outline)
+        small_force.catapult_left = 55
+        large_force.catapult_left = 500
+
+        ruin_handle = RuinHandle(outline, target_points=9000)
+        ruin_handle.current_building = BUILDING.FARM.value
+        ruin_handle.current_level = 30
+        ruin_handle.building_is_not_set = False
+
+        planned = ruin_handle.plan_catapults(
+            [small_force, large_force], minimum_catapults=25
+        )
+
+        assert planned[0] == (large_force, 500, BUILDING.FARM.value)
+        assert planned[1] == (small_force, 55, BUILDING.FARM.value)
+        assert ruin_handle.current_level == 13
+
+    def test_ruin_handle_infers_building_levels_from_target_points(self):
+        outline = self.get_outline(test_world=True)
+        outline.initial_outline_buildings = [BUILDING.FARM.value]
+        self.create_target_on_test_world(outline=outline)
+        target = Target.objects.get(target="200|200")
+        target.ruin = True
+        target.save()
+        weight_maximum = self.create_weight_maximum(outline=outline)
+
+        levels_by_points = {}
+        for target_points in (8000, 8001):
+            target.points = target_points
+            target.save()
+            target = Target.objects.get(pk=target.pk)
+            ruin_handle = target.ruin_handle(outline)
+            assert ruin_handle is not None
+
+            weight_max = FastWeightMaximum(weight_maximum, 0, outline)
+            weight_max.catapult_left = 1000
+            planned = ruin_handle.plan_catapults([weight_max], minimum_catapults=25)
+            levels_by_points[target_points] = (
+                planned[0][1],
+                ruin_handle.current_level,
+                ruin_handle.building_is_not_set,
+            )
+
+        assert levels_by_points[8000] == (634, 25, True)
+        assert levels_by_points[8001] == (1000, 5, False)
+
+    def test_ruin_handle_caps_exactly_at_catapults_needed_for_level_zero(self):
+        outline = self.get_outline(test_world=True)
+        weight_maximum = self.create_weight_maximum(outline=outline)
+        weight_max = FastWeightMaximum(weight_maximum, 0, outline)
+        weight_max.catapult_left = 100
+
+        ruin_handle = RuinHandle(outline, target_points=5000)
+        ruin_handle.current_building = BUILDING.WORKSHOP.value
+        ruin_handle.current_level = 5
+        ruin_handle.building_is_not_set = False
+
+        planned = ruin_handle.plan_catapults([weight_max], minimum_catapults=1)
+
+        assert planned == [(weight_max, 21, BUILDING.WORKSHOP.value)]
+        assert ruin_handle.building_is_not_set
+
+    def test_ruin_handle_sends_minimum_when_it_exceeds_exact_destruction_count(self):
+        outline = self.get_outline(test_world=True)
+        weight_maximum = self.create_weight_maximum(outline=outline)
+        weight_max = FastWeightMaximum(weight_maximum, 0, outline)
+        weight_max.catapult_left = 100
+
+        ruin_handle = RuinHandle(outline, target_points=5000)
+        ruin_handle.current_building = BUILDING.WORKSHOP.value
+        ruin_handle.current_level = 5
+        ruin_handle.building_is_not_set = False
+
+        planned = ruin_handle.plan_catapults([weight_max], minimum_catapults=25)
+
+        assert planned == [(weight_max, 25, BUILDING.WORKSHOP.value)]
+        assert ruin_handle.building_is_not_set
+
+    def test_ruin_handle_returns_no_attacks_when_no_buildings_remain(self):
+        outline = self.get_outline(test_world=True)
+        outline.initial_outline_buildings = []
+        weight_maximum = self.create_weight_maximum(outline=outline)
+        weight_max = FastWeightMaximum(weight_maximum, 0, outline)
+        weight_max.catapult_left = 100
+        ruin_handle = RuinHandle(outline, target_points=5000)
+
+        assert ruin_handle.plan_catapults([weight_max], minimum_catapults=25) == []
+
     def test__ruin_query_filter_ruin(self):
         random = SystemRandom("test_write_ram")
         outline = self.get_outline(test_world=True)

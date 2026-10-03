@@ -11,8 +11,8 @@ Tab appearance:
 
 In option **1.**, the order of buildings to be demolished is set. The Planer will schedule attacks on them in the specified order, ignoring any skipped buildings.
 
-Under **2.**, we set the maximum number of catapults that will be scheduled (and then progressively smaller amounts down to 50 catapults).
+Under **2.**, we set the minimum number of catapults a village must have to qualify for a ruin attack. Each selected village sends up to its available catapults, capped at the exact number needed to destroy the current building.
 
-In **3.**, we choose the number of catapults in full offenses that should always remain in villages (to be sent along with the offense).
+In **3.**, we choose the number of off units in ruin attacks that should be sent along with the catapults.
 
-In the last field **4.**, we can choose the size of the villages to be demolished. By default, these are large, fully developed villages with buildings at around 9k points (thus more catapults are needed to destroy structures like the farm or the smithy compared to a village with 5k points). We choose based on the specifics of our action.
+Building levels are inferred from each selected source village's points. Sources above 8,000 points use large-village building levels; sources at or below 8,000 points use medium-village levels.

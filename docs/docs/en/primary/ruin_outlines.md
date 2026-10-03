@@ -9,7 +9,7 @@ In this guide, you will learn how to plan destruction actions, specifically aime
 
     Always start planning any action on this page by counting all the troops and dividing them into Front and Rear troops in accordance with the nature of the specific plan. For this purpose, use tab 1. Available Units, and the results are presented in a table below the goals.
 
-The action will be fully created in the **Siege Units** field next to the Goals. The settings in tab {==6. Siege Units==} are very simple, where we primarily determine the order of buildings to be destroyed and the maximum number of catapults in destruction attacks (the minimum is 50).
+The action will be fully created in the **Siege Units** field next to the Goals. The settings in tab {==6. Siege Units==} determine the order of buildings to be destroyed and the minimum catapult count for villages to qualify for ruin attacks.
 
 Example of Destruction Goals and Table Results, with 3 off units and *50 siege units:
 
@@ -29,11 +29,11 @@ Example of a planned mini-action, with various numbers of catapults from 200 to 
 
 ## Optimal Catapult Selection for Destruction
 
-Let's look at how the Planer behaves for a MAX of 200 catapults. If there are villages with that amount, they will be prioritized (over 100 catapults), and when they are used up, the rest will be filled with smaller amounts—150, 100, 75, 50. Additionally, when, for example, 10 levels of a building remain after several attacks, the Planer will assign the last attack with 50 catapults instead of a larger amount (even if available) to save catapults.
+Villages with more available catapults are assigned first. Each attack uses no more catapults than the building needs to reach level 0; the exact remaining level comes from the ruin table. This keeps larger forces on higher-level buildings and avoids spending excess catapults on a nearly destroyed building.
 
 ## Off Units Before Siege Units
 
-As for off units, whose number can be specified to enter before the destruction attacks, their role is limited to that of standard off units. They are not part of the algorithm that assigns them a specific number of catapults and a building to destroy—though theoretically, the same village could send both off units before the siege and siege units in the planned attacks. These are separate processes, and in the current version, it is not possible for off units to "act" as one of the siege units.
+Off units scheduled before the destruction attacks share the same building-damage schedule as the later ruin attacks. Their orders remain standard OFFs, but their catapults advance the ruin target's building state.
 
 ## Building Destruction Order
 

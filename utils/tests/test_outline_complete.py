@@ -247,7 +247,6 @@ class TestOutlineCreateTargets(TransactionTestCase):
             weight_max.save()
 
         self.outline.initial_outline_min_off = 100
-        self.outline.initial_outline_catapult_max_value = 50
         self.outline.save()
         target = self.target()
         target.ruin = True
@@ -1074,7 +1073,6 @@ class TestOutlineCreateTargets(TransactionTestCase):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"
         self.outline.initial_outline_buildings = [BUILDING.HEADQUARTERS.value]
-        self.outline.initial_outline_catapult_max_value = 100
         self.outline.save()
         target = self.target()
         target.ruin = True
@@ -1131,7 +1129,6 @@ class TestOutlineCreateTargets(TransactionTestCase):
         self.outline.initial_outline_min_off = 500
         self.outline.mode_split = "split"
         self.outline.initial_outline_buildings = [building]
-        self.outline.initial_outline_catapult_max_value = 100
         self.outline.save()
         target = self.target()
         target.ruin = True
@@ -1149,7 +1146,6 @@ class TestOutlineCreateTargets(TransactionTestCase):
             BUILDING.SMITHY.value,
             BUILDING.CLAY_PIT.value,
         ]
-        self.outline.initial_outline_catapult_max_value = 200
         self.outline.save()
         target = self.target()
         target.ruin = True
@@ -1181,15 +1177,15 @@ class TestOutlineCreateTargets(TransactionTestCase):
 
         self.assertEqual(created[1].order, 50001)
         self.assertEqual(created[1].start, "500|504")
-        self.assertEqual(created[1].off, 400)
-        self.assertEqual(created[1].catapult, 50)
+        self.assertEqual(created[1].off, 360)
+        self.assertEqual(created[1].catapult, 45)
         self.assertEqual(created[1].building, BUILDING.SMITHY.value)
         self.assertEqual(created[1].nobleman, 0)
         self.assertEqual(created[1].distance, 5)
-        self.assertEqual(created[1].state.off_left, 20400)
-        self.assertEqual(created[1].state.off_state, 400)
-        self.assertEqual(created[1].state.catapult_left, 50)
-        self.assertEqual(created[1].state.catapult_state, 50)
+        self.assertEqual(created[1].state.off_left, 20440)
+        self.assertEqual(created[1].state.off_state, 360)
+        self.assertEqual(created[1].state.catapult_left, 55)
+        self.assertEqual(created[1].state.catapult_state, 45)
         self.assertEqual(created[1].state.nobleman_left, 4)
         self.assertEqual(created[1].state.nobleman_state, 0)
 
@@ -1259,24 +1255,22 @@ class TestOutlineCreateTargets(TransactionTestCase):
         Target.objects.all().delete()
         complete_outline_write(self.outline, salt=self.salt)
 
-    def test_all_possible_2304_combionations_of_outline_complete(self):
+    def test_all_possible_1152_combinations_of_outline_complete(self):
         MODE_OFF = [mode[0] for mode in Target.MODE_OFF]
         MODE_NOBLE = [mode[0] for mode in Target.MODE_NOBLE]
         MODE_DIVISION = [mode[0] for mode in Target.MODE_DIVISION]
         NOBLE_GUIDELINES = [mode[0] for mode in Target.NOBLE_GUIDELINES]
         MODE_SPLIT = [mode[0] for mode in Outline.MODE_SPLIT]
-        RUINED_VILLAGES_POINTS = [mode[0] for mode in Outline.RUINED_VILLAGES_POINTS]
         FAKE_MIN_OFF_CHOICES = [mode[0] for mode in Outline.FAKE_MIN_OFF_CHOICES]
         NIGHT_BONUS = [True, False]
 
-        cases: list[tuple[str, str, str, str, str, str, str, bool]] = itertools.product(
+        cases: list[tuple[str, str, str, str, str, str, bool]] = itertools.product(
             *[
                 MODE_OFF,
                 MODE_NOBLE,
                 MODE_DIVISION,
                 NOBLE_GUIDELINES,
                 MODE_SPLIT,
-                RUINED_VILLAGES_POINTS,
                 FAKE_MIN_OFF_CHOICES,
                 NIGHT_BONUS,
             ]
@@ -1297,9 +1291,8 @@ class TestOutlineCreateTargets(TransactionTestCase):
             target.required_noble = 1
             target.save()
             self.outline.mode_split = test_input[4]
-            self.outline.initial_outline_average_ruining_points = test_input[5]
-            self.outline.initial_outline_fake_mode = test_input[6]
-            self.outline.night_bonus = test_input[7]
+            self.outline.initial_outline_fake_mode = test_input[5]
+            self.outline.night_bonus = test_input[6]
             self.outline.save()
             complete_outline_write(self.outline, salt="test_outline_complete")
             assert len(self.weights()) == 2

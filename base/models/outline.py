@@ -99,11 +99,6 @@ class Outline(models.Model):
 
     BUILDINGS = BUILDINGS_TRANSLATION.items()
 
-    RUINED_VILLAGES_POINTS = [
-        ("big", gettext_lazy("Average greater than 8k")),
-        ("medium", gettext_lazy("Average 5-8k")),
-    ]
-
     CATAPULTS_NUMBER: list[tuple[int, str]] = [
         (25, "25"),
         (50, "50"),
@@ -158,14 +153,8 @@ class Outline(models.Model):
     initial_outline_fakes = models.TextField(blank=True, default="")
     initial_outline_ruins = models.TextField(blank=True, default="")
 
-    initial_outline_catapult_max_value = models.IntegerField(
-        default=200, choices=CATAPULTS_NUMBER
-    )
     initial_outline_catapult_min_value = models.IntegerField(
         default=25, choices=CATAPULTS_NUMBER
-    )
-    initial_outline_average_ruining_points = models.CharField(
-        max_length=150, choices=RUINED_VILLAGES_POINTS, default="big"
     )
     initial_outline_min_ruin_attack_off = models.IntegerField(
         default=0,

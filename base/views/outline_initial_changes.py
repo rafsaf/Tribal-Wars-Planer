@@ -187,7 +187,7 @@ def initial_add_first_off(
 def initial_add_first_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -203,10 +203,7 @@ def initial_add_first_ruin(
             - 1
         )
     if weight.catapult_left > 0:
-        if weight.catapult_left > outline.initial_outline_catapult_max_value:
-            catapult = outline.initial_outline_catapult_max_value
-        else:
-            catapult = weight.catapult_left
+        catapult = weight.catapult_left
 
         models.WeightModel.objects.create(
             target=target,
@@ -531,7 +528,7 @@ def initial_add_last_fake_noble(
 def initial_add_last_ruin(
     request: HttpRequest, id1: int, id2: int, id3: int
 ) -> HttpResponse:
-    outline = get_object_or_404(models.Outline, owner=request.user, id=id1)
+    get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
     filtr = request.GET.get("filtr")
@@ -547,10 +544,7 @@ def initial_add_last_ruin(
             + 1
         )
     if weight.catapult_left > 0:
-        if weight.catapult_left > outline.initial_outline_catapult_max_value:
-            catapult = outline.initial_outline_catapult_max_value
-        else:
-            catapult = weight.catapult_left
+        catapult = weight.catapult_left
 
         models.WeightModel.objects.create(
             target=target,
