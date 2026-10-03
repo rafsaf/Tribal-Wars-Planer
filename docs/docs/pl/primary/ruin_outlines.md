@@ -3,54 +3,55 @@ title: "Akcja burząca - poradnik"
 date: 2026-02-28
 ---
 
-W tym poradniku zobaczysz jak rozpisywać akcje burzące, docelowo w późniejszym etapie świata. Uwaga, zakładana jest już cała wiedza z [Pierwszych kroków z planerem](./../first_steps/index.md)! oraz zalecane przeczytanie najpierw dwóch krótkich poprzednich poradników w tym dziale, czyli [Jak wpisywać i zapisać cele akcji](./two_regions_of_the_tribe.md) i [Dwa rejony plemienia czyli co to front i zaplecze](./two_regions_of_the_tribe.md).
+W tym poradniku zobaczysz, jak rozpisywać akcje burzące, szczególnie na późniejsze etapy świata. Uwaga: zakładana jest już pełna wiedza z [Pierwszych kroków z planem](./../first_steps/index.md)! Dodatkowo zaleca się najpierw przeczytać dwa krótkie poprzednie poradniki w tej sekcji, czyli [Jak wpisywać i zapisywać cele akcji](./two_regions_of_the_tribe.md) i [Dwa rejony plemienia, czyli co to front i zaplecze](./two_regions_of_the_tribe.md).
 
 !!! hint
 
-    Zawsze rozpoczynaj rozpisywanie dowolnej akcji na tej stronie od policzenia wszystkich offów i podzieleniu ich na Frontowe i Zapleczowe zgodnie z duchem danej rozpiski. Do tego celu służy zakładka 1. Dostępne jednostki, zaś wyniki prezentowane są w tabeli pod celami.
+    Zawsze zaczynaj rozpisywanie dowolnej akcji na tej stronie od policzenia wszystkich jednostek i podzielenia ich na jednostki Frontu i Zaplecza zgodnie z charakterem danego planu. W tym celu użyj zakładki 1. Dostępne jednostki, a wyniki są prezentowane w tabeli pod celami.
 
+Akcja jest tworzona w polu **Burzaki** obok celów. Ustawienia w zakładce {==6. Burzaki==} określają kolejność burzonych budynków oraz minimalną liczbę katapultów wymaganych do kwalifikacji wioski do ataków burzących. Dokładny przebieg burzenia pochodzi z wbudowanych tabel ruin, więc planner sprawdza poziom po każdym ataku i wysyła tylko tyle katapultów, ile potrzeba do kolejnego dokładnego kroku.
 
-Akcja będzie całkowicie tworzona w polu **Burzaki** obok Celów. Ustawienia w zakładce {==6. Burzaki==} są bardzo proste, ustalamy tam przede wszystkim kolejność burzonych budynków oraz max ilość katapult w atakach burzących (minimalna to 50).
-
-Przykład celów burzących i wyników tabeli, po 3 offy i *50 burzaków:
+Przykład celów burzących i wyników tabeli, po 3 offach i *50 burzakach:
 
 ![alt text](image-24.png){ width="600" }
 
-Przykład ustawień akcji burzącej, celujemy w 3 widoczne budynki w tej kolejności:
+Przykład ustawień akcji burzącej, celującej w 3 widoczne budynki w tej kolejności:
 
 ![alt text](image-25.png){ width="600" }
 
-(Uwaga, 50 burzaków nie oznacza że tyle koniecznie zostanie rozpisane!)
+Szacunkową liczbę dostępnych burzaków możesz uzyskać, korzystając z zakładki {==1. Dostępne jednostki==} i prostej matematyki. Po każdym odświeżeniu w tabeli pod nazwą **Liczba wszystkich dostępnych katapult** znajdziesz całkowitą liczbę katapult gotowych do rozpisania. Wystarczy zdecydować, na ile celów wystarczą.
 
-Szacunkową liczbę dostępnych burzaków możesz uzyskać korzystając z poznanej zakładki {==1. Dostępne jednostki==} przy użyciu prostej matematyki. Po każdym odświeżeniu, w tabeli pod nazwą **Liczba wszystkich dostępnych katapult** znaleźć można całkowitą liczbę katapult gotowych do rozpisania, wystarczy zdecydować na ile celów tyle "wystarczy".
-
-Przykład rozpisanej mini akcji, różne ilości katapult od 200 do 50:
+Przykład rozpisanej mini-akcji z różną liczbą katapultów od 200 do 50:
 
 ![alt text](image-26.png){ width="600" }
 
-## Optymalny wybów katapult do burzenia
+## Dokładny dobór katapultów do burzenia
 
-Zwróćmy uwagę jak dla MAX katapult ustawionych na 200, zachowuje się Planer. Jeśli są tego typu wioski z taką ilością, zostaną one wzięte w pierwszej kolejności (powyżej 100 katapult), natomiast gdy się skończą, cała reszta zostaje wypełniona mniejszymi ilościami - 150, 100, 75, 50. Dodatkowo, co ważne, w przypadku gdy po kilku atakach zostaje np. 10 poziom budynku, Planer rozpisze tam ostatni atak 50 katapult zamiast większej ilości (choćby była dostępna), aby oszczędzać katapulty.
+Wioski z większą liczbą dostępnych katapultów mają (lokalnie) priorytet. Planer zawsze korzysta z dokładnej tabeli burzenia dla wybranego typu wioski oraz poziomu budynku. Ta sama logika jest używana zarówno w przebiegu offów w celach do burzenia, jak i w atakach burzących, więc po każdym uderzeniu sprawdzany jest dokładny pozostały poziom budynku i algorytm kontynuuje, aż budynek zostanie zniszczony. Potem kolejny itd.
 
 ## Offy przed burzakami
 
-Jeśli chodzi o offy, których liczbę można określić wchodzących przed atakami burzącymi, ich rola ogranicza się jedynie jak w przypadku standardowych offów, nie są one częścią algorytmu, który przypisuje im konkretną ilość katapult oraz budynek do burzenia - choć teoretycznie może dojść do sytuacji, gdzie z tej samej wioski zostanie wzięty off przed burzakami oraz sam burzak wśród rozpisanych ataków. Są to oddzielne procesy i w obecnej wersji nie ma możliwości, aby offy "działały" jak jedne z burzaków.
+Offy zaplanowane przed atakami burzącymi wykorzystują ten sam harmonogram niszczenia budynków co późniejsze ataki burzące, ale są rozpisywane PRZED burzakami. Ich rozkazy pozostają standardowymi OFFami. Uwaga: w przypadku zburzenia wszystkich budynków (np. `000|000:100:0` czyli 100 offów burzących na cel a tylko 1 budynek do zburzenia) nie wszystkie offy zostaną rozpisane!
 
-## Kolejność burzenia bydynków
+## Kolejność burzenia budynków
 
-W ustawieniach {==6. Burzenie==} dokonujemy zmian w kolejności burzonych budynków. Trzeba pamiętać, że budynki nieuwzględnione w tym spisie, zostaną pominięte, a algorytm zatrzymuje się w dwóch przypadkach - albo zabrakło katapult do rozpisania, albo zostały już zburzone wszystkie wymienione budynki. To oznacza, że nawet jeśli zdecydujemy się napisać `000|000:0:1000`, to prawdopodobnie nie zostanie rozpisane 1000 burzaków - po prostu po zburzeniu wymienionych budynków, Planer przejdzie do kolejnych etapów rozpisywania (np. do kolejnego celu itp.).
+W ustawieniach {==6. Burzenie==} można zmienić kolejność burzonych budynków. Ważne jest, aby pamiętać, że budynki nieobecne na tej liście są pomijane, a algorytm zatrzymuje się w dwóch przypadkach: albo brakuje katapult do rozpisania, albo wszystkie wymienione budynki zostały już zburzone. To oznacza, że nawet jeśli zdecydujemy się wpisać `000|000:0:1000`, to prawdopodobnie nie zostanie rozpisanych 1000 burzaków — po zburzeniu wymienionych budynków Planer przechodzi do kolejnych etapów (np. do kolejnego celu itd.).
 
-## Mam pokazane 10000 dostępnych katapult, ile to celów?
+## Mam pokazane 10000 dostępnych katapult. Ile to celów?
 
-Odpowiedź brzmi: to zależy. Głównie od wybranej kolejności budynków. Załóżmy że wybrano jedynie jeden budynek, **[ kuźnia ]**. Wówczas wystarczy 200-250 katapult (np. 200 i 50 lub 100, 100 lub 50, 50, 50, 50 itp.) na zburzenie jednej wioski więc można rozpisać 40-50 celów. Gdyby to były dwa budynki, **[ kuźnia, zagroda]**, trzeba znowu 200-250 katapult na kuźnię, ale też 500-700 katapult na zniszczenie zagrody (np. 14x 50, ale też 5x 100, 4x 150, 3x 200 katapult lub wiele, wiele innych kombinacji) czyli 700-950 katapult na wioskę, czyli 10-14 celów. Poniżej zamieszczam prostą tabelę dla budynków 30 poziomowych (czyli zagród, spichlerzy, wszystkich eko) i 20 poziomowych (ratusz, kuźnia) co wystarczy na policzenie ile to celów.
+Odpowiedź brzmi: zależy. Głównie od wybranej kolejności budynków. Załóżmy, że wybrano tylko jeden budynek, **[ Kuźnia ]**. W takim przypadku 200-250 katapult (np. 200 i 50, albo 100, 100, albo 50, 50, 50, 50 itd.) wystarcza do zburzenia jednej wioski, więc można rozplanować 40-50 celów. Jeśli wybrane są dwa budynki, **[ Kuźnia, Zagroda ]**, to na kuźnię potrzeba 200-250 katapult, a na Zagrodę 500-700 katapult (np. 14x 50, albo 5x 100, 4x 150, 3x 200 katapult lub wiele innych kombinacji), co daje 700-950 katapultów na wioskę, czyli 10-14 celów. Poniżej znajduje się prosta tabela dla budynków 30 poziomowych (np. Zagrody, Spichlerze, wszystkie budynki ekonomiczne) oraz 20 poziomowych (Ratusz, Kuźnia), która pomoże policzyć, ile celów jest możliwych.
 
-|                | Ilość katapult wymaganych do pełnego zburzenia budynku |
-| -------------- | ------------------------------------------------------ |
-| Budynki 20 lvl | 200-250                                                |
-| Budynki 30lvl  | 500-700                                                |
+|                      | Ilość katapultów wymagana do pełnego zburzenia budynku |
+| -------------------- | ------------------------------------------------------ |
+| Budynki 20 poziomowe | 200-250                                                |
+| Budynki 30 poziomowe | 500-700                                                |
+
+## Rozmiar wioski i tabela burzenia
+
+Dokładna tabela burzenia jest wybierana na podstawie punktów wioski (celu). Obecnie (co może ulec dalszej poprawie), wioski powyżej 8 000 punktów używają poziomów burzenia dla dużych wiosek, natomiast wioski mniejsze dla średnich wiosek.
 
 ## Podsumowanie
 
-Pamiętaj, że u podstaw rozpisywania leży prosty algrytm zachłanny i stąd Planer **ZAWSZE** rozpisuje czy burzaki, czy fejki czy offy **LOSOWO** w bardzo podobny sposób, więc jeśli chcesz by offy czy burzaki były zupełnie nieodróżnialne od fejków, musisz rozpisać mnóstwo fejków. W przypadku burzenia warto zaznaczyć opcję **Fejki ze wszystkich wiosek** z {==Zakładki 3. Domyślne ustawienia akcji==}, która w przeciwieństwie do domyślnego ustawienia, fejki rozpisuje z wszystkich zapleczowych wiosek.
+Pamiętaj, że fundament rozpisywania nadal stanowi prosty algorytm zachłanny, a planner **ZAWSZE** przydziela burzaki, fejk, albo offy w bardzo podobny sposób. Jeśli chcesz, aby offy albo burzaki były nierozróżnialne od fejków, musisz rozplanować dużo fejków. Przy planowaniu burzenia warto włączyć opcję **Fejki ze wszystkich wiosek** w {==Zakładce 3. Domyślne ustawienia akcji==}, która, w przeciwieństwie do domyślnego ustawienia, przydziela fejk z wszystkich tylnych wiosek.
 
-Podsumowując warto zastanowić się nad ilością katapult (i ile budynków warto w ogóle zburzyć, być może wystarczy tylko zagroda + ratusz + kuźnia?) i rozpisać mnóstwo fejków. Miłego gruzowania.
+Zastanów się nad liczbą katapultów oraz budynków, które naprawdę warto zburzyć, i rozpisz mnóstwo fejków. Miłego gruzowania!
