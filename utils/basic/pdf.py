@@ -4,12 +4,12 @@
 import secrets
 from datetime import UTC, datetime
 
-from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from django.utils import timezone
 from fpdf import FPDF
+lazy from dateutil.relativedelta import relativedelta
 
 from base.models import Payment, PDFPaymentSummary
 

@@ -6,7 +6,6 @@
 import logging
 import re
 
-import bleach
 from django import forms
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -14,6 +13,7 @@ from django.db.models import Model
 from django.db.models.query import QuerySet
 from django.forms import BaseFormSet
 from django.utils.translation import gettext_lazy
+lazy import bleach
 
 from base.models.outline import Outline
 from base.models.village_model import VillageModel
