@@ -32,7 +32,7 @@ dependencies = [
 ]
 description = "Tribal Wars Planer django app, professional tool for creating outlines for off-game coordinators."
 name = "tribal_wars_planer"
-requires-python = ">=3.14,<3.15"
+requires-python = ">=3.15,<3.16"
 version = "6"
 
 [dependency-groups]
@@ -87,7 +87,7 @@ omit = [
 source = ["base", "rest_api", "shipments", "tribal_wars_planer", "utils"]
 
 [tool.ruff]
-target-version = "py314"
+target-version = "py315"
 
 [tool.ruff.lint]
 # pycodestyle, pyflakes, isort, pylint, pyupgrade
@@ -100,7 +100,7 @@ max-branches = 20
 
 [tool.mypy]
 ignore_missing_imports = true
-python_version = "3.14"
+python_version = "3.15"
 warn_return_any = false
 warn_unused_configs = true
 # strict = true

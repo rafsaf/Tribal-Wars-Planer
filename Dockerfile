@@ -1,4 +1,4 @@
-FROM python:3.14.7-trixie AS base
+FROM python:3.15.0-trixie AS base
 
 ENV PYTHONUNBUFFERED=1
 ENV PROMETHEUS_MULTIPROC_DIR=prometheus_multi_proc_dir
