@@ -7,6 +7,7 @@ from time import sleep
 import requests
 from django.core.management.base import BaseCommand
 from requests.adapters import HTTPAdapter, Retry
+lazy from bs4 import BeautifulSoup
 
 from base import forms
 from base.management.commands.utils import job_logs_and_metrics
@@ -19,8 +20,6 @@ retries = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504]
 
 
 def get_lst_of_available_worlds(tw_server: Server) -> dict[str, str]:
-    from bs4 import BeautifulSoup
-
     worlds: dict[str, str] = {}
     page_url = f"https://{tw_server.dns}/page/stats"
     with requests.Session() as session:

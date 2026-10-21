@@ -4,12 +4,12 @@
 import datetime
 import logging
 
-from dateutil.relativedelta import relativedelta
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+lazy from dateutil.relativedelta import relativedelta
 
 import metrics
 from base.emails import send_payment_email

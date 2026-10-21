@@ -3,8 +3,6 @@
 
 from typing import Any
 
-import cython
-
 from base.models.outline import Outline
 from base.models.weight_maximum import WeightMaximum
 
@@ -25,7 +23,7 @@ class FastWeightMaximum:
     def __init__(self, weight_max: WeightMaximum, index: int, outline: Outline) -> None:
         # index is a list index in the outline list of real WeightMaximum objects
         # so they can be updated in the same place after calculations
-        self.index: cython.int = index
+        self.index: int = index
 
         self.pk = weight_max.pk
         self.start = weight_max.start

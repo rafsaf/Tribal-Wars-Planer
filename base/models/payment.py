@@ -3,12 +3,12 @@
 
 import secrets
 
-from babel.numbers import format_currency
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import translation
 from django.utils.translation import gettext_lazy
+lazy from babel.numbers import format_currency
 
 from tribal_wars_planer.fetch_error_manager import FetchErrorManager
 

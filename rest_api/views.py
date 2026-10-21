@@ -30,6 +30,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+lazy import stripe
 
 import metrics
 from base import models
@@ -343,8 +344,6 @@ def stripe_config(request: Request):
 @permission_classes([IsAuthenticated])
 def stripe_checkout_session(request: Request):  # pragma: no cover
     """Stripe checkout session endpoint"""
-    import stripe
-
     req = StripeSessionAmount(data=request.data)  # type: ignore
     if req.is_valid():
         user_pk: str = str(request.user.pk)
@@ -431,8 +430,6 @@ def stripe_checkout_session(request: Request):  # pragma: no cover
 @permission_classes([AllowAny])
 def stripe_webhook(request: Request):  # pragma: no cover # noqa: PLR0911
     """Stripe webhooks endpoint to verify payment success"""
-    import stripe
-
     endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
     try:
         payload = request.body

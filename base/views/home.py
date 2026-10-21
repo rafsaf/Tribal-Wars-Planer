@@ -17,7 +17,7 @@ from django.utils import translation
 from base import models
 from base.models import PDFPaymentSummary
 from utils.basic import is_android_tw_app_webview
-from utils.basic.pdf import generate_pdf_summary
+lazy from utils.basic.pdf import generate_pdf_summary
 
 log = logging.getLogger(__name__)
 
