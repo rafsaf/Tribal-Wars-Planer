@@ -104,12 +104,13 @@ class FromPeriods:
     def overwrite_weight(
         self, period: models.PeriodModel, weight: models.WeightModel
     ) -> models.WeightModel:
-        t1 = datetime.datetime.combine(
-            self.date, period.from_time, tzinfo=self.world.server.tz
-        )
-        t2 = datetime.datetime.combine(
-            self.date, period.to_time, tzinfo=self.world.server.tz
-        )
+        tz = self.world.server.tz
+
+        t1_naive = datetime.datetime.combine(self.date, period.from_time)
+        t2_naive = datetime.datetime.combine(self.date, period.to_time)
+
+        t1 = t1_naive.replace(tzinfo=tz)
+        t2 = t2_naive.replace(tzinfo=tz)
 
         village1 = basic.Village(weight.start)
         village2 = basic.Village(weight.target.target)
@@ -122,10 +123,16 @@ class FromPeriods:
         time_distance = datetime.timedelta(
             seconds=village1.time_distance(other=village2, unit=desc, world=self.world)
         )
-        t1_shipment = t1 - time_distance
-        t2_shipment = t2 - time_distance
+
+        t1_utc = t1.astimezone(datetime.UTC)
+        t2_utc = t2.astimezone(datetime.UTC)
+
+        sh_t1_utc = t1_utc - time_distance
+        sh_t2_utc = t2_utc - time_distance
+
         weight.t1 = t1
         weight.t2 = t2
-        weight.sh_t1 = t1_shipment
-        weight.sh_t2 = t2_shipment
+        weight.sh_t1 = sh_t1_utc.astimezone(tz)
+        weight.sh_t2 = sh_t2_utc.astimezone(tz)
+
         return weight
