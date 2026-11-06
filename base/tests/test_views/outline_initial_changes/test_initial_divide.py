@@ -35,6 +35,26 @@ class InitialDivide(ChangesViewSetup):
 
         self.assertEqual(WeightModel.objects.filter(target=target).count(), 6)
 
+    def test_planer_initial_divide___invalid_n_rejected(self):
+        outline = self.get_outline()
+        target = self.get_target(outline)
+        self.get_weight_max(outline)
+        weight = self.get_weight(target)
+        weights_before = WeightModel.objects.filter(target=target).count()
+
+        self.client.login(username="user1", password="user1")
+        for n in [0, 1, 5, 100000000]:
+            response = self.client.post(
+                reverse(
+                    "base:planer_divide", args=[outline.pk, target.pk, weight.pk, n]
+                )
+            )
+            self.assertEqual(response.status_code, 404)
+
+        self.assertEqual(
+            WeightModel.objects.filter(target=target).count(), weights_before
+        )
+
     def test_planer_initial_divide___prevent_access_from_other_user2(self):
         outline = self.get_outline()
         target = self.get_target(outline)

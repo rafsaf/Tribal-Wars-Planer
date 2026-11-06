@@ -110,6 +110,7 @@ def target_time_update(request: Request):
         outline_time: OutlineTime = get_object_or_404(
             OutlineTime.objects.select_related("outline", "outline__owner"),
             pk=req.data.get("time_id"),
+            outline_id=target.outline_id,
             outline__owner=request.user,
         )
 

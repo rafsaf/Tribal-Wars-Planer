@@ -180,7 +180,7 @@ class MakeFinalOutline:
             "catapult": weight.catapult,
             "ruin": weight.ruin,
             "distance": weight.distance,
-            "time_seconds": (weight.sh_t1 - weight.t1).seconds,
+            "time_seconds": int((weight.t1 - weight.sh_t1).total_seconds()),
             "t1": weight.t1.time(),
             "t2": weight.t2.time(),
             "building": weight.building,

@@ -26,6 +26,7 @@
 {% block scripts %}
     {% get_current_language as LANG %}
     <script>
+        const escapeHtml = (value) => String(value ?? "").replace(/[&<>"'`]/g, (c) => `&#${c.charCodeAt(0)};`);
         const sendList = {{ shipment.sent_lst}};
         const data = {
             ajax: {
@@ -101,40 +102,40 @@
                     data: 'send_url',
                     title: '{% trans "Link" %}',
                     render: function (data, type, row) {
-                        return `<a href="${data}" target="_blank" onclick="twpTrack('TWP Shipment Detail Action', { action: 'open_send_link' })">${row.send_url_name}</a>`;
+                        return `<a href="${escapeHtml(data)}" target="_blank" onclick="twpTrack('TWP Shipment Detail Action', { action: 'open_send_link' })">${escapeHtml(row.send_url_name)}</a>`;
                     }
                 },
                 {
                     data: null,
                     title: '{% trans "Action" %}',
                     render: (data, type, row) => {
-                        return `<button id='send-btn-${row.id}' ${row.is_send ? 'disabled' : ''} class="send-btn btn btn-light-no-border btn-light plausible-event-name=TWP+Shipment+Detail+Action plausible-event-action=mark_send" data-id="${row.id}">{% trans "Mark send" %}</button>`;
+                        return `<button id='send-btn-${escapeHtml(row.id)}' ${row.is_send ? 'disabled' : ''} class="send-btn btn btn-light-no-border btn-light plausible-event-name=TWP+Shipment+Detail+Action plausible-event-action=mark_send" data-id="${escapeHtml(row.id)}">{% trans "Mark send" %}</button>`;
                     },
                     orderable: false
                 },
                 { data: 'off', title: '{% trans "Off" %}' },
                 { data: 'nobleman', title: '{% trans "Nobleman" %}' },
                 { data: 'catapult', title: '{% trans "Catapult" %}' },
-                { data: 'building_name', title: '{% trans "Building" %}' },
+                { data: 'building_name', title: '{% trans "Building" %}', render: (data) => escapeHtml(data) },
                 {
                     data: 'start',
                     title: '{% trans "Start" %}' ,
                     render: function (data, type, row) {
-                        return `<a style="color:black" href="${row.start_village_preview_game_url}" target="_blank">${data}</a>`;
+                        return `<a style="color:black" href="${escapeHtml(row.start_village_preview_game_url)}" target="_blank">${escapeHtml(data)}</a>`;
                     },
                 },
                 {
                     data: 'target_coords',
                     title: '{% trans "Target" %}',
                     render: function (data, type, row) {
-                        return `<a style="color:black" href="${row.enemy_village_preview_game_url}" target="_blank">${data}</a>`;
+                        return `<a style="color:black" href="${escapeHtml(row.enemy_village_preview_game_url)}" target="_blank">${escapeHtml(data)}</a>`;
                     },
                 },
                 {
                     data: 'target_player',
                     title: '{% trans "Enemy" %}',
                     render: function (data, type, row) {
-                        return `<a style="color:black" href="${row.enemy_player_preview_game_url}" target="_blank">${data}</a>`;
+                        return `<a style="color:black" href="${escapeHtml(row.enemy_player_preview_game_url)}" target="_blank">${escapeHtml(data)}</a>`;
                     },
                 },
                 {

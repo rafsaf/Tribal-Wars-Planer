@@ -7,7 +7,7 @@ from itertools import zip_longest
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Max, Min
-from django.http import HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext
@@ -15,6 +15,8 @@ from django.views.decorators.http import require_POST
 
 from base import models
 from utils import basic
+
+DIVIDE_ALLOWED_PARTS = {2, 3, 4}
 
 
 def _get_target_for_outline(
@@ -818,6 +820,8 @@ def initial_weight_delete(
 def initial_divide(
     request: HttpRequest, id1: int, id2: int, id4: int, n: int
 ) -> HttpResponse:
+    if n not in DIVIDE_ALLOWED_PARTS:
+        raise Http404()
     get_object_or_404(models.Outline, owner=request.user, id=id1)
     sort = request.GET.get("sort")
     page = request.GET.get("page")
