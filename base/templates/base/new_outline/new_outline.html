@@ -1,4 +1,7 @@
 {% extends "base/base.html" %}
+{% block vendor_css %}{% include "base/vendor/codemirror_css.html" %}{% endblock %}
+{% block vendor_head_js %}{% include "base/vendor/codemirror_js.html" %}{% endblock %}
+{% block vendor_js %}{% include "base/vendor/marked.html" %}{% endblock %}
 {% load static %}
 {% load i18n %}
 

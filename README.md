@@ -48,7 +48,7 @@ cd Tribal-Wars-Planer
 
 ```
 
-Then create file `.env` in Tribal-Wars-Planer from template file `.env.example`
+Then create file `.env` in Tribal-Wars-Planer from template file `example_env`
 
 Then run
 

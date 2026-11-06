@@ -1,4 +1,6 @@
 {% extends "base/new_outline/new_outline.html" %}
+{% block vendor_css %}{{ block.super }}{% include "base/vendor/datatables_css.html" %}{% endblock %}
+{% block vendor_js %}{{ block.super }}{% include "base/vendor/datatables_js.html" %}{% include "base/vendor/select_pure.html" %}{% endblock %}
 {% load static %}
 {% load i18n %}
 {% block title %}{% trans 'Planer' %} - {{instance.name|capfirst}}{% endblock %}
@@ -614,7 +616,7 @@
       options: createBuildingsOptions(`{% trans "Headquarters" %}`,`{% trans "Barracks" %}`,`{% trans "Stable" %}`,`{% trans "Workshop" %}`,`{% trans "Academy" %}`,`{% trans "Smithy" %}`,`{% trans "Rally point" %}`,`{% trans "Statue" %}`,`{% trans "Market" %}`,`{% trans "Timber camp" %}`,`{% trans "Clay pit" %}`,`{% trans "Iron mine" %}`,`{% trans "Farm" %}`,`{% trans "Warehouse" %}`,`{% trans "Wall" %}`,`{% trans "Watchtower" %}`),
       multiple: true,
       value: JSON.parse(document.getElementById('initial-buildings').textContent),
-      icon: "fa fa-times",
+      icon: "bi bi-x-lg",
       onChange: newValue => {
         if (newValue.length === 0) {
           alert(`{% trans "At least one building must remain selected." %}`);

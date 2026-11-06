@@ -1,4 +1,6 @@
 {% extends 'shipment.html' %}
+{% block vendor_css %}{% endblock %}
+{% block vendor_js %}{% include "base/vendor/marked.html" %}{% endblock %}
 {% load i18n %}
 {% load static %}
 {% block title %}{% trans 'Edit shipment' %} {{shipment.name|capfirst}} {{shipment.pk}}{% endblock %}
