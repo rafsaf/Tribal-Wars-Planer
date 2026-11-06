@@ -52,7 +52,11 @@ class TableText:
             self.weights[weight.start].append(weight)
         for weights in self.weights.values():
             weights.sort(
-                key=lambda weight: (weight.sh_t1, weight.nobleman, weight.order)
+                key=lambda weight: (
+                    weight.sh_t1.timestamp(),
+                    weight.nobleman,
+                    weight.order,
+                )
             )
 
     def __link(
@@ -322,7 +326,11 @@ class TableText:
     def __sort_weights(self):
         for lst in self.result.values():
             lst.sort(
-                key=lambda weight: (weight.sh_t1, weight.start, weight.target.target)
+                key=lambda weight: (
+                    weight.sh_t1.timestamp(),
+                    weight.start,
+                    weight.target.target,
+                )
             )
 
     def __create_table(self):
