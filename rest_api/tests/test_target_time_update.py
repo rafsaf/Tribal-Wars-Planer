@@ -62,6 +62,25 @@ class TargetTimeUpdate(MiniSetup):
         )
         assert response.status_code == 404
 
+    def test_target_time_update___404_cannot_use_time_from_my_other_outline(self):
+        outline = self.get_outline()
+        self.create_target_on_test_world(outline)
+        target: TargetVertex = TargetVertex.objects.get(target="200|200")
+        other_outline = self.get_outline(name="my_other_outline")
+        other_outline_time = self.create_outline_time(other_outline)
+
+        self.login_me()
+        PATH = reverse("rest_api:target_time_update")
+
+        response = self.client.put(
+            PATH,
+            data=json.dumps({"target_id": target.pk, "time_id": other_outline_time.pk}),
+            content_type="application/json",
+        )
+        assert response.status_code == 404
+        target.refresh_from_db()
+        assert target.outline_time is None
+
     def test_target_time_update___400_invalid_payload_types(self):
         outline = self.get_outline()
         self.create_target_on_test_world(outline)
