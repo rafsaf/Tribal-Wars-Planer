@@ -1,4 +1,6 @@
 {% extends 'base/base.html' %}
+{% block vendor_css %}{% include "base/vendor/datatables_css.html" %}{% endblock %}
+{% block vendor_js %}{% include "base/vendor/datatables_js.html" %}{% endblock %}
 {% load i18n %}
 {% block sidebar %}
     <div class='list-group-item small bg-secondary text-center px-2 py-1' style="color: rgb(243, 243, 243);">{{shipment.name|capfirst}} - {{shipment.world.game_name}}</div>

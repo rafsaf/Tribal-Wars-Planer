@@ -6,7 +6,7 @@ services:
       target: translations
       context: ./
     env_file:
-      - .env.example
+      - example_env
     environment:
       - DEBUG_TOOLBAR=0
     volumes: 

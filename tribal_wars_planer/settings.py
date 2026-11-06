@@ -14,7 +14,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 BUILD_TAG = os.environ.get("BUILD_TAG", "unknown")
 
-load_dotenv(dotenv_path=BASE_DIR / ".env")
+if not load_dotenv(dotenv_path=BASE_DIR / ".env") and "pytest" in sys.modules:
+    load_dotenv(dotenv_path=BASE_DIR / "example_env")
 
 PLAUSIBLE_DOMAIN = os.environ.get("PLAUSIBLE_DOMAIN", "")
 PLAUSIBLE_SCRIPT_PATH = os.environ.get("PLAUSIBLE_SCRIPT_PATH", "")

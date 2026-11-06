@@ -360,7 +360,9 @@ class CreateWeights:
 
     def _noble_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
-            self._annotate_distances_and_morale_for_target(target)
+            candidates = self._annotate_distances_and_morale_for_target(
+                target, self.outline.initial_outline_target_dist
+            )
             for required, mode in self._extended_syntax(target, noble_or_ruin=True):
                 if required == 0:
                     continue
@@ -370,23 +372,27 @@ class CreateWeights:
                     random=self.random,
                     target=target,
                     outline=self.outline,
-                    weight_max_list=self.weight_max_list,
+                    weight_max_list=candidates,
                 )
                 self.weight_create_lst += weight_noble.weight_create_list()
 
         elif target.required_noble > 0:
-            self._annotate_distances_and_morale_for_target(target)
+            candidates = self._annotate_distances_and_morale_for_target(
+                target, self.outline.initial_outline_target_dist
+            )
             weight_noble = WriteNobleTarget(
                 random=self.random,
                 target=target,
                 outline=self.outline,
-                weight_max_list=self.weight_max_list,
+                weight_max_list=candidates,
             )
             self.weight_create_lst += weight_noble.weight_create_list()
 
     def _ruin_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=True):
-            self._annotate_distances_and_morale_for_target(target)
+            candidates = self._annotate_distances_and_morale_for_target(
+                target, self.outline.initial_outline_maximum_off_dist
+            )
             for required, mode in self._extended_syntax(target, noble_or_ruin=True):
                 if required == 0:
                     continue
@@ -396,7 +402,7 @@ class CreateWeights:
                     random=self.random,
                     target=target,
                     outline=self.outline,
-                    weight_max_list=self.weight_max_list,
+                    weight_max_list=candidates,
                     ruin=True,
                 )
                 self.weight_create_lst += weight_ram.weight_create_list()
@@ -404,19 +410,23 @@ class CreateWeights:
         else:
             target.required_off = target.required_noble
             if target.required_off > 0:
-                self._annotate_distances_and_morale_for_target(target)
+                candidates = self._annotate_distances_and_morale_for_target(
+                    target, self.outline.initial_outline_maximum_off_dist
+                )
                 weight_ram = WriteRamTarget(
                     random=self.random,
                     target=target,
                     outline=self.outline,
-                    weight_max_list=self.weight_max_list,
+                    weight_max_list=candidates,
                     ruin=True,
                 )
                 self.weight_create_lst += weight_ram.weight_create_list()
 
     def _ram_write(self, target: Target) -> None:
         if self._is_syntax_extended(target, noble_or_ruin=False):
-            self._annotate_distances_and_morale_for_target(target)
+            candidates = self._annotate_distances_and_morale_for_target(
+                target, self.outline.initial_outline_maximum_off_dist
+            )
             for required, mode in self._extended_syntax(target, noble_or_ruin=False):
                 if required == 0:
                     continue
@@ -426,35 +436,44 @@ class CreateWeights:
                     random=self.random,
                     target=target,
                     outline=self.outline,
-                    weight_max_list=self.weight_max_list,
+                    weight_max_list=candidates,
                     ruin=False,
                 )
                 self.weight_create_lst += weight_ram.weight_create_list()
 
         elif target.required_off > 0:
-            self._annotate_distances_and_morale_for_target(target)
+            candidates = self._annotate_distances_and_morale_for_target(
+                target, self.outline.initial_outline_maximum_off_dist
+            )
             weight_ram = WriteRamTarget(
                 random=self.random,
                 target=target,
                 outline=self.outline,
-                weight_max_list=self.weight_max_list,
+                weight_max_list=candidates,
                 ruin=False,
             )
             self.weight_create_lst += weight_ram.weight_create_list()
 
-    def _annotate_distances_and_morale_for_target(self, target: Target) -> None:
-        if self.dist_matrix is not None:
-            target_coord = target.coord_tuple()
-            target_row_in_C = self.coord_to_id_in_matrix[target_coord]
-            for index, distance in enumerate(
-                self.dist_matrix[target_row_in_C].tolist()
-            ):
-                self.weight_max_list[index].distance = distance
-                if self.morale_dict is not None:
-                    morale = self.morale_dict[
-                        (target.player, self.weight_max_list[index].player)
-                    ]
-                    self.weight_max_list[index].morale = morale
+    def _annotate_distances_and_morale_for_target(
+        self, target: Target, max_distance: int
+    ) -> list[FastWeightMaximum]:
+        """
+        Annotates and returns only villages within max_distance (in original order),
+        the rest would be filtered out by distance anyway.
+        """
+        if self.dist_matrix is None:
+            return self.weight_max_list
+        target_coord = target.coord_tuple()
+        row = self.dist_matrix[self.coord_to_id_in_matrix[target_coord]]
+        candidates: list[FastWeightMaximum] = []
+        indexes = np.flatnonzero(row <= max_distance)
+        for index, distance in zip(indexes.tolist(), row[indexes].tolist()):
+            weight_max = self.weight_max_list[index]
+            weight_max.distance = distance
+            if self.morale_dict is not None:
+                weight_max.morale = self.morale_dict[(target.player, weight_max.player)]
+            candidates.append(weight_max)
+        return candidates
 
     def __call__(self):
         target: Target
