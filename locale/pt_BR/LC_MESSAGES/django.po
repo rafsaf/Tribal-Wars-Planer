@@ -2773,6 +2773,9 @@ msgid ""
 "%(start)s -> %(target)s<br>Newbie protection: attacker points %(points)s "
 "differ from target points %(target_points)s by more than %(ratio)s:1."
 msgstr ""
+"%(start)s -> %(target)s<br>Proteção para novatos: os pontos do atacante "
+"%(points)s diferem dos pontos do alvo %(target_points)s em mais de "
+"%(ratio)s:1."
 
 #: base/views/outline_initial_changes.py:141
 #: base/views/outline_initial_changes.py:399

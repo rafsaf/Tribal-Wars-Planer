@@ -2777,6 +2777,9 @@ msgid ""
 "%(start)s -> %(target)s<br>Newbie protection: attacker points %(points)s "
 "differ from target points %(target_points)s by more than %(ratio)s:1."
 msgstr ""
+"%(start)s -> %(target)s<br>Újonc-védelem: a támadó pontjai (%(points)s) "
+"több mint %(ratio)s:1 arányban térnek el a cél pontjaitól "
+"(%(target_points)s)."
 
 #: base/views/outline_initial_changes.py:141
 #: base/views/outline_initial_changes.py:399
