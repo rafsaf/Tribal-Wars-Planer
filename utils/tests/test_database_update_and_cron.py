@@ -1,6 +1,7 @@
 # Copyright: (c) 2020-2026, Rafał Safin <rafal.safin@rafsaf.pl>
 # GNU Affero General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/agpl-3.0.txt)
 
+import re
 from pathlib import Path
 from unittest.mock import patch
 
@@ -269,6 +270,38 @@ class WorldUpdateHandlerTest(MiniSetup):
         assert world_query.world.fanout_key_text_player == "__0"
         assert world_query.world.fanout_key_text_tribe == "__0"
         assert world_query.world.fanout_key_text_village == "__0"
+
+    @freeze_time("2022-05-08 07:00:00")
+    def test_create_or_update_config_without_newbie_section(self) -> None:
+        world = self.world
+        world.newbie_ratio = 20
+        world.newbie_ratio_days = 60
+        world.save()
+        world_query = WorldUpdateHandler(world=world)
+        config = re.sub(r"<newbie>.*?</newbie>", "", GET_CONFIG, flags=re.DOTALL)
+        assert "<newbie>" not in config
+        with requests_mock.Mocker() as mock:
+            mock.get(
+                self.world.link_to_game("/interface.php?func=get_config"),
+                text=config,
+            )
+            mock.get(
+                self.world.link_to_game("/interface.php?func=get_unit_info"),
+                text=GET_UNIT_INFO,
+            )
+            mock.get(
+                world_query.world.link_to_game("/map/village.txt.gz"),
+                content=VILLAGES,
+                headers={
+                    "etag": "12345",
+                    "last-modified": "Sun, 08 May 2022 06:15:20 GMT",
+                },
+            )
+            world_query.create_or_update_config()
+
+        world_query.world.refresh_from_db()
+        assert world_query.world.newbie_ratio == 0
+        assert world_query.world.newbie_ratio_days == 0
 
     @freeze_time("2022-05-11 07:00:00")
     def test_create_or_update_config_wont_create_old_world(self) -> None:
