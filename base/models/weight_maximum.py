@@ -4,6 +4,7 @@
 from typing import TYPE_CHECKING
 
 from django.db import models
+from django.utils.timezone import now
 
 from base.models.outline import Outline
 from tribal_wars_planer.fetch_error_manager import FetchErrorManager
@@ -20,6 +21,7 @@ class WeightMaximum(models.Model):
     player = models.CharField(max_length=30)
     player_id = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
+    player_created_at = models.DateTimeField(default=now)
 
     off_max = models.IntegerField()
     off_state = models.IntegerField(default=0)

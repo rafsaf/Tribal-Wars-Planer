@@ -51,6 +51,10 @@ class TestOutlineCreateTargets(TestCase):
             self.assertEqual(lst[0].nobleman_max, 2)
             self.assertEqual(lst[0].nobleman_state, 0)
             assert lst[0].points == 99999
+            assert (
+                lst[0].player_created_at
+                == Player.objects.get(name=lst[0].player).created_at
+            )
 
             self.assertEqual(lst[1].start, "500|501")
             self.assertEqual(lst[1].off_left, 990)

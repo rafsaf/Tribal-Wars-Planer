@@ -1,10 +1,12 @@
 # Copyright: (c) 2020-2026, Rafał Safin <rafal.safin@rafsaf.pl>
 # GNU Affero General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/agpl-3.0.txt)
 
+from datetime import timedelta
 from secrets import SystemRandom
 
 from django.db.models import ExpressionWrapper, F, FloatField
 from django.test import TestCase
+from django.utils.timezone import now
 from django.utils.translation import activate
 
 from base.models import Outline, WeightMaximum
@@ -262,6 +264,65 @@ class TestWriteRamTargetNew(MiniSetup):
         target.points = 0
         weight_max.points = 10000
         assert filter_casual_attack_block_ratio(weight_max)
+
+    def test_ram_filter_newbie_ratio(self) -> None:
+        random = SystemRandom("test_ram")
+        outline = self.get_outline(test_world=True)
+        outline.world.newbie_ratio = 20
+        outline.world.newbie_ratio_days = 60
+        outline.world.save()
+        self.create_target_on_test_world(outline=outline)
+        target = Target.objects.get(target="200|200")
+        real_weight_max = self.create_weight_maximum(outline=outline)
+        weight_max = FastWeightMaximum(real_weight_max, 0, outline)
+        young, old = now() - timedelta(days=10), now() - timedelta(days=61)
+
+        write = WriteRamTarget(
+            target=target,
+            outline=outline,
+            weight_max_list=[weight_max],
+            random=random,
+        )
+        newbie_filter = write._newbie_ratio()
+
+        target.points = 5000
+        target.player_created_at = young
+        weight_max.player_created_at = old
+        weight_max.points = 200_000
+        assert not newbie_filter(weight_max)
+        weight_max.points = 100_000
+        assert newbie_filter(weight_max)
+
+        target.points = 200_000
+        target.player_created_at = old
+        weight_max.player_created_at = young
+        weight_max.points = 5000
+        assert not newbie_filter(weight_max)
+        weight_max.player_created_at = old
+        assert newbie_filter(weight_max)
+
+    def test_ram_newbie_ratio_filter_is_used_only_when_enabled(self) -> None:
+        outline = self.get_outline(test_world=True)
+        self.create_target_on_test_world(outline=outline)
+        target = Target.objects.get(target="200|200")
+        write = WriteRamTarget(
+            target=target,
+            outline=outline,
+            weight_max_list=[],
+            random=SystemRandom("test_ram"),
+        )
+        write.sorted_weights_offs()
+        assert not any(f.__name__ == "filter_newbie_ratio" for f in write.filters)
+
+        outline.world.newbie_ratio = 20
+        write = WriteRamTarget(
+            target=target,
+            outline=outline,
+            weight_max_list=[],
+            random=SystemRandom("test_ram"),
+        )
+        write.sorted_weights_offs()
+        assert any(f.__name__ == "filter_newbie_ratio" for f in write.filters)
 
 
 class TestWriteRamTarget(TestCase):

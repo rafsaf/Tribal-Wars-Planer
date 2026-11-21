@@ -1,6 +1,7 @@
 # Copyright: (c) 2020-2026, Rafał Safin <rafal.safin@rafsaf.pl>
 # GNU Affero General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/agpl-3.0.txt)
 
+from datetime import datetime
 from typing import Any
 
 from base.models.outline import Outline
@@ -57,6 +58,7 @@ class FastWeightMaximum:
         )
         self.village_id: int = weight_max.village_id
         self.player_id: int = weight_max.player_id
+        self.player_created_at: datetime = weight_max.player_created_at
 
     def __eq__(self, other: Any) -> bool:
         return self.pk == other.pk
