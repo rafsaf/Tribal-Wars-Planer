@@ -11,6 +11,7 @@ from statistics import mean
 from base.models import Outline, WeightModel
 from base.models import TargetVertex as Target
 from utils.fast_weight_maximum import FastWeightMaximum
+from utils.newbie import is_newbie_blocked, newbie_since
 
 log = logging.getLogger(__name__)
 
@@ -79,6 +80,9 @@ class WriteRamTarget:
         self.filters.append(self._only_closer_than_maximum_off_dist())
         if self.casual_attack_block_ratio is not None:
             self.filters.append(self._casual_attack_block_ratio())
+
+        if self.outline.world.newbie_ratio > 0 and self.target.player != "":
+            self.filters.append(self._newbie_ratio())
 
         if self.target.fake:
             self.filters.append(self._fake_query())
@@ -267,6 +271,23 @@ class WriteRamTarget:
             return weight_max.morale >= self.morale_on_targets_greater_than
 
         return filter_morale
+
+    def _newbie_ratio(self) -> Callable[[FastWeightMaximum], bool]:
+        ratio = self.outline.world.newbie_ratio
+        since = newbie_since(self.outline.world.newbie_ratio_days)
+
+        def filter_newbie_ratio(weight_max: FastWeightMaximum) -> bool:
+            return not is_newbie_blocked(
+                ratio,
+                since,
+                self.target.player,
+                self.target.points,
+                self.target.player_created_at,
+                weight_max.points,
+                weight_max.player_created_at,
+            )
+
+        return filter_newbie_ratio
 
     def _casual_attack_block_ratio(self) -> Callable[[FastWeightMaximum], bool]:
         if self.casual_attack_block_ratio is None:

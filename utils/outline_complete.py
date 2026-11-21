@@ -133,6 +133,8 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
             "world__speed_units",
             "world__casual_attack_block_ratio",
             "world__morale",
+            "world__newbie_ratio",
+            "world__newbie_ratio_days",
         )
         .get()
     )
@@ -171,6 +173,7 @@ def complete_outline_write(outline: Outline, salt: bytes | str | None = None) ->
             "player",
             "start",
             "points",
+            "player_created_at",
             "x_coord",
             "y_coord",
             "off_state",

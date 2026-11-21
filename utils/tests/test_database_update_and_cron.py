@@ -213,6 +213,8 @@ class WorldUpdateHandlerTest(MiniSetup):
         assert world_query.world.archer == "active"
         assert world_query.world.militia == "active"
         assert world_query.world.morale == 1
+        assert world_query.world.newbie_ratio == 20
+        assert world_query.world.newbie_ratio_days == 60
         assert world_query.world.max_noble_distance == 100
         assert world_query.world.fanout_key_text_player == "__0"
         assert world_query.world.fanout_key_text_tribe == "__0"
@@ -261,6 +263,8 @@ class WorldUpdateHandlerTest(MiniSetup):
         assert world_query.world.archer == "inactive"
         assert world_query.world.militia == "inactive"
         assert world_query.world.morale == 2
+        assert world_query.world.newbie_ratio == 20
+        assert world_query.world.newbie_ratio_days == 60
         assert world_query.world.max_noble_distance == 500
         assert world_query.world.fanout_key_text_player == "__0"
         assert world_query.world.fanout_key_text_tribe == "__0"

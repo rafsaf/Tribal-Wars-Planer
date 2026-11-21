@@ -98,6 +98,13 @@ class WorldUpdateHandler:
         speed_units = get_xml_value(tree, "unit_speed", float)
         morale = get_xml_value(tree, "moral", int)
 
+        newbie_tag = tree.find("newbie")
+        if newbie_tag is None:
+            newbie_ratio = newbie_ratio_days = 0
+        else:
+            newbie_ratio = get_xml_value(newbie_tag, "ratio", int)
+            newbie_ratio_days = get_xml_value(newbie_tag, "ratio_days", int)
+
         # Get game section values
         game_tag = tree.find("game")
         if game_tag is None:
@@ -117,6 +124,8 @@ class WorldUpdateHandler:
         self.world.speed_world = speed_world
         self.world.speed_units = speed_units
         self.world.morale = morale
+        self.world.newbie_ratio = newbie_ratio
+        self.world.newbie_ratio_days = newbie_ratio_days
         self.world.paladin = "active" if bool(paladin) else "inactive"
         self.world.archer = "active" if bool(archer) else "inactive"
         self.world.max_noble_distance = max_noble_distance
@@ -193,6 +202,8 @@ class WorldUpdateHandler:
                     "speed_world",
                     "speed_units",
                     "morale",
+                    "newbie_ratio",
+                    "newbie_ratio_days",
                     "paladin",
                     "archer",
                     "max_noble_distance",

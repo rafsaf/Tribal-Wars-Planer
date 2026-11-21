@@ -28,6 +28,8 @@ class World(models.Model):
     max_noble_distance = models.IntegerField(default=500)
     morale = models.IntegerField(default=1)
     casual_attack_block_ratio = models.IntegerField(null=True, default=None, blank=True)
+    newbie_ratio = models.IntegerField(default=0)
+    newbie_ratio_days = models.IntegerField(default=0)
     pending_delete = models.BooleanField(default=False)
     fanout_key_text_player = models.CharField(default="__0", max_length=200)
     fanout_key_text_tribe = models.CharField(default="__0", max_length=200)

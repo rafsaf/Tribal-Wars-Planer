@@ -106,6 +106,7 @@ class MakeOutline:
                 nobleman_left=army.nobleman,
                 first_line=False,
                 points=village.player.points,
+                player_created_at=village.player.created_at,
                 player_id=village.player.player_id,
                 village_id=village.village_id,
                 ram_max=army.ram,
@@ -127,6 +128,7 @@ class MakeOutline:
                 "player__name",
                 "player__points",
                 "player__player_id",
+                "player__created_at",
             )
         )
 

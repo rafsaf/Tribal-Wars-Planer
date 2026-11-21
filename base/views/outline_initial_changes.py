@@ -15,6 +15,7 @@ from django.views.decorators.http import require_POST
 
 from base import models
 from utils import basic
+from utils.newbie import is_newbie_blocked, newbie_since
 
 DIVIDE_ALLOWED_PARTS = {2, 3, 4}
 
@@ -41,7 +42,9 @@ def _get_weight_max_for_outline(
     request: HttpRequest, outline_id: int, weight_max_id: int
 ) -> models.WeightMaximum:
     return get_object_or_404(
-        models.WeightMaximum.objects.select_for_update(),
+        models.WeightMaximum.objects.select_related("outline__world").select_for_update(
+            of=("self",)
+        ),
         pk=weight_max_id,
         outline_id=outline_id,
         outline__owner=request.user,
@@ -68,6 +71,39 @@ def _get_weight_model_for_target(
     )
 
 
+def _newbie_block_redirect(
+    request: HttpRequest,
+    id1: int,
+    id2: int,
+    target: models.TargetVertex,
+    weight: models.WeightMaximum,
+) -> HttpResponse | None:
+    world = weight.outline.world
+    if not is_newbie_blocked(
+        world.newbie_ratio,
+        newbie_since(world.newbie_ratio_days),
+        target.player,
+        target.points,
+        target.player_created_at,
+        weight.points,
+        weight.player_created_at,
+    ):
+        return None
+    request.session["error"] = gettext(
+        "%(start)s -> %(target)s<br>Newbie protection: attacker points %(points)s differ from target points %(target_points)s by more than %(ratio)s:1."
+    ) % {
+        "start": weight.start,
+        "target": target.target,
+        "points": weight.points,
+        "ratio": world.newbie_ratio,
+        "target_points": target.points,
+    }
+    return redirect(
+        reverse("base:planer_initial_detail", args=[id1, id2])
+        + f"?page={request.GET.get('page')}&sort={request.GET.get('sort')}&filtr={request.GET.get('filtr')}"
+    )
+
+
 @require_POST
 @login_required
 @transaction.atomic
@@ -86,6 +122,8 @@ def initial_add_first(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -154,6 +192,8 @@ def initial_add_first_off(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2, prefetch_weights=True)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
 
     weight_models = sorted(target.weightmodel_set.all(), key=lambda x: x.order)
 
@@ -207,6 +247,8 @@ def initial_add_first_ruin(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2, prefetch_weights=True)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
 
     weight_models = sorted(target.weightmodel_set.all(), key=lambda x: x.order)
 
@@ -260,6 +302,8 @@ def initial_add_first_fake(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -335,6 +379,8 @@ def initial_add_first_fake_noble(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -405,6 +451,8 @@ def initial_add_last_fake(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -480,6 +528,8 @@ def initial_add_last_fake_noble(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
@@ -550,6 +600,8 @@ def initial_add_last_ruin(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2, prefetch_weights=True)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
 
     weight_models = sorted(target.weightmodel_set.all(), key=lambda x: x.order)
 
@@ -604,6 +656,8 @@ def initial_add_last_off(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2, prefetch_weights=True)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
 
     weight_models = sorted(target.weightmodel_set.all(), key=lambda x: x.order)
 
@@ -664,6 +718,8 @@ def initial_add_last(
     filtr = request.GET.get("filtr")
     target = _get_target_for_outline(request, id1, id2)
     weight = _get_weight_max_for_outline(request, id1, id3)
+    if blocked := _newbie_block_redirect(request, id1, id2, target, weight):
+        return blocked
     if not models.WeightModel.objects.filter(target=target).exists():
         order = 0
     else:
