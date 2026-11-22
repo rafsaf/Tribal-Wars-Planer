@@ -612,6 +612,7 @@ class Outline(models.Model):
         TargetVertex.objects.create(
             outline=self,
             player=village.player.name if village.player else "",
+            points=village.player.points if village.player else 0,
             player_created_at=(
                 village.player.created_at if village.player else timezone.now()
             ),
