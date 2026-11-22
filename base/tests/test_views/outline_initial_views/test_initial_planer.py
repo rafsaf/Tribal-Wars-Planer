@@ -4,7 +4,7 @@
 from django.urls import reverse
 
 from base import forms
-from base.models import TargetVertex
+from base.models import Player, TargetVertex
 from base.tests.test_utils.mini_setup import MiniSetup
 from utils import basic
 
@@ -178,6 +178,9 @@ class InitialPlaner(MiniSetup):
 
     def test_planer_initial___create_form_works_ok(self):
         outline = self.get_outline(written="active", test_world=True)
+        Player.objects.filter(world=outline.world, name="EnemyPlayer0").update(
+            points=306323
+        )
         self.login_me()
 
         PATH = reverse("base:planer_initial", args=[outline.pk])
@@ -218,3 +221,4 @@ class InitialPlaner(MiniSetup):
         assert TargetVertex.objects.filter(fake=False, ruin=False).count() == 1
         assert TargetVertex.objects.filter(fake=True, ruin=False).count() == 1
         assert TargetVertex.objects.filter(fake=False, ruin=True).count() == 1
+        assert set(TargetVertex.objects.values_list("points", flat=True)) == {306323}
